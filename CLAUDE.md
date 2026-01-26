@@ -68,12 +68,14 @@ src/
 │   └── ui/                        — 可重用 UI 元件
 │       ├── Accordion*.astro       — 手風琴（Accordion, AccordionItem, AccordionTrigger, AccordionContent）
 │       ├── Alert*.astro           — 警示（Alert, AlertTitle, AlertDescription）
+│       ├── AlertDialog*.astro     — 阻斷對話框（AlertDialog, AlertDialogHeader, AlertDialogTitle, AlertDialogDescription, AlertDialogFooter）
 │       ├── Avatar*.astro          — 頭像（Avatar, AvatarImage, AvatarFallback）
 │       ├── Badge.astro            — 徽章（variant prop）
 │       ├── Breadcrumb*.astro      — 麵包屑（Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbSeparator, BreadcrumbCurrent）
 │       ├── Button.astro           — 按鈕（variant + size props）
 │       ├── Card*.astro            — 卡片（Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter）
 │       ├── Checkbox.astro         — 核取方塊（自訂勾勾）
+│       ├── Collapsible*.astro     — 可折疊區塊（Collapsible, CollapsibleTrigger, CollapsibleContent）
 │       ├── Container.astro        — 容器（size prop）
 │       ├── Dialog*.astro          — 對話框（Dialog, DialogHeader, DialogTitle, DialogDescription, DialogFooter, DialogClose）
 │       ├── Dropdown*.astro        — 下拉選單（Dropdown, DropdownContent, DropdownItem, DropdownLabel, DropdownSeparator）
@@ -82,16 +84,21 @@ src/
 │       ├── FormDescription.astro  — 表單說明文字
 │       ├── FormError.astro        — 表單錯誤訊息
 │       ├── Header*.astro          — 頂部列（Header, HeaderInner, HeaderBrand, HeaderNav, HeaderActions）
+│       ├── HoverCard*.astro       — 懸停卡片（HoverCard, HoverCardContent）
 │       ├── Input.astro            — 文字輸入框
 │       ├── Label.astro            — 表單標籤
+│       ├── Menubar*.astro         — 選單列（Menubar, MenubarMenu, MenubarTrigger, MenubarContent, MenubarItem, MenubarSeparator, MenubarLabel, MenubarShortcut）
 │       ├── Nav.astro              — 導航選單（vertical prop）
 │       ├── NavItem.astro          — 導航項目（active prop）
 │       ├── Pagination*.astro      — 分頁（Pagination, PaginationItem, PaginationPrev, PaginationNext, PaginationEllipsis）
+│       ├── Popover*.astro         — 彈出層（Popover, PopoverContent）
 │       ├── Progress.astro         — 進度條（value prop）
 │       ├── Radio.astro            — 單選按鈕（自訂圓點）
 │       ├── Range.astro            — 滑桿
 │       ├── SearchInput.astro      — 搜尋欄（含搜尋圖示）
 │       ├── Select.astro           — 下拉選擇（含裝飾箭頭）
+│       ├── Separator.astro        — 分隔線（orientation prop）
+│       ├── Sheet*.astro           — 側邊面板（Sheet, SheetHeader, SheetTitle, SheetDescription, SheetContent, SheetFooter, SheetClose）
 │       ├── Sidebar*.astro         — 側邊欄（Sidebar, SidebarHeader, SidebarContent, SidebarFooter, SidebarSection, SidebarSectionTitle, SidebarGroup, SidebarGroupTitle, SidebarItem, SidebarSeparator）
 │       ├── Skeleton.astro         — 骨架屏
 │       ├── Textarea.astro         — 多行輸入框
@@ -104,67 +111,86 @@ src/
 │   └── components/                — 元件文檔頁面
 │       ├── accordion.astro
 │       ├── alert.astro
+│       ├── alert-dialog.astro
 │       ├── avatar.astro
 │       ├── badge.astro
 │       ├── breadcrumb.astro
 │       ├── button.astro
 │       ├── card.astro
 │       ├── checkbox.astro
+│       ├── collapsible.astro
+│       ├── color.astro
 │       ├── container.astro
+│       ├── data-table.astro
 │       ├── dialog.astro
 │       ├── dropdown.astro
 │       ├── file-input.astro
 │       ├── form-group.astro
 │       ├── header.astro
+│       ├── hover-card.astro
 │       ├── input.astro
 │       ├── label.astro
+│       ├── menubar.astro
 │       ├── nav.astro
 │       ├── pagination.astro
+│       ├── popover.astro
 │       ├── progress.astro
 │       ├── radio.astro
 │       ├── range.astro
 │       ├── search-input.astro
 │       ├── select.astro
+│       ├── separator.astro
+│       ├── sheet.astro
 │       ├── sidebar.astro
 │       ├── skeleton.astro
 │       ├── tabs.astro
 │       ├── textarea.astro
+│       ├── toast.astro
 │       ├── toggle.astro
 │       └── tooltip.astro
 └── styles/
     ├── global.css                 — 設計 token、主題變數、.cu-code 工具類別
     ├── components.css             — @layer components 包裝 + @import 各子檔案
     └── components/                — 各元件獨立 CSS 檔案
-        ├── button.css
-        ├── card.css
-        ├── label.css
-        ├── input.css
-        ├── file-input.css
-        ├── search-input.css
-        ├── select.css
-        ├── textarea.css
-        ├── checkbox.css
-        ├── radio.css
-        ├── toggle.css
-        ├── range.css
-        ├── form-group.css
-        ├── badge.css
-        ├── avatar.css
-        ├── table.css
         ├── accordion.css
         ├── alert.css
-        ├── progress.css
-        ├── skeleton.css
+        ├── alert-dialog.css
+        ├── avatar.css
+        ├── badge.css
+        ├── breadcrumb.css
+        ├── button.css
+        ├── card.css
+        ├── checkbox.css
+        ├── collapsible.css
+        ├── container.css
+        ├── data-table.css
         ├── dialog.css
         ├── dropdown.css
-        ├── tooltip.css
-        ├── breadcrumb.css
-        ├── pagination.css
-        ├── tabs.css
-        ├── container.css
+        ├── file-input.css
+        ├── form-group.css
         ├── header.css
+        ├── hover-card.css
+        ├── input.css
+        ├── label.css
+        ├── menubar.css
         ├── nav.css
-        └── sidebar.css
+        ├── pagination.css
+        ├── popover.css
+        ├── progress.css
+        ├── radio.css
+        ├── range.css
+        ├── search-input.css
+        ├── select.css
+        ├── separator.css
+        ├── sheet.css
+        ├── sidebar.css
+        ├── skeleton.css
+        ├── table.css
+        ├── tabs.css
+        ├── textarea.css
+        ├── toast.css
+        ├── toggle.css
+        └── tooltip.css
 ```
 
 ### Astro 元件模式
@@ -184,12 +210,12 @@ src/
 新增元件時只需在此檔案的對應陣列加一筆資料。
 
 元件分類：
-- **Components > Basic** — Button, Card
+- **Components > Basic** — Button, Card, Color, Separator
 - **Components > Forms** — Label, Input, Textarea, Select, Checkbox, Radio, Toggle, Search Input, File Input, Range, Form Group
-- **Components > Data Display** — Accordion, Avatar, Badge, Table
-- **Components > Feedback** — Alert, Progress, Skeleton
-- **Components > Overlay** — Dialog, Dropdown Menu, Tooltip
-- **Components > Navigation** — Breadcrumb, Pagination, Tabs
+- **Components > Data Display** — Accordion, Avatar, Badge, Collapsible, Data Table, Table
+- **Components > Feedback** — Alert, Progress, Skeleton, Toast
+- **Components > Overlay** — Alert Dialog, Dialog, Dropdown Menu, Hover Card, Popover, Sheet, Tooltip
+- **Components > Navigation** — Breadcrumb, Menubar, Pagination, Tabs
 - **Components > Layouts** — Container, Header, Nav, Sidebar
 
 #### UI Sidebar 元件（`src/components/ui/Sidebar*.astro`）
