@@ -1,0 +1,211 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Input from "../../components/ui/Input.astro";
+import Textarea from "../../components/ui/Textarea.astro";
+import Select from "../../components/ui/Select.astro";
+import Checkbox from "../../components/ui/Checkbox.astro";
+import Toggle from "../../components/ui/Toggle.astro";
+import Label from "../../components/ui/Label.astro";
+import Button from "../../components/ui/Button.astro";
+import FormGroup from "../../components/ui/FormGroup.astro";
+import FormDescription from "../../components/ui/FormDescription.astro";
+import FormError from "../../components/ui/FormError.astro";
+import Card from "../../components/ui/Card.astro";
+import CardHeader from "../../components/ui/CardHeader.astro";
+import CardTitle from "../../components/ui/CardTitle.astro";
+import CardDescription from "../../components/ui/CardDescription.astro";
+import CardContent from "../../components/ui/CardContent.astro";
+import CardFooter from "../../components/ui/CardFooter.astro";
+import ComponentPreview from "../../components/ComponentPreview.astro";
+
+const usageCode = `<div class="cu-form-group">
+  <label class="cu-label" for="name">Name</label>
+  <input class="cu-input" type="text" id="name" placeholder="Your name" />
+</div>`.trim();
+
+const descriptionCode = `<div class="cu-form-group">
+  <label class="cu-label" for="username">Username</label>
+  <input class="cu-input" type="text" id="username" placeholder="johndoe" />
+  <p class="cu-form-description">This is your public display name.</p>
+</div>`.trim();
+
+const errorCode = `<div class="cu-form-group">
+  <label class="cu-label" for="email-val">Email</label>
+  <input class="cu-input border-destructive" type="email" id="email-val" value="invalid-email" />
+  <p class="cu-form-error">Please enter a valid email address.</p>
+</div>`.trim();
+
+const completeFormCode = `<div class="cu-card w-[420px]">
+  <div class="cu-card-header">
+    <h3 class="cu-card-title">Create Account</h3>
+    <p class="cu-card-description">Fill in the details to create your account.</p>
+  </div>
+  <div class="cu-card-content">
+    <form class="space-y-4">
+      <div class="cu-form-group">
+        <label class="cu-label" for="full-name">
+          Full Name <span class="text-destructive">*</span>
+        </label>
+        <input class="cu-input" type="text" id="full-name" placeholder="John Doe" />
+      </div>
+      <div class="cu-form-group">
+        <label class="cu-label" for="signup-email">
+          Email <span class="text-destructive">*</span>
+        </label>
+        <input class="cu-input" type="email" id="signup-email" placeholder="you@example.com" />
+        <p class="cu-form-description">We'll never share your email.</p>
+      </div>
+      <div class="cu-form-group">
+        <label class="cu-label" for="role-select">Role</label>
+        <div class="cu-select-wrapper">
+          <select class="cu-select" id="role-select">
+            <option value="" disabled selected>Select a role...</option>
+            <option value="developer">Developer</option>
+            <option value="designer">Designer</option>
+            <option value="manager">Manager</option>
+          </select>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="cu-select-icon"><path d="m6 9 6 6 6-6"></path></svg>
+        </div>
+      </div>
+      <div class="cu-form-group">
+        <label class="cu-label" for="bio">Bio</label>
+        <textarea class="cu-textarea" id="bio" placeholder="Tell us about yourself..."></textarea>
+      </div>
+      <div class="cu-checkbox-wrapper">
+        <input type="checkbox" class="cu-checkbox" id="agree-terms" />
+        <label class="cu-label" for="agree-terms">I agree to the terms of service</label>
+      </div>
+      <label class="cu-toggle-wrapper">
+        <input type="checkbox" class="cu-toggle-input" />
+        <span class="cu-toggle">
+          <span class="cu-toggle-thumb"></span>
+        </span>
+        <span class="cu-label">Subscribe to updates</span>
+      </label>
+    </form>
+  </div>
+  <div class="cu-card-footer flex justify-end gap-2">
+    <button class="cu-button cu-button-outline cu-button-md">Cancel</button>
+    <button class="cu-button cu-button-default cu-button-md">Create Account</button>
+  </div>
+</div>`.trim();
+---
+
+<Layout title="Form Group — Cubby UI">
+    <div class="space-y-3">
+        <h1 class="text-3xl font-bold tracking-tight">Form Group</h1>
+        <p class="text-base text-muted-foreground leading-relaxed">
+            Composes a label, form control, description, and error message with consistent spacing.
+        </p>
+    </div>
+
+    <div class="mt-10 space-y-10">
+        <!-- Usage -->
+        <section class="space-y-3">
+            <h2 class="text-lg font-semibold tracking-tight">Usage</h2>
+            <p class="text-sm text-muted-foreground leading-relaxed">
+                Use <code class="rounded bg-muted px-1.5 py-0.5 text-[13px] font-mono text-foreground">cu-form-group</code> as a wrapper to apply consistent spacing between a label and its control.
+            </p>
+            <ComponentPreview code={usageCode}>
+                <div class="w-full max-w-sm">
+                    <FormGroup>
+                        <Label for="name">Name</Label>
+                        <Input type="text" id="name" placeholder="Your name" />
+                    </FormGroup>
+                </div>
+            </ComponentPreview>
+        </section>
+
+        <!-- With Description -->
+        <section class="space-y-3">
+            <h2 class="text-lg font-semibold tracking-tight">With Description</h2>
+            <p class="text-sm text-muted-foreground leading-relaxed">
+                Add <code class="rounded bg-muted px-1.5 py-0.5 text-[13px] font-mono text-foreground">cu-form-description</code> for helper text below the control.
+            </p>
+            <ComponentPreview code={descriptionCode}>
+                <div class="w-full max-w-sm">
+                    <FormGroup>
+                        <Label for="username">Username</Label>
+                        <Input type="text" id="username" placeholder="johndoe" />
+                        <FormDescription>This is your public display name.</FormDescription>
+                    </FormGroup>
+                </div>
+            </ComponentPreview>
+        </section>
+
+        <!-- With Error -->
+        <section class="space-y-3">
+            <h2 class="text-lg font-semibold tracking-tight">With Error</h2>
+            <p class="text-sm text-muted-foreground leading-relaxed">
+                Add <code class="rounded bg-muted px-1.5 py-0.5 text-[13px] font-mono text-foreground">cu-form-error</code> and a
+                <code class="rounded bg-muted px-1.5 py-0.5 text-[13px] font-mono text-foreground">border-destructive</code> class on the input for error states.
+            </p>
+            <ComponentPreview code={errorCode}>
+                <div class="w-full max-w-sm">
+                    <FormGroup>
+                        <Label for="email-val">Email</Label>
+                        <Input type="email" id="email-val" value="invalid-email" class="border-destructive" />
+                        <FormError>Please enter a valid email address.</FormError>
+                    </FormGroup>
+                </div>
+            </ComponentPreview>
+        </section>
+
+        <!-- Complete Form -->
+        <section class="space-y-3">
+            <h2 class="text-lg font-semibold tracking-tight">Complete Form</h2>
+            <p class="text-sm text-muted-foreground leading-relaxed">
+                A full form example combining Input, Select, Textarea, Checkbox, and Toggle inside a Card.
+            </p>
+            <ComponentPreview code={completeFormCode}>
+                <Card class="w-[420px]">
+                    <CardHeader>
+                        <CardTitle>Create Account</CardTitle>
+                        <CardDescription>Fill in the details to create your account.</CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                        <form class="space-y-4">
+                            <FormGroup>
+                                <Label for="full-name">
+                                    Full Name <span class="text-destructive">*</span>
+                                </Label>
+                                <Input type="text" id="full-name" placeholder="John Doe" />
+                            </FormGroup>
+                            <FormGroup>
+                                <Label for="signup-email">
+                                    Email <span class="text-destructive">*</span>
+                                </Label>
+                                <Input type="email" id="signup-email" placeholder="you@example.com" />
+                                <FormDescription>We'll never share your email.</FormDescription>
+                            </FormGroup>
+                            <FormGroup>
+                                <Label for="role-select">Role</Label>
+                                <Select id="role-select">
+                                    <option value="" disabled selected>Select a role...</option>
+                                    <option value="developer">Developer</option>
+                                    <option value="designer">Designer</option>
+                                    <option value="manager">Manager</option>
+                                </Select>
+                            </FormGroup>
+                            <FormGroup>
+                                <Label for="bio">Bio</Label>
+                                <Textarea id="bio" placeholder="Tell us about yourself..." />
+                            </FormGroup>
+                            <div class="cu-checkbox-wrapper">
+                                <Checkbox id="agree-terms" />
+                                <Label for="agree-terms">I agree to the terms of service</Label>
+                            </div>
+                            <Toggle>
+                                <span class="cu-label">Subscribe to updates</span>
+                            </Toggle>
+                        </form>
+                    </CardContent>
+                    <CardFooter class="flex justify-end gap-2">
+                        <Button variant="outline">Cancel</Button>
+                        <Button>Create Account</Button>
+                    </CardFooter>
+                </Card>
+            </ComponentPreview>
+        </section>
+    </div>
+</Layout>

@@ -18,22 +18,46 @@ const { class: className, code = "", align = "center" } = Astro.props;
     data-component-preview
 >
     <div
-        class="flex items-center border-b border-border/40 px-4 py-2.5"
+        class="flex items-center justify-between border-b border-border/40 px-4 py-2.5"
     >
         <div class="flex items-center gap-1 p-0.5 bg-muted/40 rounded-lg">
             <button
-                class="text-xs font-medium px-3 py-1 rounded-md transition-colors duration-150 text-muted-foreground hover:text-foreground data-[active]:bg-background data-[active]:text-foreground data-[active]:shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/40 focus-visible:ring-offset-1"
+                class="text-xs font-medium px-3 py-1 rounded-md transition-colors duration-150 text-muted-foreground hover:text-foreground data-[active]:bg-background data-[active]:text-foreground data-[active]:shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/40 focus-visible:ring-offset-1 cursor-pointer"
                 data-tab="preview"
             >
                 Preview
             </button>
             <button
-                class="text-xs font-medium px-3 py-1 rounded-md transition-colors duration-150 text-muted-foreground hover:text-foreground data-[active]:bg-background data-[active]:text-foreground data-[active]:shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/40 focus-visible:ring-offset-1"
+                class="text-xs font-medium px-3 py-1 rounded-md transition-colors duration-150 text-muted-foreground hover:text-foreground data-[active]:bg-background data-[active]:text-foreground data-[active]:shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/40 focus-visible:ring-offset-1 cursor-pointer"
                 data-tab="code"
             >
                 Code
             </button>
         </div>
+        <button
+            class="hidden items-center gap-1.5 rounded-md px-2 py-1 text-xs text-muted-foreground transition-colors duration-150 hover:text-foreground cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/40 focus-visible:ring-offset-1"
+            data-copy-btn
+            aria-label="Copy code"
+        >
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="13"
+                height="13"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="lucide lucide-copy"
+            >
+                <rect width="14" height="14" x="8" y="8" rx="2" ry="2"></rect>
+                <path
+                    d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
+                ></path>
+            </svg>
+            <span data-copy-label>Copy</span>
+        </button>
     </div>
 
     <div
@@ -56,46 +80,6 @@ const { class: className, code = "", align = "center" } = Astro.props;
     <div
         class="hidden border-t border-border/40 p-4 code-container relative animate-fade-in"
     >
-        <div class="absolute right-4 top-4 z-10">
-            <button
-                class="inline-flex h-7 w-7 items-center justify-center rounded-md border border-input bg-background/80 backdrop-blur-sm text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-colors duration-150"
-                data-copy-btn
-                aria-label="Copy code"
-            >
-                <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="13"
-                    height="13"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    class="lucide lucide-copy transition-all duration-200 scale-100 data-[hidden]:scale-0 data-[hidden]:opacity-0 absolute"
-                >
-                    <rect width="14" height="14" x="8" y="8" rx="2" ry="2"
-                    ></rect>
-                    <path
-                        d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
-                    ></path>
-                </svg>
-                <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="13"
-                    height="13"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    class="lucide lucide-check transition-all duration-200 scale-0 opacity-0 data-[visible]:scale-100 data-[visible]:opacity-100 text-green-500 absolute"
-                >
-                    <path d="M20 6 9 17l-5-5"></path>
-                </svg>
-            </button>
-        </div>
         <div
             class="overflow-x-auto rounded-lg border border-border/40 max-h-[500px]"
         >
@@ -130,9 +114,10 @@ const { class: className, code = "", align = "center" } = Astro.props;
             const previewContainer =
                 preview.querySelector(".preview-container");
             const codeContainer = preview.querySelector(".code-container");
-            const copyBtn = preview.querySelector("[data-copy-btn]");
-            const copyIcon = copyBtn?.querySelector(".lucide-copy");
-            const checkIcon = copyBtn?.querySelector(".lucide-check");
+            const copyBtn = preview.querySelector(
+                "[data-copy-btn]",
+            ) as HTMLButtonElement | null;
+            const copyLabel = copyBtn?.querySelector("[data-copy-label]");
             const codeBlock = codeContainer?.querySelector("pre");
 
             if (!previewBtn || !codeBtn || !previewContainer || !codeContainer)
@@ -150,6 +135,10 @@ const { class: className, code = "", align = "center" } = Astro.props;
                 previewContainer.classList.remove("hidden");
                 previewContainer.classList.add("flex");
                 codeContainer.classList.add("hidden");
+
+                // Hide copy button
+                copyBtn?.classList.add("hidden");
+                copyBtn?.classList.remove("inline-flex");
             });
 
             codeBtn.addEventListener("click", () => {
@@ -159,6 +148,10 @@ const { class: className, code = "", align = "center" } = Astro.props;
                 previewContainer.classList.add("hidden");
                 previewContainer.classList.remove("flex");
                 codeContainer.classList.remove("hidden");
+
+                // Show copy button
+                copyBtn?.classList.remove("hidden");
+                copyBtn?.classList.add("inline-flex");
             });
 
             copyBtn?.addEventListener("click", async () => {
@@ -167,15 +160,12 @@ const { class: className, code = "", align = "center" } = Astro.props;
                 try {
                     await navigator.clipboard.writeText(codeText);
 
-                    // Show check icon
-                    copyIcon?.setAttribute("data-hidden", "true");
-                    checkIcon?.setAttribute("data-visible", "true");
-
-                    setTimeout(() => {
-                        // Revert
-                        copyIcon?.removeAttribute("data-hidden");
-                        checkIcon?.removeAttribute("data-visible");
-                    }, 2000);
+                    if (copyLabel) {
+                        copyLabel.textContent = "Copied!";
+                        setTimeout(() => {
+                            copyLabel.textContent = "Copy";
+                        }, 2000);
+                    }
                 } catch (err) {
                     console.error("Failed to copy!", err);
                 }

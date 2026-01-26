@@ -11,6 +11,9 @@ export default defineConfig({
 
   integrations: [expressiveCode({
     themes: ['github-dark', 'github-light'],
+    frames: {
+      showCopyToClipboardButton: false,
+    },
     styleOverrides: {
       frames: {
         shadowColor: 'transparent',

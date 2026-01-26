@@ -1,0 +1,141 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Select from "../../components/ui/Select.astro";
+import Label from "../../components/ui/Label.astro";
+import FormGroup from "../../components/ui/FormGroup.astro";
+import ComponentPreview from "../../components/ComponentPreview.astro";
+
+const usageCode = `<div class="cu-select-wrapper">
+  <select class="cu-select">
+    <option value="react">React</option>
+    <option value="vue">Vue</option>
+    <option value="svelte">Svelte</option>
+    <option value="angular">Angular</option>
+  </select>
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="cu-select-icon">
+    <path d="m6 9 6 6 6-6"></path>
+  </svg>
+</div>`.trim();
+
+const withLabelCode = `<div class="cu-form-group">
+  <label class="cu-label" for="framework">Framework</label>
+  <div class="cu-select-wrapper">
+    <select class="cu-select" id="framework">
+      <option value="react">React</option>
+      <option value="vue">Vue</option>
+      <option value="svelte">Svelte</option>
+      <option value="angular">Angular</option>
+    </select>
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="cu-select-icon">
+      <path d="m6 9 6 6 6-6"></path>
+    </svg>
+  </div>
+</div>`.trim();
+
+const placeholderCode = `<div class="cu-select-wrapper">
+  <select class="cu-select">
+    <option value="" disabled selected>Select a framework...</option>
+    <option value="react">React</option>
+    <option value="vue">Vue</option>
+    <option value="svelte">Svelte</option>
+  </select>
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="cu-select-icon">
+    <path d="m6 9 6 6 6-6"></path>
+  </svg>
+</div>`.trim();
+
+const disabledCode = `<div class="cu-select-wrapper">
+  <select class="cu-select" disabled>
+    <option value="react">React</option>
+    <option value="vue">Vue</option>
+  </select>
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="cu-select-icon">
+    <path d="m6 9 6 6 6-6"></path>
+  </svg>
+</div>`.trim();
+---
+
+<Layout title="Select — Cubby UI">
+    <div class="space-y-3">
+        <h1 class="text-3xl font-bold tracking-tight">Select</h1>
+        <p class="text-base text-muted-foreground leading-relaxed">
+            Displays a native select dropdown for choosing from a list of options.
+        </p>
+    </div>
+
+    <div class="mt-10 space-y-10">
+        <!-- Usage -->
+        <section class="space-y-3">
+            <h2 class="text-lg font-semibold tracking-tight">Usage</h2>
+            <p class="text-sm text-muted-foreground leading-relaxed">
+                Wrap a <code class="rounded bg-muted px-1.5 py-0.5 text-[13px] font-mono text-foreground">&lt;select&gt;</code> with <code class="rounded bg-muted px-1.5 py-0.5 text-[13px] font-mono text-foreground">cu-select</code> inside a
+                <code class="rounded bg-muted px-1.5 py-0.5 text-[13px] font-mono text-foreground">cu-select-wrapper</code> container with a chevron icon.
+            </p>
+            <ComponentPreview code={usageCode}>
+                <div class="w-full max-w-sm">
+                    <Select>
+                        <option value="react">React</option>
+                        <option value="vue">Vue</option>
+                        <option value="svelte">Svelte</option>
+                        <option value="angular">Angular</option>
+                    </Select>
+                </div>
+            </ComponentPreview>
+        </section>
+
+        <!-- With Label -->
+        <section class="space-y-3">
+            <h2 class="text-lg font-semibold tracking-tight">With Label</h2>
+            <p class="text-sm text-muted-foreground leading-relaxed">
+                Pair with a <code class="rounded bg-muted px-1.5 py-0.5 text-[13px] font-mono text-foreground">cu-label</code> for accessible form fields.
+            </p>
+            <ComponentPreview code={withLabelCode}>
+                <div class="w-full max-w-sm">
+                    <FormGroup>
+                        <Label for="framework">Framework</Label>
+                        <Select id="framework">
+                            <option value="react">React</option>
+                            <option value="vue">Vue</option>
+                            <option value="svelte">Svelte</option>
+                            <option value="angular">Angular</option>
+                        </Select>
+                    </FormGroup>
+                </div>
+            </ComponentPreview>
+        </section>
+
+        <!-- With Placeholder -->
+        <section class="space-y-3">
+            <h2 class="text-lg font-semibold tracking-tight">With Placeholder</h2>
+            <p class="text-sm text-muted-foreground leading-relaxed">
+                Use a disabled first option as a placeholder prompt.
+            </p>
+            <ComponentPreview code={placeholderCode}>
+                <div class="w-full max-w-sm">
+                    <Select>
+                        <option value="" disabled selected>Select a framework...</option>
+                        <option value="react">React</option>
+                        <option value="vue">Vue</option>
+                        <option value="svelte">Svelte</option>
+                    </Select>
+                </div>
+            </ComponentPreview>
+        </section>
+
+        <!-- Disabled -->
+        <section class="space-y-3">
+            <h2 class="text-lg font-semibold tracking-tight">Disabled</h2>
+            <p class="text-sm text-muted-foreground leading-relaxed">
+                Add the <code class="rounded bg-muted px-1.5 py-0.5 text-[13px] font-mono text-foreground">disabled</code> attribute to prevent interaction.
+            </p>
+            <ComponentPreview code={disabledCode}>
+                <div class="w-full max-w-sm">
+                    <Select disabled>
+                        <option value="react">React</option>
+                        <option value="vue">Vue</option>
+                    </Select>
+                </div>
+            </ComponentPreview>
+        </section>
+    </div>
+</Layout>

@@ -1,0 +1,101 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Range from "../../components/ui/Range.astro";
+import Label from "../../components/ui/Label.astro";
+import FormGroup from "../../components/ui/FormGroup.astro";
+import ComponentPreview from "../../components/ComponentPreview.astro";
+
+const usageCode = `<input type="range" class="cu-range" />`.trim();
+
+const withLabelCode = `<div class="cu-form-group">
+  <label class="cu-label" for="volume">Volume</label>
+  <input type="range" class="cu-range" id="volume" />
+</div>`.trim();
+
+const minMaxCode = `<div class="cu-form-group">
+  <label class="cu-label" for="price">Price range</label>
+  <input type="range" class="cu-range" id="price" min="0" max="1000" step="50" value="500" />
+</div>
+
+<div class="cu-form-group">
+  <label class="cu-label" for="opacity">Opacity</label>
+  <input type="range" class="cu-range" id="opacity" min="0" max="1" step="0.1" value="0.5" />
+</div>`.trim();
+
+const disabledCode = `<input type="range" class="cu-range" disabled />`.trim();
+---
+
+<Layout title="Range — Cubby UI">
+    <div class="space-y-3">
+        <h1 class="text-3xl font-bold tracking-tight">Range</h1>
+        <p class="text-base text-muted-foreground leading-relaxed">
+            Displays a range slider for selecting a numeric value within a range.
+        </p>
+    </div>
+
+    <div class="mt-10 space-y-10">
+        <!-- Usage -->
+        <section class="space-y-3">
+            <h2 class="text-lg font-semibold tracking-tight">Usage</h2>
+            <p class="text-sm text-muted-foreground leading-relaxed">
+                Apply <code class="rounded bg-muted px-1.5 py-0.5 text-[13px] font-mono text-foreground">cu-range</code> to an <code class="rounded bg-muted px-1.5 py-0.5 text-[13px] font-mono text-foreground">&lt;input type="range"&gt;</code> element.
+            </p>
+            <ComponentPreview code={usageCode}>
+                <div class="w-full max-w-sm">
+                    <Range />
+                </div>
+            </ComponentPreview>
+        </section>
+
+        <!-- With Label -->
+        <section class="space-y-3">
+            <h2 class="text-lg font-semibold tracking-tight">With Label</h2>
+            <p class="text-sm text-muted-foreground leading-relaxed">
+                Pair with a <code class="rounded bg-muted px-1.5 py-0.5 text-[13px] font-mono text-foreground">cu-label</code> for accessible form fields.
+            </p>
+            <ComponentPreview code={withLabelCode}>
+                <div class="w-full max-w-sm">
+                    <FormGroup>
+                        <Label for="volume">Volume</Label>
+                        <Range id="volume" />
+                    </FormGroup>
+                </div>
+            </ComponentPreview>
+        </section>
+
+        <!-- Min / Max / Step -->
+        <section class="space-y-3">
+            <h2 class="text-lg font-semibold tracking-tight">Min / Max / Step</h2>
+            <p class="text-sm text-muted-foreground leading-relaxed">
+                Customize the range with <code class="rounded bg-muted px-1.5 py-0.5 text-[13px] font-mono text-foreground">min</code>,
+                <code class="rounded bg-muted px-1.5 py-0.5 text-[13px] font-mono text-foreground">max</code>, and
+                <code class="rounded bg-muted px-1.5 py-0.5 text-[13px] font-mono text-foreground">step</code> attributes.
+            </p>
+            <ComponentPreview code={minMaxCode}>
+                <div class="w-full max-w-sm space-y-4">
+                    <FormGroup>
+                        <Label for="price">Price range</Label>
+                        <Range id="price" min="0" max="1000" step="50" value="500" />
+                    </FormGroup>
+                    <FormGroup>
+                        <Label for="opacity">Opacity</Label>
+                        <Range id="opacity" min="0" max="1" step="0.1" value="0.5" />
+                    </FormGroup>
+                </div>
+            </ComponentPreview>
+        </section>
+
+        <!-- Disabled -->
+        <section class="space-y-3">
+            <h2 class="text-lg font-semibold tracking-tight">Disabled</h2>
+            <p class="text-sm text-muted-foreground leading-relaxed">
+                Add the <code class="rounded bg-muted px-1.5 py-0.5 text-[13px] font-mono text-foreground">disabled</code> attribute to prevent interaction.
+            </p>
+            <ComponentPreview code={disabledCode}>
+                <div class="w-full max-w-sm">
+                    <Range disabled />
+                </div>
+            </ComponentPreview>
+        </section>
+    </div>
+</Layout>

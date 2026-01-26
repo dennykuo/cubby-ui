@@ -1,0 +1,120 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import FileInput from "../../components/ui/FileInput.astro";
+import Label from "../../components/ui/Label.astro";
+import FormGroup from "../../components/ui/FormGroup.astro";
+import ComponentPreview from "../../components/ComponentPreview.astro";
+
+const usageCode = `<input type="file" class="cu-input-file" />`.trim();
+
+const withLabelCode = `<div class="cu-form-group">
+  <label class="cu-label" for="avatar">Avatar</label>
+  <input type="file" class="cu-input-file" id="avatar" />
+</div>`.trim();
+
+const acceptCode = `<div class="cu-form-group">
+  <label class="cu-label" for="image">Image file</label>
+  <input type="file" class="cu-input-file" id="image" accept="image/*" />
+</div>
+
+<div class="cu-form-group">
+  <label class="cu-label" for="document">Document</label>
+  <input type="file" class="cu-input-file" id="document" accept=".pdf,.doc,.docx" />
+</div>`.trim();
+
+const multipleCode = `<div class="cu-form-group">
+  <label class="cu-label" for="files">Upload files</label>
+  <input type="file" class="cu-input-file" id="files" multiple />
+</div>`.trim();
+
+const disabledCode = `<input type="file" class="cu-input-file" disabled />`.trim();
+---
+
+<Layout title="File Input — Cubby UI">
+    <div class="space-y-3">
+        <h1 class="text-3xl font-bold tracking-tight">File Input</h1>
+        <p class="text-base text-muted-foreground leading-relaxed">
+            Displays a file upload input for selecting files from the user's device.
+        </p>
+    </div>
+
+    <div class="mt-10 space-y-10">
+        <!-- Usage -->
+        <section class="space-y-3">
+            <h2 class="text-lg font-semibold tracking-tight">Usage</h2>
+            <p class="text-sm text-muted-foreground leading-relaxed">
+                Apply <code class="rounded bg-muted px-1.5 py-0.5 text-[13px] font-mono text-foreground">cu-input-file</code> to an <code class="rounded bg-muted px-1.5 py-0.5 text-[13px] font-mono text-foreground">&lt;input type="file"&gt;</code> element.
+            </p>
+            <ComponentPreview code={usageCode}>
+                <div class="w-full max-w-sm">
+                    <FileInput />
+                </div>
+            </ComponentPreview>
+        </section>
+
+        <!-- With Label -->
+        <section class="space-y-3">
+            <h2 class="text-lg font-semibold tracking-tight">With Label</h2>
+            <p class="text-sm text-muted-foreground leading-relaxed">
+                Pair with a <code class="rounded bg-muted px-1.5 py-0.5 text-[13px] font-mono text-foreground">cu-label</code> for accessible file uploads.
+            </p>
+            <ComponentPreview code={withLabelCode}>
+                <div class="w-full max-w-sm">
+                    <FormGroup>
+                        <Label for="avatar">Avatar</Label>
+                        <FileInput id="avatar" />
+                    </FormGroup>
+                </div>
+            </ComponentPreview>
+        </section>
+
+        <!-- Accept Types -->
+        <section class="space-y-3">
+            <h2 class="text-lg font-semibold tracking-tight">Accept Types</h2>
+            <p class="text-sm text-muted-foreground leading-relaxed">
+                Use the <code class="rounded bg-muted px-1.5 py-0.5 text-[13px] font-mono text-foreground">accept</code> attribute to restrict file types.
+            </p>
+            <ComponentPreview code={acceptCode}>
+                <div class="w-full max-w-sm space-y-4">
+                    <FormGroup>
+                        <Label for="image">Image file</Label>
+                        <FileInput id="image" accept="image/*" />
+                    </FormGroup>
+                    <FormGroup>
+                        <Label for="document">Document</Label>
+                        <FileInput id="document" accept=".pdf,.doc,.docx" />
+                    </FormGroup>
+                </div>
+            </ComponentPreview>
+        </section>
+
+        <!-- Multiple Files -->
+        <section class="space-y-3">
+            <h2 class="text-lg font-semibold tracking-tight">Multiple Files</h2>
+            <p class="text-sm text-muted-foreground leading-relaxed">
+                Add the <code class="rounded bg-muted px-1.5 py-0.5 text-[13px] font-mono text-foreground">multiple</code> attribute to allow selecting multiple files.
+            </p>
+            <ComponentPreview code={multipleCode}>
+                <div class="w-full max-w-sm">
+                    <FormGroup>
+                        <Label for="files">Upload files</Label>
+                        <FileInput id="files" multiple />
+                    </FormGroup>
+                </div>
+            </ComponentPreview>
+        </section>
+
+        <!-- Disabled -->
+        <section class="space-y-3">
+            <h2 class="text-lg font-semibold tracking-tight">Disabled</h2>
+            <p class="text-sm text-muted-foreground leading-relaxed">
+                Add the <code class="rounded bg-muted px-1.5 py-0.5 text-[13px] font-mono text-foreground">disabled</code> attribute to prevent file selection.
+            </p>
+            <ComponentPreview code={disabledCode}>
+                <div class="w-full max-w-sm">
+                    <FileInput disabled />
+                </div>
+            </ComponentPreview>
+        </section>
+    </div>
+</Layout>

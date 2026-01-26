@@ -89,4 +89,148 @@
     .cu-card-footer {
         @apply flex items-center p-6 pt-0;
     }
+
+    /* Label */
+    .cu-label {
+        @apply text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70;
+    }
+
+    /* Input */
+    .cu-input {
+        @apply flex h-9 w-full rounded-lg border border-input bg-background px-3 py-1 text-sm transition-colors duration-150 placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/40 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50;
+    }
+
+    /* File Input */
+    .cu-input-file {
+        @apply flex h-9 w-full rounded-lg border border-input bg-background px-3 py-1 text-sm transition-colors duration-150 file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/40 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 cursor-pointer;
+    }
+
+    /* Search Input */
+    .cu-input-search {
+        @apply relative flex items-center;
+    }
+
+    .cu-input-search-icon {
+        @apply pointer-events-none absolute left-3 size-4 text-muted-foreground;
+    }
+
+    .cu-input-search-field {
+        @apply flex h-9 w-full rounded-lg border border-input bg-background pl-9 pr-3 py-1 text-sm transition-colors duration-150 placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/40 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50;
+    }
+
+    /* Select */
+    .cu-select-wrapper {
+        @apply relative flex items-center;
+    }
+
+    .cu-select {
+        @apply flex h-9 w-full appearance-none rounded-lg border border-input bg-background px-3 pr-8 py-1 text-sm transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/40 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50;
+    }
+
+    .cu-select-icon {
+        @apply pointer-events-none absolute right-3 size-4 text-muted-foreground;
+    }
+
+    /* Textarea */
+    .cu-textarea {
+        @apply flex min-h-[80px] w-full rounded-lg border border-input bg-background px-3 py-2 text-sm transition-colors duration-150 placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/40 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 resize-y;
+    }
+
+    /* Checkbox */
+    .cu-checkbox-wrapper {
+        @apply flex items-center gap-2;
+    }
+
+    .cu-checkbox {
+        @apply size-4 shrink-0 rounded-sm border border-input bg-background transition-colors duration-150 accent-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/40 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 cursor-pointer;
+    }
+
+    /* Radio */
+    .cu-radio-group {
+        @apply flex flex-col gap-2;
+    }
+
+    .cu-radio-wrapper {
+        @apply flex items-center gap-2;
+    }
+
+    .cu-radio {
+        @apply size-4 shrink-0 rounded-full border border-input bg-background transition-colors duration-150 accent-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/40 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 cursor-pointer;
+    }
+
+    /* Toggle */
+    .cu-toggle-wrapper {
+        @apply inline-flex items-center gap-2 cursor-pointer;
+    }
+
+    .cu-toggle-input {
+        @apply sr-only;
+    }
+
+    .cu-toggle-input + .cu-toggle {
+        @apply relative inline-flex h-5 w-9 shrink-0 items-center rounded-full border-2 border-transparent bg-input transition-colors duration-150;
+    }
+
+    .cu-toggle-input:focus-visible + .cu-toggle {
+        @apply outline-none ring-2 ring-ring/40 ring-offset-2;
+    }
+
+    .cu-toggle-input:checked + .cu-toggle {
+        @apply bg-primary;
+    }
+
+    .cu-toggle-input:disabled + .cu-toggle {
+        @apply opacity-50 cursor-not-allowed;
+    }
+
+    .cu-toggle-thumb {
+        @apply pointer-events-none block size-4 rounded-full bg-background shadow-sm ring-0 transition-transform duration-150;
+    }
+
+    .cu-toggle-input:checked + .cu-toggle .cu-toggle-thumb {
+        @apply translate-x-4;
+    }
+
+    /* Toggle sizes */
+    .cu-toggle-input + .cu-toggle-sm {
+        @apply h-4 w-7;
+    }
+
+    .cu-toggle-sm .cu-toggle-thumb {
+        @apply size-3;
+    }
+
+    .cu-toggle-input:checked + .cu-toggle-sm .cu-toggle-thumb {
+        @apply translate-x-3;
+    }
+
+    .cu-toggle-input + .cu-toggle-lg {
+        @apply h-6 w-11;
+    }
+
+    .cu-toggle-lg .cu-toggle-thumb {
+        @apply size-5;
+    }
+
+    .cu-toggle-input:checked + .cu-toggle-lg .cu-toggle-thumb {
+        @apply translate-x-5;
+    }
+
+    /* Range */
+    .cu-range {
+        @apply w-full h-1.5 rounded-full bg-input appearance-none cursor-pointer accent-primary transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/40 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:size-4 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-primary [&::-webkit-slider-thumb]:border-0 [&::-webkit-slider-thumb]:shadow-sm [&::-moz-range-thumb]:size-4 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:bg-primary [&::-moz-range-thumb]:border-0 [&::-moz-range-thumb]:shadow-sm;
+    }
+
+    /* Form Group */
+    .cu-form-group {
+        @apply flex flex-col gap-1.5;
+    }
+
+    .cu-form-description {
+        @apply text-xs text-muted-foreground;
+    }
+
+    .cu-form-error {
+        @apply text-xs text-destructive;
+    }
 }

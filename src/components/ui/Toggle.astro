@@ -1,0 +1,22 @@
+---
+import { TOP_CLASS } from "../../config";
+
+interface Props {
+    size?: "default" | "sm" | "lg";
+    class?: string;
+    [key: string]: any;
+}
+
+const { size = "default", class: className, ...rest } = Astro.props;
+
+const getSizeClass = (s: string) =>
+    s === "default" ? `${TOP_CLASS}-toggle` : `${TOP_CLASS}-toggle ${TOP_CLASS}-toggle-${s}`;
+---
+
+<label class:list={[`${TOP_CLASS}-toggle-wrapper`, className]}>
+    <input type="checkbox" class={`${TOP_CLASS}-toggle-input`} {...rest} />
+    <span class={getSizeClass(size)}>
+        <span class={`${TOP_CLASS}-toggle-thumb`}></span>
+    </span>
+    <slot />
+</label>

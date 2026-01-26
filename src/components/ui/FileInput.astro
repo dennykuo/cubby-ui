@@ -1,0 +1,8 @@
+---
+import { TOP_CLASS } from "../../config";
+
+const { class: className, ...rest } = Astro.props;
+const baseClass = `${TOP_CLASS}-input-file`;
+---
+
+<input type="file" class:list={[baseClass, className]} {...rest} />

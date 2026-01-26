@@ -1,0 +1,161 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Toggle from "../../components/ui/Toggle.astro";
+import Label from "../../components/ui/Label.astro";
+import ComponentPreview from "../../components/ComponentPreview.astro";
+
+const usageCode = `<label class="cu-toggle-wrapper">
+  <input type="checkbox" class="cu-toggle-input" />
+  <span class="cu-toggle">
+    <span class="cu-toggle-thumb"></span>
+  </span>
+</label>`.trim();
+
+const withLabelCode = `<label class="cu-toggle-wrapper">
+  <input type="checkbox" class="cu-toggle-input" />
+  <span class="cu-toggle">
+    <span class="cu-toggle-thumb"></span>
+  </span>
+  <span class="cu-label">Airplane Mode</span>
+</label>`.trim();
+
+const sizesCode = `<label class="cu-toggle-wrapper">
+  <input type="checkbox" class="cu-toggle-input" checked />
+  <span class="cu-toggle cu-toggle-sm">
+    <span class="cu-toggle-thumb"></span>
+  </span>
+  <span class="cu-label">Small</span>
+</label>
+
+<label class="cu-toggle-wrapper">
+  <input type="checkbox" class="cu-toggle-input" checked />
+  <span class="cu-toggle">
+    <span class="cu-toggle-thumb"></span>
+  </span>
+  <span class="cu-label">Default</span>
+</label>
+
+<label class="cu-toggle-wrapper">
+  <input type="checkbox" class="cu-toggle-input" checked />
+  <span class="cu-toggle cu-toggle-lg">
+    <span class="cu-toggle-thumb"></span>
+  </span>
+  <span class="cu-label">Large</span>
+</label>`.trim();
+
+const checkedCode = `<label class="cu-toggle-wrapper">
+  <input type="checkbox" class="cu-toggle-input" checked />
+  <span class="cu-toggle">
+    <span class="cu-toggle-thumb"></span>
+  </span>
+  <span class="cu-label">Enabled by default</span>
+</label>`.trim();
+
+const disabledCode = `<label class="cu-toggle-wrapper">
+  <input type="checkbox" class="cu-toggle-input" disabled />
+  <span class="cu-toggle">
+    <span class="cu-toggle-thumb"></span>
+  </span>
+  <span class="cu-label">Disabled off</span>
+</label>
+
+<label class="cu-toggle-wrapper">
+  <input type="checkbox" class="cu-toggle-input" disabled checked />
+  <span class="cu-toggle">
+    <span class="cu-toggle-thumb"></span>
+  </span>
+  <span class="cu-label">Disabled on</span>
+</label>`.trim();
+---
+
+<Layout title="Toggle — Cubby UI">
+    <div class="space-y-3">
+        <h1 class="text-3xl font-bold tracking-tight">Toggle</h1>
+        <p class="text-base text-muted-foreground leading-relaxed">
+            Displays a toggle switch for binary on/off options. Pure CSS — no JavaScript required.
+        </p>
+    </div>
+
+    <div class="mt-10 space-y-10">
+        <!-- Usage -->
+        <section class="space-y-3">
+            <h2 class="text-lg font-semibold tracking-tight">Usage</h2>
+            <p class="text-sm text-muted-foreground leading-relaxed">
+                The toggle uses a hidden <code class="rounded bg-muted px-1.5 py-0.5 text-[13px] font-mono text-foreground">&lt;input type="checkbox"&gt;</code> with
+                <code class="rounded bg-muted px-1.5 py-0.5 text-[13px] font-mono text-foreground">cu-toggle-input</code>,
+                a visual track with <code class="rounded bg-muted px-1.5 py-0.5 text-[13px] font-mono text-foreground">cu-toggle</code>,
+                and a thumb with <code class="rounded bg-muted px-1.5 py-0.5 text-[13px] font-mono text-foreground">cu-toggle-thumb</code>,
+                all inside a <code class="rounded bg-muted px-1.5 py-0.5 text-[13px] font-mono text-foreground">cu-toggle-wrapper</code> label.
+            </p>
+            <ComponentPreview code={usageCode}>
+                <Toggle />
+            </ComponentPreview>
+        </section>
+
+        <!-- With Label -->
+        <section class="space-y-3">
+            <h2 class="text-lg font-semibold tracking-tight">With Label</h2>
+            <p class="text-sm text-muted-foreground leading-relaxed">
+                Add label text as a sibling inside the wrapper. Clicking the text also toggles the switch.
+            </p>
+            <ComponentPreview code={withLabelCode}>
+                <Toggle>
+                    <span class="cu-label">Airplane Mode</span>
+                </Toggle>
+            </ComponentPreview>
+        </section>
+
+        <!-- Sizes -->
+        <section class="space-y-3">
+            <h2 class="text-lg font-semibold tracking-tight">Sizes</h2>
+            <p class="text-sm text-muted-foreground leading-relaxed">
+                Three sizes are available — <code class="rounded bg-muted px-1.5 py-0.5 text-[13px] font-mono text-foreground">cu-toggle-sm</code>,
+                default, and <code class="rounded bg-muted px-1.5 py-0.5 text-[13px] font-mono text-foreground">cu-toggle-lg</code>.
+            </p>
+            <ComponentPreview code={sizesCode}>
+                <div class="flex flex-col gap-4">
+                    <Toggle size="sm" checked>
+                        <span class="cu-label">Small</span>
+                    </Toggle>
+                    <Toggle checked>
+                        <span class="cu-label">Default</span>
+                    </Toggle>
+                    <Toggle size="lg" checked>
+                        <span class="cu-label">Large</span>
+                    </Toggle>
+                </div>
+            </ComponentPreview>
+        </section>
+
+        <!-- Checked by Default -->
+        <section class="space-y-3">
+            <h2 class="text-lg font-semibold tracking-tight">Checked by Default</h2>
+            <p class="text-sm text-muted-foreground leading-relaxed">
+                Add the <code class="rounded bg-muted px-1.5 py-0.5 text-[13px] font-mono text-foreground">checked</code> attribute to the hidden input for an initial on state.
+            </p>
+            <ComponentPreview code={checkedCode}>
+                <Toggle checked>
+                    <span class="cu-label">Enabled by default</span>
+                </Toggle>
+            </ComponentPreview>
+        </section>
+
+        <!-- Disabled -->
+        <section class="space-y-3">
+            <h2 class="text-lg font-semibold tracking-tight">Disabled</h2>
+            <p class="text-sm text-muted-foreground leading-relaxed">
+                Add the <code class="rounded bg-muted px-1.5 py-0.5 text-[13px] font-mono text-foreground">disabled</code> attribute to prevent interaction.
+            </p>
+            <ComponentPreview code={disabledCode}>
+                <div class="flex flex-col gap-4">
+                    <Toggle disabled>
+                        <span class="cu-label">Disabled off</span>
+                    </Toggle>
+                    <Toggle disabled checked>
+                        <span class="cu-label">Disabled on</span>
+                    </Toggle>
+                </div>
+            </ComponentPreview>
+        </section>
+    </div>
+</Layout>

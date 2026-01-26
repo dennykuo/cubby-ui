@@ -1,0 +1,147 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Input from "../../components/ui/Input.astro";
+import Label from "../../components/ui/Label.astro";
+import FormGroup from "../../components/ui/FormGroup.astro";
+import FormDescription from "../../components/ui/FormDescription.astro";
+import FormError from "../../components/ui/FormError.astro";
+import ComponentPreview from "../../components/ComponentPreview.astro";
+
+const usageCode = `<input class="cu-input" type="text" placeholder="Enter text..." />`.trim();
+
+const withLabelCode = `<div class="cu-form-group">
+  <label class="cu-label" for="email">Email</label>
+  <input class="cu-input" type="email" id="email" placeholder="you@example.com" />
+</div>`.trim();
+
+const typesCode = `<div class="cu-form-group">
+  <label class="cu-label" for="email-input">Email</label>
+  <input class="cu-input" type="email" id="email-input" placeholder="you@example.com" />
+</div>
+
+<div class="cu-form-group">
+  <label class="cu-label" for="password-input">Password</label>
+  <input class="cu-input" type="password" id="password-input" placeholder="••••••••" />
+</div>
+
+<div class="cu-form-group">
+  <label class="cu-label" for="number-input">Number</label>
+  <input class="cu-input" type="number" id="number-input" placeholder="0" />
+</div>`.trim();
+
+const disabledCode = `<input class="cu-input" type="text" placeholder="Disabled input" disabled />`.trim();
+
+const formGroupCode = `<div class="cu-form-group">
+  <label class="cu-label" for="username">Username</label>
+  <input class="cu-input" type="text" id="username" placeholder="johndoe" />
+  <p class="cu-form-description">This is your public display name.</p>
+</div>
+
+<div class="cu-form-group">
+  <label class="cu-label" for="email-err">Email</label>
+  <input class="cu-input border-destructive" type="email" id="email-err" placeholder="you@example.com" />
+  <p class="cu-form-error">Please enter a valid email address.</p>
+</div>`.trim();
+---
+
+<Layout title="Input — Cubby UI">
+    <div class="space-y-3">
+        <h1 class="text-3xl font-bold tracking-tight">Input</h1>
+        <p class="text-base text-muted-foreground leading-relaxed">
+            Displays a text input field for user data entry.
+        </p>
+    </div>
+
+    <div class="mt-10 space-y-10">
+        <!-- Usage -->
+        <section class="space-y-3">
+            <h2 class="text-lg font-semibold tracking-tight">Usage</h2>
+            <p class="text-sm text-muted-foreground leading-relaxed">
+                Apply <code class="rounded bg-muted px-1.5 py-0.5 text-[13px] font-mono text-foreground">cu-input</code> to an <code class="rounded bg-muted px-1.5 py-0.5 text-[13px] font-mono text-foreground">&lt;input&gt;</code> element.
+            </p>
+            <ComponentPreview code={usageCode}>
+                <div class="w-full max-w-sm">
+                    <Input type="text" placeholder="Enter text..." />
+                </div>
+            </ComponentPreview>
+        </section>
+
+        <!-- With Label -->
+        <section class="space-y-3">
+            <h2 class="text-lg font-semibold tracking-tight">With Label</h2>
+            <p class="text-sm text-muted-foreground leading-relaxed">
+                Pair with a <code class="rounded bg-muted px-1.5 py-0.5 text-[13px] font-mono text-foreground">cu-label</code> for accessible form fields.
+            </p>
+            <ComponentPreview code={withLabelCode}>
+                <div class="w-full max-w-sm">
+                    <FormGroup>
+                        <Label for="email">Email</Label>
+                        <Input type="email" id="email" placeholder="you@example.com" />
+                    </FormGroup>
+                </div>
+            </ComponentPreview>
+        </section>
+
+        <!-- Input Types -->
+        <section class="space-y-3">
+            <h2 class="text-lg font-semibold tracking-tight">Input Types</h2>
+            <p class="text-sm text-muted-foreground leading-relaxed">
+                Set the <code class="rounded bg-muted px-1.5 py-0.5 text-[13px] font-mono text-foreground">type</code> attribute for email, password, number, and other input types.
+            </p>
+            <ComponentPreview code={typesCode}>
+                <div class="w-full max-w-sm space-y-4">
+                    <FormGroup>
+                        <Label for="email-input">Email</Label>
+                        <Input type="email" id="email-input" placeholder="you@example.com" />
+                    </FormGroup>
+                    <FormGroup>
+                        <Label for="password-input">Password</Label>
+                        <Input type="password" id="password-input" placeholder="••••••••" />
+                    </FormGroup>
+                    <FormGroup>
+                        <Label for="number-input">Number</Label>
+                        <Input type="number" id="number-input" placeholder="0" />
+                    </FormGroup>
+                </div>
+            </ComponentPreview>
+        </section>
+
+        <!-- Disabled -->
+        <section class="space-y-3">
+            <h2 class="text-lg font-semibold tracking-tight">Disabled</h2>
+            <p class="text-sm text-muted-foreground leading-relaxed">
+                Add the <code class="rounded bg-muted px-1.5 py-0.5 text-[13px] font-mono text-foreground">disabled</code> attribute.
+                The input becomes non-interactive with reduced opacity.
+            </p>
+            <ComponentPreview code={disabledCode}>
+                <div class="w-full max-w-sm">
+                    <Input type="text" placeholder="Disabled input" disabled />
+                </div>
+            </ComponentPreview>
+        </section>
+
+        <!-- With Form Group -->
+        <section class="space-y-3">
+            <h2 class="text-lg font-semibold tracking-tight">With Form Group</h2>
+            <p class="text-sm text-muted-foreground leading-relaxed">
+                Combine with <code class="rounded bg-muted px-1.5 py-0.5 text-[13px] font-mono text-foreground">cu-form-group</code>,
+                <code class="rounded bg-muted px-1.5 py-0.5 text-[13px] font-mono text-foreground">cu-form-description</code>, and
+                <code class="rounded bg-muted px-1.5 py-0.5 text-[13px] font-mono text-foreground">cu-form-error</code> for complete form fields.
+            </p>
+            <ComponentPreview code={formGroupCode}>
+                <div class="w-full max-w-sm space-y-4">
+                    <FormGroup>
+                        <Label for="username">Username</Label>
+                        <Input type="text" id="username" placeholder="johndoe" />
+                        <FormDescription>This is your public display name.</FormDescription>
+                    </FormGroup>
+                    <FormGroup>
+                        <Label for="email-err">Email</Label>
+                        <Input type="email" id="email-err" placeholder="you@example.com" class="border-destructive" />
+                        <FormError>Please enter a valid email address.</FormError>
+                    </FormGroup>
+                </div>
+            </ComponentPreview>
+        </section>
+    </div>
+</Layout>

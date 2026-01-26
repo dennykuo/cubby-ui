@@ -1,0 +1,77 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Label from "../../components/ui/Label.astro";
+import Input from "../../components/ui/Input.astro";
+import FormGroup from "../../components/ui/FormGroup.astro";
+import ComponentPreview from "../../components/ComponentPreview.astro";
+
+const usageCode = `<label class="cu-label">Email</label>`.trim();
+
+const withInputCode = `<div class="cu-form-group">
+  <label class="cu-label" for="email-field">Email</label>
+  <input class="cu-input" type="email" id="email-field" placeholder="you@example.com" />
+</div>`.trim();
+
+const requiredCode = `<div class="cu-form-group">
+  <label class="cu-label" for="name-field">
+    Name <span class="text-destructive">*</span>
+  </label>
+  <input class="cu-input" type="text" id="name-field" placeholder="Your name" required />
+</div>`.trim();
+---
+
+<Layout title="Label — Cubby UI">
+    <div class="space-y-3">
+        <h1 class="text-3xl font-bold tracking-tight">Label</h1>
+        <p class="text-base text-muted-foreground leading-relaxed">
+            Displays a label for form controls with consistent typography.
+        </p>
+    </div>
+
+    <div class="mt-10 space-y-10">
+        <!-- Usage -->
+        <section class="space-y-3">
+            <h2 class="text-lg font-semibold tracking-tight">Usage</h2>
+            <p class="text-sm text-muted-foreground leading-relaxed">
+                Apply <code class="rounded bg-muted px-1.5 py-0.5 text-[13px] font-mono text-foreground">cu-label</code> to a <code class="rounded bg-muted px-1.5 py-0.5 text-[13px] font-mono text-foreground">&lt;label&gt;</code> element.
+            </p>
+            <ComponentPreview code={usageCode}>
+                <Label>Email</Label>
+            </ComponentPreview>
+        </section>
+
+        <!-- With Input -->
+        <section class="space-y-3">
+            <h2 class="text-lg font-semibold tracking-tight">With Input</h2>
+            <p class="text-sm text-muted-foreground leading-relaxed">
+                Pair with an input using the <code class="rounded bg-muted px-1.5 py-0.5 text-[13px] font-mono text-foreground">for</code> and <code class="rounded bg-muted px-1.5 py-0.5 text-[13px] font-mono text-foreground">id</code> attributes.
+            </p>
+            <ComponentPreview code={withInputCode}>
+                <div class="w-full max-w-sm">
+                    <FormGroup>
+                        <Label for="email-field">Email</Label>
+                        <Input type="email" id="email-field" placeholder="you@example.com" />
+                    </FormGroup>
+                </div>
+            </ComponentPreview>
+        </section>
+
+        <!-- Required Indicator -->
+        <section class="space-y-3">
+            <h2 class="text-lg font-semibold tracking-tight">Required Indicator</h2>
+            <p class="text-sm text-muted-foreground leading-relaxed">
+                Add an asterisk with <code class="rounded bg-muted px-1.5 py-0.5 text-[13px] font-mono text-foreground">text-destructive</code> to mark required fields.
+            </p>
+            <ComponentPreview code={requiredCode}>
+                <div class="w-full max-w-sm">
+                    <FormGroup>
+                        <Label for="name-field">
+                            Name <span class="text-destructive">*</span>
+                        </Label>
+                        <Input type="text" id="name-field" placeholder="Your name" required />
+                    </FormGroup>
+                </div>
+            </ComponentPreview>
+        </section>
+    </div>
+</Layout>

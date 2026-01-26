@@ -1,0 +1,141 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Radio from "../../components/ui/Radio.astro";
+import Label from "../../components/ui/Label.astro";
+import ComponentPreview from "../../components/ComponentPreview.astro";
+
+const usageCode = `<input type="radio" class="cu-radio" name="example" />`.trim();
+
+const groupCode = `<div class="cu-radio-group">
+  <div class="cu-radio-wrapper">
+    <input type="radio" class="cu-radio" name="plan" id="free" value="free" checked />
+    <label class="cu-label" for="free">Free</label>
+  </div>
+  <div class="cu-radio-wrapper">
+    <input type="radio" class="cu-radio" name="plan" id="pro" value="pro" />
+    <label class="cu-label" for="pro">Pro</label>
+  </div>
+  <div class="cu-radio-wrapper">
+    <input type="radio" class="cu-radio" name="plan" id="enterprise" value="enterprise" />
+    <label class="cu-label" for="enterprise">Enterprise</label>
+  </div>
+</div>`.trim();
+
+const defaultCode = `<div class="cu-radio-group">
+  <div class="cu-radio-wrapper">
+    <input type="radio" class="cu-radio" name="color" id="red" value="red" />
+    <label class="cu-label" for="red">Red</label>
+  </div>
+  <div class="cu-radio-wrapper">
+    <input type="radio" class="cu-radio" name="color" id="blue" value="blue" checked />
+    <label class="cu-label" for="blue">Blue</label>
+  </div>
+  <div class="cu-radio-wrapper">
+    <input type="radio" class="cu-radio" name="color" id="green" value="green" />
+    <label class="cu-label" for="green">Green</label>
+  </div>
+</div>`.trim();
+
+const disabledCode = `<div class="cu-radio-group">
+  <div class="cu-radio-wrapper">
+    <input type="radio" class="cu-radio" name="disabled-group" id="opt-a" value="a" disabled />
+    <label class="cu-label" for="opt-a">Option A</label>
+  </div>
+  <div class="cu-radio-wrapper">
+    <input type="radio" class="cu-radio" name="disabled-group" id="opt-b" value="b" disabled checked />
+    <label class="cu-label" for="opt-b">Option B (checked)</label>
+  </div>
+</div>`.trim();
+---
+
+<Layout title="Radio — Cubby UI">
+    <div class="space-y-3">
+        <h1 class="text-3xl font-bold tracking-tight">Radio</h1>
+        <p class="text-base text-muted-foreground leading-relaxed">
+            Displays a radio button for selecting one option from a group.
+        </p>
+    </div>
+
+    <div class="mt-10 space-y-10">
+        <!-- Usage -->
+        <section class="space-y-3">
+            <h2 class="text-lg font-semibold tracking-tight">Usage</h2>
+            <p class="text-sm text-muted-foreground leading-relaxed">
+                Apply <code class="rounded bg-muted px-1.5 py-0.5 text-[13px] font-mono text-foreground">cu-radio</code> to an <code class="rounded bg-muted px-1.5 py-0.5 text-[13px] font-mono text-foreground">&lt;input type="radio"&gt;</code> element.
+            </p>
+            <ComponentPreview code={usageCode}>
+                <Radio name="example" />
+            </ComponentPreview>
+        </section>
+
+        <!-- Radio Group -->
+        <section class="space-y-3">
+            <h2 class="text-lg font-semibold tracking-tight">Radio Group</h2>
+            <p class="text-sm text-muted-foreground leading-relaxed">
+                Group radios with the same <code class="rounded bg-muted px-1.5 py-0.5 text-[13px] font-mono text-foreground">name</code> attribute inside a
+                <code class="rounded bg-muted px-1.5 py-0.5 text-[13px] font-mono text-foreground">cu-radio-group</code> container, using
+                <code class="rounded bg-muted px-1.5 py-0.5 text-[13px] font-mono text-foreground">cu-radio-wrapper</code> for each option.
+            </p>
+            <ComponentPreview code={groupCode}>
+                <div class="cu-radio-group">
+                    <div class="cu-radio-wrapper">
+                        <Radio name="plan" id="free" value="free" checked />
+                        <Label for="free">Free</Label>
+                    </div>
+                    <div class="cu-radio-wrapper">
+                        <Radio name="plan" id="pro" value="pro" />
+                        <Label for="pro">Pro</Label>
+                    </div>
+                    <div class="cu-radio-wrapper">
+                        <Radio name="plan" id="enterprise" value="enterprise" />
+                        <Label for="enterprise">Enterprise</Label>
+                    </div>
+                </div>
+            </ComponentPreview>
+        </section>
+
+        <!-- Default Selected -->
+        <section class="space-y-3">
+            <h2 class="text-lg font-semibold tracking-tight">Default Selected</h2>
+            <p class="text-sm text-muted-foreground leading-relaxed">
+                Add the <code class="rounded bg-muted px-1.5 py-0.5 text-[13px] font-mono text-foreground">checked</code> attribute to pre-select an option.
+            </p>
+            <ComponentPreview code={defaultCode}>
+                <div class="cu-radio-group">
+                    <div class="cu-radio-wrapper">
+                        <Radio name="color" id="red" value="red" />
+                        <Label for="red">Red</Label>
+                    </div>
+                    <div class="cu-radio-wrapper">
+                        <Radio name="color" id="blue" value="blue" checked />
+                        <Label for="blue">Blue</Label>
+                    </div>
+                    <div class="cu-radio-wrapper">
+                        <Radio name="color" id="green" value="green" />
+                        <Label for="green">Green</Label>
+                    </div>
+                </div>
+            </ComponentPreview>
+        </section>
+
+        <!-- Disabled -->
+        <section class="space-y-3">
+            <h2 class="text-lg font-semibold tracking-tight">Disabled</h2>
+            <p class="text-sm text-muted-foreground leading-relaxed">
+                Add the <code class="rounded bg-muted px-1.5 py-0.5 text-[13px] font-mono text-foreground">disabled</code> attribute to prevent interaction.
+            </p>
+            <ComponentPreview code={disabledCode}>
+                <div class="cu-radio-group">
+                    <div class="cu-radio-wrapper">
+                        <Radio name="disabled-group" id="opt-a" value="a" disabled />
+                        <Label for="opt-a">Option A</Label>
+                    </div>
+                    <div class="cu-radio-wrapper">
+                        <Radio name="disabled-group" id="opt-b" value="b" disabled checked />
+                        <Label for="opt-b">Option B (checked)</Label>
+                    </div>
+                </div>
+            </ComponentPreview>
+        </section>
+    </div>
+</Layout>

@@ -1,0 +1,143 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Checkbox from "../../components/ui/Checkbox.astro";
+import Label from "../../components/ui/Label.astro";
+import ComponentPreview from "../../components/ComponentPreview.astro";
+
+const usageCode = `<input type="checkbox" class="cu-checkbox" />`.trim();
+
+const withLabelCode = `<div class="cu-checkbox-wrapper">
+  <input type="checkbox" class="cu-checkbox" id="terms" />
+  <label class="cu-label" for="terms">Accept terms and conditions</label>
+</div>`.trim();
+
+const checkedCode = `<div class="cu-checkbox-wrapper">
+  <input type="checkbox" class="cu-checkbox" id="newsletter" checked />
+  <label class="cu-label" for="newsletter">Subscribe to newsletter</label>
+</div>`.trim();
+
+const disabledCode = `<div class="cu-checkbox-wrapper">
+  <input type="checkbox" class="cu-checkbox" id="disabled-cb" disabled />
+  <label class="cu-label" for="disabled-cb">Disabled option</label>
+</div>
+
+<div class="cu-checkbox-wrapper">
+  <input type="checkbox" class="cu-checkbox" id="disabled-checked" disabled checked />
+  <label class="cu-label" for="disabled-checked">Disabled checked</label>
+</div>`.trim();
+
+const groupCode = `<fieldset>
+  <legend class="cu-label mb-2">Notifications</legend>
+  <div class="flex flex-col gap-2">
+    <div class="cu-checkbox-wrapper">
+      <input type="checkbox" class="cu-checkbox" id="email-notif" checked />
+      <label class="cu-label" for="email-notif">Email notifications</label>
+    </div>
+    <div class="cu-checkbox-wrapper">
+      <input type="checkbox" class="cu-checkbox" id="sms-notif" />
+      <label class="cu-label" for="sms-notif">SMS notifications</label>
+    </div>
+    <div class="cu-checkbox-wrapper">
+      <input type="checkbox" class="cu-checkbox" id="push-notif" checked />
+      <label class="cu-label" for="push-notif">Push notifications</label>
+    </div>
+  </div>
+</fieldset>`.trim();
+---
+
+<Layout title="Checkbox — Cubby UI">
+    <div class="space-y-3">
+        <h1 class="text-3xl font-bold tracking-tight">Checkbox</h1>
+        <p class="text-base text-muted-foreground leading-relaxed">
+            Displays a checkbox input for toggling individual options on or off.
+        </p>
+    </div>
+
+    <div class="mt-10 space-y-10">
+        <!-- Usage -->
+        <section class="space-y-3">
+            <h2 class="text-lg font-semibold tracking-tight">Usage</h2>
+            <p class="text-sm text-muted-foreground leading-relaxed">
+                Apply <code class="rounded bg-muted px-1.5 py-0.5 text-[13px] font-mono text-foreground">cu-checkbox</code> to an <code class="rounded bg-muted px-1.5 py-0.5 text-[13px] font-mono text-foreground">&lt;input type="checkbox"&gt;</code> element.
+            </p>
+            <ComponentPreview code={usageCode}>
+                <Checkbox />
+            </ComponentPreview>
+        </section>
+
+        <!-- With Label -->
+        <section class="space-y-3">
+            <h2 class="text-lg font-semibold tracking-tight">With Label</h2>
+            <p class="text-sm text-muted-foreground leading-relaxed">
+                Wrap in a <code class="rounded bg-muted px-1.5 py-0.5 text-[13px] font-mono text-foreground">cu-checkbox-wrapper</code> with a <code class="rounded bg-muted px-1.5 py-0.5 text-[13px] font-mono text-foreground">cu-label</code> for accessible labeling.
+            </p>
+            <ComponentPreview code={withLabelCode}>
+                <div class="cu-checkbox-wrapper">
+                    <Checkbox id="terms" />
+                    <Label for="terms">Accept terms and conditions</Label>
+                </div>
+            </ComponentPreview>
+        </section>
+
+        <!-- Checked by Default -->
+        <section class="space-y-3">
+            <h2 class="text-lg font-semibold tracking-tight">Checked by Default</h2>
+            <p class="text-sm text-muted-foreground leading-relaxed">
+                Add the <code class="rounded bg-muted px-1.5 py-0.5 text-[13px] font-mono text-foreground">checked</code> attribute for a pre-selected state.
+            </p>
+            <ComponentPreview code={checkedCode}>
+                <div class="cu-checkbox-wrapper">
+                    <Checkbox id="newsletter" checked />
+                    <Label for="newsletter">Subscribe to newsletter</Label>
+                </div>
+            </ComponentPreview>
+        </section>
+
+        <!-- Disabled -->
+        <section class="space-y-3">
+            <h2 class="text-lg font-semibold tracking-tight">Disabled</h2>
+            <p class="text-sm text-muted-foreground leading-relaxed">
+                Add the <code class="rounded bg-muted px-1.5 py-0.5 text-[13px] font-mono text-foreground">disabled</code> attribute to prevent interaction.
+            </p>
+            <ComponentPreview code={disabledCode}>
+                <div class="space-y-2">
+                    <div class="cu-checkbox-wrapper">
+                        <Checkbox id="disabled-cb" disabled />
+                        <Label for="disabled-cb">Disabled option</Label>
+                    </div>
+                    <div class="cu-checkbox-wrapper">
+                        <Checkbox id="disabled-checked" disabled checked />
+                        <Label for="disabled-checked">Disabled checked</Label>
+                    </div>
+                </div>
+            </ComponentPreview>
+        </section>
+
+        <!-- Checkbox Group -->
+        <section class="space-y-3">
+            <h2 class="text-lg font-semibold tracking-tight">Checkbox Group</h2>
+            <p class="text-sm text-muted-foreground leading-relaxed">
+                Group multiple checkboxes with a shared heading using a <code class="rounded bg-muted px-1.5 py-0.5 text-[13px] font-mono text-foreground">&lt;fieldset&gt;</code> and <code class="rounded bg-muted px-1.5 py-0.5 text-[13px] font-mono text-foreground">&lt;legend&gt;</code>.
+            </p>
+            <ComponentPreview code={groupCode}>
+                <fieldset>
+                    <legend class="cu-label mb-2">Notifications</legend>
+                    <div class="flex flex-col gap-2">
+                        <div class="cu-checkbox-wrapper">
+                            <Checkbox id="email-notif" checked />
+                            <Label for="email-notif">Email notifications</Label>
+                        </div>
+                        <div class="cu-checkbox-wrapper">
+                            <Checkbox id="sms-notif" />
+                            <Label for="sms-notif">SMS notifications</Label>
+                        </div>
+                        <div class="cu-checkbox-wrapper">
+                            <Checkbox id="push-notif" checked />
+                            <Label for="push-notif">Push notifications</Label>
+                        </div>
+                    </div>
+                </fieldset>
+            </ComponentPreview>
+        </section>
+    </div>
+</Layout>

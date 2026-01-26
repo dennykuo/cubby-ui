@@ -1,0 +1,80 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import SearchInput from "../../components/ui/SearchInput.astro";
+import ComponentPreview from "../../components/ComponentPreview.astro";
+
+const usageCode = `<div class="cu-input-search">
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="cu-input-search-icon">
+    <circle cx="11" cy="11" r="8"></circle>
+    <path d="m21 21-4.3-4.3"></path>
+  </svg>
+  <input class="cu-input-search-field" type="search" placeholder="Search..." />
+</div>`.trim();
+
+const placeholderCode = `<div class="cu-input-search">
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="cu-input-search-icon">
+    <circle cx="11" cy="11" r="8"></circle>
+    <path d="m21 21-4.3-4.3"></path>
+  </svg>
+  <input class="cu-input-search-field" type="search" placeholder="Search components..." />
+</div>`.trim();
+
+const disabledCode = `<div class="cu-input-search">
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="cu-input-search-icon">
+    <circle cx="11" cy="11" r="8"></circle>
+    <path d="m21 21-4.3-4.3"></path>
+  </svg>
+  <input class="cu-input-search-field" type="search" placeholder="Search..." disabled />
+</div>`.trim();
+---
+
+<Layout title="Search Input — Cubby UI">
+    <div class="space-y-3">
+        <h1 class="text-3xl font-bold tracking-tight">Search Input</h1>
+        <p class="text-base text-muted-foreground leading-relaxed">
+            Displays a search input with an embedded search icon.
+        </p>
+    </div>
+
+    <div class="mt-10 space-y-10">
+        <!-- Usage -->
+        <section class="space-y-3">
+            <h2 class="text-lg font-semibold tracking-tight">Usage</h2>
+            <p class="text-sm text-muted-foreground leading-relaxed">
+                Wrap an input and search icon inside a <code class="rounded bg-muted px-1.5 py-0.5 text-[13px] font-mono text-foreground">cu-input-search</code> container.
+                The icon uses <code class="rounded bg-muted px-1.5 py-0.5 text-[13px] font-mono text-foreground">cu-input-search-icon</code> and the input uses <code class="rounded bg-muted px-1.5 py-0.5 text-[13px] font-mono text-foreground">cu-input-search-field</code>.
+            </p>
+            <ComponentPreview code={usageCode}>
+                <div class="w-full max-w-sm">
+                    <SearchInput placeholder="Search..." />
+                </div>
+            </ComponentPreview>
+        </section>
+
+        <!-- With Placeholder -->
+        <section class="space-y-3">
+            <h2 class="text-lg font-semibold tracking-tight">With Placeholder</h2>
+            <p class="text-sm text-muted-foreground leading-relaxed">
+                Customize the placeholder text to hint at what can be searched.
+            </p>
+            <ComponentPreview code={placeholderCode}>
+                <div class="w-full max-w-sm">
+                    <SearchInput placeholder="Search components..." />
+                </div>
+            </ComponentPreview>
+        </section>
+
+        <!-- Disabled -->
+        <section class="space-y-3">
+            <h2 class="text-lg font-semibold tracking-tight">Disabled</h2>
+            <p class="text-sm text-muted-foreground leading-relaxed">
+                Add the <code class="rounded bg-muted px-1.5 py-0.5 text-[13px] font-mono text-foreground">disabled</code> attribute to the input element.
+            </p>
+            <ComponentPreview code={disabledCode}>
+                <div class="w-full max-w-sm">
+                    <SearchInput placeholder="Search..." disabled />
+                </div>
+            </ComponentPreview>
+        </section>
+    </div>
+</Layout>

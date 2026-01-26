@@ -1,0 +1,10 @@
+---
+import { TOP_CLASS } from "../../config";
+
+const { class: className, ...rest } = Astro.props;
+const baseClass = `${TOP_CLASS}-form-error`;
+---
+
+<p class:list={[baseClass, className]} {...rest}>
+    <slot />
+</p>
