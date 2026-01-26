@@ -2,31 +2,31 @@
 
     /* Button */
     .cu-button {
-        @apply inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 cursor-pointer active:scale-[0.98] border border-transparent shadow-sm;
+        @apply inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-lg text-sm font-medium transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/40 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 cursor-pointer;
     }
 
     .cu-button-default {
-        @apply bg-primary text-primary-foreground hover:bg-primary/90 hover:shadow-md;
+        @apply bg-primary text-primary-foreground hover:bg-primary/90;
     }
 
     .cu-button-destructive {
-        @apply bg-destructive text-destructive-foreground hover:bg-destructive/90 hover:shadow-md;
+        @apply bg-destructive text-destructive-foreground hover:bg-destructive/90;
     }
 
     .cu-button-outline {
-        @apply border-input bg-background hover:bg-accent hover:text-accent-foreground hover:border-accent;
+        @apply border border-input bg-background hover:bg-accent hover:text-accent-foreground;
     }
 
     .cu-button-secondary {
-        @apply bg-secondary text-secondary-foreground hover:bg-secondary/80 hover:shadow-md;
+        @apply bg-secondary text-secondary-foreground hover:bg-secondary/70;
     }
 
     .cu-button-ghost {
-        @apply hover:bg-accent hover:text-accent-foreground shadow-none border-transparent;
+        @apply hover:bg-accent hover:text-accent-foreground;
     }
 
     .cu-button-link {
-        @apply text-primary underline-offset-4 hover:underline shadow-none border-transparent;
+        @apply text-primary underline-offset-4 hover:underline;
     }
 
     .cu-button-sm {
@@ -38,7 +38,27 @@
     }
 
     .cu-button-lg {
-        @apply h-10 rounded-md px-8;
+        @apply h-10 rounded-lg px-6;
+    }
+
+    .cu-button-xl {
+        @apply h-11 rounded-lg px-8 text-base;
+    }
+
+    .cu-button-xs {
+        @apply h-7 rounded-md px-2 text-xs;
+    }
+
+    .cu-button-success {
+        @apply bg-success text-success-foreground hover:bg-success/90;
+    }
+
+    .cu-button-warning {
+        @apply bg-warning text-warning-foreground hover:bg-warning/90;
+    }
+
+    .cu-button-info {
+        @apply bg-info text-info-foreground hover:bg-info/90;
     }
 
     .cu-button-icon {

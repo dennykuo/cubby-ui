@@ -49,38 +49,43 @@ const buttonSizesCode = `
 ---
 
 <Layout title="Button - tw-components">
-    <div class="space-y-4">
-        <h1 class="scroll-m-20 text-4xl font-bold tracking-tight">Button</h1>
-        <p class="text-lg text-muted-foreground">
-            Displays a button or a component that looks like a button.
-        </p>
-    </div>
+  <div class="space-y-4">
+    <h1 class="scroll-m-20 text-4xl font-bold tracking-tight">Button</h1>
+    <p class="text-lg text-muted-foreground">
+      Displays a button or a component that looks like a button.
+    </p>
+  </div>
 
-    <div class="mt-10 space-y-12">
-        <section class="space-y-4">
-            <h2 class="text-xl font-semibold tracking-tight">Variants</h2>
-            <ComponentPreview code={buttonVariantsCode}>
-                <div class="flex flex-wrap gap-4 items-center justify-center">
-                    <Button>Default</Button>
-                    <Button variant="secondary">Secondary</Button>
-                    <Button variant="outline">Outline</Button>
-                    <Button variant="destructive">Destructive</Button>
-                    <Button variant="ghost">Ghost</Button>
-                    <Button variant="link">Link</Button>
-                </div>
-            </ComponentPreview>
-        </section>
+  <div class="mt-10 space-y-12">
+    <section class="space-y-4">
+      <h2 class="text-xl font-semibold tracking-tight">Variants</h2>
+      <ComponentPreview code={buttonVariantsCode}>
+        <div class="flex flex-wrap gap-4 items-center justify-center">
+          <Button>Default</Button>
+          <Button variant="secondary">Secondary</Button>
+          <Button variant="outline">Outline</Button>
+          <Button variant="destructive">Destructive</Button>
+          <Button variant="ghost">Ghost</Button>
+          <Button variant="link">Link</Button>
+          <Button variant="success">Success</Button>
+          <Button variant="warning">Warning</Button>
+          <Button variant="info">Info</Button>
+        </div>
+      </ComponentPreview>
+    </section>
 
-        <section class="space-y-4">
-            <h2 class="text-xl font-semibold tracking-tight">Sizes</h2>
-            <ComponentPreview code={buttonSizesCode}>
-                <div class="flex flex-wrap gap-4 items-center justify-center">
-                    <Button size="sm">Small</Button>
-                    <Button size="default">Default</Button>
-                    <Button size="lg">Large</Button>
-                    <Button size="icon">💡</Button>
-                </div>
-            </ComponentPreview>
-        </section>
-    </div>
+    <section class="space-y-4">
+      <h2 class="text-xl font-semibold tracking-tight">Sizes</h2>
+      <ComponentPreview code={buttonSizesCode}>
+        <div class="flex flex-wrap gap-4 items-center justify-center">
+          <Button size="xs">Extra Small</Button>
+          <Button size="sm">Small</Button>
+          <Button size="default">Default</Button>
+          <Button size="lg">Large</Button>
+          <Button size="xl">Extra Large</Button>
+          <Button size="icon">💡</Button>
+        </div>
+      </ComponentPreview>
+    </section>
+  </div>
 </Layout>
