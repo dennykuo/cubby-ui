@@ -1,0 +1,142 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Button from "../../components/ui/Button.astro";
+import Card from "../../components/ui/Card.astro";
+import CardHeader from "../../components/ui/CardHeader.astro";
+import CardTitle from "../../components/ui/CardTitle.astro";
+import CardDescription from "../../components/ui/CardDescription.astro";
+import CardContent from "../../components/ui/CardContent.astro";
+import CardFooter from "../../components/ui/CardFooter.astro";
+import ComponentPreview from "../../components/ComponentPreview.astro";
+
+const cardExampleCode = `
+<div class="rounded-xl border bg-card text-card-foreground shadow w-[350px]">
+  <div class="flex flex-col space-y-1.5 p-6">
+    <h3 class="font-semibold leading-none tracking-tight">Create project</h3>
+    <p class="text-sm text-muted-foreground">Deploy your new project in one-click.</p>
+  </div>
+  <div class="p-6 pt-0">
+    <form>
+      <div class="grid w-full items-center gap-4">
+        <div class="flex flex-col space-y-1.5">
+          <label for="name" class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">Name</label>
+          <input id="name" placeholder="Name of your project" class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50" />
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="flex items-center p-6 pt-0 flex justify-between">
+    <button class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground h-9 px-4 py-2">
+      Cancel
+    </button>
+    <button class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 bg-primary text-primary-foreground shadow hover:bg-primary/90 h-9 px-4 py-2">
+      Deploy
+    </button>
+  </div>
+</div>
+`.trim();
+
+const cardNotificationCode = `
+<div class="rounded-xl border bg-card text-card-foreground shadow w-[350px]">
+  <div class="flex flex-col space-y-1.5 p-6">
+    <h3 class="font-semibold leading-none tracking-tight">Notifications</h3>
+    <p class="text-sm text-muted-foreground">You have 3 unread messages.</p>
+  </div>
+  <div class="p-6 pt-0 grid gap-4">
+    <div class="flex items-center space-x-4 rounded-md border p-4">
+      <span class="flex h-2 w-2 translate-y-1 rounded-full bg-sky-500" />
+      <div class="space-y-1">
+        <p class="text-sm font-medium leading-none">Everything is up to date</p>
+        <p class="text-sm text-muted-foreground">Your system differs from the current version.</p>
+      </div>
+    </div>
+  </div>
+  <div class="flex items-center p-6 pt-0">
+    <button class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 bg-primary text-primary-foreground shadow hover:bg-primary/90 h-9 px-4 py-2 w-full">
+      Mark all as read
+    </button>
+  </div>
+</div>
+`.trim();
+---
+
+<Layout title="Card - tw-components">
+    <div class="space-y-4">
+        <h1 class="scroll-m-20 text-4xl font-bold tracking-tight">Card</h1>
+        <p class="text-lg text-muted-foreground">
+            Displays a card with header, content, and footer.
+        </p>
+    </div>
+
+    <div class="mt-10 space-y-12">
+        <section class="space-y-4">
+            <h2 class="text-xl font-semibold tracking-tight">Examples</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <ComponentPreview code={cardExampleCode}>
+                    <Card class="w-[350px]">
+                        <CardHeader>
+                            <CardTitle>Create project</CardTitle>
+                            <CardDescription
+                                >Deploy your new project in one-click.</CardDescription
+                            >
+                        </CardHeader>
+                        <CardContent>
+                            <form>
+                                <div class="grid w-full items-center gap-4">
+                                    <div class="flex flex-col space-y-1.5">
+                                        <label
+                                            for="name"
+                                            class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                                            >Name</label
+                                        >
+                                        <input
+                                            id="name"
+                                            placeholder="Name of your project"
+                                            class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                                        />
+                                    </div>
+                                </div>
+                            </form>
+                        </CardContent>
+                        <CardFooter class="flex justify-between">
+                            <Button variant="outline">Cancel</Button>
+                            <Button>Deploy</Button>
+                        </CardFooter>
+                    </Card>
+                </ComponentPreview>
+
+                <ComponentPreview code={cardNotificationCode}>
+                    <Card class="w-[350px]">
+                        <CardHeader>
+                            <CardTitle>Notifications</CardTitle>
+                            <CardDescription
+                                >You have 3 unread messages.</CardDescription
+                            >
+                        </CardHeader>
+                        <CardContent class="grid gap-4">
+                            <div
+                                class="flex items-center space-x-4 rounded-md border p-4"
+                            >
+                                <span
+                                    class="flex h-2 w-2 translate-y-1 rounded-full bg-sky-500"
+                                ></span>
+                                <div class="space-y-1">
+                                    <p class="text-sm font-medium leading-none">
+                                        Everything is up to date
+                                    </p>
+                                    <p class="text-sm text-muted-foreground">
+                                        Your system differs from the current
+                                        version.
+                                    </p>
+                                </div>
+                            </div>
+                        </CardContent>
+                        <CardFooter>
+                            <Button class="w-full">Mark all as read</Button>
+                        </CardFooter>
+                    </Card>
+                </ComponentPreview>
+            </div>
+        </section>
+    </div>
+</Layout>

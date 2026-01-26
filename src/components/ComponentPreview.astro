@@ -1,0 +1,131 @@
+---
+import { Code } from "astro-expressive-code/components";
+
+interface Props {
+    class?: string;
+    code?: string;
+    align?: "center" | "start" | "end";
+}
+
+const { class: className, code = "", align = "center" } = Astro.props;
+---
+
+<div
+    class:list={[
+        "group relative rounded-xl border border-border bg-background",
+        className,
+    ]}
+    data-component-preview
+>
+    <div
+        class="flex items-center justify-between border-b border-border/50 px-4 py-3 bg-muted/20"
+    >
+        <div class="flex gap-1.5 p-1 bg-muted/50 rounded-lg">
+            <button
+                class="text-xs font-medium px-2.5 py-1 rounded-md transition-all duration-200 text-muted-foreground hover:text-foreground data-[active]:bg-background data-[active]:text-foreground data-[active]:shadow-sm"
+                data-tab="preview"
+            >
+                Preview
+            </button>
+            <button
+                class="text-xs font-medium px-2.5 py-1 rounded-md transition-all duration-200 text-muted-foreground hover:text-foreground data-[active]:bg-background data-[active]:text-foreground data-[active]:shadow-sm"
+                data-tab="code"
+            >
+                Code
+            </button>
+        </div>
+    </div>
+
+    <div
+        class:list={[
+            "p-10 min-h-[350px] w-full items-center preview-container bg-background/50 relative overflow-hidden",
+            align === "center"
+                ? "justify-center"
+                : align === "start"
+                  ? "justify-start"
+                  : "justify-end",
+        ]}
+    >
+        <div
+            class="absolute inset-0 -z-10 h-full w-full bg-white dark:bg-slate-950 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] dark:bg-[radial-gradient(#1f2937_1px,transparent_1px)] [background-size:16px_16px]"
+        >
+        </div>
+        <slot />
+    </div>
+
+    <div
+        class="hidden border-t border-border/50 bg-muted/10 p-4 code-container relative"
+    >
+        <div class="absolute right-4 top-4 z-10">
+            <button
+                class="inline-flex h-7 items-center justify-center rounded-md border border-input bg-background/50 backdrop-blur-sm px-2 text-xs font-medium shadow-sm hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 transition-colors"
+                data-copy-btn
+            >
+                Copy
+            </button>
+        </div>
+        <div
+            class="overflow-x-auto rounded-md border border-border/50 bg-background/50 p-4 text-sm font-mono shadow-sm"
+        >
+            <Code code={code} lang="html" />
+        </div>
+    </div>
+</div>
+
+<script>
+    function setupPreviews() {
+        const previews = document.querySelectorAll("[data-component-preview]");
+
+        previews.forEach((preview) => {
+            const previewBtn = preview.querySelector('[data-tab="preview"]');
+            const codeBtn = preview.querySelector('[data-tab="code"]');
+            const previewContainer =
+                preview.querySelector(".preview-container");
+            const codeContainer = preview.querySelector(".code-container");
+            const copyBtn = preview.querySelector("[data-copy-btn]");
+            const codeElement = codeContainer?.querySelector("pre");
+            const codeText = codeElement?.textContent || "";
+
+            if (!previewBtn || !codeBtn || !previewContainer || !codeContainer)
+                return;
+
+            // Set initial state
+            previewBtn.setAttribute("data-active", "true");
+            previewContainer.classList.add("flex");
+
+            previewBtn.addEventListener("click", () => {
+                previewBtn.setAttribute("data-active", "true");
+                codeBtn.removeAttribute("data-active");
+
+                previewContainer.classList.remove("hidden");
+                previewContainer.classList.add("flex");
+                codeContainer.classList.add("hidden");
+            });
+
+            codeBtn.addEventListener("click", () => {
+                codeBtn.setAttribute("data-active", "true");
+                previewBtn.removeAttribute("data-active");
+
+                previewContainer.classList.add("hidden");
+                previewContainer.classList.remove("flex");
+                codeContainer.classList.remove("hidden");
+            });
+
+            copyBtn?.addEventListener("click", async () => {
+                try {
+                    await navigator.clipboard.writeText(codeText);
+                    const originalText = copyBtn.textContent;
+                    copyBtn.textContent = "Copied";
+                    setTimeout(() => {
+                        copyBtn.textContent = originalText;
+                    }, 2000);
+                } catch (err) {
+                    console.error("Failed to copy!", err);
+                }
+            });
+        });
+    }
+
+    setupPreviews();
+    document.addEventListener("astro:page-load", setupPreviews);
+</script>

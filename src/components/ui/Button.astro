@@ -1,0 +1,40 @@
+---
+import { TOP_CLASS } from "../../config";
+
+interface Props {
+    variant?:
+        | "default"
+        | "destructive"
+        | "outline"
+        | "secondary"
+        | "ghost"
+        | "link";
+    size?: "default" | "sm" | "lg" | "icon";
+    class?: string;
+    [key: string]: any;
+}
+
+const {
+    variant = "default",
+    size = "default",
+    class: className,
+    ...rest
+} = Astro.props;
+
+// Helper to construct the full class name using the prefix
+const getVariantClass = (v: string) => `${TOP_CLASS}-button-${v}`;
+const getSizeClass = (s: string) =>
+    s === "default" ? `${TOP_CLASS}-button-md` : `${TOP_CLASS}-button-${s}`;
+
+const baseClass = `${TOP_CLASS}-button`;
+const variantClass = getVariantClass(variant);
+const sizeClass = getSizeClass(size);
+
+const classes = [baseClass, variantClass, sizeClass, className]
+    .filter(Boolean)
+    .join(" ");
+---
+
+<button class={classes} {...rest}>
+    <slot />
+</button>
