@@ -1,0 +1,193 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import ComponentPreview from "../../components/ComponentPreview.astro";
+
+const usageCode = `<div class="cu-container cu-container-lg">
+  <p>Content within a max-w-screen-lg container.</p>
+</div>`.trim();
+
+const sizesCode = `<div class="cu-container cu-container-sm">
+  <div class="rounded-lg border border-border bg-muted/30 px-4 py-3 text-sm text-center">
+    sm — max-w-screen-sm (640px)
+  </div>
+</div>
+
+<div class="cu-container cu-container-md">
+  <div class="rounded-lg border border-border bg-muted/30 px-4 py-3 text-sm text-center">
+    md — max-w-screen-md (768px)
+  </div>
+</div>
+
+<div class="cu-container cu-container-lg">
+  <div class="rounded-lg border border-border bg-muted/30 px-4 py-3 text-sm text-center">
+    lg — max-w-screen-lg (1024px)
+  </div>
+</div>
+
+<div class="cu-container cu-container-xl">
+  <div class="rounded-lg border border-border bg-muted/30 px-4 py-3 text-sm text-center">
+    xl — max-w-screen-xl (1280px)
+  </div>
+</div>`.trim();
+
+const proseCode = `<div class="cu-container cu-container-prose">
+  <h2 class="text-xl font-semibold mb-3">Article Title</h2>
+  <p class="text-sm text-muted-foreground leading-relaxed">
+    The prose container limits width to 65ch, which is the
+    optimal line length for reading. This makes it ideal for
+    blog posts, documentation, and any long-form text content
+    where readability is a priority.
+  </p>
+</div>`.trim();
+
+const noMaxWidthCode = `<div class="cu-container">
+  <div class="rounded-lg border border-border bg-muted/30 px-4 py-3 text-sm text-center">
+    No max-width — full width with responsive horizontal padding
+  </div>
+</div>`.trim();
+
+const nestedCode = `<div class="cu-container cu-container-xl">
+  <div class="flex gap-8">
+    <div class="flex-1 rounded-lg border border-border bg-muted/30 px-4 py-3 text-sm text-center">
+      Main content
+    </div>
+    <div class="w-64 shrink-0 rounded-lg border border-border bg-muted/30 px-4 py-3 text-sm text-center">
+      Sidebar
+    </div>
+  </div>
+</div>`.trim();
+---
+
+<Layout title="Container — Cubby UI">
+	<div class="space-y-3">
+		<h1 class="text-3xl font-bold tracking-tight">Container</h1>
+		<p class="text-base text-muted-foreground leading-relaxed">
+			A content wrapper that controls max-width and provides responsive horizontal padding.
+		</p>
+	</div>
+
+	<div class="mt-10 space-y-10">
+		<!-- Usage -->
+		<section class="space-y-3">
+			<h2 class="text-lg font-semibold tracking-tight">Usage</h2>
+			<p class="text-sm text-muted-foreground leading-relaxed">
+				Combine
+				<code class="cu-code">cu-container</code> with a size class like
+				<code class="cu-code">cu-container-lg</code>.
+				The base class provides
+				<code class="cu-code">mx-auto</code>,
+				<code class="cu-code">w-full</code>, and responsive padding.
+			</p>
+			<ComponentPreview code={usageCode}>
+				<div class="w-full">
+					<div class="cu-container cu-container-lg">
+						<div class="rounded-lg border border-border bg-muted/30 px-4 py-3 text-sm text-center">
+							Content within a max-w-screen-lg container.
+						</div>
+					</div>
+				</div>
+			</ComponentPreview>
+		</section>
+
+		<!-- Sizes -->
+		<section class="space-y-3">
+			<h2 class="text-lg font-semibold tracking-tight">Sizes</h2>
+			<p class="text-sm text-muted-foreground leading-relaxed">
+				Six size variants are available —
+				<code class="cu-code">sm</code> (640px),
+				<code class="cu-code">md</code> (768px),
+				<code class="cu-code">lg</code> (1024px),
+				<code class="cu-code">xl</code> (1280px),
+				<code class="cu-code">2xl</code> (1536px), and
+				<code class="cu-code">prose</code> (65ch).
+			</p>
+			<ComponentPreview code={sizesCode}>
+				<div class="w-full space-y-3">
+					<div class="cu-container cu-container-sm">
+						<div class="rounded-lg border border-border bg-muted/30 px-4 py-3 text-sm text-center">
+							sm — max-w-screen-sm (640px)
+						</div>
+					</div>
+					<div class="cu-container cu-container-md">
+						<div class="rounded-lg border border-border bg-muted/30 px-4 py-3 text-sm text-center">
+							md — max-w-screen-md (768px)
+						</div>
+					</div>
+					<div class="cu-container cu-container-lg">
+						<div class="rounded-lg border border-border bg-muted/30 px-4 py-3 text-sm text-center">
+							lg — max-w-screen-lg (1024px)
+						</div>
+					</div>
+					<div class="cu-container cu-container-xl">
+						<div class="rounded-lg border border-border bg-muted/30 px-4 py-3 text-sm text-center">
+							xl — max-w-screen-xl (1280px)
+						</div>
+					</div>
+				</div>
+			</ComponentPreview>
+		</section>
+
+		<!-- Prose -->
+		<section class="space-y-3">
+			<h2 class="text-lg font-semibold tracking-tight">Prose</h2>
+			<p class="text-sm text-muted-foreground leading-relaxed">
+				Use
+				<code class="cu-code">cu-container-prose</code> for long-form text content.
+				It limits width to 65ch — the optimal line length for readability.
+			</p>
+			<ComponentPreview code={proseCode}>
+				<div class="w-full">
+					<div class="cu-container cu-container-prose">
+						<h2 class="text-xl font-semibold mb-3">Article Title</h2>
+						<p class="text-sm text-muted-foreground leading-relaxed">
+							The prose container limits width to 65ch, which is the
+							optimal line length for reading. This makes it ideal for
+							blog posts, documentation, and any long-form text content
+							where readability is a priority.
+						</p>
+					</div>
+				</div>
+			</ComponentPreview>
+		</section>
+
+		<!-- No Max Width -->
+		<section class="space-y-3">
+			<h2 class="text-lg font-semibold tracking-tight">No Max Width</h2>
+			<p class="text-sm text-muted-foreground leading-relaxed">
+				Use
+				<code class="cu-code">cu-container</code> alone without a size class for a full-width container with only responsive horizontal padding.
+			</p>
+			<ComponentPreview code={noMaxWidthCode}>
+				<div class="w-full">
+					<div class="cu-container">
+						<div class="rounded-lg border border-border bg-muted/30 px-4 py-3 text-sm text-center">
+							No max-width — full width with responsive horizontal padding
+						</div>
+					</div>
+				</div>
+			</ComponentPreview>
+		</section>
+
+		<!-- With Layout -->
+		<section class="space-y-3">
+			<h2 class="text-lg font-semibold tracking-tight">With Layout</h2>
+			<p class="text-sm text-muted-foreground leading-relaxed">
+				Containers work well as wrappers for page layouts with sidebars or multi-column structures.
+			</p>
+			<ComponentPreview code={nestedCode}>
+				<div class="w-full">
+					<div class="cu-container cu-container-xl">
+						<div class="flex gap-8">
+							<div class="flex-1 rounded-lg border border-border bg-muted/30 px-4 py-3 text-sm text-center">
+								Main content
+							</div>
+							<div class="w-64 shrink-0 rounded-lg border border-border bg-muted/30 px-4 py-3 text-sm text-center">
+								Sidebar
+							</div>
+						</div>
+					</div>
+				</div>
+			</ComponentPreview>
+		</section>
+	</div>
+</Layout>

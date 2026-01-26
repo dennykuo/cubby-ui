@@ -78,11 +78,9 @@ const { class: className, code = "", align = "center" } = Astro.props;
     </div>
 
     <div
-        class="hidden border-t border-border/40 p-4 code-container relative animate-fade-in"
+        class="hidden border-t border-border/40 code-container relative animate-fade-in rounded-b-xl bg-white"
     >
-        <div
-            class="overflow-x-auto rounded-lg border border-border/40 max-h-[500px]"
-        >
+        <div class="overflow-x-auto max-h-[500px] p-4 text-foreground">
             <Code code={code} lang="html" class="text-sm font-mono" />
         </div>
     </div>

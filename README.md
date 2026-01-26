@@ -5,11 +5,24 @@
 - 可以直接用在任何地方，不需要任何框架
 - 極少量的 js，純粹用於元件動態效果
 
+## 參考套件
+- [shadcn ui](https://shadcn.github.io/shadcn-ui)
+- [flowbite](https://flowbite.com)
+- [flyonui](https://flyonui.com)
+- [tailwind css](https://tailwindcss.com)
+
 ## Sytle Guide
-- 風格簡約細緻，相當優雅，沒有庸俗高亮度的元素及顏色
-- 某些集合元件的外框可增加淺色的陰影，營造深淺層次
-- 某些元素有圓角，營造柔和感
-- 某些元素有漸層，營造顏色層次
+- 風格簡約細緻、優雅，避免庸俗高亮度的元素和顏色
+- 使用淺色陰影營造深淺層次
+- 適度使用圓角營造柔和感
+- 表單元素使用 `appearance-none` 搭配自訂樣式，避免瀏覽器原生呆板感
+- Checkbox 使用 SVG checkmark，Radio 使用粗 border 內圓點，Toggle 使用純 CSS hidden checkbox + sibling selector
+- 所有文字輸入框（Input、Textarea、Select、Search Input）帶有 `hover:border` 微互動
+- Range slider 的 thumb 帶有 hover 光暈效果
+- 美學參考：
+    - [shadcn ui](https://shadcn.github.io/shadcn-ui)
+    - [flowbite](https://flowbite.com)
+    - [flyonui](https://flyonui.com)
 
 ## Tech Stack
 - Tailwind CSS

@@ -1,0 +1,16 @@
+---
+interface Props {
+	href: string;
+	currentPath: string;
+}
+
+const { href, currentPath } = Astro.props;
+const isActive = currentPath === href;
+---
+
+<a
+	class:list={["cu-sidebar-item", isActive && "cu-sidebar-item-active"]}
+	href={href}
+>
+	<slot />
+</a>

@@ -1,0 +1,168 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import ComponentPreview from "../../components/ComponentPreview.astro";
+
+const usageCode = `<nav class="cu-nav">
+  <a class="cu-nav-item" href="#">Home</a>
+  <a class="cu-nav-item" href="#">Products</a>
+  <a class="cu-nav-item" href="#">About</a>
+  <a class="cu-nav-item" href="#">Contact</a>
+</nav>`.trim();
+
+const activeCode = `<nav class="cu-nav">
+  <a class="cu-nav-item" href="#">Home</a>
+  <a class="cu-nav-item cu-nav-item-active" href="#">Products</a>
+  <a class="cu-nav-item" href="#">About</a>
+  <a class="cu-nav-item" href="#">Contact</a>
+</nav>`.trim();
+
+const verticalCode = `<nav class="cu-nav cu-nav-vertical">
+  <a class="cu-nav-item cu-nav-item-active" href="#">Dashboard</a>
+  <a class="cu-nav-item" href="#">Projects</a>
+  <a class="cu-nav-item" href="#">Tasks</a>
+  <a class="cu-nav-item" href="#">Settings</a>
+</nav>`.trim();
+
+const withIconsCode = `<nav class="cu-nav">
+  <a class="cu-nav-item cu-nav-item-active" href="#">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+    Home
+  </a>
+  <a class="cu-nav-item" href="#">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/><rect width="20" height="14" x="2" y="6" rx="2"/></svg>
+    Projects
+  </a>
+  <a class="cu-nav-item" href="#">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+    Team
+  </a>
+</nav>`.trim();
+
+const verticalIconsCode = `<nav class="cu-nav cu-nav-vertical" style="width:200px;">
+  <a class="cu-nav-item cu-nav-item-active" href="#">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+    Dashboard
+  </a>
+  <a class="cu-nav-item" href="#">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/><rect width="20" height="14" x="2" y="6" rx="2"/></svg>
+    Projects
+  </a>
+  <a class="cu-nav-item" href="#">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
+    Settings
+  </a>
+</nav>`.trim();
+---
+
+<Layout title="Nav — Cubby UI">
+	<div class="space-y-3">
+		<h1 class="text-3xl font-bold tracking-tight">Nav</h1>
+		<p class="text-base text-muted-foreground leading-relaxed">
+			A navigation menu that can be used horizontally in headers or vertically in sidebars.
+		</p>
+	</div>
+
+	<div class="mt-10 space-y-10">
+		<!-- Usage -->
+		<section class="space-y-3">
+			<h2 class="text-lg font-semibold tracking-tight">Usage</h2>
+			<p class="text-sm text-muted-foreground leading-relaxed">
+				Use
+				<code class="cu-code">cu-nav</code> as the container and
+				<code class="cu-code">cu-nav-item</code> for each link.
+			</p>
+			<ComponentPreview code={usageCode}>
+				<nav class="cu-nav">
+					<a class="cu-nav-item" href="#">Home</a>
+					<a class="cu-nav-item" href="#">Products</a>
+					<a class="cu-nav-item" href="#">About</a>
+					<a class="cu-nav-item" href="#">Contact</a>
+				</nav>
+			</ComponentPreview>
+		</section>
+
+		<!-- Active Item -->
+		<section class="space-y-3">
+			<h2 class="text-lg font-semibold tracking-tight">Active Item</h2>
+			<p class="text-sm text-muted-foreground leading-relaxed">
+				Add
+				<code class="cu-code">cu-nav-item-active</code> to mark the current page.
+			</p>
+			<ComponentPreview code={activeCode}>
+				<nav class="cu-nav">
+					<a class="cu-nav-item" href="#">Home</a>
+					<a class="cu-nav-item cu-nav-item-active" href="#">Products</a>
+					<a class="cu-nav-item" href="#">About</a>
+					<a class="cu-nav-item" href="#">Contact</a>
+				</nav>
+			</ComponentPreview>
+		</section>
+
+		<!-- Vertical -->
+		<section class="space-y-3">
+			<h2 class="text-lg font-semibold tracking-tight">Vertical</h2>
+			<p class="text-sm text-muted-foreground leading-relaxed">
+				Add
+				<code class="cu-code">cu-nav-vertical</code> for vertical layout, suitable for use inside sidebars.
+			</p>
+			<ComponentPreview code={verticalCode}>
+				<nav class="cu-nav cu-nav-vertical" style="width:200px;">
+					<a class="cu-nav-item cu-nav-item-active" href="#">Dashboard</a>
+					<a class="cu-nav-item" href="#">Projects</a>
+					<a class="cu-nav-item" href="#">Tasks</a>
+					<a class="cu-nav-item" href="#">Settings</a>
+				</nav>
+			</ComponentPreview>
+		</section>
+
+		<!-- With Icons -->
+		<section class="space-y-3">
+			<h2 class="text-lg font-semibold tracking-tight">With Icons</h2>
+			<p class="text-sm text-muted-foreground leading-relaxed">
+				Items support inline SVG icons. The
+				<code class="cu-code">cu-nav-item</code> class includes
+				<code class="cu-code">gap-2</code> for icon spacing.
+			</p>
+			<ComponentPreview code={withIconsCode}>
+				<nav class="cu-nav">
+					<a class="cu-nav-item cu-nav-item-active" href="#">
+						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+						Home
+					</a>
+					<a class="cu-nav-item" href="#">
+						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/><rect width="20" height="14" x="2" y="6" rx="2"/></svg>
+						Projects
+					</a>
+					<a class="cu-nav-item" href="#">
+						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+						Team
+					</a>
+				</nav>
+			</ComponentPreview>
+		</section>
+
+		<!-- Vertical With Icons -->
+		<section class="space-y-3">
+			<h2 class="text-lg font-semibold tracking-tight">Vertical With Icons</h2>
+			<p class="text-sm text-muted-foreground leading-relaxed">
+				Combine vertical layout with icons for a sidebar-style navigation.
+			</p>
+			<ComponentPreview code={verticalIconsCode}>
+				<nav class="cu-nav cu-nav-vertical" style="width:200px;">
+					<a class="cu-nav-item cu-nav-item-active" href="#">
+						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+						Dashboard
+					</a>
+					<a class="cu-nav-item" href="#">
+						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/><rect width="20" height="14" x="2" y="6" rx="2"/></svg>
+						Projects
+					</a>
+					<a class="cu-nav-item" href="#">
+						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
+						Settings
+					</a>
+				</nav>
+			</ComponentPreview>
+		</section>
+	</div>
+</Layout>

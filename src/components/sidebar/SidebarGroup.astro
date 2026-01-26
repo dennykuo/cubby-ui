@@ -1,0 +1,16 @@
+---
+interface Props {
+	title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<div class="cu-sidebar-group">
+	<h5 class="cu-sidebar-group-title">
+		{title}
+	</h5>
+	<div class="mt-1 space-y-0.5">
+		<slot />
+	</div>
+</div>

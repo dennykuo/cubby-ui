@@ -10,11 +10,13 @@ export default defineConfig({
   },
 
   integrations: [expressiveCode({
-    themes: ['github-dark', 'github-light'],
+    themes: ['min-light', 'min-dark'],
     frames: {
       showCopyToClipboardButton: false,
     },
     styleOverrides: {
+      codeBackground: 'transparent',
+      borderColor: 'transparent',
       frames: {
         shadowColor: 'transparent',
       }

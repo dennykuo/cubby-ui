@@ -33,11 +33,8 @@ const baseClass = `${TOP_CLASS}-button`;
 const variantClass = getVariantClass(variant);
 const sizeClass = getSizeClass(size);
 
-const classes = [baseClass, variantClass, sizeClass, className]
-    .filter(Boolean)
-    .join(" ");
 ---
 
-<button class={classes} {...rest}>
+<button class:list={[baseClass, variantClass, sizeClass, className]} {...rest}>
     <slot />
 </button>

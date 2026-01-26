@@ -1,0 +1,17 @@
+---
+import { TOP_CLASS } from "../../config";
+
+interface Props {
+	active?: boolean;
+	class?: string;
+	[key: string]: any;
+}
+
+const { active = false, class: className, ...rest } = Astro.props;
+const baseClass = `${TOP_CLASS}-nav-item`;
+const activeClass = active ? `${TOP_CLASS}-nav-item-active` : "";
+---
+
+<a class:list={[baseClass, activeClass, className]} {...rest}>
+	<slot />
+</a>

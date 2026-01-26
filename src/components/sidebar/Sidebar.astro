@@ -1,0 +1,94 @@
+---
+import SidebarSection from "./SidebarSection.astro";
+import SidebarGroup from "./SidebarGroup.astro";
+import SidebarLink from "./SidebarLink.astro";
+
+interface Props {
+	currentPath: string;
+}
+
+const { currentPath } = Astro.props;
+
+const gettingStarted = [
+	{ name: "Introduction", href: "/" },
+	{ name: "Installation", href: "#" },
+];
+
+const basicComponents = [
+	{ name: "Button", href: "/components/button" },
+	{ name: "Card", href: "/components/card" },
+];
+
+const formComponents = [
+	{ name: "Label", href: "/components/label" },
+	{ name: "Input", href: "/components/input" },
+	{ name: "Textarea", href: "/components/textarea" },
+	{ name: "Select", href: "/components/select" },
+	{ name: "Checkbox", href: "/components/checkbox" },
+	{ name: "Radio", href: "/components/radio" },
+	{ name: "Toggle", href: "/components/toggle" },
+	{ name: "Search Input", href: "/components/search-input" },
+	{ name: "File Input", href: "/components/file-input" },
+	{ name: "Range", href: "/components/range" },
+	{ name: "Form Group", href: "/components/form-group" },
+];
+
+const layoutComponents = [
+	{ name: "Container", href: "/components/container" },
+	{ name: "Header", href: "/components/header" },
+	{ name: "Nav", href: "/components/nav" },
+	{ name: "Sidebar", href: "/components/sidebar" },
+];
+---
+
+<aside
+	class="hidden md:block sticky top-14 h-[calc(100vh-3.5rem)] w-56 lg:w-60 shrink-0 overflow-y-auto py-8 pl-6 lg:pl-8 pr-2"
+>
+	<nav class="space-y-6">
+		<SidebarSection title="Getting Started">
+			<div class="space-y-0.5">
+				{
+					gettingStarted.map((item) => (
+						<SidebarLink href={item.href} currentPath={currentPath}>
+							{item.name}
+						</SidebarLink>
+					))
+				}
+			</div>
+		</SidebarSection>
+
+		<SidebarSection title="Components">
+			<div class="space-y-4">
+				<SidebarGroup title="Basic">
+					{
+						basicComponents.map((item) => (
+							<SidebarLink href={item.href} currentPath={currentPath}>
+								{item.name}
+							</SidebarLink>
+						))
+					}
+				</SidebarGroup>
+
+				<SidebarGroup title="Forms">
+					{
+						formComponents.map((item) => (
+							<SidebarLink href={item.href} currentPath={currentPath}>
+								{item.name}
+							</SidebarLink>
+						))
+					}
+				</SidebarGroup>
+
+				<SidebarGroup title="Layouts">
+					{
+						layoutComponents.map((item) => (
+							<SidebarLink href={item.href} currentPath={currentPath}>
+								{item.name}
+							</SidebarLink>
+						))
+					}
+				</SidebarGroup>
+			</div>
+		</SidebarSection>
+	</nav>
+</aside>

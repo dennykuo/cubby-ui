@@ -1,0 +1,17 @@
+---
+import { TOP_CLASS } from "../../config";
+
+interface Props {
+	vertical?: boolean;
+	class?: string;
+	[key: string]: any;
+}
+
+const { vertical = false, class: className, ...rest } = Astro.props;
+const baseClass = `${TOP_CLASS}-nav`;
+const verticalClass = vertical ? `${TOP_CLASS}-nav-vertical` : "";
+---
+
+<nav class:list={[baseClass, verticalClass, className]} {...rest}>
+	<slot />
+</nav>
