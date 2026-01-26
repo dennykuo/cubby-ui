@@ -3,49 +3,46 @@ import Layout from "../../layouts/Layout.astro";
 import Button from "../../components/ui/Button.astro";
 import ComponentPreview from "../../components/ComponentPreview.astro";
 
-const buttonVariantsCode = `
-<button class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 bg-primary text-primary-foreground shadow hover:bg-primary/90 h-9 px-4 py-2">
-  Default
+const usageCode = `<button class="cu-button cu-button-default cu-button-md">
+  Button
+</button>`.trim();
+
+const variantsCode = `<button class="cu-button cu-button-default cu-button-md">Default</button>
+<button class="cu-button cu-button-secondary cu-button-md">Secondary</button>
+<button class="cu-button cu-button-outline cu-button-md">Outline</button>
+<button class="cu-button cu-button-ghost cu-button-md">Ghost</button>
+<button class="cu-button cu-button-link cu-button-md">Link</button>
+<button class="cu-button cu-button-destructive cu-button-md">Destructive</button>
+<button class="cu-button cu-button-success cu-button-md">Success</button>
+<button class="cu-button cu-button-warning cu-button-md">Warning</button>
+<button class="cu-button cu-button-info cu-button-md">Info</button>`.trim();
+
+const sizesCode = `<button class="cu-button cu-button-default cu-button-xs">Extra Small</button>
+<button class="cu-button cu-button-default cu-button-sm">Small</button>
+<button class="cu-button cu-button-default cu-button-md">Default</button>
+<button class="cu-button cu-button-default cu-button-lg">Large</button>
+<button class="cu-button cu-button-default cu-button-xl">Extra Large</button>`.trim();
+
+const withIconCode = `<!-- Icon before text -->
+<button class="cu-button cu-button-default cu-button-md">
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+  Login with Email
 </button>
 
-<button class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80 h-9 px-4 py-2">
-  Secondary
+<!-- Icon after text -->
+<button class="cu-button cu-button-outline cu-button-md">
+  Continue
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
 </button>
 
-<button class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground h-9 px-4 py-2">
-  Outline
-</button>
+<!-- Icon only -->
+<button class="cu-button cu-button-outline cu-button-icon">
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
+</button>`.trim();
 
-<button class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/90 h-9 px-4 py-2">
-  Destructive
-</button>
-
-<button class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 hover:bg-accent hover:text-accent-foreground h-9 px-4 py-2">
-  Ghost
-</button>
-
-<button class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 text-primary underline-offset-4 hover:underline h-9 px-4 py-2">
-  Link
-</button>
-`.trim();
-
-const buttonSizesCode = `
-<button class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 bg-primary text-primary-foreground shadow hover:bg-primary/90 h-8 rounded-md px-3 text-xs">
-  Small
-</button>
-
-<button class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 bg-primary text-primary-foreground shadow hover:bg-primary/90 h-9 px-4 py-2">
-  Default
-</button>
-
-<button class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 bg-primary text-primary-foreground shadow hover:bg-primary/90 h-10 rounded-md px-8">
-  Large
-</button>
-
-<button class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 bg-primary text-primary-foreground shadow hover:bg-primary/90 h-9 w-9">
-  <svg>...</svg>
-</button>
-`.trim();
+const disabledCode = `<button class="cu-button cu-button-default cu-button-md" disabled>Default</button>
+<button class="cu-button cu-button-secondary cu-button-md" disabled>Secondary</button>
+<button class="cu-button cu-button-outline cu-button-md" disabled>Outline</button>`.trim();
 ---
 
 <Layout title="Button — Cubby UI">
@@ -56,17 +53,32 @@ const buttonSizesCode = `
     </p>
   </div>
 
-  <div class="mt-10 space-y-12">
-    <section class="space-y-4">
+  <div class="mt-10 space-y-10">
+    <!-- Usage -->
+    <section class="space-y-3">
+      <h2 class="text-lg font-semibold tracking-tight">Usage</h2>
+      <p class="text-sm text-muted-foreground leading-relaxed">
+        Apply <code class="rounded bg-muted px-1.5 py-0.5 text-[13px] font-mono text-foreground">cu-button</code> as the base class, then add a variant and size class.
+      </p>
+      <ComponentPreview code={usageCode}>
+        <Button>Button</Button>
+      </ComponentPreview>
+    </section>
+
+    <!-- Variants -->
+    <section class="space-y-3">
       <h2 class="text-lg font-semibold tracking-tight">Variants</h2>
-      <ComponentPreview code={buttonVariantsCode}>
-        <div class="flex flex-wrap gap-4 items-center justify-center">
+      <p class="text-sm text-muted-foreground leading-relaxed">
+        Use variant classes to change the button's visual style. Each variant conveys a different level of emphasis or intent.
+      </p>
+      <ComponentPreview code={variantsCode}>
+        <div class="flex flex-wrap gap-3 items-center justify-center">
           <Button>Default</Button>
           <Button variant="secondary">Secondary</Button>
           <Button variant="outline">Outline</Button>
-          <Button variant="destructive">Destructive</Button>
           <Button variant="ghost">Ghost</Button>
           <Button variant="link">Link</Button>
+          <Button variant="destructive">Destructive</Button>
           <Button variant="success">Success</Button>
           <Button variant="warning">Warning</Button>
           <Button variant="info">Info</Button>
@@ -74,16 +86,63 @@ const buttonSizesCode = `
       </ComponentPreview>
     </section>
 
-    <section class="space-y-4">
+    <!-- Sizes -->
+    <section class="space-y-3">
       <h2 class="text-lg font-semibold tracking-tight">Sizes</h2>
-      <ComponentPreview code={buttonSizesCode}>
-        <div class="flex flex-wrap gap-4 items-center justify-center">
+      <p class="text-sm text-muted-foreground leading-relaxed">
+        Five sizes are available — from
+        <code class="rounded bg-muted px-1.5 py-0.5 text-[13px] font-mono text-foreground">cu-button-xs</code> to
+        <code class="rounded bg-muted px-1.5 py-0.5 text-[13px] font-mono text-foreground">cu-button-xl</code>.
+        The default size is <code class="rounded bg-muted px-1.5 py-0.5 text-[13px] font-mono text-foreground">cu-button-md</code>.
+      </p>
+      <ComponentPreview code={sizesCode}>
+        <div class="flex flex-wrap gap-3 items-end justify-center">
           <Button size="xs">Extra Small</Button>
           <Button size="sm">Small</Button>
           <Button size="default">Default</Button>
           <Button size="lg">Large</Button>
           <Button size="xl">Extra Large</Button>
-          <Button size="icon">💡</Button>
+        </div>
+      </ComponentPreview>
+    </section>
+
+    <!-- With Icons -->
+    <section class="space-y-3">
+      <h2 class="text-lg font-semibold tracking-tight">With Icons</h2>
+      <p class="text-sm text-muted-foreground leading-relaxed">
+        Add inline SVG icons before or after the label text. Use
+        <code class="rounded bg-muted px-1.5 py-0.5 text-[13px] font-mono text-foreground">cu-button-icon</code>
+        for icon-only buttons.
+      </p>
+      <ComponentPreview code={withIconCode}>
+        <div class="flex flex-wrap gap-3 items-center justify-center">
+          <Button>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+            Login with Email
+          </Button>
+          <Button variant="outline">
+            Continue
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </Button>
+          <Button variant="outline" size="icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
+          </Button>
+        </div>
+      </ComponentPreview>
+    </section>
+
+    <!-- Disabled -->
+    <section class="space-y-3">
+      <h2 class="text-lg font-semibold tracking-tight">Disabled</h2>
+      <p class="text-sm text-muted-foreground leading-relaxed">
+        Add the <code class="rounded bg-muted px-1.5 py-0.5 text-[13px] font-mono text-foreground">disabled</code> attribute.
+        The button becomes non-interactive with reduced opacity.
+      </p>
+      <ComponentPreview code={disabledCode}>
+        <div class="flex flex-wrap gap-3 items-center justify-center">
+          <Button disabled>Default</Button>
+          <Button variant="secondary" disabled>Secondary</Button>
+          <Button variant="outline" disabled>Outline</Button>
         </div>
       </ComponentPreview>
     </section>

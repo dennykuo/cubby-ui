@@ -9,55 +9,79 @@ import CardContent from "../../components/ui/CardContent.astro";
 import CardFooter from "../../components/ui/CardFooter.astro";
 import ComponentPreview from "../../components/ComponentPreview.astro";
 
-const cardExampleCode = `
-<div class="rounded-xl border bg-card text-card-foreground shadow w-[350px]">
-  <div class="flex flex-col space-y-1.5 p-6">
-    <h3 class="font-semibold leading-none tracking-tight">Create project</h3>
-    <p class="text-sm text-muted-foreground">Deploy your new project in one-click.</p>
+const usageCode = `<div class="cu-card">
+  <div class="cu-card-header">
+    <h3 class="cu-card-title">Card Title</h3>
+    <p class="cu-card-description">Card description goes here.</p>
   </div>
-  <div class="p-6 pt-0">
+  <div class="cu-card-content">
+    <p>Card content.</p>
+  </div>
+  <div class="cu-card-footer">
+    <button class="cu-button cu-button-default cu-button-md">Action</button>
+  </div>
+</div>`.trim();
+
+const formCardCode = `<div class="cu-card w-[380px]">
+  <div class="cu-card-header">
+    <h3 class="cu-card-title">Create project</h3>
+    <p class="cu-card-description">Deploy your new project in one-click.</p>
+  </div>
+  <div class="cu-card-content">
     <form>
       <div class="grid w-full items-center gap-4">
         <div class="flex flex-col space-y-1.5">
-          <label for="name" class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">Name</label>
-          <input id="name" placeholder="Name of your project" class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50" />
+          <label for="name" class="text-sm font-medium leading-none">Name</label>
+          <input id="name" placeholder="Name of your project"
+            class="flex h-9 w-full rounded-lg border border-input bg-background px-3 py-1 text-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/40 focus-visible:ring-offset-2" />
         </div>
       </div>
     </form>
   </div>
-  <div class="flex items-center p-6 pt-0 flex justify-between">
-    <button class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground h-9 px-4 py-2">
-      Cancel
-    </button>
-    <button class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 bg-primary text-primary-foreground shadow hover:bg-primary/90 h-9 px-4 py-2">
-      Deploy
-    </button>
+  <div class="cu-card-footer flex justify-between">
+    <button class="cu-button cu-button-outline cu-button-md">Cancel</button>
+    <button class="cu-button cu-button-default cu-button-md">Deploy</button>
   </div>
-</div>
-`.trim();
+</div>`.trim();
 
-const cardNotificationCode = `
-<div class="rounded-xl border bg-card text-card-foreground shadow w-[350px]">
-  <div class="flex flex-col space-y-1.5 p-6">
-    <h3 class="font-semibold leading-none tracking-tight">Notifications</h3>
-    <p class="text-sm text-muted-foreground">You have 3 unread messages.</p>
+const notificationCardCode = `<div class="cu-card w-[380px]">
+  <div class="cu-card-header">
+    <h3 class="cu-card-title">Notifications</h3>
+    <p class="cu-card-description">You have 3 unread messages.</p>
   </div>
-  <div class="p-6 pt-0 grid gap-4">
-    <div class="flex items-center space-x-4 rounded-md border p-4">
-      <span class="flex h-2 w-2 translate-y-1 rounded-full bg-sky-500" />
-      <div class="space-y-1">
-        <p class="text-sm font-medium leading-none">Everything is up to date</p>
-        <p class="text-sm text-muted-foreground">Your system differs from the current version.</p>
+  <div class="cu-card-content grid gap-3">
+    <div class="flex items-center gap-4 rounded-lg border p-3">
+      <span class="flex h-2 w-2 rounded-full bg-sky-500"></span>
+      <div class="space-y-0.5">
+        <p class="text-sm font-medium leading-none">Push notifications</p>
+        <p class="text-sm text-muted-foreground">Send to device.</p>
+      </div>
+    </div>
+    <div class="flex items-center gap-4 rounded-lg border p-3">
+      <span class="flex h-2 w-2 rounded-full bg-sky-500"></span>
+      <div class="space-y-0.5">
+        <p class="text-sm font-medium leading-none">Email digest</p>
+        <p class="text-sm text-muted-foreground">Weekly summary.</p>
       </div>
     </div>
   </div>
-  <div class="flex items-center p-6 pt-0">
-    <button class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 bg-primary text-primary-foreground shadow hover:bg-primary/90 h-9 px-4 py-2 w-full">
+  <div class="cu-card-footer">
+    <button class="cu-button cu-button-default cu-button-md w-full">
       Mark all as read
     </button>
   </div>
-</div>
-`.trim();
+</div>`.trim();
+
+const simpleCardsCode = `<div class="cu-card">
+  <div class="cu-card-header">
+    <h3 class="cu-card-title">Total Revenue</h3>
+    <p class="cu-card-description">January - June 2024</p>
+  </div>
+  <div class="cu-card-content">
+    <div class="text-3xl font-bold">$45,231.89</div>
+    <p class="text-xs text-muted-foreground mt-1">+20.1% from last month</p>
+  </div>
+</div>`.trim();
 ---
 
 <Layout title="Card — Cubby UI">
@@ -68,75 +92,136 @@ const cardNotificationCode = `
         </p>
     </div>
 
-    <div class="mt-10 space-y-12">
-        <section class="space-y-4">
-            <h2 class="text-lg font-semibold tracking-tight">Examples</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <ComponentPreview code={cardExampleCode}>
-                    <Card class="w-[350px]">
-                        <CardHeader>
-                            <CardTitle>Create project</CardTitle>
-                            <CardDescription
-                                >Deploy your new project in one-click.</CardDescription
-                            >
-                        </CardHeader>
-                        <CardContent>
-                            <form>
-                                <div class="grid w-full items-center gap-4">
-                                    <div class="flex flex-col space-y-1.5">
-                                        <label
-                                            for="name"
-                                            class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                                            >Name</label
-                                        >
-                                        <input
-                                            id="name"
-                                            placeholder="Name of your project"
-                                            class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-                                        />
-                                    </div>
-                                </div>
-                            </form>
-                        </CardContent>
-                        <CardFooter class="flex justify-between">
-                            <Button variant="outline">Cancel</Button>
-                            <Button>Deploy</Button>
-                        </CardFooter>
-                    </Card>
-                </ComponentPreview>
+    <div class="mt-10 space-y-10">
+        <!-- Usage -->
+        <section class="space-y-3">
+            <h2 class="text-lg font-semibold tracking-tight">Usage</h2>
+            <p class="text-sm text-muted-foreground leading-relaxed">
+                A card is composed of
+                <code class="rounded bg-muted px-1.5 py-0.5 text-[13px] font-mono text-foreground">cu-card</code>,
+                <code class="rounded bg-muted px-1.5 py-0.5 text-[13px] font-mono text-foreground">cu-card-header</code>,
+                <code class="rounded bg-muted px-1.5 py-0.5 text-[13px] font-mono text-foreground">cu-card-content</code>, and
+                <code class="rounded bg-muted px-1.5 py-0.5 text-[13px] font-mono text-foreground">cu-card-footer</code>.
+                Each part is optional.
+            </p>
+            <ComponentPreview code={usageCode}>
+                <Card class="w-[380px]">
+                    <CardHeader>
+                        <CardTitle>Card Title</CardTitle>
+                        <CardDescription>Card description goes here.</CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                        <p>Card content.</p>
+                    </CardContent>
+                    <CardFooter>
+                        <Button>Action</Button>
+                    </CardFooter>
+                </Card>
+            </ComponentPreview>
+        </section>
 
-                <ComponentPreview code={cardNotificationCode}>
-                    <Card class="w-[350px]">
-                        <CardHeader>
-                            <CardTitle>Notifications</CardTitle>
-                            <CardDescription
-                                >You have 3 unread messages.</CardDescription
-                            >
-                        </CardHeader>
-                        <CardContent class="grid gap-4">
-                            <div
-                                class="flex items-center space-x-4 rounded-md border p-4"
-                            >
-                                <span
-                                    class="flex h-2 w-2 translate-y-1 rounded-full bg-sky-500"
-                                ></span>
-                                <div class="space-y-1">
-                                    <p class="text-sm font-medium leading-none">
-                                        Everything is up to date
-                                    </p>
-                                    <p class="text-sm text-muted-foreground">
-                                        Your system differs from the current
-                                        version.
-                                    </p>
+        <!-- Form Card -->
+        <section class="space-y-3">
+            <h2 class="text-lg font-semibold tracking-tight">Form Card</h2>
+            <p class="text-sm text-muted-foreground leading-relaxed">
+                Cards work well as containers for forms with actions in the footer.
+            </p>
+            <ComponentPreview code={formCardCode}>
+                <Card class="w-[380px]">
+                    <CardHeader>
+                        <CardTitle>Create project</CardTitle>
+                        <CardDescription>Deploy your new project in one-click.</CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                        <form>
+                            <div class="grid w-full items-center gap-4">
+                                <div class="flex flex-col space-y-1.5">
+                                    <label
+                                        for="name"
+                                        class="text-sm font-medium leading-none"
+                                    >Name</label>
+                                    <input
+                                        id="name"
+                                        placeholder="Name of your project"
+                                        class="flex h-9 w-full rounded-lg border border-input bg-background px-3 py-1 text-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/40 focus-visible:ring-offset-2"
+                                    />
                                 </div>
                             </div>
+                        </form>
+                    </CardContent>
+                    <CardFooter class="flex justify-between">
+                        <Button variant="outline">Cancel</Button>
+                        <Button>Deploy</Button>
+                    </CardFooter>
+                </Card>
+            </ComponentPreview>
+        </section>
+
+        <!-- Notification Card -->
+        <section class="space-y-3">
+            <h2 class="text-lg font-semibold tracking-tight">Notification Card</h2>
+            <p class="text-sm text-muted-foreground leading-relaxed">
+                Cards can contain lists of items with a full-width action button.
+            </p>
+            <ComponentPreview code={notificationCardCode}>
+                <Card class="w-[380px]">
+                    <CardHeader>
+                        <CardTitle>Notifications</CardTitle>
+                        <CardDescription>You have 3 unread messages.</CardDescription>
+                    </CardHeader>
+                    <CardContent class="grid gap-3">
+                        <div class="flex items-center gap-4 rounded-lg border p-3">
+                            <span class="flex h-2 w-2 rounded-full bg-sky-500"></span>
+                            <div class="space-y-0.5">
+                                <p class="text-sm font-medium leading-none">Push notifications</p>
+                                <p class="text-sm text-muted-foreground">Send to device.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-4 rounded-lg border p-3">
+                            <span class="flex h-2 w-2 rounded-full bg-sky-500"></span>
+                            <div class="space-y-0.5">
+                                <p class="text-sm font-medium leading-none">Email digest</p>
+                                <p class="text-sm text-muted-foreground">Weekly summary.</p>
+                            </div>
+                        </div>
+                    </CardContent>
+                    <CardFooter>
+                        <Button class="w-full">Mark all as read</Button>
+                    </CardFooter>
+                </Card>
+            </ComponentPreview>
+        </section>
+
+        <!-- Metric Card -->
+        <section class="space-y-3">
+            <h2 class="text-lg font-semibold tracking-tight">Metric Card</h2>
+            <p class="text-sm text-muted-foreground leading-relaxed">
+                A minimal card without a footer — useful for dashboards and stats.
+            </p>
+            <ComponentPreview code={simpleCardsCode}>
+                <div class="flex flex-wrap gap-4 justify-center">
+                    <Card class="w-[200px]">
+                        <CardHeader>
+                            <CardTitle class="text-sm font-medium">Total Revenue</CardTitle>
+                            <CardDescription>January - June 2024</CardDescription>
+                        </CardHeader>
+                        <CardContent>
+                            <div class="text-3xl font-bold">$45,231.89</div>
+                            <p class="text-xs text-muted-foreground mt-1">+20.1% from last month</p>
                         </CardContent>
-                        <CardFooter>
-                            <Button class="w-full">Mark all as read</Button>
-                        </CardFooter>
                     </Card>
-                </ComponentPreview>
-            </div>
+                    <Card class="w-[200px]">
+                        <CardHeader>
+                            <CardTitle class="text-sm font-medium">Subscriptions</CardTitle>
+                            <CardDescription>Active plans</CardDescription>
+                        </CardHeader>
+                        <CardContent>
+                            <div class="text-3xl font-bold">+2,350</div>
+                            <p class="text-xs text-muted-foreground mt-1">+180.1% from last month</p>
+                        </CardContent>
+                    </Card>
+                </div>
+            </ComponentPreview>
         </section>
     </div>
 </Layout>
