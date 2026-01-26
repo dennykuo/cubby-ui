@@ -7,7 +7,7 @@
   --color-border: hsl(214.3 31.8% 91.4%);
   --color-input: hsl(214.3 31.8% 91.4%);
   --color-ring: hsl(221 83% 53%);
-  --color-background: hsl(0 0% 100%);
+  --color-background: hsl(210 40% 98.8%);
   --color-foreground: hsl(222.2 47.4% 11.2%);
 
   --color-primary: hsl(221 83% 53%);
@@ -29,7 +29,7 @@
   --color-info-foreground: hsl(0 0% 100%);
 
   --color-muted: hsl(210 40% 96.1%);
-  --color-muted-foreground: hsl(215.4 16.3% 46.9%);
+  --color-muted-foreground: hsl(215 20% 43.5%);
 
   --color-accent: hsl(210 40% 96.1%);
   --color-accent-foreground: hsl(222.2 47.4% 11.2%);
@@ -58,4 +58,15 @@
 
 body {
   @apply bg-background text-foreground antialiased;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
