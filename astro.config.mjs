@@ -17,6 +17,9 @@ export default defineConfig({
     styleOverrides: {
       codeBackground: 'transparent',
       borderColor: 'transparent',
+      codeFontSize: '13px',
+      codePaddingBlock: '0',
+      codePaddingInline: '0',
       frames: {
         shadowColor: 'transparent',
       }

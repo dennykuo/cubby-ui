@@ -29,7 +29,7 @@ Cubby UI 是一個框架無關的 UI 元件庫，風格類似 shadcn/ui，使用
 
 元件有兩個層次：
 
-1. **CSS 類別層**（`src/styles/components.css`）— 在 `@layer components` 中定義，使用 `cu-` 前綴（Cubby）。CSS 按領域分三個區塊：`BASIC`（Button, Card）→ `FORMS`（Label ~ Form Group）→ `LAYOUT`（Container, Header, Nav, Sidebar）。這是元件的核心，純 HTML 專案可以只用這些 CSS 類別。
+1. **CSS 類別層**（`src/styles/components.css` + `src/styles/components/*.css`）— 在 `@layer components` 中定義，使用 `cu-` 前綴（Cubby）。`components.css` 僅包含 `@layer components {}` 包裝和 `@import` 語句，各元件 CSS 規則拆分至 `components/` 資料夾的獨立檔案。CSS 按領域分七個區塊：`BASIC`（Button, Card）→ `FORMS`（Label ~ Form Group）→ `DATA DISPLAY`（Badge, Avatar, Table, Accordion）→ `FEEDBACK`（Alert, Progress, Skeleton）→ `OVERLAY`（Dialog, Dropdown Menu, Tooltip）→ `NAVIGATION`（Breadcrumb, Pagination, Tabs）→ `LAYOUT`（Container, Header, Nav, Sidebar）。這是元件的核心，純 HTML 專案可以只用這些 CSS 類別。
 2. **Astro 元件層**（`src/components/ui/`）— 包裝 CSS 類別的 `.astro` 檔案，提供 TypeScript Props 型別安全和屬性透傳。
 
 ### CSS 類別命名規則
@@ -66,10 +66,17 @@ src/
 │   │   ├── SidebarGroup.astro     — 第二層副標題（使用 cu-sidebar-group / cu-sidebar-group-title）
 │   │   └── SidebarLink.astro      — 導航連結（使用 cu-sidebar-item / cu-sidebar-item-active）
 │   └── ui/                        — 可重用 UI 元件
+│       ├── Accordion*.astro       — 手風琴（Accordion, AccordionItem, AccordionTrigger, AccordionContent）
+│       ├── Alert*.astro           — 警示（Alert, AlertTitle, AlertDescription）
+│       ├── Avatar*.astro          — 頭像（Avatar, AvatarImage, AvatarFallback）
+│       ├── Badge.astro            — 徽章（variant prop）
+│       ├── Breadcrumb*.astro      — 麵包屑（Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbSeparator, BreadcrumbCurrent）
 │       ├── Button.astro           — 按鈕（variant + size props）
 │       ├── Card*.astro            — 卡片（Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter）
 │       ├── Checkbox.astro         — 核取方塊（自訂勾勾）
 │       ├── Container.astro        — 容器（size prop）
+│       ├── Dialog*.astro          — 對話框（Dialog, DialogHeader, DialogTitle, DialogDescription, DialogFooter, DialogClose）
+│       ├── Dropdown*.astro        — 下拉選單（Dropdown, DropdownContent, DropdownItem, DropdownLabel, DropdownSeparator）
 │       ├── FileInput.astro        — 檔案上傳
 │       ├── FormGroup.astro        — 表單群組容器
 │       ├── FormDescription.astro  — 表單說明文字
@@ -79,11 +86,14 @@ src/
 │       ├── Label.astro            — 表單標籤
 │       ├── Nav.astro              — 導航選單（vertical prop）
 │       ├── NavItem.astro          — 導航項目（active prop）
+│       ├── Pagination*.astro      — 分頁（Pagination, PaginationItem, PaginationPrev, PaginationNext, PaginationEllipsis）
+│       ├── Progress.astro         — 進度條（value prop）
 │       ├── Radio.astro            — 單選按鈕（自訂圓點）
 │       ├── Range.astro            — 滑桿
 │       ├── SearchInput.astro      — 搜尋欄（含搜尋圖示）
 │       ├── Select.astro           — 下拉選擇（含裝飾箭頭）
 │       ├── Sidebar*.astro         — 側邊欄（Sidebar, SidebarHeader, SidebarContent, SidebarFooter, SidebarSection, SidebarSectionTitle, SidebarGroup, SidebarGroupTitle, SidebarItem, SidebarSeparator）
+│       ├── Skeleton.astro         — 骨架屏
 │       ├── Textarea.astro         — 多行輸入框
 │       └── Toggle.astro           — 開關（純 CSS，size prop）
 ├── config.ts                      — 全域配置（TOP_CLASS = 'cu'）
@@ -92,47 +102,94 @@ src/
 ├── pages/
 │   ├── index.astro                — 首頁
 │   └── components/                — 元件文檔頁面
+│       ├── accordion.astro
+│       ├── alert.astro
+│       ├── avatar.astro
+│       ├── badge.astro
+│       ├── breadcrumb.astro
 │       ├── button.astro
 │       ├── card.astro
 │       ├── checkbox.astro
 │       ├── container.astro
+│       ├── dialog.astro
+│       ├── dropdown.astro
 │       ├── file-input.astro
 │       ├── form-group.astro
 │       ├── header.astro
 │       ├── input.astro
 │       ├── label.astro
 │       ├── nav.astro
+│       ├── pagination.astro
+│       ├── progress.astro
 │       ├── radio.astro
 │       ├── range.astro
 │       ├── search-input.astro
 │       ├── select.astro
 │       ├── sidebar.astro
+│       ├── skeleton.astro
+│       ├── tabs.astro
 │       ├── textarea.astro
-│       └── toggle.astro
+│       ├── toggle.astro
+│       └── tooltip.astro
 └── styles/
     ├── global.css                 — 設計 token、主題變數、.cu-code 工具類別
-    └── components.css             — 所有元件的 CSS 類別定義（BASIC → FORMS → LAYOUT）
+    ├── components.css             — @layer components 包裝 + @import 各子檔案
+    └── components/                — 各元件獨立 CSS 檔案
+        ├── button.css
+        ├── card.css
+        ├── label.css
+        ├── input.css
+        ├── file-input.css
+        ├── search-input.css
+        ├── select.css
+        ├── textarea.css
+        ├── checkbox.css
+        ├── radio.css
+        ├── toggle.css
+        ├── range.css
+        ├── form-group.css
+        ├── badge.css
+        ├── avatar.css
+        ├── table.css
+        ├── accordion.css
+        ├── alert.css
+        ├── progress.css
+        ├── skeleton.css
+        ├── dialog.css
+        ├── dropdown.css
+        ├── tooltip.css
+        ├── breadcrumb.css
+        ├── pagination.css
+        ├── tabs.css
+        ├── container.css
+        ├── header.css
+        ├── nav.css
+        └── sidebar.css
 ```
 
 ### Astro 元件模式
 
 所有 UI 元件統一使用 `interface Props` 型別定義和 `class:list` 處理 class 組合。分為三種模式：
 
-1. **Simple**（Label, Input, Textarea, Checkbox, Radio, Range, FormGroup, Card 子元件, Header 子元件, Sidebar 子元件等）— 定義 `interface Props { class?: string; [key: string]: any; }`，提取 `class` + `...rest`，使用 `class:list={[baseClass, className]}` 和 `<slot />`。
-2. **Composite**（SearchInput, Select）— 包含包裝器 + 內部子元素（如圖示、輸入框），props 轉發給內部元素。
-3. **Complex**（Button, Toggle, Container, Nav, NavItem, SidebarItem）— 有 `variant` / `size` / `active` / `vertical` 等 typed props，使用 `class:list` 組合多個條件 class。
+1. **Simple**（Label, Input, Textarea, Checkbox, Radio, Range, FormGroup, Card 子元件, Header 子元件, Sidebar 子元件, Alert 子元件, Avatar 子元件, Dialog 子元件, Dropdown 子元件, Breadcrumb 子元件, Table 子元件, Accordion 子元件, Skeleton, Pagination 等）— 定義 `interface Props { class?: string; [key: string]: any; }`，提取 `class` + `...rest`，使用 `class:list={[baseClass, className]}` 和 `<slot />`。
+2. **Composite**（SearchInput, Select, Progress）— 包含包裝器 + 內部子元素（如圖示、輸入框、進度條），props 轉發給內部元素。
+3. **Complex**（Button, Toggle, Container, Nav, NavItem, SidebarItem, Badge, Alert, Avatar, PaginationItem）— 有 `variant` / `size` / `active` / `vertical` 等 typed props，使用 `class:list` 組合多個條件 class。
 
 ### 側邊欄架構
 
 #### 文檔站點側邊欄（`src/components/sidebar/`）
 
-導航資料集中在 `Sidebar.astro` 中管理，分為四個陣列：`gettingStarted`、`basicComponents`、`formComponents`、`layoutComponents`（已按字母排序）。
+導航資料集中在 `Sidebar.astro` 中管理，分為八個陣列：`gettingStarted`、`basicComponents`、`formComponents`、`dataDisplayComponents`、`feedbackComponents`、`overlayComponents`、`navigationComponents`、`layoutComponents`（已按字母排序）。
 側邊欄子元件使用 `cu-*` CSS classes（dog-fooding）：`SidebarSection`（`cu-sidebar-section-title`）→ `SidebarGroup`（`cu-sidebar-group` + `cu-sidebar-group-title`）→ `SidebarLink`（`cu-sidebar-item` + `cu-sidebar-item-active`）。
 新增元件時只需在此檔案的對應陣列加一筆資料。
 
 元件分類：
 - **Components > Basic** — Button, Card
 - **Components > Forms** — Label, Input, Textarea, Select, Checkbox, Radio, Toggle, Search Input, File Input, Range, Form Group
+- **Components > Data Display** — Accordion, Avatar, Badge, Table
+- **Components > Feedback** — Alert, Progress, Skeleton
+- **Components > Overlay** — Dialog, Dropdown Menu, Tooltip
+- **Components > Navigation** — Breadcrumb, Pagination, Tabs
 - **Components > Layouts** — Container, Header, Nav, Sidebar
 
 #### UI Sidebar 元件（`src/components/ui/Sidebar*.astro`）
@@ -202,10 +259,10 @@ Header logo 與 sidebar 連結文字齊左：
 
 ## Adding New Components
 
-1. 在 `src/styles/components.css` 的 `@layer components` 對應區塊（BASIC / FORMS / LAYOUT）中定義 CSS 類別（使用 `cu-` 前綴）
+1. 在 `src/styles/components/` 資料夾中建立對應的獨立 `.css` 檔案定義 CSS 類別（使用 `cu-` 前綴），並在 `src/styles/components.css` 的 `@layer components` 對應區塊（BASIC / FORMS / DATA DISPLAY / FEEDBACK / OVERLAY / NAVIGATION / LAYOUT）中加入 `@import` 語句
 2. 在 `src/components/ui/` 中建立對應的 `.astro` 元件檔（必須包含 `interface Props` 型別定義，使用 `class:list` 處理 class 組合）
 3. 在 `src/pages/components/` 中建立文檔頁面（使用 `ComponentPreview` 展示，inline code 使用 `cu-code` class）
-4. 在 `src/components/sidebar/Sidebar.astro` 中將元件加入對應的導航陣列（Basic / Forms / Layouts）
+4. 在 `src/components/sidebar/Sidebar.astro` 中將元件加入對應的導航陣列（Basic / Forms / Data Display / Feedback / Overlay / Navigation / Layouts）
 5. 文檔頁面的 code 範例使用 `cu-` class 系統（非原始 Tailwind utilities）
 6. 使用 `data-*` 屬性處理互動狀態（非框架狀態管理）
 

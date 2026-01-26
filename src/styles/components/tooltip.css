@@ -1,0 +1,79 @@
+/* Tooltip
+   ------------------------------------------------------------------ */
+.cu-tooltip {
+    @apply relative inline-flex;
+}
+
+.cu-tooltip::before,
+.cu-tooltip::after {
+    @apply pointer-events-none absolute opacity-0 invisible transition-all duration-150;
+    content: '';
+}
+
+.cu-tooltip::after {
+    content: attr(data-tooltip);
+    @apply rounded-md bg-foreground px-2 py-1 text-xs text-background whitespace-nowrap;
+}
+
+.cu-tooltip::before {
+    @apply size-0;
+    border: 4px solid transparent;
+}
+
+.cu-tooltip:hover::before,
+.cu-tooltip:hover::after {
+    @apply opacity-100 visible;
+}
+
+/* -- tooltip top (default) -- */
+.cu-tooltip::after,
+.cu-tooltip-top::after {
+    @apply bottom-full left-1/2 -translate-x-1/2 mb-1;
+}
+
+.cu-tooltip::before,
+.cu-tooltip-top::before {
+    @apply bottom-full left-1/2 -translate-x-1/2;
+    border-top-color: var(--color-foreground);
+}
+
+/* -- tooltip bottom -- */
+.cu-tooltip-bottom::after {
+    @apply top-full left-1/2 -translate-x-1/2 mt-1;
+    bottom: auto;
+}
+
+.cu-tooltip-bottom::before {
+    @apply top-full left-1/2 -translate-x-1/2;
+    bottom: auto;
+    border-top-color: transparent;
+    border-bottom-color: var(--color-foreground);
+}
+
+/* -- tooltip left -- */
+.cu-tooltip-left::after {
+    @apply right-full top-1/2 -translate-y-1/2 mr-1;
+    bottom: auto;
+    left: auto;
+}
+
+.cu-tooltip-left::before {
+    @apply right-full top-1/2 -translate-y-1/2;
+    bottom: auto;
+    left: auto;
+    border-top-color: transparent;
+    border-left-color: var(--color-foreground);
+}
+
+/* -- tooltip right -- */
+.cu-tooltip-right::after {
+    @apply left-full top-1/2 -translate-y-1/2 ml-1;
+    bottom: auto;
+}
+
+.cu-tooltip-right::before {
+    @apply left-full top-1/2 -translate-y-1/2;
+    bottom: auto;
+    border-top-color: transparent;
+    border-right-color: var(--color-foreground);
+}

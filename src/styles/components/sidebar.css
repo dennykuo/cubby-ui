@@ -1,0 +1,50 @@
+/* Sidebar
+   ------------------------------------------------------------------ */
+.cu-sidebar {
+    @apply flex h-full w-56 flex-col bg-background;
+}
+
+.cu-sidebar-header {
+    @apply flex items-center gap-2 pl-9 pr-6 py-4 border-b border-border;
+}
+
+.cu-sidebar-content {
+    @apply flex-1 overflow-y-auto py-8 pl-6 pr-2;
+}
+
+.cu-sidebar-footer {
+    @apply px-6 py-4 border-t border-border;
+}
+
+.cu-sidebar-section {
+    @apply mb-6;
+}
+
+.cu-sidebar-section-title {
+    @apply px-3 mb-6 text-xs font-semibold uppercase tracking-widest text-muted-foreground/70;
+}
+
+.cu-sidebar-group {
+    @apply mb-5;
+}
+
+.cu-sidebar-group-title {
+    @apply relative px-3 mb-2.5 text-xs font-bold text-muted-foreground;
+}
+
+.cu-sidebar-group-title::before {
+    content: '';
+    @apply absolute -left-1.5 top-1/2 -translate-y-1/2 w-2 h-px bg-primary/70;
+}
+
+.cu-sidebar-item {
+    @apply flex items-center gap-2 rounded-lg px-3 py-1.5 text-[13.5px] text-muted-foreground transition-colors duration-150 hover:bg-muted/60 hover:text-foreground cursor-pointer;
+}
+
+.cu-sidebar-item-active {
+    @apply bg-primary/8 font-medium text-primary;
+}
+
+.cu-sidebar-separator {
+    @apply mx-3 my-3 h-px bg-border;
+}

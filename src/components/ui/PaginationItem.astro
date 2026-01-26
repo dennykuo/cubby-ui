@@ -1,0 +1,20 @@
+---
+import { TOP_CLASS } from "../../config";
+
+interface Props {
+    active?: boolean;
+    class?: string;
+    [key: string]: any;
+}
+
+const { active = false, class: className, ...rest } = Astro.props;
+
+const baseClass = `${TOP_CLASS}-pagination-item`;
+const activeClass = active ? `${TOP_CLASS}-pagination-item-active` : "";
+---
+
+<li>
+    <a class:list={[baseClass, activeClass, className]} {...rest} aria-current={active ? "page" : undefined}>
+        <slot />
+    </a>
+</li>

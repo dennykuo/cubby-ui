@@ -1,0 +1,30 @@
+/* Data Table
+   ------------------------------------------------------------------ */
+.cu-data-table {
+    @apply w-full space-y-4;
+}
+
+.cu-data-table-toolbar {
+    @apply flex items-center justify-between gap-2;
+}
+
+.cu-data-table-head-sortable {
+    @apply cursor-pointer select-none hover:text-foreground;
+}
+
+.cu-data-table-head-sortable svg {
+    @apply inline-block ml-1 size-3.5 align-middle text-muted-foreground;
+}
+
+.cu-data-table-head-sorted-asc svg,
+.cu-data-table-head-sorted-desc svg {
+    @apply text-foreground;
+}
+
+.cu-data-table-row-selected {
+    @apply bg-muted/50;
+}
+
+.cu-data-table-info {
+    @apply flex items-center justify-between text-sm text-muted-foreground;
+}

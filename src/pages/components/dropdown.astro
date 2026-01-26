@@ -1,0 +1,131 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import ComponentPreview from "../../components/ComponentPreview.astro";
+
+const usageCode = `<div class="cu-dropdown" data-dropdown>
+  <button class="cu-button cu-button-outline cu-button-md" data-dropdown-trigger>
+    Open Menu
+  </button>
+  <div class="cu-dropdown-content" data-dropdown-content hidden>
+    <div class="cu-dropdown-item">Profile</div>
+    <div class="cu-dropdown-item">Settings</div>
+    <div class="cu-dropdown-item">Log out</div>
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll("[data-dropdown]").forEach((dropdown) => {
+    const trigger = dropdown.querySelector("[data-dropdown-trigger]");
+    const content = dropdown.querySelector("[data-dropdown-content]");
+    trigger?.addEventListener("click", () => {
+      content?.toggleAttribute("hidden");
+    });
+    document.addEventListener("click", (e) => {
+      if (!dropdown.contains(e.target)) content?.setAttribute("hidden", "");
+    });
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") content?.setAttribute("hidden", "");
+    });
+  });
+</script>`.trim();
+
+const withLabelsCode = `<div class="cu-dropdown" data-dropdown>
+  <button class="cu-button cu-button-outline cu-button-md" data-dropdown-trigger>
+    Options
+  </button>
+  <div class="cu-dropdown-content" data-dropdown-content hidden>
+    <div class="cu-dropdown-label">My Account</div>
+    <div class="cu-dropdown-separator"></div>
+    <div class="cu-dropdown-item">Profile</div>
+    <div class="cu-dropdown-item">Billing</div>
+    <div class="cu-dropdown-item">Settings</div>
+    <div class="cu-dropdown-separator"></div>
+    <div class="cu-dropdown-item">Log out</div>
+  </div>
+</div>`.trim();
+---
+
+<Layout title="Dropdown Menu — Cubby UI">
+    <div class="space-y-3">
+        <h1 class="text-3xl font-bold tracking-tight">Dropdown Menu</h1>
+        <p class="text-base text-muted-foreground leading-relaxed">
+            Displays a menu to the user — such as a set of actions or functions — triggered by a button.
+        </p>
+    </div>
+
+    <div class="mt-10 space-y-10">
+        <!-- Usage -->
+        <section class="space-y-3">
+            <h2 class="text-lg font-semibold tracking-tight">Usage</h2>
+            <p class="text-sm text-muted-foreground leading-relaxed">
+                Use <code class="cu-code">data-dropdown</code> on the wrapper,
+                <code class="cu-code">data-dropdown-trigger</code> on the button, and
+                <code class="cu-code">data-dropdown-content</code> on the menu.
+                The <code class="cu-code">&lt;script&gt;</code> handles click toggle, outside click, and Escape key.
+            </p>
+            <ComponentPreview code={usageCode}>
+                <div class="cu-dropdown" data-dropdown>
+                    <button class="cu-button cu-button-outline cu-button-md" data-dropdown-trigger>
+                        Open Menu
+                    </button>
+                    <div class="cu-dropdown-content" data-dropdown-content hidden>
+                        <div class="cu-dropdown-item">Profile</div>
+                        <div class="cu-dropdown-item">Settings</div>
+                        <div class="cu-dropdown-item">Log out</div>
+                    </div>
+                </div>
+            </ComponentPreview>
+        </section>
+
+        <!-- With Labels and Separators -->
+        <section class="space-y-3">
+            <h2 class="text-lg font-semibold tracking-tight">With Labels and Separators</h2>
+            <p class="text-sm text-muted-foreground leading-relaxed">
+                Add <code class="cu-code">cu-dropdown-label</code> for section titles and
+                <code class="cu-code">cu-dropdown-separator</code> for dividers.
+            </p>
+            <ComponentPreview code={withLabelsCode}>
+                <div class="cu-dropdown" data-dropdown>
+                    <button class="cu-button cu-button-outline cu-button-md" data-dropdown-trigger>
+                        Options
+                    </button>
+                    <div class="cu-dropdown-content" data-dropdown-content hidden>
+                        <div class="cu-dropdown-label">My Account</div>
+                        <div class="cu-dropdown-separator"></div>
+                        <div class="cu-dropdown-item">Profile</div>
+                        <div class="cu-dropdown-item">Billing</div>
+                        <div class="cu-dropdown-item">Settings</div>
+                        <div class="cu-dropdown-separator"></div>
+                        <div class="cu-dropdown-item">Log out</div>
+                    </div>
+                </div>
+            </ComponentPreview>
+        </section>
+    </div>
+</Layout>
+
+<script>
+    function setupDropdowns() {
+        document.querySelectorAll("[data-dropdown]").forEach((dropdown) => {
+            const trigger = dropdown.querySelector("[data-dropdown-trigger]");
+            const content = dropdown.querySelector("[data-dropdown-content]");
+            trigger?.addEventListener("click", (e) => {
+                e.stopPropagation();
+                content?.toggleAttribute("hidden");
+            });
+            document.addEventListener("click", (e) => {
+                if (!dropdown.contains(e.target as Node)) {
+                    content?.setAttribute("hidden", "");
+                }
+            });
+            document.addEventListener("keydown", (e) => {
+                if (e.key === "Escape") {
+                    content?.setAttribute("hidden", "");
+                }
+            });
+        });
+    }
+
+    setupDropdowns();
+    document.addEventListener("astro:page-load", setupDropdowns);
+</script>

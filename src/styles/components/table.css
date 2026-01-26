@@ -1,0 +1,37 @@
+/* Table
+   ------------------------------------------------------------------ */
+.cu-table-wrapper {
+    @apply w-full overflow-x-auto;
+}
+
+.cu-table {
+    @apply w-full caption-bottom text-sm;
+}
+
+.cu-table-header {
+    @apply [&_tr]:border-b;
+}
+
+.cu-table-body {
+    @apply [&_tr:last-child]:border-0;
+}
+
+.cu-table-footer {
+    @apply border-t bg-muted/50 font-medium [&>tr]:last:border-b-0;
+}
+
+.cu-table-row {
+    @apply border-b border-border transition-colors hover:bg-muted/50;
+}
+
+.cu-table-head {
+    @apply h-10 px-4 text-left align-middle font-medium text-muted-foreground;
+}
+
+.cu-table-cell {
+    @apply p-4 align-middle;
+}
+
+.cu-table-caption {
+    @apply mt-4 text-sm text-muted-foreground;
+}

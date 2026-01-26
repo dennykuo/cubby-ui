@@ -1,0 +1,13 @@
+---
+import { TOP_CLASS } from "../../config";
+
+interface Props {
+    class?: string;
+    [key: string]: any;
+}
+
+const { class: className, ...rest } = Astro.props;
+const baseClass = `${TOP_CLASS}-skeleton`;
+---
+
+<div class:list={[baseClass, className]} {...rest}></div>

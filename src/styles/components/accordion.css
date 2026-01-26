@@ -1,0 +1,25 @@
+/* Accordion
+   ------------------------------------------------------------------ */
+.cu-accordion {
+    @apply divide-y divide-border;
+}
+
+.cu-accordion-item {
+    @apply border-0;
+}
+
+.cu-accordion-trigger {
+    @apply flex w-full items-center justify-between py-4 text-sm font-medium transition-all cursor-pointer hover:underline;
+}
+
+.cu-accordion-trigger svg {
+    @apply shrink-0 text-muted-foreground transition-transform duration-200;
+}
+
+.cu-accordion-item[open] .cu-accordion-trigger svg {
+    @apply rotate-180;
+}
+
+.cu-accordion-content {
+    @apply overflow-hidden pb-4 pt-0 text-sm text-muted-foreground;
+}

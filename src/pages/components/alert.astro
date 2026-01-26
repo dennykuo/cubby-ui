@@ -1,0 +1,144 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Alert from "../../components/ui/Alert.astro";
+import AlertTitle from "../../components/ui/AlertTitle.astro";
+import AlertDescription from "../../components/ui/AlertDescription.astro";
+import ComponentPreview from "../../components/ComponentPreview.astro";
+
+const usageCode = `<div class="cu-alert cu-alert-default" role="alert">
+  <div>
+    <h5 class="cu-alert-title">Heads up!</h5>
+    <div class="cu-alert-description">You can add components to your app using the cli.</div>
+  </div>
+</div>`.trim();
+
+const variantsCode = `<div class="cu-alert cu-alert-default" role="alert">
+  <div>
+    <h5 class="cu-alert-title">Default</h5>
+    <div class="cu-alert-description">This is a default alert.</div>
+  </div>
+</div>
+
+<div class="cu-alert cu-alert-destructive" role="alert">
+  <div>
+    <h5 class="cu-alert-title">Error</h5>
+    <div class="cu-alert-description">Something went wrong.</div>
+  </div>
+</div>
+
+<div class="cu-alert cu-alert-success" role="alert">
+  <div>
+    <h5 class="cu-alert-title">Success</h5>
+    <div class="cu-alert-description">Operation completed.</div>
+  </div>
+</div>
+
+<div class="cu-alert cu-alert-warning" role="alert">
+  <div>
+    <h5 class="cu-alert-title">Warning</h5>
+    <div class="cu-alert-description">Please review your input.</div>
+  </div>
+</div>
+
+<div class="cu-alert cu-alert-info" role="alert">
+  <div>
+    <h5 class="cu-alert-title">Info</h5>
+    <div class="cu-alert-description">Here is some information.</div>
+  </div>
+</div>`.trim();
+
+const withIconCode = `<div class="cu-alert cu-alert-destructive" role="alert">
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" x2="12" y1="8" y2="12"/><line x1="12" x2="12.01" y1="16" y2="16"/></svg>
+  <div>
+    <h5 class="cu-alert-title">Error</h5>
+    <div class="cu-alert-description">Your session has expired. Please log in again.</div>
+  </div>
+</div>`.trim();
+---
+
+<Layout title="Alert — Cubby UI">
+    <div class="space-y-3">
+        <h1 class="text-3xl font-bold tracking-tight">Alert</h1>
+        <p class="text-base text-muted-foreground leading-relaxed">
+            Displays a callout for important information or feedback.
+        </p>
+    </div>
+
+    <div class="mt-10 space-y-10">
+        <!-- Usage -->
+        <section class="space-y-3">
+            <h2 class="text-lg font-semibold tracking-tight">Usage</h2>
+            <p class="text-sm text-muted-foreground leading-relaxed">
+                Use <code class="cu-code">cu-alert</code> as the base class with a variant.
+                Add <code class="cu-code">cu-alert-title</code> and <code class="cu-code">cu-alert-description</code> inside.
+            </p>
+            <ComponentPreview code={usageCode}>
+                <Alert class="max-w-lg">
+                    <div>
+                        <AlertTitle>Heads up!</AlertTitle>
+                        <AlertDescription>You can add components to your app using the cli.</AlertDescription>
+                    </div>
+                </Alert>
+            </ComponentPreview>
+        </section>
+
+        <!-- Variants -->
+        <section class="space-y-3">
+            <h2 class="text-lg font-semibold tracking-tight">Variants</h2>
+            <p class="text-sm text-muted-foreground leading-relaxed">
+                Use variant classes to convey different levels of importance.
+            </p>
+            <ComponentPreview code={variantsCode}>
+                <div class="flex flex-col gap-3 w-full max-w-lg">
+                    <Alert>
+                        <div>
+                            <AlertTitle>Default</AlertTitle>
+                            <AlertDescription>This is a default alert.</AlertDescription>
+                        </div>
+                    </Alert>
+                    <Alert variant="destructive">
+                        <div>
+                            <AlertTitle>Error</AlertTitle>
+                            <AlertDescription>Something went wrong.</AlertDescription>
+                        </div>
+                    </Alert>
+                    <Alert variant="success">
+                        <div>
+                            <AlertTitle>Success</AlertTitle>
+                            <AlertDescription>Operation completed.</AlertDescription>
+                        </div>
+                    </Alert>
+                    <Alert variant="warning">
+                        <div>
+                            <AlertTitle>Warning</AlertTitle>
+                            <AlertDescription>Please review your input.</AlertDescription>
+                        </div>
+                    </Alert>
+                    <Alert variant="info">
+                        <div>
+                            <AlertTitle>Info</AlertTitle>
+                            <AlertDescription>Here is some information.</AlertDescription>
+                        </div>
+                    </Alert>
+                </div>
+            </ComponentPreview>
+        </section>
+
+        <!-- With Icon -->
+        <section class="space-y-3">
+            <h2 class="text-lg font-semibold tracking-tight">With Icon</h2>
+            <p class="text-sm text-muted-foreground leading-relaxed">
+                Place an SVG icon as the first child. The alert will automatically add left padding via <code class="cu-code">[&:has(svg)]:pl-10</code>.
+            </p>
+            <ComponentPreview code={withIconCode}>
+                <Alert variant="destructive" class="max-w-lg">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" x2="12" y1="8" y2="12"/><line x1="12" x2="12.01" y1="16" y2="16"/></svg>
+                    <div>
+                        <AlertTitle>Error</AlertTitle>
+                        <AlertDescription>Your session has expired. Please log in again.</AlertDescription>
+                    </div>
+                </Alert>
+            </ComponentPreview>
+        </section>
+    </div>
+</Layout>

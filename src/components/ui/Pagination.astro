@@ -1,0 +1,17 @@
+---
+import { TOP_CLASS } from "../../config";
+
+interface Props {
+    class?: string;
+    [key: string]: any;
+}
+
+const { class: className, ...rest } = Astro.props;
+const baseClass = `${TOP_CLASS}-pagination`;
+---
+
+<nav aria-label="Pagination" {...rest}>
+    <ul class:list={[baseClass, className]}>
+        <slot />
+    </ul>
+</nav>

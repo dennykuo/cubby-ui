@@ -1,0 +1,14 @@
+/* Popover
+   ------------------------------------------------------------------ */
+.cu-popover {
+    @apply relative inline-block;
+}
+
+.cu-popover-content {
+    @apply absolute z-50 mt-2 w-72 rounded-xl border border-border bg-popover p-4 text-popover-foreground shadow-md;
+}
+
+.cu-popover-content[popover] {
+    @apply fixed m-0 rounded-xl border border-border bg-popover p-4 text-popover-foreground shadow-md;
+    inset: unset;
+}

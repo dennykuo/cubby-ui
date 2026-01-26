@@ -1,0 +1,76 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import ComponentPreview from "../../components/ComponentPreview.astro";
+
+const usageCode = `<span class="cu-tooltip" data-tooltip="This is a tooltip">
+  <button class="cu-button cu-button-outline cu-button-md">Hover me</button>
+</span>`.trim();
+
+const positionsCode = `<span class="cu-tooltip" data-tooltip="Top tooltip">
+  <button class="cu-button cu-button-outline cu-button-md">Top</button>
+</span>
+
+<span class="cu-tooltip cu-tooltip-bottom" data-tooltip="Bottom tooltip">
+  <button class="cu-button cu-button-outline cu-button-md">Bottom</button>
+</span>
+
+<span class="cu-tooltip cu-tooltip-left" data-tooltip="Left tooltip">
+  <button class="cu-button cu-button-outline cu-button-md">Left</button>
+</span>
+
+<span class="cu-tooltip cu-tooltip-right" data-tooltip="Right tooltip">
+  <button class="cu-button cu-button-outline cu-button-md">Right</button>
+</span>`.trim();
+---
+
+<Layout title="Tooltip — Cubby UI">
+    <div class="space-y-3">
+        <h1 class="text-3xl font-bold tracking-tight">Tooltip</h1>
+        <p class="text-base text-muted-foreground leading-relaxed">
+            A popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it.
+        </p>
+    </div>
+
+    <div class="mt-10 space-y-10">
+        <!-- Usage -->
+        <section class="space-y-3">
+            <h2 class="text-lg font-semibold tracking-tight">Usage</h2>
+            <p class="text-sm text-muted-foreground leading-relaxed">
+                Add <code class="cu-code">cu-tooltip</code> class and <code class="cu-code">data-tooltip</code> attribute with your tooltip text.
+                Pure CSS — no JavaScript required.
+            </p>
+            <ComponentPreview code={usageCode}>
+                <span class="cu-tooltip" data-tooltip="This is a tooltip">
+                    <button class="cu-button cu-button-outline cu-button-md">Hover me</button>
+                </span>
+            </ComponentPreview>
+        </section>
+
+        <!-- Positions -->
+        <section class="space-y-3">
+            <h2 class="text-lg font-semibold tracking-tight">Positions</h2>
+            <p class="text-sm text-muted-foreground leading-relaxed">
+                Control placement with direction classes:
+                top (default), <code class="cu-code">cu-tooltip-bottom</code>,
+                <code class="cu-code">cu-tooltip-left</code>, and
+                <code class="cu-code">cu-tooltip-right</code>.
+            </p>
+            <ComponentPreview code={positionsCode}>
+                <div class="flex flex-wrap gap-4 items-center justify-center">
+                    <span class="cu-tooltip" data-tooltip="Top tooltip">
+                        <button class="cu-button cu-button-outline cu-button-md">Top</button>
+                    </span>
+                    <span class="cu-tooltip cu-tooltip-bottom" data-tooltip="Bottom tooltip">
+                        <button class="cu-button cu-button-outline cu-button-md">Bottom</button>
+                    </span>
+                    <span class="cu-tooltip cu-tooltip-left" data-tooltip="Left tooltip">
+                        <button class="cu-button cu-button-outline cu-button-md">Left</button>
+                    </span>
+                    <span class="cu-tooltip cu-tooltip-right" data-tooltip="Right tooltip">
+                        <button class="cu-button cu-button-outline cu-button-md">Right</button>
+                    </span>
+                </div>
+            </ComponentPreview>
+        </section>
+    </div>
+</Layout>

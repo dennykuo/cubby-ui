@@ -1,0 +1,17 @@
+/* Nav
+   ------------------------------------------------------------------ */
+.cu-nav {
+    @apply flex items-center gap-1;
+}
+
+.cu-nav-item {
+    @apply inline-flex items-center gap-2 rounded-lg px-3 py-1.5 text-sm text-muted-foreground transition-colors duration-150 hover:bg-muted/60 hover:text-foreground cursor-pointer;
+}
+
+.cu-nav-item-active {
+    @apply bg-primary/8 font-medium text-primary;
+}
+
+.cu-nav-vertical {
+    @apply flex-col items-stretch gap-0.5;
+}

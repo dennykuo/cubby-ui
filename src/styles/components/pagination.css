@@ -1,0 +1,22 @@
+/* Pagination
+   ------------------------------------------------------------------ */
+.cu-pagination {
+    @apply flex items-center justify-center gap-1;
+}
+
+.cu-pagination-item {
+    @apply inline-flex items-center justify-center rounded-lg size-9 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground cursor-pointer;
+}
+
+.cu-pagination-item-active {
+    @apply bg-primary text-primary-foreground hover:bg-primary/90;
+}
+
+.cu-pagination-ellipsis {
+    @apply inline-flex items-center justify-center size-9 text-sm text-muted-foreground;
+}
+
+.cu-pagination-prev,
+.cu-pagination-next {
+    @apply inline-flex items-center justify-center rounded-lg size-9 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground cursor-pointer;
+}

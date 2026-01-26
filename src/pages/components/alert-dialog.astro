@@ -1,0 +1,135 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import ComponentPreview from "../../components/ComponentPreview.astro";
+
+const usageCode = `<button class="cu-button cu-button-outline cu-button-md" data-alert-dialog-trigger="demo-alert-dialog">
+  Delete Account
+</button>
+
+<dialog class="cu-alert-dialog" id="demo-alert-dialog" data-alert-dialog>
+  <div class="cu-alert-dialog-header">
+    <h2 class="cu-alert-dialog-title">Are you absolutely sure?</h2>
+    <p class="cu-alert-dialog-description">This action cannot be undone. This will permanently delete your account and remove your data from our servers.</p>
+  </div>
+  <div class="cu-alert-dialog-footer">
+    <button class="cu-button cu-button-outline cu-button-md" data-alert-dialog-cancel>Cancel</button>
+    <button class="cu-button cu-button-destructive cu-button-md" data-alert-dialog-action>Delete</button>
+  </div>
+</dialog>
+
+<script>
+  document.querySelectorAll("[data-alert-dialog-trigger]").forEach((trigger) => {
+    trigger.addEventListener("click", () => {
+      const id = trigger.getAttribute("data-alert-dialog-trigger");
+      document.getElementById(id)?.showModal();
+    });
+  });
+  document.querySelectorAll("[data-alert-dialog]").forEach((dialog) => {
+    dialog.querySelectorAll("[data-alert-dialog-cancel]").forEach((btn) => {
+      btn.addEventListener("click", () => dialog.close());
+    });
+    dialog.querySelectorAll("[data-alert-dialog-action]").forEach((btn) => {
+      btn.addEventListener("click", () => dialog.close());
+    });
+  });
+</script>`.trim();
+
+const destructiveCode = `<button class="cu-button cu-button-destructive cu-button-md" data-alert-dialog-trigger="destructive-alert-dialog">
+  Remove Item
+</button>
+
+<dialog class="cu-alert-dialog" id="destructive-alert-dialog" data-alert-dialog>
+  <div class="cu-alert-dialog-header">
+    <h2 class="cu-alert-dialog-title">Remove this item?</h2>
+    <p class="cu-alert-dialog-description">This item will be permanently removed from your library. This action is irreversible.</p>
+  </div>
+  <div class="cu-alert-dialog-footer">
+    <button class="cu-button cu-button-outline cu-button-md" data-alert-dialog-cancel>Cancel</button>
+    <button class="cu-button cu-button-destructive cu-button-md" data-alert-dialog-action>Remove</button>
+  </div>
+</dialog>`.trim();
+---
+
+<Layout title="Alert Dialog — Cubby UI">
+    <div class="space-y-3">
+        <h1 class="text-3xl font-bold tracking-tight">Alert Dialog</h1>
+        <p class="text-base text-muted-foreground leading-relaxed">
+            A modal dialog that interrupts the user with important content and expects a response. Unlike Dialog, it does not have a close button and cannot be dismissed by clicking the backdrop.
+        </p>
+    </div>
+
+    <div class="mt-10 space-y-10">
+        <!-- Usage -->
+        <section class="space-y-3">
+            <h2 class="text-lg font-semibold tracking-tight">Usage</h2>
+            <p class="text-sm text-muted-foreground leading-relaxed">
+                Built with the native <code class="cu-code">&lt;dialog&gt;</code> element.
+                Use <code class="cu-code">data-alert-dialog-trigger</code> on buttons to open,
+                <code class="cu-code">data-alert-dialog-cancel</code> to cancel,
+                and <code class="cu-code">data-alert-dialog-action</code> to confirm.
+                Unlike <code class="cu-code">cu-dialog</code>, clicking the backdrop does not close the dialog.
+            </p>
+            <ComponentPreview code={usageCode}>
+                <button class="cu-button cu-button-outline cu-button-md" data-alert-dialog-trigger="demo-alert-dialog">
+                    Delete Account
+                </button>
+                <dialog class="cu-alert-dialog" id="demo-alert-dialog" data-alert-dialog>
+                    <div class="cu-alert-dialog-header">
+                        <h2 class="cu-alert-dialog-title">Are you absolutely sure?</h2>
+                        <p class="cu-alert-dialog-description">This action cannot be undone. This will permanently delete your account and remove your data from our servers.</p>
+                    </div>
+                    <div class="cu-alert-dialog-footer">
+                        <button class="cu-button cu-button-outline cu-button-md" data-alert-dialog-cancel>Cancel</button>
+                        <button class="cu-button cu-button-destructive cu-button-md" data-alert-dialog-action>Delete</button>
+                    </div>
+                </dialog>
+            </ComponentPreview>
+        </section>
+
+        <!-- Destructive -->
+        <section class="space-y-3">
+            <h2 class="text-lg font-semibold tracking-tight">Destructive Action</h2>
+            <p class="text-sm text-muted-foreground leading-relaxed">
+                Pair with a destructive trigger button for dangerous actions.
+            </p>
+            <ComponentPreview code={destructiveCode}>
+                <button class="cu-button cu-button-destructive cu-button-md" data-alert-dialog-trigger="destructive-alert-dialog">
+                    Remove Item
+                </button>
+                <dialog class="cu-alert-dialog" id="destructive-alert-dialog" data-alert-dialog>
+                    <div class="cu-alert-dialog-header">
+                        <h2 class="cu-alert-dialog-title">Remove this item?</h2>
+                        <p class="cu-alert-dialog-description">This item will be permanently removed from your library. This action is irreversible.</p>
+                    </div>
+                    <div class="cu-alert-dialog-footer">
+                        <button class="cu-button cu-button-outline cu-button-md" data-alert-dialog-cancel>Cancel</button>
+                        <button class="cu-button cu-button-destructive cu-button-md" data-alert-dialog-action>Remove</button>
+                    </div>
+                </dialog>
+            </ComponentPreview>
+        </section>
+    </div>
+</Layout>
+
+<script>
+    function setupAlertDialogs() {
+        document.querySelectorAll("[data-alert-dialog-trigger]").forEach((trigger) => {
+            trigger.addEventListener("click", () => {
+                const id = trigger.getAttribute("data-alert-dialog-trigger");
+                const dialog = document.getElementById(id) as HTMLDialogElement | null;
+                dialog?.showModal();
+            });
+        });
+        document.querySelectorAll("[data-alert-dialog]").forEach((dialog) => {
+            dialog.querySelectorAll("[data-alert-dialog-cancel]").forEach((btn) => {
+                btn.addEventListener("click", () => (dialog as HTMLDialogElement).close());
+            });
+            dialog.querySelectorAll("[data-alert-dialog-action]").forEach((btn) => {
+                btn.addEventListener("click", () => (dialog as HTMLDialogElement).close());
+            });
+        });
+    }
+
+    setupAlertDialogs();
+    document.addEventListener("astro:page-load", setupAlertDialogs);
+</script>

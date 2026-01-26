@@ -1,0 +1,166 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import ComponentPreview from "../../components/ComponentPreview.astro";
+
+const usageCode = `<div class="cu-table-wrapper">
+  <table class="cu-table">
+    <thead class="cu-table-header">
+      <tr class="cu-table-row">
+        <th class="cu-table-head">Invoice</th>
+        <th class="cu-table-head">Status</th>
+        <th class="cu-table-head">Method</th>
+        <th class="cu-table-head text-right">Amount</th>
+      </tr>
+    </thead>
+    <tbody class="cu-table-body">
+      <tr class="cu-table-row">
+        <td class="cu-table-cell font-medium">INV001</td>
+        <td class="cu-table-cell">Paid</td>
+        <td class="cu-table-cell">Credit Card</td>
+        <td class="cu-table-cell text-right">$250.00</td>
+      </tr>
+      <tr class="cu-table-row">
+        <td class="cu-table-cell font-medium">INV002</td>
+        <td class="cu-table-cell">Pending</td>
+        <td class="cu-table-cell">PayPal</td>
+        <td class="cu-table-cell text-right">$150.00</td>
+      </tr>
+      <tr class="cu-table-row">
+        <td class="cu-table-cell font-medium">INV003</td>
+        <td class="cu-table-cell">Unpaid</td>
+        <td class="cu-table-cell">Bank Transfer</td>
+        <td class="cu-table-cell text-right">$350.00</td>
+      </tr>
+    </tbody>
+  </table>
+</div>`.trim();
+
+const withFooterCode = `<div class="cu-table-wrapper">
+  <table class="cu-table">
+    <thead class="cu-table-header">
+      <tr class="cu-table-row">
+        <th class="cu-table-head">Invoice</th>
+        <th class="cu-table-head">Status</th>
+        <th class="cu-table-head text-right">Amount</th>
+      </tr>
+    </thead>
+    <tbody class="cu-table-body">
+      <tr class="cu-table-row">
+        <td class="cu-table-cell font-medium">INV001</td>
+        <td class="cu-table-cell">Paid</td>
+        <td class="cu-table-cell text-right">$250.00</td>
+      </tr>
+      <tr class="cu-table-row">
+        <td class="cu-table-cell font-medium">INV002</td>
+        <td class="cu-table-cell">Paid</td>
+        <td class="cu-table-cell text-right">$150.00</td>
+      </tr>
+    </tbody>
+    <tfoot class="cu-table-footer">
+      <tr class="cu-table-row">
+        <td class="cu-table-cell" colspan="2">Total</td>
+        <td class="cu-table-cell text-right">$400.00</td>
+      </tr>
+    </tfoot>
+    <caption class="cu-table-caption">A list of recent invoices.</caption>
+  </table>
+</div>`.trim();
+---
+
+<Layout title="Table — Cubby UI">
+    <div class="space-y-3">
+        <h1 class="text-3xl font-bold tracking-tight">Table</h1>
+        <p class="text-base text-muted-foreground leading-relaxed">
+            A responsive table component for displaying tabular data.
+        </p>
+    </div>
+
+    <div class="mt-10 space-y-10">
+        <!-- Usage -->
+        <section class="space-y-3">
+            <h2 class="text-lg font-semibold tracking-tight">Usage</h2>
+            <p class="text-sm text-muted-foreground leading-relaxed">
+                Wrap a <code class="cu-code">&lt;table&gt;</code> in <code class="cu-code">cu-table-wrapper</code> for horizontal scrolling.
+                Use semantic table elements with the corresponding <code class="cu-code">cu-table-*</code> classes.
+            </p>
+            <ComponentPreview code={usageCode}>
+                <div class="w-full max-w-2xl">
+                    <div class="cu-table-wrapper">
+                        <table class="cu-table">
+                            <thead class="cu-table-header">
+                                <tr class="cu-table-row">
+                                    <th class="cu-table-head">Invoice</th>
+                                    <th class="cu-table-head">Status</th>
+                                    <th class="cu-table-head">Method</th>
+                                    <th class="cu-table-head text-right">Amount</th>
+                                </tr>
+                            </thead>
+                            <tbody class="cu-table-body">
+                                <tr class="cu-table-row">
+                                    <td class="cu-table-cell font-medium">INV001</td>
+                                    <td class="cu-table-cell">Paid</td>
+                                    <td class="cu-table-cell">Credit Card</td>
+                                    <td class="cu-table-cell text-right">$250.00</td>
+                                </tr>
+                                <tr class="cu-table-row">
+                                    <td class="cu-table-cell font-medium">INV002</td>
+                                    <td class="cu-table-cell">Pending</td>
+                                    <td class="cu-table-cell">PayPal</td>
+                                    <td class="cu-table-cell text-right">$150.00</td>
+                                </tr>
+                                <tr class="cu-table-row">
+                                    <td class="cu-table-cell font-medium">INV003</td>
+                                    <td class="cu-table-cell">Unpaid</td>
+                                    <td class="cu-table-cell">Bank Transfer</td>
+                                    <td class="cu-table-cell text-right">$350.00</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </ComponentPreview>
+        </section>
+
+        <!-- With Footer -->
+        <section class="space-y-3">
+            <h2 class="text-lg font-semibold tracking-tight">With Footer</h2>
+            <p class="text-sm text-muted-foreground leading-relaxed">
+                Add a <code class="cu-code">cu-table-footer</code> for summary rows and <code class="cu-code">cu-table-caption</code> for a description.
+            </p>
+            <ComponentPreview code={withFooterCode}>
+                <div class="w-full max-w-2xl">
+                    <div class="cu-table-wrapper">
+                        <table class="cu-table">
+                            <thead class="cu-table-header">
+                                <tr class="cu-table-row">
+                                    <th class="cu-table-head">Invoice</th>
+                                    <th class="cu-table-head">Status</th>
+                                    <th class="cu-table-head text-right">Amount</th>
+                                </tr>
+                            </thead>
+                            <tbody class="cu-table-body">
+                                <tr class="cu-table-row">
+                                    <td class="cu-table-cell font-medium">INV001</td>
+                                    <td class="cu-table-cell">Paid</td>
+                                    <td class="cu-table-cell text-right">$250.00</td>
+                                </tr>
+                                <tr class="cu-table-row">
+                                    <td class="cu-table-cell font-medium">INV002</td>
+                                    <td class="cu-table-cell">Paid</td>
+                                    <td class="cu-table-cell text-right">$150.00</td>
+                                </tr>
+                            </tbody>
+                            <tfoot class="cu-table-footer">
+                                <tr class="cu-table-row">
+                                    <td class="cu-table-cell" colspan="2">Total</td>
+                                    <td class="cu-table-cell text-right">$400.00</td>
+                                </tr>
+                            </tfoot>
+                            <caption class="cu-table-caption">A list of recent invoices.</caption>
+                        </table>
+                    </div>
+                </div>
+            </ComponentPreview>
+        </section>
+    </div>
+</Layout>

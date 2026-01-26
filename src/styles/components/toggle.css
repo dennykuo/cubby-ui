@@ -1,0 +1,58 @@
+/* Toggle
+   ------------------------------------------------------------------ */
+.cu-toggle-wrapper {
+    @apply inline-flex items-center gap-2 cursor-pointer;
+}
+
+.cu-toggle-input {
+    @apply sr-only;
+}
+
+.cu-toggle-input + .cu-toggle {
+    @apply relative inline-flex h-5 w-9 shrink-0 items-center rounded-full border-2 border-transparent bg-input transition-colors duration-150;
+}
+
+.cu-toggle-input:focus-visible + .cu-toggle {
+    @apply outline-none ring-2 ring-ring/40 ring-offset-2;
+}
+
+.cu-toggle-input:checked + .cu-toggle {
+    @apply bg-primary;
+}
+
+.cu-toggle-input:disabled + .cu-toggle {
+    @apply opacity-50 cursor-not-allowed;
+}
+
+.cu-toggle-thumb {
+    @apply pointer-events-none block size-4 rounded-full bg-background shadow-sm ring-0 transition-transform duration-150;
+}
+
+.cu-toggle-input:checked + .cu-toggle .cu-toggle-thumb {
+    @apply translate-x-4;
+}
+
+/* -- toggle sizes -- */
+.cu-toggle-input + .cu-toggle-sm {
+    @apply h-4 w-7;
+}
+
+.cu-toggle-sm .cu-toggle-thumb {
+    @apply size-3;
+}
+
+.cu-toggle-input:checked + .cu-toggle-sm .cu-toggle-thumb {
+    @apply translate-x-3;
+}
+
+.cu-toggle-input + .cu-toggle-lg {
+    @apply h-6 w-11;
+}
+
+.cu-toggle-lg .cu-toggle-thumb {
+    @apply size-5;
+}
+
+.cu-toggle-input:checked + .cu-toggle-lg .cu-toggle-thumb {
+    @apply translate-x-5;
+}

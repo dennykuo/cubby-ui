@@ -1,0 +1,15 @@
+---
+import { TOP_CLASS } from "../../config";
+
+interface Props {
+    class?: string;
+    [key: string]: any;
+}
+
+const { class: className, ...rest } = Astro.props;
+const baseClass = `${TOP_CLASS}-popover-content`;
+---
+
+<div class:list={[baseClass, className]} {...rest}>
+    <slot />
+</div>

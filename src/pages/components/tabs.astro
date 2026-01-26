@@ -1,0 +1,187 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import ComponentPreview from "../../components/ComponentPreview.astro";
+
+const usageCode = `<div class="cu-tabs" data-tabs>
+  <div class="cu-tabs-list">
+    <button class="cu-tabs-trigger cu-tabs-trigger-active" data-tabs-trigger="account">Account</button>
+    <button class="cu-tabs-trigger" data-tabs-trigger="password">Password</button>
+  </div>
+  <div class="cu-tabs-content" data-tabs-content="account">
+    <p class="text-sm text-muted-foreground">Make changes to your account here.</p>
+  </div>
+  <div class="cu-tabs-content" data-tabs-content="password" hidden>
+    <p class="text-sm text-muted-foreground">Change your password here.</p>
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll("[data-tabs]").forEach((tabs) => {
+    const triggers = tabs.querySelectorAll("[data-tabs-trigger]");
+    const contents = tabs.querySelectorAll("[data-tabs-content]");
+    triggers.forEach((trigger) => {
+      trigger.addEventListener("click", () => {
+        const value = trigger.getAttribute("data-tabs-trigger");
+        triggers.forEach((t) => t.classList.remove("cu-tabs-trigger-active"));
+        trigger.classList.add("cu-tabs-trigger-active");
+        contents.forEach((c) => {
+          c.hidden = c.getAttribute("data-tabs-content") !== value;
+        });
+      });
+    });
+  });
+</script>`.trim();
+
+const withContentCode = `<div class="cu-tabs" data-tabs>
+  <div class="cu-tabs-list">
+    <button class="cu-tabs-trigger cu-tabs-trigger-active" data-tabs-trigger="overview">Overview</button>
+    <button class="cu-tabs-trigger" data-tabs-trigger="analytics">Analytics</button>
+    <button class="cu-tabs-trigger" data-tabs-trigger="reports">Reports</button>
+  </div>
+  <div class="cu-tabs-content" data-tabs-content="overview">
+    <div class="cu-card">
+      <div class="cu-card-header">
+        <h3 class="cu-card-title">Overview</h3>
+        <p class="cu-card-description">A summary of your account activity.</p>
+      </div>
+      <div class="cu-card-content">
+        <p class="text-sm">Your account is in good standing.</p>
+      </div>
+    </div>
+  </div>
+  <div class="cu-tabs-content" data-tabs-content="analytics" hidden>
+    <div class="cu-card">
+      <div class="cu-card-header">
+        <h3 class="cu-card-title">Analytics</h3>
+        <p class="cu-card-description">View your analytics data.</p>
+      </div>
+      <div class="cu-card-content">
+        <p class="text-sm">Analytics content goes here.</p>
+      </div>
+    </div>
+  </div>
+  <div class="cu-tabs-content" data-tabs-content="reports" hidden>
+    <div class="cu-card">
+      <div class="cu-card-header">
+        <h3 class="cu-card-title">Reports</h3>
+        <p class="cu-card-description">Generate and view reports.</p>
+      </div>
+      <div class="cu-card-content">
+        <p class="text-sm">Reports content goes here.</p>
+      </div>
+    </div>
+  </div>
+</div>`.trim();
+---
+
+<Layout title="Tabs — Cubby UI">
+    <div class="space-y-3">
+        <h1 class="text-3xl font-bold tracking-tight">Tabs</h1>
+        <p class="text-base text-muted-foreground leading-relaxed">
+            A set of layered sections of content — known as tab panels — that are displayed one at a time.
+        </p>
+    </div>
+
+    <div class="mt-10 space-y-10">
+        <!-- Usage -->
+        <section class="space-y-3">
+            <h2 class="text-lg font-semibold tracking-tight">Usage</h2>
+            <p class="text-sm text-muted-foreground leading-relaxed">
+                Use <code class="cu-code">data-tabs</code> on the container,
+                <code class="cu-code">data-tabs-trigger</code> on each button with a value, and
+                <code class="cu-code">data-tabs-content</code> on each panel with a matching value.
+                Include the <code class="cu-code">&lt;script&gt;</code> snippet for interactivity.
+            </p>
+            <ComponentPreview code={usageCode}>
+                <div class="w-full max-w-md">
+                    <div class="cu-tabs" data-tabs>
+                        <div class="cu-tabs-list">
+                            <button class="cu-tabs-trigger cu-tabs-trigger-active" data-tabs-trigger="account">Account</button>
+                            <button class="cu-tabs-trigger" data-tabs-trigger="password">Password</button>
+                        </div>
+                        <div class="cu-tabs-content" data-tabs-content="account">
+                            <p class="text-sm text-muted-foreground">Make changes to your account here.</p>
+                        </div>
+                        <div class="cu-tabs-content" data-tabs-content="password" hidden>
+                            <p class="text-sm text-muted-foreground">Change your password here.</p>
+                        </div>
+                    </div>
+                </div>
+            </ComponentPreview>
+        </section>
+
+        <!-- With Content -->
+        <section class="space-y-3">
+            <h2 class="text-lg font-semibold tracking-tight">With Content</h2>
+            <p class="text-sm text-muted-foreground leading-relaxed">
+                Tabs work well with cards or any other content blocks.
+            </p>
+            <ComponentPreview code={withContentCode}>
+                <div class="w-full max-w-lg">
+                    <div class="cu-tabs" data-tabs>
+                        <div class="cu-tabs-list">
+                            <button class="cu-tabs-trigger cu-tabs-trigger-active" data-tabs-trigger="overview2">Overview</button>
+                            <button class="cu-tabs-trigger" data-tabs-trigger="analytics2">Analytics</button>
+                            <button class="cu-tabs-trigger" data-tabs-trigger="reports2">Reports</button>
+                        </div>
+                        <div class="cu-tabs-content" data-tabs-content="overview2">
+                            <div class="cu-card">
+                                <div class="cu-card-header">
+                                    <h3 class="cu-card-title">Overview</h3>
+                                    <p class="cu-card-description">A summary of your account activity.</p>
+                                </div>
+                                <div class="cu-card-content">
+                                    <p class="text-sm">Your account is in good standing.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="cu-tabs-content" data-tabs-content="analytics2" hidden>
+                            <div class="cu-card">
+                                <div class="cu-card-header">
+                                    <h3 class="cu-card-title">Analytics</h3>
+                                    <p class="cu-card-description">View your analytics data.</p>
+                                </div>
+                                <div class="cu-card-content">
+                                    <p class="text-sm">Analytics content goes here.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="cu-tabs-content" data-tabs-content="reports2" hidden>
+                            <div class="cu-card">
+                                <div class="cu-card-header">
+                                    <h3 class="cu-card-title">Reports</h3>
+                                    <p class="cu-card-description">Generate and view reports.</p>
+                                </div>
+                                <div class="cu-card-content">
+                                    <p class="text-sm">Reports content goes here.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ComponentPreview>
+        </section>
+    </div>
+</Layout>
+
+<script>
+    function setupTabs() {
+        document.querySelectorAll("[data-tabs]").forEach((tabs) => {
+            const triggers = tabs.querySelectorAll("[data-tabs-trigger]");
+            const contents = tabs.querySelectorAll("[data-tabs-content]");
+            triggers.forEach((trigger) => {
+                trigger.addEventListener("click", () => {
+                    const value = trigger.getAttribute("data-tabs-trigger");
+                    triggers.forEach((t) => t.classList.remove("cu-tabs-trigger-active"));
+                    trigger.classList.add("cu-tabs-trigger-active");
+                    contents.forEach((c) => {
+                        c.hidden = c.getAttribute("data-tabs-content") !== value;
+                    });
+                });
+            });
+        });
+    }
+
+    setupTabs();
+    document.addEventListener("astro:page-load", setupTabs);
+</script>

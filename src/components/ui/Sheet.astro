@@ -1,0 +1,17 @@
+---
+import { TOP_CLASS } from "../../config";
+
+interface Props {
+    side?: "right" | "left" | "top" | "bottom";
+    class?: string;
+    [key: string]: any;
+}
+
+const { side = "right", class: className, ...rest } = Astro.props;
+const baseClass = `${TOP_CLASS}-sheet`;
+const sideClass = `${TOP_CLASS}-sheet-${side}`;
+---
+
+<dialog class:list={[baseClass, sideClass, className]} {...rest}>
+    <slot />
+</dialog>

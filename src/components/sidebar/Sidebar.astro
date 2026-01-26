@@ -17,6 +17,8 @@ const gettingStarted = [
 const basicComponents = [
 	{ name: "Button", href: "/components/button" },
 	{ name: "Card", href: "/components/card" },
+	{ name: "Color", href: "/components/color" },
+	{ name: "Separator", href: "/components/separator" },
 ];
 
 const formComponents = [
@@ -31,6 +33,39 @@ const formComponents = [
 	{ name: "File Input", href: "/components/file-input" },
 	{ name: "Range", href: "/components/range" },
 	{ name: "Form Group", href: "/components/form-group" },
+];
+
+const dataDisplayComponents = [
+	{ name: "Accordion", href: "/components/accordion" },
+	{ name: "Avatar", href: "/components/avatar" },
+	{ name: "Badge", href: "/components/badge" },
+	{ name: "Collapsible", href: "/components/collapsible" },
+	{ name: "Data Table", href: "/components/data-table" },
+	{ name: "Table", href: "/components/table" },
+];
+
+const feedbackComponents = [
+	{ name: "Alert", href: "/components/alert" },
+	{ name: "Progress", href: "/components/progress" },
+	{ name: "Skeleton", href: "/components/skeleton" },
+	{ name: "Toast", href: "/components/toast" },
+];
+
+const overlayComponents = [
+	{ name: "Alert Dialog", href: "/components/alert-dialog" },
+	{ name: "Dialog", href: "/components/dialog" },
+	{ name: "Dropdown Menu", href: "/components/dropdown" },
+	{ name: "Hover Card", href: "/components/hover-card" },
+	{ name: "Popover", href: "/components/popover" },
+	{ name: "Sheet", href: "/components/sheet" },
+	{ name: "Tooltip", href: "/components/tooltip" },
+];
+
+const navigationComponents = [
+	{ name: "Breadcrumb", href: "/components/breadcrumb" },
+	{ name: "Menubar", href: "/components/menubar" },
+	{ name: "Pagination", href: "/components/pagination" },
+	{ name: "Tabs", href: "/components/tabs" },
 ];
 
 const layoutComponents = [
@@ -72,6 +107,46 @@ const layoutComponents = [
 				<SidebarGroup title="Forms">
 					{
 						formComponents.map((item) => (
+							<SidebarLink href={item.href} currentPath={currentPath}>
+								{item.name}
+							</SidebarLink>
+						))
+					}
+				</SidebarGroup>
+
+				<SidebarGroup title="Data Display">
+					{
+						dataDisplayComponents.map((item) => (
+							<SidebarLink href={item.href} currentPath={currentPath}>
+								{item.name}
+							</SidebarLink>
+						))
+					}
+				</SidebarGroup>
+
+				<SidebarGroup title="Feedback">
+					{
+						feedbackComponents.map((item) => (
+							<SidebarLink href={item.href} currentPath={currentPath}>
+								{item.name}
+							</SidebarLink>
+						))
+					}
+				</SidebarGroup>
+
+				<SidebarGroup title="Overlay">
+					{
+						overlayComponents.map((item) => (
+							<SidebarLink href={item.href} currentPath={currentPath}>
+								{item.name}
+							</SidebarLink>
+						))
+					}
+				</SidebarGroup>
+
+				<SidebarGroup title="Navigation">
+					{
+						navigationComponents.map((item) => (
 							<SidebarLink href={item.href} currentPath={currentPath}>
 								{item.name}
 							</SidebarLink>

@@ -1,0 +1,19 @@
+---
+import { TOP_CLASS } from "../../config";
+
+interface Props {
+    value?: number;
+    class?: string;
+    [key: string]: any;
+}
+
+const { value = 0, class: className, ...rest } = Astro.props;
+
+const baseClass = `${TOP_CLASS}-progress`;
+const barClass = `${TOP_CLASS}-progress-bar`;
+const clampedValue = Math.min(100, Math.max(0, value));
+---
+
+<div class:list={[baseClass, className]} role="progressbar" aria-valuenow={clampedValue} aria-valuemin="0" aria-valuemax="100" {...rest}>
+    <div class={barClass} style={`width: ${clampedValue}%`}></div>
+</div>

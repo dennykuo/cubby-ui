@@ -1,0 +1,107 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Pagination from "../../components/ui/Pagination.astro";
+import PaginationItem from "../../components/ui/PaginationItem.astro";
+import PaginationPrev from "../../components/ui/PaginationPrev.astro";
+import PaginationNext from "../../components/ui/PaginationNext.astro";
+import PaginationEllipsis from "../../components/ui/PaginationEllipsis.astro";
+import ComponentPreview from "../../components/ComponentPreview.astro";
+
+const usageCode = `<nav aria-label="Pagination">
+  <ul class="cu-pagination">
+    <li><a class="cu-pagination-item" href="#">1</a></li>
+    <li><a class="cu-pagination-item cu-pagination-item-active" href="#" aria-current="page">2</a></li>
+    <li><a class="cu-pagination-item" href="#">3</a></li>
+  </ul>
+</nav>`.trim();
+
+const withEllipsisCode = `<nav aria-label="Pagination">
+  <ul class="cu-pagination">
+    <li><a class="cu-pagination-prev" href="#" aria-label="Go to previous page"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></a></li>
+    <li><a class="cu-pagination-item" href="#">1</a></li>
+    <li><a class="cu-pagination-item cu-pagination-item-active" href="#" aria-current="page">2</a></li>
+    <li><a class="cu-pagination-item" href="#">3</a></li>
+    <li><span class="cu-pagination-ellipsis"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg></span></li>
+    <li><a class="cu-pagination-item" href="#">10</a></li>
+    <li><a class="cu-pagination-next" href="#" aria-label="Go to next page"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></a></li>
+  </ul>
+</nav>`.trim();
+
+const withPrevNextCode = `<nav aria-label="Pagination">
+  <ul class="cu-pagination">
+    <li><a class="cu-pagination-prev" href="#" aria-label="Go to previous page"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></a></li>
+    <li><a class="cu-pagination-item" href="#">1</a></li>
+    <li><a class="cu-pagination-item" href="#">2</a></li>
+    <li><a class="cu-pagination-item cu-pagination-item-active" href="#" aria-current="page">3</a></li>
+    <li><a class="cu-pagination-item" href="#">4</a></li>
+    <li><a class="cu-pagination-item" href="#">5</a></li>
+    <li><a class="cu-pagination-next" href="#" aria-label="Go to next page"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></a></li>
+  </ul>
+</nav>`.trim();
+---
+
+<Layout title="Pagination — Cubby UI">
+    <div class="space-y-3">
+        <h1 class="text-3xl font-bold tracking-tight">Pagination</h1>
+        <p class="text-base text-muted-foreground leading-relaxed">
+            Pagination with page navigation, previous and next controls.
+        </p>
+    </div>
+
+    <div class="mt-10 space-y-10">
+        <!-- Usage -->
+        <section class="space-y-3">
+            <h2 class="text-lg font-semibold tracking-tight">Usage</h2>
+            <p class="text-sm text-muted-foreground leading-relaxed">
+                Use <code class="cu-code">cu-pagination</code> on the list,
+                <code class="cu-code">cu-pagination-item</code> for page links, and
+                <code class="cu-code">cu-pagination-item-active</code> for the current page.
+            </p>
+            <ComponentPreview code={usageCode}>
+                <Pagination>
+                    <PaginationItem href="#">1</PaginationItem>
+                    <PaginationItem href="#" active>2</PaginationItem>
+                    <PaginationItem href="#">3</PaginationItem>
+                </Pagination>
+            </ComponentPreview>
+        </section>
+
+        <!-- With Ellipsis -->
+        <section class="space-y-3">
+            <h2 class="text-lg font-semibold tracking-tight">With Ellipsis</h2>
+            <p class="text-sm text-muted-foreground leading-relaxed">
+                Use <code class="cu-code">cu-pagination-ellipsis</code> to indicate skipped pages.
+            </p>
+            <ComponentPreview code={withEllipsisCode}>
+                <Pagination>
+                    <PaginationPrev href="#" />
+                    <PaginationItem href="#">1</PaginationItem>
+                    <PaginationItem href="#" active>2</PaginationItem>
+                    <PaginationItem href="#">3</PaginationItem>
+                    <PaginationEllipsis />
+                    <PaginationItem href="#">10</PaginationItem>
+                    <PaginationNext href="#" />
+                </Pagination>
+            </ComponentPreview>
+        </section>
+
+        <!-- With Prev/Next -->
+        <section class="space-y-3">
+            <h2 class="text-lg font-semibold tracking-tight">With Prev/Next</h2>
+            <p class="text-sm text-muted-foreground leading-relaxed">
+                Add <code class="cu-code">cu-pagination-prev</code> and <code class="cu-code">cu-pagination-next</code> for navigation arrows.
+            </p>
+            <ComponentPreview code={withPrevNextCode}>
+                <Pagination>
+                    <PaginationPrev href="#" />
+                    <PaginationItem href="#">1</PaginationItem>
+                    <PaginationItem href="#">2</PaginationItem>
+                    <PaginationItem href="#" active>3</PaginationItem>
+                    <PaginationItem href="#">4</PaginationItem>
+                    <PaginationItem href="#">5</PaginationItem>
+                    <PaginationNext href="#" />
+                </Pagination>
+            </ComponentPreview>
+        </section>
+    </div>
+</Layout>

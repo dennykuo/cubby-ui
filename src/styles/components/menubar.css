@@ -1,0 +1,45 @@
+/* Menubar
+   ------------------------------------------------------------------ */
+.cu-menubar {
+    @apply inline-flex h-10 items-center gap-1 rounded-lg border border-border bg-background p-1;
+}
+
+.cu-menubar-menu {
+    @apply relative;
+}
+
+.cu-menubar-trigger {
+    @apply inline-flex items-center justify-center rounded-md px-3 py-1.5 text-sm font-medium cursor-pointer transition-colors hover:bg-accent hover:text-accent-foreground outline-none;
+}
+
+.cu-menubar-trigger[aria-expanded="true"] {
+    @apply bg-accent text-accent-foreground;
+}
+
+.cu-menubar-content {
+    @apply absolute left-0 z-50 mt-1 min-w-[12rem] overflow-hidden rounded-lg border border-border bg-popover p-1 text-popover-foreground shadow-md;
+}
+
+.cu-menubar-item {
+    @apply relative flex w-full cursor-pointer items-center rounded-md px-2 py-1.5 text-sm transition-colors hover:bg-accent hover:text-accent-foreground outline-none;
+}
+
+.cu-menubar-item-disabled {
+    @apply pointer-events-none opacity-50;
+}
+
+.cu-menubar-label {
+    @apply px-2 py-1.5 text-sm font-semibold;
+}
+
+.cu-menubar-separator {
+    @apply -mx-1 my-1 h-px bg-border;
+}
+
+.cu-menubar-shortcut {
+    @apply ml-auto text-xs tracking-widest text-muted-foreground;
+}
+
+.cu-menubar-item-inset {
+    @apply pl-8;
+}

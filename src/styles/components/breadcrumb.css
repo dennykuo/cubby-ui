@@ -1,0 +1,21 @@
+/* Breadcrumb
+   ------------------------------------------------------------------ */
+.cu-breadcrumb {
+    @apply flex flex-wrap items-center gap-1.5 text-sm text-muted-foreground;
+}
+
+.cu-breadcrumb-item {
+    @apply inline-flex items-center gap-1.5;
+}
+
+.cu-breadcrumb-link {
+    @apply transition-colors hover:text-foreground;
+}
+
+.cu-breadcrumb-separator {
+    @apply text-muted-foreground/60 [&>svg]:size-3.5;
+}
+
+.cu-breadcrumb-current {
+    @apply font-medium text-foreground;
+}

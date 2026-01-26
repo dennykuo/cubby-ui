@@ -1,0 +1,23 @@
+/* Range
+   ------------------------------------------------------------------ */
+.cu-range {
+    @apply w-full h-1.5 rounded-full bg-input appearance-none cursor-pointer transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/40 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50;
+}
+
+.cu-range::-webkit-slider-thumb {
+    @apply appearance-none size-4 rounded-full bg-primary border-2 border-background shadow-sm;
+    transition: box-shadow 0.15s ease;
+}
+
+.cu-range::-webkit-slider-thumb:hover {
+    box-shadow: 0 0 0 4px hsl(221 83% 53% / 0.15);
+}
+
+.cu-range::-moz-range-thumb {
+    @apply size-4 rounded-full bg-primary border-2 border-background shadow-sm;
+    transition: box-shadow 0.15s ease;
+}
+
+.cu-range::-moz-range-thumb:hover {
+    box-shadow: 0 0 0 4px hsl(221 83% 53% / 0.15);
+}

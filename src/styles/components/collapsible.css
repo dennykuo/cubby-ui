@@ -1,0 +1,21 @@
+/* Collapsible
+   ------------------------------------------------------------------ */
+.cu-collapsible {
+    @apply w-full;
+}
+
+.cu-collapsible-trigger {
+    @apply flex w-full items-center justify-between text-sm font-medium cursor-pointer;
+}
+
+.cu-collapsible-trigger svg {
+    @apply shrink-0 text-muted-foreground transition-transform duration-200;
+}
+
+.cu-collapsible[open] .cu-collapsible-trigger svg {
+    @apply rotate-180;
+}
+
+.cu-collapsible-content {
+    @apply overflow-hidden pt-2 text-sm;
+}

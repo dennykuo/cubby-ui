@@ -1,0 +1,134 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import ComponentPreview from "../../components/ComponentPreview.astro";
+
+const usageCode = `<div class="cu-popover" data-popover>
+  <button class="cu-button cu-button-outline cu-button-md" data-popover-trigger>
+    Open Popover
+  </button>
+  <div class="cu-popover-content" data-popover-content>
+    <div class="space-y-2">
+      <h4 class="text-sm font-medium leading-none">Dimensions</h4>
+      <p class="text-sm text-muted-foreground">Set the dimensions for the layer.</p>
+    </div>
+    <div class="mt-4 space-y-3">
+      <div class="cu-form-group">
+        <label class="cu-label" for="pop-width">Width</label>
+        <input class="cu-input" id="pop-width" value="100%" />
+      </div>
+      <div class="cu-form-group">
+        <label class="cu-label" for="pop-height">Height</label>
+        <input class="cu-input" id="pop-height" value="25px" />
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll("[data-popover]").forEach((popover) => {
+    const trigger = popover.querySelector("[data-popover-trigger]");
+    const content = popover.querySelector("[data-popover-content]");
+    if (!trigger || !content) return;
+    content.style.display = "none";
+    trigger.addEventListener("click", () => {
+      const open = content.style.display !== "none";
+      content.style.display = open ? "none" : "";
+    });
+    document.addEventListener("click", (e) => {
+      if (!popover.contains(e.target)) content.style.display = "none";
+    });
+  });
+</script>`.trim();
+
+const topCode = `<div class="cu-popover" data-popover>
+  <button class="cu-button cu-button-outline cu-button-md" data-popover-trigger>
+    Top Popover
+  </button>
+  <div class="cu-popover-content bottom-full mb-2" data-popover-content>
+    <p class="text-sm text-muted-foreground">This popover opens above the trigger.</p>
+  </div>
+</div>`.trim();
+---
+
+<Layout title="Popover — Cubby UI">
+    <div class="space-y-3">
+        <h1 class="text-3xl font-bold tracking-tight">Popover</h1>
+        <p class="text-base text-muted-foreground leading-relaxed">
+            Displays rich content in a portal, triggered by a button.
+        </p>
+    </div>
+
+    <div class="mt-10 space-y-10">
+        <!-- Usage -->
+        <section class="space-y-3">
+            <h2 class="text-lg font-semibold tracking-tight">Usage</h2>
+            <p class="text-sm text-muted-foreground leading-relaxed">
+                Use <code class="cu-code">cu-popover</code> as the wrapper with <code class="cu-code">data-popover</code>,
+                <code class="cu-code">data-popover-trigger</code> on the button,
+                and <code class="cu-code">cu-popover-content</code> with <code class="cu-code">data-popover-content</code> for the panel.
+            </p>
+            <ComponentPreview code={usageCode}>
+                <div class="cu-popover" data-popover>
+                    <button class="cu-button cu-button-outline cu-button-md" data-popover-trigger>
+                        Open Popover
+                    </button>
+                    <div class="cu-popover-content" data-popover-content>
+                        <div class="space-y-2">
+                            <h4 class="text-sm font-medium leading-none">Dimensions</h4>
+                            <p class="text-sm text-muted-foreground">Set the dimensions for the layer.</p>
+                        </div>
+                        <div class="mt-4 space-y-3">
+                            <div class="cu-form-group">
+                                <label class="cu-label" for="pop-width">Width</label>
+                                <input class="cu-input" id="pop-width" value="100%" />
+                            </div>
+                            <div class="cu-form-group">
+                                <label class="cu-label" for="pop-height">Height</label>
+                                <input class="cu-input" id="pop-height" value="25px" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ComponentPreview>
+        </section>
+
+        <!-- Top Position -->
+        <section class="space-y-3">
+            <h2 class="text-lg font-semibold tracking-tight">Top Position</h2>
+            <p class="text-sm text-muted-foreground leading-relaxed">
+                Add <code class="cu-code">bottom-full mb-2</code> utility classes to the content to position above the trigger.
+            </p>
+            <ComponentPreview code={topCode}>
+                <div class="cu-popover" data-popover>
+                    <button class="cu-button cu-button-outline cu-button-md" data-popover-trigger>
+                        Top Popover
+                    </button>
+                    <div class="cu-popover-content bottom-full mb-2" data-popover-content>
+                        <p class="text-sm text-muted-foreground">This popover opens above the trigger.</p>
+                    </div>
+                </div>
+            </ComponentPreview>
+        </section>
+    </div>
+</Layout>
+
+<script>
+    function setupPopovers() {
+        document.querySelectorAll("[data-popover]").forEach((popover) => {
+            const trigger = popover.querySelector("[data-popover-trigger]");
+            const content = popover.querySelector("[data-popover-content]") as HTMLElement | null;
+            if (!trigger || !content) return;
+            content.style.display = "none";
+            trigger.addEventListener("click", () => {
+                const open = content.style.display !== "none";
+                content.style.display = open ? "none" : "";
+            });
+            document.addEventListener("click", (e) => {
+                if (!popover.contains(e.target as Node)) content.style.display = "none";
+            });
+        });
+    }
+
+    setupPopovers();
+    document.addEventListener("astro:page-load", setupPopovers);
+</script>

@@ -1,0 +1,25 @@
+---
+import { TOP_CLASS } from "../../config";
+
+interface Props {
+    disabled?: boolean;
+    inset?: boolean;
+    class?: string;
+    [key: string]: any;
+}
+
+const { disabled = false, inset = false, class: className, ...rest } = Astro.props;
+const baseClass = `${TOP_CLASS}-menubar-item`;
+---
+
+<div
+    class:list={[
+        baseClass,
+        disabled && `${TOP_CLASS}-menubar-item-disabled`,
+        inset && `${TOP_CLASS}-menubar-item-inset`,
+        className,
+    ]}
+    {...rest}
+>
+    <slot />
+</div>

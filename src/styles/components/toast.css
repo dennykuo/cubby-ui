@@ -1,0 +1,61 @@
+/* Toast
+   ------------------------------------------------------------------ */
+.cu-toast-container {
+    @apply fixed z-50 flex flex-col gap-2 pointer-events-none;
+}
+
+.cu-toast-container-bottom-right {
+    @apply bottom-4 right-4;
+}
+
+.cu-toast-container-bottom-left {
+    @apply bottom-4 left-4;
+}
+
+.cu-toast-container-top-right {
+    @apply top-4 right-4;
+}
+
+.cu-toast-container-top-left {
+    @apply top-4 left-4;
+}
+
+.cu-toast {
+    @apply pointer-events-auto relative flex w-80 items-start gap-3 rounded-lg border border-border bg-background p-4 shadow-lg transition-all duration-300;
+}
+
+.cu-toast-default {
+    @apply bg-background text-foreground;
+}
+
+.cu-toast-destructive {
+    @apply border-destructive/50 text-destructive;
+}
+
+.cu-toast-success {
+    @apply border-success/50 text-success;
+}
+
+.cu-toast-warning {
+    @apply border-warning/50 text-warning;
+}
+
+.cu-toast-info {
+    @apply border-info/50 text-info;
+}
+
+.cu-toast-body {
+    @apply flex-1 space-y-1;
+}
+
+.cu-toast-title {
+    @apply text-sm font-semibold leading-none tracking-tight;
+}
+
+.cu-toast-description {
+    @apply text-sm text-muted-foreground;
+}
+
+.cu-toast-close {
+    @apply shrink-0 rounded-sm opacity-70 transition-opacity hover:opacity-100 cursor-pointer;
+}

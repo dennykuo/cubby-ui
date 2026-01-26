@@ -1,0 +1,30 @@
+/* Dialog
+   ------------------------------------------------------------------ */
+.cu-dialog {
+    @apply fixed inset-0 z-50 m-auto h-fit w-full max-w-lg rounded-xl border border-border bg-background p-6 shadow-lg;
+}
+
+.cu-dialog::backdrop {
+    background: hsl(222.2 47.4% 11.2% / 0.5);
+    backdrop-filter: blur(4px);
+}
+
+.cu-dialog-header {
+    @apply flex flex-col space-y-1.5 text-center sm:text-left;
+}
+
+.cu-dialog-title {
+    @apply text-lg font-semibold leading-none tracking-tight;
+}
+
+.cu-dialog-description {
+    @apply text-sm text-muted-foreground;
+}
+
+.cu-dialog-footer {
+    @apply flex flex-col-reverse sm:flex-row sm:justify-end gap-2 mt-6;
+}
+
+.cu-dialog-close {
+    @apply absolute right-4 top-4 rounded-sm opacity-70 transition-opacity hover:opacity-100 cursor-pointer;
+}

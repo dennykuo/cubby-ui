@@ -1,410 +1,55 @@
 @layer components {
 
-    /* ==========================================================================
-       BASIC
-       ========================================================================== */
-
-    /* Button
-       ------------------------------------------------------------------ */
-    .cu-button {
-        @apply inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-lg text-sm font-medium transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/40 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 cursor-pointer;
-    }
-
-    /* -- variants -- */
-    .cu-button-default {
-        @apply bg-primary text-primary-foreground hover:bg-primary/90;
-    }
-
-    .cu-button-secondary {
-        @apply bg-secondary text-secondary-foreground hover:bg-secondary/70;
-    }
-
-    .cu-button-outline {
-        @apply border border-input bg-background hover:bg-accent hover:text-accent-foreground;
-    }
-
-    .cu-button-ghost {
-        @apply hover:bg-accent hover:text-accent-foreground;
-    }
-
-    .cu-button-link {
-        @apply text-primary underline-offset-4 hover:underline;
-    }
-
-    .cu-button-destructive {
-        @apply bg-destructive text-destructive-foreground hover:bg-destructive/90;
-    }
-
-    .cu-button-success {
-        @apply bg-success text-success-foreground hover:bg-success/90;
-    }
-
-    .cu-button-warning {
-        @apply bg-warning text-warning-foreground hover:bg-warning/90;
-    }
-
-    .cu-button-info {
-        @apply bg-info text-info-foreground hover:bg-info/90;
-    }
-
-    /* -- sizes (xs → sm → md → lg → xl) -- */
-    .cu-button-xs {
-        @apply h-7 rounded-md px-2 text-xs;
-    }
-
-    .cu-button-sm {
-        @apply h-8 rounded-md px-3 text-xs;
-    }
-
-    .cu-button-md {
-        @apply h-9 px-4 py-2;
-    }
-
-    .cu-button-lg {
-        @apply h-10 rounded-lg px-6;
-    }
-
-    .cu-button-xl {
-        @apply h-11 rounded-lg px-8 text-base;
-    }
-
-    /* -- modifiers -- */
-    .cu-button-icon {
-        @apply h-9 w-9 p-2;
-    }
-
-    /* Card
-       ------------------------------------------------------------------ */
-    .cu-card {
-        @apply rounded-xl border border-border bg-card text-card-foreground shadow-sm transition-shadow duration-200 hover:shadow-md;
-    }
-
-    .cu-card-header {
-        @apply flex flex-col space-y-1.5 p-6;
-    }
-
-    .cu-card-title {
-        @apply font-semibold leading-none tracking-tight;
-    }
-
-    .cu-card-description {
-        @apply text-sm text-muted-foreground;
-    }
-
-    .cu-card-content {
-        @apply p-6 pt-0;
-    }
-
-    .cu-card-footer {
-        @apply flex items-center p-6 pt-0;
-    }
-
-    /* ==========================================================================
-       FORMS
-       ========================================================================== */
-
-    /* Label
-       ------------------------------------------------------------------ */
-    .cu-label {
-        @apply text-sm font-medium leading-relaxed peer-disabled:cursor-not-allowed peer-disabled:opacity-70;
-    }
-
-    /* Input
-       ------------------------------------------------------------------ */
-    .cu-input {
-        @apply flex h-9 w-full rounded-lg border border-input bg-background px-3 py-1 text-sm transition-colors duration-150 placeholder:text-muted-foreground hover:border-muted-foreground/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/40 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 disabled:hover:border-input;
-    }
-
-    /* File Input
-       ------------------------------------------------------------------ */
-    .cu-input-file {
-        @apply flex h-auto w-full rounded-lg border border-input bg-background py-1.5 pl-1.5 pr-3 text-sm text-muted-foreground transition-colors duration-150 file:mr-3 file:rounded-md file:border-0 file:bg-secondary file:px-3 file:py-1 file:text-sm file:font-medium file:text-secondary-foreground file:cursor-pointer hover:border-muted-foreground/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/40 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 cursor-pointer;
-    }
-
-    /* Search Input
-       ------------------------------------------------------------------ */
-    .cu-input-search {
-        @apply relative flex items-center;
-    }
-
-    .cu-input-search-icon {
-        @apply pointer-events-none absolute left-3 size-4 text-muted-foreground;
-    }
-
-    .cu-input-search-field {
-        @apply flex h-9 w-full rounded-lg border border-input bg-background pl-9 pr-3 py-1 text-sm transition-colors duration-150 placeholder:text-muted-foreground hover:border-muted-foreground/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/40 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50;
-    }
-
-    /* Select
-       ------------------------------------------------------------------ */
-    .cu-select-wrapper {
-        @apply relative flex items-center;
-    }
-
-    .cu-select {
-        @apply flex h-9 w-full appearance-none rounded-lg border border-input bg-background px-3 pr-8 py-1 text-sm transition-colors duration-150 hover:border-muted-foreground/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/40 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50;
-    }
-
-    .cu-select-icon {
-        @apply pointer-events-none absolute right-3 size-4 text-muted-foreground;
-    }
-
-    /* Textarea
-       ------------------------------------------------------------------ */
-    .cu-textarea {
-        @apply flex min-h-[80px] w-full rounded-lg border border-input bg-background px-3 py-2 text-sm transition-colors duration-150 placeholder:text-muted-foreground hover:border-muted-foreground/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/40 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 disabled:hover:border-input resize-y;
-    }
-
-    /* Checkbox
-       ------------------------------------------------------------------ */
-    .cu-checkbox-wrapper {
-        @apply flex items-center gap-2;
-    }
-
-    .cu-checkbox {
-        @apply size-4 shrink-0 appearance-none rounded border border-input bg-background transition-colors duration-150 cursor-pointer hover:border-muted-foreground/30 checked:bg-primary checked:border-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/40 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50;
-    }
-
-    .cu-checkbox:checked {
-        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6 9 17l-5-5'/%3E%3C/svg%3E");
-        background-size: 100% 100%;
-        background-position: center;
-        background-repeat: no-repeat;
-    }
-
-    /* Radio
-       ------------------------------------------------------------------ */
-    .cu-radio-group {
-        @apply flex flex-col gap-2;
-    }
-
-    .cu-radio-wrapper {
-        @apply flex items-center gap-2;
-    }
-
-    .cu-radio {
-        @apply size-4 shrink-0 appearance-none rounded-full border-2 border-input bg-background transition-all duration-150 cursor-pointer hover:border-muted-foreground/30 checked:border-[5px] checked:border-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/40 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50;
-    }
-
-    /* Toggle
-       ------------------------------------------------------------------ */
-    .cu-toggle-wrapper {
-        @apply inline-flex items-center gap-2 cursor-pointer;
-    }
-
-    .cu-toggle-input {
-        @apply sr-only;
-    }
-
-    .cu-toggle-input + .cu-toggle {
-        @apply relative inline-flex h-5 w-9 shrink-0 items-center rounded-full border-2 border-transparent bg-input transition-colors duration-150;
-    }
-
-    .cu-toggle-input:focus-visible + .cu-toggle {
-        @apply outline-none ring-2 ring-ring/40 ring-offset-2;
-    }
-
-    .cu-toggle-input:checked + .cu-toggle {
-        @apply bg-primary;
-    }
-
-    .cu-toggle-input:disabled + .cu-toggle {
-        @apply opacity-50 cursor-not-allowed;
-    }
-
-    .cu-toggle-thumb {
-        @apply pointer-events-none block size-4 rounded-full bg-background shadow-sm ring-0 transition-transform duration-150;
-    }
-
-    .cu-toggle-input:checked + .cu-toggle .cu-toggle-thumb {
-        @apply translate-x-4;
-    }
-
-    /* -- toggle sizes -- */
-    .cu-toggle-input + .cu-toggle-sm {
-        @apply h-4 w-7;
-    }
-
-    .cu-toggle-sm .cu-toggle-thumb {
-        @apply size-3;
-    }
-
-    .cu-toggle-input:checked + .cu-toggle-sm .cu-toggle-thumb {
-        @apply translate-x-3;
-    }
-
-    .cu-toggle-input + .cu-toggle-lg {
-        @apply h-6 w-11;
-    }
-
-    .cu-toggle-lg .cu-toggle-thumb {
-        @apply size-5;
-    }
-
-    .cu-toggle-input:checked + .cu-toggle-lg .cu-toggle-thumb {
-        @apply translate-x-5;
-    }
-
-    /* Range
-       ------------------------------------------------------------------ */
-    .cu-range {
-        @apply w-full h-1.5 rounded-full bg-input appearance-none cursor-pointer transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/40 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50;
-    }
-
-    .cu-range::-webkit-slider-thumb {
-        @apply appearance-none size-4 rounded-full bg-primary border-2 border-background shadow-sm;
-        transition: box-shadow 0.15s ease;
-    }
-
-    .cu-range::-webkit-slider-thumb:hover {
-        box-shadow: 0 0 0 4px hsl(221 83% 53% / 0.15);
-    }
-
-    .cu-range::-moz-range-thumb {
-        @apply size-4 rounded-full bg-primary border-2 border-background shadow-sm;
-        transition: box-shadow 0.15s ease;
-    }
-
-    .cu-range::-moz-range-thumb:hover {
-        box-shadow: 0 0 0 4px hsl(221 83% 53% / 0.15);
-    }
-
-    /* Form Group
-       ------------------------------------------------------------------ */
-    .cu-form-group {
-        @apply flex flex-col gap-1.5;
-    }
-
-    .cu-form-description {
-        @apply text-xs text-muted-foreground;
-    }
-
-    .cu-form-error {
-        @apply text-xs text-destructive;
-    }
-
-    /* ==========================================================================
-       LAYOUT
-       ========================================================================== */
-
-    /* Container
-       ------------------------------------------------------------------ */
-    .cu-container {
-        @apply mx-auto w-full px-4 sm:px-6 lg:px-8;
-    }
-
-    .cu-container-sm {
-        @apply max-w-screen-sm;
-    }
-
-    .cu-container-md {
-        @apply max-w-screen-md;
-    }
-
-    .cu-container-lg {
-        @apply max-w-screen-lg;
-    }
-
-    .cu-container-xl {
-        @apply max-w-screen-xl;
-    }
-
-    .cu-container-2xl {
-        @apply max-w-screen-2xl;
-    }
-
-    .cu-container-prose {
-        @apply max-w-prose;
-    }
-
-    /* Header
-       ------------------------------------------------------------------ */
-    .cu-header {
-        @apply sticky top-0 z-50 w-full border-b border-border bg-background/80 backdrop-blur-xl;
-    }
-
-    .cu-header-inner {
-        @apply mx-auto flex h-14 items-center justify-between px-4 sm:px-6 lg:px-8;
-    }
-
-    .cu-header-brand {
-        @apply flex items-center gap-2.5;
-    }
-
-    .cu-header-nav {
-        @apply hidden md:flex items-center gap-1;
-    }
-
-    .cu-header-actions {
-        @apply flex items-center gap-2;
-    }
-
-    /* Nav
-       ------------------------------------------------------------------ */
-    .cu-nav {
-        @apply flex items-center gap-1;
-    }
-
-    .cu-nav-item {
-        @apply inline-flex items-center gap-2 rounded-lg px-3 py-1.5 text-sm text-muted-foreground transition-colors duration-150 hover:bg-muted/60 hover:text-foreground cursor-pointer;
-    }
-
-    .cu-nav-item-active {
-        @apply bg-primary/8 font-medium text-primary;
-    }
-
-    .cu-nav-vertical {
-        @apply flex-col items-stretch gap-0.5;
-    }
-
-    /* Sidebar
-       ------------------------------------------------------------------ */
-    .cu-sidebar {
-        @apply flex h-full w-56 flex-col bg-background;
-    }
-
-    .cu-sidebar-header {
-        @apply flex items-center gap-2 pl-9 pr-6 py-4 border-b border-border;
-    }
-
-    .cu-sidebar-content {
-        @apply flex-1 overflow-y-auto py-8 pl-6 pr-2;
-    }
-
-    .cu-sidebar-footer {
-        @apply px-6 py-4 border-t border-border;
-    }
-
-    .cu-sidebar-section {
-        @apply mb-6;
-    }
-
-    .cu-sidebar-section-title {
-        @apply px-3 mb-6 text-xs font-semibold uppercase tracking-widest text-muted-foreground/70;
-    }
-
-    .cu-sidebar-group {
-        @apply mb-5;
-    }
-
-    .cu-sidebar-group-title {
-        @apply relative px-3 mb-2.5 text-xs font-bold text-muted-foreground;
-    }
-
-    .cu-sidebar-group-title::before {
-        content: '';
-        @apply absolute -left-1.5 top-1/2 -translate-y-1/2 w-2 h-px bg-primary/70;
-    }
-
-    .cu-sidebar-item {
-        @apply flex items-center gap-2 rounded-lg px-3 py-1.5 text-[13.5px] text-muted-foreground transition-colors duration-150 hover:bg-muted/60 hover:text-foreground cursor-pointer;
-    }
-
-    .cu-sidebar-item-active {
-        @apply bg-primary/8 font-medium text-primary;
-    }
-
-    .cu-sidebar-separator {
-        @apply mx-3 my-3 h-px bg-border;
-    }
+    /* ===== BASIC ===== */
+    @import "./components/button.css";
+    @import "./components/card.css";
+    @import "./components/separator.css";
+
+    /* ===== FORMS ===== */
+    @import "./components/label.css";
+    @import "./components/input.css";
+    @import "./components/file-input.css";
+    @import "./components/search-input.css";
+    @import "./components/select.css";
+    @import "./components/textarea.css";
+    @import "./components/checkbox.css";
+    @import "./components/radio.css";
+    @import "./components/toggle.css";
+    @import "./components/range.css";
+    @import "./components/form-group.css";
+
+    /* ===== DATA DISPLAY ===== */
+    @import "./components/badge.css";
+    @import "./components/avatar.css";
+    @import "./components/table.css";
+    @import "./components/accordion.css";
+    @import "./components/collapsible.css";
+    @import "./components/data-table.css";
+
+    /* ===== FEEDBACK ===== */
+    @import "./components/alert.css";
+    @import "./components/progress.css";
+    @import "./components/skeleton.css";
+    @import "./components/toast.css";
+
+    /* ===== OVERLAY ===== */
+    @import "./components/dialog.css";
+    @import "./components/alert-dialog.css";
+    @import "./components/dropdown.css";
+    @import "./components/hover-card.css";
+    @import "./components/popover.css";
+    @import "./components/sheet.css";
+    @import "./components/tooltip.css";
+
+    /* ===== NAVIGATION ===== */
+    @import "./components/breadcrumb.css";
+    @import "./components/menubar.css";
+    @import "./components/pagination.css";
+    @import "./components/tabs.css";
+
+    /* ===== LAYOUT ===== */
+    @import "./components/container.css";
+    @import "./components/header.css";
+    @import "./components/nav.css";
+    @import "./components/sidebar.css";
 }

@@ -1,0 +1,241 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Menubar from "../../components/ui/Menubar.astro";
+import MenubarMenu from "../../components/ui/MenubarMenu.astro";
+import MenubarTrigger from "../../components/ui/MenubarTrigger.astro";
+import MenubarContent from "../../components/ui/MenubarContent.astro";
+import MenubarItem from "../../components/ui/MenubarItem.astro";
+import MenubarSeparator from "../../components/ui/MenubarSeparator.astro";
+import MenubarShortcut from "../../components/ui/MenubarShortcut.astro";
+import ComponentPreview from "../../components/ComponentPreview.astro";
+
+const usageCode = `<div class="cu-menubar" data-menubar>
+  <div class="cu-menubar-menu" data-menubar-menu>
+    <button class="cu-menubar-trigger" data-menubar-trigger aria-expanded="false">File</button>
+    <div class="cu-menubar-content" data-menubar-content hidden>
+      <div class="cu-menubar-item">
+        New Tab <span class="cu-menubar-shortcut">⌘T</span>
+      </div>
+      <div class="cu-menubar-item">
+        New Window <span class="cu-menubar-shortcut">⌘N</span>
+      </div>
+      <div class="cu-menubar-separator"></div>
+      <div class="cu-menubar-item">
+        Print… <span class="cu-menubar-shortcut">⌘P</span>
+      </div>
+    </div>
+  </div>
+  <div class="cu-menubar-menu" data-menubar-menu>
+    <button class="cu-menubar-trigger" data-menubar-trigger aria-expanded="false">Edit</button>
+    <div class="cu-menubar-content" data-menubar-content hidden>
+      <div class="cu-menubar-item">
+        Undo <span class="cu-menubar-shortcut">⌘Z</span>
+      </div>
+      <div class="cu-menubar-item">
+        Redo <span class="cu-menubar-shortcut">⇧⌘Z</span>
+      </div>
+      <div class="cu-menubar-separator"></div>
+      <div class="cu-menubar-item">
+        Cut <span class="cu-menubar-shortcut">⌘X</span>
+      </div>
+      <div class="cu-menubar-item">
+        Copy <span class="cu-menubar-shortcut">⌘C</span>
+      </div>
+      <div class="cu-menubar-item">
+        Paste <span class="cu-menubar-shortcut">⌘V</span>
+      </div>
+    </div>
+  </div>
+  <div class="cu-menubar-menu" data-menubar-menu>
+    <button class="cu-menubar-trigger" data-menubar-trigger aria-expanded="false">View</button>
+    <div class="cu-menubar-content" data-menubar-content hidden>
+      <div class="cu-menubar-item">Zoom In</div>
+      <div class="cu-menubar-item">Zoom Out</div>
+      <div class="cu-menubar-separator"></div>
+      <div class="cu-menubar-item">Toggle Fullscreen</div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll("[data-menubar]").forEach((bar) => {
+    const menus = bar.querySelectorAll("[data-menubar-menu]");
+    menus.forEach((menu) => {
+      const trigger = menu.querySelector("[data-menubar-trigger]");
+      const content = menu.querySelector("[data-menubar-content]");
+      trigger?.addEventListener("click", () => {
+        const open = !content?.hasAttribute("hidden");
+        // close all menus in this bar
+        menus.forEach((m) => {
+          m.querySelector("[data-menubar-content]")?.setAttribute("hidden", "");
+          m.querySelector("[data-menubar-trigger]")?.setAttribute("aria-expanded", "false");
+        });
+        if (!open) {
+          content?.removeAttribute("hidden");
+          trigger.setAttribute("aria-expanded", "true");
+        }
+      });
+      // hover to switch while one is open
+      trigger?.addEventListener("mouseenter", () => {
+        const anyOpen = bar.querySelector("[data-menubar-content]:not([hidden])");
+        if (anyOpen && anyOpen !== content) {
+          menus.forEach((m) => {
+            m.querySelector("[data-menubar-content]")?.setAttribute("hidden", "");
+            m.querySelector("[data-menubar-trigger]")?.setAttribute("aria-expanded", "false");
+          });
+          content?.removeAttribute("hidden");
+          trigger.setAttribute("aria-expanded", "true");
+        }
+      });
+    });
+    document.addEventListener("click", (e) => {
+      if (!bar.contains(e.target)) {
+        menus.forEach((m) => {
+          m.querySelector("[data-menubar-content]")?.setAttribute("hidden", "");
+          m.querySelector("[data-menubar-trigger]")?.setAttribute("aria-expanded", "false");
+        });
+      }
+    });
+  });
+</script>`.trim();
+
+const withLabelsCode = `<div class="cu-menubar" data-menubar>
+  <div class="cu-menubar-menu" data-menubar-menu>
+    <button class="cu-menubar-trigger" data-menubar-trigger aria-expanded="false">Account</button>
+    <div class="cu-menubar-content" data-menubar-content hidden>
+      <div class="cu-menubar-label">My Account</div>
+      <div class="cu-menubar-separator"></div>
+      <div class="cu-menubar-item cu-menubar-item-inset">Profile</div>
+      <div class="cu-menubar-item cu-menubar-item-inset">Billing</div>
+      <div class="cu-menubar-item cu-menubar-item-inset">Settings</div>
+      <div class="cu-menubar-separator"></div>
+      <div class="cu-menubar-item cu-menubar-item-inset cu-menubar-item-disabled">API (coming soon)</div>
+    </div>
+  </div>
+</div>`.trim();
+---
+
+<Layout title="Menubar — Cubby UI">
+    <div class="space-y-3">
+        <h1 class="text-3xl font-bold tracking-tight">Menubar</h1>
+        <p class="text-base text-muted-foreground leading-relaxed">
+            A visually persistent menu common in desktop applications that provides quick access to a consistent set of commands.
+        </p>
+    </div>
+
+    <div class="mt-10 space-y-10">
+        <!-- Usage -->
+        <section class="space-y-3">
+            <h2 class="text-lg font-semibold tracking-tight">Usage</h2>
+            <p class="text-sm text-muted-foreground leading-relaxed">
+                Use <code class="cu-code">cu-menubar</code> as the wrapper with <code class="cu-code">data-menubar</code>.
+                Each menu uses <code class="cu-code">cu-menubar-menu</code>, <code class="cu-code">cu-menubar-trigger</code>, and <code class="cu-code">cu-menubar-content</code>.
+                Click a trigger to open; hover to switch between menus while one is open.
+            </p>
+            <ComponentPreview code={usageCode}>
+                <Menubar>
+                    <MenubarMenu>
+                        <MenubarTrigger>File</MenubarTrigger>
+                        <MenubarContent>
+                            <MenubarItem>New Tab <MenubarShortcut>⌘T</MenubarShortcut></MenubarItem>
+                            <MenubarItem>New Window <MenubarShortcut>⌘N</MenubarShortcut></MenubarItem>
+                            <MenubarSeparator />
+                            <MenubarItem>Print… <MenubarShortcut>⌘P</MenubarShortcut></MenubarItem>
+                        </MenubarContent>
+                    </MenubarMenu>
+                    <MenubarMenu>
+                        <MenubarTrigger>Edit</MenubarTrigger>
+                        <MenubarContent>
+                            <MenubarItem>Undo <MenubarShortcut>⌘Z</MenubarShortcut></MenubarItem>
+                            <MenubarItem>Redo <MenubarShortcut>⇧⌘Z</MenubarShortcut></MenubarItem>
+                            <MenubarSeparator />
+                            <MenubarItem>Cut <MenubarShortcut>⌘X</MenubarShortcut></MenubarItem>
+                            <MenubarItem>Copy <MenubarShortcut>⌘C</MenubarShortcut></MenubarItem>
+                            <MenubarItem>Paste <MenubarShortcut>⌘V</MenubarShortcut></MenubarItem>
+                        </MenubarContent>
+                    </MenubarMenu>
+                    <MenubarMenu>
+                        <MenubarTrigger>View</MenubarTrigger>
+                        <MenubarContent>
+                            <MenubarItem>Zoom In</MenubarItem>
+                            <MenubarItem>Zoom Out</MenubarItem>
+                            <MenubarSeparator />
+                            <MenubarItem>Toggle Fullscreen</MenubarItem>
+                        </MenubarContent>
+                    </MenubarMenu>
+                </Menubar>
+            </ComponentPreview>
+        </section>
+
+        <!-- With Labels -->
+        <section class="space-y-3">
+            <h2 class="text-lg font-semibold tracking-tight">With Labels & Disabled Items</h2>
+            <p class="text-sm text-muted-foreground leading-relaxed">
+                Use <code class="cu-code">cu-menubar-label</code> for section titles,
+                <code class="cu-code">cu-menubar-item-inset</code> for indented items, and
+                <code class="cu-code">cu-menubar-item-disabled</code> for disabled state.
+            </p>
+            <ComponentPreview code={withLabelsCode}>
+                <Menubar>
+                    <MenubarMenu>
+                        <MenubarTrigger>Account</MenubarTrigger>
+                        <MenubarContent>
+                            <div class="cu-menubar-label">My Account</div>
+                            <MenubarSeparator />
+                            <MenubarItem inset>Profile</MenubarItem>
+                            <MenubarItem inset>Billing</MenubarItem>
+                            <MenubarItem inset>Settings</MenubarItem>
+                            <MenubarSeparator />
+                            <MenubarItem inset disabled>API (coming soon)</MenubarItem>
+                        </MenubarContent>
+                    </MenubarMenu>
+                </Menubar>
+            </ComponentPreview>
+        </section>
+    </div>
+</Layout>
+
+<script>
+    function setupMenubars() {
+        document.querySelectorAll("[data-menubar]").forEach((bar) => {
+            const menus = bar.querySelectorAll("[data-menubar-menu]");
+            menus.forEach((menu) => {
+                const trigger = menu.querySelector("[data-menubar-trigger]");
+                const content = menu.querySelector("[data-menubar-content]");
+                trigger?.addEventListener("click", () => {
+                    const open = !content?.hasAttribute("hidden");
+                    menus.forEach((m) => {
+                        m.querySelector("[data-menubar-content]")?.setAttribute("hidden", "");
+                        m.querySelector("[data-menubar-trigger]")?.setAttribute("aria-expanded", "false");
+                    });
+                    if (!open) {
+                        content?.removeAttribute("hidden");
+                        trigger.setAttribute("aria-expanded", "true");
+                    }
+                });
+                trigger?.addEventListener("mouseenter", () => {
+                    const anyOpen = bar.querySelector("[data-menubar-content]:not([hidden])");
+                    if (anyOpen && anyOpen !== content) {
+                        menus.forEach((m) => {
+                            m.querySelector("[data-menubar-content]")?.setAttribute("hidden", "");
+                            m.querySelector("[data-menubar-trigger]")?.setAttribute("aria-expanded", "false");
+                        });
+                        content?.removeAttribute("hidden");
+                        trigger.setAttribute("aria-expanded", "true");
+                    }
+                });
+            });
+            document.addEventListener("click", (e) => {
+                if (!bar.contains(e.target as Node)) {
+                    menus.forEach((m) => {
+                        m.querySelector("[data-menubar-content]")?.setAttribute("hidden", "");
+                        m.querySelector("[data-menubar-trigger]")?.setAttribute("aria-expanded", "false");
+                    });
+                }
+            });
+        });
+    }
+
+    setupMenubars();
+    document.addEventListener("astro:page-load", setupMenubars);
+</script>

@@ -1,0 +1,115 @@
+---
+import Layout from "../../layouts/Layout.astro";
+
+interface Swatch {
+    name: string;
+    variable: string;
+    fg?: string;
+}
+
+const semanticColors: Swatch[] = [
+    { name: "Primary", variable: "--color-primary", fg: "--color-primary-foreground" },
+    { name: "Secondary", variable: "--color-secondary", fg: "--color-secondary-foreground" },
+    { name: "Destructive", variable: "--color-destructive", fg: "--color-destructive-foreground" },
+    { name: "Success", variable: "--color-success", fg: "--color-success-foreground" },
+    { name: "Warning", variable: "--color-warning", fg: "--color-warning-foreground" },
+    { name: "Info", variable: "--color-info", fg: "--color-info-foreground" },
+];
+
+const surfaceColors: Swatch[] = [
+    { name: "Background", variable: "--color-background", fg: "--color-foreground" },
+    { name: "Foreground", variable: "--color-foreground" },
+    { name: "Card", variable: "--color-card", fg: "--color-card-foreground" },
+    { name: "Popover", variable: "--color-popover", fg: "--color-popover-foreground" },
+    { name: "Muted", variable: "--color-muted", fg: "--color-muted-foreground" },
+    { name: "Accent", variable: "--color-accent", fg: "--color-accent-foreground" },
+];
+
+const utilityColors: Swatch[] = [
+    { name: "Border", variable: "--color-border" },
+    { name: "Input", variable: "--color-input" },
+    { name: "Ring", variable: "--color-ring" },
+];
+---
+
+<Layout title="Color — Cubby UI">
+    <div class="space-y-3">
+        <h1 class="text-3xl font-bold tracking-tight">Color</h1>
+        <p class="text-base text-muted-foreground leading-relaxed">
+            Semantic color tokens defined as CSS custom properties in <code class="cu-code">global.css</code>.
+            Each semantic color has a paired foreground for text on that background.
+        </p>
+    </div>
+
+    <div class="mt-10 space-y-10">
+        <!-- Semantic Colors -->
+        <section class="space-y-3">
+            <h2 class="text-lg font-semibold tracking-tight">Semantic Colors</h2>
+            <p class="text-sm text-muted-foreground leading-relaxed">
+                Used for interactive elements like buttons, badges, and alerts. Each color has a
+                <code class="cu-code">-foreground</code> counterpart for legible text.
+            </p>
+            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
+                {semanticColors.map((c) => (
+                    <div class="rounded-xl overflow-hidden border border-border">
+                        <div class="h-16 flex items-center justify-center text-xs font-medium" style={`background:var(${c.variable}); color:var(${c.fg || c.variable});`}>
+                            {c.fg ? "Aa" : ""}
+                        </div>
+                        <div class="px-3 py-2">
+                            <div class="text-[13px] font-semibold">{c.name}</div>
+                            <div class="text-xs text-muted-foreground font-mono">{c.variable}</div>
+                        </div>
+                    </div>
+                ))}
+            </div>
+        </section>
+
+        <!-- Surface Colors -->
+        <section class="space-y-3">
+            <h2 class="text-lg font-semibold tracking-tight">Surface Colors</h2>
+            <p class="text-sm text-muted-foreground leading-relaxed">
+                Used for page backgrounds, cards, popovers, and muted areas.
+            </p>
+            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
+                {surfaceColors.map((c) => (
+                    <div class="rounded-xl overflow-hidden border border-border">
+                        <div class="h-16" style={`background:var(${c.variable});`}></div>
+                        <div class="px-3 py-2">
+                            <div class="text-[13px] font-semibold">{c.name}</div>
+                            <div class="text-xs text-muted-foreground font-mono">{c.variable}</div>
+                        </div>
+                    </div>
+                ))}
+            </div>
+        </section>
+
+        <!-- Utility Colors -->
+        <section class="space-y-3">
+            <h2 class="text-lg font-semibold tracking-tight">Utility Colors</h2>
+            <p class="text-sm text-muted-foreground leading-relaxed">
+                Used for borders, input outlines, and focus rings.
+            </p>
+            <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                {utilityColors.map((c) => (
+                    <div class="rounded-xl overflow-hidden border border-border">
+                        <div class="h-16" style={`background:var(${c.variable});`}></div>
+                        <div class="px-3 py-2">
+                            <div class="text-[13px] font-semibold">{c.name}</div>
+                            <div class="text-xs text-muted-foreground font-mono">{c.variable}</div>
+                        </div>
+                    </div>
+                ))}
+            </div>
+        </section>
+
+        <!-- Customization -->
+        <section class="space-y-3">
+            <h2 class="text-lg font-semibold tracking-tight">Customization</h2>
+            <p class="text-sm text-muted-foreground leading-relaxed">
+                Override any color in <code class="cu-code">src/styles/global.css</code> inside the
+                <code class="cu-code">@theme</code> block. For dark mode, override inside the
+                <code class="cu-code">.dark</code> selector.
+            </p>
+        </section>
+    </div>
+</Layout>

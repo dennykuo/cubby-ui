@@ -1,0 +1,117 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Accordion from "../../components/ui/Accordion.astro";
+import AccordionItem from "../../components/ui/AccordionItem.astro";
+import AccordionTrigger from "../../components/ui/AccordionTrigger.astro";
+import AccordionContent from "../../components/ui/AccordionContent.astro";
+import ComponentPreview from "../../components/ComponentPreview.astro";
+
+const usageCode = `<div class="cu-accordion">
+  <details class="cu-accordion-item">
+    <summary class="cu-accordion-trigger">
+      Is it accessible?
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+    </summary>
+    <div class="cu-accordion-content">
+      Yes. It adheres to the WAI-ARIA design pattern using native HTML details/summary elements.
+    </div>
+  </details>
+</div>`.trim();
+
+const multipleCode = `<div class="cu-accordion">
+  <details class="cu-accordion-item">
+    <summary class="cu-accordion-trigger">
+      Is it accessible?
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+    </summary>
+    <div class="cu-accordion-content">
+      Yes. It uses native HTML details/summary elements for accessibility.
+    </div>
+  </details>
+  <details class="cu-accordion-item">
+    <summary class="cu-accordion-trigger">
+      Is it styled?
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+    </summary>
+    <div class="cu-accordion-content">
+      Yes. It comes with default styles that match the other components' aesthetic.
+    </div>
+  </details>
+  <details class="cu-accordion-item">
+    <summary class="cu-accordion-trigger">
+      Is it animated?
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+    </summary>
+    <div class="cu-accordion-content">
+      The chevron icon rotates when the item is expanded. The component uses CSS transitions.
+    </div>
+  </details>
+</div>`.trim();
+---
+
+<Layout title="Accordion — Cubby UI">
+    <div class="space-y-3">
+        <h1 class="text-3xl font-bold tracking-tight">Accordion</h1>
+        <p class="text-base text-muted-foreground leading-relaxed">
+            A vertically stacked set of interactive headings that each reveal associated content.
+        </p>
+    </div>
+
+    <div class="mt-10 space-y-10">
+        <!-- Usage -->
+        <section class="space-y-3">
+            <h2 class="text-lg font-semibold tracking-tight">Usage</h2>
+            <p class="text-sm text-muted-foreground leading-relaxed">
+                Built with native <code class="cu-code">&lt;details&gt;</code> and <code class="cu-code">&lt;summary&gt;</code> elements.
+                Use <code class="cu-code">cu-accordion</code> as the wrapper,
+                <code class="cu-code">cu-accordion-item</code> on each <code class="cu-code">&lt;details&gt;</code>,
+                <code class="cu-code">cu-accordion-trigger</code> on <code class="cu-code">&lt;summary&gt;</code>,
+                and <code class="cu-code">cu-accordion-content</code> for the body.
+            </p>
+            <ComponentPreview code={usageCode}>
+                <div class="w-full max-w-lg">
+                    <Accordion>
+                        <AccordionItem>
+                            <AccordionTrigger>Is it accessible?</AccordionTrigger>
+                            <AccordionContent>
+                                Yes. It adheres to the WAI-ARIA design pattern using native HTML details/summary elements.
+                            </AccordionContent>
+                        </AccordionItem>
+                    </Accordion>
+                </div>
+            </ComponentPreview>
+        </section>
+
+        <!-- Multiple Items -->
+        <section class="space-y-3">
+            <h2 class="text-lg font-semibold tracking-tight">Multiple Items</h2>
+            <p class="text-sm text-muted-foreground leading-relaxed">
+                Stack multiple items inside the accordion. Each can be opened independently.
+            </p>
+            <ComponentPreview code={multipleCode}>
+                <div class="w-full max-w-lg">
+                    <Accordion>
+                        <AccordionItem>
+                            <AccordionTrigger>Is it accessible?</AccordionTrigger>
+                            <AccordionContent>
+                                Yes. It uses native HTML details/summary elements for accessibility.
+                            </AccordionContent>
+                        </AccordionItem>
+                        <AccordionItem>
+                            <AccordionTrigger>Is it styled?</AccordionTrigger>
+                            <AccordionContent>
+                                Yes. It comes with default styles that match the other components' aesthetic.
+                            </AccordionContent>
+                        </AccordionItem>
+                        <AccordionItem>
+                            <AccordionTrigger>Is it animated?</AccordionTrigger>
+                            <AccordionContent>
+                                The chevron icon rotates when the item is expanded. The component uses CSS transitions.
+                            </AccordionContent>
+                        </AccordionItem>
+                    </Accordion>
+                </div>
+            </ComponentPreview>
+        </section>
+    </div>
+</Layout>

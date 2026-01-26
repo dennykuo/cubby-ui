@@ -1,0 +1,230 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import ComponentPreview from "../../components/ComponentPreview.astro";
+
+const chevronSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 15 5 5 5-5"/><path d="m7 9 5-5 5 5"/></svg>`;
+
+const usageCode = `<div class="cu-data-table">
+  <div class="cu-data-table-toolbar">
+    <div class="cu-input-search">
+      <svg xmlns="http://www.w3.org/2000/svg" class="cu-input-search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+      <input class="cu-input-search-field" placeholder="Filter emails…" data-data-table-filter />
+    </div>
+  </div>
+  <div class="cu-table-wrapper rounded-lg border border-border">
+    <table class="cu-table" data-data-table>
+      <thead class="cu-table-header">
+        <tr class="cu-table-row">
+          <th class="cu-table-head w-12"><input type="checkbox" class="cu-checkbox" data-data-table-select-all /></th>
+          <th class="cu-table-head cu-data-table-head-sortable" data-sort="status">
+            Status ${chevronSvg}
+          </th>
+          <th class="cu-table-head cu-data-table-head-sortable" data-sort="email">
+            Email ${chevronSvg}
+          </th>
+          <th class="cu-table-head cu-data-table-head-sortable text-right" data-sort="amount">
+            Amount ${chevronSvg}
+          </th>
+        </tr>
+      </thead>
+      <tbody class="cu-table-body">
+        <tr class="cu-table-row" data-email="ken99@yahoo.com">
+          <td class="cu-table-cell"><input type="checkbox" class="cu-checkbox" data-data-table-select /></td>
+          <td class="cu-table-cell"><span class="cu-badge cu-badge-success">Success</span></td>
+          <td class="cu-table-cell">ken99@yahoo.com</td>
+          <td class="cu-table-cell text-right font-medium">$316.00</td>
+        </tr>
+        <tr class="cu-table-row" data-email="abe45@gmail.com">
+          <td class="cu-table-cell"><input type="checkbox" class="cu-checkbox" data-data-table-select /></td>
+          <td class="cu-table-cell"><span class="cu-badge cu-badge-success">Success</span></td>
+          <td class="cu-table-cell">abe45@gmail.com</td>
+          <td class="cu-table-cell text-right font-medium">$242.00</td>
+        </tr>
+        <tr class="cu-table-row" data-email="monserrat44@gmail.com">
+          <td class="cu-table-cell"><input type="checkbox" class="cu-checkbox" data-data-table-select /></td>
+          <td class="cu-table-cell"><span class="cu-badge cu-badge-warning">Pending</span></td>
+          <td class="cu-table-cell">monserrat44@gmail.com</td>
+          <td class="cu-table-cell text-right font-medium">$837.00</td>
+        </tr>
+        <tr class="cu-table-row" data-email="silas22@gmail.com">
+          <td class="cu-table-cell"><input type="checkbox" class="cu-checkbox" data-data-table-select /></td>
+          <td class="cu-table-cell"><span class="cu-badge cu-badge-destructive">Failed</span></td>
+          <td class="cu-table-cell">silas22@gmail.com</td>
+          <td class="cu-table-cell text-right font-medium">$874.00</td>
+        </tr>
+        <tr class="cu-table-row" data-email="carmella@hotmail.com">
+          <td class="cu-table-cell"><input type="checkbox" class="cu-checkbox" data-data-table-select /></td>
+          <td class="cu-table-cell"><span class="cu-badge cu-badge-success">Success</span></td>
+          <td class="cu-table-cell">carmella@hotmail.com</td>
+          <td class="cu-table-cell text-right font-medium">$721.00</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="cu-data-table-info">
+    <span data-data-table-selected>0 of 5 row(s) selected.</span>
+  </div>
+</div>
+
+<script>
+  // Select all / individual row selection
+  document.querySelectorAll("[data-data-table-select-all]").forEach((selectAll) => {
+    const table = selectAll.closest("table");
+    const rows = table?.querySelectorAll("[data-data-table-select]") || [];
+    const info = table?.closest(".cu-data-table")?.querySelector("[data-data-table-selected]");
+    function updateInfo() {
+      const checked = table?.querySelectorAll("[data-data-table-select]:checked").length || 0;
+      if (info) info.textContent = \`\${checked} of \${rows.length} row(s) selected.\`;
+      rows.forEach((cb) => {
+        cb.closest("tr")?.classList.toggle("cu-data-table-row-selected", cb.checked);
+      });
+    }
+    selectAll.addEventListener("change", () => {
+      rows.forEach((cb) => { cb.checked = selectAll.checked; });
+      updateInfo();
+    });
+    rows.forEach((cb) => cb.addEventListener("change", updateInfo));
+  });
+
+  // Filter rows by email
+  document.querySelectorAll("[data-data-table-filter]").forEach((input) => {
+    const wrapper = input.closest(".cu-data-table");
+    const rows = wrapper?.querySelectorAll("tbody .cu-table-row") || [];
+    input.addEventListener("input", () => {
+      const v = input.value.toLowerCase();
+      rows.forEach((row) => {
+        const email = row.getAttribute("data-email") || row.textContent || "";
+        row.style.display = email.toLowerCase().includes(v) ? "" : "none";
+      });
+    });
+  });
+</script>`.trim();
+---
+
+<Layout title="Data Table — Cubby UI">
+    <div class="space-y-3">
+        <h1 class="text-3xl font-bold tracking-tight">Data Table</h1>
+        <p class="text-base text-muted-foreground leading-relaxed">
+            An enhanced table with toolbar filtering, row selection, and sortable column headers. Built on top of the existing Table component.
+        </p>
+    </div>
+
+    <div class="mt-10 space-y-10">
+        <!-- Usage -->
+        <section class="space-y-3">
+            <h2 class="text-lg font-semibold tracking-tight">Usage</h2>
+            <p class="text-sm text-muted-foreground leading-relaxed">
+                Wrap the table in <code class="cu-code">cu-data-table</code>.
+                Add <code class="cu-code">cu-data-table-toolbar</code> for a search/filter bar above the table,
+                <code class="cu-code">cu-data-table-head-sortable</code> on sortable column headers,
+                and <code class="cu-code">cu-data-table-info</code> for a selection summary below.
+                Row selection uses <code class="cu-code">cu-checkbox</code> with <code class="cu-code">data-data-table-select</code>.
+            </p>
+            <ComponentPreview code={usageCode}>
+                <div class="w-full max-w-3xl">
+                    <div class="cu-data-table">
+                        <div class="cu-data-table-toolbar">
+                            <div class="cu-input-search">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="cu-input-search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+                                <input class="cu-input-search-field" placeholder="Filter emails…" data-data-table-filter />
+                            </div>
+                        </div>
+                        <div class="cu-table-wrapper rounded-lg border border-border">
+                            <table class="cu-table" data-data-table>
+                                <thead class="cu-table-header">
+                                    <tr class="cu-table-row">
+                                        <th class="cu-table-head w-12"><input type="checkbox" class="cu-checkbox" data-data-table-select-all /></th>
+                                        <th class="cu-table-head cu-data-table-head-sortable" data-sort="status">
+                                            Status <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 15 5 5 5-5"/><path d="m7 9 5-5 5 5"/></svg>
+                                        </th>
+                                        <th class="cu-table-head cu-data-table-head-sortable" data-sort="email">
+                                            Email <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 15 5 5 5-5"/><path d="m7 9 5-5 5 5"/></svg>
+                                        </th>
+                                        <th class="cu-table-head cu-data-table-head-sortable text-right" data-sort="amount">
+                                            Amount <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 15 5 5 5-5"/><path d="m7 9 5-5 5 5"/></svg>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody class="cu-table-body">
+                                    <tr class="cu-table-row" data-email="ken99@yahoo.com">
+                                        <td class="cu-table-cell"><input type="checkbox" class="cu-checkbox" data-data-table-select /></td>
+                                        <td class="cu-table-cell"><span class="cu-badge cu-badge-success">Success</span></td>
+                                        <td class="cu-table-cell">ken99@yahoo.com</td>
+                                        <td class="cu-table-cell text-right font-medium">$316.00</td>
+                                    </tr>
+                                    <tr class="cu-table-row" data-email="abe45@gmail.com">
+                                        <td class="cu-table-cell"><input type="checkbox" class="cu-checkbox" data-data-table-select /></td>
+                                        <td class="cu-table-cell"><span class="cu-badge cu-badge-success">Success</span></td>
+                                        <td class="cu-table-cell">abe45@gmail.com</td>
+                                        <td class="cu-table-cell text-right font-medium">$242.00</td>
+                                    </tr>
+                                    <tr class="cu-table-row" data-email="monserrat44@gmail.com">
+                                        <td class="cu-table-cell"><input type="checkbox" class="cu-checkbox" data-data-table-select /></td>
+                                        <td class="cu-table-cell"><span class="cu-badge cu-badge-warning">Pending</span></td>
+                                        <td class="cu-table-cell">monserrat44@gmail.com</td>
+                                        <td class="cu-table-cell text-right font-medium">$837.00</td>
+                                    </tr>
+                                    <tr class="cu-table-row" data-email="silas22@gmail.com">
+                                        <td class="cu-table-cell"><input type="checkbox" class="cu-checkbox" data-data-table-select /></td>
+                                        <td class="cu-table-cell"><span class="cu-badge cu-badge-destructive">Failed</span></td>
+                                        <td class="cu-table-cell">silas22@gmail.com</td>
+                                        <td class="cu-table-cell text-right font-medium">$874.00</td>
+                                    </tr>
+                                    <tr class="cu-table-row" data-email="carmella@hotmail.com">
+                                        <td class="cu-table-cell"><input type="checkbox" class="cu-checkbox" data-data-table-select /></td>
+                                        <td class="cu-table-cell"><span class="cu-badge cu-badge-success">Success</span></td>
+                                        <td class="cu-table-cell">carmella@hotmail.com</td>
+                                        <td class="cu-table-cell text-right font-medium">$721.00</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="cu-data-table-info">
+                            <span data-data-table-selected>0 of 5 row(s) selected.</span>
+                        </div>
+                    </div>
+                </div>
+            </ComponentPreview>
+        </section>
+    </div>
+</Layout>
+
+<script>
+    function setupDataTables() {
+        // Select all / individual row selection
+        document.querySelectorAll("[data-data-table-select-all]").forEach((selectAll) => {
+            const table = selectAll.closest("table");
+            const rows = table?.querySelectorAll("[data-data-table-select]") || [];
+            const info = table?.closest(".cu-data-table")?.querySelector("[data-data-table-selected]");
+            function updateInfo() {
+                const checked = table?.querySelectorAll("[data-data-table-select]:checked").length || 0;
+                if (info) info.textContent = `${checked} of ${rows.length} row(s) selected.`;
+                rows.forEach((cb) => {
+                    const input = cb as HTMLInputElement;
+                    input.closest("tr")?.classList.toggle("cu-data-table-row-selected", input.checked);
+                });
+            }
+            selectAll.addEventListener("change", () => {
+                rows.forEach((cb) => { (cb as HTMLInputElement).checked = (selectAll as HTMLInputElement).checked; });
+                updateInfo();
+            });
+            rows.forEach((cb) => cb.addEventListener("change", updateInfo));
+        });
+
+        // Filter rows
+        document.querySelectorAll("[data-data-table-filter]").forEach((input) => {
+            const wrapper = input.closest(".cu-data-table");
+            const rows = wrapper?.querySelectorAll("tbody .cu-table-row") || [];
+            input.addEventListener("input", () => {
+                const v = (input as HTMLInputElement).value.toLowerCase();
+                rows.forEach((row) => {
+                    const email = row.getAttribute("data-email") || row.textContent || "";
+                    (row as HTMLElement).style.display = email.toLowerCase().includes(v) ? "" : "none";
+                });
+            });
+        });
+    }
+
+    setupDataTables();
+    document.addEventListener("astro:page-load", setupDataTables);
+</script>

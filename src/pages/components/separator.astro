@@ -1,0 +1,95 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Separator from "../../components/ui/Separator.astro";
+import ComponentPreview from "../../components/ComponentPreview.astro";
+
+const usageCode = `<div class="cu-separator cu-separator-horizontal" role="separator"></div>`.trim();
+
+const withTextCode = `<div class="space-y-1">
+  <h4 class="text-sm font-medium leading-none">Cubby UI</h4>
+  <p class="text-sm text-muted-foreground">An open-source UI component library.</p>
+</div>
+<div class="cu-separator cu-separator-horizontal my-4" role="separator"></div>
+<div class="flex h-5 items-center gap-4 text-sm">
+  <div>Docs</div>
+  <div class="cu-separator cu-separator-vertical" role="separator"></div>
+  <div>Source</div>
+  <div class="cu-separator cu-separator-vertical" role="separator"></div>
+  <div>Blog</div>
+</div>`.trim();
+
+const verticalCode = `<div class="flex h-5 items-center gap-4 text-sm">
+  <div>Docs</div>
+  <div class="cu-separator cu-separator-vertical" role="separator"></div>
+  <div>Source</div>
+  <div class="cu-separator cu-separator-vertical" role="separator"></div>
+  <div>Blog</div>
+</div>`.trim();
+---
+
+<Layout title="Separator — Cubby UI">
+    <div class="space-y-3">
+        <h1 class="text-3xl font-bold tracking-tight">Separator</h1>
+        <p class="text-base text-muted-foreground leading-relaxed">
+            Visually or semantically separates content.
+        </p>
+    </div>
+
+    <div class="mt-10 space-y-10">
+        <!-- Usage -->
+        <section class="space-y-3">
+            <h2 class="text-lg font-semibold tracking-tight">Usage</h2>
+            <p class="text-sm text-muted-foreground leading-relaxed">
+                Apply <code class="cu-code">cu-separator</code> as the base class with
+                <code class="cu-code">cu-separator-horizontal</code> or
+                <code class="cu-code">cu-separator-vertical</code> for orientation.
+            </p>
+            <ComponentPreview code={usageCode}>
+                <div class="w-full max-w-lg">
+                    <Separator />
+                </div>
+            </ComponentPreview>
+        </section>
+
+        <!-- With Text -->
+        <section class="space-y-3">
+            <h2 class="text-lg font-semibold tracking-tight">With Text</h2>
+            <p class="text-sm text-muted-foreground leading-relaxed">
+                Combine horizontal and vertical separators to create structured layouts.
+            </p>
+            <ComponentPreview code={withTextCode}>
+                <div class="w-full max-w-lg">
+                    <div class="space-y-1">
+                        <h4 class="text-sm font-medium leading-none">Cubby UI</h4>
+                        <p class="text-sm text-muted-foreground">An open-source UI component library.</p>
+                    </div>
+                    <Separator class="my-4" />
+                    <div class="flex h-5 items-center gap-4 text-sm">
+                        <div>Docs</div>
+                        <Separator orientation="vertical" />
+                        <div>Source</div>
+                        <Separator orientation="vertical" />
+                        <div>Blog</div>
+                    </div>
+                </div>
+            </ComponentPreview>
+        </section>
+
+        <!-- Vertical -->
+        <section class="space-y-3">
+            <h2 class="text-lg font-semibold tracking-tight">Vertical</h2>
+            <p class="text-sm text-muted-foreground leading-relaxed">
+                Use <code class="cu-code">cu-separator-vertical</code> to separate inline items.
+            </p>
+            <ComponentPreview code={verticalCode}>
+                <div class="flex h-5 items-center gap-4 text-sm">
+                    <div>Docs</div>
+                    <Separator orientation="vertical" />
+                    <div>Source</div>
+                    <Separator orientation="vertical" />
+                    <div>Blog</div>
+                </div>
+            </ComponentPreview>
+        </section>
+    </div>
+</Layout>

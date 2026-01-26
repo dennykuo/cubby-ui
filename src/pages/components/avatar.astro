@@ -1,0 +1,106 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Avatar from "../../components/ui/Avatar.astro";
+import AvatarImage from "../../components/ui/AvatarImage.astro";
+import AvatarFallback from "../../components/ui/AvatarFallback.astro";
+import ComponentPreview from "../../components/ComponentPreview.astro";
+
+const usageCode = `<span class="cu-avatar cu-avatar-md">
+  <img class="cu-avatar-image" src="https://i.pravatar.cc/80?img=1" alt="Avatar" />
+  <span class="cu-avatar-fallback">CN</span>
+</span>`.trim();
+
+const sizesCode = `<span class="cu-avatar cu-avatar-sm">
+  <img class="cu-avatar-image" src="https://i.pravatar.cc/80?img=2" alt="Avatar" />
+  <span class="cu-avatar-fallback">SM</span>
+</span>
+
+<span class="cu-avatar cu-avatar-md">
+  <img class="cu-avatar-image" src="https://i.pravatar.cc/80?img=3" alt="Avatar" />
+  <span class="cu-avatar-fallback">MD</span>
+</span>
+
+<span class="cu-avatar cu-avatar-lg">
+  <img class="cu-avatar-image" src="https://i.pravatar.cc/80?img=4" alt="Avatar" />
+  <span class="cu-avatar-fallback">LG</span>
+</span>`.trim();
+
+const fallbackCode = `<span class="cu-avatar cu-avatar-md">
+  <span class="cu-avatar-fallback">CN</span>
+</span>
+
+<span class="cu-avatar cu-avatar-md">
+  <span class="cu-avatar-fallback">AB</span>
+</span>`.trim();
+---
+
+<Layout title="Avatar — Cubby UI">
+    <div class="space-y-3">
+        <h1 class="text-3xl font-bold tracking-tight">Avatar</h1>
+        <p class="text-base text-muted-foreground leading-relaxed">
+            An image element with a fallback for representing the user.
+        </p>
+    </div>
+
+    <div class="mt-10 space-y-10">
+        <!-- Usage -->
+        <section class="space-y-3">
+            <h2 class="text-lg font-semibold tracking-tight">Usage</h2>
+            <p class="text-sm text-muted-foreground leading-relaxed">
+                Use <code class="cu-code">cu-avatar</code> as the container with a size class.
+                Inside, place <code class="cu-code">cu-avatar-image</code> and <code class="cu-code">cu-avatar-fallback</code>.
+            </p>
+            <ComponentPreview code={usageCode}>
+                <Avatar>
+                    <AvatarImage src="https://i.pravatar.cc/80?img=1" alt="Avatar" />
+                    <AvatarFallback>CN</AvatarFallback>
+                </Avatar>
+            </ComponentPreview>
+        </section>
+
+        <!-- Sizes -->
+        <section class="space-y-3">
+            <h2 class="text-lg font-semibold tracking-tight">Sizes</h2>
+            <p class="text-sm text-muted-foreground leading-relaxed">
+                Three sizes are available —
+                <code class="cu-code">cu-avatar-sm</code>,
+                <code class="cu-code">cu-avatar-md</code> (default), and
+                <code class="cu-code">cu-avatar-lg</code>.
+            </p>
+            <ComponentPreview code={sizesCode}>
+                <div class="flex items-center gap-4 justify-center">
+                    <Avatar size="sm">
+                        <AvatarImage src="https://i.pravatar.cc/80?img=2" alt="Avatar" />
+                        <AvatarFallback>SM</AvatarFallback>
+                    </Avatar>
+                    <Avatar size="md">
+                        <AvatarImage src="https://i.pravatar.cc/80?img=3" alt="Avatar" />
+                        <AvatarFallback>MD</AvatarFallback>
+                    </Avatar>
+                    <Avatar size="lg">
+                        <AvatarImage src="https://i.pravatar.cc/80?img=4" alt="Avatar" />
+                        <AvatarFallback>LG</AvatarFallback>
+                    </Avatar>
+                </div>
+            </ComponentPreview>
+        </section>
+
+        <!-- With Fallback -->
+        <section class="space-y-3">
+            <h2 class="text-lg font-semibold tracking-tight">With Fallback</h2>
+            <p class="text-sm text-muted-foreground leading-relaxed">
+                When no image is provided, the fallback with initials is displayed.
+            </p>
+            <ComponentPreview code={fallbackCode}>
+                <div class="flex items-center gap-4 justify-center">
+                    <Avatar>
+                        <AvatarFallback>CN</AvatarFallback>
+                    </Avatar>
+                    <Avatar>
+                        <AvatarFallback>AB</AvatarFallback>
+                    </Avatar>
+                </div>
+            </ComponentPreview>
+        </section>
+    </div>
+</Layout>

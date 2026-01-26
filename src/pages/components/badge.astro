@@ -1,0 +1,75 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Badge from "../../components/ui/Badge.astro";
+import ComponentPreview from "../../components/ComponentPreview.astro";
+
+const usageCode = `<span class="cu-badge cu-badge-default">Badge</span>`.trim();
+
+const variantsCode = `<span class="cu-badge cu-badge-default">Default</span>
+<span class="cu-badge cu-badge-secondary">Secondary</span>
+<span class="cu-badge cu-badge-outline">Outline</span>
+<span class="cu-badge cu-badge-destructive">Destructive</span>
+<span class="cu-badge cu-badge-success">Success</span>
+<span class="cu-badge cu-badge-warning">Warning</span>
+<span class="cu-badge cu-badge-info">Info</span>`.trim();
+
+const withIconCode = `<span class="cu-badge cu-badge-default">
+  <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+  Badge
+</span>`.trim();
+---
+
+<Layout title="Badge — Cubby UI">
+    <div class="space-y-3">
+        <h1 class="text-3xl font-bold tracking-tight">Badge</h1>
+        <p class="text-base text-muted-foreground leading-relaxed">
+            Displays a badge or a component that looks like a badge.
+        </p>
+    </div>
+
+    <div class="mt-10 space-y-10">
+        <!-- Usage -->
+        <section class="space-y-3">
+            <h2 class="text-lg font-semibold tracking-tight">Usage</h2>
+            <p class="text-sm text-muted-foreground leading-relaxed">
+                Apply <code class="cu-code">cu-badge</code> as the base class, then add a variant class.
+            </p>
+            <ComponentPreview code={usageCode}>
+                <Badge>Badge</Badge>
+            </ComponentPreview>
+        </section>
+
+        <!-- Variants -->
+        <section class="space-y-3">
+            <h2 class="text-lg font-semibold tracking-tight">Variants</h2>
+            <p class="text-sm text-muted-foreground leading-relaxed">
+                Use variant classes to change the badge's visual style.
+            </p>
+            <ComponentPreview code={variantsCode}>
+                <div class="flex flex-wrap gap-2 items-center justify-center">
+                    <Badge>Default</Badge>
+                    <Badge variant="secondary">Secondary</Badge>
+                    <Badge variant="outline">Outline</Badge>
+                    <Badge variant="destructive">Destructive</Badge>
+                    <Badge variant="success">Success</Badge>
+                    <Badge variant="warning">Warning</Badge>
+                    <Badge variant="info">Info</Badge>
+                </div>
+            </ComponentPreview>
+        </section>
+
+        <!-- With Icon -->
+        <section class="space-y-3">
+            <h2 class="text-lg font-semibold tracking-tight">With Icon</h2>
+            <p class="text-sm text-muted-foreground leading-relaxed">
+                Add inline SVG icons inside the badge for additional context.
+            </p>
+            <ComponentPreview code={withIconCode}>
+                <Badge>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                    Badge
+                </Badge>
+            </ComponentPreview>
+        </section>
+    </div>
+</Layout>
