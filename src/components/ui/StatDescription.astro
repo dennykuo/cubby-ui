@@ -7,9 +7,10 @@ interface Props {
 }
 
 const { class: className, ...rest } = Astro.props;
-const baseClass = `${TOP_CLASS}-sheet-header`;
+
+const baseClass = `${TOP_CLASS}-stat-description`;
 ---
 
-<div class:list={[baseClass, className]} {...rest}>
+<p class:list={[baseClass, className]} {...rest}>
     <slot />
-</div>
+</p>

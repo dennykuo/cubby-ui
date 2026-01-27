@@ -1,0 +1,144 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import ScrollArea from "../../components/ui/ScrollArea.astro";
+import Separator from "../../components/ui/Separator.astro";
+import ComponentPreview from "../../components/ComponentPreview.astro";
+
+const usageCode = `<div class="cu-scroll-area h-[200px] w-48 rounded-lg border border-border p-4">
+  <h4 class="mb-4 text-sm font-medium leading-none">Tags</h4>
+  <div class="text-sm">v1.0.0</div>
+  <div class="cu-separator cu-separator-horizontal my-2" role="separator"></div>
+  <div class="text-sm">v1.1.0</div>
+  <div class="cu-separator cu-separator-horizontal my-2" role="separator"></div>
+  <div class="text-sm">v1.2.0</div>
+  <div class="cu-separator cu-separator-horizontal my-2" role="separator"></div>
+  <div class="text-sm">v1.3.0</div>
+  <div class="cu-separator cu-separator-horizontal my-2" role="separator"></div>
+  <div class="text-sm">v1.4.0</div>
+  <div class="cu-separator cu-separator-horizontal my-2" role="separator"></div>
+  <div class="text-sm">v2.0.0</div>
+  <div class="cu-separator cu-separator-horizontal my-2" role="separator"></div>
+  <div class="text-sm">v2.1.0</div>
+  <div class="cu-separator cu-separator-horizontal my-2" role="separator"></div>
+  <div class="text-sm">v2.2.0</div>
+  <div class="cu-separator cu-separator-horizontal my-2" role="separator"></div>
+  <div class="text-sm">v3.0.0</div>
+  <div class="cu-separator cu-separator-horizontal my-2" role="separator"></div>
+  <div class="text-sm">v3.1.0</div>
+</div>`.trim();
+
+const horizontalCode = `<div class="cu-scroll-area cu-scroll-area-horizontal w-96 rounded-lg border border-border">
+  <div class="flex gap-4 p-4" style="width: max-content;">
+    <div class="w-36 shrink-0 rounded-md border border-border p-4">
+      <div class="text-sm font-medium">Item 1</div>
+      <div class="mt-1 text-xs text-muted-foreground">Description text</div>
+    </div>
+    <div class="w-36 shrink-0 rounded-md border border-border p-4">
+      <div class="text-sm font-medium">Item 2</div>
+      <div class="mt-1 text-xs text-muted-foreground">Description text</div>
+    </div>
+    <div class="w-36 shrink-0 rounded-md border border-border p-4">
+      <div class="text-sm font-medium">Item 3</div>
+      <div class="mt-1 text-xs text-muted-foreground">Description text</div>
+    </div>
+    <div class="w-36 shrink-0 rounded-md border border-border p-4">
+      <div class="text-sm font-medium">Item 4</div>
+      <div class="mt-1 text-xs text-muted-foreground">Description text</div>
+    </div>
+    <div class="w-36 shrink-0 rounded-md border border-border p-4">
+      <div class="text-sm font-medium">Item 5</div>
+      <div class="mt-1 text-xs text-muted-foreground">Description text</div>
+    </div>
+  </div>
+</div>`.trim();
+
+const withTagsCode = `<div class="cu-scroll-area cu-scroll-area-horizontal w-80 rounded-lg border border-border p-3">
+  <div class="flex gap-2" style="width: max-content;">
+    <span class="cu-badge cu-badge-default">React</span>
+    <span class="cu-badge cu-badge-secondary">Vue</span>
+    <span class="cu-badge cu-badge-outline">Angular</span>
+    <span class="cu-badge cu-badge-default">Svelte</span>
+    <span class="cu-badge cu-badge-secondary">Astro</span>
+    <span class="cu-badge cu-badge-outline">Solid</span>
+    <span class="cu-badge cu-badge-default">Qwik</span>
+    <span class="cu-badge cu-badge-secondary">Ember</span>
+    <span class="cu-badge cu-badge-outline">Preact</span>
+  </div>
+</div>`.trim();
+
+const tags = ["v1.0.0", "v1.1.0", "v1.2.0", "v1.3.0", "v1.4.0", "v2.0.0", "v2.1.0", "v2.2.0", "v3.0.0", "v3.1.0"];
+---
+
+<Layout title="Scroll Area — Cubby UI">
+    <div class="space-y-3">
+        <h1 class="text-3xl font-bold tracking-tight">Scroll Area</h1>
+        <p class="text-base text-muted-foreground leading-relaxed">
+            A container with custom-styled scrollbars for consistent cross-browser appearance.
+        </p>
+    </div>
+
+    <div class="mt-10 space-y-10">
+        <!-- Usage -->
+        <section class="space-y-3">
+            <h2 class="text-lg font-semibold tracking-tight">Usage</h2>
+            <p class="text-sm text-muted-foreground leading-relaxed">
+                Apply <code class="cu-code">cu-scroll-area</code> to a container with a fixed height.
+                The scrollbar is styled to be thin and subtle.
+            </p>
+            <ComponentPreview code={usageCode}>
+                <ScrollArea class="h-[200px] w-48 rounded-lg border border-border p-4">
+                    <h4 class="mb-4 text-sm font-medium leading-none">Tags</h4>
+                    {tags.map((tag, i) => (
+                        <Fragment>
+                            <div class="text-sm">{tag}</div>
+                            {i < tags.length - 1 && <Separator class="my-2" />}
+                        </Fragment>
+                    ))}
+                </ScrollArea>
+            </ComponentPreview>
+        </section>
+
+        <!-- Horizontal -->
+        <section class="space-y-3">
+            <h2 class="text-lg font-semibold tracking-tight">Horizontal</h2>
+            <p class="text-sm text-muted-foreground leading-relaxed">
+                Use <code class="cu-code">cu-scroll-area-horizontal</code> for horizontal scrolling with a fixed width.
+            </p>
+            <ComponentPreview code={horizontalCode}>
+                <ScrollArea horizontal class="w-96 rounded-lg border border-border">
+                    <div class="flex gap-4 p-4" style="width: max-content;">
+                        {[1, 2, 3, 4, 5].map((n) => (
+                            <div class="w-36 shrink-0 rounded-md border border-border p-4">
+                                <div class="text-sm font-medium">Item {n}</div>
+                                <div class="mt-1 text-xs text-muted-foreground">Description text</div>
+                            </div>
+                        ))}
+                    </div>
+                </ScrollArea>
+            </ComponentPreview>
+        </section>
+
+        <!-- With Tags -->
+        <section class="space-y-3">
+            <h2 class="text-lg font-semibold tracking-tight">With Tags</h2>
+            <p class="text-sm text-muted-foreground leading-relaxed">
+                Combine with badges for a horizontally scrollable tag list.
+            </p>
+            <ComponentPreview code={withTagsCode}>
+                <ScrollArea horizontal class="w-80 rounded-lg border border-border p-3">
+                    <div class="flex gap-2" style="width: max-content;">
+                        <span class="cu-badge cu-badge-default">React</span>
+                        <span class="cu-badge cu-badge-secondary">Vue</span>
+                        <span class="cu-badge cu-badge-outline">Angular</span>
+                        <span class="cu-badge cu-badge-default">Svelte</span>
+                        <span class="cu-badge cu-badge-secondary">Astro</span>
+                        <span class="cu-badge cu-badge-outline">Solid</span>
+                        <span class="cu-badge cu-badge-default">Qwik</span>
+                        <span class="cu-badge cu-badge-secondary">Ember</span>
+                        <span class="cu-badge cu-badge-outline">Preact</span>
+                    </div>
+                </ScrollArea>
+            </ComponentPreview>
+        </section>
+    </div>
+</Layout>

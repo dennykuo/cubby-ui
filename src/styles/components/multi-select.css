@@ -1,0 +1,65 @@
+/* Multi Select
+   ------------------------------------------------------------------ */
+.cu-multi-select {
+    @apply relative inline-block;
+}
+
+.cu-multi-select-trigger {
+    @apply flex min-h-9 w-full items-center gap-1 rounded-lg border border-input bg-background px-3 py-1.5 text-sm transition-colors duration-150 hover:border-muted-foreground/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/40 focus-visible:ring-offset-2 cursor-pointer;
+}
+
+.cu-multi-select-tags {
+    @apply flex flex-1 flex-wrap items-center gap-1;
+}
+
+.cu-multi-select-tag {
+    @apply inline-flex items-center gap-1 rounded-md bg-secondary px-2 py-0.5 text-xs font-medium text-secondary-foreground;
+}
+
+.cu-multi-select-tag-remove {
+    @apply inline-flex size-3.5 items-center justify-center rounded-sm text-muted-foreground/70 hover:text-foreground cursor-pointer;
+}
+
+.cu-multi-select-placeholder {
+    @apply text-muted-foreground;
+}
+
+.cu-multi-select-icon {
+    @apply ml-auto size-4 shrink-0 text-muted-foreground/60;
+}
+
+.cu-multi-select-content {
+    @apply absolute z-50 mt-1 w-full overflow-hidden rounded-lg border border-border bg-popover text-popover-foreground shadow-md;
+}
+
+.cu-multi-select-search {
+    @apply flex items-center border-b border-border px-3;
+}
+
+.cu-multi-select-search-icon {
+    @apply mr-2 size-4 shrink-0 text-muted-foreground/60;
+}
+
+.cu-multi-select-input {
+    @apply flex h-9 w-full bg-transparent text-sm outline-none placeholder:text-muted-foreground;
+}
+
+.cu-multi-select-list {
+    @apply max-h-[200px] overflow-y-auto p-1;
+}
+
+.cu-multi-select-empty {
+    @apply py-6 text-center text-sm text-muted-foreground;
+}
+
+.cu-multi-select-item {
+    @apply relative flex w-full cursor-pointer items-center rounded-md px-2 py-1.5 pl-8 text-sm transition-colors hover:bg-accent hover:text-accent-foreground outline-none;
+}
+
+.cu-multi-select-item-active {
+    @apply bg-accent/50;
+}
+
+.cu-multi-select-item-check {
+    @apply absolute left-2 size-4 text-primary;
+}

@@ -1,0 +1,37 @@
+/* Stat Card
+   ------------------------------------------------------------------ */
+.cu-stat {
+    @apply rounded-xl border border-border bg-card p-6 text-card-foreground shadow-sm;
+}
+
+.cu-stat-header {
+    @apply flex items-center justify-between;
+}
+
+.cu-stat-label {
+    @apply text-sm font-medium text-muted-foreground;
+}
+
+.cu-stat-icon {
+    @apply size-4 text-muted-foreground;
+}
+
+.cu-stat-value {
+    @apply mt-2 text-2xl font-bold tracking-tight;
+}
+
+.cu-stat-description {
+    @apply mt-1 text-xs text-muted-foreground;
+}
+
+.cu-stat-trend {
+    @apply inline-flex items-center gap-0.5 text-xs font-medium;
+}
+
+.cu-stat-trend-up {
+    @apply text-success;
+}
+
+.cu-stat-trend-down {
+    @apply text-destructive;
+}

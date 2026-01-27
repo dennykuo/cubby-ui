@@ -1,54 +1,54 @@
-/* Sheet
+/* Drawer
    ------------------------------------------------------------------ */
-.cu-sheet {
+.cu-drawer {
     @apply fixed z-50 bg-background shadow-lg border-border;
     max-width: 100%;
     max-height: 100%;
 }
 
-.cu-sheet::backdrop {
+.cu-drawer::backdrop {
     background: hsl(222.2 47.4% 11.2% / 0.5);
     backdrop-filter: blur(4px);
 }
 
 /* -- sides -- */
-.cu-sheet-right {
+.cu-drawer-right {
     @apply inset-y-0 right-0 h-full w-80 border-l m-0;
 }
 
-.cu-sheet-left {
+.cu-drawer-left {
     @apply inset-y-0 left-0 h-full w-80 border-r m-0;
 }
 
-.cu-sheet-top {
+.cu-drawer-top {
     @apply inset-x-0 top-0 w-full border-b m-0;
 }
 
-.cu-sheet-bottom {
+.cu-drawer-bottom {
     @apply inset-x-0 bottom-0 w-full border-t m-0;
 }
 
 /* -- sub-components -- */
-.cu-sheet-header {
+.cu-drawer-header {
     @apply flex flex-col space-y-2 p-6;
 }
 
-.cu-sheet-title {
+.cu-drawer-title {
     @apply text-lg font-semibold leading-none tracking-tight;
 }
 
-.cu-sheet-description {
+.cu-drawer-description {
     @apply text-sm text-muted-foreground;
 }
 
-.cu-sheet-content {
+.cu-drawer-content {
     @apply flex-1 overflow-y-auto p-6 pt-0;
 }
 
-.cu-sheet-footer {
+.cu-drawer-footer {
     @apply flex flex-col-reverse sm:flex-row sm:justify-end gap-2 p-6 pt-0;
 }
 
-.cu-sheet-close {
+.cu-drawer-close {
     @apply absolute right-4 top-4 rounded-sm opacity-70 transition-opacity hover:opacity-100 cursor-pointer;
 }

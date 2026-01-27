@@ -1,0 +1,33 @@
+/* Tree View
+   ------------------------------------------------------------------ */
+.cu-tree {
+    @apply space-y-0.5 text-sm;
+}
+
+.cu-tree-item > .cu-tree-trigger {
+    list-style: none;
+}
+
+.cu-tree-item > .cu-tree-trigger::-webkit-details-marker {
+    display: none;
+}
+
+.cu-tree-trigger {
+    @apply flex w-full cursor-pointer items-center gap-1.5 rounded-md px-2 py-1 text-sm transition-colors hover:bg-accent/60;
+}
+
+.cu-tree-trigger-icon {
+    @apply size-4 shrink-0 text-muted-foreground/60 transition-transform duration-200;
+}
+
+.cu-tree-item[open] > .cu-tree-trigger > .cu-tree-trigger-icon {
+    @apply rotate-90;
+}
+
+.cu-tree-content {
+    @apply ml-4 border-l border-border pl-2 pt-0.5;
+}
+
+.cu-tree-leaf {
+    @apply flex items-center gap-1.5 rounded-md px-2 py-1 text-sm transition-colors hover:bg-accent/60;
+}

@@ -1,0 +1,60 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Paragraph from "../../components/ui/Paragraph.astro";
+import ComponentPreview from "../../components/ComponentPreview.astro";
+
+const usageCode = `<p class="cu-p">
+  The king, seeing how much happier his subjects were, realized that
+  true power lay not in hoeli but in the trust and loyalty of his people.
+</p>`.trim();
+
+const leadCode = `<p class="cu-p cu-p-lead">
+  A modal dialog that interrupts the user with important content and expects
+  a response.
+</p>`.trim();
+---
+
+<Layout title="Paragraphs — Cubby UI">
+    <div class="space-y-3">
+        <h1 class="text-3xl font-bold tracking-tight">Paragraphs</h1>
+        <p class="text-base text-muted-foreground leading-relaxed">
+            Paragraph styles for body text and lead introductions.
+        </p>
+    </div>
+
+    <div class="mt-10 space-y-10">
+        <!-- Usage -->
+        <section class="space-y-3">
+            <h2 class="text-lg font-semibold tracking-tight">Usage</h2>
+            <p class="text-sm text-muted-foreground leading-relaxed">
+                Apply <code class="cu-code">cu-p</code> to paragraph elements
+                for consistent line height and spacing.
+            </p>
+            <ComponentPreview code={usageCode}>
+                <div class="w-full max-w-lg">
+                    <Paragraph>
+                        The king, seeing how much happier his subjects were, realized that
+                        true power lay not in hoarding wealth but in the trust and loyalty of his people.
+                    </Paragraph>
+                </div>
+            </ComponentPreview>
+        </section>
+
+        <!-- Lead -->
+        <section class="space-y-3">
+            <h2 class="text-lg font-semibold tracking-tight">Lead</h2>
+            <p class="text-sm text-muted-foreground leading-relaxed">
+                Use <code class="cu-code">cu-p-lead</code> for introductory
+                paragraphs with larger, muted text.
+            </p>
+            <ComponentPreview code={leadCode}>
+                <div class="w-full max-w-lg">
+                    <Paragraph variant="lead">
+                        A modal dialog that interrupts the user with important content and expects
+                        a response.
+                    </Paragraph>
+                </div>
+            </ComponentPreview>
+        </section>
+    </div>
+</Layout>

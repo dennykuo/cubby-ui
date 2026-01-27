@@ -14,11 +14,23 @@ const gettingStarted = [
 	{ name: "Installation", href: "#" },
 ];
 
+const typographyComponents = [
+	{ name: "Headings", href: "/components/headings" },
+	{ name: "Paragraphs", href: "/components/paragraphs" },
+	{ name: "Blockquote", href: "/components/blockquote" },
+	{ name: "Lists", href: "/components/lists" },
+	{ name: "Links", href: "/components/links" },
+	{ name: "Text", href: "/components/text" },
+	{ name: "HR", href: "/components/hr" },
+];
+
 const basicComponents = [
 	{ name: "Button", href: "/components/button" },
+	{ name: "Button Group", href: "/components/button-group" },
 	{ name: "Card", href: "/components/card" },
 	{ name: "Color", href: "/components/color" },
 	{ name: "Separator", href: "/components/separator" },
+	{ name: "Toolbar", href: "/components/toolbar" },
 ];
 
 const formComponents = [
@@ -33,6 +45,8 @@ const formComponents = [
 	{ name: "File Input", href: "/components/file-input" },
 	{ name: "Range", href: "/components/range" },
 	{ name: "Form Group", href: "/components/form-group" },
+	{ name: "Combobox", href: "/components/combobox" },
+	{ name: "Multi Select", href: "/components/multi-select" },
 ];
 
 const dataDisplayComponents = [
@@ -41,7 +55,9 @@ const dataDisplayComponents = [
 	{ name: "Badge", href: "/components/badge" },
 	{ name: "Collapsible", href: "/components/collapsible" },
 	{ name: "Data Table", href: "/components/data-table" },
+	{ name: "Stat Card", href: "/components/stat-card" },
 	{ name: "Table", href: "/components/table" },
+	{ name: "Tree View", href: "/components/tree-view" },
 ];
 
 const feedbackComponents = [
@@ -49,6 +65,7 @@ const feedbackComponents = [
 	{ name: "Progress", href: "/components/progress" },
 	{ name: "Skeleton", href: "/components/skeleton" },
 	{ name: "Toast", href: "/components/toast" },
+	{ name: "Empty State", href: "/components/empty-state" },
 ];
 
 const overlayComponents = [
@@ -57,7 +74,7 @@ const overlayComponents = [
 	{ name: "Dropdown Menu", href: "/components/dropdown" },
 	{ name: "Hover Card", href: "/components/hover-card" },
 	{ name: "Popover", href: "/components/popover" },
-	{ name: "Sheet", href: "/components/sheet" },
+	{ name: "Drawer", href: "/components/drawer" },
 	{ name: "Tooltip", href: "/components/tooltip" },
 ];
 
@@ -65,6 +82,7 @@ const navigationComponents = [
 	{ name: "Breadcrumb", href: "/components/breadcrumb" },
 	{ name: "Menubar", href: "/components/menubar" },
 	{ name: "Pagination", href: "/components/pagination" },
+	{ name: "Steps", href: "/components/steps" },
 	{ name: "Tabs", href: "/components/tabs" },
 ];
 
@@ -72,6 +90,7 @@ const layoutComponents = [
 	{ name: "Container", href: "/components/container" },
 	{ name: "Header", href: "/components/header" },
 	{ name: "Nav", href: "/components/nav" },
+	{ name: "Scroll Area", href: "/components/scroll-area" },
 	{ name: "Sidebar", href: "/components/sidebar" },
 ];
 ---
@@ -94,6 +113,16 @@ const layoutComponents = [
 
 		<SidebarSection title="Components">
 			<div class="space-y-4">
+				<SidebarGroup title="Typography">
+					{
+						typographyComponents.map((item) => (
+							<SidebarLink href={item.href} currentPath={currentPath}>
+								{item.name}
+							</SidebarLink>
+						))
+					}
+				</SidebarGroup>
+
 				<SidebarGroup title="Basic">
 					{
 						basicComponents.map((item) => (

@@ -1,0 +1,124 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Button from "../../components/ui/Button.astro";
+import EmptyState from "../../components/ui/EmptyState.astro";
+import EmptyStateIcon from "../../components/ui/EmptyStateIcon.astro";
+import EmptyStateTitle from "../../components/ui/EmptyStateTitle.astro";
+import EmptyStateDescription from "../../components/ui/EmptyStateDescription.astro";
+import EmptyStateAction from "../../components/ui/EmptyStateAction.astro";
+import ComponentPreview from "../../components/ComponentPreview.astro";
+
+const usageCode = `<div class="cu-empty-state">
+  <div class="cu-empty-state-icon">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/></svg>
+  </div>
+  <h3 class="cu-empty-state-title">No documents</h3>
+  <p class="cu-empty-state-description">
+    You haven't created any documents yet. Start by creating your first one.
+  </p>
+  <div class="cu-empty-state-action">
+    <button class="cu-button cu-button-default cu-button-md">Create Document</button>
+  </div>
+</div>`.trim();
+
+const noResultsCode = `<div class="cu-empty-state">
+  <div class="cu-empty-state-icon">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+  </div>
+  <h3 class="cu-empty-state-title">No results found</h3>
+  <p class="cu-empty-state-description">
+    Try adjusting your search or filter to find what you're looking for.
+  </p>
+  <div class="cu-empty-state-action">
+    <button class="cu-button cu-button-outline cu-button-md">Clear filters</button>
+  </div>
+</div>`.trim();
+
+const minimalCode = `<div class="cu-empty-state">
+  <div class="cu-empty-state-icon">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+  </div>
+  <h3 class="cu-empty-state-title">No messages</h3>
+  <p class="cu-empty-state-description">
+    Your inbox is empty. Messages will appear here when you receive them.
+  </p>
+</div>`.trim();
+---
+
+<Layout title="Empty State — Cubby UI">
+    <div class="space-y-3">
+        <h1 class="text-3xl font-bold tracking-tight">Empty State</h1>
+        <p class="text-base text-muted-foreground leading-relaxed">
+            A placeholder shown when there is no data to display, with optional call-to-action.
+        </p>
+    </div>
+
+    <div class="mt-10 space-y-10">
+        <!-- Usage -->
+        <section class="space-y-3">
+            <h2 class="text-lg font-semibold tracking-tight">Usage</h2>
+            <p class="text-sm text-muted-foreground leading-relaxed">
+                Compose an empty state using <code class="cu-code">cu-empty-state</code> as the container with
+                <code class="cu-code">cu-empty-state-icon</code>,
+                <code class="cu-code">cu-empty-state-title</code>,
+                <code class="cu-code">cu-empty-state-description</code>, and
+                <code class="cu-code">cu-empty-state-action</code> sub-elements.
+            </p>
+            <ComponentPreview code={usageCode}>
+                <EmptyState>
+                    <EmptyStateIcon>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/></svg>
+                    </EmptyStateIcon>
+                    <EmptyStateTitle>No documents</EmptyStateTitle>
+                    <EmptyStateDescription>
+                        You haven't created any documents yet. Start by creating your first one.
+                    </EmptyStateDescription>
+                    <EmptyStateAction>
+                        <Button>Create Document</Button>
+                    </EmptyStateAction>
+                </EmptyState>
+            </ComponentPreview>
+        </section>
+
+        <!-- No Results -->
+        <section class="space-y-3">
+            <h2 class="text-lg font-semibold tracking-tight">No Results</h2>
+            <p class="text-sm text-muted-foreground leading-relaxed">
+                Use for search or filter results that return no matches.
+            </p>
+            <ComponentPreview code={noResultsCode}>
+                <EmptyState>
+                    <EmptyStateIcon>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                    </EmptyStateIcon>
+                    <EmptyStateTitle>No results found</EmptyStateTitle>
+                    <EmptyStateDescription>
+                        Try adjusting your search or filter to find what you're looking for.
+                    </EmptyStateDescription>
+                    <EmptyStateAction>
+                        <Button variant="outline">Clear filters</Button>
+                    </EmptyStateAction>
+                </EmptyState>
+            </ComponentPreview>
+        </section>
+
+        <!-- Without Action -->
+        <section class="space-y-3">
+            <h2 class="text-lg font-semibold tracking-tight">Without Action</h2>
+            <p class="text-sm text-muted-foreground leading-relaxed">
+                The action button is optional. Use a minimal empty state for informational messages.
+            </p>
+            <ComponentPreview code={minimalCode}>
+                <EmptyState>
+                    <EmptyStateIcon>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                    </EmptyStateIcon>
+                    <EmptyStateTitle>No messages</EmptyStateTitle>
+                    <EmptyStateDescription>
+                        Your inbox is empty. Messages will appear here when you receive them.
+                    </EmptyStateDescription>
+                </EmptyState>
+            </ComponentPreview>
+        </section>
+    </div>
+</Layout>

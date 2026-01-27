@@ -1,0 +1,18 @@
+---
+import { TOP_CLASS } from "../../config";
+
+interface Props {
+    vertical?: boolean;
+    class?: string;
+    [key: string]: any;
+}
+
+const { vertical = false, class: className, ...rest } = Astro.props;
+
+const baseClass = `${TOP_CLASS}-button-group`;
+const verticalClass = vertical ? `${TOP_CLASS}-button-group-vertical` : "";
+---
+
+<div role="group" class:list={[baseClass, verticalClass, className]} {...rest}>
+    <slot />
+</div>

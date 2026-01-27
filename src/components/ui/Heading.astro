@@ -1,0 +1,18 @@
+---
+import { TOP_CLASS } from "../../config";
+
+interface Props {
+    level?: 1 | 2 | 3 | 4;
+    class?: string;
+    [key: string]: any;
+}
+
+const { level = 1, class: className, ...rest } = Astro.props;
+
+const Tag = `h${level}` as any;
+const baseClass = `${TOP_CLASS}-h${level}`;
+---
+
+<Tag class:list={[baseClass, className]} {...rest}>
+    <slot />
+</Tag>

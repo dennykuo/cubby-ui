@@ -1,0 +1,21 @@
+/* Toolbar
+   ------------------------------------------------------------------ */
+.cu-toolbar {
+    @apply inline-flex items-center gap-1 rounded-lg border border-border bg-background p-1;
+}
+
+.cu-toolbar-group {
+    @apply flex items-center;
+}
+
+.cu-toolbar-button {
+    @apply inline-flex size-8 items-center justify-center rounded-md text-sm text-muted-foreground transition-colors duration-150 hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/40 cursor-pointer disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0;
+}
+
+.cu-toolbar-button-active {
+    @apply bg-accent text-accent-foreground;
+}
+
+.cu-toolbar-separator {
+    @apply mx-1 h-5 w-px shrink-0 bg-border;
+}

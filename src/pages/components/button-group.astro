@@ -1,0 +1,228 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Button from "../../components/ui/Button.astro";
+import ButtonGroup from "../../components/ui/ButtonGroup.astro";
+import ComponentPreview from "../../components/ComponentPreview.astro";
+
+const usageCode = `<div class="cu-button-group" role="group">
+  <button class="cu-button cu-button-outline cu-button-md">Years</button>
+  <button class="cu-button cu-button-outline cu-button-md">Months</button>
+  <button class="cu-button cu-button-outline cu-button-md">Days</button>
+</div>`.trim();
+
+const variantsCode = `<!-- Default -->
+<div class="cu-button-group" role="group">
+  <button class="cu-button cu-button-default cu-button-md">Profile</button>
+  <button class="cu-button cu-button-default cu-button-md">Settings</button>
+  <button class="cu-button cu-button-default cu-button-md">Messages</button>
+</div>
+
+<!-- Secondary -->
+<div class="cu-button-group" role="group">
+  <button class="cu-button cu-button-secondary cu-button-md">Profile</button>
+  <button class="cu-button cu-button-secondary cu-button-md">Settings</button>
+  <button class="cu-button cu-button-secondary cu-button-md">Messages</button>
+</div>
+
+<!-- Outline -->
+<div class="cu-button-group" role="group">
+  <button class="cu-button cu-button-outline cu-button-md">Profile</button>
+  <button class="cu-button cu-button-outline cu-button-md">Settings</button>
+  <button class="cu-button cu-button-outline cu-button-md">Messages</button>
+</div>`.trim();
+
+const withIconsCode = `<div class="cu-button-group" role="group">
+  <button class="cu-button cu-button-outline cu-button-md">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+    Profile
+  </button>
+  <button class="cu-button cu-button-outline cu-button-md">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
+    Settings
+  </button>
+  <button class="cu-button cu-button-outline cu-button-md">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+    Messages
+  </button>
+</div>`.trim();
+
+const iconOnlyCode = `<div class="cu-button-group" role="group">
+  <button class="cu-button cu-button-outline cu-button-icon">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+  </button>
+  <button class="cu-button cu-button-outline cu-button-icon">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+  </button>
+  <button class="cu-button cu-button-outline cu-button-icon">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+  </button>
+</div>`.trim();
+
+const sizesCode = `<!-- Small -->
+<div class="cu-button-group" role="group">
+  <button class="cu-button cu-button-outline cu-button-sm">Profile</button>
+  <button class="cu-button cu-button-outline cu-button-sm">Settings</button>
+  <button class="cu-button cu-button-outline cu-button-sm">Messages</button>
+</div>
+
+<!-- Default -->
+<div class="cu-button-group" role="group">
+  <button class="cu-button cu-button-outline cu-button-md">Profile</button>
+  <button class="cu-button cu-button-outline cu-button-md">Settings</button>
+  <button class="cu-button cu-button-outline cu-button-md">Messages</button>
+</div>
+
+<!-- Large -->
+<div class="cu-button-group" role="group">
+  <button class="cu-button cu-button-outline cu-button-lg">Profile</button>
+  <button class="cu-button cu-button-outline cu-button-lg">Settings</button>
+  <button class="cu-button cu-button-outline cu-button-lg">Messages</button>
+</div>`.trim();
+
+const verticalCode = `<div class="cu-button-group cu-button-group-vertical" role="group">
+  <button class="cu-button cu-button-outline cu-button-md">Profile</button>
+  <button class="cu-button cu-button-outline cu-button-md">Settings</button>
+  <button class="cu-button cu-button-outline cu-button-md">Messages</button>
+</div>`.trim();
+---
+
+<Layout title="Button Group — Cubby UI">
+  <div class="space-y-3">
+    <h1 class="text-3xl font-bold tracking-tight">Button Group</h1>
+    <p class="text-base text-muted-foreground leading-relaxed">
+      Groups a series of buttons together on a single line or vertically.
+    </p>
+  </div>
+
+  <div class="mt-10 space-y-10">
+    <!-- Usage -->
+    <section class="space-y-3">
+      <h2 class="text-lg font-semibold tracking-tight">Usage</h2>
+      <p class="text-sm text-muted-foreground leading-relaxed">
+        Wrap buttons with <code class="cu-code">cu-button-group</code> to combine them into a single visual unit.
+        Intermediate border-radius is automatically removed.
+      </p>
+      <ComponentPreview code={usageCode}>
+        <ButtonGroup>
+          <Button variant="outline">Years</Button>
+          <Button variant="outline">Months</Button>
+          <Button variant="outline">Days</Button>
+        </ButtonGroup>
+      </ComponentPreview>
+    </section>
+
+    <!-- Variants -->
+    <section class="space-y-3">
+      <h2 class="text-lg font-semibold tracking-tight">Variants</h2>
+      <p class="text-sm text-muted-foreground leading-relaxed">
+        Button groups work with any button variant. Mix and match as needed.
+      </p>
+      <ComponentPreview code={variantsCode}>
+        <div class="flex flex-wrap gap-4 items-center justify-center">
+          <ButtonGroup>
+            <Button>Profile</Button>
+            <Button>Settings</Button>
+            <Button>Messages</Button>
+          </ButtonGroup>
+          <ButtonGroup>
+            <Button variant="secondary">Profile</Button>
+            <Button variant="secondary">Settings</Button>
+            <Button variant="secondary">Messages</Button>
+          </ButtonGroup>
+          <ButtonGroup>
+            <Button variant="outline">Profile</Button>
+            <Button variant="outline">Settings</Button>
+            <Button variant="outline">Messages</Button>
+          </ButtonGroup>
+        </div>
+      </ComponentPreview>
+    </section>
+
+    <!-- With Icons -->
+    <section class="space-y-3">
+      <h2 class="text-lg font-semibold tracking-tight">With Icons</h2>
+      <p class="text-sm text-muted-foreground leading-relaxed">
+        Buttons inside a group can include icons alongside text.
+      </p>
+      <ComponentPreview code={withIconsCode}>
+        <ButtonGroup>
+          <Button variant="outline">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            Profile
+          </Button>
+          <Button variant="outline">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
+            Settings
+          </Button>
+          <Button variant="outline">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            Messages
+          </Button>
+        </ButtonGroup>
+      </ComponentPreview>
+    </section>
+
+    <!-- Icon Only -->
+    <section class="space-y-3">
+      <h2 class="text-lg font-semibold tracking-tight">Icon Only</h2>
+      <p class="text-sm text-muted-foreground leading-relaxed">
+        Use <code class="cu-code">cu-button-icon</code> sized buttons for compact icon-only groups.
+      </p>
+      <ComponentPreview code={iconOnlyCode}>
+        <ButtonGroup>
+          <Button variant="outline" size="icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+          </Button>
+          <Button variant="outline" size="icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          </Button>
+          <Button variant="outline" size="icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+          </Button>
+        </ButtonGroup>
+      </ComponentPreview>
+    </section>
+
+    <!-- Sizes -->
+    <section class="space-y-3">
+      <h2 class="text-lg font-semibold tracking-tight">Sizes</h2>
+      <p class="text-sm text-muted-foreground leading-relaxed">
+        Button groups adapt to the size of the buttons inside them.
+      </p>
+      <ComponentPreview code={sizesCode}>
+        <div class="flex flex-wrap gap-4 items-center justify-center">
+          <ButtonGroup>
+            <Button variant="outline" size="sm">Profile</Button>
+            <Button variant="outline" size="sm">Settings</Button>
+            <Button variant="outline" size="sm">Messages</Button>
+          </ButtonGroup>
+          <ButtonGroup>
+            <Button variant="outline">Profile</Button>
+            <Button variant="outline">Settings</Button>
+            <Button variant="outline">Messages</Button>
+          </ButtonGroup>
+          <ButtonGroup>
+            <Button variant="outline" size="lg">Profile</Button>
+            <Button variant="outline" size="lg">Settings</Button>
+            <Button variant="outline" size="lg">Messages</Button>
+          </ButtonGroup>
+        </div>
+      </ComponentPreview>
+    </section>
+
+    <!-- Vertical -->
+    <section class="space-y-3">
+      <h2 class="text-lg font-semibold tracking-tight">Vertical</h2>
+      <p class="text-sm text-muted-foreground leading-relaxed">
+        Add <code class="cu-code">cu-button-group-vertical</code> to stack buttons vertically.
+      </p>
+      <ComponentPreview code={verticalCode}>
+        <ButtonGroup vertical>
+          <Button variant="outline">Profile</Button>
+          <Button variant="outline">Settings</Button>
+          <Button variant="outline">Messages</Button>
+        </ButtonGroup>
+      </ComponentPreview>
+    </section>
+  </div>
+</Layout>

@@ -1,0 +1,38 @@
+/* Button Group
+   ------------------------------------------------------------------ */
+.cu-button-group {
+    @apply inline-flex items-stretch;
+}
+
+.cu-button-group > .cu-button {
+    @apply rounded-none focus:relative focus:z-10;
+}
+
+.cu-button-group > .cu-button:first-child {
+    @apply rounded-l-lg;
+}
+
+.cu-button-group > .cu-button:last-child {
+    @apply rounded-r-lg;
+}
+
+.cu-button-group > .cu-button + .cu-button {
+    @apply -ml-px;
+}
+
+/* -- vertical -- */
+.cu-button-group-vertical {
+    @apply flex-col;
+}
+
+.cu-button-group-vertical > .cu-button:first-child {
+    @apply rounded-none rounded-t-lg;
+}
+
+.cu-button-group-vertical > .cu-button:last-child {
+    @apply rounded-none rounded-b-lg;
+}
+
+.cu-button-group-vertical > .cu-button + .cu-button {
+    @apply ml-0 -mt-px;
+}

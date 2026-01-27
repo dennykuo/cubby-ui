@@ -1,0 +1,98 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import List from "../../components/ui/List.astro";
+import ComponentPreview from "../../components/ComponentPreview.astro";
+
+const unorderedCode = `<ul class="cu-list cu-list-disc">
+  <li>First item in the list</li>
+  <li>Second item in the list</li>
+  <li>Third item in the list</li>
+</ul>`.trim();
+
+const orderedCode = `<ol class="cu-list cu-list-decimal">
+  <li>First item in the list</li>
+  <li>Second item in the list</li>
+  <li>Third item in the list</li>
+</ol>`.trim();
+
+const nestedCode = `<ul class="cu-list cu-list-disc">
+  <li>First level item
+    <ul class="cu-list cu-list-disc mt-1">
+      <li>Second level item</li>
+      <li>Second level item</li>
+    </ul>
+  </li>
+  <li>First level item</li>
+  <li>First level item</li>
+</ul>`.trim();
+---
+
+<Layout title="Lists — Cubby UI">
+    <div class="space-y-3">
+        <h1 class="text-3xl font-bold tracking-tight">Lists</h1>
+        <p class="text-base text-muted-foreground leading-relaxed">
+            Styled unordered and ordered lists with consistent spacing.
+        </p>
+    </div>
+
+    <div class="mt-10 space-y-10">
+        <!-- Unordered -->
+        <section class="space-y-3">
+            <h2 class="text-lg font-semibold tracking-tight">Unordered</h2>
+            <p class="text-sm text-muted-foreground leading-relaxed">
+                Use <code class="cu-code">cu-list cu-list-disc</code> for
+                bullet-point lists.
+            </p>
+            <ComponentPreview code={unorderedCode}>
+                <div class="w-full max-w-lg">
+                    <List>
+                        <li>First item in the list</li>
+                        <li>Second item in the list</li>
+                        <li>Third item in the list</li>
+                    </List>
+                </div>
+            </ComponentPreview>
+        </section>
+
+        <!-- Ordered -->
+        <section class="space-y-3">
+            <h2 class="text-lg font-semibold tracking-tight">Ordered</h2>
+            <p class="text-sm text-muted-foreground leading-relaxed">
+                Use <code class="cu-code">cu-list cu-list-decimal</code> for
+                numbered lists.
+            </p>
+            <ComponentPreview code={orderedCode}>
+                <div class="w-full max-w-lg">
+                    <List type="decimal">
+                        <li>First item in the list</li>
+                        <li>Second item in the list</li>
+                        <li>Third item in the list</li>
+                    </List>
+                </div>
+            </ComponentPreview>
+        </section>
+
+        <!-- Nested -->
+        <section class="space-y-3">
+            <h2 class="text-lg font-semibold tracking-tight">Nested</h2>
+            <p class="text-sm text-muted-foreground leading-relaxed">
+                Lists can be nested by adding another
+                <code class="cu-code">cu-list</code> inside a list item.
+            </p>
+            <ComponentPreview code={nestedCode}>
+                <div class="w-full max-w-lg">
+                    <List>
+                        <li>First level item
+                            <List class="mt-1">
+                                <li>Second level item</li>
+                                <li>Second level item</li>
+                            </List>
+                        </li>
+                        <li>First level item</li>
+                        <li>First level item</li>
+                    </List>
+                </div>
+            </ComponentPreview>
+        </section>
+    </div>
+</Layout>

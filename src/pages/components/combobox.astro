@@ -1,0 +1,252 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import ComponentPreview from "../../components/ComponentPreview.astro";
+
+const usageCode = `<div class="cu-combobox" data-combobox style="width: 200px;">
+  <button class="cu-combobox-trigger" data-combobox-trigger>
+    <span data-combobox-value class="cu-combobox-trigger-placeholder">Select framework...</span>
+    <svg class="cu-combobox-trigger-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 15 5 5 5-5"/><path d="m7 9 5-5 5 5"/></svg>
+  </button>
+  <div class="cu-combobox-content" data-combobox-content hidden>
+    <div class="cu-combobox-search">
+      <svg class="cu-combobox-search-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input class="cu-combobox-input" data-combobox-input placeholder="Search..." />
+    </div>
+    <div class="cu-combobox-list" data-combobox-list>
+      <div class="cu-combobox-empty" data-combobox-empty hidden>No results found.</div>
+      <div class="cu-combobox-item" data-combobox-item data-value="next">Next.js</div>
+      <div class="cu-combobox-item" data-combobox-item data-value="svelte">SvelteKit</div>
+      <div class="cu-combobox-item" data-combobox-item data-value="nuxt">Nuxt.js</div>
+      <div class="cu-combobox-item" data-combobox-item data-value="remix">Remix</div>
+      <div class="cu-combobox-item" data-combobox-item data-value="astro">Astro</div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll("[data-combobox]").forEach((combobox) => {
+    const trigger = combobox.querySelector("[data-combobox-trigger]");
+    const content = combobox.querySelector("[data-combobox-content]");
+    const input = combobox.querySelector("[data-combobox-input]");
+    const list = combobox.querySelector("[data-combobox-list]");
+    const items = combobox.querySelectorAll("[data-combobox-item]");
+    const empty = combobox.querySelector("[data-combobox-empty]");
+    const valueEl = combobox.querySelector("[data-combobox-value]");
+    let selected = null;
+
+    trigger?.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const isHidden = content?.hasAttribute("hidden");
+      content?.toggleAttribute("hidden");
+      if (isHidden) input?.focus();
+    });
+
+    input?.addEventListener("input", () => {
+      const query = input.value.toLowerCase();
+      let visible = 0;
+      items.forEach((item) => {
+        const match = item.textContent.toLowerCase().includes(query);
+        item.toggleAttribute("hidden", !match);
+        if (match) visible++;
+      });
+      empty?.toggleAttribute("hidden", visible > 0);
+    });
+
+    items.forEach((item) => {
+      item.addEventListener("click", () => {
+        selected = item.dataset.value;
+        valueEl.textContent = item.textContent;
+        valueEl.classList.remove("cu-combobox-trigger-placeholder");
+        items.forEach((i) => i.classList.remove("cu-combobox-item-active"));
+        item.classList.add("cu-combobox-item-active");
+        content?.setAttribute("hidden", "");
+        input.value = "";
+        input?.dispatchEvent(new Event("input"));
+      });
+    });
+
+    document.addEventListener("click", (e) => {
+      if (!combobox.contains(e.target)) {
+        content?.setAttribute("hidden", "");
+        input.value = "";
+        input?.dispatchEvent(new Event("input"));
+      }
+    });
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") {
+        content?.setAttribute("hidden", "");
+        input.value = "";
+        input?.dispatchEvent(new Event("input"));
+      }
+    });
+  });
+</script>`.trim();
+
+const withCheckCode = `<div class="cu-combobox" data-combobox style="width: 200px;">
+  <button class="cu-combobox-trigger" data-combobox-trigger>
+    <span data-combobox-value class="cu-combobox-trigger-placeholder">Select status...</span>
+    <svg class="cu-combobox-trigger-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 15 5 5 5-5"/><path d="m7 9 5-5 5 5"/></svg>
+  </button>
+  <div class="cu-combobox-content" data-combobox-content hidden>
+    <div class="cu-combobox-search">
+      <svg class="cu-combobox-search-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input class="cu-combobox-input" data-combobox-input placeholder="Search status..." />
+    </div>
+    <div class="cu-combobox-list" data-combobox-list>
+      <div class="cu-combobox-empty" data-combobox-empty hidden>No results found.</div>
+      <div class="cu-combobox-item" data-combobox-item data-value="backlog">Backlog</div>
+      <div class="cu-combobox-item" data-combobox-item data-value="todo">Todo</div>
+      <div class="cu-combobox-item" data-combobox-item data-value="in-progress">In Progress</div>
+      <div class="cu-combobox-item" data-combobox-item data-value="done">Done</div>
+      <div class="cu-combobox-item" data-combobox-item data-value="cancelled">Cancelled</div>
+    </div>
+  </div>
+</div>`.trim();
+---
+
+<Layout title="Combobox — Cubby UI">
+    <div class="space-y-3">
+        <h1 class="text-3xl font-bold tracking-tight">Combobox</h1>
+        <p class="text-base text-muted-foreground leading-relaxed">
+            A searchable dropdown for selecting a value from a list of options.
+        </p>
+    </div>
+
+    <div class="mt-10 space-y-10">
+        <!-- Usage -->
+        <section class="space-y-3">
+            <h2 class="text-lg font-semibold tracking-tight">Usage</h2>
+            <p class="text-sm text-muted-foreground leading-relaxed">
+                Use <code class="cu-code">data-combobox</code> on the wrapper,
+                <code class="cu-code">data-combobox-trigger</code> on the button,
+                <code class="cu-code">data-combobox-content</code> on the dropdown, and
+                <code class="cu-code">data-combobox-item</code> on each option.
+                The <code class="cu-code">&lt;script&gt;</code> handles search filtering,
+                selection, outside click, and Escape key.
+            </p>
+            <ComponentPreview code={usageCode}>
+                <div class="cu-combobox" data-combobox style="width: 200px;">
+                    <button class="cu-combobox-trigger" data-combobox-trigger>
+                        <span data-combobox-value class="cu-combobox-trigger-placeholder">Select framework...</span>
+                        <svg class="cu-combobox-trigger-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 15 5 5 5-5"/><path d="m7 9 5-5 5 5"/></svg>
+                    </button>
+                    <div class="cu-combobox-content" data-combobox-content hidden>
+                        <div class="cu-combobox-search">
+                            <svg class="cu-combobox-search-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                            <input class="cu-combobox-input" data-combobox-input placeholder="Search..." />
+                        </div>
+                        <div class="cu-combobox-list" data-combobox-list>
+                            <div class="cu-combobox-empty" data-combobox-empty hidden>No results found.</div>
+                            <div class="cu-combobox-item" data-combobox-item data-value="next">Next.js</div>
+                            <div class="cu-combobox-item" data-combobox-item data-value="svelte">SvelteKit</div>
+                            <div class="cu-combobox-item" data-combobox-item data-value="nuxt">Nuxt.js</div>
+                            <div class="cu-combobox-item" data-combobox-item data-value="remix">Remix</div>
+                            <div class="cu-combobox-item" data-combobox-item data-value="astro">Astro</div>
+                        </div>
+                    </div>
+                </div>
+            </ComponentPreview>
+        </section>
+
+        <!-- Status Example -->
+        <section class="space-y-3">
+            <h2 class="text-lg font-semibold tracking-tight">Status Selector</h2>
+            <p class="text-sm text-muted-foreground leading-relaxed">
+                A common use case for filtering by status in a dashboard.
+            </p>
+            <ComponentPreview code={withCheckCode}>
+                <div class="cu-combobox" data-combobox style="width: 200px;">
+                    <button class="cu-combobox-trigger" data-combobox-trigger>
+                        <span data-combobox-value class="cu-combobox-trigger-placeholder">Select status...</span>
+                        <svg class="cu-combobox-trigger-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 15 5 5 5-5"/><path d="m7 9 5-5 5 5"/></svg>
+                    </button>
+                    <div class="cu-combobox-content" data-combobox-content hidden>
+                        <div class="cu-combobox-search">
+                            <svg class="cu-combobox-search-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                            <input class="cu-combobox-input" data-combobox-input placeholder="Search status..." />
+                        </div>
+                        <div class="cu-combobox-list" data-combobox-list>
+                            <div class="cu-combobox-empty" data-combobox-empty hidden>No results found.</div>
+                            <div class="cu-combobox-item" data-combobox-item data-value="backlog">Backlog</div>
+                            <div class="cu-combobox-item" data-combobox-item data-value="todo">Todo</div>
+                            <div class="cu-combobox-item" data-combobox-item data-value="in-progress">In Progress</div>
+                            <div class="cu-combobox-item" data-combobox-item data-value="done">Done</div>
+                            <div class="cu-combobox-item" data-combobox-item data-value="cancelled">Cancelled</div>
+                        </div>
+                    </div>
+                </div>
+            </ComponentPreview>
+        </section>
+    </div>
+</Layout>
+
+<script>
+    function setupComboboxes() {
+        document.querySelectorAll("[data-combobox]").forEach((combobox) => {
+            const trigger = combobox.querySelector("[data-combobox-trigger]") as HTMLButtonElement | null;
+            const content = combobox.querySelector("[data-combobox-content]") as HTMLElement | null;
+            const input = combobox.querySelector("[data-combobox-input]") as HTMLInputElement | null;
+            const items = combobox.querySelectorAll("[data-combobox-item]");
+            const empty = combobox.querySelector("[data-combobox-empty]") as HTMLElement | null;
+            const valueEl = combobox.querySelector("[data-combobox-value]") as HTMLElement | null;
+
+            trigger?.addEventListener("click", (e) => {
+                e.stopPropagation();
+                const isHidden = content?.hasAttribute("hidden");
+                content?.toggleAttribute("hidden");
+                if (isHidden) input?.focus();
+            });
+
+            input?.addEventListener("input", () => {
+                const query = (input as HTMLInputElement).value.toLowerCase();
+                let visible = 0;
+                items.forEach((item) => {
+                    const match = (item.textContent || "").toLowerCase().includes(query);
+                    (item as HTMLElement).toggleAttribute("hidden", !match);
+                    if (match) visible++;
+                });
+                empty?.toggleAttribute("hidden", visible > 0);
+            });
+
+            items.forEach((item) => {
+                item.addEventListener("click", () => {
+                    if (valueEl) {
+                        valueEl.textContent = item.textContent;
+                        valueEl.classList.remove("cu-combobox-trigger-placeholder");
+                    }
+                    items.forEach((i) => i.classList.remove("cu-combobox-item-active"));
+                    item.classList.add("cu-combobox-item-active");
+                    content?.setAttribute("hidden", "");
+                    if (input) {
+                        (input as HTMLInputElement).value = "";
+                        input.dispatchEvent(new Event("input"));
+                    }
+                });
+            });
+
+            document.addEventListener("click", (e) => {
+                if (!combobox.contains(e.target as Node)) {
+                    content?.setAttribute("hidden", "");
+                    if (input) {
+                        (input as HTMLInputElement).value = "";
+                        input.dispatchEvent(new Event("input"));
+                    }
+                }
+            });
+
+            document.addEventListener("keydown", (e) => {
+                if (e.key === "Escape") {
+                    content?.setAttribute("hidden", "");
+                    if (input) {
+                        (input as HTMLInputElement).value = "";
+                        input.dispatchEvent(new Event("input"));
+                    }
+                }
+            });
+        });
+    }
+
+    setupComboboxes();
+    document.addEventListener("astro:page-load", setupComboboxes);
+</script>

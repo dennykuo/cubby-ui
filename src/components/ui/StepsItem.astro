@@ -1,0 +1,17 @@
+---
+import { TOP_CLASS } from "../../config";
+
+interface Props {
+	status?: "completed" | "active" | "upcoming";
+	class?: string;
+	[key: string]: any;
+}
+
+const { status = "upcoming", class: className, ...rest } = Astro.props;
+const baseClass = `${TOP_CLASS}-steps-item`;
+const statusClass = `${TOP_CLASS}-steps-item-${status}`;
+---
+
+<div class:list={[baseClass, statusClass, className]} {...rest}>
+	<slot />
+</div>

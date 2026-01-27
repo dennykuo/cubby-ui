@@ -1,0 +1,222 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import TreeView from "../../components/ui/TreeView.astro";
+import TreeItem from "../../components/ui/TreeItem.astro";
+import TreeLeaf from "../../components/ui/TreeLeaf.astro";
+import ComponentPreview from "../../components/ComponentPreview.astro";
+
+const chevronIcon = `<svg class="cu-tree-trigger-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>`;
+const folderIcon = `<svg class="size-4 shrink-0 text-muted-foreground" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/></svg>`;
+const fileIcon = `<svg class="size-4 shrink-0 text-muted-foreground" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/></svg>`;
+
+const usageCode = `<div class="cu-tree">
+  <details class="cu-tree-item">
+    <summary class="cu-tree-trigger">
+      <svg class="cu-tree-trigger-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+      Getting Started
+    </summary>
+    <div class="cu-tree-content">
+      <div class="cu-tree-leaf">Introduction</div>
+      <div class="cu-tree-leaf">Installation</div>
+    </div>
+  </details>
+  <details class="cu-tree-item">
+    <summary class="cu-tree-trigger">
+      <svg class="cu-tree-trigger-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+      Components
+    </summary>
+    <div class="cu-tree-content">
+      <div class="cu-tree-leaf">Button</div>
+      <div class="cu-tree-leaf">Input</div>
+      <div class="cu-tree-leaf">Card</div>
+    </div>
+  </details>
+  <div class="cu-tree-leaf">Changelog</div>
+</div>`.trim();
+
+const fileExplorerCode = `<div class="cu-tree">
+  <details class="cu-tree-item" open>
+    <summary class="cu-tree-trigger">
+      <svg class="cu-tree-trigger-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+      <svg class="size-4 shrink-0 text-muted-foreground" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/></svg>
+      src
+    </summary>
+    <div class="cu-tree-content">
+      <details class="cu-tree-item">
+        <summary class="cu-tree-trigger">
+          <svg class="cu-tree-trigger-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+          <svg class="size-4 shrink-0 text-muted-foreground" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/></svg>
+          components
+        </summary>
+        <div class="cu-tree-content">
+          <div class="cu-tree-leaf">
+            <svg class="size-4 shrink-0 text-muted-foreground" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/></svg>
+            Button.astro
+          </div>
+          <div class="cu-tree-leaf">
+            <svg class="size-4 shrink-0 text-muted-foreground" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/></svg>
+            Card.astro
+          </div>
+        </div>
+      </details>
+      <div class="cu-tree-leaf">
+        <svg class="size-4 shrink-0 text-muted-foreground" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/></svg>
+        index.ts
+      </div>
+    </div>
+  </details>
+  <div class="cu-tree-leaf">
+    <svg class="size-4 shrink-0 text-muted-foreground" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/></svg>
+    package.json
+  </div>
+  <div class="cu-tree-leaf">
+    <svg class="size-4 shrink-0 text-muted-foreground" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/></svg>
+    README.md
+  </div>
+</div>`.trim();
+
+const defaultOpenCode = `<div class="cu-tree">
+  <details class="cu-tree-item" open>
+    <summary class="cu-tree-trigger">
+      <svg class="cu-tree-trigger-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+      Open by default
+    </summary>
+    <div class="cu-tree-content">
+      <div class="cu-tree-leaf">Child item 1</div>
+      <div class="cu-tree-leaf">Child item 2</div>
+      <details class="cu-tree-item" open>
+        <summary class="cu-tree-trigger">
+          <svg class="cu-tree-trigger-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+          Nested group
+        </summary>
+        <div class="cu-tree-content">
+          <div class="cu-tree-leaf">Nested item 1</div>
+          <div class="cu-tree-leaf">Nested item 2</div>
+        </div>
+      </details>
+    </div>
+  </details>
+</div>`.trim();
+---
+
+<Layout title="Tree View — Cubby UI">
+    <div class="space-y-3">
+        <h1 class="text-3xl font-bold tracking-tight">Tree View</h1>
+        <p class="text-base text-muted-foreground leading-relaxed">
+            A hierarchical tree structure with expandable/collapsible nodes, built with native <code class="cu-code">&lt;details&gt;</code> elements.
+        </p>
+    </div>
+
+    <div class="mt-10 space-y-10">
+        <!-- Usage -->
+        <section class="space-y-3">
+            <h2 class="text-lg font-semibold tracking-tight">Usage</h2>
+            <p class="text-sm text-muted-foreground leading-relaxed">
+                Use <code class="cu-code">cu-tree</code> as the root container,
+                <code class="cu-code">cu-tree-item</code> on <code class="cu-code">&lt;details&gt;</code> for expandable nodes,
+                <code class="cu-code">cu-tree-trigger</code> on <code class="cu-code">&lt;summary&gt;</code> for the node title, and
+                <code class="cu-code">cu-tree-leaf</code> for leaf nodes.
+            </p>
+            <ComponentPreview code={usageCode}>
+                <div class="w-full max-w-xs">
+                    <TreeView>
+                        <TreeItem>
+                            <summary class="cu-tree-trigger">
+                                <Fragment set:html={chevronIcon} />
+                                Getting Started
+                            </summary>
+                            <div class="cu-tree-content">
+                                <TreeLeaf>Introduction</TreeLeaf>
+                                <TreeLeaf>Installation</TreeLeaf>
+                            </div>
+                        </TreeItem>
+                        <TreeItem>
+                            <summary class="cu-tree-trigger">
+                                <Fragment set:html={chevronIcon} />
+                                Components
+                            </summary>
+                            <div class="cu-tree-content">
+                                <TreeLeaf>Button</TreeLeaf>
+                                <TreeLeaf>Input</TreeLeaf>
+                                <TreeLeaf>Card</TreeLeaf>
+                            </div>
+                        </TreeItem>
+                        <TreeLeaf>Changelog</TreeLeaf>
+                    </TreeView>
+                </div>
+            </ComponentPreview>
+        </section>
+
+        <!-- File Explorer -->
+        <section class="space-y-3">
+            <h2 class="text-lg font-semibold tracking-tight">File Explorer</h2>
+            <p class="text-sm text-muted-foreground leading-relaxed">
+                Combine folder and file icons with the tree structure for a file explorer pattern.
+            </p>
+            <ComponentPreview code={fileExplorerCode}>
+                <div class="w-full max-w-xs">
+                    <TreeView>
+                        <TreeItem open>
+                            <summary class="cu-tree-trigger">
+                                <Fragment set:html={chevronIcon} />
+                                <Fragment set:html={folderIcon} />
+                                src
+                            </summary>
+                            <div class="cu-tree-content">
+                                <TreeItem>
+                                    <summary class="cu-tree-trigger">
+                                        <Fragment set:html={chevronIcon} />
+                                        <Fragment set:html={folderIcon} />
+                                        components
+                                    </summary>
+                                    <div class="cu-tree-content">
+                                        <TreeLeaf><Fragment set:html={fileIcon} /> Button.astro</TreeLeaf>
+                                        <TreeLeaf><Fragment set:html={fileIcon} /> Card.astro</TreeLeaf>
+                                    </div>
+                                </TreeItem>
+                                <TreeLeaf><Fragment set:html={fileIcon} /> index.ts</TreeLeaf>
+                            </div>
+                        </TreeItem>
+                        <TreeLeaf><Fragment set:html={fileIcon} /> package.json</TreeLeaf>
+                        <TreeLeaf><Fragment set:html={fileIcon} /> README.md</TreeLeaf>
+                    </TreeView>
+                </div>
+            </ComponentPreview>
+        </section>
+
+        <!-- Default Open -->
+        <section class="space-y-3">
+            <h2 class="text-lg font-semibold tracking-tight">Default Open</h2>
+            <p class="text-sm text-muted-foreground leading-relaxed">
+                Add the <code class="cu-code">open</code> attribute to <code class="cu-code">&lt;details&gt;</code> elements
+                to expand nodes by default.
+            </p>
+            <ComponentPreview code={defaultOpenCode}>
+                <div class="w-full max-w-xs">
+                    <TreeView>
+                        <TreeItem open>
+                            <summary class="cu-tree-trigger">
+                                <Fragment set:html={chevronIcon} />
+                                Open by default
+                            </summary>
+                            <div class="cu-tree-content">
+                                <TreeLeaf>Child item 1</TreeLeaf>
+                                <TreeLeaf>Child item 2</TreeLeaf>
+                                <TreeItem open>
+                                    <summary class="cu-tree-trigger">
+                                        <Fragment set:html={chevronIcon} />
+                                        Nested group
+                                    </summary>
+                                    <div class="cu-tree-content">
+                                        <TreeLeaf>Nested item 1</TreeLeaf>
+                                        <TreeLeaf>Nested item 2</TreeLeaf>
+                                    </div>
+                                </TreeItem>
+                            </div>
+                        </TreeItem>
+                    </TreeView>
+                </div>
+            </ComponentPreview>
+        </section>
+    </div>
+</Layout>

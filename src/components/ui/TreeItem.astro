@@ -1,0 +1,16 @@
+---
+import { TOP_CLASS } from "../../config";
+
+interface Props {
+	open?: boolean;
+	class?: string;
+	[key: string]: any;
+}
+
+const { open = false, class: className, ...rest } = Astro.props;
+const baseClass = `${TOP_CLASS}-tree-item`;
+---
+
+<details class:list={[baseClass, className]} open={open} {...rest}>
+	<slot />
+</details>

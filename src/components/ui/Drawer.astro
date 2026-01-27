@@ -8,8 +8,8 @@ interface Props {
 }
 
 const { side = "right", class: className, ...rest } = Astro.props;
-const baseClass = `${TOP_CLASS}-sheet`;
-const sideClass = `${TOP_CLASS}-sheet-${side}`;
+const baseClass = `${TOP_CLASS}-drawer`;
+const sideClass = `${TOP_CLASS}-drawer-${side}`;
 ---
 
 <dialog class:list={[baseClass, sideClass, className]} {...rest}>

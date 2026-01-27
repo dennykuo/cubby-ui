@@ -1,0 +1,68 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Blockquote from "../../components/ui/Blockquote.astro";
+import ComponentPreview from "../../components/ComponentPreview.astro";
+
+const usageCode = `<blockquote class="cu-blockquote">
+  "After all," he said, "everyone enjoys a good joke, so it's only fair that
+  they should pay for the privilege."
+</blockquote>`.trim();
+
+const withCitationCode = `<figure>
+  <blockquote class="cu-blockquote">
+    "The only way to do great work is to love what you do."
+  </blockquote>
+  <figcaption class="mt-2 pl-6 text-sm text-muted-foreground">
+    — Steve Jobs
+  </figcaption>
+</figure>`.trim();
+---
+
+<Layout title="Blockquote — Cubby UI">
+    <div class="space-y-3">
+        <h1 class="text-3xl font-bold tracking-tight">Blockquote</h1>
+        <p class="text-base text-muted-foreground leading-relaxed">
+            A styled block quotation for highlighting cited content.
+        </p>
+    </div>
+
+    <div class="mt-10 space-y-10">
+        <!-- Usage -->
+        <section class="space-y-3">
+            <h2 class="text-lg font-semibold tracking-tight">Usage</h2>
+            <p class="text-sm text-muted-foreground leading-relaxed">
+                Apply <code class="cu-code">cu-blockquote</code> to a
+                <code class="cu-code">&lt;blockquote&gt;</code> element.
+            </p>
+            <ComponentPreview code={usageCode}>
+                <div class="w-full max-w-lg">
+                    <Blockquote>
+                        "After all," he said, "everyone enjoys a good joke, so it's only fair that
+                        they should pay for the privilege."
+                    </Blockquote>
+                </div>
+            </ComponentPreview>
+        </section>
+
+        <!-- With Citation -->
+        <section class="space-y-3">
+            <h2 class="text-lg font-semibold tracking-tight">With Citation</h2>
+            <p class="text-sm text-muted-foreground leading-relaxed">
+                Wrap in a <code class="cu-code">&lt;figure&gt;</code> with a
+                <code class="cu-code">&lt;figcaption&gt;</code> to attribute the quote.
+            </p>
+            <ComponentPreview code={withCitationCode}>
+                <div class="w-full max-w-lg">
+                    <figure>
+                        <Blockquote>
+                            "The only way to do great work is to love what you do."
+                        </Blockquote>
+                        <figcaption class="mt-2 pl-6 text-sm text-muted-foreground">
+                            — Steve Jobs
+                        </figcaption>
+                    </figure>
+                </div>
+            </ComponentPreview>
+        </section>
+    </div>
+</Layout>

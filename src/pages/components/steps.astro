@@ -1,0 +1,226 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Steps from "../../components/ui/Steps.astro";
+import StepsItem from "../../components/ui/StepsItem.astro";
+import StepsSeparator from "../../components/ui/StepsSeparator.astro";
+import ComponentPreview from "../../components/ComponentPreview.astro";
+
+const usageCode = `<div class="cu-steps">
+  <div class="cu-steps-item cu-steps-item-completed">
+    <div class="cu-steps-number">
+      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+    </div>
+    <div class="cu-steps-content">
+      <div class="cu-steps-title">Account</div>
+    </div>
+  </div>
+  <div class="cu-steps-separator"></div>
+  <div class="cu-steps-item cu-steps-item-active">
+    <div class="cu-steps-number">2</div>
+    <div class="cu-steps-content">
+      <div class="cu-steps-title">Profile</div>
+    </div>
+  </div>
+  <div class="cu-steps-separator"></div>
+  <div class="cu-steps-item cu-steps-item-upcoming">
+    <div class="cu-steps-number">3</div>
+    <div class="cu-steps-content">
+      <div class="cu-steps-title">Complete</div>
+    </div>
+  </div>
+</div>`.trim();
+
+const withDescCode = `<div class="cu-steps">
+  <div class="cu-steps-item cu-steps-item-completed">
+    <div class="cu-steps-number">
+      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+    </div>
+    <div class="cu-steps-content">
+      <div class="cu-steps-title">Account</div>
+      <div class="cu-steps-description">Create your account</div>
+    </div>
+  </div>
+  <div class="cu-steps-separator"></div>
+  <div class="cu-steps-item cu-steps-item-active">
+    <div class="cu-steps-number">2</div>
+    <div class="cu-steps-content">
+      <div class="cu-steps-title">Profile</div>
+      <div class="cu-steps-description">Set up your profile</div>
+    </div>
+  </div>
+  <div class="cu-steps-separator"></div>
+  <div class="cu-steps-item cu-steps-item-upcoming">
+    <div class="cu-steps-number">3</div>
+    <div class="cu-steps-content">
+      <div class="cu-steps-title">Complete</div>
+      <div class="cu-steps-description">Review and finish</div>
+    </div>
+  </div>
+</div>`.trim();
+
+const verticalCode = `<div class="cu-steps cu-steps-vertical">
+  <div class="cu-steps-item cu-steps-item-completed">
+    <div class="cu-steps-number">
+      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+    </div>
+    <div class="cu-steps-content">
+      <div class="cu-steps-title">Order placed</div>
+      <div class="cu-steps-description">Your order has been confirmed</div>
+    </div>
+  </div>
+  <div class="cu-steps-separator"></div>
+  <div class="cu-steps-item cu-steps-item-completed">
+    <div class="cu-steps-number">
+      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+    </div>
+    <div class="cu-steps-content">
+      <div class="cu-steps-title">Processing</div>
+      <div class="cu-steps-description">Your order is being prepared</div>
+    </div>
+  </div>
+  <div class="cu-steps-separator"></div>
+  <div class="cu-steps-item cu-steps-item-active">
+    <div class="cu-steps-number">3</div>
+    <div class="cu-steps-content">
+      <div class="cu-steps-title">Shipping</div>
+      <div class="cu-steps-description">On its way to you</div>
+    </div>
+  </div>
+  <div class="cu-steps-separator"></div>
+  <div class="cu-steps-item cu-steps-item-upcoming">
+    <div class="cu-steps-number">4</div>
+    <div class="cu-steps-content">
+      <div class="cu-steps-title">Delivered</div>
+      <div class="cu-steps-description">Package has arrived</div>
+    </div>
+  </div>
+</div>`.trim();
+
+const checkIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>`;
+---
+
+<Layout title="Steps — Cubby UI">
+    <div class="space-y-3">
+        <h1 class="text-3xl font-bold tracking-tight">Steps</h1>
+        <p class="text-base text-muted-foreground leading-relaxed">
+            A step indicator for multi-step workflows and wizards.
+        </p>
+    </div>
+
+    <div class="mt-10 space-y-10">
+        <!-- Usage -->
+        <section class="space-y-3">
+            <h2 class="text-lg font-semibold tracking-tight">Usage</h2>
+            <p class="text-sm text-muted-foreground leading-relaxed">
+                Use <code class="cu-code">cu-steps</code> as the container, with
+                <code class="cu-code">cu-steps-item</code> for each step and
+                <code class="cu-code">cu-steps-separator</code> between them.
+                Apply <code class="cu-code">cu-steps-item-completed</code>,
+                <code class="cu-code">cu-steps-item-active</code>, or
+                <code class="cu-code">cu-steps-item-upcoming</code> for state styling.
+            </p>
+            <ComponentPreview code={usageCode}>
+                <div class="w-full max-w-lg">
+                    <Steps>
+                        <StepsItem status="completed">
+                            <div class="cu-steps-number"><Fragment set:html={checkIcon} /></div>
+                            <div class="cu-steps-content"><div class="cu-steps-title">Account</div></div>
+                        </StepsItem>
+                        <StepsSeparator />
+                        <StepsItem status="active">
+                            <div class="cu-steps-number">2</div>
+                            <div class="cu-steps-content"><div class="cu-steps-title">Profile</div></div>
+                        </StepsItem>
+                        <StepsSeparator />
+                        <StepsItem status="upcoming">
+                            <div class="cu-steps-number">3</div>
+                            <div class="cu-steps-content"><div class="cu-steps-title">Complete</div></div>
+                        </StepsItem>
+                    </Steps>
+                </div>
+            </ComponentPreview>
+        </section>
+
+        <!-- With Descriptions -->
+        <section class="space-y-3">
+            <h2 class="text-lg font-semibold tracking-tight">With Descriptions</h2>
+            <p class="text-sm text-muted-foreground leading-relaxed">
+                Add <code class="cu-code">cu-steps-description</code> below the title for additional context.
+            </p>
+            <ComponentPreview code={withDescCode}>
+                <div class="w-full max-w-lg">
+                    <Steps>
+                        <StepsItem status="completed">
+                            <div class="cu-steps-number"><Fragment set:html={checkIcon} /></div>
+                            <div class="cu-steps-content">
+                                <div class="cu-steps-title">Account</div>
+                                <div class="cu-steps-description">Create your account</div>
+                            </div>
+                        </StepsItem>
+                        <StepsSeparator />
+                        <StepsItem status="active">
+                            <div class="cu-steps-number">2</div>
+                            <div class="cu-steps-content">
+                                <div class="cu-steps-title">Profile</div>
+                                <div class="cu-steps-description">Set up your profile</div>
+                            </div>
+                        </StepsItem>
+                        <StepsSeparator />
+                        <StepsItem status="upcoming">
+                            <div class="cu-steps-number">3</div>
+                            <div class="cu-steps-content">
+                                <div class="cu-steps-title">Complete</div>
+                                <div class="cu-steps-description">Review and finish</div>
+                            </div>
+                        </StepsItem>
+                    </Steps>
+                </div>
+            </ComponentPreview>
+        </section>
+
+        <!-- Vertical -->
+        <section class="space-y-3">
+            <h2 class="text-lg font-semibold tracking-tight">Vertical</h2>
+            <p class="text-sm text-muted-foreground leading-relaxed">
+                Use <code class="cu-code">cu-steps-vertical</code> for a vertical layout, suitable for order tracking or timelines.
+            </p>
+            <ComponentPreview code={verticalCode}>
+                <div class="w-full max-w-sm">
+                    <Steps vertical>
+                        <StepsItem status="completed">
+                            <div class="cu-steps-number"><Fragment set:html={checkIcon} /></div>
+                            <div class="cu-steps-content">
+                                <div class="cu-steps-title">Order placed</div>
+                                <div class="cu-steps-description">Your order has been confirmed</div>
+                            </div>
+                        </StepsItem>
+                        <StepsSeparator />
+                        <StepsItem status="completed">
+                            <div class="cu-steps-number"><Fragment set:html={checkIcon} /></div>
+                            <div class="cu-steps-content">
+                                <div class="cu-steps-title">Processing</div>
+                                <div class="cu-steps-description">Your order is being prepared</div>
+                            </div>
+                        </StepsItem>
+                        <StepsSeparator />
+                        <StepsItem status="active">
+                            <div class="cu-steps-number">3</div>
+                            <div class="cu-steps-content">
+                                <div class="cu-steps-title">Shipping</div>
+                                <div class="cu-steps-description">On its way to you</div>
+                            </div>
+                        </StepsItem>
+                        <StepsSeparator />
+                        <StepsItem status="upcoming">
+                            <div class="cu-steps-number">4</div>
+                            <div class="cu-steps-content">
+                                <div class="cu-steps-title">Delivered</div>
+                                <div class="cu-steps-description">Package has arrived</div>
+                            </div>
+                        </StepsItem>
+                    </Steps>
+                </div>
+            </ComponentPreview>
+        </section>
+    </div>
+</Layout>

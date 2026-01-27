@@ -7,9 +7,10 @@ interface Props {
 }
 
 const { class: className, ...rest } = Astro.props;
-const baseClass = `${TOP_CLASS}-sheet-description`;
+
+const baseClass = `${TOP_CLASS}-blockquote`;
 ---
 
-<p class:list={[baseClass, className]} {...rest}>
+<blockquote class:list={[baseClass, className]} {...rest}>
     <slot />
-</p>
+</blockquote>

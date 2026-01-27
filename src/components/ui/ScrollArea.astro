@@ -1,0 +1,17 @@
+---
+import { TOP_CLASS } from "../../config";
+
+interface Props {
+	horizontal?: boolean;
+	class?: string;
+	[key: string]: any;
+}
+
+const { horizontal = false, class: className, ...rest } = Astro.props;
+const baseClass = `${TOP_CLASS}-scroll-area`;
+const horizontalClass = `${TOP_CLASS}-scroll-area-horizontal`;
+---
+
+<div class:list={[baseClass, horizontal && horizontalClass, className]} {...rest}>
+	<slot />
+</div>
