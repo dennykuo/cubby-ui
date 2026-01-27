@@ -1,0 +1,25 @@
+/* Dropzone
+   ------------------------------------------------------------------ */
+.cu-dropzone {
+    @apply flex flex-col items-center justify-center gap-2 rounded-lg border-2 border-dashed border-input bg-background px-6 py-10 text-center transition-colors duration-200 cursor-pointer hover:border-muted-foreground/40 hover:bg-muted/30;
+}
+
+.cu-dropzone-active {
+    @apply border-primary bg-primary/5 hover:border-primary hover:bg-primary/5;
+}
+
+.cu-dropzone-icon {
+    @apply size-10 text-muted-foreground/60;
+}
+
+.cu-dropzone-title {
+    @apply text-sm font-medium text-foreground;
+}
+
+.cu-dropzone-description {
+    @apply text-xs text-muted-foreground;
+}
+
+.cu-dropzone-disabled {
+    @apply pointer-events-none opacity-50 hover:border-input hover:bg-background;
+}

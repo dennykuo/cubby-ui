@@ -1,0 +1,74 @@
+/* Transfer List
+   ------------------------------------------------------------------ */
+.cu-transfer-list {
+    @apply flex items-start gap-3;
+}
+
+.cu-transfer-list-panel {
+    @apply flex flex-col overflow-hidden rounded-lg border border-border bg-background;
+}
+
+.cu-transfer-list-header {
+    @apply flex items-center gap-2 border-b border-border px-3 py-2.5 text-sm;
+}
+
+.cu-transfer-list-header-title {
+    @apply font-medium text-foreground;
+}
+
+.cu-transfer-list-header-count {
+    @apply ml-auto text-xs text-muted-foreground;
+}
+
+.cu-transfer-list-search {
+    @apply flex items-center border-b border-border px-3;
+}
+
+.cu-transfer-list-search-icon {
+    @apply mr-2 size-4 shrink-0 text-muted-foreground/60;
+}
+
+.cu-transfer-list-search-input {
+    @apply flex h-8 w-full bg-transparent text-sm outline-none placeholder:text-muted-foreground;
+}
+
+.cu-transfer-list-content {
+    @apply overflow-y-auto p-1;
+
+    /* Firefox */
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-border) transparent;
+}
+
+.cu-transfer-list-content::-webkit-scrollbar {
+    width: 6px;
+}
+
+.cu-transfer-list-content::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.cu-transfer-list-content::-webkit-scrollbar-thumb {
+    background-color: var(--color-border);
+    border-radius: 9999px;
+}
+
+.cu-transfer-list-content::-webkit-scrollbar-thumb:hover {
+    background-color: var(--color-muted-foreground);
+}
+
+.cu-transfer-list-item {
+    @apply flex items-center gap-2 rounded-md px-2 py-1.5 text-sm transition-colors hover:bg-muted/60 cursor-pointer;
+}
+
+.cu-transfer-list-item-checked {
+    @apply bg-muted/40;
+}
+
+.cu-transfer-list-actions {
+    @apply flex flex-col items-center justify-center gap-1 self-center;
+}
+
+.cu-transfer-list-actions-button {
+    @apply inline-flex size-8 items-center justify-center rounded-lg border border-input bg-background text-muted-foreground transition-colors duration-150 hover:bg-muted/60 hover:text-foreground cursor-pointer disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0;
+}

@@ -1,0 +1,183 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import ComponentPreview from "../../components/ComponentPreview.astro";
+
+const usageCode = `<div class="cu-dropzone" data-dropzone>
+  <input type="file" data-dropzone-input hidden />
+  <svg class="cu-dropzone-icon" xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+  <p class="cu-dropzone-title">Drag & drop files here, or click to browse</p>
+  <p class="cu-dropzone-description">PNG, JPG, PDF up to 10MB</p>
+</div>
+
+<script>
+  document.querySelectorAll("[data-dropzone]").forEach((zone) => {
+    const input = zone.querySelector("[data-dropzone-input]");
+
+    zone.addEventListener("click", () => input?.click());
+
+    zone.addEventListener("dragenter", (e) => {
+      e.preventDefault();
+      zone.classList.add("cu-dropzone-active");
+    });
+
+    zone.addEventListener("dragover", (e) => {
+      e.preventDefault();
+      zone.classList.add("cu-dropzone-active");
+    });
+
+    zone.addEventListener("dragleave", () => {
+      zone.classList.remove("cu-dropzone-active");
+    });
+
+    zone.addEventListener("drop", (e) => {
+      e.preventDefault();
+      zone.classList.remove("cu-dropzone-active");
+      const files = e.dataTransfer?.files;
+      if (files?.length) {
+        input.files = files;
+        input.dispatchEvent(new Event("change", { bubbles: true }));
+      }
+    });
+  });
+</script>`.trim();
+
+const fileListCode = `<div>
+  <div class="cu-dropzone" data-dropzone id="dropzone-filelist">
+    <input type="file" data-dropzone-input hidden multiple />
+    <svg class="cu-dropzone-icon" xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+    <p class="cu-dropzone-title">Drag & drop files here, or click to browse</p>
+    <p class="cu-dropzone-description">Upload multiple files</p>
+  </div>
+  <ul data-dropzone-list class="mt-2 space-y-1 text-sm text-muted-foreground"></ul>
+</div>`.trim();
+
+const disabledCode = `<div class="cu-dropzone cu-dropzone-disabled">
+  <svg class="cu-dropzone-icon" xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+  <p class="cu-dropzone-title">Upload disabled</p>
+  <p class="cu-dropzone-description">File upload is currently unavailable</p>
+</div>`.trim();
+---
+
+<Layout title="Dropzone — Cubby UI">
+    <div class="space-y-3">
+        <h1 class="text-3xl font-bold tracking-tight">Dropzone</h1>
+        <p class="text-base text-muted-foreground leading-relaxed">
+            A drag-and-drop file upload area. Supports both drag & drop and click to browse.
+        </p>
+    </div>
+
+    <div class="mt-10 space-y-10">
+        <!-- Usage -->
+        <section class="space-y-3">
+            <h2 class="text-lg font-semibold tracking-tight">Usage</h2>
+            <p class="text-sm text-muted-foreground leading-relaxed">
+                Use <code class="cu-code">data-dropzone</code> on the container and
+                <code class="cu-code">data-dropzone-input</code> on a hidden
+                <code class="cu-code">&lt;input type="file"&gt;</code>.
+                The <code class="cu-code">&lt;script&gt;</code> handles click-to-browse and drag & drop events.
+            </p>
+            <ComponentPreview code={usageCode}>
+                <div class="w-full max-w-md">
+                    <div class="cu-dropzone" data-dropzone>
+                        <input type="file" data-dropzone-input hidden />
+                        <svg class="cu-dropzone-icon" xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                        <p class="cu-dropzone-title">Drag & drop files here, or click to browse</p>
+                        <p class="cu-dropzone-description">PNG, JPG, PDF up to 10MB</p>
+                    </div>
+                </div>
+            </ComponentPreview>
+        </section>
+
+        <!-- With File List -->
+        <section class="space-y-3">
+            <h2 class="text-lg font-semibold tracking-tight">With File List</h2>
+            <p class="text-sm text-muted-foreground leading-relaxed">
+                Show selected file names below the dropzone using a
+                <code class="cu-code">change</code> event listener on the hidden input.
+            </p>
+            <ComponentPreview code={fileListCode}>
+                <div class="w-full max-w-md">
+                    <div class="cu-dropzone" data-dropzone id="dropzone-filelist">
+                        <input type="file" data-dropzone-input hidden multiple />
+                        <svg class="cu-dropzone-icon" xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                        <p class="cu-dropzone-title">Drag & drop files here, or click to browse</p>
+                        <p class="cu-dropzone-description">Upload multiple files</p>
+                    </div>
+                    <ul data-dropzone-list class="mt-2 space-y-1 text-sm text-muted-foreground"></ul>
+                </div>
+            </ComponentPreview>
+        </section>
+
+        <!-- Disabled -->
+        <section class="space-y-3">
+            <h2 class="text-lg font-semibold tracking-tight">Disabled</h2>
+            <p class="text-sm text-muted-foreground leading-relaxed">
+                Add <code class="cu-code">cu-dropzone-disabled</code> to prevent interaction.
+                No hidden input or <code class="cu-code">data-dropzone</code> attribute needed.
+            </p>
+            <ComponentPreview code={disabledCode}>
+                <div class="w-full max-w-md">
+                    <div class="cu-dropzone cu-dropzone-disabled">
+                        <svg class="cu-dropzone-icon" xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                        <p class="cu-dropzone-title">Upload disabled</p>
+                        <p class="cu-dropzone-description">File upload is currently unavailable</p>
+                    </div>
+                </div>
+            </ComponentPreview>
+        </section>
+    </div>
+</Layout>
+
+<script>
+    function setupDropzones() {
+        document.querySelectorAll("[data-dropzone]").forEach((zone) => {
+            const input = zone.querySelector("[data-dropzone-input]") as HTMLInputElement | null;
+            if (!input) return;
+
+            zone.addEventListener("click", () => input.click());
+
+            zone.addEventListener("dragenter", (e) => {
+                e.preventDefault();
+                zone.classList.add("cu-dropzone-active");
+            });
+
+            zone.addEventListener("dragover", (e) => {
+                e.preventDefault();
+                zone.classList.add("cu-dropzone-active");
+            });
+
+            zone.addEventListener("dragleave", () => {
+                zone.classList.remove("cu-dropzone-active");
+            });
+
+            zone.addEventListener("drop", (e) => {
+                e.preventDefault();
+                zone.classList.remove("cu-dropzone-active");
+                const files = (e as DragEvent).dataTransfer?.files;
+                if (files?.length) {
+                    input.files = files;
+                    input.dispatchEvent(new Event("change", { bubbles: true }));
+                }
+            });
+        });
+
+        // File list demo
+        const filelistZone = document.getElementById("dropzone-filelist");
+        if (filelistZone) {
+            const input = filelistZone.querySelector("[data-dropzone-input]") as HTMLInputElement | null;
+            const list = filelistZone.parentElement?.querySelector("[data-dropzone-list]") as HTMLElement | null;
+            input?.addEventListener("change", () => {
+                if (!list || !input.files) return;
+                list.innerHTML = "";
+                Array.from(input.files).forEach((file) => {
+                    const li = document.createElement("li");
+                    li.textContent = `${file.name} (${(file.size / 1024).toFixed(1)} KB)`;
+                    list.appendChild(li);
+                });
+            });
+        }
+    }
+
+    setupDropzones();
+    document.addEventListener("astro:page-load", setupDropzones);
+</script>

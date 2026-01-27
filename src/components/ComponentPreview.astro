@@ -19,7 +19,7 @@ const { class: className, code = "", align = "center" } = Astro.props;
 >
 	<div
 		class:list={[
-			"p-8 min-h-[200px] w-full flex items-center preview-container bg-background/50 relative overflow-hidden rounded-t-xl",
+			"p-8 min-h-[200px] w-full flex items-center preview-container bg-background/50 relative rounded-t-xl",
 			align === "center"
 				? "justify-center"
 				: align === "start"
@@ -28,7 +28,7 @@ const { class: className, code = "", align = "center" } = Astro.props;
 		]}
 	>
 		<div
-			class="absolute inset-0 -z-10 h-full w-full bg-white dark:bg-slate-950 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] dark:bg-[radial-gradient(#1f2937_1px,transparent_1px)] [background-size:16px_16px]"
+			class="absolute inset-0 -z-10 h-full w-full rounded-t-xl bg-white dark:bg-slate-950 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] dark:bg-[radial-gradient(#1f2937_1px,transparent_1px)] [background-size:16px_16px]"
 		>
 		</div>
 		<slot />

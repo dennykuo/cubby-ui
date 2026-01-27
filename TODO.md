@@ -49,8 +49,8 @@
 ### 低優先（特定場景使用）
 
 - [ ] **Pin Input** — Forms — 驗證碼輸入（2FA / OTP），需 JS
-- [ ] **Number Input** — Forms — 數字步進器（數量調整）
+- [x] **Number Input** — Forms — 數字步進器（數量調整）
 - [ ] **Rating** — Forms — 星級評分
-- [ ] **Number Input** — Forms — 拖放上傳區（比 File Input 更強），需 JS
+- [x] **Dropzone** — Forms — 拖放上傳區（比 File Input 更強），需 JS
 - [ ] **Color Picker** — Forms — 色彩選擇器（主題設定），需 JS
-- [ ] **Transfer List** — Forms — 穿梭框（左右移動項目），需 JS
+- [x] **Transfer List** — Forms — 穿梭框（左右移動項目），需 JS

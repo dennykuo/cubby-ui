@@ -1,0 +1,175 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import ComponentPreview from "../../components/ComponentPreview.astro";
+
+const usageCode = `<div class="cu-number-input" data-number-input>
+  <button class="cu-number-input-button" data-number-decrement>
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/></svg>
+  </button>
+  <input class="cu-number-input-field" data-number-field type="number" value="0" />
+  <button class="cu-number-input-button" data-number-increment>
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
+  </button>
+</div>
+
+<script>
+  document.querySelectorAll("[data-number-input]").forEach((container) => {
+    const field = container.querySelector("[data-number-field]");
+    const decrement = container.querySelector("[data-number-decrement]");
+    const increment = container.querySelector("[data-number-increment]");
+
+    decrement?.addEventListener("click", () => {
+      const step = Number(field.step) || 1;
+      const min = field.min !== "" ? Number(field.min) : -Infinity;
+      const current = Number(field.value) || 0;
+      const next = current - step;
+      if (next >= min) {
+        field.value = next;
+        field.dispatchEvent(new Event("input", { bubbles: true }));
+      }
+    });
+
+    increment?.addEventListener("click", () => {
+      const step = Number(field.step) || 1;
+      const max = field.max !== "" ? Number(field.max) : Infinity;
+      const current = Number(field.value) || 0;
+      const next = current + step;
+      if (next <= max) {
+        field.value = next;
+        field.dispatchEvent(new Event("input", { bubbles: true }));
+      }
+    });
+  });
+</script>`.trim();
+
+const minMaxCode = `<div class="cu-number-input" data-number-input>
+  <button class="cu-number-input-button" data-number-decrement>
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/></svg>
+  </button>
+  <input class="cu-number-input-field" data-number-field type="number" value="1" min="1" max="10" step="1" />
+  <button class="cu-number-input-button" data-number-increment>
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
+  </button>
+</div>`.trim();
+
+const disabledCode = `<div class="cu-number-input cu-number-input-disabled" data-number-input>
+  <button class="cu-number-input-button" data-number-decrement disabled>
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/></svg>
+  </button>
+  <input class="cu-number-input-field" data-number-field type="number" value="5" disabled />
+  <button class="cu-number-input-button" data-number-increment disabled>
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
+  </button>
+</div>`.trim();
+---
+
+<Layout title="Number Input — Cubby UI">
+    <div class="space-y-3">
+        <h1 class="text-3xl font-bold tracking-tight">Number Input</h1>
+        <p class="text-base text-muted-foreground leading-relaxed">
+            A numeric stepper with decrement and increment buttons.
+        </p>
+    </div>
+
+    <div class="mt-10 space-y-10">
+        <!-- Usage -->
+        <section class="space-y-3">
+            <h2 class="text-lg font-semibold tracking-tight">Usage</h2>
+            <p class="text-sm text-muted-foreground leading-relaxed">
+                Use <code class="cu-code">data-number-input</code> on the wrapper,
+                <code class="cu-code">data-number-decrement</code> and
+                <code class="cu-code">data-number-increment</code> on the buttons, and
+                <code class="cu-code">data-number-field</code> on the input.
+                The <code class="cu-code">&lt;script&gt;</code> handles stepping, min/max clamping, and event dispatch.
+            </p>
+            <ComponentPreview code={usageCode}>
+                <div class="cu-number-input" data-number-input>
+                    <button class="cu-number-input-button" data-number-decrement>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/></svg>
+                    </button>
+                    <input class="cu-number-input-field" data-number-field type="number" value="0" />
+                    <button class="cu-number-input-button" data-number-increment>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
+                    </button>
+                </div>
+            </ComponentPreview>
+        </section>
+
+        <!-- With Min/Max -->
+        <section class="space-y-3">
+            <h2 class="text-lg font-semibold tracking-tight">With Min/Max</h2>
+            <p class="text-sm text-muted-foreground leading-relaxed">
+                Set <code class="cu-code">min</code>, <code class="cu-code">max</code>, and
+                <code class="cu-code">step</code> attributes on the input to constrain values.
+                This example allows values from 1 to 10.
+            </p>
+            <ComponentPreview code={minMaxCode}>
+                <div class="cu-number-input" data-number-input>
+                    <button class="cu-number-input-button" data-number-decrement>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/></svg>
+                    </button>
+                    <input class="cu-number-input-field" data-number-field type="number" value="1" min="1" max="10" step="1" />
+                    <button class="cu-number-input-button" data-number-increment>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
+                    </button>
+                </div>
+            </ComponentPreview>
+        </section>
+
+        <!-- Disabled -->
+        <section class="space-y-3">
+            <h2 class="text-lg font-semibold tracking-tight">Disabled</h2>
+            <p class="text-sm text-muted-foreground leading-relaxed">
+                Add <code class="cu-code">cu-number-input-disabled</code> to the container and
+                <code class="cu-code">disabled</code> to the buttons and input.
+            </p>
+            <ComponentPreview code={disabledCode}>
+                <div class="cu-number-input cu-number-input-disabled" data-number-input>
+                    <button class="cu-number-input-button" data-number-decrement disabled>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/></svg>
+                    </button>
+                    <input class="cu-number-input-field" data-number-field type="number" value="5" disabled />
+                    <button class="cu-number-input-button" data-number-increment disabled>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
+                    </button>
+                </div>
+            </ComponentPreview>
+        </section>
+    </div>
+</Layout>
+
+<script>
+    function setupNumberInputs() {
+        document.querySelectorAll("[data-number-input]").forEach((container) => {
+            const field = container.querySelector("[data-number-field]") as HTMLInputElement | null;
+            const decrement = container.querySelector("[data-number-decrement]") as HTMLButtonElement | null;
+            const increment = container.querySelector("[data-number-increment]") as HTMLButtonElement | null;
+            if (!field) return;
+
+            decrement?.addEventListener("click", () => {
+                const step = Number(field.step) || 1;
+                const min = field.min !== "" ? Number(field.min) : -Infinity;
+                const current = Number(field.value) || 0;
+                const next = current - step;
+                if (next >= min) {
+                    field.value = String(next);
+                    field.dispatchEvent(new Event("input", { bubbles: true }));
+                }
+            });
+
+            increment?.addEventListener("click", () => {
+                const step = Number(field.step) || 1;
+                const max = field.max !== "" ? Number(field.max) : Infinity;
+                const current = Number(field.value) || 0;
+                const next = current + step;
+                if (next <= max) {
+                    field.value = String(next);
+                    field.dispatchEvent(new Event("input", { bubbles: true }));
+                }
+            });
+        });
+    }
+
+    setupNumberInputs();
+    document.addEventListener("astro:page-load", setupNumberInputs);
+</script>

@@ -1,0 +1,468 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import ComponentPreview from "../../components/ComponentPreview.astro";
+
+const usageCode = `<div class="cu-transfer-list" data-transfer-list>
+  <!-- Left Panel -->
+  <div class="cu-transfer-list-panel" data-transfer-panel="left" style="width: 220px;">
+    <div class="cu-transfer-list-header">
+      <input type="checkbox" class="cu-checkbox" data-transfer-check-all="left" />
+      <span class="cu-transfer-list-header-title">Available</span>
+      <span class="cu-transfer-list-header-count" data-transfer-count="left">0/4</span>
+    </div>
+    <div class="cu-transfer-list-content" style="height: 200px;">
+      <label class="cu-transfer-list-item">
+        <input type="checkbox" class="cu-checkbox" data-transfer-check />
+        <span>HTML</span>
+      </label>
+      <label class="cu-transfer-list-item">
+        <input type="checkbox" class="cu-checkbox" data-transfer-check />
+        <span>CSS</span>
+      </label>
+      <label class="cu-transfer-list-item">
+        <input type="checkbox" class="cu-checkbox" data-transfer-check />
+        <span>JavaScript</span>
+      </label>
+      <label class="cu-transfer-list-item">
+        <input type="checkbox" class="cu-checkbox" data-transfer-check />
+        <span>TypeScript</span>
+      </label>
+    </div>
+  </div>
+
+  <!-- Actions -->
+  <div class="cu-transfer-list-actions">
+    <button class="cu-transfer-list-actions-button" data-transfer-to-right disabled>
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+    </button>
+    <button class="cu-transfer-list-actions-button" data-transfer-to-left disabled>
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+    </button>
+  </div>
+
+  <!-- Right Panel -->
+  <div class="cu-transfer-list-panel" data-transfer-panel="right" style="width: 220px;">
+    <div class="cu-transfer-list-header">
+      <input type="checkbox" class="cu-checkbox" data-transfer-check-all="right" />
+      <span class="cu-transfer-list-header-title">Selected</span>
+      <span class="cu-transfer-list-header-count" data-transfer-count="right">0/0</span>
+    </div>
+    <div class="cu-transfer-list-content" style="height: 200px;"></div>
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll("[data-transfer-list]").forEach((container) => {
+    const leftPanel = container.querySelector('[data-transfer-panel="left"]');
+    const rightPanel = container.querySelector('[data-transfer-panel="right"]');
+    const toRight = container.querySelector("[data-transfer-to-right]");
+    const toLeft = container.querySelector("[data-transfer-to-left]");
+
+    function getChecked(panel) {
+      return panel.querySelectorAll("[data-transfer-check]:checked");
+    }
+
+    function getAllItems(panel) {
+      return panel.querySelectorAll(".cu-transfer-list-item");
+    }
+
+    function updateCount(panel) {
+      const side = panel.dataset.transferPanel;
+      const all = getAllItems(panel);
+      const checked = getChecked(panel);
+      const countEl = container.querySelector(\`[data-transfer-count="\${side}"]\`);
+      if (countEl) countEl.textContent = \`\${checked.length}/\${all.length}\`;
+    }
+
+    function updateButtons() {
+      toRight.disabled = getChecked(leftPanel).length === 0;
+      toLeft.disabled = getChecked(rightPanel).length === 0;
+    }
+
+    function updateCheckAll(panel) {
+      const side = panel.dataset.transferPanel;
+      const all = getAllItems(panel);
+      const checked = getChecked(panel);
+      const checkAll = container.querySelector(\`[data-transfer-check-all="\${side}"]\`);
+      if (checkAll) {
+        checkAll.checked = all.length > 0 && checked.length === all.length;
+        checkAll.indeterminate = checked.length > 0 && checked.length < all.length;
+      }
+    }
+
+    function bindPanel(panel) {
+      panel.addEventListener("change", (e) => {
+        if (e.target.matches("[data-transfer-check]")) {
+          const item = e.target.closest(".cu-transfer-list-item");
+          item?.classList.toggle("cu-transfer-list-item-checked", e.target.checked);
+          updateCount(panel);
+          updateButtons();
+          updateCheckAll(panel);
+        }
+      });
+
+      const side = panel.dataset.transferPanel;
+      const checkAll = container.querySelector(\`[data-transfer-check-all="\${side}"]\`);
+      checkAll?.addEventListener("change", () => {
+        const items = getAllItems(panel);
+        items.forEach((item) => {
+          const cb = item.querySelector("[data-transfer-check]");
+          if (cb) {
+            cb.checked = checkAll.checked;
+            item.classList.toggle("cu-transfer-list-item-checked", checkAll.checked);
+          }
+        });
+        updateCount(panel);
+        updateButtons();
+      });
+    }
+
+    function moveItems(fromPanel, toPanel) {
+      const checked = getChecked(fromPanel);
+      const content = toPanel.querySelector(".cu-transfer-list-content");
+      checked.forEach((cb) => {
+        const item = cb.closest(".cu-transfer-list-item");
+        cb.checked = false;
+        item?.classList.remove("cu-transfer-list-item-checked");
+        content?.appendChild(item);
+      });
+      updateCount(fromPanel);
+      updateCount(toPanel);
+      updateButtons();
+      updateCheckAll(fromPanel);
+      updateCheckAll(toPanel);
+    }
+
+    toRight?.addEventListener("click", () => moveItems(leftPanel, rightPanel));
+    toLeft?.addEventListener("click", () => moveItems(rightPanel, leftPanel));
+
+    bindPanel(leftPanel);
+    bindPanel(rightPanel);
+    updateCount(leftPanel);
+    updateCount(rightPanel);
+  });
+</script>`.trim();
+
+const withSearchCode = `<div class="cu-transfer-list" data-transfer-list id="transfer-search">
+  <!-- Left Panel -->
+  <div class="cu-transfer-list-panel" data-transfer-panel="left" style="width: 240px;">
+    <div class="cu-transfer-list-header">
+      <input type="checkbox" class="cu-checkbox" data-transfer-check-all="left" />
+      <span class="cu-transfer-list-header-title">Available</span>
+      <span class="cu-transfer-list-header-count" data-transfer-count="left">0/6</span>
+    </div>
+    <div class="cu-transfer-list-search">
+      <svg class="cu-transfer-list-search-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input class="cu-transfer-list-search-input" data-transfer-search="left" placeholder="Search..." />
+    </div>
+    <div class="cu-transfer-list-content" style="height: 200px;">
+      <label class="cu-transfer-list-item">
+        <input type="checkbox" class="cu-checkbox" data-transfer-check />
+        <span>React</span>
+      </label>
+      <label class="cu-transfer-list-item">
+        <input type="checkbox" class="cu-checkbox" data-transfer-check />
+        <span>Vue</span>
+      </label>
+      <label class="cu-transfer-list-item">
+        <input type="checkbox" class="cu-checkbox" data-transfer-check />
+        <span>Svelte</span>
+      </label>
+      <label class="cu-transfer-list-item">
+        <input type="checkbox" class="cu-checkbox" data-transfer-check />
+        <span>Angular</span>
+      </label>
+      <label class="cu-transfer-list-item">
+        <input type="checkbox" class="cu-checkbox" data-transfer-check />
+        <span>Solid</span>
+      </label>
+      <label class="cu-transfer-list-item">
+        <input type="checkbox" class="cu-checkbox" data-transfer-check />
+        <span>Preact</span>
+      </label>
+    </div>
+  </div>
+
+  <!-- Actions -->
+  <div class="cu-transfer-list-actions">
+    <button class="cu-transfer-list-actions-button" data-transfer-to-right disabled>
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+    </button>
+    <button class="cu-transfer-list-actions-button" data-transfer-to-left disabled>
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+    </button>
+  </div>
+
+  <!-- Right Panel -->
+  <div class="cu-transfer-list-panel" data-transfer-panel="right" style="width: 240px;">
+    <div class="cu-transfer-list-header">
+      <input type="checkbox" class="cu-checkbox" data-transfer-check-all="right" />
+      <span class="cu-transfer-list-header-title">Selected</span>
+      <span class="cu-transfer-list-header-count" data-transfer-count="right">0/0</span>
+    </div>
+    <div class="cu-transfer-list-search">
+      <svg class="cu-transfer-list-search-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input class="cu-transfer-list-search-input" data-transfer-search="right" placeholder="Search..." />
+    </div>
+    <div class="cu-transfer-list-content" style="height: 200px;"></div>
+  </div>
+</div>`.trim();
+---
+
+<Layout title="Transfer List — Cubby UI">
+    <div class="space-y-3">
+        <h1 class="text-3xl font-bold tracking-tight">Transfer List</h1>
+        <p class="text-base text-muted-foreground leading-relaxed">
+            A dual-panel list for moving items between two groups via checkboxes and directional buttons.
+        </p>
+    </div>
+
+    <div class="mt-10 space-y-10">
+        <!-- Usage -->
+        <section class="space-y-3">
+            <h2 class="text-lg font-semibold tracking-tight">Usage</h2>
+            <p class="text-sm text-muted-foreground leading-relaxed">
+                Use <code class="cu-code">data-transfer-list</code> on the container,
+                <code class="cu-code">data-transfer-panel</code> on each panel,
+                <code class="cu-code">data-transfer-check</code> on item checkboxes,
+                and <code class="cu-code">data-transfer-to-right</code> /
+                <code class="cu-code">data-transfer-to-left</code> on the action buttons.
+                The <code class="cu-code">&lt;script&gt;</code> handles checking, moving, and count updates.
+            </p>
+            <ComponentPreview code={usageCode}>
+                <div class="cu-transfer-list" data-transfer-list>
+                    <div class="cu-transfer-list-panel" data-transfer-panel="left" style="width: 220px;">
+                        <div class="cu-transfer-list-header">
+                            <input type="checkbox" class="cu-checkbox" data-transfer-check-all="left" />
+                            <span class="cu-transfer-list-header-title">Available</span>
+                            <span class="cu-transfer-list-header-count" data-transfer-count="left">0/4</span>
+                        </div>
+                        <div class="cu-transfer-list-content" style="height: 200px;">
+                            <label class="cu-transfer-list-item">
+                                <input type="checkbox" class="cu-checkbox" data-transfer-check />
+                                <span>HTML</span>
+                            </label>
+                            <label class="cu-transfer-list-item">
+                                <input type="checkbox" class="cu-checkbox" data-transfer-check />
+                                <span>CSS</span>
+                            </label>
+                            <label class="cu-transfer-list-item">
+                                <input type="checkbox" class="cu-checkbox" data-transfer-check />
+                                <span>JavaScript</span>
+                            </label>
+                            <label class="cu-transfer-list-item">
+                                <input type="checkbox" class="cu-checkbox" data-transfer-check />
+                                <span>TypeScript</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="cu-transfer-list-actions">
+                        <button class="cu-transfer-list-actions-button" data-transfer-to-right disabled>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                        </button>
+                        <button class="cu-transfer-list-actions-button" data-transfer-to-left disabled>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+                        </button>
+                    </div>
+
+                    <div class="cu-transfer-list-panel" data-transfer-panel="right" style="width: 220px;">
+                        <div class="cu-transfer-list-header">
+                            <input type="checkbox" class="cu-checkbox" data-transfer-check-all="right" />
+                            <span class="cu-transfer-list-header-title">Selected</span>
+                            <span class="cu-transfer-list-header-count" data-transfer-count="right">0/0</span>
+                        </div>
+                        <div class="cu-transfer-list-content" style="height: 200px;"></div>
+                    </div>
+                </div>
+            </ComponentPreview>
+        </section>
+
+        <!-- With Search -->
+        <section class="space-y-3">
+            <h2 class="text-lg font-semibold tracking-tight">With Search</h2>
+            <p class="text-sm text-muted-foreground leading-relaxed">
+                Add a search input with <code class="cu-code">data-transfer-search</code> to
+                filter items within each panel.
+            </p>
+            <ComponentPreview code={withSearchCode}>
+                <div class="cu-transfer-list" data-transfer-list id="transfer-search">
+                    <div class="cu-transfer-list-panel" data-transfer-panel="left" style="width: 240px;">
+                        <div class="cu-transfer-list-header">
+                            <input type="checkbox" class="cu-checkbox" data-transfer-check-all="left" />
+                            <span class="cu-transfer-list-header-title">Available</span>
+                            <span class="cu-transfer-list-header-count" data-transfer-count="left">0/6</span>
+                        </div>
+                        <div class="cu-transfer-list-search">
+                            <svg class="cu-transfer-list-search-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                            <input class="cu-transfer-list-search-input" data-transfer-search="left" placeholder="Search..." />
+                        </div>
+                        <div class="cu-transfer-list-content" style="height: 200px;">
+                            <label class="cu-transfer-list-item">
+                                <input type="checkbox" class="cu-checkbox" data-transfer-check />
+                                <span>React</span>
+                            </label>
+                            <label class="cu-transfer-list-item">
+                                <input type="checkbox" class="cu-checkbox" data-transfer-check />
+                                <span>Vue</span>
+                            </label>
+                            <label class="cu-transfer-list-item">
+                                <input type="checkbox" class="cu-checkbox" data-transfer-check />
+                                <span>Svelte</span>
+                            </label>
+                            <label class="cu-transfer-list-item">
+                                <input type="checkbox" class="cu-checkbox" data-transfer-check />
+                                <span>Angular</span>
+                            </label>
+                            <label class="cu-transfer-list-item">
+                                <input type="checkbox" class="cu-checkbox" data-transfer-check />
+                                <span>Solid</span>
+                            </label>
+                            <label class="cu-transfer-list-item">
+                                <input type="checkbox" class="cu-checkbox" data-transfer-check />
+                                <span>Preact</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="cu-transfer-list-actions">
+                        <button class="cu-transfer-list-actions-button" data-transfer-to-right disabled>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                        </button>
+                        <button class="cu-transfer-list-actions-button" data-transfer-to-left disabled>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+                        </button>
+                    </div>
+
+                    <div class="cu-transfer-list-panel" data-transfer-panel="right" style="width: 240px;">
+                        <div class="cu-transfer-list-header">
+                            <input type="checkbox" class="cu-checkbox" data-transfer-check-all="right" />
+                            <span class="cu-transfer-list-header-title">Selected</span>
+                            <span class="cu-transfer-list-header-count" data-transfer-count="right">0/0</span>
+                        </div>
+                        <div class="cu-transfer-list-search">
+                            <svg class="cu-transfer-list-search-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                            <input class="cu-transfer-list-search-input" data-transfer-search="right" placeholder="Search..." />
+                        </div>
+                        <div class="cu-transfer-list-content" style="height: 200px;"></div>
+                    </div>
+                </div>
+            </ComponentPreview>
+        </section>
+    </div>
+</Layout>
+
+<script>
+    function setupTransferLists() {
+        document.querySelectorAll("[data-transfer-list]").forEach((container) => {
+            const leftPanel = container.querySelector('[data-transfer-panel="left"]') as HTMLElement | null;
+            const rightPanel = container.querySelector('[data-transfer-panel="right"]') as HTMLElement | null;
+            const toRight = container.querySelector("[data-transfer-to-right]") as HTMLButtonElement | null;
+            const toLeft = container.querySelector("[data-transfer-to-left]") as HTMLButtonElement | null;
+            if (!leftPanel || !rightPanel) return;
+
+            function getChecked(panel: HTMLElement) {
+                return panel.querySelectorAll("[data-transfer-check]:checked") as NodeListOf<HTMLInputElement>;
+            }
+
+            function getAllItems(panel: HTMLElement) {
+                return panel.querySelectorAll(".cu-transfer-list-item") as NodeListOf<HTMLElement>;
+            }
+
+            function getVisibleItems(panel: HTMLElement) {
+                return Array.from(getAllItems(panel)).filter((item) => !item.hasAttribute("hidden"));
+            }
+
+            function updateCount(panel: HTMLElement) {
+                const side = (panel as HTMLElement).dataset.transferPanel;
+                const all = getAllItems(panel);
+                const checked = getChecked(panel);
+                const countEl = container.querySelector(`[data-transfer-count="${side}"]`);
+                if (countEl) countEl.textContent = `${checked.length}/${all.length}`;
+            }
+
+            function updateButtons() {
+                if (toRight) toRight.disabled = getChecked(leftPanel!).length === 0;
+                if (toLeft) toLeft.disabled = getChecked(rightPanel!).length === 0;
+            }
+
+            function updateCheckAll(panel: HTMLElement) {
+                const side = (panel as HTMLElement).dataset.transferPanel;
+                const all = getAllItems(panel);
+                const checked = getChecked(panel);
+                const checkAll = container.querySelector(`[data-transfer-check-all="${side}"]`) as HTMLInputElement | null;
+                if (checkAll) {
+                    checkAll.checked = all.length > 0 && checked.length === all.length;
+                    checkAll.indeterminate = checked.length > 0 && checked.length < all.length;
+                }
+            }
+
+            function bindPanel(panel: HTMLElement) {
+                panel.addEventListener("change", (e) => {
+                    const target = e.target as HTMLElement;
+                    if (target.matches("[data-transfer-check]")) {
+                        const item = target.closest(".cu-transfer-list-item");
+                        item?.classList.toggle("cu-transfer-list-item-checked", (target as HTMLInputElement).checked);
+                        updateCount(panel);
+                        updateButtons();
+                        updateCheckAll(panel);
+                    }
+                });
+
+                const side = (panel as HTMLElement).dataset.transferPanel;
+                const checkAll = container.querySelector(`[data-transfer-check-all="${side}"]`) as HTMLInputElement | null;
+                checkAll?.addEventListener("change", () => {
+                    const items = getAllItems(panel);
+                    items.forEach((item) => {
+                        const cb = item.querySelector("[data-transfer-check]") as HTMLInputElement | null;
+                        if (cb) {
+                            cb.checked = checkAll.checked;
+                            item.classList.toggle("cu-transfer-list-item-checked", checkAll.checked);
+                        }
+                    });
+                    updateCount(panel);
+                    updateButtons();
+                });
+
+                // Search filtering
+                const searchInput = container.querySelector(`[data-transfer-search="${side}"]`) as HTMLInputElement | null;
+                searchInput?.addEventListener("input", () => {
+                    const query = searchInput.value.toLowerCase();
+                    const items = getAllItems(panel);
+                    items.forEach((item) => {
+                        const text = (item.querySelector("span")?.textContent || "").toLowerCase();
+                        item.toggleAttribute("hidden", !text.includes(query));
+                    });
+                });
+            }
+
+            function moveItems(fromPanel: HTMLElement, toPanel: HTMLElement) {
+                const checked = getChecked(fromPanel);
+                const content = toPanel.querySelector(".cu-transfer-list-content");
+                checked.forEach((cb) => {
+                    const item = cb.closest(".cu-transfer-list-item");
+                    cb.checked = false;
+                    item?.classList.remove("cu-transfer-list-item-checked");
+                    item?.removeAttribute("hidden");
+                    content?.appendChild(item!);
+                });
+                updateCount(fromPanel);
+                updateCount(toPanel);
+                updateButtons();
+                updateCheckAll(fromPanel);
+                updateCheckAll(toPanel);
+            }
+
+            toRight?.addEventListener("click", () => moveItems(leftPanel!, rightPanel!));
+            toLeft?.addEventListener("click", () => moveItems(rightPanel!, leftPanel!));
+
+            bindPanel(leftPanel);
+            bindPanel(rightPanel);
+            updateCount(leftPanel);
+            updateCount(rightPanel);
+        });
+    }
+
+    setupTransferLists();
+    document.addEventListener("astro:page-load", setupTransferLists);
+</script>

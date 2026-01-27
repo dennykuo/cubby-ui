@@ -29,7 +29,7 @@ Cubby UI 是一個框架無關的 UI 元件庫，風格類似 shadcn/ui，使用
 
 元件有兩個層次：
 
-1. **CSS 類別層**（`src/styles/components.css` + `src/styles/components/*.css`）— 在 `@layer components` 中定義，使用 `cu-` 前綴（Cubby）。`components.css` 僅包含 `@layer components {}` 包裝和 `@import` 語句，各元件 CSS 規則拆分至 `components/` 資料夾的獨立檔案。CSS 按領域分八個區塊：`TYPOGRAPHY`（Headings, Paragraph, Blockquote, List, Link, Text, HR）→ `BASIC`（Button, Card）→ `FORMS`（Label ~ Form Group）→ `DATA DISPLAY`（Badge, Avatar, Table, Accordion）→ `FEEDBACK`（Alert, Progress, Skeleton）→ `OVERLAY`（Dialog, Dropdown Menu, Tooltip）→ `NAVIGATION`（Breadcrumb, Pagination, Tabs）→ `LAYOUT`（Container, Header, Nav, Sidebar）。這是元件的核心，純 HTML 專案可以只用這些 CSS 類別。
+1. **CSS 類別層**（`src/styles/components.css` + `src/styles/components/*.css`）— 在 `@layer components` 中定義，使用 `cu-` 前綴（Cubby）。`components.css` 僅包含 `@layer components {}` 包裝和 `@import` 語句，各元件 CSS 規則拆分至 `components/` 資料夾的獨立檔案。CSS 按領域分八個區塊：`TYPOGRAPHY`（Headings, Paragraph, Blockquote, List, Link, Text, HR）→ `BASIC`（Button, Button Group, Card, Separator）→ `FORMS`（Checkbox ~ Transfer List）→ `DATA DISPLAY`（Accordion, Avatar, Badge, Collapsible, Data Table, Stat, Table, Tree View）→ `FEEDBACK`（Alert, Empty State, Progress, Skeleton, Toast）→ `OVERLAY`（Alert Dialog, Dialog, Drawer, Dropdown, Hover Card, Popover, Tooltip）→ `NAVIGATION`（Breadcrumb, Menubar, Pagination, Steps, Tabs）→ `LAYOUT`（Container, Header, Nav, Scroll Area, Sidebar, Toolbar）。這是元件的核心，純 HTML 專案可以只用這些 CSS 類別。
 2. **Astro 元件層**（`src/components/ui/`）— 包裝 CSS 類別的 `.astro` 檔案，提供 TypeScript Props 型別安全和屬性透傳。
 
 ### CSS 類別命名規則
@@ -153,6 +153,9 @@ src/
 │       ├── lists.astro
 │       ├── menubar.astro
 │       ├── multi-select.astro
+│       ├── number-input.astro
+│       ├── dropzone.astro
+│       ├── transfer-list.astro
 │       ├── nav.astro
 │       ├── pagination.astro
 │       ├── paragraphs.astro
@@ -211,6 +214,9 @@ src/
         ├── list.css
         ├── menubar.css
         ├── multi-select.css
+        ├── number-input.css
+        ├── dropzone.css
+        ├── transfer-list.css
         ├── nav.css
         ├── pagination.css
         ├── paragraph.css
@@ -256,13 +262,13 @@ src/
 
 元件分類：
 - **Components > Typography** — Headings, Paragraphs, Blockquote, Lists, Links, Text, HR
-- **Components > Basic** — Button, Button Group, Card, Color, Separator, Toolbar
-- **Components > Forms** — Label, Input, Textarea, Select, Checkbox, Radio, Toggle, Search Input, File Input, Range, Form Group, Combobox, Multi Select
+- **Components > Basic** — Button, Button Group, Card, Color, Separator
+- **Components > Forms** — Checkbox, Combobox, Dropzone, File Input, Form Group, Input, Label, Multi Select, Number Input, Radio, Range, Search Input, Select, Textarea, Toggle, Transfer List
 - **Components > Data Display** — Accordion, Avatar, Badge, Collapsible, Data Table, Stat Card, Table, Tree View
-- **Components > Feedback** — Alert, Progress, Skeleton, Toast, Empty State
+- **Components > Feedback** — Alert, Empty State, Progress, Skeleton, Toast
 - **Components > Overlay** — Alert Dialog, Dialog, Drawer, Dropdown Menu, Hover Card, Popover, Tooltip
 - **Components > Navigation** — Breadcrumb, Menubar, Pagination, Steps, Tabs
-- **Components > Layouts** — Container, Header, Nav, Scroll Area, Sidebar
+- **Components > Layouts** — Container, Header, Nav, Scroll Area, Sidebar, Toolbar
 
 #### UI Sidebar 元件（`src/components/ui/Sidebar*.astro`）
 
