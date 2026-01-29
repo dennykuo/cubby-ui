@@ -2,6 +2,7 @@
    ------------------------------------------------------------------ */
 .cu-accordion {
     @apply divide-y divide-border;
+    interpolate-size: allow-keywords;
 }
 
 .cu-accordion-item {
@@ -9,7 +10,7 @@
 }
 
 .cu-accordion-trigger {
-    @apply flex w-full items-center justify-between py-4 text-sm font-medium transition-all cursor-pointer hover:underline;
+    @apply flex w-full items-center justify-between py-4 text-sm font-medium transition-colors duration-150 cursor-pointer hover:bg-muted/60 rounded-md -mx-2 px-2;
 }
 
 .cu-accordion-trigger svg {
@@ -22,4 +23,13 @@
 
 .cu-accordion-content {
     @apply overflow-hidden pb-4 pt-0 text-sm text-muted-foreground;
+    height: auto;
+    transition: height 0.2s ease, opacity 0.2s ease;
+}
+
+@starting-style {
+    .cu-accordion-item[open] > .cu-accordion-content {
+        height: 0;
+        opacity: 0;
+    }
 }

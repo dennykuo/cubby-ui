@@ -67,21 +67,21 @@
 
 - [ ] **關閉按鈕補 focus ring** — Dialog close、Drawer close、Toast close 完全沒有 `focus-visible` 樣式，需補上 `focus-visible:ring-2 focus-visible:ring-ring/40 focus-visible:ring-offset-2`
 - [ ] **Accordion trigger 補 focus ring** — 可互動元素缺少鍵盤焦點樣式
-- [ ] **硬編碼顏色值改用 CSS 變數** — Range slider hover glow 用了 `hsl(221 83% 53% / 0.15)` 應改為 `var(--color-primary)` + opacity；Dialog/Drawer `::backdrop` 用了 `hsl(222.2 47.4% 11.2% / 0.5)` 應改為 `var(--color-foreground)` + opacity
+- [x] **硬編碼顏色值改用 CSS 變數** — Range slider hover glow 改用 `color-mix(in srgb, var(--color-primary) 15%, transparent)`；Dialog/Drawer/Alert Dialog `::backdrop` 改用 `color-mix(in srgb, var(--color-foreground) 50%, transparent)`
 
 ### P2 — 視覺精緻度
 
-- [ ] **Alert/Toast 變體加背景色調** — 目前變體只改邊框和文字顏色，背景透明，辨識度不足。建議為各變體加入 `bg-{color}/5` 極淡背景（destructive、success、warning、info）
-- [ ] **統一浮層圓角為 `rounded-xl`** — Dropdown content、Combobox content、Multi-select content 目前用 `rounded-lg`，與 Dialog、Popover、Hover Card 的 `rounded-xl` 不一致
-- [ ] **Dialog/Drawer 加開關動畫** — 目前使用原生 `<dialog>` 但無過渡動畫。使用 CSS `@starting-style`（Chrome 117+, Safari 17.5+）搭配 `transition-behavior: allow-discrete` 實現 fade-in / slide-in
-- [ ] **Card hover shadow 改為 opt-in** — 目前 `cu-card` 預設帶 `hover:shadow-md`，但表單卡片、靜態卡片不需要。建議移除預設 hover，改為 `cu-card-hover` opt-in class
-- [ ] **Stat card 與 Card 對齊** — Stat 缺少 `transition-shadow`，視覺行為與 Card 不一致
+- [x] **Alert/Toast 變體加背景色調** — 各變體加入 `bg-{color}/5` 極淡背景（destructive、success、warning、info）
+- [x] **統一浮層圓角為 `rounded-xl`** — Dropdown content、Combobox content、Multi-select content 統一為 `rounded-xl`
+- [x] **Dialog/Drawer 加開關動畫** — 使用 CSS `@starting-style` 搭配 `transition-behavior: allow-discrete` 實現 fade-in / scale / slide-in 動畫
+- [x] **Card hover shadow 改為 opt-in** — 移除 `cu-card` 預設 `hover:shadow-md`，新增 `cu-card-hover` opt-in class
+- [x] **Stat card 與 Card 對齊** — Stat 加入 `transition-shadow duration-200`
 
 ### P3 — 細節打磨
 
-- [ ] **Disabled 狀態統一** — Input/Textarea 缺少 `disabled:bg-muted` 背景變灰（Select 有），所有表單元素 disabled 視覺應統一
-- [ ] **Transition duration 統一** — 建立兩級：`duration-150`（微互動）、`duration-200`（狀態切換）。Toast 的 `duration-300` 可降為 `duration-200`
-- [ ] **Accordion 展開動畫** — `<details>` 內容直接出現/消失，可用 `interpolate-size: allow-keywords`（Chrome 129+）實現高度動畫
-- [ ] **Skeleton shimmer 變體** — 目前只有 `animate-pulse`，可新增 `cu-skeleton-shimmer` 用 `linear-gradient` + `@keyframes` 掃光效果
-- [ ] **Accordion trigger hover 風格** — 目前 `hover:underline` 偏連結風格，與其他元件的 hover 背景色變化不一致，建議改為 `hover:bg-muted/60`
-- [ ] **Combobox / Multi-select 結構去重** — 兩個元件共享幾乎相同的 trigger → content → search → list → item 結構，可考慮抽取共用浮層 class（如 `cu-floating-panel-*`）
+- [x] **Disabled 狀態統一** — Input/Textarea 加入 `disabled:bg-muted disabled:text-muted-foreground`，與 Select 一致
+- [x] **Transition duration 統一** — Toast `duration-300` 降為 `duration-200`
+- [x] **Accordion 展開動畫** — 加入 `interpolate-size: allow-keywords` + `@starting-style` 高度/透明度過渡
+- [x] **Skeleton shimmer 變體** — 新增 `cu-skeleton-shimmer`，使用 `linear-gradient` + `@keyframes cu-shimmer` 掃光效果
+- [x] **Accordion trigger hover 風格** — `hover:underline` 改為 `hover:bg-muted/60 rounded-md`
+- [x] **Combobox / Multi-select 結構去重** — 抽取 `listbox.css` 共用 7 組 class（container、content、search、search-icon、input、list、empty），combobox.css / multi-select.css 僅保留各自獨有的 trigger 和 item 差異

@@ -4,34 +4,126 @@ import List from "../../components/ui/List.astro";
 import ComponentPreview from "../../components/ComponentPreview.astro";
 
 const unorderedCode = `<ul class="cu-list cu-list-disc">
-  <li>First item in the list</li>
-  <li>Second item in the list</li>
-  <li>Third item in the list</li>
+  <li>Minimal footprint — pure CSS, no runtime dependencies</li>
+  <li>Framework agnostic — works with any HTML project</li>
+  <li>Semantic color tokens for consistent theming</li>
 </ul>`.trim();
 
 const orderedCode = `<ol class="cu-list cu-list-decimal">
-  <li>First item in the list</li>
-  <li>Second item in the list</li>
-  <li>Third item in the list</li>
+  <li>Install the package from npm</li>
+  <li>Import the CSS file into your project</li>
+  <li>Add component classes to your HTML markup</li>
 </ol>`.trim();
 
 const nestedCode = `<ul class="cu-list cu-list-disc">
-  <li>First level item
-    <ul class="cu-list cu-list-disc mt-1">
-      <li>Second level item</li>
-      <li>Second level item</li>
+  <li>Design tokens
+    <ul class="cu-list cu-list-disc">
+      <li>Semantic colors (primary, secondary, destructive)</li>
+      <li>Spacing scale and border radius</li>
     </ul>
   </li>
-  <li>First level item</li>
-  <li>First level item</li>
+  <li>Component layers
+    <ul class="cu-list cu-list-disc">
+      <li>CSS class layer — framework agnostic</li>
+      <li>Astro component layer — type-safe wrappers</li>
+    </ul>
+  </li>
+  <li>Accessibility built-in</li>
 </ul>`.trim();
+
+const iconListCode = `<ul class="cu-list cu-list-none">
+  <li class="flex items-start gap-2">
+    <svg class="size-4 mt-0.5 shrink-0 text-success" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+    <span>Fully responsive and mobile-first</span>
+  </li>
+  <li class="flex items-start gap-2">
+    <svg class="size-4 mt-0.5 shrink-0 text-success" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+    <span>Dark mode support out of the box</span>
+  </li>
+  <li class="flex items-start gap-2">
+    <svg class="size-4 mt-0.5 shrink-0 text-success" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+    <span>Accessible with keyboard navigation</span>
+  </li>
+  <li class="flex items-start gap-2">
+    <svg class="size-4 mt-0.5 shrink-0 text-muted-foreground/40" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    <span class="text-muted-foreground">No JavaScript framework required</span>
+  </li>
+</ul>`.trim();
+
+const borderedCode = `<ul class="cu-list cu-list-bordered">
+  <li class="flex items-center justify-between">
+    <div>
+      <div class="font-medium">Email notifications</div>
+      <div class="text-muted-foreground text-xs">Receive emails for new messages</div>
+    </div>
+    <span class="cu-badge cu-badge-success">Enabled</span>
+  </li>
+  <li class="flex items-center justify-between">
+    <div>
+      <div class="font-medium">Push notifications</div>
+      <div class="text-muted-foreground text-xs">Receive push notifications on mobile</div>
+    </div>
+    <span class="cu-badge cu-badge-outline">Disabled</span>
+  </li>
+  <li class="flex items-center justify-between">
+    <div>
+      <div class="font-medium">SMS notifications</div>
+      <div class="text-muted-foreground text-xs">Receive text messages for alerts</div>
+    </div>
+    <span class="cu-badge cu-badge-success">Enabled</span>
+  </li>
+</ul>`.trim();
+
+const inlineCode = `<ul class="cu-list cu-list-inline">
+  <li><a class="cu-link" href="#">Home</a></li>
+  <li class="text-muted-foreground/40">·</li>
+  <li><a class="cu-link" href="#">Features</a></li>
+  <li class="text-muted-foreground/40">·</li>
+  <li><a class="cu-link" href="#">Pricing</a></li>
+  <li class="text-muted-foreground/40">·</li>
+  <li><a class="cu-link" href="#">About</a></li>
+</ul>`.trim();
+
+const dlVerticalCode = `<dl class="cu-dl">
+  <div class="cu-dl-item">
+    <dt class="cu-dl-term">Name</dt>
+    <dd class="cu-dl-detail">Cubby UI</dd>
+  </div>
+  <div class="cu-dl-item">
+    <dt class="cu-dl-term">Category</dt>
+    <dd class="cu-dl-detail">CSS Component Library</dd>
+  </div>
+  <div class="cu-dl-item">
+    <dt class="cu-dl-term">Description</dt>
+    <dd class="cu-dl-detail">A framework-agnostic UI library built with pure HTML and Tailwind CSS. Designed for copy-paste usage without any runtime dependencies.</dd>
+  </div>
+</dl>`.trim();
+
+const dlHorizontalCode = `<dl class="cu-dl cu-dl-horizontal">
+  <div class="cu-dl-item">
+    <dt class="cu-dl-term">Status</dt>
+    <dd class="cu-dl-detail">Active</dd>
+  </div>
+  <div class="cu-dl-item">
+    <dt class="cu-dl-term">License</dt>
+    <dd class="cu-dl-detail">MIT</dd>
+  </div>
+  <div class="cu-dl-item">
+    <dt class="cu-dl-term">Last updated</dt>
+    <dd class="cu-dl-detail">January 29, 2026</dd>
+  </div>
+  <div class="cu-dl-item">
+    <dt class="cu-dl-term">Dependencies</dt>
+    <dd class="cu-dl-detail">None — pure CSS, zero JavaScript runtime</dd>
+  </div>
+</dl>`.trim();
 ---
 
 <Layout title="Lists — Cubby UI">
     <div class="space-y-3">
         <h1 class="text-3xl font-bold tracking-tight">Lists</h1>
         <p class="text-base text-muted-foreground leading-relaxed">
-            Styled unordered and ordered lists with consistent spacing.
+            Styled lists with refined marker colors, spacing, and multiple layout variants including bordered, inline, and description lists.
         </p>
     </div>
 
@@ -41,14 +133,14 @@ const nestedCode = `<ul class="cu-list cu-list-disc">
             <h2 class="text-lg font-semibold tracking-tight">Unordered</h2>
             <p class="text-sm text-muted-foreground leading-relaxed">
                 Use <code class="cu-code">cu-list cu-list-disc</code> for
-                bullet-point lists.
+                bullet-point lists. Markers are styled with a muted color for a subtle look.
             </p>
             <ComponentPreview code={unorderedCode}>
                 <div class="w-full max-w-lg">
                     <List>
-                        <li>First item in the list</li>
-                        <li>Second item in the list</li>
-                        <li>Third item in the list</li>
+                        <li>Minimal footprint — pure CSS, no runtime dependencies</li>
+                        <li>Framework agnostic — works with any HTML project</li>
+                        <li>Semantic color tokens for consistent theming</li>
                     </List>
                 </div>
             </ComponentPreview>
@@ -59,14 +151,14 @@ const nestedCode = `<ul class="cu-list cu-list-disc">
             <h2 class="text-lg font-semibold tracking-tight">Ordered</h2>
             <p class="text-sm text-muted-foreground leading-relaxed">
                 Use <code class="cu-code">cu-list cu-list-decimal</code> for
-                numbered lists.
+                numbered lists. Numbers use a medium font weight with muted color.
             </p>
             <ComponentPreview code={orderedCode}>
                 <div class="w-full max-w-lg">
                     <List type="decimal">
-                        <li>First item in the list</li>
-                        <li>Second item in the list</li>
-                        <li>Third item in the list</li>
+                        <li>Install the package from npm</li>
+                        <li>Import the CSS file into your project</li>
+                        <li>Add component classes to your HTML markup</li>
                     </List>
                 </div>
             </ComponentPreview>
@@ -78,19 +170,173 @@ const nestedCode = `<ul class="cu-list cu-list-disc">
             <p class="text-sm text-muted-foreground leading-relaxed">
                 Lists can be nested by adding another
                 <code class="cu-code">cu-list</code> inside a list item.
+                Spacing between levels is handled automatically.
             </p>
             <ComponentPreview code={nestedCode}>
                 <div class="w-full max-w-lg">
-                    <List>
-                        <li>First level item
-                            <List class="mt-1">
-                                <li>Second level item</li>
-                                <li>Second level item</li>
-                            </List>
+                    <ul class="cu-list cu-list-disc">
+                        <li>Design tokens
+                            <ul class="cu-list cu-list-disc">
+                                <li>Semantic colors (primary, secondary, destructive)</li>
+                                <li>Spacing scale and border radius</li>
+                            </ul>
                         </li>
-                        <li>First level item</li>
-                        <li>First level item</li>
+                        <li>Component layers
+                            <ul class="cu-list cu-list-disc">
+                                <li>CSS class layer — framework agnostic</li>
+                                <li>Astro component layer — type-safe wrappers</li>
+                            </ul>
+                        </li>
+                        <li>Accessibility built-in</li>
+                    </ul>
+                </div>
+            </ComponentPreview>
+        </section>
+
+        <!-- Icon List -->
+        <section class="space-y-3">
+            <h2 class="text-lg font-semibold tracking-tight">Icon List</h2>
+            <p class="text-sm text-muted-foreground leading-relaxed">
+                Use <code class="cu-code">cu-list cu-list-none</code> with inline SVG icons
+                for check lists, feature lists, or any custom marker.
+            </p>
+            <ComponentPreview code={iconListCode}>
+                <div class="w-full max-w-lg">
+                    <List type="none">
+                        <li class="flex items-start gap-2">
+                            <svg class="size-4 mt-0.5 shrink-0 text-success" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+                            <span>Fully responsive and mobile-first</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <svg class="size-4 mt-0.5 shrink-0 text-success" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+                            <span>Dark mode support out of the box</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <svg class="size-4 mt-0.5 shrink-0 text-success" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+                            <span>Accessible with keyboard navigation</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <svg class="size-4 mt-0.5 shrink-0 text-muted-foreground/40" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                            <span class="text-muted-foreground">No JavaScript framework required</span>
+                        </li>
                     </List>
+                </div>
+            </ComponentPreview>
+        </section>
+
+        <!-- Bordered -->
+        <section class="space-y-3">
+            <h2 class="text-lg font-semibold tracking-tight">Bordered</h2>
+            <p class="text-sm text-muted-foreground leading-relaxed">
+                Use <code class="cu-code">cu-list cu-list-bordered</code> for
+                a clean divider-separated list. Ideal for settings panels, notification preferences, or any key-value layout.
+            </p>
+            <ComponentPreview code={borderedCode}>
+                <div class="w-full max-w-lg">
+                    <ul class="cu-list cu-list-bordered">
+                        <li class="flex items-center justify-between">
+                            <div>
+                                <div class="font-medium">Email notifications</div>
+                                <div class="text-muted-foreground text-xs">Receive emails for new messages</div>
+                            </div>
+                            <span class="cu-badge cu-badge-success">Enabled</span>
+                        </li>
+                        <li class="flex items-center justify-between">
+                            <div>
+                                <div class="font-medium">Push notifications</div>
+                                <div class="text-muted-foreground text-xs">Receive push notifications on mobile</div>
+                            </div>
+                            <span class="cu-badge cu-badge-outline">Disabled</span>
+                        </li>
+                        <li class="flex items-center justify-between">
+                            <div>
+                                <div class="font-medium">SMS notifications</div>
+                                <div class="text-muted-foreground text-xs">Receive text messages for alerts</div>
+                            </div>
+                            <span class="cu-badge cu-badge-success">Enabled</span>
+                        </li>
+                    </ul>
+                </div>
+            </ComponentPreview>
+        </section>
+
+        <!-- Inline -->
+        <section class="space-y-3">
+            <h2 class="text-lg font-semibold tracking-tight">Inline</h2>
+            <p class="text-sm text-muted-foreground leading-relaxed">
+                Use <code class="cu-code">cu-list cu-list-inline</code> for
+                horizontal lists. Useful for footer links, tags, or breadcrumb-like navigation.
+            </p>
+            <ComponentPreview code={inlineCode}>
+                <div class="w-full max-w-lg">
+                    <ul class="cu-list cu-list-inline">
+                        <li><a class="cu-link" href="#">Home</a></li>
+                        <li class="text-muted-foreground/40">·</li>
+                        <li><a class="cu-link" href="#">Features</a></li>
+                        <li class="text-muted-foreground/40">·</li>
+                        <li><a class="cu-link" href="#">Pricing</a></li>
+                        <li class="text-muted-foreground/40">·</li>
+                        <li><a class="cu-link" href="#">About</a></li>
+                    </ul>
+                </div>
+            </ComponentPreview>
+        </section>
+
+        <!-- Description List -->
+        <section class="space-y-3">
+            <h2 class="text-lg font-semibold tracking-tight">Description List</h2>
+            <p class="text-sm text-muted-foreground leading-relaxed">
+                Use <code class="cu-code">cu-dl</code> with
+                <code class="cu-code">cu-dl-item</code>, <code class="cu-code">cu-dl-term</code>,
+                and <code class="cu-code">cu-dl-detail</code> for key-value pairs. Defaults to a vertical stacked layout.
+            </p>
+            <ComponentPreview code={dlVerticalCode}>
+                <div class="w-full max-w-lg">
+                    <dl class="cu-dl">
+                        <div class="cu-dl-item">
+                            <dt class="cu-dl-term">Name</dt>
+                            <dd class="cu-dl-detail">Cubby UI</dd>
+                        </div>
+                        <div class="cu-dl-item">
+                            <dt class="cu-dl-term">Category</dt>
+                            <dd class="cu-dl-detail">CSS Component Library</dd>
+                        </div>
+                        <div class="cu-dl-item">
+                            <dt class="cu-dl-term">Description</dt>
+                            <dd class="cu-dl-detail">A framework-agnostic UI library built with pure HTML and Tailwind CSS. Designed for copy-paste usage without any runtime dependencies.</dd>
+                        </div>
+                    </dl>
+                </div>
+            </ComponentPreview>
+        </section>
+
+        <!-- Horizontal Description List -->
+        <section class="space-y-3">
+            <h2 class="text-lg font-semibold tracking-tight">Horizontal Description List</h2>
+            <p class="text-sm text-muted-foreground leading-relaxed">
+                Add <code class="cu-code">cu-dl-horizontal</code> to render terms and details
+                side by side. The term column has a fixed width for alignment.
+            </p>
+            <ComponentPreview code={dlHorizontalCode}>
+                <div class="w-full max-w-lg">
+                    <dl class="cu-dl cu-dl-horizontal">
+                        <div class="cu-dl-item">
+                            <dt class="cu-dl-term">Status</dt>
+                            <dd class="cu-dl-detail">Active</dd>
+                        </div>
+                        <div class="cu-dl-item">
+                            <dt class="cu-dl-term">License</dt>
+                            <dd class="cu-dl-detail">MIT</dd>
+                        </div>
+                        <div class="cu-dl-item">
+                            <dt class="cu-dl-term">Last updated</dt>
+                            <dd class="cu-dl-detail">January 29, 2026</dd>
+                        </div>
+                        <div class="cu-dl-item">
+                            <dt class="cu-dl-term">Dependencies</dt>
+                            <dd class="cu-dl-detail">None — pure CSS, zero JavaScript runtime</dd>
+                        </div>
+                    </dl>
                 </div>
             </ComponentPreview>
         </section>

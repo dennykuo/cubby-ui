@@ -70,8 +70,8 @@ const usageCode = `<div class="cu-transfer-list" data-transfer-list>
       const side = panel.dataset.transferPanel;
       const all = getAllItems(panel);
       const checked = getChecked(panel);
-      const countEl = container.querySelector(\`[data-transfer-count="\${side}"]\`);
-      if (countEl) countEl.textContent = \`\${checked.length}/\${all.length}\`;
+      const countEl = container.querySelector('[data-transfer-count="' + side + '"]');
+      if (countEl) countEl.textContent = checked.length + '/' + all.length;
     }
 
     function updateButtons() {
@@ -83,7 +83,7 @@ const usageCode = `<div class="cu-transfer-list" data-transfer-list>
       const side = panel.dataset.transferPanel;
       const all = getAllItems(panel);
       const checked = getChecked(panel);
-      const checkAll = container.querySelector(\`[data-transfer-check-all="\${side}"]\`);
+      const checkAll = container.querySelector('[data-transfer-check-all="' + side + '"]');
       if (checkAll) {
         checkAll.checked = all.length > 0 && checked.length === all.length;
         checkAll.indeterminate = checked.length > 0 && checked.length < all.length;
@@ -102,7 +102,7 @@ const usageCode = `<div class="cu-transfer-list" data-transfer-list>
       });
 
       const side = panel.dataset.transferPanel;
-      const checkAll = container.querySelector(\`[data-transfer-check-all="\${side}"]\`);
+      const checkAll = container.querySelector('[data-transfer-check-all="' + side + '"]');
       checkAll?.addEventListener("change", () => {
         const items = getAllItems(panel);
         items.forEach((item) => {
@@ -377,8 +377,8 @@ const withSearchCode = `<div class="cu-transfer-list" data-transfer-list id="tra
                 const side = (panel as HTMLElement).dataset.transferPanel;
                 const all = getAllItems(panel);
                 const checked = getChecked(panel);
-                const countEl = container.querySelector(`[data-transfer-count="${side}"]`);
-                if (countEl) countEl.textContent = `${checked.length}/${all.length}`;
+                const countEl = container.querySelector('[data-transfer-count="' + side + '"]');
+                if (countEl) countEl.textContent = checked.length + '/' + all.length;
             }
 
             function updateButtons() {

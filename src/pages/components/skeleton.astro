@@ -13,6 +13,13 @@ const cardSkeletonCode = `<div class="flex items-center space-x-4">
   </div>
 </div>`.trim();
 
+const shimmerCode = `<div class="space-y-3">
+  <div class="cu-skeleton-shimmer h-5 w-2/5"></div>
+  <div class="cu-skeleton-shimmer h-4 w-full"></div>
+  <div class="cu-skeleton-shimmer h-4 w-full"></div>
+  <div class="cu-skeleton-shimmer h-4 w-4/5"></div>
+</div>`.trim();
+
 const contentSkeletonCode = `<div class="space-y-3">
   <div class="cu-skeleton h-5 w-2/5"></div>
   <div class="cu-skeleton h-4 w-full"></div>
@@ -70,6 +77,21 @@ const contentSkeletonCode = `<div class="space-y-3">
                     <Skeleton class="h-4 w-full" />
                     <Skeleton class="h-4 w-full" />
                     <Skeleton class="h-4 w-4/5" />
+                </div>
+            </ComponentPreview>
+        </section>
+        <!-- Shimmer -->
+        <section class="space-y-3">
+            <h2 class="text-lg font-semibold tracking-tight">Shimmer</h2>
+            <p class="text-sm text-muted-foreground leading-relaxed">
+                Use <code class="cu-code">cu-skeleton-shimmer</code> for a sweeping light effect instead of the default pulse.
+            </p>
+            <ComponentPreview code={shimmerCode}>
+                <div class="space-y-3 w-full max-w-md">
+                    <div class="cu-skeleton-shimmer h-5 w-2/5"></div>
+                    <div class="cu-skeleton-shimmer h-4 w-full"></div>
+                    <div class="cu-skeleton-shimmer h-4 w-full"></div>
+                    <div class="cu-skeleton-shimmer h-4 w-4/5"></div>
                 </div>
             </ComponentPreview>
         </section>

@@ -74,7 +74,7 @@ const usageCode = `<div class="cu-data-table">
     const info = table?.closest(".cu-data-table")?.querySelector("[data-data-table-selected]");
     function updateInfo() {
       const checked = table?.querySelectorAll("[data-data-table-select]:checked").length || 0;
-      if (info) info.textContent = \`\${checked} of \${rows.length} row(s) selected.\`;
+      if (info) info.textContent = checked + ' of ' + rows.length + ' row(s) selected.';
       rows.forEach((cb) => {
         cb.closest("tr")?.classList.toggle("cu-data-table-row-selected", cb.checked);
       });
@@ -198,7 +198,7 @@ const usageCode = `<div class="cu-data-table">
             const info = table?.closest(".cu-data-table")?.querySelector("[data-data-table-selected]");
             function updateInfo() {
                 const checked = table?.querySelectorAll("[data-data-table-select]:checked").length || 0;
-                if (info) info.textContent = `${checked} of ${rows.length} row(s) selected.`;
+                if (info) info.textContent = checked + ' of ' + rows.length + ' row(s) selected.';
                 rows.forEach((cb) => {
                     const input = cb as HTMLInputElement;
                     input.closest("tr")?.classList.toggle("cu-data-table-row-selected", input.checked);

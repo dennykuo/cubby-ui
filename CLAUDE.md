@@ -29,7 +29,7 @@ Cubby UI 是一個框架無關的 UI 元件庫，風格類似 shadcn/ui，使用
 
 元件有兩個層次：
 
-1. **CSS 類別層**（`src/styles/components.css` + `src/styles/components/*.css`）— 在 `@layer components` 中定義，使用 `cu-` 前綴（Cubby）。`components.css` 僅包含 `@layer components {}` 包裝和 `@import` 語句，各元件 CSS 規則拆分至 `components/` 資料夾的獨立檔案。CSS 按領域分八個區塊：`TYPOGRAPHY`（Headings, Paragraph, Blockquote, List, Link, Text, HR）→ `BASIC`（Button, Button Group, Card, Separator）→ `FORMS`（Checkbox ~ Transfer List）→ `DATA DISPLAY`（Accordion, Avatar, Badge, Collapsible, Data Table, Stat, Table, Tree View）→ `FEEDBACK`（Alert, Empty State, Progress, Skeleton, Toast）→ `OVERLAY`（Alert Dialog, Dialog, Drawer, Dropdown, Hover Card, Popover, Tooltip）→ `NAVIGATION`（Breadcrumb, Menubar, Pagination, Steps, Tabs）→ `LAYOUT`（Container, Header, Nav, Scroll Area, Sidebar, Toolbar）。這是元件的核心，純 HTML 專案可以只用這些 CSS 類別。
+1. **CSS 類別層**（`src/styles/components.css` + `src/styles/components/*.css`）— 在 `@layer components` 中定義，使用 `cu-` 前綴（Cubby）。`components.css` 僅包含 `@layer components {}` 包裝和 `@import` 語句，各元件 CSS 規則拆分至 `components/` 資料夾的獨立檔案。CSS 按領域分八個區塊：`TYPOGRAPHY`（Headings, Paragraph, Blockquote, List, Link, Text, HR）→ `BASIC`（Button, Button Group, Card, Separator）→ `FORMS`（Checkbox, Listbox, Combobox ~ Transfer List）→ `DATA DISPLAY`（Accordion, Avatar, Badge, Collapsible, Data Table, Stat, Table, Tree View）→ `FEEDBACK`（Alert, Empty State, Progress, Skeleton, Toast）→ `OVERLAY`（Alert Dialog, Dialog, Drawer, Dropdown, Hover Card, Popover, Tooltip）→ `NAVIGATION`（Breadcrumb, Menubar, Pagination, Steps, Tabs）→ `LAYOUT`（Container, Header, Nav, Scroll Area, Sidebar, Toolbar）。這是元件的核心，純 HTML 專案可以只用這些 CSS 類別。共用結構透過 `listbox.css` 以逗號選擇器去重（Combobox / Multi Select 共用 7 組 class）。
 2. **Astro 元件層**（`src/components/ui/`）— 包裝 CSS 類別的 `.astro` 檔案，提供 TypeScript Props 型別安全和屬性透傳。
 
 ### CSS 類別命名規則
@@ -42,6 +42,7 @@ Cubby UI 是一個框架無關的 UI 元件庫，風格類似 shadcn/ui，使用
 - 子元件：`cu-{component}-{part}`（例如 `cu-card-header`, `cu-sidebar-content`, `cu-sidebar-item`）
 - 包裝器：`cu-{component}-wrapper`（例如 `cu-checkbox-wrapper`, `cu-toggle-wrapper`, `cu-select-wrapper`）
 - 狀態類別：`cu-{component}-{part}-{state}`（例如 `cu-sidebar-item-active`）
+- 修飾類別：`cu-{component}-{modifier}`（例如 `cu-card-hover` opt-in hover 陰影）
 
 ### 設計系統
 
@@ -52,6 +53,14 @@ Cubby UI 是一個框架無關的 UI 元件庫，風格類似 shadcn/ui，使用
 - 支援暗色模式（`.dark` class）
 - 支援 `prefers-reduced-motion` 全域降低動畫
 - 文檔站工具類別：`.cu-code`（inline code 樣式，定義在 `global.css`）
+- 動畫慣例：微互動 `duration-150`、狀態切換 `duration-200`；Dialog/Drawer/Alert Dialog 使用 CSS `@starting-style` + `transition-behavior: allow-discrete` 實現開關動畫
+- 色彩引用：避免硬編碼 HSL 值，使用 `color-mix(in srgb, var(--color-*) N%, transparent)` 處理半透明語意色
+- 陰影層次：`shadow-sm`（卡片靜態）→ `shadow-md`（浮層）→ `shadow-lg`（遮罩級 Dialog/Drawer/Toast）
+- 浮層圓角統一為 `rounded-xl`（Dialog, Dropdown, Combobox, Multi Select, Popover, Hover Card）
+- Alert / Toast 變體帶有 `bg-{color}/5` 極淡背景色調，增強視覺辨識度
+- Card 的 hover shadow 為 opt-in（`cu-card-hover`），非預設行為
+- Skeleton 提供兩種動畫：`cu-skeleton`（pulse）和 `cu-skeleton-shimmer`（掃光）
+- 表單 disabled 統一為 `disabled:pointer-events-none disabled:opacity-50 disabled:bg-muted disabled:text-muted-foreground`
 
 ### 目錄結構
 
@@ -212,6 +221,7 @@ src/
         ├── label.css
         ├── link.css
         ├── list.css
+        ├── listbox.css
         ├── menubar.css
         ├── multi-select.css
         ├── number-input.css

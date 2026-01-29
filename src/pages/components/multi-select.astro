@@ -39,10 +39,10 @@ const usageCode = `<div class="cu-multi-select" data-multi-select style="width: 
       } else {
         if (placeholder) placeholder.hidden = true;
         selected.forEach((val) => {
-          const item = ms.querySelector(\`[data-value="\${val}"]\`);
+          const item = ms.querySelector('[data-value="' + val + '"]');
           const tag = document.createElement("span");
           tag.className = "cu-multi-select-tag";
-          tag.innerHTML = \`\${item.textContent}<button class="cu-multi-select-tag-remove" data-remove="\${val}">&times;</button>\`;
+          tag.innerHTML = item.textContent + '<button class="cu-multi-select-tag-remove" data-remove="' + val + '">&times;</button>';
           tag.querySelector("[data-remove]").addEventListener("click", (e) => {
             e.stopPropagation();
             selected.delete(val);
@@ -284,11 +284,11 @@ const presetCode = `<div class="cu-multi-select" data-multi-select style="width:
                 } else {
                     if (placeholder) placeholder.hidden = true;
                     selected.forEach((val) => {
-                        const item = ms.querySelector(`[data-value="${val}"]`);
+                        const item = ms.querySelector('[data-value="' + val + '"]');
                         if (!item) return;
                         const tag = document.createElement("span");
                         tag.className = "cu-multi-select-tag";
-                        tag.innerHTML = `${item.textContent}<button class="cu-multi-select-tag-remove" data-remove="${val}">&times;</button>`;
+                        tag.innerHTML = item.textContent + '<button class="cu-multi-select-tag-remove" data-remove="' + val + '">&times;</button>';
                         tag.querySelector("[data-remove]")?.addEventListener("click", (e) => {
                             e.stopPropagation();
                             selected.delete(val);

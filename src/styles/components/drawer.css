@@ -7,8 +7,37 @@
 }
 
 .cu-drawer::backdrop {
-    background: hsl(222.2 47.4% 11.2% / 0.5);
+    background: color-mix(in srgb, var(--color-foreground) 50%, transparent);
     backdrop-filter: blur(4px);
+    transition: opacity 0.2s ease, overlay 0.2s ease allow-discrete, display 0.2s ease allow-discrete;
+    opacity: 1;
+}
+
+/* -- open/close animation -- */
+.cu-drawer {
+    opacity: 1;
+    transition: opacity 0.2s ease, transform 0.3s ease, overlay 0.3s ease allow-discrete, display 0.3s ease allow-discrete;
+}
+
+@starting-style {
+    .cu-drawer[open] {
+        opacity: 0;
+    }
+    .cu-drawer[open]::backdrop {
+        opacity: 0;
+    }
+    .cu-drawer-right[open] {
+        transform: translateX(100%);
+    }
+    .cu-drawer-left[open] {
+        transform: translateX(-100%);
+    }
+    .cu-drawer-top[open] {
+        transform: translateY(-100%);
+    }
+    .cu-drawer-bottom[open] {
+        transform: translateY(100%);
+    }
 }
 
 /* -- sides -- */

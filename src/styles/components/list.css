@@ -1,13 +1,96 @@
 /* List
    ------------------------------------------------------------------ */
 .cu-list {
-    @apply ml-6 space-y-1;
+    @apply ml-6 space-y-1.5 text-sm leading-relaxed;
 }
 
+.cu-list li {
+    @apply pl-1.5;
+}
+
+/* -- disc (unordered) -- */
 .cu-list-disc {
     @apply list-disc;
 }
 
+.cu-list-disc > li::marker {
+    @apply text-muted-foreground/50;
+}
+
+/* -- decimal (ordered) -- */
 .cu-list-decimal {
     @apply list-decimal;
+}
+
+.cu-list-decimal > li::marker {
+    @apply text-muted-foreground/60 font-medium;
+}
+
+/* -- none (icon / check lists) -- */
+.cu-list-none {
+    @apply ml-0 list-none;
+}
+
+.cu-list-none li {
+    @apply pl-0;
+}
+
+/* -- bordered -- */
+.cu-list-bordered {
+    @apply ml-0 list-none space-y-0 divide-y divide-border;
+}
+
+.cu-list-bordered li {
+    @apply pl-0 py-2.5;
+}
+
+.cu-list-bordered li:first-child {
+    @apply pt-0;
+}
+
+.cu-list-bordered li:last-child {
+    @apply pb-0;
+}
+
+/* -- inline -- */
+.cu-list-inline {
+    @apply ml-0 list-none flex flex-wrap items-center gap-x-4 gap-y-1 space-y-0;
+}
+
+.cu-list-inline li {
+    @apply pl-0;
+}
+
+/* -- description list -- */
+.cu-dl {
+    @apply space-y-4 text-sm;
+}
+
+.cu-dl-item {
+    @apply flex flex-col gap-0.5;
+}
+
+.cu-dl-term {
+    @apply font-medium text-foreground;
+}
+
+.cu-dl-detail {
+    @apply text-muted-foreground leading-relaxed;
+}
+
+.cu-dl-horizontal {
+    @apply space-y-3;
+}
+
+.cu-dl-horizontal .cu-dl-item {
+    @apply flex-row gap-0;
+}
+
+.cu-dl-horizontal .cu-dl-term {
+    @apply w-36 shrink-0;
+}
+
+/* -- nested lists -- */
+.cu-list .cu-list {
+    @apply mt-1.5 mb-0.5;
 }

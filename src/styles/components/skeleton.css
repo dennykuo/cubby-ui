@@ -3,3 +3,24 @@
 .cu-skeleton {
     @apply animate-pulse rounded-md bg-muted;
 }
+
+.cu-skeleton-shimmer {
+    @apply rounded-md;
+    background: linear-gradient(
+        90deg,
+        var(--color-muted) 0%,
+        color-mix(in srgb, var(--color-muted) 60%, var(--color-background)) 50%,
+        var(--color-muted) 100%
+    );
+    background-size: 200% 100%;
+    animation: cu-shimmer 1.5s ease-in-out infinite;
+}
+
+@keyframes cu-shimmer {
+    0% {
+        background-position: 200% 0;
+    }
+    100% {
+        background-position: -200% 0;
+    }
+}
