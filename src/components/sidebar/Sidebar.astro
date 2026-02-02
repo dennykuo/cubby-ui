@@ -97,6 +97,12 @@ const layoutComponents = [
 	{ name: "Toolbar", href: "/components/toolbar" },
 ];
 
+const examplePages = [
+	{ name: "Dashboard V1", href: "/examples/dashboard" },
+	{ name: "Dashboard V2", href: "/examples/dashboard-v2" },
+	{ name: "Dashboard V3", href: "/examples/dashboard-v3" },
+];
+
 const isInGroup = (items: { href: string }[]) =>
 	items.some((item) => item.href === currentPath);
 ---
@@ -198,6 +204,17 @@ const isInGroup = (items: { href: string }[]) =>
 						))
 					}
 				</SidebarGroup>
+			</div>
+		</SidebarSection>
+		<SidebarSection title="Examples">
+			<div class="space-y-0.5">
+				{
+					examplePages.map((item) => (
+						<SidebarLink href={item.href} currentPath={currentPath}>
+							{item.name}
+						</SidebarLink>
+					))
+				}
 			</div>
 		</SidebarSection>
 	</nav>

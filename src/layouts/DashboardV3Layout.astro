@@ -1,0 +1,300 @@
+---
+import "../styles/global.css";
+import Avatar from "../components/ui/Avatar.astro";
+import AvatarFallback from "../components/ui/AvatarFallback.astro";
+
+interface Props {
+    title: string;
+}
+
+const { title } = Astro.props;
+const pathname = Astro.url.pathname;
+
+// Navigation tabs
+const navTabs = [
+    { label: "Overview", href: "/examples/dashboard-v3" },
+    { label: "Analytics", href: "/examples/dashboard-v3/analytics" },
+    { label: "Customers", href: "/examples/dashboard-v3/customers" },
+    { label: "Settings", href: "/examples/dashboard-v3/settings" },
+];
+---
+
+<!doctype html>
+<html lang="en" class="bg-stone-50">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="description" content="Nexus — AI-Powered SaaS Analytics Platform" />
+        <meta name="viewport" content="width=device-width" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+            rel="stylesheet"
+        />
+        <title>{title}</title>
+        <style>
+            body {
+                font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            }
+        </style>
+    </head>
+    <body
+        class="min-h-screen antialiased text-foreground bg-stone-50"
+    >
+        <div class="flex min-h-screen">
+            <!-- Mini Sidebar (Collapsible on Hover) -->
+            <aside
+                class="group/sidebar fixed inset-y-0 left-0 z-50 w-[60px] hover:w-[220px] transition-all duration-300 bg-white border-r border-border flex flex-col"
+                aria-label="Main navigation"
+            >
+                <!-- Sidebar Icons -->
+                <div class="flex-1 py-6 px-3">
+                    <nav class="flex flex-col gap-2">
+                        <a
+                            href="/examples/dashboard-v3"
+                            class:list={[
+                                "flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all duration-200 group",
+                                pathname === "/examples/dashboard-v3"
+                                    ? "bg-teal-50 text-teal-700"
+                                    : "text-gray-600 hover:bg-gray-100 hover:text-gray-900"
+                            ]}
+                        >
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="20"
+                                height="20"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                class="shrink-0"
+                            >
+                                <rect width="7" height="7" x="3" y="3" rx="1"/>
+                                <rect width="7" height="7" x="14" y="3" rx="1"/>
+                                <rect width="7" height="7" x="14" y="14" rx="1"/>
+                                <rect width="7" height="7" x="3" y="14" rx="1"/>
+                            </svg>
+                            <span class="text-sm font-medium opacity-0 group-hover/sidebar:opacity-100 transition-opacity duration-300 whitespace-nowrap">Dashboard</span>
+                        </a>
+                        <a
+                            href="/examples/dashboard-v3/analytics"
+                            class:list={[
+                                "flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all duration-200 group",
+                                pathname === "/examples/dashboard-v3/analytics"
+                                    ? "bg-teal-50 text-teal-700"
+                                    : "text-gray-600 hover:bg-gray-100 hover:text-gray-900"
+                            ]}
+                        >
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="20"
+                                height="20"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                class="shrink-0"
+                            >
+                                <line x1="18" x2="18" y1="20" y2="10"/>
+                                <line x1="12" x2="12" y1="20" y2="4"/>
+                                <line x1="6" x2="6" y1="20" y2="14"/>
+                            </svg>
+                            <span class="text-sm font-medium opacity-0 group-hover/sidebar:opacity-100 transition-opacity duration-300 whitespace-nowrap">Analytics</span>
+                        </a>
+                        <a
+                            href="/examples/dashboard-v3/customers"
+                            class:list={[
+                                "flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all duration-200 group",
+                                pathname === "/examples/dashboard-v3/customers"
+                                    ? "bg-teal-50 text-teal-700"
+                                    : "text-gray-600 hover:bg-gray-100 hover:text-gray-900"
+                            ]}
+                        >
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="20"
+                                height="20"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                class="shrink-0"
+                            >
+                                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+                                <circle cx="9" cy="7" r="4"/>
+                                <path d="M22 21v-2a4 4 0 0 0-3-3.87"/>
+                                <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                            </svg>
+                            <span class="text-sm font-medium opacity-0 group-hover/sidebar:opacity-100 transition-opacity duration-300 whitespace-nowrap">Customers</span>
+                        </a>
+                        <a
+                            href="/examples/dashboard-v3/settings"
+                            class:list={[
+                                "flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all duration-200 group",
+                                pathname === "/examples/dashboard-v3/settings"
+                                    ? "bg-teal-50 text-teal-700"
+                                    : "text-gray-600 hover:bg-gray-100 hover:text-gray-900"
+                            ]}
+                        >
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="20"
+                                height="20"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                class="shrink-0"
+                            >
+                                <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/>
+                                <circle cx="12" cy="12" r="3"/>
+                            </svg>
+                            <span class="text-sm font-medium opacity-0 group-hover/sidebar:opacity-100 transition-opacity duration-300 whitespace-nowrap">Settings</span>
+                        </a>
+                    </nav>
+                </div>
+
+                <!-- Help Icon at Bottom -->
+                <div class="p-3 border-t border-border">
+                    <button
+                        class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-600 hover:bg-gray-100 hover:text-gray-900 transition-all duration-200 w-full group"
+                    >
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="20"
+                            height="20"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            class="shrink-0"
+                        >
+                            <circle cx="12" cy="12" r="10"/>
+                            <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
+                            <path d="M12 17h.01"/>
+                        </svg>
+                        <span class="text-sm font-medium opacity-0 group-hover/sidebar:opacity-100 transition-opacity duration-300 whitespace-nowrap">Help</span>
+                    </button>
+                </div>
+            </aside>
+
+            <!-- Main Area -->
+            <div class="flex flex-col flex-1 min-w-0 pl-[60px] transition-all duration-300">
+                <!-- Header (Sticky) -->
+                <header
+                    class="sticky top-0 z-40 flex items-center h-16 px-6 bg-white/80 backdrop-blur-xl border-b border-border"
+                >
+                    <div class="flex items-center gap-8 flex-1">
+                        <!-- Brand Logo -->
+                        <a href="/examples/dashboard-v3" class="flex items-center gap-2.5 font-bold text-lg">
+                            <div class="flex items-center justify-center w-8 h-8 rounded-lg bg-gradient-to-br from-teal-600 to-emerald-600 text-white shadow-md">
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="18"
+                                    height="18"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="2.5"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                >
+                                    <path d="m8 3 4 8 5-5 5 15H2L8 3z"/>
+                                </svg>
+                            </div>
+                            <span class="bg-gradient-to-r from-teal-700 to-emerald-700 bg-clip-text text-transparent">Nexus</span>
+                        </a>
+
+                        <!-- Horizontal Nav Tabs -->
+                        <nav class="hidden md:flex items-center gap-1">
+                            {navTabs.map((tab) => {
+                                const isActive = pathname === tab.href;
+                                return (
+                                    <a
+                                        href={tab.href}
+                                        class:list={[
+                                            "px-3 py-2 text-sm font-medium rounded-md transition-colors duration-200",
+                                            isActive
+                                                ? "bg-teal-50 text-teal-700"
+                                                : "text-gray-600 hover:text-gray-900 hover:bg-gray-50"
+                                        ]}
+                                    >
+                                        {tab.label}
+                                    </a>
+                                );
+                            })}
+                        </nav>
+                    </div>
+
+                    <!-- Header Right Actions -->
+                    <div class="flex items-center gap-3">
+                        <!-- Command Palette Trigger -->
+                        <button class="hidden sm:flex items-center gap-2 px-3 py-1.5 text-sm text-gray-500 bg-gray-50 hover:bg-gray-100 rounded-md border border-gray-200 transition-colors">
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="14"
+                                height="14"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                            >
+                                <circle cx="11" cy="11" r="8"/>
+                                <path d="m21 21-4.3-4.3"/>
+                            </svg>
+                            <span>Search...</span>
+                            <kbd class="ml-1 text-[10px] font-mono text-gray-400">⌘K</kbd>
+                        </button>
+
+                        <!-- Notification Bell with Red Dot -->
+                        <button class="relative p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors">
+                            <span class="absolute top-1.5 right-1.5 w-2 h-2 bg-red-500 rounded-full border-2 border-white"></span>
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="20"
+                                height="20"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                            >
+                                <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/>
+                                <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/>
+                            </svg>
+                        </button>
+
+                        <div class="h-6 w-px bg-gray-200"></div>
+
+                        <!-- User Avatar -->
+                        <button class="flex items-center gap-2 hover:bg-gray-100 rounded-full pr-3 pl-1 py-1 transition-colors">
+                            <Avatar class="w-8 h-8">
+                                <AvatarFallback class="bg-gradient-to-br from-teal-600 to-emerald-600 text-white text-xs font-semibold">JD</AvatarFallback>
+                            </Avatar>
+                            <span class="hidden md:inline text-sm font-medium text-gray-700">Jane Doe</span>
+                        </button>
+                    </div>
+                </header>
+
+                <!-- Main Content -->
+                <main class="flex-1 p-6">
+                    <slot />
+                </main>
+            </div>
+        </div>
+    </body>
+</html>

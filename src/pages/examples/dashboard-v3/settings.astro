@@ -1,0 +1,442 @@
+---
+import DashboardV3Layout from '../../../layouts/DashboardV3Layout.astro';
+import Card from '../../../components/ui/Card.astro';
+import CardHeader from '../../../components/ui/CardHeader.astro';
+import CardTitle from '../../../components/ui/CardTitle.astro';
+import CardDescription from '../../../components/ui/CardDescription.astro';
+import CardContent from '../../../components/ui/CardContent.astro';
+import CardFooter from '../../../components/ui/CardFooter.astro';
+import Button from '../../../components/ui/Button.astro';
+import Badge from '../../../components/ui/Badge.astro';
+import Avatar from '../../../components/ui/Avatar.astro';
+import AvatarFallback from '../../../components/ui/AvatarFallback.astro';
+import Input from '../../../components/ui/Input.astro';
+import Label from '../../../components/ui/Label.astro';
+import Toggle from '../../../components/ui/Toggle.astro';
+import Separator from '../../../components/ui/Separator.astro';
+import Textarea from '../../../components/ui/Textarea.astro';
+---
+
+<DashboardV3Layout title="Settings — Nexus">
+  <div class="max-w-7xl mx-auto">
+    <div class="mb-8">
+      <h1 class="text-3xl font-bold text-foreground">Settings</h1>
+      <p class="mt-2 text-muted-foreground">Manage your account settings and preferences</p>
+    </div>
+
+    <div class="grid lg:grid-cols-[224px_1fr] gap-8">
+      <!-- Left Navigation -->
+      <nav class="space-y-1">
+        <button
+          data-settings-tab="profile"
+          class="settings-tab-btn w-full text-left px-4 py-2.5 rounded-lg transition-colors duration-200 border-l-2 border-teal-600 bg-teal-50 text-teal-600 font-medium"
+        >
+          Profile
+        </button>
+        <button
+          data-settings-tab="team"
+          class="settings-tab-btn w-full text-left px-4 py-2.5 rounded-lg transition-colors duration-200 border-l-2 border-transparent text-muted-foreground hover:bg-muted/60"
+        >
+          Team
+        </button>
+        <button
+          data-settings-tab="billing"
+          class="settings-tab-btn w-full text-left px-4 py-2.5 rounded-lg transition-colors duration-200 border-l-2 border-transparent text-muted-foreground hover:bg-muted/60"
+        >
+          Billing
+        </button>
+        <button
+          data-settings-tab="integrations"
+          class="settings-tab-btn w-full text-left px-4 py-2.5 rounded-lg transition-colors duration-200 border-l-2 border-transparent text-muted-foreground hover:bg-muted/60"
+        >
+          Integrations
+        </button>
+        <button
+          data-settings-tab="api-keys"
+          class="settings-tab-btn w-full text-left px-4 py-2.5 rounded-lg transition-colors duration-200 border-l-2 border-transparent text-muted-foreground hover:bg-muted/60"
+        >
+          API Keys
+        </button>
+      </nav>
+
+      <!-- Right Content Area -->
+      <div class="min-w-0">
+        <!-- Profile Panel -->
+        <div data-settings-panel="profile" class="settings-panel">
+          <Card>
+            <CardHeader>
+              <CardTitle>Profile Settings</CardTitle>
+              <CardDescription>Update your personal information and profile picture</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div class="space-y-6">
+                <!-- Avatar Upload -->
+                <div class="flex items-center gap-6">
+                  <Avatar class="h-20 w-20 text-xl">
+                    <AvatarFallback>JD</AvatarFallback>
+                  </Avatar>
+                  <Button variant="secondary" size="sm">Change Photo</Button>
+                </div>
+
+                <Separator />
+
+                <!-- Form Fields -->
+                <div class="space-y-4">
+                  <div>
+                    <Label for="full-name">Full Name</Label>
+                    <Input id="full-name" value="Jane Doe" class="mt-1.5" />
+                  </div>
+
+                  <div>
+                    <Label for="email">Email</Label>
+                    <Input id="email" type="email" value="jane@nexus.ai" class="mt-1.5" />
+                  </div>
+
+                  <div>
+                    <Label for="role">Role</Label>
+                    <Input id="role" value="Admin" disabled class="mt-1.5" />
+                  </div>
+
+                  <div>
+                    <Label for="bio">Bio</Label>
+                    <Textarea id="bio" rows={4} class="mt-1.5" placeholder="Tell us about yourself..." />
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+            <CardFooter class="flex justify-end gap-3">
+              <Button variant="ghost">Cancel</Button>
+              <Button>Save Changes</Button>
+            </CardFooter>
+          </Card>
+        </div>
+
+        <!-- Team Panel -->
+        <div data-settings-panel="team" class="settings-panel hidden">
+          <Card>
+            <CardHeader>
+              <CardTitle>Team Members</CardTitle>
+              <CardDescription>Manage your team and member permissions</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div class="space-y-4">
+                <!-- Team Member Cards -->
+                <div class="flex items-center justify-between p-4 border border-border rounded-lg">
+                  <div class="flex items-center gap-4">
+                    <Avatar>
+                      <AvatarFallback>JD</AvatarFallback>
+                    </Avatar>
+                    <div>
+                      <div class="font-medium">Jane Doe</div>
+                      <div class="text-sm text-muted-foreground">jane@nexus.ai</div>
+                    </div>
+                  </div>
+                  <div class="flex items-center gap-3">
+                    <Badge variant="secondary">Admin</Badge>
+                    <Button variant="ghost" size="sm" class="text-destructive">Remove</Button>
+                  </div>
+                </div>
+
+                <div class="flex items-center justify-between p-4 border border-border rounded-lg">
+                  <div class="flex items-center gap-4">
+                    <Avatar>
+                      <AvatarFallback>MS</AvatarFallback>
+                    </Avatar>
+                    <div>
+                      <div class="font-medium">Mike Smith</div>
+                      <div class="text-sm text-muted-foreground">mike@nexus.ai</div>
+                    </div>
+                  </div>
+                  <div class="flex items-center gap-3">
+                    <Badge variant="secondary">Editor</Badge>
+                    <Button variant="ghost" size="sm" class="text-destructive">Remove</Button>
+                  </div>
+                </div>
+
+                <div class="flex items-center justify-between p-4 border border-border rounded-lg">
+                  <div class="flex items-center gap-4">
+                    <Avatar>
+                      <AvatarFallback>SJ</AvatarFallback>
+                    </Avatar>
+                    <div>
+                      <div class="font-medium">Sarah Johnson</div>
+                      <div class="text-sm text-muted-foreground">sarah@nexus.ai</div>
+                    </div>
+                  </div>
+                  <div class="flex items-center gap-3">
+                    <Badge variant="secondary">Editor</Badge>
+                    <Button variant="ghost" size="sm" class="text-destructive">Remove</Button>
+                  </div>
+                </div>
+
+                <div class="flex items-center justify-between p-4 border border-border rounded-lg">
+                  <div class="flex items-center gap-4">
+                    <Avatar>
+                      <AvatarFallback>TC</AvatarFallback>
+                    </Avatar>
+                    <div>
+                      <div class="font-medium">Tom Chen</div>
+                      <div class="text-sm text-muted-foreground">tom@nexus.ai</div>
+                    </div>
+                  </div>
+                  <div class="flex items-center gap-3">
+                    <Badge variant="secondary">Viewer</Badge>
+                    <Button variant="ghost" size="sm" class="text-destructive">Remove</Button>
+                  </div>
+                </div>
+
+                <Separator class="my-6" />
+
+                <!-- Invite Member Form -->
+                <div>
+                  <h3 class="font-semibold mb-4">Invite New Member</h3>
+                  <div class="grid gap-4 sm:grid-cols-2">
+                    <div>
+                      <Label for="invite-email">Email Address</Label>
+                      <Input id="invite-email" type="email" placeholder="email@example.com" class="mt-1.5" />
+                    </div>
+                    <div>
+                      <Label for="invite-role">Role</Label>
+                      <select id="invite-role" class="cu-select mt-1.5">
+                        <option>Viewer</option>
+                        <option>Editor</option>
+                        <option>Admin</option>
+                      </select>
+                    </div>
+                  </div>
+                  <Button class="mt-4">Send Invite</Button>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+
+        <!-- Billing Panel -->
+        <div data-settings-panel="billing" class="settings-panel hidden">
+          <div class="space-y-6">
+            <!-- Current Plan -->
+            <Card>
+              <CardHeader>
+                <CardTitle>Current Plan</CardTitle>
+                <CardDescription>Manage your subscription and billing</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div class="space-y-4">
+                  <div class="flex items-center justify-between">
+                    <div>
+                      <div class="font-semibold text-lg">Pro Plan</div>
+                      <div class="text-muted-foreground">$49/month</div>
+                    </div>
+                    <Badge variant="success">Active</Badge>
+                  </div>
+
+                  <Separator />
+
+                  <div>
+                    <div class="flex items-center justify-between mb-2">
+                      <span class="text-sm font-medium">Usage</span>
+                      <span class="text-sm text-muted-foreground">75% of limit</span>
+                    </div>
+                    <div class="h-2 bg-muted rounded-full overflow-hidden">
+                      <div class="h-full bg-primary rounded-full" style="width: 75%"></div>
+                    </div>
+                  </div>
+
+                  <div class="pt-2">
+                    <div class="text-sm text-muted-foreground">Next billing date: March 1, 2026</div>
+                  </div>
+                </div>
+              </CardContent>
+              <CardFooter>
+                <Button>Upgrade Plan</Button>
+              </CardFooter>
+            </Card>
+
+            <!-- Payment Method -->
+            <Card>
+              <CardHeader>
+                <CardTitle>Payment Method</CardTitle>
+                <CardDescription>Your current payment method on file</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div class="flex items-center justify-between p-4 border border-border rounded-lg">
+                  <div class="flex items-center gap-4">
+                    <div class="w-12 h-8 bg-gradient-to-br from-blue-600 to-blue-400 rounded flex items-center justify-center text-white text-xs font-bold">
+                      VISA
+                    </div>
+                    <div>
+                      <div class="font-medium">•••• •••• •••• 4242</div>
+                      <div class="text-sm text-muted-foreground">Expires 12/26</div>
+                    </div>
+                  </div>
+                  <Button variant="outline" size="sm">Update Payment</Button>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+
+        <!-- Integrations Panel -->
+        <div data-settings-panel="integrations" class="settings-panel hidden">
+          <Card>
+            <CardHeader>
+              <CardTitle>Integrations</CardTitle>
+              <CardDescription>Connect your favorite tools and services</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                <!-- Slack -->
+                <div class="border border-border rounded-lg p-4">
+                  <div class="flex items-start justify-between mb-3">
+                    <div class="w-10 h-10 bg-gradient-to-br from-purple-500 to-pink-500 rounded-lg flex items-center justify-center text-white font-bold">
+                      S
+                    </div>
+                    <Badge variant="success">Connected</Badge>
+                  </div>
+                  <div class="mb-3">
+                    <h3 class="font-semibold">Slack</h3>
+                    <p class="text-sm text-muted-foreground">Team communication</p>
+                  </div>
+                  <Toggle checked />
+                </div>
+
+                <!-- GitHub -->
+                <div class="border border-border rounded-lg p-4">
+                  <div class="flex items-start justify-between mb-3">
+                    <div class="w-10 h-10 bg-gradient-to-br from-gray-800 to-gray-600 rounded-lg flex items-center justify-center text-white font-bold">
+                      G
+                    </div>
+                    <Badge variant="success">Connected</Badge>
+                  </div>
+                  <div class="mb-3">
+                    <h3 class="font-semibold">GitHub</h3>
+                    <p class="text-sm text-muted-foreground">Code repository</p>
+                  </div>
+                  <Toggle checked />
+                </div>
+
+                <!-- Figma -->
+                <div class="border border-border rounded-lg p-4">
+                  <div class="flex items-start justify-between mb-3">
+                    <div class="w-10 h-10 bg-gradient-to-br from-orange-500 to-red-500 rounded-lg flex items-center justify-center text-white font-bold">
+                      F
+                    </div>
+                    <Badge variant="secondary">Not Connected</Badge>
+                  </div>
+                  <div class="mb-3">
+                    <h3 class="font-semibold">Figma</h3>
+                    <p class="text-sm text-muted-foreground">Design collaboration</p>
+                  </div>
+                  <Toggle />
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+
+        <!-- API Keys Panel -->
+        <div data-settings-panel="api-keys" class="settings-panel hidden">
+          <Card>
+            <CardHeader>
+              <div class="flex items-center justify-between">
+                <div>
+                  <CardTitle>API Keys</CardTitle>
+                  <CardDescription>Manage your API keys for integration</CardDescription>
+                </div>
+                <Button size="sm">Create New Key</Button>
+              </div>
+            </CardHeader>
+            <CardContent>
+              <div class="border border-border rounded-lg overflow-hidden">
+                <table class="w-full">
+                  <thead class="bg-muted/50">
+                    <tr>
+                      <th class="text-left px-4 py-3 text-sm font-medium">Name</th>
+                      <th class="text-left px-4 py-3 text-sm font-medium">Key</th>
+                      <th class="text-left px-4 py-3 text-sm font-medium">Created</th>
+                      <th class="text-left px-4 py-3 text-sm font-medium">Last Used</th>
+                      <th class="text-right px-4 py-3 text-sm font-medium">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody class="divide-y divide-border">
+                    <tr>
+                      <td class="px-4 py-3 font-medium">Production Key</td>
+                      <td class="px-4 py-3">
+                        <code class="text-sm bg-muted px-2 py-1 rounded">sk-...a1b2</code>
+                      </td>
+                      <td class="px-4 py-3 text-sm text-muted-foreground">Jan 15, 2026</td>
+                      <td class="px-4 py-3 text-sm text-muted-foreground">2 hours ago</td>
+                      <td class="px-4 py-3 text-right">
+                        <div class="flex items-center justify-end gap-2">
+                          <Button variant="ghost" size="sm">Regenerate</Button>
+                          <Button variant="ghost" size="sm" class="text-destructive">Delete</Button>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="px-4 py-3 font-medium">Development Key</td>
+                      <td class="px-4 py-3">
+                        <code class="text-sm bg-muted px-2 py-1 rounded">sk-...c3d4</code>
+                      </td>
+                      <td class="px-4 py-3 text-sm text-muted-foreground">Jan 10, 2026</td>
+                      <td class="px-4 py-3 text-sm text-muted-foreground">1 day ago</td>
+                      <td class="px-4 py-3 text-right">
+                        <div class="flex items-center justify-end gap-2">
+                          <Button variant="ghost" size="sm">Regenerate</Button>
+                          <Button variant="ghost" size="sm" class="text-destructive">Delete</Button>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="px-4 py-3 font-medium">Testing Key</td>
+                      <td class="px-4 py-3">
+                        <code class="text-sm bg-muted px-2 py-1 rounded">sk-...e5f6</code>
+                      </td>
+                      <td class="px-4 py-3 text-sm text-muted-foreground">Jan 5, 2026</td>
+                      <td class="px-4 py-3 text-sm text-muted-foreground">3 days ago</td>
+                      <td class="px-4 py-3 text-right">
+                        <div class="flex items-center justify-end gap-2">
+                          <Button variant="ghost" size="sm">Regenerate</Button>
+                          <Button variant="ghost" size="sm" class="text-destructive">Delete</Button>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+    </div>
+  </div>
+</DashboardV3Layout>
+
+<script>
+  // Tab switching functionality
+  const tabButtons = document.querySelectorAll('.settings-tab-btn');
+  const panels = document.querySelectorAll('.settings-panel');
+
+  tabButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      const targetTab = button.getAttribute('data-settings-tab');
+
+      // Update button states
+      tabButtons.forEach(btn => {
+        const isActive = btn.getAttribute('data-settings-tab') === targetTab;
+        btn.classList.toggle('border-teal-600', isActive);
+        btn.classList.toggle('bg-teal-50', isActive);
+        btn.classList.toggle('text-teal-600', isActive);
+        btn.classList.toggle('font-medium', isActive);
+        btn.classList.toggle('border-transparent', !isActive);
+        btn.classList.toggle('text-muted-foreground', !isActive);
+      });
+
+      // Update panel visibility
+      panels.forEach(panel => {
+        const panelTab = panel.getAttribute('data-settings-panel');
+        panel.classList.toggle('hidden', panelTab !== targetTab);
+      });
+    });
+  });
+</script>
