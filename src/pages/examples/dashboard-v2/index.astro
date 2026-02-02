@@ -1,0 +1,325 @@
+---
+import DashboardV2Layout from "../../../layouts/DashboardV2Layout.astro";
+import Button from "../../../components/ui/Button.astro";
+import Card from "../../../components/ui/Card.astro";
+import CardHeader from "../../../components/ui/CardHeader.astro";
+import CardTitle from "../../../components/ui/CardTitle.astro";
+import CardDescription from "../../../components/ui/CardDescription.astro";
+import CardContent from "../../../components/ui/CardContent.astro";
+import Stat from "../../../components/ui/Stat.astro";
+import StatHeader from "../../../components/ui/StatHeader.astro";
+import StatLabel from "../../../components/ui/StatLabel.astro";
+import StatValue from "../../../components/ui/StatValue.astro";
+import StatDescription from "../../../components/ui/StatDescription.astro";
+import StatTrend from "../../../components/ui/StatTrend.astro";
+import Avatar from "../../../components/ui/Avatar.astro";
+import AvatarFallback from "../../../components/ui/AvatarFallback.astro";
+import Badge from "../../../components/ui/Badge.astro";
+import Table from "../../../components/ui/Table.astro";
+import TableHeader from "../../../components/ui/TableHeader.astro";
+import TableBody from "../../../components/ui/TableBody.astro";
+import TableRow from "../../../components/ui/TableRow.astro";
+import TableHead from "../../../components/ui/TableHead.astro";
+import TableCell from "../../../components/ui/TableCell.astro";
+import Tabs from "../../../components/ui/Tabs.astro";
+import TabsList from "../../../components/ui/TabsList.astro";
+import TabsTrigger from "../../../components/ui/TabsTrigger.astro";
+import TabsContent from "../../../components/ui/TabsContent.astro";
+---
+
+<DashboardV2Layout title="營運總覽 — CubbyPro">
+    <div class="space-y-8 max-w-7xl mx-auto">
+        <!-- Page Header -->
+        <div class="sm:flex sm:items-center sm:justify-between">
+            <div>
+                <h1 class="text-2xl font-bold tracking-tight text-foreground">營運儀表板</h1>
+                <p class="mt-2 text-muted-foreground">顯示截至今日的最新業務指標與活動摘要。</p>
+            </div>
+            <div class="mt-4 sm:mt-0 flex gap-3">
+                <Button variant="outline" class="gap-2 bg-background">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+                    匯出數據
+                </Button>
+                <Button class="bg-indigo-600 hover:bg-indigo-700 text-white gap-2 shadow-lg shadow-indigo-500/20 border-0">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" x2="12" y1="5" y2="19"/><line x1="5" x2="19" y1="12" y2="12"/></svg>
+                    建立報表
+                </Button>
+            </div>
+        </div>
+
+        <!-- KPI Cards -->
+        <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+             <Stat class="bg-white border shadow-sm rounded-xl overflow-hidden relative">
+                <div class="absolute top-0 right-0 p-4 opacity-5">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 24 24" fill="currentColor"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                </div>
+                <StatHeader>
+                  <StatLabel class="text-slate-500">本月營收</StatLabel>
+                </StatHeader>
+                <StatValue class="text-3xl mt-2">$24,560</StatValue>
+                <StatDescription class="mt-2 flex items-center gap-2">
+                  <StatTrend direction="up" class="bg-emerald-50 text-emerald-600 px-1.5 py-0.5 rounded text-xs font-semibold">+12%</StatTrend>
+                  <span class="text-xs text-slate-400">較上月</span>
+                </StatDescription>
+             </Stat>
+
+             <Stat class="bg-white border shadow-sm rounded-xl overflow-hidden relative">
+                <div class="absolute top-0 right-0 p-4 opacity-5">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 24 24" fill="currentColor"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                </div>
+                <StatHeader>
+                  <StatLabel class="text-slate-500">新增訂閱</StatLabel>
+                </StatHeader>
+                <StatValue class="text-3xl mt-2">573</StatValue>
+                <StatDescription class="mt-2 flex items-center gap-2">
+                  <StatTrend direction="up" class="bg-emerald-50 text-emerald-600 px-1.5 py-0.5 rounded text-xs font-semibold">+24%</StatTrend>
+                  <span class="text-xs text-slate-400">較上月</span>
+                </StatDescription>
+             </Stat>
+
+             <Stat class="bg-white border shadow-sm rounded-xl overflow-hidden relative">
+                <div class="absolute top-0 right-0 p-4 opacity-5">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 24 24" fill="currentColor"><activity/><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+                </div>
+                <StatHeader>
+                  <StatLabel class="text-slate-500">活躍專案</StatLabel>
+                </StatHeader>
+                <StatValue class="text-3xl mt-2">108</StatValue>
+                <StatDescription class="mt-2 flex items-center gap-2">
+                  <StatTrend direction="down" class="bg-rose-50 text-rose-600 px-1.5 py-0.5 rounded text-xs font-semibold">-2%</StatTrend>
+                  <span class="text-xs text-slate-400">較上月</span>
+                </StatDescription>
+             </Stat>
+
+             <Stat class="bg-gradient-to-br from-indigo-600 to-indigo-700 text-white shadow-lg shadow-indigo-500/30 rounded-xl overflow-hidden relative border-none">
+                 <div class="absolute top-0 right-0 p-4 opacity-10">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>
+                </div>
+                <StatHeader>
+                  <StatLabel class="text-indigo-100">待處理工單</StatLabel>
+                </StatHeader>
+                <StatValue class="text-3xl mt-2">12</StatValue>
+                <StatDescription class="mt-2 flex items-center gap-2 text-indigo-100/80">
+                  <span>需儘速回應</span>
+                </StatDescription>
+             </Stat>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- Main Content Area -->
+            <div class="lg:col-span-2 space-y-6">
+                <!-- Tabs & Chart -->
+                <Tabs defaultValue="revenue" class="w-full">
+                    <div class="flex items-center justify-between mb-4">
+                        <Card class="bg-white px-2 py-0.5 rounded-lg border shadow-sm">
+                            <TabsTrigger value="revenue">營收分析</TabsTrigger>
+                            <TabsTrigger value="traffic">流量來源</TabsTrigger>
+                            <TabsTrigger value="engagement">用戶互動</TabsTrigger>
+                        </TabsList>
+
+                        <div class="hidden sm:flex rounded-md shadow-sm">
+                            <button class="px-3 py-1.5 text-xs font-medium bg-white text-slate-700 border border-slate-200 rounded-l-md hover:bg-slate-50">天</button>
+                            <button class="px-3 py-1.5 text-xs font-medium bg-indigo-50 text-indigo-700 border border-indigo-200 z-10">週</button>
+                            <button class="px-3 py-1.5 text-xs font-medium bg-white text-slate-700 border border-slate-200 -ml-px hover:bg-slate-50">月</button>
+                            <button class="px-3 py-1.5 text-xs font-medium bg-white text-slate-700 border border-slate-200 rounded-r-md -ml-px hover:bg-slate-50">年</button>
+                        </div>
+                    </div>
+
+                    <TabsContent value="revenue" class="mt-0">
+                         <Card class="bg-white shadow-sm border">
+                            <CardHeader>
+                                <CardTitle class="text-lg">營收趨勢預測</CardTitle>
+                                <CardDescription>比較本期與上期表現 (2024)</CardDescription>
+                            </CardHeader>
+                            <CardContent>
+                                <div class="h-80 w-full flex items-end justify-between gap-2 pt-8">
+                                    {Array.from({length: 12}).map((_, i) => (
+                                        <div class="flex-1 flex flex-col justify-end gap-1 h-full group cursor-pointer relative">
+                                            <!-- Tooltip -->
+                                            <div class="opacity-0 group-hover:opacity-100 transition-opacity absolute -top-12 left-1/2 -translate-x-1/2 bg-slate-800 text-white text-xs py-1 px-2 rounded shadow-lg pointer-events-none whitespace-nowrap z-10 mb-2">
+                                                ${Math.floor(Math.random() * 5000) + 1000}
+                                                <div class="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-slate-800 rotate-45"></div>
+                                            </div>
+                                            <!-- Bar 1 -->
+                                            <div style={`height: ${Math.random() * 40 + 20}%`} class="w-full bg-slate-100 rounded-t-sm"></div>
+                                            <!-- Bar 2 -->
+                                            <div style={`height: ${Math.random() * 60 + 30}%`} class="w-full bg-indigo-500 rounded-t-sm transition-opacity group-hover:bg-indigo-600"></div>
+
+                                            <div class="text-[10px] text-center text-slate-400 pt-2 border-t mt-1">{i+1}月</div>
+                                        </div>
+                                    ))}
+                                </div>
+                            </CardContent>
+                         </Card>
+                    </TabsContent>
+                    <TabsContent value="traffic">
+                        <Card class="bg-white shadow-sm h-[420px] flex items-center justify-center border-dashed border-2">
+                            <p class="text-slate-400">流量數據圖表區塊</p>
+                        </Card>
+                    </TabsContent>
+                </Tabs>
+
+                <!-- Data Table -->
+                <Card class="bg-white shadow-sm border overflow-hidden">
+                    <CardHeader class="flex flex-row items-center justify-between border-b bg-slate-50/50 px-6 py-4">
+                        <div>
+                            <CardTitle class="text-lg">最新訂單</CardTitle>
+                             <CardDescription>顯示最近 5 筆交易紀錄</CardDescription>
+                        </div>
+                        <Button variant="ghost" class="text-indigo-600 hover:text-indigo-700 hover:bg-indigo-50">查看全部</Button>
+                    </CardHeader>
+                    <div class="overflow-x-auto">
+                        <Table>
+                            <TableHeader>
+                                <TableRow class="hover:bg-transparent">
+                                    <TableHead class="pl-6 w-[140px]">訂單編號</TableHead>
+                                    <TableHead>客戶</TableHead>
+                                    <TableHead>方案</TableHead>
+                                    <TableHead>金額</TableHead>
+                                    <TableHead>狀態</TableHead>
+                                    <TableHead class="text-right pr-6">操作</TableHead>
+                                </TableRow>
+                            </TableHeader>
+                            <TableBody>
+                                {[
+                                    { id: "#ORD-7752", user: "Alice Freeman", plan: "Pro Plan", price: "$29.00", status: "completed", date: "2 分鐘前" },
+                                    { id: "#ORD-7751", user: "Chris Davis", plan: "Enterprise", price: "$499.00", status: "processing", date: "15 分鐘前" },
+                                    { id: "#ORD-7750", user: "Alex Morgan", plan: "Starter", price: "$0.00", status: "completed", date: "1 小時前" },
+                                    { id: "#ORD-7749", user: "Sarah Connor", plan: "Pro Plan", price: "$29.00", status: "failed", date: "3 小時前" },
+                                    { id: "#ORD-7748", user: "John Wick", plan: "Enterprise", price: "$499.00", status: "completed", date: "昨日" },
+                                ].map(item => (
+                                    <TableRow class="group">
+                                        <TableCell class="font-mono text-xs pl-6 text-slate-500">{item.id}</TableCell>
+                                        <TableCell>
+                                            <div class="flex items-center gap-3">
+                                                <Avatar class="h-8 w-8 bg-slate-100">
+                                                    <AvatarFallback class="text-xs bg-indigo-50 text-indigo-700 font-bold">{item.user.substring(0,2)}</AvatarFallback>
+                                                </Avatar>
+                                                <div class="flex flex-col">
+                                                    <span class="text-sm font-medium text-slate-900">{item.user}</span>
+                                                    <span class="text-xs text-slate-500">{item.date}</span>
+                                                </div>
+                                            </div>
+                                        </TableCell>
+                                        <TableCell class="text-sm">{item.plan}</TableCell>
+                                        <TableCell class="text-sm font-medium">{item.price}</TableCell>
+                                        <TableCell>
+                                            {item.status === 'completed' && <Badge variant="soft" class="bg-emerald-50 text-emerald-700 ring-1 ring-inset ring-emerald-600/20">已完成</Badge>}
+                                            {item.status === 'processing' && <Badge variant="soft" class="bg-amber-50 text-amber-700 ring-1 ring-inset ring-amber-600/20">處理中</Badge>}
+                                            {item.status === 'failed' && <Badge variant="soft" class="bg-rose-50 text-rose-700 ring-1 ring-inset ring-rose-600/20">失敗</Badge>}
+                                        </TableCell>
+                                        <TableCell class="text-right pr-6">
+                                            <button class="opacity-0 group-hover:opacity-100 text-slate-400 hover:text-slate-600 transition-all p-1">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>
+                                            </button>
+                                        </TableCell>
+                                    </TableRow>
+                                ))}
+                            </TableBody>
+                        </Table>
+                    </div>
+                </Card>
+            </div>
+
+            <!-- Sidebar / Right Column -->
+            <div class="space-y-6">
+                <!-- User Profile Card -->
+                <Card class="bg-gradient-to-br from-slate-900 to-slate-800 text-white border-0 shadow-lg relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-indigo-500 rounded-full blur-3xl opacity-20 -mr-10 -mt-10"></div>
+                     <CardHeader>
+                        <div class="flex items-center gap-4">
+                            <Avatar class="h-14 w-14 ring-4 ring-white/10">
+                                <AvatarFallback class="bg-indigo-500 text-white text-lg">DK</AvatarFallback>
+                            </Avatar>
+                            <div>
+                                <CardTitle class="text-white text-base">Denny Kuo</CardTitle>
+                                <CardDescription class="text-slate-400">系統管理員</CardDescription>
+                            </div>
+                        </div>
+                    </CardHeader>
+                    <CardContent>
+                        <div class="flex justify-between items-center py-2 border-t border-white/10 mt-2">
+                             <div class="text-center">
+                                <p class="text-2xl font-bold">12</p>
+                                <p class="text-xs text-slate-400 uppercase tracking-wider">專案</p>
+                             </div>
+                             <div class="h-8 w-[1px] bg-white/10"></div>
+                             <div class="text-center">
+                                <p class="text-2xl font-bold">87%</p>
+                                <p class="text-xs text-slate-400 uppercase tracking-wider">達成率</p>
+                             </div>
+                             <div class="h-8 w-[1px] bg-white/10"></div>
+                             <div class="text-center">
+                                <p class="text-2xl font-bold">A+</p>
+                                <p class="text-xs text-slate-400 uppercase tracking-wider">績效</p>
+                             </div>
+                        </div>
+                    </CardContent>
+                </Card>
+
+                <!-- Activity Feed -->
+                <Card class="bg-white shadow-sm border">
+                    <CardHeader>
+                        <CardTitle class="text-base">系統通知</CardTitle>
+                    </CardHeader>
+                    <CardContent class="px-0">
+                        <div class="space-y-0">
+                            {[
+                                { text: "Server CPU load high (92%)", type: "alert", time: "10 分鐘前" },
+                                { text: "New deployment successful", type: "success", time: "32 分鐘前" },
+                                { text: "Database backup completed", type: "info", time: "2 小時前" },
+                                { text: "5 users invited to 'Marketing'", type: "normal", time: "5 小時前" },
+                            ].map((item, i) => (
+                                <div class={`flex gap-3 px-6 py-3 hover:bg-slate-50 border-l-2 ${item.type === 'alert' ? 'border-rose-500' : item.type === 'success' ? 'border-emerald-500' : 'border-transparent'}`}>
+                                    <div class={`mt-1 h-2 w-2 rounded-full shrink-0 ${item.type === 'alert' ? 'bg-rose-500' : item.type === 'success' ? 'bg-emerald-500' : 'bg-slate-300'}`}></div>
+                                    <div>
+                                        <p class="text-sm text-slate-700 leading-snug">{item.text}</p>
+                                        <p class="text-xs text-slate-400 mt-1">{item.time}</p>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                        <div class="px-6 pt-4">
+                            <Button variant="outline" class="w-full text-xs h-8">查看全部紀錄</Button>
+                        </div>
+                    </CardContent>
+                </Card>
+
+                <!-- Storage Widget -->
+                 <Card class="bg-white shadow-sm border">
+                    <CardHeader>
+                        <CardTitle class="text-base">儲存空間</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                        <div class="mb-4">
+                            <div class="flex justify-between text-sm mb-2">
+                                <span class="text-slate-600 font-medium">75.5 GB / 100 GB</span>
+                                <span class="text-slate-400">75%</span>
+                            </div>
+                            <div class="h-2 w-full bg-slate-100 rounded-full overflow-hidden">
+                                <div class="h-full bg-indigo-500 w-3/4 rounded-full"></div>
+                            </div>
+                        </div>
+                         <div class="space-y-3">
+                            <div class="flex items-center text-sm">
+                                <div class="w-2 h-2 rounded-full bg-indigo-500 mr-2"></div>
+                                <span class="text-slate-600 flex-1">文件 (Documents)</span>
+                                <span class="text-slate-400">45 GB</span>
+                            </div>
+                            <div class="flex items-center text-sm">
+                                <div class="w-2 h-2 rounded-full bg-emerald-400 mr-2"></div>
+                                <span class="text-slate-600 flex-1">圖片 (Images)</span>
+                                <span class="text-slate-400">20 GB</span>
+                            </div>
+                            <div class="flex items-center text-sm">
+                                <div class="w-2 h-2 rounded-full bg-amber-400 mr-2"></div>
+                                <span class="text-slate-600 flex-1">其他 (Others)</span>
+                                <span class="text-slate-400">10.5 GB</span>
+                            </div>
+                        </div>
+                    </CardContent>
+                 </Card>
+            </div>
+        </div>
+    </div>
+</DashboardV2Layout>

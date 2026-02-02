@@ -1,0 +1,353 @@
+---
+import DashboardV2Layout from "../../../layouts/DashboardV2Layout.astro";
+import Button from "../../../components/ui/Button.astro";
+import Card from "../../../components/ui/Card.astro";
+import CardHeader from "../../../components/ui/CardHeader.astro";
+import CardTitle from "../../../components/ui/CardTitle.astro";
+import CardDescription from "../../../components/ui/CardDescription.astro";
+import CardContent from "../../../components/ui/CardContent.astro";
+import CardFooter from "../../../components/ui/CardFooter.astro";
+import Badge from "../../../components/ui/Badge.astro";
+import Avatar from "../../../components/ui/Avatar.astro";
+import AvatarFallback from "../../../components/ui/AvatarFallback.astro";
+import Progress from "../../../components/ui/Progress.astro";
+import Input from "../../../components/ui/Input.astro";
+import Separator from "../../../components/ui/Separator.astro";
+
+const projects = [
+    {
+        title: "Q1 Marketing Campaign",
+        status: "In Progress",
+        statusVariant: "soft-info",
+        category: "Marketing",
+        progress: 65,
+        dueDate: "2026-03-31",
+        team: ["AL", "SJ", "MK"],
+        tasks: "12/18",
+    },
+    {
+        title: "Website Redesign V2",
+        status: "At Risk",
+        statusVariant: "soft-destructive",
+        category: "Design",
+        progress: 45,
+        dueDate: "2026-02-28",
+        team: ["DK", "CL"],
+        tasks: "8/24",
+    },
+    {
+        title: "Mobile App MVP",
+        status: "Completed",
+        statusVariant: "soft-success",
+        category: "Development",
+        progress: 100,
+        dueDate: "2026-01-15",
+        team: ["EW", "JW", "AB", "CK"],
+        tasks: "45/45",
+    },
+    {
+        title: "Customer Support Portal",
+        status: "Planning",
+        statusVariant: "soft-warning",
+        category: "Development",
+        progress: 15,
+        dueDate: "2026-05-20",
+        team: ["TS", "DK"],
+        tasks: "3/15",
+    },
+    {
+        title: "Internal Analytics Dashboard",
+        status: "In Progress",
+        statusVariant: "soft-default",
+        category: "Internal Tools",
+        progress: 32,
+        dueDate: "2026-04-10",
+        team: ["DK", "EW"],
+        tasks: "15/48",
+    },
+    {
+        title: "Content Strategy 2026",
+        status: "Review",
+        statusVariant: "soft-info",
+        category: "Content",
+        progress: 90,
+        dueDate: "2026-02-10",
+        team: ["SJ"],
+        tasks: "28/30",
+    },
+];
+---
+
+<DashboardV2Layout title="專案管理 — CubbyPro">
+    <div class="space-y-6 max-w-7xl mx-auto">
+        <!-- Header -->
+        <div
+            class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4"
+        >
+            <div>
+                <h1 class="text-2xl font-bold tracking-tight">專案管理</h1>
+                <p class="text-muted-foreground mt-1">
+                    管理所有進行中的專案進度與資源分配。
+                </p>
+            </div>
+            <Button
+                class="bg-indigo-600 hover:bg-indigo-700 text-white gap-2 shadow-md"
+            >
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="shrink-0"
+                    ><path d="M5 12h14"></path><path d="M12 5v14"></path></svg
+                >
+                建立新專案
+            </Button>
+        </div>
+
+        <!-- Filters -->
+        <div
+            class="flex flex-col sm:flex-row gap-4 items-center bg-white p-2 rounded-lg border shadow-sm"
+        >
+            <div class="relative w-full sm:w-72">
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground shrink-0"
+                    ><circle cx="11" cy="11" r="8"></circle><path
+                        d="m21 21-4.3-4.3"></path></svg
+                >
+                <Input
+                    placeholder="搜尋專案..."
+                    class="pl-9 h-9 border-0 bg-transparent focus-visible:ring-0"
+                />
+            </div>
+            <div class="h-6 w-[1px] bg-border hidden sm:block"></div>
+            <div
+                class="flex items-center gap-2 w-full sm:w-auto overflow-x-auto pb-2 sm:pb-0"
+            >
+                <Button
+                    variant="ghost"
+                    size="sm"
+                    class="h-8 rounded-full bg-indigo-50 text-indigo-700 hover:bg-indigo-100 hover:text-indigo-800"
+                    >全部</Button
+                >
+                <Button
+                    variant="ghost"
+                    size="sm"
+                    class="h-8 rounded-full text-slate-600 hover:bg-slate-100"
+                    >進行中</Button
+                >
+                <Button
+                    variant="ghost"
+                    size="sm"
+                    class="h-8 rounded-full text-slate-600 hover:bg-slate-100"
+                    >已完成</Button
+                >
+                <Button
+                    variant="ghost"
+                    size="sm"
+                    class="h-8 rounded-full text-slate-600 hover:bg-slate-100"
+                    >規劃中</Button
+                >
+            </div>
+            <div class="ml-auto flex items-center gap-2">
+                <Button variant="outline" size="sm" class="h-8 w-8 p-0">
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        class="shrink-0"
+                        ><rect width="7" height="7" x="3" y="3" rx="1"
+                        ></rect><rect width="7" height="7" x="14" y="3" rx="1"
+                        ></rect><rect width="7" height="7" x="14" y="14" rx="1"
+                        ></rect><rect width="7" height="7" x="3" y="14" rx="1"
+                        ></rect></svg
+                    >
+                </Button>
+                <Button
+                    variant="ghost"
+                    size="sm"
+                    class="h-8 w-8 p-0 text-muted-foreground"
+                >
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        class="shrink-0"
+                        ><line x1="8" x2="21" y1="6" y2="6"></line><line
+                            x1="8"
+                            x2="21"
+                            y1="12"
+                            y2="12"></line><line x1="8" x2="21" y1="18" y2="18"
+                        ></line><line x1="3" x2="3.01" y1="6" y2="6"
+                        ></line><line x1="3" x2="3.01" y1="12" y2="12"
+                        ></line><line x1="3" x2="3.01" y1="18" y2="18"
+                        ></line></svg
+                    >
+                </Button>
+            </div>
+        </div>
+
+        <!-- Project Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {
+                projects.map((project) => (
+                    <Card class="hover:shadow-md transition-shadow duration-200 border shadow-sm">
+                        <CardHeader class="pb-3">
+                            <div class="flex justify-between items-start mb-2">
+                                <Badge
+                                    variant={project.statusVariant as any}
+                                    class="rounded-md px-2 py-1 uppercase text-[10px] tracking-wider font-bold"
+                                >
+                                    {project.status}
+                                </Badge>
+                                <button class="text-slate-400 hover:text-slate-600">
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        width="16"
+                                        height="16"
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        stroke-width="2"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        class="shrink-0"
+                                    >
+                                        <>
+                                            <circle cx="12" cy="12" r="1" />
+                                            <circle cx="19" cy="12" r="1" />
+                                            <circle cx="5" cy="12" r="1" />
+                                        </>
+                                    </svg>
+                                </button>
+                            </div>
+                            <CardTitle class="text-lg leading-tight group-hover:text-indigo-600 transition-colors cursor-pointer">
+                                {project.title}
+                            </CardTitle>
+                            <CardDescription>
+                                {project.category}
+                            </CardDescription>
+                        </CardHeader>
+                        <CardContent class="pb-4">
+                            <div class="space-y-4">
+                                <div class="space-y-1.5">
+                                    <div class="flex justify-between text-xs font-medium">
+                                        <span class="text-slate-500">
+                                            進度 ({project.progress}%)
+                                        </span>
+                                        <span class="text-slate-700">
+                                            {project.tasks} 任務
+                                        </span>
+                                    </div>
+                                    <Progress
+                                        value={project.progress}
+                                        class="h-2"
+                                    />
+                                </div>
+                            </div>
+                        </CardContent>
+                        <CardFooter class="pt-0 flex items-center justify-between border-t bg-slate-50/50 p-4">
+                            <div class="flex -space-x-2">
+                                {project.team.map((member) => (
+                                    <Avatar class="h-7 w-7 border-2 border-white ring-1 ring-slate-200">
+                                        <AvatarFallback class="text-[9px] bg-slate-200 text-slate-600">
+                                            {member}
+                                        </AvatarFallback>
+                                    </Avatar>
+                                ))}
+                            </div>
+                            <div class="flex items-center gap-1.5 text-xs text-slate-500 bg-white border px-2 py-1 rounded-full shadow-sm">
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="12"
+                                    height="12"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    class="shrink-0"
+                                >
+                                    <>
+                                        <rect
+                                            width="18"
+                                            height="18"
+                                            x="3"
+                                            y="4"
+                                            rx="2"
+                                            ry="2"
+                                        />
+                                        <line x1="16" x2="16" y1="2" y2="6" />
+                                        <line x1="8" x2="8" y1="2" y2="6" />
+                                        <line x1="3" x2="21" y1="10" y2="10" />
+                                    </>
+                                </svg>
+                                {project.dueDate}
+                            </div>
+                        </CardFooter>
+                    </Card>
+                ))
+            }
+
+            <!-- New Project Placeholder Card -->
+            <button
+                class="flex flex-col items-center justify-center p-8 border-2 border-dashed border-slate-200 rounded-xl hover:border-indigo-400 hover:bg-slate-50 transition-all group h-full min-h-[220px]"
+            >
+                <div
+                    class="w-12 h-12 rounded-full bg-slate-100 flex items-center justify-center text-slate-400 mb-3 group-hover:bg-indigo-100 group-hover:text-indigo-600 transition-colors"
+                >
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        class="shrink-0"
+                        ><line x1="12" x2="12" y1="5" y2="19"></line><line
+                            x1="5"
+                            x2="19"
+                            y1="12"
+                            y2="12"></line></svg
+                    >
+                </div>
+                <p
+                    class="font-medium text-slate-600 group-hover:text-indigo-700"
+                >
+                    建立新專案
+                </p>
+                <p class="text-xs text-slate-400 mt-1">開始一個新的協作空間</p>
+            </button>
+        </div>
+    </div>
+</DashboardV2Layout>

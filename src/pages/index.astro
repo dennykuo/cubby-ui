@@ -3,38 +3,44 @@ import Layout from "../layouts/Layout.astro";
 import Button from "../components/ui/Button.astro";
 import { Code } from "astro-expressive-code/components";
 
-const quickStartCode = `<!-- 1. 引入 CSS -->
-<link rel="stylesheet" href="/styles/cubby-ui.css" />
-
-<!-- 2. 直接使用元件 -->
-<button class="cu-button cu-button-default cu-button-md">
-  Click me
-</button>
-
-<div class="cu-card">
+const quickStartCode = `<div class="cu-card" style="max-width: 24rem;">
   <div class="cu-card-header">
-    <h3 class="cu-card-title">Hello</h3>
+    <h3 class="cu-card-title">Sign In</h3>
+    <p class="cu-card-description">Enter your credentials to continue.</p>
   </div>
   <div class="cu-card-content">
-    <p>就是這麼簡單。</p>
+    <div class="cu-form-group">
+      <label class="cu-label">Email</label>
+      <input class="cu-input" type="email" placeholder="you@example.com" />
+    </div>
+    <div class="cu-form-group">
+      <label class="cu-label">Password</label>
+      <input class="cu-input" type="password" placeholder="••••••••" />
+    </div>
+  </div>
+  <div class="cu-card-footer">
+    <button class="cu-button cu-button-default cu-button-md w-full">
+      Sign In
+    </button>
   </div>
 </div>`.trim();
 ---
 
 <Layout title="Cubby UI — Elegant Tailwind CSS Components">
     <!-- Hero -->
-    <div class="space-y-5">
-        <div class="flex items-center gap-2">
-            <span class="cu-badge cu-badge-secondary">v1.0</span>
-            <span class="text-xs text-muted-foreground">Tailwind CSS v4</span>
+    <div class="space-y-6 pb-2">
+        <div class="flex items-center gap-2.5">
+            <span class="cu-badge cu-badge-default text-[11px]">v1.0</span>
+            <span class="text-xs text-muted-foreground">Built on Tailwind CSS v4</span>
         </div>
-        <h1 class="text-4xl font-bold tracking-tight sm:text-5xl">
-            精緻優雅的<br />UI 元件庫
+        <h1 class="text-4xl font-bold tracking-tight sm:text-5xl leading-[1.15]">
+            Beautifully crafted<br />UI components
         </h1>
-        <p class="text-lg text-muted-foreground leading-relaxed max-w-xl">
-            框架無關。純 HTML + Tailwind CSS。複製貼上即可使用。
+        <p class="text-lg text-muted-foreground leading-relaxed max-w-lg">
+            Framework-agnostic. Pure HTML &amp; Tailwind CSS.<br class="hidden sm:block" />
+            Copy, paste, and ship.
         </p>
-        <div class="flex gap-3 pt-1">
+        <div class="flex gap-3 pt-2">
             <a href="/usage">
                 <Button>Get Started</Button>
             </a>
@@ -44,140 +50,175 @@ const quickStartCode = `<!-- 1. 引入 CSS -->
         </div>
     </div>
 
-    <div class="mt-14 space-y-12">
-        <!-- What is Cubby UI -->
-        <section class="space-y-3">
-            <h2 class="text-lg font-semibold tracking-tight">什麼是 Cubby UI？</h2>
+    <!-- Divider -->
+    <div class="cu-separator my-12"></div>
+
+    <div class="space-y-14">
+        <!-- Features -->
+        <section class="space-y-6">
+            <h2 class="text-xl font-semibold tracking-tight">Why Cubby UI?</h2>
+            <div class="grid gap-4 sm:grid-cols-2">
+                <div class="rounded-xl border border-border p-5 space-y-2">
+                    <div class="flex items-center gap-2.5">
+                        <div class="flex size-8 items-center justify-center rounded-lg bg-primary/8 text-primary">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><line x1="3" x2="21" y1="9" y2="9"/><line x1="9" x2="9" y1="21" y2="9"/></svg>
+                        </div>
+                        <p class="text-sm font-semibold">Framework-agnostic</p>
+                    </div>
+                    <p class="text-sm text-muted-foreground leading-relaxed">Pure HTML + Tailwind CSS. Works with any stack — React, Vue, Svelte, or vanilla HTML.</p>
+                </div>
+                <div class="rounded-xl border border-border p-5 space-y-2">
+                    <div class="flex items-center gap-2.5">
+                        <div class="flex size-8 items-center justify-center rounded-lg bg-primary/8 text-primary">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+                        </div>
+                        <p class="text-sm font-semibold">Copy &amp; paste</p>
+                    </div>
+                    <p class="text-sm text-muted-foreground leading-relaxed">Not an npm package. Copy what you need directly into your project. You own the code.</p>
+                </div>
+                <div class="rounded-xl border border-border p-5 space-y-2">
+                    <div class="flex items-center gap-2.5">
+                        <div class="flex size-8 items-center justify-center rounded-lg bg-primary/8 text-primary">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.376 3.622a1 1 0 0 1 3.002 3.002L7.368 18.635a2 2 0 0 1-.855.506l-2.872.838a.5.5 0 0 1-.62-.62l.838-2.872a2 2 0 0 1 .506-.854z"/></svg>
+                        </div>
+                        <p class="text-sm font-semibold">Semantic classes</p>
+                    </div>
+                    <p class="text-sm text-muted-foreground leading-relaxed">Consistent <code class="cu-code">cu-</code> prefix naming. Readable, composable, and easy to remember.</p>
+                </div>
+                <div class="rounded-xl border border-border p-5 space-y-2">
+                    <div class="flex items-center gap-2.5">
+                        <div class="flex size-8 items-center justify-center rounded-lg bg-primary/8 text-primary">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                        </div>
+                        <p class="text-sm font-semibold">Minimal JS</p>
+                    </div>
+                    <p class="text-sm text-muted-foreground leading-relaxed">Most components are CSS-only. Interactive ones use a tiny vanilla JS script with <code class="cu-code">data-*</code> attributes.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quick Start -->
+        <section class="space-y-5">
+            <h2 class="text-xl font-semibold tracking-tight">Quick start</h2>
             <p class="text-base text-muted-foreground leading-relaxed">
-                Cubby UI 是一套框架無關的 UI 元件庫，風格參考 shadcn/ui，但不依賴 React、Vue 或任何 JavaScript 框架。所有元件以純 HTML + Tailwind CSS 類別實作，設計為可直接複製貼上到任何專案中使用。
+                Include the CSS, then use <code class="cu-code">cu-</code> prefixed classes in your HTML. No build step required.
+            </p>
+            <div class="rounded-xl border border-border overflow-hidden">
+                <div class="p-8 flex flex-wrap items-start justify-center gap-6 bg-background/50 relative">
+                    <div class="absolute inset-0 -z-10 bg-white dark:bg-slate-950 bg-[radial-gradient(#f1f5f9_1px,transparent_1px)] dark:bg-[radial-gradient(#1e293b_1px,transparent_1px)] [background-size:16px_16px]"></div>
+                    <button class="cu-button cu-button-default cu-button-md">Click me</button>
+                    <div class="cu-card max-w-xs w-full">
+                        <div class="cu-card-header">
+                            <h3 class="cu-card-title">Hello World</h3>
+                            <p class="cu-card-description">It's that simple.</p>
+                        </div>
+                        <div class="cu-card-content">
+                            <p>No build step required.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="border-t border-border/40 bg-muted/30">
+                    <div class="flex items-center justify-between px-4 py-2.5 border-b border-border/20">
+                        <span class="text-[11px] font-medium uppercase tracking-wider text-muted-foreground/60">HTML</span>
+                    </div>
+                    <div class="px-4 py-3">
+                        <Code code={quickStartCode} lang="html" />
+                    </div>
+                </div>
+            </div>
+            <p class="text-sm text-muted-foreground">
+                See the <a href="/usage" class="text-primary hover:underline underline-offset-4">Usage guide</a> for detailed setup instructions.
             </p>
         </section>
 
-        <!-- Features -->
-        <section class="space-y-3">
-            <h2 class="text-lg font-semibold tracking-tight">特色</h2>
-            <ul class="space-y-2 text-base text-muted-foreground leading-relaxed">
-                <li class="flex items-start gap-2">
-                    <span class="mt-1.5 h-1.5 w-1.5 rounded-full bg-primary shrink-0"></span>
-                    <span><strong class="text-foreground">框架無關</strong> — 純 HTML + Tailwind CSS，可搭配任何技術棧使用</span>
-                </li>
-                <li class="flex items-start gap-2">
-                    <span class="mt-1.5 h-1.5 w-1.5 rounded-full bg-primary shrink-0"></span>
-                    <span><strong class="text-foreground">複製貼上</strong> — 不是 npm 套件，直接複製需要的元件到專案中</span>
-                </li>
-                <li class="flex items-start gap-2">
-                    <span class="mt-1.5 h-1.5 w-1.5 rounded-full bg-primary shrink-0"></span>
-                    <span><strong class="text-foreground">語意化類別</strong> — 統一的 <code class="cu-code">cu-</code> 前綴命名，語意清晰易讀</span>
-                </li>
-                <li class="flex items-start gap-2">
-                    <span class="mt-1.5 h-1.5 w-1.5 rounded-full bg-primary shrink-0"></span>
-                    <span><strong class="text-foreground">設計精緻</strong> — 簡約優雅的視覺風格，支援亮色與暗色模式</span>
-                </li>
-                <li class="flex items-start gap-2">
-                    <span class="mt-1.5 h-1.5 w-1.5 rounded-full bg-primary shrink-0"></span>
-                    <span><strong class="text-foreground">極少 JavaScript</strong> — 僅互動元件需要少量 vanilla JS，使用 <code class="cu-code">data-*</code> 屬性管理狀態</span>
-                </li>
-            </ul>
-        </section>
-
         <!-- Component Categories -->
-        <section class="space-y-4">
-            <h2 class="text-lg font-semibold tracking-tight">元件分類</h2>
+        <section class="space-y-5">
+            <h2 class="text-xl font-semibold tracking-tight">Components</h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
+                60+ components across 8 categories, from buttons and forms to overlays and navigation.
+            </p>
             <div class="grid gap-3 sm:grid-cols-2">
-                <!-- Typography -->
                 <a href="/components/headings" class="rounded-xl border border-border p-5 space-y-2 transition-all duration-200 hover:border-primary/30 hover:shadow-sm group">
                     <div class="flex items-center gap-2.5">
                         <div class="flex size-8 items-center justify-center rounded-lg bg-primary/8 text-primary">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7V4h16v3"/><path d="M9 20h6"/><path d="M12 4v16"/></svg>
                         </div>
                         <p class="text-sm font-semibold group-hover:text-primary transition-colors duration-150">Typography</p>
+                        <span class="text-[11px] text-muted-foreground/60 ml-auto">7</span>
                     </div>
-                    <p class="text-xs text-muted-foreground">Headings、Paragraphs、Blockquote、Lists、Links、Text、HR</p>
+                    <p class="text-xs text-muted-foreground leading-relaxed">Headings, Paragraphs, Blockquote, Lists, Links, Text, HR</p>
                 </a>
-                <!-- Basic -->
                 <a href="/components/button" class="rounded-xl border border-border p-5 space-y-2 transition-all duration-200 hover:border-primary/30 hover:shadow-sm group">
                     <div class="flex items-center gap-2.5">
                         <div class="flex size-8 items-center justify-center rounded-lg bg-primary/8 text-primary">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M9 8h6"/><path d="M9 12h6"/><path d="M9 16h6"/></svg>
                         </div>
                         <p class="text-sm font-semibold group-hover:text-primary transition-colors duration-150">Basic</p>
+                        <span class="text-[11px] text-muted-foreground/60 ml-auto">5</span>
                     </div>
-                    <p class="text-xs text-muted-foreground">Button、Button Group、Card、Color、Separator</p>
+                    <p class="text-xs text-muted-foreground leading-relaxed">Button, Button Group, Card, Color, Separator</p>
                 </a>
-                <!-- Forms -->
                 <a href="/components/input" class="rounded-xl border border-border p-5 space-y-2 transition-all duration-200 hover:border-primary/30 hover:shadow-sm group">
                     <div class="flex items-center gap-2.5">
                         <div class="flex size-8 items-center justify-center rounded-lg bg-primary/8 text-primary">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="12" x="2" y="6" rx="2"/><path d="M12 12h.01"/><path d="M17 12h.01"/><path d="M7 12h.01"/></svg>
                         </div>
                         <p class="text-sm font-semibold group-hover:text-primary transition-colors duration-150">Forms</p>
+                        <span class="text-[11px] text-muted-foreground/60 ml-auto">16</span>
                     </div>
-                    <p class="text-xs text-muted-foreground">Input、Select、Checkbox、Radio、Toggle、Combobox、Multi Select 等</p>
+                    <p class="text-xs text-muted-foreground leading-relaxed">Input, Select, Checkbox, Radio, Toggle, Combobox, Multi Select &amp; more</p>
                 </a>
-                <!-- Data Display -->
                 <a href="/components/accordion" class="rounded-xl border border-border p-5 space-y-2 transition-all duration-200 hover:border-primary/30 hover:shadow-sm group">
                     <div class="flex items-center gap-2.5">
                         <div class="flex size-8 items-center justify-center rounded-lg bg-primary/8 text-primary">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3h18"/><path d="M3 9h18"/><path d="M3 15h12"/><path d="M3 21h18"/></svg>
                         </div>
                         <p class="text-sm font-semibold group-hover:text-primary transition-colors duration-150">Data Display</p>
+                        <span class="text-[11px] text-muted-foreground/60 ml-auto">8</span>
                     </div>
-                    <p class="text-xs text-muted-foreground">Accordion、Avatar、Badge、Data Table、Tree View 等</p>
+                    <p class="text-xs text-muted-foreground leading-relaxed">Accordion, Avatar, Badge, Collapsible, Data Table, Stat Card, Table, Tree View</p>
                 </a>
-                <!-- Feedback -->
                 <a href="/components/alert" class="rounded-xl border border-border p-5 space-y-2 transition-all duration-200 hover:border-primary/30 hover:shadow-sm group">
                     <div class="flex items-center gap-2.5">
                         <div class="flex size-8 items-center justify-center rounded-lg bg-primary/8 text-primary">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16h.01"/><path d="M12 8v4"/><circle cx="12" cy="12" r="10"/></svg>
                         </div>
                         <p class="text-sm font-semibold group-hover:text-primary transition-colors duration-150">Feedback</p>
+                        <span class="text-[11px] text-muted-foreground/60 ml-auto">5</span>
                     </div>
-                    <p class="text-xs text-muted-foreground">Alert、Progress、Skeleton、Toast、Empty State</p>
+                    <p class="text-xs text-muted-foreground leading-relaxed">Alert, Empty State, Progress, Skeleton, Toast</p>
                 </a>
-                <!-- Overlay -->
                 <a href="/components/dialog" class="rounded-xl border border-border p-5 space-y-2 transition-all duration-200 hover:border-primary/30 hover:shadow-sm group">
                     <div class="flex items-center gap-2.5">
                         <div class="flex size-8 items-center justify-center rounded-lg bg-primary/8 text-primary">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M8 7v7"/><path d="M12 7v4"/><path d="M16 7v7"/></svg>
                         </div>
                         <p class="text-sm font-semibold group-hover:text-primary transition-colors duration-150">Overlay</p>
+                        <span class="text-[11px] text-muted-foreground/60 ml-auto">7</span>
                     </div>
-                    <p class="text-xs text-muted-foreground">Dialog、Drawer、Dropdown、Popover、Tooltip 等</p>
+                    <p class="text-xs text-muted-foreground leading-relaxed">Alert Dialog, Dialog, Drawer, Dropdown, Hover Card, Popover, Tooltip</p>
                 </a>
-                <!-- Navigation -->
                 <a href="/components/breadcrumb" class="rounded-xl border border-border p-5 space-y-2 transition-all duration-200 hover:border-primary/30 hover:shadow-sm group">
                     <div class="flex items-center gap-2.5">
                         <div class="flex size-8 items-center justify-center rounded-lg bg-primary/8 text-primary">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m8 12 4 4 4-4"/><path d="M12 8v8"/></svg>
                         </div>
                         <p class="text-sm font-semibold group-hover:text-primary transition-colors duration-150">Navigation</p>
+                        <span class="text-[11px] text-muted-foreground/60 ml-auto">5</span>
                     </div>
-                    <p class="text-xs text-muted-foreground">Breadcrumb、Menubar、Pagination、Steps、Tabs</p>
+                    <p class="text-xs text-muted-foreground leading-relaxed">Breadcrumb, Menubar, Pagination, Steps, Tabs</p>
                 </a>
-                <!-- Layouts -->
                 <a href="/components/container" class="rounded-xl border border-border p-5 space-y-2 transition-all duration-200 hover:border-primary/30 hover:shadow-sm group">
                     <div class="flex items-center gap-2.5">
                         <div class="flex size-8 items-center justify-center rounded-lg bg-primary/8 text-primary">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M9 3v18"/><path d="M3 9h6"/></svg>
                         </div>
                         <p class="text-sm font-semibold group-hover:text-primary transition-colors duration-150">Layouts</p>
+                        <span class="text-[11px] text-muted-foreground/60 ml-auto">6</span>
                     </div>
-                    <p class="text-xs text-muted-foreground">Container、Header、Nav、Scroll Area、Sidebar、Toolbar</p>
+                    <p class="text-xs text-muted-foreground leading-relaxed">Container, Header, Nav, Scroll Area, Sidebar, Toolbar</p>
                 </a>
             </div>
-        </section>
-        <!-- Quick Start -->
-        <section class="space-y-4">
-            <h2 class="text-lg font-semibold tracking-tight">快速開始</h2>
-            <p class="text-base text-muted-foreground leading-relaxed">
-                引入 CSS，然後直接在 HTML 中使用 <code class="cu-code">cu-</code> 前綴的類別。
-            </p>
-            <div class="rounded-xl border border-border overflow-hidden">
-                <Code code={quickStartCode} lang="html" />
-            </div>
-            <p class="text-sm text-muted-foreground">
-                詳細說明請參閱 <a href="/usage" class="text-primary hover:underline">使用方式</a> 頁面。
-            </p>
         </section>
     </div>
 </Layout>

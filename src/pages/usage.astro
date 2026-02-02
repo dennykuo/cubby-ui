@@ -2,38 +2,34 @@
 import Layout from "../layouts/Layout.astro";
 import { Code } from "astro-expressive-code/components";
 
-const cssImportCode = `/* 在你的主要 CSS 檔案中引入 */
-@import "tailwindcss";
+const cssImportCode = `@import "tailwindcss";
 
-/* 引入 Cubby UI 元件樣式 */
+/* Cubby UI component styles */
 @import "./cubby-ui/components.css";
 
-/* 引入設計 token（色彩、字型等） */
+/* Design tokens (colors, fonts, etc.) */
 @import "./cubby-ui/global.css";`;
 
 const htmlStructureCode = `<!DOCTYPE html>
-<html lang="zh-Hant">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="/styles/main.css" />
 </head>
 <body>
-  <!-- 你的內容 -->
+  <!-- Your content -->
 
-  <!-- 互動元件需要此腳本 -->
+  <!-- Only needed for interactive components -->
   <script src="/scripts/cubby-ui.js"><\/script>
 </body>
 </html>`;
 
-const buttonExample = `<!-- Button -->
-<button class="cu-button">Default</button>
-<button class="cu-button cu-button-outline">Outline</button>
-<button class="cu-button cu-button-destructive">Destructive</button>
-<button class="cu-button cu-button-sm">Small</button>`;
+const buttonExample = `<button class="cu-button cu-button-default cu-button-md">Default</button>
+<button class="cu-button cu-button-outline cu-button-md">Outline</button>
+<button class="cu-button cu-button-destructive cu-button-md">Destructive</button>`;
 
-const cardExample = `<!-- Card -->
-<div class="cu-card">
+const cardExample = `<div class="cu-card">
   <div class="cu-card-header">
     <h3 class="cu-card-title">Card Title</h3>
     <p class="cu-card-description">Card description here.</p>
@@ -42,161 +38,318 @@ const cardExample = `<!-- Card -->
     <p>Card content goes here.</p>
   </div>
   <div class="cu-card-footer">
-    <button class="cu-button">Action</button>
+    <button class="cu-button cu-button-default cu-button-md">Action</button>
   </div>
 </div>`;
 
-const tabsExample = `<!-- Tabs（需要 cubby-ui.js） -->
-<div data-cu-tabs>
+const tabsExample = `<div class="cu-tabs" data-cu-tabs>
   <div class="cu-tabs-list">
     <button class="cu-tabs-trigger cu-tabs-trigger-active"
-            data-cu-tabs-trigger data-cu-value="tab1">Tab 1</button>
+            data-cu-tabs-trigger="tab1">Tab 1</button>
     <button class="cu-tabs-trigger"
-            data-cu-tabs-trigger data-cu-value="tab2">Tab 2</button>
+            data-cu-tabs-trigger="tab2">Tab 2</button>
   </div>
-  <div class="cu-tabs-content cu-tabs-content-active"
-       data-cu-tabs-content data-cu-value="tab1">
+  <div class="cu-tabs-content" data-cu-tabs-content="tab1">
     Content for tab 1
   </div>
-  <div class="cu-tabs-content"
-       data-cu-tabs-content data-cu-value="tab2">
+  <div class="cu-tabs-content" data-cu-tabs-content="tab2" hidden>
     Content for tab 2
   </div>
-</div>`;
+</div>
 
-const classNamingCode = `/* 基礎類別 */
-cu-{component}              /* cu-button, cu-card, cu-input */
+<script>
+  document.querySelectorAll("[data-cu-tabs]").forEach((tabs) => {
+    const triggers = tabs.querySelectorAll("[data-cu-tabs-trigger]");
+    const contents = tabs.querySelectorAll("[data-cu-tabs-content]");
+    triggers.forEach((trigger) => {
+      trigger.addEventListener("click", () => {
+        const value = trigger.getAttribute("data-cu-tabs-trigger");
+        triggers.forEach((t) => t.classList.toggle("cu-tabs-trigger-active", t === trigger));
+        contents.forEach((c) => {
+          c.hidden = c.getAttribute("data-cu-tabs-content") !== value;
+        });
+      });
+    });
+  });
+<\\/script>`;
 
-/* 變體 */
+const classNamingCode = `cu-{component}              /* cu-button, cu-card, cu-input */
 cu-{component}-{variant}    /* cu-button-outline, cu-button-destructive */
-
-/* 尺寸 */
 cu-{component}-{size}       /* cu-button-sm, cu-button-lg */
-
-/* 子元件 */
 cu-{component}-{part}       /* cu-card-header, cu-card-title */
-
-/* 狀態 */
 cu-{component}-{state}      /* cu-tabs-trigger-active */`;
 
-const jsComponentsList = `/* cubby-ui.js 涵蓋以下互動元件 */
-Tabs          — data-cu-tabs
-Dropdown      — data-cu-dropdown
-Combobox      — data-cu-combobox
-Multi Select  — data-cu-multi-select
-Number Input  — data-cu-number-input
-Dropzone      — data-cu-dropzone
-Transfer List — data-cu-transfer-list`;
-
-const darkModeCode = `<!-- 在 <html> 或 <body> 加上 .dark class 即可切換暗色模式 -->
-<html class="dark">
+const darkModeCode = `<html class="dark">
   ...
 </html>`;
 ---
 
 <Layout title="Usage — Cubby UI">
     <div class="space-y-3">
-        <h1 class="text-3xl font-bold tracking-tight">使用方式</h1>
+        <h1 class="text-3xl font-bold tracking-tight">Usage</h1>
         <p class="text-base text-muted-foreground leading-relaxed">
-            如何在你的專案中使用 Cubby UI 元件。
+            How to add Cubby UI to your project.
         </p>
     </div>
 
-    <div class="mt-10 space-y-10">
+    <div class="mt-10 space-y-12">
         <!-- Step 1: Copy Files -->
-        <section class="space-y-3">
-            <h2 class="text-lg font-semibold tracking-tight">1. 複製檔案</h2>
-            <p class="text-sm text-muted-foreground leading-relaxed">
-                將以下檔案複製到你的專案中：
+        <section class="space-y-4">
+            <div class="flex items-center gap-3">
+                <div class="flex size-7 items-center justify-center rounded-full bg-primary text-primary-foreground text-xs font-semibold shrink-0">1</div>
+                <h2 class="text-lg font-semibold tracking-tight">Copy the files</h2>
+            </div>
+            <p class="text-base text-muted-foreground leading-relaxed pl-10">
+                Copy these files into your project:
             </p>
-            <ul class="space-y-1.5 text-sm text-muted-foreground leading-relaxed ml-4">
-                <li class="flex items-start gap-2">
-                    <span class="mt-1 h-1.5 w-1.5 rounded-full bg-primary shrink-0"></span>
-                    <span><code class="cu-code">styles/global.css</code> — 設計 token（色彩、字型、間距等主題變數）</span>
-                </li>
-                <li class="flex items-start gap-2">
-                    <span class="mt-1 h-1.5 w-1.5 rounded-full bg-primary shrink-0"></span>
-                    <span><code class="cu-code">styles/components.css</code> + <code class="cu-code">styles/components/</code> — 元件 CSS 類別</span>
-                </li>
-                <li class="flex items-start gap-2">
-                    <span class="mt-1 h-1.5 w-1.5 rounded-full bg-primary shrink-0"></span>
-                    <span><code class="cu-code">scripts/cubby-ui.js</code> — 互動元件腳本（選用，僅互動元件需要）</span>
-                </li>
-            </ul>
+            <div class="pl-10 space-y-2">
+                <div class="flex items-start gap-3 rounded-lg border border-border p-3.5">
+                    <div class="flex size-8 items-center justify-center rounded-lg bg-muted shrink-0 mt-0.5">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-muted-foreground"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/></svg>
+                    </div>
+                    <div>
+                        <p class="text-sm font-medium"><code class="cu-code">styles/global.css</code></p>
+                        <p class="text-xs text-muted-foreground mt-0.5">Design tokens — colors, fonts, spacing, and theme variables</p>
+                    </div>
+                </div>
+                <div class="flex items-start gap-3 rounded-lg border border-border p-3.5">
+                    <div class="flex size-8 items-center justify-center rounded-lg bg-muted shrink-0 mt-0.5">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-muted-foreground"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/></svg>
+                    </div>
+                    <div>
+                        <p class="text-sm font-medium"><code class="cu-code">styles/components.css</code> + <code class="cu-code">styles/components/</code></p>
+                        <p class="text-xs text-muted-foreground mt-0.5">Component CSS classes — the core of Cubby UI</p>
+                    </div>
+                </div>
+                <div class="flex items-start gap-3 rounded-lg border border-border p-3.5">
+                    <div class="flex size-8 items-center justify-center rounded-lg bg-muted shrink-0 mt-0.5">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-muted-foreground"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/></svg>
+                    </div>
+                    <div>
+                        <p class="text-sm font-medium"><code class="cu-code">scripts/cubby-ui.js</code> <span class="cu-badge cu-badge-secondary text-[10px] ml-1.5">Optional</span></p>
+                        <p class="text-xs text-muted-foreground mt-0.5">Vanilla JS for interactive components (Tabs, Dropdown, Combobox, etc.)</p>
+                    </div>
+                </div>
+            </div>
         </section>
 
         <!-- Step 2: Import CSS -->
-        <section class="space-y-3">
-            <h2 class="text-lg font-semibold tracking-tight">2. 引入 CSS</h2>
-            <p class="text-sm text-muted-foreground leading-relaxed">
-                在你的主要 CSS 檔案中引入 Cubby UI 的樣式。需要 <a href="https://tailwindcss.com" target="_blank" rel="noreferrer" class="underline underline-offset-4 hover:text-foreground transition-colors duration-150">Tailwind CSS v4</a> 作為基礎。
+        <section class="space-y-4">
+            <div class="flex items-center gap-3">
+                <div class="flex size-7 items-center justify-center rounded-full bg-primary text-primary-foreground text-xs font-semibold shrink-0">2</div>
+                <h2 class="text-lg font-semibold tracking-tight">Import the CSS</h2>
+            </div>
+            <p class="text-base text-muted-foreground leading-relaxed pl-10">
+                Add the imports to your main CSS file. Requires <a href="https://tailwindcss.com" target="_blank" rel="noreferrer" class="text-primary hover:underline underline-offset-4">Tailwind CSS v4</a>.
             </p>
-            <div class="rounded-xl border border-border overflow-hidden">
-                <Code code={cssImportCode} lang="css" />
+            <div class="pl-10 rounded-xl border border-border bg-muted/20 overflow-hidden">
+                <div class="flex items-center px-4 py-2.5 border-b border-border/40">
+                    <span class="text-[11px] font-medium uppercase tracking-wider text-muted-foreground/60">main.css</span>
+                </div>
+                <div class="px-4 py-3">
+                    <Code code={cssImportCode} lang="css" />
+                </div>
             </div>
         </section>
 
         <!-- Step 3: HTML Structure -->
-        <section class="space-y-3">
-            <h2 class="text-lg font-semibold tracking-tight">3. 頁面結構</h2>
-            <p class="text-sm text-muted-foreground leading-relaxed">
-                基本的 HTML 頁面結構。如果你的專案不使用互動元件（如 Tabs、Dropdown 等），可以省略 <code class="cu-code">cubby-ui.js</code>。
+        <section class="space-y-4">
+            <div class="flex items-center gap-3">
+                <div class="flex size-7 items-center justify-center rounded-full bg-primary text-primary-foreground text-xs font-semibold shrink-0">3</div>
+                <h2 class="text-lg font-semibold tracking-tight">Set up your HTML</h2>
+            </div>
+            <p class="text-base text-muted-foreground leading-relaxed pl-10">
+                Basic page structure. Skip <code class="cu-code">cubby-ui.js</code> if you only use CSS-only components.
             </p>
-            <div class="rounded-xl border border-border overflow-hidden">
-                <Code code={htmlStructureCode} lang="html" />
+            <div class="pl-10 rounded-xl border border-border bg-muted/20 overflow-hidden">
+                <div class="flex items-center px-4 py-2.5 border-b border-border/40">
+                    <span class="text-[11px] font-medium uppercase tracking-wider text-muted-foreground/60">index.html</span>
+                </div>
+                <div class="px-4 py-3">
+                    <Code code={htmlStructureCode} lang="html" />
+                </div>
             </div>
         </section>
+
+        <!-- Divider -->
+        <div class="cu-separator"></div>
 
         <!-- Class Naming -->
-        <section class="space-y-3">
-            <h2 class="text-lg font-semibold tracking-tight">類別命名規則</h2>
-            <p class="text-sm text-muted-foreground leading-relaxed">
-                所有元件使用 <code class="cu-code">cu-</code> 前綴，命名遵循一致的模式：
+        <section class="space-y-4">
+            <h2 class="text-lg font-semibold tracking-tight">Class naming convention</h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
+                All classes use the <code class="cu-code">cu-</code> prefix with a consistent pattern:
             </p>
-            <div class="rounded-xl border border-border overflow-hidden">
-                <Code code={classNamingCode} lang="css" />
+            <div class="rounded-xl border border-border bg-muted/20 overflow-hidden">
+                <div class="flex items-center px-4 py-2.5 border-b border-border/40">
+                    <span class="text-[11px] font-medium uppercase tracking-wider text-muted-foreground/60">Pattern</span>
+                </div>
+                <div class="px-4 py-3">
+                    <Code code={classNamingCode} lang="css" />
+                </div>
             </div>
         </section>
 
-        <!-- Pure CSS Examples -->
-        <section class="space-y-3">
-            <h2 class="text-lg font-semibold tracking-tight">純 CSS 元件範例</h2>
-            <p class="text-sm text-muted-foreground leading-relaxed">
-                大多數元件只需要 CSS 類別，不需要 JavaScript。
+        <!-- CSS-only Examples -->
+        <section class="space-y-4">
+            <h2 class="text-lg font-semibold tracking-tight">CSS-only components</h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
+                Most components work with just CSS classes — no JavaScript needed.
             </p>
-            <div class="space-y-4">
+            <div class="space-y-3">
                 <div class="rounded-xl border border-border overflow-hidden">
-                    <Code code={buttonExample} lang="html" />
+                    <div class="p-8 flex items-center justify-center gap-3 bg-background/50 relative">
+                        <div class="absolute inset-0 -z-10 bg-white dark:bg-slate-950 bg-[radial-gradient(#f1f5f9_1px,transparent_1px)] dark:bg-[radial-gradient(#1e293b_1px,transparent_1px)] [background-size:16px_16px]"></div>
+                        <button class="cu-button cu-button-default cu-button-md">Default</button>
+                        <button class="cu-button cu-button-outline cu-button-md">Outline</button>
+                        <button class="cu-button cu-button-destructive cu-button-md">Destructive</button>
+                    </div>
+                    <div class="border-t border-border/40 bg-muted/30">
+                        <div class="flex items-center px-4 py-2.5 border-b border-border/20">
+                            <span class="text-[11px] font-medium uppercase tracking-wider text-muted-foreground/60">Button</span>
+                        </div>
+                        <div class="px-4 py-3">
+                            <Code code={buttonExample} lang="html" />
+                        </div>
+                    </div>
                 </div>
                 <div class="rounded-xl border border-border overflow-hidden">
-                    <Code code={cardExample} lang="html" />
+                    <div class="p-8 flex items-center justify-center bg-background/50 relative">
+                        <div class="absolute inset-0 -z-10 bg-white dark:bg-slate-950 bg-[radial-gradient(#f1f5f9_1px,transparent_1px)] dark:bg-[radial-gradient(#1e293b_1px,transparent_1px)] [background-size:16px_16px]"></div>
+                        <div class="cu-card max-w-sm w-full">
+                            <div class="cu-card-header">
+                                <h3 class="cu-card-title">Card Title</h3>
+                                <p class="cu-card-description">Card description here.</p>
+                            </div>
+                            <div class="cu-card-content">
+                                <p>Card content goes here.</p>
+                            </div>
+                            <div class="cu-card-footer">
+                                <button class="cu-button cu-button-default cu-button-md">Action</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="border-t border-border/40 bg-muted/30">
+                        <div class="flex items-center px-4 py-2.5 border-b border-border/20">
+                            <span class="text-[11px] font-medium uppercase tracking-wider text-muted-foreground/60">Card</span>
+                        </div>
+                        <div class="px-4 py-3">
+                            <Code code={cardExample} lang="html" />
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
 
         <!-- Interactive Components -->
-        <section class="space-y-3">
-            <h2 class="text-lg font-semibold tracking-tight">互動元件</h2>
-            <p class="text-sm text-muted-foreground leading-relaxed">
-                部分元件需要 JavaScript 處理互動行為。引入 <code class="cu-code">cubby-ui.js</code> 後，使用 <code class="cu-code">data-cu-*</code> 屬性標記元素即可自動初始化。
+        <section class="space-y-4">
+            <h2 class="text-lg font-semibold tracking-tight">Interactive components</h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
+                Some components require JavaScript for interactivity. Include <code class="cu-code">cubby-ui.js</code> and use <code class="cu-code">data-cu-*</code> attributes to initialize them automatically.
             </p>
-            <div class="rounded-xl border border-border overflow-hidden">
-                <Code code={jsComponentsList} lang="text" />
+            <div class="rounded-lg border border-border overflow-hidden">
+                <div class="cu-table-wrapper">
+                    <table class="cu-table">
+                        <thead class="cu-table-header">
+                            <tr class="cu-table-row">
+                                <th class="cu-table-head">Component</th>
+                                <th class="cu-table-head">Data attribute</th>
+                            </tr>
+                        </thead>
+                        <tbody class="cu-table-body">
+                            <tr class="cu-table-row">
+                                <td class="cu-table-cell font-medium">Tabs</td>
+                                <td class="cu-table-cell text-muted-foreground"><code class="cu-code">data-cu-tabs</code></td>
+                            </tr>
+                            <tr class="cu-table-row">
+                                <td class="cu-table-cell font-medium">Dropdown</td>
+                                <td class="cu-table-cell text-muted-foreground"><code class="cu-code">data-cu-dropdown</code></td>
+                            </tr>
+                            <tr class="cu-table-row">
+                                <td class="cu-table-cell font-medium">Combobox</td>
+                                <td class="cu-table-cell text-muted-foreground"><code class="cu-code">data-cu-combobox</code></td>
+                            </tr>
+                            <tr class="cu-table-row">
+                                <td class="cu-table-cell font-medium">Multi Select</td>
+                                <td class="cu-table-cell text-muted-foreground"><code class="cu-code">data-cu-multi-select</code></td>
+                            </tr>
+                            <tr class="cu-table-row">
+                                <td class="cu-table-cell font-medium">Number Input</td>
+                                <td class="cu-table-cell text-muted-foreground"><code class="cu-code">data-cu-number-input</code></td>
+                            </tr>
+                            <tr class="cu-table-row">
+                                <td class="cu-table-cell font-medium">Dropzone</td>
+                                <td class="cu-table-cell text-muted-foreground"><code class="cu-code">data-cu-dropzone</code></td>
+                            </tr>
+                            <tr class="cu-table-row">
+                                <td class="cu-table-cell font-medium">Transfer List</td>
+                                <td class="cu-table-cell text-muted-foreground"><code class="cu-code">data-cu-transfer-list</code></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
             <div class="rounded-xl border border-border overflow-hidden">
-                <Code code={tabsExample} lang="html" />
+                <div class="p-8 flex items-center justify-center bg-background/50 relative">
+                    <div class="absolute inset-0 -z-10 bg-white dark:bg-slate-950 bg-[radial-gradient(#f1f5f9_1px,transparent_1px)] dark:bg-[radial-gradient(#1e293b_1px,transparent_1px)] [background-size:16px_16px]"></div>
+                    <div class="cu-tabs w-full max-w-md" data-cu-tabs>
+                        <div class="cu-tabs-list">
+                            <button class="cu-tabs-trigger cu-tabs-trigger-active" data-cu-tabs-trigger="tab1">Tab 1</button>
+                            <button class="cu-tabs-trigger" data-cu-tabs-trigger="tab2">Tab 2</button>
+                        </div>
+                        <div class="cu-tabs-content" data-cu-tabs-content="tab1">
+                            Content for tab 1
+                        </div>
+                        <div class="cu-tabs-content" data-cu-tabs-content="tab2" hidden>
+                            Content for tab 2
+                        </div>
+                    </div>
+                </div>
+                <div class="border-t border-border/40 bg-muted/30">
+                    <div class="flex items-center px-4 py-2.5 border-b border-border/20">
+                        <span class="text-[11px] font-medium uppercase tracking-wider text-muted-foreground/60">Tabs example</span>
+                    </div>
+                    <div class="px-4 py-3">
+                        <Code code={tabsExample} lang="html" />
+                    </div>
+                </div>
             </div>
         </section>
 
         <!-- Dark Mode -->
-        <section class="space-y-3">
-            <h2 class="text-lg font-semibold tracking-tight">暗色模式</h2>
-            <p class="text-sm text-muted-foreground leading-relaxed">
-                Cubby UI 內建暗色模式支援。在根元素加上 <code class="cu-code">dark</code> class 即可啟用。
+        <section class="space-y-4">
+            <h2 class="text-lg font-semibold tracking-tight">Dark mode</h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
+                Cubby UI includes built-in dark mode support. Add the <code class="cu-code">dark</code> class to your root element.
             </p>
-            <div class="rounded-xl border border-border overflow-hidden">
-                <Code code={darkModeCode} lang="html" />
+            <div class="rounded-xl border border-border bg-muted/20 overflow-hidden">
+                <div class="flex items-center px-4 py-2.5 border-b border-border/40">
+                    <span class="text-[11px] font-medium uppercase tracking-wider text-muted-foreground/60">HTML</span>
+                </div>
+                <div class="px-4 py-3">
+                    <Code code={darkModeCode} lang="html" />
+                </div>
             </div>
         </section>
     </div>
 </Layout>
+
+<script>
+    function setupUsageTabs() {
+        document.querySelectorAll("[data-cu-tabs]").forEach((tabs) => {
+            const triggers = tabs.querySelectorAll("[data-cu-tabs-trigger]");
+            const contents = tabs.querySelectorAll("[data-cu-tabs-content]");
+            triggers.forEach((trigger) => {
+                trigger.addEventListener("click", () => {
+                    const value = trigger.getAttribute("data-cu-tabs-trigger");
+                    triggers.forEach((t) => t.classList.toggle("cu-tabs-trigger-active", t === trigger));
+                    contents.forEach((c) => {
+                        (c as HTMLElement).hidden = c.getAttribute("data-cu-tabs-content") !== value;
+                    });
+                });
+            });
+        });
+    }
+    setupUsageTabs();
+    document.addEventListener("astro:page-load", setupUsageTabs);
+</script>

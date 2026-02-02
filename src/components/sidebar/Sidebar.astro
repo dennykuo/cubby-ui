@@ -119,9 +119,9 @@ const isInGroup = (items: { href: string }[]) =>
 
 		<SidebarSection title="Components">
 			<div class="space-y-4">
-				<SidebarGroup title="Typography" open={isInGroup(typographyComponents)}>
+				<SidebarGroup title="Layouts" open={isInGroup(layoutComponents)}>
 					{
-						typographyComponents.map((item) => (
+						layoutComponents.map((item) => (
 							<SidebarLink href={item.href} currentPath={currentPath}>
 								{item.name}
 							</SidebarLink>
@@ -139,9 +139,19 @@ const isInGroup = (items: { href: string }[]) =>
 					}
 				</SidebarGroup>
 
-				<SidebarGroup title="Forms" open={isInGroup(formComponents)}>
+				<SidebarGroup title="Typography" open={isInGroup(typographyComponents)}>
 					{
-						formComponents.map((item) => (
+						typographyComponents.map((item) => (
+							<SidebarLink href={item.href} currentPath={currentPath}>
+								{item.name}
+							</SidebarLink>
+						))
+					}
+				</SidebarGroup>
+
+				<SidebarGroup title="Navigation" open={isInGroup(navigationComponents)}>
+					{
+						navigationComponents.map((item) => (
 							<SidebarLink href={item.href} currentPath={currentPath}>
 								{item.name}
 							</SidebarLink>
@@ -152,6 +162,16 @@ const isInGroup = (items: { href: string }[]) =>
 				<SidebarGroup title="Data Display" open={isInGroup(dataDisplayComponents)}>
 					{
 						dataDisplayComponents.map((item) => (
+							<SidebarLink href={item.href} currentPath={currentPath}>
+								{item.name}
+							</SidebarLink>
+						))
+					}
+				</SidebarGroup>
+
+				<SidebarGroup title="Forms" open={isInGroup(formComponents)}>
+					{
+						formComponents.map((item) => (
 							<SidebarLink href={item.href} currentPath={currentPath}>
 								{item.name}
 							</SidebarLink>
@@ -172,26 +192,6 @@ const isInGroup = (items: { href: string }[]) =>
 				<SidebarGroup title="Overlay" open={isInGroup(overlayComponents)}>
 					{
 						overlayComponents.map((item) => (
-							<SidebarLink href={item.href} currentPath={currentPath}>
-								{item.name}
-							</SidebarLink>
-						))
-					}
-				</SidebarGroup>
-
-				<SidebarGroup title="Navigation" open={isInGroup(navigationComponents)}>
-					{
-						navigationComponents.map((item) => (
-							<SidebarLink href={item.href} currentPath={currentPath}>
-								{item.name}
-							</SidebarLink>
-						))
-					}
-				</SidebarGroup>
-
-				<SidebarGroup title="Layouts" open={isInGroup(layoutComponents)}>
-					{
-						layoutComponents.map((item) => (
 							<SidebarLink href={item.href} currentPath={currentPath}>
 								{item.name}
 							</SidebarLink>
