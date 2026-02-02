@@ -5,19 +5,53 @@ import ComponentPreview from "../../components/ComponentPreview.astro";
 
 const usageCode = `<a class="cu-link" href="#">Click here</a>`.trim();
 
+const plainCode = `<a class="cu-link cu-link-plain" href="#">No underline until hover</a>`.trim();
+
+const mutedCode = `<a class="cu-link cu-link-muted" href="#">Muted link</a>`.trim();
+
+const subtleCode = `<a class="cu-link cu-link-subtle" href="#">Subtle link</a>`.trim();
+
+const variantsCode = `<a class="cu-link" href="#">Default</a>
+<a class="cu-link cu-link-plain" href="#">Plain</a>
+<a class="cu-link cu-link-muted" href="#">Muted</a>
+<a class="cu-link cu-link-subtle" href="#">Subtle</a>`.trim();
+
 const inlineCode = `<p class="cu-p">
   You can read the full documentation on the
   <a class="cu-link" href="#">getting started</a> page,
   or check the <a class="cu-link" href="#">API reference</a>
   for more details.
 </p>`.trim();
+
+const externalCode = `<a class="cu-link cu-link-external" href="#" target="_blank" rel="noopener noreferrer">
+  View on GitHub
+  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>
+</a>`.trim();
+
+const navListCode = `<nav>
+  <ul class="cu-list cu-list-none space-y-1">
+    <li><a class="cu-link cu-link-muted" href="#">Profile</a></li>
+    <li><a class="cu-link cu-link-muted" href="#">Settings</a></li>
+    <li><a class="cu-link cu-link-muted" href="#">Notifications</a></li>
+    <li><a class="cu-link cu-link-muted" href="#">Help &amp; Support</a></li>
+  </ul>
+</nav>`.trim();
+
+const cardLinksCode = `<div class="cu-card cu-card-hover p-5 space-y-3 max-w-sm">
+  <h3 class="text-sm font-semibold">Resources</h3>
+  <div class="flex flex-col gap-1.5">
+    <a class="cu-link cu-link-subtle text-sm" href="#">Documentation</a>
+    <a class="cu-link cu-link-subtle text-sm" href="#">Changelog</a>
+    <a class="cu-link cu-link-subtle text-sm" href="#">Contributing Guide</a>
+  </div>
+</div>`.trim();
 ---
 
 <Layout title="Links — Cubby UI">
     <div class="space-y-3">
         <h1 class="text-3xl font-bold tracking-tight">Links</h1>
         <p class="text-base text-muted-foreground leading-relaxed">
-            Styled anchor links with underline offset and hover transition.
+            Styled anchor links with multiple variants — underlined, plain, muted, and subtle — for different contexts.
         </p>
     </div>
 
@@ -27,10 +61,66 @@ const inlineCode = `<p class="cu-p">
             <h2 class="text-lg font-semibold tracking-tight">Usage</h2>
             <p class="text-sm text-muted-foreground leading-relaxed">
                 Apply <code class="cu-code">cu-link</code> to an anchor element
-                for a styled inline link.
+                for a styled inline link with underline and hover transition.
             </p>
             <ComponentPreview code={usageCode}>
                 <Link href="#">Click here</Link>
+            </ComponentPreview>
+        </section>
+
+        <!-- Variants -->
+        <section class="space-y-3">
+            <h2 class="text-lg font-semibold tracking-tight">Variants</h2>
+            <p class="text-sm text-muted-foreground leading-relaxed">
+                Four link styles for different use cases.
+                <code class="cu-code">cu-link</code> (default with underline),
+                <code class="cu-code">cu-link-plain</code> (underline on hover only),
+                <code class="cu-code">cu-link-muted</code> (muted color, no underline),
+                <code class="cu-code">cu-link-subtle</code> (foreground color, turns primary on hover).
+            </p>
+            <ComponentPreview code={variantsCode}>
+                <div class="flex flex-wrap items-center gap-6">
+                    <Link href="#">Default</Link>
+                    <a class="cu-link cu-link-plain" href="#">Plain</a>
+                    <a class="cu-link cu-link-muted" href="#">Muted</a>
+                    <a class="cu-link cu-link-subtle" href="#">Subtle</a>
+                </div>
+            </ComponentPreview>
+        </section>
+
+        <!-- Plain -->
+        <section class="space-y-3">
+            <h2 class="text-lg font-semibold tracking-tight">Plain</h2>
+            <p class="text-sm text-muted-foreground leading-relaxed">
+                Use <code class="cu-code">cu-link cu-link-plain</code> for links
+                that only show an underline on hover. Cleaner for navigation-heavy areas.
+            </p>
+            <ComponentPreview code={plainCode}>
+                <a class="cu-link cu-link-plain" href="#">No underline until hover</a>
+            </ComponentPreview>
+        </section>
+
+        <!-- Muted -->
+        <section class="space-y-3">
+            <h2 class="text-lg font-semibold tracking-tight">Muted</h2>
+            <p class="text-sm text-muted-foreground leading-relaxed">
+                Use <code class="cu-code">cu-link cu-link-muted</code> for
+                de-emphasized links such as footer links or secondary navigation. Text brightens to foreground on hover.
+            </p>
+            <ComponentPreview code={mutedCode}>
+                <a class="cu-link cu-link-muted" href="#">Muted link</a>
+            </ComponentPreview>
+        </section>
+
+        <!-- Subtle -->
+        <section class="space-y-3">
+            <h2 class="text-lg font-semibold tracking-tight">Subtle</h2>
+            <p class="text-sm text-muted-foreground leading-relaxed">
+                Use <code class="cu-code">cu-link cu-link-subtle</code> for
+                links that blend with body text and reveal their primary color on hover.
+            </p>
+            <ComponentPreview code={subtleCode}>
+                <a class="cu-link cu-link-subtle" href="#">Subtle link</a>
             </ComponentPreview>
         </section>
 
@@ -48,6 +138,59 @@ const inlineCode = `<p class="cu-p">
                         or check the <Link href="#">API reference</Link>
                         for more details.
                     </p>
+                </div>
+            </ComponentPreview>
+        </section>
+
+        <!-- External -->
+        <section class="space-y-3">
+            <h2 class="text-lg font-semibold tracking-tight">External Link</h2>
+            <p class="text-sm text-muted-foreground leading-relaxed">
+                Add <code class="cu-code">cu-link-external</code> for links that open in a new tab.
+                Pairs well with an external-link icon to signal the behavior.
+            </p>
+            <ComponentPreview code={externalCode}>
+                <a class="cu-link cu-link-external" href="#" target="_blank" rel="noopener noreferrer">
+                    View on GitHub
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>
+                </a>
+            </ComponentPreview>
+        </section>
+
+        <!-- Nav List -->
+        <section class="space-y-3">
+            <h2 class="text-lg font-semibold tracking-tight">Navigation List</h2>
+            <p class="text-sm text-muted-foreground leading-relaxed">
+                Combine <code class="cu-code">cu-link-muted</code> with a list for sidebar or footer navigation.
+            </p>
+            <ComponentPreview code={navListCode}>
+                <div class="w-full max-w-xs">
+                    <nav>
+                        <ul class="cu-list cu-list-none space-y-1">
+                            <li><a class="cu-link cu-link-muted" href="#">Profile</a></li>
+                            <li><a class="cu-link cu-link-muted" href="#">Settings</a></li>
+                            <li><a class="cu-link cu-link-muted" href="#">Notifications</a></li>
+                            <li><a class="cu-link cu-link-muted" href="#">Help &amp; Support</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </ComponentPreview>
+        </section>
+
+        <!-- Card Links -->
+        <section class="space-y-3">
+            <h2 class="text-lg font-semibold tracking-tight">Card Links</h2>
+            <p class="text-sm text-muted-foreground leading-relaxed">
+                Use <code class="cu-code">cu-link-subtle</code> inside cards for a clean, understated link list.
+            </p>
+            <ComponentPreview code={cardLinksCode}>
+                <div class="cu-card cu-card-hover p-5 space-y-3 max-w-sm">
+                    <h3 class="text-sm font-semibold">Resources</h3>
+                    <div class="flex flex-col gap-1.5">
+                        <a class="cu-link cu-link-subtle text-sm" href="#">Documentation</a>
+                        <a class="cu-link cu-link-subtle text-sm" href="#">Changelog</a>
+                        <a class="cu-link cu-link-subtle text-sm" href="#">Contributing Guide</a>
+                    </div>
                 </div>
             </ComponentPreview>
         </section>

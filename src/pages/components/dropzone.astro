@@ -2,16 +2,16 @@
 import Layout from "../../layouts/Layout.astro";
 import ComponentPreview from "../../components/ComponentPreview.astro";
 
-const usageCode = `<div class="cu-dropzone" data-dropzone>
-  <input type="file" data-dropzone-input hidden />
+const usageCode = `<div class="cu-dropzone" data-cu-dropzone>
+  <input type="file" data-cu-dropzone-input hidden />
   <svg class="cu-dropzone-icon" xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
   <p class="cu-dropzone-title">Drag & drop files here, or click to browse</p>
   <p class="cu-dropzone-description">PNG, JPG, PDF up to 10MB</p>
 </div>
 
 <script>
-  document.querySelectorAll("[data-dropzone]").forEach((zone) => {
-    const input = zone.querySelector("[data-dropzone-input]");
+  document.querySelectorAll("[data-cu-dropzone]").forEach((zone) => {
+    const input = zone.querySelector("[data-cu-dropzone-input]");
 
     zone.addEventListener("click", () => input?.click());
 
@@ -42,13 +42,13 @@ const usageCode = `<div class="cu-dropzone" data-dropzone>
 </script>`.trim();
 
 const fileListCode = `<div>
-  <div class="cu-dropzone" data-dropzone id="dropzone-filelist">
-    <input type="file" data-dropzone-input hidden multiple />
+  <div class="cu-dropzone" data-cu-dropzone id="dropzone-filelist">
+    <input type="file" data-cu-dropzone-input hidden multiple />
     <svg class="cu-dropzone-icon" xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
     <p class="cu-dropzone-title">Drag & drop files here, or click to browse</p>
     <p class="cu-dropzone-description">Upload multiple files</p>
   </div>
-  <ul data-dropzone-list class="mt-2 space-y-1 text-sm text-muted-foreground"></ul>
+  <ul data-cu-dropzone-list class="mt-2 space-y-1 text-sm text-muted-foreground"></ul>
 </div>`.trim();
 
 const disabledCode = `<div class="cu-dropzone cu-dropzone-disabled">
@@ -71,15 +71,15 @@ const disabledCode = `<div class="cu-dropzone cu-dropzone-disabled">
         <section class="space-y-3">
             <h2 class="text-lg font-semibold tracking-tight">Usage</h2>
             <p class="text-sm text-muted-foreground leading-relaxed">
-                Use <code class="cu-code">data-dropzone</code> on the container and
-                <code class="cu-code">data-dropzone-input</code> on a hidden
+                Use <code class="cu-code">data-cu-dropzone</code> on the container and
+                <code class="cu-code">data-cu-dropzone-input</code> on a hidden
                 <code class="cu-code">&lt;input type="file"&gt;</code>.
                 The <code class="cu-code">&lt;script&gt;</code> handles click-to-browse and drag & drop events.
             </p>
             <ComponentPreview code={usageCode}>
                 <div class="w-full max-w-md">
-                    <div class="cu-dropzone" data-dropzone>
-                        <input type="file" data-dropzone-input hidden />
+                    <div class="cu-dropzone" data-cu-dropzone>
+                        <input type="file" data-cu-dropzone-input hidden />
                         <svg class="cu-dropzone-icon" xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
                         <p class="cu-dropzone-title">Drag & drop files here, or click to browse</p>
                         <p class="cu-dropzone-description">PNG, JPG, PDF up to 10MB</p>
@@ -97,13 +97,13 @@ const disabledCode = `<div class="cu-dropzone cu-dropzone-disabled">
             </p>
             <ComponentPreview code={fileListCode}>
                 <div class="w-full max-w-md">
-                    <div class="cu-dropzone" data-dropzone id="dropzone-filelist">
-                        <input type="file" data-dropzone-input hidden multiple />
+                    <div class="cu-dropzone" data-cu-dropzone id="dropzone-filelist">
+                        <input type="file" data-cu-dropzone-input hidden multiple />
                         <svg class="cu-dropzone-icon" xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
                         <p class="cu-dropzone-title">Drag & drop files here, or click to browse</p>
                         <p class="cu-dropzone-description">Upload multiple files</p>
                     </div>
-                    <ul data-dropzone-list class="mt-2 space-y-1 text-sm text-muted-foreground"></ul>
+                    <ul data-cu-dropzone-list class="mt-2 space-y-1 text-sm text-muted-foreground"></ul>
                 </div>
             </ComponentPreview>
         </section>
@@ -113,7 +113,7 @@ const disabledCode = `<div class="cu-dropzone cu-dropzone-disabled">
             <h2 class="text-lg font-semibold tracking-tight">Disabled</h2>
             <p class="text-sm text-muted-foreground leading-relaxed">
                 Add <code class="cu-code">cu-dropzone-disabled</code> to prevent interaction.
-                No hidden input or <code class="cu-code">data-dropzone</code> attribute needed.
+                No hidden input or <code class="cu-code">data-cu-dropzone</code> attribute needed.
             </p>
             <ComponentPreview code={disabledCode}>
                 <div class="w-full max-w-md">
@@ -130,8 +130,8 @@ const disabledCode = `<div class="cu-dropzone cu-dropzone-disabled">
 
 <script>
     function setupDropzones() {
-        document.querySelectorAll("[data-dropzone]").forEach((zone) => {
-            const input = zone.querySelector("[data-dropzone-input]") as HTMLInputElement | null;
+        document.querySelectorAll("[data-cu-dropzone]").forEach((zone) => {
+            const input = zone.querySelector("[data-cu-dropzone-input]") as HTMLInputElement | null;
             if (!input) return;
 
             zone.addEventListener("click", () => input.click());
@@ -164,8 +164,8 @@ const disabledCode = `<div class="cu-dropzone cu-dropzone-disabled">
         // File list demo
         const filelistZone = document.getElementById("dropzone-filelist");
         if (filelistZone) {
-            const input = filelistZone.querySelector("[data-dropzone-input]") as HTMLInputElement | null;
-            const list = filelistZone.parentElement?.querySelector("[data-dropzone-list]") as HTMLElement | null;
+            const input = filelistZone.querySelector("[data-cu-dropzone-input]") as HTMLInputElement | null;
+            const list = filelistZone.parentElement?.querySelector("[data-cu-dropzone-list]") as HTMLElement | null;
             input?.addEventListener("change", () => {
                 if (!list || !input.files) return;
                 list.innerHTML = "";

@@ -2,21 +2,21 @@
 import Layout from "../../layouts/Layout.astro";
 import ComponentPreview from "../../components/ComponentPreview.astro";
 
-const usageCode = `<div class="cu-number-input" data-number-input>
-  <button class="cu-number-input-button" data-number-decrement>
+const usageCode = `<div class="cu-number-input" data-cu-number-input>
+  <button class="cu-number-input-button" data-cu-number-decrement>
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/></svg>
   </button>
-  <input class="cu-number-input-field" data-number-field type="number" value="0" />
-  <button class="cu-number-input-button" data-number-increment>
+  <input class="cu-number-input-field" data-cu-number-field type="number" value="0" />
+  <button class="cu-number-input-button" data-cu-number-increment>
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
   </button>
 </div>
 
 <script>
-  document.querySelectorAll("[data-number-input]").forEach((container) => {
-    const field = container.querySelector("[data-number-field]");
-    const decrement = container.querySelector("[data-number-decrement]");
-    const increment = container.querySelector("[data-number-increment]");
+  document.querySelectorAll("[data-cu-number-input]").forEach((container) => {
+    const field = container.querySelector("[data-cu-number-field]");
+    const decrement = container.querySelector("[data-cu-number-decrement]");
+    const increment = container.querySelector("[data-cu-number-increment]");
 
     decrement?.addEventListener("click", () => {
       const step = Number(field.step) || 1;
@@ -42,22 +42,22 @@ const usageCode = `<div class="cu-number-input" data-number-input>
   });
 </script>`.trim();
 
-const minMaxCode = `<div class="cu-number-input" data-number-input>
-  <button class="cu-number-input-button" data-number-decrement>
+const minMaxCode = `<div class="cu-number-input" data-cu-number-input>
+  <button class="cu-number-input-button" data-cu-number-decrement>
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/></svg>
   </button>
-  <input class="cu-number-input-field" data-number-field type="number" value="1" min="1" max="10" step="1" />
-  <button class="cu-number-input-button" data-number-increment>
+  <input class="cu-number-input-field" data-cu-number-field type="number" value="1" min="1" max="10" step="1" />
+  <button class="cu-number-input-button" data-cu-number-increment>
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
   </button>
 </div>`.trim();
 
-const disabledCode = `<div class="cu-number-input cu-number-input-disabled" data-number-input>
-  <button class="cu-number-input-button" data-number-decrement disabled>
+const disabledCode = `<div class="cu-number-input cu-number-input-disabled" data-cu-number-input>
+  <button class="cu-number-input-button" data-cu-number-decrement disabled>
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/></svg>
   </button>
-  <input class="cu-number-input-field" data-number-field type="number" value="5" disabled />
-  <button class="cu-number-input-button" data-number-increment disabled>
+  <input class="cu-number-input-field" data-cu-number-field type="number" value="5" disabled />
+  <button class="cu-number-input-button" data-cu-number-increment disabled>
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
   </button>
 </div>`.trim();
@@ -76,19 +76,19 @@ const disabledCode = `<div class="cu-number-input cu-number-input-disabled" data
         <section class="space-y-3">
             <h2 class="text-lg font-semibold tracking-tight">Usage</h2>
             <p class="text-sm text-muted-foreground leading-relaxed">
-                Use <code class="cu-code">data-number-input</code> on the wrapper,
-                <code class="cu-code">data-number-decrement</code> and
-                <code class="cu-code">data-number-increment</code> on the buttons, and
-                <code class="cu-code">data-number-field</code> on the input.
+                Use <code class="cu-code">data-cu-number-input</code> on the wrapper,
+                <code class="cu-code">data-cu-number-decrement</code> and
+                <code class="cu-code">data-cu-number-increment</code> on the buttons, and
+                <code class="cu-code">data-cu-number-field</code> on the input.
                 The <code class="cu-code">&lt;script&gt;</code> handles stepping, min/max clamping, and event dispatch.
             </p>
             <ComponentPreview code={usageCode}>
-                <div class="cu-number-input" data-number-input>
-                    <button class="cu-number-input-button" data-number-decrement>
+                <div class="cu-number-input" data-cu-number-input>
+                    <button class="cu-number-input-button" data-cu-number-decrement>
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/></svg>
                     </button>
-                    <input class="cu-number-input-field" data-number-field type="number" value="0" />
-                    <button class="cu-number-input-button" data-number-increment>
+                    <input class="cu-number-input-field" data-cu-number-field type="number" value="0" />
+                    <button class="cu-number-input-button" data-cu-number-increment>
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
                     </button>
                 </div>
@@ -104,12 +104,12 @@ const disabledCode = `<div class="cu-number-input cu-number-input-disabled" data
                 This example allows values from 1 to 10.
             </p>
             <ComponentPreview code={minMaxCode}>
-                <div class="cu-number-input" data-number-input>
-                    <button class="cu-number-input-button" data-number-decrement>
+                <div class="cu-number-input" data-cu-number-input>
+                    <button class="cu-number-input-button" data-cu-number-decrement>
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/></svg>
                     </button>
-                    <input class="cu-number-input-field" data-number-field type="number" value="1" min="1" max="10" step="1" />
-                    <button class="cu-number-input-button" data-number-increment>
+                    <input class="cu-number-input-field" data-cu-number-field type="number" value="1" min="1" max="10" step="1" />
+                    <button class="cu-number-input-button" data-cu-number-increment>
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
                     </button>
                 </div>
@@ -124,12 +124,12 @@ const disabledCode = `<div class="cu-number-input cu-number-input-disabled" data
                 <code class="cu-code">disabled</code> to the buttons and input.
             </p>
             <ComponentPreview code={disabledCode}>
-                <div class="cu-number-input cu-number-input-disabled" data-number-input>
-                    <button class="cu-number-input-button" data-number-decrement disabled>
+                <div class="cu-number-input cu-number-input-disabled" data-cu-number-input>
+                    <button class="cu-number-input-button" data-cu-number-decrement disabled>
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/></svg>
                     </button>
-                    <input class="cu-number-input-field" data-number-field type="number" value="5" disabled />
-                    <button class="cu-number-input-button" data-number-increment disabled>
+                    <input class="cu-number-input-field" data-cu-number-field type="number" value="5" disabled />
+                    <button class="cu-number-input-button" data-cu-number-increment disabled>
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
                     </button>
                 </div>
@@ -140,10 +140,10 @@ const disabledCode = `<div class="cu-number-input cu-number-input-disabled" data
 
 <script>
     function setupNumberInputs() {
-        document.querySelectorAll("[data-number-input]").forEach((container) => {
-            const field = container.querySelector("[data-number-field]") as HTMLInputElement | null;
-            const decrement = container.querySelector("[data-number-decrement]") as HTMLButtonElement | null;
-            const increment = container.querySelector("[data-number-increment]") as HTMLButtonElement | null;
+        document.querySelectorAll("[data-cu-number-input]").forEach((container) => {
+            const field = container.querySelector("[data-cu-number-field]") as HTMLInputElement | null;
+            const decrement = container.querySelector("[data-cu-number-decrement]") as HTMLButtonElement | null;
+            const increment = container.querySelector("[data-cu-number-increment]") as HTMLButtonElement | null;
             if (!field) return;
 
             decrement?.addEventListener("click", () => {

@@ -1,7 +1,11 @@
 /* Stat Card
    ------------------------------------------------------------------ */
 .cu-stat {
-    @apply rounded-xl border border-border bg-card p-6 text-card-foreground shadow-sm transition-shadow duration-200;
+    @apply relative overflow-hidden rounded-xl border border-border bg-card p-6 text-card-foreground shadow-sm transition-all duration-200;
+}
+
+.cu-stat-hover {
+    @apply hover:shadow-md hover:border-border/80;
 }
 
 .cu-stat-header {
@@ -16,6 +20,34 @@
     @apply size-4 text-muted-foreground;
 }
 
+.cu-stat-icon-box {
+    @apply flex size-10 items-center justify-center rounded-lg bg-primary/8 text-primary;
+}
+
+.cu-stat-icon-box svg {
+    @apply size-5;
+}
+
+.cu-stat-icon-box-secondary {
+    @apply bg-secondary/8 text-secondary;
+}
+
+.cu-stat-icon-box-success {
+    @apply bg-success/10 text-success;
+}
+
+.cu-stat-icon-box-warning {
+    @apply bg-warning/10 text-warning;
+}
+
+.cu-stat-icon-box-destructive {
+    @apply bg-destructive/8 text-destructive;
+}
+
+.cu-stat-icon-box-info {
+    @apply bg-info/10 text-info;
+}
+
 .cu-stat-value {
     @apply mt-2 text-2xl font-bold tracking-tight;
 }
@@ -25,7 +57,7 @@
 }
 
 .cu-stat-trend {
-    @apply inline-flex items-center gap-0.5 text-xs font-medium;
+    @apply inline-flex items-center gap-0.5 rounded-full text-xs font-medium;
 }
 
 .cu-stat-trend-up {
@@ -34,4 +66,40 @@
 
 .cu-stat-trend-down {
     @apply text-destructive;
+}
+
+.cu-stat-trend-pill {
+    @apply px-2 py-0.5;
+}
+
+.cu-stat-trend-pill.cu-stat-trend-up {
+    @apply bg-success/10;
+}
+
+.cu-stat-trend-pill.cu-stat-trend-down {
+    @apply bg-destructive/8;
+}
+
+.cu-stat-footer {
+    @apply mt-4 border-t border-border pt-4;
+}
+
+.cu-stat-accent {
+    @apply before:absolute before:left-0 before:top-0 before:h-full before:w-1 before:rounded-l-xl before:bg-primary;
+}
+
+.cu-stat-accent-success {
+    @apply before:bg-success;
+}
+
+.cu-stat-accent-warning {
+    @apply before:bg-warning;
+}
+
+.cu-stat-accent-destructive {
+    @apply before:bg-destructive;
+}
+
+.cu-stat-accent-info {
+    @apply before:bg-info;
 }

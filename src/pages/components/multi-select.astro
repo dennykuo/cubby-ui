@@ -2,34 +2,34 @@
 import Layout from "../../layouts/Layout.astro";
 import ComponentPreview from "../../components/ComponentPreview.astro";
 
-const usageCode = `<div class="cu-multi-select" data-multi-select style="width: 300px;">
-  <button class="cu-multi-select-trigger" data-multi-select-trigger>
-    <div class="cu-multi-select-tags" data-multi-select-tags>
-      <span class="cu-multi-select-placeholder" data-multi-select-placeholder>Select frameworks...</span>
+const usageCode = `<div class="cu-multi-select" data-cu-multi-select style="width: 300px;">
+  <button class="cu-multi-select-trigger" data-cu-multi-select-trigger>
+    <div class="cu-multi-select-tags" data-cu-multi-select-tags>
+      <span class="cu-multi-select-placeholder" data-cu-multi-select-placeholder>Select frameworks...</span>
     </div>
     <svg class="cu-multi-select-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 15 5 5 5-5"/><path d="m7 9 5-5 5 5"/></svg>
   </button>
-  <div class="cu-multi-select-content" data-multi-select-content hidden>
-    <div class="cu-multi-select-list" data-multi-select-list>
-      <div class="cu-multi-select-empty" data-multi-select-empty hidden>No results found.</div>
-      <div class="cu-multi-select-item" data-multi-select-item data-value="react">React</div>
-      <div class="cu-multi-select-item" data-multi-select-item data-value="vue">Vue</div>
-      <div class="cu-multi-select-item" data-multi-select-item data-value="angular">Angular</div>
-      <div class="cu-multi-select-item" data-multi-select-item data-value="svelte">Svelte</div>
-      <div class="cu-multi-select-item" data-multi-select-item data-value="astro">Astro</div>
+  <div class="cu-multi-select-content" data-cu-multi-select-content hidden>
+    <div class="cu-multi-select-list" data-cu-multi-select-list>
+      <div class="cu-multi-select-empty" data-cu-multi-select-empty hidden>No results found.</div>
+      <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="react">React</div>
+      <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="vue">Vue</div>
+      <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="angular">Angular</div>
+      <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="svelte">Svelte</div>
+      <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="astro">Astro</div>
     </div>
   </div>
 </div>
 
 <script>
-  document.querySelectorAll("[data-multi-select]").forEach((ms) => {
-    const trigger = ms.querySelector("[data-multi-select-trigger]");
-    const content = ms.querySelector("[data-multi-select-content]");
-    const input = ms.querySelector("[data-multi-select-input]");
-    const items = ms.querySelectorAll("[data-multi-select-item]");
-    const empty = ms.querySelector("[data-multi-select-empty]");
-    const tagsEl = ms.querySelector("[data-multi-select-tags]");
-    const placeholder = ms.querySelector("[data-multi-select-placeholder]");
+  document.querySelectorAll("[data-cu-multi-select]").forEach((ms) => {
+    const trigger = ms.querySelector("[data-cu-multi-select-trigger]");
+    const content = ms.querySelector("[data-cu-multi-select-content]");
+    const input = ms.querySelector("[data-cu-multi-select-input]");
+    const items = ms.querySelectorAll("[data-cu-multi-select-item]");
+    const empty = ms.querySelector("[data-cu-multi-select-empty]");
+    const tagsEl = ms.querySelector("[data-cu-multi-select-tags]");
+    const placeholder = ms.querySelector("[data-cu-multi-select-placeholder]");
     const selected = new Set();
 
     function renderTags() {
@@ -39,11 +39,11 @@ const usageCode = `<div class="cu-multi-select" data-multi-select style="width: 
       } else {
         if (placeholder) placeholder.hidden = true;
         selected.forEach((val) => {
-          const item = ms.querySelector('[data-value="' + val + '"]');
+          const item = ms.querySelector('[data-cu-value="' + val + '"]');
           const tag = document.createElement("span");
           tag.className = "cu-multi-select-tag";
-          tag.innerHTML = item.textContent + '<button class="cu-multi-select-tag-remove" data-remove="' + val + '">&times;</button>';
-          tag.querySelector("[data-remove]").addEventListener("click", (e) => {
+          tag.innerHTML = item.textContent + '<button class="cu-multi-select-tag-remove" data-cu-remove="' + val + '">&times;</button>';
+          tag.querySelector("[data-cu-remove]").addEventListener("click", (e) => {
             e.stopPropagation();
             selected.delete(val);
             item.classList.remove("cu-multi-select-item-active");
@@ -105,45 +105,45 @@ const usageCode = `<div class="cu-multi-select" data-multi-select style="width: 
   });
 </script>`.trim();
 
-const withSearchCode = `<div class="cu-multi-select" data-multi-select style="width: 300px;">
-  <button class="cu-multi-select-trigger" data-multi-select-trigger>
-    <div class="cu-multi-select-tags" data-multi-select-tags>
-      <span class="cu-multi-select-placeholder" data-multi-select-placeholder>Select members...</span>
+const withSearchCode = `<div class="cu-multi-select" data-cu-multi-select style="width: 300px;">
+  <button class="cu-multi-select-trigger" data-cu-multi-select-trigger>
+    <div class="cu-multi-select-tags" data-cu-multi-select-tags>
+      <span class="cu-multi-select-placeholder" data-cu-multi-select-placeholder>Select members...</span>
     </div>
     <svg class="cu-multi-select-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 15 5 5 5-5"/><path d="m7 9 5-5 5 5"/></svg>
   </button>
-  <div class="cu-multi-select-content" data-multi-select-content hidden>
+  <div class="cu-multi-select-content" data-cu-multi-select-content hidden>
     <div class="cu-multi-select-search">
       <svg class="cu-multi-select-search-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-      <input class="cu-multi-select-input" data-multi-select-input placeholder="Search members..." />
+      <input class="cu-multi-select-input" data-cu-multi-select-input placeholder="Search members..." />
     </div>
-    <div class="cu-multi-select-list" data-multi-select-list>
-      <div class="cu-multi-select-empty" data-multi-select-empty hidden>No results found.</div>
-      <div class="cu-multi-select-item" data-multi-select-item data-value="alice">Alice</div>
-      <div class="cu-multi-select-item" data-multi-select-item data-value="bob">Bob</div>
-      <div class="cu-multi-select-item" data-multi-select-item data-value="charlie">Charlie</div>
-      <div class="cu-multi-select-item" data-multi-select-item data-value="diana">Diana</div>
-      <div class="cu-multi-select-item" data-multi-select-item data-value="eve">Eve</div>
+    <div class="cu-multi-select-list" data-cu-multi-select-list>
+      <div class="cu-multi-select-empty" data-cu-multi-select-empty hidden>No results found.</div>
+      <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="alice">Alice</div>
+      <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="bob">Bob</div>
+      <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="charlie">Charlie</div>
+      <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="diana">Diana</div>
+      <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="eve">Eve</div>
     </div>
   </div>
 </div>`.trim();
 
-const presetCode = `<div class="cu-multi-select" data-multi-select style="width: 300px;">
-  <button class="cu-multi-select-trigger" data-multi-select-trigger>
-    <div class="cu-multi-select-tags" data-multi-select-tags>
-      <span class="cu-multi-select-placeholder" data-multi-select-placeholder hidden>Select tags...</span>
-      <span class="cu-multi-select-tag">Bug<button class="cu-multi-select-tag-remove" data-remove="bug">&times;</button></span>
-      <span class="cu-multi-select-tag">Feature<button class="cu-multi-select-tag-remove" data-remove="feature">&times;</button></span>
+const presetCode = `<div class="cu-multi-select" data-cu-multi-select style="width: 300px;">
+  <button class="cu-multi-select-trigger" data-cu-multi-select-trigger>
+    <div class="cu-multi-select-tags" data-cu-multi-select-tags>
+      <span class="cu-multi-select-placeholder" data-cu-multi-select-placeholder hidden>Select tags...</span>
+      <span class="cu-multi-select-tag">Bug<button class="cu-multi-select-tag-remove" data-cu-remove="bug">&times;</button></span>
+      <span class="cu-multi-select-tag">Feature<button class="cu-multi-select-tag-remove" data-cu-remove="feature">&times;</button></span>
     </div>
     <svg class="cu-multi-select-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 15 5 5 5-5"/><path d="m7 9 5-5 5 5"/></svg>
   </button>
-  <div class="cu-multi-select-content" data-multi-select-content hidden>
-    <div class="cu-multi-select-list" data-multi-select-list>
-      <div class="cu-multi-select-item cu-multi-select-item-active" data-multi-select-item data-value="bug">Bug</div>
-      <div class="cu-multi-select-item cu-multi-select-item-active" data-multi-select-item data-value="feature">Feature</div>
-      <div class="cu-multi-select-item" data-multi-select-item data-value="docs">Documentation</div>
-      <div class="cu-multi-select-item" data-multi-select-item data-value="enhancement">Enhancement</div>
-      <div class="cu-multi-select-item" data-multi-select-item data-value="help">Help Wanted</div>
+  <div class="cu-multi-select-content" data-cu-multi-select-content hidden>
+    <div class="cu-multi-select-list" data-cu-multi-select-list>
+      <div class="cu-multi-select-item cu-multi-select-item-active" data-cu-multi-select-item data-cu-value="bug">Bug</div>
+      <div class="cu-multi-select-item cu-multi-select-item-active" data-cu-multi-select-item data-cu-value="feature">Feature</div>
+      <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="docs">Documentation</div>
+      <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="enhancement">Enhancement</div>
+      <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="help">Help Wanted</div>
     </div>
   </div>
 </div>`.trim();
@@ -162,28 +162,28 @@ const presetCode = `<div class="cu-multi-select" data-multi-select style="width:
         <section class="space-y-3">
             <h2 class="text-lg font-semibold tracking-tight">Usage</h2>
             <p class="text-sm text-muted-foreground leading-relaxed">
-                Use <code class="cu-code">data-multi-select</code> on the wrapper,
-                <code class="cu-code">data-multi-select-trigger</code> on the button,
-                <code class="cu-code">data-multi-select-content</code> on the dropdown, and
-                <code class="cu-code">data-multi-select-item</code> on each option.
+                Use <code class="cu-code">data-cu-multi-select</code> on the wrapper,
+                <code class="cu-code">data-cu-multi-select-trigger</code> on the button,
+                <code class="cu-code">data-cu-multi-select-content</code> on the dropdown, and
+                <code class="cu-code">data-cu-multi-select-item</code> on each option.
                 Selected items appear as removable tags in the trigger area.
             </p>
             <ComponentPreview code={usageCode}>
-                <div class="cu-multi-select" data-multi-select style="width: 300px;">
-                    <button class="cu-multi-select-trigger" data-multi-select-trigger>
-                        <div class="cu-multi-select-tags" data-multi-select-tags>
-                            <span class="cu-multi-select-placeholder" data-multi-select-placeholder>Select frameworks...</span>
+                <div class="cu-multi-select" data-cu-multi-select style="width: 300px;">
+                    <button class="cu-multi-select-trigger" data-cu-multi-select-trigger>
+                        <div class="cu-multi-select-tags" data-cu-multi-select-tags>
+                            <span class="cu-multi-select-placeholder" data-cu-multi-select-placeholder>Select frameworks...</span>
                         </div>
                         <svg class="cu-multi-select-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 15 5 5 5-5"/><path d="m7 9 5-5 5 5"/></svg>
                     </button>
-                    <div class="cu-multi-select-content" data-multi-select-content hidden>
-                        <div class="cu-multi-select-list" data-multi-select-list>
-                            <div class="cu-multi-select-empty" data-multi-select-empty hidden>No results found.</div>
-                            <div class="cu-multi-select-item" data-multi-select-item data-value="react">React</div>
-                            <div class="cu-multi-select-item" data-multi-select-item data-value="vue">Vue</div>
-                            <div class="cu-multi-select-item" data-multi-select-item data-value="angular">Angular</div>
-                            <div class="cu-multi-select-item" data-multi-select-item data-value="svelte">Svelte</div>
-                            <div class="cu-multi-select-item" data-multi-select-item data-value="astro">Astro</div>
+                    <div class="cu-multi-select-content" data-cu-multi-select-content hidden>
+                        <div class="cu-multi-select-list" data-cu-multi-select-list>
+                            <div class="cu-multi-select-empty" data-cu-multi-select-empty hidden>No results found.</div>
+                            <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="react">React</div>
+                            <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="vue">Vue</div>
+                            <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="angular">Angular</div>
+                            <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="svelte">Svelte</div>
+                            <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="astro">Astro</div>
                         </div>
                     </div>
                 </div>
@@ -197,25 +197,25 @@ const presetCode = `<div class="cu-multi-select" data-multi-select style="width:
                 Add a search input with <code class="cu-code">cu-multi-select-search</code> to filter options.
             </p>
             <ComponentPreview code={withSearchCode}>
-                <div class="cu-multi-select" data-multi-select style="width: 300px;">
-                    <button class="cu-multi-select-trigger" data-multi-select-trigger>
-                        <div class="cu-multi-select-tags" data-multi-select-tags>
-                            <span class="cu-multi-select-placeholder" data-multi-select-placeholder>Select members...</span>
+                <div class="cu-multi-select" data-cu-multi-select style="width: 300px;">
+                    <button class="cu-multi-select-trigger" data-cu-multi-select-trigger>
+                        <div class="cu-multi-select-tags" data-cu-multi-select-tags>
+                            <span class="cu-multi-select-placeholder" data-cu-multi-select-placeholder>Select members...</span>
                         </div>
                         <svg class="cu-multi-select-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 15 5 5 5-5"/><path d="m7 9 5-5 5 5"/></svg>
                     </button>
-                    <div class="cu-multi-select-content" data-multi-select-content hidden>
+                    <div class="cu-multi-select-content" data-cu-multi-select-content hidden>
                         <div class="cu-multi-select-search">
                             <svg class="cu-multi-select-search-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-                            <input class="cu-multi-select-input" data-multi-select-input placeholder="Search members..." />
+                            <input class="cu-multi-select-input" data-cu-multi-select-input placeholder="Search members..." />
                         </div>
-                        <div class="cu-multi-select-list" data-multi-select-list>
-                            <div class="cu-multi-select-empty" data-multi-select-empty hidden>No results found.</div>
-                            <div class="cu-multi-select-item" data-multi-select-item data-value="alice">Alice</div>
-                            <div class="cu-multi-select-item" data-multi-select-item data-value="bob">Bob</div>
-                            <div class="cu-multi-select-item" data-multi-select-item data-value="charlie">Charlie</div>
-                            <div class="cu-multi-select-item" data-multi-select-item data-value="diana">Diana</div>
-                            <div class="cu-multi-select-item" data-multi-select-item data-value="eve">Eve</div>
+                        <div class="cu-multi-select-list" data-cu-multi-select-list>
+                            <div class="cu-multi-select-empty" data-cu-multi-select-empty hidden>No results found.</div>
+                            <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="alice">Alice</div>
+                            <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="bob">Bob</div>
+                            <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="charlie">Charlie</div>
+                            <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="diana">Diana</div>
+                            <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="eve">Eve</div>
                         </div>
                     </div>
                 </div>
@@ -230,22 +230,22 @@ const presetCode = `<div class="cu-multi-select" data-multi-select style="width:
                 and rendering tags in the trigger area on initial load.
             </p>
             <ComponentPreview code={presetCode}>
-                <div class="cu-multi-select" data-multi-select style="width: 300px;">
-                    <button class="cu-multi-select-trigger" data-multi-select-trigger>
-                        <div class="cu-multi-select-tags" data-multi-select-tags>
-                            <span class="cu-multi-select-placeholder" data-multi-select-placeholder hidden>Select tags...</span>
-                            <span class="cu-multi-select-tag">Bug<button class="cu-multi-select-tag-remove" data-remove="bug">&times;</button></span>
-                            <span class="cu-multi-select-tag">Feature<button class="cu-multi-select-tag-remove" data-remove="feature">&times;</button></span>
+                <div class="cu-multi-select" data-cu-multi-select style="width: 300px;">
+                    <button class="cu-multi-select-trigger" data-cu-multi-select-trigger>
+                        <div class="cu-multi-select-tags" data-cu-multi-select-tags>
+                            <span class="cu-multi-select-placeholder" data-cu-multi-select-placeholder hidden>Select tags...</span>
+                            <span class="cu-multi-select-tag">Bug<button class="cu-multi-select-tag-remove" data-cu-remove="bug">&times;</button></span>
+                            <span class="cu-multi-select-tag">Feature<button class="cu-multi-select-tag-remove" data-cu-remove="feature">&times;</button></span>
                         </div>
                         <svg class="cu-multi-select-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 15 5 5 5-5"/><path d="m7 9 5-5 5 5"/></svg>
                     </button>
-                    <div class="cu-multi-select-content" data-multi-select-content hidden>
-                        <div class="cu-multi-select-list" data-multi-select-list>
-                            <div class="cu-multi-select-item cu-multi-select-item-active" data-multi-select-item data-value="bug">Bug</div>
-                            <div class="cu-multi-select-item cu-multi-select-item-active" data-multi-select-item data-value="feature">Feature</div>
-                            <div class="cu-multi-select-item" data-multi-select-item data-value="docs">Documentation</div>
-                            <div class="cu-multi-select-item" data-multi-select-item data-value="enhancement">Enhancement</div>
-                            <div class="cu-multi-select-item" data-multi-select-item data-value="help">Help Wanted</div>
+                    <div class="cu-multi-select-content" data-cu-multi-select-content hidden>
+                        <div class="cu-multi-select-list" data-cu-multi-select-list>
+                            <div class="cu-multi-select-item cu-multi-select-item-active" data-cu-multi-select-item data-cu-value="bug">Bug</div>
+                            <div class="cu-multi-select-item cu-multi-select-item-active" data-cu-multi-select-item data-cu-value="feature">Feature</div>
+                            <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="docs">Documentation</div>
+                            <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="enhancement">Enhancement</div>
+                            <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="help">Help Wanted</div>
                         </div>
                     </div>
                 </div>
@@ -256,17 +256,17 @@ const presetCode = `<div class="cu-multi-select" data-multi-select style="width:
 
 <script>
     function setupMultiSelects() {
-        document.querySelectorAll("[data-multi-select]").forEach((ms) => {
+        document.querySelectorAll("[data-cu-multi-select]").forEach((ms) => {
             if ((ms as any)._multiSelectInit) return;
             (ms as any)._multiSelectInit = true;
 
-            const trigger = ms.querySelector("[data-multi-select-trigger]") as HTMLButtonElement | null;
-            const content = ms.querySelector("[data-multi-select-content]") as HTMLElement | null;
-            const input = ms.querySelector("[data-multi-select-input]") as HTMLInputElement | null;
-            const items = ms.querySelectorAll("[data-multi-select-item]");
-            const empty = ms.querySelector("[data-multi-select-empty]") as HTMLElement | null;
-            const tagsEl = ms.querySelector("[data-multi-select-tags]") as HTMLElement | null;
-            const placeholder = ms.querySelector("[data-multi-select-placeholder]") as HTMLElement | null;
+            const trigger = ms.querySelector("[data-cu-multi-select-trigger]") as HTMLButtonElement | null;
+            const content = ms.querySelector("[data-cu-multi-select-content]") as HTMLElement | null;
+            const input = ms.querySelector("[data-cu-multi-select-input]") as HTMLInputElement | null;
+            const items = ms.querySelectorAll("[data-cu-multi-select-item]");
+            const empty = ms.querySelector("[data-cu-multi-select-empty]") as HTMLElement | null;
+            const tagsEl = ms.querySelector("[data-cu-multi-select-tags]") as HTMLElement | null;
+            const placeholder = ms.querySelector("[data-cu-multi-select-placeholder]") as HTMLElement | null;
             const selected = new Set<string>();
 
             // Init from preset active items
@@ -284,12 +284,12 @@ const presetCode = `<div class="cu-multi-select" data-multi-select style="width:
                 } else {
                     if (placeholder) placeholder.hidden = true;
                     selected.forEach((val) => {
-                        const item = ms.querySelector('[data-value="' + val + '"]');
+                        const item = ms.querySelector('[data-cu-value="' + val + '"]');
                         if (!item) return;
                         const tag = document.createElement("span");
                         tag.className = "cu-multi-select-tag";
-                        tag.innerHTML = item.textContent + '<button class="cu-multi-select-tag-remove" data-remove="' + val + '">&times;</button>';
-                        tag.querySelector("[data-remove]")?.addEventListener("click", (e) => {
+                        tag.innerHTML = item.textContent + '<button class="cu-multi-select-tag-remove" data-cu-remove="' + val + '">&times;</button>';
+                        tag.querySelector("[data-cu-remove]")?.addEventListener("click", (e) => {
                             e.stopPropagation();
                             selected.delete(val);
                             item.classList.remove("cu-multi-select-item-active");

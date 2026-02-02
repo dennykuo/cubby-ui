@@ -5,17 +5,43 @@
 }
 
 .cu-collapsible-trigger {
-    @apply flex w-full items-center justify-between text-sm font-medium cursor-pointer;
+    @apply flex w-full items-center justify-between gap-2 text-sm font-medium cursor-pointer transition-colors duration-150;
+}
+
+.cu-collapsible-trigger:hover {
+    @apply text-foreground;
 }
 
 .cu-collapsible-trigger svg {
-    @apply shrink-0 text-muted-foreground transition-transform duration-200;
+    @apply shrink-0 text-muted-foreground/70 transition-transform duration-200;
 }
 
-.cu-collapsible[open] .cu-collapsible-trigger svg {
+.cu-collapsible[open] > .cu-collapsible-trigger svg {
     @apply rotate-180;
 }
 
 .cu-collapsible-content {
     @apply overflow-hidden pt-2 text-sm;
+}
+
+/* Bordered variant */
+.cu-collapsible-bordered {
+    @apply rounded-xl border border-border px-4 py-3 transition-colors duration-150;
+}
+
+.cu-collapsible-bordered[open] {
+    @apply bg-card shadow-sm;
+}
+
+/* Group: stacked collapsibles with dividers */
+.cu-collapsible-group {
+    @apply divide-y divide-border rounded-xl border border-border overflow-hidden;
+}
+
+.cu-collapsible-group .cu-collapsible {
+    @apply px-4 py-3;
+}
+
+.cu-collapsible-group .cu-collapsible[open] {
+    @apply bg-muted/30;
 }

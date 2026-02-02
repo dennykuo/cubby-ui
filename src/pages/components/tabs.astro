@@ -2,43 +2,43 @@
 import Layout from "../../layouts/Layout.astro";
 import ComponentPreview from "../../components/ComponentPreview.astro";
 
-const usageCode = `<div class="cu-tabs" data-tabs>
+const usageCode = `<div class="cu-tabs" data-cu-tabs>
   <div class="cu-tabs-list">
-    <button class="cu-tabs-trigger cu-tabs-trigger-active" data-tabs-trigger="account">Account</button>
-    <button class="cu-tabs-trigger" data-tabs-trigger="password">Password</button>
+    <button class="cu-tabs-trigger cu-tabs-trigger-active" data-cu-tabs-trigger="account">Account</button>
+    <button class="cu-tabs-trigger" data-cu-tabs-trigger="password">Password</button>
   </div>
-  <div class="cu-tabs-content" data-tabs-content="account">
+  <div class="cu-tabs-content" data-cu-tabs-content="account">
     <p class="text-sm text-muted-foreground">Make changes to your account here.</p>
   </div>
-  <div class="cu-tabs-content" data-tabs-content="password" hidden>
+  <div class="cu-tabs-content" data-cu-tabs-content="password" hidden>
     <p class="text-sm text-muted-foreground">Change your password here.</p>
   </div>
 </div>
 
 <script>
-  document.querySelectorAll("[data-tabs]").forEach((tabs) => {
-    const triggers = tabs.querySelectorAll("[data-tabs-trigger]");
-    const contents = tabs.querySelectorAll("[data-tabs-content]");
+  document.querySelectorAll("[data-cu-tabs]").forEach((tabs) => {
+    const triggers = tabs.querySelectorAll("[data-cu-tabs-trigger]");
+    const contents = tabs.querySelectorAll("[data-cu-tabs-content]");
     triggers.forEach((trigger) => {
       trigger.addEventListener("click", () => {
-        const value = trigger.getAttribute("data-tabs-trigger");
+        const value = trigger.getAttribute("data-cu-tabs-trigger");
         triggers.forEach((t) => t.classList.remove("cu-tabs-trigger-active"));
         trigger.classList.add("cu-tabs-trigger-active");
         contents.forEach((c) => {
-          c.hidden = c.getAttribute("data-tabs-content") !== value;
+          c.hidden = c.getAttribute("data-cu-tabs-content") !== value;
         });
       });
     });
   });
 </script>`.trim();
 
-const withContentCode = `<div class="cu-tabs" data-tabs>
+const withContentCode = `<div class="cu-tabs" data-cu-tabs>
   <div class="cu-tabs-list">
-    <button class="cu-tabs-trigger cu-tabs-trigger-active" data-tabs-trigger="overview">Overview</button>
-    <button class="cu-tabs-trigger" data-tabs-trigger="analytics">Analytics</button>
-    <button class="cu-tabs-trigger" data-tabs-trigger="reports">Reports</button>
+    <button class="cu-tabs-trigger cu-tabs-trigger-active" data-cu-tabs-trigger="overview">Overview</button>
+    <button class="cu-tabs-trigger" data-cu-tabs-trigger="analytics">Analytics</button>
+    <button class="cu-tabs-trigger" data-cu-tabs-trigger="reports">Reports</button>
   </div>
-  <div class="cu-tabs-content" data-tabs-content="overview">
+  <div class="cu-tabs-content" data-cu-tabs-content="overview">
     <div class="cu-card">
       <div class="cu-card-header">
         <h3 class="cu-card-title">Overview</h3>
@@ -49,7 +49,7 @@ const withContentCode = `<div class="cu-tabs" data-tabs>
       </div>
     </div>
   </div>
-  <div class="cu-tabs-content" data-tabs-content="analytics" hidden>
+  <div class="cu-tabs-content" data-cu-tabs-content="analytics" hidden>
     <div class="cu-card">
       <div class="cu-card-header">
         <h3 class="cu-card-title">Analytics</h3>
@@ -60,7 +60,7 @@ const withContentCode = `<div class="cu-tabs" data-tabs>
       </div>
     </div>
   </div>
-  <div class="cu-tabs-content" data-tabs-content="reports" hidden>
+  <div class="cu-tabs-content" data-cu-tabs-content="reports" hidden>
     <div class="cu-card">
       <div class="cu-card-header">
         <h3 class="cu-card-title">Reports</h3>
@@ -87,22 +87,22 @@ const withContentCode = `<div class="cu-tabs" data-tabs>
         <section class="space-y-3">
             <h2 class="text-lg font-semibold tracking-tight">Usage</h2>
             <p class="text-sm text-muted-foreground leading-relaxed">
-                Use <code class="cu-code">data-tabs</code> on the container,
-                <code class="cu-code">data-tabs-trigger</code> on each button with a value, and
-                <code class="cu-code">data-tabs-content</code> on each panel with a matching value.
+                Use <code class="cu-code">data-cu-tabs</code> on the container,
+                <code class="cu-code">data-cu-tabs-trigger</code> on each button with a value, and
+                <code class="cu-code">data-cu-tabs-content</code> on each panel with a matching value.
                 Include the <code class="cu-code">&lt;script&gt;</code> snippet for interactivity.
             </p>
             <ComponentPreview code={usageCode}>
                 <div class="w-full max-w-md">
-                    <div class="cu-tabs" data-tabs>
+                    <div class="cu-tabs" data-cu-tabs>
                         <div class="cu-tabs-list">
-                            <button class="cu-tabs-trigger cu-tabs-trigger-active" data-tabs-trigger="account">Account</button>
-                            <button class="cu-tabs-trigger" data-tabs-trigger="password">Password</button>
+                            <button class="cu-tabs-trigger cu-tabs-trigger-active" data-cu-tabs-trigger="account">Account</button>
+                            <button class="cu-tabs-trigger" data-cu-tabs-trigger="password">Password</button>
                         </div>
-                        <div class="cu-tabs-content" data-tabs-content="account">
+                        <div class="cu-tabs-content" data-cu-tabs-content="account">
                             <p class="text-sm text-muted-foreground">Make changes to your account here.</p>
                         </div>
-                        <div class="cu-tabs-content" data-tabs-content="password" hidden>
+                        <div class="cu-tabs-content" data-cu-tabs-content="password" hidden>
                             <p class="text-sm text-muted-foreground">Change your password here.</p>
                         </div>
                     </div>
@@ -118,13 +118,13 @@ const withContentCode = `<div class="cu-tabs" data-tabs>
             </p>
             <ComponentPreview code={withContentCode}>
                 <div class="w-full max-w-lg">
-                    <div class="cu-tabs" data-tabs>
+                    <div class="cu-tabs" data-cu-tabs>
                         <div class="cu-tabs-list">
-                            <button class="cu-tabs-trigger cu-tabs-trigger-active" data-tabs-trigger="overview2">Overview</button>
-                            <button class="cu-tabs-trigger" data-tabs-trigger="analytics2">Analytics</button>
-                            <button class="cu-tabs-trigger" data-tabs-trigger="reports2">Reports</button>
+                            <button class="cu-tabs-trigger cu-tabs-trigger-active" data-cu-tabs-trigger="overview2">Overview</button>
+                            <button class="cu-tabs-trigger" data-cu-tabs-trigger="analytics2">Analytics</button>
+                            <button class="cu-tabs-trigger" data-cu-tabs-trigger="reports2">Reports</button>
                         </div>
-                        <div class="cu-tabs-content" data-tabs-content="overview2">
+                        <div class="cu-tabs-content" data-cu-tabs-content="overview2">
                             <div class="cu-card">
                                 <div class="cu-card-header">
                                     <h3 class="cu-card-title">Overview</h3>
@@ -135,7 +135,7 @@ const withContentCode = `<div class="cu-tabs" data-tabs>
                                 </div>
                             </div>
                         </div>
-                        <div class="cu-tabs-content" data-tabs-content="analytics2" hidden>
+                        <div class="cu-tabs-content" data-cu-tabs-content="analytics2" hidden>
                             <div class="cu-card">
                                 <div class="cu-card-header">
                                     <h3 class="cu-card-title">Analytics</h3>
@@ -146,7 +146,7 @@ const withContentCode = `<div class="cu-tabs" data-tabs>
                                 </div>
                             </div>
                         </div>
-                        <div class="cu-tabs-content" data-tabs-content="reports2" hidden>
+                        <div class="cu-tabs-content" data-cu-tabs-content="reports2" hidden>
                             <div class="cu-card">
                                 <div class="cu-card-header">
                                     <h3 class="cu-card-title">Reports</h3>
@@ -166,16 +166,16 @@ const withContentCode = `<div class="cu-tabs" data-tabs>
 
 <script>
     function setupTabs() {
-        document.querySelectorAll("[data-tabs]").forEach((tabs) => {
-            const triggers = tabs.querySelectorAll("[data-tabs-trigger]");
-            const contents = tabs.querySelectorAll("[data-tabs-content]");
+        document.querySelectorAll("[data-cu-tabs]").forEach((tabs) => {
+            const triggers = tabs.querySelectorAll("[data-cu-tabs-trigger]");
+            const contents = tabs.querySelectorAll("[data-cu-tabs-content]");
             triggers.forEach((trigger) => {
                 trigger.addEventListener("click", () => {
-                    const value = trigger.getAttribute("data-tabs-trigger");
+                    const value = trigger.getAttribute("data-cu-tabs-trigger");
                     triggers.forEach((t) => t.classList.remove("cu-tabs-trigger-active"));
                     trigger.classList.add("cu-tabs-trigger-active");
                     contents.forEach((c) => {
-                        c.hidden = c.getAttribute("data-tabs-content") !== value;
+                        c.hidden = c.getAttribute("data-cu-tabs-content") !== value;
                     });
                 });
             });

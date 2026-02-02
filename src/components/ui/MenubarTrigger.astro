@@ -10,6 +10,6 @@ const { class: className, ...rest } = Astro.props;
 const baseClass = `${TOP_CLASS}-menubar-trigger`;
 ---
 
-<button class:list={[baseClass, className]} data-menubar-trigger aria-expanded="false" {...rest}>
+<button class:list={[baseClass, className]} data-cu-menubar-trigger aria-expanded="false" {...rest}>
     <slot />
 </button>

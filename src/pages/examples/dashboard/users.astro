@@ -1,0 +1,192 @@
+---
+import DashboardLayout from "../../../layouts/DashboardLayout.astro";
+---
+
+<DashboardLayout title="使用者管理 — Acme Inc.">
+	<div class="space-y-6">
+		<!-- Page header -->
+		<div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+			<div>
+				<h1 class="text-2xl font-bold tracking-tight">使用者</h1>
+				<p class="text-sm text-muted-foreground mt-1">管理系統中的使用者帳號。</p>
+			</div>
+			<button class="cu-button cu-button-default cu-button-md">
+				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1.5"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
+				新增使用者
+			</button>
+		</div>
+
+		<!-- Search -->
+		<div class="max-w-sm">
+			<div class="cu-search-input-wrapper">
+				<svg class="cu-search-input-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+				<input class="cu-search-input" type="search" placeholder="搜尋使用者…" />
+			</div>
+		</div>
+
+		<!-- Table -->
+		<div class="cu-card">
+			<div class="cu-card-content p-0">
+				<div class="overflow-x-auto">
+					<table class="cu-table">
+						<thead>
+							<tr>
+								<th>使用者</th>
+								<th>Email</th>
+								<th>角色</th>
+								<th>狀態</th>
+								<th class="w-12"></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>
+									<div class="flex items-center gap-3">
+										<div class="cu-avatar cu-avatar-sm"><div class="cu-avatar-fallback">OL</div></div>
+										<span class="font-medium">Olivia Lin</span>
+									</div>
+								</td>
+								<td class="text-muted-foreground">olivia@example.com</td>
+								<td><span class="cu-badge cu-badge-default">管理員</span></td>
+								<td><span class="cu-badge cu-badge-success">啟用</span></td>
+								<td>
+									<button class="inline-flex h-8 w-8 items-center justify-center rounded-lg text-muted-foreground hover:text-foreground cursor-pointer" aria-label="更多操作">
+										<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"/><circle cx="12" cy="5" r="1"/><circle cx="12" cy="19" r="1"/></svg>
+									</button>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<div class="flex items-center gap-3">
+										<div class="cu-avatar cu-avatar-sm"><div class="cu-avatar-fallback">JC</div></div>
+										<span class="font-medium">Jackson Chen</span>
+									</div>
+								</td>
+								<td class="text-muted-foreground">jackson@example.com</td>
+								<td><span class="cu-badge cu-badge-secondary">編輯者</span></td>
+								<td><span class="cu-badge cu-badge-success">啟用</span></td>
+								<td>
+									<button class="inline-flex h-8 w-8 items-center justify-center rounded-lg text-muted-foreground hover:text-foreground cursor-pointer" aria-label="更多操作">
+										<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"/><circle cx="12" cy="5" r="1"/><circle cx="12" cy="19" r="1"/></svg>
+									</button>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<div class="flex items-center gap-3">
+										<div class="cu-avatar cu-avatar-sm"><div class="cu-avatar-fallback">IW</div></div>
+										<span class="font-medium">Isabella Wu</span>
+									</div>
+								</td>
+								<td class="text-muted-foreground">isabella@example.com</td>
+								<td><span class="cu-badge cu-badge-secondary">檢視者</span></td>
+								<td><span class="cu-badge cu-badge-success">啟用</span></td>
+								<td>
+									<button class="inline-flex h-8 w-8 items-center justify-center rounded-lg text-muted-foreground hover:text-foreground cursor-pointer" aria-label="更多操作">
+										<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"/><circle cx="12" cy="5" r="1"/><circle cx="12" cy="19" r="1"/></svg>
+									</button>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<div class="flex items-center gap-3">
+										<div class="cu-avatar cu-avatar-sm"><div class="cu-avatar-fallback">WK</div></div>
+										<span class="font-medium">William Kim</span>
+									</div>
+								</td>
+								<td class="text-muted-foreground">will@example.com</td>
+								<td><span class="cu-badge cu-badge-secondary">編輯者</span></td>
+								<td><span class="cu-badge cu-badge-muted">停用</span></td>
+								<td>
+									<button class="inline-flex h-8 w-8 items-center justify-center rounded-lg text-muted-foreground hover:text-foreground cursor-pointer" aria-label="更多操作">
+										<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"/><circle cx="12" cy="5" r="1"/><circle cx="12" cy="19" r="1"/></svg>
+									</button>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<div class="flex items-center gap-3">
+										<div class="cu-avatar cu-avatar-sm"><div class="cu-avatar-fallback">SZ</div></div>
+										<span class="font-medium">Sofia Zhang</span>
+									</div>
+								</td>
+								<td class="text-muted-foreground">sofia@example.com</td>
+								<td><span class="cu-badge cu-badge-default">管理員</span></td>
+								<td><span class="cu-badge cu-badge-success">啟用</span></td>
+								<td>
+									<button class="inline-flex h-8 w-8 items-center justify-center rounded-lg text-muted-foreground hover:text-foreground cursor-pointer" aria-label="更多操作">
+										<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"/><circle cx="12" cy="5" r="1"/><circle cx="12" cy="19" r="1"/></svg>
+									</button>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<div class="flex items-center gap-3">
+										<div class="cu-avatar cu-avatar-sm"><div class="cu-avatar-fallback">LH</div></div>
+										<span class="font-medium">Liam Huang</span>
+									</div>
+								</td>
+								<td class="text-muted-foreground">liam@example.com</td>
+								<td><span class="cu-badge cu-badge-secondary">檢視者</span></td>
+								<td><span class="cu-badge cu-badge-success">啟用</span></td>
+								<td>
+									<button class="inline-flex h-8 w-8 items-center justify-center rounded-lg text-muted-foreground hover:text-foreground cursor-pointer" aria-label="更多操作">
+										<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"/><circle cx="12" cy="5" r="1"/><circle cx="12" cy="19" r="1"/></svg>
+									</button>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<div class="flex items-center gap-3">
+										<div class="cu-avatar cu-avatar-sm"><div class="cu-avatar-fallback">EL</div></div>
+										<span class="font-medium">Emma Lee</span>
+									</div>
+								</td>
+								<td class="text-muted-foreground">emma@example.com</td>
+								<td><span class="cu-badge cu-badge-secondary">編輯者</span></td>
+								<td><span class="cu-badge cu-badge-success">啟用</span></td>
+								<td>
+									<button class="inline-flex h-8 w-8 items-center justify-center rounded-lg text-muted-foreground hover:text-foreground cursor-pointer" aria-label="更多操作">
+										<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"/><circle cx="12" cy="5" r="1"/><circle cx="12" cy="19" r="1"/></svg>
+									</button>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<div class="flex items-center gap-3">
+										<div class="cu-avatar cu-avatar-sm"><div class="cu-avatar-fallback">NT</div></div>
+										<span class="font-medium">Noah Tsai</span>
+									</div>
+								</td>
+								<td class="text-muted-foreground">noah@example.com</td>
+								<td><span class="cu-badge cu-badge-secondary">檢視者</span></td>
+								<td><span class="cu-badge cu-badge-muted">停用</span></td>
+								<td>
+									<button class="inline-flex h-8 w-8 items-center justify-center rounded-lg text-muted-foreground hover:text-foreground cursor-pointer" aria-label="更多操作">
+										<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"/><circle cx="12" cy="5" r="1"/><circle cx="12" cy="19" r="1"/></svg>
+									</button>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+
+		<!-- Pagination -->
+		<div class="flex items-center justify-between">
+			<p class="text-sm text-muted-foreground">顯示 1-8 筆，共 24 筆</p>
+			<nav class="cu-pagination">
+				<button class="cu-pagination-item" disabled>
+					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+				</button>
+				<button class="cu-pagination-item cu-pagination-item-active">1</button>
+				<button class="cu-pagination-item">2</button>
+				<button class="cu-pagination-item">3</button>
+				<button class="cu-pagination-item">
+					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+				</button>
+			</nav>
+		</div>
+	</div>
+</DashboardLayout>

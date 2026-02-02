@@ -2,22 +2,22 @@
 import Layout from "../../layouts/Layout.astro";
 import ComponentPreview from "../../components/ComponentPreview.astro";
 
-const usageCode = `<button class="cu-button cu-button-outline cu-button-md" data-toast-trigger
-  data-toast-title="Event has been created"
-  data-toast-description="Sunday, December 03, 2023 at 9:00 AM">
+const usageCode = `<button class="cu-button cu-button-outline cu-button-md" data-cu-toast-trigger
+  data-cu-toast-title="Event has been created"
+  data-cu-toast-description="Sunday, December 03, 2023 at 9:00 AM">
   Show Toast
 </button>
 
-<div class="cu-toast-container cu-toast-container-bottom-right" data-toast-container></div>
+<div class="cu-toast-container cu-toast-container-bottom-right" data-cu-toast-container></div>
 
 <script>
-  document.querySelectorAll("[data-toast-trigger]").forEach((trigger) => {
+  document.querySelectorAll("[data-cu-toast-trigger]").forEach((trigger) => {
     trigger.addEventListener("click", () => {
-      const container = document.querySelector("[data-toast-container]");
+      const container = document.querySelector("[data-cu-toast-container]");
       if (!container) return;
-      const title = trigger.getAttribute("data-toast-title") || "";
-      const desc = trigger.getAttribute("data-toast-description") || "";
-      const variant = trigger.getAttribute("data-toast-variant") || "default";
+      const title = trigger.getAttribute("data-cu-toast-title") || "";
+      const desc = trigger.getAttribute("data-cu-toast-description") || "";
+      const variant = trigger.getAttribute("data-cu-toast-variant") || "default";
       const toast = document.createElement("div");
       toast.className = "cu-toast cu-toast-" + variant;
       toast.innerHTML =
@@ -25,38 +25,38 @@ const usageCode = `<button class="cu-button cu-button-outline cu-button-md" data
           '<div class="cu-toast-title">' + title + '</div>' +
           (desc ? '<div class="cu-toast-description">' + desc + '</div>' : '') +
         '</div>' +
-        '<button class="cu-toast-close" data-toast-close>' +
+        '<button class="cu-toast-close" data-cu-toast-close>' +
           '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>' +
         '</button>';
       container.appendChild(toast);
-      toast.querySelector("[data-toast-close]")?.addEventListener("click", () => toast.remove());
+      toast.querySelector("[data-cu-toast-close]")?.addEventListener("click", () => toast.remove());
       setTimeout(() => toast.remove(), 5000);
     });
   });
 </script>`.trim();
 
-const variantsCode = `<button class="cu-button cu-button-default cu-button-md" data-toast-trigger
-  data-toast-title="Default toast" data-toast-description="This is a default notification." data-toast-variant="default">
+const variantsCode = `<button class="cu-button cu-button-default cu-button-md" data-cu-toast-trigger
+  data-cu-toast-title="Default toast" data-cu-toast-description="This is a default notification." data-cu-toast-variant="default">
   Default
 </button>
 
-<button class="cu-button cu-button-destructive cu-button-md" data-toast-trigger
-  data-toast-title="Error" data-toast-description="Something went wrong." data-toast-variant="destructive">
+<button class="cu-button cu-button-destructive cu-button-md" data-cu-toast-trigger
+  data-cu-toast-title="Error" data-cu-toast-description="Something went wrong." data-cu-toast-variant="destructive">
   Destructive
 </button>
 
-<button class="cu-button cu-button-success cu-button-md" data-toast-trigger
-  data-toast-title="Success" data-toast-description="Your changes have been saved." data-toast-variant="success">
+<button class="cu-button cu-button-success cu-button-md" data-cu-toast-trigger
+  data-cu-toast-title="Success" data-cu-toast-description="Your changes have been saved." data-cu-toast-variant="success">
   Success
 </button>
 
-<button class="cu-button cu-button-warning cu-button-md" data-toast-trigger
-  data-toast-title="Warning" data-toast-description="Please review before continuing." data-toast-variant="warning">
+<button class="cu-button cu-button-warning cu-button-md" data-cu-toast-trigger
+  data-cu-toast-title="Warning" data-cu-toast-description="Please review before continuing." data-cu-toast-variant="warning">
   Warning
 </button>
 
-<button class="cu-button cu-button-info cu-button-md" data-toast-trigger
-  data-toast-title="Info" data-toast-description="A new update is available." data-toast-variant="info">
+<button class="cu-button cu-button-info cu-button-md" data-cu-toast-trigger
+  data-cu-toast-title="Info" data-cu-toast-description="A new update is available." data-cu-toast-variant="info">
   Info
 </button>`.trim();
 ---
@@ -74,15 +74,15 @@ const variantsCode = `<button class="cu-button cu-button-default cu-button-md" d
         <section class="space-y-3">
             <h2 class="text-lg font-semibold tracking-tight">Usage</h2>
             <p class="text-sm text-muted-foreground leading-relaxed">
-                Add <code class="cu-code">data-toast-trigger</code> on a button with
-                <code class="cu-code">data-toast-title</code> and
-                <code class="cu-code">data-toast-description</code> attributes.
+                Add <code class="cu-code">data-cu-toast-trigger</code> on a button with
+                <code class="cu-code">data-cu-toast-title</code> and
+                <code class="cu-code">data-cu-toast-description</code> attributes.
                 Place a <code class="cu-code">cu-toast-container</code> at a fixed position to receive toasts.
             </p>
             <ComponentPreview code={usageCode}>
-                <button class="cu-button cu-button-outline cu-button-md" data-toast-trigger
-                    data-toast-title="Event has been created"
-                    data-toast-description="Sunday, December 03, 2023 at 9:00 AM">
+                <button class="cu-button cu-button-outline cu-button-md" data-cu-toast-trigger
+                    data-cu-toast-title="Event has been created"
+                    data-cu-toast-description="Sunday, December 03, 2023 at 9:00 AM">
                     Show Toast
                 </button>
             </ComponentPreview>
@@ -92,31 +92,31 @@ const variantsCode = `<button class="cu-button cu-button-default cu-button-md" d
         <section class="space-y-3">
             <h2 class="text-lg font-semibold tracking-tight">Variants</h2>
             <p class="text-sm text-muted-foreground leading-relaxed">
-                Use <code class="cu-code">data-toast-variant</code> to set the visual style:
+                Use <code class="cu-code">data-cu-toast-variant</code> to set the visual style:
                 <code class="cu-code">default</code>, <code class="cu-code">destructive</code>,
                 <code class="cu-code">success</code>, <code class="cu-code">warning</code>,
                 <code class="cu-code">info</code>.
             </p>
             <ComponentPreview code={variantsCode}>
                 <div class="flex flex-wrap gap-2">
-                    <button class="cu-button cu-button-default cu-button-md" data-toast-trigger
-                        data-toast-title="Default toast" data-toast-description="This is a default notification." data-toast-variant="default">
+                    <button class="cu-button cu-button-default cu-button-md" data-cu-toast-trigger
+                        data-cu-toast-title="Default toast" data-cu-toast-description="This is a default notification." data-cu-toast-variant="default">
                         Default
                     </button>
-                    <button class="cu-button cu-button-destructive cu-button-md" data-toast-trigger
-                        data-toast-title="Error" data-toast-description="Something went wrong." data-toast-variant="destructive">
+                    <button class="cu-button cu-button-destructive cu-button-md" data-cu-toast-trigger
+                        data-cu-toast-title="Error" data-cu-toast-description="Something went wrong." data-cu-toast-variant="destructive">
                         Destructive
                     </button>
-                    <button class="cu-button cu-button-success cu-button-md" data-toast-trigger
-                        data-toast-title="Success" data-toast-description="Your changes have been saved." data-toast-variant="success">
+                    <button class="cu-button cu-button-success cu-button-md" data-cu-toast-trigger
+                        data-cu-toast-title="Success" data-cu-toast-description="Your changes have been saved." data-cu-toast-variant="success">
                         Success
                     </button>
-                    <button class="cu-button cu-button-warning cu-button-md" data-toast-trigger
-                        data-toast-title="Warning" data-toast-description="Please review before continuing." data-toast-variant="warning">
+                    <button class="cu-button cu-button-warning cu-button-md" data-cu-toast-trigger
+                        data-cu-toast-title="Warning" data-cu-toast-description="Please review before continuing." data-cu-toast-variant="warning">
                         Warning
                     </button>
-                    <button class="cu-button cu-button-info cu-button-md" data-toast-trigger
-                        data-toast-title="Info" data-toast-description="A new update is available." data-toast-variant="info">
+                    <button class="cu-button cu-button-info cu-button-md" data-cu-toast-trigger
+                        data-cu-toast-title="Info" data-cu-toast-description="A new update is available." data-cu-toast-variant="info">
                         Info
                     </button>
                 </div>
@@ -127,21 +127,21 @@ const variantsCode = `<button class="cu-button cu-button-default cu-button-md" d
 
 <script>
     function setupToasts() {
-        let container = document.querySelector("[data-toast-container]") as HTMLElement | null;
+        let container = document.querySelector("[data-cu-toast-container]") as HTMLElement | null;
         if (!container) {
             container = document.createElement("div");
             container.className = "cu-toast-container cu-toast-container-bottom-right";
-            container.setAttribute("data-toast-container", "");
+            container.setAttribute("data-cu-toast-container", "");
             document.body.appendChild(container);
         }
 
-        document.querySelectorAll("[data-toast-trigger]").forEach((trigger) => {
+        document.querySelectorAll("[data-cu-toast-trigger]").forEach((trigger) => {
             trigger.addEventListener("click", () => {
-                const c = document.querySelector("[data-toast-container]");
+                const c = document.querySelector("[data-cu-toast-container]");
                 if (!c) return;
-                const title = trigger.getAttribute("data-toast-title") || "";
-                const desc = trigger.getAttribute("data-toast-description") || "";
-                const variant = trigger.getAttribute("data-toast-variant") || "default";
+                const title = trigger.getAttribute("data-cu-toast-title") || "";
+                const desc = trigger.getAttribute("data-cu-toast-description") || "";
+                const variant = trigger.getAttribute("data-cu-toast-variant") || "default";
                 const toast = document.createElement("div");
                 toast.className = `cu-toast cu-toast-${variant}`;
                 toast.innerHTML = `
@@ -149,11 +149,11 @@ const variantsCode = `<button class="cu-button cu-button-default cu-button-md" d
                         <div class="cu-toast-title">${title}</div>
                         ${desc ? `<div class="cu-toast-description">${desc}</div>` : ""}
                     </div>
-                    <button class="cu-toast-close" data-toast-close>
+                    <button class="cu-toast-close" data-cu-toast-close>
                         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
                     </button>`;
                 c.appendChild(toast);
-                toast.querySelector("[data-toast-close]")?.addEventListener("click", () => toast.remove());
+                toast.querySelector("[data-cu-toast-close]")?.addEventListener("click", () => toast.remove());
                 setTimeout(() => toast.remove(), 5000);
             });
         });

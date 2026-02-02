@@ -1,0 +1,196 @@
+---
+import DashboardLayout from "../../../layouts/DashboardLayout.astro";
+---
+
+<DashboardLayout title="儀表板 — Acme Inc.">
+	<div class="space-y-8">
+		<!-- Page header -->
+		<div>
+			<h1 class="text-2xl font-bold tracking-tight">儀表板</h1>
+			<p class="text-sm text-muted-foreground mt-1">歡迎回來，這是您的業務概覽。</p>
+		</div>
+
+		<!-- Stat cards -->
+		<div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+			<div class="cu-stat">
+				<div class="cu-stat-header">
+					<span class="cu-stat-label">總營收</span>
+					<svg class="cu-stat-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+				</div>
+				<div class="cu-stat-value">$45,231.89</div>
+				<p class="cu-stat-description">
+					<span class="cu-stat-trend cu-stat-trend-up">+20.1%</span> 較上月
+				</p>
+			</div>
+			<div class="cu-stat">
+				<div class="cu-stat-header">
+					<span class="cu-stat-label">使用者數</span>
+					<svg class="cu-stat-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+				</div>
+				<div class="cu-stat-value">+2,350</div>
+				<p class="cu-stat-description">
+					<span class="cu-stat-trend cu-stat-trend-up">+180.1%</span> 較上月
+				</p>
+			</div>
+			<div class="cu-stat">
+				<div class="cu-stat-header">
+					<span class="cu-stat-label">訂單數</span>
+					<svg class="cu-stat-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+				</div>
+				<div class="cu-stat-value">+12,234</div>
+				<p class="cu-stat-description">
+					<span class="cu-stat-trend cu-stat-trend-up">+19%</span> 較上月
+				</p>
+			</div>
+			<div class="cu-stat">
+				<div class="cu-stat-header">
+					<span class="cu-stat-label">轉換率</span>
+					<svg class="cu-stat-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+				</div>
+				<div class="cu-stat-value">3.24%</div>
+				<p class="cu-stat-description">
+					<span class="cu-stat-trend cu-stat-trend-down">-0.5%</span> 較上月
+				</p>
+			</div>
+		</div>
+
+		<!-- Chart placeholder + Recent activity -->
+		<div class="grid grid-cols-1 gap-6 lg:grid-cols-7">
+			<!-- Chart -->
+			<div class="cu-card lg:col-span-4">
+				<div class="cu-card-header">
+					<h3 class="cu-card-title">概覽</h3>
+					<p class="cu-card-description">本月營收趨勢</p>
+				</div>
+				<div class="cu-card-content">
+					<div class="flex items-end gap-2 h-48">
+						<div class="flex-1 rounded bg-primary/10 h-[30%]"></div>
+						<div class="flex-1 rounded bg-primary/10 h-[45%]"></div>
+						<div class="flex-1 rounded bg-primary/10 h-[35%]"></div>
+						<div class="flex-1 rounded bg-primary/15 h-[60%]"></div>
+						<div class="flex-1 rounded bg-primary/15 h-[50%]"></div>
+						<div class="flex-1 rounded bg-primary/20 h-[75%]"></div>
+						<div class="flex-1 rounded bg-primary/20 h-[65%]"></div>
+						<div class="flex-1 rounded bg-primary/25 h-[85%]"></div>
+						<div class="flex-1 rounded bg-primary/25 h-[70%]"></div>
+						<div class="flex-1 rounded bg-primary/30 h-[90%]"></div>
+						<div class="flex-1 rounded bg-primary/30 h-[80%]"></div>
+						<div class="flex-1 rounded bg-primary/35 h-full"></div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Recent sales -->
+			<div class="cu-card lg:col-span-3">
+				<div class="cu-card-header">
+					<h3 class="cu-card-title">近期銷售</h3>
+					<p class="cu-card-description">本月共 265 筆銷售</p>
+				</div>
+				<div class="cu-card-content">
+					<div class="space-y-5">
+						<div class="flex items-center gap-3">
+							<div class="cu-avatar cu-avatar-sm"><div class="cu-avatar-fallback">OL</div></div>
+							<div class="flex-1 min-w-0">
+								<p class="text-sm font-medium truncate">Olivia Lin</p>
+								<p class="text-xs text-muted-foreground truncate">olivia@example.com</p>
+							</div>
+							<span class="text-sm font-medium">+$1,999.00</span>
+						</div>
+						<div class="flex items-center gap-3">
+							<div class="cu-avatar cu-avatar-sm"><div class="cu-avatar-fallback">JC</div></div>
+							<div class="flex-1 min-w-0">
+								<p class="text-sm font-medium truncate">Jackson Chen</p>
+								<p class="text-xs text-muted-foreground truncate">jackson@example.com</p>
+							</div>
+							<span class="text-sm font-medium">+$39.00</span>
+						</div>
+						<div class="flex items-center gap-3">
+							<div class="cu-avatar cu-avatar-sm"><div class="cu-avatar-fallback">IW</div></div>
+							<div class="flex-1 min-w-0">
+								<p class="text-sm font-medium truncate">Isabella Wu</p>
+								<p class="text-xs text-muted-foreground truncate">isabella@example.com</p>
+							</div>
+							<span class="text-sm font-medium">+$299.00</span>
+						</div>
+						<div class="flex items-center gap-3">
+							<div class="cu-avatar cu-avatar-sm"><div class="cu-avatar-fallback">WK</div></div>
+							<div class="flex-1 min-w-0">
+								<p class="text-sm font-medium truncate">William Kim</p>
+								<p class="text-xs text-muted-foreground truncate">will@example.com</p>
+							</div>
+							<span class="text-sm font-medium">+$99.00</span>
+						</div>
+						<div class="flex items-center gap-3">
+							<div class="cu-avatar cu-avatar-sm"><div class="cu-avatar-fallback">SZ</div></div>
+							<div class="flex-1 min-w-0">
+								<p class="text-sm font-medium truncate">Sofia Zhang</p>
+								<p class="text-xs text-muted-foreground truncate">sofia@example.com</p>
+							</div>
+							<span class="text-sm font-medium">+$2,500.00</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Recent orders table -->
+		<div class="cu-card">
+			<div class="cu-card-header">
+				<h3 class="cu-card-title">最近訂單</h3>
+				<p class="cu-card-description">近期的交易記錄</p>
+			</div>
+			<div class="cu-card-content p-0">
+				<div class="overflow-x-auto">
+					<table class="cu-table">
+						<thead>
+							<tr>
+								<th>訂單編號</th>
+								<th>客戶</th>
+								<th>狀態</th>
+								<th>金額</th>
+								<th>日期</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td class="font-medium">#3210</td>
+								<td>Olivia Lin</td>
+								<td><span class="cu-badge cu-badge-success">已完成</span></td>
+								<td>$1,999.00</td>
+								<td class="text-muted-foreground">2026-01-15</td>
+							</tr>
+							<tr>
+								<td class="font-medium">#3209</td>
+								<td>Jackson Chen</td>
+								<td><span class="cu-badge cu-badge-warning">處理中</span></td>
+								<td>$39.00</td>
+								<td class="text-muted-foreground">2026-01-15</td>
+							</tr>
+							<tr>
+								<td class="font-medium">#3208</td>
+								<td>Isabella Wu</td>
+								<td><span class="cu-badge cu-badge-success">已完成</span></td>
+								<td>$299.00</td>
+								<td class="text-muted-foreground">2026-01-14</td>
+							</tr>
+							<tr>
+								<td class="font-medium">#3207</td>
+								<td>William Kim</td>
+								<td><span class="cu-badge cu-badge-destructive">已取消</span></td>
+								<td>$99.00</td>
+								<td class="text-muted-foreground">2026-01-14</td>
+							</tr>
+							<tr>
+								<td class="font-medium">#3206</td>
+								<td>Sofia Zhang</td>
+								<td><span class="cu-badge cu-badge-success">已完成</span></td>
+								<td>$2,500.00</td>
+								<td class="text-muted-foreground">2026-01-13</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</DashboardLayout>

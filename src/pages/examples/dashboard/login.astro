@@ -1,0 +1,86 @@
+---
+import "../../../styles/global.css";
+---
+
+<!doctype html>
+<html lang="zh-Hant">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="description" content="Login — Dashboard" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+			rel="stylesheet"
+		/>
+		<title>登入 — Acme Inc.</title>
+	</head>
+	<body class="min-h-screen font-sans">
+		<div class="grid min-h-screen lg:grid-cols-2">
+			<!-- Left: Brand -->
+			<div class="hidden lg:flex flex-col justify-between bg-foreground p-10 text-primary-foreground">
+				<div class="flex items-center gap-2.5">
+					<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-primary-foreground">
+						<path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+						<polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+						<line x1="12" y1="22.08" x2="12" y2="12"></line>
+					</svg>
+					<span class="text-lg font-semibold tracking-tight">Acme Inc.</span>
+				</div>
+				<div class="space-y-4">
+					<blockquote class="text-lg leading-relaxed opacity-90">
+						"這套系統讓我們的團隊效率提升了 3 倍，從報表分析到使用者管理，所有工作流程都變得無比順暢。"
+					</blockquote>
+					<p class="text-sm opacity-70">— 張小明，技術總監</p>
+				</div>
+				<p class="text-xs opacity-50">© 2026 Acme Inc. All rights reserved.</p>
+			</div>
+
+			<!-- Right: Login form -->
+			<div class="flex items-center justify-center p-8">
+				<div class="w-full max-w-sm space-y-6">
+					<!-- Mobile logo -->
+					<div class="flex items-center gap-2.5 lg:hidden mb-8">
+						<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-primary">
+							<path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+							<polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+							<line x1="12" y1="22.08" x2="12" y2="12"></line>
+						</svg>
+						<span class="text-base font-semibold tracking-tight">Acme Inc.</span>
+					</div>
+
+					<div class="space-y-2">
+						<h1 class="text-2xl font-bold tracking-tight">歡迎回來</h1>
+						<p class="text-sm text-muted-foreground">請輸入您的帳號資訊以登入</p>
+					</div>
+
+					<form class="space-y-4" action="/examples/dashboard">
+						<div class="cu-form-group">
+							<label class="cu-label" for="email">Email</label>
+							<input class="cu-input" id="email" type="email" placeholder="name@example.com" required aria-required="true" />
+						</div>
+						<div class="cu-form-group">
+							<label class="cu-label" for="password">密碼</label>
+							<input class="cu-input" id="password" type="password" placeholder="請輸入密碼" required aria-required="true" />
+						</div>
+						<div class="flex items-center justify-between">
+							<label class="cu-checkbox-wrapper">
+								<input type="checkbox" class="cu-checkbox" />
+								<span class="text-sm">記住我</span>
+							</label>
+							<a href="#" class="cu-link text-sm">忘記密碼？</a>
+						</div>
+						<button type="submit" class="cu-button cu-button-default cu-button-md w-full">登入</button>
+					</form>
+
+					<p class="text-center text-sm text-muted-foreground">
+						還沒有帳號？
+						<a href="#" class="cu-link">立即註冊</a>
+					</p>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

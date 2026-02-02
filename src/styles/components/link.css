@@ -3,3 +3,23 @@
 .cu-link {
     @apply font-medium text-primary underline underline-offset-4 transition-colors hover:text-primary/80;
 }
+
+/* -- no underline (hover-only underline) -- */
+.cu-link-plain {
+    @apply font-medium text-primary no-underline transition-colors hover:text-primary/80 hover:underline hover:underline-offset-4;
+}
+
+/* -- muted -- */
+.cu-link-muted {
+    @apply text-muted-foreground no-underline transition-colors hover:text-foreground;
+}
+
+/* -- subtle (foreground color, underline on hover) -- */
+.cu-link-subtle {
+    @apply text-foreground no-underline transition-colors hover:text-primary;
+}
+
+/* -- external (with trailing icon slot) -- */
+.cu-link-external {
+    @apply inline-flex items-center gap-1;
+}

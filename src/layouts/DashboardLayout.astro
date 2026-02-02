@@ -1,0 +1,137 @@
+---
+import "../styles/global.css";
+
+interface Props {
+	title: string;
+}
+
+const { title } = Astro.props;
+const pathname = Astro.url.pathname;
+const normalizedPath =
+	pathname.endsWith("/") && pathname.length > 1
+		? pathname.slice(0, -1)
+		: pathname;
+
+const navItems = [
+	{ label: "儀表板", href: "/examples/dashboard", icon: "home" },
+	{ label: "使用者", href: "/examples/dashboard/users", icon: "users" },
+	{ label: "設定", href: "/examples/dashboard/settings", icon: "settings" },
+];
+---
+
+<!doctype html>
+<html lang="zh-Hant">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="description" content="Dashboard — Cubby UI" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+			rel="stylesheet"
+		/>
+		<title>{title}</title>
+	</head>
+	<body class="min-h-screen font-sans">
+		<div class="relative flex min-h-screen flex-col">
+			<!-- Header -->
+			<header class="cu-header">
+				<div class="flex h-14 items-center justify-between px-4 sm:px-6 lg:px-8">
+					<div class="flex items-center gap-3">
+						<button class="lg:hidden inline-flex h-8 w-8 items-center justify-center rounded-lg text-muted-foreground hover:text-foreground" data-cu-dashboard-menu-toggle>
+							<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+						</button>
+						<a class="cu-header-brand" href="/examples/dashboard">
+							<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-primary">
+								<path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+								<polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+								<line x1="12" y1="22.08" x2="12" y2="12"></line>
+							</svg>
+							<span class="text-base font-semibold tracking-tight">Acme Inc.</span>
+						</a>
+					</div>
+					<div class="cu-header-actions">
+						<!-- Notification bell -->
+						<button class="inline-flex h-8 w-8 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground">
+							<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
+							<span class="sr-only">通知</span>
+						</button>
+						<!-- Avatar -->
+						<div class="cu-avatar cu-avatar-sm">
+							<div class="cu-avatar-fallback">JD</div>
+						</div>
+					</div>
+				</div>
+			</header>
+
+			<div class="flex flex-1">
+				<!-- Sidebar overlay (mobile) -->
+				<div class="fixed inset-0 z-40 bg-black/50 hidden" data-cu-dashboard-overlay></div>
+
+				<!-- Sidebar -->
+				<aside class="cu-sidebar fixed inset-y-0 left-0 z-50 -translate-x-full transition-transform duration-200 lg:relative lg:translate-x-0 lg:z-auto" data-cu-dashboard-sidebar aria-label="主導航">
+					<div class="cu-sidebar-content">
+						<nav class="flex flex-col gap-1">
+							{navItems.map((item) => {
+								const isActive = normalizedPath === item.href || (item.href !== "/examples/dashboard" && normalizedPath.startsWith(item.href));
+								return (
+									<a
+										href={item.href}
+										class:list={["cu-sidebar-item", { "cu-sidebar-item-active": isActive }]}
+									>
+										{item.icon === "home" && (
+											<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+										)}
+										{item.icon === "users" && (
+											<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+										)}
+										{item.icon === "settings" && (
+											<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
+										)}
+										<span>{item.label}</span>
+									</a>
+								);
+							})}
+						</nav>
+					</div>
+					<div class="cu-sidebar-footer">
+						<a href="/examples/dashboard/login" class="cu-sidebar-item">
+							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/></svg>
+							<span>登出</span>
+						</a>
+					</div>
+				</aside>
+
+				<!-- Main content -->
+				<main class="flex-1 min-w-0 border-l border-border py-6 px-4 sm:px-6 md:py-8 md:px-8 lg:px-12">
+					<div class="mx-auto max-w-6xl">
+						<slot />
+					</div>
+				</main>
+			</div>
+		</div>
+
+		<script>
+			const toggle = document.querySelector("[data-cu-dashboard-menu-toggle]");
+			const sidebar = document.querySelector("[data-cu-dashboard-sidebar]");
+			const overlay = document.querySelector("[data-cu-dashboard-overlay]");
+
+			function openMenu() {
+				sidebar?.classList.remove("-translate-x-full");
+				sidebar?.classList.add("translate-x-0");
+				overlay?.classList.remove("hidden");
+			}
+
+			function closeMenu() {
+				sidebar?.classList.add("-translate-x-full");
+				sidebar?.classList.remove("translate-x-0");
+				overlay?.classList.add("hidden");
+			}
+
+			toggle?.addEventListener("click", openMenu);
+			overlay?.addEventListener("click", closeMenu);
+		</script>
+	</body>
+</html>

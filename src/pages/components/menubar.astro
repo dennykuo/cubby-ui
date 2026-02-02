@@ -9,10 +9,10 @@ import MenubarSeparator from "../../components/ui/MenubarSeparator.astro";
 import MenubarShortcut from "../../components/ui/MenubarShortcut.astro";
 import ComponentPreview from "../../components/ComponentPreview.astro";
 
-const usageCode = `<div class="cu-menubar" data-menubar>
-  <div class="cu-menubar-menu" data-menubar-menu>
-    <button class="cu-menubar-trigger" data-menubar-trigger aria-expanded="false">File</button>
-    <div class="cu-menubar-content" data-menubar-content hidden>
+const usageCode = `<div class="cu-menubar" data-cu-menubar>
+  <div class="cu-menubar-menu" data-cu-menubar-menu>
+    <button class="cu-menubar-trigger" data-cu-menubar-trigger aria-expanded="false">File</button>
+    <div class="cu-menubar-content" data-cu-menubar-content hidden>
       <div class="cu-menubar-item">
         New Tab <span class="cu-menubar-shortcut">⌘T</span>
       </div>
@@ -25,9 +25,9 @@ const usageCode = `<div class="cu-menubar" data-menubar>
       </div>
     </div>
   </div>
-  <div class="cu-menubar-menu" data-menubar-menu>
-    <button class="cu-menubar-trigger" data-menubar-trigger aria-expanded="false">Edit</button>
-    <div class="cu-menubar-content" data-menubar-content hidden>
+  <div class="cu-menubar-menu" data-cu-menubar-menu>
+    <button class="cu-menubar-trigger" data-cu-menubar-trigger aria-expanded="false">Edit</button>
+    <div class="cu-menubar-content" data-cu-menubar-content hidden>
       <div class="cu-menubar-item">
         Undo <span class="cu-menubar-shortcut">⌘Z</span>
       </div>
@@ -46,9 +46,9 @@ const usageCode = `<div class="cu-menubar" data-menubar>
       </div>
     </div>
   </div>
-  <div class="cu-menubar-menu" data-menubar-menu>
-    <button class="cu-menubar-trigger" data-menubar-trigger aria-expanded="false">View</button>
-    <div class="cu-menubar-content" data-menubar-content hidden>
+  <div class="cu-menubar-menu" data-cu-menubar-menu>
+    <button class="cu-menubar-trigger" data-cu-menubar-trigger aria-expanded="false">View</button>
+    <div class="cu-menubar-content" data-cu-menubar-content hidden>
       <div class="cu-menubar-item">Zoom In</div>
       <div class="cu-menubar-item">Zoom Out</div>
       <div class="cu-menubar-separator"></div>
@@ -58,17 +58,17 @@ const usageCode = `<div class="cu-menubar" data-menubar>
 </div>
 
 <script>
-  document.querySelectorAll("[data-menubar]").forEach((bar) => {
-    const menus = bar.querySelectorAll("[data-menubar-menu]");
+  document.querySelectorAll("[data-cu-menubar]").forEach((bar) => {
+    const menus = bar.querySelectorAll("[data-cu-menubar-menu]");
     menus.forEach((menu) => {
-      const trigger = menu.querySelector("[data-menubar-trigger]");
-      const content = menu.querySelector("[data-menubar-content]");
+      const trigger = menu.querySelector("[data-cu-menubar-trigger]");
+      const content = menu.querySelector("[data-cu-menubar-content]");
       trigger?.addEventListener("click", () => {
         const open = !content?.hasAttribute("hidden");
         // close all menus in this bar
         menus.forEach((m) => {
-          m.querySelector("[data-menubar-content]")?.setAttribute("hidden", "");
-          m.querySelector("[data-menubar-trigger]")?.setAttribute("aria-expanded", "false");
+          m.querySelector("[data-cu-menubar-content]")?.setAttribute("hidden", "");
+          m.querySelector("[data-cu-menubar-trigger]")?.setAttribute("aria-expanded", "false");
         });
         if (!open) {
           content?.removeAttribute("hidden");
@@ -77,11 +77,11 @@ const usageCode = `<div class="cu-menubar" data-menubar>
       });
       // hover to switch while one is open
       trigger?.addEventListener("mouseenter", () => {
-        const anyOpen = bar.querySelector("[data-menubar-content]:not([hidden])");
+        const anyOpen = bar.querySelector("[data-cu-menubar-content]:not([hidden])");
         if (anyOpen && anyOpen !== content) {
           menus.forEach((m) => {
-            m.querySelector("[data-menubar-content]")?.setAttribute("hidden", "");
-            m.querySelector("[data-menubar-trigger]")?.setAttribute("aria-expanded", "false");
+            m.querySelector("[data-cu-menubar-content]")?.setAttribute("hidden", "");
+            m.querySelector("[data-cu-menubar-trigger]")?.setAttribute("aria-expanded", "false");
           });
           content?.removeAttribute("hidden");
           trigger.setAttribute("aria-expanded", "true");
@@ -91,18 +91,18 @@ const usageCode = `<div class="cu-menubar" data-menubar>
     document.addEventListener("click", (e) => {
       if (!bar.contains(e.target)) {
         menus.forEach((m) => {
-          m.querySelector("[data-menubar-content]")?.setAttribute("hidden", "");
-          m.querySelector("[data-menubar-trigger]")?.setAttribute("aria-expanded", "false");
+          m.querySelector("[data-cu-menubar-content]")?.setAttribute("hidden", "");
+          m.querySelector("[data-cu-menubar-trigger]")?.setAttribute("aria-expanded", "false");
         });
       }
     });
   });
 </script>`.trim();
 
-const withLabelsCode = `<div class="cu-menubar" data-menubar>
-  <div class="cu-menubar-menu" data-menubar-menu>
-    <button class="cu-menubar-trigger" data-menubar-trigger aria-expanded="false">Account</button>
-    <div class="cu-menubar-content" data-menubar-content hidden>
+const withLabelsCode = `<div class="cu-menubar" data-cu-menubar>
+  <div class="cu-menubar-menu" data-cu-menubar-menu>
+    <button class="cu-menubar-trigger" data-cu-menubar-trigger aria-expanded="false">Account</button>
+    <div class="cu-menubar-content" data-cu-menubar-content hidden>
       <div class="cu-menubar-label">My Account</div>
       <div class="cu-menubar-separator"></div>
       <div class="cu-menubar-item cu-menubar-item-inset">Profile</div>
@@ -128,7 +128,7 @@ const withLabelsCode = `<div class="cu-menubar" data-menubar>
         <section class="space-y-3">
             <h2 class="text-lg font-semibold tracking-tight">Usage</h2>
             <p class="text-sm text-muted-foreground leading-relaxed">
-                Use <code class="cu-code">cu-menubar</code> as the wrapper with <code class="cu-code">data-menubar</code>.
+                Use <code class="cu-code">cu-menubar</code> as the wrapper with <code class="cu-code">data-cu-menubar</code>.
                 Each menu uses <code class="cu-code">cu-menubar-menu</code>, <code class="cu-code">cu-menubar-trigger</code>, and <code class="cu-code">cu-menubar-content</code>.
                 Click a trigger to open; hover to switch between menus while one is open.
             </p>
@@ -197,16 +197,16 @@ const withLabelsCode = `<div class="cu-menubar" data-menubar>
 
 <script>
     function setupMenubars() {
-        document.querySelectorAll("[data-menubar]").forEach((bar) => {
-            const menus = bar.querySelectorAll("[data-menubar-menu]");
+        document.querySelectorAll("[data-cu-menubar]").forEach((bar) => {
+            const menus = bar.querySelectorAll("[data-cu-menubar-menu]");
             menus.forEach((menu) => {
-                const trigger = menu.querySelector("[data-menubar-trigger]");
-                const content = menu.querySelector("[data-menubar-content]");
+                const trigger = menu.querySelector("[data-cu-menubar-trigger]");
+                const content = menu.querySelector("[data-cu-menubar-content]");
                 trigger?.addEventListener("click", () => {
                     const open = !content?.hasAttribute("hidden");
                     menus.forEach((m) => {
-                        m.querySelector("[data-menubar-content]")?.setAttribute("hidden", "");
-                        m.querySelector("[data-menubar-trigger]")?.setAttribute("aria-expanded", "false");
+                        m.querySelector("[data-cu-menubar-content]")?.setAttribute("hidden", "");
+                        m.querySelector("[data-cu-menubar-trigger]")?.setAttribute("aria-expanded", "false");
                     });
                     if (!open) {
                         content?.removeAttribute("hidden");
@@ -214,11 +214,11 @@ const withLabelsCode = `<div class="cu-menubar" data-menubar>
                     }
                 });
                 trigger?.addEventListener("mouseenter", () => {
-                    const anyOpen = bar.querySelector("[data-menubar-content]:not([hidden])");
+                    const anyOpen = bar.querySelector("[data-cu-menubar-content]:not([hidden])");
                     if (anyOpen && anyOpen !== content) {
                         menus.forEach((m) => {
-                            m.querySelector("[data-menubar-content]")?.setAttribute("hidden", "");
-                            m.querySelector("[data-menubar-trigger]")?.setAttribute("aria-expanded", "false");
+                            m.querySelector("[data-cu-menubar-content]")?.setAttribute("hidden", "");
+                            m.querySelector("[data-cu-menubar-trigger]")?.setAttribute("aria-expanded", "false");
                         });
                         content?.removeAttribute("hidden");
                         trigger.setAttribute("aria-expanded", "true");
@@ -228,8 +228,8 @@ const withLabelsCode = `<div class="cu-menubar" data-menubar>
             document.addEventListener("click", (e) => {
                 if (!bar.contains(e.target as Node)) {
                     menus.forEach((m) => {
-                        m.querySelector("[data-menubar-content]")?.setAttribute("hidden", "");
-                        m.querySelector("[data-menubar-trigger]")?.setAttribute("aria-expanded", "false");
+                        m.querySelector("[data-cu-menubar-content]")?.setAttribute("hidden", "");
+                        m.querySelector("[data-cu-menubar-trigger]")?.setAttribute("aria-expanded", "false");
                     });
                 }
             });

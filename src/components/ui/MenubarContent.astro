@@ -10,6 +10,6 @@ const { class: className, ...rest } = Astro.props;
 const baseClass = `${TOP_CLASS}-menubar-content`;
 ---
 
-<div class:list={[baseClass, className]} data-menubar-content hidden {...rest}>
+<div class:list={[baseClass, className]} data-cu-menubar-content hidden {...rest}>
     <slot />
 </div>

@@ -10,6 +10,6 @@ const { class: className, ...rest } = Astro.props;
 const baseClass = `${TOP_CLASS}-dropdown-content`;
 ---
 
-<div class:list={[baseClass, className]} data-dropdown-content hidden {...rest}>
+<div class:list={[baseClass, className]} data-cu-dropdown-content hidden {...rest}>
     <slot />
 </div>

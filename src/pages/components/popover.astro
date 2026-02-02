@@ -2,11 +2,11 @@
 import Layout from "../../layouts/Layout.astro";
 import ComponentPreview from "../../components/ComponentPreview.astro";
 
-const usageCode = `<div class="cu-popover" data-popover>
-  <button class="cu-button cu-button-outline cu-button-md" data-popover-trigger>
+const usageCode = `<div class="cu-popover" data-cu-popover>
+  <button class="cu-button cu-button-outline cu-button-md" data-cu-popover-trigger>
     Open Popover
   </button>
-  <div class="cu-popover-content" data-popover-content>
+  <div class="cu-popover-content" data-cu-popover-content>
     <div class="space-y-2">
       <h4 class="text-sm font-medium leading-none">Dimensions</h4>
       <p class="text-sm text-muted-foreground">Set the dimensions for the layer.</p>
@@ -25,9 +25,9 @@ const usageCode = `<div class="cu-popover" data-popover>
 </div>
 
 <script>
-  document.querySelectorAll("[data-popover]").forEach((popover) => {
-    const trigger = popover.querySelector("[data-popover-trigger]");
-    const content = popover.querySelector("[data-popover-content]");
+  document.querySelectorAll("[data-cu-popover]").forEach((popover) => {
+    const trigger = popover.querySelector("[data-cu-popover-trigger]");
+    const content = popover.querySelector("[data-cu-popover-content]");
     if (!trigger || !content) return;
     content.style.display = "none";
     trigger.addEventListener("click", () => {
@@ -40,11 +40,11 @@ const usageCode = `<div class="cu-popover" data-popover>
   });
 </script>`.trim();
 
-const topCode = `<div class="cu-popover" data-popover>
-  <button class="cu-button cu-button-outline cu-button-md" data-popover-trigger>
+const topCode = `<div class="cu-popover" data-cu-popover>
+  <button class="cu-button cu-button-outline cu-button-md" data-cu-popover-trigger>
     Top Popover
   </button>
-  <div class="cu-popover-content bottom-full mb-2" data-popover-content>
+  <div class="cu-popover-content bottom-full mb-2" data-cu-popover-content>
     <p class="text-sm text-muted-foreground">This popover opens above the trigger.</p>
   </div>
 </div>`.trim();
@@ -63,16 +63,16 @@ const topCode = `<div class="cu-popover" data-popover>
         <section class="space-y-3">
             <h2 class="text-lg font-semibold tracking-tight">Usage</h2>
             <p class="text-sm text-muted-foreground leading-relaxed">
-                Use <code class="cu-code">cu-popover</code> as the wrapper with <code class="cu-code">data-popover</code>,
-                <code class="cu-code">data-popover-trigger</code> on the button,
-                and <code class="cu-code">cu-popover-content</code> with <code class="cu-code">data-popover-content</code> for the panel.
+                Use <code class="cu-code">cu-popover</code> as the wrapper with <code class="cu-code">data-cu-popover</code>,
+                <code class="cu-code">data-cu-popover-trigger</code> on the button,
+                and <code class="cu-code">cu-popover-content</code> with <code class="cu-code">data-cu-popover-content</code> for the panel.
             </p>
             <ComponentPreview code={usageCode}>
-                <div class="cu-popover" data-popover>
-                    <button class="cu-button cu-button-outline cu-button-md" data-popover-trigger>
+                <div class="cu-popover" data-cu-popover>
+                    <button class="cu-button cu-button-outline cu-button-md" data-cu-popover-trigger>
                         Open Popover
                     </button>
-                    <div class="cu-popover-content" data-popover-content>
+                    <div class="cu-popover-content" data-cu-popover-content>
                         <div class="space-y-2">
                             <h4 class="text-sm font-medium leading-none">Dimensions</h4>
                             <p class="text-sm text-muted-foreground">Set the dimensions for the layer.</p>
@@ -99,11 +99,11 @@ const topCode = `<div class="cu-popover" data-popover>
                 Add <code class="cu-code">bottom-full mb-2</code> utility classes to the content to position above the trigger.
             </p>
             <ComponentPreview code={topCode}>
-                <div class="cu-popover" data-popover>
-                    <button class="cu-button cu-button-outline cu-button-md" data-popover-trigger>
+                <div class="cu-popover" data-cu-popover>
+                    <button class="cu-button cu-button-outline cu-button-md" data-cu-popover-trigger>
                         Top Popover
                     </button>
-                    <div class="cu-popover-content bottom-full mb-2" data-popover-content>
+                    <div class="cu-popover-content bottom-full mb-2" data-cu-popover-content>
                         <p class="text-sm text-muted-foreground">This popover opens above the trigger.</p>
                     </div>
                 </div>
@@ -114,9 +114,9 @@ const topCode = `<div class="cu-popover" data-popover>
 
 <script>
     function setupPopovers() {
-        document.querySelectorAll("[data-popover]").forEach((popover) => {
-            const trigger = popover.querySelector("[data-popover-trigger]");
-            const content = popover.querySelector("[data-popover-content]") as HTMLElement | null;
+        document.querySelectorAll("[data-cu-popover]").forEach((popover) => {
+            const trigger = popover.querySelector("[data-cu-popover-trigger]");
+            const content = popover.querySelector("[data-cu-popover-content]") as HTMLElement | null;
             if (!trigger || !content) return;
             content.style.display = "none";
             trigger.addEventListener("click", () => {

@@ -15,7 +15,7 @@ const { class: className, code = "", align = "center" } = Astro.props;
 		"group relative rounded-xl border border-border bg-background",
 		className,
 	]}
-	data-component-preview
+	data-cu-component-preview
 >
 	<div
 		class:list={[
@@ -60,7 +60,7 @@ const { class: className, code = "", align = "center" } = Astro.props;
 						d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
 					></path>
 				</svg>
-				<span data-copy-label>Copy</span>
+				<span data-cu-copy-label>Copy</span>
 			</button>
 		</div>
 		<div class="overflow-x-auto max-h-[400px] px-4 py-3 text-foreground">
@@ -71,13 +71,13 @@ const { class: className, code = "", align = "center" } = Astro.props;
 
 <script>
 	function setupPreviews() {
-		const previews = document.querySelectorAll("[data-component-preview]");
+		const previews = document.querySelectorAll("[data-cu-component-preview]");
 
 		previews.forEach((preview) => {
 			const copyBtn = preview.querySelector(
 				"[data-copy-btn]",
 			) as HTMLButtonElement | null;
-			const copyLabel = copyBtn?.querySelector("[data-copy-label]");
+			const copyLabel = copyBtn?.querySelector("[data-cu-copy-label]");
 			const codeContainer = preview.querySelector(".code-container");
 			const codeBlock = codeContainer?.querySelector("pre");
 

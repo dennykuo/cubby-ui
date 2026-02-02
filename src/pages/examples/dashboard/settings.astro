@@ -1,0 +1,159 @@
+---
+import DashboardLayout from "../../../layouts/DashboardLayout.astro";
+---
+
+<DashboardLayout title="設定 — Acme Inc.">
+	<div class="space-y-6">
+		<!-- Page header -->
+		<div>
+			<h1 class="text-2xl font-bold tracking-tight">設定</h1>
+			<p class="text-sm text-muted-foreground mt-1">管理您的帳號偏好設定。</p>
+		</div>
+
+		<!-- Tabs -->
+		<div class="cu-tabs" data-cu-tabs>
+			<div class="cu-tabs-list">
+				<button class="cu-tabs-trigger cu-tabs-trigger-active" data-cu-tabs-trigger="general">一般</button>
+				<button class="cu-tabs-trigger" data-cu-tabs-trigger="notifications">通知</button>
+				<button class="cu-tabs-trigger" data-cu-tabs-trigger="security">安全</button>
+			</div>
+
+			<!-- General tab -->
+			<div class="cu-tabs-content" data-cu-tabs-content="general">
+				<div class="cu-card">
+					<div class="cu-card-header">
+						<h3 class="cu-card-title">個人資料</h3>
+						<p class="cu-card-description">更新您的基本資訊。</p>
+					</div>
+					<div class="cu-card-content">
+						<form class="space-y-4 max-w-lg">
+							<div class="cu-form-group">
+								<label class="cu-label" for="name">姓名</label>
+								<input class="cu-input" id="name" type="text" value="John Doe" />
+							</div>
+							<div class="cu-form-group">
+								<label class="cu-label" for="settings-email">Email</label>
+								<input class="cu-input" id="settings-email" type="email" value="john@example.com" />
+							</div>
+							<div class="cu-form-group">
+								<label class="cu-label" for="language">語言</label>
+								<div class="cu-select-wrapper">
+									<select class="cu-select" id="language">
+										<option>繁體中文</option>
+										<option>English</option>
+										<option>日本語</option>
+									</select>
+								</div>
+							</div>
+							<div class="cu-form-group">
+								<label class="cu-label" for="bio">自我介紹</label>
+								<textarea class="cu-textarea" id="bio" rows="3" placeholder="簡短介紹您自己…"></textarea>
+							</div>
+							<div class="flex gap-3">
+								<button type="button" class="cu-button cu-button-default cu-button-md">儲存變更</button>
+								<button type="button" class="cu-button cu-button-outline cu-button-md">取消</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+
+			<!-- Notifications tab -->
+			<div class="cu-tabs-content" data-cu-tabs-content="notifications" hidden>
+				<div class="cu-card">
+					<div class="cu-card-header">
+						<h3 class="cu-card-title">通知偏好</h3>
+						<p class="cu-card-description">選擇您要接收的通知類型。</p>
+					</div>
+					<div class="cu-card-content">
+						<div class="space-y-6 max-w-lg">
+							<div class="flex items-center justify-between">
+								<div>
+									<p class="text-sm font-medium">Email 通知</p>
+									<p class="text-sm text-muted-foreground">接收系統通知至您的信箱。</p>
+								</div>
+								<label class="cu-toggle-wrapper">
+									<input type="checkbox" class="cu-toggle" checked />
+								</label>
+							</div>
+							<div class="cu-separator"></div>
+							<div class="flex items-center justify-between">
+								<div>
+									<p class="text-sm font-medium">安全警報</p>
+									<p class="text-sm text-muted-foreground">登入異常時發送警告通知。</p>
+								</div>
+								<label class="cu-toggle-wrapper">
+									<input type="checkbox" class="cu-toggle" checked />
+								</label>
+							</div>
+							<div class="cu-separator"></div>
+							<div class="flex items-center justify-between">
+								<div>
+									<p class="text-sm font-medium">行銷訊息</p>
+									<p class="text-sm text-muted-foreground">接收產品更新與促銷資訊。</p>
+								</div>
+								<label class="cu-toggle-wrapper">
+									<input type="checkbox" class="cu-toggle" />
+								</label>
+							</div>
+							<div class="cu-separator"></div>
+							<div class="flex items-center justify-between">
+								<div>
+									<p class="text-sm font-medium">週報摘要</p>
+									<p class="text-sm text-muted-foreground">每週寄送業務摘要報告。</p>
+								</div>
+								<label class="cu-toggle-wrapper">
+									<input type="checkbox" class="cu-toggle" checked />
+								</label>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Security tab -->
+			<div class="cu-tabs-content" data-cu-tabs-content="security" hidden>
+				<div class="cu-card">
+					<div class="cu-card-header">
+						<h3 class="cu-card-title">變更密碼</h3>
+						<p class="cu-card-description">請確認新密碼至少 8 個字元。</p>
+					</div>
+					<div class="cu-card-content">
+						<form class="space-y-4 max-w-lg">
+							<div class="cu-form-group">
+								<label class="cu-label" for="current-password">目前密碼</label>
+								<input class="cu-input" id="current-password" type="password" />
+							</div>
+							<div class="cu-form-group">
+								<label class="cu-label" for="new-password">新密碼</label>
+								<input class="cu-input" id="new-password" type="password" />
+							</div>
+							<div class="cu-form-group">
+								<label class="cu-label" for="confirm-password">確認新密碼</label>
+								<input class="cu-input" id="confirm-password" type="password" />
+							</div>
+							<button type="button" class="cu-button cu-button-default cu-button-md">更新密碼</button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script>
+		document.querySelectorAll("[data-cu-tabs]").forEach((tabs) => {
+			const triggers = tabs.querySelectorAll("[data-cu-tabs-trigger]");
+			const contents = tabs.querySelectorAll("[data-cu-tabs-content]");
+			triggers.forEach((trigger) => {
+				trigger.addEventListener("click", () => {
+					const value = trigger.getAttribute("data-cu-tabs-trigger");
+					triggers.forEach((t) => t.classList.remove("cu-tabs-trigger-active"));
+					trigger.classList.add("cu-tabs-trigger-active");
+					contents.forEach((c) => {
+						c.hidden = c.getAttribute("data-cu-tabs-content") !== value;
+					});
+				});
+			});
+		});
+	</script>
+</DashboardLayout>

@@ -2,12 +2,12 @@
 import Layout from "../../layouts/Layout.astro";
 import ComponentPreview from "../../components/ComponentPreview.astro";
 
-const usageCode = `<button class="cu-button cu-button-outline cu-button-md" data-dialog-trigger="demo-dialog">
+const usageCode = `<button class="cu-button cu-button-outline cu-button-md" data-cu-dialog-trigger="demo-dialog">
   Open Dialog
 </button>
 
-<dialog class="cu-dialog" id="demo-dialog" data-dialog>
-  <button class="cu-dialog-close" data-dialog-close>
+<dialog class="cu-dialog" id="demo-dialog" data-cu-dialog>
+  <button class="cu-dialog-close" data-cu-dialog-close>
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
     <span class="sr-only">Close</span>
   </button>
@@ -16,34 +16,17 @@ const usageCode = `<button class="cu-button cu-button-outline cu-button-md" data
     <p class="cu-dialog-description">This action cannot be undone. This will permanently delete your account and remove your data from our servers.</p>
   </div>
   <div class="cu-dialog-footer">
-    <button class="cu-button cu-button-outline cu-button-md" data-dialog-close>Cancel</button>
+    <button class="cu-button cu-button-outline cu-button-md" data-cu-dialog-close>Cancel</button>
     <button class="cu-button cu-button-default cu-button-md">Continue</button>
   </div>
-</dialog>
+</dialog>`.trim();
 
-<script>
-  document.querySelectorAll("[data-dialog-trigger]").forEach((trigger) => {
-    trigger.addEventListener("click", () => {
-      const id = trigger.getAttribute("data-dialog-trigger");
-      document.getElementById(id)?.showModal();
-    });
-  });
-  document.querySelectorAll("[data-dialog]").forEach((dialog) => {
-    dialog.querySelectorAll("[data-dialog-close]").forEach((btn) => {
-      btn.addEventListener("click", () => dialog.close());
-    });
-    dialog.addEventListener("click", (e) => {
-      if (e.target === dialog) dialog.close();
-    });
-  });
-</script>`.trim();
-
-const withFormCode = `<button class="cu-button cu-button-outline cu-button-md" data-dialog-trigger="form-dialog">
+const withFormCode = `<button class="cu-button cu-button-outline cu-button-md" data-cu-dialog-trigger="form-dialog">
   Edit Profile
 </button>
 
-<dialog class="cu-dialog" id="form-dialog" data-dialog>
-  <button class="cu-dialog-close" data-dialog-close>
+<dialog class="cu-dialog" id="form-dialog" data-cu-dialog>
+  <button class="cu-dialog-close" data-cu-dialog-close>
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
     <span class="sr-only">Close</span>
   </button>
@@ -65,6 +48,81 @@ const withFormCode = `<button class="cu-button cu-button-outline cu-button-md" d
     <button class="cu-button cu-button-default cu-button-md">Save changes</button>
   </div>
 </dialog>`.trim();
+
+const deleteCode = `<button class="cu-button cu-button-destructive cu-button-md" data-cu-dialog-trigger="delete-dialog">
+  Delete Account
+</button>
+
+<dialog class="cu-dialog" id="delete-dialog" data-cu-dialog>
+  <button class="cu-dialog-close" data-cu-dialog-close>
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+    <span class="sr-only">Close</span>
+  </button>
+  <div class="cu-dialog-header">
+    <div class="flex size-10 items-center justify-center rounded-full bg-destructive/10 text-destructive mb-2">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>
+    </div>
+    <h2 class="cu-dialog-title">Delete account</h2>
+    <p class="cu-dialog-description">This will permanently delete your account and all associated data. This action cannot be reversed.</p>
+  </div>
+  <div class="cu-dialog-footer">
+    <button class="cu-button cu-button-outline cu-button-md" data-cu-dialog-close>Cancel</button>
+    <button class="cu-button cu-button-destructive cu-button-md">Delete</button>
+  </div>
+</dialog>`.trim();
+
+const feedbackCode = `<button class="cu-button cu-button-outline cu-button-md" data-cu-dialog-trigger="feedback-dialog">
+  Send Feedback
+</button>
+
+<dialog class="cu-dialog" id="feedback-dialog" data-cu-dialog>
+  <button class="cu-dialog-close" data-cu-dialog-close>
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+    <span class="sr-only">Close</span>
+  </button>
+  <div class="cu-dialog-header">
+    <h2 class="cu-dialog-title">Send feedback</h2>
+    <p class="cu-dialog-description">Help us improve by sharing your thoughts.</p>
+  </div>
+  <div class="mt-4 space-y-4">
+    <div class="cu-form-group">
+      <label class="cu-label" for="feedback-subject">Subject</label>
+      <div class="cu-select-wrapper">
+        <select id="feedback-subject" class="cu-select">
+          <option value="">Select a topic</option>
+          <option value="bug">Bug report</option>
+          <option value="feature">Feature request</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+    </div>
+    <div class="cu-form-group">
+      <label class="cu-label" for="feedback-message">Message</label>
+      <textarea class="cu-textarea" id="feedback-message" rows="4" placeholder="Tell us what's on your mind..."></textarea>
+    </div>
+  </div>
+  <div class="cu-dialog-footer">
+    <button class="cu-button cu-button-outline cu-button-md" data-cu-dialog-close>Cancel</button>
+    <button class="cu-button cu-button-default cu-button-md">Submit</button>
+  </div>
+</dialog>`.trim();
+
+const successCode = `<button class="cu-button cu-button-outline cu-button-md" data-cu-dialog-trigger="success-dialog">
+  Show Success
+</button>
+
+<dialog class="cu-dialog max-w-sm" id="success-dialog" data-cu-dialog>
+  <div class="cu-dialog-header items-center text-center">
+    <div class="flex size-12 items-center justify-center rounded-full bg-success/10 text-success mb-2">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m8 12 3 3 5-6"/></svg>
+    </div>
+    <h2 class="cu-dialog-title">Payment successful</h2>
+    <p class="cu-dialog-description">Your payment of $49.00 has been processed. A confirmation email has been sent to your inbox.</p>
+  </div>
+  <div class="cu-dialog-footer sm:justify-center">
+    <button class="cu-button cu-button-default cu-button-md" data-cu-dialog-close>Done</button>
+  </div>
+</dialog>`.trim();
 ---
 
 <Layout title="Dialog — Cubby UI">
@@ -81,16 +139,16 @@ const withFormCode = `<button class="cu-button cu-button-outline cu-button-md" d
             <h2 class="text-lg font-semibold tracking-tight">Usage</h2>
             <p class="text-sm text-muted-foreground leading-relaxed">
                 Built with the native <code class="cu-code">&lt;dialog&gt;</code> element.
-                Use <code class="cu-code">data-dialog-trigger</code> on buttons to open,
-                <code class="cu-code">data-dialog-close</code> to close,
-                and <code class="cu-code">data-dialog</code> on the dialog element.
+                Use <code class="cu-code">data-cu-dialog-trigger</code> on buttons to open,
+                <code class="cu-code">data-cu-dialog-close</code> to close,
+                and <code class="cu-code">data-cu-dialog</code> on the dialog element.
             </p>
             <ComponentPreview code={usageCode}>
-                <button class="cu-button cu-button-outline cu-button-md" data-dialog-trigger="demo-dialog">
+                <button class="cu-button cu-button-outline cu-button-md" data-cu-dialog-trigger="demo-dialog">
                     Open Dialog
                 </button>
-                <dialog class="cu-dialog" id="demo-dialog" data-dialog>
-                    <button class="cu-dialog-close" data-dialog-close>
+                <dialog class="cu-dialog" id="demo-dialog" data-cu-dialog>
+                    <button class="cu-dialog-close" data-cu-dialog-close>
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
                         <span class="sr-only">Close</span>
                     </button>
@@ -99,7 +157,7 @@ const withFormCode = `<button class="cu-button cu-button-outline cu-button-md" d
                         <p class="cu-dialog-description">This action cannot be undone. This will permanently delete your account and remove your data from our servers.</p>
                     </div>
                     <div class="cu-dialog-footer">
-                        <button class="cu-button cu-button-outline cu-button-md" data-dialog-close>Cancel</button>
+                        <button class="cu-button cu-button-outline cu-button-md" data-cu-dialog-close>Cancel</button>
                         <button class="cu-button cu-button-default cu-button-md">Continue</button>
                     </div>
                 </dialog>
@@ -113,11 +171,11 @@ const withFormCode = `<button class="cu-button cu-button-outline cu-button-md" d
                 Dialogs can contain forms and other interactive content.
             </p>
             <ComponentPreview code={withFormCode}>
-                <button class="cu-button cu-button-outline cu-button-md" data-dialog-trigger="form-dialog">
+                <button class="cu-button cu-button-outline cu-button-md" data-cu-dialog-trigger="form-dialog">
                     Edit Profile
                 </button>
-                <dialog class="cu-dialog" id="form-dialog" data-dialog>
-                    <button class="cu-dialog-close" data-dialog-close>
+                <dialog class="cu-dialog" id="form-dialog" data-cu-dialog>
+                    <button class="cu-dialog-close" data-cu-dialog-close>
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
                         <span class="sr-only">Close</span>
                     </button>
@@ -141,20 +199,119 @@ const withFormCode = `<button class="cu-button cu-button-outline cu-button-md" d
                 </dialog>
             </ComponentPreview>
         </section>
+
+        <!-- Destructive Confirmation -->
+        <section class="space-y-3">
+            <h2 class="text-lg font-semibold tracking-tight">Destructive Confirmation</h2>
+            <p class="text-sm text-muted-foreground leading-relaxed">
+                A confirmation dialog with a warning icon for dangerous actions like account deletion.
+            </p>
+            <ComponentPreview code={deleteCode}>
+                <button class="cu-button cu-button-destructive cu-button-md" data-cu-dialog-trigger="delete-dialog">
+                    Delete Account
+                </button>
+                <dialog class="cu-dialog" id="delete-dialog" data-cu-dialog>
+                    <button class="cu-dialog-close" data-cu-dialog-close>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+                        <span class="sr-only">Close</span>
+                    </button>
+                    <div class="cu-dialog-header">
+                        <div class="flex size-10 items-center justify-center rounded-full bg-destructive/10 text-destructive mb-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>
+                        </div>
+                        <h2 class="cu-dialog-title">Delete account</h2>
+                        <p class="cu-dialog-description">This will permanently delete your account and all associated data. This action cannot be reversed.</p>
+                    </div>
+                    <div class="cu-dialog-footer">
+                        <button class="cu-button cu-button-outline cu-button-md" data-cu-dialog-close>Cancel</button>
+                        <button class="cu-button cu-button-destructive cu-button-md">Delete</button>
+                    </div>
+                </dialog>
+            </ComponentPreview>
+        </section>
+
+        <!-- Feedback Form -->
+        <section class="space-y-3">
+            <h2 class="text-lg font-semibold tracking-tight">Feedback Form</h2>
+            <p class="text-sm text-muted-foreground leading-relaxed">
+                A richer form dialog with a select dropdown and textarea.
+            </p>
+            <ComponentPreview code={feedbackCode}>
+                <button class="cu-button cu-button-outline cu-button-md" data-cu-dialog-trigger="feedback-dialog">
+                    Send Feedback
+                </button>
+                <dialog class="cu-dialog" id="feedback-dialog" data-cu-dialog>
+                    <button class="cu-dialog-close" data-cu-dialog-close>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+                        <span class="sr-only">Close</span>
+                    </button>
+                    <div class="cu-dialog-header">
+                        <h2 class="cu-dialog-title">Send feedback</h2>
+                        <p class="cu-dialog-description">Help us improve by sharing your thoughts.</p>
+                    </div>
+                    <div class="mt-4 space-y-4">
+                        <div class="cu-form-group">
+                            <label class="cu-label" for="feedback-subject">Subject</label>
+                            <div class="cu-select-wrapper">
+                                <select id="feedback-subject" class="cu-select">
+                                    <option value="">Select a topic</option>
+                                    <option value="bug">Bug report</option>
+                                    <option value="feature">Feature request</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="cu-form-group">
+                            <label class="cu-label" for="feedback-message">Message</label>
+                            <textarea class="cu-textarea" id="feedback-message" rows="4" placeholder="Tell us what's on your mind..."></textarea>
+                        </div>
+                    </div>
+                    <div class="cu-dialog-footer">
+                        <button class="cu-button cu-button-outline cu-button-md" data-cu-dialog-close>Cancel</button>
+                        <button class="cu-button cu-button-default cu-button-md">Submit</button>
+                    </div>
+                </dialog>
+            </ComponentPreview>
+        </section>
+
+        <!-- Success State -->
+        <section class="space-y-3">
+            <h2 class="text-lg font-semibold tracking-tight">Success State</h2>
+            <p class="text-sm text-muted-foreground leading-relaxed">
+                A centered dialog for success confirmations. Use a smaller <code class="cu-code">max-w-sm</code> width.
+            </p>
+            <ComponentPreview code={successCode}>
+                <button class="cu-button cu-button-outline cu-button-md" data-cu-dialog-trigger="success-dialog">
+                    Show Success
+                </button>
+                <dialog class="cu-dialog max-w-sm" id="success-dialog" data-cu-dialog>
+                    <div class="cu-dialog-header items-center text-center">
+                        <div class="flex size-12 items-center justify-center rounded-full bg-success/10 text-success mb-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m8 12 3 3 5-6"/></svg>
+                        </div>
+                        <h2 class="cu-dialog-title">Payment successful</h2>
+                        <p class="cu-dialog-description">Your payment of $49.00 has been processed. A confirmation email has been sent to your inbox.</p>
+                    </div>
+                    <div class="cu-dialog-footer sm:justify-center">
+                        <button class="cu-button cu-button-default cu-button-md" data-cu-dialog-close>Done</button>
+                    </div>
+                </dialog>
+            </ComponentPreview>
+        </section>
     </div>
 </Layout>
 
 <script>
     function setupDialogs() {
-        document.querySelectorAll("[data-dialog-trigger]").forEach((trigger) => {
+        document.querySelectorAll("[data-cu-dialog-trigger]").forEach((trigger) => {
             trigger.addEventListener("click", () => {
-                const id = trigger.getAttribute("data-dialog-trigger");
+                const id = trigger.getAttribute("data-cu-dialog-trigger");
                 const dialog = document.getElementById(id) as HTMLDialogElement | null;
                 dialog?.showModal();
             });
         });
-        document.querySelectorAll("[data-dialog]").forEach((dialog) => {
-            dialog.querySelectorAll("[data-dialog-close]").forEach((btn) => {
+        document.querySelectorAll("[data-cu-dialog]").forEach((dialog) => {
+            dialog.querySelectorAll("[data-cu-dialog-close]").forEach((btn) => {
                 btn.addEventListener("click", () => (dialog as HTMLDialogElement).close());
             });
             dialog.addEventListener("click", (e) => {

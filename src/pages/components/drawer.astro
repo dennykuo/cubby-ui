@@ -2,12 +2,12 @@
 import Layout from "../../layouts/Layout.astro";
 import ComponentPreview from "../../components/ComponentPreview.astro";
 
-const usageCode = `<button class="cu-button cu-button-outline cu-button-md" data-drawer-trigger="demo-drawer">
+const usageCode = `<button class="cu-button cu-button-outline cu-button-md" data-cu-drawer-trigger="demo-drawer">
   Open Drawer
 </button>
 
-<dialog class="cu-drawer cu-drawer-right" id="demo-drawer" data-drawer>
-  <button class="cu-drawer-close" data-drawer-close>
+<dialog class="cu-drawer cu-drawer-right" id="demo-drawer" data-cu-drawer>
+  <button class="cu-drawer-close" data-cu-drawer-close>
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
     <span class="sr-only">Close</span>
   </button>
@@ -33,14 +33,14 @@ const usageCode = `<button class="cu-button cu-button-outline cu-button-md" data
 </dialog>
 
 <script>
-  document.querySelectorAll("[data-drawer-trigger]").forEach((trigger) => {
+  document.querySelectorAll("[data-cu-drawer-trigger]").forEach((trigger) => {
     trigger.addEventListener("click", () => {
-      const id = trigger.getAttribute("data-drawer-trigger");
+      const id = trigger.getAttribute("data-cu-drawer-trigger");
       document.getElementById(id)?.showModal();
     });
   });
-  document.querySelectorAll("[data-drawer]").forEach((dialog) => {
-    dialog.querySelectorAll("[data-drawer-close]").forEach((btn) => {
+  document.querySelectorAll("[data-cu-drawer]").forEach((dialog) => {
+    dialog.querySelectorAll("[data-cu-drawer-close]").forEach((btn) => {
       btn.addEventListener("click", () => dialog.close());
     });
     dialog.addEventListener("click", (e) => {
@@ -49,12 +49,12 @@ const usageCode = `<button class="cu-button cu-button-outline cu-button-md" data
   });
 </script>`.trim();
 
-const leftCode = `<button class="cu-button cu-button-outline cu-button-md" data-drawer-trigger="left-drawer">
+const leftCode = `<button class="cu-button cu-button-outline cu-button-md" data-cu-drawer-trigger="left-drawer">
   Open Left Drawer
 </button>
 
-<dialog class="cu-drawer cu-drawer-left" id="left-drawer" data-drawer>
-  <button class="cu-drawer-close" data-drawer-close>
+<dialog class="cu-drawer cu-drawer-left" id="left-drawer" data-cu-drawer>
+  <button class="cu-drawer-close" data-cu-drawer-close>
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
     <span class="sr-only">Close</span>
   </button>
@@ -72,16 +72,16 @@ const leftCode = `<button class="cu-button cu-button-outline cu-button-md" data-
   </div>
 </dialog>`.trim();
 
-const sidesCode = `<button class="cu-button cu-button-outline cu-button-md" data-drawer-trigger="top-drawer">
+const sidesCode = `<button class="cu-button cu-button-outline cu-button-md" data-cu-drawer-trigger="top-drawer">
   Top
 </button>
 
-<button class="cu-button cu-button-outline cu-button-md" data-drawer-trigger="bottom-drawer">
+<button class="cu-button cu-button-outline cu-button-md" data-cu-drawer-trigger="bottom-drawer">
   Bottom
 </button>
 
-<dialog class="cu-drawer cu-drawer-top" id="top-drawer" data-drawer>
-  <button class="cu-drawer-close" data-drawer-close>
+<dialog class="cu-drawer cu-drawer-top" id="top-drawer" data-cu-drawer>
+  <button class="cu-drawer-close" data-cu-drawer-close>
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
     <span class="sr-only">Close</span>
   </button>
@@ -91,8 +91,8 @@ const sidesCode = `<button class="cu-button cu-button-outline cu-button-md" data
   </div>
 </dialog>
 
-<dialog class="cu-drawer cu-drawer-bottom" id="bottom-drawer" data-drawer>
-  <button class="cu-drawer-close" data-drawer-close>
+<dialog class="cu-drawer cu-drawer-bottom" id="bottom-drawer" data-cu-drawer>
+  <button class="cu-drawer-close" data-cu-drawer-close>
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
     <span class="sr-only">Close</span>
   </button>
@@ -117,17 +117,17 @@ const sidesCode = `<button class="cu-button cu-button-outline cu-button-md" data
             <h2 class="text-lg font-semibold tracking-tight">Usage</h2>
             <p class="text-sm text-muted-foreground leading-relaxed">
                 Built with the native <code class="cu-code">&lt;dialog&gt;</code> element.
-                Use <code class="cu-code">data-drawer-trigger</code> on buttons to open,
-                <code class="cu-code">data-drawer-close</code> to close, and
-                <code class="cu-code">data-drawer</code> on the dialog element.
+                Use <code class="cu-code">data-cu-drawer-trigger</code> on buttons to open,
+                <code class="cu-code">data-cu-drawer-close</code> to close, and
+                <code class="cu-code">data-cu-drawer</code> on the dialog element.
                 Add a side class like <code class="cu-code">cu-drawer-right</code> to control the position.
             </p>
             <ComponentPreview code={usageCode}>
-                <button class="cu-button cu-button-outline cu-button-md" data-drawer-trigger="demo-drawer">
+                <button class="cu-button cu-button-outline cu-button-md" data-cu-drawer-trigger="demo-drawer">
                     Open Drawer
                 </button>
-                <dialog class="cu-drawer cu-drawer-right" id="demo-drawer" data-drawer>
-                    <button class="cu-drawer-close" data-drawer-close>
+                <dialog class="cu-drawer cu-drawer-right" id="demo-drawer" data-cu-drawer>
+                    <button class="cu-drawer-close" data-cu-drawer-close>
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
                         <span class="sr-only">Close</span>
                     </button>
@@ -161,11 +161,11 @@ const sidesCode = `<button class="cu-button cu-button-outline cu-button-md" data
                 Use <code class="cu-code">cu-drawer-left</code> for a navigation-style drawer.
             </p>
             <ComponentPreview code={leftCode}>
-                <button class="cu-button cu-button-outline cu-button-md" data-drawer-trigger="left-drawer">
+                <button class="cu-button cu-button-outline cu-button-md" data-cu-drawer-trigger="left-drawer">
                     Open Left Drawer
                 </button>
-                <dialog class="cu-drawer cu-drawer-left" id="left-drawer" data-drawer>
-                    <button class="cu-drawer-close" data-drawer-close>
+                <dialog class="cu-drawer cu-drawer-left" id="left-drawer" data-cu-drawer>
+                    <button class="cu-drawer-close" data-cu-drawer-close>
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
                         <span class="sr-only">Close</span>
                     </button>
@@ -193,15 +193,15 @@ const sidesCode = `<button class="cu-button cu-button-outline cu-button-md" data
             </p>
             <ComponentPreview code={sidesCode}>
                 <div class="flex gap-2">
-                    <button class="cu-button cu-button-outline cu-button-md" data-drawer-trigger="top-drawer">
+                    <button class="cu-button cu-button-outline cu-button-md" data-cu-drawer-trigger="top-drawer">
                         Top
                     </button>
-                    <button class="cu-button cu-button-outline cu-button-md" data-drawer-trigger="bottom-drawer">
+                    <button class="cu-button cu-button-outline cu-button-md" data-cu-drawer-trigger="bottom-drawer">
                         Bottom
                     </button>
                 </div>
-                <dialog class="cu-drawer cu-drawer-top" id="top-drawer" data-drawer>
-                    <button class="cu-drawer-close" data-drawer-close>
+                <dialog class="cu-drawer cu-drawer-top" id="top-drawer" data-cu-drawer>
+                    <button class="cu-drawer-close" data-cu-drawer-close>
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
                         <span class="sr-only">Close</span>
                     </button>
@@ -210,8 +210,8 @@ const sidesCode = `<button class="cu-button cu-button-outline cu-button-md" data
                         <p class="cu-drawer-description">You have 3 unread messages.</p>
                     </div>
                 </dialog>
-                <dialog class="cu-drawer cu-drawer-bottom" id="bottom-drawer" data-drawer>
-                    <button class="cu-drawer-close" data-drawer-close>
+                <dialog class="cu-drawer cu-drawer-bottom" id="bottom-drawer" data-cu-drawer>
+                    <button class="cu-drawer-close" data-cu-drawer-close>
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
                         <span class="sr-only">Close</span>
                     </button>
@@ -227,15 +227,15 @@ const sidesCode = `<button class="cu-button cu-button-outline cu-button-md" data
 
 <script>
     function setupDrawers() {
-        document.querySelectorAll("[data-drawer-trigger]").forEach((trigger) => {
+        document.querySelectorAll("[data-cu-drawer-trigger]").forEach((trigger) => {
             trigger.addEventListener("click", () => {
-                const id = trigger.getAttribute("data-drawer-trigger");
+                const id = trigger.getAttribute("data-cu-drawer-trigger");
                 const dialog = document.getElementById(id) as HTMLDialogElement | null;
                 dialog?.showModal();
             });
         });
-        document.querySelectorAll("[data-drawer]").forEach((dialog) => {
-            dialog.querySelectorAll("[data-drawer-close]").forEach((btn) => {
+        document.querySelectorAll("[data-cu-drawer]").forEach((dialog) => {
+            dialog.querySelectorAll("[data-cu-drawer-close]").forEach((btn) => {
                 btn.addEventListener("click", () => (dialog as HTMLDialogElement).close());
             });
             dialog.addEventListener("click", (e) => {

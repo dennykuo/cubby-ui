@@ -10,6 +10,6 @@ const { class: className, ...rest } = Astro.props;
 const baseClass = `${TOP_CLASS}-popover`;
 ---
 
-<div class:list={[baseClass, className]} data-popover {...rest}>
+<div class:list={[baseClass, className]} data-cu-popover {...rest}>
     <slot />
 </div>

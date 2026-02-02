@@ -2,23 +2,23 @@
 import Layout from "../../layouts/Layout.astro";
 import ComponentPreview from "../../components/ComponentPreview.astro";
 
-const usageCode = `<span class="cu-tooltip" data-tooltip="This is a tooltip">
+const usageCode = `<span class="cu-tooltip" data-cu-tooltip="This is a tooltip">
   <button class="cu-button cu-button-outline cu-button-md">Hover me</button>
 </span>`.trim();
 
-const positionsCode = `<span class="cu-tooltip" data-tooltip="Top tooltip">
+const positionsCode = `<span class="cu-tooltip" data-cu-tooltip="Top tooltip">
   <button class="cu-button cu-button-outline cu-button-md">Top</button>
 </span>
 
-<span class="cu-tooltip cu-tooltip-bottom" data-tooltip="Bottom tooltip">
+<span class="cu-tooltip cu-tooltip-bottom" data-cu-tooltip="Bottom tooltip">
   <button class="cu-button cu-button-outline cu-button-md">Bottom</button>
 </span>
 
-<span class="cu-tooltip cu-tooltip-left" data-tooltip="Left tooltip">
+<span class="cu-tooltip cu-tooltip-left" data-cu-tooltip="Left tooltip">
   <button class="cu-button cu-button-outline cu-button-md">Left</button>
 </span>
 
-<span class="cu-tooltip cu-tooltip-right" data-tooltip="Right tooltip">
+<span class="cu-tooltip cu-tooltip-right" data-cu-tooltip="Right tooltip">
   <button class="cu-button cu-button-outline cu-button-md">Right</button>
 </span>`.trim();
 ---
@@ -36,11 +36,11 @@ const positionsCode = `<span class="cu-tooltip" data-tooltip="Top tooltip">
         <section class="space-y-3">
             <h2 class="text-lg font-semibold tracking-tight">Usage</h2>
             <p class="text-sm text-muted-foreground leading-relaxed">
-                Add <code class="cu-code">cu-tooltip</code> class and <code class="cu-code">data-tooltip</code> attribute with your tooltip text.
+                Add <code class="cu-code">cu-tooltip</code> class and <code class="cu-code">data-cu-tooltip</code> attribute with your tooltip text.
                 Pure CSS — no JavaScript required.
             </p>
             <ComponentPreview code={usageCode}>
-                <span class="cu-tooltip" data-tooltip="This is a tooltip">
+                <span class="cu-tooltip" data-cu-tooltip="This is a tooltip">
                     <button class="cu-button cu-button-outline cu-button-md">Hover me</button>
                 </span>
             </ComponentPreview>
@@ -57,16 +57,16 @@ const positionsCode = `<span class="cu-tooltip" data-tooltip="Top tooltip">
             </p>
             <ComponentPreview code={positionsCode}>
                 <div class="flex flex-wrap gap-4 items-center justify-center">
-                    <span class="cu-tooltip" data-tooltip="Top tooltip">
+                    <span class="cu-tooltip" data-cu-tooltip="Top tooltip">
                         <button class="cu-button cu-button-outline cu-button-md">Top</button>
                     </span>
-                    <span class="cu-tooltip cu-tooltip-bottom" data-tooltip="Bottom tooltip">
+                    <span class="cu-tooltip cu-tooltip-bottom" data-cu-tooltip="Bottom tooltip">
                         <button class="cu-button cu-button-outline cu-button-md">Bottom</button>
                     </span>
-                    <span class="cu-tooltip cu-tooltip-left" data-tooltip="Left tooltip">
+                    <span class="cu-tooltip cu-tooltip-left" data-cu-tooltip="Left tooltip">
                         <button class="cu-button cu-button-outline cu-button-md">Left</button>
                     </span>
-                    <span class="cu-tooltip cu-tooltip-right" data-tooltip="Right tooltip">
+                    <span class="cu-tooltip cu-tooltip-right" data-cu-tooltip="Right tooltip">
                         <button class="cu-button cu-button-outline cu-button-md">Right</button>
                     </span>
                 </div>
