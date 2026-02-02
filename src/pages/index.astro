@@ -3,25 +3,24 @@ import Layout from "../layouts/Layout.astro";
 import Button from "../components/ui/Button.astro";
 import { Code } from "astro-expressive-code/components";
 
-const quickStartCode = `<div class="cu-card" style="max-width: 24rem;">
+const quickStartCode = `<!-- 1. Include the stylesheet -->
+<link rel="stylesheet" href="/styles/cubby-ui.css" />
+
+<!-- 2. Use cu- prefixed classes to build your UI -->
+<div class="cu-card" style="max-width: 22rem;">
   <div class="cu-card-header">
-    <h3 class="cu-card-title">Sign In</h3>
-    <p class="cu-card-description">Enter your credentials to continue.</p>
+    <h3 class="cu-card-title">Notifications</h3>
+    <p class="cu-card-description">You have 2 unread messages.</p>
   </div>
   <div class="cu-card-content">
-    <div class="cu-form-group">
-      <label class="cu-label">Email</label>
-      <input class="cu-input" type="email" placeholder="you@example.com" />
-    </div>
-    <div class="cu-form-group">
-      <label class="cu-label">Password</label>
-      <input class="cu-input" type="password" placeholder="••••••••" />
+    <!-- Components compose naturally together -->
+    <div class="cu-alert cu-alert-info">
+      <p class="cu-alert-title">New comment</p>
+      <p class="cu-alert-description">Alice replied to your post.</p>
     </div>
   </div>
   <div class="cu-card-footer">
-    <button class="cu-button cu-button-default cu-button-md w-full">
-      Sign In
-    </button>
+    <button class="cu-button cu-button-default cu-button-sm">View all</button>
   </div>
 </div>`.trim();
 ---
@@ -104,25 +103,30 @@ const quickStartCode = `<div class="cu-card" style="max-width: 24rem;">
                 Include the CSS, then use <code class="cu-code">cu-</code> prefixed classes in your HTML. No build step required.
             </p>
             <div class="rounded-xl border border-border overflow-hidden">
-                <div class="p-8 flex flex-wrap items-start justify-center gap-6 bg-background/50 relative">
-                    <div class="absolute inset-0 -z-10 bg-white dark:bg-slate-950 bg-[radial-gradient(#f1f5f9_1px,transparent_1px)] dark:bg-[radial-gradient(#1e293b_1px,transparent_1px)] [background-size:16px_16px]"></div>
-                    <button class="cu-button cu-button-default cu-button-md">Click me</button>
-                    <div class="cu-card max-w-xs w-full">
-                        <div class="cu-card-header">
-                            <h3 class="cu-card-title">Hello World</h3>
-                            <p class="cu-card-description">It's that simple.</p>
-                        </div>
-                        <div class="cu-card-content">
-                            <p>No build step required.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="border-t border-border/40 bg-muted/30">
+                <div class="bg-muted/30">
                     <div class="flex items-center justify-between px-4 py-2.5 border-b border-border/20">
                         <span class="text-[11px] font-medium uppercase tracking-wider text-muted-foreground/60">HTML</span>
                     </div>
                     <div class="px-4 py-3">
                         <Code code={quickStartCode} lang="html" />
+                    </div>
+                </div>
+                <div class="p-8 flex items-center justify-center bg-background/50 relative border-t border-border/40">
+                    <div class="absolute inset-0 -z-10 bg-white dark:bg-slate-950 bg-[radial-gradient(#f1f5f9_1px,transparent_1px)] dark:bg-[radial-gradient(#1e293b_1px,transparent_1px)] [background-size:16px_16px]"></div>
+                    <div class="cu-card max-w-[22rem] w-full">
+                        <div class="cu-card-header">
+                            <h3 class="cu-card-title">Notifications</h3>
+                            <p class="cu-card-description">You have 2 unread messages.</p>
+                        </div>
+                        <div class="cu-card-content">
+                            <div class="cu-alert cu-alert-info">
+                                <p class="cu-alert-title">New comment</p>
+                                <p class="cu-alert-description">Alice replied to your post.</p>
+                            </div>
+                        </div>
+                        <div class="cu-card-footer">
+                            <button class="cu-button cu-button-default cu-button-sm">View all</button>
+                        </div>
                     </div>
                 </div>
             </div>
