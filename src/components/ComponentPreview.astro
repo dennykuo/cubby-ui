@@ -81,7 +81,7 @@ const shouldCollapse = codeLineCount > 8;
 						data-cu-code-toggle
 					>
 						<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
-						展開程式碼
+						Expand Code
 					</button>
 				</div>
 			)}
@@ -130,13 +130,13 @@ const shouldCollapse = codeLineCount > 8;
 					codeBlockEl!.style.maxHeight = "none";
 					codeBlockEl!.style.overflow = "auto";
 					if (fadeEl) fadeEl.style.display = "none";
-					toggleBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m18 15-6-6-6 6"/></svg> 收合程式碼';
+					toggleBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m18 15-6-6-6 6"/></svg> Collapse Code';
 				} else {
 					codeBlockEl?.setAttribute("data-cu-code-collapsed", "");
 					codeBlockEl!.style.maxHeight = "200px";
 					codeBlockEl!.style.overflow = "hidden";
 					if (fadeEl) fadeEl.style.display = "";
-					toggleBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg> 展開程式碼';
+					toggleBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg> Expand Code';
 				}
 			});
 		});
