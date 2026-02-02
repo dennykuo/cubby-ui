@@ -377,9 +377,12 @@ const loginCardCode = `<div class="cu-card w-[380px]">
 </div>`.trim();
 ---
 
-<Layout title="Card — Cubby UI">
+<Layout title="Card — Cubby UI" category="Basic" componentName="Card">
     <div class="space-y-3">
-        <h1 class="text-3xl font-bold tracking-tight">Card</h1>
+        <div class="flex items-center gap-3">
+            <h1 class="text-3xl font-bold tracking-tight">Card</h1>
+            <span class="cu-badge cu-badge-secondary">Basic</span>
+        </div>
         <p class="text-base text-muted-foreground leading-relaxed">
             Displays a card with header, content, and footer.
         </p>
@@ -388,8 +391,11 @@ const loginCardCode = `<div class="cu-card w-[380px]">
     <div class="mt-10 space-y-10">
         <!-- Usage -->
         <section class="space-y-3">
-            <h2 class="text-lg font-semibold tracking-tight">Usage</h2>
-            <p class="text-sm text-muted-foreground leading-relaxed">
+            <h2 id="usage" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+                <a href="#usage" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                Usage
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
                 A card is composed of
                 <code class="cu-code">cu-card</code>,
                 <code class="cu-code">cu-card-header</code>,
@@ -415,8 +421,11 @@ const loginCardCode = `<div class="cu-card w-[380px]">
 
         <!-- Form Card -->
         <section class="space-y-3">
-            <h2 class="text-lg font-semibold tracking-tight">Form Card</h2>
-            <p class="text-sm text-muted-foreground leading-relaxed">
+            <h2 id="form-card" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+                <a href="#form-card" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                Form Card
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
                 Cards work well as containers for forms with actions in the footer.
             </p>
             <ComponentPreview code={formCardCode}>
@@ -456,8 +465,11 @@ const loginCardCode = `<div class="cu-card w-[380px]">
 
         <!-- Login Card -->
         <section class="space-y-3">
-            <h2 class="text-lg font-semibold tracking-tight">Login Card</h2>
-            <p class="text-sm text-muted-foreground leading-relaxed">
+            <h2 id="login-card" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+                <a href="#login-card" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                Login Card
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
                 A sign-in form with social login options and a separator divider.
             </p>
             <ComponentPreview code={loginCardCode}>
@@ -496,8 +508,11 @@ const loginCardCode = `<div class="cu-card w-[380px]">
 
         <!-- Notification Card -->
         <section class="space-y-3">
-            <h2 class="text-lg font-semibold tracking-tight">Notification Card</h2>
-            <p class="text-sm text-muted-foreground leading-relaxed">
+            <h2 id="notification-card" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+                <a href="#notification-card" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                Notification Card
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
                 Cards can contain lists of items with timestamps and a full-width action button.
             </p>
             <ComponentPreview code={notificationCardCode}>
@@ -541,8 +556,11 @@ const loginCardCode = `<div class="cu-card w-[380px]">
 
         <!-- Table in Card -->
         <section class="space-y-3">
-            <h2 class="text-lg font-semibold tracking-tight">Table in Card</h2>
-            <p class="text-sm text-muted-foreground leading-relaxed">
+            <h2 id="table-in-card" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+                <a href="#table-in-card" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                Table in Card
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
                 Use <code class="cu-code">cu-card-content-flush</code> to remove the default padding when embedding a table.
                 This is a common pattern for dashboard data grids.
             </p>
@@ -588,8 +606,11 @@ const loginCardCode = `<div class="cu-card w-[380px]">
 
         <!-- Team Members -->
         <section class="space-y-3">
-            <h2 class="text-lg font-semibold tracking-tight">Team Members</h2>
-            <p class="text-sm text-muted-foreground leading-relaxed">
+            <h2 id="team-members" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+                <a href="#team-members" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                Team Members
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
                 A member list with avatars, roles, and an invite action.
             </p>
             <ComponentPreview code={teamCardCode}>
@@ -648,8 +669,11 @@ const loginCardCode = `<div class="cu-card w-[380px]">
 
         <!-- Profile Card -->
         <section class="space-y-3">
-            <h2 class="text-lg font-semibold tracking-tight">Profile Card</h2>
-            <p class="text-sm text-muted-foreground leading-relaxed">
+            <h2 id="profile-card" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+                <a href="#profile-card" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                Profile Card
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
                 A centered profile card with avatar, stats grid, and action buttons.
             </p>
             <ComponentPreview code={profileCardCode}>
@@ -693,8 +717,11 @@ const loginCardCode = `<div class="cu-card w-[380px]">
 
         <!-- Hover Cards -->
         <section class="space-y-3">
-            <h2 class="text-lg font-semibold tracking-tight">Hover Effect</h2>
-            <p class="text-sm text-muted-foreground leading-relaxed">
+            <h2 id="hover-effect" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+                <a href="#hover-effect" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                Hover Effect
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
                 Add <code class="cu-code">cu-card-hover</code> for an interactive shadow lift on hover.
                 Ideal for feature grids and clickable cards.
             </p>
@@ -733,8 +760,11 @@ const loginCardCode = `<div class="cu-card w-[380px]">
 
         <!-- Metric Card -->
         <section class="space-y-3">
-            <h2 class="text-lg font-semibold tracking-tight">Metric Card</h2>
-            <p class="text-sm text-muted-foreground leading-relaxed">
+            <h2 id="metric-card" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+                <a href="#metric-card" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                Metric Card
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
                 A minimal card without a footer — useful for dashboards and stats.
             </p>
             <ComponentPreview code={metricCode}>
@@ -765,8 +795,11 @@ const loginCardCode = `<div class="cu-card w-[380px]">
 
         <!-- Pricing Cards -->
         <section class="space-y-3">
-            <h2 class="text-lg font-semibold tracking-tight">Pricing Cards</h2>
-            <p class="text-sm text-muted-foreground leading-relaxed">
+            <h2 id="pricing-cards" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+                <a href="#pricing-cards" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                Pricing Cards
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
                 A pricing comparison grid. Highlight the recommended plan with a stronger border and shadow.
             </p>
             <ComponentPreview code={pricingCardCode}>

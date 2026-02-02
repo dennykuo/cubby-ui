@@ -14,9 +14,12 @@ const leadCode = `<p class="cu-p cu-p-lead">
 </p>`.trim();
 ---
 
-<Layout title="Paragraphs — Cubby UI">
+<Layout title="Paragraphs — Cubby UI" category="Typography" componentName="Paragraphs">
     <div class="space-y-3">
-        <h1 class="text-3xl font-bold tracking-tight">Paragraphs</h1>
+        <div class="flex items-center gap-3">
+          <h1 class="text-3xl font-bold tracking-tight">Paragraphs</h1>
+          <span class="cu-badge cu-badge-secondary">Typography</span>
+        </div>
         <p class="text-base text-muted-foreground leading-relaxed">
             Paragraph styles for body text and lead introductions.
         </p>
@@ -25,8 +28,11 @@ const leadCode = `<p class="cu-p cu-p-lead">
     <div class="mt-10 space-y-10">
         <!-- Usage -->
         <section class="space-y-3">
-            <h2 class="text-lg font-semibold tracking-tight">Usage</h2>
-            <p class="text-sm text-muted-foreground leading-relaxed">
+            <h2 id="usage" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+              <a href="#usage" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+              Usage
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
                 Apply <code class="cu-code">cu-p</code> to paragraph elements
                 for consistent line height and spacing.
             </p>
@@ -42,8 +48,11 @@ const leadCode = `<p class="cu-p cu-p-lead">
 
         <!-- Lead -->
         <section class="space-y-3">
-            <h2 class="text-lg font-semibold tracking-tight">Lead</h2>
-            <p class="text-sm text-muted-foreground leading-relaxed">
+            <h2 id="lead" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+              <a href="#lead" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+              Lead
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
                 Use <code class="cu-code">cu-p-lead</code> for introductory
                 paragraphs with larger, muted text.
             </p>

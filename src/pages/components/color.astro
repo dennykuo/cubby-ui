@@ -32,9 +32,12 @@ const utilityColors: Swatch[] = [
 ];
 ---
 
-<Layout title="Color — Cubby UI">
+<Layout title="Color — Cubby UI" category="Basic" componentName="Color">
     <div class="space-y-3">
-        <h1 class="text-3xl font-bold tracking-tight">Color</h1>
+        <div class="flex items-center gap-3">
+            <h1 class="text-3xl font-bold tracking-tight">Color</h1>
+            <span class="cu-badge cu-badge-secondary">Basic</span>
+        </div>
         <p class="text-base text-muted-foreground leading-relaxed">
             Semantic color tokens defined as CSS custom properties in <code class="cu-code">global.css</code>.
             Each semantic color has a paired foreground for text on that background.
@@ -44,8 +47,11 @@ const utilityColors: Swatch[] = [
     <div class="mt-10 space-y-10">
         <!-- Semantic Colors -->
         <section class="space-y-3">
-            <h2 class="text-lg font-semibold tracking-tight">Semantic Colors</h2>
-            <p class="text-sm text-muted-foreground leading-relaxed">
+            <h2 id="semantic-colors" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+                <a href="#semantic-colors" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                Semantic Colors
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
                 Used for interactive elements like buttons, badges, and alerts. Each color has a
                 <code class="cu-code">-foreground</code> counterpart for legible text.
             </p>
@@ -66,8 +72,11 @@ const utilityColors: Swatch[] = [
 
         <!-- Surface Colors -->
         <section class="space-y-3">
-            <h2 class="text-lg font-semibold tracking-tight">Surface Colors</h2>
-            <p class="text-sm text-muted-foreground leading-relaxed">
+            <h2 id="surface-colors" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+                <a href="#surface-colors" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                Surface Colors
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
                 Used for page backgrounds, cards, popovers, and muted areas.
             </p>
             <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
@@ -85,8 +94,11 @@ const utilityColors: Swatch[] = [
 
         <!-- Utility Colors -->
         <section class="space-y-3">
-            <h2 class="text-lg font-semibold tracking-tight">Utility Colors</h2>
-            <p class="text-sm text-muted-foreground leading-relaxed">
+            <h2 id="utility-colors" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+                <a href="#utility-colors" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                Utility Colors
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
                 Used for borders, input outlines, and focus rings.
             </p>
             <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
@@ -104,8 +116,11 @@ const utilityColors: Swatch[] = [
 
         <!-- Customization -->
         <section class="space-y-3">
-            <h2 class="text-lg font-semibold tracking-tight">Customization</h2>
-            <p class="text-sm text-muted-foreground leading-relaxed">
+            <h2 id="customization" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+                <a href="#customization" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                Customization
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
                 Override any color in <code class="cu-code">src/styles/global.css</code> inside the
                 <code class="cu-code">@theme</code> block. For dark mode, override inside the
                 <code class="cu-code">.dark</code> selector.

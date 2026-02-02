@@ -27,9 +27,12 @@ const verticalCode = `<div class="flex h-5 items-center gap-4 text-sm">
 </div>`.trim();
 ---
 
-<Layout title="Separator — Cubby UI">
+<Layout title="Separator — Cubby UI" category="Basic" componentName="Separator">
     <div class="space-y-3">
-        <h1 class="text-3xl font-bold tracking-tight">Separator</h1>
+        <div class="flex items-center gap-3">
+            <h1 class="text-3xl font-bold tracking-tight">Separator</h1>
+            <span class="cu-badge cu-badge-secondary">Basic</span>
+        </div>
         <p class="text-base text-muted-foreground leading-relaxed">
             Visually or semantically separates content.
         </p>
@@ -38,8 +41,11 @@ const verticalCode = `<div class="flex h-5 items-center gap-4 text-sm">
     <div class="mt-10 space-y-10">
         <!-- Usage -->
         <section class="space-y-3">
-            <h2 class="text-lg font-semibold tracking-tight">Usage</h2>
-            <p class="text-sm text-muted-foreground leading-relaxed">
+            <h2 id="usage" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+                <a href="#usage" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                Usage
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
                 Apply <code class="cu-code">cu-separator</code> as the base class with
                 <code class="cu-code">cu-separator-horizontal</code> or
                 <code class="cu-code">cu-separator-vertical</code> for orientation.
@@ -53,8 +59,11 @@ const verticalCode = `<div class="flex h-5 items-center gap-4 text-sm">
 
         <!-- With Text -->
         <section class="space-y-3">
-            <h2 class="text-lg font-semibold tracking-tight">With Text</h2>
-            <p class="text-sm text-muted-foreground leading-relaxed">
+            <h2 id="with-text" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+                <a href="#with-text" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                With Text
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
                 Combine horizontal and vertical separators to create structured layouts.
             </p>
             <ComponentPreview code={withTextCode}>
@@ -77,8 +86,11 @@ const verticalCode = `<div class="flex h-5 items-center gap-4 text-sm">
 
         <!-- Vertical -->
         <section class="space-y-3">
-            <h2 class="text-lg font-semibold tracking-tight">Vertical</h2>
-            <p class="text-sm text-muted-foreground leading-relaxed">
+            <h2 id="vertical" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+                <a href="#vertical" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                Vertical
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
                 Use <code class="cu-code">cu-separator-vertical</code> to separate inline items.
             </p>
             <ComponentPreview code={verticalCode}>

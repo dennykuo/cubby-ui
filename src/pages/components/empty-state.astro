@@ -45,9 +45,12 @@ const minimalCode = `<div class="cu-empty-state">
 </div>`.trim();
 ---
 
-<Layout title="Empty State — Cubby UI">
+<Layout title="Empty State — Cubby UI" category="Feedback" componentName="Empty State">
     <div class="space-y-3">
-        <h1 class="text-3xl font-bold tracking-tight">Empty State</h1>
+        <div class="flex items-center gap-3">
+            <h1 class="text-3xl font-bold tracking-tight">Empty State</h1>
+            <span class="cu-badge cu-badge-secondary">Feedback</span>
+        </div>
         <p class="text-base text-muted-foreground leading-relaxed">
             A placeholder shown when there is no data to display, with optional call-to-action.
         </p>
@@ -56,8 +59,11 @@ const minimalCode = `<div class="cu-empty-state">
     <div class="mt-10 space-y-10">
         <!-- Usage -->
         <section class="space-y-3">
-            <h2 class="text-lg font-semibold tracking-tight">Usage</h2>
-            <p class="text-sm text-muted-foreground leading-relaxed">
+            <h2 id="usage" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+                <a href="#usage" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                Usage
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
                 Compose an empty state using <code class="cu-code">cu-empty-state</code> as the container with
                 <code class="cu-code">cu-empty-state-icon</code>,
                 <code class="cu-code">cu-empty-state-title</code>,
@@ -82,8 +88,11 @@ const minimalCode = `<div class="cu-empty-state">
 
         <!-- No Results -->
         <section class="space-y-3">
-            <h2 class="text-lg font-semibold tracking-tight">No Results</h2>
-            <p class="text-sm text-muted-foreground leading-relaxed">
+            <h2 id="no-results" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+                <a href="#no-results" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                No Results
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
                 Use for search or filter results that return no matches.
             </p>
             <ComponentPreview code={noResultsCode}>
@@ -104,8 +113,11 @@ const minimalCode = `<div class="cu-empty-state">
 
         <!-- Without Action -->
         <section class="space-y-3">
-            <h2 class="text-lg font-semibold tracking-tight">Without Action</h2>
-            <p class="text-sm text-muted-foreground leading-relaxed">
+            <h2 id="without-action" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+                <a href="#without-action" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                Without Action
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
                 The action button is optional. Use a minimal empty state for informational messages.
             </p>
             <ComponentPreview code={minimalCode}>

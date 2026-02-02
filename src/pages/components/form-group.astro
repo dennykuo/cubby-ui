@@ -91,9 +91,12 @@ const completeFormCode = `<div class="cu-card w-[420px]">
 </div>`.trim();
 ---
 
-<Layout title="Form Group — Cubby UI">
+<Layout category="Forms" componentName="Form Group" title="Form Group — Cubby UI">
     <div class="space-y-3">
-        <h1 class="text-3xl font-bold tracking-tight">Form Group</h1>
+        <div class="flex items-center gap-3">
+          <h1 class="text-3xl font-bold tracking-tight">Form Group</h1>
+          <span class="cu-badge cu-badge-secondary">Forms</span>
+        </div>
         <p class="text-base text-muted-foreground leading-relaxed">
             Composes a label, form control, description, and error message with consistent spacing.
         </p>
@@ -102,8 +105,11 @@ const completeFormCode = `<div class="cu-card w-[420px]">
     <div class="mt-10 space-y-10">
         <!-- Usage -->
         <section class="space-y-3">
-            <h2 class="text-lg font-semibold tracking-tight">Usage</h2>
-            <p class="text-sm text-muted-foreground leading-relaxed">
+            <h2 id="usage" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+              <a href="#usage" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+              Usage
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
                 Use <code class="cu-code">cu-form-group</code> as a wrapper to apply consistent spacing between a label and its control.
             </p>
             <ComponentPreview code={usageCode}>
@@ -118,8 +124,11 @@ const completeFormCode = `<div class="cu-card w-[420px]">
 
         <!-- With Description -->
         <section class="space-y-3">
-            <h2 class="text-lg font-semibold tracking-tight">With Description</h2>
-            <p class="text-sm text-muted-foreground leading-relaxed">
+            <h2 id="with-description" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+              <a href="#with-description" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+              With Description
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
                 Add <code class="cu-code">cu-form-description</code> for helper text below the control.
             </p>
             <ComponentPreview code={descriptionCode}>
@@ -135,8 +144,11 @@ const completeFormCode = `<div class="cu-card w-[420px]">
 
         <!-- With Error -->
         <section class="space-y-3">
-            <h2 class="text-lg font-semibold tracking-tight">With Error</h2>
-            <p class="text-sm text-muted-foreground leading-relaxed">
+            <h2 id="with-error" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+              <a href="#with-error" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+              With Error
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
                 Add <code class="cu-code">cu-form-error</code> and a
                 <code class="cu-code">border-destructive</code> class on the input for error states.
             </p>
@@ -153,8 +165,11 @@ const completeFormCode = `<div class="cu-card w-[420px]">
 
         <!-- Complete Form -->
         <section class="space-y-3">
-            <h2 class="text-lg font-semibold tracking-tight">Complete Form</h2>
-            <p class="text-sm text-muted-foreground leading-relaxed">
+            <h2 id="complete-form" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+              <a href="#complete-form" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+              Complete Form
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
                 A full form example combining Input, Select, Textarea, Checkbox, and Toggle inside a Card.
             </p>
             <ComponentPreview code={completeFormCode}>

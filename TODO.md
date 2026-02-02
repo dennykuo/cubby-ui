@@ -1,5 +1,15 @@
 # TODO — 元件開發清單
 
+## 命名考慮清單
+- Cubby 小盒子
+- Caddy 小罐、小盒子或收納盒（如桌面整理盒）
+- Framekit 框架積木
+- Bitsy 小元件集合 (bitsy: 零星小東西，已有遊戲框架用此命名)
+- Nibble 小口吃掉的元件
+- Nook 角落小空間
+- Cove 小灣、包覆空間
+- Crate 木箱、收納箱 (Rust 用到了)
+
 ## 推薦優先開發
 
 - [x] **Separator** — Basic — 水平/垂直分隔線，極簡單，使用頻率高
@@ -62,26 +72,3 @@
 ### P0 — 全域基礎
 
 - [ ] **補齊暗色模式 token** — `global.css` 的 `.dark` 區塊目前幾乎為空，缺少 `border`, `input`, `ring`, `card`, `popover`, `muted`, `accent`, `secondary` 及所有語意色彩的暗色模式值，導致暗色模式下幾乎所有元件都會有對比度和可讀性問題
-
-### P1 — 無障礙 & 主題一致性
-
-- [ ] **關閉按鈕補 focus ring** — Dialog close、Drawer close、Toast close 完全沒有 `focus-visible` 樣式，需補上 `focus-visible:ring-2 focus-visible:ring-ring/40 focus-visible:ring-offset-2`
-- [ ] **Accordion trigger 補 focus ring** — 可互動元素缺少鍵盤焦點樣式
-- [x] **硬編碼顏色值改用 CSS 變數** — Range slider hover glow 改用 `color-mix(in srgb, var(--color-primary) 15%, transparent)`；Dialog/Drawer/Alert Dialog `::backdrop` 改用 `color-mix(in srgb, var(--color-foreground) 50%, transparent)`
-
-### P2 — 視覺精緻度
-
-- [x] **Alert/Toast 變體加背景色調** — 各變體加入 `bg-{color}/5` 極淡背景（destructive、success、warning、info）
-- [x] **統一浮層圓角為 `rounded-xl`** — Dropdown content、Combobox content、Multi-select content 統一為 `rounded-xl`
-- [x] **Dialog/Drawer 加開關動畫** — 使用 CSS `@starting-style` 搭配 `transition-behavior: allow-discrete` 實現 fade-in / scale / slide-in 動畫
-- [x] **Card hover shadow 改為 opt-in** — 移除 `cu-card` 預設 `hover:shadow-md`，新增 `cu-card-hover` opt-in class
-- [x] **Stat card 與 Card 對齊** — Stat 加入 `transition-shadow duration-200`
-
-### P3 — 細節打磨
-
-- [x] **Disabled 狀態統一** — Input/Textarea 加入 `disabled:bg-muted disabled:text-muted-foreground`，與 Select 一致
-- [x] **Transition duration 統一** — Toast `duration-300` 降為 `duration-200`
-- [x] **Accordion 展開動畫** — 加入 `interpolate-size: allow-keywords` + `@starting-style` 高度/透明度過渡
-- [x] **Skeleton shimmer 變體** — 新增 `cu-skeleton-shimmer`，使用 `linear-gradient` + `@keyframes cu-shimmer` 掃光效果
-- [x] **Accordion trigger hover 風格** — `hover:underline` 改為 `hover:bg-muted/60 rounded-md`
-- [x] **Combobox / Multi-select 結構去重** — 抽取 `listbox.css` 共用 7 組 class（container、content、search、search-icon、input、list、empty），combobox.css / multi-select.css 僅保留各自獨有的 trigger 和 item 差異

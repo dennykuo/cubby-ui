@@ -34,9 +34,12 @@ const topCode = `<div class="cu-hover-card">
 </div>`.trim();
 ---
 
-<Layout title="Hover Card — Cubby UI">
+<Layout title="Hover Card — Cubby UI" category="Overlay" componentName="Hover Card">
     <div class="space-y-3">
-        <h1 class="text-3xl font-bold tracking-tight">Hover Card</h1>
+        <div class="flex items-center gap-3">
+            <h1 class="text-3xl font-bold tracking-tight">Hover Card</h1>
+            <span class="cu-badge cu-badge-secondary">Overlay</span>
+        </div>
         <p class="text-base text-muted-foreground leading-relaxed">
             For sighted users to preview content available behind a link. Pure CSS — no JavaScript required.
         </p>
@@ -45,8 +48,11 @@ const topCode = `<div class="cu-hover-card">
     <div class="mt-10 space-y-10">
         <!-- Usage -->
         <section class="space-y-3">
-            <h2 class="text-lg font-semibold tracking-tight">Usage</h2>
-            <p class="text-sm text-muted-foreground leading-relaxed">
+            <h2 id="usage" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+                <a href="#usage" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                Usage
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
                 Wrap a trigger element and content with <code class="cu-code">cu-hover-card</code>.
                 The <code class="cu-code">cu-hover-card-content</code> appears on hover. Pure CSS, no JavaScript required.
             </p>
@@ -74,8 +80,11 @@ const topCode = `<div class="cu-hover-card">
 
         <!-- Top Position -->
         <section class="space-y-3">
-            <h2 class="text-lg font-semibold tracking-tight">Top Position</h2>
-            <p class="text-sm text-muted-foreground leading-relaxed">
+            <h2 id="top-position" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+                <a href="#top-position" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                Top Position
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
                 Use <code class="cu-code">cu-hover-card-content-top</code> to position the card above the trigger.
             </p>
             <ComponentPreview code={topCode}>

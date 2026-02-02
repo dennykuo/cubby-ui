@@ -193,9 +193,12 @@ const richContentCode = `<div class="cu-accordion">
 </div>`.trim();
 ---
 
-<Layout title="Accordion — Cubby UI">
+<Layout title="Accordion — Cubby UI" category="Data Display" componentName="Accordion">
     <div class="space-y-3">
-        <h1 class="text-3xl font-bold tracking-tight">Accordion</h1>
+        <div class="flex items-center gap-3">
+            <h1 class="text-3xl font-bold tracking-tight">Accordion</h1>
+            <span class="cu-badge cu-badge-secondary">Data Display</span>
+        </div>
         <p class="text-base text-muted-foreground leading-relaxed">
             A vertically stacked set of interactive headings that each reveal associated content.
         </p>
@@ -204,8 +207,11 @@ const richContentCode = `<div class="cu-accordion">
     <div class="mt-10 space-y-10">
         <!-- Usage -->
         <section class="space-y-3">
-            <h2 class="text-lg font-semibold tracking-tight">Usage</h2>
-            <p class="text-sm text-muted-foreground leading-relaxed">
+            <h2 id="usage" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+                <a href="#usage" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                Usage
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
                 Built with native <code class="cu-code">&lt;details&gt;</code> and <code class="cu-code">&lt;summary&gt;</code> elements.
                 Use <code class="cu-code">cu-accordion</code> as the wrapper,
                 <code class="cu-code">cu-accordion-item</code> on each <code class="cu-code">&lt;details&gt;</code>,
@@ -228,8 +234,11 @@ const richContentCode = `<div class="cu-accordion">
 
         <!-- Multiple Items -->
         <section class="space-y-3">
-            <h2 class="text-lg font-semibold tracking-tight">Multiple Items</h2>
-            <p class="text-sm text-muted-foreground leading-relaxed">
+            <h2 id="multiple-items" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+                <a href="#multiple-items" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                Multiple Items
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
                 Stack multiple items inside the accordion. Each can be opened independently.
             </p>
             <ComponentPreview code={multipleCode}>
@@ -260,8 +269,11 @@ const richContentCode = `<div class="cu-accordion">
 
         <!-- Default Open -->
         <section class="space-y-3">
-            <h2 class="text-lg font-semibold tracking-tight">Default Open</h2>
-            <p class="text-sm text-muted-foreground leading-relaxed">
+            <h2 id="default-open" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+                <a href="#default-open" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                Default Open
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
                 Add the <code class="cu-code">open</code> attribute to expand an item by default.
             </p>
             <ComponentPreview code={defaultOpenCode}>
@@ -292,8 +304,11 @@ const richContentCode = `<div class="cu-accordion">
 
         <!-- With Icons -->
         <section class="space-y-3">
-            <h2 class="text-lg font-semibold tracking-tight">With Icons</h2>
-            <p class="text-sm text-muted-foreground leading-relaxed">
+            <h2 id="with-icons" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+                <a href="#with-icons" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                With Icons
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
                 Add icons to the trigger for visual categorization.
             </p>
             <ComponentPreview code={withIconsCode}>
@@ -339,8 +354,11 @@ const richContentCode = `<div class="cu-accordion">
 
         <!-- Bordered -->
         <section class="space-y-3">
-            <h2 class="text-lg font-semibold tracking-tight">Bordered</h2>
-            <p class="text-sm text-muted-foreground leading-relaxed">
+            <h2 id="bordered" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+                <a href="#bordered" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                Bordered
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
                 Separate each item with individual borders for a card-like appearance.
             </p>
             <ComponentPreview code={borderedCode}>
@@ -371,8 +389,11 @@ const richContentCode = `<div class="cu-accordion">
 
         <!-- Rich Content -->
         <section class="space-y-3">
-            <h2 class="text-lg font-semibold tracking-tight">Rich Content</h2>
-            <p class="text-sm text-muted-foreground leading-relaxed">
+            <h2 id="rich-content" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+                <a href="#rich-content" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                Rich Content
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
                 Accordion items can contain badges, lists, and other components. Useful for changelogs and release notes.
             </p>
             <ComponentPreview code={richContentCode}>

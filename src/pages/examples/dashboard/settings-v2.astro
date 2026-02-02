@@ -1,0 +1,398 @@
+---
+import DashboardLayout from "../../../layouts/DashboardLayout.astro";
+---
+
+<DashboardLayout title="設定 V2 — Acme Inc.">
+	<div class="space-y-8">
+		<!-- Page header -->
+		<div>
+			<h1 class="text-2xl font-bold tracking-tight">設定</h1>
+			<p class="text-muted-foreground mt-1">管理您的帳號偏好設定。</p>
+		</div>
+
+		<!-- Two-column layout: side nav + content -->
+		<div class="flex flex-col gap-8 lg:flex-row">
+			<!-- Side navigation -->
+			<nav class="flex lg:flex-col gap-1 lg:w-48 lg:shrink-0 overflow-x-auto" data-cu-settings-nav>
+				<button class="cu-settings-nav-item cu-settings-nav-item-active" data-cu-settings-tab="profile">
+					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+					個人資料
+				</button>
+				<button class="cu-settings-nav-item" data-cu-settings-tab="notifications">
+					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
+					通知
+				</button>
+				<button class="cu-settings-nav-item" data-cu-settings-tab="appearance">
+					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
+					外觀
+				</button>
+				<button class="cu-settings-nav-item" data-cu-settings-tab="security">
+					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+					安全性
+				</button>
+			</nav>
+
+			<!-- Content panels -->
+			<div class="flex-1 min-w-0">
+				<!-- Profile panel -->
+				<div data-cu-settings-content="profile">
+					<div class="space-y-6">
+						<!-- Avatar section -->
+						<div class="flex items-center gap-5">
+							<div class="cu-avatar cu-avatar-lg">
+								<div class="cu-avatar-fallback text-lg">JD</div>
+							</div>
+							<div>
+								<p class="font-medium">John Doe</p>
+								<p class="text-sm text-muted-foreground">john@example.com</p>
+								<button type="button" class="cu-button cu-button-outline cu-button-sm mt-2">更換頭像</button>
+							</div>
+						</div>
+
+						<div class="cu-separator"></div>
+
+						<!-- Profile form -->
+						<form class="space-y-5 max-w-lg">
+							<div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+								<div class="cu-form-group">
+									<label class="cu-label" for="v2-first-name">名字</label>
+									<input class="cu-input" id="v2-first-name" type="text" value="John" />
+								</div>
+								<div class="cu-form-group">
+									<label class="cu-label" for="v2-last-name">姓氏</label>
+									<input class="cu-input" id="v2-last-name" type="text" value="Doe" />
+								</div>
+							</div>
+							<div class="cu-form-group">
+								<label class="cu-label" for="v2-email">Email</label>
+								<input class="cu-input" id="v2-email" type="email" value="john@example.com" />
+								<p class="text-xs text-muted-foreground mt-1">變更 Email 後需重新驗證。</p>
+							</div>
+							<div class="cu-form-group">
+								<label class="cu-label" for="v2-language">語言</label>
+								<div class="cu-select-wrapper max-w-xs">
+									<select class="cu-select" id="v2-language">
+										<option>繁體中文</option>
+										<option>English</option>
+										<option>日本語</option>
+									</select>
+									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="cu-select-icon"><path d="m6 9 6 6 6-6"></path></svg>
+								</div>
+							</div>
+							<div class="cu-form-group">
+								<label class="cu-label" for="v2-bio">自我介紹</label>
+								<textarea class="cu-textarea" id="v2-bio" rows="3" placeholder="簡短介紹您自己…"></textarea>
+								<p class="text-xs text-muted-foreground mt-1">最多 200 字。</p>
+							</div>
+							<div class="flex gap-3 pt-2">
+								<button type="button" class="cu-button cu-button-default cu-button-md">儲存變更</button>
+								<button type="button" class="cu-button cu-button-outline cu-button-md">取消</button>
+							</div>
+						</form>
+					</div>
+				</div>
+
+				<!-- Notifications panel -->
+				<div data-cu-settings-content="notifications" hidden>
+					<div class="space-y-6">
+						<div>
+							<h3 class="text-base font-semibold">通知偏好</h3>
+							<p class="text-sm text-muted-foreground mt-0.5">選擇您要接收的通知類型。</p>
+						</div>
+
+						<div class="cu-card">
+							<div class="cu-card-content pt-6">
+								<div class="space-y-0 divide-y divide-border">
+									<div class="flex items-center justify-between py-4 first:pt-0">
+										<div class="flex items-center gap-3">
+											<div class="flex size-9 items-center justify-center rounded-lg bg-primary/8 text-primary">
+												<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+											</div>
+											<div>
+												<p class="text-sm font-medium">Email 通知</p>
+												<p class="text-sm text-muted-foreground mt-0.5">接收系統通知至您的信箱。</p>
+											</div>
+										</div>
+										<label class="cu-toggle-wrapper">
+											<input type="checkbox" class="cu-toggle-input" checked />
+											<span class="cu-toggle"><span class="cu-toggle-thumb"></span></span>
+										</label>
+									</div>
+									<div class="flex items-center justify-between py-4">
+										<div class="flex items-center gap-3">
+											<div class="flex size-9 items-center justify-center rounded-lg bg-warning/10 text-warning">
+												<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>
+											</div>
+											<div>
+												<p class="text-sm font-medium">安全警報</p>
+												<p class="text-sm text-muted-foreground mt-0.5">登入異常時發送警告通知。</p>
+											</div>
+										</div>
+										<label class="cu-toggle-wrapper">
+											<input type="checkbox" class="cu-toggle-input" checked />
+											<span class="cu-toggle"><span class="cu-toggle-thumb"></span></span>
+										</label>
+									</div>
+									<div class="flex items-center justify-between py-4">
+										<div class="flex items-center gap-3">
+											<div class="flex size-9 items-center justify-center rounded-lg bg-success/10 text-success">
+												<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/><path d="M9 18h6"/><path d="M10 22h4"/></svg>
+											</div>
+											<div>
+												<p class="text-sm font-medium">行銷訊息</p>
+												<p class="text-sm text-muted-foreground mt-0.5">接收產品更新與促銷資訊。</p>
+											</div>
+										</div>
+										<label class="cu-toggle-wrapper">
+											<input type="checkbox" class="cu-toggle-input" />
+											<span class="cu-toggle"><span class="cu-toggle-thumb"></span></span>
+										</label>
+									</div>
+									<div class="flex items-center justify-between py-4 last:pb-0">
+										<div class="flex items-center gap-3">
+											<div class="flex size-9 items-center justify-center rounded-lg bg-info/10 text-info">
+												<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8"/><path d="M15 18h-5"/><path d="M10 6h8v4h-8V6Z"/></svg>
+											</div>
+											<div>
+												<p class="text-sm font-medium">週報摘要</p>
+												<p class="text-sm text-muted-foreground mt-0.5">每週寄送業務摘要報告。</p>
+											</div>
+										</div>
+										<label class="cu-toggle-wrapper">
+											<input type="checkbox" class="cu-toggle-input" checked />
+											<span class="cu-toggle"><span class="cu-toggle-thumb"></span></span>
+										</label>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- Appearance panel -->
+				<div data-cu-settings-content="appearance" hidden>
+					<div class="space-y-6">
+						<div>
+							<h3 class="text-base font-semibold">外觀</h3>
+							<p class="text-sm text-muted-foreground mt-0.5">自訂介面的視覺偏好。</p>
+						</div>
+
+						<!-- Theme selector -->
+						<div class="space-y-3">
+							<label class="cu-label">主題</label>
+							<div class="grid grid-cols-3 gap-3 max-w-md">
+								<label class="cu-settings-theme-card cu-settings-theme-card-active" data-cu-theme-option>
+									<input type="radio" name="theme" value="light" class="sr-only" checked />
+									<div class="mb-2 rounded-lg border border-border bg-white p-2 shadow-sm">
+										<div class="space-y-1.5">
+											<div class="h-1.5 w-8 rounded bg-slate-200"></div>
+											<div class="h-1.5 w-12 rounded bg-slate-100"></div>
+											<div class="h-1.5 w-6 rounded bg-slate-200"></div>
+										</div>
+									</div>
+									<span class="text-xs font-medium">淺色</span>
+								</label>
+								<label class="cu-settings-theme-card" data-cu-theme-option>
+									<input type="radio" name="theme" value="dark" class="sr-only" />
+									<div class="mb-2 rounded-lg border border-border bg-slate-900 p-2 shadow-sm">
+										<div class="space-y-1.5">
+											<div class="h-1.5 w-8 rounded bg-slate-700"></div>
+											<div class="h-1.5 w-12 rounded bg-slate-800"></div>
+											<div class="h-1.5 w-6 rounded bg-slate-700"></div>
+										</div>
+									</div>
+									<span class="text-xs font-medium">深色</span>
+								</label>
+								<label class="cu-settings-theme-card" data-cu-theme-option>
+									<input type="radio" name="theme" value="system" class="sr-only" />
+									<div class="mb-2 rounded-lg border border-border overflow-hidden shadow-sm flex">
+										<div class="flex-1 bg-white p-2">
+											<div class="space-y-1.5">
+												<div class="h-1.5 w-full rounded bg-slate-200"></div>
+												<div class="h-1.5 w-3/4 rounded bg-slate-100"></div>
+											</div>
+										</div>
+										<div class="flex-1 bg-slate-900 p-2">
+											<div class="space-y-1.5">
+												<div class="h-1.5 w-full rounded bg-slate-700"></div>
+												<div class="h-1.5 w-3/4 rounded bg-slate-800"></div>
+											</div>
+										</div>
+									</div>
+									<span class="text-xs font-medium">系統</span>
+								</label>
+							</div>
+						</div>
+
+						<div class="cu-separator"></div>
+
+						<!-- Font size -->
+						<div class="space-y-3 max-w-md">
+							<div class="flex items-center justify-between">
+								<label class="cu-label" for="v2-font-size">字體大小</label>
+								<span class="text-xs tabular-nums text-muted-foreground">14px</span>
+							</div>
+							<input class="cu-range" id="v2-font-size" type="range" min="12" max="18" value="14" step="1" />
+							<div class="flex justify-between text-[10px] text-muted-foreground/60">
+								<span>小</span>
+								<span>大</span>
+							</div>
+						</div>
+
+						<div class="cu-separator"></div>
+
+						<!-- Reduced motion -->
+						<div class="flex items-center justify-between max-w-md">
+							<div>
+								<p class="text-sm font-medium">降低動畫效果</p>
+								<p class="text-sm text-muted-foreground mt-0.5">減少介面中的動態效果。</p>
+							</div>
+							<label class="cu-toggle-wrapper">
+								<input type="checkbox" class="cu-toggle-input" />
+								<span class="cu-toggle"><span class="cu-toggle-thumb"></span></span>
+							</label>
+						</div>
+					</div>
+				</div>
+
+				<!-- Security panel -->
+				<div data-cu-settings-content="security" hidden>
+					<div class="space-y-6">
+						<div>
+							<h3 class="text-base font-semibold">安全性</h3>
+							<p class="text-sm text-muted-foreground mt-0.5">管理您的密碼與安全設定。</p>
+						</div>
+
+						<!-- Change password -->
+						<div class="cu-card">
+							<div class="cu-card-header">
+								<h3 class="cu-card-title text-sm">變更密碼</h3>
+								<p class="cu-card-description">請確認新密碼至少 8 個字元。</p>
+							</div>
+							<div class="cu-card-content">
+								<form class="space-y-4 max-w-sm">
+									<div class="cu-form-group">
+										<label class="cu-label" for="v2-current-pw">目前密碼</label>
+										<input class="cu-input" id="v2-current-pw" type="password" />
+									</div>
+									<div class="cu-form-group">
+										<label class="cu-label" for="v2-new-pw">新密碼</label>
+										<input class="cu-input" id="v2-new-pw" type="password" />
+									</div>
+									<div class="cu-form-group">
+										<label class="cu-label" for="v2-confirm-pw">確認新密碼</label>
+										<input class="cu-input" id="v2-confirm-pw" type="password" />
+									</div>
+								</form>
+							</div>
+							<div class="cu-card-footer">
+								<button type="button" class="cu-button cu-button-default cu-button-md">更新密碼</button>
+							</div>
+						</div>
+
+						<!-- Sessions -->
+						<div class="cu-card">
+							<div class="cu-card-header">
+								<h3 class="cu-card-title text-sm">登入裝置</h3>
+								<p class="cu-card-description">目前登入此帳號的裝置。</p>
+							</div>
+							<div class="cu-card-content">
+								<div class="space-y-0 divide-y divide-border">
+									<div class="flex items-center justify-between py-3 first:pt-0">
+										<div class="flex items-center gap-3">
+											<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-muted-foreground"><rect width="20" height="14" x="2" y="3" rx="2"/><line x1="8" x2="16" y1="21" y2="21"/><line x1="12" x2="12" y1="17" y2="21"/></svg>
+											<div>
+												<p class="text-sm font-medium">macOS — Chrome</p>
+												<p class="text-xs text-muted-foreground">台北，台灣 · 目前裝置</p>
+											</div>
+										</div>
+										<span class="cu-badge cu-badge-soft-success">使用中</span>
+									</div>
+									<div class="flex items-center justify-between py-3">
+										<div class="flex items-center gap-3">
+											<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-muted-foreground"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"/><path d="M12 18h.01"/></svg>
+											<div>
+												<p class="text-sm font-medium">iPhone — Safari</p>
+												<p class="text-xs text-muted-foreground">台北，台灣 · 2 小時前</p>
+											</div>
+										</div>
+										<button type="button" class="text-xs text-muted-foreground hover:text-foreground transition-colors duration-150">撤銷</button>
+									</div>
+									<div class="flex items-center justify-between py-3 last:pb-0">
+										<div class="flex items-center gap-3">
+											<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-muted-foreground"><rect width="20" height="14" x="2" y="3" rx="2"/><line x1="8" x2="16" y1="21" y2="21"/><line x1="12" x2="12" y1="17" y2="21"/></svg>
+											<div>
+												<p class="text-sm font-medium">Windows — Firefox</p>
+												<p class="text-xs text-muted-foreground">新竹，台灣 · 3 天前</p>
+											</div>
+										</div>
+										<button type="button" class="text-xs text-muted-foreground hover:text-foreground transition-colors duration-150">撤銷</button>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<!-- Danger zone -->
+						<div class="cu-card border-destructive/30">
+							<div class="cu-card-header">
+								<h3 class="cu-card-title text-destructive text-sm">危險區域</h3>
+								<p class="cu-card-description">一旦刪除帳號，所有資料將無法復原。</p>
+							</div>
+							<div class="cu-card-footer">
+								<button type="button" class="cu-button cu-button-destructive cu-button-md">刪除帳號</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<style>
+		@reference "../../../styles/global.css";
+
+		/* Settings side nav items */
+		.cu-settings-nav-item {
+			@apply flex items-center gap-2 rounded-lg px-3 py-2 text-sm text-muted-foreground transition-colors duration-150 cursor-pointer hover:bg-muted/60 hover:text-foreground whitespace-nowrap outline-none;
+		}
+		.cu-settings-nav-item-active {
+			@apply bg-muted text-foreground font-medium;
+		}
+
+		/* Theme selector cards */
+		.cu-settings-theme-card {
+			@apply flex flex-col items-center cursor-pointer rounded-xl border-2 border-transparent p-2.5 transition-colors duration-150 hover:bg-muted/40;
+		}
+		.cu-settings-theme-card-active {
+			@apply border-primary bg-primary/5;
+		}
+	</style>
+
+	<script>
+		// Settings side nav tab switching
+		const nav = document.querySelector("[data-cu-settings-nav]");
+		const navItems = nav?.querySelectorAll("[data-cu-settings-tab]");
+		const panels = document.querySelectorAll("[data-cu-settings-content]");
+
+		navItems?.forEach((item) => {
+			item.addEventListener("click", () => {
+				const tab = item.getAttribute("data-cu-settings-tab");
+				navItems.forEach((n) => n.classList.remove("cu-settings-nav-item-active"));
+				item.classList.add("cu-settings-nav-item-active");
+				panels.forEach((p) => {
+					p.hidden = p.getAttribute("data-cu-settings-content") !== tab;
+				});
+			});
+		});
+
+		// Theme card selection
+		document.querySelectorAll("[data-cu-theme-option]").forEach((card) => {
+			card.addEventListener("click", () => {
+				document.querySelectorAll("[data-cu-theme-option]").forEach((c) =>
+					c.classList.remove("cu-settings-theme-card-active")
+				);
+				card.classList.add("cu-settings-theme-card-active");
+			});
+		});
+	</script>
+</DashboardLayout>

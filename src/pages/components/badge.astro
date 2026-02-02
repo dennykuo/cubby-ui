@@ -19,9 +19,12 @@ const withIconCode = `<span class="cu-badge cu-badge-default">
 </span>`.trim();
 ---
 
-<Layout title="Badge — Cubby UI">
+<Layout title="Badge — Cubby UI" category="Data Display" componentName="Badge">
     <div class="space-y-3">
-        <h1 class="text-3xl font-bold tracking-tight">Badge</h1>
+        <div class="flex items-center gap-3">
+            <h1 class="text-3xl font-bold tracking-tight">Badge</h1>
+            <span class="cu-badge cu-badge-secondary">Data Display</span>
+        </div>
         <p class="text-base text-muted-foreground leading-relaxed">
             Displays a badge or a component that looks like a badge.
         </p>
@@ -30,8 +33,11 @@ const withIconCode = `<span class="cu-badge cu-badge-default">
     <div class="mt-10 space-y-10">
         <!-- Usage -->
         <section class="space-y-3">
-            <h2 class="text-lg font-semibold tracking-tight">Usage</h2>
-            <p class="text-sm text-muted-foreground leading-relaxed">
+            <h2 id="usage" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+                <a href="#usage" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                Usage
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
                 Apply <code class="cu-code">cu-badge</code> as the base class, then add a variant class.
             </p>
             <ComponentPreview code={usageCode}>
@@ -41,8 +47,11 @@ const withIconCode = `<span class="cu-badge cu-badge-default">
 
         <!-- Variants -->
         <section class="space-y-3">
-            <h2 class="text-lg font-semibold tracking-tight">Variants</h2>
-            <p class="text-sm text-muted-foreground leading-relaxed">
+            <h2 id="variants" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+                <a href="#variants" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                Variants
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
                 Use variant classes to change the badge's visual style.
             </p>
             <ComponentPreview code={variantsCode}>
@@ -60,8 +69,11 @@ const withIconCode = `<span class="cu-badge cu-badge-default">
 
         <!-- With Icon -->
         <section class="space-y-3">
-            <h2 class="text-lg font-semibold tracking-tight">With Icon</h2>
-            <p class="text-sm text-muted-foreground leading-relaxed">
+            <h2 id="with-icon" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+                <a href="#with-icon" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                With Icon
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
                 Add inline SVG icons inside the badge for additional context.
             </p>
             <ComponentPreview code={withIconCode}>

@@ -5,10 +5,10 @@ import DashboardLayout from "../../../layouts/DashboardLayout.astro";
 <DashboardLayout title="使用者管理 — Acme Inc.">
 	<div class="space-y-6">
 		<!-- Page header -->
-		<div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+		<div class="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
 			<div>
 				<h1 class="text-2xl font-bold tracking-tight">使用者</h1>
-				<p class="text-sm text-muted-foreground mt-1">管理系統中的使用者帳號。</p>
+				<p class="text-muted-foreground mt-1">管理系統中的使用者帳號。</p>
 			</div>
 			<button class="cu-button cu-button-default cu-button-md">
 				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1.5"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
@@ -16,11 +16,22 @@ import DashboardLayout from "../../../layouts/DashboardLayout.astro";
 			</button>
 		</div>
 
-		<!-- Search -->
-		<div class="max-w-sm">
-			<div class="cu-input-search">
-				<svg class="cu-input-search-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-				<input class="cu-input-search-field" type="search" placeholder="搜尋使用者…" />
+		<!-- Search & Filter -->
+		<div class="flex flex-col gap-3 sm:flex-row sm:items-center">
+			<div class="max-w-sm flex-1">
+				<div class="cu-input-search">
+					<svg class="cu-input-search-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+					<input class="cu-input-search-field" type="search" placeholder="搜尋使用者…" />
+				</div>
+			</div>
+			<div class="cu-select-wrapper">
+				<select class="cu-select">
+					<option>所有角色</option>
+					<option>管理員</option>
+					<option>編輯者</option>
+					<option>檢視者</option>
+				</select>
+				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="cu-select-icon"><path d="m6 9 6 6 6-6"></path></svg>
 			</div>
 		</div>
 
@@ -48,7 +59,7 @@ import DashboardLayout from "../../../layouts/DashboardLayout.astro";
 								</td>
 								<td class="cu-table-cell text-muted-foreground">olivia@example.com</td>
 								<td class="cu-table-cell"><span class="cu-badge cu-badge-default">管理員</span></td>
-								<td class="cu-table-cell"><span class="cu-badge cu-badge-success">啟用</span></td>
+								<td class="cu-table-cell"><span class="cu-badge cu-badge-soft-success">啟用</span></td>
 								<td class="cu-table-cell">
 									<button class="cu-button cu-button-ghost cu-button-icon-sm" aria-label="更多操作">
 										<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"/><circle cx="12" cy="5" r="1"/><circle cx="12" cy="19" r="1"/></svg>
@@ -64,7 +75,7 @@ import DashboardLayout from "../../../layouts/DashboardLayout.astro";
 								</td>
 								<td class="cu-table-cell text-muted-foreground">jackson@example.com</td>
 								<td class="cu-table-cell"><span class="cu-badge cu-badge-secondary">編輯者</span></td>
-								<td class="cu-table-cell"><span class="cu-badge cu-badge-success">啟用</span></td>
+								<td class="cu-table-cell"><span class="cu-badge cu-badge-soft-success">啟用</span></td>
 								<td class="cu-table-cell">
 									<button class="cu-button cu-button-ghost cu-button-icon-sm" aria-label="更多操作">
 										<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"/><circle cx="12" cy="5" r="1"/><circle cx="12" cy="19" r="1"/></svg>
@@ -80,7 +91,7 @@ import DashboardLayout from "../../../layouts/DashboardLayout.astro";
 								</td>
 								<td class="cu-table-cell text-muted-foreground">isabella@example.com</td>
 								<td class="cu-table-cell"><span class="cu-badge cu-badge-secondary">檢視者</span></td>
-								<td class="cu-table-cell"><span class="cu-badge cu-badge-success">啟用</span></td>
+								<td class="cu-table-cell"><span class="cu-badge cu-badge-soft-success">啟用</span></td>
 								<td class="cu-table-cell">
 									<button class="cu-button cu-button-ghost cu-button-icon-sm" aria-label="更多操作">
 										<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"/><circle cx="12" cy="5" r="1"/><circle cx="12" cy="19" r="1"/></svg>
@@ -112,7 +123,7 @@ import DashboardLayout from "../../../layouts/DashboardLayout.astro";
 								</td>
 								<td class="cu-table-cell text-muted-foreground">sofia@example.com</td>
 								<td class="cu-table-cell"><span class="cu-badge cu-badge-default">管理員</span></td>
-								<td class="cu-table-cell"><span class="cu-badge cu-badge-success">啟用</span></td>
+								<td class="cu-table-cell"><span class="cu-badge cu-badge-soft-success">啟用</span></td>
 								<td class="cu-table-cell">
 									<button class="cu-button cu-button-ghost cu-button-icon-sm" aria-label="更多操作">
 										<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"/><circle cx="12" cy="5" r="1"/><circle cx="12" cy="19" r="1"/></svg>
@@ -128,7 +139,7 @@ import DashboardLayout from "../../../layouts/DashboardLayout.astro";
 								</td>
 								<td class="cu-table-cell text-muted-foreground">liam@example.com</td>
 								<td class="cu-table-cell"><span class="cu-badge cu-badge-secondary">檢視者</span></td>
-								<td class="cu-table-cell"><span class="cu-badge cu-badge-success">啟用</span></td>
+								<td class="cu-table-cell"><span class="cu-badge cu-badge-soft-success">啟用</span></td>
 								<td class="cu-table-cell">
 									<button class="cu-button cu-button-ghost cu-button-icon-sm" aria-label="更多操作">
 										<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"/><circle cx="12" cy="5" r="1"/><circle cx="12" cy="19" r="1"/></svg>
@@ -144,7 +155,7 @@ import DashboardLayout from "../../../layouts/DashboardLayout.astro";
 								</td>
 								<td class="cu-table-cell text-muted-foreground">emma@example.com</td>
 								<td class="cu-table-cell"><span class="cu-badge cu-badge-secondary">編輯者</span></td>
-								<td class="cu-table-cell"><span class="cu-badge cu-badge-success">啟用</span></td>
+								<td class="cu-table-cell"><span class="cu-badge cu-badge-soft-success">啟用</span></td>
 								<td class="cu-table-cell">
 									<button class="cu-button cu-button-ghost cu-button-icon-sm" aria-label="更多操作">
 										<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"/><circle cx="12" cy="5" r="1"/><circle cx="12" cy="19" r="1"/></svg>

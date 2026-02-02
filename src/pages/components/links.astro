@@ -47,9 +47,12 @@ const cardLinksCode = `<div class="cu-card cu-card-hover p-5 space-y-3 max-w-sm"
 </div>`.trim();
 ---
 
-<Layout title="Links — Cubby UI">
+<Layout title="Links — Cubby UI" category="Typography" componentName="Links">
     <div class="space-y-3">
-        <h1 class="text-3xl font-bold tracking-tight">Links</h1>
+        <div class="flex items-center gap-3">
+          <h1 class="text-3xl font-bold tracking-tight">Links</h1>
+          <span class="cu-badge cu-badge-secondary">Typography</span>
+        </div>
         <p class="text-base text-muted-foreground leading-relaxed">
             Styled anchor links with multiple variants — underlined, plain, muted, and subtle — for different contexts.
         </p>
@@ -58,8 +61,11 @@ const cardLinksCode = `<div class="cu-card cu-card-hover p-5 space-y-3 max-w-sm"
     <div class="mt-10 space-y-10">
         <!-- Usage -->
         <section class="space-y-3">
-            <h2 class="text-lg font-semibold tracking-tight">Usage</h2>
-            <p class="text-sm text-muted-foreground leading-relaxed">
+            <h2 id="usage" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+              <a href="#usage" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+              Usage
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
                 Apply <code class="cu-code">cu-link</code> to an anchor element
                 for a styled inline link with underline and hover transition.
             </p>
@@ -70,8 +76,11 @@ const cardLinksCode = `<div class="cu-card cu-card-hover p-5 space-y-3 max-w-sm"
 
         <!-- Variants -->
         <section class="space-y-3">
-            <h2 class="text-lg font-semibold tracking-tight">Variants</h2>
-            <p class="text-sm text-muted-foreground leading-relaxed">
+            <h2 id="variants" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+              <a href="#variants" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+              Variants
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
                 Four link styles for different use cases.
                 <code class="cu-code">cu-link</code> (default with underline),
                 <code class="cu-code">cu-link-plain</code> (underline on hover only),
@@ -90,8 +99,11 @@ const cardLinksCode = `<div class="cu-card cu-card-hover p-5 space-y-3 max-w-sm"
 
         <!-- Plain -->
         <section class="space-y-3">
-            <h2 class="text-lg font-semibold tracking-tight">Plain</h2>
-            <p class="text-sm text-muted-foreground leading-relaxed">
+            <h2 id="plain" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+              <a href="#plain" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+              Plain
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
                 Use <code class="cu-code">cu-link cu-link-plain</code> for links
                 that only show an underline on hover. Cleaner for navigation-heavy areas.
             </p>
@@ -102,8 +114,11 @@ const cardLinksCode = `<div class="cu-card cu-card-hover p-5 space-y-3 max-w-sm"
 
         <!-- Muted -->
         <section class="space-y-3">
-            <h2 class="text-lg font-semibold tracking-tight">Muted</h2>
-            <p class="text-sm text-muted-foreground leading-relaxed">
+            <h2 id="muted" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+              <a href="#muted" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+              Muted
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
                 Use <code class="cu-code">cu-link cu-link-muted</code> for
                 de-emphasized links such as footer links or secondary navigation. Text brightens to foreground on hover.
             </p>
@@ -114,8 +129,11 @@ const cardLinksCode = `<div class="cu-card cu-card-hover p-5 space-y-3 max-w-sm"
 
         <!-- Subtle -->
         <section class="space-y-3">
-            <h2 class="text-lg font-semibold tracking-tight">Subtle</h2>
-            <p class="text-sm text-muted-foreground leading-relaxed">
+            <h2 id="subtle" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+              <a href="#subtle" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+              Subtle
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
                 Use <code class="cu-code">cu-link cu-link-subtle</code> for
                 links that blend with body text and reveal their primary color on hover.
             </p>
@@ -126,8 +144,11 @@ const cardLinksCode = `<div class="cu-card cu-card-hover p-5 space-y-3 max-w-sm"
 
         <!-- Inline -->
         <section class="space-y-3">
-            <h2 class="text-lg font-semibold tracking-tight">Inline</h2>
-            <p class="text-sm text-muted-foreground leading-relaxed">
+            <h2 id="inline" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+              <a href="#inline" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+              Inline
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
                 Links blend naturally within paragraph text.
             </p>
             <ComponentPreview code={inlineCode}>
@@ -144,8 +165,11 @@ const cardLinksCode = `<div class="cu-card cu-card-hover p-5 space-y-3 max-w-sm"
 
         <!-- External -->
         <section class="space-y-3">
-            <h2 class="text-lg font-semibold tracking-tight">External Link</h2>
-            <p class="text-sm text-muted-foreground leading-relaxed">
+            <h2 id="external-link" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+              <a href="#external-link" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+              External Link
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
                 Add <code class="cu-code">cu-link-external</code> for links that open in a new tab.
                 Pairs well with an external-link icon to signal the behavior.
             </p>
@@ -159,8 +183,11 @@ const cardLinksCode = `<div class="cu-card cu-card-hover p-5 space-y-3 max-w-sm"
 
         <!-- Nav List -->
         <section class="space-y-3">
-            <h2 class="text-lg font-semibold tracking-tight">Navigation List</h2>
-            <p class="text-sm text-muted-foreground leading-relaxed">
+            <h2 id="navigation-list" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+              <a href="#navigation-list" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+              Navigation List
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
                 Combine <code class="cu-code">cu-link-muted</code> with a list for sidebar or footer navigation.
             </p>
             <ComponentPreview code={navListCode}>
@@ -179,8 +206,11 @@ const cardLinksCode = `<div class="cu-card cu-card-hover p-5 space-y-3 max-w-sm"
 
         <!-- Card Links -->
         <section class="space-y-3">
-            <h2 class="text-lg font-semibold tracking-tight">Card Links</h2>
-            <p class="text-sm text-muted-foreground leading-relaxed">
+            <h2 id="card-links" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+              <a href="#card-links" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+              Card Links
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
                 Use <code class="cu-code">cu-link-subtle</code> inside cards for a clean, understated link list.
             </p>
             <ComponentPreview code={cardLinksCode}>

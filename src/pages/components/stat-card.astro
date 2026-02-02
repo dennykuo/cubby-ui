@@ -245,9 +245,12 @@ const hoverCode = `<div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
 </div>`.trim();
 ---
 
-<Layout title="Stat Card — Cubby UI">
+<Layout title="Stat Card — Cubby UI" category="Data Display" componentName="Stat Card">
     <div class="space-y-3">
-        <h1 class="text-3xl font-bold tracking-tight">Stat Card</h1>
+        <div class="flex items-center gap-3">
+            <h1 class="text-3xl font-bold tracking-tight">Stat Card</h1>
+            <span class="cu-badge cu-badge-secondary">Data Display</span>
+        </div>
         <p class="text-base text-muted-foreground leading-relaxed">
             顯示關鍵指標，包含標籤、數值和可選的趨勢指示器。
         </p>
@@ -256,8 +259,11 @@ const hoverCode = `<div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
     <div class="mt-10 space-y-10">
         <!-- Usage -->
         <section class="space-y-3">
-            <h2 class="text-lg font-semibold tracking-tight">Usage</h2>
-            <p class="text-sm text-muted-foreground leading-relaxed">
+            <h2 id="usage" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+                <a href="#usage" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                Usage
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
                 使用 <code class="cu-code">cu-stat</code> 作為容器，搭配
                 <code class="cu-code">cu-stat-header</code>、
                 <code class="cu-code">cu-stat-value</code> 和
@@ -281,8 +287,11 @@ const hoverCode = `<div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
 
         <!-- Dashboard Grid -->
         <section class="space-y-3">
-            <h2 class="text-lg font-semibold tracking-tight">Dashboard Grid</h2>
-            <p class="text-sm text-muted-foreground leading-relaxed">
+            <h2 id="dashboard-grid" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+                <a href="#dashboard-grid" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                Dashboard Grid
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
                 以響應式網格排列，用於儀表板總覽。
             </p>
             <ComponentPreview code={gridCode}>
@@ -333,8 +342,11 @@ const hoverCode = `<div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
 
         <!-- Icon Box -->
         <section class="space-y-3">
-            <h2 class="text-lg font-semibold tracking-tight">Icon Box</h2>
-            <p class="text-sm text-muted-foreground leading-relaxed">
+            <h2 id="icon-box" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+                <a href="#icon-box" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                Icon Box
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
                 使用 <code class="cu-code">cu-stat-icon-box</code> 為圖示加上淡色背景，提升視覺層次。
                 搭配 <code class="cu-code">cu-stat-icon-box-success</code>、<code class="cu-code">cu-stat-icon-box-warning</code>、<code class="cu-code">cu-stat-icon-box-destructive</code> 等色彩變體。
             </p>
@@ -390,8 +402,11 @@ const hoverCode = `<div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
 
         <!-- Trend Pill -->
         <section class="space-y-3">
-            <h2 class="text-lg font-semibold tracking-tight">Trend Pill</h2>
-            <p class="text-sm text-muted-foreground leading-relaxed">
+            <h2 id="trend-pill" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+                <a href="#trend-pill" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                Trend Pill
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
                 加上 <code class="cu-code">cu-stat-trend-pill</code> 為趨勢指標增加膠囊狀背景，更易於快速辨識。
             </p>
             <ComponentPreview code={trendPillCode}>
@@ -420,8 +435,11 @@ const hoverCode = `<div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
 
         <!-- Accent Border -->
         <section class="space-y-3">
-            <h2 class="text-lg font-semibold tracking-tight">Accent Border</h2>
-            <p class="text-sm text-muted-foreground leading-relaxed">
+            <h2 id="accent-border" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+                <a href="#accent-border" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                Accent Border
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
                 使用 <code class="cu-code">cu-stat-accent</code> 在左側添加色彩條紋，強化分類辨識。
                 搭配 <code class="cu-code">cu-stat-accent-success</code>、<code class="cu-code">cu-stat-accent-warning</code> 等變體。
             </p>
@@ -454,8 +472,11 @@ const hoverCode = `<div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
 
         <!-- With Progress -->
         <section class="space-y-3">
-            <h2 class="text-lg font-semibold tracking-tight">With Progress</h2>
-            <p class="text-sm text-muted-foreground leading-relaxed">
+            <h2 id="with-progress" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+                <a href="#with-progress" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                With Progress
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
                 使用 <code class="cu-code">cu-stat-footer</code> 搭配進度條，適合顯示配額或目標達成率。
             </p>
             <ComponentPreview code={withProgressCode}>
@@ -492,8 +513,11 @@ const hoverCode = `<div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
 
         <!-- Hover Effect -->
         <section class="space-y-3">
-            <h2 class="text-lg font-semibold tracking-tight">Hover Effect</h2>
-            <p class="text-sm text-muted-foreground leading-relaxed">
+            <h2 id="hover-effect" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+                <a href="#hover-effect" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                Hover Effect
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
                 加上 <code class="cu-code">cu-stat-hover</code> 啟用滑鼠懸停時的陰影提升效果，適合可點擊的指標卡片。
             </p>
             <ComponentPreview code={hoverCode}>

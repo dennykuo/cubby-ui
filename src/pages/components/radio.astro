@@ -48,9 +48,12 @@ const disabledCode = `<div class="cu-radio-group">
 </div>`.trim();
 ---
 
-<Layout title="Radio — Cubby UI">
+<Layout category="Forms" componentName="Radio" title="Radio — Cubby UI">
     <div class="space-y-3">
-        <h1 class="text-3xl font-bold tracking-tight">Radio</h1>
+        <div class="flex items-center gap-3">
+          <h1 class="text-3xl font-bold tracking-tight">Radio</h1>
+          <span class="cu-badge cu-badge-secondary">Forms</span>
+        </div>
         <p class="text-base text-muted-foreground leading-relaxed">
             Displays a radio button for selecting one option from a group.
         </p>
@@ -59,8 +62,11 @@ const disabledCode = `<div class="cu-radio-group">
     <div class="mt-10 space-y-10">
         <!-- Usage -->
         <section class="space-y-3">
-            <h2 class="text-lg font-semibold tracking-tight">Usage</h2>
-            <p class="text-sm text-muted-foreground leading-relaxed">
+            <h2 id="usage" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+              <a href="#usage" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+              Usage
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
                 Apply <code class="cu-code">cu-radio</code> to an <code class="cu-code">&lt;input type="radio"&gt;</code> element.
             </p>
             <ComponentPreview code={usageCode}>
@@ -70,8 +76,11 @@ const disabledCode = `<div class="cu-radio-group">
 
         <!-- Radio Group -->
         <section class="space-y-3">
-            <h2 class="text-lg font-semibold tracking-tight">Radio Group</h2>
-            <p class="text-sm text-muted-foreground leading-relaxed">
+            <h2 id="radio-group" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+              <a href="#radio-group" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+              Radio Group
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
                 Group radios with the same <code class="cu-code">name</code> attribute inside a
                 <code class="cu-code">cu-radio-group</code> container, using
                 <code class="cu-code">cu-radio-wrapper</code> for each option.
@@ -96,8 +105,11 @@ const disabledCode = `<div class="cu-radio-group">
 
         <!-- Default Selected -->
         <section class="space-y-3">
-            <h2 class="text-lg font-semibold tracking-tight">Default Selected</h2>
-            <p class="text-sm text-muted-foreground leading-relaxed">
+            <h2 id="default-selected" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+              <a href="#default-selected" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+              Default Selected
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
                 Add the <code class="cu-code">checked</code> attribute to pre-select an option.
             </p>
             <ComponentPreview code={defaultCode}>
@@ -120,8 +132,11 @@ const disabledCode = `<div class="cu-radio-group">
 
         <!-- Disabled -->
         <section class="space-y-3">
-            <h2 class="text-lg font-semibold tracking-tight">Disabled</h2>
-            <p class="text-sm text-muted-foreground leading-relaxed">
+            <h2 id="disabled" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+              <a href="#disabled" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+              Disabled
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
                 Add the <code class="cu-code">disabled</code> attribute to prevent interaction.
             </p>
             <ComponentPreview code={disabledCode}>

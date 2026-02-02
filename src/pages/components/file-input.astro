@@ -30,9 +30,12 @@ const multipleCode = `<div class="cu-form-group">
 const disabledCode = `<input type="file" class="cu-input-file" disabled />`.trim();
 ---
 
-<Layout title="File Input — Cubby UI">
+<Layout category="Forms" componentName="File Input" title="File Input — Cubby UI">
     <div class="space-y-3">
-        <h1 class="text-3xl font-bold tracking-tight">File Input</h1>
+        <div class="flex items-center gap-3">
+          <h1 class="text-3xl font-bold tracking-tight">File Input</h1>
+          <span class="cu-badge cu-badge-secondary">Forms</span>
+        </div>
         <p class="text-base text-muted-foreground leading-relaxed">
             Displays a file upload input for selecting files from the user's device.
         </p>
@@ -41,8 +44,11 @@ const disabledCode = `<input type="file" class="cu-input-file" disabled />`.trim
     <div class="mt-10 space-y-10">
         <!-- Usage -->
         <section class="space-y-3">
-            <h2 class="text-lg font-semibold tracking-tight">Usage</h2>
-            <p class="text-sm text-muted-foreground leading-relaxed">
+            <h2 id="usage" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+              <a href="#usage" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+              Usage
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
                 Apply <code class="cu-code">cu-input-file</code> to an <code class="cu-code">&lt;input type="file"&gt;</code> element.
             </p>
             <ComponentPreview code={usageCode}>
@@ -54,8 +60,11 @@ const disabledCode = `<input type="file" class="cu-input-file" disabled />`.trim
 
         <!-- With Label -->
         <section class="space-y-3">
-            <h2 class="text-lg font-semibold tracking-tight">With Label</h2>
-            <p class="text-sm text-muted-foreground leading-relaxed">
+            <h2 id="with-label" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+              <a href="#with-label" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+              With Label
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
                 Pair with a <code class="cu-code">cu-label</code> for accessible file uploads.
             </p>
             <ComponentPreview code={withLabelCode}>
@@ -70,8 +79,11 @@ const disabledCode = `<input type="file" class="cu-input-file" disabled />`.trim
 
         <!-- Accept Types -->
         <section class="space-y-3">
-            <h2 class="text-lg font-semibold tracking-tight">Accept Types</h2>
-            <p class="text-sm text-muted-foreground leading-relaxed">
+            <h2 id="accept-types" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+              <a href="#accept-types" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+              Accept Types
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
                 Use the <code class="cu-code">accept</code> attribute to restrict file types.
             </p>
             <ComponentPreview code={acceptCode}>
@@ -90,8 +102,11 @@ const disabledCode = `<input type="file" class="cu-input-file" disabled />`.trim
 
         <!-- Multiple Files -->
         <section class="space-y-3">
-            <h2 class="text-lg font-semibold tracking-tight">Multiple Files</h2>
-            <p class="text-sm text-muted-foreground leading-relaxed">
+            <h2 id="multiple-files" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+              <a href="#multiple-files" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+              Multiple Files
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
                 Add the <code class="cu-code">multiple</code> attribute to allow selecting multiple files.
             </p>
             <ComponentPreview code={multipleCode}>
@@ -106,8 +121,11 @@ const disabledCode = `<input type="file" class="cu-input-file" disabled />`.trim
 
         <!-- Disabled -->
         <section class="space-y-3">
-            <h2 class="text-lg font-semibold tracking-tight">Disabled</h2>
-            <p class="text-sm text-muted-foreground leading-relaxed">
+            <h2 id="disabled" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+              <a href="#disabled" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+              Disabled
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
                 Add the <code class="cu-code">disabled</code> attribute to prevent file selection.
             </p>
             <ComponentPreview code={disabledCode}>

@@ -80,9 +80,12 @@ const groupCode = `<div class="cu-button-group">
 </div>`.trim();
 ---
 
-<Layout title="Button — Cubby UI">
+<Layout title="Button — Cubby UI" category="Basic" componentName="Button">
   <div class="space-y-3">
-    <h1 class="text-3xl font-bold tracking-tight">Button</h1>
+    <div class="flex items-center gap-3">
+      <h1 class="text-3xl font-bold tracking-tight">Button</h1>
+      <span class="cu-badge cu-badge-secondary">Basic</span>
+    </div>
     <p class="text-base text-muted-foreground leading-relaxed">
       Displays a button or a component that looks like a button.
     </p>
@@ -91,8 +94,11 @@ const groupCode = `<div class="cu-button-group">
   <div class="mt-10 space-y-10">
     <!-- Usage -->
     <section class="space-y-3">
-      <h2 class="text-lg font-semibold tracking-tight">Usage</h2>
-      <p class="text-sm text-muted-foreground leading-relaxed">
+      <h2 id="usage" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+        <a href="#usage" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+        Usage
+      </h2>
+      <p class="text-base text-muted-foreground leading-relaxed">
         Apply <code class="cu-code">cu-button</code> as the base class, then add a variant and size class.
       </p>
       <ComponentPreview code={usageCode}>
@@ -102,8 +108,11 @@ const groupCode = `<div class="cu-button-group">
 
     <!-- Variants -->
     <section class="space-y-3">
-      <h2 class="text-lg font-semibold tracking-tight">Variants</h2>
-      <p class="text-sm text-muted-foreground leading-relaxed">
+      <h2 id="variants" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+        <a href="#variants" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+        Variants
+      </h2>
+      <p class="text-base text-muted-foreground leading-relaxed">
         Use variant classes to change the button's visual style. Each variant conveys a different level of emphasis or intent.
       </p>
       <ComponentPreview code={variantsCode}>
@@ -123,8 +132,11 @@ const groupCode = `<div class="cu-button-group">
 
     <!-- Sizes -->
     <section class="space-y-3">
-      <h2 class="text-lg font-semibold tracking-tight">Sizes</h2>
-      <p class="text-sm text-muted-foreground leading-relaxed">
+      <h2 id="sizes" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+        <a href="#sizes" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+        Sizes
+      </h2>
+      <p class="text-base text-muted-foreground leading-relaxed">
         Five sizes are available — from
         <code class="cu-code">cu-button-xs</code> to
         <code class="cu-code">cu-button-xl</code>.
@@ -143,8 +155,11 @@ const groupCode = `<div class="cu-button-group">
 
     <!-- With Icons -->
     <section class="space-y-3">
-      <h2 class="text-lg font-semibold tracking-tight">With Icons</h2>
-      <p class="text-sm text-muted-foreground leading-relaxed">
+      <h2 id="with-icons" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+        <a href="#with-icons" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+        With Icons
+      </h2>
+      <p class="text-base text-muted-foreground leading-relaxed">
         Add inline SVG icons before or after the label text. Use
         <code class="cu-code">cu-button-icon</code>
         for icon-only buttons.
@@ -168,8 +183,11 @@ const groupCode = `<div class="cu-button-group">
 
     <!-- Icon Variants -->
     <section class="space-y-3">
-      <h2 class="text-lg font-semibold tracking-tight">Icon Buttons</h2>
-      <p class="text-sm text-muted-foreground leading-relaxed">
+      <h2 id="icon-buttons" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+        <a href="#icon-buttons" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+        Icon Buttons
+      </h2>
+      <p class="text-base text-muted-foreground leading-relaxed">
         Icon-only buttons across different variants. Ideal for toolbars, actions, and compact UIs.
       </p>
       <ComponentPreview code={iconVariantsCode}>
@@ -195,8 +213,11 @@ const groupCode = `<div class="cu-button-group">
 
     <!-- Loading -->
     <section class="space-y-3">
-      <h2 class="text-lg font-semibold tracking-tight">Loading</h2>
-      <p class="text-sm text-muted-foreground leading-relaxed">
+      <h2 id="loading" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+        <a href="#loading" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+        Loading
+      </h2>
+      <p class="text-base text-muted-foreground leading-relaxed">
         Combine a spinning icon with <code class="cu-code">disabled</code> to indicate a pending action.
       </p>
       <ComponentPreview code={loadingCode}>
@@ -215,8 +236,11 @@ const groupCode = `<div class="cu-button-group">
 
     <!-- As Link -->
     <section class="space-y-3">
-      <h2 class="text-lg font-semibold tracking-tight">As Link</h2>
-      <p class="text-sm text-muted-foreground leading-relaxed">
+      <h2 id="as-link" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+        <a href="#as-link" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+        As Link
+      </h2>
+      <p class="text-base text-muted-foreground leading-relaxed">
         Apply button classes to an <code class="cu-code">&lt;a&gt;</code> element for link-styled buttons.
       </p>
       <ComponentPreview code={asLinkCode}>
@@ -230,8 +254,11 @@ const groupCode = `<div class="cu-button-group">
 
     <!-- Button Group -->
     <section class="space-y-3">
-      <h2 class="text-lg font-semibold tracking-tight">Button Group</h2>
-      <p class="text-sm text-muted-foreground leading-relaxed">
+      <h2 id="button-group" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+        <a href="#button-group" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+        Button Group
+      </h2>
+      <p class="text-base text-muted-foreground leading-relaxed">
         Wrap buttons in a <code class="cu-code">cu-button-group</code> to join them visually.
         See the <a href="/components/button-group" class="text-primary hover:underline">Button Group</a> page for more options.
       </p>
@@ -246,8 +273,11 @@ const groupCode = `<div class="cu-button-group">
 
     <!-- Disabled -->
     <section class="space-y-3">
-      <h2 class="text-lg font-semibold tracking-tight">Disabled</h2>
-      <p class="text-sm text-muted-foreground leading-relaxed">
+      <h2 id="disabled" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+        <a href="#disabled" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+        Disabled
+      </h2>
+      <p class="text-base text-muted-foreground leading-relaxed">
         Add the <code class="cu-code">disabled</code> attribute.
         The button becomes non-interactive with reduced opacity.
       </p>

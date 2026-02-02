@@ -118,9 +118,12 @@ const withIconsCode = `<aside class="cu-sidebar">
 </aside>`.trim();
 ---
 
-<Layout title="Sidebar — Cubby UI">
+<Layout title="Sidebar — Cubby UI" category="Layouts" componentName="Sidebar">
 	<div class="space-y-3">
-		<h1 class="text-3xl font-bold tracking-tight">Sidebar</h1>
+		<div class="flex items-center gap-3">
+		  <h1 class="text-3xl font-bold tracking-tight">Sidebar</h1>
+		  <span class="cu-badge cu-badge-secondary">Layouts</span>
+		</div>
 		<p class="text-base text-muted-foreground leading-relaxed">
 			A vertical navigation panel composed of header, content, footer, sections, and items.
 		</p>
@@ -129,8 +132,11 @@ const withIconsCode = `<aside class="cu-sidebar">
 	<div class="mt-10 space-y-10">
 		<!-- Usage -->
 		<section class="space-y-3">
-			<h2 class="text-lg font-semibold tracking-tight">Usage</h2>
-			<p class="text-sm text-muted-foreground leading-relaxed">
+			<h2 id="usage" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+			  <a href="#usage" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+			  Usage
+			</h2>
+			<p class="text-base text-muted-foreground leading-relaxed">
 				A sidebar is built with
 				<code class="cu-code">cu-sidebar</code> as the container and
 				<code class="cu-code">cu-sidebar-item</code> for each navigation link.
@@ -152,8 +158,11 @@ const withIconsCode = `<aside class="cu-sidebar">
 
 		<!-- With Header & Footer -->
 		<section class="space-y-3">
-			<h2 class="text-lg font-semibold tracking-tight">With Header & Footer</h2>
-			<p class="text-sm text-muted-foreground leading-relaxed">
+			<h2 id="with-header-footer" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+			  <a href="#with-header-footer" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+			  With Header & Footer
+			</h2>
+			<p class="text-base text-muted-foreground leading-relaxed">
 				Use
 				<code class="cu-code">cu-sidebar-header</code> for branding and
 				<code class="cu-code">cu-sidebar-footer</code> for user info or actions.
@@ -184,8 +193,11 @@ const withIconsCode = `<aside class="cu-sidebar">
 
 		<!-- With Sections -->
 		<section class="space-y-3">
-			<h2 class="text-lg font-semibold tracking-tight">With Sections</h2>
-			<p class="text-sm text-muted-foreground leading-relaxed">
+			<h2 id="with-sections" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+			  <a href="#with-sections" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+			  With Sections
+			</h2>
+			<p class="text-base text-muted-foreground leading-relaxed">
 				Use
 				<code class="cu-code">cu-sidebar-section</code> and
 				<code class="cu-code">cu-sidebar-section-title</code> for first-level headings.
@@ -225,8 +237,11 @@ const withIconsCode = `<aside class="cu-sidebar">
 
 		<!-- Sticky Sidebar -->
 		<section class="space-y-3">
-			<h2 class="text-lg font-semibold tracking-tight">Sticky Sidebar</h2>
-			<p class="text-sm text-muted-foreground leading-relaxed">
+			<h2 id="sticky-sidebar" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+			  <a href="#sticky-sidebar" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+			  Sticky Sidebar
+			</h2>
+			<p class="text-base text-muted-foreground leading-relaxed">
 				To keep the sidebar fixed while the main content scrolls, apply
 				<code class="cu-code">sticky</code> positioning with a
 				<code class="cu-code">top</code> offset matching your header height and a corresponding
@@ -260,8 +275,11 @@ const withIconsCode = `<aside class="cu-sidebar">
 
 		<!-- With Icons -->
 		<section class="space-y-3">
-			<h2 class="text-lg font-semibold tracking-tight">With Icons</h2>
-			<p class="text-sm text-muted-foreground leading-relaxed">
+			<h2 id="with-icons" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+			  <a href="#with-icons" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+			  With Icons
+			</h2>
+			<p class="text-base text-muted-foreground leading-relaxed">
 				Items support inline SVG icons. The
 				<code class="cu-code">cu-sidebar-item</code> class includes
 				<code class="cu-code">gap-2</code> for icon spacing.

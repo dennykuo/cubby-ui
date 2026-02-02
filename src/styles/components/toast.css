@@ -59,3 +59,19 @@
 .cu-toast-close {
     @apply shrink-0 rounded-sm opacity-70 transition-opacity duration-150 hover:opacity-100 cursor-pointer;
 }
+
+/* -- entrance animation -- */
+.cu-toast-enter {
+    animation: cu-toast-in 0.2s ease-out;
+}
+
+@keyframes cu-toast-in {
+    from {
+        opacity: 0;
+        transform: translateY(8px) scale(0.96);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}

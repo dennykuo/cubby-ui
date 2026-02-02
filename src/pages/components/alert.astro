@@ -109,9 +109,12 @@ const descOnlyCode = `<div class="cu-alert cu-alert-default" role="alert">
 </div>`.trim();
 ---
 
-<Layout title="Alert — Cubby UI">
+<Layout title="Alert — Cubby UI" category="Feedback" componentName="Alert">
     <div class="space-y-3">
-        <h1 class="text-3xl font-bold tracking-tight">Alert</h1>
+        <div class="flex items-center gap-3">
+            <h1 class="text-3xl font-bold tracking-tight">Alert</h1>
+            <span class="cu-badge cu-badge-secondary">Feedback</span>
+        </div>
         <p class="text-base text-muted-foreground leading-relaxed">
             Displays a callout for important information or feedback.
         </p>
@@ -120,8 +123,11 @@ const descOnlyCode = `<div class="cu-alert cu-alert-default" role="alert">
     <div class="mt-10 space-y-10">
         <!-- Usage -->
         <section class="space-y-3">
-            <h2 class="text-lg font-semibold tracking-tight">Usage</h2>
-            <p class="text-sm text-muted-foreground leading-relaxed">
+            <h2 id="usage" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+                <a href="#usage" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                Usage
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
                 Use <code class="cu-code">cu-alert</code> as the base class with a variant.
                 Add <code class="cu-code">cu-alert-title</code> and <code class="cu-code">cu-alert-description</code> inside.
             </p>
@@ -137,8 +143,11 @@ const descOnlyCode = `<div class="cu-alert cu-alert-default" role="alert">
 
         <!-- Variants -->
         <section class="space-y-3">
-            <h2 class="text-lg font-semibold tracking-tight">Variants</h2>
-            <p class="text-sm text-muted-foreground leading-relaxed">
+            <h2 id="variants" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+                <a href="#variants" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                Variants
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
                 Use variant classes to convey different levels of importance.
             </p>
             <ComponentPreview code={variantsCode}>
@@ -179,8 +188,11 @@ const descOnlyCode = `<div class="cu-alert cu-alert-default" role="alert">
 
         <!-- With Icon -->
         <section class="space-y-3">
-            <h2 class="text-lg font-semibold tracking-tight">With Icon</h2>
-            <p class="text-sm text-muted-foreground leading-relaxed">
+            <h2 id="with-icon" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+                <a href="#with-icon" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                With Icon
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
                 Place an SVG icon as the first child. The alert will automatically add left padding via <code class="cu-code">[&:has(svg)]:pl-10</code>.
             </p>
             <ComponentPreview code={withIconCode}>
@@ -196,8 +208,11 @@ const descOnlyCode = `<div class="cu-alert cu-alert-default" role="alert">
 
         <!-- All Icons -->
         <section class="space-y-3">
-            <h2 class="text-lg font-semibold tracking-tight">Icons for Every Variant</h2>
-            <p class="text-sm text-muted-foreground leading-relaxed">
+            <h2 id="icons-for-every-variant" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+                <a href="#icons-for-every-variant" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                Icons for Every Variant
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
                 Each variant pairs well with a matching icon — checkmark for success, triangle for warning, info circle for info, and exclamation for errors.
             </p>
             <ComponentPreview code={allIconsCode}>
@@ -236,8 +251,11 @@ const descOnlyCode = `<div class="cu-alert cu-alert-default" role="alert">
 
         <!-- With Action -->
         <section class="space-y-3">
-            <h2 class="text-lg font-semibold tracking-tight">With Action</h2>
-            <p class="text-sm text-muted-foreground leading-relaxed">
+            <h2 id="with-action" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+                <a href="#with-action" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                With Action
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
                 Embed buttons inside the description for actionable alerts.
             </p>
             <ComponentPreview code={withActionCode}>
@@ -259,8 +277,11 @@ const descOnlyCode = `<div class="cu-alert cu-alert-default" role="alert">
 
         <!-- Description Only -->
         <section class="space-y-3">
-            <h2 class="text-lg font-semibold tracking-tight">Description Only</h2>
-            <p class="text-sm text-muted-foreground leading-relaxed">
+            <h2 id="description-only" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+                <a href="#description-only" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                Description Only
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
                 The title is optional — use description alone for a compact inline message.
             </p>
             <ComponentPreview code={descOnlyCode}>

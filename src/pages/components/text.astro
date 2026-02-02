@@ -11,9 +11,12 @@ const mutedCode = `<span class="cu-text-muted">Muted text</span>`.trim();
 const inlineCodeExample = `<span class="cu-code">@cubby-ui/core</span>`.trim();
 ---
 
-<Layout title="Text — Cubby UI">
+<Layout title="Text — Cubby UI" category="Typography" componentName="Text">
     <div class="space-y-3">
-        <h1 class="text-3xl font-bold tracking-tight">Text</h1>
+        <div class="flex items-center gap-3">
+          <h1 class="text-3xl font-bold tracking-tight">Text</h1>
+          <span class="cu-badge cu-badge-secondary">Typography</span>
+        </div>
         <p class="text-base text-muted-foreground leading-relaxed">
             Utility classes for common text styles — large, small, muted, and inline code.
         </p>
@@ -22,8 +25,11 @@ const inlineCodeExample = `<span class="cu-code">@cubby-ui/core</span>`.trim();
     <div class="mt-10 space-y-10">
         <!-- Large -->
         <section class="space-y-3">
-            <h2 class="text-lg font-semibold tracking-tight">Large</h2>
-            <p class="text-sm text-muted-foreground leading-relaxed">
+            <h2 id="large" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+              <a href="#large" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+              Large
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
                 Use <code class="cu-code">cu-text-large</code> for emphasized, larger text.
             </p>
             <ComponentPreview code={largeCode}>
@@ -33,8 +39,11 @@ const inlineCodeExample = `<span class="cu-code">@cubby-ui/core</span>`.trim();
 
         <!-- Small -->
         <section class="space-y-3">
-            <h2 class="text-lg font-semibold tracking-tight">Small</h2>
-            <p class="text-sm text-muted-foreground leading-relaxed">
+            <h2 id="small" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+              <a href="#small" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+              Small
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
                 Use <code class="cu-code">cu-text-small</code> for compact, secondary text.
             </p>
             <ComponentPreview code={smallCode}>
@@ -44,8 +53,11 @@ const inlineCodeExample = `<span class="cu-code">@cubby-ui/core</span>`.trim();
 
         <!-- Muted -->
         <section class="space-y-3">
-            <h2 class="text-lg font-semibold tracking-tight">Muted</h2>
-            <p class="text-sm text-muted-foreground leading-relaxed">
+            <h2 id="muted" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+              <a href="#muted" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+              Muted
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
                 Use <code class="cu-code">cu-text-muted</code> for
                 de-emphasized helper text.
             </p>
@@ -56,8 +68,11 @@ const inlineCodeExample = `<span class="cu-code">@cubby-ui/core</span>`.trim();
 
         <!-- Inline Code -->
         <section class="space-y-3">
-            <h2 class="text-lg font-semibold tracking-tight">Inline Code</h2>
-            <p class="text-sm text-muted-foreground leading-relaxed">
+            <h2 id="inline-code" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+              <a href="#inline-code" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+              Inline Code
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
                 Use <code class="cu-code">cu-code</code> for inline code snippets
                 within text content.
             </p>

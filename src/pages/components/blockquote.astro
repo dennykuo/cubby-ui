@@ -18,9 +18,12 @@ const withCitationCode = `<figure>
 </figure>`.trim();
 ---
 
-<Layout title="Blockquote — Cubby UI">
+<Layout title="Blockquote — Cubby UI" category="Typography" componentName="Blockquote">
     <div class="space-y-3">
-        <h1 class="text-3xl font-bold tracking-tight">Blockquote</h1>
+        <div class="flex items-center gap-3">
+          <h1 class="text-3xl font-bold tracking-tight">Blockquote</h1>
+          <span class="cu-badge cu-badge-secondary">Typography</span>
+        </div>
         <p class="text-base text-muted-foreground leading-relaxed">
             A styled block quotation for highlighting cited content.
         </p>
@@ -29,8 +32,11 @@ const withCitationCode = `<figure>
     <div class="mt-10 space-y-10">
         <!-- Usage -->
         <section class="space-y-3">
-            <h2 class="text-lg font-semibold tracking-tight">Usage</h2>
-            <p class="text-sm text-muted-foreground leading-relaxed">
+            <h2 id="usage" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+              <a href="#usage" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+              Usage
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
                 Apply <code class="cu-code">cu-blockquote</code> to a
                 <code class="cu-code">&lt;blockquote&gt;</code> element.
             </p>
@@ -46,8 +52,11 @@ const withCitationCode = `<figure>
 
         <!-- With Citation -->
         <section class="space-y-3">
-            <h2 class="text-lg font-semibold tracking-tight">With Citation</h2>
-            <p class="text-sm text-muted-foreground leading-relaxed">
+            <h2 id="with-citation" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+              <a href="#with-citation" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+              With Citation
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
                 Wrap in a <code class="cu-code">&lt;figure&gt;</code> with a
                 <code class="cu-code">&lt;figcaption&gt;</code> to attribute the quote.
             </p>

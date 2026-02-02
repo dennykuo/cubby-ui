@@ -44,9 +44,12 @@ const formGroupCode = `<div class="cu-form-group">
 </div>`.trim();
 ---
 
-<Layout title="Input — Cubby UI">
+<Layout category="Forms" componentName="Input" title="Input — Cubby UI">
     <div class="space-y-3">
-        <h1 class="text-3xl font-bold tracking-tight">Input</h1>
+        <div class="flex items-center gap-3">
+          <h1 class="text-3xl font-bold tracking-tight">Input</h1>
+          <span class="cu-badge cu-badge-secondary">Forms</span>
+        </div>
         <p class="text-base text-muted-foreground leading-relaxed">
             Displays a text input field for user data entry.
         </p>
@@ -55,8 +58,11 @@ const formGroupCode = `<div class="cu-form-group">
     <div class="mt-10 space-y-10">
         <!-- Usage -->
         <section class="space-y-3">
-            <h2 class="text-lg font-semibold tracking-tight">Usage</h2>
-            <p class="text-sm text-muted-foreground leading-relaxed">
+            <h2 id="usage" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+              <a href="#usage" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+              Usage
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
                 Apply <code class="cu-code">cu-input</code> to an <code class="cu-code">&lt;input&gt;</code> element.
             </p>
             <ComponentPreview code={usageCode}>
@@ -68,8 +74,11 @@ const formGroupCode = `<div class="cu-form-group">
 
         <!-- With Label -->
         <section class="space-y-3">
-            <h2 class="text-lg font-semibold tracking-tight">With Label</h2>
-            <p class="text-sm text-muted-foreground leading-relaxed">
+            <h2 id="with-label" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+              <a href="#with-label" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+              With Label
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
                 Pair with a <code class="cu-code">cu-label</code> for accessible form fields.
             </p>
             <ComponentPreview code={withLabelCode}>
@@ -84,8 +93,11 @@ const formGroupCode = `<div class="cu-form-group">
 
         <!-- Input Types -->
         <section class="space-y-3">
-            <h2 class="text-lg font-semibold tracking-tight">Input Types</h2>
-            <p class="text-sm text-muted-foreground leading-relaxed">
+            <h2 id="input-types" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+              <a href="#input-types" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+              Input Types
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
                 Set the <code class="cu-code">type</code> attribute for email, password, number, and other input types.
             </p>
             <ComponentPreview code={typesCode}>
@@ -108,8 +120,11 @@ const formGroupCode = `<div class="cu-form-group">
 
         <!-- Disabled -->
         <section class="space-y-3">
-            <h2 class="text-lg font-semibold tracking-tight">Disabled</h2>
-            <p class="text-sm text-muted-foreground leading-relaxed">
+            <h2 id="disabled" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+              <a href="#disabled" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+              Disabled
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
                 Add the <code class="cu-code">disabled</code> attribute.
                 The input becomes non-interactive with reduced opacity.
             </p>
@@ -122,8 +137,11 @@ const formGroupCode = `<div class="cu-form-group">
 
         <!-- With Form Group -->
         <section class="space-y-3">
-            <h2 class="text-lg font-semibold tracking-tight">With Form Group</h2>
-            <p class="text-sm text-muted-foreground leading-relaxed">
+            <h2 id="with-form-group" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+              <a href="#with-form-group" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+              With Form Group
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
                 Combine with <code class="cu-code">cu-form-group</code>,
                 <code class="cu-code">cu-form-description</code>, and
                 <code class="cu-code">cu-form-error</code> for complete form fields.

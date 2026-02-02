@@ -66,9 +66,12 @@ const customSeparatorCode = `<nav aria-label="Breadcrumb">
 </nav>`.trim();
 ---
 
-<Layout title="Breadcrumb — Cubby UI">
+<Layout title="Breadcrumb — Cubby UI" category="Navigation" componentName="Breadcrumb">
     <div class="space-y-3">
-        <h1 class="text-3xl font-bold tracking-tight">Breadcrumb</h1>
+        <div class="flex items-center gap-3">
+          <h1 class="text-3xl font-bold tracking-tight">Breadcrumb</h1>
+          <span class="cu-badge cu-badge-secondary">Navigation</span>
+        </div>
         <p class="text-base text-muted-foreground leading-relaxed">
             Displays the path to the current resource using a hierarchy of links.
         </p>
@@ -77,8 +80,11 @@ const customSeparatorCode = `<nav aria-label="Breadcrumb">
     <div class="mt-10 space-y-10">
         <!-- Usage -->
         <section class="space-y-3">
-            <h2 class="text-lg font-semibold tracking-tight">Usage</h2>
-            <p class="text-sm text-muted-foreground leading-relaxed">
+            <h2 id="usage" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+              <a href="#usage" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+              Usage
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
                 Use <code class="cu-code">cu-breadcrumb</code> on the <code class="cu-code">&lt;ol&gt;</code>,
                 <code class="cu-code">cu-breadcrumb-item</code> on each <code class="cu-code">&lt;li&gt;</code>,
                 <code class="cu-code">cu-breadcrumb-link</code> for links, 
@@ -102,8 +108,11 @@ const customSeparatorCode = `<nav aria-label="Breadcrumb">
 
         <!-- With Icon -->
         <section class="space-y-3">
-            <h2 class="text-lg font-semibold tracking-tight">With Icon</h2>
-            <p class="text-sm text-muted-foreground leading-relaxed">
+            <h2 id="with-icon" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+              <a href="#with-icon" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+              With Icon
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
                 Use an icon instead of text for the home link.
             </p>
             <ComponentPreview code={withIconCode}>
@@ -125,8 +134,11 @@ const customSeparatorCode = `<nav aria-label="Breadcrumb">
 
         <!-- Custom Separator -->
         <section class="space-y-3">
-            <h2 class="text-lg font-semibold tracking-tight">Custom Separator</h2>
-            <p class="text-sm text-muted-foreground leading-relaxed">
+            <h2 id="custom-separator" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+              <a href="#custom-separator" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+              Custom Separator
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
                 Replace the default chevron with any character or element.
             </p>
             <ComponentPreview code={customSeparatorCode}>

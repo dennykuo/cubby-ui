@@ -85,9 +85,12 @@ const withSeparatorCode = `<div class="cu-toolbar" role="toolbar">
 </div>`.trim();
 ---
 
-<Layout title="Toolbar — Cubby UI">
+<Layout title="Toolbar — Cubby UI" category="Layouts" componentName="Toolbar">
     <div class="space-y-3">
-        <h1 class="text-3xl font-bold tracking-tight">Toolbar</h1>
+        <div class="flex items-center gap-3">
+          <h1 class="text-3xl font-bold tracking-tight">Toolbar</h1>
+          <span class="cu-badge cu-badge-secondary">Layouts</span>
+        </div>
         <p class="text-base text-muted-foreground leading-relaxed">
             A container for grouping action buttons with visual separators.
         </p>
@@ -96,8 +99,11 @@ const withSeparatorCode = `<div class="cu-toolbar" role="toolbar">
     <div class="mt-10 space-y-10">
         <!-- Usage -->
         <section class="space-y-3">
-            <h2 class="text-lg font-semibold tracking-tight">Usage</h2>
-            <p class="text-sm text-muted-foreground leading-relaxed">
+            <h2 id="usage" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+              <a href="#usage" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+              Usage
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
                 Use <code class="cu-code">cu-toolbar</code> as the container,
                 <code class="cu-code">cu-toolbar-group</code> for button groups,
                 <code class="cu-code">cu-toolbar-button</code> for individual buttons, and
@@ -134,8 +140,11 @@ const withSeparatorCode = `<div class="cu-toolbar" role="toolbar">
 
         <!-- Text Formatting -->
         <section class="space-y-3">
-            <h2 class="text-lg font-semibold tracking-tight">Text Formatting</h2>
-            <p class="text-sm text-muted-foreground leading-relaxed">
+            <h2 id="text-formatting" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+              <a href="#text-formatting" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+              Text Formatting
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
                 A text editor toolbar with bold, italic, strikethrough, underline toggles and alignment options.
                 Use <code class="cu-code">cu-toolbar-button-active</code> for active states.
             </p>
@@ -173,8 +182,11 @@ const withSeparatorCode = `<div class="cu-toolbar" role="toolbar">
 
         <!-- With Separator -->
         <section class="space-y-3">
-            <h2 class="text-lg font-semibold tracking-tight">With Separator</h2>
-            <p class="text-sm text-muted-foreground leading-relaxed">
+            <h2 id="with-separator" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+              <a href="#with-separator" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+              With Separator
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
                 Use <code class="cu-code">cu-toolbar-separator</code> to visually separate button groups for different action categories.
             </p>
             <ComponentPreview code={withSeparatorCode}>

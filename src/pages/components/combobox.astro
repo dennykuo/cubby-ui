@@ -105,9 +105,12 @@ const withCheckCode = `<div class="cu-combobox" data-cu-combobox style="width: 2
 </div>`.trim();
 ---
 
-<Layout title="Combobox — Cubby UI">
+<Layout category="Forms" componentName="Combobox" title="Combobox — Cubby UI">
     <div class="space-y-3">
-        <h1 class="text-3xl font-bold tracking-tight">Combobox</h1>
+        <div class="flex items-center gap-3">
+          <h1 class="text-3xl font-bold tracking-tight">Combobox</h1>
+          <span class="cu-badge cu-badge-secondary">Forms</span>
+        </div>
         <p class="text-base text-muted-foreground leading-relaxed">
             A searchable dropdown for selecting a value from a list of options.
         </p>
@@ -116,8 +119,11 @@ const withCheckCode = `<div class="cu-combobox" data-cu-combobox style="width: 2
     <div class="mt-10 space-y-10">
         <!-- Usage -->
         <section class="space-y-3">
-            <h2 class="text-lg font-semibold tracking-tight">Usage</h2>
-            <p class="text-sm text-muted-foreground leading-relaxed">
+            <h2 id="usage" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+              <a href="#usage" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+              Usage
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
                 Use <code class="cu-code">data-cu-combobox</code> on the wrapper,
                 <code class="cu-code">data-cu-combobox-trigger</code> on the button,
                 <code class="cu-code">data-cu-combobox-content</code> on the dropdown, and
@@ -151,8 +157,11 @@ const withCheckCode = `<div class="cu-combobox" data-cu-combobox style="width: 2
 
         <!-- Status Example -->
         <section class="space-y-3">
-            <h2 class="text-lg font-semibold tracking-tight">Status Selector</h2>
-            <p class="text-sm text-muted-foreground leading-relaxed">
+            <h2 id="status-selector" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+              <a href="#status-selector" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+              Status Selector
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
                 A common use case for filtering by status in a dashboard.
             </p>
             <ComponentPreview code={withCheckCode}>

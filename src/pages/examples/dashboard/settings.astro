@@ -3,11 +3,11 @@ import DashboardLayout from "../../../layouts/DashboardLayout.astro";
 ---
 
 <DashboardLayout title="設定 — Acme Inc.">
-	<div class="space-y-6">
+	<div class="space-y-8">
 		<!-- Page header -->
 		<div>
 			<h1 class="text-2xl font-bold tracking-tight">設定</h1>
-			<p class="text-sm text-muted-foreground mt-1">管理您的帳號偏好設定。</p>
+			<p class="text-muted-foreground mt-1">管理您的帳號偏好設定。</p>
 		</div>
 
 		<!-- Tabs -->
@@ -20,93 +20,94 @@ import DashboardLayout from "../../../layouts/DashboardLayout.astro";
 
 			<!-- General tab -->
 			<div class="cu-tabs-content" data-cu-tabs-content="general">
-				<div class="rounded-xl border border-border p-6">
-					<div class="space-y-1.5 mb-6">
-						<h3 class="font-semibold leading-none tracking-tight">個人資料</h3>
-						<p class="text-sm text-muted-foreground">更新您的基本資訊。</p>
+				<div class="cu-card max-w-xl">
+					<div class="cu-card-header">
+						<h3 class="cu-card-title">個人資料</h3>
+						<p class="cu-card-description">更新您的基本資訊。</p>
 					</div>
-					<form class="space-y-4">
-						<div class="cu-form-group">
-							<label class="cu-label" for="name">姓名</label>
-							<input class="cu-input" id="name" type="text" value="John Doe" />
-						</div>
-						<div class="cu-form-group">
-							<label class="cu-label" for="settings-email">Email</label>
-							<input class="cu-input" id="settings-email" type="email" value="john@example.com" />
-						</div>
-						<div class="cu-form-group">
-							<label class="cu-label" for="language">語言</label>
-							<div class="cu-select-wrapper">
-								<select class="cu-select" id="language">
-									<option>繁體中文</option>
-									<option>English</option>
-									<option>日本語</option>
-								</select>
-								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="cu-select-icon"><path d="m6 9 6 6 6-6"></path></svg>
+					<div class="cu-card-content">
+						<form class="space-y-4">
+							<div class="cu-form-group">
+								<label class="cu-label" for="name">姓名</label>
+								<input class="cu-input" id="name" type="text" value="John Doe" />
 							</div>
-						</div>
-						<div class="cu-form-group">
-							<label class="cu-label" for="bio">自我介紹</label>
-							<textarea class="cu-textarea" id="bio" rows="3" placeholder="簡短介紹您自己…"></textarea>
-						</div>
-						<div class="flex gap-3 pt-2">
-							<button type="button" class="cu-button cu-button-default cu-button-md">儲存變更</button>
-							<button type="button" class="cu-button cu-button-outline cu-button-md">取消</button>
-						</div>
-					</form>
+							<div class="cu-form-group">
+								<label class="cu-label" for="settings-email">Email</label>
+								<input class="cu-input" id="settings-email" type="email" value="john@example.com" />
+							</div>
+							<div class="cu-form-group">
+								<label class="cu-label" for="language">語言</label>
+								<div class="cu-select-wrapper">
+									<select class="cu-select" id="language">
+										<option>繁體中文</option>
+										<option>English</option>
+										<option>日本語</option>
+									</select>
+									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="cu-select-icon"><path d="m6 9 6 6 6-6"></path></svg>
+								</div>
+							</div>
+							<div class="cu-form-group">
+								<label class="cu-label" for="bio">自我介紹</label>
+								<textarea class="cu-textarea" id="bio" rows="3" placeholder="簡短介紹您自己…"></textarea>
+							</div>
+						</form>
+					</div>
+					<div class="cu-card-footer gap-3">
+						<button type="button" class="cu-button cu-button-default cu-button-md">儲存變更</button>
+						<button type="button" class="cu-button cu-button-outline cu-button-md">取消</button>
+					</div>
 				</div>
 			</div>
 
 			<!-- Notifications tab -->
 			<div class="cu-tabs-content" data-cu-tabs-content="notifications" hidden>
-				<div class="rounded-xl border border-border p-6">
-					<div class="space-y-1.5 mb-6">
-						<h3 class="font-semibold leading-none tracking-tight">通知偏好</h3>
-						<p class="text-sm text-muted-foreground">選擇您要接收的通知類型。</p>
+				<div class="cu-card max-w-xl">
+					<div class="cu-card-header">
+						<h3 class="cu-card-title">通知偏好</h3>
+						<p class="cu-card-description">選擇您要接收的通知類型。</p>
 					</div>
-					<div class="space-y-5">
-						<div class="flex items-center justify-between">
-							<div>
-								<p class="text-sm font-medium">Email 通知</p>
-								<p class="text-sm text-muted-foreground">接收系統通知至您的信箱。</p>
+					<div class="cu-card-content">
+						<div class="space-y-0 divide-y divide-border">
+							<div class="flex items-center justify-between py-4 first:pt-0">
+								<div>
+									<p class="text-sm font-medium">Email 通知</p>
+									<p class="text-sm text-muted-foreground mt-0.5">接收系統通知至您的信箱。</p>
+								</div>
+								<label class="cu-toggle-wrapper">
+									<input type="checkbox" class="cu-toggle-input" checked />
+									<span class="cu-toggle"><span class="cu-toggle-thumb"></span></span>
+								</label>
 							</div>
-							<label class="cu-toggle-wrapper">
-								<input type="checkbox" class="cu-toggle-input" checked />
-								<span class="cu-toggle"><span class="cu-toggle-thumb"></span></span>
-							</label>
-						</div>
-						<div class="cu-separator"></div>
-						<div class="flex items-center justify-between">
-							<div>
-								<p class="text-sm font-medium">安全警報</p>
-								<p class="text-sm text-muted-foreground">登入異常時發送警告通知。</p>
+							<div class="flex items-center justify-between py-4">
+								<div>
+									<p class="text-sm font-medium">安全警報</p>
+									<p class="text-sm text-muted-foreground mt-0.5">登入異常時發送警告通知。</p>
+								</div>
+								<label class="cu-toggle-wrapper">
+									<input type="checkbox" class="cu-toggle-input" checked />
+									<span class="cu-toggle"><span class="cu-toggle-thumb"></span></span>
+								</label>
 							</div>
-							<label class="cu-toggle-wrapper">
-								<input type="checkbox" class="cu-toggle-input" checked />
-								<span class="cu-toggle"><span class="cu-toggle-thumb"></span></span>
-							</label>
-						</div>
-						<div class="cu-separator"></div>
-						<div class="flex items-center justify-between">
-							<div>
-								<p class="text-sm font-medium">行銷訊息</p>
-								<p class="text-sm text-muted-foreground">接收產品更新與促銷資訊。</p>
+							<div class="flex items-center justify-between py-4">
+								<div>
+									<p class="text-sm font-medium">行銷訊息</p>
+									<p class="text-sm text-muted-foreground mt-0.5">接收產品更新與促銷資訊。</p>
+								</div>
+								<label class="cu-toggle-wrapper">
+									<input type="checkbox" class="cu-toggle-input" />
+									<span class="cu-toggle"><span class="cu-toggle-thumb"></span></span>
+								</label>
 							</div>
-							<label class="cu-toggle-wrapper">
-								<input type="checkbox" class="cu-toggle-input" />
-								<span class="cu-toggle"><span class="cu-toggle-thumb"></span></span>
-							</label>
-						</div>
-						<div class="cu-separator"></div>
-						<div class="flex items-center justify-between">
-							<div>
-								<p class="text-sm font-medium">週報摘要</p>
-								<p class="text-sm text-muted-foreground">每週寄送業務摘要報告。</p>
+							<div class="flex items-center justify-between py-4 last:pb-0">
+								<div>
+									<p class="text-sm font-medium">週報摘要</p>
+									<p class="text-sm text-muted-foreground mt-0.5">每週寄送業務摘要報告。</p>
+								</div>
+								<label class="cu-toggle-wrapper">
+									<input type="checkbox" class="cu-toggle-input" checked />
+									<span class="cu-toggle"><span class="cu-toggle-thumb"></span></span>
+								</label>
 							</div>
-							<label class="cu-toggle-wrapper">
-								<input type="checkbox" class="cu-toggle-input" checked />
-								<span class="cu-toggle"><span class="cu-toggle-thumb"></span></span>
-							</label>
 						</div>
 					</div>
 				</div>
@@ -114,28 +115,43 @@ import DashboardLayout from "../../../layouts/DashboardLayout.astro";
 
 			<!-- Security tab -->
 			<div class="cu-tabs-content" data-cu-tabs-content="security" hidden>
-				<div class="rounded-xl border border-border p-6">
-					<div class="space-y-1.5 mb-6">
-						<h3 class="font-semibold leading-none tracking-tight">變更密碼</h3>
-						<p class="text-sm text-muted-foreground">請確認新密碼至少 8 個字元。</p>
-					</div>
-					<form class="space-y-4">
-						<div class="cu-form-group">
-							<label class="cu-label" for="current-password">目前密碼</label>
-							<input class="cu-input" id="current-password" type="password" />
+				<div class="space-y-6 max-w-xl">
+					<div class="cu-card">
+						<div class="cu-card-header">
+							<h3 class="cu-card-title">變更密碼</h3>
+							<p class="cu-card-description">請確認新密碼至少 8 個字元。</p>
 						</div>
-						<div class="cu-form-group">
-							<label class="cu-label" for="new-password">新密碼</label>
-							<input class="cu-input" id="new-password" type="password" />
+						<div class="cu-card-content">
+							<form class="space-y-4">
+								<div class="cu-form-group">
+									<label class="cu-label" for="current-password">目前密碼</label>
+									<input class="cu-input" id="current-password" type="password" />
+								</div>
+								<div class="cu-form-group">
+									<label class="cu-label" for="new-password">新密碼</label>
+									<input class="cu-input" id="new-password" type="password" />
+								</div>
+								<div class="cu-form-group">
+									<label class="cu-label" for="confirm-password">確認新密碼</label>
+									<input class="cu-input" id="confirm-password" type="password" />
+								</div>
+							</form>
 						</div>
-						<div class="cu-form-group">
-							<label class="cu-label" for="confirm-password">確認新密碼</label>
-							<input class="cu-input" id="confirm-password" type="password" />
-						</div>
-						<div class="pt-2">
+						<div class="cu-card-footer">
 							<button type="button" class="cu-button cu-button-default cu-button-md">更新密碼</button>
 						</div>
-					</form>
+					</div>
+
+					<!-- Danger zone -->
+					<div class="cu-card border-destructive/30">
+						<div class="cu-card-header">
+							<h3 class="cu-card-title text-destructive">危險區域</h3>
+							<p class="cu-card-description">一旦刪除帳號，所有資料將無法復原。</p>
+						</div>
+						<div class="cu-card-footer">
+							<button type="button" class="cu-button cu-button-destructive cu-button-md">刪除帳號</button>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>

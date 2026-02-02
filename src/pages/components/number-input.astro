@@ -63,9 +63,12 @@ const disabledCode = `<div class="cu-number-input cu-number-input-disabled" data
 </div>`.trim();
 ---
 
-<Layout title="Number Input — Cubby UI">
+<Layout category="Forms" componentName="Number Input" title="Number Input — Cubby UI">
     <div class="space-y-3">
-        <h1 class="text-3xl font-bold tracking-tight">Number Input</h1>
+        <div class="flex items-center gap-3">
+          <h1 class="text-3xl font-bold tracking-tight">Number Input</h1>
+          <span class="cu-badge cu-badge-secondary">Forms</span>
+        </div>
         <p class="text-base text-muted-foreground leading-relaxed">
             A numeric stepper with decrement and increment buttons.
         </p>
@@ -74,8 +77,11 @@ const disabledCode = `<div class="cu-number-input cu-number-input-disabled" data
     <div class="mt-10 space-y-10">
         <!-- Usage -->
         <section class="space-y-3">
-            <h2 class="text-lg font-semibold tracking-tight">Usage</h2>
-            <p class="text-sm text-muted-foreground leading-relaxed">
+            <h2 id="usage" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+              <a href="#usage" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+              Usage
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
                 Use <code class="cu-code">data-cu-number-input</code> on the wrapper,
                 <code class="cu-code">data-cu-number-decrement</code> and
                 <code class="cu-code">data-cu-number-increment</code> on the buttons, and
@@ -97,8 +103,11 @@ const disabledCode = `<div class="cu-number-input cu-number-input-disabled" data
 
         <!-- With Min/Max -->
         <section class="space-y-3">
-            <h2 class="text-lg font-semibold tracking-tight">With Min/Max</h2>
-            <p class="text-sm text-muted-foreground leading-relaxed">
+            <h2 id="with-min-max" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+              <a href="#with-min-max" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+              With Min/Max
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
                 Set <code class="cu-code">min</code>, <code class="cu-code">max</code>, and
                 <code class="cu-code">step</code> attributes on the input to constrain values.
                 This example allows values from 1 to 10.
@@ -118,8 +127,11 @@ const disabledCode = `<div class="cu-number-input cu-number-input-disabled" data
 
         <!-- Disabled -->
         <section class="space-y-3">
-            <h2 class="text-lg font-semibold tracking-tight">Disabled</h2>
-            <p class="text-sm text-muted-foreground leading-relaxed">
+            <h2 id="disabled" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+              <a href="#disabled" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+              Disabled
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
                 Add <code class="cu-code">cu-number-input-disabled</code> to the container and
                 <code class="cu-code">disabled</code> to the buttons and input.
             </p>

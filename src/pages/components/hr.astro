@@ -14,9 +14,12 @@ const withContentCode = `<p class="cu-p">
 </p>`.trim();
 ---
 
-<Layout title="HR — Cubby UI">
+<Layout title="HR — Cubby UI" category="Typography" componentName="HR">
     <div class="space-y-3">
-        <h1 class="text-3xl font-bold tracking-tight">HR</h1>
+        <div class="flex items-center gap-3">
+          <h1 class="text-3xl font-bold tracking-tight">HR</h1>
+          <span class="cu-badge cu-badge-secondary">Typography</span>
+        </div>
         <p class="text-base text-muted-foreground leading-relaxed">
             A thematic break between content sections, rendered as a horizontal rule.
         </p>
@@ -25,8 +28,11 @@ const withContentCode = `<p class="cu-p">
     <div class="mt-10 space-y-10">
         <!-- Usage -->
         <section class="space-y-3">
-            <h2 class="text-lg font-semibold tracking-tight">Usage</h2>
-            <p class="text-sm text-muted-foreground leading-relaxed">
+            <h2 id="usage" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+              <a href="#usage" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+              Usage
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
                 Apply <code class="cu-code">cu-hr</code> to an
                 <code class="cu-code">&lt;hr&gt;</code> element.
             </p>
@@ -39,8 +45,11 @@ const withContentCode = `<p class="cu-p">
 
         <!-- With Content -->
         <section class="space-y-3">
-            <h2 class="text-lg font-semibold tracking-tight">With Content</h2>
-            <p class="text-sm text-muted-foreground leading-relaxed">
+            <h2 id="with-content" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+              <a href="#with-content" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+              With Content
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
                 Add vertical margin to separate content sections.
             </p>
             <ComponentPreview code={withContentCode}>

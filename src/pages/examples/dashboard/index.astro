@@ -5,9 +5,21 @@ import DashboardLayout from "../../../layouts/DashboardLayout.astro";
 <DashboardLayout title="儀表板 — Acme Inc.">
 	<div class="space-y-8">
 		<!-- Page header -->
-		<div>
-			<h1 class="text-2xl font-bold tracking-tight">儀表板</h1>
-			<p class="text-sm text-muted-foreground mt-1">歡迎回來，這是您的業務概覽。</p>
+		<div class="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+			<div>
+				<h1 class="text-2xl font-bold tracking-tight">儀表板</h1>
+				<p class="text-muted-foreground mt-1">歡迎回來，這是您的業務概覽。</p>
+			</div>
+			<div class="flex items-center gap-2">
+				<button class="cu-button cu-button-outline cu-button-md">
+					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+					匯出
+				</button>
+				<button class="cu-button cu-button-default cu-button-md">
+					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1.5"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
+					本月報表
+				</button>
+			</div>
 		</div>
 
 		<!-- Stat cards -->
@@ -15,41 +27,49 @@ import DashboardLayout from "../../../layouts/DashboardLayout.astro";
 			<div class="cu-stat">
 				<div class="cu-stat-header">
 					<span class="cu-stat-label">總營收</span>
-					<svg class="cu-stat-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+					<div class="cu-stat-icon-box">
+						<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+					</div>
 				</div>
 				<div class="cu-stat-value">$45,231.89</div>
 				<p class="cu-stat-description">
-					<span class="cu-stat-trend cu-stat-trend-up">+20.1%</span> 較上月
+					<span class="cu-stat-trend cu-stat-trend-up cu-stat-trend-pill">+20.1%</span> 較上月
 				</p>
 			</div>
 			<div class="cu-stat">
 				<div class="cu-stat-header">
 					<span class="cu-stat-label">使用者數</span>
-					<svg class="cu-stat-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+					<div class="cu-stat-icon-box cu-stat-icon-box-info">
+						<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+					</div>
 				</div>
 				<div class="cu-stat-value">+2,350</div>
 				<p class="cu-stat-description">
-					<span class="cu-stat-trend cu-stat-trend-up">+180.1%</span> 較上月
+					<span class="cu-stat-trend cu-stat-trend-up cu-stat-trend-pill">+180.1%</span> 較上月
 				</p>
 			</div>
 			<div class="cu-stat">
 				<div class="cu-stat-header">
 					<span class="cu-stat-label">訂單數</span>
-					<svg class="cu-stat-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+					<div class="cu-stat-icon-box cu-stat-icon-box-success">
+						<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+					</div>
 				</div>
 				<div class="cu-stat-value">+12,234</div>
 				<p class="cu-stat-description">
-					<span class="cu-stat-trend cu-stat-trend-up">+19%</span> 較上月
+					<span class="cu-stat-trend cu-stat-trend-up cu-stat-trend-pill">+19%</span> 較上月
 				</p>
 			</div>
 			<div class="cu-stat">
 				<div class="cu-stat-header">
 					<span class="cu-stat-label">轉換率</span>
-					<svg class="cu-stat-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+					<div class="cu-stat-icon-box cu-stat-icon-box-warning">
+						<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+					</div>
 				</div>
 				<div class="cu-stat-value">3.24%</div>
 				<p class="cu-stat-description">
-					<span class="cu-stat-trend cu-stat-trend-down">-0.5%</span> 較上月
+					<span class="cu-stat-trend cu-stat-trend-down cu-stat-trend-pill">-0.5%</span> 較上月
 				</p>
 			</div>
 		</div>
@@ -59,23 +79,69 @@ import DashboardLayout from "../../../layouts/DashboardLayout.astro";
 			<!-- Chart -->
 			<div class="cu-card lg:col-span-4">
 				<div class="cu-card-header">
-					<h3 class="cu-card-title">概覽</h3>
-					<p class="cu-card-description">本月營收趨勢</p>
+					<div class="flex items-center justify-between">
+						<div>
+							<h3 class="cu-card-title">概覽</h3>
+							<p class="cu-card-description">本月營收趨勢</p>
+						</div>
+						<div class="flex items-center gap-1.5 text-xs text-muted-foreground">
+							<span class="inline-block w-2.5 h-2.5 rounded-sm bg-primary/30"></span>
+							月營收
+						</div>
+					</div>
 				</div>
 				<div class="cu-card-content">
-					<div class="flex items-end gap-2 h-48">
-						<div class="flex-1 rounded bg-primary/10 h-[30%]"></div>
-						<div class="flex-1 rounded bg-primary/10 h-[45%]"></div>
-						<div class="flex-1 rounded bg-primary/10 h-[35%]"></div>
-						<div class="flex-1 rounded bg-primary/15 h-[60%]"></div>
-						<div class="flex-1 rounded bg-primary/15 h-[50%]"></div>
-						<div class="flex-1 rounded bg-primary/20 h-[75%]"></div>
-						<div class="flex-1 rounded bg-primary/20 h-[65%]"></div>
-						<div class="flex-1 rounded bg-primary/25 h-[85%]"></div>
-						<div class="flex-1 rounded bg-primary/25 h-[70%]"></div>
-						<div class="flex-1 rounded bg-primary/30 h-[90%]"></div>
-						<div class="flex-1 rounded bg-primary/30 h-[80%]"></div>
-						<div class="flex-1 rounded bg-primary/35 h-full"></div>
+					<div class="flex gap-3 h-52">
+						<!-- Y-axis labels -->
+						<div class="flex flex-col justify-between text-[11px] text-muted-foreground/60 tabular-nums pb-6 shrink-0">
+							<span>$8k</span>
+							<span>$6k</span>
+							<span>$4k</span>
+							<span>$2k</span>
+							<span>$0</span>
+						</div>
+						<!-- Bars -->
+						<div class="flex-1 flex flex-col">
+							<div class="flex-1 relative">
+								<!-- Grid lines -->
+								<div class="absolute inset-0 flex flex-col justify-between pointer-events-none">
+									<div class="border-t border-border/40"></div>
+									<div class="border-t border-border/40"></div>
+									<div class="border-t border-border/40"></div>
+									<div class="border-t border-border/40"></div>
+									<div class="border-t border-border/40"></div>
+								</div>
+								<div class="relative flex items-end gap-1.5 h-full">
+									<div class="flex-1 rounded-t bg-primary/15 h-[30%] transition-colors duration-200 hover:bg-primary/30"></div>
+									<div class="flex-1 rounded-t bg-primary/15 h-[45%] transition-colors duration-200 hover:bg-primary/30"></div>
+									<div class="flex-1 rounded-t bg-primary/15 h-[35%] transition-colors duration-200 hover:bg-primary/30"></div>
+									<div class="flex-1 rounded-t bg-primary/20 h-[60%] transition-colors duration-200 hover:bg-primary/35"></div>
+									<div class="flex-1 rounded-t bg-primary/20 h-[50%] transition-colors duration-200 hover:bg-primary/35"></div>
+									<div class="flex-1 rounded-t bg-primary/25 h-[75%] transition-colors duration-200 hover:bg-primary/40"></div>
+									<div class="flex-1 rounded-t bg-primary/25 h-[65%] transition-colors duration-200 hover:bg-primary/40"></div>
+									<div class="flex-1 rounded-t bg-primary/30 h-[85%] transition-colors duration-200 hover:bg-primary/45"></div>
+									<div class="flex-1 rounded-t bg-primary/30 h-[70%] transition-colors duration-200 hover:bg-primary/45"></div>
+									<div class="flex-1 rounded-t bg-primary/35 h-[90%] transition-colors duration-200 hover:bg-primary/50"></div>
+									<div class="flex-1 rounded-t bg-primary/35 h-[80%] transition-colors duration-200 hover:bg-primary/50"></div>
+									<div class="flex-1 rounded-t bg-primary/40 h-full transition-colors duration-200 hover:bg-primary/55"></div>
+								</div>
+							</div>
+							<!-- X-axis labels -->
+							<div class="flex gap-1.5 pt-2 border-t border-border/40">
+								<span class="flex-1 text-center text-[10px] text-muted-foreground/50">1月</span>
+								<span class="flex-1 text-center text-[10px] text-muted-foreground/50">2月</span>
+								<span class="flex-1 text-center text-[10px] text-muted-foreground/50">3月</span>
+								<span class="flex-1 text-center text-[10px] text-muted-foreground/50">4月</span>
+								<span class="flex-1 text-center text-[10px] text-muted-foreground/50">5月</span>
+								<span class="flex-1 text-center text-[10px] text-muted-foreground/50">6月</span>
+								<span class="flex-1 text-center text-[10px] text-muted-foreground/50">7月</span>
+								<span class="flex-1 text-center text-[10px] text-muted-foreground/50">8月</span>
+								<span class="flex-1 text-center text-[10px] text-muted-foreground/50">9月</span>
+								<span class="flex-1 text-center text-[10px] text-muted-foreground/50">10月</span>
+								<span class="flex-1 text-center text-[10px] text-muted-foreground/50">11月</span>
+								<span class="flex-1 text-center text-[10px] text-muted-foreground/50">12月</span>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -83,50 +149,55 @@ import DashboardLayout from "../../../layouts/DashboardLayout.astro";
 			<!-- Recent sales -->
 			<div class="cu-card lg:col-span-3">
 				<div class="cu-card-header">
-					<h3 class="cu-card-title">近期銷售</h3>
-					<p class="cu-card-description">本月共 265 筆銷售</p>
+					<div class="flex items-center justify-between">
+						<div>
+							<h3 class="cu-card-title">近期銷售</h3>
+							<p class="cu-card-description">本月共 265 筆銷售</p>
+						</div>
+						<a href="#" class="text-xs text-muted-foreground hover:text-foreground transition-colors duration-150">查看全部</a>
+					</div>
 				</div>
 				<div class="cu-card-content">
-					<div class="space-y-5">
-						<div class="flex items-center gap-3">
+					<div class="space-y-0 divide-y divide-border/50">
+						<div class="flex items-center gap-3 py-3 first:pt-0">
 							<div class="cu-avatar cu-avatar-sm"><div class="cu-avatar-fallback">OL</div></div>
 							<div class="flex-1 min-w-0">
 								<p class="text-sm font-medium truncate">Olivia Lin</p>
 								<p class="text-xs text-muted-foreground truncate">olivia@example.com</p>
 							</div>
-							<span class="text-sm font-medium">+$1,999.00</span>
+							<span class="text-sm font-semibold tabular-nums">+$1,999.00</span>
 						</div>
-						<div class="flex items-center gap-3">
+						<div class="flex items-center gap-3 py-3">
 							<div class="cu-avatar cu-avatar-sm"><div class="cu-avatar-fallback">JC</div></div>
 							<div class="flex-1 min-w-0">
 								<p class="text-sm font-medium truncate">Jackson Chen</p>
 								<p class="text-xs text-muted-foreground truncate">jackson@example.com</p>
 							</div>
-							<span class="text-sm font-medium">+$39.00</span>
+							<span class="text-sm font-semibold tabular-nums">+$39.00</span>
 						</div>
-						<div class="flex items-center gap-3">
+						<div class="flex items-center gap-3 py-3">
 							<div class="cu-avatar cu-avatar-sm"><div class="cu-avatar-fallback">IW</div></div>
 							<div class="flex-1 min-w-0">
 								<p class="text-sm font-medium truncate">Isabella Wu</p>
 								<p class="text-xs text-muted-foreground truncate">isabella@example.com</p>
 							</div>
-							<span class="text-sm font-medium">+$299.00</span>
+							<span class="text-sm font-semibold tabular-nums">+$299.00</span>
 						</div>
-						<div class="flex items-center gap-3">
+						<div class="flex items-center gap-3 py-3">
 							<div class="cu-avatar cu-avatar-sm"><div class="cu-avatar-fallback">WK</div></div>
 							<div class="flex-1 min-w-0">
 								<p class="text-sm font-medium truncate">William Kim</p>
 								<p class="text-xs text-muted-foreground truncate">will@example.com</p>
 							</div>
-							<span class="text-sm font-medium">+$99.00</span>
+							<span class="text-sm font-semibold tabular-nums">+$99.00</span>
 						</div>
-						<div class="flex items-center gap-3">
+						<div class="flex items-center gap-3 py-3 last:pb-0">
 							<div class="cu-avatar cu-avatar-sm"><div class="cu-avatar-fallback">SZ</div></div>
 							<div class="flex-1 min-w-0">
 								<p class="text-sm font-medium truncate">Sofia Zhang</p>
 								<p class="text-xs text-muted-foreground truncate">sofia@example.com</p>
 							</div>
-							<span class="text-sm font-medium">+$2,500.00</span>
+							<span class="text-sm font-semibold tabular-nums">+$2,500.00</span>
 						</div>
 					</div>
 				</div>
@@ -136,8 +207,13 @@ import DashboardLayout from "../../../layouts/DashboardLayout.astro";
 		<!-- Recent orders table -->
 		<div class="cu-card">
 			<div class="cu-card-header">
-				<h3 class="cu-card-title">最近訂單</h3>
-				<p class="cu-card-description">近期的交易記錄</p>
+				<div class="flex items-center justify-between">
+					<div>
+						<h3 class="cu-card-title">最近訂單</h3>
+						<p class="cu-card-description">近期的交易記錄</p>
+					</div>
+					<a href="#" class="text-xs text-muted-foreground hover:text-foreground transition-colors duration-150">查看全部</a>
+				</div>
 			</div>
 			<div class="cu-card-content cu-card-content-flush">
 				<div class="cu-table-wrapper">
@@ -147,45 +223,45 @@ import DashboardLayout from "../../../layouts/DashboardLayout.astro";
 								<th class="cu-table-head">訂單編號</th>
 								<th class="cu-table-head">客戶</th>
 								<th class="cu-table-head">狀態</th>
-								<th class="cu-table-head">金額</th>
-								<th class="cu-table-head">日期</th>
+								<th class="cu-table-head text-right">金額</th>
+								<th class="cu-table-head text-right">日期</th>
 							</tr>
 						</thead>
 						<tbody class="cu-table-body">
 							<tr class="cu-table-row">
 								<td class="cu-table-cell font-medium">#3210</td>
 								<td class="cu-table-cell">Olivia Lin</td>
-								<td class="cu-table-cell"><span class="cu-badge cu-badge-success">已完成</span></td>
-								<td class="cu-table-cell">$1,999.00</td>
-								<td class="cu-table-cell text-muted-foreground">2026-01-15</td>
+								<td class="cu-table-cell"><span class="cu-badge cu-badge-soft-success">已完成</span></td>
+								<td class="cu-table-cell text-right tabular-nums">$1,999.00</td>
+								<td class="cu-table-cell text-right text-muted-foreground tabular-nums">2026-01-15</td>
 							</tr>
 							<tr class="cu-table-row">
 								<td class="cu-table-cell font-medium">#3209</td>
 								<td class="cu-table-cell">Jackson Chen</td>
-								<td class="cu-table-cell"><span class="cu-badge cu-badge-warning">處理中</span></td>
-								<td class="cu-table-cell">$39.00</td>
-								<td class="cu-table-cell text-muted-foreground">2026-01-15</td>
+								<td class="cu-table-cell"><span class="cu-badge cu-badge-soft-warning">處理中</span></td>
+								<td class="cu-table-cell text-right tabular-nums">$39.00</td>
+								<td class="cu-table-cell text-right text-muted-foreground tabular-nums">2026-01-15</td>
 							</tr>
 							<tr class="cu-table-row">
 								<td class="cu-table-cell font-medium">#3208</td>
 								<td class="cu-table-cell">Isabella Wu</td>
-								<td class="cu-table-cell"><span class="cu-badge cu-badge-success">已完成</span></td>
-								<td class="cu-table-cell">$299.00</td>
-								<td class="cu-table-cell text-muted-foreground">2026-01-14</td>
+								<td class="cu-table-cell"><span class="cu-badge cu-badge-soft-success">已完成</span></td>
+								<td class="cu-table-cell text-right tabular-nums">$299.00</td>
+								<td class="cu-table-cell text-right text-muted-foreground tabular-nums">2026-01-14</td>
 							</tr>
 							<tr class="cu-table-row">
 								<td class="cu-table-cell font-medium">#3207</td>
 								<td class="cu-table-cell">William Kim</td>
 								<td class="cu-table-cell"><span class="cu-badge cu-badge-destructive">已取消</span></td>
-								<td class="cu-table-cell">$99.00</td>
-								<td class="cu-table-cell text-muted-foreground">2026-01-14</td>
+								<td class="cu-table-cell text-right tabular-nums">$99.00</td>
+								<td class="cu-table-cell text-right text-muted-foreground tabular-nums">2026-01-14</td>
 							</tr>
 							<tr class="cu-table-row">
 								<td class="cu-table-cell font-medium">#3206</td>
 								<td class="cu-table-cell">Sofia Zhang</td>
-								<td class="cu-table-cell"><span class="cu-badge cu-badge-success">已完成</span></td>
-								<td class="cu-table-cell">$2,500.00</td>
-								<td class="cu-table-cell text-muted-foreground">2026-01-13</td>
+								<td class="cu-table-cell"><span class="cu-badge cu-badge-soft-success">已完成</span></td>
+								<td class="cu-table-cell text-right tabular-nums">$2,500.00</td>
+								<td class="cu-table-cell text-right text-muted-foreground tabular-nums">2026-01-13</td>
 							</tr>
 						</tbody>
 					</table>

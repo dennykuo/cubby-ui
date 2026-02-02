@@ -123,9 +123,12 @@ const defaultOpenCode = `<details class="cu-collapsible cu-collapsible-bordered"
 </details>`.trim();
 ---
 
-<Layout title="Collapsible — Cubby UI">
+<Layout title="Collapsible — Cubby UI" category="Data Display" componentName="Collapsible">
     <div class="space-y-3">
-        <h1 class="text-3xl font-bold tracking-tight">Collapsible</h1>
+        <div class="flex items-center gap-3">
+            <h1 class="text-3xl font-bold tracking-tight">Collapsible</h1>
+            <span class="cu-badge cu-badge-secondary">Data Display</span>
+        </div>
         <p class="text-base text-muted-foreground leading-relaxed">
             An interactive component which expands/collapses a panel.
         </p>
@@ -134,8 +137,11 @@ const defaultOpenCode = `<details class="cu-collapsible cu-collapsible-bordered"
     <div class="mt-10 space-y-10">
         <!-- Usage -->
         <section class="space-y-3">
-            <h2 class="text-lg font-semibold tracking-tight">Usage</h2>
-            <p class="text-sm text-muted-foreground leading-relaxed">
+            <h2 id="usage" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+                <a href="#usage" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                Usage
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
                 Built with native <code class="cu-code">&lt;details&gt;</code> and <code class="cu-code">&lt;summary&gt;</code> elements.
                 Use <code class="cu-code">cu-collapsible</code> on the wrapper,
                 <code class="cu-code">cu-collapsible-trigger</code> on the <code class="cu-code">&lt;summary&gt;</code>,
@@ -155,8 +161,11 @@ const defaultOpenCode = `<details class="cu-collapsible cu-collapsible-bordered"
 
         <!-- Bordered -->
         <section class="space-y-3">
-            <h2 class="text-lg font-semibold tracking-tight">Bordered</h2>
-            <p class="text-sm text-muted-foreground leading-relaxed">
+            <h2 id="bordered" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+                <a href="#bordered" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                Bordered
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
                 Add a border and rounded corners with <code class="cu-code">cu-collapsible-bordered</code>. Opens with a subtle background and shadow.
             </p>
             <ComponentPreview code={borderedCode}>
@@ -175,8 +184,11 @@ const defaultOpenCode = `<details class="cu-collapsible cu-collapsible-bordered"
 
         <!-- Group -->
         <section class="space-y-3">
-            <h2 class="text-lg font-semibold tracking-tight">Group</h2>
-            <p class="text-sm text-muted-foreground leading-relaxed">
+            <h2 id="group" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+                <a href="#group" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                Group
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
                 Stack multiple collapsibles with <code class="cu-code">cu-collapsible-group</code> using dividers. Great for FAQ sections.
             </p>
             <ComponentPreview code={groupCode}>
@@ -207,8 +219,11 @@ const defaultOpenCode = `<details class="cu-collapsible cu-collapsible-bordered"
 
         <!-- With Icon -->
         <section class="space-y-3">
-            <h2 class="text-lg font-semibold tracking-tight">With Icon</h2>
-            <p class="text-sm text-muted-foreground leading-relaxed">
+            <h2 id="with-icon" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+                <a href="#with-icon" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                With Icon
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
                 Add an icon to the trigger for enhanced visual cues.
             </p>
             <ComponentPreview code={withIconCode}>
@@ -234,8 +249,11 @@ const defaultOpenCode = `<details class="cu-collapsible cu-collapsible-bordered"
 
         <!-- Nested -->
         <section class="space-y-3">
-            <h2 class="text-lg font-semibold tracking-tight">Nested</h2>
-            <p class="text-sm text-muted-foreground leading-relaxed">
+            <h2 id="nested" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+                <a href="#nested" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                Nested
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
                 Supports nesting for multi-level settings or category panels.
             </p>
             <ComponentPreview code={nestedCode}>
@@ -263,8 +281,11 @@ const defaultOpenCode = `<details class="cu-collapsible cu-collapsible-bordered"
 
         <!-- Default Open -->
         <section class="space-y-3">
-            <h2 class="text-lg font-semibold tracking-tight">Default Open</h2>
-            <p class="text-sm text-muted-foreground leading-relaxed">
+            <h2 id="default-open" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+                <a href="#default-open" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                Default Open
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
                 Add the <code class="cu-code">open</code> attribute to expand the panel by default. Useful for release notes or important announcements.
             </p>
             <ComponentPreview code={defaultOpenCode}>

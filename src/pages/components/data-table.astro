@@ -101,9 +101,12 @@ const usageCode = `<div class="cu-data-table">
 </script>`.trim();
 ---
 
-<Layout title="Data Table — Cubby UI">
+<Layout title="Data Table — Cubby UI" category="Data Display" componentName="Data Table">
     <div class="space-y-3">
-        <h1 class="text-3xl font-bold tracking-tight">Data Table</h1>
+        <div class="flex items-center gap-3">
+            <h1 class="text-3xl font-bold tracking-tight">Data Table</h1>
+            <span class="cu-badge cu-badge-secondary">Data Display</span>
+        </div>
         <p class="text-base text-muted-foreground leading-relaxed">
             An enhanced table with toolbar filtering, row selection, and sortable column headers. Built on top of the existing Table component.
         </p>
@@ -112,8 +115,11 @@ const usageCode = `<div class="cu-data-table">
     <div class="mt-10 space-y-10">
         <!-- Usage -->
         <section class="space-y-3">
-            <h2 class="text-lg font-semibold tracking-tight">Usage</h2>
-            <p class="text-sm text-muted-foreground leading-relaxed">
+            <h2 id="usage" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+                <a href="#usage" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                Usage
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
                 Wrap the table in <code class="cu-code">cu-data-table</code>.
                 Add <code class="cu-code">cu-data-table-toolbar</code> for a search/filter bar above the table,
                 <code class="cu-code">cu-data-table-head-sortable</code> on sortable column headers,

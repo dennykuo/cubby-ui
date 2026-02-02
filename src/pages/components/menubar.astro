@@ -115,9 +115,12 @@ const withLabelsCode = `<div class="cu-menubar" data-cu-menubar>
 </div>`.trim();
 ---
 
-<Layout title="Menubar — Cubby UI">
+<Layout title="Menubar — Cubby UI" category="Navigation" componentName="Menubar">
     <div class="space-y-3">
-        <h1 class="text-3xl font-bold tracking-tight">Menubar</h1>
+        <div class="flex items-center gap-3">
+          <h1 class="text-3xl font-bold tracking-tight">Menubar</h1>
+          <span class="cu-badge cu-badge-secondary">Navigation</span>
+        </div>
         <p class="text-base text-muted-foreground leading-relaxed">
             A visually persistent menu common in desktop applications that provides quick access to a consistent set of commands.
         </p>
@@ -126,8 +129,11 @@ const withLabelsCode = `<div class="cu-menubar" data-cu-menubar>
     <div class="mt-10 space-y-10">
         <!-- Usage -->
         <section class="space-y-3">
-            <h2 class="text-lg font-semibold tracking-tight">Usage</h2>
-            <p class="text-sm text-muted-foreground leading-relaxed">
+            <h2 id="usage" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+              <a href="#usage" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+              Usage
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
                 Use <code class="cu-code">cu-menubar</code> as the wrapper with <code class="cu-code">data-cu-menubar</code>.
                 Each menu uses <code class="cu-code">cu-menubar-menu</code>, <code class="cu-code">cu-menubar-trigger</code>, and <code class="cu-code">cu-menubar-content</code>.
                 Click a trigger to open; hover to switch between menus while one is open.
@@ -169,8 +175,11 @@ const withLabelsCode = `<div class="cu-menubar" data-cu-menubar>
 
         <!-- With Labels -->
         <section class="space-y-3">
-            <h2 class="text-lg font-semibold tracking-tight">With Labels & Disabled Items</h2>
-            <p class="text-sm text-muted-foreground leading-relaxed">
+            <h2 id="with-labels-disabled-items" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+              <a href="#with-labels-disabled-items" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+              With Labels & Disabled Items
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
                 Use <code class="cu-code">cu-menubar-label</code> for section titles,
                 <code class="cu-code">cu-menubar-item-inset</code> for indented items, and
                 <code class="cu-code">cu-menubar-item-disabled</code> for disabled state.

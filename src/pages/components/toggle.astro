@@ -68,9 +68,12 @@ const disabledCode = `<label class="cu-toggle-wrapper">
 </label>`.trim();
 ---
 
-<Layout title="Toggle — Cubby UI">
+<Layout category="Forms" componentName="Toggle" title="Toggle — Cubby UI">
     <div class="space-y-3">
-        <h1 class="text-3xl font-bold tracking-tight">Toggle</h1>
+        <div class="flex items-center gap-3">
+          <h1 class="text-3xl font-bold tracking-tight">Toggle</h1>
+          <span class="cu-badge cu-badge-secondary">Forms</span>
+        </div>
         <p class="text-base text-muted-foreground leading-relaxed">
             Displays a toggle switch for binary on/off options. Pure CSS — no JavaScript required.
         </p>
@@ -79,8 +82,11 @@ const disabledCode = `<label class="cu-toggle-wrapper">
     <div class="mt-10 space-y-10">
         <!-- Usage -->
         <section class="space-y-3">
-            <h2 class="text-lg font-semibold tracking-tight">Usage</h2>
-            <p class="text-sm text-muted-foreground leading-relaxed">
+            <h2 id="usage" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+              <a href="#usage" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+              Usage
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
                 The toggle uses a hidden <code class="cu-code">&lt;input type="checkbox"&gt;</code> with
                 <code class="cu-code">cu-toggle-input</code>,
                 a visual track with <code class="cu-code">cu-toggle</code>,
@@ -94,8 +100,11 @@ const disabledCode = `<label class="cu-toggle-wrapper">
 
         <!-- With Label -->
         <section class="space-y-3">
-            <h2 class="text-lg font-semibold tracking-tight">With Label</h2>
-            <p class="text-sm text-muted-foreground leading-relaxed">
+            <h2 id="with-label" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+              <a href="#with-label" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+              With Label
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
                 Add label text as a sibling inside the wrapper. Clicking the text also toggles the switch.
             </p>
             <ComponentPreview code={withLabelCode}>
@@ -107,8 +116,11 @@ const disabledCode = `<label class="cu-toggle-wrapper">
 
         <!-- Sizes -->
         <section class="space-y-3">
-            <h2 class="text-lg font-semibold tracking-tight">Sizes</h2>
-            <p class="text-sm text-muted-foreground leading-relaxed">
+            <h2 id="sizes" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+              <a href="#sizes" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+              Sizes
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
                 Three sizes are available — <code class="cu-code">cu-toggle-sm</code>,
                 default, and <code class="cu-code">cu-toggle-lg</code>.
             </p>
@@ -129,8 +141,11 @@ const disabledCode = `<label class="cu-toggle-wrapper">
 
         <!-- Checked by Default -->
         <section class="space-y-3">
-            <h2 class="text-lg font-semibold tracking-tight">Checked by Default</h2>
-            <p class="text-sm text-muted-foreground leading-relaxed">
+            <h2 id="checked-by-default" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+              <a href="#checked-by-default" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+              Checked by Default
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
                 Add the <code class="cu-code">checked</code> attribute to the hidden input for an initial on state.
             </p>
             <ComponentPreview code={checkedCode}>
@@ -142,8 +157,11 @@ const disabledCode = `<label class="cu-toggle-wrapper">
 
         <!-- Disabled -->
         <section class="space-y-3">
-            <h2 class="text-lg font-semibold tracking-tight">Disabled</h2>
-            <p class="text-sm text-muted-foreground leading-relaxed">
+            <h2 id="disabled" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+              <a href="#disabled" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+              Disabled
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
                 Add the <code class="cu-code">disabled</code> attribute to prevent interaction.
             </p>
             <ComponentPreview code={disabledCode}>

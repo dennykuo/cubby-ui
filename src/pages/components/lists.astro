@@ -119,9 +119,12 @@ const dlHorizontalCode = `<dl class="cu-dl cu-dl-horizontal">
 </dl>`.trim();
 ---
 
-<Layout title="Lists — Cubby UI">
+<Layout title="Lists — Cubby UI" category="Typography" componentName="Lists">
     <div class="space-y-3">
-        <h1 class="text-3xl font-bold tracking-tight">Lists</h1>
+        <div class="flex items-center gap-3">
+          <h1 class="text-3xl font-bold tracking-tight">Lists</h1>
+          <span class="cu-badge cu-badge-secondary">Typography</span>
+        </div>
         <p class="text-base text-muted-foreground leading-relaxed">
             Styled lists with refined marker colors, spacing, and multiple layout variants including bordered, inline, and description lists.
         </p>
@@ -130,8 +133,11 @@ const dlHorizontalCode = `<dl class="cu-dl cu-dl-horizontal">
     <div class="mt-10 space-y-10">
         <!-- Unordered -->
         <section class="space-y-3">
-            <h2 class="text-lg font-semibold tracking-tight">Unordered</h2>
-            <p class="text-sm text-muted-foreground leading-relaxed">
+            <h2 id="unordered" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+              <a href="#unordered" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+              Unordered
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
                 Use <code class="cu-code">cu-list cu-list-disc</code> for
                 bullet-point lists. Markers are styled with a muted color for a subtle look.
             </p>
@@ -148,8 +154,11 @@ const dlHorizontalCode = `<dl class="cu-dl cu-dl-horizontal">
 
         <!-- Ordered -->
         <section class="space-y-3">
-            <h2 class="text-lg font-semibold tracking-tight">Ordered</h2>
-            <p class="text-sm text-muted-foreground leading-relaxed">
+            <h2 id="ordered" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+              <a href="#ordered" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+              Ordered
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
                 Use <code class="cu-code">cu-list cu-list-decimal</code> for
                 numbered lists. Numbers use a medium font weight with muted color.
             </p>
@@ -166,8 +175,11 @@ const dlHorizontalCode = `<dl class="cu-dl cu-dl-horizontal">
 
         <!-- Nested -->
         <section class="space-y-3">
-            <h2 class="text-lg font-semibold tracking-tight">Nested</h2>
-            <p class="text-sm text-muted-foreground leading-relaxed">
+            <h2 id="nested" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+              <a href="#nested" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+              Nested
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
                 Lists can be nested by adding another
                 <code class="cu-code">cu-list</code> inside a list item.
                 Spacing between levels is handled automatically.
@@ -195,8 +207,11 @@ const dlHorizontalCode = `<dl class="cu-dl cu-dl-horizontal">
 
         <!-- Icon List -->
         <section class="space-y-3">
-            <h2 class="text-lg font-semibold tracking-tight">Icon List</h2>
-            <p class="text-sm text-muted-foreground leading-relaxed">
+            <h2 id="icon-list" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+              <a href="#icon-list" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+              Icon List
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
                 Use <code class="cu-code">cu-list cu-list-none</code> with inline SVG icons
                 for check lists, feature lists, or any custom marker.
             </p>
@@ -226,8 +241,11 @@ const dlHorizontalCode = `<dl class="cu-dl cu-dl-horizontal">
 
         <!-- Bordered -->
         <section class="space-y-3">
-            <h2 class="text-lg font-semibold tracking-tight">Bordered</h2>
-            <p class="text-sm text-muted-foreground leading-relaxed">
+            <h2 id="bordered" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+              <a href="#bordered" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+              Bordered
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
                 Use <code class="cu-code">cu-list cu-list-bordered</code> for
                 a clean divider-separated list. Ideal for settings panels, notification preferences, or any key-value layout.
             </p>
@@ -262,8 +280,11 @@ const dlHorizontalCode = `<dl class="cu-dl cu-dl-horizontal">
 
         <!-- Inline -->
         <section class="space-y-3">
-            <h2 class="text-lg font-semibold tracking-tight">Inline</h2>
-            <p class="text-sm text-muted-foreground leading-relaxed">
+            <h2 id="inline" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+              <a href="#inline" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+              Inline
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
                 Use <code class="cu-code">cu-list cu-list-inline</code> for
                 horizontal lists. Useful for footer links, tags, or breadcrumb-like navigation.
             </p>
@@ -284,8 +305,11 @@ const dlHorizontalCode = `<dl class="cu-dl cu-dl-horizontal">
 
         <!-- Description List -->
         <section class="space-y-3">
-            <h2 class="text-lg font-semibold tracking-tight">Description List</h2>
-            <p class="text-sm text-muted-foreground leading-relaxed">
+            <h2 id="description-list" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+              <a href="#description-list" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+              Description List
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
                 Use <code class="cu-code">cu-dl</code> with
                 <code class="cu-code">cu-dl-item</code>, <code class="cu-code">cu-dl-term</code>,
                 and <code class="cu-code">cu-dl-detail</code> for key-value pairs. Defaults to a vertical stacked layout.
@@ -312,8 +336,11 @@ const dlHorizontalCode = `<dl class="cu-dl cu-dl-horizontal">
 
         <!-- Horizontal Description List -->
         <section class="space-y-3">
-            <h2 class="text-lg font-semibold tracking-tight">Horizontal Description List</h2>
-            <p class="text-sm text-muted-foreground leading-relaxed">
+            <h2 id="horizontal-description-list" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+              <a href="#horizontal-description-list" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+              Horizontal Description List
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
                 Add <code class="cu-code">cu-dl-horizontal</code> to render terms and details
                 side by side. The term column has a fixed width for alignment.
             </p>

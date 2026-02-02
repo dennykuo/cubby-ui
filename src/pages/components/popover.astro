@@ -50,9 +50,12 @@ const topCode = `<div class="cu-popover" data-cu-popover>
 </div>`.trim();
 ---
 
-<Layout title="Popover — Cubby UI">
+<Layout title="Popover — Cubby UI" category="Overlay" componentName="Popover">
     <div class="space-y-3">
-        <h1 class="text-3xl font-bold tracking-tight">Popover</h1>
+        <div class="flex items-center gap-3">
+            <h1 class="text-3xl font-bold tracking-tight">Popover</h1>
+            <span class="cu-badge cu-badge-secondary">Overlay</span>
+        </div>
         <p class="text-base text-muted-foreground leading-relaxed">
             Displays rich content in a portal, triggered by a button.
         </p>
@@ -61,8 +64,11 @@ const topCode = `<div class="cu-popover" data-cu-popover>
     <div class="mt-10 space-y-10">
         <!-- Usage -->
         <section class="space-y-3">
-            <h2 class="text-lg font-semibold tracking-tight">Usage</h2>
-            <p class="text-sm text-muted-foreground leading-relaxed">
+            <h2 id="usage" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+                <a href="#usage" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                Usage
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
                 Use <code class="cu-code">cu-popover</code> as the wrapper with <code class="cu-code">data-cu-popover</code>,
                 <code class="cu-code">data-cu-popover-trigger</code> on the button,
                 and <code class="cu-code">cu-popover-content</code> with <code class="cu-code">data-cu-popover-content</code> for the panel.
@@ -94,8 +100,11 @@ const topCode = `<div class="cu-popover" data-cu-popover>
 
         <!-- Top Position -->
         <section class="space-y-3">
-            <h2 class="text-lg font-semibold tracking-tight">Top Position</h2>
-            <p class="text-sm text-muted-foreground leading-relaxed">
+            <h2 id="top-position" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+                <a href="#top-position" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                Top Position
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
                 Add <code class="cu-code">bottom-full mb-2</code> utility classes to the content to position above the trigger.
             </p>
             <ComponentPreview code={topCode}>

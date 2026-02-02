@@ -58,9 +58,12 @@ const nestedCode = `<div class="cu-container cu-container-xl">
 </div>`.trim();
 ---
 
-<Layout title="Container — Cubby UI">
+<Layout title="Container — Cubby UI" category="Layouts" componentName="Container">
 	<div class="space-y-3">
-		<h1 class="text-3xl font-bold tracking-tight">Container</h1>
+		<div class="flex items-center gap-3">
+		  <h1 class="text-3xl font-bold tracking-tight">Container</h1>
+		  <span class="cu-badge cu-badge-secondary">Layouts</span>
+		</div>
 		<p class="text-base text-muted-foreground leading-relaxed">
 			A content wrapper that controls max-width and provides responsive horizontal padding.
 		</p>
@@ -69,8 +72,11 @@ const nestedCode = `<div class="cu-container cu-container-xl">
 	<div class="mt-10 space-y-10">
 		<!-- Usage -->
 		<section class="space-y-3">
-			<h2 class="text-lg font-semibold tracking-tight">Usage</h2>
-			<p class="text-sm text-muted-foreground leading-relaxed">
+			<h2 id="usage" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+			  <a href="#usage" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+			  Usage
+			</h2>
+			<p class="text-base text-muted-foreground leading-relaxed">
 				Combine
 				<code class="cu-code">cu-container</code> with a size class like
 				<code class="cu-code">cu-container-lg</code>.
@@ -91,8 +97,11 @@ const nestedCode = `<div class="cu-container cu-container-xl">
 
 		<!-- Sizes -->
 		<section class="space-y-3">
-			<h2 class="text-lg font-semibold tracking-tight">Sizes</h2>
-			<p class="text-sm text-muted-foreground leading-relaxed">
+			<h2 id="sizes" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+			  <a href="#sizes" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+			  Sizes
+			</h2>
+			<p class="text-base text-muted-foreground leading-relaxed">
 				Six size variants are available —
 				<code class="cu-code">sm</code> (640px),
 				<code class="cu-code">md</code> (768px),
@@ -129,8 +138,11 @@ const nestedCode = `<div class="cu-container cu-container-xl">
 
 		<!-- Prose -->
 		<section class="space-y-3">
-			<h2 class="text-lg font-semibold tracking-tight">Prose</h2>
-			<p class="text-sm text-muted-foreground leading-relaxed">
+			<h2 id="prose" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+			  <a href="#prose" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+			  Prose
+			</h2>
+			<p class="text-base text-muted-foreground leading-relaxed">
 				Use
 				<code class="cu-code">cu-container-prose</code> for long-form text content.
 				It limits width to 65ch — the optimal line length for readability.
@@ -152,8 +164,11 @@ const nestedCode = `<div class="cu-container cu-container-xl">
 
 		<!-- No Max Width -->
 		<section class="space-y-3">
-			<h2 class="text-lg font-semibold tracking-tight">No Max Width</h2>
-			<p class="text-sm text-muted-foreground leading-relaxed">
+			<h2 id="no-max-width" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+			  <a href="#no-max-width" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+			  No Max Width
+			</h2>
+			<p class="text-base text-muted-foreground leading-relaxed">
 				Use
 				<code class="cu-code">cu-container</code> alone without a size class for a full-width container with only responsive horizontal padding.
 			</p>
@@ -170,8 +185,11 @@ const nestedCode = `<div class="cu-container cu-container-xl">
 
 		<!-- With Layout -->
 		<section class="space-y-3">
-			<h2 class="text-lg font-semibold tracking-tight">With Layout</h2>
-			<p class="text-sm text-muted-foreground leading-relaxed">
+			<h2 id="with-layout" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+			  <a href="#with-layout" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+			  With Layout
+			</h2>
+			<p class="text-base text-muted-foreground leading-relaxed">
 				Containers work well as wrappers for page layouts with sidebars or multi-column structures.
 			</p>
 			<ComponentPreview code={nestedCode}>

@@ -28,9 +28,12 @@ const disabledCode = `<div class="cu-input-search">
 </div>`.trim();
 ---
 
-<Layout title="Search Input — Cubby UI">
+<Layout category="Forms" componentName="Search Input" title="Search Input — Cubby UI">
     <div class="space-y-3">
-        <h1 class="text-3xl font-bold tracking-tight">Search Input</h1>
+        <div class="flex items-center gap-3">
+          <h1 class="text-3xl font-bold tracking-tight">Search Input</h1>
+          <span class="cu-badge cu-badge-secondary">Forms</span>
+        </div>
         <p class="text-base text-muted-foreground leading-relaxed">
             Displays a search input with an embedded search icon.
         </p>
@@ -39,8 +42,11 @@ const disabledCode = `<div class="cu-input-search">
     <div class="mt-10 space-y-10">
         <!-- Usage -->
         <section class="space-y-3">
-            <h2 class="text-lg font-semibold tracking-tight">Usage</h2>
-            <p class="text-sm text-muted-foreground leading-relaxed">
+            <h2 id="usage" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+              <a href="#usage" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+              Usage
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
                 Wrap an input and search icon inside a <code class="cu-code">cu-input-search</code> container.
                 The icon uses <code class="cu-code">cu-input-search-icon</code> and the input uses <code class="cu-code">cu-input-search-field</code>.
             </p>
@@ -53,8 +59,11 @@ const disabledCode = `<div class="cu-input-search">
 
         <!-- With Placeholder -->
         <section class="space-y-3">
-            <h2 class="text-lg font-semibold tracking-tight">With Placeholder</h2>
-            <p class="text-sm text-muted-foreground leading-relaxed">
+            <h2 id="with-placeholder" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+              <a href="#with-placeholder" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+              With Placeholder
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
                 Customize the placeholder text to hint at what can be searched.
             </p>
             <ComponentPreview code={placeholderCode}>
@@ -66,8 +75,11 @@ const disabledCode = `<div class="cu-input-search">
 
         <!-- Disabled -->
         <section class="space-y-3">
-            <h2 class="text-lg font-semibold tracking-tight">Disabled</h2>
-            <p class="text-sm text-muted-foreground leading-relaxed">
+            <h2 id="disabled" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+              <a href="#disabled" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+              Disabled
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
                 Add the <code class="cu-code">disabled</code> attribute to the input element.
             </p>
             <ComponentPreview code={disabledCode}>

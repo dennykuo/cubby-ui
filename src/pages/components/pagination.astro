@@ -40,9 +40,12 @@ const withPrevNextCode = `<nav aria-label="Pagination">
 </nav>`.trim();
 ---
 
-<Layout title="Pagination — Cubby UI">
+<Layout title="Pagination — Cubby UI" category="Navigation" componentName="Pagination">
     <div class="space-y-3">
-        <h1 class="text-3xl font-bold tracking-tight">Pagination</h1>
+        <div class="flex items-center gap-3">
+          <h1 class="text-3xl font-bold tracking-tight">Pagination</h1>
+          <span class="cu-badge cu-badge-secondary">Navigation</span>
+        </div>
         <p class="text-base text-muted-foreground leading-relaxed">
             Pagination with page navigation, previous and next controls.
         </p>
@@ -51,8 +54,11 @@ const withPrevNextCode = `<nav aria-label="Pagination">
     <div class="mt-10 space-y-10">
         <!-- Usage -->
         <section class="space-y-3">
-            <h2 class="text-lg font-semibold tracking-tight">Usage</h2>
-            <p class="text-sm text-muted-foreground leading-relaxed">
+            <h2 id="usage" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+              <a href="#usage" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+              Usage
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
                 Use <code class="cu-code">cu-pagination</code> on the list,
                 <code class="cu-code">cu-pagination-item</code> for page links, and
                 <code class="cu-code">cu-pagination-item-active</code> for the current page.
@@ -68,8 +74,11 @@ const withPrevNextCode = `<nav aria-label="Pagination">
 
         <!-- With Ellipsis -->
         <section class="space-y-3">
-            <h2 class="text-lg font-semibold tracking-tight">With Ellipsis</h2>
-            <p class="text-sm text-muted-foreground leading-relaxed">
+            <h2 id="with-ellipsis" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+              <a href="#with-ellipsis" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+              With Ellipsis
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
                 Use <code class="cu-code">cu-pagination-ellipsis</code> to indicate skipped pages.
             </p>
             <ComponentPreview code={withEllipsisCode}>
@@ -87,8 +96,11 @@ const withPrevNextCode = `<nav aria-label="Pagination">
 
         <!-- With Prev/Next -->
         <section class="space-y-3">
-            <h2 class="text-lg font-semibold tracking-tight">With Prev/Next</h2>
-            <p class="text-sm text-muted-foreground leading-relaxed">
+            <h2 id="with-prev-next" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+              <a href="#with-prev-next" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+              With Prev/Next
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
                 Add <code class="cu-code">cu-pagination-prev</code> and <code class="cu-code">cu-pagination-next</code> for navigation arrows.
             </p>
             <ComponentPreview code={withPrevNextCode}>

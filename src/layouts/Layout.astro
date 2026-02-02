@@ -5,14 +5,17 @@ import Sidebar from "../components/sidebar/Sidebar.astro";
 
 interface Props {
 	title: string;
+	category?: string;
+	componentName?: string;
 }
 
-const { title } = Astro.props;
+const { title, category, componentName } = Astro.props;
 const pathname = Astro.url.pathname;
 const normalizedPath =
 	pathname.endsWith("/") && pathname.length > 1
 		? pathname.slice(0, -1)
 		: pathname;
+const isComponentPage = !!category && !!componentName;
 ---
 
 <!doctype html>
@@ -42,6 +45,15 @@ const normalizedPath =
 
 				<main class="flex-1 min-w-0 border-l border-border py-6 px-4 sm:px-6 md:py-8 md:px-8 lg:px-12">
 					<div class="mx-auto max-w-3xl">
+						{isComponentPage && (
+							<div class="mb-1.5 flex items-center gap-1.5 text-xs text-muted-foreground">
+								<a href="/" class="hover:text-foreground transition-colors duration-150">Docs</a>
+								<span>/</span>
+								<span>Components</span>
+								<span>/</span>
+								<span class="text-foreground">{componentName}</span>
+							</div>
+						)}
 						<slot />
 					</div>
 				</main>

@@ -163,9 +163,12 @@ const userMenuCode = `<div class="cu-dropdown" data-cu-dropdown>
 </div>`.trim();
 ---
 
-<Layout title="Dropdown Menu — Cubby UI">
+<Layout title="Dropdown Menu — Cubby UI" category="Overlay" componentName="Dropdown Menu">
     <div class="space-y-3">
-        <h1 class="text-3xl font-bold tracking-tight">Dropdown Menu</h1>
+        <div class="flex items-center gap-3">
+            <h1 class="text-3xl font-bold tracking-tight">Dropdown Menu</h1>
+            <span class="cu-badge cu-badge-secondary">Overlay</span>
+        </div>
         <p class="text-base text-muted-foreground leading-relaxed">
             Displays a menu to the user — such as a set of actions or functions — triggered by a button.
         </p>
@@ -174,8 +177,11 @@ const userMenuCode = `<div class="cu-dropdown" data-cu-dropdown>
     <div class="mt-10 space-y-10">
         <!-- Usage -->
         <section class="space-y-3">
-            <h2 class="text-lg font-semibold tracking-tight">Usage</h2>
-            <p class="text-sm text-muted-foreground leading-relaxed">
+            <h2 id="usage" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+                <a href="#usage" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                Usage
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
                 Use <code class="cu-code">data-cu-dropdown</code> on the wrapper,
                 <code class="cu-code">data-cu-dropdown-trigger</code> on the button, and
                 <code class="cu-code">data-cu-dropdown-content</code> on the menu.
@@ -197,8 +203,11 @@ const userMenuCode = `<div class="cu-dropdown" data-cu-dropdown>
 
         <!-- With Labels and Separators -->
         <section class="space-y-3">
-            <h2 class="text-lg font-semibold tracking-tight">With Labels and Separators</h2>
-            <p class="text-sm text-muted-foreground leading-relaxed">
+            <h2 id="with-labels-and-separators" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+                <a href="#with-labels-and-separators" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                With Labels and Separators
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
                 Add <code class="cu-code">cu-dropdown-label</code> for section titles and
                 <code class="cu-code">cu-dropdown-separator</code> for dividers.
             </p>
@@ -222,8 +231,11 @@ const userMenuCode = `<div class="cu-dropdown" data-cu-dropdown>
 
         <!-- With Icons -->
         <section class="space-y-3">
-            <h2 class="text-lg font-semibold tracking-tight">With Icons</h2>
-            <p class="text-sm text-muted-foreground leading-relaxed">
+            <h2 id="with-icons" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+                <a href="#with-icons" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                With Icons
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
                 Place an inline SVG before the label text. Use <code class="cu-code">mr-2 opacity-60</code> on icons for consistent spacing and subtlety.
             </p>
             <ComponentPreview code={withIconsCode}>
@@ -256,8 +268,11 @@ const userMenuCode = `<div class="cu-dropdown" data-cu-dropdown>
 
         <!-- With Shortcuts -->
         <section class="space-y-3">
-            <h2 class="text-lg font-semibold tracking-tight">With Shortcuts</h2>
-            <p class="text-sm text-muted-foreground leading-relaxed">
+            <h2 id="with-shortcuts" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+                <a href="#with-shortcuts" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                With Shortcuts
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
                 Use <code class="cu-code">cu-dropdown-shortcut</code> to display keyboard shortcuts aligned to the right.
                 Add <code class="cu-code">cu-dropdown-content-wide</code> for extra width.
             </p>
@@ -300,8 +315,11 @@ const userMenuCode = `<div class="cu-dropdown" data-cu-dropdown>
 
         <!-- With Danger Item -->
         <section class="space-y-3">
-            <h2 class="text-lg font-semibold tracking-tight">With Danger Item</h2>
-            <p class="text-sm text-muted-foreground leading-relaxed">
+            <h2 id="with-danger-item" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+                <a href="#with-danger-item" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                With Danger Item
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
                 Use <code class="cu-code">cu-dropdown-item-danger</code> to highlight destructive actions in red.
             </p>
             <ComponentPreview code={withDangerCode}>
@@ -334,8 +352,11 @@ const userMenuCode = `<div class="cu-dropdown" data-cu-dropdown>
 
         <!-- User Menu -->
         <section class="space-y-3">
-            <h2 class="text-lg font-semibold tracking-tight">User Menu</h2>
-            <p class="text-sm text-muted-foreground leading-relaxed">
+            <h2 id="user-menu" class="text-lg font-semibold tracking-tight flex items-center gap-2 group">
+                <a href="#user-menu" class="text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                User Menu
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
                 Combine an avatar trigger with a profile header inside the dropdown for a complete user menu.
             </p>
             <ComponentPreview code={userMenuCode}>
