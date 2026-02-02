@@ -257,6 +257,43 @@ const pricingCardCode = `<div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
   </div>
 </div>`.trim();
 
+const tableInCardCode = `<div class="cu-card">
+  <div class="cu-card-header">
+    <h3 class="cu-card-title">Recent Orders</h3>
+    <p class="cu-card-description">A list of your recent transactions.</p>
+  </div>
+  <div class="cu-card-content cu-card-content-flush">
+    <div class="cu-table-wrapper">
+      <table class="cu-table">
+        <thead class="cu-table-header">
+          <tr class="cu-table-row">
+            <th class="cu-table-head">Invoice</th>
+            <th class="cu-table-head">Status</th>
+            <th class="cu-table-head text-right">Amount</th>
+          </tr>
+        </thead>
+        <tbody class="cu-table-body">
+          <tr class="cu-table-row">
+            <td class="cu-table-cell font-medium">INV001</td>
+            <td class="cu-table-cell"><span class="cu-badge cu-badge-success">Paid</span></td>
+            <td class="cu-table-cell text-right">$250.00</td>
+          </tr>
+          <tr class="cu-table-row">
+            <td class="cu-table-cell font-medium">INV002</td>
+            <td class="cu-table-cell"><span class="cu-badge cu-badge-warning">Pending</span></td>
+            <td class="cu-table-cell text-right">$150.00</td>
+          </tr>
+          <tr class="cu-table-row">
+            <td class="cu-table-cell font-medium">INV003</td>
+            <td class="cu-table-cell"><span class="cu-badge cu-badge-success">Paid</span></td>
+            <td class="cu-table-cell text-right">$350.00</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>`.trim();
+
 const teamCardCode = `<div class="cu-card w-[380px]">
   <div class="cu-card-header">
     <h3 class="cu-card-title">Team Members</h3>
@@ -498,6 +535,53 @@ const loginCardCode = `<div class="cu-card w-[380px]">
                     <CardFooter>
                         <Button class="w-full">Mark all as read</Button>
                     </CardFooter>
+                </Card>
+            </ComponentPreview>
+        </section>
+
+        <!-- Table in Card -->
+        <section class="space-y-3">
+            <h2 class="text-lg font-semibold tracking-tight">Table in Card</h2>
+            <p class="text-sm text-muted-foreground leading-relaxed">
+                Use <code class="cu-code">cu-card-content-flush</code> to remove the default padding when embedding a table.
+                This is a common pattern for dashboard data grids.
+            </p>
+            <ComponentPreview code={tableInCardCode}>
+                <Card class="w-full max-w-lg">
+                    <CardHeader>
+                        <CardTitle>Recent Orders</CardTitle>
+                        <CardDescription>A list of your recent transactions.</CardDescription>
+                    </CardHeader>
+                    <CardContent class="cu-card-content-flush">
+                        <div class="cu-table-wrapper">
+                            <table class="cu-table">
+                                <thead class="cu-table-header">
+                                    <tr class="cu-table-row">
+                                        <th class="cu-table-head">Invoice</th>
+                                        <th class="cu-table-head">Status</th>
+                                        <th class="cu-table-head text-right">Amount</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="cu-table-body">
+                                    <tr class="cu-table-row">
+                                        <td class="cu-table-cell font-medium">INV001</td>
+                                        <td class="cu-table-cell"><span class="cu-badge cu-badge-success">Paid</span></td>
+                                        <td class="cu-table-cell text-right">$250.00</td>
+                                    </tr>
+                                    <tr class="cu-table-row">
+                                        <td class="cu-table-cell font-medium">INV002</td>
+                                        <td class="cu-table-cell"><span class="cu-badge cu-badge-warning">Pending</span></td>
+                                        <td class="cu-table-cell text-right">$150.00</td>
+                                    </tr>
+                                    <tr class="cu-table-row">
+                                        <td class="cu-table-cell font-medium">INV003</td>
+                                        <td class="cu-table-cell"><span class="cu-badge cu-badge-success">Paid</span></td>
+                                        <td class="cu-table-cell text-right">$350.00</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </CardContent>
                 </Card>
             </ComponentPreview>
         </section>

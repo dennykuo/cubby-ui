@@ -1,0 +1,17 @@
+---
+import { TOP_CLASS } from "../../config";
+
+interface Props {
+    position?: "bottom-right" | "bottom-left" | "top-right" | "top-left";
+    class?: string;
+    [key: string]: any;
+}
+
+const { position = "bottom-right", class: className, ...rest } = Astro.props;
+const baseClass = `${TOP_CLASS}-toast-container`;
+const positionClass = `${TOP_CLASS}-toast-container-${position}`;
+---
+
+<div class:list={[baseClass, positionClass, className]} {...rest}>
+    <slot />
+</div>

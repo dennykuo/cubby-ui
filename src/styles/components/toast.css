@@ -21,7 +21,7 @@
 }
 
 .cu-toast {
-    @apply pointer-events-auto relative flex w-80 items-start gap-3 rounded-lg border border-border bg-background p-4 shadow-lg transition-all duration-200;
+    @apply pointer-events-auto relative flex w-80 items-start gap-3 rounded-xl border border-border bg-background p-4 shadow-lg transition-[opacity,transform] duration-200;
 }
 
 .cu-toast-default {
@@ -57,5 +57,5 @@
 }
 
 .cu-toast-close {
-    @apply shrink-0 rounded-sm opacity-70 transition-opacity hover:opacity-100 cursor-pointer;
+    @apply shrink-0 rounded-sm opacity-70 transition-opacity duration-150 hover:opacity-100 cursor-pointer;
 }

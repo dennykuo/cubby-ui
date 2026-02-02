@@ -1,7 +1,7 @@
 /* Multi Select (unique parts — shared structure in listbox.css)
    ------------------------------------------------------------------ */
 .cu-multi-select-trigger {
-    @apply flex min-h-9 w-full items-center gap-1 rounded-lg border border-input bg-background px-3 py-1.5 text-sm transition-colors duration-150 hover:border-muted-foreground/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/40 focus-visible:ring-offset-2 cursor-pointer;
+    @apply flex min-h-9 w-full items-center gap-1 rounded-lg border border-input bg-background px-3 py-1.5 text-sm transition-colors duration-150 hover:border-muted-foreground/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/40 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 disabled:bg-muted disabled:text-muted-foreground disabled:hover:border-input cursor-pointer;
 }
 
 .cu-multi-select-tags {
@@ -25,7 +25,7 @@
 }
 
 .cu-multi-select-item {
-    @apply relative flex w-full cursor-pointer items-center rounded-md px-2 py-1.5 pl-8 text-sm transition-colors hover:bg-accent hover:text-accent-foreground outline-none;
+    @apply relative flex w-full cursor-pointer items-center rounded-md px-2 py-1.5 pl-8 text-sm transition-colors duration-150 hover:bg-accent hover:text-accent-foreground outline-none;
 }
 
 .cu-multi-select-item-active {

@@ -6,13 +6,13 @@
 
 .cu-tooltip::before,
 .cu-tooltip::after {
-    @apply pointer-events-none absolute opacity-0 invisible transition-all duration-150;
+    @apply pointer-events-none absolute opacity-0 invisible transition-[opacity,visibility] duration-150;
     content: '';
 }
 
 .cu-tooltip::after {
     content: attr(data-cu-tooltip);
-    @apply rounded-md bg-foreground px-2 py-1 text-xs text-background whitespace-nowrap;
+    @apply rounded-lg bg-foreground px-2 py-1 text-xs text-background whitespace-nowrap;
 }
 
 .cu-tooltip::before {

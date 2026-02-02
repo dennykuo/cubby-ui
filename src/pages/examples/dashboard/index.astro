@@ -54,7 +54,7 @@ import DashboardLayout from "../../../layouts/DashboardLayout.astro";
 			</div>
 		</div>
 
-		<!-- Chart placeholder + Recent activity -->
+		<!-- Chart placeholder + Recent sales -->
 		<div class="grid grid-cols-1 gap-6 lg:grid-cols-7">
 			<!-- Chart -->
 			<div class="cu-card lg:col-span-4">
@@ -139,53 +139,53 @@ import DashboardLayout from "../../../layouts/DashboardLayout.astro";
 				<h3 class="cu-card-title">最近訂單</h3>
 				<p class="cu-card-description">近期的交易記錄</p>
 			</div>
-			<div class="cu-card-content p-0">
-				<div class="overflow-x-auto">
+			<div class="cu-card-content cu-card-content-flush">
+				<div class="cu-table-wrapper">
 					<table class="cu-table">
-						<thead>
-							<tr>
-								<th>訂單編號</th>
-								<th>客戶</th>
-								<th>狀態</th>
-								<th>金額</th>
-								<th>日期</th>
+						<thead class="cu-table-header">
+							<tr class="cu-table-row">
+								<th class="cu-table-head">訂單編號</th>
+								<th class="cu-table-head">客戶</th>
+								<th class="cu-table-head">狀態</th>
+								<th class="cu-table-head">金額</th>
+								<th class="cu-table-head">日期</th>
 							</tr>
 						</thead>
-						<tbody>
-							<tr>
-								<td class="font-medium">#3210</td>
-								<td>Olivia Lin</td>
-								<td><span class="cu-badge cu-badge-success">已完成</span></td>
-								<td>$1,999.00</td>
-								<td class="text-muted-foreground">2026-01-15</td>
+						<tbody class="cu-table-body">
+							<tr class="cu-table-row">
+								<td class="cu-table-cell font-medium">#3210</td>
+								<td class="cu-table-cell">Olivia Lin</td>
+								<td class="cu-table-cell"><span class="cu-badge cu-badge-success">已完成</span></td>
+								<td class="cu-table-cell">$1,999.00</td>
+								<td class="cu-table-cell text-muted-foreground">2026-01-15</td>
 							</tr>
-							<tr>
-								<td class="font-medium">#3209</td>
-								<td>Jackson Chen</td>
-								<td><span class="cu-badge cu-badge-warning">處理中</span></td>
-								<td>$39.00</td>
-								<td class="text-muted-foreground">2026-01-15</td>
+							<tr class="cu-table-row">
+								<td class="cu-table-cell font-medium">#3209</td>
+								<td class="cu-table-cell">Jackson Chen</td>
+								<td class="cu-table-cell"><span class="cu-badge cu-badge-warning">處理中</span></td>
+								<td class="cu-table-cell">$39.00</td>
+								<td class="cu-table-cell text-muted-foreground">2026-01-15</td>
 							</tr>
-							<tr>
-								<td class="font-medium">#3208</td>
-								<td>Isabella Wu</td>
-								<td><span class="cu-badge cu-badge-success">已完成</span></td>
-								<td>$299.00</td>
-								<td class="text-muted-foreground">2026-01-14</td>
+							<tr class="cu-table-row">
+								<td class="cu-table-cell font-medium">#3208</td>
+								<td class="cu-table-cell">Isabella Wu</td>
+								<td class="cu-table-cell"><span class="cu-badge cu-badge-success">已完成</span></td>
+								<td class="cu-table-cell">$299.00</td>
+								<td class="cu-table-cell text-muted-foreground">2026-01-14</td>
 							</tr>
-							<tr>
-								<td class="font-medium">#3207</td>
-								<td>William Kim</td>
-								<td><span class="cu-badge cu-badge-destructive">已取消</span></td>
-								<td>$99.00</td>
-								<td class="text-muted-foreground">2026-01-14</td>
+							<tr class="cu-table-row">
+								<td class="cu-table-cell font-medium">#3207</td>
+								<td class="cu-table-cell">William Kim</td>
+								<td class="cu-table-cell"><span class="cu-badge cu-badge-destructive">已取消</span></td>
+								<td class="cu-table-cell">$99.00</td>
+								<td class="cu-table-cell text-muted-foreground">2026-01-14</td>
 							</tr>
-							<tr>
-								<td class="font-medium">#3206</td>
-								<td>Sofia Zhang</td>
-								<td><span class="cu-badge cu-badge-success">已完成</span></td>
-								<td>$2,500.00</td>
-								<td class="text-muted-foreground">2026-01-13</td>
+							<tr class="cu-table-row">
+								<td class="cu-table-cell font-medium">#3206</td>
+								<td class="cu-table-cell">Sofia Zhang</td>
+								<td class="cu-table-cell"><span class="cu-badge cu-badge-success">已完成</span></td>
+								<td class="cu-table-cell">$2,500.00</td>
+								<td class="cu-table-cell text-muted-foreground">2026-01-13</td>
 							</tr>
 						</tbody>
 					</table>

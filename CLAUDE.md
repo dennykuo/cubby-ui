@@ -53,14 +53,20 @@ Cubby UI 是一個框架無關的 UI 元件庫，風格類似 shadcn/ui，使用
 - 支援暗色模式（`.dark` class）
 - 支援 `prefers-reduced-motion` 全域降低動畫
 - 文檔站工具類別：`.cu-code`（inline code 樣式，定義在 `global.css`）
-- 動畫慣例：微互動 `duration-150`、狀態切換 `duration-200`；Dialog/Drawer/Alert Dialog 使用 CSS `@starting-style` + `transition-behavior: allow-discrete` 實現開關動畫
+- 動畫慣例：微互動 `duration-150`、狀態切換 `duration-200`；所有 `transition-*` 必須搭配明確的 `duration-*`；偏好具體 transition 屬性（`transition-colors`、`transition-shadow`、`transition-opacity`）而非 `transition-all`；Dialog/Drawer/Alert Dialog 使用 CSS `@starting-style` + `transition-behavior: allow-discrete` 實現開關動畫（統一 `0.2s ease`）
 - 色彩引用：避免硬編碼 HSL 值，使用 `color-mix(in srgb, var(--color-*) N%, transparent)` 處理半透明語意色
 - 陰影層次：`shadow-sm`（卡片靜態）→ `shadow-md`（浮層）→ `shadow-lg`（遮罩級 Dialog/Drawer/Toast）
 - 浮層圓角統一為 `rounded-xl`（Dialog, Dropdown, Combobox, Multi Select, Popover, Hover Card）
 - Alert / Toast 變體帶有 `bg-{color}/5` 極淡背景色調，增強視覺辨識度
 - Card 的 hover shadow 為 opt-in（`cu-card-hover`），非預設行為
 - Skeleton 提供兩種動畫：`cu-skeleton`（pulse）和 `cu-skeleton-shimmer`（掃光）
-- 表單 disabled 統一為 `disabled:pointer-events-none disabled:opacity-50 disabled:bg-muted disabled:text-muted-foreground`
+- 表單 disabled 統一為 `disabled:pointer-events-none disabled:opacity-50 disabled:bg-muted disabled:text-muted-foreground`；帶有 hover border 的輸入元素（Input、Textarea、Select、Search Input、File Input、Combobox、Multi Select）額外加 `disabled:hover:border-input` 以中和 hover 效果
+- Button ghost 變體帶有 `text-muted-foreground`，搭配 icon button 時預設淡色、hover 變深
+- Button icon 尺寸：`cu-button-icon`（h-9 w-9）、`cu-button-icon-sm`（h-8 w-8）、`cu-button-icon-xs`（h-7 w-7）
+- Card flush content：`cu-card-content-flush`（`p-0`），用於 table-in-card 等需要移除 padding 的場景
+- Separator 預設為 horizontal（`h-px w-full`），`cu-separator-vertical` 覆蓋為垂直
+- 展開收合觸發器（Accordion、Collapsible、Tree View）使用 `outline-none` 移除瀏覽器預設 outline，不加 focus ring（因負邊距或密集排列場景）
+- 導航互動元素（Tabs、Pagination、Nav、Breadcrumb）同樣使用 `outline-none`
 
 ### 目錄結構
 
@@ -121,7 +127,9 @@ src/
 │       ├── Skeleton.astro         — 骨架屏
 │       ├── Stat*.astro            — 指標卡（Stat, StatHeader, StatLabel, StatValue, StatDescription, StatTrend）
 │       ├── Steps*.astro           — 步驟指示器（Steps, StepsItem, StepsSeparator）
+│       ├── Tabs*.astro            — 分頁標籤（Tabs, TabsList, TabsTrigger, TabsContent）
 │       ├── Textarea.astro         — 多行輸入框
+│       ├── Toast*.astro            — 通知（Toast, ToastContainer, ToastTitle, ToastDescription, ToastClose）
 │       ├── Toggle.astro           — 開關（純 CSS，size prop）
 │       ├── Toolbar*.astro         — 工具列（Toolbar, ToolbarGroup, ToolbarButton, ToolbarSeparator）
 │       └── TreeView*.astro        — 樹狀結構（TreeView, TreeItem, TreeLeaf）

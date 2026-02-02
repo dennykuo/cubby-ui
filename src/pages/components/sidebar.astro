@@ -53,6 +53,23 @@ const sectionsCode = `<aside class="cu-sidebar">
   </div>
 </aside>`.trim();
 
+const stickyCode = `<!-- Sticky header + sidebar layout -->
+<header class="cu-header">
+  <!-- header content -->
+</header>
+<div class="flex flex-1">
+  <aside class="cu-sidebar sticky top-14 h-[calc(100vh-3.5rem)] shrink-0">
+    <div class="cu-sidebar-content">
+      <a class="cu-sidebar-item cu-sidebar-item-active" href="#">Dashboard</a>
+      <a class="cu-sidebar-item" href="#">Users</a>
+      <a class="cu-sidebar-item" href="#">Settings</a>
+    </div>
+  </aside>
+  <main class="flex-1 min-w-0 border-l border-border p-8">
+    <!-- main content scrolls independently -->
+  </main>
+</div>`.trim();
+
 const withIconsCode = `<aside class="cu-sidebar">
   <div class="cu-sidebar-header">
     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg>
@@ -202,6 +219,41 @@ const withIconsCode = `<aside class="cu-sidebar">
 							</div>
 						</div>
 					</aside>
+				</div>
+			</ComponentPreview>
+		</section>
+
+		<!-- Sticky Sidebar -->
+		<section class="space-y-3">
+			<h2 class="text-lg font-semibold tracking-tight">Sticky Sidebar</h2>
+			<p class="text-sm text-muted-foreground leading-relaxed">
+				To keep the sidebar fixed while the main content scrolls, apply
+				<code class="cu-code">sticky</code> positioning with a
+				<code class="cu-code">top</code> offset matching your header height and a corresponding
+				<code class="cu-code">height</code> of the remaining viewport.
+				Add <code class="cu-code">shrink-0</code> to prevent flex from compressing the sidebar.
+				<code class="cu-code">cu-sidebar-content</code> already includes
+				<code class="cu-code">overflow-y-auto</code>, so a scrollbar appears automatically when navigation items exceed the available height.
+			</p>
+			<ComponentPreview code={stickyCode}>
+				<div class="h-[320px] w-full rounded-lg border border-border overflow-hidden">
+					<div class="cu-header">
+						<div class="flex h-14 items-center px-4">
+							<span class="text-sm font-semibold">My App</span>
+						</div>
+					</div>
+					<div class="flex h-[calc(100%-3.5rem)]">
+						<aside class="cu-sidebar shrink-0 h-full">
+							<div class="cu-sidebar-content">
+								<a class="cu-sidebar-item cu-sidebar-item-active" href="#">Dashboard</a>
+								<a class="cu-sidebar-item" href="#">Users</a>
+								<a class="cu-sidebar-item" href="#">Settings</a>
+							</div>
+						</aside>
+						<main class="flex-1 min-w-0 border-l border-border p-6">
+							<p class="text-sm text-muted-foreground">Main content scrolls independently while the sidebar stays fixed.</p>
+						</main>
+					</div>
 				</div>
 			</ComponentPreview>
 		</section>
