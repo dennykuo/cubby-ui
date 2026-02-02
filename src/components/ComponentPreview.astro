@@ -8,6 +8,8 @@ interface Props {
 }
 
 const { class: className, code = "", align = "center" } = Astro.props;
+const codeLineCount = code.split("\n").length;
+const shouldCollapse = codeLineCount > 8;
 ---
 
 <div
@@ -63,8 +65,26 @@ const { class: className, code = "", align = "center" } = Astro.props;
 				<span data-cu-copy-label>Copy</span>
 			</button>
 		</div>
-		<div class="overflow-x-auto max-h-[400px] px-4 py-3 text-foreground">
+		<div
+			class:list={[
+				"overflow-x-auto px-4 py-3 text-foreground relative",
+				shouldCollapse ? "max-h-[200px] overflow-hidden" : "max-h-[400px]",
+			]}
+			data-cu-code-block
+			data-cu-code-collapsed={shouldCollapse ? "" : undefined}
+		>
 			<Code code={code} lang="html" />
+			{shouldCollapse && (
+				<div class="absolute bottom-0 inset-x-0 flex items-end justify-center h-16 bg-gradient-to-t from-muted/80 to-transparent" data-cu-code-fade>
+					<button
+						class="mb-2 inline-flex items-center gap-1 rounded-md border border-border bg-background/90 px-3 py-1 text-xs text-muted-foreground shadow-sm transition-colors duration-150 hover:text-foreground cursor-pointer backdrop-blur-sm"
+						data-cu-code-toggle
+					>
+						<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+						展開程式碼
+					</button>
+				</div>
+			)}
 		</div>
 	</div>
 </div>
@@ -95,6 +115,28 @@ const { class: className, code = "", align = "center" } = Astro.props;
 					}
 				} catch (err) {
 					console.error("Failed to copy!", err);
+				}
+			});
+
+			// Code collapse/expand
+			const codeBlockEl = preview.querySelector("[data-cu-code-block]") as HTMLElement | null;
+			const toggleBtn = preview.querySelector("[data-cu-code-toggle]") as HTMLButtonElement | null;
+			const fadeEl = preview.querySelector("[data-cu-code-fade]") as HTMLElement | null;
+
+			toggleBtn?.addEventListener("click", () => {
+				const isCollapsed = codeBlockEl?.hasAttribute("data-cu-code-collapsed");
+				if (isCollapsed) {
+					codeBlockEl?.removeAttribute("data-cu-code-collapsed");
+					codeBlockEl!.style.maxHeight = "none";
+					codeBlockEl!.style.overflow = "auto";
+					if (fadeEl) fadeEl.style.display = "none";
+					toggleBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m18 15-6-6-6 6"/></svg> 收合程式碼';
+				} else {
+					codeBlockEl?.setAttribute("data-cu-code-collapsed", "");
+					codeBlockEl!.style.maxHeight = "200px";
+					codeBlockEl!.style.overflow = "hidden";
+					if (fadeEl) fadeEl.style.display = "";
+					toggleBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg> 展開程式碼';
 				}
 			});
 		});

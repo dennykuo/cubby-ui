@@ -87,7 +87,7 @@ Preview 上方加裝置寬度切換按鈕（Desktop / Tablet / Mobile）。
 
 目前 `#e5e7eb_1px` 在某些元件上干擾視覺，改為 `#f1f5f9_1px` 或加背景切換按鈕。
 
-### 9. Code 區可折疊
+### 9. ~~Code 區可折疊~~ ✅
 
 長程式碼區塊預設收折至 ~200px，點擊展開：
 
@@ -104,7 +104,7 @@ Preview 上方加裝置寬度切換按鈕（Desktop / Tablet / Mobile）。
 
 ## 四、首頁
 
-### 10. Hero 區更有氣勢
+### 10. ~~Hero 區更有氣勢~~ ✅
 
 加入更大標題、tagline、版本 badge：
 
@@ -123,7 +123,7 @@ Preview 上方加裝置寬度切換按鈕（Desktop / Tablet / Mobile）。
 </div>
 ```
 
-### 11. 元件分類 grid 加 icon + hover 效果
+### 11. ~~元件分類 grid 加 icon + hover 效果~~ ✅
 
 每個分類加圖示、hover 邊框和陰影效果，並連結到對應元件頁：
 
@@ -139,7 +139,7 @@ Preview 上方加裝置寬度切換按鈕（Desktop / Tablet / Mobile）。
 </a>
 ```
 
-### 12. 加入「快速開始」程式碼片段
+### 12. ~~加入「快速開始」程式碼片段~~ ✅
 
 首頁加一個 code block 展示如何引入 CSS 和使用元件。
 
@@ -147,11 +147,11 @@ Preview 上方加裝置寬度切換按鈕（Desktop / Tablet / Mobile）。
 
 ## 五、細節打磨
 
-### 13. `cu-code` inline code 加入 click to copy
+### 13. ~~`cu-code` inline code 加入 click to copy~~ ✅
 
 點擊 inline code（如 `cu-button`）時自動複製文字。
 
-### 14. 元件頁加入 Props / Classes 參考表
+### 14. ~~元件頁加入 Props / Classes 參考表~~ ✅
 
 每個元件頁底部加 table 列出可用 CSS classes 和說明：
 
@@ -165,6 +165,6 @@ Preview 上方加裝置寬度切換按鈕（Desktop / Tablet / Mobile）。
 
 所有互動元素統一使用具體 transition 屬性（`transition-colors`、`transition-shadow`）+ `duration-200`，避免 `transition-all duration-300`。
 
-### 16. Sidebar 當前分類展開/收合
+### 16. ~~Sidebar 當前分類展開/收合~~ ✅
 
 預設只展開當前所在分類，其他收合，減少捲動量。

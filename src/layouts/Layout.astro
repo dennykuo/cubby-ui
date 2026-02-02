@@ -36,6 +36,26 @@ const isComponentPage = !!category && !!componentName;
 	</head>
 	<script src="/scripts/cubby-ui.js" is:inline></script>
 	<script is:inline>document.addEventListener('astro:page-load', () => CubbyUI.init());</script>
+	<script>
+		function setupInlineCodeCopy() {
+			document.querySelectorAll('.cu-code').forEach((el) => {
+				if (el.dataset.cuCodeCopy) return;
+				el.dataset.cuCodeCopy = 'true';
+				el.title = '點擊複製';
+				el.addEventListener('click', async () => {
+					const text = el.textContent || '';
+					try {
+						await navigator.clipboard.writeText(text);
+						const original = el.textContent;
+						el.textContent = '已複製！';
+						setTimeout(() => { el.textContent = original; }, 1200);
+					} catch (e) {}
+				});
+			});
+		}
+		setupInlineCodeCopy();
+		document.addEventListener('astro:page-load', setupInlineCodeCopy);
+	</script>
 	<body class="min-h-screen font-sans">
 		<div class="relative flex min-h-screen flex-col">
 			<Header />

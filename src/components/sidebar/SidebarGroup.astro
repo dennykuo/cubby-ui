@@ -1,16 +1,64 @@
 ---
 interface Props {
 	title: string;
+	open?: boolean;
 }
 
-const { title } = Astro.props;
+const { title, open = false } = Astro.props;
 ---
 
-<div class="cu-sidebar-group">
-	<h5 class="cu-sidebar-group-title">
-		{title}
-	</h5>
-	<div class="mt-1 space-y-0.5">
+<div class="cu-sidebar-group" data-cu-sidebar-group>
+	<button
+		class="cu-sidebar-group-title w-full flex items-center justify-between cursor-pointer outline-none"
+		data-cu-sidebar-group-trigger
+		aria-expanded={open ? "true" : "false"}
+	>
+		<span>{title}</span>
+		<svg
+			xmlns="http://www.w3.org/2000/svg"
+			width="12"
+			height="12"
+			viewBox="0 0 24 24"
+			fill="none"
+			stroke="currentColor"
+			stroke-width="2"
+			stroke-linecap="round"
+			stroke-linejoin="round"
+			class:list={[
+				"text-muted-foreground/50 transition-transform duration-200",
+				open ? "rotate-0" : "-rotate-90",
+			]}
+			data-cu-sidebar-group-icon
+		>
+			<path d="m6 9 6 6 6-6" />
+		</svg>
+	</button>
+	<div
+		class:list={["mt-1 space-y-0.5", !open && "hidden"]}
+		data-cu-sidebar-group-content
+	>
 		<slot />
 	</div>
 </div>
+
+<script>
+	function setupSidebarGroups() {
+		document.querySelectorAll('[data-cu-sidebar-group]').forEach((group) => {
+			const trigger = group.querySelector('[data-cu-sidebar-group-trigger]') as HTMLButtonElement | null;
+			const content = group.querySelector('[data-cu-sidebar-group-content]') as HTMLElement | null;
+			const icon = group.querySelector('[data-cu-sidebar-group-icon]') as HTMLElement | null;
+
+			trigger?.addEventListener('click', () => {
+				const isOpen = trigger.getAttribute('aria-expanded') === 'true';
+				trigger.setAttribute('aria-expanded', isOpen ? 'false' : 'true');
+				if (content) content.classList.toggle('hidden', isOpen);
+				if (icon) {
+					icon.classList.toggle('rotate-0', !isOpen);
+					icon.classList.toggle('-rotate-90', isOpen);
+				}
+			});
+		});
+	}
+	setupSidebarGroups();
+	document.addEventListener('astro:page-load', setupSidebarGroups);
+</script>
