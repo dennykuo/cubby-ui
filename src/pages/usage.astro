@@ -1,0 +1,202 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+const cssImportCode = `/* 在你的主要 CSS 檔案中引入 */
+@import "tailwindcss";
+
+/* 引入 Cubby UI 元件樣式 */
+@import "./cubby-ui/components.css";
+
+/* 引入設計 token（色彩、字型等） */
+@import "./cubby-ui/global.css";`;
+
+const htmlStructureCode = `<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="/styles/main.css" />
+</head>
+<body>
+  <!-- 你的內容 -->
+
+  <!-- 互動元件需要此腳本 -->
+  <script src="/scripts/cubby-ui.js"><\/script>
+</body>
+</html>`;
+
+const buttonExample = `<!-- Button -->
+<button class="cu-button">Default</button>
+<button class="cu-button cu-button-outline">Outline</button>
+<button class="cu-button cu-button-destructive">Destructive</button>
+<button class="cu-button cu-button-sm">Small</button>`;
+
+const cardExample = `<!-- Card -->
+<div class="cu-card">
+  <div class="cu-card-header">
+    <h3 class="cu-card-title">Card Title</h3>
+    <p class="cu-card-description">Card description here.</p>
+  </div>
+  <div class="cu-card-content">
+    <p>Card content goes here.</p>
+  </div>
+  <div class="cu-card-footer">
+    <button class="cu-button">Action</button>
+  </div>
+</div>`;
+
+const tabsExample = `<!-- Tabs（需要 cubby-ui.js） -->
+<div data-cu-tabs>
+  <div class="cu-tabs-list">
+    <button class="cu-tabs-trigger cu-tabs-trigger-active"
+            data-cu-tabs-trigger data-cu-value="tab1">Tab 1</button>
+    <button class="cu-tabs-trigger"
+            data-cu-tabs-trigger data-cu-value="tab2">Tab 2</button>
+  </div>
+  <div class="cu-tabs-content cu-tabs-content-active"
+       data-cu-tabs-content data-cu-value="tab1">
+    Content for tab 1
+  </div>
+  <div class="cu-tabs-content"
+       data-cu-tabs-content data-cu-value="tab2">
+    Content for tab 2
+  </div>
+</div>`;
+
+const classNamingCode = `/* 基礎類別 */
+cu-{component}              /* cu-button, cu-card, cu-input */
+
+/* 變體 */
+cu-{component}-{variant}    /* cu-button-outline, cu-button-destructive */
+
+/* 尺寸 */
+cu-{component}-{size}       /* cu-button-sm, cu-button-lg */
+
+/* 子元件 */
+cu-{component}-{part}       /* cu-card-header, cu-card-title */
+
+/* 狀態 */
+cu-{component}-{state}      /* cu-tabs-trigger-active */`;
+
+const jsComponentsList = `/* cubby-ui.js 涵蓋以下互動元件 */
+Tabs          — data-cu-tabs
+Dropdown      — data-cu-dropdown
+Combobox      — data-cu-combobox
+Multi Select  — data-cu-multi-select
+Number Input  — data-cu-number-input
+Dropzone      — data-cu-dropzone
+Transfer List — data-cu-transfer-list`;
+
+const darkModeCode = `<!-- 在 <html> 或 <body> 加上 .dark class 即可切換暗色模式 -->
+<html class="dark">
+  ...
+</html>`;
+---
+
+<Layout title="Usage — Cubby UI">
+    <div class="space-y-3">
+        <h1 class="text-3xl font-bold tracking-tight">使用方式</h1>
+        <p class="text-base text-muted-foreground leading-relaxed">
+            如何在你的專案中使用 Cubby UI 元件。
+        </p>
+    </div>
+
+    <div class="mt-10 space-y-10">
+        <!-- Step 1: Copy Files -->
+        <section class="space-y-3">
+            <h2 class="text-lg font-semibold tracking-tight">1. 複製檔案</h2>
+            <p class="text-sm text-muted-foreground leading-relaxed">
+                將以下檔案複製到你的專案中：
+            </p>
+            <ul class="space-y-1.5 text-sm text-muted-foreground leading-relaxed ml-4">
+                <li class="flex items-start gap-2">
+                    <span class="mt-1 h-1.5 w-1.5 rounded-full bg-primary shrink-0"></span>
+                    <span><code class="cu-code">styles/global.css</code> — 設計 token（色彩、字型、間距等主題變數）</span>
+                </li>
+                <li class="flex items-start gap-2">
+                    <span class="mt-1 h-1.5 w-1.5 rounded-full bg-primary shrink-0"></span>
+                    <span><code class="cu-code">styles/components.css</code> + <code class="cu-code">styles/components/</code> — 元件 CSS 類別</span>
+                </li>
+                <li class="flex items-start gap-2">
+                    <span class="mt-1 h-1.5 w-1.5 rounded-full bg-primary shrink-0"></span>
+                    <span><code class="cu-code">scripts/cubby-ui.js</code> — 互動元件腳本（選用，僅互動元件需要）</span>
+                </li>
+            </ul>
+        </section>
+
+        <!-- Step 2: Import CSS -->
+        <section class="space-y-3">
+            <h2 class="text-lg font-semibold tracking-tight">2. 引入 CSS</h2>
+            <p class="text-sm text-muted-foreground leading-relaxed">
+                在你的主要 CSS 檔案中引入 Cubby UI 的樣式。需要 <a href="https://tailwindcss.com" target="_blank" rel="noreferrer" class="underline underline-offset-4 hover:text-foreground transition-colors duration-150">Tailwind CSS v4</a> 作為基礎。
+            </p>
+            <div class="rounded-xl border border-border overflow-hidden">
+                <Code code={cssImportCode} lang="css" />
+            </div>
+        </section>
+
+        <!-- Step 3: HTML Structure -->
+        <section class="space-y-3">
+            <h2 class="text-lg font-semibold tracking-tight">3. 頁面結構</h2>
+            <p class="text-sm text-muted-foreground leading-relaxed">
+                基本的 HTML 頁面結構。如果你的專案不使用互動元件（如 Tabs、Dropdown 等），可以省略 <code class="cu-code">cubby-ui.js</code>。
+            </p>
+            <div class="rounded-xl border border-border overflow-hidden">
+                <Code code={htmlStructureCode} lang="html" />
+            </div>
+        </section>
+
+        <!-- Class Naming -->
+        <section class="space-y-3">
+            <h2 class="text-lg font-semibold tracking-tight">類別命名規則</h2>
+            <p class="text-sm text-muted-foreground leading-relaxed">
+                所有元件使用 <code class="cu-code">cu-</code> 前綴，命名遵循一致的模式：
+            </p>
+            <div class="rounded-xl border border-border overflow-hidden">
+                <Code code={classNamingCode} lang="css" />
+            </div>
+        </section>
+
+        <!-- Pure CSS Examples -->
+        <section class="space-y-3">
+            <h2 class="text-lg font-semibold tracking-tight">純 CSS 元件範例</h2>
+            <p class="text-sm text-muted-foreground leading-relaxed">
+                大多數元件只需要 CSS 類別，不需要 JavaScript。
+            </p>
+            <div class="space-y-4">
+                <div class="rounded-xl border border-border overflow-hidden">
+                    <Code code={buttonExample} lang="html" />
+                </div>
+                <div class="rounded-xl border border-border overflow-hidden">
+                    <Code code={cardExample} lang="html" />
+                </div>
+            </div>
+        </section>
+
+        <!-- Interactive Components -->
+        <section class="space-y-3">
+            <h2 class="text-lg font-semibold tracking-tight">互動元件</h2>
+            <p class="text-sm text-muted-foreground leading-relaxed">
+                部分元件需要 JavaScript 處理互動行為。引入 <code class="cu-code">cubby-ui.js</code> 後，使用 <code class="cu-code">data-cu-*</code> 屬性標記元素即可自動初始化。
+            </p>
+            <div class="rounded-xl border border-border overflow-hidden">
+                <Code code={jsComponentsList} lang="text" />
+            </div>
+            <div class="rounded-xl border border-border overflow-hidden">
+                <Code code={tabsExample} lang="html" />
+            </div>
+        </section>
+
+        <!-- Dark Mode -->
+        <section class="space-y-3">
+            <h2 class="text-lg font-semibold tracking-tight">暗色模式</h2>
+            <p class="text-sm text-muted-foreground leading-relaxed">
+                Cubby UI 內建暗色模式支援。在根元素加上 <code class="cu-code">dark</code> class 即可啟用。
+            </p>
+            <div class="rounded-xl border border-border overflow-hidden">
+                <Code code={darkModeCode} lang="html" />
+            </div>
+        </section>
+    </div>
+</Layout>

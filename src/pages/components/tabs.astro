@@ -163,25 +163,3 @@ const withContentCode = `<div class="cu-tabs" data-cu-tabs>
         </section>
     </div>
 </Layout>
-
-<script>
-    function setupTabs() {
-        document.querySelectorAll("[data-cu-tabs]").forEach((tabs) => {
-            const triggers = tabs.querySelectorAll("[data-cu-tabs-trigger]");
-            const contents = tabs.querySelectorAll("[data-cu-tabs-content]");
-            triggers.forEach((trigger) => {
-                trigger.addEventListener("click", () => {
-                    const value = trigger.getAttribute("data-cu-tabs-trigger");
-                    triggers.forEach((t) => t.classList.remove("cu-tabs-trigger-active"));
-                    trigger.classList.add("cu-tabs-trigger-active");
-                    contents.forEach((c) => {
-                        c.hidden = c.getAttribute("data-cu-tabs-content") !== value;
-                    });
-                });
-            });
-        });
-    }
-
-    setupTabs();
-    document.addEventListener("astro:page-load", setupTabs);
-</script>

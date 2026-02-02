@@ -31,6 +31,8 @@ const normalizedPath =
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
 	</head>
+	<script src="/scripts/cubby-ui.js" is:inline></script>
+	<script is:inline>document.addEventListener('astro:page-load', () => CubbyUI.init());</script>
 	<body class="min-h-screen font-sans">
 		<div class="relative flex min-h-screen flex-col">
 			<Header />

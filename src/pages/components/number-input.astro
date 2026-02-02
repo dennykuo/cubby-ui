@@ -137,39 +137,3 @@ const disabledCode = `<div class="cu-number-input cu-number-input-disabled" data
         </section>
     </div>
 </Layout>
-
-<script>
-    function setupNumberInputs() {
-        document.querySelectorAll("[data-cu-number-input]").forEach((container) => {
-            const field = container.querySelector("[data-cu-number-field]") as HTMLInputElement | null;
-            const decrement = container.querySelector("[data-cu-number-decrement]") as HTMLButtonElement | null;
-            const increment = container.querySelector("[data-cu-number-increment]") as HTMLButtonElement | null;
-            if (!field) return;
-
-            decrement?.addEventListener("click", () => {
-                const step = Number(field.step) || 1;
-                const min = field.min !== "" ? Number(field.min) : -Infinity;
-                const current = Number(field.value) || 0;
-                const next = current - step;
-                if (next >= min) {
-                    field.value = String(next);
-                    field.dispatchEvent(new Event("input", { bubbles: true }));
-                }
-            });
-
-            increment?.addEventListener("click", () => {
-                const step = Number(field.step) || 1;
-                const max = field.max !== "" ? Number(field.max) : Infinity;
-                const current = Number(field.value) || 0;
-                const next = current + step;
-                if (next <= max) {
-                    field.value = String(next);
-                    field.dispatchEvent(new Event("input", { bubbles: true }));
-                }
-            });
-        });
-    }
-
-    setupNumberInputs();
-    document.addEventListener("astro:page-load", setupNumberInputs);
-</script>

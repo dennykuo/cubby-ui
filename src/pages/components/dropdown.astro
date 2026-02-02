@@ -376,29 +376,3 @@ const userMenuCode = `<div class="cu-dropdown" data-cu-dropdown>
         </section>
     </div>
 </Layout>
-
-<script>
-    function setupDropdowns() {
-        document.querySelectorAll("[data-cu-dropdown]").forEach((dropdown) => {
-            const trigger = dropdown.querySelector("[data-cu-dropdown-trigger]");
-            const content = dropdown.querySelector("[data-cu-dropdown-content]");
-            trigger?.addEventListener("click", (e) => {
-                e.stopPropagation();
-                content?.toggleAttribute("hidden");
-            });
-            document.addEventListener("click", (e) => {
-                if (!dropdown.contains(e.target as Node)) {
-                    content?.setAttribute("hidden", "");
-                }
-            });
-            document.addEventListener("keydown", (e) => {
-                if (e.key === "Escape") {
-                    content?.setAttribute("hidden", "");
-                }
-            });
-        });
-    }
-
-    setupDropdowns();
-    document.addEventListener("astro:page-load", setupDropdowns);
-</script>

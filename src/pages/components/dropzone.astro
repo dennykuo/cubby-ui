@@ -128,56 +128,22 @@ const disabledCode = `<div class="cu-dropzone cu-dropzone-disabled">
     </div>
 </Layout>
 
-<script>
-    function setupDropzones() {
-        document.querySelectorAll("[data-cu-dropzone]").forEach((zone) => {
-            const input = zone.querySelector("[data-cu-dropzone-input]") as HTMLInputElement | null;
-            if (!input) return;
-
-            zone.addEventListener("click", () => input.click());
-
-            zone.addEventListener("dragenter", (e) => {
-                e.preventDefault();
-                zone.classList.add("cu-dropzone-active");
-            });
-
-            zone.addEventListener("dragover", (e) => {
-                e.preventDefault();
-                zone.classList.add("cu-dropzone-active");
-            });
-
-            zone.addEventListener("dragleave", () => {
-                zone.classList.remove("cu-dropzone-active");
-            });
-
-            zone.addEventListener("drop", (e) => {
-                e.preventDefault();
-                zone.classList.remove("cu-dropzone-active");
-                const files = (e as DragEvent).dataTransfer?.files;
-                if (files?.length) {
-                    input.files = files;
-                    input.dispatchEvent(new Event("change", { bubbles: true }));
-                }
+<script is:inline>
+    // Demo-only: file list display for the "With File List" example
+    (function setupFileListDemo() {
+        var zone = document.getElementById("dropzone-filelist");
+        if (!zone) return;
+        var input = zone.querySelector("[data-cu-dropzone-input]");
+        var list = zone.parentElement && zone.parentElement.querySelector("[data-cu-dropzone-list]");
+        if (!input || !list) return;
+        input.addEventListener("change", function () {
+            if (!input.files) return;
+            list.innerHTML = "";
+            Array.from(input.files).forEach(function (file) {
+                var li = document.createElement("li");
+                li.textContent = file.name + " (" + (file.size / 1024).toFixed(1) + " KB)";
+                list.appendChild(li);
             });
         });
-
-        // File list demo
-        const filelistZone = document.getElementById("dropzone-filelist");
-        if (filelistZone) {
-            const input = filelistZone.querySelector("[data-cu-dropzone-input]") as HTMLInputElement | null;
-            const list = filelistZone.parentElement?.querySelector("[data-cu-dropzone-list]") as HTMLElement | null;
-            input?.addEventListener("change", () => {
-                if (!list || !input.files) return;
-                list.innerHTML = "";
-                Array.from(input.files).forEach((file) => {
-                    const li = document.createElement("li");
-                    li.textContent = `${file.name} (${(file.size / 1024).toFixed(1)} KB)`;
-                    list.appendChild(li);
-                });
-            });
-        }
-    }
-
-    setupDropzones();
-    document.addEventListener("astro:page-load", setupDropzones);
+    })();
 </script>
