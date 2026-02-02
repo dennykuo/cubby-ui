@@ -65,16 +65,7 @@ const isComponentPage = !!category && !!componentName;
 
 				<main class="flex-1 min-w-0 border-l border-border py-6 px-4 sm:px-6 md:py-8 md:px-8 lg:px-12">
 					<div class="mx-auto max-w-3xl">
-						{isComponentPage && (
-							<div class="mb-1.5 flex items-center gap-1.5 text-xs text-muted-foreground">
-								<a href="/" class="hover:text-foreground transition-colors duration-150">Docs</a>
-								<span>/</span>
-								<span>Components</span>
-								<span>/</span>
-								<span class="text-foreground">{componentName}</span>
-							</div>
-						)}
-						<slot />
+							<slot />
 					</div>
 				</main>
 			</div>
