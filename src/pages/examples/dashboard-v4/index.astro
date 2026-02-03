@@ -1,0 +1,487 @@
+---
+import DashboardV4Layout from "../../../layouts/DashboardV4Layout.astro";
+import Card from "../../../components/ui/Card.astro";
+import CardHeader from "../../../components/ui/CardHeader.astro";
+import CardTitle from "../../../components/ui/CardTitle.astro";
+import CardDescription from "../../../components/ui/CardDescription.astro";
+import CardContent from "../../../components/ui/CardContent.astro";
+import Button from "../../../components/ui/Button.astro";
+import Badge from "../../../components/ui/Badge.astro";
+import Avatar from "../../../components/ui/Avatar.astro";
+import AvatarFallback from "../../../components/ui/AvatarFallback.astro";
+import Progress from "../../../components/ui/Progress.astro";
+---
+
+<DashboardV4Layout title="數據總覽 — Prism">
+    <div class="space-y-6">
+        <!-- Page Header -->
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+            <div>
+                <h1 class="text-2xl font-bold tracking-tight text-slate-900">數據總覽</h1>
+                <p class="text-slate-500 mt-1">歡迎回來！以下是您的業務概況。</p>
+            </div>
+            <div class="flex items-center gap-3">
+                <Button variant="outline" class="gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+                    匯出報表
+                </Button>
+                <Button class="bg-violet-600 hover:bg-violet-700 text-white gap-2 border-0">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" x2="12" y1="5" y2="19"/><line x1="5" x2="19" y1="12" y2="12"/></svg>
+                    新增數據
+                </Button>
+            </div>
+        </div>
+
+        <!-- Stats Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <!-- Stat Card 1 -->
+            <Card class="bg-white border-slate-200/80 shadow-sm">
+                <CardContent class="p-5">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-sm font-medium text-slate-500">本月營收</p>
+                            <p class="text-2xl font-bold text-slate-900 mt-1">$128,430</p>
+                            <div class="flex items-center gap-1.5 mt-2">
+                                <span class="inline-flex items-center text-xs font-medium text-emerald-600 bg-emerald-50 px-1.5 py-0.5 rounded">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="mr-0.5"><path d="m18 15-6-6-6 6"/></svg>
+                                    12.5%
+                                </span>
+                                <span class="text-xs text-slate-400">較上月</span>
+                            </div>
+                        </div>
+                        <div class="w-12 h-12 rounded-xl bg-violet-50 flex items-center justify-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-violet-600">
+                                <line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+                            </svg>
+                        </div>
+                    </div>
+                </CardContent>
+            </Card>
+
+            <!-- Stat Card 2 -->
+            <Card class="bg-white border-slate-200/80 shadow-sm">
+                <CardContent class="p-5">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-sm font-medium text-slate-500">活躍用戶</p>
+                            <p class="text-2xl font-bold text-slate-900 mt-1">8,642</p>
+                            <div class="flex items-center gap-1.5 mt-2">
+                                <span class="inline-flex items-center text-xs font-medium text-emerald-600 bg-emerald-50 px-1.5 py-0.5 rounded">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="mr-0.5"><path d="m18 15-6-6-6 6"/></svg>
+                                    8.2%
+                                </span>
+                                <span class="text-xs text-slate-400">較上月</span>
+                            </div>
+                        </div>
+                        <div class="w-12 h-12 rounded-xl bg-blue-50 flex items-center justify-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-blue-600">
+                                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                            </svg>
+                        </div>
+                    </div>
+                </CardContent>
+            </Card>
+
+            <!-- Stat Card 3 -->
+            <Card class="bg-white border-slate-200/80 shadow-sm">
+                <CardContent class="p-5">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-sm font-medium text-slate-500">訂單數量</p>
+                            <p class="text-2xl font-bold text-slate-900 mt-1">2,847</p>
+                            <div class="flex items-center gap-1.5 mt-2">
+                                <span class="inline-flex items-center text-xs font-medium text-emerald-600 bg-emerald-50 px-1.5 py-0.5 rounded">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="mr-0.5"><path d="m18 15-6-6-6 6"/></svg>
+                                    15.3%
+                                </span>
+                                <span class="text-xs text-slate-400">較上月</span>
+                            </div>
+                        </div>
+                        <div class="w-12 h-12 rounded-xl bg-emerald-50 flex items-center justify-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-emerald-600">
+                                <path d="m7.5 4.27 9 5.15"/><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/>
+                            </svg>
+                        </div>
+                    </div>
+                </CardContent>
+            </Card>
+
+            <!-- Stat Card 4 -->
+            <Card class="bg-white border-slate-200/80 shadow-sm">
+                <CardContent class="p-5">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-sm font-medium text-slate-500">轉換率</p>
+                            <p class="text-2xl font-bold text-slate-900 mt-1">3.24%</p>
+                            <div class="flex items-center gap-1.5 mt-2">
+                                <span class="inline-flex items-center text-xs font-medium text-rose-600 bg-rose-50 px-1.5 py-0.5 rounded">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="mr-0.5"><path d="m6 9 6 6 6-6"/></svg>
+                                    0.8%
+                                </span>
+                                <span class="text-xs text-slate-400">較上月</span>
+                            </div>
+                        </div>
+                        <div class="w-12 h-12 rounded-xl bg-amber-50 flex items-center justify-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-amber-600">
+                                <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+                            </svg>
+                        </div>
+                    </div>
+                </CardContent>
+            </Card>
+        </div>
+
+        <!-- Charts Row -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <!-- Main Chart -->
+            <Card class="lg:col-span-2 bg-white border-slate-200/80 shadow-sm">
+                <CardHeader class="pb-2">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <CardTitle class="text-base font-semibold text-slate-900">營收趨勢</CardTitle>
+                            <CardDescription>過去 12 個月的營收變化</CardDescription>
+                        </div>
+                        <div class="flex items-center gap-1 p-1 bg-slate-100 rounded-lg">
+                            <button class="px-3 py-1.5 text-xs font-medium text-slate-600 hover:bg-white rounded transition-colors">週</button>
+                            <button class="px-3 py-1.5 text-xs font-medium bg-white text-violet-700 shadow-sm rounded">月</button>
+                            <button class="px-3 py-1.5 text-xs font-medium text-slate-600 hover:bg-white rounded transition-colors">年</button>
+                        </div>
+                    </div>
+                </CardHeader>
+                <CardContent>
+                    <!-- Area Chart SVG -->
+                    <div class="h-64 mt-4">
+                        <svg viewBox="0 0 400 160" class="w-full h-full" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="areaGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                                    <stop offset="0%" style="stop-color:rgb(139,92,246);stop-opacity:0.3" />
+                                    <stop offset="100%" style="stop-color:rgb(139,92,246);stop-opacity:0.02" />
+                                </linearGradient>
+                            </defs>
+                            <!-- Grid lines -->
+                            <line x1="0" y1="40" x2="400" y2="40" stroke="#e2e8f0" stroke-width="1" />
+                            <line x1="0" y1="80" x2="400" y2="80" stroke="#e2e8f0" stroke-width="1" />
+                            <line x1="0" y1="120" x2="400" y2="120" stroke="#e2e8f0" stroke-width="1" />
+                            <!-- Area -->
+                            <path d="M0,140 L33,120 L66,100 L100,110 L133,80 L166,90 L200,60 L233,70 L266,40 L300,50 L333,30 L366,20 L400,25 L400,160 L0,160 Z" fill="url(#areaGradient)" />
+                            <!-- Line -->
+                            <path d="M0,140 L33,120 L66,100 L100,110 L133,80 L166,90 L200,60 L233,70 L266,40 L300,50 L333,30 L366,20 L400,25" fill="none" stroke="#8b5cf6" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+                            <!-- Data points -->
+                            <circle cx="266" cy="40" r="4" fill="#8b5cf6" />
+                            <circle cx="333" cy="30" r="4" fill="#8b5cf6" />
+                            <circle cx="400" cy="25" r="4" fill="#8b5cf6" />
+                        </svg>
+                    </div>
+                    <!-- X axis labels -->
+                    <div class="flex justify-between mt-2 text-xs text-slate-400">
+                        <span>1月</span>
+                        <span>2月</span>
+                        <span>3月</span>
+                        <span>4月</span>
+                        <span>5月</span>
+                        <span>6月</span>
+                        <span>7月</span>
+                        <span>8月</span>
+                        <span>9月</span>
+                        <span>10月</span>
+                        <span>11月</span>
+                        <span>12月</span>
+                    </div>
+                </CardContent>
+            </Card>
+
+            <!-- Donut Chart -->
+            <Card class="bg-white border-slate-200/80 shadow-sm">
+                <CardHeader class="pb-2">
+                    <CardTitle class="text-base font-semibold text-slate-900">流量來源</CardTitle>
+                    <CardDescription>本月訪客分布</CardDescription>
+                </CardHeader>
+                <CardContent>
+                    <div class="flex items-center justify-center py-4">
+                        <svg viewBox="0 0 120 120" class="w-40 h-40">
+                            <!-- Donut segments -->
+                            <circle cx="60" cy="60" r="45" fill="none" stroke="#e2e8f0" stroke-width="20" />
+                            <circle cx="60" cy="60" r="45" fill="none" stroke="#8b5cf6" stroke-width="20" stroke-dasharray="98.96 283" stroke-dashoffset="0" transform="rotate(-90 60 60)" />
+                            <circle cx="60" cy="60" r="45" fill="none" stroke="#3b82f6" stroke-width="20" stroke-dasharray="70.69 283" stroke-dashoffset="-98.96" transform="rotate(-90 60 60)" />
+                            <circle cx="60" cy="60" r="45" fill="none" stroke="#10b981" stroke-width="20" stroke-dasharray="56.55 283" stroke-dashoffset="-169.65" transform="rotate(-90 60 60)" />
+                            <circle cx="60" cy="60" r="45" fill="none" stroke="#f59e0b" stroke-width="20" stroke-dasharray="42.41 283" stroke-dashoffset="-226.2" transform="rotate(-90 60 60)" />
+                            <!-- Center text -->
+                            <text x="60" y="55" text-anchor="middle" class="text-xl font-bold fill-slate-700" style="font-size: 16px;">24.8K</text>
+                            <text x="60" y="70" text-anchor="middle" class="text-xs fill-slate-400" style="font-size: 10px;">總訪客</text>
+                        </svg>
+                    </div>
+                    <!-- Legend -->
+                    <div class="space-y-2 mt-2">
+                        <div class="flex items-center justify-between text-sm">
+                            <div class="flex items-center gap-2">
+                                <span class="w-3 h-3 rounded-full bg-violet-500"></span>
+                                <span class="text-slate-600">自然搜尋</span>
+                            </div>
+                            <span class="font-medium text-slate-900">35%</span>
+                        </div>
+                        <div class="flex items-center justify-between text-sm">
+                            <div class="flex items-center gap-2">
+                                <span class="w-3 h-3 rounded-full bg-blue-500"></span>
+                                <span class="text-slate-600">直接訪問</span>
+                            </div>
+                            <span class="font-medium text-slate-900">25%</span>
+                        </div>
+                        <div class="flex items-center justify-between text-sm">
+                            <div class="flex items-center gap-2">
+                                <span class="w-3 h-3 rounded-full bg-emerald-500"></span>
+                                <span class="text-slate-600">社群媒體</span>
+                            </div>
+                            <span class="font-medium text-slate-900">20%</span>
+                        </div>
+                        <div class="flex items-center justify-between text-sm">
+                            <div class="flex items-center gap-2">
+                                <span class="w-3 h-3 rounded-full bg-amber-500"></span>
+                                <span class="text-slate-600">推薦連結</span>
+                            </div>
+                            <span class="font-medium text-slate-900">15%</span>
+                        </div>
+                    </div>
+                </CardContent>
+            </Card>
+        </div>
+
+        <!-- Recent Activity & Top Products -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <!-- Recent Activity -->
+            <Card class="bg-white border-slate-200/80 shadow-sm">
+                <CardHeader class="pb-2">
+                    <div class="flex items-center justify-between">
+                        <CardTitle class="text-base font-semibold text-slate-900">近期活動</CardTitle>
+                        <a href="#" class="text-sm text-violet-600 hover:text-violet-700 font-medium">查看全部</a>
+                    </div>
+                </CardHeader>
+                <CardContent>
+                    <div class="space-y-4">
+                        <div class="flex items-start gap-3">
+                            <div class="w-8 h-8 rounded-full bg-emerald-100 flex items-center justify-center shrink-0">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-emerald-600"><polyline points="20 6 9 17 4 12"/></svg>
+                            </div>
+                            <div class="flex-1 min-w-0">
+                                <p class="text-sm font-medium text-slate-700">新訂單完成</p>
+                                <p class="text-xs text-slate-500 mt-0.5">訂單 #12847 已成功付款</p>
+                            </div>
+                            <span class="text-xs text-slate-400 shrink-0">2 分鐘前</span>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <div class="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center shrink-0">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-blue-600"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" x2="19" y1="8" y2="14"/><line x1="22" x2="16" y1="11" y2="11"/></svg>
+                            </div>
+                            <div class="flex-1 min-w-0">
+                                <p class="text-sm font-medium text-slate-700">新用戶註冊</p>
+                                <p class="text-xs text-slate-500 mt-0.5">王小美 加入了平台</p>
+                            </div>
+                            <span class="text-xs text-slate-400 shrink-0">15 分鐘前</span>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <div class="w-8 h-8 rounded-full bg-violet-100 flex items-center justify-center shrink-0">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-violet-600"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" x2="12" y1="3" y2="15"/></svg>
+                            </div>
+                            <div class="flex-1 min-w-0">
+                                <p class="text-sm font-medium text-slate-700">報表已匯出</p>
+                                <p class="text-xs text-slate-500 mt-0.5">2024 年度報告.xlsx</p>
+                            </div>
+                            <span class="text-xs text-slate-400 shrink-0">1 小時前</span>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <div class="w-8 h-8 rounded-full bg-amber-100 flex items-center justify-center shrink-0">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-amber-600"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" x2="12" y1="9" y2="13"/><line x1="12" x2="12.01" y1="17" y2="17"/></svg>
+                            </div>
+                            <div class="flex-1 min-w-0">
+                                <p class="text-sm font-medium text-slate-700">庫存警告</p>
+                                <p class="text-xs text-slate-500 mt-0.5">產品 SKU-2847 庫存不足</p>
+                            </div>
+                            <span class="text-xs text-slate-400 shrink-0">3 小時前</span>
+                        </div>
+                    </div>
+                </CardContent>
+            </Card>
+
+            <!-- Top Products -->
+            <Card class="bg-white border-slate-200/80 shadow-sm">
+                <CardHeader class="pb-2">
+                    <div class="flex items-center justify-between">
+                        <CardTitle class="text-base font-semibold text-slate-900">熱銷商品</CardTitle>
+                        <a href="#" class="text-sm text-violet-600 hover:text-violet-700 font-medium">查看全部</a>
+                    </div>
+                </CardHeader>
+                <CardContent>
+                    <div class="space-y-4">
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-lg bg-slate-100 flex items-center justify-center shrink-0">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-slate-500"><rect width="20" height="14" x="2" y="3" rx="2"/><line x1="8" x2="16" y1="21" y2="21"/><line x1="12" x2="12" y1="17" y2="21"/></svg>
+                            </div>
+                            <div class="flex-1 min-w-0">
+                                <p class="text-sm font-medium text-slate-700">專業版方案</p>
+                                <p class="text-xs text-slate-500">324 筆銷售</p>
+                            </div>
+                            <div class="text-right">
+                                <p class="text-sm font-semibold text-slate-900">$32,400</p>
+                                <p class="text-xs text-emerald-600">+12%</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-lg bg-slate-100 flex items-center justify-center shrink-0">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-slate-500"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/></svg>
+                            </div>
+                            <div class="flex-1 min-w-0">
+                                <p class="text-sm font-medium text-slate-700">企業安全套件</p>
+                                <p class="text-xs text-slate-500">156 筆銷售</p>
+                            </div>
+                            <div class="text-right">
+                                <p class="text-sm font-semibold text-slate-900">$28,080</p>
+                                <p class="text-xs text-emerald-600">+8%</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-lg bg-slate-100 flex items-center justify-center shrink-0">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-slate-500"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+                            </div>
+                            <div class="flex-1 min-w-0">
+                                <p class="text-sm font-medium text-slate-700">資料分析模組</p>
+                                <p class="text-xs text-slate-500">218 筆銷售</p>
+                            </div>
+                            <div class="text-right">
+                                <p class="text-sm font-semibold text-slate-900">$21,800</p>
+                                <p class="text-xs text-emerald-600">+24%</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-lg bg-slate-100 flex items-center justify-center shrink-0">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-slate-500"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                            </div>
+                            <div class="flex-1 min-w-0">
+                                <p class="text-sm font-medium text-slate-700">自動化工具包</p>
+                                <p class="text-xs text-slate-500">189 筆銷售</p>
+                            </div>
+                            <div class="text-right">
+                                <p class="text-sm font-semibold text-slate-900">$18,900</p>
+                                <p class="text-xs text-rose-600">-3%</p>
+                            </div>
+                        </div>
+                    </div>
+                </CardContent>
+            </Card>
+        </div>
+
+        <!-- Recent Orders Table -->
+        <Card class="bg-white border-slate-200/80 shadow-sm overflow-hidden">
+            <CardHeader>
+                <div class="flex items-center justify-between">
+                    <div>
+                        <CardTitle class="text-base font-semibold text-slate-900">最近訂單</CardTitle>
+                        <CardDescription>本月的交易紀錄</CardDescription>
+                    </div>
+                    <Button variant="outline" size="sm" class="gap-1.5">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
+                        篩選
+                    </Button>
+                </div>
+            </CardHeader>
+            <div class="overflow-x-auto">
+                <table class="w-full">
+                    <thead class="bg-slate-50 border-y border-slate-200/60">
+                        <tr>
+                            <th class="px-6 py-3 text-left text-xs font-semibold text-slate-500 uppercase tracking-wider">訂單編號</th>
+                            <th class="px-6 py-3 text-left text-xs font-semibold text-slate-500 uppercase tracking-wider">客戶</th>
+                            <th class="px-6 py-3 text-left text-xs font-semibold text-slate-500 uppercase tracking-wider">產品</th>
+                            <th class="px-6 py-3 text-left text-xs font-semibold text-slate-500 uppercase tracking-wider">狀態</th>
+                            <th class="px-6 py-3 text-right text-xs font-semibold text-slate-500 uppercase tracking-wider">金額</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100">
+                        <tr class="hover:bg-slate-50/50 transition-colors">
+                            <td class="px-6 py-4 text-sm font-mono text-slate-600">#ORD-12847</td>
+                            <td class="px-6 py-4">
+                                <div class="flex items-center gap-3">
+                                    <Avatar class="w-8 h-8"><AvatarFallback class="bg-violet-100 text-violet-700 text-xs">陳</AvatarFallback></Avatar>
+                                    <div>
+                                        <p class="text-sm font-medium text-slate-700">陳小華</p>
+                                        <p class="text-xs text-slate-500">chen@example.com</p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 text-sm text-slate-600">專業版方案</td>
+                            <td class="px-6 py-4">
+                                <Badge class="bg-emerald-50 text-emerald-700 border-emerald-200">已完成</Badge>
+                            </td>
+                            <td class="px-6 py-4 text-sm font-medium text-slate-900 text-right">$1,299.00</td>
+                        </tr>
+                        <tr class="hover:bg-slate-50/50 transition-colors">
+                            <td class="px-6 py-4 text-sm font-mono text-slate-600">#ORD-12846</td>
+                            <td class="px-6 py-4">
+                                <div class="flex items-center gap-3">
+                                    <Avatar class="w-8 h-8"><AvatarFallback class="bg-blue-100 text-blue-700 text-xs">林</AvatarFallback></Avatar>
+                                    <div>
+                                        <p class="text-sm font-medium text-slate-700">林志明</p>
+                                        <p class="text-xs text-slate-500">lin@example.com</p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 text-sm text-slate-600">企業安全套件</td>
+                            <td class="px-6 py-4">
+                                <Badge class="bg-amber-50 text-amber-700 border-amber-200">處理中</Badge>
+                            </td>
+                            <td class="px-6 py-4 text-sm font-medium text-slate-900 text-right">$2,499.00</td>
+                        </tr>
+                        <tr class="hover:bg-slate-50/50 transition-colors">
+                            <td class="px-6 py-4 text-sm font-mono text-slate-600">#ORD-12845</td>
+                            <td class="px-6 py-4">
+                                <div class="flex items-center gap-3">
+                                    <Avatar class="w-8 h-8"><AvatarFallback class="bg-emerald-100 text-emerald-700 text-xs">王</AvatarFallback></Avatar>
+                                    <div>
+                                        <p class="text-sm font-medium text-slate-700">王美玲</p>
+                                        <p class="text-xs text-slate-500">wang@example.com</p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 text-sm text-slate-600">資料分析模組</td>
+                            <td class="px-6 py-4">
+                                <Badge class="bg-emerald-50 text-emerald-700 border-emerald-200">已完成</Badge>
+                            </td>
+                            <td class="px-6 py-4 text-sm font-medium text-slate-900 text-right">$899.00</td>
+                        </tr>
+                        <tr class="hover:bg-slate-50/50 transition-colors">
+                            <td class="px-6 py-4 text-sm font-mono text-slate-600">#ORD-12844</td>
+                            <td class="px-6 py-4">
+                                <div class="flex items-center gap-3">
+                                    <Avatar class="w-8 h-8"><AvatarFallback class="bg-rose-100 text-rose-700 text-xs">張</AvatarFallback></Avatar>
+                                    <div>
+                                        <p class="text-sm font-medium text-slate-700">張大偉</p>
+                                        <p class="text-xs text-slate-500">zhang@example.com</p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 text-sm text-slate-600">自動化工具包</td>
+                            <td class="px-6 py-4">
+                                <Badge class="bg-rose-50 text-rose-700 border-rose-200">已取消</Badge>
+                            </td>
+                            <td class="px-6 py-4 text-sm font-medium text-slate-900 text-right">$599.00</td>
+                        </tr>
+                        <tr class="hover:bg-slate-50/50 transition-colors">
+                            <td class="px-6 py-4 text-sm font-mono text-slate-600">#ORD-12843</td>
+                            <td class="px-6 py-4">
+                                <div class="flex items-center gap-3">
+                                    <Avatar class="w-8 h-8"><AvatarFallback class="bg-purple-100 text-purple-700 text-xs">李</AvatarFallback></Avatar>
+                                    <div>
+                                        <p class="text-sm font-medium text-slate-700">李佳穎</p>
+                                        <p class="text-xs text-slate-500">lee@example.com</p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 text-sm text-slate-600">專業版方案</td>
+                            <td class="px-6 py-4">
+                                <Badge class="bg-emerald-50 text-emerald-700 border-emerald-200">已完成</Badge>
+                            </td>
+                            <td class="px-6 py-4 text-sm font-medium text-slate-900 text-right">$1,299.00</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </Card>
+    </div>
+</DashboardV4Layout>

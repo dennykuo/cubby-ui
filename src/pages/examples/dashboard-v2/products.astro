@@ -1,0 +1,524 @@
+---
+import DashboardV2Layout from "../../../layouts/DashboardV2Layout.astro";
+import Button from "../../../components/ui/Button.astro";
+import Card from "../../../components/ui/Card.astro";
+import CardHeader from "../../../components/ui/CardHeader.astro";
+import CardTitle from "../../../components/ui/CardTitle.astro";
+import CardContent from "../../../components/ui/CardContent.astro";
+import CardFooter from "../../../components/ui/CardFooter.astro";
+import Badge from "../../../components/ui/Badge.astro";
+import Input from "../../../components/ui/Input.astro";
+import Select from "../../../components/ui/Select.astro";
+import Label from "../../../components/ui/Label.astro";
+
+// Sample Data
+const products = [
+    {
+        id: "PROD-001",
+        name: "Premium Leather Backpack",
+        category: "Accessories",
+        price: "$129.00",
+        stock: 45,
+        status: "In Stock",
+        image: "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?auto=format&fit=crop&q=80&w=200&h=200",
+    },
+    {
+        id: "PROD-002",
+        name: "Wireless Noise-Canceling Headphones",
+        category: "Electronics",
+        price: "$349.00",
+        stock: 12,
+        status: "Low Stock",
+        image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&q=80&w=200&h=200",
+    },
+    {
+        id: "PROD-003",
+        name: "Minimalist Desk Lamp",
+        category: "Home & Office",
+        price: "$89.00",
+        stock: 0,
+        status: "Out of Stock",
+        image: "https://images.unsplash.com/photo-1507473888900-52e1ad146957?auto=format&fit=crop&q=80&w=200&h=200",
+    },
+    {
+        id: "PROD-004",
+        name: "Smart Fitness Watch",
+        category: "Wearables",
+        price: "$199.50",
+        stock: 88,
+        status: "In Stock",
+        image: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&q=80&w=200&h=200",
+    },
+    {
+        id: "PROD-005",
+        name: "Ergonomic Office Chair",
+        category: "Furniture",
+        price: "$450.00",
+        stock: 24,
+        status: "In Stock",
+        image: "https://images.unsplash.com/photo-1592078615290-033ee584e267?auto=format&fit=crop&q=80&w=200&h=200",
+    },
+];
+---
+
+<DashboardV2Layout title="商品管理 — CubbyPro">
+    <div class="space-y-6 max-w-7xl mx-auto">
+        <!-- Header -->
+        <div class="sm:flex sm:items-center sm:justify-between">
+            <div>
+                <h1 class="text-2xl font-bold tracking-tight text-slate-900">
+                    商品管理
+                </h1>
+                <p class="mt-2 text-slate-500">
+                    管理商品目錄、庫存狀態與價格設定。
+                </p>
+            </div>
+            <div class="mt-4 sm:mt-0">
+                <Button
+                    class="bg-indigo-600 hover:bg-indigo-700 text-white gap-2 shadow-sm hover:shadow"
+                    onclick="document.getElementById('create_product_dialog').showModal()"
+                >
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        class="shrink-0"
+                        ><path d="M5 12h14"></path><path d="M12 5v14"
+                        ></path></svg
+                    >
+                    新增商品
+                </Button>
+            </div>
+        </div>
+
+        <!-- Toolbar -->
+        <Card class="bg-white border shadow-sm rounded-xl overflow-visible">
+            <div class="p-4 flex flex-col sm:flex-row gap-4 items-center">
+                <div class="relative w-full sm:w-96">
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 shrink-0"
+                        ><circle cx="11" cy="11" r="8"></circle><path
+                            d="m21 21-4.3-4.3"></path></svg
+                    >
+                    <Input
+                        placeholder="搜尋商品名稱、ID..."
+                        class="pl-9 bg-slate-50 border-slate-200 focus:bg-white transition-colors"
+                    />
+                </div>
+                <div class="flex gap-2 w-full sm:w-auto ml-auto">
+                    <Select class="w-full sm:w-[150px]">
+                        <option>所有分類</option>
+                        <option>Electronics</option>
+                        <option>Clothing</option>
+                    </Select>
+                    <Select class="w-full sm:w-[150px]">
+                        <option>所有狀態</option>
+                        <option>In Stock</option>
+                        <option>Low Stock</option>
+                        <option>Out of Stock</option>
+                    </Select>
+                </div>
+            </div>
+        </Card>
+
+        <!-- Product Table -->
+        <Card class="bg-white border shadow-sm rounded-xl overflow-hidden">
+            <div class="overflow-x-auto">
+                <table class="w-full text-sm text-left">
+                    <thead
+                        class="text-xs text-slate-500 uppercase bg-slate-50/50 border-b"
+                    >
+                        <tr>
+                            <th class="px-6 py-4 font-medium">商品資訊</th>
+                            <th class="px-6 py-4 font-medium">分類</th>
+                            <th class="px-6 py-4 font-medium">庫存</th>
+                            <th class="px-6 py-4 font-medium">價格</th>
+                            <th class="px-6 py-4 font-medium">狀態</th>
+                            <th class="px-6 py-4 font-medium text-right"
+                                >操作</th
+                            >
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100">
+                        {
+                            products.map((product) => (
+                                <tr class="hover:bg-slate-50/50 transition-colors group">
+                                    <td class="px-6 py-4">
+                                        <div class="flex items-center gap-4">
+                                            <div class="h-12 w-12 rounded-lg bg-slate-100 border border-slate-200 overflow-hidden shrink-0">
+                                                <img
+                                                    src={product.image}
+                                                    alt={product.name}
+                                                    class="h-full w-full object-cover"
+                                                />
+                                            </div>
+                                            <div>
+                                                <div class="font-medium text-slate-900 group-hover:text-indigo-600 transition-colors cursor-pointer">
+                                                    {product.name}
+                                                </div>
+                                                <div class="text-xs text-slate-500 mt-0.5">
+                                                    {product.id}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4 text-slate-600">
+                                        {product.category}
+                                    </td>
+                                    <td class="px-6 py-4 font-medium text-slate-700">
+                                        {product.stock}
+                                    </td>
+                                    <td class="px-6 py-4 font-medium text-slate-900">
+                                        {product.price}
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <Badge
+                                            variant={
+                                                product.status === "In Stock"
+                                                    ? "secondary"
+                                                    : product.status ===
+                                                        "Low Stock"
+                                                      ? "outline"
+                                                      : "destructive"
+                                            }
+                                            class={`
+                                            ${product.status === "In Stock" ? "bg-emerald-50 text-emerald-700 ring-1 ring-inset ring-emerald-600/20" : ""}
+                                            ${product.status === "Low Stock" ? "bg-amber-50 text-amber-700 ring-1 ring-inset ring-amber-600/20" : ""}
+                                            ${product.status === "Out of Stock" ? "bg-slate-100 text-slate-500 ring-1 ring-inset ring-slate-500/10" : ""}
+                                        `}
+                                        >
+                                            <span
+                                                class={`w-1.5 h-1.5 rounded-full mr-1.5 ${
+                                                    product.status ===
+                                                    "In Stock"
+                                                        ? "bg-emerald-500"
+                                                        : product.status ===
+                                                            "Low Stock"
+                                                          ? "bg-amber-500"
+                                                          : "bg-slate-400"
+                                                }`}
+                                            />
+                                            {product.status}
+                                        </Badge>
+                                    </td>
+                                    <td class="px-6 py-4 text-right">
+                                        <div class="flex items-center justify-end gap-2">
+                                            <Button
+                                                variant="ghost"
+                                                size="icon"
+                                                class="h-8 w-8 text-slate-400 hover:text-indigo-600 hover:bg-indigo-50"
+                                                onclick="document.getElementById('edit_product_dialog').showModal()"
+                                            >
+                                                <svg
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    width="16"
+                                                    height="16"
+                                                    viewBox="0 0 24 24"
+                                                    fill="none"
+                                                    stroke="currentColor"
+                                                    stroke-width="2"
+                                                    stroke-linecap="round"
+                                                    stroke-linejoin="round"
+                                                >
+                                                    <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z" />
+                                                </svg>
+                                            </Button>
+                                            <Button
+                                                variant="ghost"
+                                                size="icon"
+                                                class="h-8 w-8 text-slate-400 hover:text-rose-600 hover:bg-rose-50"
+                                                onclick="document.getElementById('delete_product_dialog').showModal()"
+                                            >
+                                                <svg
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    width="16"
+                                                    height="16"
+                                                    viewBox="0 0 24 24"
+                                                    fill="none"
+                                                    stroke="currentColor"
+                                                    stroke-width="2"
+                                                    stroke-linecap="round"
+                                                    stroke-linejoin="round"
+                                                >
+                                                    <>
+                                                        <path d="M3 6h18" />
+                                                        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+                                                    </>
+                                                </svg>
+                                            </Button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            ))
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div
+                class="border-t px-6 py-4 flex items-center justify-between bg-slate-50/50"
+            >
+                <p class="text-sm text-slate-500">顯示 1-5 筆，共 42 筆商品</p>
+                <div class="flex gap-2">
+                    <Button variant="outline" size="sm" disabled>上一頁</Button>
+                    <Button
+                        variant="outline"
+                        size="sm"
+                        class="bg-white hover:bg-slate-50">下一頁</Button
+                    >
+                </div>
+            </div>
+        </Card>
+    </div>
+
+    <!-- Create Product Dialog -->
+    <dialog
+        id="create_product_dialog"
+        class="backdrop:bg-slate-900/50 bg-transparent p-0 w-full max-w-lg rounded-2xl shadow-xl open:animate-in open:fade-in-0 open:zoom-in-95 backdrop:animate-in backdrop:fade-in-0"
+    >
+        <form
+            method="dialog"
+            class="bg-white rounded-2xl shadow-xl overflow-hidden"
+        >
+            <div
+                class="px-6 py-4 border-b flex items-center justify-between bg-slate-50/50"
+            >
+                <h3 class="text-lg font-semibold text-slate-900">新增商品</h3>
+                <button class="text-slate-400 hover:text-slate-500"
+                    ><svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="20"
+                        height="20"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        ><line x1="18" y1="6" x2="6" y2="18"></line><line
+                            x1="6"
+                            y1="6"
+                            x2="18"
+                            y2="18"></line></svg
+                    ></button
+                >
+            </div>
+
+            <div class="p-6 space-y-4">
+                <div class="space-y-2">
+                    <Label htmlFor="image" class="text-slate-700"
+                        >商品圖片</Label
+                    >
+                    <div
+                        class="border-2 border-dashed border-slate-200 rounded-lg p-6 flex flex-col items-center justify-center text-center hover:bg-slate-50 hover:border-indigo-300 transition-colors cursor-pointer group"
+                    >
+                        <div
+                            class="h-10 w-10 text-slate-300 group-hover:text-indigo-500 mb-2"
+                        >
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="100%"
+                                height="100%"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                ><rect
+                                    x="3"
+                                    y="3"
+                                    width="18"
+                                    height="18"
+                                    rx="2"
+                                    ry="2"></rect><circle
+                                    cx="8.5"
+                                    cy="8.5"
+                                    r="1.5"></circle><polyline
+                                    points="21 15 16 10 5 21"></polyline></svg
+                            >
+                        </div>
+                        <p
+                            class="text-sm font-medium text-slate-600 group-hover:text-indigo-600"
+                        >
+                            點擊上傳圖片
+                        </p>
+                        <p class="text-xs text-slate-400 mt-1">
+                            支援 PNG, JPG (Max 2MB)
+                        </p>
+                    </div>
+                </div>
+
+                <div class="space-y-2">
+                    <Label htmlFor="name">商品名稱</Label>
+                    <Input id="name" placeholder="例如：無線藍芽耳機" />
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="space-y-2">
+                        <Label htmlFor="category">分類</Label>
+                        <Select id="category">
+                            <option>Electronics</option>
+                            <option>Clothing</option>
+                            <option>Home</option>
+                        </Select>
+                    </div>
+                    <div class="space-y-2">
+                        <Label htmlFor="price">價格</Label>
+                        <Input id="price" placeholder="0.00" />
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="space-y-2">
+                        <Label htmlFor="stock">庫存數量</Label>
+                        <Input id="stock" type="number" placeholder="0" />
+                    </div>
+                    <div class="space-y-2">
+                        <Label htmlFor="status">狀態</Label>
+                        <Select id="status">
+                            <option>In Stock</option>
+                            <option>Low Stock</option>
+                            <option>Out of Stock</option>
+                        </Select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="px-6 py-4 bg-slate-50 border-t flex justify-end gap-3">
+                <Button variant="outline" formmethod="dialog">取消</Button>
+                <Button class="bg-indigo-600 hover:bg-indigo-700 text-white"
+                    >確認新增</Button
+                >
+            </div>
+        </form>
+    </dialog>
+
+    <!-- Edit Product Dialog (Simulated) -->
+    <dialog
+        id="edit_product_dialog"
+        class="backdrop:bg-slate-900/50 bg-transparent p-0 w-full max-w-lg rounded-2xl shadow-xl open:animate-in open:fade-in-0 open:zoom-in-95 backdrop:animate-in backdrop:fade-in-0"
+    >
+        <form
+            method="dialog"
+            class="bg-white rounded-2xl shadow-xl overflow-hidden"
+        >
+            <div
+                class="px-6 py-4 border-b flex items-center justify-between bg-slate-50/50"
+            >
+                <h3 class="text-lg font-semibold text-slate-900">編輯商品</h3>
+                <button class="text-slate-400 hover:text-slate-500"
+                    ><svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="20"
+                        height="20"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        ><line x1="18" y1="6" x2="6" y2="18"></line><line
+                            x1="6"
+                            y1="6"
+                            x2="18"
+                            y2="18"></line></svg
+                    ></button
+                >
+            </div>
+
+            <div class="p-6 space-y-4">
+                <div class="space-y-2">
+                    <Label htmlFor="edit_name">商品名稱</Label>
+                    <Input
+                        id="edit_name"
+                        defaultValue="Premium Leather Backpack"
+                    />
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="space-y-2">
+                        <Label htmlFor="edit_price">價格</Label>
+                        <Input id="edit_price" defaultValue="129.00" />
+                    </div>
+                    <div class="space-y-2">
+                        <Label htmlFor="edit_stock">庫存數量</Label>
+                        <Input
+                            id="edit_stock"
+                            type="number"
+                            defaultValue="45"
+                        />
+                    </div>
+                </div>
+            </div>
+
+            <div class="px-6 py-4 bg-slate-50 border-t flex justify-end gap-3">
+                <Button variant="outline" formmethod="dialog">取消</Button>
+                <Button class="bg-indigo-600 hover:bg-indigo-700 text-white"
+                    >儲存變更</Button
+                >
+            </div>
+        </form>
+    </dialog>
+
+    <!-- Delete Confirmation Dialog -->
+    <dialog
+        id="delete_product_dialog"
+        class="backdrop:bg-slate-900/50 bg-transparent p-0 w-full max-w-md rounded-2xl shadow-xl open:animate-in open:fade-in-0 open:zoom-in-95 backdrop:animate-in backdrop:fade-in-0"
+    >
+        <form
+            method="dialog"
+            class="bg-white rounded-2xl shadow-xl overflow-hidden"
+        >
+            <div class="p-6 text-center">
+                <div
+                    class="w-12 h-12 rounded-full bg-rose-100 text-rose-600 flex items-center justify-center mx-auto mb-4"
+                >
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        ><path d="M3 6h18"></path><path
+                            d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
+                        ></path><line x1="10" y1="11" x2="10" y2="17"
+                        ></line><line x1="14" y1="11" x2="14" y2="17"
+                        ></line></svg
+                    >
+                </div>
+                <h3 class="text-lg font-semibold text-slate-900">
+                    確定要刪除商品嗎？
+                </h3>
+                <p class="text-sm text-slate-500 mt-2">
+                    此操作將無法復原。商品 "Premium Leather Backpack"
+                    將會從系統中永久移除。
+                </p>
+            </div>
+
+            <div class="px-6 py-4 bg-slate-50 border-t flex justify-end gap-3">
+                <Button variant="outline" formmethod="dialog">取消</Button>
+                <Button class="bg-rose-600 hover:bg-rose-700 text-white"
+                    >確認刪除</Button
+                >
+            </div>
+        </form>
+    </dialog>
+</DashboardV2Layout>

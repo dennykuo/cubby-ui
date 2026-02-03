@@ -1,0 +1,415 @@
+---
+import DashboardV4Layout from "../../../layouts/DashboardV4Layout.astro";
+import Card from "../../../components/ui/Card.astro";
+import CardHeader from "../../../components/ui/CardHeader.astro";
+import CardTitle from "../../../components/ui/CardTitle.astro";
+import CardDescription from "../../../components/ui/CardDescription.astro";
+import CardContent from "../../../components/ui/CardContent.astro";
+import Button from "../../../components/ui/Button.astro";
+import Badge from "../../../components/ui/Badge.astro";
+import Avatar from "../../../components/ui/Avatar.astro";
+import AvatarFallback from "../../../components/ui/AvatarFallback.astro";
+import Input from "../../../components/ui/Input.astro";
+import Label from "../../../components/ui/Label.astro";
+import Toggle from "../../../components/ui/Toggle.astro";
+import Separator from "../../../components/ui/Separator.astro";
+import Textarea from "../../../components/ui/Textarea.astro";
+---
+
+<DashboardV4Layout title="偏好設定 — Prism">
+    <div class="space-y-6">
+        <!-- Page Header -->
+        <div>
+            <h1 class="text-2xl font-bold tracking-tight text-slate-900">偏好設定</h1>
+            <p class="text-slate-500 mt-1">管理您的帳號設定與偏好。</p>
+        </div>
+
+        <!-- Settings Layout -->
+        <div class="flex flex-col lg:flex-row gap-6">
+            <!-- Left Nav -->
+            <nav class="lg:w-56 shrink-0">
+                <div class="flex lg:flex-col gap-1 overflow-x-auto lg:overflow-visible pb-2 lg:pb-0">
+                    <button class="flex items-center gap-2 px-4 py-2.5 text-sm font-medium text-violet-700 bg-violet-50 rounded-lg whitespace-nowrap border-l-2 border-violet-600" data-settings-tab="profile">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                        個人資料
+                    </button>
+                    <button class="flex items-center gap-2 px-4 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-50 rounded-lg whitespace-nowrap border-l-2 border-transparent" data-settings-tab="team">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                        團隊管理
+                    </button>
+                    <button class="flex items-center gap-2 px-4 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-50 rounded-lg whitespace-nowrap border-l-2 border-transparent" data-settings-tab="billing">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg>
+                        訂閱與帳單
+                    </button>
+                    <button class="flex items-center gap-2 px-4 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-50 rounded-lg whitespace-nowrap border-l-2 border-transparent" data-settings-tab="integrations">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22v-5"/><path d="M9 8V2"/><path d="M15 8V2"/><path d="M18 8v5a4 4 0 0 1-4 4h-4a4 4 0 0 1-4-4V8Z"/></svg>
+                        整合服務
+                    </button>
+                    <button class="flex items-center gap-2 px-4 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-50 rounded-lg whitespace-nowrap border-l-2 border-transparent" data-settings-tab="api">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21 2-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0 3 3L22 7l-3-3m-3.5 3.5L19 4"/></svg>
+                        API 金鑰
+                    </button>
+                </div>
+            </nav>
+
+            <!-- Content Area -->
+            <div class="flex-1 min-w-0">
+                <!-- Profile Panel -->
+                <div data-settings-panel="profile">
+                    <Card class="bg-white border-slate-200/80 shadow-sm">
+                        <CardHeader>
+                            <CardTitle class="text-base font-semibold text-slate-900">個人資料</CardTitle>
+                            <CardDescription>更新您的個人資訊與頭像。</CardDescription>
+                        </CardHeader>
+                        <CardContent class="space-y-6">
+                            <!-- Avatar -->
+                            <div class="flex items-center gap-6">
+                                <Avatar class="w-20 h-20">
+                                    <AvatarFallback class="bg-gradient-to-br from-violet-400 to-purple-500 text-white text-2xl">林</AvatarFallback>
+                                </Avatar>
+                                <div class="space-y-2">
+                                    <Button variant="outline" size="sm">變更頭像</Button>
+                                    <p class="text-xs text-slate-500">建議尺寸 400x400px，支援 JPG、PNG 格式</p>
+                                </div>
+                            </div>
+
+                            <Separator />
+
+                            <!-- Form -->
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div class="space-y-2">
+                                    <Label>姓名</Label>
+                                    <Input value="林小明" />
+                                </div>
+                                <div class="space-y-2">
+                                    <Label>電子郵件</Label>
+                                    <Input value="lin.xiaoming@example.com" />
+                                </div>
+                                <div class="space-y-2">
+                                    <Label>角色</Label>
+                                    <Input value="管理員" disabled class="bg-slate-50" />
+                                </div>
+                                <div class="space-y-2">
+                                    <Label>電話</Label>
+                                    <Input value="+886 912 345 678" />
+                                </div>
+                            </div>
+
+                            <div class="space-y-2">
+                                <Label>個人簡介</Label>
+                                <Textarea rows={3} placeholder="簡單介紹一下自己...">資深產品經理，擁有 8 年軟體產業經驗，專注於數據分析與用戶體驗優化。</Textarea>
+                            </div>
+
+                            <div class="flex justify-end gap-3 pt-4">
+                                <Button variant="outline">取消</Button>
+                                <Button class="bg-violet-600 hover:bg-violet-700 text-white border-0">儲存變更</Button>
+                            </div>
+                        </CardContent>
+                    </Card>
+                </div>
+
+                <!-- Team Panel -->
+                <div data-settings-panel="team" class="hidden">
+                    <Card class="bg-white border-slate-200/80 shadow-sm">
+                        <CardHeader>
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <CardTitle class="text-base font-semibold text-slate-900">團隊成員</CardTitle>
+                                    <CardDescription>管理您團隊的成員與權限。</CardDescription>
+                                </div>
+                                <Button class="bg-violet-600 hover:bg-violet-700 text-white border-0 gap-2" size="sm">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" x2="19" y1="8" y2="14"/><line x1="22" x2="16" y1="11" y2="11"/></svg>
+                                    邀請成員
+                                </Button>
+                            </div>
+                        </CardHeader>
+                        <CardContent class="space-y-4">
+                            <div class="flex items-center justify-between p-4 bg-slate-50 rounded-lg">
+                                <div class="flex items-center gap-3">
+                                    <Avatar class="w-10 h-10"><AvatarFallback class="bg-violet-100 text-violet-700">林</AvatarFallback></Avatar>
+                                    <div>
+                                        <p class="text-sm font-medium text-slate-900">林小明</p>
+                                        <p class="text-xs text-slate-500">lin.xiaoming@example.com</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    <Badge class="bg-violet-50 text-violet-700 border-violet-200">管理員</Badge>
+                                    <span class="text-xs text-slate-400">你</span>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-between p-4 bg-slate-50 rounded-lg">
+                                <div class="flex items-center gap-3">
+                                    <Avatar class="w-10 h-10"><AvatarFallback class="bg-blue-100 text-blue-700">陳</AvatarFallback></Avatar>
+                                    <div>
+                                        <p class="text-sm font-medium text-slate-900">陳美玲</p>
+                                        <p class="text-xs text-slate-500">chen.meiling@example.com</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    <Badge class="bg-blue-50 text-blue-700 border-blue-200">編輯者</Badge>
+                                    <button class="text-xs text-rose-600 hover:text-rose-700">移除</button>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-between p-4 bg-slate-50 rounded-lg">
+                                <div class="flex items-center gap-3">
+                                    <Avatar class="w-10 h-10"><AvatarFallback class="bg-emerald-100 text-emerald-700">王</AvatarFallback></Avatar>
+                                    <div>
+                                        <p class="text-sm font-medium text-slate-900">王大偉</p>
+                                        <p class="text-xs text-slate-500">wang.dawei@example.com</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    <Badge class="bg-slate-100 text-slate-700 border-slate-200">檢視者</Badge>
+                                    <button class="text-xs text-rose-600 hover:text-rose-700">移除</button>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-between p-4 bg-slate-50 rounded-lg">
+                                <div class="flex items-center gap-3">
+                                    <Avatar class="w-10 h-10"><AvatarFallback class="bg-amber-100 text-amber-700">李</AvatarFallback></Avatar>
+                                    <div>
+                                        <p class="text-sm font-medium text-slate-900">李佳穎</p>
+                                        <p class="text-xs text-slate-500">lee.jiaying@example.com</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    <Badge class="bg-blue-50 text-blue-700 border-blue-200">編輯者</Badge>
+                                    <button class="text-xs text-rose-600 hover:text-rose-700">移除</button>
+                                </div>
+                            </div>
+                        </CardContent>
+                    </Card>
+                </div>
+
+                <!-- Billing Panel -->
+                <div data-settings-panel="billing" class="hidden space-y-6">
+                    <Card class="bg-white border-slate-200/80 shadow-sm">
+                        <CardHeader>
+                            <CardTitle class="text-base font-semibold text-slate-900">目前方案</CardTitle>
+                            <CardDescription>您目前的訂閱方案與用量。</CardDescription>
+                        </CardHeader>
+                        <CardContent class="space-y-6">
+                            <div class="flex items-center justify-between p-4 bg-gradient-to-r from-violet-50 to-purple-50 rounded-lg border border-violet-100">
+                                <div>
+                                    <div class="flex items-center gap-2">
+                                        <p class="text-lg font-semibold text-slate-900">專業版</p>
+                                        <Badge class="bg-violet-100 text-violet-700 border-violet-200">目前方案</Badge>
+                                    </div>
+                                    <p class="text-sm text-slate-500 mt-1">$99 / 月</p>
+                                </div>
+                                <Button variant="outline">升級方案</Button>
+                            </div>
+
+                            <div class="space-y-3">
+                                <div class="flex items-center justify-between text-sm">
+                                    <span class="text-slate-600">API 呼叫次數</span>
+                                    <span class="font-medium text-slate-900">8,420 / 10,000</span>
+                                </div>
+                                <div class="h-2 bg-slate-100 rounded-full overflow-hidden">
+                                    <div class="h-full bg-violet-500 rounded-full" style="width: 84.2%"></div>
+                                </div>
+                                <p class="text-xs text-slate-500">本月剩餘 1,580 次呼叫</p>
+                            </div>
+
+                            <Separator />
+
+                            <div class="space-y-3">
+                                <div class="flex items-center justify-between text-sm">
+                                    <span class="text-slate-600">儲存空間</span>
+                                    <span class="font-medium text-slate-900">12.4 GB / 50 GB</span>
+                                </div>
+                                <div class="h-2 bg-slate-100 rounded-full overflow-hidden">
+                                    <div class="h-full bg-emerald-500 rounded-full" style="width: 24.8%"></div>
+                                </div>
+                            </div>
+
+                            <div class="pt-2">
+                                <p class="text-sm text-slate-600">下次帳單日期：<span class="font-medium text-slate-900">2026 年 3 月 1 日</span></p>
+                            </div>
+                        </CardContent>
+                    </Card>
+
+                    <Card class="bg-white border-slate-200/80 shadow-sm">
+                        <CardHeader>
+                            <CardTitle class="text-base font-semibold text-slate-900">付款方式</CardTitle>
+                            <CardDescription>管理您的付款資訊。</CardDescription>
+                        </CardHeader>
+                        <CardContent>
+                            <div class="flex items-center justify-between p-4 bg-slate-50 rounded-lg">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-12 h-8 bg-gradient-to-r from-blue-600 to-blue-800 rounded flex items-center justify-center text-white text-xs font-bold">VISA</div>
+                                    <div>
+                                        <p class="text-sm font-medium text-slate-900">•••• •••• •••• 4242</p>
+                                        <p class="text-xs text-slate-500">到期日 12/2027</p>
+                                    </div>
+                                </div>
+                                <Button variant="outline" size="sm">更新</Button>
+                            </div>
+                        </CardContent>
+                    </Card>
+                </div>
+
+                <!-- Integrations Panel -->
+                <div data-settings-panel="integrations" class="hidden">
+                    <Card class="bg-white border-slate-200/80 shadow-sm">
+                        <CardHeader>
+                            <CardTitle class="text-base font-semibold text-slate-900">整合服務</CardTitle>
+                            <CardDescription>連接第三方應用程式。</CardDescription>
+                        </CardHeader>
+                        <CardContent class="space-y-4">
+                            <div class="flex items-center justify-between p-4 border border-slate-200 rounded-lg">
+                                <div class="flex items-center gap-4">
+                                    <div class="w-12 h-12 bg-[#4A154B] rounded-lg flex items-center justify-center">
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="white"><path d="M5.042 15.165a2.528 2.528 0 0 1-2.52 2.523A2.528 2.528 0 0 1 0 15.165a2.527 2.527 0 0 1 2.522-2.52h2.52v2.52zm1.271 0a2.527 2.527 0 0 1 2.521-2.52 2.527 2.527 0 0 1 2.521 2.52v6.313A2.528 2.528 0 0 1 8.834 24a2.528 2.528 0 0 1-2.521-2.522v-6.313zM8.834 5.042a2.528 2.528 0 0 1-2.521-2.52A2.528 2.528 0 0 1 8.834 0a2.528 2.528 0 0 1 2.521 2.522v2.52H8.834zm0 1.271a2.528 2.528 0 0 1 2.521 2.521 2.528 2.528 0 0 1-2.521 2.521H2.522A2.528 2.528 0 0 1 0 8.834a2.528 2.528 0 0 1 2.522-2.521h6.312zm10.124 2.521a2.528 2.528 0 0 1 2.52-2.521A2.528 2.528 0 0 1 24 8.834a2.528 2.528 0 0 1-2.522 2.521h-2.52V8.834zm-1.271 0a2.528 2.528 0 0 1-2.521 2.521 2.528 2.528 0 0 1-2.521-2.521V2.522A2.528 2.528 0 0 1 15.166 0a2.528 2.528 0 0 1 2.521 2.522v6.312zm-2.521 10.124a2.528 2.528 0 0 1 2.521 2.52A2.528 2.528 0 0 1 15.166 24a2.528 2.528 0 0 1-2.521-2.522v-2.52h2.521zm0-1.271a2.528 2.528 0 0 1-2.521-2.521 2.528 2.528 0 0 1 2.521-2.521h6.312A2.528 2.528 0 0 1 24 15.166a2.528 2.528 0 0 1-2.522 2.521h-6.312z"/></svg>
+                                    </div>
+                                    <div>
+                                        <p class="text-sm font-medium text-slate-900">Slack</p>
+                                        <p class="text-xs text-slate-500">接收即時通知到 Slack 頻道</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    <Badge class="bg-emerald-50 text-emerald-700 border-emerald-200">已連接</Badge>
+                                    <Toggle checked />
+                                </div>
+                            </div>
+
+                            <div class="flex items-center justify-between p-4 border border-slate-200 rounded-lg">
+                                <div class="flex items-center gap-4">
+                                    <div class="w-12 h-12 bg-slate-900 rounded-lg flex items-center justify-center">
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="white"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                                    </div>
+                                    <div>
+                                        <p class="text-sm font-medium text-slate-900">GitHub</p>
+                                        <p class="text-xs text-slate-500">同步程式碼儲存庫資訊</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    <Badge class="bg-emerald-50 text-emerald-700 border-emerald-200">已連接</Badge>
+                                    <Toggle checked />
+                                </div>
+                            </div>
+
+                            <div class="flex items-center justify-between p-4 border border-slate-200 rounded-lg">
+                                <div class="flex items-center gap-4">
+                                    <div class="w-12 h-12 bg-[#F24E1E] rounded-lg flex items-center justify-center">
+                                        <svg width="16" height="24" viewBox="0 0 38 57" fill="white"><path d="M19 28.5a9.5 9.5 0 1 1 19 0 9.5 9.5 0 0 1-19 0z"/><path d="M0 47.5A9.5 9.5 0 0 1 9.5 38H19v9.5a9.5 9.5 0 1 1-19 0z"/><path d="M19 0v19h9.5a9.5 9.5 0 1 0 0-19H19z"/><path d="M0 9.5A9.5 9.5 0 0 0 9.5 19H19V0H9.5A9.5 9.5 0 0 0 0 9.5z"/><path d="M0 28.5A9.5 9.5 0 0 0 9.5 38H19V19H9.5A9.5 9.5 0 0 0 0 28.5z"/></svg>
+                                    </div>
+                                    <div>
+                                        <p class="text-sm font-medium text-slate-900">Figma</p>
+                                        <p class="text-xs text-slate-500">匯入設計稿與資源</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    <Badge class="bg-slate-100 text-slate-600 border-slate-200">未連接</Badge>
+                                    <Button variant="outline" size="sm">連接</Button>
+                                </div>
+                            </div>
+                        </CardContent>
+                    </Card>
+                </div>
+
+                <!-- API Keys Panel -->
+                <div data-settings-panel="api" class="hidden">
+                    <Card class="bg-white border-slate-200/80 shadow-sm overflow-hidden">
+                        <CardHeader>
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <CardTitle class="text-base font-semibold text-slate-900">API 金鑰</CardTitle>
+                                    <CardDescription>管理您的 API 存取金鑰。</CardDescription>
+                                </div>
+                                <Button class="bg-violet-600 hover:bg-violet-700 text-white border-0 gap-2" size="sm">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" x2="12" y1="5" y2="19"/><line x1="5" x2="19" y1="12" y2="12"/></svg>
+                                    建立金鑰
+                                </Button>
+                            </div>
+                        </CardHeader>
+                        <div class="overflow-x-auto">
+                            <table class="w-full">
+                                <thead class="bg-slate-50 border-y border-slate-200/60">
+                                    <tr>
+                                        <th class="px-6 py-3 text-left text-xs font-semibold text-slate-500 uppercase tracking-wider">名稱</th>
+                                        <th class="px-6 py-3 text-left text-xs font-semibold text-slate-500 uppercase tracking-wider">金鑰</th>
+                                        <th class="px-6 py-3 text-left text-xs font-semibold text-slate-500 uppercase tracking-wider">建立日期</th>
+                                        <th class="px-6 py-3 text-left text-xs font-semibold text-slate-500 uppercase tracking-wider">最後使用</th>
+                                        <th class="px-6 py-3 text-right text-xs font-semibold text-slate-500 uppercase tracking-wider">操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-slate-100">
+                                    <tr class="hover:bg-slate-50/50 transition-colors">
+                                        <td class="px-6 py-4 text-sm font-medium text-slate-900">Production API</td>
+                                        <td class="px-6 py-4">
+                                            <code class="px-2 py-1 bg-slate-100 rounded text-xs font-mono text-slate-600">sk-prod-****...8f2a</code>
+                                        </td>
+                                        <td class="px-6 py-4 text-sm text-slate-500">2025/06/15</td>
+                                        <td class="px-6 py-4 text-sm text-slate-500">2 小時前</td>
+                                        <td class="px-6 py-4 text-right">
+                                            <div class="flex items-center justify-end gap-2">
+                                                <button class="text-xs text-slate-600 hover:text-slate-900">重新產生</button>
+                                                <button class="text-xs text-rose-600 hover:text-rose-700">刪除</button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr class="hover:bg-slate-50/50 transition-colors">
+                                        <td class="px-6 py-4 text-sm font-medium text-slate-900">Development</td>
+                                        <td class="px-6 py-4">
+                                            <code class="px-2 py-1 bg-slate-100 rounded text-xs font-mono text-slate-600">sk-dev-****...3b1c</code>
+                                        </td>
+                                        <td class="px-6 py-4 text-sm text-slate-500">2025/08/22</td>
+                                        <td class="px-6 py-4 text-sm text-slate-500">昨天</td>
+                                        <td class="px-6 py-4 text-right">
+                                            <div class="flex items-center justify-end gap-2">
+                                                <button class="text-xs text-slate-600 hover:text-slate-900">重新產生</button>
+                                                <button class="text-xs text-rose-600 hover:text-rose-700">刪除</button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr class="hover:bg-slate-50/50 transition-colors">
+                                        <td class="px-6 py-4 text-sm font-medium text-slate-900">Testing</td>
+                                        <td class="px-6 py-4">
+                                            <code class="px-2 py-1 bg-slate-100 rounded text-xs font-mono text-slate-600">sk-test-****...9e4d</code>
+                                        </td>
+                                        <td class="px-6 py-4 text-sm text-slate-500">2025/11/10</td>
+                                        <td class="px-6 py-4 text-sm text-slate-500">5 天前</td>
+                                        <td class="px-6 py-4 text-right">
+                                            <div class="flex items-center justify-end gap-2">
+                                                <button class="text-xs text-slate-600 hover:text-slate-900">重新產生</button>
+                                                <button class="text-xs text-rose-600 hover:text-rose-700">刪除</button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </Card>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const tabs = document.querySelectorAll('[data-settings-tab]');
+        const panels = document.querySelectorAll('[data-settings-panel]');
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const targetPanel = tab.getAttribute('data-settings-tab');
+
+                // Update tabs
+                tabs.forEach(t => {
+                    t.classList.remove('text-violet-700', 'bg-violet-50', 'border-violet-600');
+                    t.classList.add('text-slate-600', 'border-transparent');
+                });
+                tab.classList.remove('text-slate-600', 'border-transparent');
+                tab.classList.add('text-violet-700', 'bg-violet-50', 'border-violet-600');
+
+                // Update panels
+                panels.forEach(panel => {
+                    if (panel.getAttribute('data-settings-panel') === targetPanel) {
+                        panel.classList.remove('hidden');
+                    } else {
+                        panel.classList.add('hidden');
+                    }
+                });
+            });
+        });
+    </script>
+</DashboardV4Layout>
