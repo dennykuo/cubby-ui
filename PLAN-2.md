@@ -7,12 +7,12 @@
 - **行動**：修改 `Button.astro`，若有傳入 `href` 屬性則動態渲染為 `<a>`，否則渲染為 `<button>`。
 - **效益**：無縫支援「按鈕外觀的連結」，無需手動複製 class，這對於排版靈活性至關重要。
 
-## 2. 標準化互動邏輯 (Standardize Interaction Logic)
-目前 `src/scripts` 目錄是空的，像 Dialog 這類元件依賴使用者自行編寫互動程式碼。
-- **行動**：建立一個輕量的 `src/scripts/ui.js`，使用 **事件委派 (Event Delegation)** 模式。
-    - 監聽 `[data-cu-trigger="dialog"]` 的點擊事件以開啟目標 Dialog。
-    - 監聽 `[data-cu-dismiss]` 的點擊事件以關閉父層 Dialog/Overlay。
-- **效益**：實現真正的「複製貼上即用」。使用者只需引入該腳本，互動功能即可透過 data 屬性自動運作。
+## 2. 標準化互動邏輯 (Standardize Interaction Logic) ✅ 已完成
+已建立 `src/scripts/cubby-ui.js`，包含 13 個互動元件：
+- Tabs、Dropdown、Dialog、Drawer、Alert Dialog、Toast、Popover、Menubar
+- Combobox、Multi Select、Number Input、Dropzone、Transfer List
+
+使用 `data-cu-*` 屬性自動初始化，支援 NPM 發布和 CDN 引入。
 
 ## 3. CSS 變數與深色模式優化
 - **行動**：

@@ -1,25 +1,74 @@
 {
   "name": "cubby-ui",
-  "version": "0.0.1",
-  "description": "",
+  "version": "0.1.0",
+  "description": "Framework-agnostic UI components with pure HTML + Tailwind CSS",
   "type": "module",
+  "main": "dist/cubby-ui.js",
+  "style": "dist/cubby-ui.css",
+  "unpkg": "dist/cubby-ui.min.css",
+  "jsdelivr": "dist/cubby-ui.min.css",
+  "exports": {
+    ".": {
+      "default": "./dist/cubby-ui.js",
+      "style": "./dist/cubby-ui.css"
+    },
+    "./css": "./dist/cubby-ui.css",
+    "./css/min": "./dist/cubby-ui.min.css",
+    "./js": "./dist/cubby-ui.js",
+    "./js/min": "./dist/cubby-ui.min.js",
+    "./src/*": "./dist/src/*"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "build:lib": "rm -rf dist && npm run build:css && npm run build:js",
+    "build:css": "npm run build:css:full && npm run build:css:min && npm run build:css:src",
+    "build:css:full": "tailwindcss -i ./src/styles/global.css -o ./dist/cubby-ui.css",
+    "build:css:min": "tailwindcss -i ./src/styles/global.css -o ./dist/cubby-ui.min.css --minify",
+    "build:css:src": "mkdir -p ./dist/src && cp -r ./src/styles/* ./dist/src/",
+    "build:js": "npm run build:js:copy && npm run build:js:min",
+    "build:js:copy": "cp ./src/scripts/cubby-ui.js ./dist/cubby-ui.js",
+    "build:js:min": "terser ./dist/cubby-ui.js -o ./dist/cubby-ui.min.js -c -m",
+    "prepublishOnly": "npm run build:lib"
   },
-  "keywords": [],
+  "sideEffects": [
+    "*.css"
+  ],
+  "keywords": [
+    "ui",
+    "components",
+    "tailwindcss",
+    "html",
+    "css",
+    "framework-agnostic"
+  ],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dennykuo/cubby-ui.git"
+  },
+  "bugs": {
+    "url": "https://github.com/dennykuo/cubby-ui/issues"
+  },
+  "homepage": "https://github.com/dennykuo/cubby-ui#readme",
   "devDependencies": {
     "@astrojs/check": "^0.9.6",
+    "@tailwindcss/cli": "^4.1.18",
     "@tailwindcss/vite": "^4.0.0",
     "astro": "^5.1.0",
     "astro-expressive-code": "^0.41.6",
     "autoprefixer": "^10.4.23",
     "postcss": "^8.5.1",
-    "tailwindcss": "^4.0.0"
+    "tailwindcss": "^4.0.0",
+    "terser": "^5.37.0"
   }
 }

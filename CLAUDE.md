@@ -11,8 +11,9 @@ Cubby UI 是一個框架無關的 UI 元件庫，風格類似 shadcn/ui，使用
 ## Commands
 
 - `npm run dev` — 啟動 Astro 開發伺服器
-- `npm run build` — 建置靜態站點
+- `npm run build` — 建置文檔站點至 `docs/`
 - `npm run preview` — 預覽建置結果
+- `npm run build:lib` — 建置 NPM 套件至 `dist/`（CSS + JS）
 
 目前無 lint 或 test 命令。
 
@@ -68,10 +69,30 @@ Cubby UI 是一個框架無關的 UI 元件庫，風格類似 shadcn/ui，使用
 - 展開收合觸發器（Accordion、Collapsible、Tree View）使用 `outline-none` 移除瀏覽器預設 outline，不加 focus ring（因負邊距或密集排列場景）
 - 導航互動元素（Tabs、Pagination、Nav、Breadcrumb）同樣使用 `outline-none`
 
+### NPM 套件打包
+
+執行 `npm run build:lib` 後產生：
+
+```
+dist/
+├── cubby-ui.css          # 預編譯 CSS（@apply 已展開，不需 Tailwind）
+├── cubby-ui.min.css      # 壓縮版
+├── cubby-ui.js           # 互動元件 JS（UMD）
+├── cubby-ui.min.js       # 壓縮版
+└── src/                  # 原始 Tailwind CSS（進階用戶自訂主題用）
+    ├── global.css
+    ├── components.css
+    └── components/
+```
+
+互動元件 JS 原始檔位於 `src/scripts/cubby-ui.js`，包含 13 個元件：Tabs、Dropdown、Dialog、Drawer、Alert Dialog、Toast、Popover、Menubar、Combobox、Multi Select、Number Input、Dropzone、Transfer List。
+
 ### 目錄結構
 
 ```
 src/
+├── scripts/
+│   └── cubby-ui.js               — 互動元件 JS（打包來源）
 ├── components/
 │   ├── Header.astro              — 頂部導航列（使用 cu-header / cu-header-brand / cu-header-actions）
 │   ├── ComponentPreview.astro     — 元件展示框（Preview/Code 切換）

@@ -2,7 +2,29 @@
 import Layout from "../layouts/Layout.astro";
 import { Code } from "astro-expressive-code/components";
 
-const cssImportCode = `@import "tailwindcss";
+const cdnCode = `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://unpkg.com/cubby-ui/dist/cubby-ui.min.css" />
+</head>
+<body>
+  <!-- Your content -->
+
+  <script src="https://unpkg.com/cubby-ui/dist/cubby-ui.min.js"><\/script>
+</body>
+</html>`;
+
+const npmInstallCode = `npm install cubby-ui`;
+
+const npmUsageCode = `// Import CSS (in your main JS/TS file)
+import 'cubby-ui/dist/cubby-ui.css';
+
+// Import JS for interactive components
+import 'cubby-ui';`;
+
+const manualCssImportCode = `@import "tailwindcss";
 
 /* Cubby UI component styles */
 @import "./cubby-ui/components.css";
@@ -10,7 +32,7 @@ const cssImportCode = `@import "tailwindcss";
 /* Design tokens (colors, fonts, etc.) */
 @import "./cubby-ui/global.css";`;
 
-const htmlStructureCode = `<!DOCTYPE html>
+const manualHtmlCode = `<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -93,80 +115,106 @@ const darkModeCode = `<html class="dark">
     </div>
 
     <div class="mt-10 space-y-12">
-        <!-- Step 1: Copy Files -->
-        <section class="space-y-4">
-            <div class="flex items-center gap-3">
-                <div class="flex size-7 items-center justify-center rounded-full bg-primary text-primary-foreground text-xs font-semibold shrink-0">1</div>
-                <h2 class="text-lg font-semibold tracking-tight">Copy the files</h2>
-            </div>
-            <p class="text-base text-muted-foreground leading-relaxed pl-10">
-                Copy these files into your project:
-            </p>
-            <div class="pl-10 space-y-2">
-                <div class="flex items-start gap-3 rounded-lg border border-border p-3.5">
-                    <div class="flex size-8 items-center justify-center rounded-lg bg-muted shrink-0 mt-0.5">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-muted-foreground"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/></svg>
-                    </div>
-                    <div>
-                        <p class="text-sm font-medium"><code class="cu-code">styles/global.css</code></p>
-                        <p class="text-xs text-muted-foreground mt-0.5">Design tokens — colors, fonts, spacing, and theme variables</p>
-                    </div>
-                </div>
-                <div class="flex items-start gap-3 rounded-lg border border-border p-3.5">
-                    <div class="flex size-8 items-center justify-center rounded-lg bg-muted shrink-0 mt-0.5">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-muted-foreground"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/></svg>
-                    </div>
-                    <div>
-                        <p class="text-sm font-medium"><code class="cu-code">styles/components.css</code> + <code class="cu-code">styles/components/</code></p>
-                        <p class="text-xs text-muted-foreground mt-0.5">Component CSS classes — the core of Cubby UI</p>
-                    </div>
-                </div>
-                <div class="flex items-start gap-3 rounded-lg border border-border p-3.5">
-                    <div class="flex size-8 items-center justify-center rounded-lg bg-muted shrink-0 mt-0.5">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-muted-foreground"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/></svg>
-                    </div>
-                    <div>
-                        <p class="text-sm font-medium"><code class="cu-code">scripts/cubby-ui.js</code> <span class="cu-badge cu-badge-secondary text-[10px] ml-1.5">Optional</span></p>
-                        <p class="text-xs text-muted-foreground mt-0.5">Vanilla JS for interactive components (Tabs, Dropdown, Combobox, etc.)</p>
-                    </div>
-                </div>
-            </div>
-        </section>
+        <!-- Installation -->
+        <section class="space-y-6">
+            <h2 class="text-xl font-semibold tracking-tight">Installation</h2>
 
-        <!-- Step 2: Import CSS -->
-        <section class="space-y-4">
-            <div class="flex items-center gap-3">
-                <div class="flex size-7 items-center justify-center rounded-full bg-primary text-primary-foreground text-xs font-semibold shrink-0">2</div>
-                <h2 class="text-lg font-semibold tracking-tight">Import the CSS</h2>
-            </div>
-            <p class="text-base text-muted-foreground leading-relaxed pl-10">
-                Add the imports to your main CSS file. Requires <a href="https://tailwindcss.com" target="_blank" rel="noreferrer" class="text-primary hover:underline underline-offset-4">Tailwind CSS v4</a>.
-            </p>
-            <div class="pl-10 rounded-xl border border-border bg-muted/20 overflow-hidden">
-                <div class="flex items-center px-4 py-2.5 border-b border-border/40">
-                    <span class="text-[11px] font-medium uppercase tracking-wider text-muted-foreground/60">main.css</span>
+            <!-- CDN -->
+            <div class="space-y-3">
+                <div class="flex items-center gap-2">
+                    <h3 class="text-base font-medium">CDN</h3>
+                    <span class="cu-badge cu-badge-success text-[10px]">Recommended</span>
                 </div>
-                <div class="px-4 py-3">
-                    <Code code={cssImportCode} lang="css" />
+                <p class="text-sm text-muted-foreground">
+                    The quickest way to get started. No build tools required.
+                </p>
+                <div class="rounded-xl border border-border bg-muted/20 overflow-hidden">
+                    <div class="flex items-center px-4 py-2.5 border-b border-border/40">
+                        <span class="text-[11px] font-medium uppercase tracking-wider text-muted-foreground/60">index.html</span>
+                    </div>
+                    <div class="px-4 py-3">
+                        <Code code={cdnCode} lang="html" />
+                    </div>
                 </div>
             </div>
-        </section>
 
-        <!-- Step 3: HTML Structure -->
-        <section class="space-y-4">
-            <div class="flex items-center gap-3">
-                <div class="flex size-7 items-center justify-center rounded-full bg-primary text-primary-foreground text-xs font-semibold shrink-0">3</div>
-                <h2 class="text-lg font-semibold tracking-tight">Set up your HTML</h2>
-            </div>
-            <p class="text-base text-muted-foreground leading-relaxed pl-10">
-                Basic page structure. Skip <code class="cu-code">cubby-ui.js</code> if you only use CSS-only components.
-            </p>
-            <div class="pl-10 rounded-xl border border-border bg-muted/20 overflow-hidden">
-                <div class="flex items-center px-4 py-2.5 border-b border-border/40">
-                    <span class="text-[11px] font-medium uppercase tracking-wider text-muted-foreground/60">index.html</span>
+            <!-- NPM -->
+            <div class="space-y-3">
+                <h3 class="text-base font-medium">NPM</h3>
+                <p class="text-sm text-muted-foreground">
+                    For projects using a bundler like Vite, Webpack, or similar.
+                </p>
+                <div class="rounded-xl border border-border bg-muted/20 overflow-hidden">
+                    <div class="flex items-center px-4 py-2.5 border-b border-border/40">
+                        <span class="text-[11px] font-medium uppercase tracking-wider text-muted-foreground/60">Terminal</span>
+                    </div>
+                    <div class="px-4 py-3">
+                        <Code code={npmInstallCode} lang="bash" />
+                    </div>
                 </div>
-                <div class="px-4 py-3">
-                    <Code code={htmlStructureCode} lang="html" />
+                <div class="rounded-xl border border-border bg-muted/20 overflow-hidden">
+                    <div class="flex items-center px-4 py-2.5 border-b border-border/40">
+                        <span class="text-[11px] font-medium uppercase tracking-wider text-muted-foreground/60">main.js</span>
+                    </div>
+                    <div class="px-4 py-3">
+                        <Code code={npmUsageCode} lang="javascript" />
+                    </div>
+                </div>
+            </div>
+
+            <!-- Manual -->
+            <div class="space-y-3">
+                <h3 class="text-base font-medium">Manual (Tailwind CSS source)</h3>
+                <p class="text-sm text-muted-foreground">
+                    For advanced users who want to customize the theme or use Tailwind CSS utilities. Requires <a href="https://tailwindcss.com" target="_blank" rel="noreferrer" class="text-primary hover:underline underline-offset-4">Tailwind CSS v4</a>.
+                </p>
+                <p class="text-sm text-muted-foreground">
+                    Copy these files from <code class="cu-code">src/styles/</code> into your project:
+                </p>
+                <div class="space-y-2">
+                    <div class="flex items-start gap-3 rounded-lg border border-border p-3.5">
+                        <div class="flex size-8 items-center justify-center rounded-lg bg-muted shrink-0 mt-0.5">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-muted-foreground"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/></svg>
+                        </div>
+                        <div>
+                            <p class="text-sm font-medium"><code class="cu-code">global.css</code></p>
+                            <p class="text-xs text-muted-foreground mt-0.5">Design tokens — colors, fonts, spacing, and theme variables</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-3 rounded-lg border border-border p-3.5">
+                        <div class="flex size-8 items-center justify-center rounded-lg bg-muted shrink-0 mt-0.5">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-muted-foreground"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/></svg>
+                        </div>
+                        <div>
+                            <p class="text-sm font-medium"><code class="cu-code">components.css</code> + <code class="cu-code">components/</code></p>
+                            <p class="text-xs text-muted-foreground mt-0.5">Component CSS classes — the core of Cubby UI</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-3 rounded-lg border border-border p-3.5">
+                        <div class="flex size-8 items-center justify-center rounded-lg bg-muted shrink-0 mt-0.5">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-muted-foreground"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/></svg>
+                        </div>
+                        <div>
+                            <p class="text-sm font-medium"><code class="cu-code">scripts/cubby-ui.js</code> <span class="cu-badge cu-badge-secondary text-[10px] ml-1.5">Optional</span></p>
+                            <p class="text-xs text-muted-foreground mt-0.5">Vanilla JS for interactive components</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="rounded-xl border border-border bg-muted/20 overflow-hidden">
+                    <div class="flex items-center px-4 py-2.5 border-b border-border/40">
+                        <span class="text-[11px] font-medium uppercase tracking-wider text-muted-foreground/60">main.css</span>
+                    </div>
+                    <div class="px-4 py-3">
+                        <Code code={manualCssImportCode} lang="css" />
+                    </div>
+                </div>
+                <div class="rounded-xl border border-border bg-muted/20 overflow-hidden">
+                    <div class="flex items-center px-4 py-2.5 border-b border-border/40">
+                        <span class="text-[11px] font-medium uppercase tracking-wider text-muted-foreground/60">index.html</span>
+                    </div>
+                    <div class="px-4 py-3">
+                        <Code code={manualHtmlCode} lang="html" />
+                    </div>
                 </div>
             </div>
         </section>
@@ -264,6 +312,30 @@ const darkModeCode = `<html class="dark">
                             <tr class="cu-table-row">
                                 <td class="cu-table-cell font-medium">Dropdown</td>
                                 <td class="cu-table-cell text-muted-foreground"><code class="cu-code">data-cu-dropdown</code></td>
+                            </tr>
+                            <tr class="cu-table-row">
+                                <td class="cu-table-cell font-medium">Dialog</td>
+                                <td class="cu-table-cell text-muted-foreground"><code class="cu-code">data-cu-dialog</code></td>
+                            </tr>
+                            <tr class="cu-table-row">
+                                <td class="cu-table-cell font-medium">Drawer</td>
+                                <td class="cu-table-cell text-muted-foreground"><code class="cu-code">data-cu-drawer</code></td>
+                            </tr>
+                            <tr class="cu-table-row">
+                                <td class="cu-table-cell font-medium">Alert Dialog</td>
+                                <td class="cu-table-cell text-muted-foreground"><code class="cu-code">data-cu-alert-dialog</code></td>
+                            </tr>
+                            <tr class="cu-table-row">
+                                <td class="cu-table-cell font-medium">Toast</td>
+                                <td class="cu-table-cell text-muted-foreground"><code class="cu-code">data-cu-toast-trigger</code></td>
+                            </tr>
+                            <tr class="cu-table-row">
+                                <td class="cu-table-cell font-medium">Popover</td>
+                                <td class="cu-table-cell text-muted-foreground"><code class="cu-code">data-cu-popover</code></td>
+                            </tr>
+                            <tr class="cu-table-row">
+                                <td class="cu-table-cell font-medium">Menubar</td>
+                                <td class="cu-table-cell text-muted-foreground"><code class="cu-code">data-cu-menubar</code></td>
                             </tr>
                             <tr class="cu-table-row">
                                 <td class="cu-table-cell font-medium">Combobox</td>

@@ -1,0 +1,259 @@
+---
+import DashboardV5Layout from "../../../layouts/DashboardV5Layout.astro";
+---
+
+<DashboardV5Layout title="系統設定 — DataHub">
+    <div class="space-y-6 max-w-4xl">
+        <!-- Page Header -->
+        <header class="cu-page-header">
+            <div class="cu-page-header-content">
+                <h1 class="cu-page-header-title">系統設定</h1>
+                <p class="cu-page-header-description">管理您的帳號與系統偏好設定。</p>
+            </div>
+        </header>
+
+        <!-- Profile Settings -->
+        <div class="cu-card">
+            <div class="cu-card-header">
+                <h2 class="cu-card-title text-base">個人資料</h2>
+                <p class="cu-card-description">更新您的個人資訊。</p>
+            </div>
+            <div class="cu-card-content">
+                <div class="flex flex-col sm:flex-row gap-6">
+                    <!-- Avatar -->
+                    <div class="flex flex-col items-center gap-3">
+                        <div class="cu-avatar w-24 h-24">
+                            <div class="cu-avatar-fallback text-2xl font-medium">林</div>
+                        </div>
+                        <button class="cu-button cu-button-outline cu-button-sm">變更頭像</button>
+                    </div>
+
+                    <!-- Form -->
+                    <div class="flex-1 space-y-4">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div class="space-y-2">
+                                <label class="cu-label">姓名</label>
+                                <input type="text" value="林小明" class="cu-input" />
+                            </div>
+                            <div class="space-y-2">
+                                <label class="cu-label">電子郵件</label>
+                                <input type="email" value="lin.xiaoming@example.com" class="cu-input" />
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div class="space-y-2">
+                                <label class="cu-label">電話</label>
+                                <input type="tel" value="0912-345-678" class="cu-input" />
+                            </div>
+                            <div class="space-y-2">
+                                <label class="cu-label">角色</label>
+                                <input type="text" value="管理員" disabled class="cu-input" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex justify-end mt-6 pt-6 border-t border-border">
+                    <button class="cu-button cu-button-default">儲存變更</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Notification Settings -->
+        <div class="cu-card">
+            <div class="cu-card-header">
+                <h2 class="cu-card-title text-base">通知設定</h2>
+                <p class="cu-card-description">管理您的通知偏好。</p>
+            </div>
+            <div class="cu-card-content-flush">
+                <div class="divide-y divide-border">
+                    <div class="cu-setting-item">
+                        <div class="cu-setting-item-content">
+                            <p class="cu-setting-item-label">新訂單通知</p>
+                            <p class="cu-setting-item-description">收到新訂單時發送通知</p>
+                        </div>
+                        <div class="cu-setting-item-action">
+                            <label class="cu-toggle-wrapper">
+                                <input type="checkbox" class="peer sr-only" checked />
+                                <span class="cu-toggle"></span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="cu-setting-item">
+                        <div class="cu-setting-item-content">
+                            <p class="cu-setting-item-label">庫存警告</p>
+                            <p class="cu-setting-item-description">產品庫存不足時發送警告</p>
+                        </div>
+                        <div class="cu-setting-item-action">
+                            <label class="cu-toggle-wrapper">
+                                <input type="checkbox" class="peer sr-only" checked />
+                                <span class="cu-toggle"></span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="cu-setting-item">
+                        <div class="cu-setting-item-content">
+                            <p class="cu-setting-item-label">每週報表</p>
+                            <p class="cu-setting-item-description">每週發送業務摘要報告</p>
+                        </div>
+                        <div class="cu-setting-item-action">
+                            <label class="cu-toggle-wrapper">
+                                <input type="checkbox" class="peer sr-only" />
+                                <span class="cu-toggle"></span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="cu-setting-item">
+                        <div class="cu-setting-item-content">
+                            <p class="cu-setting-item-label">系統更新</p>
+                            <p class="cu-setting-item-description">接收系統更新與維護通知</p>
+                        </div>
+                        <div class="cu-setting-item-action">
+                            <label class="cu-toggle-wrapper">
+                                <input type="checkbox" class="peer sr-only" checked />
+                                <span class="cu-toggle"></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Data Management -->
+        <div class="cu-card">
+            <div class="cu-card-header">
+                <h2 class="cu-card-title text-base">資料管理</h2>
+                <p class="cu-card-description">匯入、匯出與備份您的資料。</p>
+            </div>
+            <div class="cu-card-content">
+                <div class="space-y-4">
+                    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between p-4 bg-muted/50 rounded-lg gap-4">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-lg bg-background border border-border flex items-center justify-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-muted-foreground"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+                            </div>
+                            <div>
+                                <p class="text-sm font-medium">匯出資料</p>
+                                <p class="text-xs text-muted-foreground">下載所有資料為 CSV 或 Excel 格式</p>
+                            </div>
+                        </div>
+                        <button class="cu-button cu-button-outline cu-button-sm shrink-0">匯出</button>
+                    </div>
+
+                    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between p-4 bg-muted/50 rounded-lg gap-4">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-lg bg-background border border-border flex items-center justify-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-muted-foreground"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" x2="12" y1="3" y2="15"/></svg>
+                            </div>
+                            <div>
+                                <p class="text-sm font-medium">匯入資料</p>
+                                <p class="text-xs text-muted-foreground">從 CSV 或 Excel 匯入資料</p>
+                            </div>
+                        </div>
+                        <button class="cu-button cu-button-outline cu-button-sm shrink-0">匯入</button>
+                    </div>
+
+                    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between p-4 bg-muted/50 rounded-lg gap-4">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-lg bg-background border border-border flex items-center justify-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-muted-foreground"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+                            </div>
+                            <div>
+                                <p class="text-sm font-medium">自動備份</p>
+                                <p class="text-xs text-muted-foreground">上次備份：2026/02/03 03:00</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="cu-badge cu-badge-soft-success">已啟用</span>
+                            <button class="cu-button cu-button-outline cu-button-sm shrink-0">設定</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Display Settings -->
+        <div class="cu-card">
+            <div class="cu-card-header">
+                <h2 class="cu-card-title text-base">顯示設定</h2>
+                <p class="cu-card-description">自訂介面的顯示方式。</p>
+            </div>
+            <div class="cu-card-content">
+                <div class="space-y-4">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-sm font-medium">預設每頁筆數</p>
+                            <p class="text-sm text-muted-foreground mt-0.5">列表預設顯示的資料筆數</p>
+                        </div>
+                        <div class="cu-select-wrapper">
+                            <select class="cu-select">
+                                <option value="10">10 筆</option>
+                                <option value="25" selected>25 筆</option>
+                                <option value="50">50 筆</option>
+                                <option value="100">100 筆</option>
+                            </select>
+                            <svg class="cu-select-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+                        </div>
+                    </div>
+
+                    <hr class="cu-separator" />
+
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-sm font-medium">日期格式</p>
+                            <p class="text-sm text-muted-foreground mt-0.5">顯示日期的格式</p>
+                        </div>
+                        <div class="cu-select-wrapper">
+                            <select class="cu-select">
+                                <option value="yyyy/mm/dd" selected>YYYY/MM/DD</option>
+                                <option value="dd/mm/yyyy">DD/MM/YYYY</option>
+                                <option value="mm/dd/yyyy">MM/DD/YYYY</option>
+                            </select>
+                            <svg class="cu-select-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+                        </div>
+                    </div>
+
+                    <hr class="cu-separator" />
+
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-sm font-medium">緊湊模式</p>
+                            <p class="text-sm text-muted-foreground mt-0.5">減少表格行距以顯示更多資料</p>
+                        </div>
+                        <label class="cu-toggle-wrapper">
+                            <input type="checkbox" class="peer sr-only" />
+                            <span class="cu-toggle"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Danger Zone -->
+        <div class="cu-card border-destructive/50">
+            <div class="cu-card-header border-b border-destructive/30">
+                <h2 class="cu-card-title text-base text-destructive">危險區域</h2>
+                <p class="cu-card-description">以下操作不可復原，請謹慎執行。</p>
+            </div>
+            <div class="cu-card-content">
+                <div class="space-y-4">
+                    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between p-4 border border-destructive/30 bg-destructive/5 rounded-lg gap-4">
+                        <div>
+                            <p class="text-sm font-medium">清除所有資料</p>
+                            <p class="text-xs text-muted-foreground mt-0.5">刪除所有產品、訂單、客戶資料</p>
+                        </div>
+                        <button class="cu-button cu-button-outline cu-button-sm shrink-0 border-destructive/50 text-destructive hover:bg-destructive/10">清除資料</button>
+                    </div>
+
+                    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between p-4 border border-destructive/30 bg-destructive/5 rounded-lg gap-4">
+                        <div>
+                            <p class="text-sm font-medium">刪除帳號</p>
+                            <p class="text-xs text-muted-foreground mt-0.5">永久刪除您的帳號與所有資料</p>
+                        </div>
+                        <button class="cu-button cu-button-destructive cu-button-sm shrink-0">刪除帳號</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</DashboardV5Layout>

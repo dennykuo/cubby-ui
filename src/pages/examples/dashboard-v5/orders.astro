@@ -1,0 +1,207 @@
+---
+import DashboardV5Layout from "../../../layouts/DashboardV5Layout.astro";
+
+// 模擬訂單資料
+const orders = [
+    { id: "ORD-2024-001", customer: "陳柏翰", email: "chen@example.com", items: 3, total: 89700, status: "completed", date: "2026/02/03 14:32", payment: "信用卡" },
+    { id: "ORD-2024-002", customer: "林雅婷", email: "lin@example.com", items: 1, total: 52900, status: "processing", date: "2026/02/03 11:18", payment: "Apple Pay" },
+    { id: "ORD-2024-003", customer: "王俊傑", email: "wang@example.com", items: 2, total: 10490, status: "pending", date: "2026/02/03 09:45", payment: "銀行轉帳" },
+    { id: "ORD-2024-004", customer: "張家豪", email: "zhang@example.com", items: 1, total: 27900, status: "shipped", date: "2026/02/02 16:22", payment: "信用卡" },
+    { id: "ORD-2024-005", customer: "李佳穎", email: "lee@example.com", items: 4, total: 115180, status: "completed", date: "2026/02/02 13:08", payment: "信用卡" },
+    { id: "ORD-2024-006", customer: "黃宗翰", email: "huang@example.com", items: 2, total: 67890, status: "cancelled", date: "2026/02/02 10:55", payment: "信用卡" },
+    { id: "ORD-2024-007", customer: "吳欣怡", email: "wu@example.com", items: 1, total: 22900, status: "shipped", date: "2026/02/01 19:30", payment: "LINE Pay" },
+    { id: "ORD-2024-008", customer: "許志明", email: "xu@example.com", items: 5, total: 143570, status: "completed", date: "2026/02/01 15:12", payment: "信用卡" },
+];
+
+const statusConfig = {
+    pending: { label: "待處理", class: "cu-badge cu-badge-secondary" },
+    processing: { label: "處理中", class: "cu-badge cu-badge-soft-info" },
+    shipped: { label: "已出貨", class: "cu-badge cu-badge-soft-warning" },
+    completed: { label: "已完成", class: "cu-badge cu-badge-soft-success" },
+    cancelled: { label: "已取消", class: "cu-badge cu-badge-soft-destructive" },
+};
+---
+
+<DashboardV5Layout title="訂單紀錄 — DataHub">
+    <div class="space-y-6">
+        <!-- Page Header -->
+        <header class="cu-page-header">
+            <div class="cu-page-header-content">
+                <h1 class="cu-page-header-title">訂單紀錄</h1>
+                <p class="cu-page-header-description">追蹤並管理所有訂單。</p>
+            </div>
+            <div class="cu-page-header-actions">
+                <button class="cu-button cu-button-outline">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+                    匯出報表
+                </button>
+                <button class="cu-button cu-button-default">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" x2="12" y1="5" y2="19"/><line x1="5" x2="19" y1="12" y2="12"/></svg>
+                    新增訂單
+                </button>
+            </div>
+        </header>
+
+        <!-- Quick Stats -->
+        <div class="grid grid-cols-2 lg:grid-cols-5 gap-4">
+            <div class="cu-stat">
+                <div class="cu-stat-header">
+                    <span class="cu-stat-label">總訂單</span>
+                </div>
+                <div class="cu-stat-value">52</div>
+            </div>
+            <div class="cu-stat">
+                <div class="cu-stat-header">
+                    <span class="cu-stat-label">待處理</span>
+                </div>
+                <div class="cu-stat-value">8</div>
+            </div>
+            <div class="cu-stat">
+                <div class="cu-stat-header">
+                    <span class="cu-stat-label">處理中</span>
+                </div>
+                <div class="cu-stat-value text-info">12</div>
+            </div>
+            <div class="cu-stat">
+                <div class="cu-stat-header">
+                    <span class="cu-stat-label">已出貨</span>
+                </div>
+                <div class="cu-stat-value text-warning">15</div>
+            </div>
+            <div class="cu-stat">
+                <div class="cu-stat-header">
+                    <span class="cu-stat-label">已完成</span>
+                </div>
+                <div class="cu-stat-value text-success">27</div>
+            </div>
+        </div>
+
+        <!-- Filter Bar -->
+        <div class="cu-filter-bar">
+            <div class="cu-filter-bar-inner">
+                <div class="cu-filter-bar-search">
+                    <div class="cu-input-search">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="cu-input-search-icon">
+                            <circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>
+                        </svg>
+                        <input type="text" placeholder="搜尋訂單編號、客戶名稱..." class="cu-input-search-field" />
+                    </div>
+                </div>
+                <div class="cu-filter-bar-filters">
+                    <!-- Date Range -->
+                    <div class="flex items-center gap-2 px-3 h-9 bg-background border border-input rounded-lg">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-muted-foreground">
+                            <rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/>
+                        </svg>
+                        <span class="text-sm">2026/02/01 - 2026/02/03</span>
+                    </div>
+                    <!-- Status Filter -->
+                    <div class="cu-select-wrapper">
+                        <select class="cu-select">
+                            <option value="">所有狀態</option>
+                            <option value="pending">待處理</option>
+                            <option value="processing">處理中</option>
+                            <option value="shipped">已出貨</option>
+                            <option value="completed">已完成</option>
+                            <option value="cancelled">已取消</option>
+                        </select>
+                        <svg class="cu-select-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Orders Table -->
+        <div class="cu-card overflow-hidden">
+            <div class="cu-table-wrapper">
+                <table class="cu-table">
+                    <thead class="cu-table-header">
+                        <tr class="cu-table-row hover:bg-transparent">
+                            <th class="cu-table-head w-12">
+                                <input type="checkbox" class="cu-checkbox" />
+                            </th>
+                            <th class="cu-table-head">訂單編號</th>
+                            <th class="cu-table-head">客戶</th>
+                            <th class="cu-table-head text-center">商品數</th>
+                            <th class="cu-table-head text-right">金額</th>
+                            <th class="cu-table-head text-center">付款方式</th>
+                            <th class="cu-table-head text-center">狀態</th>
+                            <th class="cu-table-head">日期</th>
+                            <th class="cu-table-head text-right">操作</th>
+                        </tr>
+                    </thead>
+                    <tbody class="cu-table-body">
+                        {orders.map((order) => {
+                            const status = statusConfig[order.status as keyof typeof statusConfig];
+                            return (
+                                <tr class="cu-table-row group">
+                                    <td class="cu-table-cell">
+                                        <input type="checkbox" class="cu-checkbox" />
+                                    </td>
+                                    <td class="cu-table-cell">
+                                        <code class="text-sm font-mono font-medium">{order.id}</code>
+                                    </td>
+                                    <td class="cu-table-cell">
+                                        <div class="flex items-center gap-3">
+                                            <div class="cu-avatar cu-avatar-sm">
+                                                <div class="cu-avatar-fallback">{order.customer[0]}</div>
+                                            </div>
+                                            <div>
+                                                <p class="text-sm font-medium">{order.customer}</p>
+                                                <p class="text-xs text-muted-foreground">{order.email}</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="cu-table-cell text-center">
+                                        <span class="text-sm text-muted-foreground">{order.items} 件</span>
+                                    </td>
+                                    <td class="cu-table-cell text-right">
+                                        <span class="text-sm font-semibold tabular-nums">${order.total.toLocaleString()}</span>
+                                    </td>
+                                    <td class="cu-table-cell text-center">
+                                        <span class="text-sm text-muted-foreground">{order.payment}</span>
+                                    </td>
+                                    <td class="cu-table-cell text-center">
+                                        <span class={status.class}>{status.label}</span>
+                                    </td>
+                                    <td class="cu-table-cell">
+                                        <span class="text-sm text-muted-foreground">{order.date}</span>
+                                    </td>
+                                    <td class="cu-table-cell text-right">
+                                        <div class="cu-table-actions">
+                                            <button class="cu-button cu-button-ghost cu-button-icon-xs" title="檢視詳情">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+                                            </button>
+                                            <button class="cu-button cu-button-ghost cu-button-icon-xs" title="列印">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect width="12" height="8" x="6" y="14"/></svg>
+                                            </button>
+                                            <button class="cu-button cu-button-ghost cu-button-icon-xs" title="更多">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            );
+                        })}
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Pagination -->
+            <div class="flex items-center justify-between px-4 py-3 border-t border-border">
+                <span class="text-sm text-muted-foreground">顯示 1-8 筆，共 52 筆</span>
+                <nav class="cu-pagination">
+                    <button class="cu-pagination-prev" disabled>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+                    </button>
+                    <button class="cu-pagination-item cu-pagination-item-active">1</button>
+                    <button class="cu-pagination-item">2</button>
+                    <button class="cu-pagination-item">3</button>
+                    <button class="cu-pagination-next">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                    </button>
+                </nav>
+            </div>
+        </div>
+    </div>
+</DashboardV5Layout>

@@ -1,0 +1,224 @@
+---
+import DashboardV5Layout from "../../../layouts/DashboardV5Layout.astro";
+
+// 模擬客戶資料
+const customers = [
+    { id: "CUS-001", name: "陳柏翰", email: "chen.bohan@example.com", phone: "0912-345-678", orders: 24, spent: 328400, status: "vip", joinDate: "2024/03/15" },
+    { id: "CUS-002", name: "林雅婷", email: "lin.yating@example.com", phone: "0923-456-789", orders: 12, spent: 89200, status: "active", joinDate: "2024/06/22" },
+    { id: "CUS-003", name: "王俊傑", email: "wang.junjie@example.com", phone: "0934-567-890", orders: 5, spent: 42300, status: "active", joinDate: "2024/09/08" },
+    { id: "CUS-004", name: "張家豪", email: "zhang.jiahao@example.com", phone: "0945-678-901", orders: 1, spent: 7490, status: "new", joinDate: "2026/01/28" },
+    { id: "CUS-005", name: "李佳穎", email: "lee.jiaying@example.com", phone: "0956-789-012", orders: 38, spent: 567800, status: "vip", joinDate: "2023/11/10" },
+    { id: "CUS-006", name: "黃宗翰", email: "huang.zonghan@example.com", phone: "0967-890-123", orders: 8, spent: 124500, status: "active", joinDate: "2024/08/05" },
+    { id: "CUS-007", name: "吳欣怡", email: "wu.xinyi@example.com", phone: "0978-901-234", orders: 0, spent: 0, status: "inactive", joinDate: "2024/12/01" },
+    { id: "CUS-008", name: "許志明", email: "xu.zhiming@example.com", phone: "0989-012-345", orders: 15, spent: 198700, status: "active", joinDate: "2024/04/20" },
+];
+
+const statusConfig = {
+    vip: { label: "VIP", class: "cu-badge cu-badge-soft-warning" },
+    active: { label: "活躍", class: "cu-badge cu-badge-soft-success" },
+    new: { label: "新客戶", class: "cu-badge cu-badge-soft-info" },
+    inactive: { label: "未活躍", class: "cu-badge cu-badge-secondary" },
+};
+---
+
+<DashboardV5Layout title="客戶資料 — DataHub">
+    <div class="space-y-6">
+        <!-- Page Header -->
+        <header class="cu-page-header">
+            <div class="cu-page-header-content">
+                <h1 class="cu-page-header-title">客戶資料</h1>
+                <p class="cu-page-header-description">管理您的客戶聯絡資訊與消費紀錄。</p>
+            </div>
+            <div class="cu-page-header-actions">
+                <button class="cu-button cu-button-outline">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" x2="12" y1="3" y2="15"/></svg>
+                    匯入客戶
+                </button>
+                <button class="cu-button cu-button-default">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" x2="19" y1="8" y2="14"/><line x1="22" x2="16" y1="11" y2="11"/></svg>
+                    新增客戶
+                </button>
+            </div>
+        </header>
+
+        <!-- Stats Summary -->
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+            <div class="cu-stat">
+                <div class="cu-stat-header">
+                    <span class="cu-stat-label">總客戶數</span>
+                    <div class="cu-stat-icon-box">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                    </div>
+                </div>
+                <div class="cu-stat-value">1,847</div>
+            </div>
+            <div class="cu-stat">
+                <div class="cu-stat-header">
+                    <span class="cu-stat-label">VIP 客戶</span>
+                    <div class="cu-stat-icon-box cu-stat-icon-box-warning">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    </div>
+                </div>
+                <div class="cu-stat-value text-warning">128</div>
+            </div>
+            <div class="cu-stat">
+                <div class="cu-stat-header">
+                    <span class="cu-stat-label">本月新增</span>
+                    <div class="cu-stat-icon-box cu-stat-icon-box-info">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" x2="19" y1="8" y2="14"/><line x1="22" x2="16" y1="11" y2="11"/></svg>
+                    </div>
+                </div>
+                <div class="cu-stat-value text-info">86</div>
+            </div>
+            <div class="cu-stat">
+                <div class="cu-stat-header">
+                    <span class="cu-stat-label">平均消費</span>
+                    <div class="cu-stat-icon-box cu-stat-icon-box-success">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                    </div>
+                </div>
+                <div class="cu-stat-value">$12,480</div>
+            </div>
+        </div>
+
+        <!-- Filter Bar -->
+        <div class="cu-filter-bar">
+            <div class="cu-filter-bar-inner">
+                <div class="cu-filter-bar-search">
+                    <div class="cu-input-search">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="cu-input-search-icon">
+                            <circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>
+                        </svg>
+                        <input type="text" placeholder="搜尋客戶名稱、Email、電話..." class="cu-input-search-field" />
+                    </div>
+                </div>
+                <div class="cu-filter-bar-filters">
+                    <div class="cu-select-wrapper">
+                        <select class="cu-select">
+                            <option value="">客戶狀態</option>
+                            <option value="vip">VIP</option>
+                            <option value="active">活躍</option>
+                            <option value="new">新客戶</option>
+                            <option value="inactive">未活躍</option>
+                        </select>
+                        <svg class="cu-select-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+                    </div>
+                    <div class="cu-select-wrapper">
+                        <select class="cu-select">
+                            <option value="">消費金額</option>
+                            <option value="high">$100,000 以上</option>
+                            <option value="medium">$10,000 - $100,000</option>
+                            <option value="low">$10,000 以下</option>
+                        </select>
+                        <svg class="cu-select-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Customers Table -->
+        <div class="cu-card overflow-hidden">
+            <div class="cu-table-wrapper">
+                <table class="cu-table">
+                    <thead class="cu-table-header">
+                        <tr class="cu-table-row hover:bg-transparent">
+                            <th class="cu-table-head w-12">
+                                <input type="checkbox" class="cu-checkbox" />
+                            </th>
+                            <th class="cu-table-head">客戶</th>
+                            <th class="cu-table-head">電話</th>
+                            <th class="cu-table-head text-center">訂單數</th>
+                            <th class="cu-table-head text-right">累計消費</th>
+                            <th class="cu-table-head text-center">狀態</th>
+                            <th class="cu-table-head">加入日期</th>
+                            <th class="cu-table-head text-right">操作</th>
+                        </tr>
+                    </thead>
+                    <tbody class="cu-table-body">
+                        {customers.map((customer) => {
+                            const status = statusConfig[customer.status as keyof typeof statusConfig];
+                            return (
+                                <tr class="cu-table-row group">
+                                    <td class="cu-table-cell">
+                                        <input type="checkbox" class="cu-checkbox" />
+                                    </td>
+                                    <td class="cu-table-cell">
+                                        <div class="flex items-center gap-3">
+                                            <div class:list={[
+                                                "cu-avatar",
+                                                customer.status === "vip" ? "bg-warning/10" : ""
+                                            ]}>
+                                                <div class:list={[
+                                                    "cu-avatar-fallback",
+                                                    customer.status === "vip" ? "bg-warning/20 text-warning" : ""
+                                                ]}>{customer.name[0]}</div>
+                                            </div>
+                                            <div>
+                                                <p class="text-sm font-medium flex items-center gap-1.5">
+                                                    {customer.name}
+                                                    {customer.status === "vip" && (
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" class="text-warning"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                                                    )}
+                                                </p>
+                                                <p class="text-xs text-muted-foreground">{customer.email}</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="cu-table-cell">
+                                        <span class="text-sm text-muted-foreground">{customer.phone}</span>
+                                    </td>
+                                    <td class="cu-table-cell text-center">
+                                        <span class="text-sm font-medium">{customer.orders}</span>
+                                    </td>
+                                    <td class="cu-table-cell text-right">
+                                        <span class="text-sm font-semibold tabular-nums">${customer.spent.toLocaleString()}</span>
+                                    </td>
+                                    <td class="cu-table-cell text-center">
+                                        <span class={status.class}>{status.label}</span>
+                                    </td>
+                                    <td class="cu-table-cell">
+                                        <span class="text-sm text-muted-foreground">{customer.joinDate}</span>
+                                    </td>
+                                    <td class="cu-table-cell text-right">
+                                        <div class="cu-table-actions">
+                                            <button class="cu-button cu-button-ghost cu-button-icon-xs" title="檢視">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+                                            </button>
+                                            <button class="cu-button cu-button-ghost cu-button-icon-xs" title="編輯">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/></svg>
+                                            </button>
+                                            <button class="cu-button cu-button-ghost cu-button-icon-xs" title="發送郵件">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                                            </button>
+                                            <button class="cu-button cu-button-ghost cu-button-icon-xs hover:text-destructive hover:bg-destructive/10" title="刪除">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            );
+                        })}
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Pagination -->
+            <div class="flex items-center justify-between px-4 py-3 border-t border-border">
+                <span class="text-sm text-muted-foreground">顯示 1-8 筆，共 1,847 筆</span>
+                <nav class="cu-pagination">
+                    <button class="cu-pagination-prev" disabled>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+                    </button>
+                    <button class="cu-pagination-item cu-pagination-item-active">1</button>
+                    <button class="cu-pagination-item">2</button>
+                    <button class="cu-pagination-item">3</button>
+                    <span class="cu-pagination-ellipsis">...</span>
+                    <button class="cu-pagination-item">231</button>
+                    <button class="cu-pagination-next">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                    </button>
+                </nav>
+            </div>
+        </div>
+    </div>
+</DashboardV5Layout>

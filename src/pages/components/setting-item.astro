@@ -1,0 +1,314 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import ComponentPreview from "../../components/ComponentPreview.astro";
+
+const usageCode = `<div class="cu-card">
+  <div class="cu-card-content-flush">
+    <div class="divide-y divide-border">
+      <div class="cu-setting-item">
+        <div class="cu-setting-item-content">
+          <p class="cu-setting-item-label">Email notifications</p>
+          <p class="cu-setting-item-description">Receive email about your account activity.</p>
+        </div>
+        <div class="cu-setting-item-action">
+          <label class="cu-toggle-wrapper">
+            <input type="checkbox" class="peer sr-only" checked />
+            <span class="cu-toggle"></span>
+          </label>
+        </div>
+      </div>
+      <div class="cu-setting-item">
+        <div class="cu-setting-item-content">
+          <p class="cu-setting-item-label">Push notifications</p>
+          <p class="cu-setting-item-description">Receive push notifications on your device.</p>
+        </div>
+        <div class="cu-setting-item-action">
+          <label class="cu-toggle-wrapper">
+            <input type="checkbox" class="peer sr-only" checked />
+            <span class="cu-toggle"></span>
+          </label>
+        </div>
+      </div>
+      <div class="cu-setting-item">
+        <div class="cu-setting-item-content">
+          <p class="cu-setting-item-label">Weekly digest</p>
+          <p class="cu-setting-item-description">Get a weekly summary of your activity.</p>
+        </div>
+        <div class="cu-setting-item-action">
+          <label class="cu-toggle-wrapper">
+            <input type="checkbox" class="peer sr-only" />
+            <span class="cu-toggle"></span>
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>`.trim();
+
+const withButtonCode = `<div class="cu-card">
+  <div class="cu-card-content-flush">
+    <div class="divide-y divide-border">
+      <div class="cu-setting-item">
+        <div class="cu-setting-item-content">
+          <p class="cu-setting-item-label">Two-factor authentication</p>
+          <p class="cu-setting-item-description">Add an extra layer of security to your account.</p>
+        </div>
+        <div class="cu-setting-item-action">
+          <button class="cu-button cu-button-outline cu-button-sm">Enable</button>
+        </div>
+      </div>
+      <div class="cu-setting-item">
+        <div class="cu-setting-item-content">
+          <p class="cu-setting-item-label">Connected accounts</p>
+          <p class="cu-setting-item-description">Manage your linked social accounts.</p>
+        </div>
+        <div class="cu-setting-item-action">
+          <button class="cu-button cu-button-outline cu-button-sm">Manage</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>`.trim();
+
+const withSelectCode = `<div class="cu-card">
+  <div class="cu-card-content-flush">
+    <div class="divide-y divide-border">
+      <div class="cu-setting-item">
+        <div class="cu-setting-item-content">
+          <p class="cu-setting-item-label">Language</p>
+          <p class="cu-setting-item-description">Select your preferred language.</p>
+        </div>
+        <div class="cu-setting-item-action">
+          <div class="cu-select-wrapper">
+            <select class="cu-select">
+              <option value="en">English</option>
+              <option value="zh-TW">繁體中文</option>
+              <option value="ja">日本語</option>
+            </select>
+            <svg class="cu-select-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+          </div>
+        </div>
+      </div>
+      <div class="cu-setting-item">
+        <div class="cu-setting-item-content">
+          <p class="cu-setting-item-label">Timezone</p>
+          <p class="cu-setting-item-description">Set your local timezone.</p>
+        </div>
+        <div class="cu-setting-item-action">
+          <div class="cu-select-wrapper">
+            <select class="cu-select">
+              <option value="utc+8">UTC+8 (Taipei)</option>
+              <option value="utc+9">UTC+9 (Tokyo)</option>
+              <option value="utc-8">UTC-8 (PST)</option>
+            </select>
+            <svg class="cu-select-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>`.trim();
+---
+
+<Layout title="Setting Item — Cubby UI" category="Layouts" componentName="Setting Item">
+    <div class="space-y-3">
+        <div class="flex items-center gap-3">
+            <h1 class="text-3xl font-bold tracking-tight">Setting Item</h1>
+            <span class="cu-badge cu-badge-secondary">Layouts</span>
+        </div>
+        <p class="text-base text-muted-foreground leading-relaxed">
+            A consistent layout for settings pages with label, description, and action control.
+        </p>
+    </div>
+
+    <div class="mt-10 space-y-10">
+        <!-- Usage -->
+        <section class="space-y-3">
+            <h2 id="usage" class="text-lg font-semibold tracking-tight relative group">
+                <a href="#usage" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                Usage
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
+                Use <code class="cu-code">cu-setting-item</code> inside a card with <code class="cu-code">cu-card-content-flush</code> and <code class="cu-code">divide-y</code> for a clean settings list.
+            </p>
+            <ComponentPreview code={usageCode}>
+                <div class="w-full max-w-xl">
+                    <div class="cu-card">
+                        <div class="cu-card-content-flush">
+                            <div class="divide-y divide-border">
+                                <div class="cu-setting-item">
+                                    <div class="cu-setting-item-content">
+                                        <p class="cu-setting-item-label">Email notifications</p>
+                                        <p class="cu-setting-item-description">Receive email about your account activity.</p>
+                                    </div>
+                                    <div class="cu-setting-item-action">
+                                        <label class="cu-toggle-wrapper">
+                                            <input type="checkbox" class="peer sr-only" checked />
+                                            <span class="cu-toggle"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="cu-setting-item">
+                                    <div class="cu-setting-item-content">
+                                        <p class="cu-setting-item-label">Push notifications</p>
+                                        <p class="cu-setting-item-description">Receive push notifications on your device.</p>
+                                    </div>
+                                    <div class="cu-setting-item-action">
+                                        <label class="cu-toggle-wrapper">
+                                            <input type="checkbox" class="peer sr-only" checked />
+                                            <span class="cu-toggle"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="cu-setting-item">
+                                    <div class="cu-setting-item-content">
+                                        <p class="cu-setting-item-label">Weekly digest</p>
+                                        <p class="cu-setting-item-description">Get a weekly summary of your activity.</p>
+                                    </div>
+                                    <div class="cu-setting-item-action">
+                                        <label class="cu-toggle-wrapper">
+                                            <input type="checkbox" class="peer sr-only" />
+                                            <span class="cu-toggle"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ComponentPreview>
+        </section>
+
+        <!-- With Button -->
+        <section class="space-y-3">
+            <h2 id="with-button" class="text-lg font-semibold tracking-tight relative group">
+                <a href="#with-button" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                With Button
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
+                Use buttons for settings that require navigation or additional actions.
+            </p>
+            <ComponentPreview code={withButtonCode}>
+                <div class="w-full max-w-xl">
+                    <div class="cu-card">
+                        <div class="cu-card-content-flush">
+                            <div class="divide-y divide-border">
+                                <div class="cu-setting-item">
+                                    <div class="cu-setting-item-content">
+                                        <p class="cu-setting-item-label">Two-factor authentication</p>
+                                        <p class="cu-setting-item-description">Add an extra layer of security to your account.</p>
+                                    </div>
+                                    <div class="cu-setting-item-action">
+                                        <button class="cu-button cu-button-outline cu-button-sm">Enable</button>
+                                    </div>
+                                </div>
+                                <div class="cu-setting-item">
+                                    <div class="cu-setting-item-content">
+                                        <p class="cu-setting-item-label">Connected accounts</p>
+                                        <p class="cu-setting-item-description">Manage your linked social accounts.</p>
+                                    </div>
+                                    <div class="cu-setting-item-action">
+                                        <button class="cu-button cu-button-outline cu-button-sm">Manage</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ComponentPreview>
+        </section>
+
+        <!-- With Select -->
+        <section class="space-y-3">
+            <h2 id="with-select" class="text-lg font-semibold tracking-tight relative group">
+                <a href="#with-select" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                With Select
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
+                Use select dropdowns for settings with predefined options.
+            </p>
+            <ComponentPreview code={withSelectCode}>
+                <div class="w-full max-w-xl">
+                    <div class="cu-card">
+                        <div class="cu-card-content-flush">
+                            <div class="divide-y divide-border">
+                                <div class="cu-setting-item">
+                                    <div class="cu-setting-item-content">
+                                        <p class="cu-setting-item-label">Language</p>
+                                        <p class="cu-setting-item-description">Select your preferred language.</p>
+                                    </div>
+                                    <div class="cu-setting-item-action">
+                                        <div class="cu-select-wrapper">
+                                            <select class="cu-select">
+                                                <option value="en">English</option>
+                                                <option value="zh-TW">繁體中文</option>
+                                                <option value="ja">日本語</option>
+                                            </select>
+                                            <svg class="cu-select-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="cu-setting-item">
+                                    <div class="cu-setting-item-content">
+                                        <p class="cu-setting-item-label">Timezone</p>
+                                        <p class="cu-setting-item-description">Set your local timezone.</p>
+                                    </div>
+                                    <div class="cu-setting-item-action">
+                                        <div class="cu-select-wrapper">
+                                            <select class="cu-select">
+                                                <option value="utc+8">UTC+8 (Taipei)</option>
+                                                <option value="utc+9">UTC+9 (Tokyo)</option>
+                                                <option value="utc-8">UTC-8 (PST)</option>
+                                            </select>
+                                            <svg class="cu-select-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ComponentPreview>
+        </section>
+
+        <!-- Classes Reference -->
+        <section class="space-y-3 mt-10">
+            <h2 id="classes" class="text-lg font-semibold tracking-tight relative group">
+                <a href="#classes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                CSS Classes
+            </h2>
+            <div class="cu-table-wrapper rounded-lg border border-border">
+                <table class="cu-table">
+                    <thead class="cu-table-header">
+                        <tr class="cu-table-row">
+                            <th class="cu-table-head">Class</th>
+                            <th class="cu-table-head">Description</th>
+                        </tr>
+                    </thead>
+                    <tbody class="cu-table-body">
+                        <tr class="cu-table-row">
+                            <td class="cu-table-cell"><code class="cu-code">cu-setting-item</code></td>
+                            <td class="cu-table-cell text-muted-foreground">Setting item container (flex, responsive padding)</td>
+                        </tr>
+                        <tr class="cu-table-row">
+                            <td class="cu-table-cell"><code class="cu-code">cu-setting-item-content</code></td>
+                            <td class="cu-table-cell text-muted-foreground">Label and description wrapper</td>
+                        </tr>
+                        <tr class="cu-table-row">
+                            <td class="cu-table-cell"><code class="cu-code">cu-setting-item-label</code></td>
+                            <td class="cu-table-cell text-muted-foreground">Setting label text</td>
+                        </tr>
+                        <tr class="cu-table-row">
+                            <td class="cu-table-cell"><code class="cu-code">cu-setting-item-description</code></td>
+                            <td class="cu-table-cell text-muted-foreground">Setting description text</td>
+                        </tr>
+                        <tr class="cu-table-row">
+                            <td class="cu-table-cell"><code class="cu-code">cu-setting-item-action</code></td>
+                            <td class="cu-table-cell text-muted-foreground">Action control container</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+</Layout>

@@ -25,6 +25,16 @@ Cubby UI 是一個框架無關的 UI 元件庫，使用純 HTML + Tailwind CSS �
 
 ```bash
 npm run dev       # 啟動開發伺服器
-npm run build     # 建置靜態站點
+npm run build     # 建置文檔站點至 docs/
 npm run preview   # 預覽建置結果
+npm run build:lib # 建置 NPM 套件至 dist/
 ```
+
+## NPM Package
+
+執行 `npm run build:lib` 產生：
+- `dist/cubby-ui.css` / `.min.css` — 預編譯 CSS
+- `dist/cubby-ui.js` / `.min.js` — 互動元件 JS
+- `dist/src/` — 原始 Tailwind CSS
+
+互動元件 JS 原始檔：`src/scripts/cubby-ui.js`

@@ -1,0 +1,316 @@
+---
+import DashboardV5Layout from "../../../layouts/DashboardV5Layout.astro";
+
+// 模擬產品資料
+const products = [
+    { id: "PRD-001", name: "MacBook Pro 14\"", category: "筆記型電腦", price: 59900, stock: 24, status: "active", image: "💻" },
+    { id: "PRD-002", name: "iPhone 15 Pro Max", category: "智慧型手機", price: 52900, stock: 156, status: "active", image: "📱" },
+    { id: "PRD-003", name: "AirPods Pro 2", category: "耳機", price: 7490, stock: 89, status: "active", image: "🎧" },
+    { id: "PRD-004", name: "iPad Air M2", category: "平板電腦", price: 22900, stock: 42, status: "active", image: "📲" },
+    { id: "PRD-005", name: "Apple Watch Ultra 2", category: "穿戴裝置", price: 27900, stock: 18, status: "low", image: "⌚" },
+    { id: "PRD-006", name: "Magic Keyboard", category: "配件", price: 9990, stock: 0, status: "out", image: "⌨️" },
+    { id: "PRD-007", name: "Studio Display", category: "顯示器", price: 47900, stock: 7, status: "low", image: "🖥️" },
+    { id: "PRD-008", name: "Mac Mini M2 Pro", category: "桌上型電腦", price: 42900, stock: 31, status: "active", image: "🗄️" },
+];
+---
+
+<DashboardV5Layout title="產品管理 — DataHub">
+    <div class="space-y-6">
+        <!-- Page Header -->
+        <header class="cu-page-header">
+            <div class="cu-page-header-content">
+                <h1 class="cu-page-header-title">產品管理</h1>
+                <p class="cu-page-header-description">管理您的產品庫存與定價。</p>
+            </div>
+            <div class="cu-page-header-actions">
+                <button class="cu-button cu-button-default cu-button-md" data-action="add">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" x2="12" y1="5" y2="19"/><line x1="5" x2="19" y1="12" y2="12"/></svg>
+                    新增產品
+                </button>
+            </div>
+        </header>
+
+        <!-- Stats Cards -->
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+            <div class="cu-stat">
+                <div class="cu-stat-header">
+                    <span class="cu-stat-label">總產品數</span>
+                    <div class="cu-stat-icon-box">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7.5 4.27 9 5.15"/><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/></svg>
+                    </div>
+                </div>
+                <div class="cu-stat-value">248</div>
+            </div>
+            <div class="cu-stat">
+                <div class="cu-stat-header">
+                    <span class="cu-stat-label">庫存充足</span>
+                    <div class="cu-stat-icon-box cu-stat-icon-box-success">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                    </div>
+                </div>
+                <div class="cu-stat-value">218</div>
+            </div>
+            <div class="cu-stat">
+                <div class="cu-stat-header">
+                    <span class="cu-stat-label">庫存不足</span>
+                    <div class="cu-stat-icon-box cu-stat-icon-box-warning">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>
+                    </div>
+                </div>
+                <div class="cu-stat-value">18</div>
+            </div>
+            <div class="cu-stat">
+                <div class="cu-stat-header">
+                    <span class="cu-stat-label">已售罄</span>
+                    <div class="cu-stat-icon-box cu-stat-icon-box-destructive">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6"/><path d="m9 9 6 6"/></svg>
+                    </div>
+                </div>
+                <div class="cu-stat-value">12</div>
+            </div>
+        </div>
+
+        <!-- Filter Bar -->
+        <div class="cu-filter-bar">
+            <div class="cu-filter-bar-inner">
+                <div class="cu-filter-bar-search">
+                    <div class="cu-input-search">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="cu-input-search-icon">
+                            <circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>
+                        </svg>
+                        <input type="text" placeholder="搜尋產品名稱、編號..." class="cu-input-search-field" id="search-input" />
+                    </div>
+                </div>
+                <div class="cu-filter-bar-filters">
+                    <div class="cu-select-wrapper">
+                        <select class="cu-select">
+                            <option value="">所有分類</option>
+                            <option value="laptop">筆記型電腦</option>
+                            <option value="phone">智慧型手機</option>
+                            <option value="tablet">平板電腦</option>
+                            <option value="accessory">配件</option>
+                        </select>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="cu-select-icon"><path d="m6 9 6 6 6-6"/></svg>
+                    </div>
+                    <div class="cu-select-wrapper">
+                        <select class="cu-select">
+                            <option value="">庫存狀態</option>
+                            <option value="active">庫存充足</option>
+                            <option value="low">庫存不足</option>
+                            <option value="out">已售罄</option>
+                        </select>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="cu-select-icon"><path d="m6 9 6 6 6-6"/></svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Data Table -->
+        <div class="cu-card overflow-hidden">
+            <!-- Table Header Actions -->
+            <div class="cu-table-toolbar">
+                <div class="cu-table-toolbar-select">
+                    <input type="checkbox" class="cu-checkbox" id="select-all" />
+                    <label for="select-all" class="text-sm text-muted-foreground">全選</label>
+                    <span class="text-muted-foreground">|</span>
+                    <span class="text-sm text-muted-foreground">已選 <span class="font-medium" id="selected-count">0</span> 項</span>
+                </div>
+                <div class="cu-table-toolbar-actions" id="bulk-actions" style="display: none;">
+                    <button class="cu-button cu-button-outline cu-button-sm">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+                        匯出
+                    </button>
+                    <button class="cu-button cu-button-destructive cu-button-sm">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
+                        刪除
+                    </button>
+                </div>
+            </div>
+
+            <!-- Table -->
+            <div class="cu-table-wrapper">
+                <table class="cu-table">
+                    <thead class="cu-table-header">
+                        <tr class="cu-table-row hover:bg-transparent">
+                            <th class="cu-table-head w-12"></th>
+                            <th class="cu-table-head">產品</th>
+                            <th class="cu-table-head">編號</th>
+                            <th class="cu-table-head">分類</th>
+                            <th class="cu-table-head text-right">售價</th>
+                            <th class="cu-table-head text-right">庫存</th>
+                            <th class="cu-table-head text-center">狀態</th>
+                            <th class="cu-table-head text-right">操作</th>
+                        </tr>
+                    </thead>
+                    <tbody class="cu-table-body" id="products-table">
+                        {products.map((product) => (
+                            <tr class="cu-table-row group" data-id={product.id}>
+                                <td class="cu-table-cell">
+                                    <input type="checkbox" class="cu-checkbox row-checkbox" />
+                                </td>
+                                <td class="cu-table-cell">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-10 h-10 rounded-lg bg-muted flex items-center justify-center text-xl shrink-0">
+                                            {product.image}
+                                        </div>
+                                        <span class="font-medium">{product.name}</span>
+                                    </div>
+                                </td>
+                                <td class="cu-table-cell">
+                                    <code class="text-xs font-mono text-muted-foreground bg-muted px-2 py-1 rounded">{product.id}</code>
+                                </td>
+                                <td class="cu-table-cell text-muted-foreground">{product.category}</td>
+                                <td class="cu-table-cell text-right font-medium tabular-nums">
+                                    ${product.price.toLocaleString()}
+                                </td>
+                                <td class="cu-table-cell text-right">
+                                    <span class:list={[
+                                        "font-medium tabular-nums",
+                                        product.stock === 0 ? "text-destructive" : product.stock < 20 ? "text-warning" : ""
+                                    ]}>
+                                        {product.stock}
+                                    </span>
+                                </td>
+                                <td class="cu-table-cell text-center">
+                                    {product.status === "active" && (
+                                        <span class="cu-badge cu-badge-soft-success">充足</span>
+                                    )}
+                                    {product.status === "low" && (
+                                        <span class="cu-badge cu-badge-soft-warning">不足</span>
+                                    )}
+                                    {product.status === "out" && (
+                                        <span class="cu-badge cu-badge-soft-destructive">售罄</span>
+                                    )}
+                                </td>
+                                <td class="cu-table-cell text-right">
+                                    <div class="cu-table-actions">
+                                        <button class="cu-button cu-button-ghost cu-button-icon-xs" title="檢視">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+                                        </button>
+                                        <button class="cu-button cu-button-ghost cu-button-icon-xs" title="編輯">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/></svg>
+                                        </button>
+                                        <button class="cu-button cu-button-ghost cu-button-icon-xs hover:text-destructive hover:bg-destructive/10" title="刪除">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Pagination -->
+            <div class="flex items-center justify-between px-4 py-3 border-t border-border bg-muted/20">
+                <span class="text-sm text-muted-foreground">顯示 1-8 筆，共 248 筆</span>
+                <nav class="cu-pagination">
+                    <button class="cu-pagination-prev" disabled>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+                    </button>
+                    <button class="cu-pagination-item cu-pagination-item-active">1</button>
+                    <button class="cu-pagination-item">2</button>
+                    <button class="cu-pagination-item">3</button>
+                    <span class="cu-pagination-ellipsis">...</span>
+                    <button class="cu-pagination-item">25</button>
+                    <button class="cu-pagination-next">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                    </button>
+                </nav>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add/Edit Dialog -->
+    <dialog id="product-dialog" class="cu-dialog">
+        <div class="cu-dialog-header">
+            <h3 class="cu-dialog-title">新增產品</h3>
+            <p class="cu-dialog-description">填寫產品資訊以新增產品。</p>
+        </div>
+        <button class="cu-dialog-close" onclick="document.getElementById('product-dialog').close()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+        </button>
+        <form method="dialog" class="mt-6 space-y-4">
+            <div class="space-y-2">
+                <label class="cu-label">產品名稱</label>
+                <input type="text" class="cu-input" placeholder="輸入產品名稱" />
+            </div>
+            <div class="grid grid-cols-2 gap-4">
+                <div class="space-y-2">
+                    <label class="cu-label">分類</label>
+                    <div class="cu-select-wrapper">
+                        <select class="cu-select">
+                            <option value="">選擇分類</option>
+                            <option value="laptop">筆記型電腦</option>
+                            <option value="phone">智慧型手機</option>
+                            <option value="tablet">平板電腦</option>
+                        </select>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="cu-select-icon"><path d="m6 9 6 6 6-6"/></svg>
+                    </div>
+                </div>
+                <div class="space-y-2">
+                    <label class="cu-label">售價</label>
+                    <input type="number" class="cu-input" placeholder="0" />
+                </div>
+            </div>
+            <div class="grid grid-cols-2 gap-4">
+                <div class="space-y-2">
+                    <label class="cu-label">庫存數量</label>
+                    <input type="number" class="cu-input" placeholder="0" />
+                </div>
+                <div class="space-y-2">
+                    <label class="cu-label">產品編號</label>
+                    <input type="text" class="cu-input" placeholder="自動產生" disabled />
+                </div>
+            </div>
+            <div class="cu-dialog-footer">
+                <button type="button" class="cu-button cu-button-outline cu-button-md" onclick="document.getElementById('product-dialog').close()">取消</button>
+                <button type="submit" class="cu-button cu-button-default cu-button-md">儲存</button>
+            </div>
+        </form>
+    </dialog>
+
+    <script>
+        // Modal controls
+        const dialog = document.getElementById('product-dialog') as HTMLDialogElement;
+        const addBtn = document.querySelector('[data-action="add"]');
+
+        addBtn?.addEventListener('click', () => {
+            dialog?.showModal();
+        });
+
+        // Checkbox selection
+        const selectAll = document.getElementById('select-all') as HTMLInputElement;
+        const rowCheckboxes = document.querySelectorAll('.row-checkbox') as NodeListOf<HTMLInputElement>;
+        const selectedCount = document.getElementById('selected-count');
+        const bulkActions = document.getElementById('bulk-actions');
+
+        function updateSelection() {
+            const checked = document.querySelectorAll('.row-checkbox:checked').length;
+            if (selectedCount) selectedCount.textContent = checked.toString();
+            if (bulkActions) bulkActions.style.display = checked > 0 ? 'flex' : 'none';
+            if (selectAll) selectAll.checked = checked === rowCheckboxes.length && checked > 0;
+        }
+
+        selectAll?.addEventListener('change', () => {
+            rowCheckboxes.forEach(cb => cb.checked = selectAll.checked);
+            updateSelection();
+        });
+
+        rowCheckboxes.forEach(cb => {
+            cb.addEventListener('change', updateSelection);
+        });
+
+        // Search
+        const searchInput = document.getElementById('search-input') as HTMLInputElement;
+        const tableRows = document.querySelectorAll('#products-table tr');
+
+        searchInput?.addEventListener('input', () => {
+            const query = searchInput.value.toLowerCase();
+            tableRows.forEach(row => {
+                const text = row.textContent?.toLowerCase() || '';
+                (row as HTMLElement).style.display = text.includes(query) ? '' : 'none';
+            });
+        });
+    </script>
+</DashboardV5Layout>

@@ -460,6 +460,234 @@
       });
   }
 
+  function setupDialogs() {
+    document
+      .querySelectorAll("[data-cu-dialog-trigger]")
+      .forEach(function (trigger) {
+        if (trigger._cuInit) return;
+        trigger._cuInit = true;
+
+        trigger.addEventListener("click", function () {
+          var id = trigger.getAttribute("data-cu-dialog-trigger");
+          var dialog = document.getElementById(id);
+          if (dialog && dialog.showModal) dialog.showModal();
+        });
+      });
+
+    document.querySelectorAll("[data-cu-dialog]").forEach(function (dialog) {
+      if (dialog._cuInit) return;
+      dialog._cuInit = true;
+
+      dialog.querySelectorAll("[data-cu-dialog-close]").forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          dialog.close();
+        });
+      });
+      dialog.addEventListener("click", function (e) {
+        if (e.target === dialog) dialog.close();
+      });
+    });
+  }
+
+  function setupDrawers() {
+    document
+      .querySelectorAll("[data-cu-drawer-trigger]")
+      .forEach(function (trigger) {
+        if (trigger._cuInit) return;
+        trigger._cuInit = true;
+
+        trigger.addEventListener("click", function () {
+          var id = trigger.getAttribute("data-cu-drawer-trigger");
+          var dialog = document.getElementById(id);
+          if (dialog && dialog.showModal) dialog.showModal();
+        });
+      });
+
+    document.querySelectorAll("[data-cu-drawer]").forEach(function (dialog) {
+      if (dialog._cuInit) return;
+      dialog._cuInit = true;
+
+      dialog.querySelectorAll("[data-cu-drawer-close]").forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          dialog.close();
+        });
+      });
+      dialog.addEventListener("click", function (e) {
+        if (e.target === dialog) dialog.close();
+      });
+    });
+  }
+
+  function setupAlertDialogs() {
+    document
+      .querySelectorAll("[data-cu-alert-dialog-trigger]")
+      .forEach(function (trigger) {
+        if (trigger._cuInit) return;
+        trigger._cuInit = true;
+
+        trigger.addEventListener("click", function () {
+          var id = trigger.getAttribute("data-cu-alert-dialog-trigger");
+          var dialog = document.getElementById(id);
+          if (dialog && dialog.showModal) dialog.showModal();
+        });
+      });
+
+    document
+      .querySelectorAll("[data-cu-alert-dialog]")
+      .forEach(function (dialog) {
+        if (dialog._cuInit) return;
+        dialog._cuInit = true;
+
+        dialog
+          .querySelectorAll("[data-cu-alert-dialog-cancel]")
+          .forEach(function (btn) {
+            btn.addEventListener("click", function () {
+              dialog.close();
+            });
+          });
+        dialog
+          .querySelectorAll("[data-cu-alert-dialog-action]")
+          .forEach(function (btn) {
+            btn.addEventListener("click", function () {
+              dialog.close();
+            });
+          });
+      });
+  }
+
+  function setupToasts() {
+    // Ensure container exists
+    var container = document.querySelector("[data-cu-toast-container]");
+    if (!container) {
+      container = document.createElement("div");
+      container.className = "cu-toast-container cu-toast-container-bottom-right";
+      container.setAttribute("data-cu-toast-container", "");
+      document.body.appendChild(container);
+    }
+
+    document
+      .querySelectorAll("[data-cu-toast-trigger]")
+      .forEach(function (trigger) {
+        if (trigger._cuInit) return;
+        trigger._cuInit = true;
+
+        trigger.addEventListener("click", function () {
+          var c = document.querySelector("[data-cu-toast-container]");
+          if (!c) return;
+          var title = trigger.getAttribute("data-cu-toast-title") || "";
+          var desc = trigger.getAttribute("data-cu-toast-description") || "";
+          var variant =
+            trigger.getAttribute("data-cu-toast-variant") || "default";
+          var toast = document.createElement("div");
+          toast.className = "cu-toast cu-toast-" + variant;
+          toast.innerHTML =
+            '<div class="cu-toast-body">' +
+            '<div class="cu-toast-title">' +
+            title +
+            "</div>" +
+            (desc
+              ? '<div class="cu-toast-description">' + desc + "</div>"
+              : "") +
+            "</div>" +
+            '<button class="cu-toast-close" data-cu-toast-close>' +
+            '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>' +
+            "</button>";
+          c.appendChild(toast);
+          var closeBtn = toast.querySelector("[data-cu-toast-close]");
+          if (closeBtn) {
+            closeBtn.addEventListener("click", function () {
+              toast.remove();
+            });
+          }
+          setTimeout(function () {
+            toast.remove();
+          }, 5000);
+        });
+      });
+  }
+
+  function setupPopovers() {
+    document.querySelectorAll("[data-cu-popover]").forEach(function (popover) {
+      if (popover._cuInit) return;
+      popover._cuInit = true;
+
+      var trigger = popover.querySelector("[data-cu-popover-trigger]");
+      var content = popover.querySelector("[data-cu-popover-content]");
+      if (!trigger || !content) return;
+
+      content.style.display = "none";
+      trigger.addEventListener("click", function () {
+        var open = content.style.display !== "none";
+        content.style.display = open ? "none" : "";
+      });
+      document.addEventListener("click", function (e) {
+        if (!popover.contains(e.target)) {
+          content.style.display = "none";
+        }
+      });
+    });
+  }
+
+  function setupMenubars() {
+    document.querySelectorAll("[data-cu-menubar]").forEach(function (bar) {
+      if (bar._cuInit) return;
+      bar._cuInit = true;
+
+      var menus = bar.querySelectorAll("[data-cu-menubar-menu]");
+      menus.forEach(function (menu) {
+        var trigger = menu.querySelector("[data-cu-menubar-trigger]");
+        var content = menu.querySelector("[data-cu-menubar-content]");
+
+        if (trigger) {
+          trigger.addEventListener("click", function () {
+            var open = content && !content.hasAttribute("hidden");
+            // Close all menus in this bar
+            menus.forEach(function (m) {
+              var mc = m.querySelector("[data-cu-menubar-content]");
+              var mt = m.querySelector("[data-cu-menubar-trigger]");
+              if (mc) mc.setAttribute("hidden", "");
+              if (mt) mt.setAttribute("aria-expanded", "false");
+            });
+            if (!open && content) {
+              content.removeAttribute("hidden");
+              trigger.setAttribute("aria-expanded", "true");
+            }
+          });
+
+          // Hover to switch while one is open
+          trigger.addEventListener("mouseenter", function () {
+            var anyOpen = bar.querySelector(
+              "[data-cu-menubar-content]:not([hidden])"
+            );
+            if (anyOpen && anyOpen !== content) {
+              menus.forEach(function (m) {
+                var mc = m.querySelector("[data-cu-menubar-content]");
+                var mt = m.querySelector("[data-cu-menubar-trigger]");
+                if (mc) mc.setAttribute("hidden", "");
+                if (mt) mt.setAttribute("aria-expanded", "false");
+              });
+              if (content) {
+                content.removeAttribute("hidden");
+                trigger.setAttribute("aria-expanded", "true");
+              }
+            }
+          });
+        }
+      });
+
+      document.addEventListener("click", function (e) {
+        if (!bar.contains(e.target)) {
+          menus.forEach(function (m) {
+            var mc = m.querySelector("[data-cu-menubar-content]");
+            var mt = m.querySelector("[data-cu-menubar-trigger]");
+            if (mc) mc.setAttribute("hidden", "");
+            if (mt) mt.setAttribute("aria-expanded", "false");
+          });
+        }
+      });
+    });
+  }
+
   function init() {
     setupTabs();
     setupDropdowns();
@@ -468,6 +696,12 @@
     setupNumberInputs();
     setupDropzones();
     setupTransferLists();
+    setupDialogs();
+    setupDrawers();
+    setupAlertDialogs();
+    setupToasts();
+    setupPopovers();
+    setupMenubars();
   }
 
   // Export

@@ -2,20 +2,63 @@
 
 框架無關的 UI 元件庫，風格類似 shadcn/ui，使用純 HTML + Tailwind CSS 構建。元件設計為可直接複製貼上使用，不依賴 React、Vue 或任何前端框架。
 
-示範文檔站點使用 Astro 構建。
+## Installation
+
+### CDN（推薦）
+
+最快速的方式，無需任何建置工具。
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href="https://unpkg.com/cubby-ui/dist/cubby-ui.min.css" />
+</head>
+<body>
+  <!-- Your content -->
+  <script src="https://unpkg.com/cubby-ui/dist/cubby-ui.min.js"></script>
+</body>
+</html>
+```
+
+### NPM
+
+適合使用 Vite、Webpack 等打包工具的專案。
+
+```bash
+npm install cubby-ui
+```
+
+```javascript
+// 在你的 JS/TS 入口檔案
+import 'cubby-ui/dist/cubby-ui.css';
+import 'cubby-ui';  // 自動初始化互動元件
+```
+
+### Manual（Tailwind CSS 原始碼）
+
+適合需要自訂主題的進階用戶，需要 Tailwind CSS v4。
+
+複製 `src/styles/` 至你的專案，然後在 CSS 中引入：
+
+```css
+@import "tailwindcss";
+@import "./cubby-ui/components.css";
+@import "./cubby-ui/global.css";
+```
 
 ## Tech Stack
 
-- **Astro 5** — 靜態站點生成（示範文檔站點）
 - **Tailwind CSS v4** — 使用 CSS `@theme` 指令定義設計 token
-- **astro-expressive-code** — 程式碼區塊語法高亮
 - **Vanilla JS** — 極少量，僅用於互動效果，使用 `data-*` 屬性管理狀態
+- **Astro 5** — 文檔站點（開發用）
 
 ## Commands
 
 ```bash
-npm run dev       # 啟動 Astro 開發伺服器
-npm run build     # 建置靜態站點
+npm run dev       # 啟動開發伺服器
+npm run build     # 建置文檔站點至 docs/
+npm run build:lib # 建置 NPM 套件至 dist/
 npm run preview   # 預覽建置結果
 ```
 
