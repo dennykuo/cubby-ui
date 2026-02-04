@@ -30,7 +30,7 @@ Cubby UI 是一個框架無關的 UI 元件庫，風格類似 shadcn/ui，使用
 
 元件有兩個層次：
 
-1. **CSS 類別層**（`src/styles/components.css` + `src/styles/components/*.css`）— 在 `@layer components` 中定義，使用 `cu-` 前綴（Cubby）。`components.css` 僅包含 `@layer components {}` 包裝和 `@import` 語句，各元件 CSS 規則拆分至 `components/` 資料夾的獨立檔案。CSS 按領域分八個區塊：`TYPOGRAPHY`（Headings, Paragraph, Blockquote, List, Link, Text, HR）→ `BASIC`（Button, Button Group, Card, Separator）→ `FORMS`（Checkbox, Listbox, Combobox ~ Transfer List）→ `DATA DISPLAY`（Accordion, Avatar, Badge, Collapsible, Data Table, Stat, Table, Tree View）→ `FEEDBACK`（Alert, Empty State, Progress, Skeleton, Toast）→ `OVERLAY`（Alert Dialog, Dialog, Drawer, Dropdown, Hover Card, Popover, Tooltip）→ `NAVIGATION`（Breadcrumb, Menubar, Pagination, Steps, Tabs）→ `LAYOUT`（Container, Header, Nav, Scroll Area, Sidebar, Toolbar）。這是元件的核心，純 HTML 專案可以只用這些 CSS 類別。共用結構透過 `listbox.css` 以逗號選擇器去重（Combobox / Multi Select 共用 7 組 class）。
+1. **CSS 類別層**（`src/styles/components.css` + `src/styles/components/*.css`）— 在 `@layer components` 中定義，使用 `cu-` 前綴（Cubby）。`components.css` 僅包含 `@layer components {}` 包裝和 `@import` 語句，各元件 CSS 規則拆分至 `components/` 資料夾的獨立檔案。CSS 按領域分八個區塊：`TYPOGRAPHY`（Headings, Paragraph, Blockquote, List, Link, Text, HR）→ `BASIC`（Button, Button Group, Card, Separator）→ `FORMS`（Checkbox, Listbox, Combobox ~ Transfer List）→ `DATA DISPLAY`（Accordion, Avatar, Badge, Collapsible, Data Table, Setting Item, Stat, Table, Tree View）→ `FEEDBACK`（Alert, Empty State, Progress, Skeleton, Toast）→ `OVERLAY`（Alert Dialog, Dialog, Drawer, Dropdown, Hover Card, Popover, Tooltip）→ `NAVIGATION`（Breadcrumb, Menubar, Pagination, Steps, Tabs）→ `LAYOUT`（Container, Filter Bar, Header, Nav, Page Header, Scroll Area, Sidebar, Toolbar）。這是元件的核心，純 HTML 專案可以只用這些 CSS 類別。共用結構透過 `listbox.css` 以逗號選擇器去重（Combobox / Multi Select 共用 7 組 class）。
 2. **Astro 元件層**（`src/components/ui/`）— 包裝 CSS 類別的 `.astro` 檔案，提供 TypeScript Props 型別安全和屬性透傳。
 
 ### CSS 類別命名規則
@@ -124,6 +124,7 @@ src/
 │       ├── Dialog*.astro          — 對話框（Dialog, DialogHeader, DialogTitle, DialogDescription, DialogFooter, DialogClose）
 │       ├── Dropdown*.astro        — 下拉選單（Dropdown, DropdownContent, DropdownItem, DropdownLabel, DropdownSeparator）
 │       ├── FileInput.astro        — 檔案上傳
+│       ├── FilterBar*.astro       — 篩選列（FilterBar, FilterBarInner, FilterBarSearch, FilterBarFilters）
 │       ├── FormGroup.astro        — 表單群組容器
 │       ├── FormDescription.astro  — 表單說明文字
 │       ├── FormError.astro        — 表單錯誤訊息
@@ -134,6 +135,7 @@ src/
 │       ├── Menubar*.astro         — 選單列（Menubar, MenubarMenu, MenubarTrigger, MenubarContent, MenubarItem, MenubarSeparator, MenubarLabel, MenubarShortcut）
 │       ├── Nav.astro              — 導航選單（vertical prop）
 │       ├── NavItem.astro          — 導航項目（active prop）
+│       ├── PageHeader*.astro      — 頁面標頭（PageHeader, PageHeaderContent, PageHeaderTitle, PageHeaderDescription, PageHeaderActions）
 │       ├── Pagination*.astro      — 分頁（Pagination, PaginationItem, PaginationPrev, PaginationNext, PaginationEllipsis）
 │       ├── Popover*.astro         — 彈出層（Popover, PopoverContent）
 │       ├── Progress.astro         — 進度條（value prop）
@@ -143,6 +145,7 @@ src/
 │       ├── SearchInput.astro      — 搜尋欄（含搜尋圖示）
 │       ├── Select.astro           — 下拉選擇（含裝飾箭頭）
 │       ├── Separator.astro        — 分隔線（orientation prop）
+│       ├── SettingItem*.astro     — 設定項（SettingItem, SettingItemContent, SettingItemLabel, SettingItemDescription, SettingItemAction）
 │       ├── Drawer*.astro          — 側邊面板（Drawer, DrawerHeader, DrawerTitle, DrawerDescription, DrawerContent, DrawerFooter, DrawerClose）
 │       ├── Sidebar*.astro         — 側邊欄（Sidebar, SidebarHeader, SidebarContent, SidebarFooter, SidebarSection, SidebarSectionTitle, SidebarGroup, SidebarGroupTitle, SidebarItem, SidebarSeparator）
 │       ├── Skeleton.astro         — 骨架屏
@@ -241,6 +244,7 @@ src/
         ├── dropdown.css
         ├── empty-state.css
         ├── file-input.css
+        ├── filter-bar.css
         ├── form-group.css
         ├── headings.css
         ├── header.css
@@ -257,6 +261,7 @@ src/
         ├── dropzone.css
         ├── transfer-list.css
         ├── nav.css
+        ├── page-header.css
         ├── pagination.css
         ├── paragraph.css
         ├── popover.css
@@ -267,6 +272,7 @@ src/
         ├── search-input.css
         ├── select.css
         ├── separator.css
+        ├── setting-item.css
         ├── drawer.css
         ├── sidebar.css
         ├── skeleton.css
@@ -303,11 +309,11 @@ src/
 - **Components > Typography** — Headings, Paragraphs, Blockquote, Lists, Links, Text, HR
 - **Components > Basic** — Button, Button Group, Card, Color, Separator
 - **Components > Forms** — Checkbox, Combobox, Dropzone, File Input, Form Group, Input, Label, Multi Select, Number Input, Radio, Range, Search Input, Select, Textarea, Toggle, Transfer List
-- **Components > Data Display** — Accordion, Avatar, Badge, Collapsible, Data Table, Stat Card, Table, Tree View
+- **Components > Data Display** — Accordion, Avatar, Badge, Collapsible, Data Table, Setting Item, Stat Card, Table, Tree View
 - **Components > Feedback** — Alert, Empty State, Progress, Skeleton, Toast
 - **Components > Overlay** — Alert Dialog, Dialog, Drawer, Dropdown Menu, Hover Card, Popover, Tooltip
 - **Components > Navigation** — Breadcrumb, Menubar, Pagination, Steps, Tabs
-- **Components > Layouts** — Container, Header, Nav, Scroll Area, Sidebar, Toolbar
+- **Components > Layouts** — Container, Filter Bar, Header, Nav, Page Header, Scroll Area, Sidebar, Toolbar
 
 #### UI Sidebar 元件（`src/components/ui/Sidebar*.astro`）
 
@@ -348,6 +354,35 @@ src/
 - `cu-nav-item` — 導航連結（`text-sm`、`hover:bg-muted/60`）
 - `cu-nav-item-active` — 啟用狀態（`bg-primary/8 font-medium text-primary`）
 - `cu-nav-vertical` — 垂直排列（`flex-col items-stretch gap-0.5`，適合側邊欄）
+
+#### UI PageHeader 元件（`src/components/ui/PageHeader*.astro`）
+
+頁面標頭元件，用於展示頁面標題、描述和操作按鈕：
+
+- `cu-page-header` — 容器（`flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between`）
+- `cu-page-header-content` — 內容區（`space-y-1`）
+- `cu-page-header-title` — 標題（`text-2xl font-bold tracking-tight`）
+- `cu-page-header-description` — 描述（`text-muted-foreground`）
+- `cu-page-header-actions` — 操作區（`flex items-center gap-2`）
+
+#### UI FilterBar 元件（`src/components/ui/FilterBar*.astro`）
+
+篩選列元件，用於搜尋和篩選控制項的容器：
+
+- `cu-filter-bar` — 容器（`rounded-xl border border-border bg-card p-4 shadow-sm`）
+- `cu-filter-bar-inner` — 內部 flex 容器（`flex flex-col gap-4 lg:flex-row`）
+- `cu-filter-bar-search` — 搜尋區（`flex-1`）
+- `cu-filter-bar-filters` — 篩選區（`flex flex-wrap items-center gap-2`）
+
+#### UI SettingItem 元件（`src/components/ui/SettingItem*.astro`）
+
+設定項元件，用於設定頁面的單項設定：
+
+- `cu-setting-item` — 容器（`flex items-center justify-between p-4 sm:p-6`）
+- `cu-setting-item-content` — 內容區（`space-y-0.5`）
+- `cu-setting-item-label` — 標籤（`text-sm font-medium`）
+- `cu-setting-item-description` — 描述（`text-sm text-muted-foreground`）
+- `cu-setting-item-action` — 操作區（`shrink-0`）
 
 ### Dog-fooding 原則
 

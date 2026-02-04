@@ -65,6 +65,121 @@ const withFooterCode = `<div class="cu-table-wrapper">
     <caption class="cu-table-caption">A list of recent invoices.</caption>
   </table>
 </div>`.trim();
+
+const withToolbarCode = `<div class="cu-card">
+  <div class="cu-table-toolbar">
+    <div class="cu-table-toolbar-select">
+      <input type="checkbox" class="cu-checkbox" />
+      <span class="text-sm text-muted-foreground">3 selected</span>
+    </div>
+    <div class="cu-table-toolbar-actions">
+      <button class="cu-button cu-button-outline cu-button-sm">Archive</button>
+      <button class="cu-button cu-button-destructive cu-button-sm">Delete</button>
+    </div>
+  </div>
+  <div class="cu-table-wrapper">
+    <table class="cu-table">
+      <thead class="cu-table-header">
+        <tr class="cu-table-row">
+          <th class="cu-table-head w-12">
+            <input type="checkbox" class="cu-checkbox" checked />
+          </th>
+          <th class="cu-table-head">Name</th>
+          <th class="cu-table-head">Email</th>
+          <th class="cu-table-head">Role</th>
+        </tr>
+      </thead>
+      <tbody class="cu-table-body">
+        <tr class="cu-table-row">
+          <td class="cu-table-cell">
+            <input type="checkbox" class="cu-checkbox" checked />
+          </td>
+          <td class="cu-table-cell font-medium">Alice Chen</td>
+          <td class="cu-table-cell">alice@example.com</td>
+          <td class="cu-table-cell">Admin</td>
+        </tr>
+        <tr class="cu-table-row">
+          <td class="cu-table-cell">
+            <input type="checkbox" class="cu-checkbox" checked />
+          </td>
+          <td class="cu-table-cell font-medium">Bob Smith</td>
+          <td class="cu-table-cell">bob@example.com</td>
+          <td class="cu-table-cell">Editor</td>
+        </tr>
+        <tr class="cu-table-row">
+          <td class="cu-table-cell">
+            <input type="checkbox" class="cu-checkbox" checked />
+          </td>
+          <td class="cu-table-cell font-medium">Carol Davis</td>
+          <td class="cu-table-cell">carol@example.com</td>
+          <td class="cu-table-cell">Viewer</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>`.trim();
+
+const withRowActionsCode = `<div class="cu-table-wrapper rounded-lg border border-border">
+  <table class="cu-table">
+    <thead class="cu-table-header">
+      <tr class="cu-table-row">
+        <th class="cu-table-head">Name</th>
+        <th class="cu-table-head">Status</th>
+        <th class="cu-table-head">Date</th>
+        <th class="cu-table-head w-24"></th>
+      </tr>
+    </thead>
+    <tbody class="cu-table-body">
+      <tr class="cu-table-row group">
+        <td class="cu-table-cell font-medium">Project Alpha</td>
+        <td class="cu-table-cell"><span class="cu-badge cu-badge-success">Active</span></td>
+        <td class="cu-table-cell text-muted-foreground">Jan 15, 2024</td>
+        <td class="cu-table-cell">
+          <div class="cu-table-actions">
+            <button class="cu-button cu-button-ghost cu-button-icon-sm">
+              <!-- Edit icon -->
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/></svg>
+            </button>
+            <button class="cu-button cu-button-ghost cu-button-icon-sm">
+              <!-- Trash icon -->
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
+            </button>
+          </div>
+        </td>
+      </tr>
+      <tr class="cu-table-row group">
+        <td class="cu-table-cell font-medium">Project Beta</td>
+        <td class="cu-table-cell"><span class="cu-badge cu-badge-warning">Pending</span></td>
+        <td class="cu-table-cell text-muted-foreground">Feb 20, 2024</td>
+        <td class="cu-table-cell">
+          <div class="cu-table-actions">
+            <button class="cu-button cu-button-ghost cu-button-icon-sm">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/></svg>
+            </button>
+            <button class="cu-button cu-button-ghost cu-button-icon-sm">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
+            </button>
+          </div>
+        </td>
+      </tr>
+      <tr class="cu-table-row group">
+        <td class="cu-table-cell font-medium">Project Gamma</td>
+        <td class="cu-table-cell"><span class="cu-badge cu-badge-secondary">Archived</span></td>
+        <td class="cu-table-cell text-muted-foreground">Mar 10, 2024</td>
+        <td class="cu-table-cell">
+          <div class="cu-table-actions">
+            <button class="cu-button cu-button-ghost cu-button-icon-sm">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/></svg>
+            </button>
+            <button class="cu-button cu-button-ghost cu-button-icon-sm">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
+            </button>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>`.trim();
 ---
 
 <Layout title="Table — Cubby UI" category="Data Display" componentName="Table">
@@ -166,6 +281,147 @@ const withFooterCode = `<div class="cu-table-wrapper">
                                 </tr>
                             </tfoot>
                             <caption class="cu-table-caption">A list of recent invoices.</caption>
+                        </table>
+                    </div>
+                </div>
+            </ComponentPreview>
+        </section>
+
+        <!-- With Toolbar -->
+        <section class="space-y-3">
+            <h2 id="with-toolbar" class="text-lg font-semibold tracking-tight relative group">
+                <a href="#with-toolbar" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                With Toolbar
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
+                Add a <code class="cu-code">cu-table-toolbar</code> for batch selection and actions. Use <code class="cu-code">cu-table-toolbar-select</code> for the selection indicator and <code class="cu-code">cu-table-toolbar-actions</code> for action buttons.
+            </p>
+            <ComponentPreview code={withToolbarCode}>
+                <div class="w-full max-w-2xl">
+                    <div class="cu-card">
+                        <div class="cu-table-toolbar">
+                            <div class="cu-table-toolbar-select">
+                                <input type="checkbox" class="cu-checkbox" />
+                                <span class="text-sm text-muted-foreground">3 selected</span>
+                            </div>
+                            <div class="cu-table-toolbar-actions">
+                                <button class="cu-button cu-button-outline cu-button-sm">Archive</button>
+                                <button class="cu-button cu-button-destructive cu-button-sm">Delete</button>
+                            </div>
+                        </div>
+                        <div class="cu-table-wrapper">
+                            <table class="cu-table">
+                                <thead class="cu-table-header">
+                                    <tr class="cu-table-row">
+                                        <th class="cu-table-head w-12">
+                                            <input type="checkbox" class="cu-checkbox" checked />
+                                        </th>
+                                        <th class="cu-table-head">Name</th>
+                                        <th class="cu-table-head">Email</th>
+                                        <th class="cu-table-head">Role</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="cu-table-body">
+                                    <tr class="cu-table-row">
+                                        <td class="cu-table-cell">
+                                            <input type="checkbox" class="cu-checkbox" checked />
+                                        </td>
+                                        <td class="cu-table-cell font-medium">Alice Chen</td>
+                                        <td class="cu-table-cell">alice@example.com</td>
+                                        <td class="cu-table-cell">Admin</td>
+                                    </tr>
+                                    <tr class="cu-table-row">
+                                        <td class="cu-table-cell">
+                                            <input type="checkbox" class="cu-checkbox" checked />
+                                        </td>
+                                        <td class="cu-table-cell font-medium">Bob Smith</td>
+                                        <td class="cu-table-cell">bob@example.com</td>
+                                        <td class="cu-table-cell">Editor</td>
+                                    </tr>
+                                    <tr class="cu-table-row">
+                                        <td class="cu-table-cell">
+                                            <input type="checkbox" class="cu-checkbox" checked />
+                                        </td>
+                                        <td class="cu-table-cell font-medium">Carol Davis</td>
+                                        <td class="cu-table-cell">carol@example.com</td>
+                                        <td class="cu-table-cell">Viewer</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </ComponentPreview>
+        </section>
+
+        <!-- With Row Actions -->
+        <section class="space-y-3">
+            <h2 id="with-row-actions" class="text-lg font-semibold tracking-tight relative group">
+                <a href="#with-row-actions" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                With Row Actions
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
+                Add <code class="cu-code">cu-table-actions</code> to a cell for hover-revealed row actions. Add <code class="cu-code">group</code> to the <code class="cu-code">cu-table-row</code> to enable the hover effect.
+            </p>
+            <ComponentPreview code={withRowActionsCode}>
+                <div class="w-full max-w-2xl">
+                    <div class="cu-table-wrapper rounded-lg border border-border">
+                        <table class="cu-table">
+                            <thead class="cu-table-header">
+                                <tr class="cu-table-row">
+                                    <th class="cu-table-head">Name</th>
+                                    <th class="cu-table-head">Status</th>
+                                    <th class="cu-table-head">Date</th>
+                                    <th class="cu-table-head w-24"></th>
+                                </tr>
+                            </thead>
+                            <tbody class="cu-table-body">
+                                <tr class="cu-table-row group">
+                                    <td class="cu-table-cell font-medium">Project Alpha</td>
+                                    <td class="cu-table-cell"><span class="cu-badge cu-badge-success">Active</span></td>
+                                    <td class="cu-table-cell text-muted-foreground">Jan 15, 2024</td>
+                                    <td class="cu-table-cell">
+                                        <div class="cu-table-actions">
+                                            <button class="cu-button cu-button-ghost cu-button-icon-sm">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/></svg>
+                                            </button>
+                                            <button class="cu-button cu-button-ghost cu-button-icon-sm">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="cu-table-row group">
+                                    <td class="cu-table-cell font-medium">Project Beta</td>
+                                    <td class="cu-table-cell"><span class="cu-badge cu-badge-warning">Pending</span></td>
+                                    <td class="cu-table-cell text-muted-foreground">Feb 20, 2024</td>
+                                    <td class="cu-table-cell">
+                                        <div class="cu-table-actions">
+                                            <button class="cu-button cu-button-ghost cu-button-icon-sm">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/></svg>
+                                            </button>
+                                            <button class="cu-button cu-button-ghost cu-button-icon-sm">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="cu-table-row group">
+                                    <td class="cu-table-cell font-medium">Project Gamma</td>
+                                    <td class="cu-table-cell"><span class="cu-badge cu-badge-secondary">Archived</span></td>
+                                    <td class="cu-table-cell text-muted-foreground">Mar 10, 2024</td>
+                                    <td class="cu-table-cell">
+                                        <div class="cu-table-actions">
+                                            <button class="cu-button cu-button-ghost cu-button-icon-sm">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/></svg>
+                                            </button>
+                                            <button class="cu-button cu-button-ghost cu-button-icon-sm">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
                         </table>
                     </div>
                 </div>
