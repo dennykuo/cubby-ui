@@ -1,0 +1,303 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+const basicUsage = `<html class="dark">
+  <body>
+    <!-- All Cubby UI components will use dark mode colors -->
+  </body>
+</html>`;
+
+const toggleScript = `<button id="theme-toggle" class="cu-button cu-button-ghost cu-button-icon">
+  <svg class="dark:hidden" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+  <svg class="hidden dark:block" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
+</button>
+
+<script>
+  const toggle = document.getElementById('theme-toggle');
+  const html = document.documentElement;
+
+  // Check for saved preference or system preference
+  const savedTheme = localStorage.getItem('theme');
+  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+  if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+    html.classList.add('dark');
+  }
+
+  toggle.addEventListener('click', () => {
+    html.classList.toggle('dark');
+    localStorage.setItem('theme', html.classList.contains('dark') ? 'dark' : 'light');
+  });
+<\/script>`;
+
+const darkModeVariables = `.dark {
+  --color-background: hsl(224 71% 4%);
+  --color-foreground: hsl(213 31% 91%);
+
+  --color-border: hsl(217 33% 17.5%);
+  --color-input: hsl(217 33% 17.5%);
+  --color-ring: hsl(224 64% 33%);
+
+  --color-primary: hsl(217 91% 60%);
+  --color-primary-foreground: hsl(0 0% 100%);
+
+  --color-secondary: hsl(217 33% 17.5%);
+  --color-secondary-foreground: hsl(213 31% 91%);
+
+  --color-destructive: hsl(0 63% 31%);
+  --color-destructive-foreground: hsl(0 86% 97%);
+
+  --color-muted: hsl(223 47% 11%);
+  --color-muted-foreground: hsl(215 20% 65%);
+
+  --color-card: hsl(224 71% 4%);
+  --color-card-foreground: hsl(213 31% 91%);
+
+  --color-popover: hsl(224 71% 4%);
+  --color-popover-foreground: hsl(213 31% 91%);
+}`;
+
+const customDarkMode = `/* After importing Cubby UI */
+.dark {
+  /* Override with your brand colors for dark mode */
+  --color-primary: hsl(158 64% 52%);
+  --color-primary-foreground: hsl(0 0% 100%);
+  --color-ring: hsl(158 64% 52%);
+
+  /* Adjust background for your preference */
+  --color-background: hsl(220 20% 7%);
+}`;
+
+const tailwindDarkClasses = `<!-- Tailwind's dark: variant works automatically -->
+<div class="bg-white dark:bg-slate-900">
+  <p class="text-gray-900 dark:text-gray-100">
+    This text adapts to the theme.
+  </p>
+</div>
+
+<!-- Cubby UI components adapt automatically -->
+<div class="cu-card">
+  <div class="cu-card-content">
+    Card colors change with the theme.
+  </div>
+</div>`;
+
+const systemPreference = `<script>
+  // Respect system preference by default
+  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+
+  function applyTheme(dark) {
+    document.documentElement.classList.toggle('dark', dark);
+  }
+
+  // Apply on load
+  applyTheme(prefersDark.matches);
+
+  // Listen for changes
+  prefersDark.addEventListener('change', (e) => applyTheme(e.matches));
+<\/script>`;
+
+const noFlashScript = `<script>
+  // Add this to <head> to prevent flash of wrong theme
+  (function() {
+    const savedTheme = localStorage.getItem('theme');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+      document.documentElement.classList.add('dark');
+    }
+  })();
+<\/script>`;
+---
+
+<Layout title="Dark Mode — Cubby UI">
+    <div class="space-y-3">
+        <h1 class="text-3xl font-bold tracking-tight">Dark Mode</h1>
+        <p class="text-base text-muted-foreground leading-relaxed">
+            Cubby UI includes built-in dark mode support with carefully tuned colors.
+        </p>
+    </div>
+
+    <div class="mt-10 space-y-12">
+        <!-- Basic Usage -->
+        <section class="space-y-4">
+            <h2 class="text-xl font-semibold tracking-tight">Basic usage</h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
+                Add the <code class="cu-code">dark</code> class to the <code class="cu-code">&lt;html&gt;</code> element. All Cubby UI components will automatically switch to their dark variants.
+            </p>
+            <div class="rounded-xl border border-border bg-muted/20 overflow-hidden">
+                <div class="flex items-center px-4 py-2.5 border-b border-border/40">
+                    <span class="text-[11px] font-medium uppercase tracking-wider text-muted-foreground/60">HTML</span>
+                </div>
+                <div class="px-4 py-3">
+                    <Code code={basicUsage} lang="html" />
+                </div>
+            </div>
+        </section>
+
+        <!-- Divider -->
+        <div class="cu-separator"></div>
+
+        <!-- How It Works -->
+        <section class="space-y-4">
+            <h2 class="text-xl font-semibold tracking-tight">How it works</h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
+                Dark mode overrides are defined in the <code class="cu-code">.dark</code> selector in <code class="cu-code">global.css</code>. When the class is present, CSS variables are updated to dark mode values.
+            </p>
+            <div class="rounded-xl border border-border bg-muted/20 overflow-hidden">
+                <div class="flex items-center px-4 py-2.5 border-b border-border/40">
+                    <span class="text-[11px] font-medium uppercase tracking-wider text-muted-foreground/60">global.css</span>
+                </div>
+                <div class="px-4 py-3">
+                    <Code code={darkModeVariables} lang="css" />
+                </div>
+            </div>
+            <p class="text-sm text-muted-foreground">
+                Since components use these CSS variables, they adapt automatically — no extra classes needed on individual components.
+            </p>
+        </section>
+
+        <!-- Divider -->
+        <div class="cu-separator"></div>
+
+        <!-- Theme Toggle -->
+        <section class="space-y-4">
+            <h2 class="text-xl font-semibold tracking-tight">Theme toggle</h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
+                Implement a theme toggle button with localStorage persistence.
+            </p>
+            <div class="rounded-xl border border-border overflow-hidden">
+                <div class="p-8 flex items-center justify-center bg-background/50 relative">
+                    <div class="absolute inset-0 -z-10 bg-white dark:bg-slate-950 bg-[radial-gradient(#f1f5f9_1px,transparent_1px)] dark:bg-[radial-gradient(#1e293b_1px,transparent_1px)] [background-size:16px_16px]"></div>
+                    <button id="demo-theme-toggle" class="cu-button cu-button-ghost cu-button-icon">
+                        <svg class="dark:hidden" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+                        <svg class="hidden dark:block" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
+                    </button>
+                </div>
+                <div class="border-t border-border/40 bg-muted/30">
+                    <div class="flex items-center px-4 py-2.5 border-b border-border/20">
+                        <span class="text-[11px] font-medium uppercase tracking-wider text-muted-foreground/60">Implementation</span>
+                    </div>
+                    <div class="px-4 py-3">
+                        <Code code={toggleScript} lang="html" />
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Divider -->
+        <div class="cu-separator"></div>
+
+        <!-- System Preference -->
+        <section class="space-y-4">
+            <h2 class="text-xl font-semibold tracking-tight">System preference</h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
+                Respect the user's OS preference using <code class="cu-code">prefers-color-scheme</code>.
+            </p>
+            <div class="rounded-xl border border-border bg-muted/20 overflow-hidden">
+                <div class="flex items-center px-4 py-2.5 border-b border-border/40">
+                    <span class="text-[11px] font-medium uppercase tracking-wider text-muted-foreground/60">JavaScript</span>
+                </div>
+                <div class="px-4 py-3">
+                    <Code code={systemPreference} lang="html" />
+                </div>
+            </div>
+        </section>
+
+        <!-- Divider -->
+        <div class="cu-separator"></div>
+
+        <!-- Prevent Flash -->
+        <section class="space-y-4">
+            <h2 class="text-xl font-semibold tracking-tight">Prevent flash of wrong theme</h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
+                Add a blocking script to <code class="cu-code">&lt;head&gt;</code> to apply the theme before the page renders.
+            </p>
+            <div class="rounded-xl border border-border bg-muted/20 overflow-hidden">
+                <div class="flex items-center px-4 py-2.5 border-b border-border/40">
+                    <span class="text-[11px] font-medium uppercase tracking-wider text-muted-foreground/60">In &lt;head&gt;</span>
+                </div>
+                <div class="px-4 py-3">
+                    <Code code={noFlashScript} lang="html" />
+                </div>
+            </div>
+        </section>
+
+        <!-- Divider -->
+        <div class="cu-separator"></div>
+
+        <!-- Custom Dark Colors -->
+        <section class="space-y-4">
+            <h2 class="text-xl font-semibold tracking-tight">Custom dark mode colors</h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
+                Override the default dark mode colors by adding your own <code class="cu-code">.dark</code> selector after importing Cubby UI.
+            </p>
+            <div class="rounded-xl border border-border bg-muted/20 overflow-hidden">
+                <div class="flex items-center px-4 py-2.5 border-b border-border/40">
+                    <span class="text-[11px] font-medium uppercase tracking-wider text-muted-foreground/60">your-styles.css</span>
+                </div>
+                <div class="px-4 py-3">
+                    <Code code={customDarkMode} lang="css" />
+                </div>
+            </div>
+        </section>
+
+        <!-- Divider -->
+        <div class="cu-separator"></div>
+
+        <!-- Tailwind Dark Classes -->
+        <section class="space-y-4">
+            <h2 class="text-xl font-semibold tracking-tight">Using Tailwind's dark: variant</h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
+                Tailwind's <code class="cu-code">dark:</code> variant works alongside Cubby UI. Use it for custom styling that needs to change between themes.
+            </p>
+            <div class="rounded-xl border border-border bg-muted/20 overflow-hidden">
+                <div class="flex items-center px-4 py-2.5 border-b border-border/40">
+                    <span class="text-[11px] font-medium uppercase tracking-wider text-muted-foreground/60">HTML</span>
+                </div>
+                <div class="px-4 py-3">
+                    <Code code={tailwindDarkClasses} lang="html" />
+                </div>
+            </div>
+        </section>
+
+        <!-- Divider -->
+        <div class="cu-separator"></div>
+
+        <!-- Tips -->
+        <section class="space-y-4">
+            <h2 class="text-lg font-semibold tracking-tight">Tips</h2>
+            <ul class="space-y-2 text-sm text-muted-foreground">
+                <li class="flex items-start gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-primary mt-0.5 shrink-0"><path d="M20 6 9 17l-5-5"/></svg>
+                    <span>Always add the <code class="cu-code">dark</code> class to <code class="cu-code">&lt;html&gt;</code>, not <code class="cu-code">&lt;body&gt;</code>.</span>
+                </li>
+                <li class="flex items-start gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-primary mt-0.5 shrink-0"><path d="M20 6 9 17l-5-5"/></svg>
+                    <span>Use <code class="cu-code">localStorage</code> to persist the user's preference across page reloads.</span>
+                </li>
+                <li class="flex items-start gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-primary mt-0.5 shrink-0"><path d="M20 6 9 17l-5-5"/></svg>
+                    <span>Consider providing three options: Light, Dark, and System (auto).</span>
+                </li>
+                <li class="flex items-start gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-primary mt-0.5 shrink-0"><path d="M20 6 9 17l-5-5"/></svg>
+                    <span>Test your dark mode colors for sufficient contrast. Dark mode isn't just "invert the colors".</span>
+                </li>
+            </ul>
+        </section>
+    </div>
+</Layout>
+
+<script>
+    function setupThemeToggle() {
+        const toggle = document.getElementById('demo-theme-toggle');
+        if (toggle) {
+            toggle.addEventListener('click', () => {
+                document.documentElement.classList.toggle('dark');
+            });
+        }
+    }
+    setupThemeToggle();
+    document.addEventListener('astro:page-load', setupThemeToggle);
+</script>

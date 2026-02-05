@@ -1,0 +1,314 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+
+const themeStructure = `@theme {
+  /* Typography */
+  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+
+  /* Border & Input */
+  --color-border: hsl(214.3 31.8% 89.8%);
+  --color-input: hsl(214.3 31.8% 89.8%);
+  --color-ring: hsl(221 83% 53%);
+
+  /* Background & Foreground */
+  --color-background: hsl(210 40% 98.8%);
+  --color-foreground: hsl(222.2 47.4% 11.2%);
+
+  /* Semantic Colors */
+  --color-primary: hsl(221 83% 53%);
+  --color-primary-foreground: hsl(0 0% 100%);
+
+  --color-secondary: hsl(210 40% 94.2%);
+  --color-secondary-foreground: hsl(222.2 47.4% 11.2%);
+
+  --color-destructive: hsl(0 84% 60%);
+  --color-destructive-foreground: hsl(0 0% 100%);
+
+  --color-success: hsl(142 71% 41%);
+  --color-success-foreground: hsl(0 0% 100%);
+
+  --color-warning: hsl(38 92% 62%);
+  --color-warning-foreground: hsl(20 14.3% 4.1%);
+
+  --color-info: hsl(199 89% 53%);
+  --color-info-foreground: hsl(0 0% 100%);
+
+  /* UI Colors */
+  --color-muted: hsl(210 40% 96.1%);
+  --color-muted-foreground: hsl(215 20% 43.5%);
+
+  --color-accent: hsl(210 40% 96.1%);
+  --color-accent-foreground: hsl(222.2 47.4% 11.2%);
+
+  --color-popover: hsl(0 0% 100%);
+  --color-popover-foreground: hsl(222.2 47.4% 11.2%);
+
+  --color-card: hsl(0 0% 100%);
+  --color-card-foreground: hsl(222.2 47.4% 11.2%);
+
+  /* Border Radius */
+  --radius-lg: 0.5rem;
+  --radius-md: calc(0.5rem - 2px);
+  --radius-sm: calc(0.5rem - 4px);
+}`;
+
+const overrideExample = `/* your-styles.css */
+@import "tailwindcss";
+@import "cubby-ui/src/global.css";
+@import "cubby-ui/src/components.css";
+
+/* Override primary color to green */
+@theme {
+  --color-primary: hsl(142 71% 45%);
+  --color-primary-foreground: hsl(0 0% 100%);
+  --color-ring: hsl(142 71% 45%);
+}`;
+
+const customFontExample = `@theme {
+  --font-sans: 'Noto Sans TC', 'Inter', ui-sans-serif, system-ui, sans-serif;
+}`;
+
+const colorMixExample = `/* Use color-mix for semi-transparent semantic colors */
+.custom-element {
+  /* ✓ Good - uses semantic color */
+  background: color-mix(in srgb, var(--color-primary) 10%, transparent);
+
+  /* ✗ Avoid - hardcoded HSL value */
+  background: hsl(221 83% 53% / 0.1);
+}`;
+
+const radiusExample = `@theme {
+  /* Larger border radius for a softer look */
+  --radius-lg: 0.75rem;
+  --radius-md: calc(0.75rem - 2px);
+  --radius-sm: calc(0.75rem - 4px);
+}`;
+
+const brandColors = `@theme {
+  /* Brand: Emerald */
+  --color-primary: hsl(158 64% 52%);
+  --color-primary-foreground: hsl(0 0% 100%);
+  --color-ring: hsl(158 64% 52%);
+
+  /* Or use any brand color */
+  /* --color-primary: hsl(262 83% 58%);  Purple */
+  /* --color-primary: hsl(24 95% 53%);   Orange */
+  /* --color-primary: hsl(346 77% 50%);  Rose */
+}`;
+---
+
+<Layout title="Theming — Cubby UI">
+    <div class="space-y-3">
+        <h1 class="text-3xl font-bold tracking-tight">Theming</h1>
+        <p class="text-base text-muted-foreground leading-relaxed">
+            Customize Cubby UI to match your brand using CSS variables.
+        </p>
+    </div>
+
+    <div class="mt-10 space-y-12">
+        <!-- Theme Structure -->
+        <section class="space-y-4">
+            <h2 class="text-xl font-semibold tracking-tight">Theme structure</h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
+                Cubby UI uses Tailwind CSS v4's <code class="cu-code">@theme</code> directive to define design tokens. All colors, fonts, and spacing are defined as CSS custom properties in <code class="cu-code">global.css</code>.
+            </p>
+            <div class="rounded-xl border border-border bg-muted/20 overflow-hidden">
+                <div class="flex items-center px-4 py-2.5 border-b border-border/40">
+                    <span class="text-[11px] font-medium uppercase tracking-wider text-muted-foreground/60">global.css</span>
+                </div>
+                <div class="px-4 py-3">
+                    <Code code={themeStructure} lang="css" />
+                </div>
+            </div>
+        </section>
+
+        <!-- Divider -->
+        <div class="cu-separator"></div>
+
+        <!-- Color System -->
+        <section class="space-y-6">
+            <h2 class="text-xl font-semibold tracking-tight">Color system</h2>
+
+            <div class="space-y-3">
+                <h3 class="text-base font-medium">Semantic colors</h3>
+                <p class="text-sm text-muted-foreground">
+                    Each semantic color has a paired <code class="cu-code">-foreground</code> variant for text contrast.
+                </p>
+                <div class="rounded-lg border border-border overflow-hidden">
+                    <div class="cu-table-wrapper">
+                        <table class="cu-table">
+                            <thead class="cu-table-header">
+                                <tr class="cu-table-row">
+                                    <th class="cu-table-head">Variable</th>
+                                    <th class="cu-table-head">Usage</th>
+                                </tr>
+                            </thead>
+                            <tbody class="cu-table-body">
+                                <tr class="cu-table-row">
+                                    <td class="cu-table-cell"><code class="cu-code">--color-primary</code></td>
+                                    <td class="cu-table-cell text-muted-foreground">Primary actions, links, focus rings</td>
+                                </tr>
+                                <tr class="cu-table-row">
+                                    <td class="cu-table-cell"><code class="cu-code">--color-secondary</code></td>
+                                    <td class="cu-table-cell text-muted-foreground">Secondary buttons, subtle backgrounds</td>
+                                </tr>
+                                <tr class="cu-table-row">
+                                    <td class="cu-table-cell"><code class="cu-code">--color-destructive</code></td>
+                                    <td class="cu-table-cell text-muted-foreground">Destructive actions, errors</td>
+                                </tr>
+                                <tr class="cu-table-row">
+                                    <td class="cu-table-cell"><code class="cu-code">--color-success</code></td>
+                                    <td class="cu-table-cell text-muted-foreground">Success states, confirmations</td>
+                                </tr>
+                                <tr class="cu-table-row">
+                                    <td class="cu-table-cell"><code class="cu-code">--color-warning</code></td>
+                                    <td class="cu-table-cell text-muted-foreground">Warnings, cautions</td>
+                                </tr>
+                                <tr class="cu-table-row">
+                                    <td class="cu-table-cell"><code class="cu-code">--color-info</code></td>
+                                    <td class="cu-table-cell text-muted-foreground">Informational messages</td>
+                                </tr>
+                                <tr class="cu-table-row">
+                                    <td class="cu-table-cell"><code class="cu-code">--color-muted</code></td>
+                                    <td class="cu-table-cell text-muted-foreground">Muted backgrounds, disabled states</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="space-y-3">
+                <h3 class="text-base font-medium">Semi-transparent colors</h3>
+                <p class="text-sm text-muted-foreground">
+                    Use <code class="cu-code">color-mix()</code> for semi-transparent semantic colors instead of hardcoding HSL values.
+                </p>
+                <div class="rounded-xl border border-border bg-muted/20 overflow-hidden">
+                    <div class="flex items-center px-4 py-2.5 border-b border-border/40">
+                        <span class="text-[11px] font-medium uppercase tracking-wider text-muted-foreground/60">CSS</span>
+                    </div>
+                    <div class="px-4 py-3">
+                        <Code code={colorMixExample} lang="css" />
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Divider -->
+        <div class="cu-separator"></div>
+
+        <!-- Customization -->
+        <section class="space-y-6">
+            <h2 class="text-xl font-semibold tracking-tight">Customization</h2>
+
+            <div class="space-y-3">
+                <h3 class="text-base font-medium">Override primary color</h3>
+                <p class="text-sm text-muted-foreground">
+                    Add your own <code class="cu-code">@theme</code> block after importing Cubby UI to override any token.
+                </p>
+                <div class="rounded-xl border border-border bg-muted/20 overflow-hidden">
+                    <div class="flex items-center px-4 py-2.5 border-b border-border/40">
+                        <span class="text-[11px] font-medium uppercase tracking-wider text-muted-foreground/60">your-styles.css</span>
+                    </div>
+                    <div class="px-4 py-3">
+                        <Code code={overrideExample} lang="css" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="space-y-3">
+                <h3 class="text-base font-medium">Brand colors</h3>
+                <p class="text-sm text-muted-foreground">
+                    Some common brand color examples. Remember to also update <code class="cu-code">--color-ring</code> to match.
+                </p>
+                <div class="rounded-xl border border-border bg-muted/20 overflow-hidden">
+                    <div class="flex items-center px-4 py-2.5 border-b border-border/40">
+                        <span class="text-[11px] font-medium uppercase tracking-wider text-muted-foreground/60">CSS</span>
+                    </div>
+                    <div class="px-4 py-3">
+                        <Code code={brandColors} lang="css" />
+                    </div>
+                </div>
+                <div class="flex flex-wrap gap-2 mt-3">
+                    <div class="flex items-center gap-2 rounded-lg border border-border px-3 py-2">
+                        <div class="size-4 rounded-full bg-[hsl(221_83%_53%)]"></div>
+                        <span class="text-xs text-muted-foreground">Default (Blue)</span>
+                    </div>
+                    <div class="flex items-center gap-2 rounded-lg border border-border px-3 py-2">
+                        <div class="size-4 rounded-full bg-[hsl(158_64%_52%)]"></div>
+                        <span class="text-xs text-muted-foreground">Emerald</span>
+                    </div>
+                    <div class="flex items-center gap-2 rounded-lg border border-border px-3 py-2">
+                        <div class="size-4 rounded-full bg-[hsl(262_83%_58%)]"></div>
+                        <span class="text-xs text-muted-foreground">Purple</span>
+                    </div>
+                    <div class="flex items-center gap-2 rounded-lg border border-border px-3 py-2">
+                        <div class="size-4 rounded-full bg-[hsl(24_95%_53%)]"></div>
+                        <span class="text-xs text-muted-foreground">Orange</span>
+                    </div>
+                    <div class="flex items-center gap-2 rounded-lg border border-border px-3 py-2">
+                        <div class="size-4 rounded-full bg-[hsl(346_77%_50%)]"></div>
+                        <span class="text-xs text-muted-foreground">Rose</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="space-y-3">
+                <h3 class="text-base font-medium">Custom font</h3>
+                <p class="text-sm text-muted-foreground">
+                    Override the default font stack with your preferred typeface.
+                </p>
+                <div class="rounded-xl border border-border bg-muted/20 overflow-hidden">
+                    <div class="flex items-center px-4 py-2.5 border-b border-border/40">
+                        <span class="text-[11px] font-medium uppercase tracking-wider text-muted-foreground/60">CSS</span>
+                    </div>
+                    <div class="px-4 py-3">
+                        <Code code={customFontExample} lang="css" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="space-y-3">
+                <h3 class="text-base font-medium">Border radius</h3>
+                <p class="text-sm text-muted-foreground">
+                    Adjust the global border radius for a different visual style.
+                </p>
+                <div class="rounded-xl border border-border bg-muted/20 overflow-hidden">
+                    <div class="flex items-center px-4 py-2.5 border-b border-border/40">
+                        <span class="text-[11px] font-medium uppercase tracking-wider text-muted-foreground/60">CSS</span>
+                    </div>
+                    <div class="px-4 py-3">
+                        <Code code={radiusExample} lang="css" />
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Divider -->
+        <div class="cu-separator"></div>
+
+        <!-- Tips -->
+        <section class="space-y-4">
+            <h2 class="text-lg font-semibold tracking-tight">Tips</h2>
+            <ul class="space-y-2 text-sm text-muted-foreground">
+                <li class="flex items-start gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-primary mt-0.5 shrink-0"><path d="M20 6 9 17l-5-5"/></svg>
+                    <span>Always define both <code class="cu-code">--color-*</code> and <code class="cu-code">--color-*-foreground</code> pairs for proper contrast.</span>
+                </li>
+                <li class="flex items-start gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-primary mt-0.5 shrink-0"><path d="M20 6 9 17l-5-5"/></svg>
+                    <span>Use HSL format for colors to maintain consistency with the default theme.</span>
+                </li>
+                <li class="flex items-start gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-primary mt-0.5 shrink-0"><path d="M20 6 9 17l-5-5"/></svg>
+                    <span>Remember to define dark mode overrides in a <code class="cu-code">.dark</code> selector. See the <a href="/dark-mode" class="text-primary hover:underline underline-offset-4">Dark Mode</a> guide.</span>
+                </li>
+                <li class="flex items-start gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-primary mt-0.5 shrink-0"><path d="M20 6 9 17l-5-5"/></svg>
+                    <span>Test your color choices for accessibility — ensure sufficient contrast ratios (WCAG 2.1 AA minimum).</span>
+                </li>
+            </ul>
+        </section>
+    </div>
+</Layout>
