@@ -8,6 +8,10 @@
     @apply absolute z-50 mt-1 min-w-[8rem] overflow-hidden rounded-xl border border-border bg-popover p-1 text-popover-foreground shadow-md;
 }
 
+.cu-dropdown-content:not([hidden]) {
+    animation: cu-float-in 0.15s ease;
+}
+
 .cu-dropdown-item {
     @apply relative flex w-full cursor-pointer items-center rounded-md px-2 py-1.5 text-sm transition-colors duration-150 hover:bg-accent hover:text-accent-foreground outline-none;
 }
@@ -30,4 +34,12 @@
 
 .cu-dropdown-item-danger {
     @apply text-destructive hover:bg-destructive/10 hover:text-destructive;
+}
+
+/* Shared float-in animation for dropdown / popover / menubar */
+@keyframes cu-float-in {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
 }

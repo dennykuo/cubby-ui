@@ -12,6 +12,6 @@ const baseClass = `${TOP_CLASS}-drawer`;
 const sideClass = `${TOP_CLASS}-drawer-${side}`;
 ---
 
-<dialog class:list={[baseClass, sideClass, className]} {...rest}>
+<dialog class:list={[baseClass, sideClass, className]} data-cu-drawer {...rest}>
     <slot />
 </dialog>

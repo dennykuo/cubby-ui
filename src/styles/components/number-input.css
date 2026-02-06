@@ -20,6 +20,7 @@
     @apply h-9 w-14 border-x border-input bg-transparent text-center text-sm outline-none appearance-none [-moz-appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none disabled:pointer-events-none disabled:opacity-50;
 }
 
-.cu-number-input-disabled {
+.cu-number-input-disabled,
+.cu-number-input:has(.cu-number-input-field:disabled) {
     @apply pointer-events-none opacity-50 bg-muted text-muted-foreground;
 }

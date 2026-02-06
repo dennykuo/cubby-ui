@@ -51,7 +51,7 @@
       });
       _popovers.forEach(function (p) {
         if (!p.el.contains(e.target)) {
-          p.content.style.display = "none";
+          p.content.setAttribute("hidden", "");
         }
       });
       _menubars.forEach(function (b) {
@@ -92,8 +92,8 @@
         }
       });
       _popovers.forEach(function (p) {
-        if (p.content.style.display !== "none") {
-          p.content.style.display = "none";
+        if (!p.content.hasAttribute("hidden")) {
+          p.content.setAttribute("hidden", "");
         }
       });
     });
@@ -508,99 +508,66 @@
       });
   }
 
-  function setupDialogs() {
+  function setupOverlay(config) {
     document
-      .querySelectorAll("[data-cu-dialog-trigger]")
+      .querySelectorAll("[" + config.triggerAttr + "]")
       .forEach(function (trigger) {
         if (trigger._cuInit) return;
         trigger._cuInit = true;
 
         trigger.addEventListener("click", function () {
-          var id = trigger.getAttribute("data-cu-dialog-trigger");
-          var dialog = document.getElementById(id);
-          if (dialog && dialog.showModal) dialog.showModal();
-        });
-      });
-
-    document.querySelectorAll("[data-cu-dialog]").forEach(function (dialog) {
-      if (dialog._cuInit) return;
-      dialog._cuInit = true;
-
-      dialog.querySelectorAll("[data-cu-dialog-close]").forEach(function (btn) {
-        btn.addEventListener("click", function () {
-          dialog.close();
-        });
-      });
-      dialog.addEventListener("click", function (e) {
-        if (e.target === dialog) dialog.close();
-      });
-    });
-  }
-
-  function setupDrawers() {
-    document
-      .querySelectorAll("[data-cu-drawer-trigger]")
-      .forEach(function (trigger) {
-        if (trigger._cuInit) return;
-        trigger._cuInit = true;
-
-        trigger.addEventListener("click", function () {
-          var id = trigger.getAttribute("data-cu-drawer-trigger");
-          var dialog = document.getElementById(id);
-          if (dialog && dialog.showModal) dialog.showModal();
-        });
-      });
-
-    document.querySelectorAll("[data-cu-drawer]").forEach(function (dialog) {
-      if (dialog._cuInit) return;
-      dialog._cuInit = true;
-
-      dialog.querySelectorAll("[data-cu-drawer-close]").forEach(function (btn) {
-        btn.addEventListener("click", function () {
-          dialog.close();
-        });
-      });
-      dialog.addEventListener("click", function (e) {
-        if (e.target === dialog) dialog.close();
-      });
-    });
-  }
-
-  function setupAlertDialogs() {
-    document
-      .querySelectorAll("[data-cu-alert-dialog-trigger]")
-      .forEach(function (trigger) {
-        if (trigger._cuInit) return;
-        trigger._cuInit = true;
-
-        trigger.addEventListener("click", function () {
-          var id = trigger.getAttribute("data-cu-alert-dialog-trigger");
+          var id = trigger.getAttribute(config.triggerAttr);
           var dialog = document.getElementById(id);
           if (dialog && dialog.showModal) dialog.showModal();
         });
       });
 
     document
-      .querySelectorAll("[data-cu-alert-dialog]")
+      .querySelectorAll("[" + config.dialogAttr + "]")
       .forEach(function (dialog) {
         if (dialog._cuInit) return;
         dialog._cuInit = true;
 
-        dialog
-          .querySelectorAll("[data-cu-alert-dialog-cancel]")
-          .forEach(function (btn) {
+        config.closeAttrs.forEach(function (attr) {
+          dialog.querySelectorAll("[" + attr + "]").forEach(function (btn) {
             btn.addEventListener("click", function () {
               dialog.close();
             });
           });
-        dialog
-          .querySelectorAll("[data-cu-alert-dialog-action]")
-          .forEach(function (btn) {
-            btn.addEventListener("click", function () {
-              dialog.close();
-            });
+        });
+        if (config.closeOnBackdrop) {
+          dialog.addEventListener("click", function (e) {
+            if (e.target === dialog) dialog.close();
           });
+        }
       });
+  }
+
+  function setupDialogs() {
+    setupOverlay({
+      triggerAttr: "data-cu-dialog-trigger",
+      dialogAttr: "data-cu-dialog",
+      closeAttrs: ["data-cu-dialog-close"],
+      closeOnBackdrop: true,
+    });
+  }
+
+  function setupDrawers() {
+    setupOverlay({
+      triggerAttr: "data-cu-drawer-trigger",
+      dialogAttr: "data-cu-drawer",
+      closeAttrs: ["data-cu-drawer-close"],
+      closeOnBackdrop: true,
+    });
+  }
+
+  function setupAlertDialogs() {
+    setupOverlay({
+      triggerAttr: "data-cu-alert-dialog-trigger",
+      dialogAttr: "data-cu-alert-dialog",
+      closeAttrs: ["data-cu-alert-dialog-cancel", "data-cu-alert-dialog-action"],
+      closeOnBackdrop: false,
+    });
   }
 
   function setupToasts() {
@@ -627,7 +594,7 @@
           var variant =
             trigger.getAttribute("data-cu-toast-variant") || "default";
           var toast = document.createElement("div");
-          toast.className = "cu-toast cu-toast-" + variant;
+          toast.className = "cu-toast cu-toast-" + variant + " cu-toast-enter";
 
           var body = document.createElement("div");
           body.className = "cu-toast-body";
@@ -651,9 +618,10 @@
           toast.appendChild(closeBtn);
 
           c.appendChild(toast);
+          var duration = parseInt(trigger.getAttribute("data-cu-toast-duration"), 10) || 5000;
           var timer = setTimeout(function () {
             toast.remove();
-          }, 5000);
+          }, duration);
           closeBtn.addEventListener("click", function () {
             clearTimeout(timer);
             toast.remove();
@@ -671,10 +639,9 @@
       var content = popover.querySelector("[data-cu-popover-content]");
       if (!trigger || !content) return;
 
-      content.style.display = "none";
+      content.setAttribute("hidden", "");
       trigger.addEventListener("click", function () {
-        var open = content.style.display !== "none";
-        content.style.display = open ? "none" : "";
+        content.toggleAttribute("hidden");
       });
       _popovers.push({ el: popover, content: content });
     });
@@ -748,6 +715,23 @@
     setupMenubars();
   }
 
+  function destroy() {
+    _dropdowns = [];
+    _comboboxes = [];
+    _multiSelects = [];
+    _popovers = [];
+    _menubars = [];
+  }
+
+  function refresh() {
+    _dropdowns = _dropdowns.filter(function (d) { return document.body.contains(d.el); });
+    _comboboxes = _comboboxes.filter(function (c) { return document.body.contains(c.el); });
+    _multiSelects = _multiSelects.filter(function (ms) { return document.body.contains(ms.el); });
+    _popovers = _popovers.filter(function (p) { return document.body.contains(p.el); });
+    _menubars = _menubars.filter(function (b) { return document.body.contains(b.el); });
+    init();
+  }
+
   // Auto-init
   if (typeof document !== "undefined") {
     if (document.readyState === "loading") {
@@ -757,5 +741,5 @@
     }
   }
 
-  return { init: init };
+  return { init: init, destroy: destroy, refresh: refresh };
 });

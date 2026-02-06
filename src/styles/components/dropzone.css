@@ -20,6 +20,7 @@
     @apply text-xs text-muted-foreground;
 }
 
-.cu-dropzone-disabled {
+.cu-dropzone-disabled,
+.cu-dropzone:has([data-cu-dropzone-input]:disabled) {
     @apply pointer-events-none opacity-50 bg-muted text-muted-foreground;
 }

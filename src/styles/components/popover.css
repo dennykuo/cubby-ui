@@ -5,10 +5,15 @@
 }
 
 .cu-popover-content {
-    @apply absolute z-50 mt-2 w-72 rounded-xl border border-border bg-popover p-4 text-popover-foreground shadow-md;
+    @apply z-50 w-72 rounded-xl border border-border bg-popover p-4 text-popover-foreground shadow-md;
+    @apply absolute mt-2;
+}
+
+.cu-popover-content:not([hidden]) {
+    animation: cu-float-in 0.15s ease;
 }
 
 .cu-popover-content[popover] {
-    @apply fixed m-0 rounded-xl border border-border bg-popover p-4 text-popover-foreground shadow-md;
+    @apply fixed m-0;
     inset: unset;
 }

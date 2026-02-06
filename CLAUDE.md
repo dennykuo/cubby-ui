@@ -23,7 +23,7 @@ Cubby UI 是一個框架無關的 UI 元件庫，風格類似 shadcn/ui，使用
 
 - **Astro 5** — 靜態站點生成（示範文檔站點）
 - **Tailwind CSS v4** — 使用 CSS `@theme` 指令定義設計 token（非 tailwind.config.js）
-- **astro-expressive-code** — 程式碼區塊語法高亮（主題：github-dark, github-light；內建複製按鈕已停用）
+- **astro-expressive-code** — 程式碼區塊語法高亮（主題：min-light, min-dark；內建複製按鈕已停用）
 - **Vanilla JS** — 極少量，僅用於互動效果，使用 `data-*` 屬性管理狀態
 
 ### 元件系統
@@ -47,7 +47,7 @@ Cubby UI 是一個框架無關的 UI 元件庫，風格類似 shadcn/ui，使用
 
 ### 設計系統
 
-主題定義在 `src/styles/global.css` 的 `@theme` 區塊中，使用 CSS 變數：
+主題定義在 `src/styles/theme.css` 的 `@theme` 區塊中（由 `global.css` 和 `lib.css` 引入），使用 CSS 變數：
 
 - 語意色彩：primary, secondary, destructive, success, warning, info, muted, accent
 - 每個色彩有配對的 foreground 色（例如 `--color-primary` / `--color-primary-foreground`）
@@ -75,17 +75,26 @@ Cubby UI 是一個框架無關的 UI 元件庫，風格類似 shadcn/ui，使用
 
 ```
 dist/
-├── cubby-ui.css          # 預編譯 CSS（@apply 已展開，不需 Tailwind）
+├── cubby-ui.css          # 預編譯 CSS（@apply 已展開，不需 Tailwind，使用 source(none) 排除 utility）
 ├── cubby-ui.min.css      # 壓縮版
-├── cubby-ui.js           # 互動元件 JS（UMD）
+├── cubby-ui.js           # 互動元件 JS（UMD，支援 CommonJS / AMD / browser global）
 ├── cubby-ui.min.js       # 壓縮版
 └── src/                  # 原始 Tailwind CSS（進階用戶自訂主題用）
-    ├── global.css
+    ├── global.css        # 文檔站入口（引入 tailwindcss + theme + components + body 樣式）
+    ├── theme.css         # 設計 token（@theme 區塊 + .dark 暗色覆蓋）
+    ├── lib.css           # NPM 套件建置入口（引入 tailwindcss source(none) + theme + components）
     ├── components.css
     └── components/
 ```
 
-互動元件 JS 原始檔位於 `src/scripts/cubby-ui.js`，包含 13 個元件：Tabs、Dropdown、Dialog、Drawer、Alert Dialog、Toast、Popover、Menubar、Combobox、Multi Select、Number Input、Dropzone、Transfer List。
+互動元件 JS 原始檔位於 `src/scripts/cubby-ui.js`，使用 UMD 格式（支援 `require()`、AMD `define()`、`window.CubbyUI`），包含 13 個元件：Tabs、Dropdown、Dialog、Drawer、Alert Dialog、Toast、Popover、Menubar、Combobox、Multi Select、Number Input、Dropzone、Transfer List。Document 級事件監聽器使用 delegated pattern（click + keydown 各一個），避免每個元件實例各自註冊。Toast 內容使用 DOM API（`textContent` / `createElement`）建立，避免 innerHTML XSS 風險。Toast 自動消失時間預設 5000ms，可透過 `data-cu-toast-duration` 自訂。
+
+公開 API：
+- `CubbyUI.init()` — 初始化所有互動元件（自動在 DOMContentLoaded 執行，可重複呼叫以初始化動態新增的元素）
+- `CubbyUI.destroy()` — 清除內部追蹤陣列（配合 SPA 路由切換使用）
+- `CubbyUI.refresh()` — 清理已移除元素的過時參照，並重新執行 init()（適用於動態內容更新後）
+
+`package.json` 的 `exports` 欄位中 `"style"` condition 非 Node.js 標準，但 Vite、Parcel 等打包工具支援。標準引入方式為 `import "cubby-ui/css"`。
 
 ### 目錄結構
 
@@ -222,7 +231,9 @@ src/
 │       ├── tooltip.astro
 │       └── tree-view.astro
 └── styles/
-    ├── global.css                 — 設計 token、主題變數、.cu-code 工具類別
+    ├── global.css                 — 文檔站入口（引入 tailwindcss + theme + components + body/.cu-code 樣式）
+    ├── theme.css                  — 設計 token（@theme 區塊 + .dark 暗色覆蓋）
+    ├── lib.css                    — NPM 套件建置入口（tailwindcss source(none) + theme + components）
     ├── components.css             — @layer components 包裝 + @import 各子檔案
     └── components/                — 各元件獨立 CSS 檔案
         ├── accordion.css

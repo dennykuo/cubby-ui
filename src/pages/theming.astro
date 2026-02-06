@@ -55,7 +55,7 @@ const themeStructure = `@theme {
 
 const overrideExample = `/* your-styles.css */
 @import "tailwindcss";
-@import "cubby-ui/src/global.css";
+@import "cubby-ui/src/theme.css";
 @import "cubby-ui/src/components.css";
 
 /* Override primary color to green */
@@ -111,11 +111,11 @@ const brandColors = `@theme {
         <section class="space-y-4">
             <h2 class="text-xl font-semibold tracking-tight">Theme structure</h2>
             <p class="text-base text-muted-foreground leading-relaxed">
-                Cubby UI uses Tailwind CSS v4's <code class="cu-code">@theme</code> directive to define design tokens. All colors, fonts, and spacing are defined as CSS custom properties in <code class="cu-code">global.css</code>.
+                Cubby UI uses Tailwind CSS v4's <code class="cu-code">@theme</code> directive to define design tokens. All colors, fonts, and spacing are defined as CSS custom properties in <code class="cu-code">theme.css</code>.
             </p>
             <div class="rounded-xl border border-border bg-muted/20 overflow-hidden">
                 <div class="flex items-center px-4 py-2.5 border-b border-border/40">
-                    <span class="text-[11px] font-medium uppercase tracking-wider text-muted-foreground/60">global.css</span>
+                    <span class="text-[11px] font-medium uppercase tracking-wider text-muted-foreground/60">theme.css</span>
                 </div>
                 <div class="px-4 py-3">
                     <Code code={themeStructure} lang="css" />

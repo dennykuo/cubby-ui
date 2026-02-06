@@ -10,6 +10,6 @@ const { class: className, ...rest } = Astro.props;
 const baseClass = `${TOP_CLASS}-dialog`;
 ---
 
-<dialog class:list={[baseClass, className]} {...rest}>
+<dialog class:list={[baseClass, className]} data-cu-dialog {...rest}>
     <slot />
 </dialog>
