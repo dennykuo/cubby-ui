@@ -173,36 +173,8 @@ const withLabelsCode = `<div class="cu-menubar" data-cu-menubar>
             </ComponentPreview>
         </section>
 
-        <!-- With Labels -->
-        <section class="space-y-3">
-            <h2 id="with-labels-disabled-items" class="text-lg font-semibold tracking-tight relative group">
-              <a href="#with-labels-disabled-items" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              With Labels & Disabled Items
-            </h2>
-            <p class="text-base text-muted-foreground leading-relaxed">
-                Use <code class="cu-code">cu-menubar-label</code> for section titles,
-                <code class="cu-code">cu-menubar-item-inset</code> for indented items, and
-                <code class="cu-code">cu-menubar-item-disabled</code> for disabled state.
-            </p>
-            <ComponentPreview code={withLabelsCode}>
-                <Menubar>
-                    <MenubarMenu>
-                        <MenubarTrigger>Account</MenubarTrigger>
-                        <MenubarContent>
-                            <div class="cu-menubar-label">My Account</div>
-                            <MenubarSeparator />
-                            <MenubarItem inset>Profile</MenubarItem>
-                            <MenubarItem inset>Billing</MenubarItem>
-                            <MenubarItem inset>Settings</MenubarItem>
-                            <MenubarSeparator />
-                            <MenubarItem inset disabled>API (coming soon)</MenubarItem>
-                        </MenubarContent>
-                    </MenubarMenu>
-                </Menubar>
-            </ComponentPreview>
-        </section>
         <!-- Classes Reference -->
-        <section class="space-y-3 mt-10">
+        <section class="space-y-3">
             <h2 id="classes" class="text-lg font-semibold tracking-tight relative group">
                 <a href="#classes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
                 CSS Classes
@@ -259,6 +231,36 @@ const withLabelsCode = `<div class="cu-menubar" data-cu-menubar>
                     </tbody>
                 </table>
             </div>
+        </section>
+
+
+        <!-- With Labels -->
+        <section class="space-y-3">
+            <h2 id="with-labels-disabled-items" class="text-lg font-semibold tracking-tight relative group">
+              <a href="#with-labels-disabled-items" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+              With Labels & Disabled Items
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
+                Use <code class="cu-code">cu-menubar-label</code> for section titles,
+                <code class="cu-code">cu-menubar-item-inset</code> for indented items, and
+                <code class="cu-code">cu-menubar-item-disabled</code> for disabled state.
+            </p>
+            <ComponentPreview code={withLabelsCode}>
+                <Menubar>
+                    <MenubarMenu>
+                        <MenubarTrigger>Account</MenubarTrigger>
+                        <MenubarContent>
+                            <div class="cu-menubar-label">My Account</div>
+                            <MenubarSeparator />
+                            <MenubarItem inset>Profile</MenubarItem>
+                            <MenubarItem inset>Billing</MenubarItem>
+                            <MenubarItem inset>Settings</MenubarItem>
+                            <MenubarSeparator />
+                            <MenubarItem inset disabled>API (coming soon)</MenubarItem>
+                        </MenubarContent>
+                    </MenubarMenu>
+                </Menubar>
+            </ComponentPreview>
         </section>
     </div>
 </Layout>

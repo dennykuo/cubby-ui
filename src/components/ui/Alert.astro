@@ -1,8 +1,9 @@
 ---
 import { TOP_CLASS } from "../../config";
+import type { FeedbackVariant } from "../../types";
 
 interface Props {
-    variant?: "default" | "destructive" | "success" | "warning" | "info";
+    variant?: FeedbackVariant;
     class?: string;
     [key: string]: any;
 }

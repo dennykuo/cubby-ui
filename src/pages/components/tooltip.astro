@@ -52,38 +52,8 @@ const positionsCode = `<span class="cu-tooltip" data-cu-tooltip="Top tooltip">
             </ComponentPreview>
         </section>
 
-        <!-- Positions -->
-        <section class="space-y-3">
-            <h2 id="positions" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#positions" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                Positions
-            </h2>
-            <p class="text-base text-muted-foreground leading-relaxed">
-                Control placement with direction classes:
-                top (default), <code class="cu-code">cu-tooltip-bottom</code>,
-                <code class="cu-code">cu-tooltip-left</code>, and
-                <code class="cu-code">cu-tooltip-right</code>.
-            </p>
-            <ComponentPreview code={positionsCode}>
-                <div class="flex flex-wrap gap-4 items-center justify-center">
-                    <span class="cu-tooltip" data-cu-tooltip="Top tooltip">
-                        <button class="cu-button cu-button-outline cu-button-md">Top</button>
-                    </span>
-                    <span class="cu-tooltip cu-tooltip-bottom" data-cu-tooltip="Bottom tooltip">
-                        <button class="cu-button cu-button-outline cu-button-md">Bottom</button>
-                    </span>
-                    <span class="cu-tooltip cu-tooltip-left" data-cu-tooltip="Left tooltip">
-                        <button class="cu-button cu-button-outline cu-button-md">Left</button>
-                    </span>
-                    <span class="cu-tooltip cu-tooltip-right" data-cu-tooltip="Right tooltip">
-                        <button class="cu-button cu-button-outline cu-button-md">Right</button>
-                    </span>
-                </div>
-            </ComponentPreview>
-        </section>
-
         <!-- Classes Reference -->
-        <section class="space-y-3 mt-10">
+        <section class="space-y-3">
             <h2 id="classes" class="text-lg font-semibold tracking-tight relative group">
                 <a href="#classes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
                 CSS Classes
@@ -121,5 +91,37 @@ const positionsCode = `<span class="cu-tooltip" data-cu-tooltip="Top tooltip">
                 </table>
             </div>
         </section>
+
+
+        <!-- Positions -->
+        <section class="space-y-3">
+            <h2 id="positions" class="text-lg font-semibold tracking-tight relative group">
+                <a href="#positions" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                Positions
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
+                Control placement with direction classes:
+                top (default), <code class="cu-code">cu-tooltip-bottom</code>,
+                <code class="cu-code">cu-tooltip-left</code>, and
+                <code class="cu-code">cu-tooltip-right</code>.
+            </p>
+            <ComponentPreview code={positionsCode}>
+                <div class="flex flex-wrap gap-4 items-center justify-center">
+                    <span class="cu-tooltip" data-cu-tooltip="Top tooltip">
+                        <button class="cu-button cu-button-outline cu-button-md">Top</button>
+                    </span>
+                    <span class="cu-tooltip cu-tooltip-bottom" data-cu-tooltip="Bottom tooltip">
+                        <button class="cu-button cu-button-outline cu-button-md">Bottom</button>
+                    </span>
+                    <span class="cu-tooltip cu-tooltip-left" data-cu-tooltip="Left tooltip">
+                        <button class="cu-button cu-button-outline cu-button-md">Left</button>
+                    </span>
+                    <span class="cu-tooltip cu-tooltip-right" data-cu-tooltip="Right tooltip">
+                        <button class="cu-button cu-button-outline cu-button-md">Right</button>
+                    </span>
+                </div>
+            </ComponentPreview>
+        </section>
+
     </div>
 </Layout>

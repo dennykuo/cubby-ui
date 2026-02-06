@@ -79,6 +79,7 @@ dist/
 ├── cubby-ui.min.css      # 壓縮版
 ├── cubby-ui.js           # 互動元件 JS（UMD，支援 CommonJS / AMD / browser global）
 ├── cubby-ui.min.js       # 壓縮版
+├── cubby-ui.d.ts         # TypeScript 型別定義（CubbyUI API）
 └── src/                  # 原始 Tailwind CSS（進階用戶自訂主題用）
     ├── global.css        # 文檔站入口（引入 tailwindcss + theme + components + body 樣式）
     ├── theme.css         # 設計 token（@theme 區塊 + .dark 暗色覆蓋）
@@ -101,7 +102,8 @@ dist/
 ```
 src/
 ├── scripts/
-│   └── cubby-ui.js               — 互動元件 JS（打包來源）
+│   ├── cubby-ui.js               — 互動元件 JS（打包來源）
+│   └── cubby-ui.d.ts             — TypeScript 型別定義（打包來源）
 ├── components/
 │   ├── Header.astro              — 頂部導航列（使用 cu-header / cu-header-brand / cu-header-actions）
 │   ├── ComponentPreview.astro     — 元件展示框（Preview/Code 切換）
@@ -167,6 +169,7 @@ src/
 │       ├── Toolbar*.astro         — 工具列（Toolbar, ToolbarGroup, ToolbarButton, ToolbarSeparator）
 │       └── TreeView*.astro        — 樹狀結構（TreeView, TreeItem, TreeLeaf）
 ├── config.ts                      — 全域配置（TOP_CLASS = 'cu'）
+├── types.ts                       — 共用 TypeScript 型別（FeedbackVariant 等）
 ├── layouts/
 │   └── Layout.astro               — 主布局（引入 Header + Sidebar）
 ├── pages/

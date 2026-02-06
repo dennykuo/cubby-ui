@@ -155,40 +155,8 @@ const withCheckCode = `<div class="cu-combobox" data-cu-combobox style="width: 2
             </ComponentPreview>
         </section>
 
-        <!-- Status Example -->
-        <section class="space-y-3">
-            <h2 id="status-selector" class="text-lg font-semibold tracking-tight relative group">
-              <a href="#status-selector" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              Status Selector
-            </h2>
-            <p class="text-base text-muted-foreground leading-relaxed">
-                A common use case for filtering by status in a dashboard.
-            </p>
-            <ComponentPreview code={withCheckCode}>
-                <div class="cu-combobox" data-cu-combobox style="width: 200px;">
-                    <button class="cu-combobox-trigger" data-cu-combobox-trigger>
-                        <span data-cu-combobox-value class="cu-combobox-trigger-placeholder">Select status...</span>
-                        <svg class="cu-combobox-trigger-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 15 5 5 5-5"/><path d="m7 9 5-5 5 5"/></svg>
-                    </button>
-                    <div class="cu-combobox-content" data-cu-combobox-content hidden>
-                        <div class="cu-combobox-search">
-                            <svg class="cu-combobox-search-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-                            <input class="cu-combobox-input" data-cu-combobox-input placeholder="Search status..." />
-                        </div>
-                        <div class="cu-combobox-list" data-cu-combobox-list>
-                            <div class="cu-combobox-empty" data-cu-combobox-empty hidden>No results found.</div>
-                            <div class="cu-combobox-item" data-cu-combobox-item data-cu-value="backlog">Backlog</div>
-                            <div class="cu-combobox-item" data-cu-combobox-item data-cu-value="todo">Todo</div>
-                            <div class="cu-combobox-item" data-cu-combobox-item data-cu-value="in-progress">In Progress</div>
-                            <div class="cu-combobox-item" data-cu-combobox-item data-cu-value="done">Done</div>
-                            <div class="cu-combobox-item" data-cu-combobox-item data-cu-value="cancelled">Cancelled</div>
-                        </div>
-                    </div>
-                </div>
-            </ComponentPreview>
-        </section>
         <!-- Classes Reference -->
-        <section class="space-y-3 mt-10">
+        <section class="space-y-3">
             <h2 id="classes" class="text-lg font-semibold tracking-tight relative group">
                 <a href="#classes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
                 CSS Classes
@@ -257,6 +225,40 @@ const withCheckCode = `<div class="cu-combobox" data-cu-combobox style="width: 2
                     </tbody>
                 </table>
             </div>
+        </section>
+
+
+        <!-- Status Example -->
+        <section class="space-y-3">
+            <h2 id="status-selector" class="text-lg font-semibold tracking-tight relative group">
+              <a href="#status-selector" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+              Status Selector
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
+                A common use case for filtering by status in a dashboard.
+            </p>
+            <ComponentPreview code={withCheckCode}>
+                <div class="cu-combobox" data-cu-combobox style="width: 200px;">
+                    <button class="cu-combobox-trigger" data-cu-combobox-trigger>
+                        <span data-cu-combobox-value class="cu-combobox-trigger-placeholder">Select status...</span>
+                        <svg class="cu-combobox-trigger-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 15 5 5 5-5"/><path d="m7 9 5-5 5 5"/></svg>
+                    </button>
+                    <div class="cu-combobox-content" data-cu-combobox-content hidden>
+                        <div class="cu-combobox-search">
+                            <svg class="cu-combobox-search-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                            <input class="cu-combobox-input" data-cu-combobox-input placeholder="Search status..." />
+                        </div>
+                        <div class="cu-combobox-list" data-cu-combobox-list>
+                            <div class="cu-combobox-empty" data-cu-combobox-empty hidden>No results found.</div>
+                            <div class="cu-combobox-item" data-cu-combobox-item data-cu-value="backlog">Backlog</div>
+                            <div class="cu-combobox-item" data-cu-combobox-item data-cu-value="todo">Todo</div>
+                            <div class="cu-combobox-item" data-cu-combobox-item data-cu-value="in-progress">In Progress</div>
+                            <div class="cu-combobox-item" data-cu-combobox-item data-cu-value="done">Done</div>
+                            <div class="cu-combobox-item" data-cu-combobox-item data-cu-value="cancelled">Cancelled</div>
+                        </div>
+                    </div>
+                </div>
+            </ComponentPreview>
         </section>
     </div>
 </Layout>

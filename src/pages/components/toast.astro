@@ -94,46 +94,8 @@ const variantsCode = `<button class="cu-button cu-button-default cu-button-md" d
             </ComponentPreview>
         </section>
 
-        <!-- Variants -->
-        <section class="space-y-3">
-            <h2 id="variants" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#variants" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                Variants
-            </h2>
-            <p class="text-base text-muted-foreground leading-relaxed">
-                Use <code class="cu-code">data-cu-toast-variant</code> to set the visual style:
-                <code class="cu-code">default</code>, <code class="cu-code">destructive</code>,
-                <code class="cu-code">success</code>, <code class="cu-code">warning</code>,
-                <code class="cu-code">info</code>.
-            </p>
-            <ComponentPreview code={variantsCode}>
-                <div class="flex flex-wrap gap-2">
-                    <button class="cu-button cu-button-default cu-button-md" data-cu-toast-trigger
-                        data-cu-toast-title="Default toast" data-cu-toast-description="This is a default notification." data-cu-toast-variant="default">
-                        Default
-                    </button>
-                    <button class="cu-button cu-button-destructive cu-button-md" data-cu-toast-trigger
-                        data-cu-toast-title="Error" data-cu-toast-description="Something went wrong." data-cu-toast-variant="destructive">
-                        Destructive
-                    </button>
-                    <button class="cu-button cu-button-success cu-button-md" data-cu-toast-trigger
-                        data-cu-toast-title="Success" data-cu-toast-description="Your changes have been saved." data-cu-toast-variant="success">
-                        Success
-                    </button>
-                    <button class="cu-button cu-button-warning cu-button-md" data-cu-toast-trigger
-                        data-cu-toast-title="Warning" data-cu-toast-description="Please review before continuing." data-cu-toast-variant="warning">
-                        Warning
-                    </button>
-                    <button class="cu-button cu-button-info cu-button-md" data-cu-toast-trigger
-                        data-cu-toast-title="Info" data-cu-toast-description="A new update is available." data-cu-toast-variant="info">
-                        Info
-                    </button>
-                </div>
-            </ComponentPreview>
-        </section>
-
         <!-- Classes Reference -->
-        <section class="space-y-3 mt-10">
+        <section class="space-y-3">
             <h2 id="classes" class="text-lg font-semibold tracking-tight relative group">
                 <a href="#classes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
                 CSS Classes
@@ -215,6 +177,46 @@ const variantsCode = `<button class="cu-button cu-button-default cu-button-md" d
                 </table>
             </div>
         </section>
+
+
+        <!-- Variants -->
+        <section class="space-y-3">
+            <h2 id="variants" class="text-lg font-semibold tracking-tight relative group">
+                <a href="#variants" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                Variants
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
+                Use <code class="cu-code">data-cu-toast-variant</code> to set the visual style:
+                <code class="cu-code">default</code>, <code class="cu-code">destructive</code>,
+                <code class="cu-code">success</code>, <code class="cu-code">warning</code>,
+                <code class="cu-code">info</code>.
+            </p>
+            <ComponentPreview code={variantsCode}>
+                <div class="flex flex-wrap gap-2">
+                    <button class="cu-button cu-button-default cu-button-md" data-cu-toast-trigger
+                        data-cu-toast-title="Default toast" data-cu-toast-description="This is a default notification." data-cu-toast-variant="default">
+                        Default
+                    </button>
+                    <button class="cu-button cu-button-destructive cu-button-md" data-cu-toast-trigger
+                        data-cu-toast-title="Error" data-cu-toast-description="Something went wrong." data-cu-toast-variant="destructive">
+                        Destructive
+                    </button>
+                    <button class="cu-button cu-button-success cu-button-md" data-cu-toast-trigger
+                        data-cu-toast-title="Success" data-cu-toast-description="Your changes have been saved." data-cu-toast-variant="success">
+                        Success
+                    </button>
+                    <button class="cu-button cu-button-warning cu-button-md" data-cu-toast-trigger
+                        data-cu-toast-title="Warning" data-cu-toast-description="Please review before continuing." data-cu-toast-variant="warning">
+                        Warning
+                    </button>
+                    <button class="cu-button cu-button-info cu-button-md" data-cu-toast-trigger
+                        data-cu-toast-title="Info" data-cu-toast-description="A new update is available." data-cu-toast-variant="info">
+                        Info
+                    </button>
+                </div>
+            </ComponentPreview>
+        </section>
+
     </div>
 </Layout>
 

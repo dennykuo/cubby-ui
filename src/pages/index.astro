@@ -3,17 +3,19 @@ import Layout from "../layouts/Layout.astro";
 import Button from "../components/ui/Button.astro";
 import { Code } from "astro-expressive-code/components";
 
-const quickStartCode = `<!-- 1. Include the stylesheet -->
-<link rel="stylesheet" href="/styles/cubby-ui.css" />
+const quickStartCode = `<!-- 1. Add CSS via CDN -->
+<link rel="stylesheet" href="https://unpkg.com/cubby-ui/dist/cubby-ui.min.css" />
 
-<!-- 2. Use cu- prefixed classes to build your UI -->
+<!-- 2. Add JS via CDN (only for interactive components) -->
+<script src="https://unpkg.com/cubby-ui/dist/cubby-ui.min.js"><\/script>
+
+<!-- 3. Use cu- prefixed classes to build your UI -->
 <div class="cu-card" style="max-width: 22rem;">
   <div class="cu-card-header">
     <h3 class="cu-card-title">Notifications</h3>
     <p class="cu-card-description">You have 2 unread messages.</p>
   </div>
   <div class="cu-card-content">
-    <!-- Components compose naturally together -->
     <div class="cu-alert cu-alert-info">
       <p class="cu-alert-title">New comment</p>
       <p class="cu-alert-description">Alice replied to your post.</p>
@@ -100,7 +102,7 @@ const quickStartCode = `<!-- 1. Include the stylesheet -->
         <section class="space-y-5">
             <h2 class="text-xl font-semibold tracking-tight">Quick start</h2>
             <p class="text-base text-muted-foreground leading-relaxed">
-                Include the CSS, then use <code class="cu-code">cu-</code> prefixed classes in your HTML. No build step required.
+                Include the CSS &amp; JS via CDN, then use <code class="cu-code">cu-</code> prefixed classes in your HTML. No build step required.
             </p>
             <div class="rounded-xl border border-border overflow-hidden">
                 <div class="bg-muted/30">

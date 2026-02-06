@@ -71,4 +71,4 @@
 
 ### P0 — 全域基礎
 
-- [ ] **補齊暗色模式 token** — `global.css` 的 `.dark` 區塊目前幾乎為空，缺少 `border`, `input`, `ring`, `card`, `popover`, `muted`, `accent`, `secondary` 及所有語意色彩的暗色模式值，導致暗色模式下幾乎所有元件都會有對比度和可讀性問題
+- [x] ~~**補齊暗色模式 token**~~ — 已在 `theme.css` 的 `.dark` 區塊完整定義所有語意色彩的暗色模式值

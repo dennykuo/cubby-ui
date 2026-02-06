@@ -2,19 +2,15 @@
 import Layout from "../layouts/Layout.astro";
 import { Code } from "astro-expressive-code/components";
 
-const cdnCode = `<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="https://unpkg.com/cubby-ui/dist/cubby-ui.min.css" />
-</head>
-<body>
-  <!-- Your content -->
+const cdnCssCode = `<link rel="stylesheet" href="https://unpkg.com/cubby-ui/dist/cubby-ui.min.css" />`;
 
-  <script src="https://unpkg.com/cubby-ui/dist/cubby-ui.min.js"><\/script>
-</body>
-</html>`;
+const cdnJsCode = `<script src="https://unpkg.com/cubby-ui/dist/cubby-ui.min.js"><\/script>`;
+
+const cdnJsdelivrCode = `<!-- CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cubby-ui/dist/cubby-ui.min.css" />
+
+<!-- JS -->
+<script src="https://cdn.jsdelivr.net/npm/cubby-ui/dist/cubby-ui.min.js"><\/script>`;
 
 const npmInstallCode = `npm install cubby-ui`;
 
@@ -128,12 +124,44 @@ const darkModeCode = `<html class="dark">
                 <p class="text-sm text-muted-foreground">
                     The quickest way to get started. No build tools required.
                 </p>
-                <div class="rounded-xl border border-border bg-muted/20 overflow-hidden">
-                    <div class="flex items-center px-4 py-2.5 border-b border-border/40">
-                        <span class="text-[11px] font-medium uppercase tracking-wider text-muted-foreground/60">index.html</span>
+
+                <!-- Step 1: CSS -->
+                <div class="space-y-2">
+                    <div class="flex items-center gap-2">
+                        <span class="flex size-5 items-center justify-center rounded-full bg-primary text-[11px] font-semibold text-primary-foreground">1</span>
+                        <span class="text-sm font-medium">Add CSS to <code class="cu-code">&lt;head&gt;</code></span>
                     </div>
+                    <div class="rounded-xl border border-border bg-muted/20 overflow-hidden">
+                        <div class="px-4 py-3">
+                            <Code code={cdnCssCode} lang="html" />
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 2: JS -->
+                <div class="space-y-2">
+                    <div class="flex items-center gap-2">
+                        <span class="flex size-5 items-center justify-center rounded-full bg-primary text-[11px] font-semibold text-primary-foreground">2</span>
+                        <span class="text-sm font-medium">Add JS before <code class="cu-code">&lt;/body&gt;</code></span>
+                        <span class="cu-badge cu-badge-secondary text-[10px]">Optional</span>
+                    </div>
+                    <p class="text-xs text-muted-foreground pl-7">
+                        Only needed for interactive components (Dialog, Dropdown, Tabs, Combobox, etc.).
+                    </p>
+                    <div class="rounded-xl border border-border bg-muted/20 overflow-hidden">
+                        <div class="px-4 py-3">
+                            <Code code={cdnJsCode} lang="html" />
+                        </div>
+                    </div>
+                </div>
+
+                <!-- jsDelivr alternative -->
+                <p class="text-xs text-muted-foreground pt-1">
+                    Or use <a href="https://www.jsdelivr.com/" target="_blank" rel="noreferrer" class="text-primary hover:underline underline-offset-4">jsDelivr</a>:
+                </p>
+                <div class="rounded-xl border border-border bg-muted/20 overflow-hidden">
                     <div class="px-4 py-3">
-                        <Code code={cdnCode} lang="html" />
+                        <Code code={cdnJsdelivrCode} lang="html" />
                     </div>
                 </div>
             </div>

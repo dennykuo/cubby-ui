@@ -196,75 +196,8 @@ const presetCode = `<div class="cu-multi-select" data-cu-multi-select style="wid
             </ComponentPreview>
         </section>
 
-        <!-- With Search -->
-        <section class="space-y-3">
-            <h2 id="with-search" class="text-lg font-semibold tracking-tight relative group">
-              <a href="#with-search" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              With Search
-            </h2>
-            <p class="text-base text-muted-foreground leading-relaxed">
-                Add a search input with <code class="cu-code">cu-multi-select-search</code> to filter options.
-            </p>
-            <ComponentPreview code={withSearchCode}>
-                <div class="cu-multi-select" data-cu-multi-select style="width: 300px;">
-                    <button class="cu-multi-select-trigger" data-cu-multi-select-trigger>
-                        <div class="cu-multi-select-tags" data-cu-multi-select-tags>
-                            <span class="cu-multi-select-placeholder" data-cu-multi-select-placeholder>Select members...</span>
-                        </div>
-                        <svg class="cu-multi-select-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 15 5 5 5-5"/><path d="m7 9 5-5 5 5"/></svg>
-                    </button>
-                    <div class="cu-multi-select-content" data-cu-multi-select-content hidden>
-                        <div class="cu-multi-select-search">
-                            <svg class="cu-multi-select-search-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-                            <input class="cu-multi-select-input" data-cu-multi-select-input placeholder="Search members..." />
-                        </div>
-                        <div class="cu-multi-select-list" data-cu-multi-select-list>
-                            <div class="cu-multi-select-empty" data-cu-multi-select-empty hidden>No results found.</div>
-                            <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="alice">Alice</div>
-                            <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="bob">Bob</div>
-                            <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="charlie">Charlie</div>
-                            <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="diana">Diana</div>
-                            <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="eve">Eve</div>
-                        </div>
-                    </div>
-                </div>
-            </ComponentPreview>
-        </section>
-
-        <!-- Preset Values -->
-        <section class="space-y-3">
-            <h2 id="preset-values" class="text-lg font-semibold tracking-tight relative group">
-              <a href="#preset-values" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              Preset Values
-            </h2>
-            <p class="text-base text-muted-foreground leading-relaxed">
-                Pre-select items by adding <code class="cu-code">cu-multi-select-item-active</code> to items
-                and rendering tags in the trigger area on initial load.
-            </p>
-            <ComponentPreview code={presetCode}>
-                <div class="cu-multi-select" data-cu-multi-select style="width: 300px;">
-                    <button class="cu-multi-select-trigger" data-cu-multi-select-trigger>
-                        <div class="cu-multi-select-tags" data-cu-multi-select-tags>
-                            <span class="cu-multi-select-placeholder" data-cu-multi-select-placeholder hidden>Select tags...</span>
-                            <span class="cu-multi-select-tag">Bug<button class="cu-multi-select-tag-remove" data-cu-remove="bug">&times;</button></span>
-                            <span class="cu-multi-select-tag">Feature<button class="cu-multi-select-tag-remove" data-cu-remove="feature">&times;</button></span>
-                        </div>
-                        <svg class="cu-multi-select-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 15 5 5 5-5"/><path d="m7 9 5-5 5 5"/></svg>
-                    </button>
-                    <div class="cu-multi-select-content" data-cu-multi-select-content hidden>
-                        <div class="cu-multi-select-list" data-cu-multi-select-list>
-                            <div class="cu-multi-select-item cu-multi-select-item-active" data-cu-multi-select-item data-cu-value="bug">Bug</div>
-                            <div class="cu-multi-select-item cu-multi-select-item-active" data-cu-multi-select-item data-cu-value="feature">Feature</div>
-                            <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="docs">Documentation</div>
-                            <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="enhancement">Enhancement</div>
-                            <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="help">Help Wanted</div>
-                        </div>
-                    </div>
-                </div>
-            </ComponentPreview>
-        </section>
         <!-- Classes Reference -->
-        <section class="space-y-3 mt-10">
+        <section class="space-y-3">
             <h2 id="classes" class="text-lg font-semibold tracking-tight relative group">
                 <a href="#classes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
                 CSS Classes
@@ -345,6 +278,75 @@ const presetCode = `<div class="cu-multi-select" data-cu-multi-select style="wid
                     </tbody>
                 </table>
             </div>
+        </section>
+
+
+        <!-- With Search -->
+        <section class="space-y-3">
+            <h2 id="with-search" class="text-lg font-semibold tracking-tight relative group">
+              <a href="#with-search" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+              With Search
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
+                Add a search input with <code class="cu-code">cu-multi-select-search</code> to filter options.
+            </p>
+            <ComponentPreview code={withSearchCode}>
+                <div class="cu-multi-select" data-cu-multi-select style="width: 300px;">
+                    <button class="cu-multi-select-trigger" data-cu-multi-select-trigger>
+                        <div class="cu-multi-select-tags" data-cu-multi-select-tags>
+                            <span class="cu-multi-select-placeholder" data-cu-multi-select-placeholder>Select members...</span>
+                        </div>
+                        <svg class="cu-multi-select-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 15 5 5 5-5"/><path d="m7 9 5-5 5 5"/></svg>
+                    </button>
+                    <div class="cu-multi-select-content" data-cu-multi-select-content hidden>
+                        <div class="cu-multi-select-search">
+                            <svg class="cu-multi-select-search-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                            <input class="cu-multi-select-input" data-cu-multi-select-input placeholder="Search members..." />
+                        </div>
+                        <div class="cu-multi-select-list" data-cu-multi-select-list>
+                            <div class="cu-multi-select-empty" data-cu-multi-select-empty hidden>No results found.</div>
+                            <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="alice">Alice</div>
+                            <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="bob">Bob</div>
+                            <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="charlie">Charlie</div>
+                            <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="diana">Diana</div>
+                            <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="eve">Eve</div>
+                        </div>
+                    </div>
+                </div>
+            </ComponentPreview>
+        </section>
+
+        <!-- Preset Values -->
+        <section class="space-y-3">
+            <h2 id="preset-values" class="text-lg font-semibold tracking-tight relative group">
+              <a href="#preset-values" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+              Preset Values
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
+                Pre-select items by adding <code class="cu-code">cu-multi-select-item-active</code> to items
+                and rendering tags in the trigger area on initial load.
+            </p>
+            <ComponentPreview code={presetCode}>
+                <div class="cu-multi-select" data-cu-multi-select style="width: 300px;">
+                    <button class="cu-multi-select-trigger" data-cu-multi-select-trigger>
+                        <div class="cu-multi-select-tags" data-cu-multi-select-tags>
+                            <span class="cu-multi-select-placeholder" data-cu-multi-select-placeholder hidden>Select tags...</span>
+                            <span class="cu-multi-select-tag">Bug<button class="cu-multi-select-tag-remove" data-cu-remove="bug">&times;</button></span>
+                            <span class="cu-multi-select-tag">Feature<button class="cu-multi-select-tag-remove" data-cu-remove="feature">&times;</button></span>
+                        </div>
+                        <svg class="cu-multi-select-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 15 5 5 5-5"/><path d="m7 9 5-5 5 5"/></svg>
+                    </button>
+                    <div class="cu-multi-select-content" data-cu-multi-select-content hidden>
+                        <div class="cu-multi-select-list" data-cu-multi-select-list>
+                            <div class="cu-multi-select-item cu-multi-select-item-active" data-cu-multi-select-item data-cu-value="bug">Bug</div>
+                            <div class="cu-multi-select-item cu-multi-select-item-active" data-cu-multi-select-item data-cu-value="feature">Feature</div>
+                            <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="docs">Documentation</div>
+                            <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="enhancement">Enhancement</div>
+                            <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="help">Help Wanted</div>
+                        </div>
+                    </div>
+                </div>
+            </ComponentPreview>
         </section>
     </div>
 </Layout>

@@ -19,6 +19,10 @@
   var _multiSelects = [];
   var _popovers = [];
   var _menubars = [];
+  var _tabs = [];
+  var _numberInputs = [];
+  var _dropzones = [];
+  var _transferLists = [];
   var _docListenersReady = false;
 
   // Shared keyboard navigation helper for floating panels
@@ -198,6 +202,7 @@
           });
         });
       });
+      _tabs.push({ el: tabs });
     });
   }
 
@@ -411,6 +416,19 @@
       });
   }
 
+  // Round to step precision to avoid floating-point drift (e.g. 0.1 + 0.2)
+  function roundToStep(value, step) {
+    if (step >= 1) return Math.round(value / step) * step;
+    var decimals = (String(step).split(".")[1] || "").length;
+    return Number(value.toFixed(decimals));
+  }
+
+  function clampValue(value, min, max) {
+    if (value < min) return min;
+    if (value > max) return max;
+    return value;
+  }
+
   function setupNumberInputs() {
     document
       .querySelectorAll("[data-cu-number-input]")
@@ -423,13 +441,15 @@
         var increment = container.querySelector("[data-cu-number-increment]");
         if (!field) return;
 
+        var getStep = function () { return Number(field.step) || 1; };
+        var getMin = function () { return field.min !== "" ? Number(field.min) : -Infinity; };
+        var getMax = function () { return field.max !== "" ? Number(field.max) : Infinity; };
+
         decrement &&
           decrement.addEventListener("click", function () {
-            var step = Number(field.step) || 1;
-            var min = field.min !== "" ? Number(field.min) : -Infinity;
             var current = Number(field.value) || 0;
-            var next = current - step;
-            if (next >= min) {
+            var next = roundToStep(current - getStep(), getStep());
+            if (next >= getMin()) {
               field.value = next;
               field.dispatchEvent(new Event("input", { bubbles: true }));
             }
@@ -437,15 +457,26 @@
 
         increment &&
           increment.addEventListener("click", function () {
-            var step = Number(field.step) || 1;
-            var max = field.max !== "" ? Number(field.max) : Infinity;
             var current = Number(field.value) || 0;
-            var next = current + step;
-            if (next <= max) {
+            var next = roundToStep(current + getStep(), getStep());
+            if (next <= getMax()) {
               field.value = next;
               field.dispatchEvent(new Event("input", { bubbles: true }));
             }
           });
+
+        // Sanitize manual input on blur: filter non-numeric, clamp to min/max, round to step
+        field.addEventListener("change", function () {
+          var raw = field.value.trim();
+          if (raw === "" || isNaN(Number(raw))) {
+            field.value = clampValue(0, getMin(), getMax());
+          } else {
+            field.value = clampValue(roundToStep(Number(raw), getStep()), getMin(), getMax());
+          }
+          field.dispatchEvent(new Event("input", { bubbles: true }));
+        });
+
+        _numberInputs.push({ el: container });
       });
   }
 
@@ -484,6 +515,8 @@
           input.dispatchEvent(new Event("change", { bubbles: true }));
         }
       });
+
+      _dropzones.push({ el: zone });
     });
   }
 
@@ -625,6 +658,8 @@
         bindPanel(rightPanel);
         updateCount(leftPanel);
         updateCount(rightPanel);
+
+        _transferLists.push({ el: container });
       });
   }
 
@@ -856,14 +891,23 @@
     _multiSelects = [];
     _popovers = [];
     _menubars = [];
+    _tabs = [];
+    _numberInputs = [];
+    _dropzones = [];
+    _transferLists = [];
   }
 
   function refresh() {
-    _dropdowns = _dropdowns.filter(function (d) { return document.body.contains(d.el); });
-    _comboboxes = _comboboxes.filter(function (c) { return document.body.contains(c.el); });
-    _multiSelects = _multiSelects.filter(function (ms) { return document.body.contains(ms.el); });
-    _popovers = _popovers.filter(function (p) { return document.body.contains(p.el); });
-    _menubars = _menubars.filter(function (b) { return document.body.contains(b.el); });
+    var inBody = function (o) { return document.body.contains(o.el); };
+    _dropdowns = _dropdowns.filter(inBody);
+    _comboboxes = _comboboxes.filter(inBody);
+    _multiSelects = _multiSelects.filter(inBody);
+    _popovers = _popovers.filter(inBody);
+    _menubars = _menubars.filter(inBody);
+    _tabs = _tabs.filter(inBody);
+    _numberInputs = _numberInputs.filter(inBody);
+    _dropzones = _dropzones.filter(inBody);
+    _transferLists = _transferLists.filter(inBody);
     init();
   }
 

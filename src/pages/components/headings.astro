@@ -38,28 +38,8 @@ const allLevelsCode = `<h1 class="cu-h1">This is an H1 heading</h1>
             </ComponentPreview>
         </section>
 
-        <!-- All Levels -->
-        <section class="space-y-3">
-            <h2 id="all-levels" class="text-lg font-semibold tracking-tight relative group">
-              <a href="#all-levels" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              All Levels
-            </h2>
-            <p class="text-base text-muted-foreground leading-relaxed">
-                Four heading levels with progressively decreasing size and weight.
-            </p>
-            <ComponentPreview code={allLevelsCode}>
-                <div class="space-y-6 w-full max-w-2xl">
-                    <Heading level={1}>This is an H1 heading</Heading>
-                    <Heading level={2}>This is an H2 heading</Heading>
-                    <Heading level={3}>This is an H3 heading</Heading>
-                    <Heading level={4}>This is an H4 heading</Heading>
-                </div>
-            </ComponentPreview>
-        </section>
-    </div>
-
     <!-- Classes Reference -->
-    <section class="space-y-3 mt-10">
+    <section class="space-y-3">
       <h2 id="classes" class="text-lg font-semibold tracking-tight relative group">
         <a href="#classes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
         CSS Classes
@@ -93,4 +73,26 @@ const allLevelsCode = `<h1 class="cu-h1">This is an H1 heading</h1>
         </table>
       </div>
     </section>
+
+
+        <!-- All Levels -->
+        <section class="space-y-3">
+            <h2 id="all-levels" class="text-lg font-semibold tracking-tight relative group">
+              <a href="#all-levels" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+              All Levels
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
+                Four heading levels with progressively decreasing size and weight.
+            </p>
+            <ComponentPreview code={allLevelsCode}>
+                <div class="space-y-6 w-full max-w-2xl">
+                    <Heading level={1}>This is an H1 heading</Heading>
+                    <Heading level={2}>This is an H2 heading</Heading>
+                    <Heading level={3}>This is an H3 heading</Heading>
+                    <Heading level={4}>This is an H4 heading</Heading>
+                </div>
+            </ComponentPreview>
+        </section>
+    </div>
+
 </Layout>

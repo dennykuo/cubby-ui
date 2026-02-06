@@ -92,34 +92,8 @@ const destructiveCode = `<button class="cu-button cu-button-destructive cu-butto
             </ComponentPreview>
         </section>
 
-        <!-- Destructive -->
-        <section class="space-y-3">
-            <h2 id="destructive-action" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#destructive-action" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                Destructive Action
-            </h2>
-            <p class="text-base text-muted-foreground leading-relaxed">
-                Pair with a destructive trigger button for dangerous actions.
-            </p>
-            <ComponentPreview code={destructiveCode}>
-                <button class="cu-button cu-button-destructive cu-button-md" data-cu-alert-dialog-trigger="destructive-alert-dialog">
-                    Remove Item
-                </button>
-                <dialog class="cu-alert-dialog" id="destructive-alert-dialog" data-cu-alert-dialog>
-                    <div class="cu-alert-dialog-header">
-                        <h2 class="cu-alert-dialog-title">Remove this item?</h2>
-                        <p class="cu-alert-dialog-description">This item will be permanently removed from your library. This action is irreversible.</p>
-                    </div>
-                    <div class="cu-alert-dialog-footer">
-                        <button class="cu-button cu-button-outline cu-button-md" data-cu-alert-dialog-cancel>Cancel</button>
-                        <button class="cu-button cu-button-destructive cu-button-md" data-cu-alert-dialog-action>Remove</button>
-                    </div>
-                </dialog>
-            </ComponentPreview>
-        </section>
-
         <!-- Classes Reference -->
-        <section class="space-y-3 mt-10">
+        <section class="space-y-3">
             <h2 id="classes" class="text-lg font-semibold tracking-tight relative group">
                 <a href="#classes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
                 CSS Classes
@@ -157,6 +131,34 @@ const destructiveCode = `<button class="cu-button cu-button-destructive cu-butto
                 </table>
             </div>
         </section>
+
+
+        <!-- Destructive -->
+        <section class="space-y-3">
+            <h2 id="destructive-action" class="text-lg font-semibold tracking-tight relative group">
+                <a href="#destructive-action" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                Destructive Action
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
+                Pair with a destructive trigger button for dangerous actions.
+            </p>
+            <ComponentPreview code={destructiveCode}>
+                <button class="cu-button cu-button-destructive cu-button-md" data-cu-alert-dialog-trigger="destructive-alert-dialog">
+                    Remove Item
+                </button>
+                <dialog class="cu-alert-dialog" id="destructive-alert-dialog" data-cu-alert-dialog>
+                    <div class="cu-alert-dialog-header">
+                        <h2 class="cu-alert-dialog-title">Remove this item?</h2>
+                        <p class="cu-alert-dialog-description">This item will be permanently removed from your library. This action is irreversible.</p>
+                    </div>
+                    <div class="cu-alert-dialog-footer">
+                        <button class="cu-button cu-button-outline cu-button-md" data-cu-alert-dialog-cancel>Cancel</button>
+                        <button class="cu-button cu-button-destructive cu-button-md" data-cu-alert-dialog-action>Remove</button>
+                    </div>
+                </dialog>
+            </ComponentPreview>
+        </section>
+
     </div>
 </Layout>
 
