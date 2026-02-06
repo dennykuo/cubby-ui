@@ -65,7 +65,7 @@ Cubby UI 是一個框架無關的 UI 元件庫，風格類似 shadcn/ui，使用
 - Button ghost 變體帶有 `text-muted-foreground`，搭配 icon button 時預設淡色、hover 變深
 - Button icon 尺寸：`cu-button-icon`（h-9 w-9）、`cu-button-icon-sm`（h-8 w-8）、`cu-button-icon-xs`（h-7 w-7）
 - Card flush content：`cu-card-content-flush`（`p-0`），用於 table-in-card 等需要移除 padding 的場景
-- Separator 預設為 horizontal（`h-px w-full`），`cu-separator-vertical` 覆蓋為垂直
+- Separator base class（`cu-separator`）僅含 `shrink-0 bg-border`，需明確搭配 `cu-separator-horizontal`（`h-px w-full`）或 `cu-separator-vertical`（`h-full w-px`）指定方向
 - 展開收合觸發器（Accordion、Collapsible、Tree View）使用 `outline-none` 移除瀏覽器預設 outline，不加 focus ring（因負邊距或密集排列場景）
 - 導航互動元素（Tabs、Pagination、Nav、Breadcrumb）同樣使用 `outline-none`
 

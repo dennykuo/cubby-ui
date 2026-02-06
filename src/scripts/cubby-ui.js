@@ -21,6 +21,34 @@
   var _menubars = [];
   var _docListenersReady = false;
 
+  // Shared keyboard navigation helper for floating panels
+  function navigateItems(items, key, highlightClass) {
+    var visible = [];
+    items.forEach(function (item) {
+      if (!item.hasAttribute("hidden")) visible.push(item);
+    });
+    if (visible.length === 0) return;
+
+    var current = -1;
+    for (var i = 0; i < visible.length; i++) {
+      if (visible[i].classList.contains(highlightClass)) {
+        current = i;
+        break;
+      }
+    }
+
+    var next;
+    if (key === "ArrowDown") {
+      next = current < visible.length - 1 ? current + 1 : 0;
+    } else {
+      next = current > 0 ? current - 1 : visible.length - 1;
+    }
+
+    if (current >= 0) visible[current].classList.remove(highlightClass);
+    visible[next].classList.add(highlightClass);
+    visible[next].scrollIntoView({ block: "nearest" });
+  }
+
   function setupDocumentListeners() {
     if (_docListenersReady) return;
     _docListenersReady = true;
@@ -29,11 +57,13 @@
       _dropdowns.forEach(function (d) {
         if (!d.el.contains(e.target) && d.content) {
           d.content.setAttribute("hidden", "");
+          if (d.trigger) d.trigger.setAttribute("aria-expanded", "false");
         }
       });
       _comboboxes.forEach(function (c) {
         if (!c.el.contains(e.target)) {
           if (c.content) c.content.setAttribute("hidden", "");
+          if (c.trigger) c.trigger.setAttribute("aria-expanded", "false");
           if (c.input) {
             c.input.value = "";
             c.input.dispatchEvent(new Event("input"));
@@ -43,6 +73,7 @@
       _multiSelects.forEach(function (ms) {
         if (!ms.el.contains(e.target)) {
           if (ms.content) ms.content.setAttribute("hidden", "");
+          if (ms.trigger) ms.trigger.setAttribute("aria-expanded", "false");
           if (ms.input) {
             ms.input.value = "";
             ms.input.dispatchEvent(new Event("input"));
@@ -67,35 +98,84 @@
     });
 
     document.addEventListener("keydown", function (e) {
-      if (e.key !== "Escape") return;
-      _dropdowns.forEach(function (d) {
-        if (d.content && !d.content.hasAttribute("hidden")) {
-          d.content.setAttribute("hidden", "");
-        }
-      });
-      _comboboxes.forEach(function (c) {
-        if (c.content && !c.content.hasAttribute("hidden")) {
-          c.content.setAttribute("hidden", "");
-          if (c.input) {
-            c.input.value = "";
-            c.input.dispatchEvent(new Event("input"));
+      // --- Escape: close all floating panels ---
+      if (e.key === "Escape") {
+        _dropdowns.forEach(function (d) {
+          if (d.content && !d.content.hasAttribute("hidden")) {
+            d.content.setAttribute("hidden", "");
+            if (d.trigger) d.trigger.setAttribute("aria-expanded", "false");
           }
-        }
-      });
-      _multiSelects.forEach(function (ms) {
-        if (ms.content && !ms.content.hasAttribute("hidden")) {
-          ms.content.setAttribute("hidden", "");
-          if (ms.input) {
-            ms.input.value = "";
-            ms.input.dispatchEvent(new Event("input"));
+        });
+        _comboboxes.forEach(function (c) {
+          if (c.content && !c.content.hasAttribute("hidden")) {
+            c.content.setAttribute("hidden", "");
+            if (c.trigger) c.trigger.setAttribute("aria-expanded", "false");
+            if (c.input) {
+              c.input.value = "";
+              c.input.dispatchEvent(new Event("input"));
+            }
           }
-        }
-      });
-      _popovers.forEach(function (p) {
-        if (!p.content.hasAttribute("hidden")) {
-          p.content.setAttribute("hidden", "");
-        }
-      });
+        });
+        _multiSelects.forEach(function (ms) {
+          if (ms.content && !ms.content.hasAttribute("hidden")) {
+            ms.content.setAttribute("hidden", "");
+            if (ms.trigger) ms.trigger.setAttribute("aria-expanded", "false");
+            if (ms.input) {
+              ms.input.value = "";
+              ms.input.dispatchEvent(new Event("input"));
+            }
+          }
+        });
+        _popovers.forEach(function (p) {
+          if (!p.content.hasAttribute("hidden")) {
+            p.content.setAttribute("hidden", "");
+          }
+        });
+        return;
+      }
+
+      // --- Arrow / Enter: navigate items in open floating panels ---
+      if (e.key === "ArrowDown" || e.key === "ArrowUp" || e.key === "Enter") {
+        // Dropdown
+        _dropdowns.forEach(function (d) {
+          if (!d.content || d.content.hasAttribute("hidden")) return;
+          var items = d.content.querySelectorAll(".cu-dropdown-item:not([hidden])");
+          if (items.length === 0) return;
+          if (e.key === "Enter") {
+            var active = d.content.querySelector(".cu-dropdown-item-highlight");
+            if (active) { active.click(); e.preventDefault(); }
+            return;
+          }
+          e.preventDefault();
+          navigateItems(items, e.key, "cu-dropdown-item-highlight");
+        });
+
+        // Combobox
+        _comboboxes.forEach(function (c) {
+          if (!c.content || c.content.hasAttribute("hidden")) return;
+          if (!c.items || c.items.length === 0) return;
+          if (e.key === "Enter") {
+            var active = c.content.querySelector(".cu-combobox-item-highlight");
+            if (active) { active.click(); e.preventDefault(); }
+            return;
+          }
+          e.preventDefault();
+          navigateItems(c.items, e.key, "cu-combobox-item-highlight");
+        });
+
+        // Multi Select
+        _multiSelects.forEach(function (ms) {
+          if (!ms.content || ms.content.hasAttribute("hidden")) return;
+          if (!ms.items || ms.items.length === 0) return;
+          if (e.key === "Enter") {
+            var active = ms.content.querySelector(".cu-multi-select-item-highlight");
+            if (active) { active.click(); e.preventDefault(); }
+            return;
+          }
+          e.preventDefault();
+          navigateItems(ms.items, e.key, "cu-multi-select-item-highlight");
+        });
+      }
     });
   }
 
@@ -131,9 +211,12 @@
       trigger &&
         trigger.addEventListener("click", function (e) {
           e.stopPropagation();
-          content && content.toggleAttribute("hidden");
+          if (content) {
+            content.toggleAttribute("hidden");
+            trigger.setAttribute("aria-expanded", String(!content.hasAttribute("hidden")));
+          }
         });
-      _dropdowns.push({ el: dropdown, content: content });
+      _dropdowns.push({ el: dropdown, trigger: trigger, content: content });
     });
   }
 
@@ -149,11 +232,26 @@
       var empty = combobox.querySelector("[data-cu-combobox-empty]");
       var valueEl = combobox.querySelector("[data-cu-combobox-value]");
 
+      // ARIA setup
+      if (trigger) {
+        trigger.setAttribute("aria-haspopup", "listbox");
+        trigger.setAttribute("aria-expanded", "false");
+      }
+      if (content) {
+        var list = content.querySelector("[data-cu-combobox-list]") || content;
+        list.setAttribute("role", "listbox");
+      }
+      items.forEach(function (item) {
+        item.setAttribute("role", "option");
+        item.setAttribute("aria-selected", item.classList.contains("cu-combobox-item-active") ? "true" : "false");
+      });
+
       trigger &&
         trigger.addEventListener("click", function (e) {
           e.stopPropagation();
           var isHidden = content && content.hasAttribute("hidden");
           content && content.toggleAttribute("hidden");
+          trigger.setAttribute("aria-expanded", String(isHidden));
           if (isHidden && input) input.focus();
         });
 
@@ -177,9 +275,12 @@
           }
           items.forEach(function (i) {
             i.classList.remove("cu-combobox-item-active");
+            i.setAttribute("aria-selected", "false");
           });
           item.classList.add("cu-combobox-item-active");
+          item.setAttribute("aria-selected", "true");
           content && content.setAttribute("hidden", "");
+          if (trigger) trigger.setAttribute("aria-expanded", "false");
           if (input) {
             input.value = "";
             input.dispatchEvent(new Event("input"));
@@ -187,7 +288,7 @@
         });
       });
 
-      _comboboxes.push({ el: combobox, content: content, input: input });
+      _comboboxes.push({ el: combobox, trigger: trigger, content: content, input: input, items: items });
     });
   }
 
@@ -208,6 +309,21 @@
           "[data-cu-multi-select-placeholder]"
         );
         var selected = new Set();
+
+        // ARIA setup
+        if (trigger) {
+          trigger.setAttribute("aria-haspopup", "listbox");
+          trigger.setAttribute("aria-expanded", "false");
+        }
+        if (content) {
+          var list = content.querySelector("[data-cu-multi-select-list]") || content;
+          list.setAttribute("role", "listbox");
+          list.setAttribute("aria-multiselectable", "true");
+        }
+        items.forEach(function (item) {
+          item.setAttribute("role", "option");
+          item.setAttribute("aria-selected", item.classList.contains("cu-multi-select-item-active") ? "true" : "false");
+        });
 
         // Init from preset active items
         items.forEach(function (item) {
@@ -241,6 +357,7 @@
                 e.stopPropagation();
                 selected.delete(val);
                 item.classList.remove("cu-multi-select-item-active");
+                item.setAttribute("aria-selected", "false");
                 renderTags();
               });
               tag.appendChild(removeBtn);
@@ -254,6 +371,7 @@
             e.stopPropagation();
             var isHidden = content && content.hasAttribute("hidden");
             content && content.toggleAttribute("hidden");
+            trigger.setAttribute("aria-expanded", String(isHidden));
             if (isHidden && input) input.focus();
           });
 
@@ -279,15 +397,17 @@
             if (selected.has(val)) {
               selected.delete(val);
               item.classList.remove("cu-multi-select-item-active");
+              item.setAttribute("aria-selected", "false");
             } else {
               selected.add(val);
               item.classList.add("cu-multi-select-item-active");
+              item.setAttribute("aria-selected", "true");
             }
             renderTags();
           });
         });
 
-        _multiSelects.push({ el: ms, content: content, input: input });
+        _multiSelects.push({ el: ms, trigger: trigger, content: content, input: input, items: items });
       });
   }
 
@@ -613,8 +733,23 @@
           var closeBtn = document.createElement("button");
           closeBtn.className = "cu-toast-close";
           closeBtn.setAttribute("data-cu-toast-close", "");
-          closeBtn.innerHTML =
-            '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>';
+          var svgNS = "http://www.w3.org/2000/svg";
+          var svg = document.createElementNS(svgNS, "svg");
+          svg.setAttribute("width", "14");
+          svg.setAttribute("height", "14");
+          svg.setAttribute("viewBox", "0 0 24 24");
+          svg.setAttribute("fill", "none");
+          svg.setAttribute("stroke", "currentColor");
+          svg.setAttribute("stroke-width", "2");
+          svg.setAttribute("stroke-linecap", "round");
+          svg.setAttribute("stroke-linejoin", "round");
+          var path1 = document.createElementNS(svgNS, "path");
+          path1.setAttribute("d", "M18 6 6 18");
+          var path2 = document.createElementNS(svgNS, "path");
+          path2.setAttribute("d", "m6 6 12 12");
+          svg.appendChild(path1);
+          svg.appendChild(path2);
+          closeBtn.appendChild(svg);
           toast.appendChild(closeBtn);
 
           c.appendChild(toast);
