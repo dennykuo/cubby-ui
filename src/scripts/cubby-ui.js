@@ -1,9 +1,103 @@
 /**
  * Cubby UI — Interactive component scripts
- * Framework-agnostic, vanilla JS
+ * Framework-agnostic, vanilla JS (UMD)
  */
-(function () {
+(function (root, factory) {
+  if (typeof define === "function" && define.amd) {
+    define([], factory);
+  } else if (typeof module === "object" && module.exports) {
+    module.exports = factory();
+  } else {
+    root.CubbyUI = factory();
+  }
+})(typeof self !== "undefined" ? self : this, function () {
   "use strict";
+
+  // --- Delegated event listener tracking ---
+  var _dropdowns = [];
+  var _comboboxes = [];
+  var _multiSelects = [];
+  var _popovers = [];
+  var _menubars = [];
+  var _docListenersReady = false;
+
+  function setupDocumentListeners() {
+    if (_docListenersReady) return;
+    _docListenersReady = true;
+
+    document.addEventListener("click", function (e) {
+      _dropdowns.forEach(function (d) {
+        if (!d.el.contains(e.target) && d.content) {
+          d.content.setAttribute("hidden", "");
+        }
+      });
+      _comboboxes.forEach(function (c) {
+        if (!c.el.contains(e.target)) {
+          if (c.content) c.content.setAttribute("hidden", "");
+          if (c.input) {
+            c.input.value = "";
+            c.input.dispatchEvent(new Event("input"));
+          }
+        }
+      });
+      _multiSelects.forEach(function (ms) {
+        if (!ms.el.contains(e.target)) {
+          if (ms.content) ms.content.setAttribute("hidden", "");
+          if (ms.input) {
+            ms.input.value = "";
+            ms.input.dispatchEvent(new Event("input"));
+          }
+        }
+      });
+      _popovers.forEach(function (p) {
+        if (!p.el.contains(e.target)) {
+          p.content.style.display = "none";
+        }
+      });
+      _menubars.forEach(function (b) {
+        if (!b.el.contains(e.target)) {
+          b.menus.forEach(function (m) {
+            var mc = m.querySelector("[data-cu-menubar-content]");
+            var mt = m.querySelector("[data-cu-menubar-trigger]");
+            if (mc) mc.setAttribute("hidden", "");
+            if (mt) mt.setAttribute("aria-expanded", "false");
+          });
+        }
+      });
+    });
+
+    document.addEventListener("keydown", function (e) {
+      if (e.key !== "Escape") return;
+      _dropdowns.forEach(function (d) {
+        if (d.content && !d.content.hasAttribute("hidden")) {
+          d.content.setAttribute("hidden", "");
+        }
+      });
+      _comboboxes.forEach(function (c) {
+        if (c.content && !c.content.hasAttribute("hidden")) {
+          c.content.setAttribute("hidden", "");
+          if (c.input) {
+            c.input.value = "";
+            c.input.dispatchEvent(new Event("input"));
+          }
+        }
+      });
+      _multiSelects.forEach(function (ms) {
+        if (ms.content && !ms.content.hasAttribute("hidden")) {
+          ms.content.setAttribute("hidden", "");
+          if (ms.input) {
+            ms.input.value = "";
+            ms.input.dispatchEvent(new Event("input"));
+          }
+        }
+      });
+      _popovers.forEach(function (p) {
+        if (p.content.style.display !== "none") {
+          p.content.style.display = "none";
+        }
+      });
+    });
+  }
 
   function setupTabs() {
     document.querySelectorAll("[data-cu-tabs]").forEach(function (tabs) {
@@ -39,16 +133,7 @@
           e.stopPropagation();
           content && content.toggleAttribute("hidden");
         });
-      document.addEventListener("click", function (e) {
-        if (!dropdown.contains(e.target)) {
-          content && content.setAttribute("hidden", "");
-        }
-      });
-      document.addEventListener("keydown", function (e) {
-        if (e.key === "Escape") {
-          content && content.setAttribute("hidden", "");
-        }
-      });
+      _dropdowns.push({ el: dropdown, content: content });
     });
   }
 
@@ -102,25 +187,7 @@
         });
       });
 
-      document.addEventListener("click", function (e) {
-        if (!combobox.contains(e.target)) {
-          content && content.setAttribute("hidden", "");
-          if (input) {
-            input.value = "";
-            input.dispatchEvent(new Event("input"));
-          }
-        }
-      });
-
-      document.addEventListener("keydown", function (e) {
-        if (e.key === "Escape") {
-          content && content.setAttribute("hidden", "");
-          if (input) {
-            input.value = "";
-            input.dispatchEvent(new Event("input"));
-          }
-        }
-      });
+      _comboboxes.push({ el: combobox, content: content, input: input });
     });
   }
 
@@ -165,19 +232,18 @@
               if (!item) return;
               var tag = document.createElement("span");
               tag.className = "cu-multi-select-tag";
-              tag.innerHTML =
-                item.textContent +
-                '<button class="cu-multi-select-tag-remove" data-cu-remove="' +
-                val +
-                '">&times;</button>';
-              var removeBtn = tag.querySelector("[data-cu-remove]");
-              removeBtn &&
-                removeBtn.addEventListener("click", function (e) {
-                  e.stopPropagation();
-                  selected.delete(val);
-                  item.classList.remove("cu-multi-select-item-active");
-                  renderTags();
-                });
+              tag.appendChild(document.createTextNode(item.textContent));
+              var removeBtn = document.createElement("button");
+              removeBtn.className = "cu-multi-select-tag-remove";
+              removeBtn.setAttribute("data-cu-remove", val);
+              removeBtn.textContent = "\u00d7";
+              removeBtn.addEventListener("click", function (e) {
+                e.stopPropagation();
+                selected.delete(val);
+                item.classList.remove("cu-multi-select-item-active");
+                renderTags();
+              });
+              tag.appendChild(removeBtn);
               tagsEl.appendChild(tag);
             });
           }
@@ -221,25 +287,7 @@
           });
         });
 
-        document.addEventListener("click", function (e) {
-          if (!ms.contains(e.target)) {
-            content && content.setAttribute("hidden", "");
-            if (input) {
-              input.value = "";
-              input.dispatchEvent(new Event("input"));
-            }
-          }
-        });
-
-        document.addEventListener("keydown", function (e) {
-          if (e.key === "Escape") {
-            content && content.setAttribute("hidden", "");
-            if (input) {
-              input.value = "";
-              input.dispatchEvent(new Event("input"));
-            }
-          }
-        });
+        _multiSelects.push({ el: ms, content: content, input: input });
       });
   }
 
@@ -580,28 +628,36 @@
             trigger.getAttribute("data-cu-toast-variant") || "default";
           var toast = document.createElement("div");
           toast.className = "cu-toast cu-toast-" + variant;
-          toast.innerHTML =
-            '<div class="cu-toast-body">' +
-            '<div class="cu-toast-title">' +
-            title +
-            "</div>" +
-            (desc
-              ? '<div class="cu-toast-description">' + desc + "</div>"
-              : "") +
-            "</div>" +
-            '<button class="cu-toast-close" data-cu-toast-close>' +
-            '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>' +
-            "</button>";
-          c.appendChild(toast);
-          var closeBtn = toast.querySelector("[data-cu-toast-close]");
-          if (closeBtn) {
-            closeBtn.addEventListener("click", function () {
-              toast.remove();
-            });
+
+          var body = document.createElement("div");
+          body.className = "cu-toast-body";
+          var titleEl = document.createElement("div");
+          titleEl.className = "cu-toast-title";
+          titleEl.textContent = title;
+          body.appendChild(titleEl);
+          if (desc) {
+            var descEl = document.createElement("div");
+            descEl.className = "cu-toast-description";
+            descEl.textContent = desc;
+            body.appendChild(descEl);
           }
-          setTimeout(function () {
+          toast.appendChild(body);
+
+          var closeBtn = document.createElement("button");
+          closeBtn.className = "cu-toast-close";
+          closeBtn.setAttribute("data-cu-toast-close", "");
+          closeBtn.innerHTML =
+            '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>';
+          toast.appendChild(closeBtn);
+
+          c.appendChild(toast);
+          var timer = setTimeout(function () {
             toast.remove();
           }, 5000);
+          closeBtn.addEventListener("click", function () {
+            clearTimeout(timer);
+            toast.remove();
+          });
         });
       });
   }
@@ -620,11 +676,7 @@
         var open = content.style.display !== "none";
         content.style.display = open ? "none" : "";
       });
-      document.addEventListener("click", function (e) {
-        if (!popover.contains(e.target)) {
-          content.style.display = "none";
-        }
-      });
+      _popovers.push({ el: popover, content: content });
     });
   }
 
@@ -675,20 +727,12 @@
         }
       });
 
-      document.addEventListener("click", function (e) {
-        if (!bar.contains(e.target)) {
-          menus.forEach(function (m) {
-            var mc = m.querySelector("[data-cu-menubar-content]");
-            var mt = m.querySelector("[data-cu-menubar-trigger]");
-            if (mc) mc.setAttribute("hidden", "");
-            if (mt) mt.setAttribute("aria-expanded", "false");
-          });
-        }
-      });
+      _menubars.push({ el: bar, menus: menus });
     });
   }
 
   function init() {
+    setupDocumentListeners();
     setupTabs();
     setupDropdowns();
     setupComboboxes();
@@ -704,13 +748,14 @@
     setupMenubars();
   }
 
-  // Export
-  window.CubbyUI = { init: init };
-
   // Auto-init
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", init);
-  } else {
-    init();
+  if (typeof document !== "undefined") {
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", init);
+    } else {
+      init();
+    }
   }
-})();
+
+  return { init: init };
+});

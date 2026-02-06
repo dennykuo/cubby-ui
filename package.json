@@ -31,8 +31,8 @@
     "astro": "astro",
     "build:lib": "rm -rf dist && npm run build:css && npm run build:js",
     "build:css": "npm run build:css:full && npm run build:css:min && npm run build:css:src",
-    "build:css:full": "tailwindcss -i ./src/styles/global.css -o ./dist/cubby-ui.css",
-    "build:css:min": "tailwindcss -i ./src/styles/global.css -o ./dist/cubby-ui.min.css --minify",
+    "build:css:full": "tailwindcss -i ./src/styles/lib.css -o ./dist/cubby-ui.css",
+    "build:css:min": "tailwindcss -i ./src/styles/lib.css -o ./dist/cubby-ui.min.css --minify",
     "build:css:src": "mkdir -p ./dist/src && cp -r ./src/styles/* ./dist/src/",
     "build:js": "npm run build:js:copy && npm run build:js:min",
     "build:js:copy": "cp ./src/scripts/cubby-ui.js ./dist/cubby-ui.js",
@@ -40,7 +40,9 @@
     "prepublishOnly": "npm run build:lib"
   },
   "sideEffects": [
-    "*.css"
+    "*.css",
+    "dist/cubby-ui.js",
+    "dist/cubby-ui.min.js"
   ],
   "keywords": [
     "ui",
