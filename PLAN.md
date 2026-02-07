@@ -23,10 +23,6 @@
 
 ---
 
-## 二、元件文檔頁面結構
-
----
-
 ## 三、ComponentPreview 優化
 
 ### 7. Preview 區加入 responsive 切換按鈕

@@ -13,6 +13,7 @@ interface Props {
         | "warning"
         | "info";
     size?: "default" | "sm" | "lg" | "icon" | "xs" | "xl";
+    href?: string;
     class?: string;
     [key: string]: any;
 }
@@ -20,6 +21,7 @@ interface Props {
 const {
     variant = "default",
     size = "default",
+    href,
     class: className,
     ...rest
 } = Astro.props;
@@ -35,6 +37,12 @@ const sizeClass = getSizeClass(size);
 
 ---
 
+{href ? (
+<a href={href} class:list={[baseClass, variantClass, sizeClass, className]} {...rest}>
+    <slot />
+</a>
+) : (
 <button class:list={[baseClass, variantClass, sizeClass, className]} {...rest}>
     <slot />
 </button>
+)}
