@@ -12,9 +12,10 @@ interface Props {
 	title: string;
 	category?: string;
 	componentName?: string;
+	wide?: boolean;
 }
 
-const { title, category, componentName } = Astro.props;
+const { title, category, componentName, wide } = Astro.props;
 const locale = getLocaleFromUrl(Astro.url);
 const t = uiTranslations[locale];
 const pathname = Astro.url.pathname;
@@ -77,12 +78,16 @@ const alternateHreflang = alternateLocale === 'zh-tw' ? 'zh-TW' : 'en';
 				<Sidebar currentPath={normalizedPath} locale={locale} />
 
 				<main class="flex-1 min-w-0 md:border-l md:border-border pt-6 pb-20 px-4 sm:px-6 md:pt-8 md:pb-26 md:px-8 lg:px-12">
-					<div class="mx-auto max-w-3xl">
+					{wide ? (
+						<slot />
+					) : (
+						<div class="mx-auto max-w-3xl">
 							<slot />
 							{normalizedPath.includes("/components/") && (
 								<PrevNextNav currentPath={normalizedPath} locale={locale} />
 							)}
-					</div>
+						</div>
+					)}
 				</main>
 			</div>
 		</div>

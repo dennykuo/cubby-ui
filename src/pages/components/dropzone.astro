@@ -6,6 +6,8 @@ import { dropzonePage } from "@/i18n/pages/components/dropzone";
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(dropzonePage, locale);
+const SO = "<" + "script>";
+const SC = "</" + "script>";
 
 const usageCode = `<div class="cu-dropzone" data-cu-dropzone>
   <input type="file" data-cu-dropzone-input hidden />
@@ -14,7 +16,7 @@ const usageCode = `<div class="cu-dropzone" data-cu-dropzone>
   <p class="cu-dropzone-description">PNG, JPG, PDF up to 10MB</p>
 </div>
 
-<script>
+${SO}
   document.querySelectorAll("[data-cu-dropzone]").forEach((zone) => {
     const input = zone.querySelector("[data-cu-dropzone-input]");
 
@@ -44,7 +46,7 @@ const usageCode = `<div class="cu-dropzone" data-cu-dropzone>
       }
     });
   });
-\x3c/script>`.trim();
+${SC}`.trim();
 
 const fileListCode = `<div>
   <div class="cu-dropzone" data-cu-dropzone id="dropzone-filelist">

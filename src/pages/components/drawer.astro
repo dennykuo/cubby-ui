@@ -6,6 +6,8 @@ import { drawerPage } from "@/i18n/pages/components/drawer";
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(drawerPage, locale);
+const SO = "<" + "script>";
+const SC = "</" + "script>";
 
 const usageCode = `<button class="cu-button cu-button-outline cu-button-md" data-cu-drawer-trigger="demo-drawer">
   Open Drawer
@@ -37,7 +39,7 @@ const usageCode = `<button class="cu-button cu-button-outline cu-button-md" data
   </div>
 </dialog>
 
-<script>
+${SO}
   document.querySelectorAll("[data-cu-drawer-trigger]").forEach((trigger) => {
     trigger.addEventListener("click", () => {
       const id = trigger.getAttribute("data-cu-drawer-trigger");
@@ -52,7 +54,7 @@ const usageCode = `<button class="cu-button cu-button-outline cu-button-md" data
       if (e.target === dialog) dialog.close();
     });
   });
-\x3c/script>`.trim();
+${SC}`.trim();
 
 const leftCode = `<button class="cu-button cu-button-outline cu-button-md" data-cu-drawer-trigger="left-drawer">
   Open Left Drawer

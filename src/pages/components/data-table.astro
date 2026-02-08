@@ -6,6 +6,8 @@ import { dataTablePage } from "@/i18n/pages/components/data-table";
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(dataTablePage, locale);
+const SO = "<" + "script>";
+const SC = "</" + "script>";
 
 const chevronSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 15 5 5 5-5"/><path d="m7 9 5-5 5 5"/></svg>`;
 
@@ -71,7 +73,7 @@ const usageCode = `<div class="cu-data-table">
   </div>
 </div>
 
-<script>
+${SO}
   // Select all / individual row selection
   document.querySelectorAll("[data-cu-data-table-select-all]").forEach((selectAll) => {
     const table = selectAll.closest("table");
@@ -103,7 +105,7 @@ const usageCode = `<div class="cu-data-table">
       });
     });
   });
-\x3c/script>`.trim();
+${SC}`.trim();
 ---
 
 <Layout title={t.title} category={t.category} componentName="Data Table">

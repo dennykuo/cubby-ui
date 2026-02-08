@@ -38,7 +38,7 @@ Cubby UI 是一個框架無關的 UI 元件庫，風格類似 shadcn/ui，使用
 **翻譯系統**（`src/i18n/`）：
 - `index.ts` — `Locale` 型別、`getLocaleFromUrl()`、`localizePath()`、`getAlternatePath()`、`useTranslations()`
 - `ui.ts` — 共用 UI 翻譯（Header、Sidebar、ComponentPreview 的文字）
-- `pages/home.ts`、`usage.ts`、`theming.ts`、`dark-mode.ts` — 核心頁面翻譯
+- `pages/home.ts`、`usage.ts`、`theming.ts`、`dark-mode.ts`、`playground.ts` — 核心頁面翻譯
 - `pages/components/*.ts` — 62 個元件頁面翻譯（每頁一個檔案）
 
 **頁面 i18n 模式**：每個頁面透過 3 行程式碼取得翻譯：
@@ -143,7 +143,8 @@ ARIA 無障礙支援：
 src/
 ├── scripts/
 │   ├── cubby-ui.js               — 互動元件 JS（打包來源）
-│   └── cubby-ui.d.ts             — TypeScript 型別定義（打包來源）
+│   ├── cubby-ui.d.ts             — TypeScript 型別定義（打包來源）
+│   └── playground.js             — Playground 頁面客戶端邏輯（IIFE，元件 registry + 控制項 + 主題）
 ├── data/
 │   └── component-nav.ts          — 共享導航資料（Sidebar + PrevNext 共用，single source of truth）
 ├── i18n/
@@ -154,6 +155,7 @@ src/
 │       ├── usage.ts
 │       ├── theming.ts
 │       ├── dark-mode.ts
+│       ├── playground.ts
 │       └── components/           — 62 個元件頁面翻譯（每元件一個檔案）
 │           ├── button.ts
 │           ├── card.ts
@@ -226,9 +228,10 @@ src/
 ├── config.ts                      — 全域配置（TOP_CLASS = 'cu'）
 ├── types.ts                       — 共用 TypeScript 型別（FeedbackVariant 等）
 ├── layouts/
-│   └── Layout.astro               — 主布局（引入 Header + Sidebar）
+│   └── Layout.astro               — 主布局（引入 Header + Sidebar，wide prop 移除 max-w-3xl 限制）
 ├── pages/
 │   ├── index.astro                — 首頁
+│   ├── playground.astro           — Playground 互動式元件探索頁（wide layout）
 │   ├── zh-tw/                     — 繁中路由（自動產生，已 gitignore）
 │   └── components/                — 元件文檔頁面
 │       ├── accordion.astro

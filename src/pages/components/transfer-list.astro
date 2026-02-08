@@ -6,6 +6,8 @@ import { transferListPage } from "@/i18n/pages/components/transfer-list";
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(transferListPage, locale);
+const SO = "<" + "script>";
+const SC = "</" + "script>";
 
 const usageCode = `<div class="cu-transfer-list" data-cu-transfer-list>
   <!-- Left Panel -->
@@ -56,7 +58,7 @@ const usageCode = `<div class="cu-transfer-list" data-cu-transfer-list>
   </div>
 </div>
 
-<script>
+${SO}
   document.querySelectorAll("[data-cu-transfer-list]").forEach((container) => {
     const leftPanel = container.querySelector('[data-cu-transfer-panel="left"]');
     const rightPanel = container.querySelector('[data-cu-transfer-panel="right"]');
@@ -146,7 +148,7 @@ const usageCode = `<div class="cu-transfer-list" data-cu-transfer-list>
     updateCount(leftPanel);
     updateCount(rightPanel);
   });
-\x3c/script>`.trim();
+${SC}`.trim();
 
 const withSearchCode = `<div class="cu-transfer-list" data-cu-transfer-list id="transfer-search">
   <!-- Left Panel -->

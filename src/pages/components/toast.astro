@@ -6,6 +6,8 @@ import { toastPage } from "@/i18n/pages/components/toast";
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(toastPage, locale);
+const SO = "<" + "script>";
+const SC = "</" + "script>";
 
 const usageCode = `<button class="cu-button cu-button-outline cu-button-md" data-cu-toast-trigger
   data-cu-toast-title="Event has been created"
@@ -15,7 +17,7 @@ const usageCode = `<button class="cu-button cu-button-outline cu-button-md" data
 
 <div class="cu-toast-container cu-toast-container-bottom-right" data-cu-toast-container></div>
 
-<script>
+${SO}
   document.querySelectorAll("[data-cu-toast-trigger]").forEach((trigger) => {
     trigger.addEventListener("click", () => {
       const container = document.querySelector("[data-cu-toast-container]");
@@ -52,7 +54,7 @@ const usageCode = `<button class="cu-button cu-button-outline cu-button-md" data
       setTimeout(() => toast.remove(), 5000);
     });
   });
-\x3c/script>`.trim();
+${SC}`.trim();
 
 const variantsCode = `<button class="cu-button cu-button-default cu-button-md" data-cu-toast-trigger
   data-cu-toast-title="Default toast" data-cu-toast-description="This is a default notification." data-cu-toast-variant="default">

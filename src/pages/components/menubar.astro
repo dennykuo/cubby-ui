@@ -13,6 +13,8 @@ import { menubarPage } from "@/i18n/pages/components/menubar";
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(menubarPage, locale);
+const SO = "<" + "script>";
+const SC = "</" + "script>";
 
 const usageCode = `<div class="cu-menubar" data-cu-menubar>
   <div class="cu-menubar-menu" data-cu-menubar-menu>
@@ -62,7 +64,7 @@ const usageCode = `<div class="cu-menubar" data-cu-menubar>
   </div>
 </div>
 
-<script>
+${SO}
   document.querySelectorAll("[data-cu-menubar]").forEach((bar) => {
     const menus = bar.querySelectorAll("[data-cu-menubar-menu]");
     menus.forEach((menu) => {
@@ -102,7 +104,7 @@ const usageCode = `<div class="cu-menubar" data-cu-menubar>
       }
     });
   });
-\x3c/script>`.trim();
+${SC}`.trim();
 
 const withLabelsCode = `<div class="cu-menubar" data-cu-menubar>
   <div class="cu-menubar-menu" data-cu-menubar-menu>

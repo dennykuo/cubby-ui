@@ -6,6 +6,8 @@ import { popoverPage } from "@/i18n/pages/components/popover";
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(popoverPage, locale);
+const SO = "<" + "script>";
+const SC = "</" + "script>";
 
 const usageCode = `<div class="cu-popover" data-cu-popover>
   <button class="cu-button cu-button-outline cu-button-md" data-cu-popover-trigger>
@@ -29,7 +31,7 @@ const usageCode = `<div class="cu-popover" data-cu-popover>
   </div>
 </div>
 
-<script>
+${SO}
   document.querySelectorAll("[data-cu-popover]").forEach((popover) => {
     const trigger = popover.querySelector("[data-cu-popover-trigger]");
     const content = popover.querySelector("[data-cu-popover-content]");
@@ -43,7 +45,7 @@ const usageCode = `<div class="cu-popover" data-cu-popover>
       if (!popover.contains(e.target)) content.style.display = "none";
     });
   });
-\x3c/script>`.trim();
+${SC}`.trim();
 
 const topCode = `<div class="cu-popover" data-cu-popover>
   <button class="cu-button cu-button-outline cu-button-md" data-cu-popover-trigger>

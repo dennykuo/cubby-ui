@@ -6,6 +6,8 @@ import { multiSelectPage } from "@/i18n/pages/components/multi-select";
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(multiSelectPage, locale);
+const SO = "<" + "script>";
+const SC = "</" + "script>";
 
 const usageCode = `<div class="cu-multi-select" data-cu-multi-select style="width: 300px;">
   <button class="cu-multi-select-trigger" data-cu-multi-select-trigger>
@@ -26,7 +28,7 @@ const usageCode = `<div class="cu-multi-select" data-cu-multi-select style="widt
   </div>
 </div>
 
-<script>
+${SO}
   document.querySelectorAll("[data-cu-multi-select]").forEach((ms) => {
     const trigger = ms.querySelector("[data-cu-multi-select-trigger]");
     const content = ms.querySelector("[data-cu-multi-select-content]");
@@ -108,7 +110,7 @@ const usageCode = `<div class="cu-multi-select" data-cu-multi-select style="widt
       }
     });
   });
-\x3c/script>`.trim();
+${SC}`.trim();
 
 const withSearchCode = `<div class="cu-multi-select" data-cu-multi-select style="width: 300px;">
   <button class="cu-multi-select-trigger" data-cu-multi-select-trigger>

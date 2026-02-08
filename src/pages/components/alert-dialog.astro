@@ -6,6 +6,8 @@ import { alertDialogPage } from "@/i18n/pages/components/alert-dialog";
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(alertDialogPage, locale);
+const SO = "<" + "script>";
+const SC = "</" + "script>";
 
 const usageCode = `<button class="cu-button cu-button-outline cu-button-md" data-cu-alert-dialog-trigger="demo-alert-dialog">
   Delete Account
@@ -22,7 +24,7 @@ const usageCode = `<button class="cu-button cu-button-outline cu-button-md" data
   </div>
 </dialog>
 
-<script>
+${SO}
   document.querySelectorAll("[data-cu-alert-dialog-trigger]").forEach((trigger) => {
     trigger.addEventListener("click", () => {
       const id = trigger.getAttribute("data-cu-alert-dialog-trigger");
@@ -37,7 +39,7 @@ const usageCode = `<button class="cu-button cu-button-outline cu-button-md" data
       btn.addEventListener("click", () => dialog.close());
     });
   });
-\x3c/script>`.trim();
+${SC}`.trim();
 
 const destructiveCode = `<button class="cu-button cu-button-destructive cu-button-md" data-cu-alert-dialog-trigger="destructive-alert-dialog">
   Remove Item

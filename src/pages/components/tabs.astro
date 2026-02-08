@@ -6,6 +6,8 @@ import { tabsPage } from "@/i18n/pages/components/tabs";
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(tabsPage, locale);
+const SO = "<" + "script>";
+const SC = "</" + "script>";
 
 const usageCode = `<div class="cu-tabs" data-cu-tabs>
   <div class="cu-tabs-list">
@@ -20,7 +22,7 @@ const usageCode = `<div class="cu-tabs" data-cu-tabs>
   </div>
 </div>
 
-<script>
+${SO}
   document.querySelectorAll("[data-cu-tabs]").forEach((tabs) => {
     const triggers = tabs.querySelectorAll("[data-cu-tabs-trigger]");
     const contents = tabs.querySelectorAll("[data-cu-tabs-content]");
@@ -35,7 +37,7 @@ const usageCode = `<div class="cu-tabs" data-cu-tabs>
       });
     });
   });
-\x3c/script>`.trim();
+${SC}`.trim();
 
 const withContentCode = `<div class="cu-tabs" data-cu-tabs>
   <div class="cu-tabs-list">

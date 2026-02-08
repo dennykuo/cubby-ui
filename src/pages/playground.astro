@@ -1,0 +1,137 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { getLocaleFromUrl, useTranslations } from "@/i18n";
+import { playgroundPage } from "@/i18n/pages/playground";
+import playgroundUrl from "@/scripts/playground.js?url";
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = useTranslations(playgroundPage, locale);
+---
+
+<Layout title={t.title} wide>
+	<div class="mb-6">
+		<h1 class="cu-h2">{t.heading}</h1>
+		<p class="mt-2 text-muted-foreground">{t.description}</p>
+	</div>
+
+	<div
+		id="cu-playground"
+		class="flex flex-col lg:flex-row gap-6"
+		data-cu-pg-locale={locale}
+		data-cu-pg-t-component={t.controls.component}
+		data-cu-pg-t-props={t.controls.props}
+		data-cu-pg-t-reset={t.controls.reset}
+		data-cu-pg-t-preview={t.preview.label}
+		data-cu-pg-t-dark={t.preview.dark}
+		data-cu-pg-t-code={t.code.label}
+		data-cu-pg-t-copy={t.code.copy}
+		data-cu-pg-t-copied={t.code.copied}
+		data-cu-pg-t-reset-code={t.code.reset}
+		data-cu-pg-t-manual-warning={t.code.manualEditWarning}
+		data-cu-pg-t-theme={t.theme.label}
+		data-cu-pg-t-colors={t.theme.colors}
+		data-cu-pg-t-radius={t.theme.borderRadius}
+		data-cu-pg-t-reset-theme={t.theme.resetTheme}
+		data-cu-pg-t-cat-basic={t.categories.basic}
+		data-cu-pg-t-cat-typography={t.categories.typography}
+		data-cu-pg-t-cat-forms={t.categories.forms}
+		data-cu-pg-t-cat-feedback={t.categories.feedback}
+		data-cu-pg-t-cat-dataDisplay={t.categories.dataDisplay}
+		data-cu-pg-t-show-controls={t.controls.showControls}
+	>
+		<!-- Controls Panel -->
+		<div class="w-full lg:w-[280px] lg:shrink-0">
+			<!-- Desktop: always visible -->
+			<div class="hidden lg:block space-y-6">
+				<div id="cu-pg-controls-inner"></div>
+			</div>
+			<!-- Mobile: collapsible details -->
+			<details class="lg:hidden rounded-xl border border-border bg-card">
+				<summary class="cursor-pointer select-none px-4 py-3 text-sm font-medium">
+					{t.controls.showControls}
+				</summary>
+				<div class="px-4 pb-4">
+					<div id="cu-pg-controls-inner-mobile"></div>
+				</div>
+			</details>
+		</div>
+
+		<!-- Preview + Code/Theme -->
+		<div class="flex-1 min-w-0 space-y-4">
+			<!-- Preview -->
+			<div class="rounded-xl border border-border bg-card">
+				<div class="flex items-center justify-between px-4 py-2.5 border-b border-border">
+					<span class="text-sm font-medium">{t.preview.label}</span>
+					<label class="cu-toggle-wrapper text-sm text-muted-foreground">
+						<span>{t.preview.dark}</span>
+						<input type="checkbox" class="cu-toggle-input" id="cu-pg-dark-toggle" />
+						<span class="cu-toggle cu-toggle-sm"><span class="cu-toggle-thumb"></span></span>
+					</label>
+				</div>
+				<div id="cu-pg-preview" class="p-8 flex items-center justify-center min-h-[200px] rounded-b-xl transition-colors duration-200">
+				</div>
+			</div>
+
+			<!-- Code / Theme tabs -->
+			<div class="rounded-xl border border-border bg-card">
+				<div class="flex border-b border-border">
+					<button
+						class="cu-pg-tab px-4 py-2.5 text-sm font-medium border-b-2 border-primary text-foreground cursor-pointer"
+						data-cu-pg-tab="code"
+					>
+						{t.code.label}
+					</button>
+					<button
+						class="cu-pg-tab px-4 py-2.5 text-sm font-medium border-b-2 border-transparent text-muted-foreground hover:text-foreground transition-colors duration-150 cursor-pointer"
+						data-cu-pg-tab="theme"
+					>
+						{t.theme.label}
+					</button>
+				</div>
+
+				<!-- Code panel -->
+				<div id="cu-pg-panel-code" class="p-4">
+					<div class="flex items-center justify-between mb-2">
+						<div class="flex items-center gap-2">
+							<span id="cu-pg-manual-warning" class="hidden text-xs text-warning"></span>
+						</div>
+						<div class="flex items-center gap-2">
+							<button id="cu-pg-reset-code" class="hidden cu-button cu-button-ghost cu-button-xs">
+								{t.code.reset}
+							</button>
+							<button id="cu-pg-copy-code" class="cu-button cu-button-outline cu-button-xs">
+								{t.code.copy}
+							</button>
+						</div>
+					</div>
+					<textarea
+						id="cu-pg-code"
+						class="cu-textarea w-full font-mono text-xs leading-relaxed min-h-[160px] resize-y"
+						spellcheck="false"
+					></textarea>
+				</div>
+
+				<!-- Theme panel (hidden by default) -->
+				<div id="cu-pg-panel-theme" class="p-4 hidden">
+					<div class="flex items-center justify-between mb-4">
+						<span class="text-sm font-medium">{t.theme.colors}</span>
+						<button id="cu-pg-reset-theme" class="cu-button cu-button-ghost cu-button-xs">
+							{t.theme.resetTheme}
+						</button>
+					</div>
+					<div id="cu-pg-theme-colors" class="grid grid-cols-2 gap-3"></div>
+
+					<div class="mt-6">
+						<span class="text-sm font-medium">{t.theme.borderRadius}</span>
+						<div class="mt-2 flex items-center gap-3">
+							<input type="range" id="cu-pg-radius" class="cu-range flex-1" min="0" max="1" step="0.0625" value="0.5" />
+							<span id="cu-pg-radius-value" class="text-xs text-muted-foreground w-12 text-right font-mono">0.5rem</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</Layout>
+
+<script src={playgroundUrl} is:inline></script>

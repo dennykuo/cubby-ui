@@ -6,6 +6,8 @@ import { comboboxPage } from "@/i18n/pages/components/combobox";
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(comboboxPage, locale);
+const SO = "<" + "script>";
+const SC = "</" + "script>";
 
 const usageCode = `<div class="cu-combobox" data-cu-combobox style="width: 200px;">
   <button class="cu-combobox-trigger" data-cu-combobox-trigger>
@@ -28,7 +30,7 @@ const usageCode = `<div class="cu-combobox" data-cu-combobox style="width: 200px
   </div>
 </div>
 
-<script>
+${SO}
   document.querySelectorAll("[data-cu-combobox]").forEach((combobox) => {
     const trigger = combobox.querySelector("[data-cu-combobox-trigger]");
     const content = combobox.querySelector("[data-cu-combobox-content]");
@@ -86,7 +88,7 @@ const usageCode = `<div class="cu-combobox" data-cu-combobox style="width: 200px
       }
     });
   });
-\x3c/script>`.trim();
+${SC}`.trim();
 
 const withCheckCode = `<div class="cu-combobox" data-cu-combobox style="width: 200px;">
   <button class="cu-combobox-trigger" data-cu-combobox-trigger>

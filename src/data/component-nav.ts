@@ -13,6 +13,7 @@ export const gettingStarted: NavItem[] = [
   { name: "Usage", path: "/usage" },
   { name: "Theming", path: "/theming" },
   { name: "Dark Mode", path: "/dark-mode" },
+  { name: "Playground", path: "/playground" },
 ];
 
 export const layoutComponents: NavItem[] = [

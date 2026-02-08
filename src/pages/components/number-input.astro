@@ -6,6 +6,8 @@ import { numberInputPage } from "@/i18n/pages/components/number-input";
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(numberInputPage, locale);
+const SO = "<" + "script>";
+const SC = "</" + "script>";
 
 const usageCode = `<div class="cu-number-input" data-cu-number-input>
   <button class="cu-number-input-button" data-cu-number-decrement>
@@ -17,7 +19,7 @@ const usageCode = `<div class="cu-number-input" data-cu-number-input>
   </button>
 </div>
 
-<script>
+${SO}
   document.querySelectorAll("[data-cu-number-input]").forEach((container) => {
     const field = container.querySelector("[data-cu-number-field]");
     const decrement = container.querySelector("[data-cu-number-decrement]");
@@ -45,7 +47,7 @@ const usageCode = `<div class="cu-number-input" data-cu-number-input>
       }
     });
   });
-\x3c/script>`.trim();
+${SC}`.trim();
 
 const minMaxCode = `<div class="cu-number-input" data-cu-number-input>
   <button class="cu-number-input-button" data-cu-number-decrement>
