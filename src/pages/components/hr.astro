@@ -1,7 +1,12 @@
 ---
-import Layout from "../../layouts/Layout.astro";
-import Hr from "../../components/ui/Hr.astro";
-import ComponentPreview from "../../components/ComponentPreview.astro";
+import Layout from "@/layouts/Layout.astro";
+import Hr from "@/components/ui/Hr.astro";
+import ComponentPreview from "@/components/ComponentPreview.astro";
+import { getLocaleFromUrl, useTranslations } from "@/i18n";
+import { hrPage } from "@/i18n/pages/components/hr";
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = useTranslations(hrPage, locale);
 
 const usageCode = `<hr class="cu-hr" />`.trim();
 
@@ -14,15 +19,13 @@ const withContentCode = `<p class="cu-p">
 </p>`.trim();
 ---
 
-<Layout title="HR — Cubby UI" category="Typography" componentName="HR">
+<Layout title={t.title} category={t.category} componentName="HR">
     <div class="space-y-3">
         <div class="flex items-center gap-3">
           <h1 class="text-3xl font-bold tracking-tight">HR</h1>
-          <span class="cu-badge cu-badge-secondary">Typography</span>
+          <span class="cu-badge cu-badge-secondary">{t.category}</span>
         </div>
-        <p class="text-base text-muted-foreground leading-relaxed">
-            A thematic break between content sections, rendered as a horizontal rule.
-        </p>
+        <p class="text-base text-muted-foreground leading-relaxed" set:html={t.description} />
     </div>
 
     <div class="mt-10 space-y-10">
@@ -30,12 +33,9 @@ const withContentCode = `<p class="cu-p">
         <section class="space-y-3">
             <h2 id="usage" class="text-lg font-semibold tracking-tight relative group">
               <a href="#usage" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              Usage
+              {t.sections.usage.title}
             </h2>
-            <p class="text-base text-muted-foreground leading-relaxed">
-                Apply <code class="cu-code">cu-hr</code> to an
-                <code class="cu-code">&lt;hr&gt;</code> element.
-            </p>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
             <ComponentPreview code={usageCode}>
                 <div class="w-full max-w-lg">
                     <Hr />
@@ -47,20 +47,20 @@ const withContentCode = `<p class="cu-p">
     <section class="space-y-3">
       <h2 id="classes" class="text-lg font-semibold tracking-tight relative group">
         <a href="#classes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-        CSS Classes
+        {t.sections.classes.title}
       </h2>
       <div class="cu-table-wrapper rounded-lg border border-border">
         <table class="cu-table">
           <thead class="cu-table-header">
             <tr class="cu-table-row">
-              <th class="cu-table-head">Class</th>
-              <th class="cu-table-head">Description</th>
+              <th class="cu-table-head">{t.sections.classes.classLabel}</th>
+              <th class="cu-table-head">{t.sections.classes.descriptionLabel}</th>
             </tr>
           </thead>
           <tbody class="cu-table-body">
             <tr class="cu-table-row">
               <td class="cu-table-cell"><code class="cu-code">cu-hr</code></td>
-              <td class="cu-table-cell text-muted-foreground">Horizontal divider</td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-hr']}</td>
             </tr>
           </tbody>
         </table>
@@ -72,11 +72,9 @@ const withContentCode = `<p class="cu-p">
         <section class="space-y-3">
             <h2 id="with-content" class="text-lg font-semibold tracking-tight relative group">
               <a href="#with-content" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              With Content
+              {t.sections.withContent.title}
             </h2>
-            <p class="text-base text-muted-foreground leading-relaxed">
-                Add vertical margin to separate content sections.
-            </p>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withContent.description} />
             <ComponentPreview code={withContentCode}>
                 <div class="w-full max-w-lg">
                     <p class="cu-p">

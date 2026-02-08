@@ -10,6 +10,15 @@ export default defineConfig({
     plugins: [tailwindcss()],
   },
 
+  i18n: {
+    defaultLocale: 'en',
+    locales: ['en', 'zh-tw'],
+    routing: {
+      prefixDefaultLocale: false,
+      redirectToDefaultLocale: false,
+    },
+  },
+
   integrations: [expressiveCode({
     themes: ['min-light', 'min-dark'],
     frames: {

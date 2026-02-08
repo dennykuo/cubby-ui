@@ -1,6 +1,11 @@
 ---
-import Layout from "../../layouts/Layout.astro";
-import ComponentPreview from "../../components/ComponentPreview.astro";
+import Layout from "@/layouts/Layout.astro";
+import ComponentPreview from "@/components/ComponentPreview.astro";
+import { getLocaleFromUrl, useTranslations } from "@/i18n";
+import { tablePage } from "@/i18n/pages/components/table";
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = useTranslations(tablePage, locale);
 
 const usageCode = `<div class="cu-table-wrapper">
   <table class="cu-table">

@@ -1,6 +1,11 @@
 ---
-import Layout from "../../layouts/Layout.astro";
-import ComponentPreview from "../../components/ComponentPreview.astro";
+import Layout from "@/layouts/Layout.astro";
+import ComponentPreview from "@/components/ComponentPreview.astro";
+import { getLocaleFromUrl, useTranslations } from "@/i18n";
+import { containerPage } from "@/i18n/pages/components/container";
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = useTranslations(containerPage, locale);
 
 const usageCode = `<div class="cu-container cu-container-lg">
   <p>Content within a max-w-screen-lg container.</p>
@@ -58,14 +63,14 @@ const nestedCode = `<div class="cu-container cu-container-xl">
 </div>`.trim();
 ---
 
-<Layout title="Container — Cubby UI" category="Layouts" componentName="Container">
+<Layout title={t.title} category={t.category} componentName="Container">
 	<div class="space-y-3">
 		<div class="flex items-center gap-3">
 		  <h1 class="text-3xl font-bold tracking-tight">Container</h1>
-		  <span class="cu-badge cu-badge-secondary">Layouts</span>
+		  <span class="cu-badge cu-badge-secondary">{t.category}</span>
 		</div>
 		<p class="text-base text-muted-foreground leading-relaxed">
-			A content wrapper that controls max-width and provides responsive horizontal padding.
+			{t.description}
 		</p>
 	</div>
 
@@ -74,16 +79,9 @@ const nestedCode = `<div class="cu-container cu-container-xl">
 		<section class="space-y-3">
 			<h2 id="usage" class="text-lg font-semibold tracking-tight relative group">
 			  <a href="#usage" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-			  Usage
+			  {t.sections.usage.title}
 			</h2>
-			<p class="text-base text-muted-foreground leading-relaxed">
-				Combine
-				<code class="cu-code">cu-container</code> with a size class like
-				<code class="cu-code">cu-container-lg</code>.
-				The base class provides
-				<code class="cu-code">mx-auto</code>,
-				<code class="cu-code">w-full</code>, and responsive padding.
-			</p>
+			<p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
 			<ComponentPreview code={usageCode}>
 				<div class="w-full">
 					<div class="cu-container cu-container-lg">
@@ -99,45 +97,23 @@ const nestedCode = `<div class="cu-container cu-container-xl">
 		<section class="space-y-3">
 			<h2 id="classes" class="text-lg font-semibold tracking-tight relative group">
 				<a href="#classes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-				CSS Classes
+				{t.sections.classes.title}
 			</h2>
 			<div class="cu-table-wrapper rounded-lg border border-border">
 				<table class="cu-table">
 					<thead class="cu-table-header">
 						<tr class="cu-table-row">
-							<th class="cu-table-head">Class</th>
-							<th class="cu-table-head">Description</th>
+							<th class="cu-table-head">{t.sections.classes.classLabel}</th>
+							<th class="cu-table-head">{t.sections.classes.descriptionLabel}</th>
 						</tr>
 					</thead>
 					<tbody class="cu-table-body">
-						<tr class="cu-table-row">
-							<td class="cu-table-cell"><code class="cu-code">cu-container</code></td>
-							<td class="cu-table-cell text-muted-foreground">Base container, centered with responsive horizontal padding</td>
-						</tr>
-						<tr class="cu-table-row">
-							<td class="cu-table-cell"><code class="cu-code">cu-container-sm</code></td>
-							<td class="cu-table-cell text-muted-foreground">Max width <code class="cu-code">sm</code>（640px）</td>
-						</tr>
-						<tr class="cu-table-row">
-							<td class="cu-table-cell"><code class="cu-code">cu-container-md</code></td>
-							<td class="cu-table-cell text-muted-foreground">Max width <code class="cu-code">md</code>（768px）</td>
-						</tr>
-						<tr class="cu-table-row">
-							<td class="cu-table-cell"><code class="cu-code">cu-container-lg</code></td>
-							<td class="cu-table-cell text-muted-foreground">Max width <code class="cu-code">lg</code>（1024px）</td>
-						</tr>
-						<tr class="cu-table-row">
-							<td class="cu-table-cell"><code class="cu-code">cu-container-xl</code></td>
-							<td class="cu-table-cell text-muted-foreground">Max width <code class="cu-code">xl</code>（1280px）</td>
-						</tr>
-						<tr class="cu-table-row">
-							<td class="cu-table-cell"><code class="cu-code">cu-container-2xl</code></td>
-							<td class="cu-table-cell text-muted-foreground">Max width <code class="cu-code">2xl</code>（1536px）</td>
-						</tr>
-						<tr class="cu-table-row">
-							<td class="cu-table-cell"><code class="cu-code">cu-container-prose</code></td>
-							<td class="cu-table-cell text-muted-foreground">Max width for comfortable reading</td>
-						</tr>
+						{Object.entries(t.classDescriptions).map(([cls, desc]) => (
+							<tr class="cu-table-row">
+								<td class="cu-table-cell"><code class="cu-code">{cls}</code></td>
+								<td class="cu-table-cell text-muted-foreground" set:html={desc} />
+							</tr>
+						))}
 					</tbody>
 				</table>
 			</div>
@@ -148,17 +124,9 @@ const nestedCode = `<div class="cu-container cu-container-xl">
 		<section class="space-y-3">
 			<h2 id="sizes" class="text-lg font-semibold tracking-tight relative group">
 			  <a href="#sizes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-			  Sizes
+			  {t.sections.sizes.title}
 			</h2>
-			<p class="text-base text-muted-foreground leading-relaxed">
-				Six size variants are available —
-				<code class="cu-code">sm</code> (640px),
-				<code class="cu-code">md</code> (768px),
-				<code class="cu-code">lg</code> (1024px),
-				<code class="cu-code">xl</code> (1280px),
-				<code class="cu-code">2xl</code> (1536px), and
-				<code class="cu-code">prose</code> (65ch).
-			</p>
+			<p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.sizes.description} />
 			<ComponentPreview code={sizesCode}>
 				<div class="w-full space-y-3">
 					<div class="cu-container cu-container-sm">
@@ -189,13 +157,9 @@ const nestedCode = `<div class="cu-container cu-container-xl">
 		<section class="space-y-3">
 			<h2 id="prose" class="text-lg font-semibold tracking-tight relative group">
 			  <a href="#prose" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-			  Prose
+			  {t.sections.prose.title}
 			</h2>
-			<p class="text-base text-muted-foreground leading-relaxed">
-				Use
-				<code class="cu-code">cu-container-prose</code> for long-form text content.
-				It limits width to 65ch — the optimal line length for readability.
-			</p>
+			<p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.prose.description} />
 			<ComponentPreview code={proseCode}>
 				<div class="w-full">
 					<div class="cu-container cu-container-prose">
@@ -215,12 +179,9 @@ const nestedCode = `<div class="cu-container cu-container-xl">
 		<section class="space-y-3">
 			<h2 id="no-max-width" class="text-lg font-semibold tracking-tight relative group">
 			  <a href="#no-max-width" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-			  No Max Width
+			  {t.sections.noMaxWidth.title}
 			</h2>
-			<p class="text-base text-muted-foreground leading-relaxed">
-				Use
-				<code class="cu-code">cu-container</code> alone without a size class for a full-width container with only responsive horizontal padding.
-			</p>
+			<p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.noMaxWidth.description} />
 			<ComponentPreview code={noMaxWidthCode}>
 				<div class="w-full">
 					<div class="cu-container">
@@ -236,10 +197,10 @@ const nestedCode = `<div class="cu-container cu-container-xl">
 		<section class="space-y-3">
 			<h2 id="with-layout" class="text-lg font-semibold tracking-tight relative group">
 			  <a href="#with-layout" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-			  With Layout
+			  {t.sections.withLayout.title}
 			</h2>
 			<p class="text-base text-muted-foreground leading-relaxed">
-				Containers work well as wrappers for page layouts with sidebars or multi-column structures.
+				{t.sections.withLayout.description}
 			</p>
 			<ComponentPreview code={nestedCode}>
 				<div class="w-full">

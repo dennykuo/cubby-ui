@@ -1,7 +1,12 @@
 ---
-import Layout from "../../layouts/Layout.astro";
-import Progress from "../../components/ui/Progress.astro";
-import ComponentPreview from "../../components/ComponentPreview.astro";
+import Layout from "@/layouts/Layout.astro";
+import Progress from "@/components/ui/Progress.astro";
+import ComponentPreview from "@/components/ComponentPreview.astro";
+import { getLocaleFromUrl, useTranslations } from "@/i18n";
+import { progressPage } from "@/i18n/pages/components/progress";
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = useTranslations(progressPage, locale);
 
 const usageCode = `<div class="cu-progress" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100">
   <div class="cu-progress-bar" style="width: 60%"></div>
@@ -35,14 +40,14 @@ const colorsCode = `<!-- Success -->
 </div>`.trim();
 ---
 
-<Layout title="Progress — Cubby UI" category="Feedback" componentName="Progress">
+<Layout title={t.title} category={t.category} componentName="Progress">
     <div class="space-y-3">
         <div class="flex items-center gap-3">
             <h1 class="text-3xl font-bold tracking-tight">Progress</h1>
-            <span class="cu-badge cu-badge-secondary">Feedback</span>
+            <span class="cu-badge cu-badge-secondary">{t.category}</span>
         </div>
         <p class="text-base text-muted-foreground leading-relaxed">
-            Displays an indicator showing the completion progress of a task.
+            {t.description}
         </p>
     </div>
 
@@ -51,12 +56,9 @@ const colorsCode = `<!-- Success -->
         <section class="space-y-3">
             <h2 id="usage" class="text-lg font-semibold tracking-tight relative group">
                 <a href="#usage" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                Usage
+                {t.sections.usage.title}
             </h2>
-            <p class="text-base text-muted-foreground leading-relaxed">
-                Use <code class="cu-code">cu-progress</code> as the track and <code class="cu-code">cu-progress-bar</code> as the fill.
-                Set the width with an inline style.
-            </p>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
             <ComponentPreview code={usageCode}>
                 <div class="w-full max-w-md">
                     <Progress value={60} />
@@ -68,24 +70,24 @@ const colorsCode = `<!-- Success -->
         <section class="space-y-3">
             <h2 id="classes" class="text-lg font-semibold tracking-tight relative group">
                 <a href="#classes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                CSS Classes
+                {t.sections.classes.title}
             </h2>
             <div class="cu-table-wrapper rounded-lg border border-border">
                 <table class="cu-table">
                     <thead class="cu-table-header">
                         <tr class="cu-table-row">
-                            <th class="cu-table-head">Class</th>
-                            <th class="cu-table-head">Description</th>
+                            <th class="cu-table-head">{t.sections.classes.classLabel}</th>
+                            <th class="cu-table-head">{t.sections.classes.descriptionLabel}</th>
                         </tr>
                     </thead>
                     <tbody class="cu-table-body">
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-progress</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Progress bar outer track</td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-progress']}</td>
                         </tr>
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-progress-bar</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Progress bar fill, width represents progress</td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-progress-bar']}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -97,11 +99,9 @@ const colorsCode = `<!-- Success -->
         <section class="space-y-3">
             <h2 id="different-values" class="text-lg font-semibold tracking-tight relative group">
                 <a href="#different-values" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                Different Values
+                {t.sections.differentValues.title}
             </h2>
-            <p class="text-base text-muted-foreground leading-relaxed">
-                Adjust the <code class="cu-code">width</code> percentage to indicate progress.
-            </p>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.differentValues.description} />
             <ComponentPreview code={valuesCode}>
                 <div class="w-full max-w-md space-y-4">
                     <Progress value={20} />
@@ -115,11 +115,9 @@ const colorsCode = `<!-- Success -->
         <section class="space-y-3">
             <h2 id="custom-colors" class="text-lg font-semibold tracking-tight relative group">
                 <a href="#custom-colors" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                Custom Colors
+                {t.sections.customColors.title}
             </h2>
-            <p class="text-base text-muted-foreground leading-relaxed">
-                Override the bar color by adding a background utility class to <code class="cu-code">cu-progress-bar</code>.
-            </p>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.customColors.description} />
             <ComponentPreview code={colorsCode}>
                 <div class="w-full max-w-md space-y-4">
                     <div class="cu-progress" role="progressbar">

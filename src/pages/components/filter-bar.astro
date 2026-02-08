@@ -1,6 +1,11 @@
 ---
-import Layout from "../../layouts/Layout.astro";
-import ComponentPreview from "../../components/ComponentPreview.astro";
+import Layout from "@/layouts/Layout.astro";
+import ComponentPreview from "@/components/ComponentPreview.astro";
+import { getLocaleFromUrl, useTranslations } from "@/i18n";
+import { filterBarPage } from "@/i18n/pages/components/filter-bar";
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = useTranslations(filterBarPage, locale);
 
 const usageCode = `<div class="cu-filter-bar">
   <div class="cu-filter-bar-inner">
@@ -76,14 +81,14 @@ const simpleCode = `<div class="cu-filter-bar">
 </div>`.trim();
 ---
 
-<Layout title="Filter Bar — Cubby UI" category="Layouts" componentName="Filter Bar">
+<Layout title={t.title} category={t.category} componentName="Filter Bar">
     <div class="space-y-3">
         <div class="flex items-center gap-3">
             <h1 class="text-3xl font-bold tracking-tight">Filter Bar</h1>
-            <span class="cu-badge cu-badge-secondary">Layouts</span>
+            <span class="cu-badge cu-badge-secondary">{t.category}</span>
         </div>
         <p class="text-base text-muted-foreground leading-relaxed">
-            A responsive filter bar combining search input and filter controls for data tables.
+            {t.description}
         </p>
     </div>
 
@@ -92,10 +97,10 @@ const simpleCode = `<div class="cu-filter-bar">
         <section class="space-y-3">
             <h2 id="usage" class="text-lg font-semibold tracking-tight relative group">
                 <a href="#usage" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                Usage
+                {t.sections.usage.title}
             </h2>
             <p class="text-base text-muted-foreground leading-relaxed">
-                The filter bar provides a card-like container with search and filter controls. It stacks vertically on mobile and aligns horizontally on larger screens.
+                {t.sections.usage.description}
             </p>
             <ComponentPreview code={usageCode}>
                 <div class="w-full max-w-3xl">
@@ -137,33 +142,23 @@ const simpleCode = `<div class="cu-filter-bar">
         <section class="space-y-3">
             <h2 id="classes" class="text-lg font-semibold tracking-tight relative group">
                 <a href="#classes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                CSS Classes
+                {t.sections.classes.title}
             </h2>
             <div class="cu-table-wrapper rounded-lg border border-border">
                 <table class="cu-table">
                     <thead class="cu-table-header">
                         <tr class="cu-table-row">
-                            <th class="cu-table-head">Class</th>
-                            <th class="cu-table-head">Description</th>
+                            <th class="cu-table-head">{t.sections.classes.classLabel}</th>
+                            <th class="cu-table-head">{t.sections.classes.descriptionLabel}</th>
                         </tr>
                     </thead>
                     <tbody class="cu-table-body">
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-filter-bar</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Filter bar container (card-like)</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-filter-bar-inner</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Inner flex container (responsive)</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-filter-bar-search</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Search input area (flex-1)</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-filter-bar-filters</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Filter controls area</td>
-                        </tr>
+                        {Object.entries(t.classDescriptions).map(([cls, desc]) => (
+                            <tr class="cu-table-row">
+                                <td class="cu-table-cell"><code class="cu-code">{cls}</code></td>
+                                <td class="cu-table-cell text-muted-foreground">{desc}</td>
+                            </tr>
+                        ))}
                     </tbody>
                 </table>
             </div>
@@ -174,10 +169,10 @@ const simpleCode = `<div class="cu-filter-bar">
         <section class="space-y-3">
             <h2 id="with-date" class="text-lg font-semibold tracking-tight relative group">
                 <a href="#with-date" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                With Date Range
+                {t.sections.withDate.title}
             </h2>
             <p class="text-base text-muted-foreground leading-relaxed">
-                Combine with date range selectors for time-based filtering.
+                {t.sections.withDate.description}
             </p>
             <ComponentPreview code={withDateCode}>
                 <div class="w-full max-w-3xl">
@@ -217,10 +212,10 @@ const simpleCode = `<div class="cu-filter-bar">
         <section class="space-y-3">
             <h2 id="simple" class="text-lg font-semibold tracking-tight relative group">
                 <a href="#simple" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                Simple Search
+                {t.sections.simple.title}
             </h2>
             <p class="text-base text-muted-foreground leading-relaxed">
-                For simple use cases, use only the search area without filters.
+                {t.sections.simple.description}
             </p>
             <ComponentPreview code={simpleCode}>
                 <div class="w-full max-w-3xl">

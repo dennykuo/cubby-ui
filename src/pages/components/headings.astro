@@ -1,7 +1,12 @@
 ---
-import Layout from "../../layouts/Layout.astro";
-import Heading from "../../components/ui/Heading.astro";
-import ComponentPreview from "../../components/ComponentPreview.astro";
+import Layout from "@/layouts/Layout.astro";
+import Heading from "@/components/ui/Heading.astro";
+import ComponentPreview from "@/components/ComponentPreview.astro";
+import { getLocaleFromUrl, useTranslations } from "@/i18n";
+import { headingsPage } from "@/i18n/pages/components/headings";
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = useTranslations(headingsPage, locale);
 
 const usageCode = `<h1 class="cu-h1">This is an H1 heading</h1>`.trim();
 
@@ -11,15 +16,13 @@ const allLevelsCode = `<h1 class="cu-h1">This is an H1 heading</h1>
 <h4 class="cu-h4">This is an H4 heading</h4>`.trim();
 ---
 
-<Layout title="Headings — Cubby UI" category="Typography" componentName="Headings">
+<Layout title={t.title} category={t.category} componentName="Headings">
     <div class="space-y-3">
         <div class="flex items-center gap-3">
           <h1 class="text-3xl font-bold tracking-tight">Headings</h1>
-          <span class="cu-badge cu-badge-secondary">Typography</span>
+          <span class="cu-badge cu-badge-secondary">{t.category}</span>
         </div>
-        <p class="text-base text-muted-foreground leading-relaxed">
-            Semantic heading styles from H1 to H4 for page titles, section headers, and content hierarchy.
-        </p>
+        <p class="text-base text-muted-foreground leading-relaxed" set:html={t.description} />
     </div>
 
     <div class="mt-10 space-y-10">
@@ -27,12 +30,9 @@ const allLevelsCode = `<h1 class="cu-h1">This is an H1 heading</h1>
         <section class="space-y-3">
             <h2 id="usage" class="text-lg font-semibold tracking-tight relative group">
               <a href="#usage" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              Usage
+              {t.sections.usage.title}
             </h2>
-            <p class="text-base text-muted-foreground leading-relaxed">
-                Apply <code class="cu-code">cu-h1</code> through
-                <code class="cu-code">cu-h4</code> to heading elements.
-            </p>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
             <ComponentPreview code={usageCode}>
                 <Heading level={1}>This is an H1 heading</Heading>
             </ComponentPreview>
@@ -42,32 +42,32 @@ const allLevelsCode = `<h1 class="cu-h1">This is an H1 heading</h1>
     <section class="space-y-3">
       <h2 id="classes" class="text-lg font-semibold tracking-tight relative group">
         <a href="#classes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-        CSS Classes
+        {t.sections.classes.title}
       </h2>
       <div class="cu-table-wrapper rounded-lg border border-border">
         <table class="cu-table">
           <thead class="cu-table-header">
             <tr class="cu-table-row">
-              <th class="cu-table-head">Class</th>
-              <th class="cu-table-head">Description</th>
+              <th class="cu-table-head">{t.sections.classes.classLabel}</th>
+              <th class="cu-table-head">{t.sections.classes.descriptionLabel}</th>
             </tr>
           </thead>
           <tbody class="cu-table-body">
             <tr class="cu-table-row">
               <td class="cu-table-cell"><code class="cu-code">cu-h1</code></td>
-              <td class="cu-table-cell text-muted-foreground">Heading 1, extra-large bold</td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-h1']}</td>
             </tr>
             <tr class="cu-table-row">
               <td class="cu-table-cell"><code class="cu-code">cu-h2</code></td>
-              <td class="cu-table-cell text-muted-foreground">Heading 2, large semi-bold</td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-h2']}</td>
             </tr>
             <tr class="cu-table-row">
               <td class="cu-table-cell"><code class="cu-code">cu-h3</code></td>
-              <td class="cu-table-cell text-muted-foreground">Heading 3, medium semi-bold</td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-h3']}</td>
             </tr>
             <tr class="cu-table-row">
               <td class="cu-table-cell"><code class="cu-code">cu-h4</code></td>
-              <td class="cu-table-cell text-muted-foreground">Heading 4, small semi-bold</td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-h4']}</td>
             </tr>
           </tbody>
         </table>
@@ -79,11 +79,9 @@ const allLevelsCode = `<h1 class="cu-h1">This is an H1 heading</h1>
         <section class="space-y-3">
             <h2 id="all-levels" class="text-lg font-semibold tracking-tight relative group">
               <a href="#all-levels" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              All Levels
+              {t.sections.allLevels.title}
             </h2>
-            <p class="text-base text-muted-foreground leading-relaxed">
-                Four heading levels with progressively decreasing size and weight.
-            </p>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.allLevels.description} />
             <ComponentPreview code={allLevelsCode}>
                 <div class="space-y-6 w-full max-w-2xl">
                     <Heading level={1}>This is an H1 heading</Heading>

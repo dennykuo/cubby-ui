@@ -1,9 +1,14 @@
 ---
-import Layout from "../../layouts/Layout.astro";
-import Alert from "../../components/ui/Alert.astro";
-import AlertTitle from "../../components/ui/AlertTitle.astro";
-import AlertDescription from "../../components/ui/AlertDescription.astro";
-import ComponentPreview from "../../components/ComponentPreview.astro";
+import Layout from "@/layouts/Layout.astro";
+import Alert from "@/components/ui/Alert.astro";
+import AlertTitle from "@/components/ui/AlertTitle.astro";
+import AlertDescription from "@/components/ui/AlertDescription.astro";
+import ComponentPreview from "@/components/ComponentPreview.astro";
+import { getLocaleFromUrl, useTranslations } from "@/i18n";
+import { alertPage } from "@/i18n/pages/components/alert";
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = useTranslations(alertPage, locale);
 
 const usageCode = `<div class="cu-alert cu-alert-default" role="alert">
   <div>
@@ -109,14 +114,14 @@ const descOnlyCode = `<div class="cu-alert cu-alert-default" role="alert">
 </div>`.trim();
 ---
 
-<Layout title="Alert — Cubby UI" category="Feedback" componentName="Alert">
+<Layout title={t.title} category={t.category} componentName="Alert">
     <div class="space-y-3">
         <div class="flex items-center gap-3">
             <h1 class="text-3xl font-bold tracking-tight">Alert</h1>
-            <span class="cu-badge cu-badge-secondary">Feedback</span>
+            <span class="cu-badge cu-badge-secondary">{t.category}</span>
         </div>
         <p class="text-base text-muted-foreground leading-relaxed">
-            Displays a callout for important information or feedback.
+            {t.description}
         </p>
     </div>
 
@@ -125,12 +130,9 @@ const descOnlyCode = `<div class="cu-alert cu-alert-default" role="alert">
         <section class="space-y-3">
             <h2 id="usage" class="text-lg font-semibold tracking-tight relative group">
                 <a href="#usage" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                Usage
+                {t.sections.usage.title}
             </h2>
-            <p class="text-base text-muted-foreground leading-relaxed">
-                Use <code class="cu-code">cu-alert</code> as the base class with a variant.
-                Add <code class="cu-code">cu-alert-title</code> and <code class="cu-code">cu-alert-description</code> inside.
-            </p>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
             <ComponentPreview code={usageCode}>
                 <Alert class="max-w-lg">
                     <div>
@@ -145,48 +147,48 @@ const descOnlyCode = `<div class="cu-alert cu-alert-default" role="alert">
         <section class="space-y-3">
             <h2 id="classes" class="text-lg font-semibold tracking-tight relative group">
                 <a href="#classes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                CSS Classes
+                {t.sections.classes.title}
             </h2>
             <div class="cu-table-wrapper rounded-lg border border-border">
                 <table class="cu-table">
                     <thead class="cu-table-header">
                         <tr class="cu-table-row">
-                            <th class="cu-table-head">Class</th>
-                            <th class="cu-table-head">Description</th>
+                            <th class="cu-table-head">{t.sections.classes.classLabel}</th>
+                            <th class="cu-table-head">{t.sections.classes.descriptionLabel}</th>
                         </tr>
                     </thead>
                     <tbody class="cu-table-body">
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-alert</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Alert base container with rounded corners, border, and SVG icon positioning</td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-alert']}</td>
                         </tr>
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-alert-default</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Default variant style</td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-alert-default']}</td>
                         </tr>
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-alert-destructive</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Destructive / error variant style</td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-alert-destructive']}</td>
                         </tr>
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-alert-success</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Success variant style</td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-alert-success']}</td>
                         </tr>
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-alert-warning</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Warning variant style</td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-alert-warning']}</td>
                         </tr>
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-alert-info</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Info variant style</td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-alert-info']}</td>
                         </tr>
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-alert-title</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Alert title</td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-alert-title']}</td>
                         </tr>
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-alert-description</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Alert description text</td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-alert-description']}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -198,10 +200,10 @@ const descOnlyCode = `<div class="cu-alert cu-alert-default" role="alert">
         <section class="space-y-3">
             <h2 id="variants" class="text-lg font-semibold tracking-tight relative group">
                 <a href="#variants" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                Variants
+                {t.sections.variants.title}
             </h2>
             <p class="text-base text-muted-foreground leading-relaxed">
-                Use variant classes to convey different levels of importance.
+                {t.sections.variants.description}
             </p>
             <ComponentPreview code={variantsCode}>
                 <div class="flex flex-col gap-3 w-full max-w-lg">
@@ -243,11 +245,9 @@ const descOnlyCode = `<div class="cu-alert cu-alert-default" role="alert">
         <section class="space-y-3">
             <h2 id="with-icon" class="text-lg font-semibold tracking-tight relative group">
                 <a href="#with-icon" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                With Icon
+                {t.sections.withIcon.title}
             </h2>
-            <p class="text-base text-muted-foreground leading-relaxed">
-                Place an SVG icon as the first child. The alert will automatically add left padding via <code class="cu-code">[&:has(svg)]:pl-10</code>.
-            </p>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withIcon.description} />
             <ComponentPreview code={withIconCode}>
                 <Alert variant="destructive" class="max-w-lg">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" x2="12" y1="8" y2="12"/><line x1="12" x2="12.01" y1="16" y2="16"/></svg>
@@ -263,10 +263,10 @@ const descOnlyCode = `<div class="cu-alert cu-alert-default" role="alert">
         <section class="space-y-3">
             <h2 id="icons-for-every-variant" class="text-lg font-semibold tracking-tight relative group">
                 <a href="#icons-for-every-variant" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                Icons for Every Variant
+                {t.sections.iconsForEveryVariant.title}
             </h2>
             <p class="text-base text-muted-foreground leading-relaxed">
-                Each variant pairs well with a matching icon — checkmark for success, triangle for warning, info circle for info, and exclamation for errors.
+                {t.sections.iconsForEveryVariant.description}
             </p>
             <ComponentPreview code={allIconsCode}>
                 <div class="flex flex-col gap-3 w-full max-w-lg">
@@ -306,10 +306,10 @@ const descOnlyCode = `<div class="cu-alert cu-alert-default" role="alert">
         <section class="space-y-3">
             <h2 id="with-action" class="text-lg font-semibold tracking-tight relative group">
                 <a href="#with-action" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                With Action
+                {t.sections.withAction.title}
             </h2>
             <p class="text-base text-muted-foreground leading-relaxed">
-                Embed buttons inside the description for actionable alerts.
+                {t.sections.withAction.description}
             </p>
             <ComponentPreview code={withActionCode}>
                 <Alert variant="warning" class="max-w-lg">
@@ -332,10 +332,10 @@ const descOnlyCode = `<div class="cu-alert cu-alert-default" role="alert">
         <section class="space-y-3">
             <h2 id="description-only" class="text-lg font-semibold tracking-tight relative group">
                 <a href="#description-only" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                Description Only
+                {t.sections.descriptionOnly.title}
             </h2>
             <p class="text-base text-muted-foreground leading-relaxed">
-                The title is optional — use description alone for a compact inline message.
+                {t.sections.descriptionOnly.description}
             </p>
             <ComponentPreview code={descOnlyCode}>
                 <Alert class="max-w-lg">

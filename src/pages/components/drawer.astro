@@ -1,6 +1,11 @@
 ---
-import Layout from "../../layouts/Layout.astro";
-import ComponentPreview from "../../components/ComponentPreview.astro";
+import Layout from "@/layouts/Layout.astro";
+import ComponentPreview from "@/components/ComponentPreview.astro";
+import { getLocaleFromUrl, useTranslations } from "@/i18n";
+import { drawerPage } from "@/i18n/pages/components/drawer";
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = useTranslations(drawerPage, locale);
 
 const usageCode = `<button class="cu-button cu-button-outline cu-button-md" data-cu-drawer-trigger="demo-drawer">
   Open Drawer
@@ -47,7 +52,7 @@ const usageCode = `<button class="cu-button cu-button-outline cu-button-md" data
       if (e.target === dialog) dialog.close();
     });
   });
-</script>`.trim();
+\x3c/script>`.trim();
 
 const leftCode = `<button class="cu-button cu-button-outline cu-button-md" data-cu-drawer-trigger="left-drawer">
   Open Left Drawer
@@ -103,14 +108,14 @@ const sidesCode = `<button class="cu-button cu-button-outline cu-button-md" data
 </dialog>`.trim();
 ---
 
-<Layout title="Drawer — Cubby UI" category="Overlay" componentName="Drawer">
+<Layout title={t.title} category={t.category} componentName="Drawer">
     <div class="space-y-3">
         <div class="flex items-center gap-3">
             <h1 class="text-3xl font-bold tracking-tight">Drawer</h1>
-            <span class="cu-badge cu-badge-secondary">Overlay</span>
+            <span class="cu-badge cu-badge-secondary">{t.category}</span>
         </div>
         <p class="text-base text-muted-foreground leading-relaxed">
-            Extends the Dialog component to display content that complements the main content of the screen. Slides in from the edge of the screen.
+            {t.description}
         </p>
     </div>
 
@@ -119,15 +124,9 @@ const sidesCode = `<button class="cu-button cu-button-outline cu-button-md" data
         <section class="space-y-3">
             <h2 id="usage" class="text-lg font-semibold tracking-tight relative group">
                 <a href="#usage" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                Usage
+                {t.sections.usage.title}
             </h2>
-            <p class="text-base text-muted-foreground leading-relaxed">
-                Built with the native <code class="cu-code">&lt;dialog&gt;</code> element.
-                Use <code class="cu-code">data-cu-drawer-trigger</code> on buttons to open,
-                <code class="cu-code">data-cu-drawer-close</code> to close, and
-                <code class="cu-code">data-cu-drawer</code> on the dialog element.
-                Add a side class like <code class="cu-code">cu-drawer-right</code> to control the position.
-            </p>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
             <ComponentPreview code={usageCode}>
                 <button class="cu-button cu-button-outline cu-button-md" data-cu-drawer-trigger="demo-drawer">
                     Open Drawer
@@ -164,60 +163,60 @@ const sidesCode = `<button class="cu-button cu-button-outline cu-button-md" data
         <section class="space-y-3">
             <h2 id="classes" class="text-lg font-semibold tracking-tight relative group">
                 <a href="#classes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                CSS Classes
+                {t.sections.classes.title}
             </h2>
             <div class="cu-table-wrapper rounded-lg border border-border">
                 <table class="cu-table">
                     <thead class="cu-table-header">
                         <tr class="cu-table-row">
-                            <th class="cu-table-head">Class</th>
-                            <th class="cu-table-head">Description</th>
+                            <th class="cu-table-head">{t.sections.classes.classLabel}</th>
+                            <th class="cu-table-head">{t.sections.classes.descriptionLabel}</th>
                         </tr>
                     </thead>
                     <tbody class="cu-table-body">
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-drawer</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Drawer base container with fixed positioning and open/close animation</td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-drawer']}</td>
                         </tr>
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-drawer-right</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Slides in from right</td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-drawer-right']}</td>
                         </tr>
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-drawer-left</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Slides in from left</td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-drawer-left']}</td>
                         </tr>
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-drawer-top</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Slides in from top</td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-drawer-top']}</td>
                         </tr>
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-drawer-bottom</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Slides in from bottom</td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-drawer-bottom']}</td>
                         </tr>
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-drawer-header</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Drawer header area</td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-drawer-header']}</td>
                         </tr>
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-drawer-title</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Drawer title</td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-drawer-title']}</td>
                         </tr>
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-drawer-description</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Drawer description text</td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-drawer-description']}</td>
                         </tr>
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-drawer-content</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Drawer scrollable content area</td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-drawer-content']}</td>
                         </tr>
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-drawer-footer</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Footer action button area</td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-drawer-footer']}</td>
                         </tr>
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-drawer-close</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Top-right close button</td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-drawer-close']}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -229,11 +228,9 @@ const sidesCode = `<button class="cu-button cu-button-outline cu-button-md" data
         <section class="space-y-3">
             <h2 id="left-side" class="text-lg font-semibold tracking-tight relative group">
                 <a href="#left-side" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                Left Side
+                {t.sections.leftSide.title}
             </h2>
-            <p class="text-base text-muted-foreground leading-relaxed">
-                Use <code class="cu-code">cu-drawer-left</code> for a navigation-style drawer.
-            </p>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.leftSide.description} />
             <ComponentPreview code={leftCode}>
                 <button class="cu-button cu-button-outline cu-button-md" data-cu-drawer-trigger="left-drawer">
                     Open Left Drawer
@@ -263,11 +260,9 @@ const sidesCode = `<button class="cu-button cu-button-outline cu-button-md" data
         <section class="space-y-3">
             <h2 id="top--bottom" class="text-lg font-semibold tracking-tight relative group">
                 <a href="#top--bottom" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                Top & Bottom
+                {t.sections.topBottom.title}
             </h2>
-            <p class="text-base text-muted-foreground leading-relaxed">
-                Use <code class="cu-code">cu-drawer-top</code> or <code class="cu-code">cu-drawer-bottom</code> for horizontal drawers.
-            </p>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.topBottom.description} />
             <ComponentPreview code={sidesCode}>
                 <div class="flex gap-2">
                     <button class="cu-button cu-button-outline cu-button-md" data-cu-drawer-trigger="top-drawer">

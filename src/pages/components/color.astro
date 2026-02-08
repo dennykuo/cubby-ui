@@ -1,5 +1,10 @@
 ---
-import Layout from "../../layouts/Layout.astro";
+import Layout from "@/layouts/Layout.astro";
+import { getLocaleFromUrl, useTranslations } from "@/i18n";
+import { colorPage } from "@/i18n/pages/components/color";
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = useTranslations(colorPage, locale);
 
 interface Swatch {
     name: string;
@@ -32,16 +37,13 @@ const utilityColors: Swatch[] = [
 ];
 ---
 
-<Layout title="Color — Cubby UI" category="Basic" componentName="Color">
+<Layout title={t.title} category={t.category} componentName="Color">
     <div class="space-y-3">
         <div class="flex items-center gap-3">
             <h1 class="text-3xl font-bold tracking-tight">Color</h1>
-            <span class="cu-badge cu-badge-secondary">Basic</span>
+            <span class="cu-badge cu-badge-secondary">{t.category}</span>
         </div>
-        <p class="text-base text-muted-foreground leading-relaxed">
-            Semantic color tokens defined as CSS custom properties in <code class="cu-code">global.css</code>.
-            Each semantic color has a paired foreground for text on that background.
-        </p>
+        <p class="text-base text-muted-foreground leading-relaxed" set:html={t.description} />
     </div>
 
     <div class="mt-10 space-y-10">
@@ -49,12 +51,9 @@ const utilityColors: Swatch[] = [
         <section class="space-y-3">
             <h2 id="semantic-colors" class="text-lg font-semibold tracking-tight relative group">
                 <a href="#semantic-colors" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                Semantic Colors
+                {t.sections.semanticColors.title}
             </h2>
-            <p class="text-base text-muted-foreground leading-relaxed">
-                Used for interactive elements like buttons, badges, and alerts. Each color has a
-                <code class="cu-code">-foreground</code> counterpart for legible text.
-            </p>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.semanticColors.description} />
             <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
                 {semanticColors.map((c) => (
                     <div class="rounded-xl overflow-hidden border border-border">
@@ -74,10 +73,10 @@ const utilityColors: Swatch[] = [
         <section class="space-y-3">
             <h2 id="surface-colors" class="text-lg font-semibold tracking-tight relative group">
                 <a href="#surface-colors" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                Surface Colors
+                {t.sections.surfaceColors.title}
             </h2>
             <p class="text-base text-muted-foreground leading-relaxed">
-                Used for page backgrounds, cards, popovers, and muted areas.
+                {t.sections.surfaceColors.description}
             </p>
             <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
                 {surfaceColors.map((c) => (
@@ -96,10 +95,10 @@ const utilityColors: Swatch[] = [
         <section class="space-y-3">
             <h2 id="utility-colors" class="text-lg font-semibold tracking-tight relative group">
                 <a href="#utility-colors" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                Utility Colors
+                {t.sections.utilityColors.title}
             </h2>
             <p class="text-base text-muted-foreground leading-relaxed">
-                Used for borders, input outlines, and focus rings.
+                {t.sections.utilityColors.description}
             </p>
             <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
                 {utilityColors.map((c) => (
@@ -118,13 +117,9 @@ const utilityColors: Swatch[] = [
         <section class="space-y-3">
             <h2 id="customization" class="text-lg font-semibold tracking-tight relative group">
                 <a href="#customization" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                Customization
+                {t.sections.customization.title}
             </h2>
-            <p class="text-base text-muted-foreground leading-relaxed">
-                Override any color in <code class="cu-code">src/styles/global.css</code> inside the
-                <code class="cu-code">@theme</code> block. For dark mode, override inside the
-                <code class="cu-code">.dark</code> selector.
-            </p>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.customization.description} />
         </section>
     </div>
 </Layout>

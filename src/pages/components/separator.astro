@@ -1,7 +1,12 @@
 ---
-import Layout from "../../layouts/Layout.astro";
-import Separator from "../../components/ui/Separator.astro";
-import ComponentPreview from "../../components/ComponentPreview.astro";
+import Layout from "@/layouts/Layout.astro";
+import Separator from "@/components/ui/Separator.astro";
+import ComponentPreview from "@/components/ComponentPreview.astro";
+import { getLocaleFromUrl, useTranslations } from "@/i18n";
+import { separatorPage } from "@/i18n/pages/components/separator";
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = useTranslations(separatorPage, locale);
 
 const usageCode = `<div class="cu-separator cu-separator-horizontal" role="separator"></div>`.trim();
 
@@ -27,14 +32,14 @@ const verticalCode = `<div class="flex h-5 items-center gap-4 text-sm">
 </div>`.trim();
 ---
 
-<Layout title="Separator — Cubby UI" category="Basic" componentName="Separator">
+<Layout title={t.title} category={t.category} componentName="Separator">
     <div class="space-y-3">
         <div class="flex items-center gap-3">
             <h1 class="text-3xl font-bold tracking-tight">Separator</h1>
-            <span class="cu-badge cu-badge-secondary">Basic</span>
+            <span class="cu-badge cu-badge-secondary">{t.category}</span>
         </div>
         <p class="text-base text-muted-foreground leading-relaxed">
-            Visually or semantically separates content.
+            {t.description}
         </p>
     </div>
 
@@ -43,13 +48,9 @@ const verticalCode = `<div class="flex h-5 items-center gap-4 text-sm">
         <section class="space-y-3">
             <h2 id="usage" class="text-lg font-semibold tracking-tight relative group">
                 <a href="#usage" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                Usage
+                {t.sections.usage.title}
             </h2>
-            <p class="text-base text-muted-foreground leading-relaxed">
-                Apply <code class="cu-code">cu-separator</code> as the base class with
-                <code class="cu-code">cu-separator-horizontal</code> or
-                <code class="cu-code">cu-separator-vertical</code> for orientation.
-            </p>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
             <ComponentPreview code={usageCode}>
                 <div class="w-full max-w-lg">
                     <Separator />
@@ -61,29 +62,23 @@ const verticalCode = `<div class="flex h-5 items-center gap-4 text-sm">
     <section class="space-y-3">
       <h2 id="classes" class="text-lg font-semibold tracking-tight relative group">
         <a href="#classes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-        CSS Classes
+        {t.sections.classes.title}
       </h2>
       <div class="cu-table-wrapper rounded-lg border border-border">
         <table class="cu-table">
           <thead class="cu-table-header">
             <tr class="cu-table-row">
-              <th class="cu-table-head">Class</th>
-              <th class="cu-table-head">Description</th>
+              <th class="cu-table-head">{t.sections.classes.classLabel}</th>
+              <th class="cu-table-head">{t.sections.classes.descriptionLabel}</th>
             </tr>
           </thead>
           <tbody class="cu-table-body">
-            <tr class="cu-table-row">
-              <td class="cu-table-cell"><code class="cu-code">cu-separator</code></td>
-              <td class="cu-table-cell text-muted-foreground">Base separator</td>
-            </tr>
-            <tr class="cu-table-row">
-              <td class="cu-table-cell"><code class="cu-code">cu-separator-horizontal</code></td>
-              <td class="cu-table-cell text-muted-foreground">Horizontal separator</td>
-            </tr>
-            <tr class="cu-table-row">
-              <td class="cu-table-cell"><code class="cu-code">cu-separator-vertical</code></td>
-              <td class="cu-table-cell text-muted-foreground">Vertical separator</td>
-            </tr>
+            {Object.entries(t.classDescriptions).map(([cls, desc]) => (
+              <tr class="cu-table-row">
+                <td class="cu-table-cell"><code class="cu-code">{cls}</code></td>
+                <td class="cu-table-cell text-muted-foreground">{desc}</td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>
@@ -94,10 +89,10 @@ const verticalCode = `<div class="flex h-5 items-center gap-4 text-sm">
         <section class="space-y-3">
             <h2 id="with-text" class="text-lg font-semibold tracking-tight relative group">
                 <a href="#with-text" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                With Text
+                {t.sections.withText.title}
             </h2>
             <p class="text-base text-muted-foreground leading-relaxed">
-                Combine horizontal and vertical separators to create structured layouts.
+                {t.sections.withText.description}
             </p>
             <ComponentPreview code={withTextCode}>
                 <div class="w-full max-w-lg">
@@ -121,11 +116,9 @@ const verticalCode = `<div class="flex h-5 items-center gap-4 text-sm">
         <section class="space-y-3">
             <h2 id="vertical" class="text-lg font-semibold tracking-tight relative group">
                 <a href="#vertical" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                Vertical
+                {t.sections.vertical.title}
             </h2>
-            <p class="text-base text-muted-foreground leading-relaxed">
-                Use <code class="cu-code">cu-separator-vertical</code> to separate inline items.
-            </p>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.vertical.description} />
             <ComponentPreview code={verticalCode}>
                 <div class="flex h-5 items-center gap-4 text-sm">
                     <div>Docs</div>

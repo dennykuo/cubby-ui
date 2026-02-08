@@ -1,6 +1,11 @@
 ---
-import Layout from "../../layouts/Layout.astro";
-import ComponentPreview from "../../components/ComponentPreview.astro";
+import Layout from "@/layouts/Layout.astro";
+import ComponentPreview from "@/components/ComponentPreview.astro";
+import { getLocaleFromUrl, useTranslations } from "@/i18n";
+import { tabsPage } from "@/i18n/pages/components/tabs";
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = useTranslations(tabsPage, locale);
 
 const usageCode = `<div class="cu-tabs" data-cu-tabs>
   <div class="cu-tabs-list">
@@ -30,7 +35,7 @@ const usageCode = `<div class="cu-tabs" data-cu-tabs>
       });
     });
   });
-</script>`.trim();
+\x3c/script>`.trim();
 
 const withContentCode = `<div class="cu-tabs" data-cu-tabs>
   <div class="cu-tabs-list">
@@ -74,14 +79,14 @@ const withContentCode = `<div class="cu-tabs" data-cu-tabs>
 </div>`.trim();
 ---
 
-<Layout title="Tabs — Cubby UI" category="Navigation" componentName="Tabs">
+<Layout title={t.title} category={t.category} componentName="Tabs">
     <div class="space-y-3">
         <div class="flex items-center gap-3">
           <h1 class="text-3xl font-bold tracking-tight">Tabs</h1>
-          <span class="cu-badge cu-badge-secondary">Navigation</span>
+          <span class="cu-badge cu-badge-secondary">{t.category}</span>
         </div>
         <p class="text-base text-muted-foreground leading-relaxed">
-            A set of layered sections of content — known as tab panels — that are displayed one at a time.
+            {t.description}
         </p>
     </div>
 
@@ -90,14 +95,9 @@ const withContentCode = `<div class="cu-tabs" data-cu-tabs>
         <section class="space-y-3">
             <h2 id="usage" class="text-lg font-semibold tracking-tight relative group">
               <a href="#usage" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              Usage
+              {t.sections.usage.title}
             </h2>
-            <p class="text-base text-muted-foreground leading-relaxed">
-                Use <code class="cu-code">data-cu-tabs</code> on the container,
-                <code class="cu-code">data-cu-tabs-trigger</code> on each button with a value, and
-                <code class="cu-code">data-cu-tabs-content</code> on each panel with a matching value.
-                Include the <code class="cu-code">&lt;script&gt;</code> snippet for interactivity.
-            </p>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
             <ComponentPreview code={usageCode}>
                 <div class="w-full max-w-md">
                     <div class="cu-tabs" data-cu-tabs>
@@ -120,36 +120,36 @@ const withContentCode = `<div class="cu-tabs" data-cu-tabs>
         <section class="space-y-3">
             <h2 id="classes" class="text-lg font-semibold tracking-tight relative group">
                 <a href="#classes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                CSS Classes
+                {t.sections.classes.title}
             </h2>
             <div class="cu-table-wrapper rounded-lg border border-border">
                 <table class="cu-table">
                     <thead class="cu-table-header">
                         <tr class="cu-table-row">
-                            <th class="cu-table-head">Class</th>
-                            <th class="cu-table-head">Description</th>
+                            <th class="cu-table-head">{t.sections.classes.classLabel}</th>
+                            <th class="cu-table-head">{t.sections.classes.descriptionLabel}</th>
                         </tr>
                     </thead>
                     <tbody class="cu-table-body">
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-tabs</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Tabs container</td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-tabs']}</td>
                         </tr>
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-tabs-list</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Tab list with background and rounded corners</td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-tabs-list']}</td>
                         </tr>
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-tabs-trigger</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Tab trigger button</td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-tabs-trigger']}</td>
                         </tr>
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-tabs-trigger-active</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Active tab with white background and shadow</td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-tabs-trigger-active']}</td>
                         </tr>
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-tabs-content</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Tab content panel</td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-tabs-content']}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -161,10 +161,10 @@ const withContentCode = `<div class="cu-tabs" data-cu-tabs>
         <section class="space-y-3">
             <h2 id="with-content" class="text-lg font-semibold tracking-tight relative group">
               <a href="#with-content" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              With Content
+              {t.sections.withContent.title}
             </h2>
             <p class="text-base text-muted-foreground leading-relaxed">
-                Tabs work well with cards or any other content blocks.
+                {t.sections.withContent.description}
             </p>
             <ComponentPreview code={withContentCode}>
                 <div class="w-full max-w-lg">

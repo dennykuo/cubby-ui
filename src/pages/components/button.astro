@@ -1,7 +1,13 @@
 ---
-import Layout from "../../layouts/Layout.astro";
-import Button from "../../components/ui/Button.astro";
-import ComponentPreview from "../../components/ComponentPreview.astro";
+import Layout from "@/layouts/Layout.astro";
+import Button from "@/components/ui/Button.astro";
+import ComponentPreview from "@/components/ComponentPreview.astro";
+import { getLocaleFromUrl, useTranslations, localizePath } from "@/i18n";
+import { buttonPage } from "@/i18n/pages/components/button";
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = useTranslations(buttonPage, locale);
+const buttonGroupHref = localizePath('/components/button-group', locale);
 
 const usageCode = `<button class="cu-button cu-button-default cu-button-md">
   Button
@@ -80,14 +86,14 @@ const groupCode = `<div class="cu-button-group">
 </div>`.trim();
 ---
 
-<Layout title="Button — Cubby UI" category="Basic" componentName="Button">
+<Layout title={t.title} category={t.category} componentName="Button">
   <div class="space-y-3">
     <div class="flex items-center gap-3">
       <h1 class="text-3xl font-bold tracking-tight">Button</h1>
-      <span class="cu-badge cu-badge-secondary">Basic</span>
+      <span class="cu-badge cu-badge-secondary">{t.category}</span>
     </div>
     <p class="text-base text-muted-foreground leading-relaxed">
-      Displays a button or a component that looks like a button.
+      {t.description}
     </p>
   </div>
 
@@ -96,11 +102,9 @@ const groupCode = `<div class="cu-button-group">
     <section class="space-y-3">
       <h2 id="usage" class="text-lg font-semibold tracking-tight relative group">
         <a href="#usage" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-        Usage
+        {t.sections.usage.title}
       </h2>
-      <p class="text-base text-muted-foreground leading-relaxed">
-        Apply <code class="cu-code">cu-button</code> as the base class, then add a variant and size class.
-      </p>
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
       <ComponentPreview code={usageCode}>
         <Button>Button</Button>
       </ComponentPreview>
@@ -110,89 +114,23 @@ const groupCode = `<div class="cu-button-group">
     <section class="space-y-3">
       <h2 id="classes" class="text-lg font-semibold tracking-tight relative group">
         <a href="#classes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-        CSS Classes
+        {t.sections.classes.title}
       </h2>
       <div class="cu-table-wrapper rounded-lg border border-border">
         <table class="cu-table">
           <thead class="cu-table-header">
             <tr class="cu-table-row">
-              <th class="cu-table-head">Class</th>
-              <th class="cu-table-head">Description</th>
+              <th class="cu-table-head">{t.sections.classes.classLabel}</th>
+              <th class="cu-table-head">{t.sections.classes.descriptionLabel}</th>
             </tr>
           </thead>
           <tbody class="cu-table-body">
-            <tr class="cu-table-row">
-              <td class="cu-table-cell"><code class="cu-code">cu-button</code></td>
-              <td class="cu-table-cell text-muted-foreground">Base button</td>
-            </tr>
-            <tr class="cu-table-row">
-              <td class="cu-table-cell"><code class="cu-code">cu-button-default</code></td>
-              <td class="cu-table-cell text-muted-foreground">Default variant (Primary background)</td>
-            </tr>
-            <tr class="cu-table-row">
-              <td class="cu-table-cell"><code class="cu-code">cu-button-secondary</code></td>
-              <td class="cu-table-cell text-muted-foreground">Secondary variant</td>
-            </tr>
-            <tr class="cu-table-row">
-              <td class="cu-table-cell"><code class="cu-code">cu-button-outline</code></td>
-              <td class="cu-table-cell text-muted-foreground">Outline variant</td>
-            </tr>
-            <tr class="cu-table-row">
-              <td class="cu-table-cell"><code class="cu-code">cu-button-ghost</code></td>
-              <td class="cu-table-cell text-muted-foreground">Ghost variant (no background)</td>
-            </tr>
-            <tr class="cu-table-row">
-              <td class="cu-table-cell"><code class="cu-code">cu-button-link</code></td>
-              <td class="cu-table-cell text-muted-foreground">Link variant</td>
-            </tr>
-            <tr class="cu-table-row">
-              <td class="cu-table-cell"><code class="cu-code">cu-button-destructive</code></td>
-              <td class="cu-table-cell text-muted-foreground">Destructive variant</td>
-            </tr>
-            <tr class="cu-table-row">
-              <td class="cu-table-cell"><code class="cu-code">cu-button-success</code></td>
-              <td class="cu-table-cell text-muted-foreground">Success variant</td>
-            </tr>
-            <tr class="cu-table-row">
-              <td class="cu-table-cell"><code class="cu-code">cu-button-warning</code></td>
-              <td class="cu-table-cell text-muted-foreground">Warning variant</td>
-            </tr>
-            <tr class="cu-table-row">
-              <td class="cu-table-cell"><code class="cu-code">cu-button-info</code></td>
-              <td class="cu-table-cell text-muted-foreground">Info variant</td>
-            </tr>
-            <tr class="cu-table-row">
-              <td class="cu-table-cell"><code class="cu-code">cu-button-xs</code></td>
-              <td class="cu-table-cell text-muted-foreground">Extra-small size</td>
-            </tr>
-            <tr class="cu-table-row">
-              <td class="cu-table-cell"><code class="cu-code">cu-button-sm</code></td>
-              <td class="cu-table-cell text-muted-foreground">Small size</td>
-            </tr>
-            <tr class="cu-table-row">
-              <td class="cu-table-cell"><code class="cu-code">cu-button-md</code></td>
-              <td class="cu-table-cell text-muted-foreground">Medium size (default)</td>
-            </tr>
-            <tr class="cu-table-row">
-              <td class="cu-table-cell"><code class="cu-code">cu-button-lg</code></td>
-              <td class="cu-table-cell text-muted-foreground">Large size</td>
-            </tr>
-            <tr class="cu-table-row">
-              <td class="cu-table-cell"><code class="cu-code">cu-button-xl</code></td>
-              <td class="cu-table-cell text-muted-foreground">Extra-large size</td>
-            </tr>
-            <tr class="cu-table-row">
-              <td class="cu-table-cell"><code class="cu-code">cu-button-icon</code></td>
-              <td class="cu-table-cell text-muted-foreground">Icon button</td>
-            </tr>
-            <tr class="cu-table-row">
-              <td class="cu-table-cell"><code class="cu-code">cu-button-icon-sm</code></td>
-              <td class="cu-table-cell text-muted-foreground">Small icon button</td>
-            </tr>
-            <tr class="cu-table-row">
-              <td class="cu-table-cell"><code class="cu-code">cu-button-icon-xs</code></td>
-              <td class="cu-table-cell text-muted-foreground">Extra-small icon button</td>
-            </tr>
+            {Object.entries(t.classDescriptions).map(([cls, desc]) => (
+              <tr class="cu-table-row">
+                <td class="cu-table-cell"><code class="cu-code">{cls}</code></td>
+                <td class="cu-table-cell text-muted-foreground">{desc}</td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>
@@ -203,10 +141,10 @@ const groupCode = `<div class="cu-button-group">
     <section class="space-y-3">
       <h2 id="variants" class="text-lg font-semibold tracking-tight relative group">
         <a href="#variants" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-        Variants
+        {t.sections.variants.title}
       </h2>
       <p class="text-base text-muted-foreground leading-relaxed">
-        Use variant classes to change the button's visual style. Each variant conveys a different level of emphasis or intent.
+        {t.sections.variants.description}
       </p>
       <ComponentPreview code={variantsCode}>
         <div class="flex flex-wrap gap-3 items-center justify-center">
@@ -227,14 +165,9 @@ const groupCode = `<div class="cu-button-group">
     <section class="space-y-3">
       <h2 id="sizes" class="text-lg font-semibold tracking-tight relative group">
         <a href="#sizes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-        Sizes
+        {t.sections.sizes.title}
       </h2>
-      <p class="text-base text-muted-foreground leading-relaxed">
-        Five sizes are available — from
-        <code class="cu-code">cu-button-xs</code> to
-        <code class="cu-code">cu-button-xl</code>.
-        The default size is <code class="cu-code">cu-button-md</code>.
-      </p>
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.sizes.description} />
       <ComponentPreview code={sizesCode}>
         <div class="flex flex-wrap gap-3 items-end justify-center">
           <Button size="xs">Extra Small</Button>
@@ -250,13 +183,9 @@ const groupCode = `<div class="cu-button-group">
     <section class="space-y-3">
       <h2 id="with-icons" class="text-lg font-semibold tracking-tight relative group">
         <a href="#with-icons" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-        With Icons
+        {t.sections.withIcons.title}
       </h2>
-      <p class="text-base text-muted-foreground leading-relaxed">
-        Add inline SVG icons before or after the label text. Use
-        <code class="cu-code">cu-button-icon</code>
-        for icon-only buttons.
-      </p>
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withIcons.description} />
       <ComponentPreview code={withIconCode}>
         <div class="flex flex-wrap gap-3 items-center justify-center">
           <Button>
@@ -278,10 +207,10 @@ const groupCode = `<div class="cu-button-group">
     <section class="space-y-3">
       <h2 id="icon-buttons" class="text-lg font-semibold tracking-tight relative group">
         <a href="#icon-buttons" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-        Icon Buttons
+        {t.sections.iconButtons.title}
       </h2>
       <p class="text-base text-muted-foreground leading-relaxed">
-        Icon-only buttons across different variants. Ideal for toolbars, actions, and compact UIs.
+        {t.sections.iconButtons.description}
       </p>
       <ComponentPreview code={iconVariantsCode}>
         <div class="flex flex-wrap gap-3 items-center justify-center">
@@ -308,11 +237,9 @@ const groupCode = `<div class="cu-button-group">
     <section class="space-y-3">
       <h2 id="loading" class="text-lg font-semibold tracking-tight relative group">
         <a href="#loading" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-        Loading
+        {t.sections.loading.title}
       </h2>
-      <p class="text-base text-muted-foreground leading-relaxed">
-        Combine a spinning icon with <code class="cu-code">disabled</code> to indicate a pending action.
-      </p>
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.loading.description} />
       <ComponentPreview code={loadingCode}>
         <div class="flex flex-wrap gap-3 items-center justify-center">
           <Button disabled>
@@ -331,11 +258,9 @@ const groupCode = `<div class="cu-button-group">
     <section class="space-y-3">
       <h2 id="as-link" class="text-lg font-semibold tracking-tight relative group">
         <a href="#as-link" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-        As Link
+        {t.sections.asLink.title}
       </h2>
-      <p class="text-base text-muted-foreground leading-relaxed">
-        Apply button classes to an <code class="cu-code">&lt;a&gt;</code> element for link-styled buttons.
-      </p>
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.asLink.description} />
       <ComponentPreview code={asLinkCode}>
         <div class="flex flex-wrap gap-3 items-center justify-center">
           <a href="#" class="cu-button cu-button-default cu-button-md">As Link</a>
@@ -349,12 +274,9 @@ const groupCode = `<div class="cu-button-group">
     <section class="space-y-3">
       <h2 id="button-group" class="text-lg font-semibold tracking-tight relative group">
         <a href="#button-group" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-        Button Group
+        {t.sections.buttonGroup.title}
       </h2>
-      <p class="text-base text-muted-foreground leading-relaxed">
-        Wrap buttons in a <code class="cu-code">cu-button-group</code> to join them visually.
-        See the <a href="/components/button-group" class="text-primary hover:underline">Button Group</a> page for more options.
-      </p>
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.buttonGroup.description.replace('{buttonGroupHref}', buttonGroupHref)} />
       <ComponentPreview code={groupCode}>
         <div class="cu-button-group">
           <button class="cu-button cu-button-outline cu-button-md">Left</button>
@@ -368,12 +290,9 @@ const groupCode = `<div class="cu-button-group">
     <section class="space-y-3">
       <h2 id="disabled" class="text-lg font-semibold tracking-tight relative group">
         <a href="#disabled" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-        Disabled
+        {t.sections.disabled.title}
       </h2>
-      <p class="text-base text-muted-foreground leading-relaxed">
-        Add the <code class="cu-code">disabled</code> attribute.
-        The button becomes non-interactive with reduced opacity.
-      </p>
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.disabled.description} />
       <ComponentPreview code={disabledCode}>
         <div class="flex flex-wrap gap-3 items-center justify-center">
           <Button disabled>Default</Button>

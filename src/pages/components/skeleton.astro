@@ -1,7 +1,12 @@
 ---
-import Layout from "../../layouts/Layout.astro";
-import Skeleton from "../../components/ui/Skeleton.astro";
-import ComponentPreview from "../../components/ComponentPreview.astro";
+import Layout from "@/layouts/Layout.astro";
+import Skeleton from "@/components/ui/Skeleton.astro";
+import ComponentPreview from "@/components/ComponentPreview.astro";
+import { getLocaleFromUrl, useTranslations } from "@/i18n";
+import { skeletonPage } from "@/i18n/pages/components/skeleton";
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = useTranslations(skeletonPage, locale);
 
 const usageCode = `<div class="cu-skeleton h-4 w-[250px]"></div>`.trim();
 
@@ -28,14 +33,14 @@ const contentSkeletonCode = `<div class="space-y-3">
 </div>`.trim();
 ---
 
-<Layout title="Skeleton — Cubby UI" category="Feedback" componentName="Skeleton">
+<Layout title={t.title} category={t.category} componentName="Skeleton">
     <div class="space-y-3">
         <div class="flex items-center gap-3">
             <h1 class="text-3xl font-bold tracking-tight">Skeleton</h1>
-            <span class="cu-badge cu-badge-secondary">Feedback</span>
+            <span class="cu-badge cu-badge-secondary">{t.category}</span>
         </div>
         <p class="text-base text-muted-foreground leading-relaxed">
-            Use to show a placeholder while content is loading.
+            {t.description}
         </p>
     </div>
 
@@ -44,11 +49,9 @@ const contentSkeletonCode = `<div class="space-y-3">
         <section class="space-y-3">
             <h2 id="usage" class="text-lg font-semibold tracking-tight relative group">
                 <a href="#usage" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                Usage
+                {t.sections.usage.title}
             </h2>
-            <p class="text-base text-muted-foreground leading-relaxed">
-                Apply <code class="cu-code">cu-skeleton</code> to an empty element and set its dimensions with utility classes.
-            </p>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
             <ComponentPreview code={usageCode}>
                 <Skeleton class="h-4 w-[250px]" />
             </ComponentPreview>
@@ -58,24 +61,24 @@ const contentSkeletonCode = `<div class="space-y-3">
         <section class="space-y-3">
             <h2 id="classes" class="text-lg font-semibold tracking-tight relative group">
                 <a href="#classes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                CSS Classes
+                {t.sections.classes.title}
             </h2>
             <div class="cu-table-wrapper rounded-lg border border-border">
                 <table class="cu-table">
                     <thead class="cu-table-header">
                         <tr class="cu-table-row">
-                            <th class="cu-table-head">Class</th>
-                            <th class="cu-table-head">Description</th>
+                            <th class="cu-table-head">{t.sections.classes.classLabel}</th>
+                            <th class="cu-table-head">{t.sections.classes.descriptionLabel}</th>
                         </tr>
                     </thead>
                     <tbody class="cu-table-body">
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-skeleton</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Skeleton default style with pulse animation</td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-skeleton']}</td>
                         </tr>
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-skeleton-shimmer</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Skeleton shimmer animation variant</td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-skeleton-shimmer']}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -87,10 +90,10 @@ const contentSkeletonCode = `<div class="space-y-3">
         <section class="space-y-3">
             <h2 id="card-skeleton" class="text-lg font-semibold tracking-tight relative group">
                 <a href="#card-skeleton" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                Card Skeleton
+                {t.sections.cardSkeleton.title}
             </h2>
             <p class="text-base text-muted-foreground leading-relaxed">
-                Combine multiple skeletons to mimic a card layout.
+                {t.sections.cardSkeleton.description}
             </p>
             <ComponentPreview code={cardSkeletonCode}>
                 <div class="flex items-center space-x-4">
@@ -107,10 +110,10 @@ const contentSkeletonCode = `<div class="space-y-3">
         <section class="space-y-3">
             <h2 id="content-skeleton" class="text-lg font-semibold tracking-tight relative group">
                 <a href="#content-skeleton" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                Content Skeleton
+                {t.sections.contentSkeleton.title}
             </h2>
             <p class="text-base text-muted-foreground leading-relaxed">
-                Simulate text content blocks for article or page loading states.
+                {t.sections.contentSkeleton.description}
             </p>
             <ComponentPreview code={contentSkeletonCode}>
                 <div class="space-y-3 w-full max-w-md">
@@ -125,11 +128,9 @@ const contentSkeletonCode = `<div class="space-y-3">
         <section class="space-y-3">
             <h2 id="shimmer" class="text-lg font-semibold tracking-tight relative group">
                 <a href="#shimmer" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                Shimmer
+                {t.sections.shimmer.title}
             </h2>
-            <p class="text-base text-muted-foreground leading-relaxed">
-                Use <code class="cu-code">cu-skeleton-shimmer</code> for a sweeping light effect instead of the default pulse.
-            </p>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.shimmer.description} />
             <ComponentPreview code={shimmerCode}>
                 <div class="space-y-3 w-full max-w-md">
                     <div class="cu-skeleton-shimmer h-5 w-2/5"></div>

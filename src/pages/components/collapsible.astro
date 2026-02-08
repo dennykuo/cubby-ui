@@ -1,9 +1,14 @@
 ---
-import Layout from "../../layouts/Layout.astro";
-import Collapsible from "../../components/ui/Collapsible.astro";
-import CollapsibleTrigger from "../../components/ui/CollapsibleTrigger.astro";
-import CollapsibleContent from "../../components/ui/CollapsibleContent.astro";
-import ComponentPreview from "../../components/ComponentPreview.astro";
+import Layout from "@/layouts/Layout.astro";
+import Collapsible from "@/components/ui/Collapsible.astro";
+import CollapsibleTrigger from "@/components/ui/CollapsibleTrigger.astro";
+import CollapsibleContent from "@/components/ui/CollapsibleContent.astro";
+import ComponentPreview from "@/components/ComponentPreview.astro";
+import { getLocaleFromUrl, useTranslations } from "@/i18n";
+import { collapsiblePage } from "@/i18n/pages/components/collapsible";
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = useTranslations(collapsiblePage, locale);
 
 const usageCode = `<details class="cu-collapsible">
   <summary class="cu-collapsible-trigger">
@@ -123,15 +128,13 @@ const defaultOpenCode = `<details class="cu-collapsible cu-collapsible-bordered"
 </details>`.trim();
 ---
 
-<Layout title="Collapsible — Cubby UI" category="Data Display" componentName="Collapsible">
+<Layout title={t.title} category={t.category} componentName="Collapsible">
     <div class="space-y-3">
         <div class="flex items-center gap-3">
             <h1 class="text-3xl font-bold tracking-tight">Collapsible</h1>
-            <span class="cu-badge cu-badge-secondary">Data Display</span>
+            <span class="cu-badge cu-badge-secondary">{t.category}</span>
         </div>
-        <p class="text-base text-muted-foreground leading-relaxed">
-            An interactive component which expands/collapses a panel.
-        </p>
+        <p class="text-base text-muted-foreground leading-relaxed">{t.description}</p>
     </div>
 
     <div class="mt-10 space-y-10">
@@ -139,14 +142,9 @@ const defaultOpenCode = `<details class="cu-collapsible cu-collapsible-bordered"
         <section class="space-y-3">
             <h2 id="usage" class="text-lg font-semibold tracking-tight relative group">
                 <a href="#usage" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                Usage
+                {t.sections.usage.title}
             </h2>
-            <p class="text-base text-muted-foreground leading-relaxed">
-                Built with native <code class="cu-code">&lt;details&gt;</code> and <code class="cu-code">&lt;summary&gt;</code> elements.
-                Use <code class="cu-code">cu-collapsible</code> on the wrapper,
-                <code class="cu-code">cu-collapsible-trigger</code> on the <code class="cu-code">&lt;summary&gt;</code>,
-                and <code class="cu-code">cu-collapsible-content</code> for the body.
-            </p>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
             <ComponentPreview code={usageCode}>
                 <div class="w-full max-w-lg">
                     <Collapsible>
@@ -163,36 +161,36 @@ const defaultOpenCode = `<details class="cu-collapsible cu-collapsible-bordered"
         <section class="space-y-3">
             <h2 id="classes" class="text-lg font-semibold tracking-tight relative group">
                 <a href="#classes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                CSS Classes
+                {t.sections.classes.title}
             </h2>
             <div class="cu-table-wrapper rounded-lg border border-border">
                 <table class="cu-table">
                     <thead class="cu-table-header">
                         <tr class="cu-table-row">
-                            <th class="cu-table-head">Class</th>
-                            <th class="cu-table-head">Description</th>
+                            <th class="cu-table-head">{t.sections.classes.classLabel}</th>
+                            <th class="cu-table-head">{t.sections.classes.descriptionLabel}</th>
                         </tr>
                     </thead>
                     <tbody class="cu-table-body">
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-collapsible</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Collapsible container (<code class="cu-code">&lt;details&gt;</code> element)</td>
+                            <td class="cu-table-cell text-muted-foreground" set:html={t.classDescriptions['cu-collapsible']} />
                         </tr>
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-collapsible-trigger</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Expand / collapse trigger (<code class="cu-code">&lt;summary&gt;</code> element)</td>
+                            <td class="cu-table-cell text-muted-foreground" set:html={t.classDescriptions['cu-collapsible-trigger']} />
                         </tr>
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-collapsible-content</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Collapsible content area</td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-collapsible-content']}</td>
                         </tr>
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-collapsible-bordered</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Bordered variant, shows card background and shadow when expanded</td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-collapsible-bordered']}</td>
                         </tr>
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-collapsible-group</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Group container for stacking multiple collapsibles with dividers</td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-collapsible-group']}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -204,11 +202,9 @@ const defaultOpenCode = `<details class="cu-collapsible cu-collapsible-bordered"
         <section class="space-y-3">
             <h2 id="bordered" class="text-lg font-semibold tracking-tight relative group">
                 <a href="#bordered" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                Bordered
+                {t.sections.bordered.title}
             </h2>
-            <p class="text-base text-muted-foreground leading-relaxed">
-                Add a border and rounded corners with <code class="cu-code">cu-collapsible-bordered</code>. Opens with a subtle background and shadow.
-            </p>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.bordered.description} />
             <ComponentPreview code={borderedCode}>
                 <div class="w-full max-w-lg">
                     <Collapsible class="cu-collapsible-bordered">
@@ -227,11 +223,9 @@ const defaultOpenCode = `<details class="cu-collapsible cu-collapsible-bordered"
         <section class="space-y-3">
             <h2 id="group" class="text-lg font-semibold tracking-tight relative group">
                 <a href="#group" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                Group
+                {t.sections.group.title}
             </h2>
-            <p class="text-base text-muted-foreground leading-relaxed">
-                Stack multiple collapsibles with <code class="cu-code">cu-collapsible-group</code> using dividers. Great for FAQ sections.
-            </p>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.group.description} />
             <ComponentPreview code={groupCode}>
                 <div class="w-full max-w-lg">
                     <div class="cu-collapsible-group">
@@ -262,11 +256,9 @@ const defaultOpenCode = `<details class="cu-collapsible cu-collapsible-bordered"
         <section class="space-y-3">
             <h2 id="with-icon" class="text-lg font-semibold tracking-tight relative group">
                 <a href="#with-icon" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                With Icon
+                {t.sections.withIcon.title}
             </h2>
-            <p class="text-base text-muted-foreground leading-relaxed">
-                Add an icon to the trigger for enhanced visual cues.
-            </p>
+            <p class="text-base text-muted-foreground leading-relaxed">{t.sections.withIcon.description}</p>
             <ComponentPreview code={withIconCode}>
                 <div class="w-full max-w-lg">
                     <Collapsible class="cu-collapsible-bordered">
@@ -292,11 +284,9 @@ const defaultOpenCode = `<details class="cu-collapsible cu-collapsible-bordered"
         <section class="space-y-3">
             <h2 id="nested" class="text-lg font-semibold tracking-tight relative group">
                 <a href="#nested" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                Nested
+                {t.sections.nested.title}
             </h2>
-            <p class="text-base text-muted-foreground leading-relaxed">
-                Supports nesting for multi-level settings or category panels.
-            </p>
+            <p class="text-base text-muted-foreground leading-relaxed">{t.sections.nested.description}</p>
             <ComponentPreview code={nestedCode}>
                 <div class="w-full max-w-lg">
                     <Collapsible class="cu-collapsible-bordered">
@@ -324,11 +314,9 @@ const defaultOpenCode = `<details class="cu-collapsible cu-collapsible-bordered"
         <section class="space-y-3">
             <h2 id="default-open" class="text-lg font-semibold tracking-tight relative group">
                 <a href="#default-open" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                Default Open
+                {t.sections.defaultOpen.title}
             </h2>
-            <p class="text-base text-muted-foreground leading-relaxed">
-                Add the <code class="cu-code">open</code> attribute to expand the panel by default. Useful for release notes or important announcements.
-            </p>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.defaultOpen.description} />
             <ComponentPreview code={defaultOpenCode}>
                 <div class="w-full max-w-lg">
                     <Collapsible class="cu-collapsible-bordered" open>

@@ -87,6 +87,7 @@
       _popovers.forEach(function (p) {
         if (!p.el.contains(e.target)) {
           p.content.setAttribute("hidden", "");
+          if (p.trigger) p.trigger.setAttribute("aria-expanded", "false");
         }
       });
       _menubars.forEach(function (b) {
@@ -133,6 +134,7 @@
         _popovers.forEach(function (p) {
           if (!p.content.hasAttribute("hidden")) {
             p.content.setAttribute("hidden", "");
+            if (p.trigger) p.trigger.setAttribute("aria-expanded", "false");
           }
         });
         return;
@@ -183,6 +185,10 @@
     });
   }
 
+  function genId(prefix) {
+    return prefix + "-" + Math.random().toString(36).slice(2, 9);
+  }
+
   function setupTabs() {
     document.querySelectorAll("[data-cu-tabs]").forEach(function (tabs) {
       if (tabs._cuInit) return;
@@ -190,13 +196,34 @@
 
       var triggers = tabs.querySelectorAll("[data-cu-tabs-trigger]");
       var contents = tabs.querySelectorAll("[data-cu-tabs-content]");
+
+      // ARIA: set tablist role on list container
+      var tabList = tabs.querySelector(".cu-tabs-list");
+      if (tabList && !tabList.getAttribute("role")) tabList.setAttribute("role", "tablist");
+
       triggers.forEach(function (trigger) {
+        var value = trigger.getAttribute("data-cu-tabs-trigger");
+        if (!trigger.id) trigger.id = genId("cu-tab");
+        if (!trigger.getAttribute("role")) trigger.setAttribute("role", "tab");
+        trigger.setAttribute("aria-selected", trigger.classList.contains("cu-tabs-trigger-active") ? "true" : "false");
+
+        // Link trigger ↔ panel
+        contents.forEach(function (c) {
+          if (c.getAttribute("data-cu-tabs-content") === value) {
+            if (!c.id) c.id = genId("cu-tabpanel");
+            if (!c.getAttribute("role")) c.setAttribute("role", "tabpanel");
+            trigger.setAttribute("aria-controls", c.id);
+            c.setAttribute("aria-labelledby", trigger.id);
+          }
+        });
+
         trigger.addEventListener("click", function () {
-          var value = trigger.getAttribute("data-cu-tabs-trigger");
           triggers.forEach(function (t) {
             t.classList.remove("cu-tabs-trigger-active");
+            t.setAttribute("aria-selected", "false");
           });
           trigger.classList.add("cu-tabs-trigger-active");
+          trigger.setAttribute("aria-selected", "true");
           contents.forEach(function (c) {
             c.hidden = c.getAttribute("data-cu-tabs-content") !== value;
           });
@@ -213,6 +240,19 @@
 
       var trigger = dropdown.querySelector("[data-cu-dropdown-trigger]");
       var content = dropdown.querySelector("[data-cu-dropdown-content]");
+
+      // ARIA setup
+      if (trigger) {
+        trigger.setAttribute("aria-haspopup", "menu");
+        trigger.setAttribute("aria-expanded", "false");
+      }
+      if (content) {
+        content.setAttribute("role", "menu");
+        content.querySelectorAll(".cu-dropdown-item").forEach(function (item) {
+          item.setAttribute("role", "menuitem");
+        });
+      }
+
       trigger &&
         trigger.addEventListener("click", function (e) {
           e.stopPropagation();
@@ -673,7 +713,10 @@
         trigger.addEventListener("click", function () {
           var id = trigger.getAttribute(config.triggerAttr);
           var dialog = document.getElementById(id);
-          if (dialog && dialog.showModal) dialog.showModal();
+          if (dialog && dialog.showModal) {
+            dialog._cuTrigger = trigger;
+            dialog.showModal();
+          }
         });
       });
 
@@ -682,6 +725,17 @@
       .forEach(function (dialog) {
         if (dialog._cuInit) return;
         dialog._cuInit = true;
+
+        // ARIA: override role (e.g. alertdialog)
+        if (config.role) dialog.setAttribute("role", config.role);
+        // ARIA: link dialog to its title element
+        if (config.titleClass) {
+          var title = dialog.querySelector("." + config.titleClass);
+          if (title) {
+            if (!title.id) title.id = genId(config.titleClass);
+            dialog.setAttribute("aria-labelledby", title.id);
+          }
+        }
 
         config.closeAttrs.forEach(function (attr) {
           dialog.querySelectorAll("[" + attr + "]").forEach(function (btn) {
@@ -695,6 +749,15 @@
             if (e.target === dialog) dialog.close();
           });
         }
+
+        // Restore focus to trigger element on close
+        dialog.addEventListener("close", function () {
+          var trigger = dialog._cuTrigger;
+          if (trigger && typeof trigger.focus === "function") {
+            trigger.focus();
+            dialog._cuTrigger = null;
+          }
+        });
       });
   }
 
@@ -704,6 +767,7 @@
       dialogAttr: "data-cu-dialog",
       closeAttrs: ["data-cu-dialog-close"],
       closeOnBackdrop: true,
+      titleClass: "cu-dialog-title",
     });
   }
 
@@ -713,6 +777,7 @@
       dialogAttr: "data-cu-drawer",
       closeAttrs: ["data-cu-drawer-close"],
       closeOnBackdrop: true,
+      titleClass: "cu-drawer-title",
     });
   }
 
@@ -722,6 +787,8 @@
       dialogAttr: "data-cu-alert-dialog",
       closeAttrs: ["data-cu-alert-dialog-cancel", "data-cu-alert-dialog-action"],
       closeOnBackdrop: false,
+      titleClass: "cu-alert-dialog-title",
+      role: "alertdialog",
     });
   }
 
@@ -809,11 +876,18 @@
       var content = popover.querySelector("[data-cu-popover-content]");
       if (!trigger || !content) return;
 
+      // ARIA setup
+      if (!content.id) content.id = genId("cu-popover");
+      trigger.setAttribute("aria-haspopup", "dialog");
+      trigger.setAttribute("aria-expanded", "false");
+      trigger.setAttribute("aria-controls", content.id);
+
       content.setAttribute("hidden", "");
       trigger.addEventListener("click", function () {
         content.toggleAttribute("hidden");
+        trigger.setAttribute("aria-expanded", String(!content.hasAttribute("hidden")));
       });
-      _popovers.push({ el: popover, content: content });
+      _popovers.push({ el: popover, trigger: trigger, content: content });
     });
   }
 

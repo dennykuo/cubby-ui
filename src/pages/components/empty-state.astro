@@ -1,12 +1,17 @@
 ---
-import Layout from "../../layouts/Layout.astro";
-import Button from "../../components/ui/Button.astro";
-import EmptyState from "../../components/ui/EmptyState.astro";
-import EmptyStateIcon from "../../components/ui/EmptyStateIcon.astro";
-import EmptyStateTitle from "../../components/ui/EmptyStateTitle.astro";
-import EmptyStateDescription from "../../components/ui/EmptyStateDescription.astro";
-import EmptyStateAction from "../../components/ui/EmptyStateAction.astro";
-import ComponentPreview from "../../components/ComponentPreview.astro";
+import Layout from "@/layouts/Layout.astro";
+import Button from "@/components/ui/Button.astro";
+import EmptyState from "@/components/ui/EmptyState.astro";
+import EmptyStateIcon from "@/components/ui/EmptyStateIcon.astro";
+import EmptyStateTitle from "@/components/ui/EmptyStateTitle.astro";
+import EmptyStateDescription from "@/components/ui/EmptyStateDescription.astro";
+import EmptyStateAction from "@/components/ui/EmptyStateAction.astro";
+import ComponentPreview from "@/components/ComponentPreview.astro";
+import { getLocaleFromUrl, useTranslations } from "@/i18n";
+import { emptyStatePage } from "@/i18n/pages/components/empty-state";
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = useTranslations(emptyStatePage, locale);
 
 const usageCode = `<div class="cu-empty-state">
   <div class="cu-empty-state-icon">
@@ -45,14 +50,14 @@ const minimalCode = `<div class="cu-empty-state">
 </div>`.trim();
 ---
 
-<Layout title="Empty State — Cubby UI" category="Feedback" componentName="Empty State">
+<Layout title={t.title} category={t.category} componentName="Empty State">
     <div class="space-y-3">
         <div class="flex items-center gap-3">
             <h1 class="text-3xl font-bold tracking-tight">Empty State</h1>
-            <span class="cu-badge cu-badge-secondary">Feedback</span>
+            <span class="cu-badge cu-badge-secondary">{t.category}</span>
         </div>
         <p class="text-base text-muted-foreground leading-relaxed">
-            A placeholder shown when there is no data to display, with optional call-to-action.
+            {t.description}
         </p>
     </div>
 
@@ -61,15 +66,9 @@ const minimalCode = `<div class="cu-empty-state">
         <section class="space-y-3">
             <h2 id="usage" class="text-lg font-semibold tracking-tight relative group">
                 <a href="#usage" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                Usage
+                {t.sections.usage.title}
             </h2>
-            <p class="text-base text-muted-foreground leading-relaxed">
-                Compose an empty state using <code class="cu-code">cu-empty-state</code> as the container with
-                <code class="cu-code">cu-empty-state-icon</code>,
-                <code class="cu-code">cu-empty-state-title</code>,
-                <code class="cu-code">cu-empty-state-description</code>, and
-                <code class="cu-code">cu-empty-state-action</code> sub-elements.
-            </p>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
             <ComponentPreview code={usageCode}>
                 <EmptyState>
                     <EmptyStateIcon>
@@ -90,36 +89,36 @@ const minimalCode = `<div class="cu-empty-state">
         <section class="space-y-3">
             <h2 id="classes" class="text-lg font-semibold tracking-tight relative group">
                 <a href="#classes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                CSS Classes
+                {t.sections.classes.title}
             </h2>
             <div class="cu-table-wrapper rounded-lg border border-border">
                 <table class="cu-table">
                     <thead class="cu-table-header">
                         <tr class="cu-table-row">
-                            <th class="cu-table-head">Class</th>
-                            <th class="cu-table-head">Description</th>
+                            <th class="cu-table-head">{t.sections.classes.classLabel}</th>
+                            <th class="cu-table-head">{t.sections.classes.descriptionLabel}</th>
                         </tr>
                     </thead>
                     <tbody class="cu-table-body">
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-empty-state</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Empty state base container with centered flex layout</td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-empty-state']}</td>
                         </tr>
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-empty-state-icon</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Icon container with circular background</td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-empty-state-icon']}</td>
                         </tr>
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-empty-state-title</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Empty state title</td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-empty-state-title']}</td>
                         </tr>
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-empty-state-description</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Empty state description</td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-empty-state-description']}</td>
                         </tr>
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-empty-state-action</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Action button area</td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-empty-state-action']}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -131,10 +130,10 @@ const minimalCode = `<div class="cu-empty-state">
         <section class="space-y-3">
             <h2 id="no-results" class="text-lg font-semibold tracking-tight relative group">
                 <a href="#no-results" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                No Results
+                {t.sections.noResults.title}
             </h2>
             <p class="text-base text-muted-foreground leading-relaxed">
-                Use for search or filter results that return no matches.
+                {t.sections.noResults.description}
             </p>
             <ComponentPreview code={noResultsCode}>
                 <EmptyState>
@@ -156,10 +155,10 @@ const minimalCode = `<div class="cu-empty-state">
         <section class="space-y-3">
             <h2 id="without-action" class="text-lg font-semibold tracking-tight relative group">
                 <a href="#without-action" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                Without Action
+                {t.sections.withoutAction.title}
             </h2>
             <p class="text-base text-muted-foreground leading-relaxed">
-                The action button is optional. Use a minimal empty state for informational messages.
+                {t.sections.withoutAction.description}
             </p>
             <ComponentPreview code={minimalCode}>
                 <EmptyState>

@@ -1,9 +1,14 @@
 ---
-import Layout from "../../layouts/Layout.astro";
-import Avatar from "../../components/ui/Avatar.astro";
-import AvatarImage from "../../components/ui/AvatarImage.astro";
-import AvatarFallback from "../../components/ui/AvatarFallback.astro";
-import ComponentPreview from "../../components/ComponentPreview.astro";
+import Layout from "@/layouts/Layout.astro";
+import Avatar from "@/components/ui/Avatar.astro";
+import AvatarImage from "@/components/ui/AvatarImage.astro";
+import AvatarFallback from "@/components/ui/AvatarFallback.astro";
+import ComponentPreview from "@/components/ComponentPreview.astro";
+import { getLocaleFromUrl, useTranslations } from "@/i18n";
+import { avatarPage } from "@/i18n/pages/components/avatar";
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = useTranslations(avatarPage, locale);
 
 const usageCode = `<span class="cu-avatar cu-avatar-md">
   <img class="cu-avatar-image" src="https://i.pravatar.cc/80?img=1" alt="Avatar" />
@@ -34,15 +39,13 @@ const fallbackCode = `<span class="cu-avatar cu-avatar-md">
 </span>`.trim();
 ---
 
-<Layout title="Avatar — Cubby UI" category="Data Display" componentName="Avatar">
+<Layout title={t.title} category={t.category} componentName="Avatar">
     <div class="space-y-3">
         <div class="flex items-center gap-3">
             <h1 class="text-3xl font-bold tracking-tight">Avatar</h1>
-            <span class="cu-badge cu-badge-secondary">Data Display</span>
+            <span class="cu-badge cu-badge-secondary">{t.category}</span>
         </div>
-        <p class="text-base text-muted-foreground leading-relaxed">
-            An image element with a fallback for representing the user.
-        </p>
+        <p class="text-base text-muted-foreground leading-relaxed" set:html={t.description} />
     </div>
 
     <div class="mt-10 space-y-10">
@@ -50,12 +53,9 @@ const fallbackCode = `<span class="cu-avatar cu-avatar-md">
         <section class="space-y-3">
             <h2 id="usage" class="text-lg font-semibold tracking-tight relative group">
                 <a href="#usage" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                Usage
+                {t.sections.usage.title}
             </h2>
-            <p class="text-base text-muted-foreground leading-relaxed">
-                Use <code class="cu-code">cu-avatar</code> as the container with a size class.
-                Inside, place <code class="cu-code">cu-avatar-image</code> and <code class="cu-code">cu-avatar-fallback</code>.
-            </p>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
             <ComponentPreview code={usageCode}>
                 <Avatar>
                     <AvatarImage src="https://i.pravatar.cc/80?img=1" alt="Avatar" />
@@ -68,40 +68,40 @@ const fallbackCode = `<span class="cu-avatar cu-avatar-md">
         <section class="space-y-3">
             <h2 id="classes" class="text-lg font-semibold tracking-tight relative group">
                 <a href="#classes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                CSS Classes
+                {t.sections.classes.title}
             </h2>
             <div class="cu-table-wrapper rounded-lg border border-border">
                 <table class="cu-table">
                     <thead class="cu-table-header">
                         <tr class="cu-table-row">
-                            <th class="cu-table-head">Class</th>
-                            <th class="cu-table-head">Description</th>
+                            <th class="cu-table-head">{t.sections.classes.classLabel}</th>
+                            <th class="cu-table-head">{t.sections.classes.descriptionLabel}</th>
                         </tr>
                     </thead>
                     <tbody class="cu-table-body">
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-avatar</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Avatar container with circular clipping</td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-avatar']}</td>
                         </tr>
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-avatar-sm</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Small size (32px)</td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-avatar-sm']}</td>
                         </tr>
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-avatar-md</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Medium size (40px, default)</td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-avatar-md']}</td>
                         </tr>
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-avatar-lg</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Large size (48px)</td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-avatar-lg']}</td>
                         </tr>
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-avatar-image</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Avatar image, aspect-fill</td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-avatar-image']}</td>
                         </tr>
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-avatar-fallback</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Fallback display when image fails to load</td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-avatar-fallback']}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -113,14 +113,9 @@ const fallbackCode = `<span class="cu-avatar cu-avatar-md">
         <section class="space-y-3">
             <h2 id="sizes" class="text-lg font-semibold tracking-tight relative group">
                 <a href="#sizes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                Sizes
+                {t.sections.sizes.title}
             </h2>
-            <p class="text-base text-muted-foreground leading-relaxed">
-                Three sizes are available —
-                <code class="cu-code">cu-avatar-sm</code>,
-                <code class="cu-code">cu-avatar-md</code> (default), and
-                <code class="cu-code">cu-avatar-lg</code>.
-            </p>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.sizes.description} />
             <ComponentPreview code={sizesCode}>
                 <div class="flex items-center gap-4 justify-center">
                     <Avatar size="sm">
@@ -143,11 +138,9 @@ const fallbackCode = `<span class="cu-avatar cu-avatar-md">
         <section class="space-y-3">
             <h2 id="with-fallback" class="text-lg font-semibold tracking-tight relative group">
                 <a href="#with-fallback" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                With Fallback
+                {t.sections.withFallback.title}
             </h2>
-            <p class="text-base text-muted-foreground leading-relaxed">
-                When no image is provided, the fallback with initials is displayed.
-            </p>
+            <p class="text-base text-muted-foreground leading-relaxed">{t.sections.withFallback.description}</p>
             <ComponentPreview code={fallbackCode}>
                 <div class="flex items-center gap-4 justify-center">
                     <Avatar>

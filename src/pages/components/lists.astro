@@ -1,7 +1,12 @@
 ---
-import Layout from "../../layouts/Layout.astro";
-import List from "../../components/ui/List.astro";
-import ComponentPreview from "../../components/ComponentPreview.astro";
+import Layout from "@/layouts/Layout.astro";
+import List from "@/components/ui/List.astro";
+import ComponentPreview from "@/components/ComponentPreview.astro";
+import { getLocaleFromUrl, useTranslations } from "@/i18n";
+import { listsPage } from "@/i18n/pages/components/lists";
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = useTranslations(listsPage, locale);
 
 const unorderedCode = `<ul class="cu-list cu-list-disc">
   <li>Minimal footprint — pure CSS, no runtime dependencies</li>
@@ -119,15 +124,13 @@ const dlHorizontalCode = `<dl class="cu-dl cu-dl-horizontal">
 </dl>`.trim();
 ---
 
-<Layout title="Lists — Cubby UI" category="Typography" componentName="Lists">
+<Layout title={t.title} category={t.category} componentName="Lists">
     <div class="space-y-3">
         <div class="flex items-center gap-3">
           <h1 class="text-3xl font-bold tracking-tight">Lists</h1>
-          <span class="cu-badge cu-badge-secondary">Typography</span>
+          <span class="cu-badge cu-badge-secondary">{t.category}</span>
         </div>
-        <p class="text-base text-muted-foreground leading-relaxed">
-            Styled lists with refined marker colors, spacing, and multiple layout variants including bordered, inline, and description lists.
-        </p>
+        <p class="text-base text-muted-foreground leading-relaxed" set:html={t.description} />
     </div>
 
     <div class="mt-10 space-y-10">
@@ -135,11 +138,9 @@ const dlHorizontalCode = `<dl class="cu-dl cu-dl-horizontal">
         <section class="space-y-3">
             <h2 id="usage" class="text-lg font-semibold tracking-tight relative group">
               <a href="#usage" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              Usage
+              {t.sections.usage.title}
             </h2>
-            <p class="text-base text-muted-foreground leading-relaxed">
-                Apply <code class="cu-code">cu-list</code> as the base class, then add a variant class such as <code class="cu-code">cu-list-disc</code> for bullet-point lists. Markers are styled with a muted color for a subtle look.
-            </p>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
             <ComponentPreview code={unorderedCode}>
                 <div class="w-full max-w-lg">
                     <List>
@@ -155,60 +156,60 @@ const dlHorizontalCode = `<dl class="cu-dl cu-dl-horizontal">
     <section class="space-y-3">
       <h2 id="classes" class="text-lg font-semibold tracking-tight relative group">
         <a href="#classes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-        CSS Classes
+        {t.sections.classes.title}
       </h2>
       <div class="cu-table-wrapper rounded-lg border border-border">
         <table class="cu-table">
           <thead class="cu-table-header">
             <tr class="cu-table-row">
-              <th class="cu-table-head">Class</th>
-              <th class="cu-table-head">Description</th>
+              <th class="cu-table-head">{t.sections.classes.classLabel}</th>
+              <th class="cu-table-head">{t.sections.classes.descriptionLabel}</th>
             </tr>
           </thead>
           <tbody class="cu-table-body">
             <tr class="cu-table-row">
               <td class="cu-table-cell"><code class="cu-code">cu-list</code></td>
-              <td class="cu-table-cell text-muted-foreground">Base list style with consistent indentation and spacing</td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-list']}</td>
             </tr>
             <tr class="cu-table-row">
               <td class="cu-table-cell"><code class="cu-code">cu-list-disc</code></td>
-              <td class="cu-table-cell text-muted-foreground">Unordered list with disc markers</td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-list-disc']}</td>
             </tr>
             <tr class="cu-table-row">
               <td class="cu-table-cell"><code class="cu-code">cu-list-decimal</code></td>
-              <td class="cu-table-cell text-muted-foreground">Ordered list with decimal markers</td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-list-decimal']}</td>
             </tr>
             <tr class="cu-table-row">
               <td class="cu-table-cell"><code class="cu-code">cu-list-none</code></td>
-              <td class="cu-table-cell text-muted-foreground">No-marker list, suitable for icon lists</td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-list-none']}</td>
             </tr>
             <tr class="cu-table-row">
               <td class="cu-table-cell"><code class="cu-code">cu-list-bordered</code></td>
-              <td class="cu-table-cell text-muted-foreground">Divided list with border separators between items</td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-list-bordered']}</td>
             </tr>
             <tr class="cu-table-row">
               <td class="cu-table-cell"><code class="cu-code">cu-list-inline</code></td>
-              <td class="cu-table-cell text-muted-foreground">Horizontal list</td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-list-inline']}</td>
             </tr>
             <tr class="cu-table-row">
               <td class="cu-table-cell"><code class="cu-code">cu-dl</code></td>
-              <td class="cu-table-cell text-muted-foreground">Description list container</td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-dl']}</td>
             </tr>
             <tr class="cu-table-row">
               <td class="cu-table-cell"><code class="cu-code">cu-dl-item</code></td>
-              <td class="cu-table-cell text-muted-foreground">Description list item</td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-dl-item']}</td>
             </tr>
             <tr class="cu-table-row">
               <td class="cu-table-cell"><code class="cu-code">cu-dl-term</code></td>
-              <td class="cu-table-cell text-muted-foreground">Description list term (title)</td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-dl-term']}</td>
             </tr>
             <tr class="cu-table-row">
               <td class="cu-table-cell"><code class="cu-code">cu-dl-detail</code></td>
-              <td class="cu-table-cell text-muted-foreground">Description list detail (content)</td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-dl-detail']}</td>
             </tr>
             <tr class="cu-table-row">
               <td class="cu-table-cell"><code class="cu-code">cu-dl-horizontal</code></td>
-              <td class="cu-table-cell text-muted-foreground">Horizontal description list with term and detail side by side</td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-dl-horizontal']}</td>
             </tr>
           </tbody>
         </table>
@@ -220,12 +221,9 @@ const dlHorizontalCode = `<dl class="cu-dl cu-dl-horizontal">
         <section class="space-y-3">
             <h2 id="ordered" class="text-lg font-semibold tracking-tight relative group">
               <a href="#ordered" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              Ordered
+              {t.sections.ordered.title}
             </h2>
-            <p class="text-base text-muted-foreground leading-relaxed">
-                Use <code class="cu-code">cu-list cu-list-decimal</code> for
-                numbered lists. Numbers use a medium font weight with muted color.
-            </p>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.ordered.description} />
             <ComponentPreview code={orderedCode}>
                 <div class="w-full max-w-lg">
                     <List type="decimal">
@@ -241,13 +239,9 @@ const dlHorizontalCode = `<dl class="cu-dl cu-dl-horizontal">
         <section class="space-y-3">
             <h2 id="nested" class="text-lg font-semibold tracking-tight relative group">
               <a href="#nested" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              Nested
+              {t.sections.nested.title}
             </h2>
-            <p class="text-base text-muted-foreground leading-relaxed">
-                Lists can be nested by adding another
-                <code class="cu-code">cu-list</code> inside a list item.
-                Spacing between levels is handled automatically.
-            </p>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.nested.description} />
             <ComponentPreview code={nestedCode}>
                 <div class="w-full max-w-lg">
                     <ul class="cu-list cu-list-disc">
@@ -273,12 +267,9 @@ const dlHorizontalCode = `<dl class="cu-dl cu-dl-horizontal">
         <section class="space-y-3">
             <h2 id="icon-list" class="text-lg font-semibold tracking-tight relative group">
               <a href="#icon-list" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              Icon List
+              {t.sections.iconList.title}
             </h2>
-            <p class="text-base text-muted-foreground leading-relaxed">
-                Use <code class="cu-code">cu-list cu-list-none</code> with inline SVG icons
-                for check lists, feature lists, or any custom marker.
-            </p>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.iconList.description} />
             <ComponentPreview code={iconListCode}>
                 <div class="w-full max-w-lg">
                     <List type="none">
@@ -307,12 +298,9 @@ const dlHorizontalCode = `<dl class="cu-dl cu-dl-horizontal">
         <section class="space-y-3">
             <h2 id="bordered" class="text-lg font-semibold tracking-tight relative group">
               <a href="#bordered" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              Bordered
+              {t.sections.bordered.title}
             </h2>
-            <p class="text-base text-muted-foreground leading-relaxed">
-                Use <code class="cu-code">cu-list cu-list-bordered</code> for
-                a clean divider-separated list. Ideal for settings panels, notification preferences, or any key-value layout.
-            </p>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.bordered.description} />
             <ComponentPreview code={borderedCode}>
                 <div class="w-full max-w-lg">
                     <ul class="cu-list cu-list-bordered">
@@ -346,12 +334,9 @@ const dlHorizontalCode = `<dl class="cu-dl cu-dl-horizontal">
         <section class="space-y-3">
             <h2 id="inline" class="text-lg font-semibold tracking-tight relative group">
               <a href="#inline" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              Inline
+              {t.sections.inline.title}
             </h2>
-            <p class="text-base text-muted-foreground leading-relaxed">
-                Use <code class="cu-code">cu-list cu-list-inline</code> for
-                horizontal lists. Useful for footer links, tags, or breadcrumb-like navigation.
-            </p>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.inline.description} />
             <ComponentPreview code={inlineCode}>
                 <div class="w-full max-w-lg">
                     <ul class="cu-list cu-list-inline">
@@ -371,13 +356,9 @@ const dlHorizontalCode = `<dl class="cu-dl cu-dl-horizontal">
         <section class="space-y-3">
             <h2 id="description-list" class="text-lg font-semibold tracking-tight relative group">
               <a href="#description-list" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              Description List
+              {t.sections.descriptionList.title}
             </h2>
-            <p class="text-base text-muted-foreground leading-relaxed">
-                Use <code class="cu-code">cu-dl</code> with
-                <code class="cu-code">cu-dl-item</code>, <code class="cu-code">cu-dl-term</code>,
-                and <code class="cu-code">cu-dl-detail</code> for key-value pairs. Defaults to a vertical stacked layout.
-            </p>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.descriptionList.description} />
             <ComponentPreview code={dlVerticalCode}>
                 <div class="w-full max-w-lg">
                     <dl class="cu-dl">
@@ -402,12 +383,9 @@ const dlHorizontalCode = `<dl class="cu-dl cu-dl-horizontal">
         <section class="space-y-3">
             <h2 id="horizontal-description-list" class="text-lg font-semibold tracking-tight relative group">
               <a href="#horizontal-description-list" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              Horizontal Description List
+              {t.sections.horizontalDescriptionList.title}
             </h2>
-            <p class="text-base text-muted-foreground leading-relaxed">
-                Add <code class="cu-code">cu-dl-horizontal</code> to render terms and details
-                side by side. The term column has a fixed width for alignment.
-            </p>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.horizontalDescriptionList.description} />
             <ComponentPreview code={dlHorizontalCode}>
                 <div class="w-full max-w-lg">
                     <dl class="cu-dl cu-dl-horizontal">

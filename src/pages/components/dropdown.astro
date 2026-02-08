@@ -1,6 +1,11 @@
 ---
-import Layout from "../../layouts/Layout.astro";
-import ComponentPreview from "../../components/ComponentPreview.astro";
+import Layout from "@/layouts/Layout.astro";
+import ComponentPreview from "@/components/ComponentPreview.astro";
+import { getLocaleFromUrl, useTranslations } from "@/i18n";
+import { dropdownPage } from "@/i18n/pages/components/dropdown";
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = useTranslations(dropdownPage, locale);
 
 const usageCode = `<div class="cu-dropdown" data-cu-dropdown>
   <button class="cu-button cu-button-outline cu-button-md" data-cu-dropdown-trigger>
@@ -27,7 +32,7 @@ const usageCode = `<div class="cu-dropdown" data-cu-dropdown>
       if (e.key === "Escape") content?.setAttribute("hidden", "");
     });
   });
-</script>`.trim();
+\x3c/script>`.trim();
 
 const withLabelsCode = `<div class="cu-dropdown" data-cu-dropdown>
   <button class="cu-button cu-button-outline cu-button-md" data-cu-dropdown-trigger>
@@ -163,14 +168,14 @@ const userMenuCode = `<div class="cu-dropdown" data-cu-dropdown>
 </div>`.trim();
 ---
 
-<Layout title="Dropdown Menu — Cubby UI" category="Overlay" componentName="Dropdown Menu">
+<Layout title={t.title} category={t.category} componentName="Dropdown Menu">
     <div class="space-y-3">
         <div class="flex items-center gap-3">
             <h1 class="text-3xl font-bold tracking-tight">Dropdown Menu</h1>
-            <span class="cu-badge cu-badge-secondary">Overlay</span>
+            <span class="cu-badge cu-badge-secondary">{t.category}</span>
         </div>
         <p class="text-base text-muted-foreground leading-relaxed">
-            Displays a menu to the user — such as a set of actions or functions — triggered by a button.
+            {t.description}
         </p>
     </div>
 
@@ -179,14 +184,9 @@ const userMenuCode = `<div class="cu-dropdown" data-cu-dropdown>
         <section class="space-y-3">
             <h2 id="usage" class="text-lg font-semibold tracking-tight relative group">
                 <a href="#usage" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                Usage
+                {t.sections.usage.title}
             </h2>
-            <p class="text-base text-muted-foreground leading-relaxed">
-                Use <code class="cu-code">data-cu-dropdown</code> on the wrapper,
-                <code class="cu-code">data-cu-dropdown-trigger</code> on the button, and
-                <code class="cu-code">data-cu-dropdown-content</code> on the menu.
-                The <code class="cu-code">&lt;script&gt;</code> handles click toggle, outside click, and Escape key.
-            </p>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
             <ComponentPreview code={usageCode}>
                 <div class="cu-dropdown" data-cu-dropdown>
                     <button class="cu-button cu-button-outline cu-button-md" data-cu-dropdown-trigger>
@@ -205,48 +205,48 @@ const userMenuCode = `<div class="cu-dropdown" data-cu-dropdown>
         <section class="space-y-3">
             <h2 id="classes" class="text-lg font-semibold tracking-tight relative group">
                 <a href="#classes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                CSS Classes
+                {t.sections.classes.title}
             </h2>
             <div class="cu-table-wrapper rounded-lg border border-border">
                 <table class="cu-table">
                     <thead class="cu-table-header">
                         <tr class="cu-table-row">
-                            <th class="cu-table-head">Class</th>
-                            <th class="cu-table-head">Description</th>
+                            <th class="cu-table-head">{t.sections.classes.classLabel}</th>
+                            <th class="cu-table-head">{t.sections.classes.descriptionLabel}</th>
                         </tr>
                     </thead>
                     <tbody class="cu-table-body">
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-dropdown</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Dropdown relatively positioned container</td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-dropdown']}</td>
                         </tr>
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-dropdown-content</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Dropdown menu panel</td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-dropdown-content']}</td>
                         </tr>
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-dropdown-content-wide</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Wide dropdown menu panel</td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-dropdown-content-wide']}</td>
                         </tr>
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-dropdown-item</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Menu item</td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-dropdown-item']}</td>
                         </tr>
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-dropdown-item-danger</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Destructive action item (red)</td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-dropdown-item-danger']}</td>
                         </tr>
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-dropdown-label</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Menu group label</td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-dropdown-label']}</td>
                         </tr>
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-dropdown-separator</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Menu separator</td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-dropdown-separator']}</td>
                         </tr>
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-dropdown-shortcut</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Keyboard shortcut hint</td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-dropdown-shortcut']}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -258,12 +258,9 @@ const userMenuCode = `<div class="cu-dropdown" data-cu-dropdown>
         <section class="space-y-3">
             <h2 id="with-labels-and-separators" class="text-lg font-semibold tracking-tight relative group">
                 <a href="#with-labels-and-separators" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                With Labels and Separators
+                {t.sections.withLabelsAndSeparators.title}
             </h2>
-            <p class="text-base text-muted-foreground leading-relaxed">
-                Add <code class="cu-code">cu-dropdown-label</code> for section titles and
-                <code class="cu-code">cu-dropdown-separator</code> for dividers.
-            </p>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withLabelsAndSeparators.description} />
             <ComponentPreview code={withLabelsCode}>
                 <div class="cu-dropdown" data-cu-dropdown>
                     <button class="cu-button cu-button-outline cu-button-md" data-cu-dropdown-trigger>
@@ -286,11 +283,9 @@ const userMenuCode = `<div class="cu-dropdown" data-cu-dropdown>
         <section class="space-y-3">
             <h2 id="with-icons" class="text-lg font-semibold tracking-tight relative group">
                 <a href="#with-icons" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                With Icons
+                {t.sections.withIcons.title}
             </h2>
-            <p class="text-base text-muted-foreground leading-relaxed">
-                Place an inline SVG before the label text. Use <code class="cu-code">mr-2 opacity-60</code> on icons for consistent spacing and subtlety.
-            </p>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withIcons.description} />
             <ComponentPreview code={withIconsCode}>
                 <div class="cu-dropdown" data-cu-dropdown>
                     <button class="cu-button cu-button-outline cu-button-md" data-cu-dropdown-trigger>
@@ -323,12 +318,9 @@ const userMenuCode = `<div class="cu-dropdown" data-cu-dropdown>
         <section class="space-y-3">
             <h2 id="with-shortcuts" class="text-lg font-semibold tracking-tight relative group">
                 <a href="#with-shortcuts" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                With Shortcuts
+                {t.sections.withShortcuts.title}
             </h2>
-            <p class="text-base text-muted-foreground leading-relaxed">
-                Use <code class="cu-code">cu-dropdown-shortcut</code> to display keyboard shortcuts aligned to the right.
-                Add <code class="cu-code">cu-dropdown-content-wide</code> for extra width.
-            </p>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withShortcuts.description} />
             <ComponentPreview code={withShortcutsCode}>
                 <div class="cu-dropdown" data-cu-dropdown>
                     <button class="cu-button cu-button-outline cu-button-md" data-cu-dropdown-trigger>
@@ -370,11 +362,9 @@ const userMenuCode = `<div class="cu-dropdown" data-cu-dropdown>
         <section class="space-y-3">
             <h2 id="with-danger-item" class="text-lg font-semibold tracking-tight relative group">
                 <a href="#with-danger-item" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                With Danger Item
+                {t.sections.withDangerItem.title}
             </h2>
-            <p class="text-base text-muted-foreground leading-relaxed">
-                Use <code class="cu-code">cu-dropdown-item-danger</code> to highlight destructive actions in red.
-            </p>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withDangerItem.description} />
             <ComponentPreview code={withDangerCode}>
                 <div class="cu-dropdown" data-cu-dropdown>
                     <button class="cu-button cu-button-outline cu-button-md" data-cu-dropdown-trigger>
@@ -407,10 +397,10 @@ const userMenuCode = `<div class="cu-dropdown" data-cu-dropdown>
         <section class="space-y-3">
             <h2 id="user-menu" class="text-lg font-semibold tracking-tight relative group">
                 <a href="#user-menu" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                User Menu
+                {t.sections.userMenu.title}
             </h2>
             <p class="text-base text-muted-foreground leading-relaxed">
-                Combine an avatar trigger with a profile header inside the dropdown for a complete user menu.
+                {t.sections.userMenu.description}
             </p>
             <ComponentPreview code={userMenuCode}>
                 <div class="cu-dropdown" data-cu-dropdown>

@@ -1,38 +1,12 @@
 # Cubby UI 優化計劃
 
-文檔站與元件頁面的設計優化項目，依優先順序排列。
+### 2. 文檔站搜尋
+- 元件數量已達 62 個，需要搜尋功能提升瀏覽效率
+- 可整合 [Pagefind](https://pagefind.app) 之類的靜態搜尋方案
 
-## 一、文檔站整體佈局
+## 無障礙
 
-### 3. 元件頁底部 prev/next 導航
+### 4. Menubar 鍵盤導航
+- 目前 Menubar 僅支援 click / hover 切換
+- 需支援左右箭頭切換選單、上下箭頭瀏覽項目、Enter 選取、Escape 關閉
 
-每個元件文檔頁底部加上「上一個 / 下一個」元件連結，方便連續瀏覽：
-
-```html
-<div class="mt-16 flex items-center justify-between border-t border-border pt-6">
-  <a href="/components/badge" class="group text-sm text-muted-foreground hover:text-foreground">
-    <span class="text-xs">上一個</span>
-    <span class="block font-medium">Badge</span>
-  </a>
-  <a href="/components/card" class="group text-sm text-muted-foreground hover:text-foreground text-right">
-    <span class="text-xs">下一個</span>
-    <span class="block font-medium">Card</span>
-  </a>
-</div>
-```
-
----
-
-## 三、ComponentPreview 優化
-
-### 7. Preview 區加入 responsive 切換按鈕
-
-Preview 上方加裝置寬度切換按鈕（Desktop / Tablet / Mobile）。
-
----
-
-## 五、細節打磨
-
-### 15. Transition 統一
-
-所有互動元素統一使用具體 transition 屬性（`transition-colors`、`transition-shadow`）+ `duration-200`，避免 `transition-all duration-300`。

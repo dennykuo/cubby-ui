@@ -1,6 +1,11 @@
 ---
-import Layout from "../../layouts/Layout.astro";
-import ComponentPreview from "../../components/ComponentPreview.astro";
+import Layout from "@/layouts/Layout.astro";
+import ComponentPreview from "@/components/ComponentPreview.astro";
+import { getLocaleFromUrl, useTranslations } from "@/i18n";
+import { textPage } from "@/i18n/pages/components/text";
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = useTranslations(textPage, locale);
 
 const largeCode = `<span class="cu-text-large">Large text</span>`.trim();
 
@@ -11,15 +16,13 @@ const mutedCode = `<span class="cu-text-muted">Muted text</span>`.trim();
 const inlineCodeExample = `<span class="cu-code">@cubby-ui/core</span>`.trim();
 ---
 
-<Layout title="Text — Cubby UI" category="Typography" componentName="Text">
+<Layout title={t.title} category={t.category} componentName="Text">
     <div class="space-y-3">
         <div class="flex items-center gap-3">
           <h1 class="text-3xl font-bold tracking-tight">Text</h1>
-          <span class="cu-badge cu-badge-secondary">Typography</span>
+          <span class="cu-badge cu-badge-secondary">{t.category}</span>
         </div>
-        <p class="text-base text-muted-foreground leading-relaxed">
-            Utility classes for common text styles — large, small, muted, and inline code.
-        </p>
+        <p class="text-base text-muted-foreground leading-relaxed" set:html={t.description} />
     </div>
 
     <div class="mt-10 space-y-10">
@@ -27,11 +30,9 @@ const inlineCodeExample = `<span class="cu-code">@cubby-ui/core</span>`.trim();
         <section class="space-y-3">
             <h2 id="usage" class="text-lg font-semibold tracking-tight relative group">
               <a href="#usage" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              Usage
+              {t.sections.usage.title}
             </h2>
-            <p class="text-base text-muted-foreground leading-relaxed">
-                Use <code class="cu-code">cu-text-large</code> for emphasized, larger text.
-            </p>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
             <ComponentPreview code={largeCode}>
                 <span class="cu-text-large">Large text</span>
             </ComponentPreview>
@@ -41,28 +42,28 @@ const inlineCodeExample = `<span class="cu-code">@cubby-ui/core</span>`.trim();
     <section class="space-y-3">
       <h2 id="classes" class="text-lg font-semibold tracking-tight relative group">
         <a href="#classes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-        CSS Classes
+        {t.sections.classes.title}
       </h2>
       <div class="cu-table-wrapper rounded-lg border border-border">
         <table class="cu-table">
           <thead class="cu-table-header">
             <tr class="cu-table-row">
-              <th class="cu-table-head">Class</th>
-              <th class="cu-table-head">Description</th>
+              <th class="cu-table-head">{t.sections.classes.classLabel}</th>
+              <th class="cu-table-head">{t.sections.classes.descriptionLabel}</th>
             </tr>
           </thead>
           <tbody class="cu-table-body">
             <tr class="cu-table-row">
               <td class="cu-table-cell"><code class="cu-code">cu-text-large</code></td>
-              <td class="cu-table-cell text-muted-foreground">Large text, semi-bold</td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-text-large']}</td>
             </tr>
             <tr class="cu-table-row">
               <td class="cu-table-cell"><code class="cu-code">cu-text-small</code></td>
-              <td class="cu-table-cell text-muted-foreground">Small text, medium weight</td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-text-small']}</td>
             </tr>
             <tr class="cu-table-row">
               <td class="cu-table-cell"><code class="cu-code">cu-text-muted</code></td>
-              <td class="cu-table-cell text-muted-foreground">Muted helper text</td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-text-muted']}</td>
             </tr>
           </tbody>
         </table>
@@ -74,11 +75,9 @@ const inlineCodeExample = `<span class="cu-code">@cubby-ui/core</span>`.trim();
         <section class="space-y-3">
             <h2 id="small" class="text-lg font-semibold tracking-tight relative group">
               <a href="#small" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              Small
+              {t.sections.small.title}
             </h2>
-            <p class="text-base text-muted-foreground leading-relaxed">
-                Use <code class="cu-code">cu-text-small</code> for compact, secondary text.
-            </p>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.small.description} />
             <ComponentPreview code={smallCode}>
                 <span class="cu-text-small">Small text</span>
             </ComponentPreview>
@@ -88,12 +87,9 @@ const inlineCodeExample = `<span class="cu-code">@cubby-ui/core</span>`.trim();
         <section class="space-y-3">
             <h2 id="muted" class="text-lg font-semibold tracking-tight relative group">
               <a href="#muted" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              Muted
+              {t.sections.muted.title}
             </h2>
-            <p class="text-base text-muted-foreground leading-relaxed">
-                Use <code class="cu-code">cu-text-muted</code> for
-                de-emphasized helper text.
-            </p>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.muted.description} />
             <ComponentPreview code={mutedCode}>
                 <span class="cu-text-muted">Muted text</span>
             </ComponentPreview>
@@ -103,12 +99,9 @@ const inlineCodeExample = `<span class="cu-code">@cubby-ui/core</span>`.trim();
         <section class="space-y-3">
             <h2 id="inline-code" class="text-lg font-semibold tracking-tight relative group">
               <a href="#inline-code" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              Inline Code
+              {t.sections.inlineCode.title}
             </h2>
-            <p class="text-base text-muted-foreground leading-relaxed">
-                Use <code class="cu-code">cu-code</code> for inline code snippets
-                within text content.
-            </p>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.inlineCode.description} />
             <ComponentPreview code={inlineCodeExample}>
                 <span class="cu-code">@cubby-ui/core</span>
             </ComponentPreview>

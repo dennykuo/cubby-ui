@@ -1,0 +1,171 @@
+---
+import type { Locale } from "@/i18n";
+import { localizePath } from "@/i18n";
+import { uiTranslations } from "@/i18n/ui";
+import {
+	gettingStarted as gsRaw,
+	componentGroups,
+	examplePages as exRaw,
+} from "@/data/component-nav";
+
+interface Props {
+	currentPath: string;
+	locale: Locale;
+}
+
+const { currentPath, locale } = Astro.props;
+const t = uiTranslations[locale];
+
+const lp = (path: string) => localizePath(path, locale);
+const localize = (items: { name: string; path: string }[]) =>
+	items.map((i) => ({ name: i.name, href: lp(i.path) }));
+
+const gettingStarted = localize(gsRaw);
+const groups = componentGroups.map((g) => ({
+	key: g.key,
+	items: localize(g.items),
+}));
+const examplePages = exRaw.map((i) => ({ name: i.name, href: i.path }));
+---
+
+<!-- Mobile Navigation Drawer -->
+<div
+	id="cu-mobile-nav"
+	class="fixed inset-0 z-50 hidden md:hidden"
+	role="dialog"
+	aria-modal="true"
+>
+	<!-- Backdrop -->
+	<div
+		class="cu-mobile-nav-backdrop absolute inset-0 bg-black/50"
+		data-cu-mobile-nav-backdrop
+	></div>
+
+	<!-- Drawer panel -->
+	<nav
+		class="cu-mobile-nav-panel absolute inset-y-0 left-0 w-72 overflow-y-auto bg-background shadow-lg"
+	>
+		<!-- Close button -->
+		<div class="flex h-14 items-center justify-between px-4">
+			<span class="text-base font-semibold tracking-tight">Cubby UI</span>
+			<button
+				class="inline-flex size-11 items-center justify-center rounded-lg text-muted-foreground transition-colors duration-150 hover:text-foreground cursor-pointer"
+				data-cu-mobile-nav-close
+				aria-label={t.closeMenu}
+			>
+				<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+			</button>
+		</div>
+
+		<div class="space-y-6 px-4 pb-8">
+			<!-- Getting Started -->
+			<div>
+				<h4 class="cu-sidebar-section-title">{t.gettingStarted}</h4>
+				<div class="space-y-0.5">
+					{gettingStarted.map((item) => (
+						<a
+							class:list={["cu-sidebar-item", currentPath === item.href && "cu-sidebar-item-active"]}
+							href={item.href}
+						>
+							{item.name}
+						</a>
+					))}
+				</div>
+			</div>
+
+			<!-- Components -->
+			<div>
+				<h4 class="cu-sidebar-section-title">{t.components}</h4>
+				<div class="space-y-4">
+					{groups.map((g) => (
+						<div>
+							<div class="cu-sidebar-group-title">{t[g.key]}</div>
+							<div class="mt-1 space-y-0.5">
+								{g.items.map((item) => (
+									<a
+										class:list={["cu-sidebar-item", currentPath === item.href && "cu-sidebar-item-active"]}
+										href={item.href}
+									>
+										{item.name}
+									</a>
+								))}
+							</div>
+						</div>
+					))}
+				</div>
+			</div>
+
+			<!-- Examples -->
+			<div>
+				<h4 class="cu-sidebar-section-title">{t.examples}</h4>
+				<div class="space-y-0.5">
+					{examplePages.map((item) => (
+						<a
+							class:list={["cu-sidebar-item", currentPath === item.href && "cu-sidebar-item-active"]}
+							href={item.href}
+						>
+							{item.name}
+						</a>
+					))}
+				</div>
+			</div>
+		</div>
+	</nav>
+</div>
+
+<script>
+	function setupMobileNav() {
+		const drawer = document.getElementById('cu-mobile-nav');
+		if (!drawer) return;
+
+		const backdrop = drawer.querySelector('[data-cu-mobile-nav-backdrop]') as HTMLElement | null;
+		const closeBtn = drawer.querySelector('[data-cu-mobile-nav-close]') as HTMLButtonElement | null;
+		const panel = drawer.querySelector('.cu-mobile-nav-panel') as HTMLElement | null;
+		const openBtn = document.querySelector('[data-cu-mobile-nav-open]') as HTMLButtonElement | null;
+
+		let isOpen = false;
+
+		function open() {
+			if (isOpen || !drawer || !panel || !backdrop) return;
+			isOpen = true;
+			drawer.classList.remove('hidden');
+			document.body.style.overflow = 'hidden';
+
+			// Trigger animation in next frame
+			requestAnimationFrame(() => {
+				backdrop.classList.add('cu-mobile-nav-backdrop-visible');
+				panel.classList.add('cu-mobile-nav-panel-visible');
+			});
+
+			closeBtn?.focus();
+		}
+
+		function close() {
+			if (!isOpen || !drawer || !panel || !backdrop) return;
+			isOpen = false;
+
+			backdrop.classList.remove('cu-mobile-nav-backdrop-visible');
+			panel.classList.remove('cu-mobile-nav-panel-visible');
+
+			const onEnd = () => {
+				panel.removeEventListener('transitionend', onEnd);
+				drawer.classList.add('hidden');
+				document.body.style.overflow = '';
+			};
+			panel.addEventListener('transitionend', onEnd);
+
+			openBtn?.focus();
+		}
+
+		openBtn?.addEventListener('click', open);
+		closeBtn?.addEventListener('click', close);
+		backdrop?.addEventListener('click', close);
+
+		drawer.addEventListener('keydown', (e) => {
+			if (e.key === 'Escape') close();
+		});
+	}
+
+	setupMobileNav();
+	document.addEventListener('astro:page-load', setupMobileNav);
+</script>

@@ -1,6 +1,11 @@
 ---
-import Layout from "../../layouts/Layout.astro";
-import ComponentPreview from "../../components/ComponentPreview.astro";
+import Layout from "@/layouts/Layout.astro";
+import ComponentPreview from "@/components/ComponentPreview.astro";
+import { getLocaleFromUrl, useTranslations } from "@/i18n";
+import { dialogPage } from "@/i18n/pages/components/dialog";
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = useTranslations(dialogPage, locale);
 
 const usageCode = `<button class="cu-button cu-button-outline cu-button-md" data-cu-dialog-trigger="demo-dialog">
   Open Dialog
@@ -125,14 +130,14 @@ const successCode = `<button class="cu-button cu-button-outline cu-button-md" da
 </dialog>`.trim();
 ---
 
-<Layout title="Dialog — Cubby UI" category="Overlay" componentName="Dialog">
+<Layout title={t.title} category={t.category} componentName="Dialog">
     <div class="space-y-3">
         <div class="flex items-center gap-3">
             <h1 class="text-3xl font-bold tracking-tight">Dialog</h1>
-            <span class="cu-badge cu-badge-secondary">Overlay</span>
+            <span class="cu-badge cu-badge-secondary">{t.category}</span>
         </div>
         <p class="text-base text-muted-foreground leading-relaxed">
-            A modal dialog that interrupts the user with important content and expects a response.
+            {t.description}
         </p>
     </div>
 
@@ -141,14 +146,9 @@ const successCode = `<button class="cu-button cu-button-outline cu-button-md" da
         <section class="space-y-3">
             <h2 id="usage" class="text-lg font-semibold tracking-tight relative group">
                 <a href="#usage" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                Usage
+                {t.sections.usage.title}
             </h2>
-            <p class="text-base text-muted-foreground leading-relaxed">
-                Built with the native <code class="cu-code">&lt;dialog&gt;</code> element.
-                Use <code class="cu-code">data-cu-dialog-trigger</code> on buttons to open,
-                <code class="cu-code">data-cu-dialog-close</code> to close,
-                and <code class="cu-code">data-cu-dialog</code> on the dialog element.
-            </p>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
             <ComponentPreview code={usageCode}>
                 <button class="cu-button cu-button-outline cu-button-md" data-cu-dialog-trigger="demo-dialog">
                     Open Dialog
@@ -174,40 +174,40 @@ const successCode = `<button class="cu-button cu-button-outline cu-button-md" da
         <section class="space-y-3">
             <h2 id="classes" class="text-lg font-semibold tracking-tight relative group">
                 <a href="#classes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                CSS Classes
+                {t.sections.classes.title}
             </h2>
             <div class="cu-table-wrapper rounded-lg border border-border">
                 <table class="cu-table">
                     <thead class="cu-table-header">
                         <tr class="cu-table-row">
-                            <th class="cu-table-head">Class</th>
-                            <th class="cu-table-head">Description</th>
+                            <th class="cu-table-head">{t.sections.classes.classLabel}</th>
+                            <th class="cu-table-head">{t.sections.classes.descriptionLabel}</th>
                         </tr>
                     </thead>
                     <tbody class="cu-table-body">
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-dialog</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Dialog container with centered positioning, rounded corners, and open/close animation</td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-dialog']}</td>
                         </tr>
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-dialog-header</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Flex container for title and description</td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-dialog-header']}</td>
                         </tr>
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-dialog-title</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Dialog title</td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-dialog-title']}</td>
                         </tr>
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-dialog-description</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Dialog description text</td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-dialog-description']}</td>
                         </tr>
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-dialog-footer</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Footer action button area</td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-dialog-footer']}</td>
                         </tr>
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-dialog-close</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Top-right close button</td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-dialog-close']}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -219,10 +219,10 @@ const successCode = `<button class="cu-button cu-button-outline cu-button-md" da
         <section class="space-y-3">
             <h2 id="with-form" class="text-lg font-semibold tracking-tight relative group">
                 <a href="#with-form" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                With Form
+                {t.sections.withForm.title}
             </h2>
             <p class="text-base text-muted-foreground leading-relaxed">
-                Dialogs can contain forms and other interactive content.
+                {t.sections.withForm.description}
             </p>
             <ComponentPreview code={withFormCode}>
                 <button class="cu-button cu-button-outline cu-button-md" data-cu-dialog-trigger="form-dialog">
@@ -258,10 +258,10 @@ const successCode = `<button class="cu-button cu-button-outline cu-button-md" da
         <section class="space-y-3">
             <h2 id="destructive-confirmation" class="text-lg font-semibold tracking-tight relative group">
                 <a href="#destructive-confirmation" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                Destructive Confirmation
+                {t.sections.destructiveConfirmation.title}
             </h2>
             <p class="text-base text-muted-foreground leading-relaxed">
-                A confirmation dialog with a warning icon for dangerous actions like account deletion.
+                {t.sections.destructiveConfirmation.description}
             </p>
             <ComponentPreview code={deleteCode}>
                 <button class="cu-button cu-button-destructive cu-button-md" data-cu-dialog-trigger="delete-dialog">
@@ -291,10 +291,10 @@ const successCode = `<button class="cu-button cu-button-outline cu-button-md" da
         <section class="space-y-3">
             <h2 id="feedback-form" class="text-lg font-semibold tracking-tight relative group">
                 <a href="#feedback-form" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                Feedback Form
+                {t.sections.feedbackForm.title}
             </h2>
             <p class="text-base text-muted-foreground leading-relaxed">
-                A richer form dialog with a select dropdown and textarea.
+                {t.sections.feedbackForm.description}
             </p>
             <ComponentPreview code={feedbackCode}>
                 <button class="cu-button cu-button-outline cu-button-md" data-cu-dialog-trigger="feedback-dialog">
@@ -338,11 +338,9 @@ const successCode = `<button class="cu-button cu-button-outline cu-button-md" da
         <section class="space-y-3">
             <h2 id="success-state" class="text-lg font-semibold tracking-tight relative group">
                 <a href="#success-state" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                Success State
+                {t.sections.successState.title}
             </h2>
-            <p class="text-base text-muted-foreground leading-relaxed">
-                A centered dialog for success confirmations. Use a smaller <code class="cu-code">max-w-sm</code> width.
-            </p>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.successState.description} />
             <ComponentPreview code={successCode}>
                 <button class="cu-button cu-button-outline cu-button-md" data-cu-dialog-trigger="success-dialog">
                     Show Success

@@ -1,9 +1,14 @@
 ---
-import Layout from "../../layouts/Layout.astro";
-import FileInput from "../../components/ui/FileInput.astro";
-import Label from "../../components/ui/Label.astro";
-import FormGroup from "../../components/ui/FormGroup.astro";
-import ComponentPreview from "../../components/ComponentPreview.astro";
+import Layout from "@/layouts/Layout.astro";
+import FileInput from "@/components/ui/FileInput.astro";
+import Label from "@/components/ui/Label.astro";
+import FormGroup from "@/components/ui/FormGroup.astro";
+import ComponentPreview from "@/components/ComponentPreview.astro";
+import { getLocaleFromUrl, useTranslations } from "@/i18n";
+import { fileInputPage } from "@/i18n/pages/components/file-input";
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = useTranslations(fileInputPage, locale);
 
 const usageCode = `<input type="file" class="cu-input-file" />`.trim();
 
@@ -30,15 +35,13 @@ const multipleCode = `<div class="cu-form-group">
 const disabledCode = `<input type="file" class="cu-input-file" disabled />`.trim();
 ---
 
-<Layout category="Forms" componentName="File Input" title="File Input — Cubby UI">
+<Layout category={t.category} componentName="File Input" title={t.title}>
     <div class="space-y-3">
         <div class="flex items-center gap-3">
           <h1 class="text-3xl font-bold tracking-tight">File Input</h1>
-          <span class="cu-badge cu-badge-secondary">Forms</span>
+          <span class="cu-badge cu-badge-secondary">{t.category}</span>
         </div>
-        <p class="text-base text-muted-foreground leading-relaxed">
-            Displays a file upload input for selecting files from the user's device.
-        </p>
+        <p class="text-base text-muted-foreground leading-relaxed" set:html={t.description} />
     </div>
 
     <div class="mt-10 space-y-10">
@@ -46,11 +49,9 @@ const disabledCode = `<input type="file" class="cu-input-file" disabled />`.trim
         <section class="space-y-3">
             <h2 id="usage" class="text-lg font-semibold tracking-tight relative group">
               <a href="#usage" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              Usage
+              {t.sections.usage.title}
             </h2>
-            <p class="text-base text-muted-foreground leading-relaxed">
-                Apply <code class="cu-code">cu-input-file</code> to an <code class="cu-code">&lt;input type="file"&gt;</code> element.
-            </p>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
             <ComponentPreview code={usageCode}>
                 <div class="w-full max-w-sm">
                     <FileInput />
@@ -62,20 +63,20 @@ const disabledCode = `<input type="file" class="cu-input-file" disabled />`.trim
         <section class="space-y-3">
             <h2 id="classes" class="text-lg font-semibold tracking-tight relative group">
                 <a href="#classes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                CSS Classes
+                {t.sections.classes.title}
             </h2>
             <div class="cu-table-wrapper rounded-lg border border-border">
                 <table class="cu-table">
                     <thead class="cu-table-header">
                         <tr class="cu-table-row">
-                            <th class="cu-table-head">Class</th>
-                            <th class="cu-table-head">Description</th>
+                            <th class="cu-table-head">{t.sections.classes.classLabel}</th>
+                            <th class="cu-table-head">{t.sections.classes.descriptionLabel}</th>
                         </tr>
                     </thead>
                     <tbody class="cu-table-body">
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-input-file</code></td>
-                            <td class="cu-table-cell text-muted-foreground">File upload input with custom browse button style</td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-input-file']}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -87,11 +88,9 @@ const disabledCode = `<input type="file" class="cu-input-file" disabled />`.trim
         <section class="space-y-3">
             <h2 id="with-label" class="text-lg font-semibold tracking-tight relative group">
               <a href="#with-label" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              With Label
+              {t.sections.withLabel.title}
             </h2>
-            <p class="text-base text-muted-foreground leading-relaxed">
-                Pair with a <code class="cu-code">cu-label</code> for accessible file uploads.
-            </p>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withLabel.description} />
             <ComponentPreview code={withLabelCode}>
                 <div class="w-full max-w-sm">
                     <FormGroup>
@@ -106,11 +105,9 @@ const disabledCode = `<input type="file" class="cu-input-file" disabled />`.trim
         <section class="space-y-3">
             <h2 id="accept-types" class="text-lg font-semibold tracking-tight relative group">
               <a href="#accept-types" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              Accept Types
+              {t.sections.acceptTypes.title}
             </h2>
-            <p class="text-base text-muted-foreground leading-relaxed">
-                Use the <code class="cu-code">accept</code> attribute to restrict file types.
-            </p>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.acceptTypes.description} />
             <ComponentPreview code={acceptCode}>
                 <div class="w-full max-w-sm space-y-4">
                     <FormGroup>
@@ -129,11 +126,9 @@ const disabledCode = `<input type="file" class="cu-input-file" disabled />`.trim
         <section class="space-y-3">
             <h2 id="multiple-files" class="text-lg font-semibold tracking-tight relative group">
               <a href="#multiple-files" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              Multiple Files
+              {t.sections.multipleFiles.title}
             </h2>
-            <p class="text-base text-muted-foreground leading-relaxed">
-                Add the <code class="cu-code">multiple</code> attribute to allow selecting multiple files.
-            </p>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.multipleFiles.description} />
             <ComponentPreview code={multipleCode}>
                 <div class="w-full max-w-sm">
                     <FormGroup>
@@ -148,11 +143,9 @@ const disabledCode = `<input type="file" class="cu-input-file" disabled />`.trim
         <section class="space-y-3">
             <h2 id="disabled" class="text-lg font-semibold tracking-tight relative group">
               <a href="#disabled" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              Disabled
+              {t.sections.disabled.title}
             </h2>
-            <p class="text-base text-muted-foreground leading-relaxed">
-                Add the <code class="cu-code">disabled</code> attribute to prevent file selection.
-            </p>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.disabled.description} />
             <ComponentPreview code={disabledCode}>
                 <div class="w-full max-w-sm">
                     <FileInput disabled />

@@ -1,6 +1,11 @@
 ---
-import Layout from "../../layouts/Layout.astro";
-import ComponentPreview from "../../components/ComponentPreview.astro";
+import Layout from "@/layouts/Layout.astro";
+import ComponentPreview from "@/components/ComponentPreview.astro";
+import { getLocaleFromUrl, useTranslations } from "@/i18n";
+import { headerPage } from "@/i18n/pages/components/header";
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = useTranslations(headerPage, locale);
 
 const usageCode = `<header class="cu-header">
   <div class="cu-header-inner">
@@ -106,14 +111,14 @@ const withActionsCode = `<header class="cu-header">
 </header>`.trim();
 ---
 
-<Layout title="Header — Cubby UI" category="Layouts" componentName="Header">
+<Layout title={t.title} category={t.category} componentName="Header">
 	<div class="space-y-3">
 		<div class="flex items-center gap-3">
 		  <h1 class="text-3xl font-bold tracking-tight">Header</h1>
-		  <span class="cu-badge cu-badge-secondary">Layouts</span>
+		  <span class="cu-badge cu-badge-secondary">{t.category}</span>
 		</div>
 		<p class="text-base text-muted-foreground leading-relaxed">
-			A top navigation bar with brand, navigation, and actions areas.
+			{t.description}
 		</p>
 	</div>
 
@@ -122,16 +127,9 @@ const withActionsCode = `<header class="cu-header">
 		<section class="space-y-3">
 			<h2 id="usage" class="text-lg font-semibold tracking-tight relative group">
 			  <a href="#usage" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-			  Usage
+			  {t.sections.usage.title}
 			</h2>
-			<p class="text-base text-muted-foreground leading-relaxed">
-				Compose with
-				<code class="cu-code">cu-header</code>,
-				<code class="cu-code">cu-header-inner</code>,
-				<code class="cu-code">cu-header-brand</code>, and
-				<code class="cu-code">cu-header-actions</code>.
-				The inner container handles height, flex layout, and responsive padding.
-			</p>
+			<p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
 			<ComponentPreview code={usageCode}>
 				<div class="w-full rounded-lg border border-border overflow-hidden">
 					<header class="cu-header" style="position:relative;">
@@ -155,37 +153,23 @@ const withActionsCode = `<header class="cu-header">
 		<section class="space-y-3">
 			<h2 id="classes" class="text-lg font-semibold tracking-tight relative group">
 				<a href="#classes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-				CSS Classes
+				{t.sections.classes.title}
 			</h2>
 			<div class="cu-table-wrapper rounded-lg border border-border">
 				<table class="cu-table">
 					<thead class="cu-table-header">
 						<tr class="cu-table-row">
-							<th class="cu-table-head">Class</th>
-							<th class="cu-table-head">Description</th>
+							<th class="cu-table-head">{t.sections.classes.classLabel}</th>
+							<th class="cu-table-head">{t.sections.classes.descriptionLabel}</th>
 						</tr>
 					</thead>
 					<tbody class="cu-table-body">
-						<tr class="cu-table-row">
-							<td class="cu-table-cell"><code class="cu-code">cu-header</code></td>
-							<td class="cu-table-cell text-muted-foreground">Top navigation bar container, sticky with blurred background</td>
-						</tr>
-						<tr class="cu-table-row">
-							<td class="cu-table-cell"><code class="cu-code">cu-header-inner</code></td>
-							<td class="cu-table-cell text-muted-foreground">Inner flex container controlling height and horizontal padding</td>
-						</tr>
-						<tr class="cu-table-row">
-							<td class="cu-table-cell"><code class="cu-code">cu-header-brand</code></td>
-							<td class="cu-table-cell text-muted-foreground">Left brand / logo area</td>
-						</tr>
-						<tr class="cu-table-row">
-							<td class="cu-table-cell"><code class="cu-code">cu-header-nav</code></td>
-							<td class="cu-table-cell text-muted-foreground">Center navigation links, hidden on mobile</td>
-						</tr>
-						<tr class="cu-table-row">
-							<td class="cu-table-cell"><code class="cu-code">cu-header-actions</code></td>
-							<td class="cu-table-cell text-muted-foreground">Right action button area</td>
-						</tr>
+						{Object.entries(t.classDescriptions).map(([cls, desc]) => (
+							<tr class="cu-table-row">
+								<td class="cu-table-cell"><code class="cu-code">{cls}</code></td>
+								<td class="cu-table-cell text-muted-foreground">{desc}</td>
+							</tr>
+						))}
 					</tbody>
 				</table>
 			</div>
@@ -196,15 +180,9 @@ const withActionsCode = `<header class="cu-header">
 		<section class="space-y-3">
 			<h2 id="with-navigation" class="text-lg font-semibold tracking-tight relative group">
 			  <a href="#with-navigation" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-			  With Navigation
+			  {t.sections.withNavigation.title}
 			</h2>
-			<p class="text-base text-muted-foreground leading-relaxed">
-				Add a
-				<code class="cu-code">cu-header-nav</code> section with a
-				<code class="cu-code">cu-nav</code> inside.
-				The nav area is hidden on mobile and visible from the
-				<code class="cu-code">md</code> breakpoint.
-			</p>
+			<p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withNavigation.description} />
 			<ComponentPreview code={withNavCode}>
 				<div class="w-full rounded-lg border border-border overflow-hidden">
 					<header class="cu-header" style="position:relative;">
@@ -234,10 +212,10 @@ const withActionsCode = `<header class="cu-header">
 		<section class="space-y-3">
 			<h2 id="brand-variations" class="text-lg font-semibold tracking-tight relative group">
 			  <a href="#brand-variations" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-			  Brand Variations
+			  {t.sections.brandVariations.title}
 			</h2>
 			<p class="text-base text-muted-foreground leading-relaxed">
-				The brand area accepts any content — text only, icon with text, or a custom logo image.
+				{t.sections.brandVariations.description}
 			</p>
 			<ComponentPreview code={brandVariationsCode}>
 				<div class="w-full space-y-3">
@@ -268,13 +246,9 @@ const withActionsCode = `<header class="cu-header">
 		<section class="space-y-3">
 			<h2 id="mobile-menu-toggle" class="text-lg font-semibold tracking-tight relative group">
 			  <a href="#mobile-menu-toggle" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-			  Mobile Menu Toggle
+			  {t.sections.mobileMenuToggle.title}
 			</h2>
-			<p class="text-base text-muted-foreground leading-relaxed">
-				For dashboard layouts, add a hamburger button before the brand using
-				<code class="cu-code">cu-button cu-button-ghost cu-button-icon-sm</code>.
-				Hide it on desktop with <code class="cu-code">md:hidden</code>.
-			</p>
+			<p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.mobileMenuToggle.description} />
 			<ComponentPreview code={mobileMenuCode}>
 				<div class="w-full rounded-lg border border-border overflow-hidden">
 					<header class="cu-header" style="position:relative;">
@@ -311,10 +285,10 @@ const withActionsCode = `<header class="cu-header">
 		<section class="space-y-3">
 			<h2 id="with-actions" class="text-lg font-semibold tracking-tight relative group">
 			  <a href="#with-actions" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-			  With Actions
+			  {t.sections.withActions.title}
 			</h2>
 			<p class="text-base text-muted-foreground leading-relaxed">
-				The actions area supports icon buttons, avatars, or any custom elements.
+				{t.sections.withActions.description}
 			</p>
 			<ComponentPreview code={withActionsCode}>
 				<div class="w-full rounded-lg border border-border overflow-hidden">

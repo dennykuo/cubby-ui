@@ -10,10 +10,11 @@ Cubby UI 是一個框架無關的 UI 元件庫，風格類似 shadcn/ui，使用
 
 ## Commands
 
-- `npm run dev` — 啟動 Astro 開發伺服器
-- `npm run build` — 建置文檔站點至 `docs/`
+- `npm run dev` — 啟動 Astro 開發伺服器（自動先執行 `i18n:routes`）
+- `npm run build` — 建置文檔站點至 `docs/`（自動先執行 `i18n:routes`）
 - `npm run preview` — 預覽建置結果
 - `npm run build:lib` — 建置 NPM 套件至 `dist/`（CSS + JS）
+- `npm run i18n:routes` — 將 `src/pages/` 下的英文頁面複製到 `src/pages/zh-tw/`，產生中文路由
 
 目前無 lint 或 test 命令。
 
@@ -25,6 +26,36 @@ Cubby UI 是一個框架無關的 UI 元件庫，風格類似 shadcn/ui，使用
 - **Tailwind CSS v4** — 使用 CSS `@theme` 指令定義設計 token（非 tailwind.config.js）
 - **astro-expressive-code** — 程式碼區塊語法高亮（主題：min-light, min-dark；內建複製按鈕已停用）
 - **Vanilla JS** — 極少量，僅用於互動效果，使用 `data-*` 屬性管理狀態
+
+### 國際化（i18n）
+
+文檔站支援英文（預設）和繁體中文兩種語言。
+
+**URL 結構**：英文無前綴（`/components/button`），繁中加 `/zh-tw/`（`/zh-tw/components/button`）。Dashboard 範例頁不翻譯。
+
+**路由產生**：`scripts/generate-i18n-routes.js` 在 dev/build 前自動將 `src/pages/` 下的頁面複製到 `src/pages/zh-tw/`（已加入 `.gitignore`）。複製後的頁面透過 `Astro.url.pathname` 中的 `/zh-tw/` 前綴自動切換語言。
+
+**翻譯系統**（`src/i18n/`）：
+- `index.ts` — `Locale` 型別、`getLocaleFromUrl()`、`localizePath()`、`getAlternatePath()`、`useTranslations()`
+- `ui.ts` — 共用 UI 翻譯（Header、Sidebar、ComponentPreview 的文字）
+- `pages/home.ts`、`usage.ts`、`theming.ts`、`dark-mode.ts` — 核心頁面翻譯
+- `pages/components/*.ts` — 62 個元件頁面翻譯（每頁一個檔案）
+
+**頁面 i18n 模式**：每個頁面透過 3 行程式碼取得翻譯：
+```astro
+import { getLocaleFromUrl, useTranslations } from "@/i18n";
+import { buttonPage } from "@/i18n/pages/components/button";
+const locale = getLocaleFromUrl(Astro.url);
+const t = useTranslations(buttonPage, locale);
+```
+
+**翻譯慣例**：
+- 元件名稱（Button、Card 等）兩語言維持英文
+- 程式碼範例與 HTML 預覽不翻譯
+- 含 HTML 的翻譯字串（如 `<code>` 標籤）使用 `set:html` 渲染
+- 共用 UI 透過 `data-cu-i18n-*` 屬性傳遞翻譯給客戶端 JS
+
+**語言切換器**：位於 Header 右側，英文頁面顯示「中」，中文頁面顯示「EN」，使用 `getAlternatePath()` 保留當前頁面路徑。
 
 ### 元件系統
 
@@ -51,7 +82,7 @@ Cubby UI 是一個框架無關的 UI 元件庫，風格類似 shadcn/ui，使用
 
 - 語意色彩：primary, secondary, destructive, success, warning, info, muted, accent
 - 每個色彩有配對的 foreground 色（例如 `--color-primary` / `--color-primary-foreground`）
-- 支援暗色模式（`.dark` class）
+- 支援暗色模式（`.dark` class + `color-scheme: dark` 確保原生元素跟隨）
 - 支援 `prefers-reduced-motion` 全域降低動畫
 - 文檔站工具類別：`.cu-code`（inline code 樣式，定義在 `global.css`）
 - 動畫慣例：微互動 `duration-150`、狀態切換 `duration-200`；所有 `transition-*` 必須搭配明確的 `duration-*`；偏好具體 transition 屬性（`transition-colors`、`transition-shadow`、`transition-opacity`）而非 `transition-all`；Dialog/Drawer/Alert Dialog 使用 CSS `@starting-style` + `transition-behavior: allow-discrete` 實現開關動畫（統一 `0.2s ease`）
@@ -79,6 +110,7 @@ dist/
 ├── cubby-ui.min.css      # 壓縮版
 ├── cubby-ui.js           # 互動元件 JS（UMD，支援 CommonJS / AMD / browser global）
 ├── cubby-ui.min.js       # 壓縮版
+├── cubby-ui.min.js.map   # Source map（方便除錯）
 ├── cubby-ui.d.ts         # TypeScript 型別定義（CubbyUI API）
 └── src/                  # 原始 Tailwind CSS（進階用戶自訂主題用）
     ├── global.css        # 文檔站入口（引入 tailwindcss + theme + components + body 樣式）
@@ -88,7 +120,15 @@ dist/
     └── components/
 ```
 
-互動元件 JS 原始檔位於 `src/scripts/cubby-ui.js`，使用 UMD 格式（支援 `require()`、AMD `define()`、`window.CubbyUI`），包含 13 個元件：Tabs、Dropdown、Dialog、Drawer、Alert Dialog、Toast、Popover、Menubar、Combobox、Multi Select、Number Input、Dropzone、Transfer List。Document 級事件監聽器使用 delegated pattern（click + keydown 各一個），避免每個元件實例各自註冊。Toast 內容使用 DOM API（`textContent` / `createElement`）建立，避免 innerHTML XSS 風險。Toast 自動消失時間預設 5000ms，可透過 `data-cu-toast-duration` 自訂。
+互動元件 JS 原始檔位於 `src/scripts/cubby-ui.js`，使用 UMD 格式（支援 `require()`、AMD `define()`、`window.CubbyUI`），包含 13 個元件：Tabs、Dropdown、Dialog、Drawer、Alert Dialog、Toast、Popover、Menubar、Combobox、Multi Select、Number Input、Dropzone、Transfer List。Document 級事件監聯器使用 delegated pattern（click + keydown 各一個），避免每個元件實例各自註冊。Toast 內容使用 DOM API（`textContent` / `createElement`）建立，避免 innerHTML XSS 風險。Toast 自動消失時間預設 5000ms，可透過 `data-cu-toast-duration` 自訂。
+
+ARIA 無障礙支援：
+- **Tabs** — `role="tablist/tab/tabpanel"`、`aria-selected`、`aria-controls` / `aria-labelledby` 雙向連結
+- **Dropdown** — `aria-haspopup="menu"`、`aria-expanded`、`role="menu"` / `role="menuitem"`
+- **Combobox / Multi Select** — `aria-haspopup="listbox"`、`aria-expanded`、`role="listbox"` / `role="option"`、`aria-selected`
+- **Popover** — `aria-haspopup="dialog"`、`aria-expanded`、`aria-controls`
+- **Dialog / Drawer** — `aria-labelledby` 自動連結標題元素
+- **Alert Dialog** — `role="alertdialog"` + `aria-labelledby`
 
 公開 API：
 - `CubbyUI.init()` — 初始化所有互動元件（自動在 DOMContentLoaded 執行，可重複呼叫以初始化動態新增的元素）
@@ -104,9 +144,24 @@ src/
 ├── scripts/
 │   ├── cubby-ui.js               — 互動元件 JS（打包來源）
 │   └── cubby-ui.d.ts             — TypeScript 型別定義（打包來源）
+├── data/
+│   └── component-nav.ts          — 共享導航資料（Sidebar + PrevNext 共用，single source of truth）
+├── i18n/
+│   ├── index.ts                  — Locale 型別、getLocaleFromUrl()、localizePath()、useTranslations()
+│   ├── ui.ts                     — 共用 UI 翻譯（Header、Sidebar、ComponentPreview）
+│   └── pages/                    — 各頁面翻譯資料
+│       ├── home.ts
+│       ├── usage.ts
+│       ├── theming.ts
+│       ├── dark-mode.ts
+│       └── components/           — 62 個元件頁面翻譯（每元件一個檔案）
+│           ├── button.ts
+│           ├── card.ts
+│           └── ...
 ├── components/
 │   ├── Header.astro              — 頂部導航列（使用 cu-header / cu-header-brand / cu-header-actions）
-│   ├── ComponentPreview.astro     — 元件展示框（Preview/Code 切換）
+│   ├── ComponentPreview.astro     — 元件展示框（Preview/Code 切換 + responsive 裝置寬度切換）
+│   ├── PrevNextNav.astro          — 元件頁底部 prev/next 導航（從 component-nav.ts 取得順序）
 │   ├── sidebar/                   — 文檔站點專用側邊欄（使用 cu-sidebar-* classes）
 │   │   ├── Sidebar.astro          — 側邊欄（包含導航資料與結構）
 │   │   ├── SidebarSection.astro   — 第一層分類標題（使用 cu-sidebar-section-title）
@@ -125,7 +180,7 @@ src/
 │       ├── Avatar*.astro          — 頭像（Avatar, AvatarImage, AvatarFallback）
 │       ├── Badge.astro            — 徽章（variant prop）
 │       ├── Breadcrumb*.astro      — 麵包屑（Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbSeparator, BreadcrumbCurrent）
-│       ├── Button.astro           — 按鈕（variant + size props）
+│       ├── Button.astro           — 按鈕（variant + size + href props，href 時渲染為 <a>）
 │       ├── ButtonGroup.astro      — 按鈕群組（vertical prop）
 │       ├── Card*.astro            — 卡片（Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter）
 │       ├── Checkbox.astro         — 核取方塊（自訂勾勾）
@@ -174,6 +229,7 @@ src/
 │   └── Layout.astro               — 主布局（引入 Header + Sidebar）
 ├── pages/
 │   ├── index.astro                — 首頁
+│   ├── zh-tw/                     — 繁中路由（自動產生，已 gitignore）
 │   └── components/                — 元件文檔頁面
 │       ├── accordion.astro
 │       ├── alert.astro
@@ -315,9 +371,9 @@ src/
 
 #### 文檔站點側邊欄（`src/components/sidebar/`）
 
-導航資料集中在 `Sidebar.astro` 中管理，分為九個陣列：`gettingStarted`、`typographyComponents`、`basicComponents`、`formComponents`、`dataDisplayComponents`、`feedbackComponents`、`overlayComponents`、`navigationComponents`、`layoutComponents`（已按字母排序）。
+導航資料集中在 `src/data/component-nav.ts` 中管理（single source of truth），`Sidebar.astro` 和 `PrevNextNav.astro` 共同引用。資料分為：`gettingStarted`、`componentGroups`（含 8 個分組：layouts / basic / typography / navigation / dataDisplay / forms / feedback / overlay）、`examplePages`。`allComponentPages` 為所有元件頁的扁平有序陣列，供 prev/next 導航使用。
 側邊欄子元件使用 `cu-*` CSS classes（dog-fooding）：`SidebarSection`（`cu-sidebar-section-title`）→ `SidebarGroup`（`cu-sidebar-group` + `cu-sidebar-group-title`）→ `SidebarLink`（`cu-sidebar-item` + `cu-sidebar-item-active`）。
-新增元件時只需在此檔案的對應陣列加一筆資料。
+新增元件時需在 `component-nav.ts` 的對應陣列加一筆資料。
 
 元件分類：
 - **Components > Typography** — Headings, Paragraphs, Blockquote, Lists, Links, Text, HR
@@ -427,10 +483,12 @@ Header logo 與 sidebar 連結文字齊左：
 
 1. 在 `src/styles/components/` 資料夾中建立對應的獨立 `.css` 檔案定義 CSS 類別（使用 `cu-` 前綴），並在 `src/styles/components.css` 的 `@layer components` 對應區塊（BASIC / FORMS / DATA DISPLAY / FEEDBACK / OVERLAY / NAVIGATION / LAYOUT）中加入 `@import` 語句
 2. 在 `src/components/ui/` 中建立對應的 `.astro` 元件檔（必須包含 `interface Props` 型別定義，使用 `class:list` 處理 class 組合）
-3. 在 `src/pages/components/` 中建立文檔頁面（使用 `ComponentPreview` 展示，inline code 使用 `cu-code` class）
-4. 在 `src/components/sidebar/Sidebar.astro` 中將元件加入對應的導航陣列（Basic / Forms / Data Display / Feedback / Overlay / Navigation / Layouts）
-5. 文檔頁面的 code 範例使用 `cu-` class 系統（非原始 Tailwind utilities）
-6. 使用 `data-*` 屬性處理互動狀態（非框架狀態管理）
+3. 在 `src/i18n/pages/components/` 中建立翻譯檔（`Record<Locale, {...}>` 格式，包含 en/zh-tw 翻譯）
+4. 在 `src/pages/components/` 中建立文檔頁面（使用 `ComponentPreview` 展示，引入翻譯並使用 `getLocaleFromUrl` + `useTranslations`，inline code 使用 `cu-code` class）
+5. 在 `src/data/component-nav.ts` 中將元件加入對應的導航陣列（layouts / basic / typography / navigation / dataDisplay / forms / feedback / overlay）
+6. 文檔頁面的 code 範例使用 `cu-` class 系統（非原始 Tailwind utilities）
+7. 使用 `data-*` 屬性處理互動狀態（非框架狀態管理）
+8. 執行 `npm run dev` 時，`i18n:routes` 腳本自動產生 `src/pages/zh-tw/components/` 下的對應路由
 
 ## Language
 

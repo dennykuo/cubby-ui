@@ -1,22 +1,27 @@
 ---
-import Layout from "../../layouts/Layout.astro";
-import Input from "../../components/ui/Input.astro";
-import Textarea from "../../components/ui/Textarea.astro";
-import Select from "../../components/ui/Select.astro";
-import Checkbox from "../../components/ui/Checkbox.astro";
-import Toggle from "../../components/ui/Toggle.astro";
-import Label from "../../components/ui/Label.astro";
-import Button from "../../components/ui/Button.astro";
-import FormGroup from "../../components/ui/FormGroup.astro";
-import FormDescription from "../../components/ui/FormDescription.astro";
-import FormError from "../../components/ui/FormError.astro";
-import Card from "../../components/ui/Card.astro";
-import CardHeader from "../../components/ui/CardHeader.astro";
-import CardTitle from "../../components/ui/CardTitle.astro";
-import CardDescription from "../../components/ui/CardDescription.astro";
-import CardContent from "../../components/ui/CardContent.astro";
-import CardFooter from "../../components/ui/CardFooter.astro";
-import ComponentPreview from "../../components/ComponentPreview.astro";
+import Layout from "@/layouts/Layout.astro";
+import Input from "@/components/ui/Input.astro";
+import Textarea from "@/components/ui/Textarea.astro";
+import Select from "@/components/ui/Select.astro";
+import Checkbox from "@/components/ui/Checkbox.astro";
+import Toggle from "@/components/ui/Toggle.astro";
+import Label from "@/components/ui/Label.astro";
+import Button from "@/components/ui/Button.astro";
+import FormGroup from "@/components/ui/FormGroup.astro";
+import FormDescription from "@/components/ui/FormDescription.astro";
+import FormError from "@/components/ui/FormError.astro";
+import Card from "@/components/ui/Card.astro";
+import CardHeader from "@/components/ui/CardHeader.astro";
+import CardTitle from "@/components/ui/CardTitle.astro";
+import CardDescription from "@/components/ui/CardDescription.astro";
+import CardContent from "@/components/ui/CardContent.astro";
+import CardFooter from "@/components/ui/CardFooter.astro";
+import ComponentPreview from "@/components/ComponentPreview.astro";
+import { getLocaleFromUrl, useTranslations } from "@/i18n";
+import { formGroupPage } from "@/i18n/pages/components/form-group";
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = useTranslations(formGroupPage, locale);
 
 const usageCode = `<div class="cu-form-group">
   <label class="cu-label" for="name">Name</label>
@@ -91,15 +96,13 @@ const completeFormCode = `<div class="cu-card w-[420px]">
 </div>`.trim();
 ---
 
-<Layout category="Forms" componentName="Form Group" title="Form Group — Cubby UI">
+<Layout category={t.category} componentName="Form Group" title={t.title}>
     <div class="space-y-3">
         <div class="flex items-center gap-3">
           <h1 class="text-3xl font-bold tracking-tight">Form Group</h1>
-          <span class="cu-badge cu-badge-secondary">Forms</span>
+          <span class="cu-badge cu-badge-secondary">{t.category}</span>
         </div>
-        <p class="text-base text-muted-foreground leading-relaxed">
-            Composes a label, form control, description, and error message with consistent spacing.
-        </p>
+        <p class="text-base text-muted-foreground leading-relaxed" set:html={t.description} />
     </div>
 
     <div class="mt-10 space-y-10">
@@ -107,11 +110,9 @@ const completeFormCode = `<div class="cu-card w-[420px]">
         <section class="space-y-3">
             <h2 id="usage" class="text-lg font-semibold tracking-tight relative group">
               <a href="#usage" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              Usage
+              {t.sections.usage.title}
             </h2>
-            <p class="text-base text-muted-foreground leading-relaxed">
-                Use <code class="cu-code">cu-form-group</code> as a wrapper to apply consistent spacing between a label and its control.
-            </p>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
             <ComponentPreview code={usageCode}>
                 <div class="w-full max-w-sm">
                     <FormGroup>
@@ -126,28 +127,28 @@ const completeFormCode = `<div class="cu-card w-[420px]">
         <section class="space-y-3">
             <h2 id="classes" class="text-lg font-semibold tracking-tight relative group">
                 <a href="#classes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                CSS Classes
+                {t.sections.classes.title}
             </h2>
             <div class="cu-table-wrapper rounded-lg border border-border">
                 <table class="cu-table">
                     <thead class="cu-table-header">
                         <tr class="cu-table-row">
-                            <th class="cu-table-head">Class</th>
-                            <th class="cu-table-head">Description</th>
+                            <th class="cu-table-head">{t.sections.classes.classLabel}</th>
+                            <th class="cu-table-head">{t.sections.classes.descriptionLabel}</th>
                         </tr>
                     </thead>
                     <tbody class="cu-table-body">
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-form-group</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Form group container with vertical layout and spacing</td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-form-group']}</td>
                         </tr>
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-form-description</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Form description text, small and muted</td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-form-description']}</td>
                         </tr>
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-form-error</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Form error message, small and red</td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-form-error']}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -159,11 +160,9 @@ const completeFormCode = `<div class="cu-card w-[420px]">
         <section class="space-y-3">
             <h2 id="with-description" class="text-lg font-semibold tracking-tight relative group">
               <a href="#with-description" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              With Description
+              {t.sections.withDescription.title}
             </h2>
-            <p class="text-base text-muted-foreground leading-relaxed">
-                Add <code class="cu-code">cu-form-description</code> for helper text below the control.
-            </p>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withDescription.description} />
             <ComponentPreview code={descriptionCode}>
                 <div class="w-full max-w-sm">
                     <FormGroup>
@@ -179,12 +178,9 @@ const completeFormCode = `<div class="cu-card w-[420px]">
         <section class="space-y-3">
             <h2 id="with-error" class="text-lg font-semibold tracking-tight relative group">
               <a href="#with-error" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              With Error
+              {t.sections.withError.title}
             </h2>
-            <p class="text-base text-muted-foreground leading-relaxed">
-                Add <code class="cu-code">cu-form-error</code> and a
-                <code class="cu-code">border-destructive</code> class on the input for error states.
-            </p>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withError.description} />
             <ComponentPreview code={errorCode}>
                 <div class="w-full max-w-sm">
                     <FormGroup>
@@ -200,11 +196,9 @@ const completeFormCode = `<div class="cu-card w-[420px]">
         <section class="space-y-3">
             <h2 id="complete-form" class="text-lg font-semibold tracking-tight relative group">
               <a href="#complete-form" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              Complete Form
+              {t.sections.completeForm.title}
             </h2>
-            <p class="text-base text-muted-foreground leading-relaxed">
-                A full form example combining Input, Select, Textarea, Checkbox, and Toggle inside a Card.
-            </p>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.completeForm.description} />
             <ComponentPreview code={completeFormCode}>
                 <Card class="w-[420px]">
                     <CardHeader>

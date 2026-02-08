@@ -1,0 +1,38 @@
+---
+import { localizePath } from "@/i18n";
+import type { Locale } from "@/i18n";
+import { allComponentPages } from "@/data/component-nav";
+
+interface Props {
+    currentPath: string;
+    locale: Locale;
+}
+
+const { currentPath, locale } = Astro.props;
+
+const pages = allComponentPages.map((p) => ({
+    name: p.name,
+    href: localizePath(p.path, locale),
+}));
+
+const idx = pages.findIndex((p) => p.href === currentPath);
+const prev = idx > 0 ? pages[idx - 1] : null;
+const next = idx >= 0 && idx < pages.length - 1 ? pages[idx + 1] : null;
+---
+
+{(prev || next) && (
+    <nav class="mt-16 flex items-center justify-between border-t border-border pt-6">
+        {prev ? (
+            <a href={prev.href} class="group text-sm text-muted-foreground transition-colors duration-150 hover:text-foreground">
+                <span class="text-xs text-muted-foreground/70">&larr; Prev</span>
+                <span class="block font-medium">{prev.name}</span>
+            </a>
+        ) : <span />}
+        {next ? (
+            <a href={next.href} class="group text-sm text-muted-foreground text-right transition-colors duration-150 hover:text-foreground">
+                <span class="text-xs text-muted-foreground/70">Next &rarr;</span>
+                <span class="block font-medium">{next.name}</span>
+            </a>
+        ) : <span />}
+    </nav>
+)}

@@ -1,8 +1,13 @@
 ---
-import Layout from "../../layouts/Layout.astro";
-import Checkbox from "../../components/ui/Checkbox.astro";
-import Label from "../../components/ui/Label.astro";
-import ComponentPreview from "../../components/ComponentPreview.astro";
+import Layout from "@/layouts/Layout.astro";
+import Checkbox from "@/components/ui/Checkbox.astro";
+import Label from "@/components/ui/Label.astro";
+import ComponentPreview from "@/components/ComponentPreview.astro";
+import { getLocaleFromUrl, useTranslations } from "@/i18n";
+import { checkboxPage } from "@/i18n/pages/components/checkbox";
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = useTranslations(checkboxPage, locale);
 
 const usageCode = `<input type="checkbox" class="cu-checkbox" />`.trim();
 
@@ -45,15 +50,13 @@ const groupCode = `<fieldset>
 </fieldset>`.trim();
 ---
 
-<Layout category="Forms" componentName="Checkbox" title="Checkbox — Cubby UI">
+<Layout category={t.category} componentName="Checkbox" title={t.title}>
     <div class="space-y-3">
         <div class="flex items-center gap-3">
           <h1 class="text-3xl font-bold tracking-tight">Checkbox</h1>
-          <span class="cu-badge cu-badge-secondary">Forms</span>
+          <span class="cu-badge cu-badge-secondary">{t.category}</span>
         </div>
-        <p class="text-base text-muted-foreground leading-relaxed">
-            Displays a checkbox input for toggling individual options on or off.
-        </p>
+        <p class="text-base text-muted-foreground leading-relaxed" set:html={t.description} />
     </div>
 
     <div class="mt-10 space-y-10">
@@ -61,11 +64,9 @@ const groupCode = `<fieldset>
         <section class="space-y-3">
             <h2 id="usage" class="text-lg font-semibold tracking-tight relative group">
               <a href="#usage" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              Usage
+              {t.sections.usage.title}
             </h2>
-            <p class="text-base text-muted-foreground leading-relaxed">
-                Apply <code class="cu-code">cu-checkbox</code> to an <code class="cu-code">&lt;input type="checkbox"&gt;</code> element.
-            </p>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
             <ComponentPreview code={usageCode}>
                 <Checkbox />
             </ComponentPreview>
@@ -75,24 +76,24 @@ const groupCode = `<fieldset>
         <section class="space-y-3">
           <h2 id="classes" class="text-lg font-semibold tracking-tight relative group">
             <a href="#classes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-            CSS Classes
+            {t.sections.classes.title}
           </h2>
           <div class="cu-table-wrapper rounded-lg border border-border">
             <table class="cu-table">
               <thead class="cu-table-header">
                 <tr class="cu-table-row">
-                  <th class="cu-table-head">Class</th>
-                  <th class="cu-table-head">Description</th>
+                  <th class="cu-table-head">{t.sections.classes.classLabel}</th>
+                  <th class="cu-table-head">{t.sections.classes.descriptionLabel}</th>
                 </tr>
               </thead>
               <tbody class="cu-table-body">
                 <tr class="cu-table-row">
                   <td class="cu-table-cell"><code class="cu-code">cu-checkbox-wrapper</code></td>
-                  <td class="cu-table-cell text-muted-foreground">Flex container for Checkbox and Label</td>
+                  <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-checkbox-wrapper']}</td>
                 </tr>
                 <tr class="cu-table-row">
                   <td class="cu-table-cell"><code class="cu-code">cu-checkbox</code></td>
-                  <td class="cu-table-cell text-muted-foreground">Checkbox style with custom SVG checkmark, focus ring, and disabled state</td>
+                  <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-checkbox']}</td>
                 </tr>
               </tbody>
             </table>
@@ -104,11 +105,9 @@ const groupCode = `<fieldset>
         <section class="space-y-3">
             <h2 id="with-label" class="text-lg font-semibold tracking-tight relative group">
               <a href="#with-label" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              With Label
+              {t.sections.withLabel.title}
             </h2>
-            <p class="text-base text-muted-foreground leading-relaxed">
-                Wrap in a <code class="cu-code">cu-checkbox-wrapper</code> with a <code class="cu-code">cu-label</code> for accessible labeling.
-            </p>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withLabel.description} />
             <ComponentPreview code={withLabelCode}>
                 <div class="cu-checkbox-wrapper">
                     <Checkbox id="terms" />
@@ -121,11 +120,9 @@ const groupCode = `<fieldset>
         <section class="space-y-3">
             <h2 id="checked-by-default" class="text-lg font-semibold tracking-tight relative group">
               <a href="#checked-by-default" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              Checked by Default
+              {t.sections.checkedByDefault.title}
             </h2>
-            <p class="text-base text-muted-foreground leading-relaxed">
-                Add the <code class="cu-code">checked</code> attribute for a pre-selected state.
-            </p>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.checkedByDefault.description} />
             <ComponentPreview code={checkedCode}>
                 <div class="cu-checkbox-wrapper">
                     <Checkbox id="newsletter" checked />
@@ -138,11 +135,9 @@ const groupCode = `<fieldset>
         <section class="space-y-3">
             <h2 id="disabled" class="text-lg font-semibold tracking-tight relative group">
               <a href="#disabled" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              Disabled
+              {t.sections.disabled.title}
             </h2>
-            <p class="text-base text-muted-foreground leading-relaxed">
-                Add the <code class="cu-code">disabled</code> attribute to prevent interaction.
-            </p>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.disabled.description} />
             <ComponentPreview code={disabledCode}>
                 <div class="space-y-2">
                     <div class="cu-checkbox-wrapper">
@@ -161,11 +156,9 @@ const groupCode = `<fieldset>
         <section class="space-y-3">
             <h2 id="checkbox-group" class="text-lg font-semibold tracking-tight relative group">
               <a href="#checkbox-group" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              Checkbox Group
+              {t.sections.checkboxGroup.title}
             </h2>
-            <p class="text-base text-muted-foreground leading-relaxed">
-                Group multiple checkboxes with a shared heading using a <code class="cu-code">&lt;fieldset&gt;</code> and <code class="cu-code">&lt;legend&gt;</code>.
-            </p>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.checkboxGroup.description} />
             <ComponentPreview code={groupCode}>
                 <fieldset>
                     <legend class="cu-label mb-2">Notifications</legend>

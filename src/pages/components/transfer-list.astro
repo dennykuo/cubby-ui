@@ -1,6 +1,11 @@
 ---
-import Layout from "../../layouts/Layout.astro";
-import ComponentPreview from "../../components/ComponentPreview.astro";
+import Layout from "@/layouts/Layout.astro";
+import ComponentPreview from "@/components/ComponentPreview.astro";
+import { getLocaleFromUrl, useTranslations } from "@/i18n";
+import { transferListPage } from "@/i18n/pages/components/transfer-list";
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = useTranslations(transferListPage, locale);
 
 const usageCode = `<div class="cu-transfer-list" data-cu-transfer-list>
   <!-- Left Panel -->
@@ -141,7 +146,7 @@ const usageCode = `<div class="cu-transfer-list" data-cu-transfer-list>
     updateCount(leftPanel);
     updateCount(rightPanel);
   });
-</script>`.trim();
+\x3c/script>`.trim();
 
 const withSearchCode = `<div class="cu-transfer-list" data-cu-transfer-list id="transfer-search">
   <!-- Left Panel -->
@@ -209,15 +214,13 @@ const withSearchCode = `<div class="cu-transfer-list" data-cu-transfer-list id="
 </div>`.trim();
 ---
 
-<Layout category="Forms" componentName="Transfer List" title="Transfer List — Cubby UI">
+<Layout category={t.category} componentName="Transfer List" title={t.title}>
     <div class="space-y-3">
         <div class="flex items-center gap-3">
           <h1 class="text-3xl font-bold tracking-tight">Transfer List</h1>
-          <span class="cu-badge cu-badge-secondary">Forms</span>
+          <span class="cu-badge cu-badge-secondary">{t.category}</span>
         </div>
-        <p class="text-base text-muted-foreground leading-relaxed">
-            A dual-panel list for moving items between two groups via checkboxes and directional buttons.
-        </p>
+        <p class="text-base text-muted-foreground leading-relaxed" set:html={t.description} />
     </div>
 
     <div class="mt-10 space-y-10">
@@ -225,16 +228,9 @@ const withSearchCode = `<div class="cu-transfer-list" data-cu-transfer-list id="
         <section class="space-y-3">
             <h2 id="usage" class="text-lg font-semibold tracking-tight relative group">
               <a href="#usage" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              Usage
+              {t.sections.usage.title}
             </h2>
-            <p class="text-base text-muted-foreground leading-relaxed">
-                Use <code class="cu-code">data-cu-transfer-list</code> on the container,
-                <code class="cu-code">data-cu-transfer-panel</code> on each panel,
-                <code class="cu-code">data-cu-transfer-check</code> on item checkboxes,
-                and <code class="cu-code">data-cu-transfer-to-right</code> /
-                <code class="cu-code">data-cu-transfer-to-left</code> on the action buttons.
-                The <code class="cu-code">&lt;script&gt;</code> handles checking, moving, and count updates.
-            </p>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
             <ComponentPreview code={usageCode}>
                 <div class="cu-transfer-list" data-cu-transfer-list>
                     <div class="cu-transfer-list-panel" data-cu-transfer-panel="left" style="width: 220px;">
@@ -288,68 +284,68 @@ const withSearchCode = `<div class="cu-transfer-list" data-cu-transfer-list id="
         <section class="space-y-3">
             <h2 id="classes" class="text-lg font-semibold tracking-tight relative group">
                 <a href="#classes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                CSS Classes
+                {t.sections.classes.title}
             </h2>
             <div class="cu-table-wrapper rounded-lg border border-border">
                 <table class="cu-table">
                     <thead class="cu-table-header">
                         <tr class="cu-table-row">
-                            <th class="cu-table-head">Class</th>
-                            <th class="cu-table-head">Description</th>
+                            <th class="cu-table-head">{t.sections.classes.classLabel}</th>
+                            <th class="cu-table-head">{t.sections.classes.descriptionLabel}</th>
                         </tr>
                     </thead>
                     <tbody class="cu-table-body">
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-transfer-list</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Transfer List container with horizontal panels and action buttons</td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-transfer-list']}</td>
                         </tr>
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-transfer-list-panel</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Left/right panel with border and rounded corners</td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-transfer-list-panel']}</td>
                         </tr>
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-transfer-list-header</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Panel header row with bottom border</td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-transfer-list-header']}</td>
                         </tr>
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-transfer-list-header-title</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Panel title text</td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-transfer-list-header-title']}</td>
                         </tr>
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-transfer-list-header-count</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Count text on the right of panel title</td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-transfer-list-header-count']}</td>
                         </tr>
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-transfer-list-search</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Search bar container with bottom border</td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-transfer-list-search']}</td>
                         </tr>
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-transfer-list-search-icon</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Search icon in the search bar</td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-transfer-list-search-icon']}</td>
                         </tr>
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-transfer-list-search-input</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Search input with transparent background</td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-transfer-list-search-input']}</td>
                         </tr>
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-transfer-list-content</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Item list container, scrollable with custom scrollbar</td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-transfer-list-content']}</td>
                         </tr>
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-transfer-list-item</code></td>
-                            <td class="cu-table-cell text-muted-foreground">List item with hover background</td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-transfer-list-item']}</td>
                         </tr>
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-transfer-list-item-checked</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Checked list item</td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-transfer-list-item-checked']}</td>
                         </tr>
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-transfer-list-actions</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Center action button group container</td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-transfer-list-actions']}</td>
                         </tr>
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-transfer-list-actions-button</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Move left/right action buttons</td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-transfer-list-actions-button']}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -361,12 +357,9 @@ const withSearchCode = `<div class="cu-transfer-list" data-cu-transfer-list id="
         <section class="space-y-3">
             <h2 id="with-search" class="text-lg font-semibold tracking-tight relative group">
               <a href="#with-search" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              With Search
+              {t.sections.withSearch.title}
             </h2>
-            <p class="text-base text-muted-foreground leading-relaxed">
-                Add a search input with <code class="cu-code">data-cu-transfer-search</code> to
-                filter items within each panel.
-            </p>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withSearch.description} />
             <ComponentPreview code={withSearchCode}>
                 <div class="cu-transfer-list" data-cu-transfer-list id="transfer-search">
                     <div class="cu-transfer-list-panel" data-cu-transfer-panel="left" style="width: 240px;">

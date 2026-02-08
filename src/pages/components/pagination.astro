@@ -1,11 +1,16 @@
 ---
-import Layout from "../../layouts/Layout.astro";
-import Pagination from "../../components/ui/Pagination.astro";
-import PaginationItem from "../../components/ui/PaginationItem.astro";
-import PaginationPrev from "../../components/ui/PaginationPrev.astro";
-import PaginationNext from "../../components/ui/PaginationNext.astro";
-import PaginationEllipsis from "../../components/ui/PaginationEllipsis.astro";
-import ComponentPreview from "../../components/ComponentPreview.astro";
+import Layout from "@/layouts/Layout.astro";
+import Pagination from "@/components/ui/Pagination.astro";
+import PaginationItem from "@/components/ui/PaginationItem.astro";
+import PaginationPrev from "@/components/ui/PaginationPrev.astro";
+import PaginationNext from "@/components/ui/PaginationNext.astro";
+import PaginationEllipsis from "@/components/ui/PaginationEllipsis.astro";
+import ComponentPreview from "@/components/ComponentPreview.astro";
+import { getLocaleFromUrl, useTranslations } from "@/i18n";
+import { paginationPage } from "@/i18n/pages/components/pagination";
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = useTranslations(paginationPage, locale);
 
 const usageCode = `<nav aria-label="Pagination">
   <ul class="cu-pagination">
@@ -40,14 +45,14 @@ const withPrevNextCode = `<nav aria-label="Pagination">
 </nav>`.trim();
 ---
 
-<Layout title="Pagination — Cubby UI" category="Navigation" componentName="Pagination">
+<Layout title={t.title} category={t.category} componentName="Pagination">
     <div class="space-y-3">
         <div class="flex items-center gap-3">
           <h1 class="text-3xl font-bold tracking-tight">Pagination</h1>
-          <span class="cu-badge cu-badge-secondary">Navigation</span>
+          <span class="cu-badge cu-badge-secondary">{t.category}</span>
         </div>
         <p class="text-base text-muted-foreground leading-relaxed">
-            Pagination with page navigation, previous and next controls.
+            {t.description}
         </p>
     </div>
 
@@ -56,13 +61,9 @@ const withPrevNextCode = `<nav aria-label="Pagination">
         <section class="space-y-3">
             <h2 id="usage" class="text-lg font-semibold tracking-tight relative group">
               <a href="#usage" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              Usage
+              {t.sections.usage.title}
             </h2>
-            <p class="text-base text-muted-foreground leading-relaxed">
-                Use <code class="cu-code">cu-pagination</code> on the list,
-                <code class="cu-code">cu-pagination-item</code> for page links, and
-                <code class="cu-code">cu-pagination-item-active</code> for the current page.
-            </p>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
             <ComponentPreview code={usageCode}>
                 <Pagination>
                     <PaginationItem href="#">1</PaginationItem>
@@ -76,40 +77,40 @@ const withPrevNextCode = `<nav aria-label="Pagination">
         <section class="space-y-3">
             <h2 id="classes" class="text-lg font-semibold tracking-tight relative group">
                 <a href="#classes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                CSS Classes
+                {t.sections.classes.title}
             </h2>
             <div class="cu-table-wrapper rounded-lg border border-border">
                 <table class="cu-table">
                     <thead class="cu-table-header">
                         <tr class="cu-table-row">
-                            <th class="cu-table-head">Class</th>
-                            <th class="cu-table-head">Description</th>
+                            <th class="cu-table-head">{t.sections.classes.classLabel}</th>
+                            <th class="cu-table-head">{t.sections.classes.descriptionLabel}</th>
                         </tr>
                     </thead>
                     <tbody class="cu-table-body">
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-pagination</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Pagination container, horizontally centered</td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-pagination']}</td>
                         </tr>
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-pagination-item</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Page number button</td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-pagination-item']}</td>
                         </tr>
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-pagination-item-active</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Active state for current page</td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-pagination-item-active']}</td>
                         </tr>
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-pagination-ellipsis</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Ellipsis</td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-pagination-ellipsis']}</td>
                         </tr>
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-pagination-prev</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Previous page button</td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-pagination-prev']}</td>
                         </tr>
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-pagination-next</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Next page button</td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-pagination-next']}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -121,11 +122,9 @@ const withPrevNextCode = `<nav aria-label="Pagination">
         <section class="space-y-3">
             <h2 id="with-ellipsis" class="text-lg font-semibold tracking-tight relative group">
               <a href="#with-ellipsis" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              With Ellipsis
+              {t.sections.withEllipsis.title}
             </h2>
-            <p class="text-base text-muted-foreground leading-relaxed">
-                Use <code class="cu-code">cu-pagination-ellipsis</code> to indicate skipped pages.
-            </p>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withEllipsis.description} />
             <ComponentPreview code={withEllipsisCode}>
                 <Pagination>
                     <PaginationPrev href="#" />
@@ -143,11 +142,9 @@ const withPrevNextCode = `<nav aria-label="Pagination">
         <section class="space-y-3">
             <h2 id="with-prev-next" class="text-lg font-semibold tracking-tight relative group">
               <a href="#with-prev-next" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              With Prev/Next
+              {t.sections.withPrevNext.title}
             </h2>
-            <p class="text-base text-muted-foreground leading-relaxed">
-                Add <code class="cu-code">cu-pagination-prev</code> and <code class="cu-code">cu-pagination-next</code> for navigation arrows.
-            </p>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withPrevNext.description} />
             <ComponentPreview code={withPrevNextCode}>
                 <Pagination>
                     <PaginationPrev href="#" />

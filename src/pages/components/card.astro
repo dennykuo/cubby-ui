@@ -1,14 +1,19 @@
 ---
-import Layout from "../../layouts/Layout.astro";
-import Button from "../../components/ui/Button.astro";
-import Card from "../../components/ui/Card.astro";
-import CardHeader from "../../components/ui/CardHeader.astro";
-import CardTitle from "../../components/ui/CardTitle.astro";
-import CardDescription from "../../components/ui/CardDescription.astro";
-import CardContent from "../../components/ui/CardContent.astro";
-import CardFooter from "../../components/ui/CardFooter.astro";
-import Badge from "../../components/ui/Badge.astro";
-import ComponentPreview from "../../components/ComponentPreview.astro";
+import Layout from "@/layouts/Layout.astro";
+import Button from "@/components/ui/Button.astro";
+import Card from "@/components/ui/Card.astro";
+import CardHeader from "@/components/ui/CardHeader.astro";
+import CardTitle from "@/components/ui/CardTitle.astro";
+import CardDescription from "@/components/ui/CardDescription.astro";
+import CardContent from "@/components/ui/CardContent.astro";
+import CardFooter from "@/components/ui/CardFooter.astro";
+import Badge from "@/components/ui/Badge.astro";
+import ComponentPreview from "@/components/ComponentPreview.astro";
+import { getLocaleFromUrl, useTranslations } from "@/i18n";
+import { cardPage } from "@/i18n/pages/components/card";
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = useTranslations(cardPage, locale);
 
 const usageCode = `<div class="cu-card">
   <div class="cu-card-header">
@@ -377,14 +382,14 @@ const loginCardCode = `<div class="cu-card w-[380px]">
 </div>`.trim();
 ---
 
-<Layout title="Card — Cubby UI" category="Basic" componentName="Card">
+<Layout title={t.title} category={t.category} componentName="Card">
     <div class="space-y-3">
         <div class="flex items-center gap-3">
             <h1 class="text-3xl font-bold tracking-tight">Card</h1>
-            <span class="cu-badge cu-badge-secondary">Basic</span>
+            <span class="cu-badge cu-badge-secondary">{t.category}</span>
         </div>
         <p class="text-base text-muted-foreground leading-relaxed">
-            Displays a card with header, content, and footer.
+            {t.description}
         </p>
     </div>
 
@@ -393,16 +398,9 @@ const loginCardCode = `<div class="cu-card w-[380px]">
         <section class="space-y-3">
             <h2 id="usage" class="text-lg font-semibold tracking-tight relative group">
                 <a href="#usage" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                Usage
+                {t.sections.usage.title}
             </h2>
-            <p class="text-base text-muted-foreground leading-relaxed">
-                A card is composed of
-                <code class="cu-code">cu-card</code>,
-                <code class="cu-code">cu-card-header</code>,
-                <code class="cu-code">cu-card-content</code>, and
-                <code class="cu-code">cu-card-footer</code>.
-                Each part is optional.
-            </p>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
             <ComponentPreview code={usageCode}>
                 <Card class="w-[380px]">
                     <CardHeader>
@@ -423,53 +421,23 @@ const loginCardCode = `<div class="cu-card w-[380px]">
     <section class="space-y-3">
       <h2 id="classes" class="text-lg font-semibold tracking-tight relative group">
         <a href="#classes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-        CSS Classes
+        {t.sections.classes.title}
       </h2>
       <div class="cu-table-wrapper rounded-lg border border-border">
         <table class="cu-table">
           <thead class="cu-table-header">
             <tr class="cu-table-row">
-              <th class="cu-table-head">Class</th>
-              <th class="cu-table-head">Description</th>
+              <th class="cu-table-head">{t.sections.classes.classLabel}</th>
+              <th class="cu-table-head">{t.sections.classes.descriptionLabel}</th>
             </tr>
           </thead>
           <tbody class="cu-table-body">
-            <tr class="cu-table-row">
-              <td class="cu-table-cell"><code class="cu-code">cu-card</code></td>
-              <td class="cu-table-cell text-muted-foreground">Base card</td>
-            </tr>
-            <tr class="cu-table-row">
-              <td class="cu-table-cell"><code class="cu-code">cu-card-hover</code></td>
-              <td class="cu-table-cell text-muted-foreground">Hover shadow effect (opt-in)</td>
-            </tr>
-            <tr class="cu-table-row">
-              <td class="cu-table-cell"><code class="cu-code">cu-card-header</code></td>
-              <td class="cu-table-cell text-muted-foreground">Card header</td>
-            </tr>
-            <tr class="cu-table-row">
-              <td class="cu-table-cell"><code class="cu-code">cu-card-title</code></td>
-              <td class="cu-table-cell text-muted-foreground">Card title</td>
-            </tr>
-            <tr class="cu-table-row">
-              <td class="cu-table-cell"><code class="cu-code">cu-card-description</code></td>
-              <td class="cu-table-cell text-muted-foreground">Card description</td>
-            </tr>
-            <tr class="cu-table-row">
-              <td class="cu-table-cell"><code class="cu-code">cu-card-content</code></td>
-              <td class="cu-table-cell text-muted-foreground">Card content area</td>
-            </tr>
-            <tr class="cu-table-row">
-              <td class="cu-table-cell"><code class="cu-code">cu-card-content-flush</code></td>
-              <td class="cu-table-cell text-muted-foreground">Flush content area (for table-in-card)</td>
-            </tr>
-            <tr class="cu-table-row">
-              <td class="cu-table-cell"><code class="cu-code">cu-card-content-sm</code></td>
-              <td class="cu-table-cell text-muted-foreground">Compact content padding</td>
-            </tr>
-            <tr class="cu-table-row">
-              <td class="cu-table-cell"><code class="cu-code">cu-card-footer</code></td>
-              <td class="cu-table-cell text-muted-foreground">Card footer</td>
-            </tr>
+            {Object.entries(t.classDescriptions).map(([cls, desc]) => (
+              <tr class="cu-table-row">
+                <td class="cu-table-cell"><code class="cu-code">{cls}</code></td>
+                <td class="cu-table-cell text-muted-foreground">{desc}</td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>
@@ -480,10 +448,10 @@ const loginCardCode = `<div class="cu-card w-[380px]">
         <section class="space-y-3">
             <h2 id="form-card" class="text-lg font-semibold tracking-tight relative group">
                 <a href="#form-card" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                Form Card
+                {t.sections.formCard.title}
             </h2>
             <p class="text-base text-muted-foreground leading-relaxed">
-                Cards work well as containers for forms with actions in the footer.
+                {t.sections.formCard.description}
             </p>
             <ComponentPreview code={formCardCode}>
                 <Card class="w-[380px]">
@@ -524,10 +492,10 @@ const loginCardCode = `<div class="cu-card w-[380px]">
         <section class="space-y-3">
             <h2 id="login-card" class="text-lg font-semibold tracking-tight relative group">
                 <a href="#login-card" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                Login Card
+                {t.sections.loginCard.title}
             </h2>
             <p class="text-base text-muted-foreground leading-relaxed">
-                A sign-in form with social login options and a separator divider.
+                {t.sections.loginCard.description}
             </p>
             <ComponentPreview code={loginCardCode}>
                 <Card class="w-[380px]">
@@ -567,10 +535,10 @@ const loginCardCode = `<div class="cu-card w-[380px]">
         <section class="space-y-3">
             <h2 id="notification-card" class="text-lg font-semibold tracking-tight relative group">
                 <a href="#notification-card" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                Notification Card
+                {t.sections.notificationCard.title}
             </h2>
             <p class="text-base text-muted-foreground leading-relaxed">
-                Cards can contain lists of items with timestamps and a full-width action button.
+                {t.sections.notificationCard.description}
             </p>
             <ComponentPreview code={notificationCardCode}>
                 <Card class="w-[380px]">
@@ -615,12 +583,9 @@ const loginCardCode = `<div class="cu-card w-[380px]">
         <section class="space-y-3">
             <h2 id="table-in-card" class="text-lg font-semibold tracking-tight relative group">
                 <a href="#table-in-card" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                Table in Card
+                {t.sections.tableInCard.title}
             </h2>
-            <p class="text-base text-muted-foreground leading-relaxed">
-                Use <code class="cu-code">cu-card-content-flush</code> to remove the default padding when embedding a table.
-                This is a common pattern for dashboard data grids.
-            </p>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.tableInCard.description} />
             <ComponentPreview code={tableInCardCode}>
                 <Card class="w-full max-w-lg">
                     <CardHeader>
@@ -665,10 +630,10 @@ const loginCardCode = `<div class="cu-card w-[380px]">
         <section class="space-y-3">
             <h2 id="team-members" class="text-lg font-semibold tracking-tight relative group">
                 <a href="#team-members" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                Team Members
+                {t.sections.teamMembers.title}
             </h2>
             <p class="text-base text-muted-foreground leading-relaxed">
-                A member list with avatars, roles, and an invite action.
+                {t.sections.teamMembers.description}
             </p>
             <ComponentPreview code={teamCardCode}>
                 <Card class="w-[380px]">
@@ -728,10 +693,10 @@ const loginCardCode = `<div class="cu-card w-[380px]">
         <section class="space-y-3">
             <h2 id="profile-card" class="text-lg font-semibold tracking-tight relative group">
                 <a href="#profile-card" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                Profile Card
+                {t.sections.profileCard.title}
             </h2>
             <p class="text-base text-muted-foreground leading-relaxed">
-                A centered profile card with avatar, stats grid, and action buttons.
+                {t.sections.profileCard.description}
             </p>
             <ComponentPreview code={profileCardCode}>
                 <Card class="w-[380px]">
@@ -776,12 +741,9 @@ const loginCardCode = `<div class="cu-card w-[380px]">
         <section class="space-y-3">
             <h2 id="hover-effect" class="text-lg font-semibold tracking-tight relative group">
                 <a href="#hover-effect" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                Hover Effect
+                {t.sections.hoverEffect.title}
             </h2>
-            <p class="text-base text-muted-foreground leading-relaxed">
-                Add <code class="cu-code">cu-card-hover</code> for an interactive shadow lift on hover.
-                Ideal for feature grids and clickable cards.
-            </p>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.hoverEffect.description} />
             <ComponentPreview code={hoverCode}>
                 <div class="grid w-full grid-cols-1 gap-4 sm:grid-cols-3">
                     <Card class="cu-card-hover">
@@ -819,10 +781,10 @@ const loginCardCode = `<div class="cu-card w-[380px]">
         <section class="space-y-3">
             <h2 id="metric-card" class="text-lg font-semibold tracking-tight relative group">
                 <a href="#metric-card" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                Metric Card
+                {t.sections.metricCard.title}
             </h2>
             <p class="text-base text-muted-foreground leading-relaxed">
-                A minimal card without a footer — useful for dashboards and stats.
+                {t.sections.metricCard.description}
             </p>
             <ComponentPreview code={metricCode}>
                 <div class="flex flex-wrap gap-4 justify-center">
@@ -854,10 +816,10 @@ const loginCardCode = `<div class="cu-card w-[380px]">
         <section class="space-y-3">
             <h2 id="pricing-cards" class="text-lg font-semibold tracking-tight relative group">
                 <a href="#pricing-cards" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                Pricing Cards
+                {t.sections.pricingCards.title}
             </h2>
             <p class="text-base text-muted-foreground leading-relaxed">
-                A pricing comparison grid. Highlight the recommended plan with a stronger border and shadow.
+                {t.sections.pricingCards.description}
             </p>
             <ComponentPreview code={pricingCardCode}>
                 <div class="grid w-full grid-cols-1 gap-4 sm:grid-cols-3">

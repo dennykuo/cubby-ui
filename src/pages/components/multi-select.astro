@@ -1,6 +1,11 @@
 ---
-import Layout from "../../layouts/Layout.astro";
-import ComponentPreview from "../../components/ComponentPreview.astro";
+import Layout from "@/layouts/Layout.astro";
+import ComponentPreview from "@/components/ComponentPreview.astro";
+import { getLocaleFromUrl, useTranslations } from "@/i18n";
+import { multiSelectPage } from "@/i18n/pages/components/multi-select";
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = useTranslations(multiSelectPage, locale);
 
 const usageCode = `<div class="cu-multi-select" data-cu-multi-select style="width: 300px;">
   <button class="cu-multi-select-trigger" data-cu-multi-select-trigger>
@@ -103,7 +108,7 @@ const usageCode = `<div class="cu-multi-select" data-cu-multi-select style="widt
       }
     });
   });
-</script>`.trim();
+\x3c/script>`.trim();
 
 const withSearchCode = `<div class="cu-multi-select" data-cu-multi-select style="width: 300px;">
   <button class="cu-multi-select-trigger" data-cu-multi-select-trigger>
@@ -149,15 +154,13 @@ const presetCode = `<div class="cu-multi-select" data-cu-multi-select style="wid
 </div>`.trim();
 ---
 
-<Layout category="Forms" componentName="Multi Select" title="Multi Select — Cubby UI">
+<Layout category={t.category} componentName="Multi Select" title={t.title}>
     <div class="space-y-3">
         <div class="flex items-center gap-3">
           <h1 class="text-3xl font-bold tracking-tight">Multi Select</h1>
-          <span class="cu-badge cu-badge-secondary">Forms</span>
+          <span class="cu-badge cu-badge-secondary">{t.category}</span>
         </div>
-        <p class="text-base text-muted-foreground leading-relaxed">
-            A multi-selection dropdown with tag display, supporting search filtering and removal.
-        </p>
+        <p class="text-base text-muted-foreground leading-relaxed" set:html={t.description} />
     </div>
 
     <div class="mt-10 space-y-10">
@@ -165,15 +168,9 @@ const presetCode = `<div class="cu-multi-select" data-cu-multi-select style="wid
         <section class="space-y-3">
             <h2 id="usage" class="text-lg font-semibold tracking-tight relative group">
               <a href="#usage" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              Usage
+              {t.sections.usage.title}
             </h2>
-            <p class="text-base text-muted-foreground leading-relaxed">
-                Use <code class="cu-code">data-cu-multi-select</code> on the wrapper,
-                <code class="cu-code">data-cu-multi-select-trigger</code> on the button,
-                <code class="cu-code">data-cu-multi-select-content</code> on the dropdown, and
-                <code class="cu-code">data-cu-multi-select-item</code> on each option.
-                Selected items appear as removable tags in the trigger area.
-            </p>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
             <ComponentPreview code={usageCode}>
                 <div class="cu-multi-select" data-cu-multi-select style="width: 300px;">
                     <button class="cu-multi-select-trigger" data-cu-multi-select-trigger>
@@ -200,80 +197,80 @@ const presetCode = `<div class="cu-multi-select" data-cu-multi-select style="wid
         <section class="space-y-3">
             <h2 id="classes" class="text-lg font-semibold tracking-tight relative group">
                 <a href="#classes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                CSS Classes
+                {t.sections.classes.title}
             </h2>
             <div class="cu-table-wrapper rounded-lg border border-border">
                 <table class="cu-table">
                     <thead class="cu-table-header">
                         <tr class="cu-table-row">
-                            <th class="cu-table-head">Class</th>
-                            <th class="cu-table-head">Description</th>
+                            <th class="cu-table-head">{t.sections.classes.classLabel}</th>
+                            <th class="cu-table-head">{t.sections.classes.descriptionLabel}</th>
                         </tr>
                     </thead>
                     <tbody class="cu-table-body">
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-multi-select</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Multi Select container, relatively positioned inline-block</td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-multi-select']}</td>
                         </tr>
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-multi-select-trigger</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Trigger button with multi-line tag display</td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-multi-select-trigger']}</td>
                         </tr>
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-multi-select-tags</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Flex wrap container for selected tags</td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-multi-select-tags']}</td>
                         </tr>
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-multi-select-tag</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Selected item tag style</td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-multi-select-tag']}</td>
                         </tr>
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-multi-select-tag-remove</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Remove button on tag</td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-multi-select-tag-remove']}</td>
                         </tr>
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-multi-select-placeholder</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Placeholder text when nothing selected</td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-multi-select-placeholder']}</td>
                         </tr>
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-multi-select-icon</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Arrow icon on the right side of trigger</td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-multi-select-icon']}</td>
                         </tr>
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-multi-select-content</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Floating dropdown panel with rounded corners and shadow</td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-multi-select-content']}</td>
                         </tr>
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-multi-select-search</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Search bar container with bottom border</td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-multi-select-search']}</td>
                         </tr>
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-multi-select-search-icon</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Search icon in the search bar</td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-multi-select-search-icon']}</td>
                         </tr>
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-multi-select-input</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Search input with transparent background</td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-multi-select-input']}</td>
                         </tr>
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-multi-select-list</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Options list container, scrollable (max height 200px)</td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-multi-select-list']}</td>
                         </tr>
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-multi-select-empty</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Empty state text when no results found</td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-multi-select-empty']}</td>
                         </tr>
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-multi-select-item</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Option item with hover background and left check space</td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-multi-select-item']}</td>
                         </tr>
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-multi-select-item-active</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Selected option item</td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-multi-select-item-active']}</td>
                         </tr>
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-multi-select-item-check</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Check icon on the left side of option</td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-multi-select-item-check']}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -285,11 +282,9 @@ const presetCode = `<div class="cu-multi-select" data-cu-multi-select style="wid
         <section class="space-y-3">
             <h2 id="with-search" class="text-lg font-semibold tracking-tight relative group">
               <a href="#with-search" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              With Search
+              {t.sections.withSearch.title}
             </h2>
-            <p class="text-base text-muted-foreground leading-relaxed">
-                Add a search input with <code class="cu-code">cu-multi-select-search</code> to filter options.
-            </p>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withSearch.description} />
             <ComponentPreview code={withSearchCode}>
                 <div class="cu-multi-select" data-cu-multi-select style="width: 300px;">
                     <button class="cu-multi-select-trigger" data-cu-multi-select-trigger>
@@ -320,12 +315,9 @@ const presetCode = `<div class="cu-multi-select" data-cu-multi-select style="wid
         <section class="space-y-3">
             <h2 id="preset-values" class="text-lg font-semibold tracking-tight relative group">
               <a href="#preset-values" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              Preset Values
+              {t.sections.presetValues.title}
             </h2>
-            <p class="text-base text-muted-foreground leading-relaxed">
-                Pre-select items by adding <code class="cu-code">cu-multi-select-item-active</code> to items
-                and rendering tags in the trigger area on initial load.
-            </p>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.presetValues.description} />
             <ComponentPreview code={presetCode}>
                 <div class="cu-multi-select" data-cu-multi-select style="width: 300px;">
                     <button class="cu-multi-select-trigger" data-cu-multi-select-trigger>

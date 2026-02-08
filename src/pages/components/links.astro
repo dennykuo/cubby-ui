@@ -1,7 +1,12 @@
 ---
-import Layout from "../../layouts/Layout.astro";
-import Link from "../../components/ui/Link.astro";
-import ComponentPreview from "../../components/ComponentPreview.astro";
+import Layout from "@/layouts/Layout.astro";
+import Link from "@/components/ui/Link.astro";
+import ComponentPreview from "@/components/ComponentPreview.astro";
+import { getLocaleFromUrl, useTranslations } from "@/i18n";
+import { linksPage } from "@/i18n/pages/components/links";
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = useTranslations(linksPage, locale);
 
 const usageCode = `<a class="cu-link" href="#">Click here</a>`.trim();
 
@@ -47,15 +52,13 @@ const cardLinksCode = `<div class="cu-card cu-card-hover p-5 space-y-3 max-w-sm"
 </div>`.trim();
 ---
 
-<Layout title="Links — Cubby UI" category="Typography" componentName="Links">
+<Layout title={t.title} category={t.category} componentName="Links">
     <div class="space-y-3">
         <div class="flex items-center gap-3">
           <h1 class="text-3xl font-bold tracking-tight">Links</h1>
-          <span class="cu-badge cu-badge-secondary">Typography</span>
+          <span class="cu-badge cu-badge-secondary">{t.category}</span>
         </div>
-        <p class="text-base text-muted-foreground leading-relaxed">
-            Styled anchor links with multiple variants — underlined, plain, muted, and subtle — for different contexts.
-        </p>
+        <p class="text-base text-muted-foreground leading-relaxed" set:html={t.description} />
     </div>
 
     <div class="mt-10 space-y-10">
@@ -63,12 +66,9 @@ const cardLinksCode = `<div class="cu-card cu-card-hover p-5 space-y-3 max-w-sm"
         <section class="space-y-3">
             <h2 id="usage" class="text-lg font-semibold tracking-tight relative group">
               <a href="#usage" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              Usage
+              {t.sections.usage.title}
             </h2>
-            <p class="text-base text-muted-foreground leading-relaxed">
-                Apply <code class="cu-code">cu-link</code> to an anchor element
-                for a styled inline link with underline and hover transition.
-            </p>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
             <ComponentPreview code={usageCode}>
                 <Link href="#">Click here</Link>
             </ComponentPreview>
@@ -78,36 +78,36 @@ const cardLinksCode = `<div class="cu-card cu-card-hover p-5 space-y-3 max-w-sm"
     <section class="space-y-3">
       <h2 id="classes" class="text-lg font-semibold tracking-tight relative group">
         <a href="#classes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-        CSS Classes
+        {t.sections.classes.title}
       </h2>
       <div class="cu-table-wrapper rounded-lg border border-border">
         <table class="cu-table">
           <thead class="cu-table-header">
             <tr class="cu-table-row">
-              <th class="cu-table-head">Class</th>
-              <th class="cu-table-head">Description</th>
+              <th class="cu-table-head">{t.sections.classes.classLabel}</th>
+              <th class="cu-table-head">{t.sections.classes.descriptionLabel}</th>
             </tr>
           </thead>
           <tbody class="cu-table-body">
             <tr class="cu-table-row">
               <td class="cu-table-cell"><code class="cu-code">cu-link</code></td>
-              <td class="cu-table-cell text-muted-foreground">Base link style with underline and hover transition</td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-link']}</td>
             </tr>
             <tr class="cu-table-row">
               <td class="cu-table-cell"><code class="cu-code">cu-link-plain</code></td>
-              <td class="cu-table-cell text-muted-foreground">No-underline link, underline appears on hover</td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-link-plain']}</td>
             </tr>
             <tr class="cu-table-row">
               <td class="cu-table-cell"><code class="cu-code">cu-link-muted</code></td>
-              <td class="cu-table-cell text-muted-foreground">Soft-colored link, darkens on hover</td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-link-muted']}</td>
             </tr>
             <tr class="cu-table-row">
               <td class="cu-table-cell"><code class="cu-code">cu-link-subtle</code></td>
-              <td class="cu-table-cell text-muted-foreground">Inline link blending with body text, primary color on hover</td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-link-subtle']}</td>
             </tr>
             <tr class="cu-table-row">
               <td class="cu-table-cell"><code class="cu-code">cu-link-external</code></td>
-              <td class="cu-table-cell text-muted-foreground">External link, inline-flex layout with icon</td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-link-external']}</td>
             </tr>
           </tbody>
         </table>
@@ -119,15 +119,9 @@ const cardLinksCode = `<div class="cu-card cu-card-hover p-5 space-y-3 max-w-sm"
         <section class="space-y-3">
             <h2 id="variants" class="text-lg font-semibold tracking-tight relative group">
               <a href="#variants" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              Variants
+              {t.sections.variants.title}
             </h2>
-            <p class="text-base text-muted-foreground leading-relaxed">
-                Four link styles for different use cases.
-                <code class="cu-code">cu-link</code> (default with underline),
-                <code class="cu-code">cu-link-plain</code> (underline on hover only),
-                <code class="cu-code">cu-link-muted</code> (muted color, no underline),
-                <code class="cu-code">cu-link-subtle</code> (foreground color, turns primary on hover).
-            </p>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.variants.description} />
             <ComponentPreview code={variantsCode}>
                 <div class="flex flex-wrap items-center gap-6">
                     <Link href="#">Default</Link>
@@ -142,12 +136,9 @@ const cardLinksCode = `<div class="cu-card cu-card-hover p-5 space-y-3 max-w-sm"
         <section class="space-y-3">
             <h2 id="plain" class="text-lg font-semibold tracking-tight relative group">
               <a href="#plain" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              Plain
+              {t.sections.plain.title}
             </h2>
-            <p class="text-base text-muted-foreground leading-relaxed">
-                Use <code class="cu-code">cu-link cu-link-plain</code> for links
-                that only show an underline on hover. Cleaner for navigation-heavy areas.
-            </p>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.plain.description} />
             <ComponentPreview code={plainCode}>
                 <a class="cu-link cu-link-plain" href="#">No underline until hover</a>
             </ComponentPreview>
@@ -157,12 +148,9 @@ const cardLinksCode = `<div class="cu-card cu-card-hover p-5 space-y-3 max-w-sm"
         <section class="space-y-3">
             <h2 id="muted" class="text-lg font-semibold tracking-tight relative group">
               <a href="#muted" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              Muted
+              {t.sections.muted.title}
             </h2>
-            <p class="text-base text-muted-foreground leading-relaxed">
-                Use <code class="cu-code">cu-link cu-link-muted</code> for
-                de-emphasized links such as footer links or secondary navigation. Text brightens to foreground on hover.
-            </p>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.muted.description} />
             <ComponentPreview code={mutedCode}>
                 <a class="cu-link cu-link-muted" href="#">Muted link</a>
             </ComponentPreview>
@@ -172,12 +160,9 @@ const cardLinksCode = `<div class="cu-card cu-card-hover p-5 space-y-3 max-w-sm"
         <section class="space-y-3">
             <h2 id="subtle" class="text-lg font-semibold tracking-tight relative group">
               <a href="#subtle" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              Subtle
+              {t.sections.subtle.title}
             </h2>
-            <p class="text-base text-muted-foreground leading-relaxed">
-                Use <code class="cu-code">cu-link cu-link-subtle</code> for
-                links that blend with body text and reveal their primary color on hover.
-            </p>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.subtle.description} />
             <ComponentPreview code={subtleCode}>
                 <a class="cu-link cu-link-subtle" href="#">Subtle link</a>
             </ComponentPreview>
@@ -187,11 +172,9 @@ const cardLinksCode = `<div class="cu-card cu-card-hover p-5 space-y-3 max-w-sm"
         <section class="space-y-3">
             <h2 id="inline" class="text-lg font-semibold tracking-tight relative group">
               <a href="#inline" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              Inline
+              {t.sections.inline.title}
             </h2>
-            <p class="text-base text-muted-foreground leading-relaxed">
-                Links blend naturally within paragraph text.
-            </p>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.inline.description} />
             <ComponentPreview code={inlineCode}>
                 <div class="w-full max-w-lg">
                     <p class="cu-p">
@@ -208,12 +191,9 @@ const cardLinksCode = `<div class="cu-card cu-card-hover p-5 space-y-3 max-w-sm"
         <section class="space-y-3">
             <h2 id="external-link" class="text-lg font-semibold tracking-tight relative group">
               <a href="#external-link" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              External Link
+              {t.sections.externalLink.title}
             </h2>
-            <p class="text-base text-muted-foreground leading-relaxed">
-                Add <code class="cu-code">cu-link-external</code> for links that open in a new tab.
-                Pairs well with an external-link icon to signal the behavior.
-            </p>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.externalLink.description} />
             <ComponentPreview code={externalCode}>
                 <a class="cu-link cu-link-external" href="#" target="_blank" rel="noopener noreferrer">
                     View on GitHub
@@ -226,11 +206,9 @@ const cardLinksCode = `<div class="cu-card cu-card-hover p-5 space-y-3 max-w-sm"
         <section class="space-y-3">
             <h2 id="navigation-list" class="text-lg font-semibold tracking-tight relative group">
               <a href="#navigation-list" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              Navigation List
+              {t.sections.navigationList.title}
             </h2>
-            <p class="text-base text-muted-foreground leading-relaxed">
-                Combine <code class="cu-code">cu-link-muted</code> with a list for sidebar or footer navigation.
-            </p>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.navigationList.description} />
             <ComponentPreview code={navListCode}>
                 <div class="w-full max-w-xs">
                     <nav>
@@ -249,11 +227,9 @@ const cardLinksCode = `<div class="cu-card cu-card-hover p-5 space-y-3 max-w-sm"
         <section class="space-y-3">
             <h2 id="card-links" class="text-lg font-semibold tracking-tight relative group">
               <a href="#card-links" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              Card Links
+              {t.sections.cardLinks.title}
             </h2>
-            <p class="text-base text-muted-foreground leading-relaxed">
-                Use <code class="cu-code">cu-link-subtle</code> inside cards for a clean, understated link list.
-            </p>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.cardLinks.description} />
             <ComponentPreview code={cardLinksCode}>
                 <div class="cu-card cu-card-hover p-5 space-y-3 max-w-sm">
                     <h3 class="text-sm font-semibold">Resources</h3>

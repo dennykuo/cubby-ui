@@ -1,9 +1,14 @@
 ---
-import Layout from "../../layouts/Layout.astro";
-import Steps from "../../components/ui/Steps.astro";
-import StepsItem from "../../components/ui/StepsItem.astro";
-import StepsSeparator from "../../components/ui/StepsSeparator.astro";
-import ComponentPreview from "../../components/ComponentPreview.astro";
+import Layout from "@/layouts/Layout.astro";
+import Steps from "@/components/ui/Steps.astro";
+import StepsItem from "@/components/ui/StepsItem.astro";
+import StepsSeparator from "@/components/ui/StepsSeparator.astro";
+import ComponentPreview from "@/components/ComponentPreview.astro";
+import { getLocaleFromUrl, useTranslations } from "@/i18n";
+import { stepsPage } from "@/i18n/pages/components/steps";
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = useTranslations(stepsPage, locale);
 
 const usageCode = `<div class="cu-steps">
   <div class="cu-steps-item cu-steps-item-completed">
@@ -99,14 +104,14 @@ const verticalCode = `<div class="cu-steps cu-steps-vertical">
 const checkIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>`;
 ---
 
-<Layout title="Steps — Cubby UI" category="Navigation" componentName="Steps">
+<Layout title={t.title} category={t.category} componentName="Steps">
     <div class="space-y-3">
         <div class="flex items-center gap-3">
           <h1 class="text-3xl font-bold tracking-tight">Steps</h1>
-          <span class="cu-badge cu-badge-secondary">Navigation</span>
+          <span class="cu-badge cu-badge-secondary">{t.category}</span>
         </div>
         <p class="text-base text-muted-foreground leading-relaxed">
-            A step indicator for multi-step workflows and wizards.
+            {t.description}
         </p>
     </div>
 
@@ -115,16 +120,9 @@ const checkIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14
         <section class="space-y-3">
             <h2 id="usage" class="text-lg font-semibold tracking-tight relative group">
               <a href="#usage" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              Usage
+              {t.sections.usage.title}
             </h2>
-            <p class="text-base text-muted-foreground leading-relaxed">
-                Use <code class="cu-code">cu-steps</code> as the container, with
-                <code class="cu-code">cu-steps-item</code> for each step and
-                <code class="cu-code">cu-steps-separator</code> between them.
-                Apply <code class="cu-code">cu-steps-item-completed</code>,
-                <code class="cu-code">cu-steps-item-active</code>, or
-                <code class="cu-code">cu-steps-item-upcoming</code> for state styling.
-            </p>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
             <ComponentPreview code={usageCode}>
                 <div class="w-full max-w-lg">
                     <Steps>
@@ -151,60 +149,60 @@ const checkIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14
         <section class="space-y-3">
             <h2 id="classes" class="text-lg font-semibold tracking-tight relative group">
                 <a href="#classes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                CSS Classes
+                {t.sections.classes.title}
             </h2>
             <div class="cu-table-wrapper rounded-lg border border-border">
                 <table class="cu-table">
                     <thead class="cu-table-header">
                         <tr class="cu-table-row">
-                            <th class="cu-table-head">Class</th>
-                            <th class="cu-table-head">Description</th>
+                            <th class="cu-table-head">{t.sections.classes.classLabel}</th>
+                            <th class="cu-table-head">{t.sections.classes.descriptionLabel}</th>
                         </tr>
                     </thead>
                     <tbody class="cu-table-body">
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-steps</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Steps container, horizontal layout</td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-steps']}</td>
                         </tr>
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-steps-vertical</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Vertical layout modifier</td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-steps-vertical']}</td>
                         </tr>
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-steps-item</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Single step item</td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-steps-item']}</td>
                         </tr>
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-steps-item-completed</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Completed state</td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-steps-item-completed']}</td>
                         </tr>
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-steps-item-active</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Current / in-progress state</td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-steps-item-active']}</td>
                         </tr>
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-steps-item-upcoming</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Pending state</td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-steps-item-upcoming']}</td>
                         </tr>
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-steps-number</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Step number circle</td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-steps-number']}</td>
                         </tr>
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-steps-content</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Step text content area</td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-steps-content']}</td>
                         </tr>
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-steps-title</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Step title</td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-steps-title']}</td>
                         </tr>
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-steps-description</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Step description text</td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-steps-description']}</td>
                         </tr>
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-steps-separator</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Connector line between steps</td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-steps-separator']}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -216,11 +214,9 @@ const checkIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14
         <section class="space-y-3">
             <h2 id="with-descriptions" class="text-lg font-semibold tracking-tight relative group">
               <a href="#with-descriptions" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              With Descriptions
+              {t.sections.withDescriptions.title}
             </h2>
-            <p class="text-base text-muted-foreground leading-relaxed">
-                Add <code class="cu-code">cu-steps-description</code> below the title for additional context.
-            </p>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withDescriptions.description} />
             <ComponentPreview code={withDescCode}>
                 <div class="w-full max-w-lg">
                     <Steps>
@@ -256,11 +252,9 @@ const checkIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14
         <section class="space-y-3">
             <h2 id="vertical" class="text-lg font-semibold tracking-tight relative group">
               <a href="#vertical" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              Vertical
+              {t.sections.vertical.title}
             </h2>
-            <p class="text-base text-muted-foreground leading-relaxed">
-                Use <code class="cu-code">cu-steps-vertical</code> for a vertical layout, suitable for order tracking or timelines.
-            </p>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.vertical.description} />
             <ComponentPreview code={verticalCode}>
                 <div class="w-full max-w-sm">
                     <Steps vertical>

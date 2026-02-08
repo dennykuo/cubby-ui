@@ -15,6 +15,35 @@ body {
   @apply rounded bg-muted px-1.5 py-0.5 text-[13px] font-mono text-foreground cursor-pointer transition-colors duration-150 hover:bg-muted/80;
 }
 
+.cu-preview-device-btn {
+  @apply inline-flex size-7 items-center justify-center rounded-md text-muted-foreground/50 transition-colors duration-150 hover:text-foreground cursor-pointer;
+}
+
+.cu-preview-device-btn-active {
+  @apply text-foreground bg-muted/60;
+}
+
+/* Mobile navigation drawer */
+.cu-mobile-nav-backdrop {
+  opacity: 0;
+  transition: opacity 0.2s ease-in;
+}
+
+.cu-mobile-nav-backdrop-visible {
+  opacity: 1;
+  transition: opacity 0.2s ease-out;
+}
+
+.cu-mobile-nav-panel {
+  transform: translateX(-100%);
+  transition: transform 0.2s ease-in;
+}
+
+.cu-mobile-nav-panel-visible {
+  transform: translateX(0);
+  transition: transform 0.2s ease-out;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

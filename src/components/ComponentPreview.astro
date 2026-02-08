@@ -1,5 +1,7 @@
 ---
 import { Code } from "astro-expressive-code/components";
+import { getLocaleFromUrl } from "@/i18n";
+import { uiTranslations } from "@/i18n/ui";
 
 interface Props {
 	class?: string;
@@ -10,6 +12,8 @@ interface Props {
 const { class: className, code = "", align = "center" } = Astro.props;
 const codeLineCount = code.split("\n").length;
 const shouldCollapse = codeLineCount > 8;
+const locale = getLocaleFromUrl(Astro.url);
+const t = uiTranslations[locale];
 ---
 
 <div
@@ -18,10 +22,27 @@ const shouldCollapse = codeLineCount > 8;
 		className,
 	]}
 	data-cu-component-preview
+	data-cu-i18n-copy={t.copy}
+	data-cu-i18n-copied={t.copied}
+	data-cu-i18n-expand={t.expandCode}
+	data-cu-i18n-collapse={t.collapseCode}
 >
+	<!-- Responsive toggle toolbar -->
+	<div class="flex items-center gap-1 px-4 py-2 border-b border-border/20">
+		<button class="cu-preview-device-btn cu-preview-device-btn-active" data-cu-preview-device="100%" aria-label="Desktop" title="Desktop">
+			<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8"/><path d="M12 17v4"/></svg>
+		</button>
+		<button class="cu-preview-device-btn" data-cu-preview-device="768px" aria-label="Tablet" title="Tablet">
+			<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M12 18h.01"/></svg>
+		</button>
+		<button class="cu-preview-device-btn" data-cu-preview-device="375px" aria-label="Mobile" title="Mobile">
+			<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18h.01"/></svg>
+		</button>
+	</div>
+
 	<div
 		class:list={[
-			"p-8 min-h-[200px] w-full flex items-center preview-container bg-background/50 relative rounded-t-xl",
+			"p-8 min-h-[200px] w-full flex items-center preview-container bg-background/50 relative",
 			align === "center"
 				? "justify-center"
 				: align === "start"
@@ -30,10 +51,12 @@ const shouldCollapse = codeLineCount > 8;
 		]}
 	>
 		<div
-			class="absolute inset-0 -z-10 h-full w-full rounded-t-xl bg-white dark:bg-slate-950 bg-[radial-gradient(#f1f5f9_1px,transparent_1px)] dark:bg-[radial-gradient(#1e293b_1px,transparent_1px)] [background-size:16px_16px]"
+			class="absolute inset-0 -z-10 h-full w-full bg-white dark:bg-slate-950 bg-[radial-gradient(#f1f5f9_1px,transparent_1px)] dark:bg-[radial-gradient(#1e293b_1px,transparent_1px)] [background-size:16px_16px]"
 		>
 		</div>
-		<slot />
+		<div class="w-full mx-auto transition-[max-width] duration-200" data-cu-preview-frame style="max-width:100%">
+			<slot />
+		</div>
 	</div>
 
 	<div
@@ -44,7 +67,7 @@ const shouldCollapse = codeLineCount > 8;
 			<button
 				class="inline-flex items-center gap-1.5 rounded-md px-2 py-1 text-[11px] text-muted-foreground transition-colors duration-150 hover:text-foreground cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/40 focus-visible:ring-offset-1"
 				data-copy-btn
-				aria-label="Copy code"
+				aria-label={t.copy}
 			>
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
@@ -62,7 +85,7 @@ const shouldCollapse = codeLineCount > 8;
 						d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
 					></path>
 				</svg>
-				<span data-cu-copy-label>Copy</span>
+				<span data-cu-copy-label>{t.copy}</span>
 			</button>
 		</div>
 		<div
@@ -81,7 +104,7 @@ const shouldCollapse = codeLineCount > 8;
 						data-cu-code-toggle
 					>
 						<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
-						Expand Code
+						{t.expandCode}
 					</button>
 				</div>
 			)}
@@ -94,6 +117,12 @@ const shouldCollapse = codeLineCount > 8;
 		const previews = document.querySelectorAll("[data-cu-component-preview]");
 
 		previews.forEach((preview) => {
+			const el = preview as HTMLElement;
+			const copyText = el.dataset.cuI18nCopy || "Copy";
+			const copiedText = el.dataset.cuI18nCopied || "Copied!";
+			const expandText = el.dataset.cuI18nExpand || "Expand Code";
+			const collapseText = el.dataset.cuI18nCollapse || "Collapse Code";
+
 			const copyBtn = preview.querySelector(
 				"[data-copy-btn]",
 			) as HTMLButtonElement | null;
@@ -108,14 +137,25 @@ const shouldCollapse = codeLineCount > 8;
 					await navigator.clipboard.writeText(codeText);
 
 					if (copyLabel) {
-						copyLabel.textContent = "Copied!";
+						copyLabel.textContent = copiedText;
 						setTimeout(() => {
-							copyLabel.textContent = "Copy";
+							copyLabel.textContent = copyText;
 						}, 2000);
 					}
 				} catch (err) {
 					console.error("Failed to copy!", err);
 				}
+			});
+
+			// Responsive device toggle
+			const deviceBtns = preview.querySelectorAll("[data-cu-preview-device]") as NodeListOf<HTMLButtonElement>;
+			const previewFrame = preview.querySelector("[data-cu-preview-frame]") as HTMLElement | null;
+			deviceBtns.forEach((btn) => {
+				btn.addEventListener("click", () => {
+					deviceBtns.forEach((b) => b.classList.remove("cu-preview-device-btn-active"));
+					btn.classList.add("cu-preview-device-btn-active");
+					if (previewFrame) previewFrame.style.maxWidth = btn.dataset.cuPreviewDevice || "100%";
+				});
 			});
 
 			// Code collapse/expand
@@ -130,13 +170,13 @@ const shouldCollapse = codeLineCount > 8;
 					codeBlockEl!.style.maxHeight = "none";
 					codeBlockEl!.style.overflow = "auto";
 					if (fadeEl) fadeEl.style.display = "none";
-					toggleBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m18 15-6-6-6 6"/></svg> Collapse Code';
+					toggleBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m18 15-6-6-6 6"/></svg> ' + collapseText;
 				} else {
 					codeBlockEl?.setAttribute("data-cu-code-collapsed", "");
 					codeBlockEl!.style.maxHeight = "200px";
 					codeBlockEl!.style.overflow = "hidden";
 					if (fadeEl) fadeEl.style.display = "";
-					toggleBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg> Expand Code';
+					toggleBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg> ' + expandText;
 				}
 			});
 		});

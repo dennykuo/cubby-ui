@@ -1,6 +1,11 @@
 ---
-import Layout from "../layouts/Layout.astro";
+import Layout from "@/layouts/Layout.astro";
 import { Code } from "astro-expressive-code/components";
+import { getLocaleFromUrl, useTranslations } from "@/i18n";
+import { usagePage } from "@/i18n/pages/usage";
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = useTranslations(usagePage, locale);
 
 const cdnCssCode = `<link rel="stylesheet" href="https://unpkg.com/cubby-ui/dist/cubby-ui.min.css" />`;
 
@@ -89,7 +94,7 @@ const tabsExample = `<div class="cu-tabs" data-cu-tabs>
       });
     });
   });
-<\\/script>`;
+<\/script>`;
 
 const classNamingCode = `cu-{component}              /* cu-button, cu-card, cu-input */
 cu-{component}-{variant}    /* cu-button-outline, cu-button-destructive */
@@ -102,34 +107,34 @@ const darkModeCode = `<html class="dark">
 </html>`;
 ---
 
-<Layout title="Usage — Cubby UI">
+<Layout title={t.title}>
     <div class="space-y-3">
-        <h1 class="text-3xl font-bold tracking-tight">Usage</h1>
+        <h1 class="text-3xl font-bold tracking-tight">{t.heading}</h1>
         <p class="text-base text-muted-foreground leading-relaxed">
-            How to add Cubby UI to your project.
+            {t.description}
         </p>
     </div>
 
     <div class="mt-10 space-y-12">
         <!-- Installation -->
         <section class="space-y-6">
-            <h2 class="text-xl font-semibold tracking-tight">Installation</h2>
+            <h2 class="text-xl font-semibold tracking-tight">{t.installation.heading}</h2>
 
             <!-- CDN -->
             <div class="space-y-3">
                 <div class="flex items-center gap-2">
-                    <h3 class="text-base font-medium">CDN</h3>
-                    <span class="cu-badge cu-badge-success text-[10px]">Recommended</span>
+                    <h3 class="text-base font-medium">{t.cdn.heading}</h3>
+                    <span class="cu-badge cu-badge-success text-[10px]">{t.cdn.recommended}</span>
                 </div>
                 <p class="text-sm text-muted-foreground">
-                    The quickest way to get started. No build tools required.
+                    {t.cdn.description}
                 </p>
 
                 <!-- Step 1: CSS -->
                 <div class="space-y-2">
                     <div class="flex items-center gap-2">
                         <span class="flex size-5 items-center justify-center rounded-full bg-primary text-[11px] font-semibold text-primary-foreground">1</span>
-                        <span class="text-sm font-medium">Add CSS to <code class="cu-code">&lt;head&gt;</code></span>
+                        <span class="text-sm font-medium" set:html={t.cdn.step1Label} />
                     </div>
                     <div class="rounded-xl border border-border bg-muted/20 overflow-hidden">
                         <div class="px-4 py-3">
@@ -142,11 +147,11 @@ const darkModeCode = `<html class="dark">
                 <div class="space-y-2">
                     <div class="flex items-center gap-2">
                         <span class="flex size-5 items-center justify-center rounded-full bg-primary text-[11px] font-semibold text-primary-foreground">2</span>
-                        <span class="text-sm font-medium">Add JS before <code class="cu-code">&lt;/body&gt;</code></span>
-                        <span class="cu-badge cu-badge-secondary text-[10px]">Optional</span>
+                        <span class="text-sm font-medium" set:html={t.cdn.step2Label} />
+                        <span class="cu-badge cu-badge-secondary text-[10px]">{t.cdn.step2Optional}</span>
                     </div>
                     <p class="text-xs text-muted-foreground pl-7">
-                        Only needed for interactive components (Dialog, Dropdown, Tabs, Combobox, etc.).
+                        {t.cdn.step2Note}
                     </p>
                     <div class="rounded-xl border border-border bg-muted/20 overflow-hidden">
                         <div class="px-4 py-3">
@@ -157,7 +162,7 @@ const darkModeCode = `<html class="dark">
 
                 <!-- jsDelivr alternative -->
                 <p class="text-xs text-muted-foreground pt-1">
-                    Or use <a href="https://www.jsdelivr.com/" target="_blank" rel="noreferrer" class="text-primary hover:underline underline-offset-4">jsDelivr</a>:
+                    {t.cdn.jsdelivrNote} <a href="https://www.jsdelivr.com/" target="_blank" rel="noreferrer" class="text-primary hover:underline underline-offset-4">jsDelivr</a>:
                 </p>
                 <div class="rounded-xl border border-border bg-muted/20 overflow-hidden">
                     <div class="px-4 py-3">
@@ -168,9 +173,9 @@ const darkModeCode = `<html class="dark">
 
             <!-- NPM -->
             <div class="space-y-3">
-                <h3 class="text-base font-medium">NPM</h3>
+                <h3 class="text-base font-medium">{t.npm.heading}</h3>
                 <p class="text-sm text-muted-foreground">
-                    For projects using a bundler like Vite, Webpack, or similar.
+                    {t.npm.description}
                 </p>
                 <div class="rounded-xl border border-border bg-muted/20 overflow-hidden">
                     <div class="flex items-center px-4 py-2.5 border-b border-border/40">
@@ -192,13 +197,11 @@ const darkModeCode = `<html class="dark">
 
             <!-- Manual -->
             <div class="space-y-3">
-                <h3 class="text-base font-medium">Manual (Tailwind CSS source)</h3>
+                <h3 class="text-base font-medium">{t.manual.heading}</h3>
                 <p class="text-sm text-muted-foreground">
-                    For advanced users who want to customize the theme or use Tailwind CSS utilities. Requires <a href="https://tailwindcss.com" target="_blank" rel="noreferrer" class="text-primary hover:underline underline-offset-4">Tailwind CSS v4</a>.
+                    {t.manual.description} <a href="https://tailwindcss.com" target="_blank" rel="noreferrer" class="text-primary hover:underline underline-offset-4">{t.manual.requires}</a>.
                 </p>
-                <p class="text-sm text-muted-foreground">
-                    Copy these files from <code class="cu-code">src/styles/</code> into your project:
-                </p>
+                <p class="text-sm text-muted-foreground" set:html={t.manual.copyFiles} />
                 <div class="space-y-2">
                     <div class="flex items-start gap-3 rounded-lg border border-border p-3.5">
                         <div class="flex size-8 items-center justify-center rounded-lg bg-muted shrink-0 mt-0.5">
@@ -206,7 +209,7 @@ const darkModeCode = `<html class="dark">
                         </div>
                         <div>
                             <p class="text-sm font-medium"><code class="cu-code">theme.css</code></p>
-                            <p class="text-xs text-muted-foreground mt-0.5">Design tokens — colors, fonts, spacing, and theme variables</p>
+                            <p class="text-xs text-muted-foreground mt-0.5">{t.manual.themeFile}</p>
                         </div>
                     </div>
                     <div class="flex items-start gap-3 rounded-lg border border-border p-3.5">
@@ -215,7 +218,7 @@ const darkModeCode = `<html class="dark">
                         </div>
                         <div>
                             <p class="text-sm font-medium"><code class="cu-code">components.css</code> + <code class="cu-code">components/</code></p>
-                            <p class="text-xs text-muted-foreground mt-0.5">Component CSS classes — the core of Cubby UI</p>
+                            <p class="text-xs text-muted-foreground mt-0.5">{t.manual.componentsFile}</p>
                         </div>
                     </div>
                     <div class="flex items-start gap-3 rounded-lg border border-border p-3.5">
@@ -223,8 +226,8 @@ const darkModeCode = `<html class="dark">
                             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-muted-foreground"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/></svg>
                         </div>
                         <div>
-                            <p class="text-sm font-medium"><code class="cu-code">scripts/cubby-ui.js</code> <span class="cu-badge cu-badge-secondary text-[10px] ml-1.5">Optional</span></p>
-                            <p class="text-xs text-muted-foreground mt-0.5">Vanilla JS for interactive components</p>
+                            <p class="text-sm font-medium"><code class="cu-code">scripts/cubby-ui.js</code> <span class="cu-badge cu-badge-secondary text-[10px] ml-1.5">{t.cdn.step2Optional}</span></p>
+                            <p class="text-xs text-muted-foreground mt-0.5">{t.manual.jsFile}</p>
                         </div>
                     </div>
                 </div>
@@ -252,10 +255,8 @@ const darkModeCode = `<html class="dark">
 
         <!-- Class Naming -->
         <section class="space-y-4">
-            <h2 class="text-lg font-semibold tracking-tight">Class naming convention</h2>
-            <p class="text-base text-muted-foreground leading-relaxed">
-                All classes use the <code class="cu-code">cu-</code> prefix with a consistent pattern:
-            </p>
+            <h2 class="text-lg font-semibold tracking-tight">{t.classNaming.heading}</h2>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.classNaming.description} />
             <div class="rounded-xl border border-border bg-muted/20 overflow-hidden">
                 <div class="flex items-center px-4 py-2.5 border-b border-border/40">
                     <span class="text-[11px] font-medium uppercase tracking-wider text-muted-foreground/60">Pattern</span>
@@ -268,9 +269,9 @@ const darkModeCode = `<html class="dark">
 
         <!-- CSS-only Examples -->
         <section class="space-y-4">
-            <h2 class="text-lg font-semibold tracking-tight">CSS-only components</h2>
+            <h2 class="text-lg font-semibold tracking-tight">{t.cssOnly.heading}</h2>
             <p class="text-base text-muted-foreground leading-relaxed">
-                Most components work with just CSS classes — no JavaScript needed.
+                {t.cssOnly.description}
             </p>
             <div class="space-y-3">
                 <div class="rounded-xl border border-border overflow-hidden">
@@ -319,17 +320,15 @@ const darkModeCode = `<html class="dark">
 
         <!-- Interactive Components -->
         <section class="space-y-4">
-            <h2 class="text-lg font-semibold tracking-tight">Interactive components</h2>
-            <p class="text-base text-muted-foreground leading-relaxed">
-                Some components require JavaScript for interactivity. Include <code class="cu-code">cubby-ui.js</code> and use <code class="cu-code">data-cu-*</code> attributes to initialize them automatically.
-            </p>
+            <h2 class="text-lg font-semibold tracking-tight">{t.interactive.heading}</h2>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.interactive.description} />
             <div class="rounded-lg border border-border overflow-hidden">
                 <div class="cu-table-wrapper">
                     <table class="cu-table">
                         <thead class="cu-table-header">
                             <tr class="cu-table-row">
-                                <th class="cu-table-head">Component</th>
-                                <th class="cu-table-head">Data attribute</th>
+                                <th class="cu-table-head">{t.interactive.tableComponent}</th>
+                                <th class="cu-table-head">{t.interactive.tableDataAttr}</th>
                             </tr>
                         </thead>
                         <tbody class="cu-table-body">
@@ -418,10 +417,8 @@ const darkModeCode = `<html class="dark">
 
         <!-- Dark Mode -->
         <section class="space-y-4">
-            <h2 class="text-lg font-semibold tracking-tight">Dark mode</h2>
-            <p class="text-base text-muted-foreground leading-relaxed">
-                Cubby UI includes built-in dark mode support. Add the <code class="cu-code">dark</code> class to your root element.
-            </p>
+            <h2 class="text-lg font-semibold tracking-tight">{t.darkMode.heading}</h2>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.darkMode.description} />
             <div class="rounded-xl border border-border bg-muted/20 overflow-hidden">
                 <div class="flex items-center px-4 py-2.5 border-b border-border/40">
                     <span class="text-[11px] font-medium uppercase tracking-wider text-muted-foreground/60">HTML</span>

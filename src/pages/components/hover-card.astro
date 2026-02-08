@@ -1,8 +1,13 @@
 ---
-import Layout from "../../layouts/Layout.astro";
-import HoverCard from "../../components/ui/HoverCard.astro";
-import HoverCardContent from "../../components/ui/HoverCardContent.astro";
-import ComponentPreview from "../../components/ComponentPreview.astro";
+import Layout from "@/layouts/Layout.astro";
+import HoverCard from "@/components/ui/HoverCard.astro";
+import HoverCardContent from "@/components/ui/HoverCardContent.astro";
+import ComponentPreview from "@/components/ComponentPreview.astro";
+import { getLocaleFromUrl, useTranslations } from "@/i18n";
+import { hoverCardPage } from "@/i18n/pages/components/hover-card";
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = useTranslations(hoverCardPage, locale);
 
 const usageCode = `<div class="cu-hover-card">
   <a href="#" class="text-sm font-medium underline underline-offset-4">@nextjs</a>
@@ -34,14 +39,14 @@ const topCode = `<div class="cu-hover-card">
 </div>`.trim();
 ---
 
-<Layout title="Hover Card — Cubby UI" category="Overlay" componentName="Hover Card">
+<Layout title={t.title} category={t.category} componentName="Hover Card">
     <div class="space-y-3">
         <div class="flex items-center gap-3">
             <h1 class="text-3xl font-bold tracking-tight">Hover Card</h1>
-            <span class="cu-badge cu-badge-secondary">Overlay</span>
+            <span class="cu-badge cu-badge-secondary">{t.category}</span>
         </div>
         <p class="text-base text-muted-foreground leading-relaxed">
-            For sighted users to preview content available behind a link. Pure CSS — no JavaScript required.
+            {t.description}
         </p>
     </div>
 
@@ -50,12 +55,9 @@ const topCode = `<div class="cu-hover-card">
         <section class="space-y-3">
             <h2 id="usage" class="text-lg font-semibold tracking-tight relative group">
                 <a href="#usage" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                Usage
+                {t.sections.usage.title}
             </h2>
-            <p class="text-base text-muted-foreground leading-relaxed">
-                Wrap a trigger element and content with <code class="cu-code">cu-hover-card</code>.
-                The <code class="cu-code">cu-hover-card-content</code> appears on hover. Pure CSS, no JavaScript required.
-            </p>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
             <ComponentPreview code={usageCode}>
                 <HoverCard>
                     <a href="#" class="text-sm font-medium underline underline-offset-4">@nextjs</a>
@@ -82,28 +84,28 @@ const topCode = `<div class="cu-hover-card">
         <section class="space-y-3">
             <h2 id="classes" class="text-lg font-semibold tracking-tight relative group">
                 <a href="#classes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                CSS Classes
+                {t.sections.classes.title}
             </h2>
             <div class="cu-table-wrapper rounded-lg border border-border">
                 <table class="cu-table">
                     <thead class="cu-table-header">
                         <tr class="cu-table-row">
-                            <th class="cu-table-head">Class</th>
-                            <th class="cu-table-head">Description</th>
+                            <th class="cu-table-head">{t.sections.classes.classLabel}</th>
+                            <th class="cu-table-head">{t.sections.classes.descriptionLabel}</th>
                         </tr>
                     </thead>
                     <tbody class="cu-table-body">
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-hover-card</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Hover Card relatively positioned container</td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-hover-card']}</td>
                         </tr>
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-hover-card-content</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Hover card panel, displayed below by default</td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-hover-card-content']}</td>
                         </tr>
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-hover-card-content-top</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Card panel displayed above</td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-hover-card-content-top']}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -115,11 +117,9 @@ const topCode = `<div class="cu-hover-card">
         <section class="space-y-3">
             <h2 id="top-position" class="text-lg font-semibold tracking-tight relative group">
                 <a href="#top-position" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                Top Position
+                {t.sections.topPosition.title}
             </h2>
-            <p class="text-base text-muted-foreground leading-relaxed">
-                Use <code class="cu-code">cu-hover-card-content-top</code> to position the card above the trigger.
-            </p>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.topPosition.description} />
             <ComponentPreview code={topCode}>
                 <HoverCard>
                     <a href="#" class="text-sm font-medium underline underline-offset-4">@cubby-ui</a>

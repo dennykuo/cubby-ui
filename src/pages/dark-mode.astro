@@ -1,6 +1,11 @@
 ---
-import Layout from "../layouts/Layout.astro";
+import Layout from "@/layouts/Layout.astro";
 import { Code } from "astro-expressive-code/components";
+import { getLocaleFromUrl } from "@/i18n";
+import { darkModeTranslations } from "@/i18n/pages/dark-mode";
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = darkModeTranslations[locale];
 
 const basicUsage = `<html class="dark">
   <body>
@@ -29,7 +34,7 @@ const toggleScript = `<button id="theme-toggle" class="cu-button cu-button-ghost
     html.classList.toggle('dark');
     localStorage.setItem('theme', html.classList.contains('dark') ? 'dark' : 'light');
   });
-<\/script>`;
+\x3c/script>`;
 
 const darkModeVariables = `.dark {
   --color-background: hsl(224 71% 4%);
@@ -96,7 +101,7 @@ const systemPreference = `<script>
 
   // Listen for changes
   prefersDark.addEventListener('change', (e) => applyTheme(e.matches));
-<\/script>`;
+\x3c/script>`;
 
 const noFlashScript = `<script>
   // Add this to <head> to prevent flash of wrong theme
@@ -107,24 +112,22 @@ const noFlashScript = `<script>
       document.documentElement.classList.add('dark');
     }
   })();
-<\/script>`;
+\x3c/script>`;
 ---
 
-<Layout title="Dark Mode — Cubby UI">
+<Layout title={t.title}>
     <div class="space-y-3">
-        <h1 class="text-3xl font-bold tracking-tight">Dark Mode</h1>
+        <h1 class="text-3xl font-bold tracking-tight">{t.heading}</h1>
         <p class="text-base text-muted-foreground leading-relaxed">
-            Cubby UI includes built-in dark mode support with carefully tuned colors.
+            {t.description}
         </p>
     </div>
 
     <div class="mt-10 space-y-12">
         <!-- Basic Usage -->
         <section class="space-y-4">
-            <h2 class="text-xl font-semibold tracking-tight">Basic usage</h2>
-            <p class="text-base text-muted-foreground leading-relaxed">
-                Add the <code class="cu-code">dark</code> class to the <code class="cu-code">&lt;html&gt;</code> element. All Cubby UI components will automatically switch to their dark variants.
-            </p>
+            <h2 class="text-xl font-semibold tracking-tight">{t.basicUsage.heading}</h2>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.basicUsage.description} />
             <div class="rounded-xl border border-border bg-muted/20 overflow-hidden">
                 <div class="flex items-center px-4 py-2.5 border-b border-border/40">
                     <span class="text-[11px] font-medium uppercase tracking-wider text-muted-foreground/60">HTML</span>
@@ -140,10 +143,8 @@ const noFlashScript = `<script>
 
         <!-- How It Works -->
         <section class="space-y-4">
-            <h2 class="text-xl font-semibold tracking-tight">How it works</h2>
-            <p class="text-base text-muted-foreground leading-relaxed">
-                Dark mode overrides are defined in the <code class="cu-code">.dark</code> selector in <code class="cu-code">global.css</code>. When the class is present, CSS variables are updated to dark mode values.
-            </p>
+            <h2 class="text-xl font-semibold tracking-tight">{t.howItWorks.heading}</h2>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.howItWorks.description} />
             <div class="rounded-xl border border-border bg-muted/20 overflow-hidden">
                 <div class="flex items-center px-4 py-2.5 border-b border-border/40">
                     <span class="text-[11px] font-medium uppercase tracking-wider text-muted-foreground/60">global.css</span>
@@ -153,7 +154,7 @@ const noFlashScript = `<script>
                 </div>
             </div>
             <p class="text-sm text-muted-foreground">
-                Since components use these CSS variables, they adapt automatically — no extra classes needed on individual components.
+                {t.howItWorks.note}
             </p>
         </section>
 
@@ -162,9 +163,9 @@ const noFlashScript = `<script>
 
         <!-- Theme Toggle -->
         <section class="space-y-4">
-            <h2 class="text-xl font-semibold tracking-tight">Theme toggle</h2>
+            <h2 class="text-xl font-semibold tracking-tight">{t.themeToggle.heading}</h2>
             <p class="text-base text-muted-foreground leading-relaxed">
-                Implement a theme toggle button with localStorage persistence.
+                {t.themeToggle.description}
             </p>
             <div class="rounded-xl border border-border overflow-hidden">
                 <div class="p-8 flex items-center justify-center bg-background/50 relative">
@@ -190,10 +191,8 @@ const noFlashScript = `<script>
 
         <!-- System Preference -->
         <section class="space-y-4">
-            <h2 class="text-xl font-semibold tracking-tight">System preference</h2>
-            <p class="text-base text-muted-foreground leading-relaxed">
-                Respect the user's OS preference using <code class="cu-code">prefers-color-scheme</code>.
-            </p>
+            <h2 class="text-xl font-semibold tracking-tight">{t.systemPreference.heading}</h2>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.systemPreference.description} />
             <div class="rounded-xl border border-border bg-muted/20 overflow-hidden">
                 <div class="flex items-center px-4 py-2.5 border-b border-border/40">
                     <span class="text-[11px] font-medium uppercase tracking-wider text-muted-foreground/60">JavaScript</span>
@@ -209,10 +208,8 @@ const noFlashScript = `<script>
 
         <!-- Prevent Flash -->
         <section class="space-y-4">
-            <h2 class="text-xl font-semibold tracking-tight">Prevent flash of wrong theme</h2>
-            <p class="text-base text-muted-foreground leading-relaxed">
-                Add a blocking script to <code class="cu-code">&lt;head&gt;</code> to apply the theme before the page renders.
-            </p>
+            <h2 class="text-xl font-semibold tracking-tight">{t.preventFlash.heading}</h2>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.preventFlash.description} />
             <div class="rounded-xl border border-border bg-muted/20 overflow-hidden">
                 <div class="flex items-center px-4 py-2.5 border-b border-border/40">
                     <span class="text-[11px] font-medium uppercase tracking-wider text-muted-foreground/60">In &lt;head&gt;</span>
@@ -228,10 +225,8 @@ const noFlashScript = `<script>
 
         <!-- Custom Dark Colors -->
         <section class="space-y-4">
-            <h2 class="text-xl font-semibold tracking-tight">Custom dark mode colors</h2>
-            <p class="text-base text-muted-foreground leading-relaxed">
-                Override the default dark mode colors by adding your own <code class="cu-code">.dark</code> selector after importing Cubby UI.
-            </p>
+            <h2 class="text-xl font-semibold tracking-tight">{t.customDarkColors.heading}</h2>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.customDarkColors.description} />
             <div class="rounded-xl border border-border bg-muted/20 overflow-hidden">
                 <div class="flex items-center px-4 py-2.5 border-b border-border/40">
                     <span class="text-[11px] font-medium uppercase tracking-wider text-muted-foreground/60">your-styles.css</span>
@@ -247,10 +242,8 @@ const noFlashScript = `<script>
 
         <!-- Tailwind Dark Classes -->
         <section class="space-y-4">
-            <h2 class="text-xl font-semibold tracking-tight">Using Tailwind's dark: variant</h2>
-            <p class="text-base text-muted-foreground leading-relaxed">
-                Tailwind's <code class="cu-code">dark:</code> variant works alongside Cubby UI. Use it for custom styling that needs to change between themes.
-            </p>
+            <h2 class="text-xl font-semibold tracking-tight">{t.tailwindDark.heading}</h2>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.tailwindDark.description} />
             <div class="rounded-xl border border-border bg-muted/20 overflow-hidden">
                 <div class="flex items-center px-4 py-2.5 border-b border-border/40">
                     <span class="text-[11px] font-medium uppercase tracking-wider text-muted-foreground/60">HTML</span>
@@ -266,24 +259,14 @@ const noFlashScript = `<script>
 
         <!-- Tips -->
         <section class="space-y-4">
-            <h2 class="text-lg font-semibold tracking-tight">Tips</h2>
+            <h2 class="text-lg font-semibold tracking-tight">{t.tips.heading}</h2>
             <ul class="space-y-2 text-sm text-muted-foreground">
-                <li class="flex items-start gap-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-primary mt-0.5 shrink-0"><path d="M20 6 9 17l-5-5"/></svg>
-                    <span>Always add the <code class="cu-code">dark</code> class to <code class="cu-code">&lt;html&gt;</code>, not <code class="cu-code">&lt;body&gt;</code>.</span>
-                </li>
-                <li class="flex items-start gap-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-primary mt-0.5 shrink-0"><path d="M20 6 9 17l-5-5"/></svg>
-                    <span>Use <code class="cu-code">localStorage</code> to persist the user's preference across page reloads.</span>
-                </li>
-                <li class="flex items-start gap-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-primary mt-0.5 shrink-0"><path d="M20 6 9 17l-5-5"/></svg>
-                    <span>Consider providing three options: Light, Dark, and System (auto).</span>
-                </li>
-                <li class="flex items-start gap-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-primary mt-0.5 shrink-0"><path d="M20 6 9 17l-5-5"/></svg>
-                    <span>Test your dark mode colors for sufficient contrast. Dark mode isn't just "invert the colors".</span>
-                </li>
+                {t.tips.items.map((item) => (
+                    <li class="flex items-start gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-primary mt-0.5 shrink-0"><path d="M20 6 9 17l-5-5"/></svg>
+                        <span set:html={item} />
+                    </li>
+                ))}
             </ul>
         </section>
     </div>

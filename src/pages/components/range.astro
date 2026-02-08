@@ -1,9 +1,14 @@
 ---
-import Layout from "../../layouts/Layout.astro";
-import Range from "../../components/ui/Range.astro";
-import Label from "../../components/ui/Label.astro";
-import FormGroup from "../../components/ui/FormGroup.astro";
-import ComponentPreview from "../../components/ComponentPreview.astro";
+import Layout from "@/layouts/Layout.astro";
+import Range from "@/components/ui/Range.astro";
+import Label from "@/components/ui/Label.astro";
+import FormGroup from "@/components/ui/FormGroup.astro";
+import ComponentPreview from "@/components/ComponentPreview.astro";
+import { getLocaleFromUrl, useTranslations } from "@/i18n";
+import { rangePage } from "@/i18n/pages/components/range";
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = useTranslations(rangePage, locale);
 
 const usageCode = `<input type="range" class="cu-range" />`.trim();
 
@@ -25,15 +30,13 @@ const minMaxCode = `<div class="cu-form-group">
 const disabledCode = `<input type="range" class="cu-range" disabled />`.trim();
 ---
 
-<Layout category="Forms" componentName="Range" title="Range — Cubby UI">
+<Layout category={t.category} componentName="Range" title={t.title}>
     <div class="space-y-3">
         <div class="flex items-center gap-3">
           <h1 class="text-3xl font-bold tracking-tight">Range</h1>
-          <span class="cu-badge cu-badge-secondary">Forms</span>
+          <span class="cu-badge cu-badge-secondary">{t.category}</span>
         </div>
-        <p class="text-base text-muted-foreground leading-relaxed">
-            Displays a range slider for selecting a numeric value within a range.
-        </p>
+        <p class="text-base text-muted-foreground leading-relaxed" set:html={t.description} />
     </div>
 
     <div class="mt-10 space-y-10">
@@ -41,11 +44,9 @@ const disabledCode = `<input type="range" class="cu-range" disabled />`.trim();
         <section class="space-y-3">
             <h2 id="usage" class="text-lg font-semibold tracking-tight relative group">
               <a href="#usage" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              Usage
+              {t.sections.usage.title}
             </h2>
-            <p class="text-base text-muted-foreground leading-relaxed">
-                Apply <code class="cu-code">cu-range</code> to an <code class="cu-code">&lt;input type="range"&gt;</code> element.
-            </p>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
             <ComponentPreview code={usageCode}>
                 <div class="w-full max-w-sm">
                     <Range />
@@ -57,20 +58,20 @@ const disabledCode = `<input type="range" class="cu-range" disabled />`.trim();
         <section class="space-y-3">
           <h2 id="classes" class="text-lg font-semibold tracking-tight relative group">
             <a href="#classes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-            CSS Classes
+            {t.sections.classes.title}
           </h2>
           <div class="cu-table-wrapper rounded-lg border border-border">
             <table class="cu-table">
               <thead class="cu-table-header">
                 <tr class="cu-table-row">
-                  <th class="cu-table-head">Class</th>
-                  <th class="cu-table-head">Description</th>
+                  <th class="cu-table-head">{t.sections.classes.classLabel}</th>
+                  <th class="cu-table-head">{t.sections.classes.descriptionLabel}</th>
                 </tr>
               </thead>
               <tbody class="cu-table-body">
                 <tr class="cu-table-row">
                   <td class="cu-table-cell"><code class="cu-code">cu-range</code></td>
-                  <td class="cu-table-cell text-muted-foreground">Slider style with custom thumb and hover glow effect</td>
+                  <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-range']}</td>
                 </tr>
               </tbody>
             </table>
@@ -82,11 +83,9 @@ const disabledCode = `<input type="range" class="cu-range" disabled />`.trim();
         <section class="space-y-3">
             <h2 id="with-label" class="text-lg font-semibold tracking-tight relative group">
               <a href="#with-label" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              With Label
+              {t.sections.withLabel.title}
             </h2>
-            <p class="text-base text-muted-foreground leading-relaxed">
-                Pair with a <code class="cu-code">cu-label</code> for accessible form fields.
-            </p>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withLabel.description} />
             <ComponentPreview code={withLabelCode}>
                 <div class="w-full max-w-sm">
                     <FormGroup>
@@ -101,13 +100,9 @@ const disabledCode = `<input type="range" class="cu-range" disabled />`.trim();
         <section class="space-y-3">
             <h2 id="min-max-step" class="text-lg font-semibold tracking-tight relative group">
               <a href="#min-max-step" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              Min / Max / Step
+              {t.sections.minMaxStep.title}
             </h2>
-            <p class="text-base text-muted-foreground leading-relaxed">
-                Customize the range with <code class="cu-code">min</code>,
-                <code class="cu-code">max</code>, and
-                <code class="cu-code">step</code> attributes.
-            </p>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.minMaxStep.description} />
             <ComponentPreview code={minMaxCode}>
                 <div class="w-full max-w-sm space-y-4">
                     <FormGroup>
@@ -126,11 +121,9 @@ const disabledCode = `<input type="range" class="cu-range" disabled />`.trim();
         <section class="space-y-3">
             <h2 id="disabled" class="text-lg font-semibold tracking-tight relative group">
               <a href="#disabled" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              Disabled
+              {t.sections.disabled.title}
             </h2>
-            <p class="text-base text-muted-foreground leading-relaxed">
-                Add the <code class="cu-code">disabled</code> attribute to prevent interaction.
-            </p>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.disabled.description} />
             <ComponentPreview code={disabledCode}>
                 <div class="w-full max-w-sm">
                     <Range disabled />

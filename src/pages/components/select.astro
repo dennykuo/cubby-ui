@@ -1,9 +1,14 @@
 ---
-import Layout from "../../layouts/Layout.astro";
-import Select from "../../components/ui/Select.astro";
-import Label from "../../components/ui/Label.astro";
-import FormGroup from "../../components/ui/FormGroup.astro";
-import ComponentPreview from "../../components/ComponentPreview.astro";
+import Layout from "@/layouts/Layout.astro";
+import Select from "@/components/ui/Select.astro";
+import Label from "@/components/ui/Label.astro";
+import FormGroup from "@/components/ui/FormGroup.astro";
+import ComponentPreview from "@/components/ComponentPreview.astro";
+import { getLocaleFromUrl, useTranslations } from "@/i18n";
+import { selectPage } from "@/i18n/pages/components/select";
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = useTranslations(selectPage, locale);
 
 const usageCode = `<div class="cu-select-wrapper">
   <select class="cu-select">
@@ -55,15 +60,13 @@ const disabledCode = `<div class="cu-select-wrapper">
 </div>`.trim();
 ---
 
-<Layout category="Forms" componentName="Select" title="Select — Cubby UI">
+<Layout category={t.category} componentName="Select" title={t.title}>
     <div class="space-y-3">
         <div class="flex items-center gap-3">
           <h1 class="text-3xl font-bold tracking-tight">Select</h1>
-          <span class="cu-badge cu-badge-secondary">Forms</span>
+          <span class="cu-badge cu-badge-secondary">{t.category}</span>
         </div>
-        <p class="text-base text-muted-foreground leading-relaxed">
-            Displays a native select dropdown for choosing from a list of options.
-        </p>
+        <p class="text-base text-muted-foreground leading-relaxed" set:html={t.description} />
     </div>
 
     <div class="mt-10 space-y-10">
@@ -71,12 +74,9 @@ const disabledCode = `<div class="cu-select-wrapper">
         <section class="space-y-3">
             <h2 id="usage" class="text-lg font-semibold tracking-tight relative group">
               <a href="#usage" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              Usage
+              {t.sections.usage.title}
             </h2>
-            <p class="text-base text-muted-foreground leading-relaxed">
-                Wrap a <code class="cu-code">&lt;select&gt;</code> with <code class="cu-code">cu-select</code> inside a
-                <code class="cu-code">cu-select-wrapper</code> container with a chevron icon.
-            </p>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
             <ComponentPreview code={usageCode}>
                 <div class="w-full max-w-sm">
                     <Select>
@@ -93,28 +93,28 @@ const disabledCode = `<div class="cu-select-wrapper">
         <section class="space-y-3">
           <h2 id="classes" class="text-lg font-semibold tracking-tight relative group">
             <a href="#classes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-            CSS Classes
+            {t.sections.classes.title}
           </h2>
           <div class="cu-table-wrapper rounded-lg border border-border">
             <table class="cu-table">
               <thead class="cu-table-header">
                 <tr class="cu-table-row">
-                  <th class="cu-table-head">Class</th>
-                  <th class="cu-table-head">Description</th>
+                  <th class="cu-table-head">{t.sections.classes.classLabel}</th>
+                  <th class="cu-table-head">{t.sections.classes.descriptionLabel}</th>
                 </tr>
               </thead>
               <tbody class="cu-table-body">
                 <tr class="cu-table-row">
                   <td class="cu-table-cell"><code class="cu-code">cu-select-wrapper</code></td>
-                  <td class="cu-table-cell text-muted-foreground">Positioning container for Select and arrow icon</td>
+                  <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-select-wrapper']}</td>
                 </tr>
                 <tr class="cu-table-row">
                   <td class="cu-table-cell"><code class="cu-code">cu-select</code></td>
-                  <td class="cu-table-cell text-muted-foreground">Select style with hover border, focus ring, and disabled state</td>
+                  <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-select']}</td>
                 </tr>
                 <tr class="cu-table-row">
                   <td class="cu-table-cell"><code class="cu-code">cu-select-icon</code></td>
-                  <td class="cu-table-cell text-muted-foreground">Right decorative arrow icon, absolutely positioned and non-interactive</td>
+                  <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-select-icon']}</td>
                 </tr>
               </tbody>
             </table>
@@ -126,11 +126,9 @@ const disabledCode = `<div class="cu-select-wrapper">
         <section class="space-y-3">
             <h2 id="with-label" class="text-lg font-semibold tracking-tight relative group">
               <a href="#with-label" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              With Label
+              {t.sections.withLabel.title}
             </h2>
-            <p class="text-base text-muted-foreground leading-relaxed">
-                Pair with a <code class="cu-code">cu-label</code> for accessible form fields.
-            </p>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withLabel.description} />
             <ComponentPreview code={withLabelCode}>
                 <div class="w-full max-w-sm">
                     <FormGroup>
@@ -150,11 +148,9 @@ const disabledCode = `<div class="cu-select-wrapper">
         <section class="space-y-3">
             <h2 id="with-placeholder" class="text-lg font-semibold tracking-tight relative group">
               <a href="#with-placeholder" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              With Placeholder
+              {t.sections.withPlaceholder.title}
             </h2>
-            <p class="text-base text-muted-foreground leading-relaxed">
-                Use a disabled first option as a placeholder prompt.
-            </p>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withPlaceholder.description} />
             <ComponentPreview code={placeholderCode}>
                 <div class="w-full max-w-sm">
                     <Select>
@@ -171,11 +167,9 @@ const disabledCode = `<div class="cu-select-wrapper">
         <section class="space-y-3">
             <h2 id="disabled" class="text-lg font-semibold tracking-tight relative group">
               <a href="#disabled" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              Disabled
+              {t.sections.disabled.title}
             </h2>
-            <p class="text-base text-muted-foreground leading-relaxed">
-                Add the <code class="cu-code">disabled</code> attribute to prevent interaction.
-            </p>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.disabled.description} />
             <ComponentPreview code={disabledCode}>
                 <div class="w-full max-w-sm">
                     <Select disabled>

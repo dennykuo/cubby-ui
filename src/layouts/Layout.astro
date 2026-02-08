@@ -1,8 +1,12 @@
 ---
-import "../styles/global.css";
-import Header from "../components/Header.astro";
-import Sidebar from "../components/sidebar/Sidebar.astro";
-import cubbyUiUrl from "../scripts/cubby-ui.js?url";
+import "@/styles/global.css";
+import Header from "@/components/Header.astro";
+import MobileNav from "@/components/MobileNav.astro";
+import Sidebar from "@/components/sidebar/Sidebar.astro";
+import PrevNextNav from "@/components/PrevNextNav.astro";
+import cubbyUiUrl from "@/scripts/cubby-ui.js?url";
+import { getLocaleFromUrl, getAlternatePath } from "@/i18n";
+import { uiTranslations } from "@/i18n/ui";
 
 interface Props {
 	title: string;
@@ -11,16 +15,21 @@ interface Props {
 }
 
 const { title, category, componentName } = Astro.props;
+const locale = getLocaleFromUrl(Astro.url);
+const t = uiTranslations[locale];
 const pathname = Astro.url.pathname;
 const normalizedPath =
 	pathname.endsWith("/") && pathname.length > 1
 		? pathname.slice(0, -1)
 		: pathname;
-const isComponentPage = !!category && !!componentName;
+const htmlLang = locale === 'zh-tw' ? 'zh-TW' : 'en';
+const alternatePath = getAlternatePath(normalizedPath, locale === 'en' ? 'zh-tw' : 'en');
+const alternateLocale = locale === 'en' ? 'zh-tw' : 'en';
+const alternateHreflang = alternateLocale === 'zh-tw' ? 'zh-TW' : 'en';
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={htmlLang}>
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="description" content="Elegant Tailwind CSS Components" />
@@ -32,23 +41,25 @@ const isComponentPage = !!category && !!componentName;
 			href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
 			rel="stylesheet"
 		/>
+		<link rel="alternate" hreflang={alternateHreflang} href={alternatePath} />
+		<link rel="alternate" hreflang={htmlLang} href={normalizedPath} />
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
 	</head>
 	<script src={cubbyUiUrl} is:inline></script>
 	<script is:inline>document.addEventListener('astro:page-load', () => CubbyUI.init());</script>
-	<script>
+	<script is:inline define:vars={{ clickToCopy: t.clickToCopy, copiedMessage: t.copiedMessage }}>
 		function setupInlineCodeCopy() {
 			document.querySelectorAll('.cu-code').forEach((el) => {
 				if (el.dataset.cuCodeCopy) return;
 				el.dataset.cuCodeCopy = 'true';
-				el.title = '點擊複製';
+				el.title = clickToCopy;
 				el.addEventListener('click', async () => {
 					const text = el.textContent || '';
 					try {
 						await navigator.clipboard.writeText(text);
 						const original = el.textContent;
-						el.textContent = '已複製！';
+						el.textContent = copiedMessage;
 						setTimeout(() => { el.textContent = original; }, 1200);
 					} catch (e) {}
 				});
@@ -59,14 +70,18 @@ const isComponentPage = !!category && !!componentName;
 	</script>
 	<body class="min-h-screen font-sans">
 		<div class="relative flex min-h-screen flex-col">
-			<Header />
+			<Header locale={locale} />
+			<MobileNav currentPath={normalizedPath} locale={locale} />
 
 			<div class="flex-1 flex">
-				<Sidebar currentPath={normalizedPath} />
+				<Sidebar currentPath={normalizedPath} locale={locale} />
 
 				<main class="flex-1 min-w-0 md:border-l md:border-border pt-6 pb-20 px-4 sm:px-6 md:pt-8 md:pb-26 md:px-8 lg:px-12">
 					<div class="mx-auto max-w-3xl">
 							<slot />
+							{normalizedPath.includes("/components/") && (
+								<PrevNextNav currentPath={normalizedPath} locale={locale} />
+							)}
 					</div>
 				</main>
 			</div>

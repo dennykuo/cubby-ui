@@ -1,6 +1,11 @@
 ---
-import Layout from "../../layouts/Layout.astro";
-import ComponentPreview from "../../components/ComponentPreview.astro";
+import Layout from "@/layouts/Layout.astro";
+import ComponentPreview from "@/components/ComponentPreview.astro";
+import { getLocaleFromUrl, useTranslations } from "@/i18n";
+import { alertDialogPage } from "@/i18n/pages/components/alert-dialog";
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = useTranslations(alertDialogPage, locale);
 
 const usageCode = `<button class="cu-button cu-button-outline cu-button-md" data-cu-alert-dialog-trigger="demo-alert-dialog">
   Delete Account
@@ -32,7 +37,7 @@ const usageCode = `<button class="cu-button cu-button-outline cu-button-md" data
       btn.addEventListener("click", () => dialog.close());
     });
   });
-</script>`.trim();
+\x3c/script>`.trim();
 
 const destructiveCode = `<button class="cu-button cu-button-destructive cu-button-md" data-cu-alert-dialog-trigger="destructive-alert-dialog">
   Remove Item
@@ -50,14 +55,14 @@ const destructiveCode = `<button class="cu-button cu-button-destructive cu-butto
 </dialog>`.trim();
 ---
 
-<Layout title="Alert Dialog — Cubby UI" category="Overlay" componentName="Alert Dialog">
+<Layout title={t.title} category={t.category} componentName="Alert Dialog">
     <div class="space-y-3">
         <div class="flex items-center gap-3">
             <h1 class="text-3xl font-bold tracking-tight">Alert Dialog</h1>
-            <span class="cu-badge cu-badge-secondary">Overlay</span>
+            <span class="cu-badge cu-badge-secondary">{t.category}</span>
         </div>
         <p class="text-base text-muted-foreground leading-relaxed">
-            A modal dialog that interrupts the user with important content and expects a response. Unlike Dialog, it does not have a close button and cannot be dismissed by clicking the backdrop.
+            {t.description}
         </p>
     </div>
 
@@ -66,15 +71,9 @@ const destructiveCode = `<button class="cu-button cu-button-destructive cu-butto
         <section class="space-y-3">
             <h2 id="usage" class="text-lg font-semibold tracking-tight relative group">
                 <a href="#usage" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                Usage
+                {t.sections.usage.title}
             </h2>
-            <p class="text-base text-muted-foreground leading-relaxed">
-                Built with the native <code class="cu-code">&lt;dialog&gt;</code> element.
-                Use <code class="cu-code">data-cu-alert-dialog-trigger</code> on buttons to open,
-                <code class="cu-code">data-cu-alert-dialog-cancel</code> to cancel,
-                and <code class="cu-code">data-cu-alert-dialog-action</code> to confirm.
-                Unlike <code class="cu-code">cu-dialog</code>, clicking the backdrop does not close the dialog.
-            </p>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
             <ComponentPreview code={usageCode}>
                 <button class="cu-button cu-button-outline cu-button-md" data-cu-alert-dialog-trigger="demo-alert-dialog">
                     Delete Account
@@ -96,36 +95,36 @@ const destructiveCode = `<button class="cu-button cu-button-destructive cu-butto
         <section class="space-y-3">
             <h2 id="classes" class="text-lg font-semibold tracking-tight relative group">
                 <a href="#classes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                CSS Classes
+                {t.sections.classes.title}
             </h2>
             <div class="cu-table-wrapper rounded-lg border border-border">
                 <table class="cu-table">
                     <thead class="cu-table-header">
                         <tr class="cu-table-row">
-                            <th class="cu-table-head">Class</th>
-                            <th class="cu-table-head">Description</th>
+                            <th class="cu-table-head">{t.sections.classes.classLabel}</th>
+                            <th class="cu-table-head">{t.sections.classes.descriptionLabel}</th>
                         </tr>
                     </thead>
                     <tbody class="cu-table-body">
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-alert-dialog</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Alert Dialog container with centered positioning, rounded corners, and open/close animation</td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-alert-dialog']}</td>
                         </tr>
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-alert-dialog-header</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Flex container for title and description</td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-alert-dialog-header']}</td>
                         </tr>
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-alert-dialog-title</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Alert Dialog title</td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-alert-dialog-title']}</td>
                         </tr>
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-alert-dialog-description</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Alert Dialog description text</td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-alert-dialog-description']}</td>
                         </tr>
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-alert-dialog-footer</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Footer action button area</td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-alert-dialog-footer']}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -137,10 +136,10 @@ const destructiveCode = `<button class="cu-button cu-button-destructive cu-butto
         <section class="space-y-3">
             <h2 id="destructive-action" class="text-lg font-semibold tracking-tight relative group">
                 <a href="#destructive-action" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                Destructive Action
+                {t.sections.destructiveAction.title}
             </h2>
             <p class="text-base text-muted-foreground leading-relaxed">
-                Pair with a destructive trigger button for dangerous actions.
+                {t.sections.destructiveAction.description}
             </p>
             <ComponentPreview code={destructiveCode}>
                 <button class="cu-button cu-button-destructive cu-button-md" data-cu-alert-dialog-trigger="destructive-alert-dialog">

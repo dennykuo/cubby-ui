@@ -2,113 +2,33 @@
 import SidebarSection from "./SidebarSection.astro";
 import SidebarGroup from "./SidebarGroup.astro";
 import SidebarLink from "./SidebarLink.astro";
+import type { Locale } from "@/i18n";
+import { localizePath } from "@/i18n";
+import { uiTranslations } from "@/i18n/ui";
+import {
+	gettingStarted as gsRaw,
+	componentGroups,
+	examplePages as exRaw,
+} from "@/data/component-nav";
 
 interface Props {
 	currentPath: string;
+	locale: Locale;
 }
 
-const { currentPath } = Astro.props;
+const { currentPath, locale } = Astro.props;
+const t = uiTranslations[locale];
 
-const gettingStarted = [
-	{ name: "Getting Started", href: "/" },
-	{ name: "Usage", href: "/usage" },
-	{ name: "Theming", href: "/theming" },
-	{ name: "Dark Mode", href: "/dark-mode" },
-];
+const lp = (path: string) => localizePath(path, locale);
+const localize = (items: { name: string; path: string }[]) =>
+	items.map((i) => ({ name: i.name, href: lp(i.path) }));
 
-const typographyComponents = [
-	{ name: "Headings", href: "/components/headings" },
-	{ name: "Paragraphs", href: "/components/paragraphs" },
-	{ name: "Blockquote", href: "/components/blockquote" },
-	{ name: "Lists", href: "/components/lists" },
-	{ name: "Links", href: "/components/links" },
-	{ name: "Text", href: "/components/text" },
-	{ name: "HR", href: "/components/hr" },
-];
-
-const basicComponents = [
-	{ name: "Button", href: "/components/button" },
-	{ name: "Button Group", href: "/components/button-group" },
-	{ name: "Card", href: "/components/card" },
-	{ name: "Color", href: "/components/color" },
-	{ name: "Separator", href: "/components/separator" },
-];
-
-const formComponents = [
-	{ name: "Checkbox", href: "/components/checkbox" },
-	{ name: "Combobox", href: "/components/combobox" },
-	{ name: "Dropzone", href: "/components/dropzone" },
-	{ name: "File Input", href: "/components/file-input" },
-	{ name: "Form Group", href: "/components/form-group" },
-	{ name: "Input", href: "/components/input" },
-	{ name: "Label", href: "/components/label" },
-	{ name: "Multi Select", href: "/components/multi-select" },
-	{ name: "Number Input", href: "/components/number-input" },
-	{ name: "Radio", href: "/components/radio" },
-	{ name: "Range", href: "/components/range" },
-	{ name: "Search Input", href: "/components/search-input" },
-	{ name: "Select", href: "/components/select" },
-	{ name: "Textarea", href: "/components/textarea" },
-	{ name: "Toggle", href: "/components/toggle" },
-	{ name: "Transfer List", href: "/components/transfer-list" },
-];
-
-const dataDisplayComponents = [
-	{ name: "Accordion", href: "/components/accordion" },
-	{ name: "Avatar", href: "/components/avatar" },
-	{ name: "Badge", href: "/components/badge" },
-	{ name: "Collapsible", href: "/components/collapsible" },
-	{ name: "Data Table", href: "/components/data-table" },
-	{ name: "Setting Item", href: "/components/setting-item" },
-	{ name: "Stat Card", href: "/components/stat-card" },
-	{ name: "Table", href: "/components/table" },
-	{ name: "Tree View", href: "/components/tree-view" },
-];
-
-const feedbackComponents = [
-	{ name: "Alert", href: "/components/alert" },
-	{ name: "Empty State", href: "/components/empty-state" },
-	{ name: "Progress", href: "/components/progress" },
-	{ name: "Skeleton", href: "/components/skeleton" },
-	{ name: "Toast", href: "/components/toast" },
-];
-
-const overlayComponents = [
-	{ name: "Alert Dialog", href: "/components/alert-dialog" },
-	{ name: "Dialog", href: "/components/dialog" },
-	{ name: "Drawer", href: "/components/drawer" },
-	{ name: "Dropdown Menu", href: "/components/dropdown" },
-	{ name: "Hover Card", href: "/components/hover-card" },
-	{ name: "Popover", href: "/components/popover" },
-	{ name: "Tooltip", href: "/components/tooltip" },
-];
-
-const navigationComponents = [
-	{ name: "Breadcrumb", href: "/components/breadcrumb" },
-	{ name: "Menubar", href: "/components/menubar" },
-	{ name: "Pagination", href: "/components/pagination" },
-	{ name: "Steps", href: "/components/steps" },
-	{ name: "Tabs", href: "/components/tabs" },
-];
-
-const layoutComponents = [
-	{ name: "Container", href: "/components/container" },
-	{ name: "Filter Bar", href: "/components/filter-bar" },
-	{ name: "Header", href: "/components/header" },
-	{ name: "Nav", href: "/components/nav" },
-	{ name: "Page Header", href: "/components/page-header" },
-	{ name: "Scroll Area", href: "/components/scroll-area" },
-	{ name: "Sidebar", href: "/components/sidebar" },
-	{ name: "Toolbar", href: "/components/toolbar" },
-];
-
-const examplePages = [
-	{ name: "Dashboard V1", href: "/examples/dashboard" },
-	{ name: "Dashboard V2", href: "/examples/dashboard-v2" },
-	{ name: "Dashboard V3", href: "/examples/dashboard-v3" },
-	{ name: "Dashboard V4", href: "/examples/dashboard-v4" },
-	{ name: "Dashboard V5", href: "/examples/dashboard-v5" },
-];
+const gettingStarted = localize(gsRaw);
+const groups = componentGroups.map((g) => ({
+	key: g.key,
+	items: localize(g.items),
+}));
+const examplePages = exRaw.map((i) => ({ name: i.name, href: i.path }));
 
 const isInGroup = (items: { href: string }[]) =>
 	items.some((item) => item.href === currentPath);
@@ -118,7 +38,7 @@ const isInGroup = (items: { href: string }[]) =>
 	class="hidden md:block sticky top-14 h-[calc(100vh-3.5rem)] w-56 lg:w-60 shrink-0 overflow-y-auto py-8 pl-6 lg:pl-8 pr-2"
 >
 	<nav class="space-y-6">
-		<SidebarSection title="Getting Started">
+		<SidebarSection title={t.gettingStarted}>
 			<div class="space-y-0.5">
 				{
 					gettingStarted.map((item) => (
@@ -130,90 +50,20 @@ const isInGroup = (items: { href: string }[]) =>
 			</div>
 		</SidebarSection>
 
-		<SidebarSection title="Components">
+		<SidebarSection title={t.components}>
 			<div class="space-y-4">
-				<SidebarGroup title="Layouts" open={isInGroup(layoutComponents)}>
-					{
-						layoutComponents.map((item) => (
+				{groups.map((g) => (
+					<SidebarGroup title={t[g.key]} open={isInGroup(g.items)}>
+						{g.items.map((item) => (
 							<SidebarLink href={item.href} currentPath={currentPath}>
 								{item.name}
 							</SidebarLink>
-						))
-					}
-				</SidebarGroup>
-
-				<SidebarGroup title="Basic" open={isInGroup(basicComponents)}>
-					{
-						basicComponents.map((item) => (
-							<SidebarLink href={item.href} currentPath={currentPath}>
-								{item.name}
-							</SidebarLink>
-						))
-					}
-				</SidebarGroup>
-
-				<SidebarGroup title="Typography" open={isInGroup(typographyComponents)}>
-					{
-						typographyComponents.map((item) => (
-							<SidebarLink href={item.href} currentPath={currentPath}>
-								{item.name}
-							</SidebarLink>
-						))
-					}
-				</SidebarGroup>
-
-				<SidebarGroup title="Navigation" open={isInGroup(navigationComponents)}>
-					{
-						navigationComponents.map((item) => (
-							<SidebarLink href={item.href} currentPath={currentPath}>
-								{item.name}
-							</SidebarLink>
-						))
-					}
-				</SidebarGroup>
-
-				<SidebarGroup title="Data Display" open={isInGroup(dataDisplayComponents)}>
-					{
-						dataDisplayComponents.map((item) => (
-							<SidebarLink href={item.href} currentPath={currentPath}>
-								{item.name}
-							</SidebarLink>
-						))
-					}
-				</SidebarGroup>
-
-				<SidebarGroup title="Forms" open={isInGroup(formComponents)}>
-					{
-						formComponents.map((item) => (
-							<SidebarLink href={item.href} currentPath={currentPath}>
-								{item.name}
-							</SidebarLink>
-						))
-					}
-				</SidebarGroup>
-
-				<SidebarGroup title="Feedback" open={isInGroup(feedbackComponents)}>
-					{
-						feedbackComponents.map((item) => (
-							<SidebarLink href={item.href} currentPath={currentPath}>
-								{item.name}
-							</SidebarLink>
-						))
-					}
-				</SidebarGroup>
-
-				<SidebarGroup title="Overlay" open={isInGroup(overlayComponents)}>
-					{
-						overlayComponents.map((item) => (
-							<SidebarLink href={item.href} currentPath={currentPath}>
-								{item.name}
-							</SidebarLink>
-						))
-					}
-				</SidebarGroup>
+						))}
+					</SidebarGroup>
+				))}
 			</div>
 		</SidebarSection>
-		<SidebarSection title="Examples">
+		<SidebarSection title={t.examples}>
 			<div class="space-y-0.5">
 				{
 					examplePages.map((item) => (

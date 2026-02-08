@@ -1,8 +1,13 @@
 ---
-import Layout from "../../layouts/Layout.astro";
-import Toggle from "../../components/ui/Toggle.astro";
-import Label from "../../components/ui/Label.astro";
-import ComponentPreview from "../../components/ComponentPreview.astro";
+import Layout from "@/layouts/Layout.astro";
+import Toggle from "@/components/ui/Toggle.astro";
+import Label from "@/components/ui/Label.astro";
+import ComponentPreview from "@/components/ComponentPreview.astro";
+import { getLocaleFromUrl, useTranslations } from "@/i18n";
+import { togglePage } from "@/i18n/pages/components/toggle";
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = useTranslations(togglePage, locale);
 
 const usageCode = `<label class="cu-toggle-wrapper">
   <input type="checkbox" class="cu-toggle-input" />
@@ -68,15 +73,13 @@ const disabledCode = `<label class="cu-toggle-wrapper">
 </label>`.trim();
 ---
 
-<Layout category="Forms" componentName="Toggle" title="Toggle — Cubby UI">
+<Layout category={t.category} componentName="Toggle" title={t.title}>
     <div class="space-y-3">
         <div class="flex items-center gap-3">
           <h1 class="text-3xl font-bold tracking-tight">Toggle</h1>
-          <span class="cu-badge cu-badge-secondary">Forms</span>
+          <span class="cu-badge cu-badge-secondary">{t.category}</span>
         </div>
-        <p class="text-base text-muted-foreground leading-relaxed">
-            Displays a toggle switch for binary on/off options. Pure CSS — no JavaScript required.
-        </p>
+        <p class="text-base text-muted-foreground leading-relaxed" set:html={t.description} />
     </div>
 
     <div class="mt-10 space-y-10">
@@ -84,15 +87,9 @@ const disabledCode = `<label class="cu-toggle-wrapper">
         <section class="space-y-3">
             <h2 id="usage" class="text-lg font-semibold tracking-tight relative group">
               <a href="#usage" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              Usage
+              {t.sections.usage.title}
             </h2>
-            <p class="text-base text-muted-foreground leading-relaxed">
-                The toggle uses a hidden <code class="cu-code">&lt;input type="checkbox"&gt;</code> with
-                <code class="cu-code">cu-toggle-input</code>,
-                a visual track with <code class="cu-code">cu-toggle</code>,
-                and a thumb with <code class="cu-code">cu-toggle-thumb</code>,
-                all inside a <code class="cu-code">cu-toggle-wrapper</code> label.
-            </p>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
             <ComponentPreview code={usageCode}>
                 <Toggle />
             </ComponentPreview>
@@ -102,40 +99,40 @@ const disabledCode = `<label class="cu-toggle-wrapper">
         <section class="space-y-3">
           <h2 id="classes" class="text-lg font-semibold tracking-tight relative group">
             <a href="#classes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-            CSS Classes
+            {t.sections.classes.title}
           </h2>
           <div class="cu-table-wrapper rounded-lg border border-border">
             <table class="cu-table">
               <thead class="cu-table-header">
                 <tr class="cu-table-row">
-                  <th class="cu-table-head">Class</th>
-                  <th class="cu-table-head">Description</th>
+                  <th class="cu-table-head">{t.sections.classes.classLabel}</th>
+                  <th class="cu-table-head">{t.sections.classes.descriptionLabel}</th>
                 </tr>
               </thead>
               <tbody class="cu-table-body">
                 <tr class="cu-table-row">
                   <td class="cu-table-cell"><code class="cu-code">cu-toggle-wrapper</code></td>
-                  <td class="cu-table-cell text-muted-foreground">Flex container for Toggle and Label</td>
+                  <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-toggle-wrapper']}</td>
                 </tr>
                 <tr class="cu-table-row">
                   <td class="cu-table-cell"><code class="cu-code">cu-toggle-input</code></td>
-                  <td class="cu-table-cell text-muted-foreground">Hidden checkbox input, controls toggle state via sibling selector</td>
+                  <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-toggle-input']}</td>
                 </tr>
                 <tr class="cu-table-row">
                   <td class="cu-table-cell"><code class="cu-code">cu-toggle</code></td>
-                  <td class="cu-table-cell text-muted-foreground">Toggle track, default size</td>
+                  <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-toggle']}</td>
                 </tr>
                 <tr class="cu-table-row">
                   <td class="cu-table-cell"><code class="cu-code">cu-toggle-sm</code></td>
-                  <td class="cu-table-cell text-muted-foreground">Small toggle track</td>
+                  <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-toggle-sm']}</td>
                 </tr>
                 <tr class="cu-table-row">
                   <td class="cu-table-cell"><code class="cu-code">cu-toggle-lg</code></td>
-                  <td class="cu-table-cell text-muted-foreground">Large toggle track</td>
+                  <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-toggle-lg']}</td>
                 </tr>
                 <tr class="cu-table-row">
                   <td class="cu-table-cell"><code class="cu-code">cu-toggle-thumb</code></td>
-                  <td class="cu-table-cell text-muted-foreground">Toggle sliding dot</td>
+                  <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-toggle-thumb']}</td>
                 </tr>
               </tbody>
             </table>
@@ -147,11 +144,9 @@ const disabledCode = `<label class="cu-toggle-wrapper">
         <section class="space-y-3">
             <h2 id="with-label" class="text-lg font-semibold tracking-tight relative group">
               <a href="#with-label" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              With Label
+              {t.sections.withLabel.title}
             </h2>
-            <p class="text-base text-muted-foreground leading-relaxed">
-                Add label text as a sibling inside the wrapper. Clicking the text also toggles the switch.
-            </p>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withLabel.description} />
             <ComponentPreview code={withLabelCode}>
                 <Toggle>
                     <span class="cu-label">Airplane Mode</span>
@@ -163,12 +158,9 @@ const disabledCode = `<label class="cu-toggle-wrapper">
         <section class="space-y-3">
             <h2 id="sizes" class="text-lg font-semibold tracking-tight relative group">
               <a href="#sizes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              Sizes
+              {t.sections.sizes.title}
             </h2>
-            <p class="text-base text-muted-foreground leading-relaxed">
-                Three sizes are available — <code class="cu-code">cu-toggle-sm</code>,
-                default, and <code class="cu-code">cu-toggle-lg</code>.
-            </p>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.sizes.description} />
             <ComponentPreview code={sizesCode}>
                 <div class="flex flex-col gap-4">
                     <Toggle size="sm" checked>
@@ -188,11 +180,9 @@ const disabledCode = `<label class="cu-toggle-wrapper">
         <section class="space-y-3">
             <h2 id="checked-by-default" class="text-lg font-semibold tracking-tight relative group">
               <a href="#checked-by-default" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              Checked by Default
+              {t.sections.checkedByDefault.title}
             </h2>
-            <p class="text-base text-muted-foreground leading-relaxed">
-                Add the <code class="cu-code">checked</code> attribute to the hidden input for an initial on state.
-            </p>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.checkedByDefault.description} />
             <ComponentPreview code={checkedCode}>
                 <Toggle checked>
                     <span class="cu-label">Enabled by default</span>
@@ -204,11 +194,9 @@ const disabledCode = `<label class="cu-toggle-wrapper">
         <section class="space-y-3">
             <h2 id="disabled" class="text-lg font-semibold tracking-tight relative group">
               <a href="#disabled" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              Disabled
+              {t.sections.disabled.title}
             </h2>
-            <p class="text-base text-muted-foreground leading-relaxed">
-                Add the <code class="cu-code">disabled</code> attribute to prevent interaction.
-            </p>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.disabled.description} />
             <ComponentPreview code={disabledCode}>
                 <div class="flex flex-col gap-4">
                     <Toggle disabled>

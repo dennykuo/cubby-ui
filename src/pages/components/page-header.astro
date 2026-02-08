@@ -1,6 +1,11 @@
 ---
-import Layout from "../../layouts/Layout.astro";
-import ComponentPreview from "../../components/ComponentPreview.astro";
+import Layout from "@/layouts/Layout.astro";
+import ComponentPreview from "@/components/ComponentPreview.astro";
+import { getLocaleFromUrl, useTranslations } from "@/i18n";
+import { pageHeaderPage } from "@/i18n/pages/components/page-header";
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = useTranslations(pageHeaderPage, locale);
 
 const usageCode = `<header class="cu-page-header">
   <div class="cu-page-header-content">

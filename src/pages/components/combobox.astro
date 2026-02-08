@@ -1,6 +1,11 @@
 ---
-import Layout from "../../layouts/Layout.astro";
-import ComponentPreview from "../../components/ComponentPreview.astro";
+import Layout from "@/layouts/Layout.astro";
+import ComponentPreview from "@/components/ComponentPreview.astro";
+import { getLocaleFromUrl, useTranslations } from "@/i18n";
+import { comboboxPage } from "@/i18n/pages/components/combobox";
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = useTranslations(comboboxPage, locale);
 
 const usageCode = `<div class="cu-combobox" data-cu-combobox style="width: 200px;">
   <button class="cu-combobox-trigger" data-cu-combobox-trigger>
@@ -81,7 +86,7 @@ const usageCode = `<div class="cu-combobox" data-cu-combobox style="width: 200px
       }
     });
   });
-</script>`.trim();
+\x3c/script>`.trim();
 
 const withCheckCode = `<div class="cu-combobox" data-cu-combobox style="width: 200px;">
   <button class="cu-combobox-trigger" data-cu-combobox-trigger>
@@ -105,15 +110,13 @@ const withCheckCode = `<div class="cu-combobox" data-cu-combobox style="width: 2
 </div>`.trim();
 ---
 
-<Layout category="Forms" componentName="Combobox" title="Combobox — Cubby UI">
+<Layout category={t.category} componentName="Combobox" title={t.title}>
     <div class="space-y-3">
         <div class="flex items-center gap-3">
           <h1 class="text-3xl font-bold tracking-tight">Combobox</h1>
-          <span class="cu-badge cu-badge-secondary">Forms</span>
+          <span class="cu-badge cu-badge-secondary">{t.category}</span>
         </div>
-        <p class="text-base text-muted-foreground leading-relaxed">
-            A searchable dropdown for selecting a value from a list of options.
-        </p>
+        <p class="text-base text-muted-foreground leading-relaxed" set:html={t.description} />
     </div>
 
     <div class="mt-10 space-y-10">
@@ -121,16 +124,9 @@ const withCheckCode = `<div class="cu-combobox" data-cu-combobox style="width: 2
         <section class="space-y-3">
             <h2 id="usage" class="text-lg font-semibold tracking-tight relative group">
               <a href="#usage" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              Usage
+              {t.sections.usage.title}
             </h2>
-            <p class="text-base text-muted-foreground leading-relaxed">
-                Use <code class="cu-code">data-cu-combobox</code> on the wrapper,
-                <code class="cu-code">data-cu-combobox-trigger</code> on the button,
-                <code class="cu-code">data-cu-combobox-content</code> on the dropdown, and
-                <code class="cu-code">data-cu-combobox-item</code> on each option.
-                The <code class="cu-code">&lt;script&gt;</code> handles search filtering,
-                selection, outside click, and Escape key.
-            </p>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
             <ComponentPreview code={usageCode}>
                 <div class="cu-combobox" data-cu-combobox style="width: 200px;">
                     <button class="cu-combobox-trigger" data-cu-combobox-trigger>
@@ -159,68 +155,68 @@ const withCheckCode = `<div class="cu-combobox" data-cu-combobox style="width: 2
         <section class="space-y-3">
             <h2 id="classes" class="text-lg font-semibold tracking-tight relative group">
                 <a href="#classes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                CSS Classes
+                {t.sections.classes.title}
             </h2>
             <div class="cu-table-wrapper rounded-lg border border-border">
                 <table class="cu-table">
                     <thead class="cu-table-header">
                         <tr class="cu-table-row">
-                            <th class="cu-table-head">Class</th>
-                            <th class="cu-table-head">Description</th>
+                            <th class="cu-table-head">{t.sections.classes.classLabel}</th>
+                            <th class="cu-table-head">{t.sections.classes.descriptionLabel}</th>
                         </tr>
                     </thead>
                     <tbody class="cu-table-body">
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-combobox</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Combobox container, relatively positioned inline-block</td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-combobox']}</td>
                         </tr>
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-combobox-trigger</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Trigger button with border, rounded corners, and focus ring</td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-combobox-trigger']}</td>
                         </tr>
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-combobox-trigger-placeholder</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Placeholder text in trigger button</td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-combobox-trigger-placeholder']}</td>
                         </tr>
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-combobox-trigger-icon</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Arrow icon on the right side of trigger</td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-combobox-trigger-icon']}</td>
                         </tr>
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-combobox-content</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Floating dropdown panel with rounded corners and shadow</td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-combobox-content']}</td>
                         </tr>
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-combobox-search</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Search bar container with bottom border</td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-combobox-search']}</td>
                         </tr>
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-combobox-search-icon</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Search icon in the search bar</td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-combobox-search-icon']}</td>
                         </tr>
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-combobox-input</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Search input with transparent background</td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-combobox-input']}</td>
                         </tr>
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-combobox-list</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Options list container, scrollable (max height 200px)</td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-combobox-list']}</td>
                         </tr>
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-combobox-empty</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Empty state text when no results found</td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-combobox-empty']}</td>
                         </tr>
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-combobox-item</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Option item with hover background</td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-combobox-item']}</td>
                         </tr>
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-combobox-item-active</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Selected option item</td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-combobox-item-active']}</td>
                         </tr>
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-combobox-item-check</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Check icon on the right side of option</td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-combobox-item-check']}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -232,11 +228,9 @@ const withCheckCode = `<div class="cu-combobox" data-cu-combobox style="width: 2
         <section class="space-y-3">
             <h2 id="status-selector" class="text-lg font-semibold tracking-tight relative group">
               <a href="#status-selector" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              Status Selector
+              {t.sections.statusSelector.title}
             </h2>
-            <p class="text-base text-muted-foreground leading-relaxed">
-                A common use case for filtering by status in a dashboard.
-            </p>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.statusSelector.description} />
             <ComponentPreview code={withCheckCode}>
                 <div class="cu-combobox" data-cu-combobox style="width: 200px;">
                     <button class="cu-combobox-trigger" data-cu-combobox-trigger>

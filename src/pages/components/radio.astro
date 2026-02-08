@@ -1,8 +1,13 @@
 ---
-import Layout from "../../layouts/Layout.astro";
-import Radio from "../../components/ui/Radio.astro";
-import Label from "../../components/ui/Label.astro";
-import ComponentPreview from "../../components/ComponentPreview.astro";
+import Layout from "@/layouts/Layout.astro";
+import Radio from "@/components/ui/Radio.astro";
+import Label from "@/components/ui/Label.astro";
+import ComponentPreview from "@/components/ComponentPreview.astro";
+import { getLocaleFromUrl, useTranslations } from "@/i18n";
+import { radioPage } from "@/i18n/pages/components/radio";
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = useTranslations(radioPage, locale);
 
 const usageCode = `<input type="radio" class="cu-radio" name="example" />`.trim();
 
@@ -48,15 +53,13 @@ const disabledCode = `<div class="cu-radio-group">
 </div>`.trim();
 ---
 
-<Layout category="Forms" componentName="Radio" title="Radio — Cubby UI">
+<Layout category={t.category} componentName="Radio" title={t.title}>
     <div class="space-y-3">
         <div class="flex items-center gap-3">
           <h1 class="text-3xl font-bold tracking-tight">Radio</h1>
-          <span class="cu-badge cu-badge-secondary">Forms</span>
+          <span class="cu-badge cu-badge-secondary">{t.category}</span>
         </div>
-        <p class="text-base text-muted-foreground leading-relaxed">
-            Displays a radio button for selecting one option from a group.
-        </p>
+        <p class="text-base text-muted-foreground leading-relaxed" set:html={t.description} />
     </div>
 
     <div class="mt-10 space-y-10">
@@ -64,11 +67,9 @@ const disabledCode = `<div class="cu-radio-group">
         <section class="space-y-3">
             <h2 id="usage" class="text-lg font-semibold tracking-tight relative group">
               <a href="#usage" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              Usage
+              {t.sections.usage.title}
             </h2>
-            <p class="text-base text-muted-foreground leading-relaxed">
-                Apply <code class="cu-code">cu-radio</code> to an <code class="cu-code">&lt;input type="radio"&gt;</code> element.
-            </p>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
             <ComponentPreview code={usageCode}>
                 <Radio name="example" />
             </ComponentPreview>
@@ -78,28 +79,28 @@ const disabledCode = `<div class="cu-radio-group">
         <section class="space-y-3">
           <h2 id="classes" class="text-lg font-semibold tracking-tight relative group">
             <a href="#classes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-            CSS Classes
+            {t.sections.classes.title}
           </h2>
           <div class="cu-table-wrapper rounded-lg border border-border">
             <table class="cu-table">
               <thead class="cu-table-header">
                 <tr class="cu-table-row">
-                  <th class="cu-table-head">Class</th>
-                  <th class="cu-table-head">Description</th>
+                  <th class="cu-table-head">{t.sections.classes.classLabel}</th>
+                  <th class="cu-table-head">{t.sections.classes.descriptionLabel}</th>
                 </tr>
               </thead>
               <tbody class="cu-table-body">
                 <tr class="cu-table-row">
                   <td class="cu-table-cell"><code class="cu-code">cu-radio-group</code></td>
-                  <td class="cu-table-cell text-muted-foreground">Vertical container for Radio group</td>
+                  <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-radio-group']}</td>
                 </tr>
                 <tr class="cu-table-row">
                   <td class="cu-table-cell"><code class="cu-code">cu-radio-wrapper</code></td>
-                  <td class="cu-table-cell text-muted-foreground">Flex container for Radio and Label</td>
+                  <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-radio-wrapper']}</td>
                 </tr>
                 <tr class="cu-table-row">
                   <td class="cu-table-cell"><code class="cu-code">cu-radio</code></td>
-                  <td class="cu-table-cell text-muted-foreground">Radio button style, shows inner dot via thick border when selected</td>
+                  <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-radio']}</td>
                 </tr>
               </tbody>
             </table>
@@ -111,13 +112,9 @@ const disabledCode = `<div class="cu-radio-group">
         <section class="space-y-3">
             <h2 id="radio-group" class="text-lg font-semibold tracking-tight relative group">
               <a href="#radio-group" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              Radio Group
+              {t.sections.radioGroup.title}
             </h2>
-            <p class="text-base text-muted-foreground leading-relaxed">
-                Group radios with the same <code class="cu-code">name</code> attribute inside a
-                <code class="cu-code">cu-radio-group</code> container, using
-                <code class="cu-code">cu-radio-wrapper</code> for each option.
-            </p>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.radioGroup.description} />
             <ComponentPreview code={groupCode}>
                 <div class="cu-radio-group">
                     <div class="cu-radio-wrapper">
@@ -140,11 +137,9 @@ const disabledCode = `<div class="cu-radio-group">
         <section class="space-y-3">
             <h2 id="default-selected" class="text-lg font-semibold tracking-tight relative group">
               <a href="#default-selected" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              Default Selected
+              {t.sections.defaultSelected.title}
             </h2>
-            <p class="text-base text-muted-foreground leading-relaxed">
-                Add the <code class="cu-code">checked</code> attribute to pre-select an option.
-            </p>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.defaultSelected.description} />
             <ComponentPreview code={defaultCode}>
                 <div class="cu-radio-group">
                     <div class="cu-radio-wrapper">
@@ -167,11 +162,9 @@ const disabledCode = `<div class="cu-radio-group">
         <section class="space-y-3">
             <h2 id="disabled" class="text-lg font-semibold tracking-tight relative group">
               <a href="#disabled" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              Disabled
+              {t.sections.disabled.title}
             </h2>
-            <p class="text-base text-muted-foreground leading-relaxed">
-                Add the <code class="cu-code">disabled</code> attribute to prevent interaction.
-            </p>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.disabled.description} />
             <ComponentPreview code={disabledCode}>
                 <div class="cu-radio-group">
                     <div class="cu-radio-wrapper">

@@ -1,7 +1,12 @@
 ---
-import Layout from "../../layouts/Layout.astro";
-import Badge from "../../components/ui/Badge.astro";
-import ComponentPreview from "../../components/ComponentPreview.astro";
+import Layout from "@/layouts/Layout.astro";
+import Badge from "@/components/ui/Badge.astro";
+import ComponentPreview from "@/components/ComponentPreview.astro";
+import { getLocaleFromUrl, useTranslations } from "@/i18n";
+import { badgePage } from "@/i18n/pages/components/badge";
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = useTranslations(badgePage, locale);
 
 const usageCode = `<span class="cu-badge cu-badge-default">Badge</span>`.trim();
 
@@ -19,15 +24,13 @@ const withIconCode = `<span class="cu-badge cu-badge-default">
 </span>`.trim();
 ---
 
-<Layout title="Badge — Cubby UI" category="Data Display" componentName="Badge">
+<Layout title={t.title} category={t.category} componentName="Badge">
     <div class="space-y-3">
         <div class="flex items-center gap-3">
             <h1 class="text-3xl font-bold tracking-tight">Badge</h1>
-            <span class="cu-badge cu-badge-secondary">Data Display</span>
+            <span class="cu-badge cu-badge-secondary">{t.category}</span>
         </div>
-        <p class="text-base text-muted-foreground leading-relaxed">
-            Displays a badge or a component that looks like a badge.
-        </p>
+        <p class="text-base text-muted-foreground leading-relaxed">{t.description}</p>
     </div>
 
     <div class="mt-10 space-y-10">
@@ -35,11 +38,9 @@ const withIconCode = `<span class="cu-badge cu-badge-default">
         <section class="space-y-3">
             <h2 id="usage" class="text-lg font-semibold tracking-tight relative group">
                 <a href="#usage" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                Usage
+                {t.sections.usage.title}
             </h2>
-            <p class="text-base text-muted-foreground leading-relaxed">
-                Apply <code class="cu-code">cu-badge</code> as the base class, then add a variant class.
-            </p>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
             <ComponentPreview code={usageCode}>
                 <Badge>Badge</Badge>
             </ComponentPreview>
@@ -49,52 +50,52 @@ const withIconCode = `<span class="cu-badge cu-badge-default">
         <section class="space-y-3">
             <h2 id="classes" class="text-lg font-semibold tracking-tight relative group">
                 <a href="#classes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                CSS Classes
+                {t.sections.classes.title}
             </h2>
             <div class="cu-table-wrapper rounded-lg border border-border">
                 <table class="cu-table">
                     <thead class="cu-table-header">
                         <tr class="cu-table-row">
-                            <th class="cu-table-head">Class</th>
-                            <th class="cu-table-head">Description</th>
+                            <th class="cu-table-head">{t.sections.classes.classLabel}</th>
+                            <th class="cu-table-head">{t.sections.classes.descriptionLabel}</th>
                         </tr>
                     </thead>
                     <tbody class="cu-table-body">
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-badge</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Badge base style</td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-badge']}</td>
                         </tr>
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-badge-default</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Default variant (primary background)</td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-badge-default']}</td>
                         </tr>
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-badge-secondary</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Secondary variant</td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-badge-secondary']}</td>
                         </tr>
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-badge-outline</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Outline variant</td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-badge-outline']}</td>
                         </tr>
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-badge-destructive</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Destructive variant</td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-badge-destructive']}</td>
                         </tr>
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-badge-success</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Success variant</td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-badge-success']}</td>
                         </tr>
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-badge-warning</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Warning variant</td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-badge-warning']}</td>
                         </tr>
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-badge-info</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Info variant</td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-badge-info']}</td>
                         </tr>
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-badge-soft-*</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Soft variant (light background + colored text), supports default / secondary / destructive / success / warning / info</td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-badge-soft-*']}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -106,11 +107,9 @@ const withIconCode = `<span class="cu-badge cu-badge-default">
         <section class="space-y-3">
             <h2 id="variants" class="text-lg font-semibold tracking-tight relative group">
                 <a href="#variants" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                Variants
+                {t.sections.variants.title}
             </h2>
-            <p class="text-base text-muted-foreground leading-relaxed">
-                Use variant classes to change the badge's visual style.
-            </p>
+            <p class="text-base text-muted-foreground leading-relaxed">{t.sections.variants.description}</p>
             <ComponentPreview code={variantsCode}>
                 <div class="flex flex-wrap gap-2 items-center justify-center">
                     <Badge>Default</Badge>
@@ -128,11 +127,9 @@ const withIconCode = `<span class="cu-badge cu-badge-default">
         <section class="space-y-3">
             <h2 id="with-icon" class="text-lg font-semibold tracking-tight relative group">
                 <a href="#with-icon" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                With Icon
+                {t.sections.withIcon.title}
             </h2>
-            <p class="text-base text-muted-foreground leading-relaxed">
-                Add inline SVG icons inside the badge for additional context.
-            </p>
+            <p class="text-base text-muted-foreground leading-relaxed">{t.sections.withIcon.description}</p>
             <ComponentPreview code={withIconCode}>
                 <Badge>
                     <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>

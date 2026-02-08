@@ -1,8 +1,13 @@
 ---
-import Layout from "../../layouts/Layout.astro";
-import ScrollArea from "../../components/ui/ScrollArea.astro";
-import Separator from "../../components/ui/Separator.astro";
-import ComponentPreview from "../../components/ComponentPreview.astro";
+import Layout from "@/layouts/Layout.astro";
+import ScrollArea from "@/components/ui/ScrollArea.astro";
+import Separator from "@/components/ui/Separator.astro";
+import ComponentPreview from "@/components/ComponentPreview.astro";
+import { getLocaleFromUrl, useTranslations } from "@/i18n";
+import { scrollAreaPage } from "@/i18n/pages/components/scroll-area";
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = useTranslations(scrollAreaPage, locale);
 
 const usageCode = `<div class="cu-scroll-area h-[200px] w-48 rounded-lg border border-border p-4">
   <h4 class="mb-4 text-sm font-medium leading-none">Tags</h4>

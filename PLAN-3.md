@@ -9,7 +9,7 @@
     - 啟用 `allowJs: true` 與 `checkJs: true`。
 - **效益**：
     - 透過 JSDoc (`/** @type {import(...)} */`) 為 Vanilla JS 提供型別檢查與 IntelliSense，無需重寫程式碼。
-    - 直接支援 `PLAN-2.md` 中的「共用型別定義」目標，讓 `.d.ts` 或 `.ts` 定義檔能被 JS 與 Astro 檔案共用。
+    - 讓 `.d.ts` 或 `.ts` 定義檔能被 JS 與 Astro 檔案共用。
 
 ## 2. 程式碼規範與格式化 (Linting & Formatting)
 `src/scripts/cubby-ui.js` 檔案龐大且無自動格式化，維護困難。
