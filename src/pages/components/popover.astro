@@ -47,6 +47,36 @@ ${SO}
   });
 ${SC}`.trim();
 
+const sizesCode = `<!-- Small -->
+<div class="cu-popover" data-cu-popover>
+  <button class="cu-button cu-button-outline cu-button-sm" data-cu-popover-trigger>
+    Small
+  </button>
+  <div class="cu-popover-content cu-popover-content-sm" data-cu-popover-content>
+    <p class="text-sm text-muted-foreground">A compact popover panel.</p>
+  </div>
+</div>
+
+<!-- Default -->
+<div class="cu-popover" data-cu-popover>
+  <button class="cu-button cu-button-outline cu-button-md" data-cu-popover-trigger>
+    Default
+  </button>
+  <div class="cu-popover-content" data-cu-popover-content>
+    <p class="text-sm text-muted-foreground">Default width popover panel.</p>
+  </div>
+</div>
+
+<!-- Large -->
+<div class="cu-popover" data-cu-popover>
+  <button class="cu-button cu-button-outline cu-button-md" data-cu-popover-trigger>
+    Large
+  </button>
+  <div class="cu-popover-content cu-popover-content-lg" data-cu-popover-content>
+    <p class="text-sm text-muted-foreground">A wider popover panel for more content.</p>
+  </div>
+</div>`.trim();
+
 const topCode = `<div class="cu-popover" data-cu-popover>
   <button class="cu-button cu-button-outline cu-button-md" data-cu-popover-trigger>
     Top Popover
@@ -124,6 +154,14 @@ const topCode = `<div class="cu-popover" data-cu-popover>
                             <td class="cu-table-cell"><code class="cu-code">cu-popover-content</code></td>
                             <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-popover-content']}</td>
                         </tr>
+                        <tr class="cu-table-row">
+                            <td class="cu-table-cell"><code class="cu-code">cu-popover-content-sm</code></td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-popover-content-sm']}</td>
+                        </tr>
+                        <tr class="cu-table-row">
+                            <td class="cu-table-cell"><code class="cu-code">cu-popover-content-lg</code></td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-popover-content-lg']}</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -144,6 +182,43 @@ const topCode = `<div class="cu-popover" data-cu-popover>
                     </button>
                     <div class="cu-popover-content bottom-full mb-2" data-cu-popover-content>
                         <p class="text-sm text-muted-foreground">This popover opens above the trigger.</p>
+                    </div>
+                </div>
+            </ComponentPreview>
+        </section>
+
+        <!-- Sizes -->
+        <section class="space-y-3">
+            <h2 id="sizes" class="text-lg font-semibold tracking-tight relative group">
+                <a href="#sizes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                {t.sections.sizes.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.sizes.description} />
+            <ComponentPreview code={sizesCode}>
+                <div class="flex flex-wrap gap-4 items-start">
+                    <div class="cu-popover" data-cu-popover>
+                        <button class="cu-button cu-button-outline cu-button-sm" data-cu-popover-trigger>
+                            Small
+                        </button>
+                        <div class="cu-popover-content cu-popover-content-sm" data-cu-popover-content>
+                            <p class="text-sm text-muted-foreground">A compact popover panel.</p>
+                        </div>
+                    </div>
+                    <div class="cu-popover" data-cu-popover>
+                        <button class="cu-button cu-button-outline cu-button-md" data-cu-popover-trigger>
+                            Default
+                        </button>
+                        <div class="cu-popover-content" data-cu-popover-content>
+                            <p class="text-sm text-muted-foreground">Default width popover panel.</p>
+                        </div>
+                    </div>
+                    <div class="cu-popover" data-cu-popover>
+                        <button class="cu-button cu-button-outline cu-button-md" data-cu-popover-trigger>
+                            Large
+                        </button>
+                        <div class="cu-popover-content cu-popover-content-lg" data-cu-popover-content>
+                            <p class="text-sm text-muted-foreground">A wider popover panel for more content.</p>
+                        </div>
                     </div>
                 </div>
             </ComponentPreview>

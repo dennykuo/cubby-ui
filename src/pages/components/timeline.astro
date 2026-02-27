@@ -1,0 +1,275 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import ComponentPreview from "@/components/ComponentPreview.astro";
+import { getLocaleFromUrl, useTranslations } from "@/i18n";
+import { timelinePage } from "@/i18n/pages/components/timeline";
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = useTranslations(timelinePage, locale);
+
+const usageCode = `<div class="cu-timeline">
+  <div class="cu-timeline-item">
+    <div class="cu-timeline-dot"></div>
+    <div class="cu-timeline-content">
+      <p class="cu-timeline-title">Order placed</p>
+      <p class="cu-timeline-description">Your order #12345 has been placed.</p>
+      <p class="cu-timeline-time">Jan 15, 2025 · 10:30 AM</p>
+    </div>
+  </div>
+  <div class="cu-timeline-item">
+    <div class="cu-timeline-dot"></div>
+    <div class="cu-timeline-content">
+      <p class="cu-timeline-title">Payment confirmed</p>
+      <p class="cu-timeline-description">Payment of $49.99 was successfully processed.</p>
+      <p class="cu-timeline-time">Jan 15, 2025 · 10:32 AM</p>
+    </div>
+  </div>
+  <div class="cu-timeline-item">
+    <div class="cu-timeline-dot"></div>
+    <div class="cu-timeline-content">
+      <p class="cu-timeline-title">Shipped</p>
+      <p class="cu-timeline-description">Your package is on its way.</p>
+      <p class="cu-timeline-time">Jan 16, 2025 · 2:15 PM</p>
+    </div>
+  </div>
+</div>`.trim();
+
+const withColorsCode = `<div class="cu-timeline">
+  <div class="cu-timeline-item">
+    <div class="cu-timeline-dot cu-timeline-dot-success"></div>
+    <div class="cu-timeline-content">
+      <p class="cu-timeline-title">Deployment successful</p>
+      <p class="cu-timeline-description">v2.4.1 deployed to production.</p>
+      <p class="cu-timeline-time">2 hours ago</p>
+    </div>
+  </div>
+  <div class="cu-timeline-item">
+    <div class="cu-timeline-dot cu-timeline-dot-warning"></div>
+    <div class="cu-timeline-content">
+      <p class="cu-timeline-title">Build warning</p>
+      <p class="cu-timeline-description">3 deprecation warnings detected.</p>
+      <p class="cu-timeline-time">3 hours ago</p>
+    </div>
+  </div>
+  <div class="cu-timeline-item">
+    <div class="cu-timeline-dot cu-timeline-dot-destructive"></div>
+    <div class="cu-timeline-content">
+      <p class="cu-timeline-title">Tests failed</p>
+      <p class="cu-timeline-description">2 test suites failed in CI pipeline.</p>
+      <p class="cu-timeline-time">5 hours ago</p>
+    </div>
+  </div>
+  <div class="cu-timeline-item">
+    <div class="cu-timeline-dot cu-timeline-dot-info"></div>
+    <div class="cu-timeline-content">
+      <p class="cu-timeline-title">PR opened</p>
+      <p class="cu-timeline-description">Pull request #142 opened by @developer.</p>
+      <p class="cu-timeline-time">Yesterday</p>
+    </div>
+  </div>
+</div>`.trim();
+
+const withIconsCode = `<div class="cu-timeline">
+  <div class="cu-timeline-item">
+    <div class="cu-timeline-dot cu-timeline-dot-success">
+      <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="cu-timeline-dot-icon"><path d="m8 12 3 3 5-6"/></svg>
+    </div>
+    <div class="cu-timeline-content">
+      <p class="cu-timeline-title">Task completed</p>
+      <p class="cu-timeline-description">Design review has been approved.</p>
+      <p class="cu-timeline-time">Today, 3:00 PM</p>
+    </div>
+  </div>
+  <div class="cu-timeline-item">
+    <div class="cu-timeline-dot cu-timeline-dot-primary">
+      <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="cu-timeline-dot-icon"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+    </div>
+    <div class="cu-timeline-content">
+      <p class="cu-timeline-title">New member joined</p>
+      <p class="cu-timeline-description">Sarah joined the design team.</p>
+      <p class="cu-timeline-time">Yesterday, 11:00 AM</p>
+    </div>
+  </div>
+  <div class="cu-timeline-item">
+    <div class="cu-timeline-dot cu-timeline-dot-warning">
+      <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="cu-timeline-dot-icon"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>
+    </div>
+    <div class="cu-timeline-content">
+      <p class="cu-timeline-title">Deadline approaching</p>
+      <p class="cu-timeline-description">Project milestone due in 3 days.</p>
+      <p class="cu-timeline-time">2 days ago</p>
+    </div>
+  </div>
+</div>`.trim();
+---
+
+<Layout title={t.title} category={t.category} componentName="Timeline">
+    <div class="space-y-3">
+        <div class="flex items-center gap-3">
+            <h1 class="text-3xl font-bold tracking-tight">Timeline</h1>
+            <span class="cu-badge cu-badge-secondary">{t.category}</span>
+        </div>
+        <p class="text-base text-muted-foreground leading-relaxed">
+            {t.description}
+        </p>
+    </div>
+
+    <div class="mt-10 space-y-10">
+        <!-- Usage -->
+        <section class="space-y-3">
+            <h2 id="usage" class="text-lg font-semibold tracking-tight relative group">
+                <a href="#usage" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                {t.sections.usage.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
+            <ComponentPreview code={usageCode}>
+                <div class="w-full max-w-md">
+                    <div class="cu-timeline">
+                        <div class="cu-timeline-item">
+                            <div class="cu-timeline-dot"></div>
+                            <div class="cu-timeline-content">
+                                <p class="cu-timeline-title">Order placed</p>
+                                <p class="cu-timeline-description">Your order #12345 has been placed.</p>
+                                <p class="cu-timeline-time">Jan 15, 2025 · 10:30 AM</p>
+                            </div>
+                        </div>
+                        <div class="cu-timeline-item">
+                            <div class="cu-timeline-dot"></div>
+                            <div class="cu-timeline-content">
+                                <p class="cu-timeline-title">Payment confirmed</p>
+                                <p class="cu-timeline-description">Payment of $49.99 was successfully processed.</p>
+                                <p class="cu-timeline-time">Jan 15, 2025 · 10:32 AM</p>
+                            </div>
+                        </div>
+                        <div class="cu-timeline-item">
+                            <div class="cu-timeline-dot"></div>
+                            <div class="cu-timeline-content">
+                                <p class="cu-timeline-title">Shipped</p>
+                                <p class="cu-timeline-description">Your package is on its way.</p>
+                                <p class="cu-timeline-time">Jan 16, 2025 · 2:15 PM</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ComponentPreview>
+        </section>
+
+        <!-- Classes Reference -->
+        <section class="space-y-3">
+            <h2 id="classes" class="text-lg font-semibold tracking-tight relative group">
+                <a href="#classes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                {t.sections.classes.title}
+            </h2>
+            <div class="cu-table-wrapper rounded-lg border border-border">
+                <table class="cu-table">
+                    <thead class="cu-table-header">
+                        <tr class="cu-table-row">
+                            <th class="cu-table-head">{t.sections.classes.classLabel}</th>
+                            <th class="cu-table-head">{t.sections.classes.descriptionLabel}</th>
+                        </tr>
+                    </thead>
+                    <tbody class="cu-table-body">
+                        {Object.entries(t.classDescriptions).map(([cls, desc]) => (
+                            <tr class="cu-table-row">
+                                <td class="cu-table-cell"><code class="cu-code">{cls}</code></td>
+                                <td class="cu-table-cell text-muted-foreground">{desc}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- With Colors -->
+        <section class="space-y-3">
+            <h2 id="with-colors" class="text-lg font-semibold tracking-tight relative group">
+                <a href="#with-colors" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                {t.sections.withColors.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withColors.description} />
+            <ComponentPreview code={withColorsCode}>
+                <div class="w-full max-w-md">
+                    <div class="cu-timeline">
+                        <div class="cu-timeline-item">
+                            <div class="cu-timeline-dot cu-timeline-dot-success"></div>
+                            <div class="cu-timeline-content">
+                                <p class="cu-timeline-title">Deployment successful</p>
+                                <p class="cu-timeline-description">v2.4.1 deployed to production.</p>
+                                <p class="cu-timeline-time">2 hours ago</p>
+                            </div>
+                        </div>
+                        <div class="cu-timeline-item">
+                            <div class="cu-timeline-dot cu-timeline-dot-warning"></div>
+                            <div class="cu-timeline-content">
+                                <p class="cu-timeline-title">Build warning</p>
+                                <p class="cu-timeline-description">3 deprecation warnings detected.</p>
+                                <p class="cu-timeline-time">3 hours ago</p>
+                            </div>
+                        </div>
+                        <div class="cu-timeline-item">
+                            <div class="cu-timeline-dot cu-timeline-dot-destructive"></div>
+                            <div class="cu-timeline-content">
+                                <p class="cu-timeline-title">Tests failed</p>
+                                <p class="cu-timeline-description">2 test suites failed in CI pipeline.</p>
+                                <p class="cu-timeline-time">5 hours ago</p>
+                            </div>
+                        </div>
+                        <div class="cu-timeline-item">
+                            <div class="cu-timeline-dot cu-timeline-dot-info"></div>
+                            <div class="cu-timeline-content">
+                                <p class="cu-timeline-title">PR opened</p>
+                                <p class="cu-timeline-description">Pull request #142 opened by @developer.</p>
+                                <p class="cu-timeline-time">Yesterday</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ComponentPreview>
+        </section>
+
+        <!-- With Icons -->
+        <section class="space-y-3">
+            <h2 id="with-icons" class="text-lg font-semibold tracking-tight relative group">
+                <a href="#with-icons" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                {t.sections.withIcons.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withIcons.description} />
+            <ComponentPreview code={withIconsCode}>
+                <div class="w-full max-w-md">
+                    <div class="cu-timeline">
+                        <div class="cu-timeline-item">
+                            <div class="cu-timeline-dot cu-timeline-dot-success">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="cu-timeline-dot-icon"><path d="m8 12 3 3 5-6"/></svg>
+                            </div>
+                            <div class="cu-timeline-content">
+                                <p class="cu-timeline-title">Task completed</p>
+                                <p class="cu-timeline-description">Design review has been approved.</p>
+                                <p class="cu-timeline-time">Today, 3:00 PM</p>
+                            </div>
+                        </div>
+                        <div class="cu-timeline-item">
+                            <div class="cu-timeline-dot cu-timeline-dot-primary">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="cu-timeline-dot-icon"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                            </div>
+                            <div class="cu-timeline-content">
+                                <p class="cu-timeline-title">New member joined</p>
+                                <p class="cu-timeline-description">Sarah joined the design team.</p>
+                                <p class="cu-timeline-time">Yesterday, 11:00 AM</p>
+                            </div>
+                        </div>
+                        <div class="cu-timeline-item">
+                            <div class="cu-timeline-dot cu-timeline-dot-warning">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="cu-timeline-dot-icon"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>
+                            </div>
+                            <div class="cu-timeline-content">
+                                <p class="cu-timeline-title">Deadline approaching</p>
+                                <p class="cu-timeline-description">Project milestone due in 3 days.</p>
+                                <p class="cu-timeline-time">2 days ago</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ComponentPreview>
+        </section>
+    </div>
+</Layout>

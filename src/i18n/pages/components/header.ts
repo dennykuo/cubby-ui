@@ -8,6 +8,8 @@ export const headerPage: Record<Locale, {
     usage: { title: string; description: string };
     classes: { title: string; classLabel: string; descriptionLabel: string };
     withNavigation: { title: string; description: string };
+    navStart: { title: string; description: string };
+    navEnd: { title: string; description: string };
     brandVariations: { title: string; description: string };
     mobileMenuToggle: { title: string; description: string };
     withActions: { title: string; description: string };
@@ -32,6 +34,14 @@ export const headerPage: Record<Locale, {
         title: 'With Navigation',
         description: 'Add a <code class="cu-code">cu-header-nav</code> section with a <code class="cu-code">cu-nav</code> inside. The nav area is hidden on mobile and visible from the <code class="cu-code">md</code> breakpoint.',
       },
+      navStart: {
+        title: 'Navigation Start-Aligned',
+        description: 'Add <code class="cu-code">cu-header-nav-start</code> to keep navigation next to the brand, pushing actions to the far right.',
+      },
+      navEnd: {
+        title: 'Navigation End-Aligned',
+        description: 'Add <code class="cu-code">cu-header-nav-end</code> to push navigation to the right, adjacent to the actions area.',
+      },
       brandVariations: {
         title: 'Brand Variations',
         description: 'The brand area accepts any content — text only, icon with text, or a custom logo image.',
@@ -50,6 +60,8 @@ export const headerPage: Record<Locale, {
       'cu-header-inner': 'Inner flex container controlling height and horizontal padding',
       'cu-header-brand': 'Left brand / logo area',
       'cu-header-nav': 'Center navigation links, hidden on mobile',
+      'cu-header-nav-start': 'Keep navigation next to the brand, push actions to the far right',
+      'cu-header-nav-end': 'Push navigation to the right, adjacent to the actions area',
       'cu-header-actions': 'Right action button area',
     },
   },
@@ -71,6 +83,14 @@ export const headerPage: Record<Locale, {
         title: '帶導航',
         description: '加入 <code class="cu-code">cu-header-nav</code> 區塊，內部放入 <code class="cu-code">cu-nav</code>。導航區域在行動裝置上隱藏，從 <code class="cu-code">md</code> 斷點開始顯示。',
       },
+      navStart: {
+        title: '導航左對齊',
+        description: '加入 <code class="cu-code">cu-header-nav-start</code> 將導航保持在品牌旁邊，操作區域推至最右側。',
+      },
+      navEnd: {
+        title: '導航右對齊',
+        description: '加入 <code class="cu-code">cu-header-nav-end</code> 將導航推至右側，緊鄰操作區域。',
+      },
       brandVariations: {
         title: '品牌變化',
         description: '品牌區域可接受任何內容 — 純文字、圖示加文字，或自訂 logo 圖片。',
@@ -89,6 +109,8 @@ export const headerPage: Record<Locale, {
       'cu-header-inner': '內部 flex 容器，控制高度和水平內距',
       'cu-header-brand': '左側品牌 / logo 區域',
       'cu-header-nav': '中間導航連結，行動端隱藏',
+      'cu-header-nav-start': '將導航保持在品牌旁邊，操作區域推至最右側',
+      'cu-header-nav-end': '將導航推至右側，緊鄰操作區域',
       'cu-header-actions': '右側操作按鈕區域',
     },
   },

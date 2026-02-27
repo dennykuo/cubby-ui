@@ -9,6 +9,9 @@ export const avatarPage: Record<Locale, {
     classes: { title: string; classLabel: string; descriptionLabel: string };
     sizes: { title: string; description: string };
     withFallback: { title: string; description: string };
+    avatarGroup: { title: string; description: string };
+    withStatusIndicator: { title: string; description: string };
+    status: { title: string; description: string };
   };
   classDescriptions: Record<string, string>;
 }> = {
@@ -34,6 +37,18 @@ export const avatarPage: Record<Locale, {
         title: 'With Fallback',
         description: 'When no image is provided, the fallback with initials is displayed.',
       },
+      avatarGroup: {
+        title: 'Avatar Group',
+        description: 'Use <code class="cu-code">cu-avatar-group</code> to stack multiple avatars with overlapping negative margin and a background ring. Add <code class="cu-code">cu-avatar-group-count</code> to a fallback to show the remaining count.',
+      },
+      withStatusIndicator: {
+        title: 'With Status Indicator',
+        description: 'Add a status dot at the bottom-right corner to indicate online/offline state.',
+      },
+      status: {
+        title: 'Status Indicator',
+        description: 'Use <code class="cu-code">cu-avatar-status</code> with a size and color class to show online/offline/busy/away status.',
+      },
     },
     classDescriptions: {
       'cu-avatar': 'Avatar container with circular clipping',
@@ -42,6 +57,17 @@ export const avatarPage: Record<Locale, {
       'cu-avatar-lg': 'Large size (48px)',
       'cu-avatar-image': 'Avatar image, aspect-fill',
       'cu-avatar-fallback': 'Fallback display when image fails to load',
+      'cu-avatar-group': 'Stacked avatar group with overlapping layout and ring',
+      'cu-avatar-group-count': 'Smaller text for the "+N" count fallback',
+      'cu-avatar-ring': 'Decorative ring around avatar',
+      'cu-avatar-status': 'Positioned status indicator dot',
+      'cu-avatar-status-sm': 'Small status dot',
+      'cu-avatar-status-md': 'Medium status dot',
+      'cu-avatar-status-lg': 'Large status dot',
+      'cu-avatar-status-online': 'Online (green)',
+      'cu-avatar-status-offline': 'Offline (gray)',
+      'cu-avatar-status-busy': 'Busy (red)',
+      'cu-avatar-status-away': 'Away (yellow)',
     },
   },
   'zh-tw': {
@@ -66,6 +92,18 @@ export const avatarPage: Record<Locale, {
         title: '備用顯示',
         description: '當未提供圖片時，會顯示帶有首字母的備用內容。',
       },
+      avatarGroup: {
+        title: '頭像群組',
+        description: '使用 <code class="cu-code">cu-avatar-group</code> 將多個頭像以重疊負邊距堆疊，並自動加上背景邊框環。在 fallback 上加入 <code class="cu-code">cu-avatar-group-count</code> 以顯示剩餘數量。',
+      },
+      withStatusIndicator: {
+        title: '搭配狀態指示器',
+        description: '在右下角加入狀態圓點，指示線上 / 離線狀態。',
+      },
+      status: {
+        title: '狀態指示',
+        description: '使用 <code class="cu-code">cu-avatar-status</code> 搭配尺寸和顏色類別以顯示在線/離線/忙碌/離開狀態。',
+      },
     },
     classDescriptions: {
       'cu-avatar': '頭像容器，圓形裁切',
@@ -74,6 +112,17 @@ export const avatarPage: Record<Locale, {
       'cu-avatar-lg': '大尺寸（48px）',
       'cu-avatar-image': '頭像圖片，填滿裁切',
       'cu-avatar-fallback': '圖片載入失敗時的備用顯示',
+      'cu-avatar-group': '堆疊式頭像群組，帶重疊佈局與邊框環',
+      'cu-avatar-group-count': '「+N」計數的較小文字',
+      'cu-avatar-ring': '頭像裝飾環',
+      'cu-avatar-status': '定位狀態指示點',
+      'cu-avatar-status-sm': '小狀態點',
+      'cu-avatar-status-md': '中狀態點',
+      'cu-avatar-status-lg': '大狀態點',
+      'cu-avatar-status-online': '在線（綠色）',
+      'cu-avatar-status-offline': '離線（灰色）',
+      'cu-avatar-status-busy': '忙碌（紅色）',
+      'cu-avatar-status-away': '離開（黃色）',
     },
   },
 };

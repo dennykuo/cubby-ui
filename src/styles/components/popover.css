@@ -5,12 +5,21 @@
 }
 
 .cu-popover-content {
-    @apply z-50 w-72 rounded-xl border border-border bg-popover p-4 text-popover-foreground shadow-md;
+    @apply z-50 w-72 rounded-xl border border-border bg-popover p-4 text-popover-foreground shadow-md dark:shadow-lg dark:shadow-black/20;
     @apply absolute mt-2;
 }
 
 .cu-popover-content:not([hidden]) {
     animation: cu-float-in 0.15s ease;
+}
+
+/* -- sizes -- */
+.cu-popover-content-sm {
+    @apply w-56;
+}
+
+.cu-popover-content-lg {
+    @apply w-96;
 }
 
 .cu-popover-content[popover] {

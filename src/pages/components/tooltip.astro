@@ -11,6 +11,24 @@ const usageCode = `<span class="cu-tooltip" data-cu-tooltip="This is a tooltip">
   <button class="cu-button cu-button-outline cu-button-md">Hover me</button>
 </span>`.trim();
 
+const iconButtonsCode = `<span class="cu-tooltip" data-cu-tooltip="Bold">
+  <button class="cu-button cu-button-ghost cu-button-icon">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12h9a4 4 0 0 1 0 8H7a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h7a4 4 0 0 1 0 8"/></svg>
+  </button>
+</span>
+
+<span class="cu-tooltip" data-cu-tooltip="Italic">
+  <button class="cu-button cu-button-ghost cu-button-icon">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" x2="10" y1="4" y2="4"/><line x1="14" x2="5" y1="20" y2="20"/><line x1="15" x2="9" y1="4" y2="20"/></svg>
+  </button>
+</span>
+
+<span class="cu-tooltip" data-cu-tooltip="Underline">
+  <button class="cu-button cu-button-ghost cu-button-icon">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4v6a6 6 0 0 0 12 0V4"/><line x1="4" x2="20" y1="20" y2="20"/></svg>
+  </button>
+</span>`.trim();
+
 const positionsCode = `<span class="cu-tooltip" data-cu-tooltip="Top tooltip">
   <button class="cu-button cu-button-outline cu-button-md">Top</button>
 </span>
@@ -115,6 +133,36 @@ const positionsCode = `<span class="cu-tooltip" data-cu-tooltip="Top tooltip">
                     </span>
                     <span class="cu-tooltip cu-tooltip-right" data-cu-tooltip="Right tooltip">
                         <button class="cu-button cu-button-outline cu-button-md">Right</button>
+                    </span>
+                </div>
+            </ComponentPreview>
+        </section>
+
+        <!-- On Icon Buttons -->
+        <section class="space-y-3">
+            <h2 id="icon-buttons" class="text-lg font-semibold tracking-tight relative group">
+                <a href="#icon-buttons" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                {t.sections.iconButtons.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
+                {t.sections.iconButtons.description}
+            </p>
+            <ComponentPreview code={iconButtonsCode}>
+                <div class="flex items-center gap-1">
+                    <span class="cu-tooltip" data-cu-tooltip="Bold">
+                        <button class="cu-button cu-button-ghost cu-button-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12h9a4 4 0 0 1 0 8H7a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h7a4 4 0 0 1 0 8"/></svg>
+                        </button>
+                    </span>
+                    <span class="cu-tooltip" data-cu-tooltip="Italic">
+                        <button class="cu-button cu-button-ghost cu-button-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" x2="10" y1="4" y2="4"/><line x1="14" x2="5" y1="20" y2="20"/><line x1="15" x2="9" y1="4" y2="20"/></svg>
+                        </button>
+                    </span>
+                    <span class="cu-tooltip" data-cu-tooltip="Underline">
+                        <button class="cu-button cu-button-ghost cu-button-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4v6a6 6 0 0 0 12 0V4"/><line x1="4" x2="20" y1="20" y2="20"/></svg>
+                        </button>
                     </span>
                 </div>
             </ComponentPreview>

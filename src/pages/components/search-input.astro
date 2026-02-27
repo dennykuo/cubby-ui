@@ -16,6 +16,17 @@ const usageCode = `<div class="cu-input-search">
   <input class="cu-input-search-field" type="search" placeholder="Search..." />
 </div>`.trim();
 
+const clearableCode = `<div class="cu-input-search">
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="cu-input-search-icon">
+    <circle cx="11" cy="11" r="8"></circle>
+    <path d="m21 21-4.3-4.3"></path>
+  </svg>
+  <input class="cu-input-search-field" type="search" placeholder="Search..." />
+  <button type="button" class="cu-input-search-clear">
+    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+  </button>
+</div>`.trim();
+
 const placeholderCode = `<div class="cu-input-search">
   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="cu-input-search-icon">
     <circle cx="11" cy="11" r="8"></circle>
@@ -84,11 +95,29 @@ const disabledCode = `<div class="cu-input-search">
                             <td class="cu-table-cell"><code class="cu-code">cu-input-search-field</code></td>
                             <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-input-search-field']}</td>
                         </tr>
+                        <tr class="cu-table-row">
+                            <td class="cu-table-cell"><code class="cu-code">cu-input-search-clear</code></td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-input-search-clear']}</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
         </section>
 
+
+        <!-- Clearable -->
+        <section class="space-y-3">
+            <h2 id="clearable" class="text-lg font-semibold tracking-tight relative group">
+              <a href="#clearable" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+              {t.sections.clearable.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.clearable.description} />
+            <ComponentPreview code={clearableCode}>
+                <div class="w-full max-w-sm">
+                    <SearchInput placeholder="Search..." clearable />
+                </div>
+            </ComponentPreview>
+        </section>
 
         <!-- With Placeholder -->
         <section class="space-y-3">
@@ -119,3 +148,15 @@ const disabledCode = `<div class="cu-input-search">
         </section>
     </div>
 </Layout>
+
+<script>
+document.querySelectorAll("[data-cu-search-clear]").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+        var input = btn.closest(".cu-input-search")?.querySelector(".cu-input-search-field") as HTMLInputElement | null;
+        if (input) {
+            input.value = "";
+            input.focus();
+        }
+    });
+});
+</script>

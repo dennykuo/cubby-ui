@@ -124,6 +124,28 @@ const withToolbarCode = `<div class="cu-card">
   </div>
 </div>`.trim();
 
+const stickyHeaderCode = `<div class="cu-table-wrapper rounded-lg border border-border" style="max-height: 240px; overflow-y: auto;">
+  <table class="cu-table">
+    <thead class="cu-table-header cu-table-header-sticky">
+      <tr class="cu-table-row">
+        <th class="cu-table-head">Name</th>
+        <th class="cu-table-head">Email</th>
+        <th class="cu-table-head">Role</th>
+      </tr>
+    </thead>
+    <tbody class="cu-table-body">
+      <tr class="cu-table-row"><td class="cu-table-cell font-medium">Alice Chen</td><td class="cu-table-cell">alice@example.com</td><td class="cu-table-cell">Admin</td></tr>
+      <tr class="cu-table-row"><td class="cu-table-cell font-medium">Bob Smith</td><td class="cu-table-cell">bob@example.com</td><td class="cu-table-cell">Editor</td></tr>
+      <tr class="cu-table-row"><td class="cu-table-cell font-medium">Carol Davis</td><td class="cu-table-cell">carol@example.com</td><td class="cu-table-cell">Viewer</td></tr>
+      <tr class="cu-table-row"><td class="cu-table-cell font-medium">Dan Lee</td><td class="cu-table-cell">dan@example.com</td><td class="cu-table-cell">Editor</td></tr>
+      <tr class="cu-table-row"><td class="cu-table-cell font-medium">Eve Wang</td><td class="cu-table-cell">eve@example.com</td><td class="cu-table-cell">Viewer</td></tr>
+      <tr class="cu-table-row"><td class="cu-table-cell font-medium">Frank Zhao</td><td class="cu-table-cell">frank@example.com</td><td class="cu-table-cell">Admin</td></tr>
+      <tr class="cu-table-row"><td class="cu-table-cell font-medium">Grace Liu</td><td class="cu-table-cell">grace@example.com</td><td class="cu-table-cell">Editor</td></tr>
+      <tr class="cu-table-row"><td class="cu-table-cell font-medium">Henry Wu</td><td class="cu-table-cell">henry@example.com</td><td class="cu-table-cell">Viewer</td></tr>
+    </tbody>
+  </table>
+</div>`.trim();
+
 const withRowActionsCode = `<div class="cu-table-wrapper rounded-lg border border-border">
   <table class="cu-table">
     <thead class="cu-table-header">
@@ -135,7 +157,7 @@ const withRowActionsCode = `<div class="cu-table-wrapper rounded-lg border borde
       </tr>
     </thead>
     <tbody class="cu-table-body">
-      <tr class="cu-table-row group">
+      <tr class="cu-table-row">
         <td class="cu-table-cell font-medium">Project Alpha</td>
         <td class="cu-table-cell"><span class="cu-badge cu-badge-success">Active</span></td>
         <td class="cu-table-cell text-muted-foreground">Jan 15, 2024</td>
@@ -152,7 +174,7 @@ const withRowActionsCode = `<div class="cu-table-wrapper rounded-lg border borde
           </div>
         </td>
       </tr>
-      <tr class="cu-table-row group">
+      <tr class="cu-table-row">
         <td class="cu-table-cell font-medium">Project Beta</td>
         <td class="cu-table-cell"><span class="cu-badge cu-badge-warning">Pending</span></td>
         <td class="cu-table-cell text-muted-foreground">Feb 20, 2024</td>
@@ -167,7 +189,7 @@ const withRowActionsCode = `<div class="cu-table-wrapper rounded-lg border borde
           </div>
         </td>
       </tr>
-      <tr class="cu-table-row group">
+      <tr class="cu-table-row">
         <td class="cu-table-cell font-medium">Project Gamma</td>
         <td class="cu-table-cell"><span class="cu-badge cu-badge-secondary">Archived</span></td>
         <td class="cu-table-cell text-muted-foreground">Mar 10, 2024</td>
@@ -187,14 +209,14 @@ const withRowActionsCode = `<div class="cu-table-wrapper rounded-lg border borde
 </div>`.trim();
 ---
 
-<Layout title="Table — Cubby UI" category="Data Display" componentName="Table">
+<Layout title={t.title} category={t.category} componentName="Table">
     <div class="space-y-3">
         <div class="flex items-center gap-3">
             <h1 class="text-3xl font-bold tracking-tight">Table</h1>
-            <span class="cu-badge cu-badge-secondary">Data Display</span>
+            <span class="cu-badge cu-badge-secondary">{t.category}</span>
         </div>
         <p class="text-base text-muted-foreground leading-relaxed">
-            A responsive table component for displaying tabular data.
+            {t.description}
         </p>
     </div>
 
@@ -203,12 +225,9 @@ const withRowActionsCode = `<div class="cu-table-wrapper rounded-lg border borde
         <section class="space-y-3">
             <h2 id="usage" class="text-lg font-semibold tracking-tight relative group">
                 <a href="#usage" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                Usage
+                {t.sections.usage.title}
             </h2>
-            <p class="text-base text-muted-foreground leading-relaxed">
-                Wrap a <code class="cu-code">&lt;table&gt;</code> in <code class="cu-code">cu-table-wrapper</code> for horizontal scrolling.
-                Use semantic table elements with the corresponding <code class="cu-code">cu-table-*</code> classes.
-            </p>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
             <ComponentPreview code={usageCode}>
                 <div class="w-full max-w-2xl">
                     <div class="cu-table-wrapper">
@@ -251,68 +270,72 @@ const withRowActionsCode = `<div class="cu-table-wrapper rounded-lg border borde
         <section class="space-y-3">
             <h2 id="classes" class="text-lg font-semibold tracking-tight relative group">
                 <a href="#classes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                CSS Classes
+                {t.sections.classes.title}
             </h2>
             <div class="cu-table-wrapper rounded-lg border border-border">
                 <table class="cu-table">
                     <thead class="cu-table-header">
                         <tr class="cu-table-row">
-                            <th class="cu-table-head">Class</th>
-                            <th class="cu-table-head">Description</th>
+                            <th class="cu-table-head">{t.sections.classes.classLabel}</th>
+                            <th class="cu-table-head">{t.sections.classes.descriptionLabel}</th>
                         </tr>
                     </thead>
                     <tbody class="cu-table-body">
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-table-wrapper</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Table outer container with horizontal scroll</td>
+                            <td class="cu-table-cell text-muted-foreground" set:html={t.classDescriptions['cu-table-wrapper']} />
                         </tr>
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-table</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Table element</td>
+                            <td class="cu-table-cell text-muted-foreground" set:html={t.classDescriptions['cu-table']} />
                         </tr>
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-table-header</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Table header area (<code class="cu-code">&lt;thead&gt;</code>）</td>
+                            <td class="cu-table-cell text-muted-foreground" set:html={t.classDescriptions['cu-table-header']} />
                         </tr>
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-table-body</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Table body area (<code class="cu-code">&lt;tbody&gt;</code>）</td>
+                            <td class="cu-table-cell text-muted-foreground" set:html={t.classDescriptions['cu-table-body']} />
                         </tr>
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-table-footer</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Table footer area (<code class="cu-code">&lt;tfoot&gt;</code>）</td>
+                            <td class="cu-table-cell text-muted-foreground" set:html={t.classDescriptions['cu-table-footer']} />
                         </tr>
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-table-row</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Table row with hover highlight</td>
+                            <td class="cu-table-cell text-muted-foreground" set:html={t.classDescriptions['cu-table-row']} />
                         </tr>
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-table-head</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Table header cell (<code class="cu-code">&lt;th&gt;</code>）</td>
+                            <td class="cu-table-cell text-muted-foreground" set:html={t.classDescriptions['cu-table-head']} />
                         </tr>
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-table-cell</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Table data cell (<code class="cu-code">&lt;td&gt;</code>）</td>
+                            <td class="cu-table-cell text-muted-foreground" set:html={t.classDescriptions['cu-table-cell']} />
                         </tr>
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-table-caption</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Table caption</td>
+                            <td class="cu-table-cell text-muted-foreground" set:html={t.classDescriptions['cu-table-caption']} />
+                        </tr>
+                        <tr class="cu-table-row">
+                            <td class="cu-table-cell"><code class="cu-code">cu-table-header-sticky</code></td>
+                            <td class="cu-table-cell text-muted-foreground" set:html={t.classDescriptions['cu-table-header-sticky']} />
                         </tr>
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-table-toolbar</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Toolbar container for batch actions</td>
+                            <td class="cu-table-cell text-muted-foreground" set:html={t.classDescriptions['cu-table-toolbar']} />
                         </tr>
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-table-toolbar-select</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Select all area in toolbar</td>
+                            <td class="cu-table-cell text-muted-foreground" set:html={t.classDescriptions['cu-table-toolbar-select']} />
                         </tr>
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-table-toolbar-actions</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Actions area in toolbar</td>
+                            <td class="cu-table-cell text-muted-foreground" set:html={t.classDescriptions['cu-table-toolbar-actions']} />
                         </tr>
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-table-actions</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Row actions container with hover reveal</td>
+                            <td class="cu-table-cell text-muted-foreground" set:html={t.classDescriptions['cu-table-actions']} />
                         </tr>
                     </tbody>
                 </table>
@@ -324,11 +347,9 @@ const withRowActionsCode = `<div class="cu-table-wrapper rounded-lg border borde
         <section class="space-y-3">
             <h2 id="with-footer" class="text-lg font-semibold tracking-tight relative group">
                 <a href="#with-footer" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                With Footer
+                {t.sections.withFooter.title}
             </h2>
-            <p class="text-base text-muted-foreground leading-relaxed">
-                Add a <code class="cu-code">cu-table-footer</code> for summary rows and <code class="cu-code">cu-table-caption</code> for a description.
-            </p>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withFooter.description} />
             <ComponentPreview code={withFooterCode}>
                 <div class="w-full max-w-2xl">
                     <div class="cu-table-wrapper">
@@ -369,11 +390,9 @@ const withRowActionsCode = `<div class="cu-table-wrapper rounded-lg border borde
         <section class="space-y-3">
             <h2 id="with-toolbar" class="text-lg font-semibold tracking-tight relative group">
                 <a href="#with-toolbar" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                With Toolbar
+                {t.sections.withToolbar.title}
             </h2>
-            <p class="text-base text-muted-foreground leading-relaxed">
-                Add a <code class="cu-code">cu-table-toolbar</code> for batch selection and actions. Use <code class="cu-code">cu-table-toolbar-select</code> for the selection indicator and <code class="cu-code">cu-table-toolbar-actions</code> for action buttons.
-            </p>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withToolbar.description} />
             <ComponentPreview code={withToolbarCode}>
                 <div class="w-full max-w-2xl">
                     <div class="cu-card">
@@ -436,11 +455,9 @@ const withRowActionsCode = `<div class="cu-table-wrapper rounded-lg border borde
         <section class="space-y-3">
             <h2 id="with-row-actions" class="text-lg font-semibold tracking-tight relative group">
                 <a href="#with-row-actions" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                With Row Actions
+                {t.sections.withRowActions.title}
             </h2>
-            <p class="text-base text-muted-foreground leading-relaxed">
-                Add <code class="cu-code">cu-table-actions</code> to a cell for hover-revealed row actions. Add <code class="cu-code">group</code> to the <code class="cu-code">cu-table-row</code> to enable the hover effect.
-            </p>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withRowActions.description} />
             <ComponentPreview code={withRowActionsCode}>
                 <div class="w-full max-w-2xl">
                     <div class="cu-table-wrapper rounded-lg border border-border">
@@ -454,7 +471,7 @@ const withRowActionsCode = `<div class="cu-table-wrapper rounded-lg border borde
                                 </tr>
                             </thead>
                             <tbody class="cu-table-body">
-                                <tr class="cu-table-row group">
+                                <tr class="cu-table-row">
                                     <td class="cu-table-cell font-medium">Project Alpha</td>
                                     <td class="cu-table-cell"><span class="cu-badge cu-badge-success">Active</span></td>
                                     <td class="cu-table-cell text-muted-foreground">Jan 15, 2024</td>
@@ -469,7 +486,7 @@ const withRowActionsCode = `<div class="cu-table-wrapper rounded-lg border borde
                                         </div>
                                     </td>
                                 </tr>
-                                <tr class="cu-table-row group">
+                                <tr class="cu-table-row">
                                     <td class="cu-table-cell font-medium">Project Beta</td>
                                     <td class="cu-table-cell"><span class="cu-badge cu-badge-warning">Pending</span></td>
                                     <td class="cu-table-cell text-muted-foreground">Feb 20, 2024</td>
@@ -484,7 +501,7 @@ const withRowActionsCode = `<div class="cu-table-wrapper rounded-lg border borde
                                         </div>
                                     </td>
                                 </tr>
-                                <tr class="cu-table-row group">
+                                <tr class="cu-table-row">
                                     <td class="cu-table-cell font-medium">Project Gamma</td>
                                     <td class="cu-table-cell"><span class="cu-badge cu-badge-secondary">Archived</span></td>
                                     <td class="cu-table-cell text-muted-foreground">Mar 10, 2024</td>
@@ -499,6 +516,40 @@ const withRowActionsCode = `<div class="cu-table-wrapper rounded-lg border borde
                                         </div>
                                     </td>
                                 </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </ComponentPreview>
+        </section>
+
+        <!-- Sticky Header -->
+        <section class="space-y-3">
+            <h2 id="sticky-header" class="text-lg font-semibold tracking-tight relative group">
+                <a href="#sticky-header" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                {t.sections.stickyHeader.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.stickyHeader.description} />
+            <ComponentPreview code={stickyHeaderCode}>
+                <div class="w-full max-w-2xl">
+                    <div class="cu-table-wrapper rounded-lg border border-border" style="max-height: 240px; overflow-y: auto;">
+                        <table class="cu-table">
+                            <thead class="cu-table-header cu-table-header-sticky">
+                                <tr class="cu-table-row">
+                                    <th class="cu-table-head">Name</th>
+                                    <th class="cu-table-head">Email</th>
+                                    <th class="cu-table-head">Role</th>
+                                </tr>
+                            </thead>
+                            <tbody class="cu-table-body">
+                                <tr class="cu-table-row"><td class="cu-table-cell font-medium">Alice Chen</td><td class="cu-table-cell">alice@example.com</td><td class="cu-table-cell">Admin</td></tr>
+                                <tr class="cu-table-row"><td class="cu-table-cell font-medium">Bob Smith</td><td class="cu-table-cell">bob@example.com</td><td class="cu-table-cell">Editor</td></tr>
+                                <tr class="cu-table-row"><td class="cu-table-cell font-medium">Carol Davis</td><td class="cu-table-cell">carol@example.com</td><td class="cu-table-cell">Viewer</td></tr>
+                                <tr class="cu-table-row"><td class="cu-table-cell font-medium">Dan Lee</td><td class="cu-table-cell">dan@example.com</td><td class="cu-table-cell">Editor</td></tr>
+                                <tr class="cu-table-row"><td class="cu-table-cell font-medium">Eve Wang</td><td class="cu-table-cell">eve@example.com</td><td class="cu-table-cell">Viewer</td></tr>
+                                <tr class="cu-table-row"><td class="cu-table-cell font-medium">Frank Zhao</td><td class="cu-table-cell">frank@example.com</td><td class="cu-table-cell">Admin</td></tr>
+                                <tr class="cu-table-row"><td class="cu-table-cell font-medium">Grace Liu</td><td class="cu-table-cell">grace@example.com</td><td class="cu-table-cell">Editor</td></tr>
+                                <tr class="cu-table-row"><td class="cu-table-cell font-medium">Henry Wu</td><td class="cu-table-cell">henry@example.com</td><td class="cu-table-cell">Viewer</td></tr>
                             </tbody>
                         </table>
                     </div>

@@ -7,11 +7,10 @@ export const cardPage: Record<Locale, {
   sections: {
     usage: { title: string; description: string };
     classes: { title: string; classLabel: string; descriptionLabel: string };
+    outlined: { title: string; description: string };
     formCard: { title: string; description: string };
-    loginCard: { title: string; description: string };
     notificationCard: { title: string; description: string };
     tableInCard: { title: string; description: string };
-    teamMembers: { title: string; description: string };
     profileCard: { title: string; description: string };
     hoverEffect: { title: string; description: string };
     metricCard: { title: string; description: string };
@@ -33,13 +32,13 @@ export const cardPage: Record<Locale, {
         classLabel: 'Class',
         descriptionLabel: 'Description',
       },
+      outlined: {
+        title: 'Outlined',
+        description: 'Add <code class="cu-code">cu-card-outlined</code> for a flat card with no shadow. Useful for dense layouts where shadow would add too much visual noise.',
+      },
       formCard: {
         title: 'Form Card',
         description: 'Cards work well as containers for forms with actions in the footer.',
-      },
-      loginCard: {
-        title: 'Login Card',
-        description: 'A sign-in form with social login options and a separator divider.',
       },
       notificationCard: {
         title: 'Notification Card',
@@ -48,10 +47,6 @@ export const cardPage: Record<Locale, {
       tableInCard: {
         title: 'Table in Card',
         description: 'Use <code class="cu-code">cu-card-content-flush</code> to remove the default padding when embedding a table. This is a common pattern for dashboard data grids.',
-      },
-      teamMembers: {
-        title: 'Team Members',
-        description: 'A member list with avatars, roles, and an invite action.',
       },
       profileCard: {
         title: 'Profile Card',
@@ -73,6 +68,7 @@ export const cardPage: Record<Locale, {
     classDescriptions: {
       'cu-card': 'Base card',
       'cu-card-hover': 'Hover shadow effect (opt-in)',
+      'cu-card-outlined': 'Flat card with no shadow',
       'cu-card-header': 'Card header',
       'cu-card-title': 'Card title',
       'cu-card-description': 'Card description',
@@ -80,6 +76,7 @@ export const cardPage: Record<Locale, {
       'cu-card-content-flush': 'Flush content area (for table-in-card)',
       'cu-card-content-sm': 'Compact content padding',
       'cu-card-footer': 'Card footer',
+      'cu-card-elevated': 'Higher shadow (shadow-md)',
     },
   },
   'zh-tw': {
@@ -96,13 +93,13 @@ export const cardPage: Record<Locale, {
         classLabel: '類別',
         descriptionLabel: '說明',
       },
+      outlined: {
+        title: 'Outlined',
+        description: '加入 <code class="cu-code">cu-card-outlined</code> 以建立無陰影的扁平卡片。適用於陰影會造成過多視覺噪音的密集佈局。',
+      },
       formCard: {
         title: '表單卡片',
         description: '卡片非常適合作為表單的容器，並在頁尾放置操作按鈕。',
-      },
-      loginCard: {
-        title: '登入卡片',
-        description: '包含社群登入選項和分隔線的登入表單。',
       },
       notificationCard: {
         title: '通知卡片',
@@ -111,10 +108,6 @@ export const cardPage: Record<Locale, {
       tableInCard: {
         title: '表格卡片',
         description: '使用 <code class="cu-code">cu-card-content-flush</code> 在嵌入表格時移除預設的內距。這是儀表板資料表格的常見模式。',
-      },
-      teamMembers: {
-        title: '團隊成員',
-        description: '包含頭像、角色和邀請操作的成員列表。',
       },
       profileCard: {
         title: '個人檔案卡片',
@@ -136,6 +129,7 @@ export const cardPage: Record<Locale, {
     classDescriptions: {
       'cu-card': '基礎卡片',
       'cu-card-hover': '懸停陰影效果（需主動啟用）',
+      'cu-card-outlined': '無陰影的扁平卡片',
       'cu-card-header': '卡片標頭',
       'cu-card-title': '卡片標題',
       'cu-card-description': '卡片描述',
@@ -143,6 +137,7 @@ export const cardPage: Record<Locale, {
       'cu-card-content-flush': '無內距內容區（用於表格卡片）',
       'cu-card-content-sm': '緊湊內容內距',
       'cu-card-footer': '卡片頁尾',
+      'cu-card-elevated': '更高陰影（shadow-md）',
     },
   },
 };

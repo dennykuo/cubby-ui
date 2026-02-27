@@ -1,0 +1,19 @@
+---
+import { TOP_CLASS } from "../../config";
+
+interface Props {
+    size?: "sm" | "default" | "lg";
+    block?: boolean;
+    class?: string;
+    [key: string]: any;
+}
+
+const { size, block, class: className, ...rest } = Astro.props;
+const baseClass = `${TOP_CLASS}-segmented`;
+const sizeClass = size && size !== "default" ? `${TOP_CLASS}-segmented-${size}` : undefined;
+const blockClass = block ? `${TOP_CLASS}-segmented-block` : undefined;
+---
+
+<div class:list={[baseClass, sizeClass, blockClass, className]} {...rest}>
+    <slot />
+</div>

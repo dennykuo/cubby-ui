@@ -88,6 +88,32 @@ const withSeparatorCode = `<div class="cu-toolbar" role="toolbar">
     </button>
   </div>
 </div>`.trim();
+
+const withDropdownCode = `<div class="cu-toolbar" role="toolbar">
+  <div class="cu-toolbar-group">
+    <button class="cu-toolbar-button">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4h8a4 4 0 0 1 4 4 4 4 0 0 1-4 4H6z"/><path d="M6 12h9a4 4 0 0 1 4 4 4 4 0 0 1-4 4H6z"/></svg>
+    </button>
+    <button class="cu-toolbar-button">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" x2="10" y1="4" y2="4"/><line x1="14" x2="5" y1="20" y2="20"/><line x1="15" x2="9" y1="4" y2="20"/></svg>
+    </button>
+  </div>
+  <div class="cu-toolbar-separator"></div>
+  <div class="cu-toolbar-group">
+    <div class="cu-dropdown" data-cu-dropdown>
+      <button class="cu-toolbar-button" data-cu-dropdown-trigger>
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"/><circle cx="12" cy="5" r="1"/><circle cx="12" cy="19" r="1"/></svg>
+      </button>
+      <div class="cu-dropdown-content" data-cu-dropdown-content hidden>
+        <div class="cu-dropdown-item" data-cu-dropdown-item>Cut</div>
+        <div class="cu-dropdown-item" data-cu-dropdown-item>Copy</div>
+        <div class="cu-dropdown-item" data-cu-dropdown-item>Paste</div>
+        <div class="cu-dropdown-separator"></div>
+        <div class="cu-dropdown-item" data-cu-dropdown-item>Select All</div>
+      </div>
+    </div>
+  </div>
+</div>`.trim();
 ---
 
 <Layout title="Toolbar — Cubby UI" category="Layouts" componentName="Toolbar">
@@ -256,6 +282,42 @@ const withSeparatorCode = `<div class="cu-toolbar" role="toolbar">
                         <ToolbarButton>
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
                         </ToolbarButton>
+                    </ToolbarGroup>
+                </Toolbar>
+            </ComponentPreview>
+        </section>
+
+        <!-- With Dropdown -->
+        <section class="space-y-3">
+            <h2 id="with-dropdown" class="text-lg font-semibold tracking-tight relative group">
+              <a href="#with-dropdown" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+              {t.sections.withDropdown.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">{t.sections.withDropdown.description}</p>
+            <ComponentPreview code={withDropdownCode}>
+                <Toolbar>
+                    <ToolbarGroup>
+                        <ToolbarButton>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4h8a4 4 0 0 1 4 4 4 4 0 0 1-4 4H6z"/><path d="M6 12h9a4 4 0 0 1 4 4 4 4 0 0 1-4 4H6z"/></svg>
+                        </ToolbarButton>
+                        <ToolbarButton>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" x2="10" y1="4" y2="4"/><line x1="14" x2="5" y1="20" y2="20"/><line x1="15" x2="9" y1="4" y2="20"/></svg>
+                        </ToolbarButton>
+                    </ToolbarGroup>
+                    <ToolbarSeparator />
+                    <ToolbarGroup>
+                        <div class="cu-dropdown" data-cu-dropdown>
+                            <button class="cu-toolbar-button" data-cu-dropdown-trigger>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"/><circle cx="12" cy="5" r="1"/><circle cx="12" cy="19" r="1"/></svg>
+                            </button>
+                            <div class="cu-dropdown-content" data-cu-dropdown-content hidden>
+                                <div class="cu-dropdown-item" data-cu-dropdown-item>Cut</div>
+                                <div class="cu-dropdown-item" data-cu-dropdown-item>Copy</div>
+                                <div class="cu-dropdown-item" data-cu-dropdown-item>Paste</div>
+                                <div class="cu-dropdown-separator"></div>
+                                <div class="cu-dropdown-item" data-cu-dropdown-item>Select All</div>
+                            </div>
+                        </div>
                     </ToolbarGroup>
                 </Toolbar>
             </ComponentPreview>

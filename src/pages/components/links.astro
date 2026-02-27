@@ -10,12 +10,6 @@ const t = useTranslations(linksPage, locale);
 
 const usageCode = `<a class="cu-link" href="#">Click here</a>`.trim();
 
-const plainCode = `<a class="cu-link cu-link-plain" href="#">No underline until hover</a>`.trim();
-
-const mutedCode = `<a class="cu-link cu-link-muted" href="#">Muted link</a>`.trim();
-
-const subtleCode = `<a class="cu-link cu-link-subtle" href="#">Subtle link</a>`.trim();
-
 const variantsCode = `<a class="cu-link" href="#">Default</a>
 <a class="cu-link cu-link-plain" href="#">Plain</a>
 <a class="cu-link cu-link-muted" href="#">Muted</a>
@@ -129,42 +123,6 @@ const cardLinksCode = `<div class="cu-card cu-card-hover p-5 space-y-3 max-w-sm"
                     <a class="cu-link cu-link-muted" href="#">Muted</a>
                     <a class="cu-link cu-link-subtle" href="#">Subtle</a>
                 </div>
-            </ComponentPreview>
-        </section>
-
-        <!-- Plain -->
-        <section class="space-y-3">
-            <h2 id="plain" class="text-lg font-semibold tracking-tight relative group">
-              <a href="#plain" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              {t.sections.plain.title}
-            </h2>
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.plain.description} />
-            <ComponentPreview code={plainCode}>
-                <a class="cu-link cu-link-plain" href="#">No underline until hover</a>
-            </ComponentPreview>
-        </section>
-
-        <!-- Muted -->
-        <section class="space-y-3">
-            <h2 id="muted" class="text-lg font-semibold tracking-tight relative group">
-              <a href="#muted" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              {t.sections.muted.title}
-            </h2>
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.muted.description} />
-            <ComponentPreview code={mutedCode}>
-                <a class="cu-link cu-link-muted" href="#">Muted link</a>
-            </ComponentPreview>
-        </section>
-
-        <!-- Subtle -->
-        <section class="space-y-3">
-            <h2 id="subtle" class="text-lg font-semibold tracking-tight relative group">
-              <a href="#subtle" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              {t.sections.subtle.title}
-            </h2>
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.subtle.description} />
-            <ComponentPreview code={subtleCode}>
-                <a class="cu-link cu-link-subtle" href="#">Subtle link</a>
             </ComponentPreview>
         </section>
 

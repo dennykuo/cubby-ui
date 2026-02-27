@@ -7,3 +7,79 @@
 .cu-progress-bar {
     @apply h-full rounded-full bg-primary transition-[width] duration-200;
 }
+
+/* -- sizes -- */
+.cu-progress-sm {
+    @apply h-1;
+}
+
+.cu-progress-lg {
+    @apply h-4;
+}
+
+/* -- color variants -- */
+.cu-progress-bar-success {
+    @apply bg-success;
+}
+
+.cu-progress-bar-warning {
+    @apply bg-warning;
+}
+
+.cu-progress-bar-destructive {
+    @apply bg-destructive;
+}
+
+.cu-progress-bar-info {
+    @apply bg-info;
+}
+
+/* -- gradient -- */
+.cu-progress-bar-gradient {
+    background: linear-gradient(90deg, var(--color-primary), color-mix(in srgb, var(--color-primary) 70%, var(--color-info)));
+}
+
+/* -- striped -- */
+.cu-progress-bar-striped {
+    background-image: linear-gradient(
+        45deg,
+        rgba(255, 255, 255, 0.15) 25%,
+        transparent 25%,
+        transparent 50%,
+        rgba(255, 255, 255, 0.15) 50%,
+        rgba(255, 255, 255, 0.15) 75%,
+        transparent 75%,
+        transparent
+    );
+    background-size: 1rem 1rem;
+}
+
+.cu-progress-bar-striped-animated {
+    animation: cu-progress-stripes 1s linear infinite;
+}
+
+@keyframes cu-progress-stripes {
+    from {
+        background-position: 1rem 0;
+    }
+    to {
+        background-position: 0 0;
+    }
+}
+
+/* -- with label -- */
+.cu-progress-wrapper {
+    @apply flex items-center gap-3;
+}
+
+.cu-progress-wrapper .cu-progress {
+    @apply flex-1;
+}
+
+.cu-progress-label {
+    @apply text-sm font-medium text-foreground;
+}
+
+.cu-progress-value {
+    @apply text-sm tabular-nums text-muted-foreground;
+}

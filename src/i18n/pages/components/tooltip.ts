@@ -8,6 +8,7 @@ export const tooltipPage: Record<Locale, {
     usage: { title: string; description: string };
     classes: { title: string; classLabel: string; descriptionLabel: string };
     positions: { title: string; description: string };
+    iconButtons: { title: string; description: string };
   };
   classDescriptions: Record<string, string>;
 }> = {
@@ -28,6 +29,10 @@ export const tooltipPage: Record<Locale, {
       positions: {
         title: 'Positions',
         description: 'Control placement with direction classes: top (default), <code class="cu-code">cu-tooltip-bottom</code>, <code class="cu-code">cu-tooltip-left</code>, and <code class="cu-code">cu-tooltip-right</code>.',
+      },
+      iconButtons: {
+        title: 'On Icon Buttons',
+        description: 'Tooltips are essential for icon-only buttons to convey their purpose.',
       },
     },
     classDescriptions: {
@@ -55,6 +60,10 @@ export const tooltipPage: Record<Locale, {
       positions: {
         title: '位置',
         description: '透過方向類別控制擺放位置：上方（預設）、<code class="cu-code">cu-tooltip-bottom</code>、<code class="cu-code">cu-tooltip-left</code>、以及 <code class="cu-code">cu-tooltip-right</code>。',
+      },
+      iconButtons: {
+        title: '搭配圖示按鈕',
+        description: 'Tooltip 對於僅含圖示的按鈕至關重要，用來傳達按鈕的用途。',
       },
     },
     classDescriptions: {

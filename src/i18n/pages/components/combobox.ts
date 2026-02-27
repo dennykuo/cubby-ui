@@ -7,7 +7,8 @@ export const comboboxPage: Record<Locale, {
   sections: {
     usage: { title: string; description: string };
     classes: { title: string; classLabel: string; descriptionLabel: string };
-    statusSelector: { title: string; description: string };
+    withIcons: { title: string; description: string };
+    withFormGroup: { title: string; description: string };
   };
   classDescriptions: Record<string, string>;
 }> = {
@@ -25,9 +26,13 @@ export const comboboxPage: Record<Locale, {
         classLabel: 'Class',
         descriptionLabel: 'Description',
       },
-      statusSelector: {
-        title: 'Status Selector',
-        description: 'A common use case for filtering by status in a dashboard.',
+      withIcons: {
+        title: 'With Icons',
+        description: 'Add inline SVG icons before option text to provide visual context, such as status indicators or category markers.',
+      },
+      withFormGroup: {
+        title: 'With Form Group',
+        description: 'Pair the combobox with a Label and FormDescription for use in form layouts.',
       },
     },
     classDescriptions: {
@@ -60,9 +65,13 @@ export const comboboxPage: Record<Locale, {
         classLabel: '類別',
         descriptionLabel: '說明',
       },
-      statusSelector: {
-        title: '狀態選擇器',
-        description: '在儀表板中依狀態篩選的常見用例。',
+      withIcons: {
+        title: '搭配圖示',
+        description: '在選項文字前加入 SVG 圖示以提供視覺上下文，例如狀態指示器或類別標記。',
+      },
+      withFormGroup: {
+        title: '搭配表單群組',
+        description: '將 combobox 與 Label 和 FormDescription 搭配，用於表單佈局。',
       },
     },
     classDescriptions: {

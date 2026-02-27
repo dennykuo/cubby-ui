@@ -8,6 +8,7 @@ export const popoverPage: Record<Locale, {
     usage: { title: string; description: string };
     classes: { title: string; classLabel: string; descriptionLabel: string };
     topPosition: { title: string; description: string };
+    sizes: { title: string; description: string };
   };
   classDescriptions: Record<string, string>;
 }> = {
@@ -29,10 +30,16 @@ export const popoverPage: Record<Locale, {
         title: 'Top Position',
         description: 'Add <code class="cu-code">bottom-full mb-2</code> utility classes to the content to position above the trigger.',
       },
+      sizes: {
+        title: 'Sizes',
+        description: 'Use <code class="cu-code">cu-popover-content-sm</code> for a compact popover or <code class="cu-code">cu-popover-content-lg</code> for a wider one.',
+      },
     },
     classDescriptions: {
       'cu-popover': 'Popover relatively positioned container',
       'cu-popover-content': 'Popover panel, supports absolute positioning and Popover API',
+      'cu-popover-content-sm': 'Small popover panel (w-56)',
+      'cu-popover-content-lg': 'Large popover panel (w-96)',
     },
   },
   'zh-tw': {
@@ -53,10 +60,16 @@ export const popoverPage: Record<Locale, {
         title: '上方位置',
         description: '在內容元素上加上 <code class="cu-code">bottom-full mb-2</code> 工具類別，使其定位在觸發元素上方。',
       },
+      sizes: {
+        title: '尺寸',
+        description: '使用 <code class="cu-code">cu-popover-content-sm</code> 建立緊湊的 Popover，或使用 <code class="cu-code">cu-popover-content-lg</code> 建立較寬的 Popover。',
+      },
     },
     classDescriptions: {
       'cu-popover': 'Popover 相對定位容器',
       'cu-popover-content': 'Popover 面板，支援絕對定位和 Popover API',
+      'cu-popover-content-sm': '小尺寸 Popover 面板（w-56）',
+      'cu-popover-content-lg': '大尺寸 Popover 面板（w-96）',
     },
   },
 };

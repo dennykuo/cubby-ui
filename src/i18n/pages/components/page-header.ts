@@ -7,7 +7,9 @@ export const pageHeaderPage: Record<Locale, {
   sections: {
     usage: { title: string; description: string };
     classes: { title: string; classLabel: string; descriptionLabel: string };
-    withIcons: { title: string; description: string };
+    withBreadcrumb: { title: string; description: string };
+    withBadge: { title: string; description: string };
+    iconActions: { title: string; description: string };
     minimal: { title: string; description: string };
   };
   classDescriptions: Record<string, string>;
@@ -26,9 +28,17 @@ export const pageHeaderPage: Record<Locale, {
         classLabel: 'Class',
         descriptionLabel: 'Description',
       },
-      withIcons: {
-        title: 'With Icons',
-        description: 'Action buttons can include icons for better visual clarity.',
+      withBreadcrumb: {
+        title: 'With Breadcrumb',
+        description: 'Pair with a breadcrumb navigation above the header to provide hierarchical context on detail or edit pages.',
+      },
+      withBadge: {
+        title: 'With Badge',
+        description: 'Include a badge alongside the title to display counts, statuses, or other contextual metadata.',
+      },
+      iconActions: {
+        title: 'Icon Actions',
+        description: 'Use icon-only buttons for a compact action area when the actions are self-explanatory.',
       },
       minimal: {
         title: 'Minimal',
@@ -57,9 +67,17 @@ export const pageHeaderPage: Record<Locale, {
         classLabel: '類別',
         descriptionLabel: '說明',
       },
-      withIcons: {
-        title: '帶圖示',
-        description: '操作按鈕可包含圖示以提升視覺清晰度。',
+      withBreadcrumb: {
+        title: '搭配麵包屑',
+        description: '在標頭上方搭配麵包屑導航，為詳情或編輯頁面提供層級脈絡。',
+      },
+      withBadge: {
+        title: '搭配徽章',
+        description: '在標題旁加入徽章以顯示數量、狀態或其他上下文資訊。',
+      },
+      iconActions: {
+        title: '圖示操作',
+        description: '當操作含義明確時，使用純圖示按鈕呈現精簡的操作區域。',
       },
       minimal: {
         title: '精簡版',

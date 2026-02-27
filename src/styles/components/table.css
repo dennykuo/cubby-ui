@@ -49,7 +49,12 @@
     @apply flex items-center gap-2;
 }
 
-/* -- row actions (hover reveal) -- */
+/* -- sticky header -- */
+.cu-table-header-sticky {
+    @apply [&_th]:sticky [&_th]:top-0 [&_th]:z-10 [&_th]:bg-background;
+}
+
+/* -- row actions -- */
 .cu-table-actions {
-    @apply flex items-center justify-end gap-1 opacity-0 group-hover:opacity-100 transition-opacity duration-150;
+    @apply flex items-center justify-end gap-1;
 }

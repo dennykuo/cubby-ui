@@ -2,14 +2,16 @@
 import { TOP_CLASS } from "../../config";
 
 interface Props {
+    size?: "sm" | "md" | "default" | "xl" | "full";
     class?: string;
     [key: string]: any;
 }
 
-const { class: className, ...rest } = Astro.props;
+const { size, class: className, ...rest } = Astro.props;
 const baseClass = `${TOP_CLASS}-alert-dialog`;
+const sizeClass = size && size !== "default" ? `${TOP_CLASS}-alert-dialog-${size}` : undefined;
 ---
 
-<dialog class:list={[baseClass, className]} data-cu-alert-dialog {...rest}>
+<dialog class:list={[baseClass, sizeClass, className]} data-cu-alert-dialog {...rest}>
     <slot />
 </dialog>

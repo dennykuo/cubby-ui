@@ -90,7 +90,7 @@ ${SO}
   });
 ${SC}`.trim();
 
-const withCheckCode = `<div class="cu-combobox" data-cu-combobox style="width: 200px;">
+const withIconsCode = `<div class="cu-combobox" data-cu-combobox style="width: 220px;">
   <button class="cu-combobox-trigger" data-cu-combobox-trigger>
     <span data-cu-combobox-value class="cu-combobox-trigger-placeholder">Select status...</span>
     <svg class="cu-combobox-trigger-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 15 5 5 5-5"/><path d="m7 9 5-5 5 5"/></svg>
@@ -98,18 +98,55 @@ const withCheckCode = `<div class="cu-combobox" data-cu-combobox style="width: 2
   <div class="cu-combobox-content" data-cu-combobox-content hidden>
     <div class="cu-combobox-search">
       <svg class="cu-combobox-search-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-      <input class="cu-combobox-input" data-cu-combobox-input placeholder="Search status..." />
+      <input class="cu-combobox-input" data-cu-combobox-input placeholder="Search..." />
     </div>
     <div class="cu-combobox-list" data-cu-combobox-list>
       <div class="cu-combobox-empty" data-cu-combobox-empty hidden>No results found.</div>
-      <div class="cu-combobox-item" data-cu-combobox-item data-cu-value="backlog">Backlog</div>
-      <div class="cu-combobox-item" data-cu-combobox-item data-cu-value="todo">Todo</div>
-      <div class="cu-combobox-item" data-cu-combobox-item data-cu-value="in-progress">In Progress</div>
-      <div class="cu-combobox-item" data-cu-combobox-item data-cu-value="done">Done</div>
-      <div class="cu-combobox-item" data-cu-combobox-item data-cu-value="cancelled">Cancelled</div>
+      <div class="cu-combobox-item flex items-center gap-2" data-cu-combobox-item data-cu-value="backlog">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-muted-foreground"><circle cx="12" cy="12" r="10"/></svg>
+        Backlog
+      </div>
+      <div class="cu-combobox-item flex items-center gap-2" data-cu-combobox-item data-cu-value="todo">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-info"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4" fill="currentColor"/></svg>
+        Todo
+      </div>
+      <div class="cu-combobox-item flex items-center gap-2" data-cu-combobox-item data-cu-value="in-progress">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-warning"><path d="M12 2v20"/><path d="M2 12h20"/></svg>
+        In Progress
+      </div>
+      <div class="cu-combobox-item flex items-center gap-2" data-cu-combobox-item data-cu-value="done">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-success"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg>
+        Done
+      </div>
     </div>
   </div>
 </div>`.trim();
+
+const withFormGroupCode = `<div class="cu-form-group" style="width: 300px;">
+  <label class="cu-label">Framework</label>
+  <div class="cu-combobox w-full" data-cu-combobox>
+    <button class="cu-combobox-trigger w-full" data-cu-combobox-trigger>
+      <span data-cu-combobox-value class="cu-combobox-trigger-placeholder">Select framework...</span>
+      <svg class="cu-combobox-trigger-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 15 5 5 5-5"/><path d="m7 9 5-5 5 5"/></svg>
+    </button>
+    <div class="cu-combobox-content" data-cu-combobox-content hidden>
+      <div class="cu-combobox-search">
+        <svg class="cu-combobox-search-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input class="cu-combobox-input" data-cu-combobox-input placeholder="Search..." />
+      </div>
+      <div class="cu-combobox-list" data-cu-combobox-list>
+        <div class="cu-combobox-empty" data-cu-combobox-empty hidden>No results found.</div>
+        <div class="cu-combobox-item" data-cu-combobox-item data-cu-value="next">Next.js</div>
+        <div class="cu-combobox-item" data-cu-combobox-item data-cu-value="svelte">SvelteKit</div>
+        <div class="cu-combobox-item" data-cu-combobox-item data-cu-value="nuxt">Nuxt.js</div>
+        <div class="cu-combobox-item" data-cu-combobox-item data-cu-value="remix">Remix</div>
+        <div class="cu-combobox-item" data-cu-combobox-item data-cu-value="astro">Astro</div>
+      </div>
+    </div>
+  </div>
+  <p class="cu-form-description">Select your preferred web framework.</p>
+</div>`.trim();
+
 ---
 
 <Layout category={t.category} componentName="Combobox" title={t.title}>
@@ -225,16 +262,15 @@ const withCheckCode = `<div class="cu-combobox" data-cu-combobox style="width: 2
             </div>
         </section>
 
-
-        <!-- Status Example -->
+        <!-- With Icons -->
         <section class="space-y-3">
-            <h2 id="status-selector" class="text-lg font-semibold tracking-tight relative group">
-              <a href="#status-selector" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              {t.sections.statusSelector.title}
+            <h2 id="with-icons" class="text-lg font-semibold tracking-tight relative group">
+              <a href="#with-icons" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+              {t.sections.withIcons.title}
             </h2>
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.statusSelector.description} />
-            <ComponentPreview code={withCheckCode}>
-                <div class="cu-combobox" data-cu-combobox style="width: 200px;">
+            <p class="text-base text-muted-foreground leading-relaxed">{t.sections.withIcons.description}</p>
+            <ComponentPreview code={withIconsCode}>
+                <div class="cu-combobox" data-cu-combobox style="width: 220px;">
                     <button class="cu-combobox-trigger" data-cu-combobox-trigger>
                         <span data-cu-combobox-value class="cu-combobox-trigger-placeholder">Select status...</span>
                         <svg class="cu-combobox-trigger-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 15 5 5 5-5"/><path d="m7 9 5-5 5 5"/></svg>
@@ -242,19 +278,66 @@ const withCheckCode = `<div class="cu-combobox" data-cu-combobox style="width: 2
                     <div class="cu-combobox-content" data-cu-combobox-content hidden>
                         <div class="cu-combobox-search">
                             <svg class="cu-combobox-search-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-                            <input class="cu-combobox-input" data-cu-combobox-input placeholder="Search status..." />
+                            <input class="cu-combobox-input" data-cu-combobox-input placeholder="Search..." />
                         </div>
                         <div class="cu-combobox-list" data-cu-combobox-list>
                             <div class="cu-combobox-empty" data-cu-combobox-empty hidden>No results found.</div>
-                            <div class="cu-combobox-item" data-cu-combobox-item data-cu-value="backlog">Backlog</div>
-                            <div class="cu-combobox-item" data-cu-combobox-item data-cu-value="todo">Todo</div>
-                            <div class="cu-combobox-item" data-cu-combobox-item data-cu-value="in-progress">In Progress</div>
-                            <div class="cu-combobox-item" data-cu-combobox-item data-cu-value="done">Done</div>
-                            <div class="cu-combobox-item" data-cu-combobox-item data-cu-value="cancelled">Cancelled</div>
+                            <div class="cu-combobox-item flex items-center gap-2" data-cu-combobox-item data-cu-value="backlog">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-muted-foreground"><circle cx="12" cy="12" r="10"/></svg>
+                                Backlog
+                            </div>
+                            <div class="cu-combobox-item flex items-center gap-2" data-cu-combobox-item data-cu-value="todo">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-info"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4" fill="currentColor"/></svg>
+                                Todo
+                            </div>
+                            <div class="cu-combobox-item flex items-center gap-2" data-cu-combobox-item data-cu-value="in-progress">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-warning"><path d="M12 2v20"/><path d="M2 12h20"/></svg>
+                                In Progress
+                            </div>
+                            <div class="cu-combobox-item flex items-center gap-2" data-cu-combobox-item data-cu-value="done">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-success"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg>
+                                Done
+                            </div>
                         </div>
                     </div>
                 </div>
             </ComponentPreview>
         </section>
+
+        <!-- With Form Group -->
+        <section class="space-y-3">
+            <h2 id="with-form-group" class="text-lg font-semibold tracking-tight relative group">
+              <a href="#with-form-group" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+              {t.sections.withFormGroup.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">{t.sections.withFormGroup.description}</p>
+            <ComponentPreview code={withFormGroupCode}>
+                <div class="cu-form-group" style="width: 300px;">
+                    <label class="cu-label">Framework</label>
+                    <div class="cu-combobox w-full" data-cu-combobox>
+                        <button class="cu-combobox-trigger w-full" data-cu-combobox-trigger>
+                            <span data-cu-combobox-value class="cu-combobox-trigger-placeholder">Select framework...</span>
+                            <svg class="cu-combobox-trigger-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 15 5 5 5-5"/><path d="m7 9 5-5 5 5"/></svg>
+                        </button>
+                        <div class="cu-combobox-content" data-cu-combobox-content hidden>
+                            <div class="cu-combobox-search">
+                                <svg class="cu-combobox-search-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                                <input class="cu-combobox-input" data-cu-combobox-input placeholder="Search..." />
+                            </div>
+                            <div class="cu-combobox-list" data-cu-combobox-list>
+                                <div class="cu-combobox-empty" data-cu-combobox-empty hidden>No results found.</div>
+                                <div class="cu-combobox-item" data-cu-combobox-item data-cu-value="next">Next.js</div>
+                                <div class="cu-combobox-item" data-cu-combobox-item data-cu-value="svelte">SvelteKit</div>
+                                <div class="cu-combobox-item" data-cu-combobox-item data-cu-value="nuxt">Nuxt.js</div>
+                                <div class="cu-combobox-item" data-cu-combobox-item data-cu-value="remix">Remix</div>
+                                <div class="cu-combobox-item" data-cu-combobox-item data-cu-value="astro">Astro</div>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="cu-form-description">Select your preferred web framework.</p>
+                </div>
+            </ComponentPreview>
+        </section>
+
     </div>
 </Layout>

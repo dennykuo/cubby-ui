@@ -1,0 +1,80 @@
+/* Timeline
+   ------------------------------------------------------------------ */
+.cu-timeline {
+    @apply relative space-y-0 pl-8;
+}
+
+.cu-timeline::before {
+    content: "";
+    @apply absolute left-3 top-2 bottom-2 w-px bg-border;
+}
+
+.cu-timeline-item {
+    @apply relative pb-8 last:pb-0;
+}
+
+.cu-timeline-dot {
+    @apply absolute -left-8 top-1 flex size-6 items-center justify-center rounded-full border-2 border-border bg-background;
+}
+
+.cu-timeline-dot-icon {
+    @apply size-3 text-muted-foreground;
+}
+
+/* -- dot colors -- */
+.cu-timeline-dot-primary {
+    @apply border-primary bg-primary/10;
+}
+
+.cu-timeline-dot-primary .cu-timeline-dot-icon {
+    @apply text-primary;
+}
+
+.cu-timeline-dot-success {
+    @apply border-success bg-success/10;
+}
+
+.cu-timeline-dot-success .cu-timeline-dot-icon {
+    @apply text-success;
+}
+
+.cu-timeline-dot-warning {
+    @apply border-warning bg-warning/10;
+}
+
+.cu-timeline-dot-warning .cu-timeline-dot-icon {
+    @apply text-warning;
+}
+
+.cu-timeline-dot-destructive {
+    @apply border-destructive bg-destructive/10;
+}
+
+.cu-timeline-dot-destructive .cu-timeline-dot-icon {
+    @apply text-destructive;
+}
+
+.cu-timeline-dot-info {
+    @apply border-info bg-info/10;
+}
+
+.cu-timeline-dot-info .cu-timeline-dot-icon {
+    @apply text-info;
+}
+
+/* -- content -- */
+.cu-timeline-content {
+    @apply space-y-1;
+}
+
+.cu-timeline-title {
+    @apply text-sm font-medium leading-none;
+}
+
+.cu-timeline-description {
+    @apply text-sm text-muted-foreground;
+}
+
+.cu-timeline-time {
+    @apply text-xs text-muted-foreground/70;
+}

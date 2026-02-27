@@ -1,0 +1,149 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Spinner from "@/components/ui/Spinner.astro";
+import ComponentPreview from "@/components/ComponentPreview.astro";
+import { getLocaleFromUrl, useTranslations } from "@/i18n";
+import { spinnerPage } from "@/i18n/pages/components/spinner";
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = useTranslations(spinnerPage, locale);
+
+const usageCode = `<span class="cu-spinner cu-spinner-md" role="status" aria-label="Loading"></span>`.trim();
+
+const sizesCode = `<span class="cu-spinner cu-spinner-sm" role="status" aria-label="Loading"></span>
+<span class="cu-spinner cu-spinner-md" role="status" aria-label="Loading"></span>
+<span class="cu-spinner cu-spinner-lg" role="status" aria-label="Loading"></span>`.trim();
+
+const colorsCode = `<span class="cu-spinner cu-spinner-md text-primary" role="status"></span>
+<span class="cu-spinner cu-spinner-md text-success" role="status"></span>
+<span class="cu-spinner cu-spinner-md text-warning" role="status"></span>
+<span class="cu-spinner cu-spinner-md text-destructive" role="status"></span>
+<span class="cu-spinner cu-spinner-md text-info" role="status"></span>
+<span class="cu-spinner cu-spinner-md text-muted-foreground" role="status"></span>`.trim();
+
+const buttonLoadingCode = `<button class="cu-button cu-button-default" disabled>
+  <span class="cu-spinner cu-spinner-sm mr-2"></span>
+  Loading...
+</button>
+
+<button class="cu-button cu-button-outline" disabled>
+  <span class="cu-spinner cu-spinner-sm mr-2"></span>
+  Please wait
+</button>`.trim();
+---
+
+<Layout title={t.title} category={t.category} componentName="Spinner">
+    <div class="space-y-3">
+        <div class="flex items-center gap-3">
+            <h1 class="text-3xl font-bold tracking-tight">Spinner</h1>
+            <span class="cu-badge cu-badge-secondary">{t.category}</span>
+        </div>
+        <p class="text-base text-muted-foreground leading-relaxed">{t.description}</p>
+    </div>
+
+    <div class="mt-10 space-y-10">
+        <!-- Usage -->
+        <section class="space-y-3">
+            <h2 id="usage" class="text-lg font-semibold tracking-tight relative group">
+                <a href="#usage" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                {t.sections.usage.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
+            <ComponentPreview code={usageCode}>
+                <Spinner />
+            </ComponentPreview>
+        </section>
+
+        <!-- Classes Reference -->
+        <section class="space-y-3">
+            <h2 id="classes" class="text-lg font-semibold tracking-tight relative group">
+                <a href="#classes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                {t.sections.classes.title}
+            </h2>
+            <div class="cu-table-wrapper rounded-lg border border-border">
+                <table class="cu-table">
+                    <thead class="cu-table-header">
+                        <tr class="cu-table-row">
+                            <th class="cu-table-head">{t.sections.classes.classLabel}</th>
+                            <th class="cu-table-head">{t.sections.classes.descriptionLabel}</th>
+                        </tr>
+                    </thead>
+                    <tbody class="cu-table-body">
+                        <tr class="cu-table-row">
+                            <td class="cu-table-cell"><code class="cu-code">cu-spinner</code></td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-spinner']}</td>
+                        </tr>
+                        <tr class="cu-table-row">
+                            <td class="cu-table-cell"><code class="cu-code">cu-spinner-sm</code></td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-spinner-sm']}</td>
+                        </tr>
+                        <tr class="cu-table-row">
+                            <td class="cu-table-cell"><code class="cu-code">cu-spinner-md</code></td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-spinner-md']}</td>
+                        </tr>
+                        <tr class="cu-table-row">
+                            <td class="cu-table-cell"><code class="cu-code">cu-spinner-lg</code></td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-spinner-lg']}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Sizes -->
+        <section class="space-y-3">
+            <h2 id="sizes" class="text-lg font-semibold tracking-tight relative group">
+                <a href="#sizes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                {t.sections.sizes.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.sizes.description} />
+            <ComponentPreview code={sizesCode}>
+                <div class="flex items-center gap-4 justify-center">
+                    <Spinner size="sm" />
+                    <Spinner size="md" />
+                    <Spinner size="lg" />
+                </div>
+            </ComponentPreview>
+        </section>
+
+        <!-- Colors -->
+        <section class="space-y-3">
+            <h2 id="colors" class="text-lg font-semibold tracking-tight relative group">
+                <a href="#colors" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                {t.sections.colors.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.colors.description} />
+            <ComponentPreview code={colorsCode}>
+                <div class="flex items-center gap-4 justify-center">
+                    <Spinner class="text-primary" />
+                    <Spinner class="text-success" />
+                    <Spinner class="text-warning" />
+                    <Spinner class="text-destructive" />
+                    <Spinner class="text-info" />
+                    <Spinner class="text-muted-foreground" />
+                </div>
+            </ComponentPreview>
+        </section>
+
+        <!-- Button Loading -->
+        <section class="space-y-3">
+            <h2 id="button-loading" class="text-lg font-semibold tracking-tight relative group">
+                <a href="#button-loading" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                {t.sections.buttonLoading.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">{t.sections.buttonLoading.description}</p>
+            <ComponentPreview code={buttonLoadingCode}>
+                <div class="flex items-center gap-3 justify-center">
+                    <button class="cu-button cu-button-default" disabled>
+                        <Spinner size="sm" class="mr-2" />
+                        Loading...
+                    </button>
+                    <button class="cu-button cu-button-outline" disabled>
+                        <Spinner size="sm" class="mr-2" />
+                        Please wait
+                    </button>
+                </div>
+            </ComponentPreview>
+        </section>
+    </div>
+</Layout>

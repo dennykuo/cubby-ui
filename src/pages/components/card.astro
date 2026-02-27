@@ -109,6 +109,21 @@ const metricCode = `<div class="cu-card">
   </div>
 </div>`.trim();
 
+const outlinedCode = `<div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+  <div class="cu-card">
+    <div class="cu-card-header">
+      <h3 class="cu-card-title">Default Card</h3>
+      <p class="cu-card-description">With default shadow-sm.</p>
+    </div>
+  </div>
+  <div class="cu-card cu-card-outlined">
+    <div class="cu-card-header">
+      <h3 class="cu-card-title">Outlined Card</h3>
+      <p class="cu-card-description">Flat with no shadow.</p>
+    </div>
+  </div>
+</div>`.trim();
+
 const hoverCode = `<div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
   <div class="cu-card cu-card-hover">
     <div class="cu-card-header">
@@ -299,87 +314,6 @@ const tableInCardCode = `<div class="cu-card">
   </div>
 </div>`.trim();
 
-const teamCardCode = `<div class="cu-card w-[380px]">
-  <div class="cu-card-header">
-    <h3 class="cu-card-title">Team Members</h3>
-    <p class="cu-card-description">Invite your team to collaborate.</p>
-  </div>
-  <div class="cu-card-content space-y-4">
-    <div class="flex items-center justify-between">
-      <div class="flex items-center gap-3">
-        <span class="cu-avatar cu-avatar-sm">
-          <span class="cu-avatar-fallback">SC</span>
-        </span>
-        <div>
-          <p class="text-sm font-medium leading-none">Sofia Chen</p>
-          <p class="text-xs text-muted-foreground">sofia@example.com</p>
-        </div>
-      </div>
-      <span class="cu-badge cu-badge-secondary">Owner</span>
-    </div>
-    <div class="flex items-center justify-between">
-      <div class="flex items-center gap-3">
-        <span class="cu-avatar cu-avatar-sm">
-          <span class="cu-avatar-fallback">JW</span>
-        </span>
-        <div>
-          <p class="text-sm font-medium leading-none">James Wilson</p>
-          <p class="text-xs text-muted-foreground">james@example.com</p>
-        </div>
-      </div>
-      <span class="cu-badge cu-badge-outline">Admin</span>
-    </div>
-    <div class="flex items-center justify-between">
-      <div class="flex items-center gap-3">
-        <span class="cu-avatar cu-avatar-sm">
-          <span class="cu-avatar-fallback">MR</span>
-        </span>
-        <div>
-          <p class="text-sm font-medium leading-none">Maya Rivera</p>
-          <p class="text-xs text-muted-foreground">maya@example.com</p>
-        </div>
-      </div>
-      <span class="cu-badge cu-badge-outline">Member</span>
-    </div>
-  </div>
-  <div class="cu-card-footer">
-    <button class="cu-button cu-button-outline cu-button-md w-full">
-      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg>
-      Invite Member
-    </button>
-  </div>
-</div>`.trim();
-
-const loginCardCode = `<div class="cu-card w-[380px]">
-  <div class="cu-card-header items-center text-center">
-    <h3 class="cu-card-title text-xl">Welcome back</h3>
-    <p class="cu-card-description">Sign in to your account to continue.</p>
-  </div>
-  <div class="cu-card-content">
-    <form class="space-y-4">
-      <div class="cu-form-group">
-        <label for="email" class="cu-label">Email</label>
-        <input id="email" type="email" placeholder="name@example.com" class="cu-input" />
-      </div>
-      <div class="cu-form-group">
-        <div class="flex items-center justify-between">
-          <label for="password" class="cu-label">Password</label>
-          <a href="#" class="text-xs text-primary hover:underline">Forgot?</a>
-        </div>
-        <input id="password" type="password" placeholder="••••••••" class="cu-input" />
-      </div>
-      <button type="submit" class="cu-button cu-button-default cu-button-md w-full">Sign In</button>
-    </form>
-    <div class="relative mt-6">
-      <div class="absolute inset-0 flex items-center"><div class="cu-separator cu-separator-horizontal"></div></div>
-      <div class="relative flex justify-center"><span class="bg-card px-2 text-xs text-muted-foreground">Or continue with</span></div>
-    </div>
-    <div class="mt-4 grid grid-cols-2 gap-2">
-      <button class="cu-button cu-button-outline cu-button-md">GitHub</button>
-      <button class="cu-button cu-button-outline cu-button-md">Google</button>
-    </div>
-  </div>
-</div>`.trim();
 ---
 
 <Layout title={t.title} category={t.category} componentName="Card">
@@ -444,6 +378,106 @@ const loginCardCode = `<div class="cu-card w-[380px]">
     </section>
 
 
+        <!-- Outlined -->
+        <section class="space-y-3">
+            <h2 id="outlined" class="text-lg font-semibold tracking-tight relative group">
+                <a href="#outlined" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                {t.sections.outlined.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.outlined.description} />
+            <ComponentPreview code={outlinedCode}>
+                <div class="grid w-full grid-cols-1 gap-4 sm:grid-cols-2">
+                    <Card>
+                        <CardHeader>
+                            <CardTitle>Default Card</CardTitle>
+                            <CardDescription>With default shadow-sm.</CardDescription>
+                        </CardHeader>
+                    </Card>
+                    <Card class="cu-card-outlined">
+                        <CardHeader>
+                            <CardTitle>Outlined Card</CardTitle>
+                            <CardDescription>Flat with no shadow.</CardDescription>
+                        </CardHeader>
+                    </Card>
+                </div>
+            </ComponentPreview>
+        </section>
+
+        <!-- Hover Cards -->
+        <section class="space-y-3">
+            <h2 id="hover-effect" class="text-lg font-semibold tracking-tight relative group">
+                <a href="#hover-effect" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                {t.sections.hoverEffect.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.hoverEffect.description} />
+            <ComponentPreview code={hoverCode}>
+                <div class="grid w-full grid-cols-1 gap-4 sm:grid-cols-3">
+                    <Card class="cu-card-hover">
+                        <CardHeader>
+                            <div class="flex size-10 items-center justify-center rounded-lg bg-primary/8 text-primary">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 2 7l10 5 10-5-10-5Z"/><path d="m2 17 10 5 10-5"/><path d="m2 12 10 5 10-5"/></svg>
+                            </div>
+                            <CardTitle>Components</CardTitle>
+                            <CardDescription>60+ beautifully crafted UI components.</CardDescription>
+                        </CardHeader>
+                    </Card>
+                    <Card class="cu-card-hover">
+                        <CardHeader>
+                            <div class="flex size-10 items-center justify-center rounded-lg bg-primary/8 text-primary">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+                            </div>
+                            <CardTitle>Framework Free</CardTitle>
+                            <CardDescription>Pure HTML + CSS, no JavaScript required.</CardDescription>
+                        </CardHeader>
+                    </Card>
+                    <Card class="cu-card-hover">
+                        <CardHeader>
+                            <div class="flex size-10 items-center justify-center rounded-lg bg-primary/8 text-primary">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m8 12 3 3 5-6"/></svg>
+                            </div>
+                            <CardTitle>Accessible</CardTitle>
+                            <CardDescription>Built with semantic HTML and ARIA attributes.</CardDescription>
+                        </CardHeader>
+                    </Card>
+                </div>
+            </ComponentPreview>
+        </section>
+
+        <!-- Metric Card -->
+        <section class="space-y-3">
+            <h2 id="metric-card" class="text-lg font-semibold tracking-tight relative group">
+                <a href="#metric-card" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                {t.sections.metricCard.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
+                {t.sections.metricCard.description}
+            </p>
+            <ComponentPreview code={metricCode}>
+                <div class="flex flex-wrap gap-4 justify-center">
+                    <Card class="w-[200px]">
+                        <CardHeader>
+                            <CardTitle class="text-sm font-medium">Total Revenue</CardTitle>
+                            <CardDescription>January - June 2024</CardDescription>
+                        </CardHeader>
+                        <CardContent>
+                            <div class="text-3xl font-bold">$45,231.89</div>
+                            <p class="text-xs text-muted-foreground mt-1">+20.1% from last month</p>
+                        </CardContent>
+                    </Card>
+                    <Card class="w-[200px]">
+                        <CardHeader>
+                            <CardTitle class="text-sm font-medium">Subscriptions</CardTitle>
+                            <CardDescription>Active plans</CardDescription>
+                        </CardHeader>
+                        <CardContent>
+                            <div class="text-3xl font-bold">+2,350</div>
+                            <p class="text-xs text-muted-foreground mt-1">+180.1% from last month</p>
+                        </CardContent>
+                    </Card>
+                </div>
+            </ComponentPreview>
+        </section>
+
         <!-- Form Card -->
         <section class="space-y-3">
             <h2 id="form-card" class="text-lg font-semibold tracking-tight relative group">
@@ -484,49 +518,6 @@ const loginCardCode = `<div class="cu-card w-[380px]">
                         <Button variant="outline">Cancel</Button>
                         <Button>Deploy</Button>
                     </CardFooter>
-                </Card>
-            </ComponentPreview>
-        </section>
-
-        <!-- Login Card -->
-        <section class="space-y-3">
-            <h2 id="login-card" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#login-card" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.loginCard.title}
-            </h2>
-            <p class="text-base text-muted-foreground leading-relaxed">
-                {t.sections.loginCard.description}
-            </p>
-            <ComponentPreview code={loginCardCode}>
-                <Card class="w-[380px]">
-                    <CardHeader class="items-center text-center">
-                        <CardTitle class="text-xl">Welcome back</CardTitle>
-                        <CardDescription>Sign in to your account to continue.</CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                        <form class="space-y-4">
-                            <div class="cu-form-group">
-                                <label for="card-email" class="cu-label">Email</label>
-                                <input id="card-email" type="email" placeholder="name@example.com" class="cu-input" />
-                            </div>
-                            <div class="cu-form-group">
-                                <div class="flex items-center justify-between">
-                                    <label for="card-password" class="cu-label">Password</label>
-                                    <a href="#" class="text-xs text-primary hover:underline">Forgot?</a>
-                                </div>
-                                <input id="card-password" type="password" placeholder="••••••••" class="cu-input" />
-                            </div>
-                            <Button class="w-full">Sign In</Button>
-                        </form>
-                        <div class="relative mt-6">
-                            <div class="absolute inset-0 flex items-center"><div class="cu-separator cu-separator-horizontal"></div></div>
-                            <div class="relative flex justify-center"><span class="bg-card px-2 text-xs text-muted-foreground">Or continue with</span></div>
-                        </div>
-                        <div class="mt-4 grid grid-cols-2 gap-2">
-                            <Button variant="outline">GitHub</Button>
-                            <Button variant="outline">Google</Button>
-                        </div>
-                    </CardContent>
                 </Card>
             </ComponentPreview>
         </section>
@@ -626,69 +617,6 @@ const loginCardCode = `<div class="cu-card w-[380px]">
             </ComponentPreview>
         </section>
 
-        <!-- Team Members -->
-        <section class="space-y-3">
-            <h2 id="team-members" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#team-members" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.teamMembers.title}
-            </h2>
-            <p class="text-base text-muted-foreground leading-relaxed">
-                {t.sections.teamMembers.description}
-            </p>
-            <ComponentPreview code={teamCardCode}>
-                <Card class="w-[380px]">
-                    <CardHeader>
-                        <CardTitle>Team Members</CardTitle>
-                        <CardDescription>Invite your team to collaborate.</CardDescription>
-                    </CardHeader>
-                    <CardContent class="space-y-4">
-                        <div class="flex items-center justify-between">
-                            <div class="flex items-center gap-3">
-                                <span class="cu-avatar cu-avatar-sm">
-                                    <span class="cu-avatar-fallback">SC</span>
-                                </span>
-                                <div>
-                                    <p class="text-sm font-medium leading-none">Sofia Chen</p>
-                                    <p class="text-xs text-muted-foreground">sofia@example.com</p>
-                                </div>
-                            </div>
-                            <Badge variant="secondary">Owner</Badge>
-                        </div>
-                        <div class="flex items-center justify-between">
-                            <div class="flex items-center gap-3">
-                                <span class="cu-avatar cu-avatar-sm">
-                                    <span class="cu-avatar-fallback">JW</span>
-                                </span>
-                                <div>
-                                    <p class="text-sm font-medium leading-none">James Wilson</p>
-                                    <p class="text-xs text-muted-foreground">james@example.com</p>
-                                </div>
-                            </div>
-                            <Badge variant="outline">Admin</Badge>
-                        </div>
-                        <div class="flex items-center justify-between">
-                            <div class="flex items-center gap-3">
-                                <span class="cu-avatar cu-avatar-sm">
-                                    <span class="cu-avatar-fallback">MR</span>
-                                </span>
-                                <div>
-                                    <p class="text-sm font-medium leading-none">Maya Rivera</p>
-                                    <p class="text-xs text-muted-foreground">maya@example.com</p>
-                                </div>
-                            </div>
-                            <Badge variant="outline">Member</Badge>
-                        </div>
-                    </CardContent>
-                    <CardFooter>
-                        <Button variant="outline" class="w-full">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg>
-                            Invite Member
-                        </Button>
-                    </CardFooter>
-                </Card>
-            </ComponentPreview>
-        </section>
-
         <!-- Profile Card -->
         <section class="space-y-3">
             <h2 id="profile-card" class="text-lg font-semibold tracking-tight relative group">
@@ -734,81 +662,6 @@ const loginCardCode = `<div class="cu-card w-[380px]">
                         <Button variant="outline" size="sm">Message</Button>
                     </CardFooter>
                 </Card>
-            </ComponentPreview>
-        </section>
-
-        <!-- Hover Cards -->
-        <section class="space-y-3">
-            <h2 id="hover-effect" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#hover-effect" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.hoverEffect.title}
-            </h2>
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.hoverEffect.description} />
-            <ComponentPreview code={hoverCode}>
-                <div class="grid w-full grid-cols-1 gap-4 sm:grid-cols-3">
-                    <Card class="cu-card-hover">
-                        <CardHeader>
-                            <div class="flex size-10 items-center justify-center rounded-lg bg-primary/8 text-primary">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 2 7l10 5 10-5-10-5Z"/><path d="m2 17 10 5 10-5"/><path d="m2 12 10 5 10-5"/></svg>
-                            </div>
-                            <CardTitle>Components</CardTitle>
-                            <CardDescription>60+ beautifully crafted UI components.</CardDescription>
-                        </CardHeader>
-                    </Card>
-                    <Card class="cu-card-hover">
-                        <CardHeader>
-                            <div class="flex size-10 items-center justify-center rounded-lg bg-primary/8 text-primary">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
-                            </div>
-                            <CardTitle>Framework Free</CardTitle>
-                            <CardDescription>Pure HTML + CSS, no JavaScript required.</CardDescription>
-                        </CardHeader>
-                    </Card>
-                    <Card class="cu-card-hover">
-                        <CardHeader>
-                            <div class="flex size-10 items-center justify-center rounded-lg bg-primary/8 text-primary">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m8 12 3 3 5-6"/></svg>
-                            </div>
-                            <CardTitle>Accessible</CardTitle>
-                            <CardDescription>Built with semantic HTML and ARIA attributes.</CardDescription>
-                        </CardHeader>
-                    </Card>
-                </div>
-            </ComponentPreview>
-        </section>
-
-        <!-- Metric Card -->
-        <section class="space-y-3">
-            <h2 id="metric-card" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#metric-card" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.metricCard.title}
-            </h2>
-            <p class="text-base text-muted-foreground leading-relaxed">
-                {t.sections.metricCard.description}
-            </p>
-            <ComponentPreview code={metricCode}>
-                <div class="flex flex-wrap gap-4 justify-center">
-                    <Card class="w-[200px]">
-                        <CardHeader>
-                            <CardTitle class="text-sm font-medium">Total Revenue</CardTitle>
-                            <CardDescription>January - June 2024</CardDescription>
-                        </CardHeader>
-                        <CardContent>
-                            <div class="text-3xl font-bold">$45,231.89</div>
-                            <p class="text-xs text-muted-foreground mt-1">+20.1% from last month</p>
-                        </CardContent>
-                    </Card>
-                    <Card class="w-[200px]">
-                        <CardHeader>
-                            <CardTitle class="text-sm font-medium">Subscriptions</CardTitle>
-                            <CardDescription>Active plans</CardDescription>
-                        </CardHeader>
-                        <CardContent>
-                            <div class="text-3xl font-bold">+2,350</div>
-                            <p class="text-xs text-muted-foreground mt-1">+180.1% from last month</p>
-                        </CardContent>
-                    </Card>
-                </div>
             </ComponentPreview>
         </section>
 

@@ -9,6 +9,7 @@ export const multiSelectPage: Record<Locale, {
     classes: { title: string; classLabel: string; descriptionLabel: string };
     withSearch: { title: string; description: string };
     presetValues: { title: string; description: string };
+    withFormGroup: { title: string; description: string };
   };
   classDescriptions: Record<string, string>;
 }> = {
@@ -33,6 +34,10 @@ export const multiSelectPage: Record<Locale, {
       presetValues: {
         title: 'Preset Values',
         description: 'Pre-select items by adding <code class="cu-code">cu-multi-select-item-active</code> to items and rendering tags in the trigger area on initial load.',
+      },
+      withFormGroup: {
+        title: 'With Form Group',
+        description: 'Pair the multi select with a Label and FormDescription for use in form layouts.',
       },
     },
     classDescriptions: {
@@ -75,6 +80,10 @@ export const multiSelectPage: Record<Locale, {
       presetValues: {
         title: '預設值',
         description: '在項目上加入 <code class="cu-code">cu-multi-select-item-active</code> 並在初始載入時於觸發區域渲染標籤，以預選項目。',
+      },
+      withFormGroup: {
+        title: '搭配表單群組',
+        description: '將 multi select 與 Label 和 FormDescription 搭配，用於表單佈局。',
       },
     },
     classDescriptions: {

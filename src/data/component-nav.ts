@@ -37,6 +37,7 @@ export const basicComponents: NavItem[] = [
 
 export const typographyComponents: NavItem[] = [
   { name: "Headings", path: "/components/headings" },
+  { name: "Kbd", path: "/components/kbd" },
   { name: "Paragraphs", path: "/components/paragraphs" },
   { name: "Blockquote", path: "/components/blockquote" },
   { name: "Lists", path: "/components/lists" },
@@ -49,6 +50,7 @@ export const navigationComponents: NavItem[] = [
   { name: "Breadcrumb", path: "/components/breadcrumb" },
   { name: "Menubar", path: "/components/menubar" },
   { name: "Pagination", path: "/components/pagination" },
+  { name: "Segmented Control", path: "/components/segmented-control" },
   { name: "Steps", path: "/components/steps" },
   { name: "Tabs", path: "/components/tabs" },
 ];
@@ -62,6 +64,7 @@ export const dataDisplayComponents: NavItem[] = [
   { name: "Setting Item", path: "/components/setting-item" },
   { name: "Stat Card", path: "/components/stat-card" },
   { name: "Table", path: "/components/table" },
+  { name: "Timeline", path: "/components/timeline" },
   { name: "Tree View", path: "/components/tree-view" },
 ];
 
@@ -89,6 +92,7 @@ export const feedbackComponents: NavItem[] = [
   { name: "Empty State", path: "/components/empty-state" },
   { name: "Progress", path: "/components/progress" },
   { name: "Skeleton", path: "/components/skeleton" },
+  { name: "Spinner", path: "/components/spinner" },
   { name: "Toast", path: "/components/toast" },
 ];
 

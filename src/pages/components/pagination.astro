@@ -43,6 +43,21 @@ const withPrevNextCode = `<nav aria-label="Pagination">
     <li><a class="cu-pagination-next" href="#" aria-label="Go to next page"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></a></li>
   </ul>
 </nav>`.trim();
+
+const withInfoTextCode = `<div class="flex items-center justify-between">
+  <p class="text-sm text-muted-foreground">Showing 1-10 of 100 results</p>
+  <nav aria-label="Pagination">
+    <ul class="cu-pagination">
+      <li><a class="cu-pagination-prev" href="#" aria-label="Go to previous page"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></a></li>
+      <li><a class="cu-pagination-item cu-pagination-item-active" href="#" aria-current="page">1</a></li>
+      <li><a class="cu-pagination-item" href="#">2</a></li>
+      <li><a class="cu-pagination-item" href="#">3</a></li>
+      <li><span class="cu-pagination-ellipsis"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg></span></li>
+      <li><a class="cu-pagination-item" href="#">10</a></li>
+      <li><a class="cu-pagination-next" href="#" aria-label="Go to next page"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></a></li>
+    </ul>
+  </nav>
+</div>`.trim();
 ---
 
 <Layout title={t.title} category={t.category} componentName="Pagination">
@@ -155,6 +170,31 @@ const withPrevNextCode = `<nav aria-label="Pagination">
                     <PaginationItem href="#">5</PaginationItem>
                     <PaginationNext href="#" />
                 </Pagination>
+            </ComponentPreview>
+        </section>
+
+        <!-- With Info Text -->
+        <section class="space-y-3">
+            <h2 id="with-info-text" class="text-lg font-semibold tracking-tight relative group">
+              <a href="#with-info-text" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+              {t.sections.withInfoText.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">{t.sections.withInfoText.description}</p>
+            <ComponentPreview code={withInfoTextCode}>
+                <div class="w-full max-w-xl">
+                    <div class="flex items-center justify-between">
+                        <p class="text-sm text-muted-foreground">Showing 1-10 of 100 results</p>
+                        <Pagination>
+                            <PaginationPrev href="#" />
+                            <PaginationItem href="#" active>1</PaginationItem>
+                            <PaginationItem href="#">2</PaginationItem>
+                            <PaginationItem href="#">3</PaginationItem>
+                            <PaginationEllipsis />
+                            <PaginationItem href="#">10</PaginationItem>
+                            <PaginationNext href="#" />
+                        </Pagination>
+                    </div>
+                </div>
             </ComponentPreview>
         </section>
     </div>

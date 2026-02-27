@@ -13,6 +13,7 @@ export const buttonPage: Record<Locale, {
     iconButtons: { title: string; description: string };
     loading: { title: string; description: string };
     asLink: { title: string; description: string };
+
     buttonGroup: { title: string; description: string };
     disabled: { title: string; description: string };
   };
@@ -50,7 +51,7 @@ export const buttonPage: Record<Locale, {
       },
       loading: {
         title: 'Loading',
-        description: 'Combine a spinning icon with <code class="cu-code">disabled</code> to indicate a pending action.',
+        description: 'Add <code class="cu-code">cu-button-loading</code> with a <code class="cu-code">cu-spinner cu-spinner-sm</code> to indicate a pending action. Unlike <code class="cu-code">disabled</code>, loading uses <code class="cu-code">opacity-70</code> for a subtler visual.',
       },
       asLink: {
         title: 'As Link',
@@ -84,6 +85,7 @@ export const buttonPage: Record<Locale, {
       'cu-button-icon': 'Icon button',
       'cu-button-icon-sm': 'Small icon button',
       'cu-button-icon-xs': 'Extra-small icon button',
+      'cu-button-loading': 'Loading state (pointer-events-none, opacity-70)',
     },
   },
   'zh-tw': {
@@ -118,7 +120,7 @@ export const buttonPage: Record<Locale, {
       },
       loading: {
         title: '載入中',
-        description: '結合旋轉圖示與 <code class="cu-code">disabled</code> 來表示待處理的操作。',
+        description: '加入 <code class="cu-code">cu-button-loading</code> 搭配 <code class="cu-code">cu-spinner cu-spinner-sm</code> 來表示待處理的操作。與 <code class="cu-code">disabled</code> 不同，loading 使用 <code class="cu-code">opacity-70</code> 呈現較柔和的視覺效果。',
       },
       asLink: {
         title: '作為連結',
@@ -152,6 +154,7 @@ export const buttonPage: Record<Locale, {
       'cu-button-icon': '圖示按鈕',
       'cu-button-icon-sm': '小圖示按鈕',
       'cu-button-icon-xs': '超小圖示按鈕',
+      'cu-button-loading': '載入狀態（pointer-events-none, opacity-70）',
     },
   },
 };

@@ -32,11 +32,12 @@ export const labelPage: Record<Locale, {
       },
       requiredIndicator: {
         title: 'Required Indicator',
-        description: 'Add an asterisk with <code class="cu-code">text-destructive</code> to mark required fields.',
+        description: 'Add <code class="cu-code">cu-label-required</code> to automatically append a red asterisk, or manually add one with <code class="cu-code">text-destructive</code>.',
       },
     },
     classDescriptions: {
       'cu-label': 'Form label style with peer-disabled opacity reduction',
+      'cu-label-required': 'Appends a red asterisk (*) after the label text',
     },
   },
   'zh-tw': {
@@ -59,11 +60,12 @@ export const labelPage: Record<Locale, {
       },
       requiredIndicator: {
         title: '必填標記',
-        description: '使用 <code class="cu-code">text-destructive</code> 加入星號以標示必填欄位。',
+        description: '加入 <code class="cu-code">cu-label-required</code> 自動在文字後方附加紅色星號，或手動以 <code class="cu-code">text-destructive</code> 加入。',
       },
     },
     classDescriptions: {
       'cu-label': '表單標籤樣式，含 peer-disabled 透明度降低',
+      'cu-label-required': '在標籤文字後顯示紅色星號（*）',
     },
   },
 };

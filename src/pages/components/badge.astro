@@ -18,10 +18,47 @@ const variantsCode = `<span class="cu-badge cu-badge-default">Default</span>
 <span class="cu-badge cu-badge-warning">Warning</span>
 <span class="cu-badge cu-badge-info">Info</span>`.trim();
 
+const softVariantsCode = `<span class="cu-badge cu-badge-soft-default">Default</span>
+<span class="cu-badge cu-badge-soft-secondary">Secondary</span>
+<span class="cu-badge cu-badge-soft-destructive">Destructive</span>
+<span class="cu-badge cu-badge-soft-success">Success</span>
+<span class="cu-badge cu-badge-soft-warning">Warning</span>
+<span class="cu-badge cu-badge-soft-info">Info</span>`.trim();
+
 const withIconCode = `<span class="cu-badge cu-badge-default">
   <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
   Badge
 </span>`.trim();
+
+const withDotCode = `<span class="cu-badge cu-badge-dot cu-badge-default">Active</span>
+<span class="cu-badge cu-badge-dot cu-badge-success">Online</span>
+<span class="cu-badge cu-badge-dot cu-badge-warning">Idle</span>
+<span class="cu-badge cu-badge-dot cu-badge-destructive">Error</span>
+<span class="cu-badge cu-badge-dot cu-badge-outline">Draft</span>`.trim();
+
+const dismissibleCode = `<span class="cu-badge cu-badge-removable cu-badge-default">
+  React
+  <button class="cu-badge-remove" onclick="this.parentElement.remove()">
+    <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+  </button>
+</span>
+<span class="cu-badge cu-badge-removable cu-badge-secondary">
+  Vue
+  <button class="cu-badge-remove" onclick="this.parentElement.remove()">
+    <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+  </button>
+</span>
+<span class="cu-badge cu-badge-removable cu-badge-outline">
+  Angular
+  <button class="cu-badge-remove" onclick="this.parentElement.remove()">
+    <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+  </button>
+</span>`.trim();
+
+const countCode = `<span class="cu-badge cu-badge-count cu-badge-default">3</span>
+<span class="cu-badge cu-badge-count cu-badge-destructive">12</span>
+<span class="cu-badge cu-badge-count cu-badge-success">99+</span>
+<span class="cu-badge cu-badge-count cu-badge-soft-default">5</span>`.trim();
 ---
 
 <Layout title={t.title} category={t.category} componentName="Badge">
@@ -97,6 +134,22 @@ const withIconCode = `<span class="cu-badge cu-badge-default">
                             <td class="cu-table-cell"><code class="cu-code">cu-badge-soft-*</code></td>
                             <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-badge-soft-*']}</td>
                         </tr>
+                        <tr class="cu-table-row">
+                            <td class="cu-table-cell"><code class="cu-code">cu-badge-dot</code></td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-badge-dot']}</td>
+                        </tr>
+                        <tr class="cu-table-row">
+                            <td class="cu-table-cell"><code class="cu-code">cu-badge-removable</code></td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-badge-removable']}</td>
+                        </tr>
+                        <tr class="cu-table-row">
+                            <td class="cu-table-cell"><code class="cu-code">cu-badge-remove</code></td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-badge-remove']}</td>
+                        </tr>
+                        <tr class="cu-table-row">
+                            <td class="cu-table-cell"><code class="cu-code">cu-badge-count</code></td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-badge-count']}</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -123,6 +176,25 @@ const withIconCode = `<span class="cu-badge cu-badge-default">
             </ComponentPreview>
         </section>
 
+        <!-- Soft Variants -->
+        <section class="space-y-3">
+            <h2 id="soft-variants" class="text-lg font-semibold tracking-tight relative group">
+                <a href="#soft-variants" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                {t.sections.softVariants.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">{t.sections.softVariants.description}</p>
+            <ComponentPreview code={softVariantsCode}>
+                <div class="flex flex-wrap gap-2 items-center justify-center">
+                    <span class="cu-badge cu-badge-soft-default">Default</span>
+                    <span class="cu-badge cu-badge-soft-secondary">Secondary</span>
+                    <span class="cu-badge cu-badge-soft-destructive">Destructive</span>
+                    <span class="cu-badge cu-badge-soft-success">Success</span>
+                    <span class="cu-badge cu-badge-soft-warning">Warning</span>
+                    <span class="cu-badge cu-badge-soft-info">Info</span>
+                </div>
+            </ComponentPreview>
+        </section>
+
         <!-- With Icon -->
         <section class="space-y-3">
             <h2 id="with-icon" class="text-lg font-semibold tracking-tight relative group">
@@ -135,6 +207,72 @@ const withIconCode = `<span class="cu-badge cu-badge-default">
                     <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
                     Badge
                 </Badge>
+            </ComponentPreview>
+        </section>
+
+        <!-- With Dot -->
+        <section class="space-y-3">
+            <h2 id="with-dot" class="text-lg font-semibold tracking-tight relative group">
+                <a href="#with-dot" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                {t.sections.withDot.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withDot.description} />
+            <ComponentPreview code={withDotCode}>
+                <div class="flex flex-wrap gap-2 items-center justify-center">
+                    <span class="cu-badge cu-badge-dot cu-badge-default">Active</span>
+                    <span class="cu-badge cu-badge-dot cu-badge-success">Online</span>
+                    <span class="cu-badge cu-badge-dot cu-badge-warning">Idle</span>
+                    <span class="cu-badge cu-badge-dot cu-badge-destructive">Error</span>
+                    <span class="cu-badge cu-badge-dot cu-badge-outline">Draft</span>
+                </div>
+            </ComponentPreview>
+        </section>
+
+        <!-- Dismissible -->
+        <section class="space-y-3">
+            <h2 id="dismissible" class="text-lg font-semibold tracking-tight relative group">
+                <a href="#dismissible" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                {t.sections.dismissible.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.dismissible.description} />
+            <ComponentPreview code={dismissibleCode}>
+                <div class="flex flex-wrap gap-2 items-center justify-center">
+                    <span class="cu-badge cu-badge-removable cu-badge-default">
+                        React
+                        <button class="cu-badge-remove" onclick="this.parentElement.remove()">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+                        </button>
+                    </span>
+                    <span class="cu-badge cu-badge-removable cu-badge-secondary">
+                        Vue
+                        <button class="cu-badge-remove" onclick="this.parentElement.remove()">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+                        </button>
+                    </span>
+                    <span class="cu-badge cu-badge-removable cu-badge-outline">
+                        Angular
+                        <button class="cu-badge-remove" onclick="this.parentElement.remove()">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+                        </button>
+                    </span>
+                </div>
+            </ComponentPreview>
+        </section>
+
+        <!-- Count -->
+        <section class="space-y-3">
+            <h2 id="count" class="text-lg font-semibold tracking-tight relative group">
+                <a href="#count" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                {t.sections.count.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.count.description} />
+            <ComponentPreview code={countCode}>
+                <div class="flex flex-wrap gap-2 items-center justify-center">
+                    <span class="cu-badge cu-badge-count cu-badge-default">3</span>
+                    <span class="cu-badge cu-badge-count cu-badge-destructive">12</span>
+                    <span class="cu-badge cu-badge-count cu-badge-success">99+</span>
+                    <span class="cu-badge cu-badge-count cu-badge-soft-default">5</span>
+                </div>
             </ComponentPreview>
         </section>
 

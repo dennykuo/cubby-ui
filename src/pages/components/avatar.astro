@@ -37,6 +37,63 @@ const fallbackCode = `<span class="cu-avatar cu-avatar-md">
 <span class="cu-avatar cu-avatar-md">
   <span class="cu-avatar-fallback">AB</span>
 </span>`.trim();
+
+const avatarGroupCode = `<div class="cu-avatar-group">
+  <span class="cu-avatar cu-avatar-md">
+    <img class="cu-avatar-image" src="https://i.pravatar.cc/80?img=5" alt="User 1" />
+    <span class="cu-avatar-fallback">U1</span>
+  </span>
+  <span class="cu-avatar cu-avatar-md">
+    <img class="cu-avatar-image" src="https://i.pravatar.cc/80?img=6" alt="User 2" />
+    <span class="cu-avatar-fallback">U2</span>
+  </span>
+  <span class="cu-avatar cu-avatar-md">
+    <img class="cu-avatar-image" src="https://i.pravatar.cc/80?img=7" alt="User 3" />
+    <span class="cu-avatar-fallback">U3</span>
+  </span>
+  <span class="cu-avatar cu-avatar-md">
+    <span class="cu-avatar-fallback cu-avatar-group-count">+3</span>
+  </span>
+</div>`.trim();
+
+const statusIndicatorCode = `<div class="relative inline-block">
+  <span class="cu-avatar cu-avatar-md">
+    <img class="cu-avatar-image" src="https://i.pravatar.cc/80?img=8" alt="Online user" />
+    <span class="cu-avatar-fallback">ON</span>
+  </span>
+  <span class="absolute bottom-0 right-0 block h-3 w-3 rounded-full bg-success ring-2 ring-background"></span>
+</div>
+
+<div class="relative inline-block">
+  <span class="cu-avatar cu-avatar-md">
+    <img class="cu-avatar-image" src="https://i.pravatar.cc/80?img=9" alt="Offline user" />
+    <span class="cu-avatar-fallback">OF</span>
+  </span>
+  <span class="absolute bottom-0 right-0 block h-3 w-3 rounded-full bg-muted-foreground/50 ring-2 ring-background"></span>
+</div>`.trim();
+
+const statusCode = `<span class="cu-avatar cu-avatar-md relative">
+  <img class="cu-avatar-image" src="https://i.pravatar.cc/80?img=10" alt="Avatar" />
+  <span class="cu-avatar-fallback">ON</span>
+  <span class="cu-avatar-status cu-avatar-status-md cu-avatar-status-online"></span>
+</span>
+
+<span class="cu-avatar cu-avatar-md relative">
+  <img class="cu-avatar-image" src="https://i.pravatar.cc/80?img=11" alt="Avatar" />
+  <span class="cu-avatar-fallback">AW</span>
+  <span class="cu-avatar-status cu-avatar-status-md cu-avatar-status-away"></span>
+</span>
+
+<span class="cu-avatar cu-avatar-md relative">
+  <img class="cu-avatar-image" src="https://i.pravatar.cc/80?img=12" alt="Avatar" />
+  <span class="cu-avatar-fallback">BS</span>
+  <span class="cu-avatar-status cu-avatar-status-md cu-avatar-status-busy"></span>
+</span>
+
+<span class="cu-avatar cu-avatar-md relative">
+  <span class="cu-avatar-fallback">OF</span>
+  <span class="cu-avatar-status cu-avatar-status-md cu-avatar-status-offline"></span>
+</span>`.trim();
 ---
 
 <Layout title={t.title} category={t.category} componentName="Avatar">
@@ -103,6 +160,14 @@ const fallbackCode = `<span class="cu-avatar cu-avatar-md">
                             <td class="cu-table-cell"><code class="cu-code">cu-avatar-fallback</code></td>
                             <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-avatar-fallback']}</td>
                         </tr>
+                        <tr class="cu-table-row">
+                            <td class="cu-table-cell"><code class="cu-code">cu-avatar-group</code></td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-avatar-group']}</td>
+                        </tr>
+                        <tr class="cu-table-row">
+                            <td class="cu-table-cell"><code class="cu-code">cu-avatar-group-count</code></td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-avatar-group-count']}</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -149,6 +214,93 @@ const fallbackCode = `<span class="cu-avatar cu-avatar-md">
                     <Avatar>
                         <AvatarFallback>AB</AvatarFallback>
                     </Avatar>
+                </div>
+            </ComponentPreview>
+        </section>
+
+        <!-- Avatar Group -->
+        <section class="space-y-3">
+            <h2 id="avatar-group" class="text-lg font-semibold tracking-tight relative group">
+                <a href="#avatar-group" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                {t.sections.avatarGroup.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.avatarGroup.description} />
+            <ComponentPreview code={avatarGroupCode}>
+                <div class="cu-avatar-group">
+                    <Avatar>
+                        <AvatarImage src="https://i.pravatar.cc/80?img=5" alt="User 1" />
+                        <AvatarFallback>U1</AvatarFallback>
+                    </Avatar>
+                    <Avatar>
+                        <AvatarImage src="https://i.pravatar.cc/80?img=6" alt="User 2" />
+                        <AvatarFallback>U2</AvatarFallback>
+                    </Avatar>
+                    <Avatar>
+                        <AvatarImage src="https://i.pravatar.cc/80?img=7" alt="User 3" />
+                        <AvatarFallback>U3</AvatarFallback>
+                    </Avatar>
+                    <Avatar>
+                        <AvatarFallback class="cu-avatar-group-count">+3</AvatarFallback>
+                    </Avatar>
+                </div>
+            </ComponentPreview>
+        </section>
+
+        <!-- With Status Indicator -->
+        <section class="space-y-3">
+            <h2 id="with-status-indicator" class="text-lg font-semibold tracking-tight relative group">
+                <a href="#with-status-indicator" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                {t.sections.withStatusIndicator.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">{t.sections.withStatusIndicator.description}</p>
+            <ComponentPreview code={statusIndicatorCode}>
+                <div class="flex items-center gap-4 justify-center">
+                    <div class="relative inline-block">
+                        <Avatar>
+                            <AvatarImage src="https://i.pravatar.cc/80?img=8" alt="Online user" />
+                            <AvatarFallback>ON</AvatarFallback>
+                        </Avatar>
+                        <span class="absolute bottom-0 right-0 block h-3 w-3 rounded-full bg-success ring-2 ring-background"></span>
+                    </div>
+                    <div class="relative inline-block">
+                        <Avatar>
+                            <AvatarImage src="https://i.pravatar.cc/80?img=9" alt="Offline user" />
+                            <AvatarFallback>OF</AvatarFallback>
+                        </Avatar>
+                        <span class="absolute bottom-0 right-0 block h-3 w-3 rounded-full bg-muted-foreground/50 ring-2 ring-background"></span>
+                    </div>
+                </div>
+            </ComponentPreview>
+        </section>
+
+        <!-- Status -->
+        <section class="space-y-3">
+            <h2 id="status" class="text-lg font-semibold tracking-tight relative group">
+              <a href="#status" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+              {t.sections.status.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.status.description} />
+            <ComponentPreview code={statusCode}>
+                <div class="flex flex-wrap gap-4 items-center justify-center">
+                    <span class="cu-avatar cu-avatar-md relative">
+                        <img class="cu-avatar-image" src="https://i.pravatar.cc/80?img=10" alt="Avatar" />
+                        <span class="cu-avatar-fallback">ON</span>
+                        <span class="cu-avatar-status cu-avatar-status-md cu-avatar-status-online"></span>
+                    </span>
+                    <span class="cu-avatar cu-avatar-md relative">
+                        <img class="cu-avatar-image" src="https://i.pravatar.cc/80?img=11" alt="Avatar" />
+                        <span class="cu-avatar-fallback">AW</span>
+                        <span class="cu-avatar-status cu-avatar-status-md cu-avatar-status-away"></span>
+                    </span>
+                    <span class="cu-avatar cu-avatar-md relative">
+                        <img class="cu-avatar-image" src="https://i.pravatar.cc/80?img=12" alt="Avatar" />
+                        <span class="cu-avatar-fallback">BS</span>
+                        <span class="cu-avatar-status cu-avatar-status-md cu-avatar-status-busy"></span>
+                    </span>
+                    <span class="cu-avatar cu-avatar-md relative">
+                        <span class="cu-avatar-fallback">OF</span>
+                        <span class="cu-avatar-status cu-avatar-status-md cu-avatar-status-offline"></span>
+                    </span>
                 </div>
             </ComponentPreview>
         </section>

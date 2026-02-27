@@ -154,6 +154,29 @@ const presetCode = `<div class="cu-multi-select" data-cu-multi-select style="wid
     </div>
   </div>
 </div>`.trim();
+
+const withFormGroupCode = `<div class="cu-form-group" style="width: 300px;">
+  <label class="cu-label">Technologies</label>
+  <div class="cu-multi-select w-full" data-cu-multi-select>
+    <button class="cu-multi-select-trigger w-full" data-cu-multi-select-trigger>
+      <div class="cu-multi-select-tags" data-cu-multi-select-tags>
+        <span class="cu-multi-select-placeholder" data-cu-multi-select-placeholder>Select technologies...</span>
+      </div>
+      <svg class="cu-multi-select-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 15 5 5 5-5"/><path d="m7 9 5-5 5 5"/></svg>
+    </button>
+    <div class="cu-multi-select-content" data-cu-multi-select-content hidden>
+      <div class="cu-multi-select-list" data-cu-multi-select-list>
+        <div class="cu-multi-select-empty" data-cu-multi-select-empty hidden>No results found.</div>
+        <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="react">React</div>
+        <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="typescript">TypeScript</div>
+        <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="tailwind">Tailwind CSS</div>
+        <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="node">Node.js</div>
+        <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="postgres">PostgreSQL</div>
+      </div>
+    </div>
+  </div>
+  <p class="cu-form-description">Choose the technologies used in this project.</p>
+</div>`.trim();
 ---
 
 <Layout category={t.category} componentName="Multi Select" title={t.title}>
@@ -339,6 +362,39 @@ const presetCode = `<div class="cu-multi-select" data-cu-multi-select style="wid
                             <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="help">Help Wanted</div>
                         </div>
                     </div>
+                </div>
+            </ComponentPreview>
+        </section>
+
+        <!-- With Form Group -->
+        <section class="space-y-3">
+            <h2 id="with-form-group" class="text-lg font-semibold tracking-tight relative group">
+              <a href="#with-form-group" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+              {t.sections.withFormGroup.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">{t.sections.withFormGroup.description}</p>
+            <ComponentPreview code={withFormGroupCode}>
+                <div class="cu-form-group" style="width: 300px;">
+                    <label class="cu-label">Technologies</label>
+                    <div class="cu-multi-select w-full" data-cu-multi-select>
+                        <button class="cu-multi-select-trigger w-full" data-cu-multi-select-trigger>
+                            <div class="cu-multi-select-tags" data-cu-multi-select-tags>
+                                <span class="cu-multi-select-placeholder" data-cu-multi-select-placeholder>Select technologies...</span>
+                            </div>
+                            <svg class="cu-multi-select-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 15 5 5 5-5"/><path d="m7 9 5-5 5 5"/></svg>
+                        </button>
+                        <div class="cu-multi-select-content" data-cu-multi-select-content hidden>
+                            <div class="cu-multi-select-list" data-cu-multi-select-list>
+                                <div class="cu-multi-select-empty" data-cu-multi-select-empty hidden>No results found.</div>
+                                <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="react">React</div>
+                                <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="typescript">TypeScript</div>
+                                <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="tailwind">Tailwind CSS</div>
+                                <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="node">Node.js</div>
+                                <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="postgres">PostgreSQL</div>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="cu-form-description">Choose the technologies used in this project.</p>
                 </div>
             </ComponentPreview>
         </section>

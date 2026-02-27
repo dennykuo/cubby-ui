@@ -17,6 +17,21 @@ const withLabelCode = `<div class="cu-form-group">
   <textarea class="cu-textarea" id="message" placeholder="Type your message..."></textarea>
 </div>`.trim();
 
+const validationCode = `<!-- Error state -->
+<div class="cu-form-group">
+  <label class="cu-label cu-label-required" for="bio-err">Bio</label>
+  <textarea class="cu-textarea cu-textarea-error" id="bio-err" placeholder="Tell us about yourself..."></textarea>
+  <p class="cu-form-error">Bio must be at least 10 characters.</p>
+</div>
+
+<!-- Success state -->
+<div class="cu-form-group">
+  <label class="cu-label" for="bio-ok">Bio</label>
+  <textarea class="cu-textarea cu-textarea-success" id="bio-ok">Full-stack developer with 5 years of experience.</textarea>
+</div>`.trim();
+
+const autoResizeCode = `<textarea class="cu-textarea cu-textarea-auto" placeholder="Start typing — the textarea will grow automatically..."></textarea>`.trim();
+
 const defaultValueCode = `<textarea class="cu-textarea">This is some default content that appears in the textarea when the page loads.</textarea>`.trim();
 
 const disabledCode = `<textarea class="cu-textarea" placeholder="Disabled textarea" disabled></textarea>`.trim();
@@ -61,10 +76,12 @@ const disabledCode = `<textarea class="cu-textarea" placeholder="Disabled textar
                 </tr>
               </thead>
               <tbody class="cu-table-body">
-                <tr class="cu-table-row">
-                  <td class="cu-table-cell"><code class="cu-code">cu-textarea</code></td>
-                  <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-textarea']}</td>
-                </tr>
+                {Object.entries(t.classDescriptions).map(([cls, desc]) => (
+                  <tr class="cu-table-row">
+                    <td class="cu-table-cell"><code class="cu-code">{cls}</code></td>
+                    <td class="cu-table-cell text-muted-foreground">{desc}</td>
+                  </tr>
+                ))}
               </tbody>
             </table>
           </div>
@@ -84,6 +101,42 @@ const disabledCode = `<textarea class="cu-textarea" placeholder="Disabled textar
                         <Label for="message">Message</Label>
                         <Textarea id="message" placeholder="Type your message..." />
                     </FormGroup>
+                </div>
+            </ComponentPreview>
+        </section>
+
+        <!-- Validation -->
+        <section class="space-y-3">
+            <h2 id="validation" class="text-lg font-semibold tracking-tight relative group">
+              <a href="#validation" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+              {t.sections.validation.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.validation.description} />
+            <ComponentPreview code={validationCode}>
+                <div class="w-full max-w-sm space-y-4">
+                    <div class="cu-form-group">
+                        <label class="cu-label cu-label-required" for="bio-err">Bio</label>
+                        <textarea class="cu-textarea cu-textarea-error" id="bio-err" placeholder="Tell us about yourself..."></textarea>
+                        <p class="cu-form-error">Bio must be at least 10 characters.</p>
+                    </div>
+                    <div class="cu-form-group">
+                        <label class="cu-label" for="bio-ok">Bio</label>
+                        <textarea class="cu-textarea cu-textarea-success" id="bio-ok">Full-stack developer with 5 years of experience.</textarea>
+                    </div>
+                </div>
+            </ComponentPreview>
+        </section>
+
+        <!-- Auto Resize -->
+        <section class="space-y-3">
+            <h2 id="auto-resize" class="text-lg font-semibold tracking-tight relative group">
+              <a href="#auto-resize" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+              {t.sections.autoResize.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.autoResize.description} />
+            <ComponentPreview code={autoResizeCode}>
+                <div class="w-full max-w-sm">
+                    <textarea class="cu-textarea cu-textarea-auto" placeholder="Start typing — the textarea will grow automatically..."></textarea>
                 </div>
             </ComponentPreview>
         </section>

@@ -8,6 +8,7 @@ export const hoverCardPage: Record<Locale, {
     usage: { title: string; description: string };
     classes: { title: string; classLabel: string; descriptionLabel: string };
     topPosition: { title: string; description: string };
+    simple: { title: string; description: string };
   };
   classDescriptions: Record<string, string>;
 }> = {
@@ -28,6 +29,10 @@ export const hoverCardPage: Record<Locale, {
       topPosition: {
         title: 'Top Position',
         description: 'Use <code class="cu-code">cu-hover-card-content-top</code> to position the card above the trigger.',
+      },
+      simple: {
+        title: 'Simple',
+        description: 'A minimal hover card with just text content.',
       },
     },
     classDescriptions: {
@@ -53,6 +58,10 @@ export const hoverCardPage: Record<Locale, {
       topPosition: {
         title: '上方位置',
         description: '使用 <code class="cu-code">cu-hover-card-content-top</code> 將卡片定位在觸發元素上方。',
+      },
+      simple: {
+        title: '簡易',
+        description: '僅包含文字內容的極簡懸停卡片。',
       },
     },
     classDescriptions: {

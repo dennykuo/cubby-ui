@@ -16,8 +16,16 @@
     @apply outline-none ring-2 ring-ring/40 ring-offset-2;
 }
 
+.cu-toggle-input:not(:disabled):not(:checked) + .cu-toggle:hover {
+    @apply bg-input/80;
+}
+
 .cu-toggle-input:checked + .cu-toggle {
     @apply bg-primary;
+}
+
+.cu-toggle-input:checked:not(:disabled) + .cu-toggle:hover {
+    @apply bg-primary/90;
 }
 
 .cu-toggle-input:disabled + .cu-toggle {

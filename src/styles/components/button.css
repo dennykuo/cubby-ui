@@ -1,12 +1,12 @@
 /* Button
    ------------------------------------------------------------------ */
 .cu-button {
-    @apply inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-lg text-sm font-medium transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/40 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 cursor-pointer;
+    @apply inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-lg text-sm font-medium transition-[color,background-color,box-shadow] duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/40 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 cursor-pointer;
 }
 
 /* -- variants -- */
 .cu-button-default {
-    @apply bg-primary text-primary-foreground hover:bg-primary/90;
+    @apply bg-primary text-primary-foreground hover:bg-primary/90 hover:shadow-sm;
 }
 
 .cu-button-secondary {
@@ -26,19 +26,19 @@
 }
 
 .cu-button-destructive {
-    @apply bg-destructive text-destructive-foreground hover:bg-destructive/90;
+    @apply bg-destructive text-destructive-foreground hover:bg-destructive/90 hover:shadow-sm;
 }
 
 .cu-button-success {
-    @apply bg-success text-success-foreground hover:bg-success/90;
+    @apply bg-success text-success-foreground hover:bg-success/90 hover:shadow-sm;
 }
 
 .cu-button-warning {
-    @apply bg-warning text-warning-foreground hover:bg-warning/90;
+    @apply bg-warning text-warning-foreground hover:bg-warning/90 hover:shadow-sm;
 }
 
 .cu-button-info {
-    @apply bg-info text-info-foreground hover:bg-info/90;
+    @apply bg-info text-info-foreground hover:bg-info/90 hover:shadow-sm;
 }
 
 /* -- sizes (xs → sm → md → lg → xl) -- */
@@ -73,4 +73,9 @@
 
 .cu-button-icon-xs {
     @apply h-7 w-7 p-1.5;
+}
+
+/* -- loading state -- */
+.cu-button-loading {
+    @apply pointer-events-none opacity-70;
 }

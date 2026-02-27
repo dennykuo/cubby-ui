@@ -56,3 +56,36 @@
 .cu-badge-soft-info {
     @apply bg-info/10 text-info;
 }
+
+/* -- sizes -- */
+.cu-badge-sm {
+    @apply px-1.5 py-px text-[10px];
+}
+
+.cu-badge-lg {
+    @apply px-3 py-1 text-sm;
+}
+
+/* -- dot indicator -- */
+.cu-badge-dot {
+    @apply gap-1.5;
+}
+
+.cu-badge-dot::before {
+    content: "";
+    @apply block size-1.5 shrink-0 rounded-full bg-current;
+}
+
+/* -- removable (with close button) -- */
+.cu-badge-removable {
+    @apply gap-1 pr-1;
+}
+
+.cu-badge-remove {
+    @apply inline-flex size-3.5 items-center justify-center rounded-full opacity-60 transition-opacity duration-150 hover:opacity-100 cursor-pointer;
+}
+
+/* -- count badge -- */
+.cu-badge-count {
+    @apply inline-flex items-center justify-center rounded-full px-1.5 text-[10px] font-semibold leading-none min-w-5 h-5;
+}

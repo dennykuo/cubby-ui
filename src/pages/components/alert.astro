@@ -52,14 +52,6 @@ const variantsCode = `<div class="cu-alert cu-alert-default" role="alert">
   </div>
 </div>`.trim();
 
-const withIconCode = `<div class="cu-alert cu-alert-destructive" role="alert">
-  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" x2="12" y1="8" y2="12"/><line x1="12" x2="12.01" y1="16" y2="16"/></svg>
-  <div>
-    <h5 class="cu-alert-title">Error</h5>
-    <div class="cu-alert-description">Your session has expired. Please log in again.</div>
-  </div>
-</div>`.trim();
-
 const allIconsCode = `<div class="cu-alert cu-alert-success" role="alert">
   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m8 12 3 3 5-6"/></svg>
   <div>
@@ -106,10 +98,49 @@ const withActionCode = `<div class="cu-alert cu-alert-warning" role="alert">
   </div>
 </div>`.trim();
 
+const closableCode = `<div class="cu-alert cu-alert-info cu-alert-closable" role="alert">
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+  <div>
+    <h5 class="cu-alert-title">New feature available</h5>
+    <div class="cu-alert-description">Try out the new dashboard layout in settings.</div>
+  </div>
+  <button class="cu-alert-close" onclick="this.closest('.cu-alert').remove()">
+    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+  </button>
+</div>`.trim();
+
 const descOnlyCode = `<div class="cu-alert cu-alert-default" role="alert">
   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
   <div>
     <div class="cu-alert-description">You can customize these components to fit your design system.</div>
+  </div>
+</div>`.trim();
+
+const accentCode = `<div class="cu-alert cu-alert-destructive cu-alert-accent" role="alert">
+  <div>
+    <h5 class="cu-alert-title">Error</h5>
+    <div class="cu-alert-description">Something went wrong.</div>
+  </div>
+</div>
+
+<div class="cu-alert cu-alert-success cu-alert-accent" role="alert">
+  <div>
+    <h5 class="cu-alert-title">Success</h5>
+    <div class="cu-alert-description">Operation completed successfully.</div>
+  </div>
+</div>
+
+<div class="cu-alert cu-alert-warning cu-alert-accent" role="alert">
+  <div>
+    <h5 class="cu-alert-title">Warning</h5>
+    <div class="cu-alert-description">Please review your input.</div>
+  </div>
+</div>
+
+<div class="cu-alert cu-alert-info cu-alert-accent" role="alert">
+  <div>
+    <h5 class="cu-alert-title">Info</h5>
+    <div class="cu-alert-description">Here is some information.</div>
   </div>
 </div>`.trim();
 ---
@@ -190,6 +221,14 @@ const descOnlyCode = `<div class="cu-alert cu-alert-default" role="alert">
                             <td class="cu-table-cell"><code class="cu-code">cu-alert-description</code></td>
                             <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-alert-description']}</td>
                         </tr>
+                        <tr class="cu-table-row">
+                            <td class="cu-table-cell"><code class="cu-code">cu-alert-closable</code></td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-alert-closable']}</td>
+                        </tr>
+                        <tr class="cu-table-row">
+                            <td class="cu-table-cell"><code class="cu-code">cu-alert-close</code></td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-alert-close']}</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -238,24 +277,6 @@ const descOnlyCode = `<div class="cu-alert cu-alert-default" role="alert">
                         </div>
                     </Alert>
                 </div>
-            </ComponentPreview>
-        </section>
-
-        <!-- With Icon -->
-        <section class="space-y-3">
-            <h2 id="with-icon" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#with-icon" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.withIcon.title}
-            </h2>
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withIcon.description} />
-            <ComponentPreview code={withIconCode}>
-                <Alert variant="destructive" class="max-w-lg">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" x2="12" y1="8" y2="12"/><line x1="12" x2="12.01" y1="16" y2="16"/></svg>
-                    <div>
-                        <AlertTitle>Error</AlertTitle>
-                        <AlertDescription>Your session has expired. Please log in again.</AlertDescription>
-                    </div>
-                </Alert>
             </ComponentPreview>
         </section>
 
@@ -328,6 +349,27 @@ const descOnlyCode = `<div class="cu-alert cu-alert-default" role="alert">
             </ComponentPreview>
         </section>
 
+        <!-- Closable -->
+        <section class="space-y-3">
+            <h2 id="closable" class="text-lg font-semibold tracking-tight relative group">
+                <a href="#closable" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                {t.sections.closable.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.closable.description} />
+            <ComponentPreview code={closableCode}>
+                <div class="cu-alert cu-alert-info cu-alert-closable max-w-lg" role="alert">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+                    <div>
+                        <AlertTitle>New feature available</AlertTitle>
+                        <AlertDescription>Try out the new dashboard layout in settings.</AlertDescription>
+                    </div>
+                    <button class="cu-alert-close" onclick="this.closest('.cu-alert').remove()">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+                    </button>
+                </div>
+            </ComponentPreview>
+        </section>
+
         <!-- Description Only -->
         <section class="space-y-3">
             <h2 id="description-only" class="text-lg font-semibold tracking-tight relative group">
@@ -344,6 +386,43 @@ const descOnlyCode = `<div class="cu-alert cu-alert-default" role="alert">
                         <AlertDescription>You can customize these components to fit your design system.</AlertDescription>
                     </div>
                 </Alert>
+            </ComponentPreview>
+        </section>
+
+        <!-- Accent Border -->
+        <section class="space-y-3">
+            <h2 id="accent" class="text-lg font-semibold tracking-tight relative group">
+                <a href="#accent" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                {t.sections.accent.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.accent.description} />
+            <ComponentPreview code={accentCode}>
+                <div class="max-w-lg space-y-3">
+                    <div class="cu-alert cu-alert-destructive cu-alert-accent" role="alert">
+                        <div>
+                            <h5 class="cu-alert-title">Error</h5>
+                            <div class="cu-alert-description">Something went wrong.</div>
+                        </div>
+                    </div>
+                    <div class="cu-alert cu-alert-success cu-alert-accent" role="alert">
+                        <div>
+                            <h5 class="cu-alert-title">Success</h5>
+                            <div class="cu-alert-description">Operation completed successfully.</div>
+                        </div>
+                    </div>
+                    <div class="cu-alert cu-alert-warning cu-alert-accent" role="alert">
+                        <div>
+                            <h5 class="cu-alert-title">Warning</h5>
+                            <div class="cu-alert-description">Please review your input.</div>
+                        </div>
+                    </div>
+                    <div class="cu-alert cu-alert-info cu-alert-accent" role="alert">
+                        <div>
+                            <h5 class="cu-alert-title">Info</h5>
+                            <div class="cu-alert-description">Here is some information.</div>
+                        </div>
+                    </div>
+                </div>
             </ComponentPreview>
         </section>
 

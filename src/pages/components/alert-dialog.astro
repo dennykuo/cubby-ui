@@ -41,6 +41,28 @@ ${SO}
   });
 ${SC}`.trim();
 
+const withIconCode = `<button class="cu-button cu-button-outline cu-button-md" data-cu-alert-dialog-trigger="icon-alert-dialog">
+  Deactivate Account
+</button>
+
+<dialog class="cu-alert-dialog" id="icon-alert-dialog" data-cu-alert-dialog>
+  <div class="cu-alert-dialog-header">
+    <div class="flex items-center gap-3">
+      <div class="flex size-10 shrink-0 items-center justify-center rounded-full bg-warning/10">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-warning"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>
+      </div>
+      <div>
+        <h2 class="cu-alert-dialog-title">Deactivate account?</h2>
+        <p class="cu-alert-dialog-description">Your account will be deactivated and you will lose access to all your data. This can be reversed within 30 days.</p>
+      </div>
+    </div>
+  </div>
+  <div class="cu-alert-dialog-footer">
+    <button class="cu-button cu-button-outline cu-button-md" data-cu-alert-dialog-cancel>Keep Account</button>
+    <button class="cu-button cu-button-warning cu-button-md" data-cu-alert-dialog-action>Deactivate</button>
+  </div>
+</dialog>`.trim();
+
 const destructiveCode = `<button class="cu-button cu-button-destructive cu-button-md" data-cu-alert-dialog-trigger="destructive-alert-dialog">
   Remove Item
 </button>
@@ -155,6 +177,39 @@ const destructiveCode = `<button class="cu-button cu-button-destructive cu-butto
                     <div class="cu-alert-dialog-footer">
                         <button class="cu-button cu-button-outline cu-button-md" data-cu-alert-dialog-cancel>Cancel</button>
                         <button class="cu-button cu-button-destructive cu-button-md" data-cu-alert-dialog-action>Remove</button>
+                    </div>
+                </dialog>
+            </ComponentPreview>
+        </section>
+
+        <!-- With Icon -->
+        <section class="space-y-3">
+            <h2 id="with-icon" class="text-lg font-semibold tracking-tight relative group">
+                <a href="#with-icon" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                {t.sections.withIcon.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
+                {t.sections.withIcon.description}
+            </p>
+            <ComponentPreview code={withIconCode}>
+                <button class="cu-button cu-button-outline cu-button-md" data-cu-alert-dialog-trigger="icon-alert-dialog">
+                    Deactivate Account
+                </button>
+                <dialog class="cu-alert-dialog" id="icon-alert-dialog" data-cu-alert-dialog>
+                    <div class="cu-alert-dialog-header">
+                        <div class="flex items-center gap-3">
+                            <div class="flex size-10 shrink-0 items-center justify-center rounded-full bg-warning/10">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-warning"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>
+                            </div>
+                            <div>
+                                <h2 class="cu-alert-dialog-title">Deactivate account?</h2>
+                                <p class="cu-alert-dialog-description">Your account will be deactivated and you will lose access to all your data. This can be reversed within 30 days.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="cu-alert-dialog-footer">
+                        <button class="cu-button cu-button-outline cu-button-md" data-cu-alert-dialog-cancel>Keep Account</button>
+                        <button class="cu-button cu-button-warning cu-button-md" data-cu-alert-dialog-action>Deactivate</button>
                     </div>
                 </dialog>
             </ComponentPreview>

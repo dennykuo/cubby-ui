@@ -165,6 +165,33 @@ const simpleCode = `<div class="cu-filter-bar">
         </section>
 
 
+        <!-- Simple Search -->
+        <section class="space-y-3">
+            <h2 id="simple" class="text-lg font-semibold tracking-tight relative group">
+                <a href="#simple" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                {t.sections.simple.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
+                {t.sections.simple.description}
+            </p>
+            <ComponentPreview code={simpleCode}>
+                <div class="w-full max-w-3xl">
+                    <div class="cu-filter-bar">
+                        <div class="cu-filter-bar-inner">
+                            <div class="cu-filter-bar-search">
+                                <div class="cu-input-search">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="cu-input-search-icon">
+                                        <circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>
+                                    </svg>
+                                    <input type="text" placeholder="Search customers..." class="cu-input-search-field" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ComponentPreview>
+        </section>
+
         <!-- With Date Range -->
         <section class="space-y-3">
             <h2 id="with-date" class="text-lg font-semibold tracking-tight relative group">
@@ -200,33 +227,6 @@ const simpleCode = `<div class="cu-filter-bar">
                                         <option value="completed">Completed</option>
                                     </select>
                                     <svg class="cu-select-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </ComponentPreview>
-        </section>
-
-        <!-- Simple Search -->
-        <section class="space-y-3">
-            <h2 id="simple" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#simple" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.simple.title}
-            </h2>
-            <p class="text-base text-muted-foreground leading-relaxed">
-                {t.sections.simple.description}
-            </p>
-            <ComponentPreview code={simpleCode}>
-                <div class="w-full max-w-3xl">
-                    <div class="cu-filter-bar">
-                        <div class="cu-filter-bar-inner">
-                            <div class="cu-filter-bar-search">
-                                <div class="cu-input-search">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="cu-input-search-icon">
-                                        <circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>
-                                    </svg>
-                                    <input type="text" placeholder="Search customers..." class="cu-input-search-field" />
                                 </div>
                             </div>
                         </div>

@@ -7,6 +7,7 @@ export const searchInputPage: Record<Locale, {
   sections: {
     usage: { title: string; description: string };
     classes: { title: string; classLabel: string; descriptionLabel: string };
+    clearable: { title: string; description: string };
     withPlaceholder: { title: string; description: string };
     disabled: { title: string; description: string };
   };
@@ -26,6 +27,10 @@ export const searchInputPage: Record<Locale, {
         classLabel: 'Class',
         descriptionLabel: 'Description',
       },
+      clearable: {
+        title: 'Clearable',
+        description: 'Add a <code class="cu-code">cu-input-search-clear</code> button after the input. It appears only when the field has a value, using <code class="cu-code">:not(:placeholder-shown)</code>.',
+      },
       withPlaceholder: {
         title: 'With Placeholder',
         description: 'Customize the placeholder text to hint at what can be searched.',
@@ -39,6 +44,7 @@ export const searchInputPage: Record<Locale, {
       'cu-input-search': 'Search input container, relatively positioned flex container',
       'cu-input-search-icon': 'Left search icon, absolutely positioned and non-interactive',
       'cu-input-search-field': 'Search input with left padding for icon',
+      'cu-input-search-clear': 'Clear button, appears when input has a value',
     },
   },
   'zh-tw': {
@@ -55,6 +61,10 @@ export const searchInputPage: Record<Locale, {
         classLabel: '類別',
         descriptionLabel: '說明',
       },
+      clearable: {
+        title: '可清除',
+        description: '在輸入框後方加上 <code class="cu-code">cu-input-search-clear</code> 按鈕。僅在欄位有值時顯示，使用 <code class="cu-code">:not(:placeholder-shown)</code> 控制。',
+      },
       withPlaceholder: {
         title: '帶佔位文字',
         description: '自訂佔位文字以提示可搜尋的內容。',
@@ -68,6 +78,7 @@ export const searchInputPage: Record<Locale, {
       'cu-input-search': '搜尋輸入容器，相對定位的 Flex 容器',
       'cu-input-search-icon': '左側搜尋圖示，絕對定位且不可互動',
       'cu-input-search-field': '搜尋輸入框，含左側圖示的 padding',
+      'cu-input-search-clear': '清除按鈕，輸入框有值時顯示',
     },
   },
 };

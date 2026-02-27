@@ -14,6 +14,10 @@ const t = useTranslations(inputPage, locale);
 
 const usageCode = `<input class="cu-input" type="text" placeholder="Enter text..." />`.trim();
 
+const sizesCode = `<input class="cu-input cu-input-sm" type="text" placeholder="Small (h-8)" />
+<input class="cu-input" type="text" placeholder="Default (h-9)" />
+<input class="cu-input cu-input-lg" type="text" placeholder="Large (h-10)" />`.trim();
+
 const withLabelCode = `<div class="cu-form-group">
   <label class="cu-label" for="email">Email</label>
   <input class="cu-input" type="email" id="email" placeholder="you@example.com" />
@@ -34,6 +38,40 @@ const typesCode = `<div class="cu-form-group">
   <input class="cu-input" type="number" id="number-input" placeholder="0" />
 </div>`.trim();
 
+const withAddonCode = `<div class="cu-input-group">
+  <span class="cu-input-addon">https://</span>
+  <input class="cu-input" type="text" placeholder="example.com" />
+</div>
+
+<div class="cu-input-group">
+  <input class="cu-input" type="text" placeholder="username" />
+  <span class="cu-input-addon">@gmail.com</span>
+</div>
+
+<div class="cu-input-group">
+  <span class="cu-input-addon">$</span>
+  <input class="cu-input" type="number" placeholder="0.00" />
+  <span class="cu-input-addon">USD</span>
+</div>`.trim();
+
+const withIconCode = `<div class="cu-input-icon-wrapper">
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="cu-input-icon"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+  <input class="cu-input cu-input-has-icon" type="email" placeholder="you@example.com" />
+</div>`.trim();
+
+const validationCode = `<!-- Error state -->
+<div class="cu-form-group">
+  <label class="cu-label cu-label-required" for="email-val">Email</label>
+  <input class="cu-input cu-input-error" type="email" id="email-val" placeholder="you@example.com" />
+  <p class="cu-form-error">Please enter a valid email address.</p>
+</div>
+
+<!-- Success state -->
+<div class="cu-form-group">
+  <label class="cu-label" for="name-val">Name</label>
+  <input class="cu-input cu-input-success" type="text" id="name-val" value="John Doe" />
+</div>`.trim();
+
 const disabledCode = `<input class="cu-input" type="text" placeholder="Disabled input" disabled />`.trim();
 
 const formGroupCode = `<div class="cu-form-group">
@@ -44,7 +82,7 @@ const formGroupCode = `<div class="cu-form-group">
 
 <div class="cu-form-group">
   <label class="cu-label" for="email-err">Email</label>
-  <input class="cu-input border-destructive" type="email" id="email-err" placeholder="you@example.com" />
+  <input class="cu-input cu-input-error" type="email" id="email-err" placeholder="you@example.com" />
   <p class="cu-form-error">Please enter a valid email address.</p>
 </div>`.trim();
 ---
@@ -88,15 +126,33 @@ const formGroupCode = `<div class="cu-form-group">
                 </tr>
               </thead>
               <tbody class="cu-table-body">
-                <tr class="cu-table-row">
-                  <td class="cu-table-cell"><code class="cu-code">cu-input</code></td>
-                  <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-input']}</td>
-                </tr>
+                {Object.entries(t.classDescriptions).map(([cls, desc]) => (
+                  <tr class="cu-table-row">
+                    <td class="cu-table-cell"><code class="cu-code">{cls}</code></td>
+                    <td class="cu-table-cell text-muted-foreground">{desc}</td>
+                  </tr>
+                ))}
               </tbody>
             </table>
           </div>
         </section>
 
+
+        <!-- Sizes -->
+        <section class="space-y-3">
+            <h2 id="sizes" class="text-lg font-semibold tracking-tight relative group">
+              <a href="#sizes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+              {t.sections.sizes.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.sizes.description} />
+            <ComponentPreview code={sizesCode}>
+                <div class="w-full max-w-sm space-y-3">
+                    <Input size="sm" type="text" placeholder="Small (h-8)" />
+                    <Input type="text" placeholder="Default (h-9)" />
+                    <Input size="lg" type="text" placeholder="Large (h-10)" />
+                </div>
+            </ComponentPreview>
+        </section>
 
         <!-- With Label -->
         <section class="space-y-3">
@@ -140,20 +196,6 @@ const formGroupCode = `<div class="cu-form-group">
             </ComponentPreview>
         </section>
 
-        <!-- Disabled -->
-        <section class="space-y-3">
-            <h2 id="disabled" class="text-lg font-semibold tracking-tight relative group">
-              <a href="#disabled" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              {t.sections.disabled.title}
-            </h2>
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.disabled.description} />
-            <ComponentPreview code={disabledCode}>
-                <div class="w-full max-w-sm">
-                    <Input type="text" placeholder="Disabled input" disabled />
-                </div>
-            </ComponentPreview>
-        </section>
-
         <!-- With Form Group -->
         <section class="space-y-3">
             <h2 id="with-form-group" class="text-lg font-semibold tracking-tight relative group">
@@ -170,9 +212,88 @@ const formGroupCode = `<div class="cu-form-group">
                     </FormGroup>
                     <FormGroup>
                         <Label for="email-err">Email</Label>
-                        <Input type="email" id="email-err" placeholder="you@example.com" class="border-destructive" />
+                        <Input type="email" id="email-err" placeholder="you@example.com" class="cu-input-error" />
                         <FormError>Please enter a valid email address.</FormError>
                     </FormGroup>
+                </div>
+            </ComponentPreview>
+        </section>
+
+        <!-- With Addon -->
+        <section class="space-y-3">
+            <h2 id="with-addon" class="text-lg font-semibold tracking-tight relative group">
+              <a href="#with-addon" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+              {t.sections.withAddon.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withAddon.description} />
+            <ComponentPreview code={withAddonCode}>
+                <div class="w-full max-w-sm space-y-4">
+                    <div class="cu-input-group">
+                        <span class="cu-input-addon">https://</span>
+                        <input class="cu-input" type="text" placeholder="example.com" />
+                    </div>
+                    <div class="cu-input-group">
+                        <input class="cu-input" type="text" placeholder="username" />
+                        <span class="cu-input-addon">@gmail.com</span>
+                    </div>
+                    <div class="cu-input-group">
+                        <span class="cu-input-addon">$</span>
+                        <input class="cu-input" type="number" placeholder="0.00" />
+                        <span class="cu-input-addon">USD</span>
+                    </div>
+                </div>
+            </ComponentPreview>
+        </section>
+
+        <!-- With Icon -->
+        <section class="space-y-3">
+            <h2 id="with-icon" class="text-lg font-semibold tracking-tight relative group">
+              <a href="#with-icon" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+              {t.sections.withIcon.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withIcon.description} />
+            <ComponentPreview code={withIconCode}>
+                <div class="w-full max-w-sm">
+                    <div class="cu-input-icon-wrapper">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="cu-input-icon"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                        <input class="cu-input cu-input-has-icon" type="email" placeholder="you@example.com" />
+                    </div>
+                </div>
+            </ComponentPreview>
+        </section>
+
+        <!-- Validation -->
+        <section class="space-y-3">
+            <h2 id="validation" class="text-lg font-semibold tracking-tight relative group">
+              <a href="#validation" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+              {t.sections.validation.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.validation.description} />
+            <ComponentPreview code={validationCode}>
+                <div class="w-full max-w-sm space-y-4">
+                    <FormGroup>
+                        <Label for="email-val" class="cu-label-required">Email</Label>
+                        <Input type="email" id="email-val" placeholder="you@example.com" class="cu-input-error" />
+                        <FormError>Please enter a valid email address.</FormError>
+                    </FormGroup>
+                    <FormGroup>
+                        <Label for="name-val">Name</Label>
+                        <Input type="text" id="name-val" value="John Doe" class="cu-input-success" />
+                    </FormGroup>
+                </div>
+            </ComponentPreview>
+        </section>
+
+        <!-- Disabled -->
+        <section class="space-y-3">
+            <h2 id="disabled" class="text-lg font-semibold tracking-tight relative group">
+              <a href="#disabled" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+              {t.sections.disabled.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.disabled.description} />
+            <ComponentPreview code={disabledCode}>
+                <div class="w-full max-w-sm">
+                    <Input type="text" placeholder="Disabled input" disabled />
                 </div>
             </ComponentPreview>
         </section>

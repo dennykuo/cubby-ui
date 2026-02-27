@@ -1,0 +1,22 @@
+---
+import { TOP_CLASS } from "../../config";
+
+interface Props {
+	size?: "sm" | "md" | "lg";
+	class?: string;
+	[key: string]: any;
+}
+
+const { size = "md", class: className, ...rest } = Astro.props;
+---
+
+<span
+    class:list={[
+        `${TOP_CLASS}-spinner`,
+        `${TOP_CLASS}-spinner-${size}`,
+        className,
+    ]}
+    role="status"
+    aria-label="Loading"
+    {...rest}
+/>

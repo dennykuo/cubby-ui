@@ -9,6 +9,7 @@ export const drawerPage: Record<Locale, {
     classes: { title: string; classLabel: string; descriptionLabel: string };
     leftSide: { title: string; description: string };
     topBottom: { title: string; description: string };
+    scrollableContent: { title: string; description: string };
   };
   classDescriptions: Record<string, string>;
 }> = {
@@ -33,6 +34,10 @@ export const drawerPage: Record<Locale, {
       topBottom: {
         title: 'Top & Bottom',
         description: 'Use <code class="cu-code">cu-drawer-top</code> or <code class="cu-code">cu-drawer-bottom</code> for horizontal drawers.',
+      },
+      scrollableContent: {
+        title: 'With Scrollable Content',
+        description: 'The <code class="cu-code">cu-drawer-content</code> area automatically scrolls when content overflows.',
       },
     },
     classDescriptions: {
@@ -70,6 +75,10 @@ export const drawerPage: Record<Locale, {
       topBottom: {
         title: '上方與下方',
         description: '使用 <code class="cu-code">cu-drawer-top</code> 或 <code class="cu-code">cu-drawer-bottom</code> 建立水平抽屜。',
+      },
+      scrollableContent: {
+        title: '可捲動內容',
+        description: '<code class="cu-code">cu-drawer-content</code> 區域在內容超出時自動捲動。',
       },
     },
     classDescriptions: {

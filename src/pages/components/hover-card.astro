@@ -28,6 +28,13 @@ const usageCode = `<div class="cu-hover-card">
   </div>
 </div>`.trim();
 
+const simpleCode = `<div class="cu-hover-card">
+  <a href="#" class="cu-link">Terms of Service</a>
+  <div class="cu-hover-card-content">
+    <p class="text-sm text-muted-foreground">By using our service, you agree to our terms. We collect minimal data and respect your privacy.</p>
+  </div>
+</div>`.trim();
+
 const topCode = `<div class="cu-hover-card">
   <a href="#" class="text-sm font-medium underline underline-offset-4">@cubby-ui</a>
   <div class="cu-hover-card-content cu-hover-card-content-top">
@@ -130,6 +137,25 @@ const topCode = `<div class="cu-hover-card">
                         </div>
                     </HoverCardContent>
                 </HoverCard>
+            </ComponentPreview>
+        </section>
+
+        <!-- Simple -->
+        <section class="space-y-3">
+            <h2 id="simple" class="text-lg font-semibold tracking-tight relative group">
+                <a href="#simple" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                {t.sections.simple.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
+                {t.sections.simple.description}
+            </p>
+            <ComponentPreview code={simpleCode}>
+                <div class="cu-hover-card">
+                    <a href="#" class="cu-link">Terms of Service</a>
+                    <div class="cu-hover-card-content">
+                        <p class="text-sm text-muted-foreground">By using our service, you agree to our terms. We collect minimal data and respect your privacy.</p>
+                    </div>
+                </div>
             </ComponentPreview>
         </section>
 

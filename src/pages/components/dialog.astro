@@ -26,6 +26,26 @@ const usageCode = `<button class="cu-button cu-button-outline cu-button-md" data
   </div>
 </dialog>`.trim();
 
+const sizesCode = `<!-- Small -->
+<dialog class="cu-dialog cu-dialog-sm" data-cu-dialog>
+  ...
+</dialog>
+
+<!-- Default (max-w-lg) -->
+<dialog class="cu-dialog" data-cu-dialog>
+  ...
+</dialog>
+
+<!-- Extra Large -->
+<dialog class="cu-dialog cu-dialog-xl" data-cu-dialog>
+  ...
+</dialog>
+
+<!-- Full -->
+<dialog class="cu-dialog cu-dialog-full" data-cu-dialog>
+  ...
+</dialog>`.trim();
+
 const withFormCode = `<button class="cu-button cu-button-outline cu-button-md" data-cu-dialog-trigger="form-dialog">
   Edit Profile
 </button>
@@ -73,42 +93,6 @@ const deleteCode = `<button class="cu-button cu-button-destructive cu-button-md"
   <div class="cu-dialog-footer">
     <button class="cu-button cu-button-outline cu-button-md" data-cu-dialog-close>Cancel</button>
     <button class="cu-button cu-button-destructive cu-button-md">Delete</button>
-  </div>
-</dialog>`.trim();
-
-const feedbackCode = `<button class="cu-button cu-button-outline cu-button-md" data-cu-dialog-trigger="feedback-dialog">
-  Send Feedback
-</button>
-
-<dialog class="cu-dialog" id="feedback-dialog" data-cu-dialog>
-  <button class="cu-dialog-close" data-cu-dialog-close>
-    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
-    <span class="sr-only">Close</span>
-  </button>
-  <div class="cu-dialog-header">
-    <h2 class="cu-dialog-title">Send feedback</h2>
-    <p class="cu-dialog-description">Help us improve by sharing your thoughts.</p>
-  </div>
-  <div class="mt-4 space-y-4">
-    <div class="cu-form-group">
-      <label class="cu-label" for="feedback-subject">Subject</label>
-      <div class="cu-select-wrapper">
-        <select id="feedback-subject" class="cu-select">
-          <option value="">Select a topic</option>
-          <option value="bug">Bug report</option>
-          <option value="feature">Feature request</option>
-          <option value="other">Other</option>
-        </select>
-      </div>
-    </div>
-    <div class="cu-form-group">
-      <label class="cu-label" for="feedback-message">Message</label>
-      <textarea class="cu-textarea" id="feedback-message" rows="4" placeholder="Tell us what's on your mind..."></textarea>
-    </div>
-  </div>
-  <div class="cu-dialog-footer">
-    <button class="cu-button cu-button-outline cu-button-md" data-cu-dialog-close>Cancel</button>
-    <button class="cu-button cu-button-default cu-button-md">Submit</button>
   </div>
 </dialog>`.trim();
 
@@ -185,35 +169,86 @@ const successCode = `<button class="cu-button cu-button-outline cu-button-md" da
                         </tr>
                     </thead>
                     <tbody class="cu-table-body">
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-dialog</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-dialog']}</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-dialog-header</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-dialog-header']}</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-dialog-title</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-dialog-title']}</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-dialog-description</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-dialog-description']}</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-dialog-footer</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-dialog-footer']}</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-dialog-close</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-dialog-close']}</td>
-                        </tr>
+                        {Object.entries(t.classDescriptions).map(([cls, desc]) => (
+                            <tr class="cu-table-row">
+                                <td class="cu-table-cell"><code class="cu-code">{cls}</code></td>
+                                <td class="cu-table-cell text-muted-foreground">{desc}</td>
+                            </tr>
+                        ))}
                     </tbody>
                 </table>
             </div>
         </section>
 
+
+        <!-- Sizes -->
+        <section class="space-y-3">
+            <h2 id="sizes" class="text-lg font-semibold tracking-tight relative group">
+                <a href="#sizes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                {t.sections.sizes.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.sizes.description} />
+            <ComponentPreview code={sizesCode}>
+                <div class="flex flex-wrap gap-3 items-center justify-center">
+                    <button class="cu-button cu-button-outline cu-button-md" data-cu-dialog-trigger="size-sm-dialog">Small</button>
+                    <button class="cu-button cu-button-outline cu-button-md" data-cu-dialog-trigger="size-default-dialog">Default</button>
+                    <button class="cu-button cu-button-outline cu-button-md" data-cu-dialog-trigger="size-xl-dialog">Extra Large</button>
+                    <button class="cu-button cu-button-outline cu-button-md" data-cu-dialog-trigger="size-full-dialog">Full</button>
+                </div>
+                <dialog class="cu-dialog cu-dialog-sm" id="size-sm-dialog" data-cu-dialog>
+                    <button class="cu-dialog-close" data-cu-dialog-close>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+                        <span class="sr-only">Close</span>
+                    </button>
+                    <div class="cu-dialog-header">
+                        <h2 class="cu-dialog-title">Small Dialog</h2>
+                        <p class="cu-dialog-description">This dialog uses cu-dialog-sm (max-w-sm).</p>
+                    </div>
+                    <div class="cu-dialog-footer">
+                        <button class="cu-button cu-button-default cu-button-md" data-cu-dialog-close>Close</button>
+                    </div>
+                </dialog>
+                <dialog class="cu-dialog" id="size-default-dialog" data-cu-dialog>
+                    <button class="cu-dialog-close" data-cu-dialog-close>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+                        <span class="sr-only">Close</span>
+                    </button>
+                    <div class="cu-dialog-header">
+                        <h2 class="cu-dialog-title">Default Dialog</h2>
+                        <p class="cu-dialog-description">This dialog uses the default size (max-w-lg).</p>
+                    </div>
+                    <div class="cu-dialog-footer">
+                        <button class="cu-button cu-button-default cu-button-md" data-cu-dialog-close>Close</button>
+                    </div>
+                </dialog>
+                <dialog class="cu-dialog cu-dialog-xl" id="size-xl-dialog" data-cu-dialog>
+                    <button class="cu-dialog-close" data-cu-dialog-close>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+                        <span class="sr-only">Close</span>
+                    </button>
+                    <div class="cu-dialog-header">
+                        <h2 class="cu-dialog-title">Extra Large Dialog</h2>
+                        <p class="cu-dialog-description">This dialog uses cu-dialog-xl (max-w-xl). Great for forms with more fields.</p>
+                    </div>
+                    <div class="cu-dialog-footer">
+                        <button class="cu-button cu-button-default cu-button-md" data-cu-dialog-close>Close</button>
+                    </div>
+                </dialog>
+                <dialog class="cu-dialog cu-dialog-full" id="size-full-dialog" data-cu-dialog>
+                    <button class="cu-dialog-close" data-cu-dialog-close>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+                        <span class="sr-only">Close</span>
+                    </button>
+                    <div class="cu-dialog-header">
+                        <h2 class="cu-dialog-title">Full Size Dialog</h2>
+                        <p class="cu-dialog-description">This dialog uses cu-dialog-full (max-w-3xl). Ideal for complex content like data tables or multi-step forms.</p>
+                    </div>
+                    <div class="cu-dialog-footer">
+                        <button class="cu-button cu-button-default cu-button-md" data-cu-dialog-close>Close</button>
+                    </div>
+                </dialog>
+            </ComponentPreview>
+        </section>
 
         <!-- With Form -->
         <section class="space-y-3">
@@ -282,53 +317,6 @@ const successCode = `<button class="cu-button cu-button-outline cu-button-md" da
                     <div class="cu-dialog-footer">
                         <button class="cu-button cu-button-outline cu-button-md" data-cu-dialog-close>Cancel</button>
                         <button class="cu-button cu-button-destructive cu-button-md">Delete</button>
-                    </div>
-                </dialog>
-            </ComponentPreview>
-        </section>
-
-        <!-- Feedback Form -->
-        <section class="space-y-3">
-            <h2 id="feedback-form" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#feedback-form" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.feedbackForm.title}
-            </h2>
-            <p class="text-base text-muted-foreground leading-relaxed">
-                {t.sections.feedbackForm.description}
-            </p>
-            <ComponentPreview code={feedbackCode}>
-                <button class="cu-button cu-button-outline cu-button-md" data-cu-dialog-trigger="feedback-dialog">
-                    Send Feedback
-                </button>
-                <dialog class="cu-dialog" id="feedback-dialog" data-cu-dialog>
-                    <button class="cu-dialog-close" data-cu-dialog-close>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
-                        <span class="sr-only">Close</span>
-                    </button>
-                    <div class="cu-dialog-header">
-                        <h2 class="cu-dialog-title">Send feedback</h2>
-                        <p class="cu-dialog-description">Help us improve by sharing your thoughts.</p>
-                    </div>
-                    <div class="mt-4 space-y-4">
-                        <div class="cu-form-group">
-                            <label class="cu-label" for="feedback-subject">Subject</label>
-                            <div class="cu-select-wrapper">
-                                <select id="feedback-subject" class="cu-select">
-                                    <option value="">Select a topic</option>
-                                    <option value="bug">Bug report</option>
-                                    <option value="feature">Feature request</option>
-                                    <option value="other">Other</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="cu-form-group">
-                            <label class="cu-label" for="feedback-message">Message</label>
-                            <textarea class="cu-textarea" id="feedback-message" rows="4" placeholder="Tell us what's on your mind..."></textarea>
-                        </div>
-                    </div>
-                    <div class="cu-dialog-footer">
-                        <button class="cu-button cu-button-outline cu-button-md" data-cu-dialog-close>Cancel</button>
-                        <button class="cu-button cu-button-default cu-button-md">Submit</button>
                     </div>
                 </dialog>
             </ComponentPreview>

@@ -8,6 +8,7 @@ export const menubarPage: Record<Locale, {
     usage: { title: string; description: string };
     classes: { title: string; classLabel: string; descriptionLabel: string };
     withLabels: { title: string; description: string };
+    withIcons: { title: string; description: string };
   };
   classDescriptions: Record<string, string>;
 }> = {
@@ -28,6 +29,10 @@ export const menubarPage: Record<Locale, {
       withLabels: {
         title: 'With Labels & Disabled Items',
         description: 'Use <code class="cu-code">cu-menubar-label</code> for section titles, <code class="cu-code">cu-menubar-item-inset</code> for indented items, and <code class="cu-code">cu-menubar-item-disabled</code> for disabled state.',
+      },
+      withIcons: {
+        title: 'With Icons',
+        description: 'Add inline SVG icons before menu item text for visual hierarchy.',
       },
     },
     classDescriptions: {
@@ -60,6 +65,10 @@ export const menubarPage: Record<Locale, {
       withLabels: {
         title: '帶標籤與停用項目',
         description: '使用 <code class="cu-code">cu-menubar-label</code> 作為區段標題，<code class="cu-code">cu-menubar-item-inset</code> 用於縮排項目，<code class="cu-code">cu-menubar-item-disabled</code> 用於停用狀態。',
+      },
+      withIcons: {
+        title: '帶圖示',
+        description: '在選單項目文字前加入 SVG 圖示，增強視覺層次。',
       },
     },
     classDescriptions: {

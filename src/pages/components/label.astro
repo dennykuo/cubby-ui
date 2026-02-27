@@ -17,11 +17,18 @@ const withInputCode = `<div class="cu-form-group">
   <input class="cu-input" type="email" id="email-field" placeholder="you@example.com" />
 </div>`.trim();
 
-const requiredCode = `<div class="cu-form-group">
-  <label class="cu-label" for="name-field">
-    Name <span class="text-destructive">*</span>
-  </label>
+const requiredCode = `<!-- Using cu-label-required (automatic asterisk) -->
+<div class="cu-form-group">
+  <label class="cu-label cu-label-required" for="name-field">Name</label>
   <input class="cu-input" type="text" id="name-field" placeholder="Your name" required />
+</div>
+
+<!-- Manual asterisk -->
+<div class="cu-form-group">
+  <label class="cu-label" for="email-req">
+    Email <span class="text-destructive">*</span>
+  </label>
+  <input class="cu-input" type="email" id="email-req" placeholder="you@example.com" required />
 </div>`.trim();
 ---
 
@@ -62,10 +69,12 @@ const requiredCode = `<div class="cu-form-group">
                 </tr>
               </thead>
               <tbody class="cu-table-body">
-                <tr class="cu-table-row">
-                  <td class="cu-table-cell"><code class="cu-code">cu-label</code></td>
-                  <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-label']}</td>
-                </tr>
+                {Object.entries(t.classDescriptions).map(([cls, desc]) => (
+                  <tr class="cu-table-row">
+                    <td class="cu-table-cell"><code class="cu-code">{cls}</code></td>
+                    <td class="cu-table-cell text-muted-foreground">{desc}</td>
+                  </tr>
+                ))}
               </tbody>
             </table>
           </div>
@@ -97,12 +106,16 @@ const requiredCode = `<div class="cu-form-group">
             </h2>
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.requiredIndicator.description} />
             <ComponentPreview code={requiredCode}>
-                <div class="w-full max-w-sm">
+                <div class="w-full max-w-sm space-y-4">
                     <FormGroup>
-                        <Label for="name-field">
-                            Name <span class="text-destructive">*</span>
-                        </Label>
+                        <Label for="name-field" class="cu-label-required">Name</Label>
                         <Input type="text" id="name-field" placeholder="Your name" required />
+                    </FormGroup>
+                    <FormGroup>
+                        <Label for="email-req">
+                            Email <span class="text-destructive">*</span>
+                        </Label>
+                        <Input type="email" id="email-req" placeholder="you@example.com" required />
                     </FormGroup>
                 </div>
             </ComponentPreview>

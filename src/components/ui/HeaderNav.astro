@@ -2,14 +2,16 @@
 import { TOP_CLASS } from "../../config";
 
 interface Props {
+	start?: boolean;
+	end?: boolean;
 	class?: string;
 	[key: string]: any;
 }
 
-const { class: className, ...rest } = Astro.props;
+const { start, end, class: className, ...rest } = Astro.props;
 const baseClass = `${TOP_CLASS}-header-nav`;
 ---
 
-<div class:list={[baseClass, className]} {...rest}>
+<div class:list={[baseClass, start && `${TOP_CLASS}-header-nav-start`, end && `${TOP_CLASS}-header-nav-end`, className]} {...rest}>
 	<slot />
 </div>

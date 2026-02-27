@@ -7,6 +7,9 @@ export const dataTablePage: Record<Locale, {
   sections: {
     usage: { title: string; description: string };
     classes: { title: string; classLabel: string; descriptionLabel: string };
+    columnSorting: { title: string; description: string };
+    withPagination: { title: string; description: string };
+    withRowActions: { title: string; description: string };
   };
   classDescriptions: Record<string, string>;
 }> = {
@@ -23,6 +26,18 @@ export const dataTablePage: Record<Locale, {
         title: 'CSS Classes',
         classLabel: 'Class',
         descriptionLabel: 'Description',
+      },
+      columnSorting: {
+        title: 'Column Sorting',
+        description: 'Click sortable column headers to toggle between ascending and descending order. Use <code class="cu-code">cu-data-table-head-sorted-asc</code> and <code class="cu-code">cu-data-table-head-sorted-desc</code> to indicate sort direction.',
+      },
+      withPagination: {
+        title: 'With Pagination',
+        description: 'Combine the data table with a Pagination component below for navigating large datasets.',
+      },
+      withRowActions: {
+        title: 'With Row Actions',
+        description: 'Add a Dropdown menu at the end of each row for contextual actions like edit, duplicate, or delete.',
       },
     },
     classDescriptions: {
@@ -48,6 +63,18 @@ export const dataTablePage: Record<Locale, {
         title: 'CSS 類別',
         classLabel: '類別',
         descriptionLabel: '說明',
+      },
+      columnSorting: {
+        title: '欄位排序',
+        description: '點擊可排序的欄位標頭可在升冪和降冪之間切換。使用 <code class="cu-code">cu-data-table-head-sorted-asc</code> 和 <code class="cu-code">cu-data-table-head-sorted-desc</code> 來指示排序方向。',
+      },
+      withPagination: {
+        title: '搭配分頁',
+        description: '在資料表格下方搭配 Pagination 元件，用於瀏覽大量資料集。',
+      },
+      withRowActions: {
+        title: '搭配列操作',
+        description: '在每列末端加入 Dropdown 選單，提供編輯、複製或刪除等情境操作。',
       },
     },
     classDescriptions: {

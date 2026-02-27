@@ -9,6 +9,7 @@ export const emptyStatePage: Record<Locale, {
     classes: { title: string; classLabel: string; descriptionLabel: string };
     noResults: { title: string; description: string };
     withoutAction: { title: string; description: string };
+    errorState: { title: string; description: string };
   };
   classDescriptions: Record<string, string>;
 }> = {
@@ -33,6 +34,10 @@ export const emptyStatePage: Record<Locale, {
       withoutAction: {
         title: 'Without Action',
         description: 'The action button is optional. Use a minimal empty state for informational messages.',
+      },
+      errorState: {
+        title: 'Error State',
+        description: 'Use a destructive color icon with a retry button to indicate a loading failure.',
       },
     },
     classDescriptions: {
@@ -64,6 +69,10 @@ export const emptyStatePage: Record<Locale, {
       withoutAction: {
         title: '不含操作按鈕',
         description: '操作按鈕為選用。使用精簡的空狀態來顯示資訊性訊息。',
+      },
+      errorState: {
+        title: '錯誤狀態',
+        description: '使用危險色圖示搭配重試按鈕，表示載入失敗的情境。',
       },
     },
     classDescriptions: {

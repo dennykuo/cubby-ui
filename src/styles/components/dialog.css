@@ -44,6 +44,23 @@
     @apply flex flex-col-reverse sm:flex-row sm:justify-end gap-2 mt-6;
 }
 
+/* -- size variants -- */
+.cu-dialog-sm {
+    @apply max-w-sm;
+}
+
+.cu-dialog-md {
+    @apply max-w-md;
+}
+
+.cu-dialog-xl {
+    @apply max-w-xl;
+}
+
+.cu-dialog-full {
+    @apply max-w-3xl;
+}
+
 .cu-dialog-close {
-    @apply absolute right-4 top-4 rounded-sm opacity-70 transition-opacity duration-150 hover:opacity-100 cursor-pointer;
+    @apply absolute right-4 top-4 rounded-sm opacity-70 transition-opacity duration-150 hover:opacity-100 cursor-pointer focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring/40;
 }

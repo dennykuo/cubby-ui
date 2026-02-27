@@ -10,6 +10,7 @@ export const tablePage: Record<Locale, {
     withFooter: { title: string; description: string };
     withToolbar: { title: string; description: string };
     withRowActions: { title: string; description: string };
+    stickyHeader: { title: string; description: string };
   };
   classDescriptions: Record<string, string>;
 }> = {
@@ -37,7 +38,11 @@ export const tablePage: Record<Locale, {
       },
       withRowActions: {
         title: 'With Row Actions',
-        description: 'Add <code class="cu-code">cu-table-actions</code> to a cell for hover-revealed row actions. Add <code class="cu-code">group</code> to the <code class="cu-code">cu-table-row</code> to enable the hover effect.',
+        description: 'Add <code class="cu-code">cu-table-actions</code> to a cell for row-level action buttons.',
+      },
+      stickyHeader: {
+        title: 'Sticky Header',
+        description: 'Add <code class="cu-code">cu-table-header-sticky</code> to the <code class="cu-code">&lt;thead&gt;</code> to keep column headers visible while scrolling. The table wrapper needs a fixed height and <code class="cu-code">overflow-y: auto</code>.',
       },
     },
     classDescriptions: {
@@ -50,10 +55,11 @@ export const tablePage: Record<Locale, {
       'cu-table-head': 'Table header cell (<code class="cu-code">&lt;th&gt;</code>)',
       'cu-table-cell': 'Table data cell (<code class="cu-code">&lt;td&gt;</code>)',
       'cu-table-caption': 'Table caption',
+      'cu-table-header-sticky': 'Sticky header, keeps <code class="cu-code">&lt;th&gt;</code> fixed at top while scrolling',
       'cu-table-toolbar': 'Toolbar container for batch actions',
       'cu-table-toolbar-select': 'Select all area in toolbar',
       'cu-table-toolbar-actions': 'Actions area in toolbar',
-      'cu-table-actions': 'Row actions container with hover reveal',
+      'cu-table-actions': 'Row actions container',
     },
   },
   'zh-tw': {
@@ -80,7 +86,11 @@ export const tablePage: Record<Locale, {
       },
       withRowActions: {
         title: '搭配列操作',
-        description: '在儲存格中加上 <code class="cu-code">cu-table-actions</code> 以顯示懸停時出現的列操作。在 <code class="cu-code">cu-table-row</code> 加上 <code class="cu-code">group</code> 以啟用懸停效果。',
+        description: '在儲存格中加上 <code class="cu-code">cu-table-actions</code> 以放置列操作按鈕。',
+      },
+      stickyHeader: {
+        title: '固定標頭',
+        description: '在 <code class="cu-code">&lt;thead&gt;</code> 加上 <code class="cu-code">cu-table-header-sticky</code>，捲動時欄位標頭保持可見。表格外層容器需設定固定高度和 <code class="cu-code">overflow-y: auto</code>。',
       },
     },
     classDescriptions: {
@@ -93,10 +103,11 @@ export const tablePage: Record<Locale, {
       'cu-table-head': '表格標頭儲存格（<code class="cu-code">&lt;th&gt;</code>）',
       'cu-table-cell': '表格資料儲存格（<code class="cu-code">&lt;td&gt;</code>）',
       'cu-table-caption': '表格標題',
+      'cu-table-header-sticky': '固定標頭，捲動時 <code class="cu-code">&lt;th&gt;</code> 保持在頂端',
       'cu-table-toolbar': '工具列容器，用於批次操作',
       'cu-table-toolbar-select': '工具列中的全選區域',
       'cu-table-toolbar-actions': '工具列中的操作區域',
-      'cu-table-actions': '列操作容器，懸停時顯示',
+      'cu-table-actions': '列操作容器',
     },
   },
 };

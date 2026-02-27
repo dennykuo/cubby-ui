@@ -1,0 +1,17 @@
+---
+import { TOP_CLASS } from "../../config";
+
+interface Props {
+    size?: "sm" | "default" | "lg";
+    class?: string;
+    [key: string]: any;
+}
+
+const { size, class: className, ...rest } = Astro.props;
+const baseClass = `${TOP_CLASS}-kbd`;
+const sizeClass = size && size !== "default" ? `${TOP_CLASS}-kbd-${size}` : undefined;
+---
+
+<kbd class:list={[baseClass, sizeClass, className]} {...rest}>
+    <slot />
+</kbd>

@@ -7,9 +7,9 @@ export const dialogPage: Record<Locale, {
   sections: {
     usage: { title: string; description: string };
     classes: { title: string; classLabel: string; descriptionLabel: string };
+    sizes: { title: string; description: string };
     withForm: { title: string; description: string };
     destructiveConfirmation: { title: string; description: string };
-    feedbackForm: { title: string; description: string };
     successState: { title: string; description: string };
   };
   classDescriptions: Record<string, string>;
@@ -28,6 +28,10 @@ export const dialogPage: Record<Locale, {
         classLabel: 'Class',
         descriptionLabel: 'Description',
       },
+      sizes: {
+        title: 'Sizes',
+        description: 'Four size variants are available — <code class="cu-code">cu-dialog-sm</code>, <code class="cu-code">cu-dialog-md</code>, <code class="cu-code">cu-dialog-xl</code>, and <code class="cu-code">cu-dialog-full</code>. The default is <code class="cu-code">max-w-lg</code>.',
+      },
       withForm: {
         title: 'With Form',
         description: 'Dialogs can contain forms and other interactive content.',
@@ -35,10 +39,6 @@ export const dialogPage: Record<Locale, {
       destructiveConfirmation: {
         title: 'Destructive Confirmation',
         description: 'A confirmation dialog with a warning icon for dangerous actions like account deletion.',
-      },
-      feedbackForm: {
-        title: 'Feedback Form',
-        description: 'A richer form dialog with a select dropdown and textarea.',
       },
       successState: {
         title: 'Success State',
@@ -52,6 +52,10 @@ export const dialogPage: Record<Locale, {
       'cu-dialog-description': 'Dialog description text',
       'cu-dialog-footer': 'Footer action button area',
       'cu-dialog-close': 'Top-right close button',
+      'cu-dialog-sm': 'Small size (max-w-sm)',
+      'cu-dialog-md': 'Medium size (max-w-md)',
+      'cu-dialog-xl': 'Extra-large size (max-w-xl)',
+      'cu-dialog-full': 'Full size (max-w-3xl)',
     },
   },
   'zh-tw': {
@@ -68,6 +72,10 @@ export const dialogPage: Record<Locale, {
         classLabel: '類別',
         descriptionLabel: '說明',
       },
+      sizes: {
+        title: '尺寸',
+        description: '提供四種尺寸變體 — <code class="cu-code">cu-dialog-sm</code>、<code class="cu-code">cu-dialog-md</code>、<code class="cu-code">cu-dialog-xl</code> 和 <code class="cu-code">cu-dialog-full</code>。預設為 <code class="cu-code">max-w-lg</code>。',
+      },
       withForm: {
         title: '包含表單',
         description: 'Dialog 可以包含表單和其他互動內容。',
@@ -75,10 +83,6 @@ export const dialogPage: Record<Locale, {
       destructiveConfirmation: {
         title: '危險確認',
         description: '帶有警告圖示的確認對話框，適用於帳號刪除等危險操作。',
-      },
-      feedbackForm: {
-        title: '回饋表單',
-        description: '包含下拉選單和文字區域的豐富表單對話框。',
       },
       successState: {
         title: '成功狀態',
@@ -92,6 +96,10 @@ export const dialogPage: Record<Locale, {
       'cu-dialog-description': 'Dialog 描述文字',
       'cu-dialog-footer': '底部操作按鈕區域',
       'cu-dialog-close': '右上角關閉按鈕',
+      'cu-dialog-sm': '小尺寸（max-w-sm）',
+      'cu-dialog-md': '中尺寸（max-w-md）',
+      'cu-dialog-xl': '超大尺寸（max-w-xl）',
+      'cu-dialog-full': '完整尺寸（max-w-3xl）',
     },
   },
 };

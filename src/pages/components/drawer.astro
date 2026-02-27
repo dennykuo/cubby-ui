@@ -79,6 +79,52 @@ const leftCode = `<button class="cu-button cu-button-outline cu-button-md" data-
   </div>
 </dialog>`.trim();
 
+const scrollableCode = `<button class="cu-button cu-button-outline cu-button-md" data-cu-drawer-trigger="scroll-drawer">
+  Open Scrollable Drawer
+</button>
+
+<dialog class="cu-drawer cu-drawer-right" id="scroll-drawer" data-cu-drawer>
+  <button class="cu-drawer-close" data-cu-drawer-close>
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+    <span class="sr-only">Close</span>
+  </button>
+  <div class="cu-drawer-header">
+    <h2 class="cu-drawer-title">Changelog</h2>
+    <p class="cu-drawer-description">Recent updates and improvements.</p>
+  </div>
+  <div class="cu-drawer-content">
+    <div class="space-y-6">
+      <div class="space-y-2">
+        <h3 class="text-sm font-semibold">v2.4.0</h3>
+        <p class="text-sm text-muted-foreground">Added new Timeline and Segmented Control components. Improved accessibility across all interactive elements.</p>
+      </div>
+      <div class="cu-separator cu-separator-horizontal"></div>
+      <div class="space-y-2">
+        <h3 class="text-sm font-semibold">v2.3.0</h3>
+        <p class="text-sm text-muted-foreground">Introduced dark mode shadow enhancements for floating panels. Added button hover shadow effect.</p>
+      </div>
+      <div class="cu-separator cu-separator-horizontal"></div>
+      <div class="space-y-2">
+        <h3 class="text-sm font-semibold">v2.2.0</h3>
+        <p class="text-sm text-muted-foreground">New form validation variants for Input, Textarea, and Label components. Added auto-resize textarea support.</p>
+      </div>
+      <div class="cu-separator cu-separator-horizontal"></div>
+      <div class="space-y-2">
+        <h3 class="text-sm font-semibold">v2.1.0</h3>
+        <p class="text-sm text-muted-foreground">Added Kbd component for keyboard shortcut display. Button loading state improvements.</p>
+      </div>
+      <div class="cu-separator cu-separator-horizontal"></div>
+      <div class="space-y-2">
+        <h3 class="text-sm font-semibold">v2.0.0</h3>
+        <p class="text-sm text-muted-foreground">Major release with Tailwind CSS v4 migration. New design token system with CSS @theme. Breaking changes to color variables.</p>
+      </div>
+    </div>
+  </div>
+  <div class="cu-drawer-footer">
+    <button class="cu-button cu-button-outline cu-button-md" data-cu-drawer-close>Close</button>
+  </div>
+</dialog>`.trim();
+
 const sidesCode = `<button class="cu-button cu-button-outline cu-button-md" data-cu-drawer-trigger="top-drawer">
   Top
 </button>
@@ -292,6 +338,61 @@ const sidesCode = `<button class="cu-button cu-button-outline cu-button-md" data
                     <div class="cu-drawer-header">
                         <h2 class="cu-drawer-title">Cookie Preferences</h2>
                         <p class="cu-drawer-description">Manage your cookie settings here.</p>
+                    </div>
+                </dialog>
+            </ComponentPreview>
+        </section>
+
+        <!-- Scrollable Content -->
+        <section class="space-y-3">
+            <h2 id="scrollable-content" class="text-lg font-semibold tracking-tight relative group">
+                <a href="#scrollable-content" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                {t.sections.scrollableContent.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.scrollableContent.description} />
+            <ComponentPreview code={scrollableCode}>
+                <button class="cu-button cu-button-outline cu-button-md" data-cu-drawer-trigger="scroll-drawer">
+                    Open Scrollable Drawer
+                </button>
+                <dialog class="cu-drawer cu-drawer-right" id="scroll-drawer" data-cu-drawer>
+                    <button class="cu-drawer-close" data-cu-drawer-close>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+                        <span class="sr-only">Close</span>
+                    </button>
+                    <div class="cu-drawer-header">
+                        <h2 class="cu-drawer-title">Changelog</h2>
+                        <p class="cu-drawer-description">Recent updates and improvements.</p>
+                    </div>
+                    <div class="cu-drawer-content">
+                        <div class="space-y-6">
+                            <div class="space-y-2">
+                                <h3 class="text-sm font-semibold">v2.4.0</h3>
+                                <p class="text-sm text-muted-foreground">Added new Timeline and Segmented Control components. Improved accessibility across all interactive elements.</p>
+                            </div>
+                            <div class="cu-separator cu-separator-horizontal"></div>
+                            <div class="space-y-2">
+                                <h3 class="text-sm font-semibold">v2.3.0</h3>
+                                <p class="text-sm text-muted-foreground">Introduced dark mode shadow enhancements for floating panels. Added button hover shadow effect.</p>
+                            </div>
+                            <div class="cu-separator cu-separator-horizontal"></div>
+                            <div class="space-y-2">
+                                <h3 class="text-sm font-semibold">v2.2.0</h3>
+                                <p class="text-sm text-muted-foreground">New form validation variants for Input, Textarea, and Label components. Added auto-resize textarea support.</p>
+                            </div>
+                            <div class="cu-separator cu-separator-horizontal"></div>
+                            <div class="space-y-2">
+                                <h3 class="text-sm font-semibold">v2.1.0</h3>
+                                <p class="text-sm text-muted-foreground">Added Kbd component for keyboard shortcut display. Button loading state improvements.</p>
+                            </div>
+                            <div class="cu-separator cu-separator-horizontal"></div>
+                            <div class="space-y-2">
+                                <h3 class="text-sm font-semibold">v2.0.0</h3>
+                                <p class="text-sm text-muted-foreground">Major release with Tailwind CSS v4 migration. New design token system with CSS @theme. Breaking changes to color variables.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="cu-drawer-footer">
+                        <button class="cu-button cu-button-outline cu-button-md" data-cu-drawer-close>Close</button>
                     </div>
                 </dialog>
             </ComponentPreview>

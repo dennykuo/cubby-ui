@@ -48,6 +48,19 @@ const minimalCode = `<div class="cu-empty-state">
     Your inbox is empty. Messages will appear here when you receive them.
   </p>
 </div>`.trim();
+
+const errorStateCode = `<div class="cu-empty-state">
+  <div class="cu-empty-state-icon text-destructive bg-destructive/10">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" x2="12" y1="8" y2="12"/><line x1="12" x2="12.01" y1="16" y2="16"/></svg>
+  </div>
+  <h3 class="cu-empty-state-title">Something went wrong</h3>
+  <p class="cu-empty-state-description">
+    We couldn't load your data. Please check your connection and try again.
+  </p>
+  <div class="cu-empty-state-action">
+    <button class="cu-button cu-button-destructive cu-button-md">Try Again</button>
+  </div>
+</div>`.trim();
 ---
 
 <Layout title={t.title} category={t.category} componentName="Empty State">
@@ -169,6 +182,29 @@ const minimalCode = `<div class="cu-empty-state">
                     <EmptyStateDescription>
                         Your inbox is empty. Messages will appear here when you receive them.
                     </EmptyStateDescription>
+                </EmptyState>
+            </ComponentPreview>
+        </section>
+
+        <!-- Error State -->
+        <section class="space-y-3">
+            <h2 id="error-state" class="text-lg font-semibold tracking-tight relative group">
+                <a href="#error-state" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                {t.sections.errorState.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">{t.sections.errorState.description}</p>
+            <ComponentPreview code={errorStateCode}>
+                <EmptyState>
+                    <EmptyStateIcon class="text-destructive bg-destructive/10">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" x2="12" y1="8" y2="12"/><line x1="12" x2="12.01" y1="16" y2="16"/></svg>
+                    </EmptyStateIcon>
+                    <EmptyStateTitle>Something went wrong</EmptyStateTitle>
+                    <EmptyStateDescription>
+                        We couldn't load your data. Please check your connection and try again.
+                    </EmptyStateDescription>
+                    <EmptyStateAction>
+                        <Button variant="destructive">Try Again</Button>
+                    </EmptyStateAction>
                 </EmptyState>
             </ComponentPreview>
         </section>

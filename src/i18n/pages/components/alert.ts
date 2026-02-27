@@ -8,10 +8,11 @@ export const alertPage: Record<Locale, {
     usage: { title: string; description: string };
     classes: { title: string; classLabel: string; descriptionLabel: string };
     variants: { title: string; description: string };
-    withIcon: { title: string; description: string };
     iconsForEveryVariant: { title: string; description: string };
     withAction: { title: string; description: string };
+    closable: { title: string; description: string };
     descriptionOnly: { title: string; description: string };
+    accent: { title: string; description: string };
   };
   classDescriptions: Record<string, string>;
 }> = {
@@ -33,10 +34,6 @@ export const alertPage: Record<Locale, {
         title: 'Variants',
         description: 'Use variant classes to convey different levels of importance.',
       },
-      withIcon: {
-        title: 'With Icon',
-        description: 'Place an SVG icon as the first child. The alert will automatically add left padding via <code class="cu-code">[&:has(svg)]:pl-10</code>.',
-      },
       iconsForEveryVariant: {
         title: 'Icons for Every Variant',
         description: 'Each variant pairs well with a matching icon — checkmark for success, triangle for warning, info circle for info, and exclamation for errors.',
@@ -45,9 +42,17 @@ export const alertPage: Record<Locale, {
         title: 'With Action',
         description: 'Embed buttons inside the description for actionable alerts.',
       },
+      closable: {
+        title: 'Closable',
+        description: 'Add <code class="cu-code">cu-alert-closable</code> for right padding and a <code class="cu-code">cu-alert-close</code> button to dismiss the alert.',
+      },
       descriptionOnly: {
         title: 'Description Only',
         description: 'The title is optional — use description alone for a compact inline message.',
+      },
+      accent: {
+        title: 'Accent Border',
+        description: 'Add <code class="cu-code">cu-alert-accent</code> for a prominent left border stripe. Combines with any variant.',
       },
     },
     classDescriptions: {
@@ -59,6 +64,9 @@ export const alertPage: Record<Locale, {
       'cu-alert-info': 'Info variant style',
       'cu-alert-title': 'Alert title',
       'cu-alert-description': 'Alert description text',
+      'cu-alert-closable': 'Adds right padding for the close button',
+      'cu-alert-close': 'Close button, absolutely positioned top-right',
+      'cu-alert-accent': 'Left accent border stripe (use with a variant)',
     },
   },
   'zh-tw': {
@@ -79,10 +87,6 @@ export const alertPage: Record<Locale, {
         title: '變體',
         description: '使用變體類別來傳達不同的重要程度。',
       },
-      withIcon: {
-        title: '搭配圖示',
-        description: '將 SVG 圖示放在第一個子元素。Alert 會透過 <code class="cu-code">[&:has(svg)]:pl-10</code> 自動加入左側內距。',
-      },
       iconsForEveryVariant: {
         title: '各變體搭配圖示',
         description: '每種變體都適合搭配對應的圖示 — 勾號代表成功、三角形代表警告、資訊圓圈代表提示、驚嘆號代表錯誤。',
@@ -91,9 +95,17 @@ export const alertPage: Record<Locale, {
         title: '搭配操作按鈕',
         description: '在描述區塊內嵌入按鈕，打造可操作的提示。',
       },
+      closable: {
+        title: '可關閉',
+        description: '加上 <code class="cu-code">cu-alert-closable</code> 預留右側空間，搭配 <code class="cu-code">cu-alert-close</code> 按鈕以關閉提示。',
+      },
       descriptionOnly: {
         title: '僅描述',
         description: '標題為選用 — 單獨使用描述即可呈現精簡的行內訊息。',
+      },
+      accent: {
+        title: '重音邊框',
+        description: '加入 <code class="cu-code">cu-alert-accent</code> 以顯示醒目的左側邊框條紋。可搭配任何變體使用。',
       },
     },
     classDescriptions: {
@@ -105,6 +117,9 @@ export const alertPage: Record<Locale, {
       'cu-alert-info': '資訊變體樣式',
       'cu-alert-title': 'Alert 標題',
       'cu-alert-description': 'Alert 描述文字',
+      'cu-alert-closable': '為關閉按鈕預留右側 padding',
+      'cu-alert-close': '關閉按鈕，絕對定位於右上角',
+      'cu-alert-accent': '左側重音邊框條紋（搭配變體使用）',
     },
   },
 };

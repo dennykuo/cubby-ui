@@ -9,7 +9,7 @@
 }
 
 .cu-tabs-trigger {
-    @apply inline-flex items-center justify-center whitespace-nowrap rounded-md px-3 py-1.5 text-sm font-medium text-muted-foreground outline-none transition-colors duration-150 cursor-pointer hover:text-foreground;
+    @apply inline-flex items-center justify-center whitespace-nowrap rounded-md px-3 py-1.5 text-sm font-medium text-muted-foreground outline-none focus-visible:ring-1 focus-visible:ring-ring/30 transition-colors duration-150 cursor-pointer hover:text-foreground;
 }
 
 .cu-tabs-trigger-active {
@@ -18,4 +18,43 @@
 
 .cu-tabs-content {
     @apply mt-4;
+}
+
+/* -- underline variant -- */
+.cu-tabs-list-underline {
+    @apply inline-flex h-10 items-center justify-start gap-0 rounded-none bg-transparent p-0 border-b border-border;
+}
+
+.cu-tabs-list-underline .cu-tabs-trigger {
+    @apply rounded-none px-4 py-2 border-b-2 border-transparent -mb-px;
+}
+
+.cu-tabs-list-underline .cu-tabs-trigger-active {
+    @apply bg-transparent shadow-none border-b-2 border-primary text-foreground;
+}
+
+/* -- pills variant -- */
+.cu-tabs-list-pills {
+    @apply inline-flex h-10 items-center justify-start gap-1 bg-transparent p-0;
+}
+
+.cu-tabs-list-pills .cu-tabs-trigger {
+    @apply rounded-full;
+}
+
+.cu-tabs-list-pills .cu-tabs-trigger-active {
+    @apply bg-primary text-primary-foreground shadow-none;
+}
+
+/* -- vertical layout -- */
+.cu-tabs-vertical {
+    @apply flex flex-row gap-4;
+}
+
+.cu-tabs-list-vertical {
+    @apply flex flex-col h-auto items-stretch gap-1 rounded-lg bg-muted p-1;
+}
+
+.cu-tabs-vertical > .cu-tabs-content {
+    @apply mt-0 flex-1;
 }

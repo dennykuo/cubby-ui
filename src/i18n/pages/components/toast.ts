@@ -8,6 +8,8 @@ export const toastPage: Record<Locale, {
     usage: { title: string; description: string };
     classes: { title: string; classLabel: string; descriptionLabel: string };
     variants: { title: string; description: string };
+    withAction: { title: string; description: string };
+    customDuration: { title: string; description: string };
   };
   classDescriptions: Record<string, string>;
 }> = {
@@ -28,6 +30,14 @@ export const toastPage: Record<Locale, {
       variants: {
         title: 'Variants',
         description: 'Use <code class="cu-code">data-cu-toast-variant</code> to set the visual style: <code class="cu-code">default</code>, <code class="cu-code">destructive</code>, <code class="cu-code">success</code>, <code class="cu-code">warning</code>, <code class="cu-code">info</code>.',
+      },
+      withAction: {
+        title: 'With Action',
+        description: 'Add an action button inside the toast for quick actions like undo or retry.',
+      },
+      customDuration: {
+        title: 'Custom Duration',
+        description: 'Use <code class="cu-code">data-cu-toast-duration</code> to customize how long the toast stays visible (in milliseconds). Default is 5000ms.',
       },
     },
     classDescriptions: {
@@ -66,6 +76,14 @@ export const toastPage: Record<Locale, {
       variants: {
         title: '變體',
         description: '使用 <code class="cu-code">data-cu-toast-variant</code> 設定視覺樣式：<code class="cu-code">default</code>、<code class="cu-code">destructive</code>、<code class="cu-code">success</code>、<code class="cu-code">warning</code>、<code class="cu-code">info</code>。',
+      },
+      withAction: {
+        title: '帶操作按鈕',
+        description: '在 toast 中加入操作按鈕，用於快速操作如復原或重試。',
+      },
+      customDuration: {
+        title: '自訂顯示時間',
+        description: '使用 <code class="cu-code">data-cu-toast-duration</code> 自訂 toast 顯示時長（毫秒）。預設為 5000ms。',
       },
     },
     classDescriptions: {

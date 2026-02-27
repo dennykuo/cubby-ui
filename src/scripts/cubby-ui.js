@@ -29,7 +29,7 @@
   function navigateItems(items, key, highlightClass) {
     var visible = [];
     items.forEach(function (item) {
-      if (!item.hasAttribute("hidden")) visible.push(item);
+      if (!item.hasAttribute("hidden") && !item.hasAttribute("disabled") && !item.classList.contains("pointer-events-none")) visible.push(item);
     });
     if (visible.length === 0) return;
 
@@ -42,7 +42,11 @@
     }
 
     var next;
-    if (key === "ArrowDown") {
+    if (key === "Home") {
+      next = 0;
+    } else if (key === "End") {
+      next = visible.length - 1;
+    } else if (key === "ArrowDown") {
       next = current < visible.length - 1 ? current + 1 : 0;
     } else {
       next = current > 0 ? current - 1 : visible.length - 1;
@@ -140,8 +144,8 @@
         return;
       }
 
-      // --- Arrow / Enter: navigate items in open floating panels ---
-      if (e.key === "ArrowDown" || e.key === "ArrowUp" || e.key === "Enter") {
+      // --- Arrow / Home / End / Enter: navigate items in open floating panels ---
+      if (e.key === "ArrowDown" || e.key === "ArrowUp" || e.key === "Home" || e.key === "End" || e.key === "Enter") {
         // Dropdown
         _dropdowns.forEach(function (d) {
           if (!d.content || d.content.hasAttribute("hidden")) return;
@@ -485,6 +489,15 @@
         var getMin = function () { return field.min !== "" ? Number(field.min) : -Infinity; };
         var getMax = function () { return field.max !== "" ? Number(field.max) : Infinity; };
 
+        // ARIA: spinbutton semantics
+        field.setAttribute("role", "spinbutton");
+        if (field.min !== "") field.setAttribute("aria-valuemin", field.min);
+        if (field.max !== "") field.setAttribute("aria-valuemax", field.max);
+        field.setAttribute("aria-valuenow", field.value);
+        field.addEventListener("input", function () {
+          field.setAttribute("aria-valuenow", field.value);
+        });
+
         decrement &&
           decrement.addEventListener("click", function () {
             var current = Number(field.value) || 0;
@@ -736,6 +749,14 @@
             dialog.setAttribute("aria-labelledby", title.id);
           }
         }
+        // ARIA: link dialog to its description element
+        if (config.descClass) {
+          var desc = dialog.querySelector("." + config.descClass);
+          if (desc) {
+            if (!desc.id) desc.id = genId(config.descClass);
+            dialog.setAttribute("aria-describedby", desc.id);
+          }
+        }
 
         config.closeAttrs.forEach(function (attr) {
           dialog.querySelectorAll("[" + attr + "]").forEach(function (btn) {
@@ -768,6 +789,7 @@
       closeAttrs: ["data-cu-dialog-close"],
       closeOnBackdrop: true,
       titleClass: "cu-dialog-title",
+      descClass: "cu-dialog-description",
     });
   }
 
@@ -778,6 +800,7 @@
       closeAttrs: ["data-cu-drawer-close"],
       closeOnBackdrop: true,
       titleClass: "cu-drawer-title",
+      descClass: "cu-drawer-description",
     });
   }
 
@@ -788,8 +811,19 @@
       closeAttrs: ["data-cu-alert-dialog-cancel", "data-cu-alert-dialog-action"],
       closeOnBackdrop: false,
       titleClass: "cu-alert-dialog-title",
+      descClass: "cu-alert-dialog-description",
       role: "alertdialog",
     });
+  }
+
+  function dismissToast(toast) {
+    if (toast._cuDismissing) return;
+    toast._cuDismissing = true;
+    toast.classList.remove("cu-toast-enter");
+    toast.classList.add("cu-toast-exit");
+    toast.addEventListener("animationend", function () {
+      toast.remove();
+    }, { once: true });
   }
 
   function setupToasts() {
@@ -799,6 +833,8 @@
       container = document.createElement("div");
       container.className = "cu-toast-container cu-toast-container-bottom-right";
       container.setAttribute("data-cu-toast-container", "");
+      container.setAttribute("role", "region");
+      container.setAttribute("aria-label", "Notifications");
       document.body.appendChild(container);
     }
 
@@ -817,6 +853,13 @@
             trigger.getAttribute("data-cu-toast-variant") || "default";
           var toast = document.createElement("div");
           toast.className = "cu-toast cu-toast-" + variant + " cu-toast-enter";
+          if (variant === "destructive") {
+            toast.setAttribute("role", "alert");
+            toast.setAttribute("aria-live", "assertive");
+          } else {
+            toast.setAttribute("role", "status");
+            toast.setAttribute("aria-live", "polite");
+          }
 
           var body = document.createElement("div");
           body.className = "cu-toast-body";
@@ -855,13 +898,23 @@
           toast.appendChild(closeBtn);
 
           c.appendChild(toast);
+
+          // Stack limit: dismiss oldest toasts when exceeding max (default 5)
+          var maxToasts = parseInt(c.getAttribute("data-cu-toast-max"), 10) || 5;
+          var existing = c.querySelectorAll(".cu-toast:not(.cu-toast-exit)");
+          if (existing.length > maxToasts) {
+            for (var ti = 0; ti < existing.length - maxToasts; ti++) {
+              dismissToast(existing[ti]);
+            }
+          }
+
           var duration = parseInt(trigger.getAttribute("data-cu-toast-duration"), 10) || 5000;
           var timer = setTimeout(function () {
-            toast.remove();
+            dismissToast(toast);
           }, duration);
           closeBtn.addEventListener("click", function () {
             clearTimeout(timer);
-            toast.remove();
+            dismissToast(toast);
           });
         });
       });

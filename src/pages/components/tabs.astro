@@ -79,6 +79,124 @@ const withContentCode = `<div class="cu-tabs" data-cu-tabs>
     </div>
   </div>
 </div>`.trim();
+
+const withIconsCode = `<div class="cu-tabs" data-cu-tabs>
+  <div class="cu-tabs-list">
+    <button class="cu-tabs-trigger cu-tabs-trigger-active" data-cu-tabs-trigger="profile">
+      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1.5"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      Profile
+    </button>
+    <button class="cu-tabs-trigger" data-cu-tabs-trigger="settings">
+      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1.5"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
+      Settings
+    </button>
+    <button class="cu-tabs-trigger" data-cu-tabs-trigger="notifications">
+      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1.5"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
+      Notifications
+    </button>
+  </div>
+  <div class="cu-tabs-content" data-cu-tabs-content="profile">
+    <p class="text-sm text-muted-foreground">Manage your profile information.</p>
+  </div>
+  <div class="cu-tabs-content" data-cu-tabs-content="settings" hidden>
+    <p class="text-sm text-muted-foreground">Configure your application settings.</p>
+  </div>
+  <div class="cu-tabs-content" data-cu-tabs-content="notifications" hidden>
+    <p class="text-sm text-muted-foreground">Set your notification preferences.</p>
+  </div>
+</div>`.trim();
+
+const underlineCode = `<div class="cu-tabs" data-cu-tabs>
+  <div class="cu-tabs-list-underline">
+    <button class="cu-tabs-trigger cu-tabs-trigger-active" data-cu-tabs-trigger="general">General</button>
+    <button class="cu-tabs-trigger" data-cu-tabs-trigger="billing">Billing</button>
+    <button class="cu-tabs-trigger" data-cu-tabs-trigger="team">Team</button>
+  </div>
+  <div class="cu-tabs-content" data-cu-tabs-content="general">
+    <p class="text-sm text-muted-foreground">General account settings.</p>
+  </div>
+  <div class="cu-tabs-content" data-cu-tabs-content="billing" hidden>
+    <p class="text-sm text-muted-foreground">Manage billing and invoices.</p>
+  </div>
+  <div class="cu-tabs-content" data-cu-tabs-content="team" hidden>
+    <p class="text-sm text-muted-foreground">Invite and manage team members.</p>
+  </div>
+</div>`.trim();
+
+const pillsCode = `<div class="cu-tabs" data-cu-tabs>
+  <div class="cu-tabs-list-pills">
+    <button class="cu-tabs-trigger cu-tabs-trigger-active" data-cu-tabs-trigger="all">All</button>
+    <button class="cu-tabs-trigger" data-cu-tabs-trigger="active">Active</button>
+    <button class="cu-tabs-trigger" data-cu-tabs-trigger="archived">Archived</button>
+  </div>
+  <div class="cu-tabs-content" data-cu-tabs-content="all">
+    <p class="text-sm text-muted-foreground">Showing all items.</p>
+  </div>
+  <div class="cu-tabs-content" data-cu-tabs-content="active" hidden>
+    <p class="text-sm text-muted-foreground">Showing active items only.</p>
+  </div>
+  <div class="cu-tabs-content" data-cu-tabs-content="archived" hidden>
+    <p class="text-sm text-muted-foreground">Showing archived items.</p>
+  </div>
+</div>`.trim();
+
+const verticalCode = `<div class="cu-tabs cu-tabs-vertical" data-cu-tabs>
+  <div class="cu-tabs-list-vertical">
+    <button class="cu-tabs-trigger cu-tabs-trigger-active" data-cu-tabs-trigger="profile">Profile</button>
+    <button class="cu-tabs-trigger" data-cu-tabs-trigger="account">Account</button>
+    <button class="cu-tabs-trigger" data-cu-tabs-trigger="appearance">Appearance</button>
+  </div>
+  <div class="cu-tabs-content" data-cu-tabs-content="profile">
+    <div class="cu-card">
+      <div class="cu-card-header">
+        <h3 class="cu-card-title">Profile</h3>
+        <p class="cu-card-description">Manage your public profile.</p>
+      </div>
+      <div class="cu-card-content">
+        <p class="text-sm">Update your name, bio, and avatar.</p>
+      </div>
+    </div>
+  </div>
+  <div class="cu-tabs-content" data-cu-tabs-content="account" hidden>
+    <div class="cu-card">
+      <div class="cu-card-header">
+        <h3 class="cu-card-title">Account</h3>
+        <p class="cu-card-description">Manage your account settings.</p>
+      </div>
+      <div class="cu-card-content">
+        <p class="text-sm">Change email, password, and preferences.</p>
+      </div>
+    </div>
+  </div>
+  <div class="cu-tabs-content" data-cu-tabs-content="appearance" hidden>
+    <div class="cu-card">
+      <div class="cu-card-header">
+        <h3 class="cu-card-title">Appearance</h3>
+        <p class="cu-card-description">Customize your display preferences.</p>
+      </div>
+      <div class="cu-card-content">
+        <p class="text-sm">Toggle dark mode, font size, and language.</p>
+      </div>
+    </div>
+  </div>
+</div>`.trim();
+
+const disabledTabCode = `<div class="cu-tabs" data-cu-tabs>
+  <div class="cu-tabs-list">
+    <button class="cu-tabs-trigger cu-tabs-trigger-active" data-cu-tabs-trigger="general">General</button>
+    <button class="cu-tabs-trigger" data-cu-tabs-trigger="security">Security</button>
+    <button class="cu-tabs-trigger opacity-50 pointer-events-none" disabled data-cu-tabs-trigger="billing">Billing</button>
+  </div>
+  <div class="cu-tabs-content" data-cu-tabs-content="general">
+    <p class="text-sm text-muted-foreground">General settings for your account.</p>
+  </div>
+  <div class="cu-tabs-content" data-cu-tabs-content="security" hidden>
+    <p class="text-sm text-muted-foreground">Security and authentication settings.</p>
+  </div>
+  <div class="cu-tabs-content" data-cu-tabs-content="billing" hidden>
+    <p class="text-sm text-muted-foreground">Billing information (coming soon).</p>
+  </div>
+</div>`.trim();
 ---
 
 <Layout title={t.title} category={t.category} componentName="Tabs">
@@ -153,6 +271,18 @@ const withContentCode = `<div class="cu-tabs" data-cu-tabs>
                             <td class="cu-table-cell"><code class="cu-code">cu-tabs-content</code></td>
                             <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-tabs-content']}</td>
                         </tr>
+                        <tr class="cu-table-row">
+                            <td class="cu-table-cell"><code class="cu-code">cu-tabs-list-underline</code></td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-tabs-list-underline']}</td>
+                        </tr>
+                        <tr class="cu-table-row">
+                            <td class="cu-table-cell"><code class="cu-code">cu-tabs-vertical</code></td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-tabs-vertical']}</td>
+                        </tr>
+                        <tr class="cu-table-row">
+                            <td class="cu-table-cell"><code class="cu-code">cu-tabs-list-vertical</code></td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-tabs-list-vertical']}</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -208,6 +338,184 @@ const withContentCode = `<div class="cu-tabs" data-cu-tabs>
                                     <p class="text-sm">Reports content goes here.</p>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                </div>
+            </ComponentPreview>
+        </section>
+
+        <!-- Underline -->
+        <section class="space-y-3">
+            <h2 id="underline" class="text-lg font-semibold tracking-tight relative group">
+              <a href="#underline" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+              {t.sections.underline.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.underline.description} />
+            <ComponentPreview code={underlineCode}>
+                <div class="w-full max-w-md">
+                    <div class="cu-tabs" data-cu-tabs>
+                        <div class="cu-tabs-list-underline">
+                            <button class="cu-tabs-trigger cu-tabs-trigger-active" data-cu-tabs-trigger="general5">General</button>
+                            <button class="cu-tabs-trigger" data-cu-tabs-trigger="billing5">Billing</button>
+                            <button class="cu-tabs-trigger" data-cu-tabs-trigger="team5">Team</button>
+                        </div>
+                        <div class="cu-tabs-content" data-cu-tabs-content="general5">
+                            <p class="text-sm text-muted-foreground">General account settings.</p>
+                        </div>
+                        <div class="cu-tabs-content" data-cu-tabs-content="billing5" hidden>
+                            <p class="text-sm text-muted-foreground">Manage billing and invoices.</p>
+                        </div>
+                        <div class="cu-tabs-content" data-cu-tabs-content="team5" hidden>
+                            <p class="text-sm text-muted-foreground">Invite and manage team members.</p>
+                        </div>
+                    </div>
+                </div>
+            </ComponentPreview>
+        </section>
+
+        <!-- Pills -->
+        <section class="space-y-3">
+            <h2 id="pills" class="text-lg font-semibold tracking-tight relative group">
+              <a href="#pills" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+              {t.sections.pills.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.pills.description} />
+            <ComponentPreview code={pillsCode}>
+                <div class="w-full max-w-md">
+                    <div class="cu-tabs" data-cu-tabs>
+                        <div class="cu-tabs-list-pills">
+                            <button class="cu-tabs-trigger cu-tabs-trigger-active" data-cu-tabs-trigger="all">All</button>
+                            <button class="cu-tabs-trigger" data-cu-tabs-trigger="active">Active</button>
+                            <button class="cu-tabs-trigger" data-cu-tabs-trigger="archived">Archived</button>
+                        </div>
+                        <div class="cu-tabs-content" data-cu-tabs-content="all">
+                            <p class="text-sm text-muted-foreground">Showing all items.</p>
+                        </div>
+                        <div class="cu-tabs-content" data-cu-tabs-content="active" hidden>
+                            <p class="text-sm text-muted-foreground">Showing active items only.</p>
+                        </div>
+                        <div class="cu-tabs-content" data-cu-tabs-content="archived" hidden>
+                            <p class="text-sm text-muted-foreground">Showing archived items.</p>
+                        </div>
+                    </div>
+                </div>
+            </ComponentPreview>
+        </section>
+
+        <!-- Vertical -->
+        <section class="space-y-3">
+            <h2 id="vertical" class="text-lg font-semibold tracking-tight relative group">
+              <a href="#vertical" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+              {t.sections.vertical.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.vertical.description} />
+            <ComponentPreview code={verticalCode}>
+                <div class="w-full max-w-lg">
+                    <div class="cu-tabs cu-tabs-vertical" data-cu-tabs>
+                        <div class="cu-tabs-list-vertical">
+                            <button class="cu-tabs-trigger cu-tabs-trigger-active" data-cu-tabs-trigger="profile6">Profile</button>
+                            <button class="cu-tabs-trigger" data-cu-tabs-trigger="account6">Account</button>
+                            <button class="cu-tabs-trigger" data-cu-tabs-trigger="appearance6">Appearance</button>
+                        </div>
+                        <div class="cu-tabs-content" data-cu-tabs-content="profile6">
+                            <div class="cu-card">
+                                <div class="cu-card-header">
+                                    <h3 class="cu-card-title">Profile</h3>
+                                    <p class="cu-card-description">Manage your public profile.</p>
+                                </div>
+                                <div class="cu-card-content">
+                                    <p class="text-sm">Update your name, bio, and avatar.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="cu-tabs-content" data-cu-tabs-content="account6" hidden>
+                            <div class="cu-card">
+                                <div class="cu-card-header">
+                                    <h3 class="cu-card-title">Account</h3>
+                                    <p class="cu-card-description">Manage your account settings.</p>
+                                </div>
+                                <div class="cu-card-content">
+                                    <p class="text-sm">Change email, password, and preferences.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="cu-tabs-content" data-cu-tabs-content="appearance6" hidden>
+                            <div class="cu-card">
+                                <div class="cu-card-header">
+                                    <h3 class="cu-card-title">Appearance</h3>
+                                    <p class="cu-card-description">Customize your display preferences.</p>
+                                </div>
+                                <div class="cu-card-content">
+                                    <p class="text-sm">Toggle dark mode, font size, and language.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ComponentPreview>
+        </section>
+
+        <!-- With Icons -->
+        <section class="space-y-3">
+            <h2 id="with-icons" class="text-lg font-semibold tracking-tight relative group">
+              <a href="#with-icons" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+              {t.sections.withIcons.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">{t.sections.withIcons.description}</p>
+            <ComponentPreview code={withIconsCode}>
+                <div class="w-full max-w-md">
+                    <div class="cu-tabs" data-cu-tabs>
+                        <div class="cu-tabs-list">
+                            <button class="cu-tabs-trigger cu-tabs-trigger-active" data-cu-tabs-trigger="profile3">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1.5"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                                Profile
+                            </button>
+                            <button class="cu-tabs-trigger" data-cu-tabs-trigger="settings3">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1.5"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
+                                Settings
+                            </button>
+                            <button class="cu-tabs-trigger" data-cu-tabs-trigger="notifications3">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1.5"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
+                                Notifications
+                            </button>
+                        </div>
+                        <div class="cu-tabs-content" data-cu-tabs-content="profile3">
+                            <p class="text-sm text-muted-foreground">Manage your profile information.</p>
+                        </div>
+                        <div class="cu-tabs-content" data-cu-tabs-content="settings3" hidden>
+                            <p class="text-sm text-muted-foreground">Configure your application settings.</p>
+                        </div>
+                        <div class="cu-tabs-content" data-cu-tabs-content="notifications3" hidden>
+                            <p class="text-sm text-muted-foreground">Set your notification preferences.</p>
+                        </div>
+                    </div>
+                </div>
+            </ComponentPreview>
+        </section>
+
+        <!-- Disabled Tab -->
+        <section class="space-y-3">
+            <h2 id="disabled-tab" class="text-lg font-semibold tracking-tight relative group">
+              <a href="#disabled-tab" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+              {t.sections.disabledTab.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.disabledTab.description} />
+            <ComponentPreview code={disabledTabCode}>
+                <div class="w-full max-w-md">
+                    <div class="cu-tabs" data-cu-tabs>
+                        <div class="cu-tabs-list">
+                            <button class="cu-tabs-trigger cu-tabs-trigger-active" data-cu-tabs-trigger="general4">General</button>
+                            <button class="cu-tabs-trigger" data-cu-tabs-trigger="security4">Security</button>
+                            <button class="cu-tabs-trigger opacity-50 pointer-events-none" disabled data-cu-tabs-trigger="billing4">Billing</button>
+                        </div>
+                        <div class="cu-tabs-content" data-cu-tabs-content="general4">
+                            <p class="text-sm text-muted-foreground">General settings for your account.</p>
+                        </div>
+                        <div class="cu-tabs-content" data-cu-tabs-content="security4" hidden>
+                            <p class="text-sm text-muted-foreground">Security and authentication settings.</p>
+                        </div>
+                        <div class="cu-tabs-content" data-cu-tabs-content="billing4" hidden>
+                            <p class="text-sm text-muted-foreground">Billing information (coming soon).</p>
                         </div>
                     </div>
                 </div>

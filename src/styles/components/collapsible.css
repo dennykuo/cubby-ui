@@ -20,6 +20,11 @@
     @apply rotate-180;
 }
 
+.cu-collapsible-trigger[aria-disabled="true"],
+.cu-collapsible-trigger:disabled {
+    @apply pointer-events-none opacity-50;
+}
+
 .cu-collapsible-content {
     @apply overflow-hidden pt-2 text-sm;
 }

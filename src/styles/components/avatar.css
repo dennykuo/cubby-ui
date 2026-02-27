@@ -23,3 +23,54 @@
 .cu-avatar-fallback {
     @apply flex h-full w-full items-center justify-center rounded-full bg-muted text-sm font-medium text-muted-foreground;
 }
+
+/* -- avatar ring (standalone border ring) -- */
+.cu-avatar-ring {
+    @apply ring-2 ring-primary/20 ring-offset-2 ring-offset-background;
+}
+
+/* -- avatar status indicator -- */
+.cu-avatar-status {
+    @apply absolute bottom-0 right-0 block rounded-full ring-2 ring-background;
+}
+
+.cu-avatar-status-sm {
+    @apply size-2;
+}
+
+.cu-avatar-status-md {
+    @apply size-2.5;
+}
+
+.cu-avatar-status-lg {
+    @apply size-3;
+}
+
+.cu-avatar-status-online {
+    @apply bg-success;
+}
+
+.cu-avatar-status-offline {
+    @apply bg-muted-foreground/40;
+}
+
+.cu-avatar-status-busy {
+    @apply bg-destructive;
+}
+
+.cu-avatar-status-away {
+    @apply bg-warning;
+}
+
+/* -- avatar group -- */
+.cu-avatar-group {
+    @apply flex items-center -space-x-3;
+}
+
+.cu-avatar-group > .cu-avatar {
+    @apply ring-2 ring-background;
+}
+
+.cu-avatar-group-count {
+    @apply text-xs;
+}

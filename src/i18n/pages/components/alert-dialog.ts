@@ -8,6 +8,7 @@ export const alertDialogPage: Record<Locale, {
     usage: { title: string; description: string };
     classes: { title: string; classLabel: string; descriptionLabel: string };
     destructiveAction: { title: string; description: string };
+    withIcon: { title: string; description: string };
   };
   classDescriptions: Record<string, string>;
 }> = {
@@ -28,6 +29,10 @@ export const alertDialogPage: Record<Locale, {
       destructiveAction: {
         title: 'Destructive Action',
         description: 'Pair with a destructive trigger button for dangerous actions.',
+      },
+      withIcon: {
+        title: 'With Icon',
+        description: 'Add a warning icon alongside the title for extra visual emphasis.',
       },
     },
     classDescriptions: {
@@ -55,6 +60,10 @@ export const alertDialogPage: Record<Locale, {
       destructiveAction: {
         title: '危險操作',
         description: '搭配危險觸發按鈕，用於危險操作場景。',
+      },
+      withIcon: {
+        title: '帶圖示',
+        description: '在標題旁加上警告圖示，提供額外的視覺強調。',
       },
     },
     classDescriptions: {

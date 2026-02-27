@@ -80,6 +80,31 @@ const variantsCode = `<button class="cu-button cu-button-default cu-button-md" d
   data-cu-toast-title="Info" data-cu-toast-description="A new update is available." data-cu-toast-variant="info">
   Info
 </button>`.trim();
+
+const withActionCode = `<div class="cu-toast cu-toast-default" style="position: relative;">
+  <div class="cu-toast-body">
+    <div class="cu-toast-title">Event deleted</div>
+    <div class="cu-toast-description">The event "Team Meeting" has been removed.</div>
+  </div>
+  <div class="flex flex-col gap-1">
+    <button class="cu-button cu-button-outline cu-button-sm text-xs h-7">Undo</button>
+  </div>
+  <button class="cu-toast-close">&times;</button>
+</div>`.trim();
+
+const customDurationCode = `<button class="cu-button cu-button-outline cu-button-md" data-cu-toast-trigger
+  data-cu-toast-title="Quick notice"
+  data-cu-toast-description="This toast disappears in 2 seconds."
+  data-cu-toast-duration="2000">
+  2s Toast
+</button>
+
+<button class="cu-button cu-button-outline cu-button-md" data-cu-toast-trigger
+  data-cu-toast-title="Persistent notice"
+  data-cu-toast-description="This toast stays for 10 seconds."
+  data-cu-toast-duration="10000">
+  10s Toast
+</button>`.trim();
 ---
 
 <Layout title={t.title} category={t.category} componentName="Toast">
@@ -228,57 +253,51 @@ const variantsCode = `<button class="cu-button cu-button-default cu-button-md" d
             </ComponentPreview>
         </section>
 
+        <!-- With Action -->
+        <section class="space-y-3">
+            <h2 id="with-action" class="text-lg font-semibold tracking-tight relative group">
+                <a href="#with-action" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                {t.sections.withAction.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">{t.sections.withAction.description}</p>
+            <ComponentPreview code={withActionCode}>
+                <div class="cu-toast cu-toast-default" style="position: relative;">
+                    <div class="cu-toast-body">
+                        <div class="cu-toast-title">Event deleted</div>
+                        <div class="cu-toast-description">The event "Team Meeting" has been removed.</div>
+                    </div>
+                    <div class="flex flex-col gap-1">
+                        <button class="cu-button cu-button-outline cu-button-sm text-xs h-7">Undo</button>
+                    </div>
+                    <button class="cu-toast-close">&times;</button>
+                </div>
+            </ComponentPreview>
+        </section>
+
+        <!-- Custom Duration -->
+        <section class="space-y-3">
+            <h2 id="custom-duration" class="text-lg font-semibold tracking-tight relative group">
+                <a href="#custom-duration" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                {t.sections.customDuration.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.customDuration.description} />
+            <ComponentPreview code={customDurationCode}>
+                <div class="flex flex-wrap gap-2">
+                    <button class="cu-button cu-button-outline cu-button-md" data-cu-toast-trigger
+                        data-cu-toast-title="Quick notice"
+                        data-cu-toast-description="This toast disappears in 2 seconds."
+                        data-cu-toast-duration="2000">
+                        2s Toast
+                    </button>
+                    <button class="cu-button cu-button-outline cu-button-md" data-cu-toast-trigger
+                        data-cu-toast-title="Persistent notice"
+                        data-cu-toast-description="This toast stays for 10 seconds."
+                        data-cu-toast-duration="10000">
+                        10s Toast
+                    </button>
+                </div>
+            </ComponentPreview>
+        </section>
+
     </div>
 </Layout>
-
-<script>
-    function setupToasts() {
-        let container = document.querySelector("[data-cu-toast-container]") as HTMLElement | null;
-        if (!container) {
-            container = document.createElement("div");
-            container.className = "cu-toast-container cu-toast-container-bottom-right";
-            container.setAttribute("data-cu-toast-container", "");
-            document.body.appendChild(container);
-        }
-
-        document.querySelectorAll("[data-cu-toast-trigger]").forEach((trigger) => {
-            trigger.addEventListener("click", () => {
-                const c = document.querySelector("[data-cu-toast-container]");
-                if (!c) return;
-                const title = trigger.getAttribute("data-cu-toast-title") || "";
-                const desc = trigger.getAttribute("data-cu-toast-description") || "";
-                const variant = trigger.getAttribute("data-cu-toast-variant") || "default";
-
-                const toast = document.createElement("div");
-                toast.className = `cu-toast cu-toast-${variant}`;
-
-                const body = document.createElement("div");
-                body.className = "cu-toast-body";
-                const titleEl = document.createElement("div");
-                titleEl.className = "cu-toast-title";
-                titleEl.textContent = title;
-                body.appendChild(titleEl);
-                if (desc) {
-                    const descEl = document.createElement("div");
-                    descEl.className = "cu-toast-description";
-                    descEl.textContent = desc;
-                    body.appendChild(descEl);
-                }
-                toast.appendChild(body);
-
-                const closeBtn = document.createElement("button");
-                closeBtn.className = "cu-toast-close";
-                closeBtn.setAttribute("data-cu-toast-close", "");
-                closeBtn.textContent = "\u00d7";
-                toast.appendChild(closeBtn);
-
-                c.appendChild(toast);
-                closeBtn.addEventListener("click", () => toast.remove());
-                setTimeout(() => toast.remove(), 5000);
-            });
-        });
-    }
-
-    setupToasts();
-    document.addEventListener("astro:page-load", setupToasts);
-</script>

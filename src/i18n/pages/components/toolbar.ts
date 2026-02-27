@@ -9,6 +9,7 @@ export const toolbarPage: Record<Locale, {
     classes: { title: string; classLabel: string; descriptionLabel: string };
     textFormatting: { title: string; description: string };
     withSeparator: { title: string; description: string };
+    withDropdown: { title: string; description: string };
   };
   classDescriptions: Record<string, string>;
 }> = {
@@ -33,6 +34,10 @@ export const toolbarPage: Record<Locale, {
       withSeparator: {
         title: 'With Separator',
         description: 'Use <code class="cu-code">cu-toolbar-separator</code> to visually separate button groups for different action categories.',
+      },
+      withDropdown: {
+        title: 'With Dropdown',
+        description: 'Combine toolbar buttons with a dropdown menu for additional actions.',
       },
     },
     classDescriptions: {
@@ -64,6 +69,10 @@ export const toolbarPage: Record<Locale, {
       withSeparator: {
         title: '帶分隔線',
         description: '使用 <code class="cu-code">cu-toolbar-separator</code> 在不同操作類別的按鈕群組之間加入視覺分隔。',
+      },
+      withDropdown: {
+        title: '搭配下拉選單',
+        description: '將工具列按鈕與下拉選單結合，提供更多操作選項。',
       },
     },
     classDescriptions: {

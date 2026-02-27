@@ -9,6 +9,7 @@ export const paginationPage: Record<Locale, {
     classes: { title: string; classLabel: string; descriptionLabel: string };
     withEllipsis: { title: string; description: string };
     withPrevNext: { title: string; description: string };
+    withInfoText: { title: string; description: string };
   };
   classDescriptions: Record<string, string>;
 }> = {
@@ -33,6 +34,10 @@ export const paginationPage: Record<Locale, {
       withPrevNext: {
         title: 'With Prev/Next',
         description: 'Add <code class="cu-code">cu-pagination-prev</code> and <code class="cu-code">cu-pagination-next</code> for navigation arrows.',
+      },
+      withInfoText: {
+        title: 'With Info Text',
+        description: 'Combine a result summary with pagination controls to provide context about the displayed data.',
       },
     },
     classDescriptions: {
@@ -65,6 +70,10 @@ export const paginationPage: Record<Locale, {
       withPrevNext: {
         title: '帶上 / 下一頁',
         description: '加入 <code class="cu-code">cu-pagination-prev</code> 和 <code class="cu-code">cu-pagination-next</code> 以顯示導航箭頭。',
+      },
+      withInfoText: {
+        title: '帶資訊文字',
+        description: '結合結果摘要與分頁控制項，提供所顯示資料的上下文。',
       },
     },
     classDescriptions: {

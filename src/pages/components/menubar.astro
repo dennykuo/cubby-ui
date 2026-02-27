@@ -106,6 +106,27 @@ ${SO}
   });
 ${SC}`.trim();
 
+const withIconsCode = `<div class="cu-menubar" data-cu-menubar>
+  <div class="cu-menubar-menu" data-cu-menubar-menu>
+    <button class="cu-menubar-trigger" data-cu-menubar-trigger aria-expanded="false">File</button>
+    <div class="cu-menubar-content" data-cu-menubar-content hidden>
+      <div class="cu-menubar-item">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/></svg>
+        New File <span class="cu-menubar-shortcut">⌘N</span>
+      </div>
+      <div class="cu-menubar-item">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2"><path d="M4 22h14a2 2 0 0 0 2-2V7l-5-5H6a2 2 0 0 0-2 2v4"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="m3 15 2 2 4-4"/></svg>
+        Save <span class="cu-menubar-shortcut">⌘S</span>
+      </div>
+      <div class="cu-menubar-separator"></div>
+      <div class="cu-menubar-item">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" x2="12" y1="3" y2="15"/></svg>
+        Export
+      </div>
+    </div>
+  </div>
+</div>`.trim();
+
 const withLabelsCode = `<div class="cu-menubar" data-cu-menubar>
   <div class="cu-menubar-menu" data-cu-menubar-menu>
     <button class="cu-menubar-trigger" data-cu-menubar-trigger aria-expanded="false">Account</button>
@@ -256,6 +277,39 @@ const withLabelsCode = `<div class="cu-menubar" data-cu-menubar>
                             <MenubarItem inset>Settings</MenubarItem>
                             <MenubarSeparator />
                             <MenubarItem inset disabled>API (coming soon)</MenubarItem>
+                        </MenubarContent>
+                    </MenubarMenu>
+                </Menubar>
+            </ComponentPreview>
+        </section>
+
+        <!-- With Icons -->
+        <section class="space-y-3">
+            <h2 id="with-icons" class="text-lg font-semibold tracking-tight relative group">
+              <a href="#with-icons" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+              {t.sections.withIcons.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
+                {t.sections.withIcons.description}
+            </p>
+            <ComponentPreview code={withIconsCode}>
+                <Menubar>
+                    <MenubarMenu>
+                        <MenubarTrigger>File</MenubarTrigger>
+                        <MenubarContent>
+                            <MenubarItem>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/></svg>
+                                New File <MenubarShortcut>⌘N</MenubarShortcut>
+                            </MenubarItem>
+                            <MenubarItem>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2"><path d="M4 22h14a2 2 0 0 0 2-2V7l-5-5H6a2 2 0 0 0-2 2v4"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="m3 15 2 2 4-4"/></svg>
+                                Save <MenubarShortcut>⌘S</MenubarShortcut>
+                            </MenubarItem>
+                            <MenubarSeparator />
+                            <MenubarItem>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" x2="12" y1="3" y2="15"/></svg>
+                                Export
+                            </MenubarItem>
                         </MenubarContent>
                     </MenubarMenu>
                 </Menubar>

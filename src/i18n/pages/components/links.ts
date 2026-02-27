@@ -8,9 +8,6 @@ export const linksPage: Record<Locale, {
     usage: { title: string; description: string };
     classes: { title: string; classLabel: string; descriptionLabel: string };
     variants: { title: string; description: string };
-    plain: { title: string; description: string };
-    muted: { title: string; description: string };
-    subtle: { title: string; description: string };
     inline: { title: string; description: string };
     externalLink: { title: string; description: string };
     navigationList: { title: string; description: string };
@@ -35,18 +32,6 @@ export const linksPage: Record<Locale, {
       variants: {
         title: 'Variants',
         description: 'Four link styles for different use cases. <code class="cu-code">cu-link</code> (default with underline), <code class="cu-code">cu-link-plain</code> (underline on hover only), <code class="cu-code">cu-link-muted</code> (muted color, no underline), <code class="cu-code">cu-link-subtle</code> (foreground color, turns primary on hover).',
-      },
-      plain: {
-        title: 'Plain',
-        description: 'Use <code class="cu-code">cu-link cu-link-plain</code> for links that only show an underline on hover. Cleaner for navigation-heavy areas.',
-      },
-      muted: {
-        title: 'Muted',
-        description: 'Use <code class="cu-code">cu-link cu-link-muted</code> for de-emphasized links such as footer links or secondary navigation. Text brightens to foreground on hover.',
-      },
-      subtle: {
-        title: 'Subtle',
-        description: 'Use <code class="cu-code">cu-link cu-link-subtle</code> for links that blend with body text and reveal their primary color on hover.',
       },
       inline: {
         title: 'Inline',
@@ -90,18 +75,6 @@ export const linksPage: Record<Locale, {
       variants: {
         title: '變體',
         description: '四種連結樣式適用於不同場景。<code class="cu-code">cu-link</code>（預設帶底線）、<code class="cu-code">cu-link-plain</code>（hover 時才顯示底線）、<code class="cu-code">cu-link-muted</code>（柔和色彩、無底線）、<code class="cu-code">cu-link-subtle</code>（前景色，hover 時轉為主色）。',
-      },
-      plain: {
-        title: 'Plain',
-        description: '使用 <code class="cu-code">cu-link cu-link-plain</code> 設定僅在 hover 時顯示底線的連結。適合導航密集的區域。',
-      },
-      muted: {
-        title: 'Muted',
-        description: '使用 <code class="cu-code">cu-link cu-link-muted</code> 設定低調連結，如頁尾連結或次要導航。hover 時文字亮度提升至前景色。',
-      },
-      subtle: {
-        title: 'Subtle',
-        description: '使用 <code class="cu-code">cu-link cu-link-subtle</code> 設定與內文融合的連結，hover 時顯示主色。',
       },
       inline: {
         title: '行內',

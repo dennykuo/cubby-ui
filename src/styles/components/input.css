@@ -3,3 +3,73 @@
 .cu-input {
     @apply flex h-9 w-full rounded-lg border border-input bg-background px-3 py-1 text-sm transition-colors duration-150 placeholder:text-muted-foreground hover:border-muted-foreground/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/40 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 disabled:bg-muted disabled:text-muted-foreground disabled:hover:border-input;
 }
+
+/* -- size variants -- */
+.cu-input-sm {
+    @apply h-8 rounded-md px-2.5 text-xs;
+}
+
+.cu-input-lg {
+    @apply h-10 px-4;
+}
+
+/* -- validation variants -- */
+.cu-input-error {
+    @apply border-destructive hover:border-destructive/80 focus-visible:ring-destructive/40;
+}
+
+.cu-input-success {
+    @apply border-success hover:border-success/80 focus-visible:ring-success/40;
+}
+
+/* -- focus background tint (opt-in) -- */
+.cu-input-focus-tint:focus {
+    @apply bg-accent/30;
+}
+
+/* -- input group (addon system) -- */
+.cu-input-group {
+    @apply flex items-stretch;
+}
+
+.cu-input-group .cu-input {
+    @apply rounded-none focus-visible:z-10;
+}
+
+.cu-input-group .cu-input:first-child {
+    @apply rounded-l-lg;
+}
+
+.cu-input-group .cu-input:last-child {
+    @apply rounded-r-lg;
+}
+
+/* Remove double borders between adjacent elements */
+.cu-input-group > :not(:first-child) {
+    @apply -ml-px;
+}
+
+.cu-input-addon {
+    @apply flex items-center border border-input bg-muted px-3 text-sm text-muted-foreground;
+}
+
+.cu-input-addon:first-child {
+    @apply rounded-l-lg border-r-0;
+}
+
+.cu-input-addon:last-child {
+    @apply rounded-r-lg border-l-0;
+}
+
+/* -- input with icon -- */
+.cu-input-icon-wrapper {
+    @apply relative flex items-center;
+}
+
+.cu-input-icon {
+    @apply pointer-events-none absolute left-3 size-4 text-muted-foreground;
+}
+
+.cu-input-has-icon {
+    @apply pl-9;
+}

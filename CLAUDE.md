@@ -39,7 +39,7 @@ Cubby UI 是一個框架無關的 UI 元件庫，風格類似 shadcn/ui，使用
 - `index.ts` — `Locale` 型別、`getLocaleFromUrl()`、`localizePath()`、`getAlternatePath()`、`useTranslations()`
 - `ui.ts` — 共用 UI 翻譯（Header、Sidebar、ComponentPreview 的文字）
 - `pages/home.ts`、`usage.ts`、`theming.ts`、`dark-mode.ts`、`playground.ts` — 核心頁面翻譯
-- `pages/components/*.ts` — 62 個元件頁面翻譯（每頁一個檔案）
+- `pages/components/*.ts` — 65 個元件頁面翻譯（每頁一個檔案）
 
 **頁面 i18n 模式**：每個頁面透過 3 行程式碼取得翻譯：
 ```astro
@@ -61,7 +61,7 @@ const t = useTranslations(buttonPage, locale);
 
 元件有兩個層次：
 
-1. **CSS 類別層**（`src/styles/components.css` + `src/styles/components/*.css`）— 在 `@layer components` 中定義，使用 `cu-` 前綴（Cubby）。`components.css` 僅包含 `@layer components {}` 包裝和 `@import` 語句，各元件 CSS 規則拆分至 `components/` 資料夾的獨立檔案。CSS 按領域分八個區塊：`TYPOGRAPHY`（Headings, Paragraph, Blockquote, List, Link, Text, HR）→ `BASIC`（Button, Button Group, Card, Separator）→ `FORMS`（Checkbox, Listbox, Combobox ~ Transfer List）→ `DATA DISPLAY`（Accordion, Avatar, Badge, Collapsible, Data Table, Setting Item, Stat, Table, Tree View）→ `FEEDBACK`（Alert, Empty State, Progress, Skeleton, Toast）→ `OVERLAY`（Alert Dialog, Dialog, Drawer, Dropdown, Hover Card, Popover, Tooltip）→ `NAVIGATION`（Breadcrumb, Menubar, Pagination, Steps, Tabs）→ `LAYOUT`（Container, Filter Bar, Header, Nav, Page Header, Scroll Area, Sidebar, Toolbar）。這是元件的核心，純 HTML 專案可以只用這些 CSS 類別。共用結構透過 `listbox.css` 以逗號選擇器去重（Combobox / Multi Select 共用 7 組 class）。
+1. **CSS 類別層**（`src/styles/components.css` + `src/styles/components/*.css`）— 在 `@layer components` 中定義，使用 `cu-` 前綴（Cubby）。`components.css` 僅包含 `@layer components {}` 包裝和 `@import` 語句，各元件 CSS 規則拆分至 `components/` 資料夾的獨立檔案。CSS 按領域分八個區塊：`TYPOGRAPHY`（Headings, Kbd, Paragraph, Blockquote, List, Link, Text, HR）→ `BASIC`（Button, Button Group, Card, Separator）→ `FORMS`（Checkbox, Listbox, Combobox ~ Transfer List）→ `DATA DISPLAY`（Accordion, Avatar, Badge, Collapsible, Data Table, Setting Item, Stat, Table, Timeline, Tree View）→ `FEEDBACK`（Alert, Empty State, Progress, Skeleton, Toast）→ `OVERLAY`（Alert Dialog, Dialog, Drawer, Dropdown, Hover Card, Popover, Tooltip）→ `NAVIGATION`（Breadcrumb, Menubar, Pagination, Segmented Control, Steps, Tabs）→ `LAYOUT`（Container, Filter Bar, Header, Nav, Page Header, Scroll Area, Sidebar, Toolbar）。這是元件的核心，純 HTML 專案可以只用這些 CSS 類別。共用結構透過 `listbox.css` 以逗號選擇器去重（Combobox / Multi Select 共用 7 組 class）。
 2. **Astro 元件層**（`src/components/ui/`）— 包裝 CSS 類別的 `.astro` 檔案，提供 TypeScript Props 型別安全和屬性透傳。
 
 ### CSS 類別命名規則
@@ -91,14 +91,26 @@ const t = useTranslations(buttonPage, locale);
 - 浮層圓角統一為 `rounded-xl`（Dialog, Dropdown, Combobox, Multi Select, Popover, Hover Card）
 - Alert / Toast 變體帶有 `bg-{color}/5` 極淡背景色調，增強視覺辨識度
 - Card 的 hover shadow 為 opt-in（`cu-card-hover`），非預設行為
-- Skeleton 提供兩種動畫：`cu-skeleton`（pulse）和 `cu-skeleton-shimmer`（掃光）
+- Skeleton 提供兩種動畫：`cu-skeleton`（pulse）和 `cu-skeleton-shimmer`（掃光）；`cu-skeleton-circle` 和 `cu-skeleton-text` 提供常見形狀
 - 表單 disabled 統一為 `disabled:pointer-events-none disabled:opacity-50 disabled:bg-muted disabled:text-muted-foreground`；帶有 hover border 的輸入元素（Input、Textarea、Select、Search Input、File Input、Combobox、Multi Select）額外加 `disabled:hover:border-input` 以中和 hover 效果
 - Button ghost 變體帶有 `text-muted-foreground`，搭配 icon button 時預設淡色、hover 變深
 - Button icon 尺寸：`cu-button-icon`（h-9 w-9）、`cu-button-icon-sm`（h-8 w-8）、`cu-button-icon-xs`（h-7 w-7）
-- Card flush content：`cu-card-content-flush`（`p-0`），用於 table-in-card 等需要移除 padding 的場景
+- Card flush content：`cu-card-content-flush`（`p-0`），用於 table-in-card 等需要移除 padding 的場景；`cu-card-elevated` 提供較深陰影（`shadow-md`）
+- Button solid 變體帶有 `hover:shadow-sm` 微互動，transition 包含 box-shadow
+- 浮層暗色模式加強：Dropdown、Popover、Hover Card、Menubar 帶有 `dark:shadow-lg dark:shadow-black/20`
+- 表單驗證變體：Input 和 Textarea 提供 `cu-input-error` / `cu-input-success` / `cu-textarea-error` / `cu-textarea-success`
+- Label 必填標記：`cu-label-required` 在後方自動加上紅色星號
+- Textarea 自動高度：`cu-textarea-auto` 使用 `field-sizing: content`（漸進增強）
+- Progress 支援條紋動畫：`cu-progress-bar-striped` + `cu-progress-bar-striped-animated`；漸層色彩 `cu-progress-bar-gradient`
+- Badge 支援尺寸：`cu-badge-sm` / `cu-badge-lg`
+- Avatar 支援狀態指示器：`cu-avatar-status` + `cu-avatar-status-online/offline/busy/away`；外環 `cu-avatar-ring`
+- Alert accent 變體：`cu-alert-accent`（左側色條 `border-l-4`）
+- Tabs pills 變體：`cu-tabs-list-pills`（圓角藥丸形標籤）
+- Popover 尺寸：`cu-popover-content-sm`（`w-56`）/ `cu-popover-content-lg`（`w-96`）
 - Separator base class（`cu-separator`）僅含 `shrink-0 bg-border`，需明確搭配 `cu-separator-horizontal`（`h-px w-full`）或 `cu-separator-vertical`（`h-full w-px`）指定方向
-- 展開收合觸發器（Accordion、Collapsible、Tree View）使用 `outline-none` 移除瀏覽器預設 outline，不加 focus ring（因負邊距或密集排列場景）
-- 導航互動元素（Tabs、Pagination、Nav、Breadcrumb）同樣使用 `outline-none`
+- 展開收合觸發器（Accordion、Collapsible、Tree View）使用 `outline-none` 搭配輕量 `focus-visible:ring-1 focus-visible:ring-ring/30` 焦點環
+- 導航互動元素（Tabs、Pagination、Nav、Breadcrumb、Menubar）使用 `outline-none` 搭配 `focus-visible:ring-1 focus-visible:ring-ring/30`
+- Dialog / Drawer 的 close 按鈕使用 `focus-visible:ring-1 focus-visible:ring-ring/40`
 
 ### NPM 套件打包
 
@@ -120,15 +132,16 @@ dist/
     └── components/
 ```
 
-互動元件 JS 原始檔位於 `src/scripts/cubby-ui.js`，使用 UMD 格式（支援 `require()`、AMD `define()`、`window.CubbyUI`），包含 13 個元件：Tabs、Dropdown、Dialog、Drawer、Alert Dialog、Toast、Popover、Menubar、Combobox、Multi Select、Number Input、Dropzone、Transfer List。Document 級事件監聯器使用 delegated pattern（click + keydown 各一個），避免每個元件實例各自註冊。Toast 內容使用 DOM API（`textContent` / `createElement`）建立，避免 innerHTML XSS 風險。Toast 自動消失時間預設 5000ms，可透過 `data-cu-toast-duration` 自訂。
+互動元件 JS 原始檔位於 `src/scripts/cubby-ui.js`，使用 UMD 格式（支援 `require()`、AMD `define()`、`window.CubbyUI`），包含 13 個元件：Tabs、Dropdown、Dialog、Drawer、Alert Dialog、Toast、Popover、Menubar、Combobox、Multi Select、Number Input、Dropzone、Transfer List。Document 級事件監聯器使用 delegated pattern（click + keydown 各一個），避免每個元件實例各自註冊。Toast 內容使用 DOM API（`textContent` / `createElement`）建立，避免 innerHTML XSS 風險。Toast 自動消失時間預設 5000ms，可透過 `data-cu-toast-duration` 自訂。Toast 堆疊上限預設 5 則，可透過 `data-cu-toast-max` 自訂，超出時自動移除最舊通知。
 
 ARIA 無障礙支援：
 - **Tabs** — `role="tablist/tab/tabpanel"`、`aria-selected`、`aria-controls` / `aria-labelledby` 雙向連結
 - **Dropdown** — `aria-haspopup="menu"`、`aria-expanded`、`role="menu"` / `role="menuitem"`
 - **Combobox / Multi Select** — `aria-haspopup="listbox"`、`aria-expanded`、`role="listbox"` / `role="option"`、`aria-selected`
 - **Popover** — `aria-haspopup="dialog"`、`aria-expanded`、`aria-controls`
-- **Dialog / Drawer** — `aria-labelledby` 自動連結標題元素
-- **Alert Dialog** — `role="alertdialog"` + `aria-labelledby`
+- **Dialog / Drawer** — `aria-labelledby` + `aria-describedby` 自動連結標題與描述元素
+- **Alert Dialog** — `role="alertdialog"` + `aria-labelledby` + `aria-describedby`
+- **Number Input** — `role="spinbutton"` + `aria-valuemin` / `aria-valuemax` / `aria-valuenow`
 
 公開 API：
 - `CubbyUI.init()` — 初始化所有互動元件（自動在 DOMContentLoaded 執行，可重複呼叫以初始化動態新增的元素）
@@ -156,7 +169,7 @@ src/
 │       ├── theming.ts
 │       ├── dark-mode.ts
 │       ├── playground.ts
-│       └── components/           — 62 個元件頁面翻譯（每元件一個檔案）
+│       └── components/           — 65 個元件頁面翻譯（每元件一個檔案）
 │           ├── button.ts
 │           ├── card.ts
 │           └── ...
@@ -189,7 +202,7 @@ src/
 │       ├── EmptyState*.astro      — 空狀態（EmptyState, EmptyStateIcon, EmptyStateTitle, EmptyStateDescription, EmptyStateAction）
 │       ├── Collapsible*.astro     — 可折疊區塊（Collapsible, CollapsibleTrigger, CollapsibleContent）
 │       ├── Container.astro        — 容器（size prop）
-│       ├── Dialog*.astro          — 對話框（Dialog, DialogHeader, DialogTitle, DialogDescription, DialogFooter, DialogClose）
+│       ├── Dialog*.astro          — 對話框（Dialog, DialogHeader, DialogTitle, DialogDescription, DialogFooter, DialogClose）（Dialog 支援 size prop: sm / md / default / xl / full）
 │       ├── Dropdown*.astro        — 下拉選單（Dropdown, DropdownContent, DropdownItem, DropdownLabel, DropdownSeparator）
 │       ├── FileInput.astro        — 檔案上傳
 │       ├── FilterBar*.astro       — 篩選列（FilterBar, FilterBarInner, FilterBarSearch, FilterBarFilters）
@@ -198,7 +211,8 @@ src/
 │       ├── FormError.astro        — 表單錯誤訊息
 │       ├── Header*.astro          — 頂部列（Header, HeaderInner, HeaderBrand, HeaderNav, HeaderActions）
 │       ├── HoverCard*.astro       — 懸停卡片（HoverCard, HoverCardContent）
-│       ├── Input.astro            — 文字輸入框
+│       ├── Input.astro            — 文字輸入框（size prop: sm / default / lg）
+│       ├── Kbd.astro              — 鍵盤快捷鍵（size prop: sm / default / lg）
 │       ├── Label.astro            — 表單標籤
 │       ├── Menubar*.astro         — 選單列（Menubar, MenubarMenu, MenubarTrigger, MenubarContent, MenubarItem, MenubarSeparator, MenubarLabel, MenubarShortcut）
 │       ├── Nav.astro              — 導航選單（vertical prop）
@@ -212,6 +226,7 @@ src/
 │       ├── ScrollArea.astro       — 自訂捲軸容器（horizontal prop）
 │       ├── SearchInput.astro      — 搜尋欄（含搜尋圖示）
 │       ├── Select.astro           — 下拉選擇（含裝飾箭頭）
+│       ├── SegmentedControl.astro  — 分段控制（size + block props）
 │       ├── Separator.astro        — 分隔線（orientation prop）
 │       ├── SettingItem*.astro     — 設定項（SettingItem, SettingItemContent, SettingItemLabel, SettingItemDescription, SettingItemAction）
 │       ├── Drawer*.astro          — 側邊面板（Drawer, DrawerHeader, DrawerTitle, DrawerDescription, DrawerContent, DrawerFooter, DrawerClose）
@@ -260,6 +275,7 @@ src/
 │       ├── hover-card.astro
 │       ├── hr.astro
 │       ├── input.astro
+│       ├── kbd.astro
 │       ├── label.astro
 │       ├── links.astro
 │       ├── lists.astro
@@ -277,6 +293,7 @@ src/
 │       ├── range.astro
 │       ├── scroll-area.astro
 │       ├── search-input.astro
+│       ├── segmented-control.astro
 │       ├── select.astro
 │       ├── separator.astro
 │       ├── drawer.astro
@@ -287,6 +304,7 @@ src/
 │       ├── tabs.astro
 │       ├── text.astro
 │       ├── textarea.astro
+│       ├── timeline.astro
 │       ├── toast.astro
 │       ├── toggle.astro
 │       ├── toolbar.astro
@@ -324,6 +342,7 @@ src/
         ├── hover-card.css
         ├── hr.css
         ├── input.css
+        ├── kbd.css
         ├── label.css
         ├── link.css
         ├── list.css
@@ -343,6 +362,7 @@ src/
         ├── range.css
         ├── scroll-area.css
         ├── search-input.css
+        ├── segmented.css
         ├── select.css
         ├── separator.css
         ├── setting-item.css
@@ -355,6 +375,7 @@ src/
         ├── tabs.css
         ├── text.css
         ├── textarea.css
+        ├── timeline.css
         ├── toast.css
         ├── toggle.css
         ├── toolbar.css
@@ -379,13 +400,13 @@ src/
 新增元件時需在 `component-nav.ts` 的對應陣列加一筆資料。
 
 元件分類：
-- **Components > Typography** — Headings, Paragraphs, Blockquote, Lists, Links, Text, HR
+- **Components > Typography** — Headings, Kbd, Paragraphs, Blockquote, Lists, Links, Text, HR
 - **Components > Basic** — Button, Button Group, Card, Color, Separator
 - **Components > Forms** — Checkbox, Combobox, Dropzone, File Input, Form Group, Input, Label, Multi Select, Number Input, Radio, Range, Search Input, Select, Textarea, Toggle, Transfer List
-- **Components > Data Display** — Accordion, Avatar, Badge, Collapsible, Data Table, Setting Item, Stat Card, Table, Tree View
-- **Components > Feedback** — Alert, Empty State, Progress, Skeleton, Toast
+- **Components > Data Display** — Accordion, Avatar, Badge, Collapsible, Data Table, Setting Item, Stat Card, Table, Timeline, Tree View
+- **Components > Feedback** — Alert, Empty State, Progress, Skeleton, Spinner, Toast
 - **Components > Overlay** — Alert Dialog, Dialog, Drawer, Dropdown Menu, Hover Card, Popover, Tooltip
-- **Components > Navigation** — Breadcrumb, Menubar, Pagination, Steps, Tabs
+- **Components > Navigation** — Breadcrumb, Menubar, Pagination, Segmented Control, Steps, Tabs
 - **Components > Layouts** — Container, Filter Bar, Header, Nav, Page Header, Scroll Area, Sidebar, Toolbar
 
 #### UI Sidebar 元件（`src/components/ui/Sidebar*.astro`）
@@ -416,7 +437,9 @@ src/
 - `cu-header` — 容器（`sticky top-0 z-50`、`backdrop-blur-xl`、`bg-background/80` 半透明模糊）
 - `cu-header-inner` — 內部 flex 容器（`h-14`、`justify-between`）
 - `cu-header-brand` — 左側品牌區（`gap-2.5`）
-- `cu-header-nav` — 中間導航區（`hidden md:flex`，行動端隱藏）
+- `cu-header-nav` — 中間導航區（`hidden md:flex`、`px-5`，行動端隱藏）
+- `cu-header-nav-start` — 導航靠左（`mr-auto`，緊鄰品牌）
+- `cu-header-nav-end` — 導航靠右（`ml-auto`，緊鄰操作區）
 - `cu-header-actions` — 右側操作區（`gap-2`）
 
 #### UI Nav 元件（`src/components/ui/Nav*.astro`）

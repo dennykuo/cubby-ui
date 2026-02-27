@@ -1,0 +1,44 @@
+/* Segmented Control
+   ------------------------------------------------------------------ */
+.cu-segmented {
+    @apply inline-flex h-10 items-center gap-1 rounded-lg bg-muted p-1;
+}
+
+.cu-segmented-item {
+    @apply inline-flex items-center justify-center whitespace-nowrap rounded-md px-3 py-1.5 text-sm font-medium text-muted-foreground outline-none focus-visible:ring-1 focus-visible:ring-ring/30 transition-all duration-150 cursor-pointer hover:text-foreground;
+}
+
+.cu-segmented-item-active {
+    @apply bg-background text-foreground shadow-sm;
+}
+
+.cu-segmented-item:disabled,
+.cu-segmented-item[aria-disabled="true"] {
+    @apply pointer-events-none opacity-50;
+}
+
+/* -- sizes -- */
+.cu-segmented-sm {
+    @apply h-8 p-0.5;
+}
+
+.cu-segmented-sm .cu-segmented-item {
+    @apply px-2 py-1 text-xs;
+}
+
+.cu-segmented-lg {
+    @apply h-12 p-1.5;
+}
+
+.cu-segmented-lg .cu-segmented-item {
+    @apply px-4 py-2;
+}
+
+/* -- block (full width) -- */
+.cu-segmented-block {
+    @apply flex w-full;
+}
+
+.cu-segmented-block .cu-segmented-item {
+    @apply flex-1;
+}
