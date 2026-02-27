@@ -103,6 +103,24 @@ npm run preview   # 預覽建置結果
 - 所有文字輸入框（Input、Textarea、Select、Search Input）帶有 `hover:border` 微互動
 - Range slider 的 thumb 帶有 hover 光暈效果
 
+## For AI Coding Assistants
+
+Cubby UI 提供以下機器可讀資源，讓 AI coding tools 能精確產出正確的 HTML 結構與 class 組合：
+
+| 檔案 | 格式 | 內容 |
+|------|------|------|
+| [`llms.txt`](./llms.txt) | 純文字 | 完整元件清單、CSS class 說明、`data-*` attribute 對照表、HTML 範例 |
+| [`components.json`](./components.json) | JSON | 機器可讀元件 manifest（cssClasses、dataAttributes、ARIA roles、notes） |
+
+```js
+// 程式化讀取元件規格
+import manifest from 'cubby-ui/components.json';
+const button = manifest.components.find(c => c.name === 'Button');
+// → { cssClasses: { base: 'cu-button', variants: [...] }, interactive: false, ... }
+```
+
+大多數 AI coding tools（Cursor、Claude Code、GitHub Copilot）會自動讀取專案根目錄的 `llms.txt`。
+
 ## 參考套件
 
 - [shadcn ui](https://shadcn.github.io/shadcn-ui)

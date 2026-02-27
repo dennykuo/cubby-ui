@@ -1,0 +1,808 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "name": "cubby-ui",
+  "version": "0.1.0",
+  "prefix": "cu",
+  "description": "Framework-agnostic UI component library. Pure HTML + Tailwind CSS.",
+  "components": [
+    {
+      "name": "Button",
+      "category": "basic",
+      "interactive": false,
+      "cssClasses": {
+        "base": "cu-button",
+        "variants": ["cu-button-default", "cu-button-destructive", "cu-button-outline", "cu-button-ghost", "cu-button-link"],
+        "sizes": ["cu-button-sm", "cu-button-lg"],
+        "modifiers": ["cu-button-icon", "cu-button-icon-sm", "cu-button-icon-xs"]
+      },
+      "notes": "Always combine base + one variant class. Icon buttons: combine cu-button + cu-button-ghost + cu-button-icon. Add hover shadow for solid variants.",
+      "example": "<button class=\"cu-button cu-button-default\">Button</button>"
+    },
+    {
+      "name": "Button Group",
+      "category": "basic",
+      "interactive": false,
+      "cssClasses": {
+        "base": "cu-button-group",
+        "modifiers": ["cu-button-group-vertical"]
+      },
+      "example": "<div class=\"cu-button-group\"><button class=\"cu-button cu-button-outline\">A</button><button class=\"cu-button cu-button-outline\">B</button></div>"
+    },
+    {
+      "name": "Card",
+      "category": "basic",
+      "interactive": false,
+      "cssClasses": {
+        "base": "cu-card",
+        "parts": ["cu-card-header", "cu-card-title", "cu-card-description", "cu-card-content", "cu-card-footer"],
+        "modifiers": ["cu-card-hover", "cu-card-elevated", "cu-card-content-flush"]
+      },
+      "notes": "cu-card-hover: opt-in hover shadow (not default). cu-card-elevated: shadow-md. cu-card-content-flush: p-0 for table-in-card.",
+      "example": "<div class=\"cu-card\"><div class=\"cu-card-header\"><h3 class=\"cu-card-title\">Title</h3></div><div class=\"cu-card-content\">Content</div></div>"
+    },
+    {
+      "name": "Separator",
+      "category": "basic",
+      "interactive": false,
+      "cssClasses": {
+        "base": "cu-separator",
+        "variants": ["cu-separator-horizontal", "cu-separator-vertical"]
+      },
+      "notes": "REQUIRED: always add cu-separator-horizontal or cu-separator-vertical. Base class alone has no dimensions.",
+      "example": "<hr class=\"cu-separator cu-separator-horizontal\">"
+    },
+    {
+      "name": "Headings",
+      "category": "typography",
+      "interactive": false,
+      "cssClasses": {
+        "variants": ["cu-h1", "cu-h2", "cu-h3", "cu-h4"]
+      },
+      "example": "<h1 class=\"cu-h1\">Heading</h1>"
+    },
+    {
+      "name": "Paragraph",
+      "category": "typography",
+      "interactive": false,
+      "cssClasses": {
+        "base": "cu-paragraph",
+        "modifiers": ["cu-paragraph-lead"]
+      },
+      "example": "<p class=\"cu-paragraph\">Text</p>"
+    },
+    {
+      "name": "Kbd",
+      "category": "typography",
+      "interactive": false,
+      "cssClasses": {
+        "base": "cu-kbd",
+        "sizes": ["cu-kbd-sm", "cu-kbd-lg"]
+      },
+      "example": "<kbd class=\"cu-kbd\">Ctrl+K</kbd>"
+    },
+    {
+      "name": "Blockquote",
+      "category": "typography",
+      "interactive": false,
+      "cssClasses": {
+        "base": "cu-blockquote"
+      },
+      "example": "<blockquote class=\"cu-blockquote\">Quote text</blockquote>"
+    },
+    {
+      "name": "List",
+      "category": "typography",
+      "interactive": false,
+      "cssClasses": {
+        "base": "cu-list",
+        "variants": ["cu-list-disc", "cu-list-decimal"]
+      },
+      "example": "<ul class=\"cu-list cu-list-disc\"><li>Item</li></ul>"
+    },
+    {
+      "name": "Link",
+      "category": "typography",
+      "interactive": false,
+      "cssClasses": {
+        "base": "cu-link"
+      },
+      "example": "<a href=\"#\" class=\"cu-link\">Link</a>"
+    },
+    {
+      "name": "HR",
+      "category": "typography",
+      "interactive": false,
+      "cssClasses": {
+        "base": "cu-hr"
+      },
+      "example": "<hr class=\"cu-hr\">"
+    },
+    {
+      "name": "Input",
+      "category": "forms",
+      "interactive": false,
+      "cssClasses": {
+        "base": "cu-input",
+        "sizes": ["cu-input-sm", "cu-input-lg"],
+        "validation": ["cu-input-error", "cu-input-success"]
+      },
+      "example": "<input type=\"text\" class=\"cu-input\" placeholder=\"Enter text\">"
+    },
+    {
+      "name": "Textarea",
+      "category": "forms",
+      "interactive": false,
+      "cssClasses": {
+        "base": "cu-textarea",
+        "modifiers": ["cu-textarea-auto"],
+        "validation": ["cu-textarea-error", "cu-textarea-success"]
+      },
+      "notes": "cu-textarea-auto uses field-sizing: content for auto-height (progressive enhancement).",
+      "example": "<textarea class=\"cu-textarea\"></textarea>"
+    },
+    {
+      "name": "Label",
+      "category": "forms",
+      "interactive": false,
+      "cssClasses": {
+        "base": "cu-label",
+        "modifiers": ["cu-label-required"]
+      },
+      "notes": "cu-label-required adds a red asterisk via CSS ::after.",
+      "example": "<label class=\"cu-label cu-label-required\">Name</label>"
+    },
+    {
+      "name": "Select",
+      "category": "forms",
+      "interactive": false,
+      "cssClasses": {
+        "base": "cu-select",
+        "wrapper": "cu-select-wrapper"
+      },
+      "notes": "REQUIRED: wrap <select class=\"cu-select\"> inside <div class=\"cu-select-wrapper\"> for custom arrow decoration.",
+      "example": "<div class=\"cu-select-wrapper\"><select class=\"cu-select\"><option>Option</option></select></div>"
+    },
+    {
+      "name": "Checkbox",
+      "category": "forms",
+      "interactive": false,
+      "cssClasses": {
+        "base": "cu-checkbox",
+        "wrapper": "cu-checkbox-wrapper"
+      },
+      "notes": "REQUIRED: wrap input + label inside <div class=\"cu-checkbox-wrapper\">. Uses custom SVG checkmark.",
+      "example": "<div class=\"cu-checkbox-wrapper\"><input type=\"checkbox\" id=\"cb\" class=\"cu-checkbox\"><label for=\"cb\">Check</label></div>"
+    },
+    {
+      "name": "Radio",
+      "category": "forms",
+      "interactive": false,
+      "cssClasses": {
+        "base": "cu-radio",
+        "wrapper": "cu-radio-wrapper"
+      },
+      "notes": "REQUIRED: wrap input + label inside <div class=\"cu-radio-wrapper\">. Custom dot style.",
+      "example": "<div class=\"cu-radio-wrapper\"><input type=\"radio\" id=\"r1\" name=\"g\" class=\"cu-radio\"><label for=\"r1\">Option</label></div>"
+    },
+    {
+      "name": "Toggle",
+      "category": "forms",
+      "interactive": false,
+      "cssClasses": {
+        "base": "cu-toggle",
+        "wrapper": "cu-toggle-wrapper",
+        "sizes": ["cu-toggle-sm", "cu-toggle-lg"]
+      },
+      "notes": "CSS-only. Uses hidden checkbox + sibling label selector. REQUIRED: wrap inside cu-toggle-wrapper.",
+      "example": "<div class=\"cu-toggle-wrapper\"><input type=\"checkbox\" id=\"t1\" class=\"cu-toggle\"><label for=\"t1\">Toggle</label></div>"
+    },
+    {
+      "name": "Range",
+      "category": "forms",
+      "interactive": false,
+      "cssClasses": {
+        "base": "cu-range"
+      },
+      "example": "<input type=\"range\" class=\"cu-range\" min=\"0\" max=\"100\">"
+    },
+    {
+      "name": "Search Input",
+      "category": "forms",
+      "interactive": false,
+      "cssClasses": {
+        "base": "cu-search-input",
+        "wrapper": "cu-search-input-wrapper"
+      },
+      "notes": "REQUIRED: wrap inside cu-search-input-wrapper for search icon.",
+      "example": "<div class=\"cu-search-input-wrapper\"><input type=\"search\" class=\"cu-search-input\" placeholder=\"Search...\"></div>"
+    },
+    {
+      "name": "File Input",
+      "category": "forms",
+      "interactive": false,
+      "cssClasses": {
+        "base": "cu-file-input",
+        "wrapper": "cu-file-input-wrapper"
+      },
+      "example": "<div class=\"cu-file-input-wrapper\"><input type=\"file\" class=\"cu-file-input\"></div>"
+    },
+    {
+      "name": "Form Group",
+      "category": "forms",
+      "interactive": false,
+      "cssClasses": {
+        "base": "cu-form-group",
+        "parts": ["cu-form-description", "cu-form-error"]
+      },
+      "example": "<div class=\"cu-form-group\"><label class=\"cu-label\">Name</label><input class=\"cu-input\"><p class=\"cu-form-description\">Helper</p></div>"
+    },
+    {
+      "name": "Number Input",
+      "category": "forms",
+      "interactive": true,
+      "cssClasses": {
+        "base": "cu-number-input"
+      },
+      "dataAttributes": {
+        "container": "data-cu-number-input",
+        "field": "data-cu-number-field",
+        "decrement": "data-cu-number-decrement",
+        "increment": "data-cu-number-increment"
+      },
+      "aria": ["spinbutton"],
+      "notes": "Use native <input type=\"number\"> with min/max/step. Buttons use data-cu-number-decrement / data-cu-number-increment.",
+      "example": "<div class=\"cu-number-input\" data-cu-number-input><button class=\"cu-button cu-button-outline cu-button-icon-sm\" data-cu-number-decrement>−</button><input type=\"number\" class=\"cu-input\" data-cu-number-field min=\"0\" max=\"100\" value=\"0\"><button class=\"cu-button cu-button-outline cu-button-icon-sm\" data-cu-number-increment>+</button></div>"
+    },
+    {
+      "name": "Combobox",
+      "category": "forms",
+      "interactive": true,
+      "cssClasses": {
+        "base": "cu-combobox",
+        "parts": ["cu-combobox-trigger", "cu-combobox-trigger-placeholder", "cu-combobox-content", "cu-combobox-input", "cu-combobox-item", "cu-combobox-item-active"]
+      },
+      "dataAttributes": {
+        "container": "data-cu-combobox",
+        "trigger": "data-cu-combobox-trigger",
+        "value": "data-cu-combobox-value",
+        "content": "data-cu-combobox-content",
+        "input": "data-cu-combobox-input",
+        "list": "data-cu-combobox-list",
+        "item": "data-cu-combobox-item",
+        "empty": "data-cu-combobox-empty"
+      },
+      "aria": ["listbox", "option"],
+      "notes": "Add hidden attribute to content initially. Active item gets cu-combobox-item-active class. Shares listbox CSS with Multi Select."
+    },
+    {
+      "name": "Multi Select",
+      "category": "forms",
+      "interactive": true,
+      "cssClasses": {
+        "base": "cu-multi-select",
+        "parts": ["cu-multi-select-trigger", "cu-multi-select-content", "cu-multi-select-input", "cu-multi-select-item", "cu-multi-select-item-active", "cu-multi-select-tag", "cu-multi-select-tag-remove"]
+      },
+      "dataAttributes": {
+        "container": "data-cu-multi-select",
+        "trigger": "data-cu-multi-select-trigger",
+        "content": "data-cu-multi-select-content",
+        "input": "data-cu-multi-select-input",
+        "list": "data-cu-multi-select-list",
+        "item": "data-cu-multi-select-item",
+        "tags": "data-cu-multi-select-tags",
+        "placeholder": "data-cu-multi-select-placeholder",
+        "empty": "data-cu-multi-select-empty",
+        "value": "data-cu-value"
+      },
+      "aria": ["listbox", "option"],
+      "notes": "Each item needs data-cu-value for tag rendering. Add hidden to content initially."
+    },
+    {
+      "name": "Dropzone",
+      "category": "forms",
+      "interactive": true,
+      "cssClasses": {
+        "base": "cu-dropzone",
+        "states": ["cu-dropzone-active"]
+      },
+      "dataAttributes": {
+        "container": "data-cu-dropzone",
+        "input": "data-cu-dropzone-input"
+      },
+      "notes": "cu-dropzone-active class auto-toggled on drag. Click on zone triggers file input.",
+      "example": "<div class=\"cu-dropzone\" data-cu-dropzone><input type=\"file\" data-cu-dropzone-input class=\"sr-only\"><p>Drop files here</p></div>"
+    },
+    {
+      "name": "Transfer List",
+      "category": "forms",
+      "interactive": true,
+      "cssClasses": {
+        "base": "cu-transfer-list",
+        "parts": ["cu-transfer-list-content", "cu-transfer-list-item", "cu-transfer-list-item-checked"]
+      },
+      "dataAttributes": {
+        "container": "data-cu-transfer-list",
+        "panel": "data-cu-transfer-panel",
+        "toRight": "data-cu-transfer-to-right",
+        "toLeft": "data-cu-transfer-to-left",
+        "check": "data-cu-transfer-check",
+        "checkAll": "data-cu-transfer-check-all",
+        "count": "data-cu-transfer-count",
+        "search": "data-cu-transfer-search",
+        "value": "data-cu-value"
+      },
+      "notes": "data-cu-transfer-panel values: 'left' or 'right'. data-cu-transfer-check-all, count, search use 'left'/'right' values matching panel."
+    },
+    {
+      "name": "Accordion",
+      "category": "dataDisplay",
+      "interactive": false,
+      "cssClasses": {
+        "base": "cu-accordion",
+        "parts": ["cu-accordion-item", "cu-accordion-trigger", "cu-accordion-content"]
+      },
+      "notes": "CSS-driven via native <details> open attribute. No JS needed.",
+      "example": "<div class=\"cu-accordion\"><details class=\"cu-accordion-item\"><summary class=\"cu-accordion-trigger\">Title</summary><div class=\"cu-accordion-content\">Content</div></details></div>"
+    },
+    {
+      "name": "Avatar",
+      "category": "dataDisplay",
+      "interactive": false,
+      "cssClasses": {
+        "base": "cu-avatar",
+        "parts": ["cu-avatar-image", "cu-avatar-fallback"],
+        "sizes": ["cu-avatar-sm", "cu-avatar-lg", "cu-avatar-xl"],
+        "modifiers": ["cu-avatar-ring"],
+        "status": ["cu-avatar-status", "cu-avatar-status-online", "cu-avatar-status-offline", "cu-avatar-status-busy", "cu-avatar-status-away"]
+      },
+      "notes": "Fallback shows when image fails to load. Status indicator: add cu-avatar-status + one status variant.",
+      "example": "<div class=\"cu-avatar\"><img class=\"cu-avatar-image\" src=\"photo.jpg\" alt=\"User\"><span class=\"cu-avatar-fallback\">AB</span></div>"
+    },
+    {
+      "name": "Badge",
+      "category": "dataDisplay",
+      "interactive": false,
+      "cssClasses": {
+        "base": "cu-badge",
+        "variants": ["cu-badge-default", "cu-badge-secondary", "cu-badge-destructive", "cu-badge-outline", "cu-badge-success", "cu-badge-warning", "cu-badge-info"],
+        "sizes": ["cu-badge-sm", "cu-badge-lg"]
+      },
+      "example": "<span class=\"cu-badge cu-badge-success\">Active</span>"
+    },
+    {
+      "name": "Collapsible",
+      "category": "dataDisplay",
+      "interactive": false,
+      "cssClasses": {
+        "base": "cu-collapsible",
+        "parts": ["cu-collapsible-trigger", "cu-collapsible-content"]
+      },
+      "notes": "CSS-driven via native <details>.",
+      "example": "<details class=\"cu-collapsible\"><summary class=\"cu-collapsible-trigger\">Toggle</summary><div class=\"cu-collapsible-content\">Content</div></details>"
+    },
+    {
+      "name": "Data Table",
+      "category": "dataDisplay",
+      "interactive": false,
+      "cssClasses": {
+        "base": "cu-data-table"
+      },
+      "notes": "Enhanced table with sorting, filtering header row styling.",
+      "example": "<table class=\"cu-data-table\"><thead><tr><th>Name</th></tr></thead><tbody><tr><td>Row</td></tr></tbody></table>"
+    },
+    {
+      "name": "Setting Item",
+      "category": "dataDisplay",
+      "interactive": false,
+      "cssClasses": {
+        "base": "cu-setting-item",
+        "parts": ["cu-setting-item-content", "cu-setting-item-label", "cu-setting-item-description", "cu-setting-item-action"]
+      },
+      "example": "<div class=\"cu-setting-item\"><div class=\"cu-setting-item-content\"><div class=\"cu-setting-item-label\">Setting</div><div class=\"cu-setting-item-description\">Description</div></div><div class=\"cu-setting-item-action\"><!-- control --></div></div>"
+    },
+    {
+      "name": "Stat Card",
+      "category": "dataDisplay",
+      "interactive": false,
+      "cssClasses": {
+        "base": "cu-stat",
+        "parts": ["cu-stat-header", "cu-stat-label", "cu-stat-value", "cu-stat-description"],
+        "trend": ["cu-stat-trend", "cu-stat-trend-up", "cu-stat-trend-down"]
+      },
+      "example": "<div class=\"cu-stat\"><div class=\"cu-stat-header\"><span class=\"cu-stat-label\">Revenue</span></div><div class=\"cu-stat-value\">$12,345</div><span class=\"cu-stat-trend cu-stat-trend-up\">↑ 20%</span></div>"
+    },
+    {
+      "name": "Table",
+      "category": "dataDisplay",
+      "interactive": false,
+      "cssClasses": {
+        "base": "cu-table",
+        "wrapper": "cu-table-wrapper"
+      },
+      "notes": "Wrap table in cu-table-wrapper for overflow handling.",
+      "example": "<div class=\"cu-table-wrapper\"><table class=\"cu-table\"><thead><tr><th>Name</th></tr></thead><tbody><tr><td>Row</td></tr></tbody></table></div>"
+    },
+    {
+      "name": "Timeline",
+      "category": "dataDisplay",
+      "interactive": false,
+      "cssClasses": {
+        "base": "cu-timeline",
+        "parts": ["cu-timeline-item", "cu-timeline-dot", "cu-timeline-content", "cu-timeline-title", "cu-timeline-description", "cu-timeline-time"]
+      },
+      "example": "<div class=\"cu-timeline\"><div class=\"cu-timeline-item\"><div class=\"cu-timeline-dot\"></div><div class=\"cu-timeline-content\"><div class=\"cu-timeline-title\">Event</div><div class=\"cu-timeline-time\">2h ago</div></div></div></div>"
+    },
+    {
+      "name": "Tree View",
+      "category": "dataDisplay",
+      "interactive": false,
+      "cssClasses": {
+        "base": "cu-tree-view",
+        "parts": ["cu-tree-item", "cu-tree-leaf"]
+      },
+      "notes": "Nested <ul> structure. Items use <details> for expand/collapse.",
+      "example": "<ul class=\"cu-tree-view\"><li class=\"cu-tree-item\"><button>Folder</button><ul><li class=\"cu-tree-leaf\">file.txt</li></ul></li></ul>"
+    },
+    {
+      "name": "Alert",
+      "category": "feedback",
+      "interactive": false,
+      "cssClasses": {
+        "base": "cu-alert",
+        "variants": ["cu-alert-default", "cu-alert-destructive", "cu-alert-success", "cu-alert-warning", "cu-alert-info"],
+        "parts": ["cu-alert-title", "cu-alert-description"],
+        "modifiers": ["cu-alert-accent"]
+      },
+      "notes": "cu-alert-accent adds left border stripe (border-l-4) for stronger visual.",
+      "example": "<div class=\"cu-alert cu-alert-success\"><div class=\"cu-alert-title\">Success</div><div class=\"cu-alert-description\">Done!</div></div>"
+    },
+    {
+      "name": "Empty State",
+      "category": "feedback",
+      "interactive": false,
+      "cssClasses": {
+        "base": "cu-empty-state",
+        "parts": ["cu-empty-state-icon", "cu-empty-state-title", "cu-empty-state-description", "cu-empty-state-action"]
+      },
+      "example": "<div class=\"cu-empty-state\"><div class=\"cu-empty-state-title\">No items</div><div class=\"cu-empty-state-action\"><button class=\"cu-button cu-button-default\">Add</button></div></div>"
+    },
+    {
+      "name": "Progress",
+      "category": "feedback",
+      "interactive": false,
+      "cssClasses": {
+        "base": "cu-progress",
+        "bar": "cu-progress-bar",
+        "modifiers": ["cu-progress-bar-striped", "cu-progress-bar-striped-animated", "cu-progress-bar-gradient"]
+      },
+      "notes": "Set width via inline style or Tailwind on cu-progress-bar.",
+      "example": "<div class=\"cu-progress\"><div class=\"cu-progress-bar\" style=\"width: 60%\"></div></div>"
+    },
+    {
+      "name": "Skeleton",
+      "category": "feedback",
+      "interactive": false,
+      "cssClasses": {
+        "base": "cu-skeleton",
+        "variants": ["cu-skeleton-shimmer"],
+        "shapes": ["cu-skeleton-circle", "cu-skeleton-text"]
+      },
+      "notes": "cu-skeleton = pulse animation. cu-skeleton-shimmer = sweep animation. Set dimensions via inline style or Tailwind.",
+      "example": "<div class=\"cu-skeleton\" style=\"width: 200px; height: 16px\"></div>"
+    },
+    {
+      "name": "Spinner",
+      "category": "feedback",
+      "interactive": false,
+      "cssClasses": {
+        "base": "cu-spinner"
+      },
+      "example": "<div class=\"cu-spinner\"></div>"
+    },
+    {
+      "name": "Toast",
+      "category": "feedback",
+      "interactive": true,
+      "cssClasses": {
+        "base": "cu-toast",
+        "variants": ["cu-toast-default", "cu-toast-destructive", "cu-toast-success", "cu-toast-warning", "cu-toast-info"],
+        "parts": ["cu-toast-body", "cu-toast-title", "cu-toast-description", "cu-toast-close"],
+        "container": "cu-toast-container",
+        "containerPositions": ["cu-toast-container-bottom-right", "cu-toast-container-bottom-left", "cu-toast-container-top-right", "cu-toast-container-top-left", "cu-toast-container-top-center", "cu-toast-container-bottom-center"]
+      },
+      "dataAttributes": {
+        "trigger": "data-cu-toast-trigger",
+        "title": "data-cu-toast-title",
+        "description": "data-cu-toast-description",
+        "variant": "data-cu-toast-variant",
+        "duration": "data-cu-toast-duration",
+        "container": "data-cu-toast-container",
+        "max": "data-cu-toast-max",
+        "close": "data-cu-toast-close"
+      },
+      "notes": "Container auto-created at bottom-right if not in DOM. Default duration: 5000ms. Default max stack: 5. data-cu-toast-variant values: default | destructive | success | warning | info.",
+      "example": "<button class=\"cu-button cu-button-default\" data-cu-toast-trigger data-cu-toast-title=\"Saved\" data-cu-toast-variant=\"success\">Save</button>"
+    },
+    {
+      "name": "Alert Dialog",
+      "category": "overlay",
+      "interactive": true,
+      "cssClasses": {
+        "base": "cu-alert-dialog",
+        "parts": ["cu-alert-dialog-header", "cu-alert-dialog-title", "cu-alert-dialog-description", "cu-alert-dialog-footer"]
+      },
+      "dataAttributes": {
+        "trigger": "data-cu-alert-dialog-trigger",
+        "dialog": "data-cu-alert-dialog",
+        "cancel": "data-cu-alert-dialog-cancel",
+        "action": "data-cu-alert-dialog-action"
+      },
+      "aria": ["alertdialog"],
+      "notes": "Uses native <dialog>. Does NOT close on backdrop click (intentional for blocking confirmation). trigger value must match <dialog id>.",
+      "example": "<button data-cu-alert-dialog-trigger=\"confirm\">Delete</button><dialog id=\"confirm\" class=\"cu-alert-dialog\"><div class=\"cu-alert-dialog-header\"><h2 class=\"cu-alert-dialog-title\">Confirm</h2></div><div class=\"cu-alert-dialog-footer\"><button data-cu-alert-dialog-cancel>Cancel</button><button data-cu-alert-dialog-action>Confirm</button></div></dialog>"
+    },
+    {
+      "name": "Dialog",
+      "category": "overlay",
+      "interactive": true,
+      "cssClasses": {
+        "base": "cu-dialog",
+        "parts": ["cu-dialog-header", "cu-dialog-title", "cu-dialog-description", "cu-dialog-footer", "cu-dialog-close"],
+        "sizes": ["cu-dialog-sm", "cu-dialog-md", "cu-dialog-xl", "cu-dialog-full"]
+      },
+      "dataAttributes": {
+        "trigger": "data-cu-dialog-trigger",
+        "dialog": "data-cu-dialog",
+        "close": "data-cu-dialog-close"
+      },
+      "aria": ["dialog"],
+      "notes": "Uses native <dialog>. Closes on backdrop click. trigger value must match <dialog id>. Default size: cu-dialog-md.",
+      "example": "<button data-cu-dialog-trigger=\"dlg\">Open</button><dialog id=\"dlg\" class=\"cu-dialog\"><div class=\"cu-dialog-header\"><h2 class=\"cu-dialog-title\">Title</h2></div><div class=\"cu-dialog-footer\"><button data-cu-dialog-close>Close</button></dialog>"
+    },
+    {
+      "name": "Drawer",
+      "category": "overlay",
+      "interactive": true,
+      "cssClasses": {
+        "base": "cu-drawer",
+        "parts": ["cu-drawer-header", "cu-drawer-title", "cu-drawer-description", "cu-drawer-content", "cu-drawer-footer", "cu-drawer-close"],
+        "directions": ["cu-drawer-right", "cu-drawer-left", "cu-drawer-top", "cu-drawer-bottom"]
+      },
+      "dataAttributes": {
+        "trigger": "data-cu-drawer-trigger",
+        "drawer": "data-cu-drawer",
+        "close": "data-cu-drawer-close"
+      },
+      "aria": ["dialog"],
+      "notes": "Uses native <dialog>. Default direction: cu-drawer-right. trigger value must match <dialog id>.",
+      "example": "<button data-cu-drawer-trigger=\"drawer\">Open</button><dialog id=\"drawer\" class=\"cu-drawer cu-drawer-right\"><div class=\"cu-drawer-header\"><h2 class=\"cu-drawer-title\">Title</h2><button data-cu-drawer-close>✕</button></div><div class=\"cu-drawer-content\">Content</div></dialog>"
+    },
+    {
+      "name": "Dropdown Menu",
+      "category": "overlay",
+      "interactive": true,
+      "cssClasses": {
+        "base": "cu-dropdown",
+        "parts": ["cu-dropdown-content", "cu-dropdown-item", "cu-dropdown-label", "cu-dropdown-separator"]
+      },
+      "dataAttributes": {
+        "container": "data-cu-dropdown",
+        "trigger": "data-cu-dropdown-trigger",
+        "content": "data-cu-dropdown-content"
+      },
+      "aria": ["menu", "menuitem"],
+      "notes": "Add hidden attribute to content initially. Closes on outside click.",
+      "example": "<div class=\"cu-dropdown\" data-cu-dropdown><button class=\"cu-button cu-button-outline\" data-cu-dropdown-trigger>Options</button><div class=\"cu-dropdown-content\" data-cu-dropdown-content hidden><button class=\"cu-dropdown-item\">Edit</button><div class=\"cu-dropdown-separator\"></div><button class=\"cu-dropdown-item\">Delete</button></div></div>"
+    },
+    {
+      "name": "Hover Card",
+      "category": "overlay",
+      "interactive": false,
+      "cssClasses": {
+        "base": "cu-hover-card",
+        "parts": ["cu-hover-card-content"]
+      },
+      "notes": "CSS hover-triggered. No JS needed.",
+      "example": "<div class=\"cu-hover-card\"><span>Hover me</span><div class=\"cu-hover-card-content\">Card content</div></div>"
+    },
+    {
+      "name": "Popover",
+      "category": "overlay",
+      "interactive": true,
+      "cssClasses": {
+        "base": "cu-popover",
+        "parts": ["cu-popover-content"],
+        "sizes": ["cu-popover-content-sm", "cu-popover-content-lg"]
+      },
+      "dataAttributes": {
+        "container": "data-cu-popover",
+        "trigger": "data-cu-popover-trigger",
+        "content": "data-cu-popover-content"
+      },
+      "aria": ["dialog"],
+      "notes": "Add hidden attribute to content initially. cu-popover-content-sm = w-56, cu-popover-content-lg = w-96.",
+      "example": "<div class=\"cu-popover\" data-cu-popover><button class=\"cu-button cu-button-outline\" data-cu-popover-trigger>Info</button><div class=\"cu-popover-content\" data-cu-popover-content hidden>Content</div></div>"
+    },
+    {
+      "name": "Tooltip",
+      "category": "overlay",
+      "interactive": false,
+      "cssClasses": {
+        "base": "cu-tooltip",
+        "parts": ["cu-tooltip-content"]
+      },
+      "notes": "CSS hover-triggered. No JS needed.",
+      "example": "<div class=\"cu-tooltip\"><button class=\"cu-button cu-button-outline\">Hover</button><div class=\"cu-tooltip-content\">Tooltip text</div></div>"
+    },
+    {
+      "name": "Breadcrumb",
+      "category": "navigation",
+      "interactive": false,
+      "cssClasses": {
+        "base": "cu-breadcrumb",
+        "parts": ["cu-breadcrumb-item", "cu-breadcrumb-link", "cu-breadcrumb-separator", "cu-breadcrumb-current"]
+      },
+      "example": "<nav class=\"cu-breadcrumb\"><ol><li class=\"cu-breadcrumb-item\"><a class=\"cu-breadcrumb-link\" href=\"/\">Home</a></li><li class=\"cu-breadcrumb-separator\">/</li><li class=\"cu-breadcrumb-item\"><span class=\"cu-breadcrumb-current\">Page</span></li></ol></nav>"
+    },
+    {
+      "name": "Menubar",
+      "category": "navigation",
+      "interactive": true,
+      "cssClasses": {
+        "base": "cu-menubar",
+        "parts": ["cu-menubar-menu", "cu-menubar-trigger", "cu-menubar-content", "cu-menubar-item", "cu-menubar-separator", "cu-menubar-label", "cu-menubar-shortcut"]
+      },
+      "dataAttributes": {
+        "container": "data-cu-menubar",
+        "menu": "data-cu-menubar-menu",
+        "trigger": "data-cu-menubar-trigger",
+        "content": "data-cu-menubar-content"
+      },
+      "aria": ["menu", "menuitem"],
+      "notes": "Add hidden to content initially. Hover between open menus automatically switches.",
+      "example": "<div class=\"cu-menubar\" data-cu-menubar><div class=\"cu-menubar-menu\" data-cu-menubar-menu><button class=\"cu-menubar-trigger\" data-cu-menubar-trigger>File</button><div class=\"cu-menubar-content\" data-cu-menubar-content hidden><button class=\"cu-menubar-item\">New</button></div></div></div>"
+    },
+    {
+      "name": "Pagination",
+      "category": "navigation",
+      "interactive": false,
+      "cssClasses": {
+        "base": "cu-pagination",
+        "parts": ["cu-pagination-item", "cu-pagination-prev", "cu-pagination-next", "cu-pagination-ellipsis"],
+        "states": ["cu-pagination-item-active"]
+      },
+      "example": "<nav class=\"cu-pagination\"><a href=\"#\" class=\"cu-pagination-prev\">Prev</a><a href=\"#\" class=\"cu-pagination-item cu-pagination-item-active\">1</a><a href=\"#\" class=\"cu-pagination-item\">2</a><a href=\"#\" class=\"cu-pagination-next\">Next</a></nav>"
+    },
+    {
+      "name": "Segmented Control",
+      "category": "navigation",
+      "interactive": false,
+      "cssClasses": {
+        "base": "cu-segmented",
+        "parts": ["cu-segmented-item"],
+        "states": ["cu-segmented-item-active"],
+        "sizes": ["cu-segmented-sm"],
+        "modifiers": ["cu-segmented-block"]
+      },
+      "notes": "Active item must have cu-segmented-item-active class. Manage active state via JS by toggling this class.",
+      "example": "<div class=\"cu-segmented\"><button class=\"cu-segmented-item cu-segmented-item-active\">Day</button><button class=\"cu-segmented-item\">Week</button></div>"
+    },
+    {
+      "name": "Steps",
+      "category": "navigation",
+      "interactive": false,
+      "cssClasses": {
+        "base": "cu-steps",
+        "parts": ["cu-steps-item", "cu-steps-separator"],
+        "states": ["cu-steps-item-active", "cu-steps-item-completed"]
+      },
+      "example": "<div class=\"cu-steps\"><div class=\"cu-steps-item cu-steps-item-completed\">1</div><div class=\"cu-steps-separator\"></div><div class=\"cu-steps-item cu-steps-item-active\">2</div></div>"
+    },
+    {
+      "name": "Tabs",
+      "category": "navigation",
+      "interactive": true,
+      "cssClasses": {
+        "base": "cu-tabs",
+        "parts": ["cu-tabs-list", "cu-tabs-trigger", "cu-tabs-content"],
+        "states": ["cu-tabs-trigger-active"],
+        "variants": ["cu-tabs-list-pills"]
+      },
+      "dataAttributes": {
+        "container": "data-cu-tabs",
+        "trigger": "data-cu-tabs-trigger",
+        "content": "data-cu-tabs-content"
+      },
+      "aria": ["tablist", "tab", "tabpanel"],
+      "notes": "trigger and content values must match. Default active tab: add cu-tabs-trigger-active to trigger and DO NOT add hidden to its content. Add hidden to all inactive content panels.",
+      "example": "<div class=\"cu-tabs\" data-cu-tabs><div class=\"cu-tabs-list\"><button class=\"cu-tabs-trigger cu-tabs-trigger-active\" data-cu-tabs-trigger=\"t1\">Tab 1</button><button class=\"cu-tabs-trigger\" data-cu-tabs-trigger=\"t2\">Tab 2</button></div><div class=\"cu-tabs-content\" data-cu-tabs-content=\"t1\">Panel 1</div><div class=\"cu-tabs-content\" data-cu-tabs-content=\"t2\" hidden>Panel 2</div></div>"
+    },
+    {
+      "name": "Container",
+      "category": "layout",
+      "interactive": false,
+      "cssClasses": {
+        "base": "cu-container",
+        "sizes": ["cu-container-sm", "cu-container-md", "cu-container-lg", "cu-container-xl", "cu-container-2xl", "cu-container-prose"]
+      },
+      "notes": "Base class only sets mx-auto + padding. Always combine with a size class.",
+      "example": "<div class=\"cu-container cu-container-xl\">Content</div>"
+    },
+    {
+      "name": "Filter Bar",
+      "category": "layout",
+      "interactive": false,
+      "cssClasses": {
+        "base": "cu-filter-bar",
+        "parts": ["cu-filter-bar-inner", "cu-filter-bar-search", "cu-filter-bar-filters"]
+      },
+      "example": "<div class=\"cu-filter-bar\"><div class=\"cu-filter-bar-inner\"><div class=\"cu-filter-bar-search\"><!-- search --></div><div class=\"cu-filter-bar-filters\"><!-- filters --></div></div></div>"
+    },
+    {
+      "name": "Header",
+      "category": "layout",
+      "interactive": false,
+      "cssClasses": {
+        "base": "cu-header",
+        "parts": ["cu-header-inner", "cu-header-brand", "cu-header-nav", "cu-header-nav-start", "cu-header-nav-end", "cu-header-actions"]
+      },
+      "notes": "cu-header-nav-start: nav aligned left (after brand). cu-header-nav-end: nav aligned right (before actions). Header is sticky by default.",
+      "example": "<header class=\"cu-header\"><div class=\"cu-header-inner\"><div class=\"cu-header-brand\">Logo</div><div class=\"cu-header-actions\"><!-- buttons --></div></div></header>"
+    },
+    {
+      "name": "Nav",
+      "category": "layout",
+      "interactive": false,
+      "cssClasses": {
+        "base": "cu-nav",
+        "parts": ["cu-nav-item"],
+        "states": ["cu-nav-item-active"],
+        "modifiers": ["cu-nav-vertical"]
+      },
+      "example": "<nav class=\"cu-nav\"><a href=\"/\" class=\"cu-nav-item cu-nav-item-active\">Home</a><a href=\"/about\" class=\"cu-nav-item\">About</a></nav>"
+    },
+    {
+      "name": "Page Header",
+      "category": "layout",
+      "interactive": false,
+      "cssClasses": {
+        "base": "cu-page-header",
+        "parts": ["cu-page-header-content", "cu-page-header-title", "cu-page-header-description", "cu-page-header-actions"]
+      },
+      "example": "<div class=\"cu-page-header\"><div class=\"cu-page-header-content\"><h1 class=\"cu-page-header-title\">Title</h1><p class=\"cu-page-header-description\">Desc</p></div><div class=\"cu-page-header-actions\"><button class=\"cu-button cu-button-default\">Action</button></div></div>"
+    },
+    {
+      "name": "Scroll Area",
+      "category": "layout",
+      "interactive": false,
+      "cssClasses": {
+        "base": "cu-scroll-area",
+        "modifiers": ["cu-scroll-area-horizontal"]
+      },
+      "notes": "Set explicit height (or max-height) for vertical scroll. cu-scroll-area-horizontal enables horizontal scroll.",
+      "example": "<div class=\"cu-scroll-area\" style=\"height: 200px\"><!-- long content --></div>"
+    },
+    {
+      "name": "Sidebar",
+      "category": "layout",
+      "interactive": false,
+      "cssClasses": {
+        "base": "cu-sidebar",
+        "parts": ["cu-sidebar-header", "cu-sidebar-content", "cu-sidebar-footer", "cu-sidebar-section", "cu-sidebar-section-title", "cu-sidebar-group", "cu-sidebar-group-title", "cu-sidebar-item", "cu-sidebar-separator"],
+        "states": ["cu-sidebar-item-active"]
+      },
+      "notes": "Two-level hierarchy: cu-sidebar-section (top label, uppercase) > cu-sidebar-group (sub-group, bold) > cu-sidebar-item (link).",
+      "example": "<aside class=\"cu-sidebar\"><div class=\"cu-sidebar-content\"><div class=\"cu-sidebar-section\"><div class=\"cu-sidebar-section-title\">SECTION</div><a href=\"#\" class=\"cu-sidebar-item cu-sidebar-item-active\">Link</a></div></div></aside>"
+    },
+    {
+      "name": "Toolbar",
+      "category": "layout",
+      "interactive": false,
+      "cssClasses": {
+        "base": "cu-toolbar",
+        "parts": ["cu-toolbar-group", "cu-toolbar-button", "cu-toolbar-separator"]
+      },
+      "example": "<div class=\"cu-toolbar\"><div class=\"cu-toolbar-group\"><button class=\"cu-toolbar-button\">B</button><button class=\"cu-toolbar-button\">I</button></div><div class=\"cu-toolbar-separator\"></div><div class=\"cu-toolbar-group\"><button class=\"cu-toolbar-button\">≡</button></div></div>"
+    }
+  ]
+}

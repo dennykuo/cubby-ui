@@ -193,6 +193,24 @@
     return prefix + "-" + Math.random().toString(36).slice(2, 9);
   }
 
+  /**
+   * Tabs — show/hide content panels based on trigger clicks.
+   *
+   * HTML structure:
+   * ```html
+   * <div data-cu-tabs>
+   *   <div class="cu-tabs-list">
+   *     <button class="cu-tabs-trigger cu-tabs-trigger-active" data-cu-tabs-trigger="tab1">Tab 1</button>
+   *     <button class="cu-tabs-trigger" data-cu-tabs-trigger="tab2">Tab 2</button>
+   *   </div>
+   *   <div class="cu-tabs-content" data-cu-tabs-content="tab1">Panel 1</div>
+   *   <div class="cu-tabs-content" data-cu-tabs-content="tab2" hidden>Panel 2</div>
+   * </div>
+   * ```
+   * - Active tab: add `cu-tabs-trigger-active` to trigger; do NOT add `hidden` to its panel.
+   * - All other panels: add `hidden` attribute.
+   * - Pills variant: add `cu-tabs-list-pills` to the list element.
+   */
   function setupTabs() {
     document.querySelectorAll("[data-cu-tabs]").forEach(function (tabs) {
       if (tabs._cuInit) return;
@@ -237,6 +255,25 @@
     });
   }
 
+  /**
+   * Dropdown Menu — click-triggered floating menu panel.
+   *
+   * HTML structure:
+   * ```html
+   * <div data-cu-dropdown>
+   *   <button data-cu-dropdown-trigger>Options</button>
+   *   <div class="cu-dropdown-content" data-cu-dropdown-content hidden>
+   *     <div class="cu-dropdown-label">Label</div>
+   *     <button class="cu-dropdown-item">Item</button>
+   *     <div class="cu-dropdown-separator"></div>
+   *     <button class="cu-dropdown-item">Item 2</button>
+   *   </div>
+   * </div>
+   * ```
+   * - Add `hidden` to content element initially.
+   * - Closes on outside click or Escape key.
+   * - Arrow / Home / End keys navigate items; Enter activates highlighted item.
+   */
   function setupDropdowns() {
     document.querySelectorAll("[data-cu-dropdown]").forEach(function (dropdown) {
       if (dropdown._cuInit) return;
@@ -269,6 +306,30 @@
     });
   }
 
+  /**
+   * Combobox — searchable single-select dropdown.
+   *
+   * HTML structure:
+   * ```html
+   * <div data-cu-combobox>
+   *   <button class="cu-combobox-trigger" data-cu-combobox-trigger>
+   *     <span data-cu-combobox-value class="cu-combobox-trigger-placeholder">Select...</span>
+   *   </button>
+   *   <div class="cu-combobox-content" data-cu-combobox-content hidden>
+   *     <input class="cu-combobox-input" data-cu-combobox-input placeholder="Search...">
+   *     <ul data-cu-combobox-list>
+   *       <li class="cu-combobox-item" data-cu-combobox-item>Option 1</li>
+   *       <li class="cu-combobox-item cu-combobox-item-active" data-cu-combobox-item>Selected</li>
+   *     </ul>
+   *     <div data-cu-combobox-empty hidden>No results</div>
+   *   </div>
+   * </div>
+   * ```
+   * - `data-cu-combobox-value`: element that displays the selected value.
+   * - `cu-combobox-trigger-placeholder`: class for placeholder styling (removed on selection).
+   * - `cu-combobox-item-active`: marks the currently selected item.
+   * - `data-cu-combobox-list`: optional wrapper for listbox ARIA role.
+   */
   function setupComboboxes() {
     document.querySelectorAll("[data-cu-combobox]").forEach(function (combobox) {
       if (combobox._cuInit) return;
@@ -341,6 +402,30 @@
     });
   }
 
+  /**
+   * Multi Select — searchable multi-selection dropdown with tag display.
+   *
+   * HTML structure:
+   * ```html
+   * <div data-cu-multi-select>
+   *   <div class="cu-multi-select-trigger" data-cu-multi-select-trigger>
+   *     <div data-cu-multi-select-tags>
+   *       <span data-cu-multi-select-placeholder>Select...</span>
+   *     </div>
+   *   </div>
+   *   <div class="cu-multi-select-content" data-cu-multi-select-content hidden>
+   *     <input class="cu-multi-select-input" data-cu-multi-select-input placeholder="Search...">
+   *     <ul data-cu-multi-select-list>
+   *       <li class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="val1">Option 1</li>
+   *     </ul>
+   *     <div data-cu-multi-select-empty hidden>No results</div>
+   *   </div>
+   * </div>
+   * ```
+   * - `data-cu-value`: REQUIRED on each item for tag rendering. Value must be unique.
+   * - `cu-multi-select-item-active`: pre-selected items at init time.
+   * - Tags are auto-rendered in `data-cu-multi-select-tags` container.
+   */
   function setupMultiSelects() {
     document
       .querySelectorAll("[data-cu-multi-select]")
@@ -473,6 +558,21 @@
     return value;
   }
 
+  /**
+   * Number Input — increment/decrement buttons for a numeric input field.
+   *
+   * HTML structure:
+   * ```html
+   * <div class="cu-number-input" data-cu-number-input>
+   *   <button data-cu-number-decrement>−</button>
+   *   <input type="number" data-cu-number-field min="0" max="100" step="1" value="0">
+   *   <button data-cu-number-increment>+</button>
+   * </div>
+   * ```
+   * - Uses native `<input type="number">` min/max/step attributes.
+   * - On blur, sanitizes input: non-numeric → 0, then clamps and rounds to step.
+   * - ARIA: adds role="spinbutton" + aria-valuemin/max/now automatically.
+   */
   function setupNumberInputs() {
     document
       .querySelectorAll("[data-cu-number-input]")
@@ -533,6 +633,21 @@
       });
   }
 
+  /**
+   * Dropzone — drag-and-drop file upload area.
+   *
+   * HTML structure:
+   * ```html
+   * <div class="cu-dropzone" data-cu-dropzone>
+   *   <input type="file" data-cu-dropzone-input class="sr-only" multiple>
+   *   <p>Drop files here or click to upload</p>
+   * </div>
+   * ```
+   * - Click on zone triggers the hidden file input.
+   * - Drag over: adds `cu-dropzone-active` class.
+   * - Drop: assigns dropped files to input.files and dispatches "change" event.
+   * - REQUIRED: `data-cu-dropzone-input` on the `<input type="file">` element.
+   */
   function setupDropzones() {
     document.querySelectorAll("[data-cu-dropzone]").forEach(function (zone) {
       if (zone._cuInit) return;
@@ -573,6 +688,35 @@
     });
   }
 
+  /**
+   * Transfer List — move items between two panels using checkboxes.
+   *
+   * HTML structure:
+   * ```html
+   * <div data-cu-transfer-list>
+   *   <div data-cu-transfer-panel="left">
+   *     <input data-cu-transfer-search="left" type="search" placeholder="Filter...">
+   *     <input type="checkbox" data-cu-transfer-check-all="left">
+   *     <span data-cu-transfer-count="left"></span>
+   *     <ul class="cu-transfer-list-content">
+   *       <li class="cu-transfer-list-item">
+   *         <input type="checkbox" data-cu-transfer-check data-cu-value="item1">
+   *         <span>Item 1</span>
+   *       </li>
+   *     </ul>
+   *   </div>
+   *   <div>
+   *     <button data-cu-transfer-to-right>→</button>
+   *     <button data-cu-transfer-to-left>←</button>
+   *   </div>
+   *   <div data-cu-transfer-panel="right"><!-- same structure --></div>
+   * </div>
+   * ```
+   * - `data-cu-transfer-check-all`, `data-cu-transfer-count`, `data-cu-transfer-search`:
+   *   values must be "left" or "right" matching their panel.
+   * - `data-cu-value` on each checkbox item: identifies which item to move.
+   * - `cu-transfer-list-item-checked`: toggled automatically based on checkbox state.
+   */
   function setupTransferLists() {
     document
       .querySelectorAll("[data-cu-transfer-list]")
@@ -716,6 +860,21 @@
       });
   }
 
+  /**
+   * Generic overlay initializer — shared logic for Dialog, Drawer, Alert Dialog.
+   *
+   * @param {Object} config
+   * @param {string} config.triggerAttr     - data attribute on trigger element (value = dialog id)
+   * @param {string} config.dialogAttr      - data attribute on <dialog> element
+   * @param {string[]} config.closeAttrs    - data attributes that close the dialog when clicked
+   * @param {boolean} config.closeOnBackdrop - whether clicking outside closes the dialog
+   * @param {string} [config.titleClass]    - class of title element for aria-labelledby
+   * @param {string} [config.descClass]     - class of description element for aria-describedby
+   * @param {string} [config.role]          - ARIA role override (e.g. "alertdialog")
+   *
+   * Uses native <dialog> element with showModal() for proper focus trap and backdrop.
+   * Focus is restored to the trigger element when dialog closes.
+   */
   function setupOverlay(config) {
     document
       .querySelectorAll("[" + config.triggerAttr + "]")
@@ -782,6 +941,26 @@
       });
   }
 
+  /**
+   * Dialog — modal dialog using native <dialog>.
+   *
+   * HTML structure:
+   * ```html
+   * <button data-cu-dialog-trigger="dialog-id">Open</button>
+   * <dialog id="dialog-id" class="cu-dialog cu-dialog-md">
+   *   <div class="cu-dialog-header">
+   *     <h2 class="cu-dialog-title">Title</h2>
+   *     <p class="cu-dialog-description">Description</p>
+   *   </div>
+   *   <div class="cu-dialog-footer">
+   *     <button data-cu-dialog-close>Cancel</button>
+   *     <button>Confirm</button>
+   *   </div>
+   * </dialog>
+   * ```
+   * Sizes: cu-dialog-sm | cu-dialog-md (default) | cu-dialog-xl | cu-dialog-full
+   * Closes on backdrop click. Focus returns to trigger on close.
+   */
   function setupDialogs() {
     setupOverlay({
       triggerAttr: "data-cu-dialog-trigger",
@@ -793,6 +972,26 @@
     });
   }
 
+  /**
+   * Drawer — side panel using native <dialog>.
+   *
+   * HTML structure:
+   * ```html
+   * <button data-cu-drawer-trigger="drawer-id">Open</button>
+   * <dialog id="drawer-id" class="cu-drawer cu-drawer-right">
+   *   <div class="cu-drawer-header">
+   *     <h2 class="cu-drawer-title">Title</h2>
+   *     <button data-cu-drawer-close>✕</button>
+   *   </div>
+   *   <div class="cu-drawer-content">Content</div>
+   *   <div class="cu-drawer-footer">
+   *     <button data-cu-drawer-close>Close</button>
+   *   </div>
+   * </dialog>
+   * ```
+   * Directions: cu-drawer-right (default) | cu-drawer-left | cu-drawer-top | cu-drawer-bottom
+   * Closes on backdrop click. Focus returns to trigger on close.
+   */
   function setupDrawers() {
     setupOverlay({
       triggerAttr: "data-cu-drawer-trigger",
@@ -804,6 +1003,27 @@
     });
   }
 
+  /**
+   * Alert Dialog — blocking confirmation dialog using native <dialog>.
+   *
+   * HTML structure:
+   * ```html
+   * <button data-cu-alert-dialog-trigger="confirm-id">Delete</button>
+   * <dialog id="confirm-id" class="cu-alert-dialog">
+   *   <div class="cu-alert-dialog-header">
+   *     <h2 class="cu-alert-dialog-title">Are you sure?</h2>
+   *     <p class="cu-alert-dialog-description">This cannot be undone.</p>
+   *   </div>
+   *   <div class="cu-alert-dialog-footer">
+   *     <button data-cu-alert-dialog-cancel>Cancel</button>
+   *     <button data-cu-alert-dialog-action>Confirm</button>
+   *   </div>
+   * </dialog>
+   * ```
+   * IMPORTANT: Does NOT close on backdrop click (by design, prevents accidental dismissal).
+   * Only data-cu-alert-dialog-cancel and data-cu-alert-dialog-action close the dialog.
+   * ARIA role="alertdialog" is set automatically.
+   */
   function setupAlertDialogs() {
     setupOverlay({
       triggerAttr: "data-cu-alert-dialog-trigger",
@@ -826,6 +1046,36 @@
     }, { once: true });
   }
 
+  /**
+   * Toast — auto-dismissing notification triggered by button click.
+   *
+   * Trigger HTML:
+   * ```html
+   * <button
+   *   data-cu-toast-trigger
+   *   data-cu-toast-title="Title text"
+   *   data-cu-toast-description="Optional description"
+   *   data-cu-toast-variant="success"
+   *   data-cu-toast-duration="4000">
+   *   Click me
+   * </button>
+   * ```
+   *
+   * Variants: default | destructive | success | warning | info
+   * Duration: milliseconds before auto-dismiss (default: 5000)
+   *
+   * Optional explicit container (auto-created at bottom-right if not present):
+   * ```html
+   * <div class="cu-toast-container cu-toast-container-bottom-right"
+   *   data-cu-toast-container
+   *   data-cu-toast-max="5">
+   * </div>
+   * ```
+   * Container positions: bottom-right | bottom-left | top-right | top-left | top-center | bottom-center
+   * Max stack: data-cu-toast-max (default 5) — oldest toast auto-dismissed when exceeded.
+   *
+   * Toast content is built with DOM API (no innerHTML) to prevent XSS.
+   */
   function setupToasts() {
     // Ensure container exists
     var container = document.querySelector("[data-cu-toast-container]");
@@ -920,6 +1170,23 @@
       });
   }
 
+  /**
+   * Popover — click-triggered floating content panel.
+   *
+   * HTML structure:
+   * ```html
+   * <div data-cu-popover>
+   *   <button data-cu-popover-trigger>Info</button>
+   *   <div class="cu-popover-content" data-cu-popover-content hidden>
+   *     Content here
+   *   </div>
+   * </div>
+   * ```
+   * - Add `hidden` to content initially.
+   * - Sizes: default | cu-popover-content-sm (w-56) | cu-popover-content-lg (w-96)
+   * - Closes on outside click or Escape key.
+   * - ARIA: aria-haspopup="dialog" + aria-expanded + aria-controls auto-set.
+   */
   function setupPopovers() {
     document.querySelectorAll("[data-cu-popover]").forEach(function (popover) {
       if (popover._cuInit) return;
@@ -944,6 +1211,29 @@
     });
   }
 
+  /**
+   * Menubar — top-level application menu bar with sub-menus.
+   *
+   * HTML structure:
+   * ```html
+   * <div class="cu-menubar" data-cu-menubar>
+   *   <div class="cu-menubar-menu" data-cu-menubar-menu>
+   *     <button class="cu-menubar-trigger" data-cu-menubar-trigger>File</button>
+   *     <div class="cu-menubar-content" data-cu-menubar-content hidden>
+   *       <button class="cu-menubar-item">New</button>
+   *       <div class="cu-menubar-separator"></div>
+   *       <button class="cu-menubar-item">
+   *         Save <span class="cu-menubar-shortcut">⌘S</span>
+   *       </button>
+   *     </div>
+   *   </div>
+   *   <!-- More data-cu-menubar-menu elements... -->
+   * </div>
+   * ```
+   * - Add `hidden` to each content element initially.
+   * - Hovering another trigger while one menu is open auto-switches.
+   * - Closes on outside click or Escape key.
+   */
   function setupMenubars() {
     document.querySelectorAll("[data-cu-menubar]").forEach(function (bar) {
       if (bar._cuInit) return;

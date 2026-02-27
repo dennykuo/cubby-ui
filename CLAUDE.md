@@ -11,9 +11,10 @@ Cubby UI 是一個框架無關的 UI 元件庫，風格類似 shadcn/ui，使用
 ## Commands
 
 - `npm run dev` — 啟動 Astro 開發伺服器（自動先執行 `i18n:routes`）
-- `npm run build` — 建置文檔站點至 `docs/`（自動先執行 `i18n:routes`）
+- `npm run build` — 建置 NPM 套件至 `dist/`（CSS + JS）
+- `npm run build:docs` — 建置文檔站點至 `docs/`（自動先執行 `i18n:routes`）
+- `npm run build:lib` — 同 `build`（向後相容別名）
 - `npm run preview` — 預覽建置結果
-- `npm run build:lib` — 建置 NPM 套件至 `dist/`（CSS + JS）
 - `npm run i18n:routes` — 將 `src/pages/` 下的英文頁面複製到 `src/pages/zh-tw/`，產生中文路由
 
 目前無 lint 或 test 命令。
@@ -507,14 +508,29 @@ Header logo 與 sidebar 連結文字齊左：
 
 ## Adding New Components
 
-1. 在 `src/styles/components/` 資料夾中建立對應的獨立 `.css` 檔案定義 CSS 類別（使用 `cu-` 前綴），並在 `src/styles/components.css` 的 `@layer components` 對應區塊（BASIC / FORMS / DATA DISPLAY / FEEDBACK / OVERLAY / NAVIGATION / LAYOUT）中加入 `@import` 語句
-2. 在 `src/components/ui/` 中建立對應的 `.astro` 元件檔（必須包含 `interface Props` 型別定義，使用 `class:list` 處理 class 組合）
-3. 在 `src/i18n/pages/components/` 中建立翻譯檔（`Record<Locale, {...}>` 格式，包含 en/zh-tw 翻譯）
-4. 在 `src/pages/components/` 中建立文檔頁面（使用 `ComponentPreview` 展示，引入翻譯並使用 `getLocaleFromUrl` + `useTranslations`，inline code 使用 `cu-code` class）
-5. 在 `src/data/component-nav.ts` 中將元件加入對應的導航陣列（layouts / basic / typography / navigation / dataDisplay / forms / feedback / overlay）
-6. 文檔頁面的 code 範例使用 `cu-` class 系統（非原始 Tailwind utilities）
-7. 使用 `data-*` 屬性處理互動狀態（非框架狀態管理）
-8. 執行 `npm run dev` 時，`i18n:routes` 腳本自動產生 `src/pages/zh-tw/components/` 下的對應路由
+### 新增元件完整 Checklist
+
+1. **CSS**：在 `src/styles/components/` 建立獨立 `.css` 檔案定義 CSS 類別（使用 `cu-` 前綴），並在 `src/styles/components.css` 的 `@layer components` 對應區塊（BASIC / FORMS / DATA DISPLAY / FEEDBACK / OVERLAY / NAVIGATION / LAYOUT）加入 `@import` 語句
+2. **Astro 元件**：在 `src/components/ui/` 建立對應的 `.astro` 元件檔（必須包含 `interface Props` 型別定義，使用 `class:list` 處理 class 組合）
+3. **i18n 翻譯**：在 `src/i18n/pages/components/` 建立翻譯檔（`Record<Locale, {...}>` 格式，包含 en/zh-tw 翻譯）
+4. **文檔頁面**：在 `src/pages/components/` 建立文檔頁面（使用 `ComponentPreview` 展示，含 Preview + Code 兩個 tab；引入翻譯並使用 `getLocaleFromUrl` + `useTranslations`，inline code 使用 `cu-code` class；code 範例使用 `cu-` class 系統，非原始 Tailwind utilities）
+5. **導航**：在 `src/data/component-nav.ts` 中將元件加入對應的導航陣列（layouts / basic / typography / navigation / dataDisplay / forms / feedback / overlay）
+6. **components.json**：在根目錄 `components.json` 新增元件規格（`cssClasses`、`dataAttributes`、`aria`、`notes`、`example`）
+7. **llms.txt**：在根目錄 `llms.txt` 對應分類區塊加入元件說明（CSS class 清單 + HTML 範例）
+8. **互動元件 JS**（僅有 JS 互動的元件）：在 `src/scripts/cubby-ui.js` 加入 `setupXxx()` 函式（含 JSDoc + HTML 結構範例）與追蹤陣列；更新 `src/scripts/cubby-ui.d.ts` 的 `DATA_ATTRS` 常數；使用 `data-*` 屬性管理狀態（非框架狀態管理）
+9. **Dark / Light mode**：在瀏覽器切換 `.dark` class，確認兩種模式下色彩 token、邊框、陰影皆正確；半透明色使用 `color-mix(in srgb, var(--color-*) N%, transparent)` 而非硬編碼 HSL
+10. **CSS 規範驗證**：
+    - Disabled 狀態：`disabled:pointer-events-none disabled:opacity-50 disabled:bg-muted disabled:text-muted-foreground`（帶 hover border 的輸入元件額外加 `disabled:hover:border-input`）
+    - Transition：使用具體屬性（`transition-colors`、`transition-shadow`、`transition-opacity`）+ 明確 `duration-150` 或 `duration-200`，禁止 `transition-all`
+    - Focus ring：導航/互動元素加 `focus-visible:ring-1 focus-visible:ring-ring/30`；關閉按鈕用 `ring-ring/40`
+11. **build 驗證**：執行 `npm run build:lib` 確認 CSS 正確編譯（`@apply` 全部展開，無編譯錯誤）
+12. **dev 驗證**：執行 `npm run dev` 確認 `i18n:routes` 自動產生 `src/pages/zh-tw/components/` 路由，en/zh-tw 兩語言頁面皆正常顯示
+
+### 修改已有元件時的額外確認
+
+- 修改 class 名稱 → 同步更新 `components.json`、`llms.txt`、docs 頁面範例
+- 修改 `data-*` attribute → 同步更新 `components.json`、`llms.txt`、`cubby-ui.d.ts` 的 `DATA_ATTRS`
+- 修改視覺設計 → 確認 dark/light 兩種模式皆正確
 
 ## Language
 
