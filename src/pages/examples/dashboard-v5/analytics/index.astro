@@ -1,0 +1,265 @@
+---
+import DashboardV5Layout from "@/layouts/DashboardV5Layout.astro";
+---
+
+<DashboardV5Layout title="總覽 — DataHub">
+    <Fragment slot="breadcrumb">
+        <span class="text-muted-foreground/50">/</span>
+        <span class="font-medium">總覽</span>
+    </Fragment>
+
+    <div class="space-y-6">
+        <!-- Page Header -->
+        <header class="cu-page-header">
+            <div class="cu-page-header-content">
+                <h1 class="cu-page-header-title">總覽</h1>
+                <p class="cu-page-header-description">歡迎回來，林小明。以下是今日的營運概覽。</p>
+            </div>
+            <div class="cu-page-header-actions">
+                <button class="cu-button cu-button-outline">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+                    匯出報表
+                </button>
+            </div>
+        </header>
+
+        <!-- Alert Banner -->
+        <div class="cu-alert cu-alert-info">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>
+            <div class="cu-alert-content">
+                <span>有 12 項產品庫存不足，請盡快補貨。</span>
+                <a href="/examples/dashboard-v5" class="cu-link ml-2">查看詳情</a>
+            </div>
+        </div>
+
+        <!-- Stats Cards -->
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+            <div class="cu-stat">
+                <div class="cu-stat-header">
+                    <span class="cu-stat-label">本月營收</span>
+                    <div class="cu-stat-icon-box">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                    </div>
+                </div>
+                <div class="cu-stat-value">$1,284,500</div>
+            </div>
+            <div class="cu-stat">
+                <div class="cu-stat-header">
+                    <span class="cu-stat-label">今日訂單</span>
+                    <div class="cu-stat-icon-box cu-stat-icon-box-info">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg>
+                    </div>
+                </div>
+                <div class="cu-stat-value">18</div>
+            </div>
+            <div class="cu-stat">
+                <div class="cu-stat-header">
+                    <span class="cu-stat-label">新客戶</span>
+                    <div class="cu-stat-icon-box cu-stat-icon-box-success">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" x2="19" y1="8" y2="14"/><line x1="22" x2="16" y1="11" y2="11"/></svg>
+                    </div>
+                </div>
+                <div class="cu-stat-value">86</div>
+            </div>
+            <div class="cu-stat">
+                <div class="cu-stat-header">
+                    <span class="cu-stat-label">轉換率</span>
+                    <div class="cu-stat-icon-box cu-stat-icon-box-warning">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+                    </div>
+                </div>
+                <div class="cu-stat-value">3.24%</div>
+            </div>
+        </div>
+
+        <!-- Two Column Layout -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <!-- Quick Actions -->
+            <div class="cu-card">
+                <div class="cu-card-header">
+                    <h3 class="cu-card-title">快速操作</h3>
+                </div>
+                <div class="cu-card-content">
+                    <div class="grid grid-cols-2 gap-4">
+                        <a href="/examples/dashboard-v5/products/create" class="flex items-start gap-3 p-3 rounded-lg border border-border hover:bg-muted/50 transition-colors duration-150">
+                            <div class="cu-stat-icon-box shrink-0">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7.5 4.27 9 5.15"/><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/></svg>
+                            </div>
+                            <div>
+                                <p class="text-sm font-medium">新增產品</p>
+                                <p class="text-xs text-muted-foreground mt-0.5">建立新的產品資料</p>
+                            </div>
+                        </a>
+                        <a href="/examples/dashboard-v5/orders" class="flex items-start gap-3 p-3 rounded-lg border border-border hover:bg-muted/50 transition-colors duration-150">
+                            <div class="cu-stat-icon-box shrink-0">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1Z"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"/><path d="M12 17.5v-11"/></svg>
+                            </div>
+                            <div>
+                                <p class="text-sm font-medium">新增訂單</p>
+                                <p class="text-xs text-muted-foreground mt-0.5">手動建立訂單</p>
+                            </div>
+                        </a>
+                        <button class="flex items-start gap-3 p-3 rounded-lg border border-border hover:bg-muted/50 transition-colors duration-150 text-left">
+                            <div class="cu-stat-icon-box shrink-0">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+                            </div>
+                            <div>
+                                <p class="text-sm font-medium">匯出報表</p>
+                                <p class="text-xs text-muted-foreground mt-0.5">匯出營運數據</p>
+                            </div>
+                        </button>
+                        <a href="/examples/dashboard-v5/settings" class="flex items-start gap-3 p-3 rounded-lg border border-border hover:bg-muted/50 transition-colors duration-150">
+                            <div class="cu-stat-icon-box shrink-0">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
+                            </div>
+                            <div>
+                                <p class="text-sm font-medium">系統設定</p>
+                                <p class="text-xs text-muted-foreground mt-0.5">調整系統偏好</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Orders -->
+            <div class="cu-card">
+                <div class="cu-card-header">
+                    <h3 class="cu-card-title">近期訂單</h3>
+                </div>
+                <div class="cu-card-content-flush">
+                    <div class="cu-table-wrapper">
+                        <table class="cu-table">
+                            <thead class="cu-table-header">
+                                <tr class="cu-table-row hover:bg-transparent">
+                                    <th class="cu-table-head">訂單編號</th>
+                                    <th class="cu-table-head">客戶</th>
+                                    <th class="cu-table-head text-right">金額</th>
+                                    <th class="cu-table-head text-center">狀態</th>
+                                </tr>
+                            </thead>
+                            <tbody class="cu-table-body">
+                                <tr class="cu-table-row">
+                                    <td class="cu-table-cell"><code class="text-xs font-mono">ORD-2024-001</code></td>
+                                    <td class="cu-table-cell">陳柏翰</td>
+                                    <td class="cu-table-cell text-right font-medium tabular-nums">$89,700</td>
+                                    <td class="cu-table-cell text-center"><span class="cu-badge cu-badge-soft-success">已完成</span></td>
+                                </tr>
+                                <tr class="cu-table-row">
+                                    <td class="cu-table-cell"><code class="text-xs font-mono">ORD-2024-002</code></td>
+                                    <td class="cu-table-cell">林雅婷</td>
+                                    <td class="cu-table-cell text-right font-medium tabular-nums">$52,900</td>
+                                    <td class="cu-table-cell text-center"><span class="cu-badge cu-badge-soft-info">處理中</span></td>
+                                </tr>
+                                <tr class="cu-table-row">
+                                    <td class="cu-table-cell"><code class="text-xs font-mono">ORD-2024-003</code></td>
+                                    <td class="cu-table-cell">王俊傑</td>
+                                    <td class="cu-table-cell text-right font-medium tabular-nums">$10,490</td>
+                                    <td class="cu-table-cell text-center"><span class="cu-badge cu-badge-secondary">待處理</span></td>
+                                </tr>
+                                <tr class="cu-table-row">
+                                    <td class="cu-table-cell"><code class="text-xs font-mono">ORD-2024-004</code></td>
+                                    <td class="cu-table-cell">張家豪</td>
+                                    <td class="cu-table-cell text-right font-medium tabular-nums">$27,900</td>
+                                    <td class="cu-table-cell text-center"><span class="cu-badge cu-badge-soft-warning">已出貨</span></td>
+                                </tr>
+                                <tr class="cu-table-row">
+                                    <td class="cu-table-cell"><code class="text-xs font-mono">ORD-2024-005</code></td>
+                                    <td class="cu-table-cell">李佳穎</td>
+                                    <td class="cu-table-cell text-right font-medium tabular-nums">$115,180</td>
+                                    <td class="cu-table-cell text-center"><span class="cu-badge cu-badge-soft-success">已完成</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="cu-card-footer">
+                    <a href="/examples/dashboard-v5/orders" class="text-sm text-primary hover:underline">查看所有訂單 &rarr;</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Best-selling Products -->
+        <div class="cu-card">
+            <div class="cu-card-header">
+                <h3 class="cu-card-title">熱銷產品</h3>
+            </div>
+            <div class="cu-card-content-flush">
+                <div class="cu-table-wrapper">
+                    <table class="cu-table">
+                        <thead class="cu-table-header">
+                            <tr class="cu-table-row hover:bg-transparent">
+                                <th class="cu-table-head w-16 text-center">排名</th>
+                                <th class="cu-table-head">產品名稱</th>
+                                <th class="cu-table-head">分類</th>
+                                <th class="cu-table-head text-right">銷售數量</th>
+                                <th class="cu-table-head text-right">營收</th>
+                            </tr>
+                        </thead>
+                        <tbody class="cu-table-body">
+                            <tr class="cu-table-row">
+                                <td class="cu-table-cell text-center font-medium">1</td>
+                                <td class="cu-table-cell">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-8 h-8 rounded-lg bg-muted flex items-center justify-center text-base shrink-0">📱</div>
+                                        <span class="font-medium">iPhone 15 Pro Max</span>
+                                    </div>
+                                </td>
+                                <td class="cu-table-cell text-muted-foreground">智慧型手機</td>
+                                <td class="cu-table-cell text-right font-medium tabular-nums">342</td>
+                                <td class="cu-table-cell text-right font-medium tabular-nums">$18,091,800</td>
+                            </tr>
+                            <tr class="cu-table-row">
+                                <td class="cu-table-cell text-center font-medium">2</td>
+                                <td class="cu-table-cell">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-8 h-8 rounded-lg bg-muted flex items-center justify-center text-base shrink-0">💻</div>
+                                        <span class="font-medium">MacBook Pro 14"</span>
+                                    </div>
+                                </td>
+                                <td class="cu-table-cell text-muted-foreground">筆記型電腦</td>
+                                <td class="cu-table-cell text-right font-medium tabular-nums">186</td>
+                                <td class="cu-table-cell text-right font-medium tabular-nums">$11,141,400</td>
+                            </tr>
+                            <tr class="cu-table-row">
+                                <td class="cu-table-cell text-center font-medium">3</td>
+                                <td class="cu-table-cell">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-8 h-8 rounded-lg bg-muted flex items-center justify-center text-base shrink-0">🎧</div>
+                                        <span class="font-medium">AirPods Pro 2</span>
+                                    </div>
+                                </td>
+                                <td class="cu-table-cell text-muted-foreground">耳機</td>
+                                <td class="cu-table-cell text-right font-medium tabular-nums">528</td>
+                                <td class="cu-table-cell text-right font-medium tabular-nums">$3,954,720</td>
+                            </tr>
+                            <tr class="cu-table-row">
+                                <td class="cu-table-cell text-center font-medium">4</td>
+                                <td class="cu-table-cell">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-8 h-8 rounded-lg bg-muted flex items-center justify-center text-base shrink-0">📲</div>
+                                        <span class="font-medium">iPad Air M2</span>
+                                    </div>
+                                </td>
+                                <td class="cu-table-cell text-muted-foreground">平板電腦</td>
+                                <td class="cu-table-cell text-right font-medium tabular-nums">124</td>
+                                <td class="cu-table-cell text-right font-medium tabular-nums">$2,839,600</td>
+                            </tr>
+                            <tr class="cu-table-row">
+                                <td class="cu-table-cell text-center font-medium">5</td>
+                                <td class="cu-table-cell">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-8 h-8 rounded-lg bg-muted flex items-center justify-center text-base shrink-0">⌚</div>
+                                        <span class="font-medium">Apple Watch Ultra 2</span>
+                                    </div>
+                                </td>
+                                <td class="cu-table-cell text-muted-foreground">穿戴裝置</td>
+                                <td class="cu-table-cell text-right font-medium tabular-nums">97</td>
+                                <td class="cu-table-cell text-right font-medium tabular-nums">$2,706,300</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</DashboardV5Layout>
