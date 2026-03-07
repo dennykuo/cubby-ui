@@ -10,6 +10,7 @@ export const dataTablePage: Record<Locale, {
     columnSorting: { title: string; description: string };
     withPagination: { title: string; description: string };
     withRowActions: { title: string; description: string };
+    stripedRows: { title: string; description: string };
   };
   classDescriptions: Record<string, string>;
 }> = {
@@ -39,6 +40,10 @@ export const dataTablePage: Record<Locale, {
         title: 'With Row Actions',
         description: 'Add a Dropdown menu at the end of each row for contextual actions like edit, duplicate, or delete.',
       },
+      stripedRows: {
+        title: 'Striped Rows',
+        description: 'Add <code class="cu-code">cu-data-table-striped</code> to the container for alternating row backgrounds, improving readability in dense tables.',
+      },
     },
     classDescriptions: {
       'cu-data-table': 'Data table container',
@@ -47,6 +52,7 @@ export const dataTablePage: Record<Locale, {
       'cu-data-table-head-sorted-asc': 'Ascending sort state',
       'cu-data-table-head-sorted-desc': 'Descending sort state',
       'cu-data-table-row-selected': 'Selected row',
+      'cu-data-table-striped': 'Alternating row backgrounds',
       'cu-data-table-info': 'Footer info bar (selection count, pagination, etc.)',
     },
   },
@@ -76,6 +82,10 @@ export const dataTablePage: Record<Locale, {
         title: '搭配列操作',
         description: '在每列末端加入 Dropdown 選單，提供編輯、複製或刪除等情境操作。',
       },
+      stripedRows: {
+        title: '條紋列',
+        description: '在容器加上 <code class="cu-code">cu-data-table-striped</code> 產生交替列背景，提升密集表格的可讀性。',
+      },
     },
     classDescriptions: {
       'cu-data-table': '資料表格容器',
@@ -84,6 +94,7 @@ export const dataTablePage: Record<Locale, {
       'cu-data-table-head-sorted-asc': '升冪排序狀態',
       'cu-data-table-head-sorted-desc': '降冪排序狀態',
       'cu-data-table-row-selected': '已選取的列',
+      'cu-data-table-striped': '交替列背景',
       'cu-data-table-info': '底部資訊列（選取數量、分頁等）',
     },
   },

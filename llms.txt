@@ -380,11 +380,11 @@ Sizes: `cu-badge-sm`, `cu-badge-lg`
 </div>
 ```
 
-**Timeline**
+**Timeline** — `cu-timeline`, `cu-timeline-item`, `cu-timeline-dot`, `cu-timeline-dot-icon`, `cu-timeline-content`, `cu-timeline-title`, `cu-timeline-description`, `cu-timeline-time`. Dot colors: `cu-timeline-dot-primary/success/warning/destructive/info`. Modifiers: `cu-timeline-dot-lg` (avatar size), `cu-timeline-horizontal` (horizontal step layout).
 ```html
 <div class="cu-timeline">
   <div class="cu-timeline-item">
-    <div class="cu-timeline-dot"></div>
+    <div class="cu-timeline-dot cu-timeline-dot-success"></div>
     <div class="cu-timeline-content">
       <div class="cu-timeline-title">Event Title</div>
       <div class="cu-timeline-description">Details</div>
@@ -394,16 +394,32 @@ Sizes: `cu-badge-sm`, `cu-badge-lg`
 </div>
 ```
 
-**Tree View** — hierarchical list
+**Tree View** — `cu-tree`, `cu-tree-item` (`<details>`), `cu-tree-trigger` (`<summary>`), `cu-tree-trigger-icon`, `cu-tree-content`, `cu-tree-leaf`, `cu-tree-leaf-active`. Uses native `<details>`/`<summary>` for expand/collapse.
 ```html
-<ul class="cu-tree-view">
-  <li class="cu-tree-item">
-    <button class="cu-tree-item-trigger">Folder</button>
-    <ul>
-      <li class="cu-tree-leaf">File.txt</li>
-    </ul>
-  </li>
-</ul>
+<div class="cu-tree">
+  <details class="cu-tree-item">
+    <summary class="cu-tree-trigger">
+      <svg class="cu-tree-trigger-icon">...</svg>
+      Folder
+    </summary>
+    <div class="cu-tree-content">
+      <div class="cu-tree-leaf">File.txt</div>
+      <div class="cu-tree-leaf cu-tree-leaf-active">Active Item</div>
+    </div>
+  </details>
+</div>
+```
+
+**Data Table** — `cu-data-table`, `cu-data-table-toolbar`, `cu-data-table-head-sortable`, `cu-data-table-head-sorted-asc/desc`, `cu-data-table-row-selected`, `cu-data-table-striped`, `cu-data-table-info`. Enhanced table with sorting, filtering, row selection.
+```html
+<div class="cu-data-table cu-data-table-striped">
+  <div class="cu-table-wrapper">
+    <table class="cu-table">
+      <thead><tr><th class="cu-table-head cu-data-table-head-sortable">Name</th></tr></thead>
+      <tbody><tr><td class="cu-table-cell">Row</td></tr></tbody>
+    </table>
+  </div>
+</div>
 ```
 
 **Table**

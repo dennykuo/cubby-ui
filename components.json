@@ -385,10 +385,13 @@
       "category": "dataDisplay",
       "interactive": false,
       "cssClasses": {
-        "base": "cu-data-table"
+        "base": "cu-data-table",
+        "parts": ["cu-data-table-toolbar", "cu-data-table-head-sortable", "cu-data-table-info"],
+        "states": ["cu-data-table-head-sorted-asc", "cu-data-table-head-sorted-desc", "cu-data-table-row-selected"],
+        "modifiers": ["cu-data-table-striped"]
       },
-      "notes": "Enhanced table with sorting, filtering header row styling.",
-      "example": "<table class=\"cu-data-table\"><thead><tr><th>Name</th></tr></thead><tbody><tr><td>Row</td></tr></tbody></table>"
+      "notes": "Enhanced table with sorting, filtering, row selection. cu-data-table-striped adds alternating row backgrounds.",
+      "example": "<div class=\"cu-data-table\"><div class=\"cu-table-wrapper\"><table class=\"cu-table\"><thead><tr><th>Name</th></tr></thead><tbody><tr><td>Row</td></tr></tbody></table></div></div>"
     },
     {
       "name": "Setting Item",
@@ -428,8 +431,11 @@
       "interactive": false,
       "cssClasses": {
         "base": "cu-timeline",
-        "parts": ["cu-timeline-item", "cu-timeline-dot", "cu-timeline-content", "cu-timeline-title", "cu-timeline-description", "cu-timeline-time"]
+        "parts": ["cu-timeline-item", "cu-timeline-dot", "cu-timeline-dot-icon", "cu-timeline-content", "cu-timeline-title", "cu-timeline-description", "cu-timeline-time"],
+        "dotColors": ["cu-timeline-dot-primary", "cu-timeline-dot-success", "cu-timeline-dot-warning", "cu-timeline-dot-destructive", "cu-timeline-dot-info"],
+        "modifiers": ["cu-timeline-dot-lg", "cu-timeline-horizontal"]
       },
+      "notes": "cu-timeline-dot-lg fits avatar images (size-8). cu-timeline-horizontal for horizontal step layout.",
       "example": "<div class=\"cu-timeline\"><div class=\"cu-timeline-item\"><div class=\"cu-timeline-dot\"></div><div class=\"cu-timeline-content\"><div class=\"cu-timeline-title\">Event</div><div class=\"cu-timeline-time\">2h ago</div></div></div></div>"
     },
     {
@@ -437,11 +443,12 @@
       "category": "dataDisplay",
       "interactive": false,
       "cssClasses": {
-        "base": "cu-tree-view",
-        "parts": ["cu-tree-item", "cu-tree-leaf"]
+        "base": "cu-tree",
+        "parts": ["cu-tree-item", "cu-tree-trigger", "cu-tree-trigger-icon", "cu-tree-content", "cu-tree-leaf"],
+        "modifiers": ["cu-tree-leaf-active"]
       },
-      "notes": "Nested <ul> structure. Items use <details> for expand/collapse.",
-      "example": "<ul class=\"cu-tree-view\"><li class=\"cu-tree-item\"><button>Folder</button><ul><li class=\"cu-tree-leaf\">file.txt</li></ul></li></ul>"
+      "notes": "Uses native <details>/<summary> for expand/collapse. cu-tree-leaf-active highlights the selected node.",
+      "example": "<div class=\"cu-tree\"><details class=\"cu-tree-item\"><summary class=\"cu-tree-trigger\">Folder</summary><div class=\"cu-tree-content\"><div class=\"cu-tree-leaf\">file.txt</div></div></details></div>"
     },
     {
       "name": "Alert",

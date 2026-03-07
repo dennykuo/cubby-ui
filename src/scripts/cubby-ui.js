@@ -163,27 +163,29 @@
         // Combobox
         _comboboxes.forEach(function (c) {
           if (!c.content || c.content.hasAttribute("hidden")) return;
-          if (!c.items || c.items.length === 0) return;
+          var items = c.getItems();
+          if (!items || items.length === 0) return;
           if (e.key === "Enter") {
             var active = c.content.querySelector(".cu-combobox-item-highlight");
             if (active) { active.click(); e.preventDefault(); }
             return;
           }
           e.preventDefault();
-          navigateItems(c.items, e.key, "cu-combobox-item-highlight");
+          navigateItems(items, e.key, "cu-combobox-item-highlight");
         });
 
         // Multi Select
         _multiSelects.forEach(function (ms) {
           if (!ms.content || ms.content.hasAttribute("hidden")) return;
-          if (!ms.items || ms.items.length === 0) return;
+          var items = ms.getItems();
+          if (!items || items.length === 0) return;
           if (e.key === "Enter") {
             var active = ms.content.querySelector(".cu-multi-select-item-highlight");
             if (active) { active.click(); e.preventDefault(); }
             return;
           }
           e.preventDefault();
-          navigateItems(ms.items, e.key, "cu-multi-select-item-highlight");
+          navigateItems(items, e.key, "cu-multi-select-item-highlight");
         });
       }
     });
@@ -338,11 +340,23 @@
       var trigger = combobox.querySelector("[data-cu-combobox-trigger]");
       var content = combobox.querySelector("[data-cu-combobox-content]");
       var input = combobox.querySelector("[data-cu-combobox-input]");
-      var items = combobox.querySelectorAll("[data-cu-combobox-item]");
       var empty = combobox.querySelector("[data-cu-combobox-empty]");
       var valueEl = combobox.querySelector("[data-cu-combobox-value]");
 
+      // Dynamic items query — always returns fresh NodeList
+      function getItems() {
+        return combobox.querySelectorAll("[data-cu-combobox-item]");
+      }
+
       // ARIA setup
+      function syncItemsAria() {
+        getItems().forEach(function (item) {
+          item.setAttribute("role", "option");
+          if (!item.hasAttribute("aria-selected")) {
+            item.setAttribute("aria-selected", item.classList.contains("cu-combobox-item-active") ? "true" : "false");
+          }
+        });
+      }
       if (trigger) {
         trigger.setAttribute("aria-haspopup", "listbox");
         trigger.setAttribute("aria-expanded", "false");
@@ -351,10 +365,15 @@
         var list = content.querySelector("[data-cu-combobox-list]") || content;
         list.setAttribute("role", "listbox");
       }
-      items.forEach(function (item) {
-        item.setAttribute("role", "option");
-        item.setAttribute("aria-selected", item.classList.contains("cu-combobox-item-active") ? "true" : "false");
-      });
+      syncItemsAria();
+
+      function syncEmpty() {
+        var visible = 0;
+        getItems().forEach(function (item) {
+          if (!item.hasAttribute("hidden")) visible++;
+        });
+        if (empty) empty.toggleAttribute("hidden", visible > 0);
+      }
 
       trigger &&
         trigger.addEventListener("click", function (e) {
@@ -362,43 +381,50 @@
           var isHidden = content && content.hasAttribute("hidden");
           content && content.toggleAttribute("hidden");
           trigger.setAttribute("aria-expanded", String(isHidden));
-          if (isHidden && input) input.focus();
+          if (isHidden) {
+            syncItemsAria();
+            if (input) input.focus();
+            syncEmpty();
+          }
         });
 
       input &&
         input.addEventListener("input", function () {
           var query = input.value.toLowerCase();
-          var visible = 0;
-          items.forEach(function (item) {
+          getItems().forEach(function (item) {
             var match = (item.textContent || "").toLowerCase().includes(query);
             item.toggleAttribute("hidden", !match);
-            if (match) visible++;
           });
-          empty && empty.toggleAttribute("hidden", visible > 0);
+          syncEmpty();
         });
 
-      items.forEach(function (item) {
-        item.addEventListener("click", function () {
+      content &&
+        content.addEventListener("click", function (e) {
+          var item = e.target.closest("[data-cu-combobox-item]");
+          if (!item) return;
           if (valueEl) {
             valueEl.textContent = item.textContent;
             valueEl.classList.remove("cu-combobox-trigger-placeholder");
           }
-          items.forEach(function (i) {
+          getItems().forEach(function (i) {
             i.classList.remove("cu-combobox-item-active");
             i.setAttribute("aria-selected", "false");
           });
           item.classList.add("cu-combobox-item-active");
           item.setAttribute("aria-selected", "true");
-          content && content.setAttribute("hidden", "");
+          content.setAttribute("hidden", "");
           if (trigger) trigger.setAttribute("aria-expanded", "false");
           if (input) {
             input.value = "";
             input.dispatchEvent(new Event("input"));
           }
+          combobox.dispatchEvent(new CustomEvent("cu:combobox:change", {
+            bubbles: true,
+            detail: { value: item.dataset.cuValue || item.textContent, item: item }
+          }));
         });
-      });
 
-      _comboboxes.push({ el: combobox, trigger: trigger, content: content, input: input, items: items });
+      _comboboxes.push({ el: combobox, trigger: trigger, content: content, input: input, getItems: getItems });
     });
   }
 
@@ -436,7 +462,6 @@
         var trigger = ms.querySelector("[data-cu-multi-select-trigger]");
         var content = ms.querySelector("[data-cu-multi-select-content]");
         var input = ms.querySelector("[data-cu-multi-select-input]");
-        var items = ms.querySelectorAll("[data-cu-multi-select-item]");
         var empty = ms.querySelector("[data-cu-multi-select-empty]");
         var tagsEl = ms.querySelector("[data-cu-multi-select-tags]");
         var placeholder = ms.querySelector(
@@ -444,7 +469,20 @@
         );
         var selected = new Set();
 
+        // Dynamic items query — always returns fresh NodeList
+        function getItems() {
+          return ms.querySelectorAll("[data-cu-multi-select-item]");
+        }
+
         // ARIA setup
+        function syncItemsAria() {
+          getItems().forEach(function (item) {
+            item.setAttribute("role", "option");
+            if (!item.hasAttribute("aria-selected")) {
+              item.setAttribute("aria-selected", item.classList.contains("cu-multi-select-item-active") ? "true" : "false");
+            }
+          });
+        }
         if (trigger) {
           trigger.setAttribute("aria-haspopup", "listbox");
           trigger.setAttribute("aria-expanded", "false");
@@ -454,13 +492,10 @@
           list.setAttribute("role", "listbox");
           list.setAttribute("aria-multiselectable", "true");
         }
-        items.forEach(function (item) {
-          item.setAttribute("role", "option");
-          item.setAttribute("aria-selected", item.classList.contains("cu-multi-select-item-active") ? "true" : "false");
-        });
+        syncItemsAria();
 
         // Init from preset active items
-        items.forEach(function (item) {
+        getItems().forEach(function (item) {
           if (item.classList.contains("cu-multi-select-item-active")) {
             selected.add(item.dataset.cuValue || "");
           }
@@ -493,11 +528,23 @@
                 item.classList.remove("cu-multi-select-item-active");
                 item.setAttribute("aria-selected", "false");
                 renderTags();
+                ms.dispatchEvent(new CustomEvent("cu:multiselect:change", {
+                  bubbles: true,
+                  detail: { selected: Array.from(selected) }
+                }));
               });
               tag.appendChild(removeBtn);
               tagsEl.appendChild(tag);
             });
           }
+        }
+
+        function syncEmpty() {
+          var visible = 0;
+          getItems().forEach(function (item) {
+            if (!item.hasAttribute("hidden")) visible++;
+          });
+          if (empty) empty.toggleAttribute("hidden", visible > 0);
         }
 
         trigger &&
@@ -506,26 +553,30 @@
             var isHidden = content && content.hasAttribute("hidden");
             content && content.toggleAttribute("hidden");
             trigger.setAttribute("aria-expanded", String(isHidden));
-            if (isHidden && input) input.focus();
+            if (isHidden) {
+              syncItemsAria();
+              if (input) input.focus();
+              syncEmpty();
+            }
           });
 
         if (input) {
           input.addEventListener("input", function () {
             var query = input.value.toLowerCase();
-            var visible = 0;
-            items.forEach(function (item) {
+            getItems().forEach(function (item) {
               var match = (item.textContent || "")
                 .toLowerCase()
                 .includes(query);
               item.toggleAttribute("hidden", !match);
-              if (match) visible++;
             });
-            empty && empty.toggleAttribute("hidden", visible > 0);
+            syncEmpty();
           });
         }
 
-        items.forEach(function (item) {
-          item.addEventListener("click", function (e) {
+        content &&
+          content.addEventListener("click", function (e) {
+            var item = e.target.closest("[data-cu-multi-select-item]");
+            if (!item) return;
             e.stopPropagation();
             var val = item.dataset.cuValue || "";
             if (selected.has(val)) {
@@ -538,10 +589,13 @@
               item.setAttribute("aria-selected", "true");
             }
             renderTags();
+            ms.dispatchEvent(new CustomEvent("cu:multiselect:change", {
+              bubbles: true,
+              detail: { selected: Array.from(selected) }
+            }));
           });
-        });
 
-        _multiSelects.push({ el: ms, trigger: trigger, content: content, input: input, items: items });
+        _multiSelects.push({ el: ms, trigger: trigger, content: content, input: input, getItems: getItems });
       });
   }
 

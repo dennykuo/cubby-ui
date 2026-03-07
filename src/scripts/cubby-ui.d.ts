@@ -54,6 +54,18 @@ export type ToastPosition =
   | 'bottom-center';
 
 // ---------------------------------------------------------------------------
+// Custom events dispatched by CubbyUI components
+// ---------------------------------------------------------------------------
+
+/** Custom events dispatched by CubbyUI components. Listen on the component root element. */
+export interface CubbyUIEvents {
+  /** Fired on [data-cu-combobox] when selection changes */
+  "cu:combobox:change": CustomEvent<{ value: string; item: HTMLElement }>;
+  /** Fired on [data-cu-multi-select] when selection changes */
+  "cu:multiselect:change": CustomEvent<{ selected: string[] }>;
+}
+
+// ---------------------------------------------------------------------------
 // data-* attribute constants — for use in TypeScript-driven HTML generation
 // ---------------------------------------------------------------------------
 

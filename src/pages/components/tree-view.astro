@@ -80,6 +80,70 @@ const fileExplorerCode = `<div class="cu-tree">
   </div>
 </div>`.trim();
 
+const activeStateCode = `<div class="cu-tree">
+  <details class="cu-tree-item" open>
+    <summary class="cu-tree-trigger">
+      <svg class="cu-tree-trigger-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+      Getting Started
+    </summary>
+    <div class="cu-tree-content">
+      <div class="cu-tree-leaf">Introduction</div>
+      <div class="cu-tree-leaf cu-tree-leaf-active">Installation</div>
+    </div>
+  </details>
+  <details class="cu-tree-item">
+    <summary class="cu-tree-trigger">
+      <svg class="cu-tree-trigger-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+      Components
+    </summary>
+    <div class="cu-tree-content">
+      <div class="cu-tree-leaf">Button</div>
+      <div class="cu-tree-leaf">Input</div>
+    </div>
+  </details>
+</div>`.trim();
+
+const withCheckboxesCode = `<div class="cu-tree">
+  <details class="cu-tree-item" open>
+    <summary class="cu-tree-trigger">
+      <svg class="cu-tree-trigger-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+      <input type="checkbox" class="cu-checkbox" />
+      Permissions
+    </summary>
+    <div class="cu-tree-content">
+      <div class="cu-tree-leaf">
+        <input type="checkbox" class="cu-checkbox" checked />
+        Read
+      </div>
+      <div class="cu-tree-leaf">
+        <input type="checkbox" class="cu-checkbox" checked />
+        Write
+      </div>
+      <div class="cu-tree-leaf">
+        <input type="checkbox" class="cu-checkbox" />
+        Delete
+      </div>
+    </div>
+  </details>
+  <details class="cu-tree-item" open>
+    <summary class="cu-tree-trigger">
+      <svg class="cu-tree-trigger-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+      <input type="checkbox" class="cu-checkbox" />
+      Settings
+    </summary>
+    <div class="cu-tree-content">
+      <div class="cu-tree-leaf">
+        <input type="checkbox" class="cu-checkbox" />
+        Profile
+      </div>
+      <div class="cu-tree-leaf">
+        <input type="checkbox" class="cu-checkbox" checked />
+        Notifications
+      </div>
+    </div>
+  </details>
+</div>`.trim();
+
 const defaultOpenCode = `<div class="cu-tree">
   <details class="cu-tree-item" open>
     <summary class="cu-tree-trigger">
@@ -104,15 +168,13 @@ const defaultOpenCode = `<div class="cu-tree">
 </div>`.trim();
 ---
 
-<Layout title="Tree View — Cubby UI" category="Data Display" componentName="Tree View">
+<Layout title={t.title} category={t.category} componentName="Tree View">
     <div class="space-y-3">
         <div class="flex items-center gap-3">
             <h1 class="text-3xl font-bold tracking-tight">Tree View</h1>
-            <span class="cu-badge cu-badge-secondary">Data Display</span>
+            <span class="cu-badge cu-badge-secondary">{t.category}</span>
         </div>
-        <p class="text-base text-muted-foreground leading-relaxed">
-            A hierarchical tree structure with expandable/collapsible nodes, built with native <code class="cu-code">&lt;details&gt;</code> elements.
-        </p>
+        <p class="text-base text-muted-foreground leading-relaxed" set:html={t.description} />
     </div>
 
     <div class="mt-10 space-y-10">
@@ -120,14 +182,9 @@ const defaultOpenCode = `<div class="cu-tree">
         <section class="space-y-3">
             <h2 id="usage" class="text-lg font-semibold tracking-tight relative group">
                 <a href="#usage" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                Usage
+                {t.sections.usage.title}
             </h2>
-            <p class="text-base text-muted-foreground leading-relaxed">
-                Use <code class="cu-code">cu-tree</code> as the root container,
-                <code class="cu-code">cu-tree-item</code> on <code class="cu-code">&lt;details&gt;</code> for expandable nodes,
-                <code class="cu-code">cu-tree-trigger</code> on <code class="cu-code">&lt;summary&gt;</code> for the node title, and
-                <code class="cu-code">cu-tree-leaf</code> for leaf nodes.
-            </p>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
             <ComponentPreview code={usageCode}>
                 <div class="w-full max-w-xs">
                     <TreeView>
@@ -162,41 +219,23 @@ const defaultOpenCode = `<div class="cu-tree">
         <section class="space-y-3">
             <h2 id="classes" class="text-lg font-semibold tracking-tight relative group">
                 <a href="#classes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                CSS Classes
+                {t.sections.classes.title}
             </h2>
             <div class="cu-table-wrapper rounded-lg border border-border">
                 <table class="cu-table">
                     <thead class="cu-table-header">
                         <tr class="cu-table-row">
-                            <th class="cu-table-head">Class</th>
-                            <th class="cu-table-head">Description</th>
+                            <th class="cu-table-head">{t.sections.classes.classLabel}</th>
+                            <th class="cu-table-head">{t.sections.classes.descriptionLabel}</th>
                         </tr>
                     </thead>
                     <tbody class="cu-table-body">
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-tree</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Tree view container</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-tree-item</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Expandable tree node (<code class="cu-code">&lt;details&gt;</code> element)</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-tree-trigger</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Node expand / collapse trigger (<code class="cu-code">&lt;summary&gt;</code> element)</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-tree-trigger-icon</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Expand arrow icon, rotates 90° when expanded</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-tree-content</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Child node content area with left connector line</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-tree-leaf</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Leaf node (non-expandable)</td>
-                        </tr>
+                        {Object.entries(t.classDescriptions).map(([cls, desc]) => (
+                            <tr class="cu-table-row">
+                                <td class="cu-table-cell"><code class="cu-code">{cls}</code></td>
+                                <td class="cu-table-cell text-muted-foreground" set:html={desc} />
+                            </tr>
+                        ))}
                     </tbody>
                 </table>
             </div>
@@ -207,10 +246,10 @@ const defaultOpenCode = `<div class="cu-tree">
         <section class="space-y-3">
             <h2 id="file-explorer" class="text-lg font-semibold tracking-tight relative group">
                 <a href="#file-explorer" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                File Explorer
+                {t.sections.fileExplorer.title}
             </h2>
             <p class="text-base text-muted-foreground leading-relaxed">
-                Combine folder and file icons with the tree structure for a file explorer pattern.
+                {t.sections.fileExplorer.description}
             </p>
             <ComponentPreview code={fileExplorerCode}>
                 <div class="w-full max-w-xs">
@@ -247,12 +286,9 @@ const defaultOpenCode = `<div class="cu-tree">
         <section class="space-y-3">
             <h2 id="default-open" class="text-lg font-semibold tracking-tight relative group">
                 <a href="#default-open" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                Default Open
+                {t.sections.defaultOpen.title}
             </h2>
-            <p class="text-base text-muted-foreground leading-relaxed">
-                Add the <code class="cu-code">open</code> attribute to <code class="cu-code">&lt;details&gt;</code> elements
-                to expand nodes by default.
-            </p>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.defaultOpen.description} />
             <ComponentPreview code={defaultOpenCode}>
                 <div class="w-full max-w-xs">
                     <TreeView>
@@ -274,6 +310,79 @@ const defaultOpenCode = `<div class="cu-tree">
                                         <TreeLeaf>Nested item 2</TreeLeaf>
                                     </div>
                                 </TreeItem>
+                            </div>
+                        </TreeItem>
+                    </TreeView>
+                </div>
+            </ComponentPreview>
+        </section>
+
+        <!-- Active / Selected State -->
+        <section class="space-y-3">
+            <h2 id="active-state" class="text-lg font-semibold tracking-tight relative group">
+                <a href="#active-state" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                {t.sections.activeState.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.activeState.description} />
+            <ComponentPreview code={activeStateCode}>
+                <div class="w-full max-w-xs">
+                    <TreeView>
+                        <TreeItem open>
+                            <summary class="cu-tree-trigger">
+                                <Fragment set:html={chevronIcon} />
+                                Getting Started
+                            </summary>
+                            <div class="cu-tree-content">
+                                <TreeLeaf>Introduction</TreeLeaf>
+                                <TreeLeaf class="cu-tree-leaf-active">Installation</TreeLeaf>
+                            </div>
+                        </TreeItem>
+                        <TreeItem>
+                            <summary class="cu-tree-trigger">
+                                <Fragment set:html={chevronIcon} />
+                                Components
+                            </summary>
+                            <div class="cu-tree-content">
+                                <TreeLeaf>Button</TreeLeaf>
+                                <TreeLeaf>Input</TreeLeaf>
+                            </div>
+                        </TreeItem>
+                    </TreeView>
+                </div>
+            </ComponentPreview>
+        </section>
+
+        <!-- With Checkboxes -->
+        <section class="space-y-3">
+            <h2 id="with-checkboxes" class="text-lg font-semibold tracking-tight relative group">
+                <a href="#with-checkboxes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                {t.sections.withCheckboxes.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withCheckboxes.description} />
+            <ComponentPreview code={withCheckboxesCode}>
+                <div class="w-full max-w-xs">
+                    <TreeView>
+                        <TreeItem open>
+                            <summary class="cu-tree-trigger">
+                                <Fragment set:html={chevronIcon} />
+                                <input type="checkbox" class="cu-checkbox" />
+                                Permissions
+                            </summary>
+                            <div class="cu-tree-content">
+                                <TreeLeaf><input type="checkbox" class="cu-checkbox" checked /> Read</TreeLeaf>
+                                <TreeLeaf><input type="checkbox" class="cu-checkbox" checked /> Write</TreeLeaf>
+                                <TreeLeaf><input type="checkbox" class="cu-checkbox" /> Delete</TreeLeaf>
+                            </div>
+                        </TreeItem>
+                        <TreeItem open>
+                            <summary class="cu-tree-trigger">
+                                <Fragment set:html={chevronIcon} />
+                                <input type="checkbox" class="cu-checkbox" />
+                                Settings
+                            </summary>
+                            <div class="cu-tree-content">
+                                <TreeLeaf><input type="checkbox" class="cu-checkbox" /> Profile</TreeLeaf>
+                                <TreeLeaf><input type="checkbox" class="cu-checkbox" checked /> Notifications</TreeLeaf>
                             </div>
                         </TreeItem>
                     </TreeView>

@@ -81,13 +81,93 @@ const variantsCode = `<button class="cu-button cu-button-default cu-button-md" d
   Info
 </button>`.trim();
 
-const withActionCode = `<div class="cu-toast cu-toast-default" style="position: relative;">
+const withActionCode = `<button class="cu-button cu-button-outline cu-button-md" id="toast-action-demo">
+  Show Toast with Action
+</button>
+
+${SO}
+  document.getElementById("toast-action-demo")?.addEventListener("click", () => {
+    const container = document.querySelector("[data-cu-toast-container]");
+    if (!container) return;
+
+    const toast = document.createElement("div");
+    toast.className = "cu-toast cu-toast-default cu-toast-enter";
+
+    const body = document.createElement("div");
+    body.className = "cu-toast-body";
+    const titleEl = document.createElement("div");
+    titleEl.className = "cu-toast-title";
+    titleEl.textContent = "Event deleted";
+    body.appendChild(titleEl);
+    const descEl = document.createElement("div");
+    descEl.className = "cu-toast-description";
+    descEl.textContent = 'The event "Team Meeting" has been removed.';
+    body.appendChild(descEl);
+    toast.appendChild(body);
+
+    const actions = document.createElement("div");
+    actions.className = "flex flex-col gap-1";
+    const undoBtn = document.createElement("button");
+    undoBtn.className = "cu-button cu-button-outline cu-button-sm text-xs h-7";
+    undoBtn.textContent = "Undo";
+    undoBtn.addEventListener("click", () => toast.remove());
+    actions.appendChild(undoBtn);
+    toast.appendChild(actions);
+
+    const closeBtn = document.createElement("button");
+    closeBtn.className = "cu-toast-close";
+    closeBtn.textContent = "\\u00d7";
+    closeBtn.addEventListener("click", () => toast.remove());
+    toast.appendChild(closeBtn);
+
+    container.appendChild(toast);
+    setTimeout(() => {
+      if (toast.parentNode) toast.remove();
+    }, 5000);
+  });
+${SC}`.trim();
+
+const positionsCode = `<!-- Bottom Right (default) -->
+<div class="cu-toast-container cu-toast-container-bottom-right" data-cu-toast-container>...</div>
+
+<!-- Bottom Left -->
+<div class="cu-toast-container cu-toast-container-bottom-left" data-cu-toast-container>...</div>
+
+<!-- Bottom Center -->
+<div class="cu-toast-container cu-toast-container-bottom-center" data-cu-toast-container>...</div>
+
+<!-- Top Right -->
+<div class="cu-toast-container cu-toast-container-top-right" data-cu-toast-container>...</div>
+
+<!-- Top Left -->
+<div class="cu-toast-container cu-toast-container-top-left" data-cu-toast-container>...</div>
+
+<!-- Top Center -->
+<div class="cu-toast-container cu-toast-container-top-center" data-cu-toast-container>...</div>`.trim();
+
+const withIconCode = `<div class="cu-toast cu-toast-success">
+  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="shrink-0 text-success mt-0.5"><path d="m8 12 3 3 5-6"/><circle cx="12" cy="12" r="10"/></svg>
   <div class="cu-toast-body">
-    <div class="cu-toast-title">Event deleted</div>
-    <div class="cu-toast-description">The event "Team Meeting" has been removed.</div>
+    <div class="cu-toast-title">Changes saved</div>
+    <div class="cu-toast-description">Your profile has been updated.</div>
   </div>
-  <div class="flex flex-col gap-1">
-    <button class="cu-button cu-button-outline cu-button-sm text-xs h-7">Undo</button>
+  <button class="cu-toast-close">&times;</button>
+</div>
+
+<div class="cu-toast cu-toast-destructive">
+  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="shrink-0 text-destructive mt-0.5"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6"/><path d="m9 9 6 6"/></svg>
+  <div class="cu-toast-body">
+    <div class="cu-toast-title">Upload failed</div>
+    <div class="cu-toast-description">File size exceeds 10MB limit.</div>
+  </div>
+  <button class="cu-toast-close">&times;</button>
+</div>
+
+<div class="cu-toast cu-toast-warning">
+  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="shrink-0 text-warning mt-0.5"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>
+  <div class="cu-toast-body">
+    <div class="cu-toast-title">Session expiring</div>
+    <div class="cu-toast-description">Your session will expire in 5 minutes.</div>
   </div>
   <button class="cu-toast-close">&times;</button>
 </div>`.trim();
@@ -169,6 +249,14 @@ const customDurationCode = `<button class="cu-button cu-button-outline cu-button
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-toast-container-top-left</code></td>
                             <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-toast-container-top-left']}</td>
+                        </tr>
+                        <tr class="cu-table-row">
+                            <td class="cu-table-cell"><code class="cu-code">cu-toast-container-top-center</code></td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-toast-container-top-center']}</td>
+                        </tr>
+                        <tr class="cu-table-row">
+                            <td class="cu-table-cell"><code class="cu-code">cu-toast-container-bottom-center</code></td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-toast-container-bottom-center']}</td>
                         </tr>
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-toast</code></td>
@@ -261,16 +349,9 @@ const customDurationCode = `<button class="cu-button cu-button-outline cu-button
             </h2>
             <p class="text-base text-muted-foreground leading-relaxed">{t.sections.withAction.description}</p>
             <ComponentPreview code={withActionCode}>
-                <div class="cu-toast cu-toast-default" style="position: relative;">
-                    <div class="cu-toast-body">
-                        <div class="cu-toast-title">Event deleted</div>
-                        <div class="cu-toast-description">The event "Team Meeting" has been removed.</div>
-                    </div>
-                    <div class="flex flex-col gap-1">
-                        <button class="cu-button cu-button-outline cu-button-sm text-xs h-7">Undo</button>
-                    </div>
-                    <button class="cu-toast-close">&times;</button>
-                </div>
+                <button class="cu-button cu-button-outline cu-button-md" id="toast-action-demo">
+                    Show Toast with Action
+                </button>
             </ComponentPreview>
         </section>
 
@@ -299,5 +380,103 @@ const customDurationCode = `<button class="cu-button cu-button-outline cu-button
             </ComponentPreview>
         </section>
 
+        <!-- Positions -->
+        <section class="space-y-3">
+            <h2 id="positions" class="text-lg font-semibold tracking-tight relative group">
+                <a href="#positions" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                {t.sections.positions.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">{t.sections.positions.description}</p>
+            <ComponentPreview code={positionsCode}>
+                <div class="relative w-full h-64 border border-border rounded-xl bg-muted/20">
+                    <div class="absolute top-3 left-3 text-xs text-muted-foreground">cu-toast-container-top-left</div>
+                    <div class="absolute top-3 left-1/2 -translate-x-1/2 text-xs text-muted-foreground">cu-toast-container-top-center</div>
+                    <div class="absolute top-3 right-3 text-xs text-muted-foreground">cu-toast-container-top-right</div>
+                    <div class="absolute bottom-3 left-3 text-xs text-muted-foreground">cu-toast-container-bottom-left</div>
+                    <div class="absolute bottom-3 left-1/2 -translate-x-1/2 text-xs text-muted-foreground">cu-toast-container-bottom-center</div>
+                    <div class="absolute bottom-3 right-3 text-xs text-muted-foreground">cu-toast-container-bottom-right</div>
+                </div>
+            </ComponentPreview>
+        </section>
+
+        <!-- With Icon -->
+        <section class="space-y-3">
+            <h2 id="with-icon" class="text-lg font-semibold tracking-tight relative group">
+                <a href="#with-icon" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                {t.sections.withIcon.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">{t.sections.withIcon.description}</p>
+            <ComponentPreview code={withIconCode}>
+                <div class="flex flex-col gap-3 w-full max-w-sm">
+                    <div class="cu-toast cu-toast-success" style="position:relative;pointer-events:auto;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="shrink-0 text-success mt-0.5"><path d="m8 12 3 3 5-6"/><circle cx="12" cy="12" r="10"/></svg>
+                        <div class="cu-toast-body">
+                            <div class="cu-toast-title">Changes saved</div>
+                            <div class="cu-toast-description">Your profile has been updated.</div>
+                        </div>
+                    </div>
+                    <div class="cu-toast cu-toast-destructive" style="position:relative;pointer-events:auto;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="shrink-0 text-destructive mt-0.5"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6"/><path d="m9 9 6 6"/></svg>
+                        <div class="cu-toast-body">
+                            <div class="cu-toast-title">Upload failed</div>
+                            <div class="cu-toast-description">File size exceeds 10MB limit.</div>
+                        </div>
+                    </div>
+                    <div class="cu-toast cu-toast-warning" style="position:relative;pointer-events:auto;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="shrink-0 text-warning mt-0.5"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>
+                        <div class="cu-toast-body">
+                            <div class="cu-toast-title">Session expiring</div>
+                            <div class="cu-toast-description">Your session will expire in 5 minutes.</div>
+                        </div>
+                    </div>
+                </div>
+            </ComponentPreview>
+        </section>
+
     </div>
 </Layout>
+
+<script>
+    document.getElementById("toast-action-demo")?.addEventListener("click", () => {
+        const container = document.querySelector("[data-cu-toast-container]");
+        if (!container) return;
+
+        const toast = document.createElement("div");
+        toast.className = "cu-toast cu-toast-default cu-toast-enter";
+
+        const body = document.createElement("div");
+        body.className = "cu-toast-body";
+
+        const titleEl = document.createElement("div");
+        titleEl.className = "cu-toast-title";
+        titleEl.textContent = "Event deleted";
+        body.appendChild(titleEl);
+
+        const descEl = document.createElement("div");
+        descEl.className = "cu-toast-description";
+        descEl.textContent = 'The event "Team Meeting" has been removed.';
+        body.appendChild(descEl);
+
+        toast.appendChild(body);
+
+        const actions = document.createElement("div");
+        actions.className = "flex flex-col gap-1";
+        const undoBtn = document.createElement("button");
+        undoBtn.className = "cu-button cu-button-outline cu-button-sm text-xs h-7";
+        undoBtn.textContent = "Undo";
+        undoBtn.addEventListener("click", () => toast.remove());
+        actions.appendChild(undoBtn);
+        toast.appendChild(actions);
+
+        const closeBtn = document.createElement("button");
+        closeBtn.className = "cu-toast-close";
+        closeBtn.textContent = "\u00d7";
+        closeBtn.addEventListener("click", () => toast.remove());
+        toast.appendChild(closeBtn);
+
+        container.appendChild(toast);
+        setTimeout(() => {
+            if (toast.parentNode) toast.remove();
+        }, 5000);
+    });
+</script>

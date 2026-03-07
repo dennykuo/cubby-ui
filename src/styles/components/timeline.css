@@ -21,6 +21,14 @@
     @apply size-3 text-muted-foreground;
 }
 
+.cu-timeline-dot-lg {
+    @apply size-8;
+}
+
+.cu-timeline-dot-lg img {
+    @apply size-full rounded-full object-cover;
+}
+
 /* -- dot colors -- */
 .cu-timeline-dot-primary {
     @apply border-primary bg-primary/10;
@@ -77,4 +85,25 @@
 
 .cu-timeline-time {
     @apply text-xs text-muted-foreground/70;
+}
+
+/* -- horizontal layout -- */
+.cu-timeline-horizontal {
+    @apply flex pl-0 space-y-0;
+}
+
+.cu-timeline-horizontal::before {
+    @apply left-0 right-0 top-3 bottom-auto h-px w-full;
+}
+
+.cu-timeline-horizontal .cu-timeline-item {
+    @apply flex-1 pb-0 pl-0 pt-8 text-center;
+}
+
+.cu-timeline-horizontal .cu-timeline-dot {
+    @apply -left-0 left-1/2 -translate-x-1/2 -top-3;
+}
+
+.cu-timeline-horizontal .cu-timeline-content {
+    @apply items-center;
 }

@@ -10,6 +10,8 @@ export const toastPage: Record<Locale, {
     variants: { title: string; description: string };
     withAction: { title: string; description: string };
     customDuration: { title: string; description: string };
+    positions: { title: string; description: string };
+    withIcon: { title: string; description: string };
   };
   classDescriptions: Record<string, string>;
 }> = {
@@ -39,13 +41,23 @@ export const toastPage: Record<Locale, {
         title: 'Custom Duration',
         description: 'Use <code class="cu-code">data-cu-toast-duration</code> to customize how long the toast stays visible (in milliseconds). Default is 5000ms.',
       },
+      positions: {
+        title: 'Positions',
+        description: 'Use position classes on the container to place toasts at different screen corners or centered positions.',
+      },
+      withIcon: {
+        title: 'With Icon',
+        description: 'Add a leading icon to the toast for stronger visual feedback across different variants.',
+      },
     },
     classDescriptions: {
       'cu-toast-container': 'Toast fixed position container',
       'cu-toast-container-bottom-right': 'Container position: bottom-right',
       'cu-toast-container-bottom-left': 'Container position: bottom-left',
+      'cu-toast-container-bottom-center': 'Container position: bottom-center',
       'cu-toast-container-top-right': 'Container position: top-right',
       'cu-toast-container-top-left': 'Container position: top-left',
+      'cu-toast-container-top-center': 'Container position: top-center',
       'cu-toast': 'Toast base style',
       'cu-toast-default': 'Default variant style',
       'cu-toast-destructive': 'Destructive / error variant style',
@@ -85,13 +97,23 @@ export const toastPage: Record<Locale, {
         title: '自訂顯示時間',
         description: '使用 <code class="cu-code">data-cu-toast-duration</code> 自訂 toast 顯示時長（毫秒）。預設為 5000ms。',
       },
+      positions: {
+        title: '位置',
+        description: '在容器上使用位置類別，將 toast 放置在螢幕不同角落或置中位置。',
+      },
+      withIcon: {
+        title: '搭配圖示',
+        description: '在 toast 前方加入圖示，為不同變體提供更強烈的視覺回饋。',
+      },
     },
     classDescriptions: {
       'cu-toast-container': 'Toast 固定定位容器',
       'cu-toast-container-bottom-right': '容器位置：右下',
       'cu-toast-container-bottom-left': '容器位置：左下',
+      'cu-toast-container-bottom-center': '容器位置：下方置中',
       'cu-toast-container-top-right': '容器位置：右上',
       'cu-toast-container-top-left': '容器位置：左上',
+      'cu-toast-container-top-center': '容器位置：上方置中',
       'cu-toast': 'Toast 基礎樣式',
       'cu-toast-default': '預設變體樣式',
       'cu-toast-destructive': '危險 / 錯誤變體樣式',
