@@ -74,6 +74,12 @@ const validationCode = `<!-- Error state -->
 
 const disabledCode = `<input class="cu-input" type="text" placeholder="Disabled input" disabled />`.trim();
 
+const charCountCode = `<div class="cu-form-group">
+  <label class="cu-label" for="bio">Bio</label>
+  <input class="cu-input" type="text" id="bio" maxlength="80" placeholder="Tell us about yourself..." />
+  <p class="text-sm text-muted-foreground text-right">0 / 80</p>
+</div>`.trim();
+
 const formGroupCode = `<div class="cu-form-group">
   <label class="cu-label" for="username">Username</label>
   <input class="cu-input" type="text" id="username" placeholder="johndoe" />
@@ -297,5 +303,33 @@ const formGroupCode = `<div class="cu-form-group">
                 </div>
             </ComponentPreview>
         </section>
+
+        <!-- Character Count -->
+        <section class="space-y-3">
+            <h2 id="character-count" class="text-lg font-semibold tracking-tight relative group">
+              <a href="#character-count" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+              {t.sections.charCount.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.charCount.description} />
+            <ComponentPreview code={charCountCode}>
+                <div class="w-full max-w-sm">
+                    <FormGroup>
+                        <Label for="bio-demo">Bio</Label>
+                        <Input type="text" id="bio-demo" maxlength="80" placeholder="Tell us about yourself..." />
+                        <p id="bio-counter" class="text-sm text-muted-foreground text-right">0 / 80</p>
+                    </FormGroup>
+                </div>
+            </ComponentPreview>
+        </section>
+
+        <script>
+            const bioInput = document.getElementById('bio-demo') as HTMLInputElement;
+            const bioCounter = document.getElementById('bio-counter');
+            if (bioInput && bioCounter) {
+                bioInput.addEventListener('input', () => {
+                    bioCounter.textContent = `${bioInput.value.length} / 80`;
+                });
+            }
+        </script>
     </div>
 </Layout>

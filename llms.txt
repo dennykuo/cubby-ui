@@ -118,6 +118,7 @@ Base: `cu-button`
 Variants: `cu-button-default` (solid primary), `cu-button-destructive`, `cu-button-outline`, `cu-button-ghost`, `cu-button-link`
 Sizes: `cu-button-sm`, `cu-button-lg`
 Icon buttons: `cu-button-icon` (h-9 w-9), `cu-button-icon-sm` (h-8 w-8), `cu-button-icon-xs` (h-7 w-7)
+Block: `cu-button-block` (always full-width), `cu-button-block-sm` (full-width on mobile, auto on sm+)
 ```html
 <button class="cu-button cu-button-default">Button</button>
 <button class="cu-button cu-button-outline cu-button-sm">Small Outline</button>
@@ -423,11 +424,12 @@ Sizes: `cu-badge-sm`, `cu-badge-lg`
 ```
 
 **Table**
+Responsive: Add `cu-table-stacked` to wrapper + `data-label` on each `<td>` for mobile card layout (≤640px).
 ```html
 <div class="cu-table-wrapper">
   <table class="cu-table">
     <thead><tr><th>Name</th></tr></thead>
-    <tbody><tr><td>Row</td></tr></tbody>
+    <tbody><tr><td data-label="Name">Row</td></tr></tbody>
   </table>
 </div>
 ```
@@ -713,12 +715,29 @@ Sizes: `cu-container-sm`, `cu-container-md`, `cu-container-lg`, `cu-container-xl
 <header class="cu-header">
   <div class="cu-header-inner">
     <div class="cu-header-brand"><!-- logo --></div>
-    <nav class="cu-header-nav"><!-- nav items --></nav>
-    <div class="cu-header-actions"><!-- buttons --></div>
+    <nav class="cu-header-nav cu-header-nav-md"><!-- nav items --></nav>
+    <div class="cu-header-actions">
+      <!-- buttons -->
+      <button data-cu-mobile-nav-trigger="main-nav" class="cu-button cu-button-ghost cu-button-icon-sm md:hidden" aria-label="Open menu" aria-expanded="false">☰</button>
+    </div>
   </div>
 </header>
+<!-- Mobile nav backdrop + panel -->
+<div id="main-nav" class="cu-header-mobile-backdrop" data-cu-mobile-nav></div>
+<nav id="main-nav-panel" class="cu-header-mobile-nav"
+     data-cu-mobile-nav-panel="main-nav" data-cu-mobile-nav-clone
+     role="dialog" aria-modal="true" aria-label="Navigation menu">
+  <div class="cu-header-mobile-header">
+    <span>Brand</span>
+    <button data-cu-mobile-nav-close class="cu-header-mobile-close" aria-label="Close menu">✕</button>
+  </div>
+  <div class="cu-header-mobile-content"><!-- auto-cloned from cu-header-nav --></div>
+</nav>
 ```
+Nav breakpoint modifiers: `cu-header-nav-sm`, `cu-header-nav-md`, `cu-header-nav-lg`, `cu-header-nav-xl` — hide nav below that breakpoint (cu-header-nav alone is always visible)
 Nav alignment variants: `cu-header-nav-start` (left, next to brand), `cu-header-nav-end` (right, next to actions)
+Mobile nav classes: `cu-header-mobile-nav` (slide-in panel), `cu-header-mobile-backdrop` (overlay), `cu-header-mobile-header`, `cu-header-mobile-content`, `cu-header-mobile-close`
+Mobile nav attrs: `data-cu-mobile-nav-trigger="id"`, `data-cu-mobile-nav`, `data-cu-mobile-nav-panel="id"`, `data-cu-mobile-nav-close`, `data-cu-mobile-nav-clone` (auto-clone desktop nav)
 
 **Nav**
 Active: `cu-nav-item-active`

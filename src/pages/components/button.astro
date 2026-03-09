@@ -79,6 +79,19 @@ const loadingCode = `<button class="cu-button cu-button-default cu-button-md cu-
   Saving...
 </button>`.trim();
 
+const responsiveCode = `<!-- Always full-width -->
+<button class="cu-button cu-button-default cu-button-md cu-button-block">
+  Full Width
+</button>
+
+<!-- Full-width on mobile, auto on sm+ -->
+<button class="cu-button cu-button-default cu-button-md cu-button-block-sm">
+  Block on Mobile
+</button>
+<button class="cu-button cu-button-outline cu-button-md cu-button-block-sm">
+  Block on Mobile
+</button>`.trim();
+
 const groupCode = `<div class="cu-button-group">
   <button class="cu-button cu-button-outline cu-button-md">Left</button>
   <button class="cu-button cu-button-outline cu-button-md">Center</button>
@@ -229,6 +242,22 @@ const groupCode = `<div class="cu-button-group">
           <Button variant="destructive" size="icon">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
           </Button>
+        </div>
+      </ComponentPreview>
+    </section>
+
+    <!-- Responsive -->
+    <section class="space-y-3">
+      <h2 id="responsive" class="text-lg font-semibold tracking-tight relative group">
+        <a href="#responsive" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+        {t.sections.responsive.title}
+      </h2>
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.responsive.description} />
+      <ComponentPreview code={responsiveCode}>
+        <div class="flex flex-col gap-3 w-full max-w-sm mx-auto">
+          <Button class="cu-button-block">Full Width</Button>
+          <Button class="cu-button-block-sm">Block on Mobile</Button>
+          <Button variant="outline" class="cu-button-block-sm">Block on Mobile</Button>
         </div>
       </ComponentPreview>
     </section>

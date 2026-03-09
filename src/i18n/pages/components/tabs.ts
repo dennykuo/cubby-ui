@@ -13,6 +13,7 @@ export const tabsPage: Record<Locale, {
     withIcons: { title: string; description: string };
     disabledTab: { title: string; description: string };
     pills: { title: string; description: string };
+    scrollable: { title: string; description: string };
   };
   classDescriptions: Record<string, string>;
 }> = {
@@ -53,6 +54,10 @@ export const tabsPage: Record<Locale, {
       pills: {
         title: 'Pills',
         description: 'Use <code class="cu-code">cu-tabs-list-pills</code> for a pill-shaped tab style with transparent background and filled active state.',
+      },
+      scrollable: {
+        title: 'Scrollable',
+        description: 'When there are many tabs, add <code class="cu-code">overflow-x-auto</code> to the tab list to enable horizontal scrolling on narrow viewports.',
       },
     },
     classDescriptions: {
@@ -104,6 +109,10 @@ export const tabsPage: Record<Locale, {
       pills: {
         title: '膠囊樣式',
         description: '使用 <code class="cu-code">cu-tabs-list-pills</code> 呈現膠囊形分頁樣式，透明背景搭配填滿的啟用狀態。',
+      },
+      scrollable: {
+        title: '可捲動',
+        description: '當分頁數量較多時，在分頁列表上加入 <code class="cu-code">overflow-x-auto</code> 以在窄螢幕上啟用水平捲動。',
       },
     },
     classDescriptions: {

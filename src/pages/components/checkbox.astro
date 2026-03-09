@@ -31,6 +31,71 @@ const disabledCode = `<div class="cu-checkbox-wrapper">
   <label class="cu-label" for="disabled-checked">Disabled checked</label>
 </div>`.trim();
 
+const withDescCode = `<div class="cu-checkbox-wrapper items-start">
+  <input type="checkbox" class="cu-checkbox mt-0.5" id="marketing" />
+  <div>
+    <label class="cu-label" for="marketing">Marketing emails</label>
+    <p class="text-sm text-muted-foreground">Receive emails about new products, features, and updates.</p>
+  </div>
+</div>
+
+<div class="cu-checkbox-wrapper items-start">
+  <input type="checkbox" class="cu-checkbox mt-0.5" id="security" checked />
+  <div>
+    <label class="cu-label" for="security">Security alerts</label>
+    <p class="text-sm text-muted-foreground">Get notified about unusual account activity.</p>
+  </div>
+</div>`.trim();
+
+const indeterminateCode = `<div class="cu-checkbox-wrapper">
+  <input type="checkbox" class="cu-checkbox" id="select-all" />
+  <label class="cu-label font-medium" for="select-all">Select all</label>
+</div>
+<div class="ml-6 flex flex-col gap-2">
+  <div class="cu-checkbox-wrapper">
+    <input type="checkbox" class="cu-checkbox" id="item-1" checked />
+    <label class="cu-label" for="item-1">Item 1</label>
+  </div>
+  <div class="cu-checkbox-wrapper">
+    <input type="checkbox" class="cu-checkbox" id="item-2" />
+    <label class="cu-label" for="item-2">Item 2</label>
+  </div>
+  <div class="cu-checkbox-wrapper">
+    <input type="checkbox" class="cu-checkbox" id="item-3" checked />
+    <label class="cu-label" for="item-3">Item 3</label>
+  </div>
+</div>
+
+<script>
+  const selectAll = document.getElementById('select-all');
+  const items = document.querySelectorAll('#item-1, #item-2, #item-3');
+  function updateSelectAll() {
+    const checked = [...items].filter(i => i.checked).length;
+    selectAll.checked = checked === items.length;
+    selectAll.indeterminate = checked > 0 && checked < items.length;
+  }
+  items.forEach(i => i.addEventListener('change', updateSelectAll));
+  selectAll.addEventListener('change', () => {
+    items.forEach(i => { i.checked = selectAll.checked; });
+  });
+  updateSelectAll();
+</script>`.trim();
+
+const inlineCode = `<div class="flex flex-wrap gap-4">
+  <div class="cu-checkbox-wrapper">
+    <input type="checkbox" class="cu-checkbox" id="opt-a" />
+    <label class="cu-label" for="opt-a">Option A</label>
+  </div>
+  <div class="cu-checkbox-wrapper">
+    <input type="checkbox" class="cu-checkbox" id="opt-b" checked />
+    <label class="cu-label" for="opt-b">Option B</label>
+  </div>
+  <div class="cu-checkbox-wrapper">
+    <input type="checkbox" class="cu-checkbox" id="opt-c" />
+    <label class="cu-label" for="opt-c">Option C</label>
+  </div>
+</div>`.trim();
+
 const groupCode = `<fieldset>
   <legend class="cu-label mb-2">Notifications</legend>
   <div class="flex flex-col gap-2">
@@ -177,6 +242,104 @@ const groupCode = `<fieldset>
                         </div>
                     </div>
                 </fieldset>
+            </ComponentPreview>
+        </section>
+
+        <!-- With Description -->
+        <section class="space-y-3">
+            <h2 id="with-description" class="text-lg font-semibold tracking-tight relative group">
+              <a href="#with-description" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+              {t.sections.withDescription.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withDescription.description} />
+            <ComponentPreview code={withDescCode}>
+                <div class="space-y-2">
+                    <div class="cu-checkbox-wrapper items-start">
+                        <Checkbox id="marketing-demo" class="mt-0.5" />
+                        <div>
+                            <Label for="marketing-demo">Marketing emails</Label>
+                            <p class="text-sm text-muted-foreground">Receive emails about new products, features, and updates.</p>
+                        </div>
+                    </div>
+                    <div class="cu-checkbox-wrapper items-start">
+                        <Checkbox id="security-demo" class="mt-0.5" checked />
+                        <div>
+                            <Label for="security-demo">Security alerts</Label>
+                            <p class="text-sm text-muted-foreground">Get notified about unusual account activity.</p>
+                        </div>
+                    </div>
+                </div>
+            </ComponentPreview>
+        </section>
+
+        <!-- Indeterminate -->
+        <section class="space-y-3">
+            <h2 id="indeterminate" class="text-lg font-semibold tracking-tight relative group">
+              <a href="#indeterminate" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+              {t.sections.indeterminate.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.indeterminate.description} />
+            <ComponentPreview code={indeterminateCode}>
+                <div>
+                    <div class="cu-checkbox-wrapper">
+                        <Checkbox id="select-all-demo" />
+                        <Label for="select-all-demo" class="font-medium">Select all</Label>
+                    </div>
+                    <div class="ml-6 flex flex-col gap-2">
+                        <div class="cu-checkbox-wrapper">
+                            <Checkbox id="item-demo-1" checked />
+                            <Label for="item-demo-1">Item 1</Label>
+                        </div>
+                        <div class="cu-checkbox-wrapper">
+                            <Checkbox id="item-demo-2" />
+                            <Label for="item-demo-2">Item 2</Label>
+                        </div>
+                        <div class="cu-checkbox-wrapper">
+                            <Checkbox id="item-demo-3" checked />
+                            <Label for="item-demo-3">Item 3</Label>
+                        </div>
+                    </div>
+                </div>
+            </ComponentPreview>
+        </section>
+
+        <script>
+            const selectAllDemo = document.getElementById('select-all-demo') as HTMLInputElement;
+            const itemDemos = document.querySelectorAll('#item-demo-1, #item-demo-2, #item-demo-3') as NodeListOf<HTMLInputElement>;
+            function updateSelectAllDemo() {
+                const checked = [...itemDemos].filter(i => i.checked).length;
+                selectAllDemo.checked = checked === itemDemos.length;
+                selectAllDemo.indeterminate = checked > 0 && checked < itemDemos.length;
+            }
+            itemDemos.forEach(i => i.addEventListener('change', updateSelectAllDemo));
+            selectAllDemo.addEventListener('change', () => {
+                itemDemos.forEach(i => { i.checked = selectAllDemo.checked; });
+            });
+            updateSelectAllDemo();
+        </script>
+
+        <!-- Inline Layout -->
+        <section class="space-y-3">
+            <h2 id="inline-layout" class="text-lg font-semibold tracking-tight relative group">
+              <a href="#inline-layout" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+              {t.sections.inline.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.inline.description} />
+            <ComponentPreview code={inlineCode}>
+                <div class="flex flex-wrap gap-4">
+                    <div class="cu-checkbox-wrapper">
+                        <Checkbox id="opt-a-demo" />
+                        <Label for="opt-a-demo">Option A</Label>
+                    </div>
+                    <div class="cu-checkbox-wrapper">
+                        <Checkbox id="opt-b-demo" checked />
+                        <Label for="opt-b-demo">Option B</Label>
+                    </div>
+                    <div class="cu-checkbox-wrapper">
+                        <Checkbox id="opt-c-demo" />
+                        <Label for="opt-c-demo">Option C</Label>
+                    </div>
+                </div>
             </ComponentPreview>
         </section>
     </div>

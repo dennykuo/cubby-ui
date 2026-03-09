@@ -48,3 +48,26 @@
 .cu-sidebar-separator {
     @apply mx-3 my-3 h-px bg-border;
 }
+
+/* Responsive: hide sidebar on mobile, show on md+ */
+.cu-sidebar-responsive {
+    @apply hidden md:flex;
+}
+
+/* Mobile overlay sidebar */
+.cu-sidebar-overlay {
+    @apply fixed inset-y-0 left-0 z-50 w-72 translate-x-[-100%] shadow-lg transition-transform duration-200 ease-out;
+}
+
+.cu-sidebar-overlay[data-cu-sidebar-open] {
+    @apply translate-x-0;
+}
+
+/* Backdrop for mobile overlay */
+.cu-sidebar-backdrop {
+    @apply fixed inset-0 z-40 bg-black/50 opacity-0 transition-opacity duration-200;
+}
+
+.cu-sidebar-backdrop[data-cu-sidebar-open] {
+    @apply opacity-100;
+}

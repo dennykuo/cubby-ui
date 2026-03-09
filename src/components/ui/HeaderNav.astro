@@ -4,14 +4,16 @@ import { TOP_CLASS } from "../../config";
 interface Props {
 	start?: boolean;
 	end?: boolean;
+	breakpoint?: "sm" | "md" | "lg" | "xl" | "always";
 	class?: string;
 	[key: string]: any;
 }
 
-const { start, end, class: className, ...rest } = Astro.props;
+const { start, end, breakpoint = "md", class: className, ...rest } = Astro.props;
 const baseClass = `${TOP_CLASS}-header-nav`;
+const breakpointClass = breakpoint === "always" ? "" : `${TOP_CLASS}-header-nav-${breakpoint}`;
 ---
 
-<div class:list={[baseClass, start && `${TOP_CLASS}-header-nav-start`, end && `${TOP_CLASS}-header-nav-end`, className]} {...rest}>
+<div class:list={[baseClass, breakpointClass, start && `${TOP_CLASS}-header-nav-start`, end && `${TOP_CLASS}-header-nav-end`, className]} {...rest}>
 	<slot />
 </div>

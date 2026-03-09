@@ -27,7 +27,7 @@ const withNavCode = `<header class="cu-header">
       <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-primary"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
       <span class="text-base font-semibold tracking-tight">My App</span>
     </div>
-    <div class="cu-header-nav">
+    <div class="cu-header-nav cu-header-nav-md">
       <nav class="cu-nav">
         <a class="cu-nav-item cu-nav-item-active" href="#">Home</a>
         <a class="cu-nav-item" href="#">Products</a>
@@ -47,7 +47,7 @@ const navStartCode = `<header class="cu-header">
       <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-primary"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
       <span class="text-base font-semibold tracking-tight">My App</span>
     </div>
-    <div class="cu-header-nav cu-header-nav-start">
+    <div class="cu-header-nav cu-header-nav-md cu-header-nav-start">
       <nav class="cu-nav">
         <a class="cu-nav-item cu-nav-item-active" href="#">Home</a>
         <a class="cu-nav-item" href="#">Products</a>
@@ -70,7 +70,7 @@ const navEndCode = `<header class="cu-header">
       <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-primary"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
       <span class="text-base font-semibold tracking-tight">My App</span>
     </div>
-    <div class="cu-header-nav cu-header-nav-end">
+    <div class="cu-header-nav cu-header-nav-md cu-header-nav-end">
       <nav class="cu-nav">
         <a class="cu-nav-item cu-nav-item-active" href="#">Home</a>
         <a class="cu-nav-item" href="#">Products</a>
@@ -106,19 +106,13 @@ const brandVariationsCode = `<!-- Text only -->
   </div>
 </header>`.trim();
 
-const mobileMenuCode = `<header class="cu-header">
+const mobileNavCode = `<header class="cu-header">
   <div class="cu-header-inner">
-    <div class="flex items-center gap-2">
-      <!-- Mobile menu toggle (visible on small screens) -->
-      <button class="cu-button cu-button-ghost cu-button-icon-sm md:hidden" aria-label="Toggle menu">
-        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
-      </button>
-      <div class="cu-header-brand">
-        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-primary"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg>
-        <span class="text-base font-semibold tracking-tight">Dashboard</span>
-      </div>
+    <div class="cu-header-brand">
+      <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-primary"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg>
+      <span class="text-base font-semibold tracking-tight">Dashboard</span>
     </div>
-    <div class="cu-header-nav">
+    <div class="cu-header-nav cu-header-nav-md">
       <nav class="cu-nav">
         <a class="cu-nav-item cu-nav-item-active" href="#">Overview</a>
         <a class="cu-nav-item" href="#">Analytics</a>
@@ -130,31 +124,50 @@ const mobileMenuCode = `<header class="cu-header">
         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
       </button>
       <div class="size-8 rounded-full bg-primary/10 flex items-center justify-center text-xs font-medium text-primary cursor-pointer">A</div>
+      <button data-cu-mobile-nav-trigger="main-nav"
+              class="cu-button cu-button-ghost cu-button-icon-sm md:hidden"
+              aria-label="Open menu" aria-expanded="false">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+      </button>
     </div>
   </div>
-</header>`.trim();
+</header>
 
-const withActionsCode = `<header class="cu-header">
-  <div class="cu-header-inner">
-    <div class="cu-header-brand">
-      <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-primary"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
-      <span class="text-base font-semibold tracking-tight">My App</span>
-    </div>
-    <div class="cu-header-nav">
-      <nav class="cu-nav">
-        <a class="cu-nav-item cu-nav-item-active" href="#">Dashboard</a>
-        <a class="cu-nav-item" href="#">Projects</a>
-        <a class="cu-nav-item" href="#">Team</a>
-      </nav>
-    </div>
-    <div class="cu-header-actions">
-      <a href="#" class="inline-flex h-8 w-8 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground">
-        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
-      </a>
-      <div class="size-8 rounded-full bg-primary/10 flex items-center justify-center text-xs font-medium text-primary cursor-pointer">A</div>
-    </div>
+<!-- Backdrop -->
+<div id="main-nav" class="cu-header-mobile-backdrop" data-cu-mobile-nav></div>
+<!-- Slide-in panel -->
+<nav id="main-nav-panel" class="cu-header-mobile-nav"
+     data-cu-mobile-nav-panel="main-nav" data-cu-mobile-nav-clone
+     role="dialog" aria-modal="true" aria-label="Navigation menu">
+  <div class="cu-header-mobile-header">
+    <span class="text-base font-semibold tracking-tight">Dashboard</span>
+    <button data-cu-mobile-nav-close class="cu-header-mobile-close" aria-label="Close menu">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+    </button>
   </div>
-</header>`.trim();
+  <div class="cu-header-mobile-content">
+    <!-- JS auto-clones desktop nav here -->
+  </div>
+</nav>`.trim();
+
+const triggerVisibilityCode = `<!-- Always visible — no breakpoint class -->
+<div class="cu-header-actions">
+  <button data-cu-mobile-nav-trigger="my-nav"
+          class="cu-button cu-button-ghost cu-button-icon-sm"
+          aria-label="Open menu" aria-expanded="false">
+    <!-- hamburger icon -->
+  </button>
+</div>
+
+<!-- Hidden above lg — visible on mobile and tablet -->
+<div class="cu-header-actions">
+  <button data-cu-mobile-nav-trigger="my-nav"
+          class="cu-button cu-button-ghost cu-button-icon-sm lg:hidden"
+          aria-label="Open menu" aria-expanded="false">
+    <!-- hamburger icon -->
+  </button>
+</div>`.trim();
+
 ---
 
 <Layout title={t.title} category={t.category} componentName="Header">
@@ -271,7 +284,7 @@ const withActionsCode = `<header class="cu-header">
 								<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-primary"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
 								<span class="text-base font-semibold tracking-tight">My App</span>
 							</div>
-							<div class="cu-header-nav">
+							<div class="cu-header-nav cu-header-nav-md">
 								<nav class="cu-nav">
 									<a class="cu-nav-item cu-nav-item-active" href="#">Home</a>
 									<a class="cu-nav-item" href="#">Products</a>
@@ -358,63 +371,22 @@ const withActionsCode = `<header class="cu-header">
 			</ComponentPreview>
 		</section>
 
-		<!-- With Actions -->
+		<!-- Mobile Navigation -->
 		<section class="space-y-3">
-			<h2 id="with-actions" class="text-lg font-semibold tracking-tight relative group">
-			  <a href="#with-actions" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-			  {t.sections.withActions.title}
+			<h2 id="mobile-nav" class="text-lg font-semibold tracking-tight relative group">
+			  <a href="#mobile-nav" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+			  {t.sections.mobileNav.title}
 			</h2>
-			<p class="text-base text-muted-foreground leading-relaxed">
-				{t.sections.withActions.description}
-			</p>
-			<ComponentPreview code={withActionsCode}>
-				<div class="w-full rounded-lg border border-border overflow-hidden">
+			<p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.mobileNav.description} />
+			<ComponentPreview code={mobileNavCode}>
+				<div class="w-full rounded-lg border border-border overflow-hidden relative" style="height:280px;">
 					<header class="cu-header" style="position:relative;">
 						<div class="cu-header-inner">
 							<div class="cu-header-brand">
-								<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-primary"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
-								<span class="text-base font-semibold tracking-tight">My App</span>
+								<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-primary"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg>
+								<span class="text-base font-semibold tracking-tight">Dashboard</span>
 							</div>
-							<div class="cu-header-nav">
-								<nav class="cu-nav">
-									<a class="cu-nav-item cu-nav-item-active" href="#">Dashboard</a>
-									<a class="cu-nav-item" href="#">Projects</a>
-									<a class="cu-nav-item" href="#">Team</a>
-								</nav>
-							</div>
-							<div class="cu-header-actions">
-								<a href="#" class="inline-flex h-8 w-8 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground">
-									<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
-								</a>
-								<div class="size-8 rounded-full bg-primary/10 flex items-center justify-center text-xs font-medium text-primary cursor-pointer">A</div>
-							</div>
-						</div>
-					</header>
-				</div>
-			</ComponentPreview>
-		</section>
-
-		<!-- Mobile Menu Toggle -->
-		<section class="space-y-3">
-			<h2 id="mobile-menu-toggle" class="text-lg font-semibold tracking-tight relative group">
-			  <a href="#mobile-menu-toggle" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-			  {t.sections.mobileMenuToggle.title}
-			</h2>
-			<p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.mobileMenuToggle.description} />
-			<ComponentPreview code={mobileMenuCode}>
-				<div class="w-full rounded-lg border border-border overflow-hidden">
-					<header class="cu-header" style="position:relative;">
-						<div class="cu-header-inner">
-							<div class="flex items-center gap-2">
-								<button class="cu-button cu-button-ghost cu-button-icon-sm md:hidden" aria-label="Toggle menu">
-									<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
-								</button>
-								<div class="cu-header-brand">
-									<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-primary"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg>
-									<span class="text-base font-semibold tracking-tight">Dashboard</span>
-								</div>
-							</div>
-							<div class="cu-header-nav">
+							<div class="cu-header-nav cu-header-nav-md">
 								<nav class="cu-nav">
 									<a class="cu-nav-item cu-nav-item-active" href="#">Overview</a>
 									<a class="cu-nav-item" href="#">Analytics</a>
@@ -426,11 +398,103 @@ const withActionsCode = `<header class="cu-header">
 									<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
 								</button>
 								<div class="size-8 rounded-full bg-primary/10 flex items-center justify-center text-xs font-medium text-primary cursor-pointer">A</div>
+								<button data-cu-mobile-nav-trigger="demo-nav"
+										class="cu-button cu-button-ghost cu-button-icon-sm shrink-0"
+										aria-label="Open menu" aria-expanded="false">
+									<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+								</button>
 							</div>
 						</div>
 					</header>
+					<!-- Backdrop (absolute for demo) -->
+					<div id="demo-nav" class="cu-header-mobile-backdrop" data-cu-mobile-nav style="position:absolute;"></div>
+					<!-- Panel (absolute for demo) -->
+					<nav id="demo-nav-panel" class="cu-header-mobile-nav" data-cu-mobile-nav-panel="demo-nav" role="dialog" aria-modal="true" aria-label="Navigation menu" style="position:absolute;">
+						<div class="cu-header-mobile-header">
+							<span class="text-base font-semibold tracking-tight">Dashboard</span>
+							<button data-cu-mobile-nav-close class="cu-header-mobile-close" aria-label="Close menu">
+								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+							</button>
+						</div>
+						<div class="cu-header-mobile-content">
+							<nav class="cu-nav cu-nav-vertical">
+								<a class="cu-nav-item cu-nav-item-active" href="#">Overview</a>
+								<a class="cu-nav-item" href="#">Analytics</a>
+								<a class="cu-nav-item" href="#">Settings</a>
+							</nav>
+						</div>
+					</nav>
+				</div>
+			</ComponentPreview>
+		</section>
+
+		<!-- Trigger Visibility -->
+		<section class="space-y-3">
+			<h2 id="trigger-visibility" class="text-lg font-semibold tracking-tight relative group">
+			  <a href="#trigger-visibility" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+			  {t.sections.triggerVisibility.title}
+			</h2>
+			<p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.triggerVisibility.description} />
+			<p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.triggerVisibility.breakpointList} />
+			<ComponentPreview code={triggerVisibilityCode}>
+				<div class="w-full space-y-3">
+					<div class="rounded-lg border border-border overflow-hidden">
+						<header class="cu-header" style="position:relative;">
+							<div class="cu-header-inner">
+								<div class="cu-header-brand">
+									<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-primary"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg>
+									<span class="text-base font-semibold tracking-tight">App</span>
+								</div>
+								<div class="cu-header-actions">
+									<span class="text-xs text-muted-foreground">{t.sections.triggerVisibility.alwaysVisible}</span>
+									<button class="cu-button cu-button-ghost cu-button-icon-sm shrink-0" aria-label="Open menu">
+										<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+									</button>
+								</div>
+							</div>
+						</header>
+					</div>
+					<div class="rounded-lg border border-border overflow-hidden">
+						<header class="cu-header" style="position:relative;">
+							<div class="cu-header-inner">
+								<div class="cu-header-brand">
+									<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-primary"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg>
+									<span class="text-base font-semibold tracking-tight">App</span>
+								</div>
+								<div class="cu-header-actions">
+									<span class="text-xs text-muted-foreground"><code class="cu-code">lg:hidden</code> — {t.sections.triggerVisibility.hiddenAboveLg}</span>
+									<button class="cu-button cu-button-ghost cu-button-icon-sm shrink-0" data-cu-demo-responsive-hide="desktop" aria-label="Open menu">
+										<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+									</button>
+								</div>
+							</div>
+						</header>
+					</div>
 				</div>
 			</ComponentPreview>
 		</section>
 	</div>
 </Layout>
+
+<script>
+	function setupTriggerVisibilityDemo() {
+		const targets = document.querySelectorAll('[data-cu-demo-responsive-hide]');
+		targets.forEach((target) => {
+			const preview = target.closest('[data-cu-component-preview]');
+			if (!preview) return;
+			const deviceBtns = preview.querySelectorAll('[data-cu-preview-device]');
+			const el = target as HTMLElement;
+
+			function sync() {
+				const active = preview!.querySelector('.cu-preview-device-btn-active') as HTMLElement | null;
+				const device = active?.dataset.cuPreviewDevice || '100%';
+				el.style.display = device === '100%' ? 'none' : '';
+			}
+
+			sync();
+			deviceBtns.forEach((btn) => btn.addEventListener('click', () => requestAnimationFrame(sync)));
+		});
+	}
+	setupTriggerVisibilityDemo();
+	document.addEventListener('astro:page-load', setupTriggerVisibilityDemo);
+</script>

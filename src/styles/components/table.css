@@ -58,3 +58,29 @@
 .cu-table-actions {
     @apply flex items-center justify-end gap-1;
 }
+
+/* -- mobile stacked layout -- */
+.cu-table-stacked {
+    @media (max-width: 640px) {
+        & thead {
+            @apply sr-only;
+        }
+
+        & tbody .cu-table-row {
+            @apply flex flex-col gap-1 border-b border-border py-3;
+        }
+
+        & tbody .cu-table-cell {
+            @apply flex items-center justify-between p-0 px-4 py-0.5 text-sm;
+        }
+
+        & tbody .cu-table-cell::before {
+            content: attr(data-label);
+            @apply font-medium text-muted-foreground mr-4 shrink-0;
+        }
+
+        & tbody .cu-table-cell:first-child {
+            @apply font-medium;
+        }
+    }
+}

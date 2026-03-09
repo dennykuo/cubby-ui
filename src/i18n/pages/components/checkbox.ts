@@ -11,6 +11,9 @@ export const checkboxPage: Record<Locale, {
     checkedByDefault: { title: string; description: string };
     disabled: { title: string; description: string };
     checkboxGroup: { title: string; description: string };
+    withDescription: { title: string; description: string };
+    indeterminate: { title: string; description: string };
+    inline: { title: string; description: string };
   };
   classDescriptions: Record<string, string>;
 }> = {
@@ -43,6 +46,18 @@ export const checkboxPage: Record<Locale, {
       checkboxGroup: {
         title: 'Checkbox Group',
         description: 'Group multiple checkboxes with a shared heading using a <code class="cu-code">&lt;fieldset&gt;</code> and <code class="cu-code">&lt;legend&gt;</code>.',
+      },
+      withDescription: {
+        title: 'With Description',
+        description: 'Add a description below the label for more context.',
+      },
+      indeterminate: {
+        title: 'Indeterminate',
+        description: 'Use JavaScript to set the <code class="cu-code">indeterminate</code> property for a parent checkbox that partially selects child items.',
+      },
+      inline: {
+        title: 'Inline Layout',
+        description: 'Arrange checkboxes horizontally with <code class="cu-code">flex flex-wrap gap-4</code>.',
       },
     },
     classDescriptions: {
@@ -79,6 +94,18 @@ export const checkboxPage: Record<Locale, {
       checkboxGroup: {
         title: '核取方塊群組',
         description: '使用 <code class="cu-code">&lt;fieldset&gt;</code> 和 <code class="cu-code">&lt;legend&gt;</code> 將多個核取方塊以共用標題分組。',
+      },
+      withDescription: {
+        title: '帶描述',
+        description: '在標籤下方加入描述文字以提供更多上下文。',
+      },
+      indeterminate: {
+        title: '不定狀態',
+        description: '使用 JavaScript 設定 <code class="cu-code">indeterminate</code> 屬性，用於父層核取方塊部分選取子項目的情境。',
+      },
+      inline: {
+        title: '行內排列',
+        description: '使用 <code class="cu-code">flex flex-wrap gap-4</code> 將核取方塊水平排列。',
       },
     },
     classDescriptions: {

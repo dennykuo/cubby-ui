@@ -12,6 +12,8 @@ export const toastPage: Record<Locale, {
     customDuration: { title: string; description: string };
     positions: { title: string; description: string };
     withIcon: { title: string; description: string };
+    persistent: { title: string; description: string };
+    stacked: { title: string; description: string };
   };
   classDescriptions: Record<string, string>;
 }> = {
@@ -48,6 +50,14 @@ export const toastPage: Record<Locale, {
       withIcon: {
         title: 'With Icon',
         description: 'Add a leading icon to the toast for stronger visual feedback across different variants.',
+      },
+      persistent: {
+        title: 'Persistent',
+        description: 'Set <code class="cu-code">duration: 0</code> (or <code class="cu-code">data-cu-toast-duration="0"</code> on the container) to create toasts that remain until manually dismissed.',
+      },
+      stacked: {
+        title: 'Stack Limit',
+        description: 'Use <code class="cu-code">data-cu-toast-max</code> on the container to limit visible toasts. When exceeded, the oldest toast is automatically removed. Default is 5.',
       },
     },
     classDescriptions: {
@@ -104,6 +114,14 @@ export const toastPage: Record<Locale, {
       withIcon: {
         title: '搭配圖示',
         description: '在 toast 前方加入圖示，為不同變體提供更強烈的視覺回饋。',
+      },
+      persistent: {
+        title: '持續顯示',
+        description: '設定 <code class="cu-code">duration: 0</code>（或在容器上設定 <code class="cu-code">data-cu-toast-duration="0"</code>）以建立需手動關閉的通知。',
+      },
+      stacked: {
+        title: '堆疊上限',
+        description: '在容器上使用 <code class="cu-code">data-cu-toast-max</code> 限制可見通知數量。超出時自動移除最舊的通知。預設為 5。',
       },
     },
     classDescriptions: {

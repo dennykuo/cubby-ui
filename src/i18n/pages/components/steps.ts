@@ -9,6 +9,8 @@ export const stepsPage: Record<Locale, {
     classes: { title: string; classLabel: string; descriptionLabel: string };
     withDescriptions: { title: string; description: string };
     vertical: { title: string; description: string };
+    error: { title: string; description: string };
+    clickable: { title: string; description: string };
   };
   classDescriptions: Record<string, string>;
 }> = {
@@ -33,6 +35,14 @@ export const stepsPage: Record<Locale, {
       vertical: {
         title: 'Vertical',
         description: 'Use <code class="cu-code">cu-steps-vertical</code> for a vertical layout, suitable for order tracking or timelines.',
+      },
+      error: {
+        title: 'Error State',
+        description: 'Highlight a failed step with destructive colors to indicate an issue that needs attention.',
+      },
+      clickable: {
+        title: 'Clickable Steps',
+        description: 'Use <code class="cu-code">&lt;button&gt;</code> elements for steps that allow navigation to previous stages.',
       },
     },
     classDescriptions: {
@@ -70,6 +80,14 @@ export const stepsPage: Record<Locale, {
       vertical: {
         title: '垂直排列',
         description: '使用 <code class="cu-code">cu-steps-vertical</code> 切換為垂直佈局，適合訂單追蹤或時間軸。',
+      },
+      error: {
+        title: '錯誤狀態',
+        description: '以 destructive 色彩標示失敗的步驟，提示需要注意的問題。',
+      },
+      clickable: {
+        title: '可點擊步驟',
+        description: '使用 <code class="cu-code">&lt;button&gt;</code> 元素建立可導航至先前階段的步驟。',
       },
     },
     classDescriptions: {

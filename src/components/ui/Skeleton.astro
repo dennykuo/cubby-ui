@@ -2,12 +2,15 @@
 import { TOP_CLASS } from "../../config";
 
 interface Props {
+    animation?: "pulse" | "shimmer";
+    shape?: "default" | "circle" | "text";
     class?: string;
     [key: string]: any;
 }
 
-const { class: className, ...rest } = Astro.props;
-const baseClass = `${TOP_CLASS}-skeleton`;
+const { animation, shape, class: className, ...rest } = Astro.props;
+const baseClass = animation === "shimmer" ? `${TOP_CLASS}-skeleton-shimmer` : `${TOP_CLASS}-skeleton`;
+const shapeClass = shape && shape !== "default" ? `${TOP_CLASS}-skeleton-${shape}` : undefined;
 ---
 
-<div class:list={[baseClass, className]} {...rest}></div>
+<div class:list={[baseClass, shapeClass, className]} {...rest}></div>

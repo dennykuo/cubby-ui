@@ -122,6 +122,50 @@ const withIconsCode = `<div class="cu-combobox" data-cu-combobox style="width: 2
   </div>
 </div>`.trim();
 
+const disabledCode = `<div class="cu-combobox" data-cu-combobox style="width: 200px;">
+  <button class="cu-combobox-trigger" data-cu-combobox-trigger>
+    <span data-cu-combobox-value class="cu-combobox-trigger-placeholder">Select framework...</span>
+    <svg class="cu-combobox-trigger-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 15 5 5 5-5"/><path d="m7 9 5-5 5 5"/></svg>
+  </button>
+  <div class="cu-combobox-content" data-cu-combobox-content hidden>
+    <div class="cu-combobox-search">
+      <svg class="cu-combobox-search-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input class="cu-combobox-input" data-cu-combobox-input placeholder="Search..." />
+    </div>
+    <div class="cu-combobox-list" data-cu-combobox-list>
+      <div class="cu-combobox-empty" data-cu-combobox-empty hidden>No results found.</div>
+      <div class="cu-combobox-item" data-cu-combobox-item data-cu-value="react">React</div>
+      <div class="cu-combobox-item" data-cu-combobox-item data-cu-value="vue">Vue</div>
+      <div class="cu-combobox-item opacity-50 pointer-events-none" data-cu-combobox-item data-cu-value="angular" aria-disabled="true">Angular (Coming soon)</div>
+      <div class="cu-combobox-item" data-cu-combobox-item data-cu-value="svelte">Svelte</div>
+    </div>
+  </div>
+</div>`.trim();
+
+const groupedCode = `<div class="cu-combobox" data-cu-combobox style="width: 220px;">
+  <button class="cu-combobox-trigger" data-cu-combobox-trigger>
+    <span data-cu-combobox-value class="cu-combobox-trigger-placeholder">Select location...</span>
+    <svg class="cu-combobox-trigger-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 15 5 5 5-5"/><path d="m7 9 5-5 5 5"/></svg>
+  </button>
+  <div class="cu-combobox-content" data-cu-combobox-content hidden>
+    <div class="cu-combobox-search">
+      <svg class="cu-combobox-search-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input class="cu-combobox-input" data-cu-combobox-input placeholder="Search..." />
+    </div>
+    <div class="cu-combobox-list" data-cu-combobox-list>
+      <div class="cu-combobox-empty" data-cu-combobox-empty hidden>No results found.</div>
+      <div class="px-2 py-1.5 text-xs font-semibold text-muted-foreground">North America</div>
+      <div class="cu-combobox-item" data-cu-combobox-item data-cu-value="new-york">New York</div>
+      <div class="cu-combobox-item" data-cu-combobox-item data-cu-value="san-francisco">San Francisco</div>
+      <div class="cu-combobox-item" data-cu-combobox-item data-cu-value="toronto">Toronto</div>
+      <div class="px-2 py-1.5 text-xs font-semibold text-muted-foreground">Europe</div>
+      <div class="cu-combobox-item" data-cu-combobox-item data-cu-value="london">London</div>
+      <div class="cu-combobox-item" data-cu-combobox-item data-cu-value="paris">Paris</div>
+      <div class="cu-combobox-item" data-cu-combobox-item data-cu-value="berlin">Berlin</div>
+    </div>
+  </div>
+</div>`.trim();
+
 const withFormGroupCode = `<div class="cu-form-group" style="width: 300px;">
   <label class="cu-label">Framework</label>
   <div class="cu-combobox w-full" data-cu-combobox>
@@ -335,6 +379,70 @@ const withFormGroupCode = `<div class="cu-form-group" style="width: 300px;">
                         </div>
                     </div>
                     <p class="cu-form-description">Select your preferred web framework.</p>
+                </div>
+            </ComponentPreview>
+        </section>
+
+        <!-- Disabled Items -->
+        <section class="space-y-3">
+            <h2 id="disabled-items" class="text-lg font-semibold tracking-tight relative group">
+              <a href="#disabled-items" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+              {t.sections.disabled.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.disabled.description} />
+            <ComponentPreview code={disabledCode}>
+                <div class="cu-combobox" data-cu-combobox style="width: 200px;">
+                    <button class="cu-combobox-trigger" data-cu-combobox-trigger>
+                        <span data-cu-combobox-value class="cu-combobox-trigger-placeholder">Select framework...</span>
+                        <svg class="cu-combobox-trigger-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 15 5 5 5-5"/><path d="m7 9 5-5 5 5"/></svg>
+                    </button>
+                    <div class="cu-combobox-content" data-cu-combobox-content hidden>
+                        <div class="cu-combobox-search">
+                            <svg class="cu-combobox-search-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                            <input class="cu-combobox-input" data-cu-combobox-input placeholder="Search..." />
+                        </div>
+                        <div class="cu-combobox-list" data-cu-combobox-list>
+                            <div class="cu-combobox-empty" data-cu-combobox-empty hidden>No results found.</div>
+                            <div class="cu-combobox-item" data-cu-combobox-item data-cu-value="react">React</div>
+                            <div class="cu-combobox-item" data-cu-combobox-item data-cu-value="vue">Vue</div>
+                            <div class="cu-combobox-item opacity-50 pointer-events-none" data-cu-combobox-item data-cu-value="angular" aria-disabled="true">Angular (Coming soon)</div>
+                            <div class="cu-combobox-item" data-cu-combobox-item data-cu-value="svelte">Svelte</div>
+                        </div>
+                    </div>
+                </div>
+            </ComponentPreview>
+        </section>
+
+        <!-- Grouped Options -->
+        <section class="space-y-3">
+            <h2 id="grouped" class="text-lg font-semibold tracking-tight relative group">
+              <a href="#grouped" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+              {t.sections.grouped.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">{t.sections.grouped.description}</p>
+            <ComponentPreview code={groupedCode}>
+                <div class="cu-combobox" data-cu-combobox style="width: 220px;">
+                    <button class="cu-combobox-trigger" data-cu-combobox-trigger>
+                        <span data-cu-combobox-value class="cu-combobox-trigger-placeholder">Select location...</span>
+                        <svg class="cu-combobox-trigger-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 15 5 5 5-5"/><path d="m7 9 5-5 5 5"/></svg>
+                    </button>
+                    <div class="cu-combobox-content" data-cu-combobox-content hidden>
+                        <div class="cu-combobox-search">
+                            <svg class="cu-combobox-search-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                            <input class="cu-combobox-input" data-cu-combobox-input placeholder="Search..." />
+                        </div>
+                        <div class="cu-combobox-list" data-cu-combobox-list>
+                            <div class="cu-combobox-empty" data-cu-combobox-empty hidden>No results found.</div>
+                            <div class="px-2 py-1.5 text-xs font-semibold text-muted-foreground">North America</div>
+                            <div class="cu-combobox-item" data-cu-combobox-item data-cu-value="new-york">New York</div>
+                            <div class="cu-combobox-item" data-cu-combobox-item data-cu-value="san-francisco">San Francisco</div>
+                            <div class="cu-combobox-item" data-cu-combobox-item data-cu-value="toronto">Toronto</div>
+                            <div class="px-2 py-1.5 text-xs font-semibold text-muted-foreground">Europe</div>
+                            <div class="cu-combobox-item" data-cu-combobox-item data-cu-value="london">London</div>
+                            <div class="cu-combobox-item" data-cu-combobox-item data-cu-value="paris">Paris</div>
+                            <div class="cu-combobox-item" data-cu-combobox-item data-cu-value="berlin">Berlin</div>
+                        </div>
+                    </div>
                 </div>
             </ComponentPreview>
         </section>

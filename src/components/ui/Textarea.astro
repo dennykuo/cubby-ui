@@ -2,12 +2,16 @@
 import { TOP_CLASS } from "../../config";
 
 interface Props {
+	variant?: "default" | "error" | "success";
+	auto?: boolean;
 	class?: string;
 	[key: string]: any;
 }
 
-const { class: className, ...rest } = Astro.props;
+const { variant, auto = false, class: className, ...rest } = Astro.props;
 const baseClass = `${TOP_CLASS}-textarea`;
+const variantClass = variant && variant !== "default" ? `${TOP_CLASS}-textarea-${variant}` : undefined;
+const autoClass = auto ? `${TOP_CLASS}-textarea-auto` : undefined;
 ---
 
-<textarea class:list={[baseClass, className]} {...rest}><slot /></textarea>
+<textarea class:list={[baseClass, variantClass, autoClass, className]} {...rest}><slot /></textarea>

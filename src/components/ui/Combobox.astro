@@ -1,0 +1,36 @@
+---
+import { TOP_CLASS } from "../../config";
+
+interface Props {
+	placeholder?: string;
+	searchPlaceholder?: string;
+	emptyText?: string;
+	class?: string;
+	[key: string]: any;
+}
+
+const {
+	placeholder = "Select...",
+	searchPlaceholder = "Search...",
+	emptyText = "No results found.",
+	class: className,
+	...rest
+} = Astro.props;
+---
+
+<div class:list={[`${TOP_CLASS}-combobox`, className]} data-cu-combobox {...rest}>
+	<button class={`${TOP_CLASS}-combobox-trigger`} data-cu-combobox-trigger>
+		<span data-cu-combobox-value class={`${TOP_CLASS}-combobox-trigger-placeholder`}>{placeholder}</span>
+		<svg class={`${TOP_CLASS}-combobox-trigger-icon`} xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 15 5 5 5-5"/><path d="m7 9 5-5 5 5"/></svg>
+	</button>
+	<div class={`${TOP_CLASS}-combobox-content`} data-cu-combobox-content hidden>
+		<div class={`${TOP_CLASS}-combobox-search`}>
+			<svg class={`${TOP_CLASS}-combobox-search-icon`} xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+			<input class={`${TOP_CLASS}-combobox-input`} data-cu-combobox-input placeholder={searchPlaceholder} />
+		</div>
+		<div class={`${TOP_CLASS}-combobox-list`} data-cu-combobox-list>
+			<div class={`${TOP_CLASS}-combobox-empty`} data-cu-combobox-empty hidden>{emptyText}</div>
+			<slot />
+		</div>
+	</div>
+</div>

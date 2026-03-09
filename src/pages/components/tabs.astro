@@ -197,6 +197,39 @@ const disabledTabCode = `<div class="cu-tabs" data-cu-tabs>
     <p class="text-sm text-muted-foreground">Billing information (coming soon).</p>
   </div>
 </div>`.trim();
+
+const scrollableCode = `<div class="cu-tabs" data-cu-tabs>
+  <div class="cu-tabs-list overflow-x-auto">
+    <button class="cu-tabs-trigger cu-tabs-trigger-active" data-cu-tabs-trigger="dashboard">Dashboard</button>
+    <button class="cu-tabs-trigger" data-cu-tabs-trigger="analytics">Analytics</button>
+    <button class="cu-tabs-trigger" data-cu-tabs-trigger="reports">Reports</button>
+    <button class="cu-tabs-trigger" data-cu-tabs-trigger="notifications">Notifications</button>
+    <button class="cu-tabs-trigger" data-cu-tabs-trigger="settings">Settings</button>
+    <button class="cu-tabs-trigger" data-cu-tabs-trigger="billing">Billing</button>
+    <button class="cu-tabs-trigger" data-cu-tabs-trigger="integrations">Integrations</button>
+  </div>
+  <div class="cu-tabs-content" data-cu-tabs-content="dashboard">
+    <p class="text-sm text-muted-foreground">Dashboard overview and metrics.</p>
+  </div>
+  <div class="cu-tabs-content" data-cu-tabs-content="analytics" hidden>
+    <p class="text-sm text-muted-foreground">Analytics and performance data.</p>
+  </div>
+  <div class="cu-tabs-content" data-cu-tabs-content="reports" hidden>
+    <p class="text-sm text-muted-foreground">Generate and download reports.</p>
+  </div>
+  <div class="cu-tabs-content" data-cu-tabs-content="notifications" hidden>
+    <p class="text-sm text-muted-foreground">Notification preferences.</p>
+  </div>
+  <div class="cu-tabs-content" data-cu-tabs-content="settings" hidden>
+    <p class="text-sm text-muted-foreground">Application settings.</p>
+  </div>
+  <div class="cu-tabs-content" data-cu-tabs-content="billing" hidden>
+    <p class="text-sm text-muted-foreground">Billing and subscription details.</p>
+  </div>
+  <div class="cu-tabs-content" data-cu-tabs-content="integrations" hidden>
+    <p class="text-sm text-muted-foreground">Third-party integrations.</p>
+  </div>
+</div>`.trim();
 ---
 
 <Layout title={t.title} category={t.category} componentName="Tabs">
@@ -516,6 +549,50 @@ const disabledTabCode = `<div class="cu-tabs" data-cu-tabs>
                         </div>
                         <div class="cu-tabs-content" data-cu-tabs-content="billing4" hidden>
                             <p class="text-sm text-muted-foreground">Billing information (coming soon).</p>
+                        </div>
+                    </div>
+                </div>
+            </ComponentPreview>
+        </section>
+        <!-- Scrollable -->
+        <section class="space-y-3">
+            <h2 id="scrollable" class="text-lg font-semibold tracking-tight relative group">
+              <a href="#scrollable" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+              {t.sections.scrollable.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.scrollable.description} />
+            <ComponentPreview code={scrollableCode}>
+                <div class="w-full max-w-md">
+                    <div class="cu-tabs" data-cu-tabs>
+                        <div class="cu-tabs-list overflow-x-auto">
+                            <button class="cu-tabs-trigger cu-tabs-trigger-active" data-cu-tabs-trigger="s7dashboard">Dashboard</button>
+                            <button class="cu-tabs-trigger" data-cu-tabs-trigger="s7analytics">Analytics</button>
+                            <button class="cu-tabs-trigger" data-cu-tabs-trigger="s7reports">Reports</button>
+                            <button class="cu-tabs-trigger" data-cu-tabs-trigger="s7notifications">Notifications</button>
+                            <button class="cu-tabs-trigger" data-cu-tabs-trigger="s7settings">Settings</button>
+                            <button class="cu-tabs-trigger" data-cu-tabs-trigger="s7billing">Billing</button>
+                            <button class="cu-tabs-trigger" data-cu-tabs-trigger="s7integrations">Integrations</button>
+                        </div>
+                        <div class="cu-tabs-content" data-cu-tabs-content="s7dashboard">
+                            <p class="text-sm text-muted-foreground">Dashboard overview and metrics.</p>
+                        </div>
+                        <div class="cu-tabs-content" data-cu-tabs-content="s7analytics" hidden>
+                            <p class="text-sm text-muted-foreground">Analytics and performance data.</p>
+                        </div>
+                        <div class="cu-tabs-content" data-cu-tabs-content="s7reports" hidden>
+                            <p class="text-sm text-muted-foreground">Generate and download reports.</p>
+                        </div>
+                        <div class="cu-tabs-content" data-cu-tabs-content="s7notifications" hidden>
+                            <p class="text-sm text-muted-foreground">Notification preferences.</p>
+                        </div>
+                        <div class="cu-tabs-content" data-cu-tabs-content="s7settings" hidden>
+                            <p class="text-sm text-muted-foreground">Application settings.</p>
+                        </div>
+                        <div class="cu-tabs-content" data-cu-tabs-content="s7billing" hidden>
+                            <p class="text-sm text-muted-foreground">Billing and subscription details.</p>
+                        </div>
+                        <div class="cu-tabs-content" data-cu-tabs-content="s7integrations" hidden>
+                            <p class="text-sm text-muted-foreground">Third-party integrations.</p>
                         </div>
                     </div>
                 </div>

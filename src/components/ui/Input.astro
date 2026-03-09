@@ -3,13 +3,15 @@ import { TOP_CLASS } from "../../config";
 
 interface Props {
 	size?: "sm" | "default" | "lg";
+	variant?: "default" | "error" | "success";
 	class?: string;
 	[key: string]: any;
 }
 
-const { size, class: className, ...rest } = Astro.props;
+const { size, variant, class: className, ...rest } = Astro.props;
 const baseClass = `${TOP_CLASS}-input`;
 const sizeClass = size && size !== "default" ? `${TOP_CLASS}-input-${size}` : undefined;
+const variantClass = variant && variant !== "default" ? `${TOP_CLASS}-input-${variant}` : undefined;
 ---
 
-<input class:list={[baseClass, sizeClass, className]} {...rest} />
+<input class:list={[baseClass, sizeClass, variantClass, className]} {...rest} />

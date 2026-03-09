@@ -166,4 +166,12 @@ export declare const DATA_ATTRS: {
   readonly TRANSFER_CHECK_ALL: 'data-cu-transfer-check-all';
   readonly TRANSFER_COUNT: 'data-cu-transfer-count';
   readonly TRANSFER_SEARCH: 'data-cu-transfer-search';
+
+  // Mobile Navigation
+  readonly MOBILE_NAV_TRIGGER: 'data-cu-mobile-nav-trigger';
+  readonly MOBILE_NAV: 'data-cu-mobile-nav';
+  readonly MOBILE_NAV_PANEL: 'data-cu-mobile-nav-panel';
+  readonly MOBILE_NAV_CLOSE: 'data-cu-mobile-nav-close';
+  readonly MOBILE_NAV_OPEN: 'data-cu-mobile-nav-open';
+  readonly MOBILE_NAV_CLONE: 'data-cu-mobile-nav-clone';
 };

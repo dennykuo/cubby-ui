@@ -2,14 +2,16 @@
 import { TOP_CLASS } from "../../config";
 
 interface Props {
+	required?: boolean;
 	class?: string;
 	[key: string]: any;
 }
 
-const { class: className, ...rest } = Astro.props;
+const { required = false, class: className, ...rest } = Astro.props;
 const baseClass = `${TOP_CLASS}-label`;
+const requiredClass = required ? `${TOP_CLASS}-label-required` : undefined;
 ---
 
-<label class:list={[baseClass, className]} {...rest}>
+<label class:list={[baseClass, requiredClass, className]} {...rest}>
     <slot />
 </label>

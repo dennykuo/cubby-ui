@@ -3,16 +3,18 @@ import { TOP_CLASS } from "../../config";
 
 interface Props {
     variant?: "default" | "secondary" | "outline" | "destructive" | "success" | "warning" | "info" | "soft-default" | "soft-secondary" | "soft-destructive" | "soft-success" | "soft-warning" | "soft-info";
+    size?: "default" | "sm" | "lg";
     class?: string;
     [key: string]: any;
 }
 
-const { variant = "default", class: className, ...rest } = Astro.props;
+const { variant = "default", size, class: className, ...rest } = Astro.props;
 
 const baseClass = `${TOP_CLASS}-badge`;
 const variantClass = `${TOP_CLASS}-badge-${variant}`;
+const sizeClass = size && size !== "default" ? `${TOP_CLASS}-badge-${size}` : undefined;
 ---
 
-<span class:list={[baseClass, variantClass, className]} {...rest}>
+<span class:list={[baseClass, variantClass, sizeClass, className]} {...rest}>
     <slot />
 </span>

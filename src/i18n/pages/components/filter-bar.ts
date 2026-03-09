@@ -9,6 +9,7 @@ export const filterBarPage: Record<Locale, {
     classes: { title: string; classLabel: string; descriptionLabel: string };
     withDate: { title: string; description: string };
     simple: { title: string; description: string };
+    withChips: { title: string; description: string };
   };
   classDescriptions: Record<string, string>;
 }> = {
@@ -33,6 +34,10 @@ export const filterBarPage: Record<Locale, {
       simple: {
         title: 'Simple Search',
         description: 'For simple use cases, use only the search area without filters.',
+      },
+      withChips: {
+        title: 'With Active Chips',
+        description: 'Show active filters as removable chips below the filter bar, with a clear-all action and result count.',
       },
     },
     classDescriptions: {
@@ -63,6 +68,10 @@ export const filterBarPage: Record<Locale, {
       simple: {
         title: '簡易搜尋',
         description: '簡單使用場景下，僅使用搜尋區域而不加篩選器。',
+      },
+      withChips: {
+        title: '活動篩選標籤',
+        description: '在篩選列下方以可移除的標籤顯示活動篩選條件，附帶清除全部按鈕和結果計數。',
       },
     },
     classDescriptions: {

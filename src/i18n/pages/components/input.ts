@@ -15,6 +15,7 @@ export const inputPage: Record<Locale, {
     validation: { title: string; description: string };
     disabled: { title: string; description: string };
     withFormGroup: { title: string; description: string };
+    charCount: { title: string; description: string };
   };
   classDescriptions: Record<string, string>;
 }> = {
@@ -63,6 +64,10 @@ export const inputPage: Record<Locale, {
       withFormGroup: {
         title: 'With Form Group',
         description: 'Combine with <code class="cu-code">cu-form-group</code>, <code class="cu-code">cu-form-description</code>, and <code class="cu-code">cu-form-error</code> for complete form fields.',
+      },
+      charCount: {
+        title: 'Character Count',
+        description: 'Display remaining characters with a counter below the input. Use <code class="cu-code">maxlength</code> and JavaScript to update the count.',
       },
     },
     classDescriptions: {
@@ -123,6 +128,10 @@ export const inputPage: Record<Locale, {
       withFormGroup: {
         title: '搭配 Form Group',
         description: '結合 <code class="cu-code">cu-form-group</code>、<code class="cu-code">cu-form-description</code> 和 <code class="cu-code">cu-form-error</code> 以建立完整的表單欄位。',
+      },
+      charCount: {
+        title: '字數限制',
+        description: '在輸入框下方顯示剩餘字數。使用 <code class="cu-code">maxlength</code> 和 JavaScript 更新計數。',
       },
     },
     classDescriptions: {

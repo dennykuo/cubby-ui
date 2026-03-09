@@ -14,6 +14,7 @@ export const buttonPage: Record<Locale, {
     loading: { title: string; description: string };
     asLink: { title: string; description: string };
 
+    responsive: { title: string; description: string };
     buttonGroup: { title: string; description: string };
     disabled: { title: string; description: string };
   };
@@ -61,6 +62,10 @@ export const buttonPage: Record<Locale, {
         title: 'Button Group',
         description: 'Wrap buttons in a <code class="cu-code">cu-button-group</code> to join them visually. See the <a href="{buttonGroupHref}" class="text-primary hover:underline">Button Group</a> page for more options.',
       },
+      responsive: {
+        title: 'Responsive',
+        description: 'Use <code class="cu-code">cu-button-block</code> for always full-width, or <code class="cu-code">cu-button-block-sm</code> for full-width on mobile that auto-sizes on larger screens.',
+      },
       disabled: {
         title: 'Disabled',
         description: 'Add the <code class="cu-code">disabled</code> attribute. The button becomes non-interactive with reduced opacity.',
@@ -86,6 +91,8 @@ export const buttonPage: Record<Locale, {
       'cu-button-icon-sm': 'Small icon button',
       'cu-button-icon-xs': 'Extra-small icon button',
       'cu-button-loading': 'Loading state (pointer-events-none, opacity-70)',
+      'cu-button-block': 'Full-width button',
+      'cu-button-block-sm': 'Full-width on mobile, auto on sm+',
     },
   },
   'zh-tw': {
@@ -130,6 +137,10 @@ export const buttonPage: Record<Locale, {
         title: '按鈕群組',
         description: '將按鈕包裹在 <code class="cu-code">cu-button-group</code> 中以視覺上合併。請參閱 <a href="{buttonGroupHref}" class="text-primary hover:underline">Button Group</a> 頁面了解更多選項。',
       },
+      responsive: {
+        title: '響應式',
+        description: '使用 <code class="cu-code">cu-button-block</code> 讓按鈕始終全寬，或使用 <code class="cu-code">cu-button-block-sm</code> 在行動端全寬、較大螢幕自動調整。',
+      },
       disabled: {
         title: '停用',
         description: '加入 <code class="cu-code">disabled</code> 屬性。按鈕將變為不可互動，並降低透明度。',
@@ -155,6 +166,8 @@ export const buttonPage: Record<Locale, {
       'cu-button-icon-sm': '小圖示按鈕',
       'cu-button-icon-xs': '超小圖示按鈕',
       'cu-button-loading': '載入狀態（pointer-events-none, opacity-70）',
+      'cu-button-block': '全寬按鈕',
+      'cu-button-block-sm': '行動端全寬，sm+ 自動寬度',
     },
   },
 };

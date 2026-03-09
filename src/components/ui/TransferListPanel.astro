@@ -1,0 +1,15 @@
+---
+import { TOP_CLASS } from "../../config";
+
+interface Props {
+	side: "left" | "right";
+	class?: string;
+	[key: string]: any;
+}
+
+const { side, class: className, ...rest } = Astro.props;
+---
+
+<div class:list={[`${TOP_CLASS}-transfer-list-panel`, className]} data-cu-transfer-panel={side} {...rest}>
+	<slot />
+</div>

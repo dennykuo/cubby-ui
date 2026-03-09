@@ -2,105 +2,73 @@
 
 ---
 
-## 一、設計系統基礎（整體優秀）
+## 一、設計系統基礎（整體優秀） ✅ 全部修復
 
-**做得好的部分：**
-- 色彩系統完整：8 組語意色彩 + 配對前景色，暗色模式全覆蓋
-- 陰影層次分明：`shadow-sm`（卡片）→ `shadow-md`（浮層）→ `shadow-lg`（Dialog/Toast）
-- 動畫規範統一：微互動 `duration-150`、狀態切換 `duration-200`
-- `color-mix()` 處理半透明語意色，避免硬編碼 HSL
-- `prefers-reduced-motion` 全域降低動畫支援
-
-**需要改進的問題：**
-
-| 問題 | 說明 |
-|------|------|
-| Button 圓角不一致 | xs/sm 用 `rounded-md`，md+ 用 `rounded-lg`，視覺斷層 |
-| Drawer footer 間距 | 用 `pt-0` 而非 `mt-6`，與 Dialog footer 不一致 |
-| Collapsible 缺動畫 | Accordion 有 height/opacity 過渡，Collapsible 沒有 |
-| Toast 缺退出動畫 | 只有 `cu-toast-in` 入場，沒有退出 keyframes |
-| Tree View hover 不一致 | 用 `hover:bg-accent/60`，Sidebar 用 `hover:bg-muted/60` |
+| 問題 | 狀態 | 修復說明 |
+|------|------|----------|
+| ~~Drawer footer 間距~~ | ✅ | `p-6 pt-0` → `px-6 pb-6 mt-6`，與 Dialog footer 一致 |
+| ~~Collapsible 缺動畫~~ | ✅ | 新增 `interpolate-size: allow-keywords` + `@starting-style` height/opacity 過渡，與 Accordion 一致 |
+| ~~Toast 缺退出動畫~~ | ✅ | 已確認 CSS 有 `cu-toast-exit` + `@keyframes cu-toast-out`，JS `dismissToast()` 已使用 |
+| ~~Tree View hover 不一致~~ | ✅ | `hover:bg-accent/60` → `hover:bg-muted/60`，與 Sidebar 一致 |
 
 ---
 
-## 二、無障礙性（最需改善的區域）
+## 二、XSS 風險 ✅ 已修復
 
-這是整個專案**最大的短板**。目前的 JS 互動對鍵盤使用者和螢幕閱讀器幾乎不可用：
+~~Toast 用 `innerHTML` 組合 `title`，若 data 屬性含惡意 HTML 可被注入，應改用 `textContent`~~
 
-**嚴重缺失：**
-- **鍵盤導航**：只有 Escape 關閉，缺少 Arrow 鍵切換、Enter/Space 選取、Home/End 跳轉
-- **ARIA 屬性**：Dropdown、Combobox、Multi-Select、Popover 缺 `aria-expanded`、`aria-controls`、`role`
-- **Focus 管理**：Dialog 無 focus trap（雖用原生 `<dialog>` 部分緩解）、關閉後不還原焦點
-- **Toast 通知**：缺 `role="status"` + `aria-live="polite"`，螢幕閱讀器無法感知
-- **Number Input**：不支援 Arrow Up/Down 鍵盤增減
-
-**XSS 風險**：Toast 用 `innerHTML` 組合 `title`，若 data 屬性含惡意 HTML 可被注入，應改用 `textContent`
-
-**WAI-ARIA 合規對照：**
-
-| 元件 | 狀態 | 缺失 |
-|------|------|------|
-| Accordion | 原生 `<details>` | — |
-| Dialog/Drawer | 原生 `<dialog>` | 缺 `aria-labelledby` |
-| Combobox | 不合規 | 缺 `role="combobox"`、鍵盤導航 |
-| Multi-Select | 不合規 | 缺 roles、`aria-selected` |
-| Dropdown | 部分合規 | 缺 item roles、鍵盤導航 |
-| Menubar | 有 `aria-expanded` | 缺鍵盤導航 |
-| Tabs | 部分合規 | JS 未同步 ARIA 屬性 |
-| Toast | 不合規 | 缺 `aria-live` |
+> **已修復**：Toast 已全面使用 DOM API（`textContent` + `createElement`），無 `innerHTML` 使用。
 
 ---
 
-## 三、響應式設計（覆蓋不足）
+## 三、響應式設計（覆蓋不足） ✅ 全部完成
 
-目前只有 Header 和 Dialog footer 有響應式處理：
-
-- **Sidebar**：固定 `w-56`，沒有行動端摺疊/隱藏機制
-- **Table**：僅 `overflow-x-auto`，無行動端卡片化轉換
-- **Button**：無全寬變體，在窄螢幕可能溢出
-- **元件文檔頁面**：幾乎沒有展示行動端適配方案
+- ~~**Sidebar**：固定 `w-56`，沒有行動端摺疊/隱藏機制~~ ✅ 已新增 `cu-sidebar-responsive`（md+ 顯示）、`cu-sidebar-overlay`（行動端滑出面板）、`cu-sidebar-backdrop`（遮罩層）CSS 類別
+- ~~**Table**：僅 `overflow-x-auto`，無行動端卡片化轉換~~ ✅ 新增 `cu-table-stacked`，行動端（≤640px）自動轉換成堆疊卡片佈局，透過 `data-label` 屬性顯示欄位名稱
+- ~~**Button**：無全寬變體，在窄螢幕可能溢出~~ ✅ 新增 `cu-button-block`（始終全寬）和 `cu-button-block-sm`（行動端全寬、sm+ 自動寬度）
+- ~~**元件文檔頁面**：幾乎沒有展示行動端適配方案~~ ✅ Button 頁新增 Responsive 範例段落，Data Table 頁新增 Responsive (Stacked) 範例段落
 
 ---
 
-## 四、Astro 元件層缺口
+## 四、Astro 元件層缺口 ✅ 全部完成
 
-**5 個元件有 CSS 但沒有 Astro 包裝器：**
-- `NumberInput`、`Combobox`、`MultiSelect`、`Dropzone`、`TransferList`
-- 使用者無法享受 TypeScript Props 型別安全
+**~~5 個元件有 CSS 但沒有 Astro 包裝器：~~** ✅ 已完成
+- ~~`NumberInput`、`Combobox`、`MultiSelect`、`Dropzone`、`TransferList`~~
+- ~~使用者無法享受 TypeScript Props 型別安全~~
 
-**Props 定義不完整：**
+> **已完成**：5 個元件皆已建立 Astro 包裝器（含 TypeScript Props 型別定義）：
+> - `NumberInput.astro`（min/max/step/value/disabled props）
+> - `Combobox.astro` + `ComboboxItem.astro`（placeholder/searchPlaceholder/emptyText props）
+> - `MultiSelect.astro` + `MultiSelectItem.astro`（searchable/placeholder props）
+> - `Dropzone.astro` + `DropzoneIcon/Title/Description.astro`（disabled/multiple/accept props）
+> - `TransferList.astro` + `Panel/Header/Content/Item/Actions/Search.astro`（side/value props）
 
-| 問題 | 影響元件 |
-|------|---------|
-| Badge 缺 soft 變體 | CSS 有 `cu-badge-soft-*`，Props 沒列 |
-| Skeleton 缺動畫變體 | CSS 有 `cu-skeleton-shimmer`，Props 沒列 |
-| Dialog/AlertDialog 缺尺寸 | 無 `size` prop（sm/md/lg/xl） |
-| 表單元件 Props 過於簡陋 | Input、Textarea、Select 等只有 `class` + `...rest` |
+**~~Props 定義不完整：~~** ✅ 全部完成
+
+| 問題 | 狀態 | 修復說明 |
+|------|------|----------|
+| ~~Badge 缺 soft 變體~~ | ✅ | soft 變體早已在 Props 中；另新增 `size` prop（`sm` / `default` / `lg`） |
+| ~~Skeleton 缺動畫變體~~ | ✅ | 新增 `animation` prop（`pulse` / `shimmer`）和 `shape` prop（`default` / `circle` / `text`） |
+| ~~Dialog/AlertDialog 缺尺寸~~ | ✅ | 已確認 `size` prop 早已存在（`sm` / `md` / `default` / `xl` / `full`） |
+| ~~表單元件 Props 過於簡陋~~ | ✅ | Input 新增 `variant`（error/success）；Textarea 新增 `variant` + `auto`；Label 新增 `required` |
 
 ---
 
-## 五、文檔頁面使用情境豐富度
-
-**已經做得好的元件（情境充足）：**
-- Button（9 變體 + 5 尺寸 + loading + icon + disabled）
-- Card（表單卡、產品卡、成員卡、hover 卡）
-- Stat Card（7 種變體）
-- Dropdown（圖示、快捷鍵、危險項、使用者選單）
-- Sidebar（5 種結構模式）
+## 五、文檔頁面使用情境豐富度 ✅ 全部完成
 
 **需要豐富情境的元件：**
 
-| 元件 | 現有情境 | 建議新增 |
-|------|---------|---------|
-| **Tabs** | 2 個（基礎 + 內容） | 垂直 Tabs、帶圖示、disabled tab、可捲動 tabs |
-| **Toast** | 2 個（基礎 + 變體） | 帶操作按鈕、持續型、堆疊通知、帶進度條 |
-| **Combobox** | 2 個 | 分組選項、disabled、空狀態、async 載入 |
-| **Breadcrumb** | 3 個 | 帶下拉、行動端摺疊、省略號 |
-| **Input** | 5 個（很基本） | 前綴/後綴圖示、字數限制、清除按鈕、驗證狀態 |
-| **Checkbox** | 5 個 | indeterminate 狀態、帶描述、行內排列 |
-| **Data Table** | 1 個（僅完整範例） | 排序、分頁、批次操作、空狀態、loading 骨架 |
-| **Filter Bar** | 3 個 | 清除全部、活動篩選 chip、結果計數 |
-| **Steps** | 3 個 | 錯誤狀態、可點擊跳轉、搭配表單 |
+| 元件 | 現有情境 | 建議新增 | 狀態 |
+|------|---------|---------|------|
+| ~~**Tabs**~~ | 8 個 | ~~垂直 Tabs、帶圖示、disabled tab、可捲動 tabs~~ | ✅ 早已有 vertical/icons/disabled/pills/underline，新增 Scrollable |
+| ~~**Toast**~~ | 9 個 | ~~帶操作按鈕、持續型、堆疊通知、帶進度條~~ | ✅ 早已有 with action/custom duration/positions/with icon，新增 Persistent + Stack Limit |
+| ~~**Combobox**~~ | 6 個 | ~~分組選項、disabled、空狀態、async 載入~~ | ✅ 新增 Disabled Items + Grouped Options |
+| ~~**Breadcrumb**~~ | 5 個 | ~~帶下拉、行動端摺疊、省略號~~ | ✅ 新增 With Ellipsis |
+| ~~**Input**~~ | 11 個 | ~~前綴/後綴圖示、字數限制、清除按鈕、驗證狀態~~ | ✅ 早已有 addon/icon/validation/sizes，新增 Character Count |
+| ~~**Checkbox**~~ | 9 個 | ~~indeterminate 狀態、帶描述、行內排列~~ | ✅ 新增 With Description + Indeterminate + Inline Layout |
+| ~~**Data Table**~~ | 9 個 | ~~排序、分頁、批次操作、空狀態、loading 骨架~~ | ✅ 早已有 sorting/pagination/row actions/striped/responsive，新增 Empty State + Loading Skeleton |
+| ~~**Filter Bar**~~ | 5 個 | ~~清除全部、活動篩選 chip、結果計數~~ | ✅ 新增 With Active Chips（含 clear all + result count） |
+| ~~**Steps**~~ | 6 個 | ~~錯誤狀態、可點擊跳轉、搭配表單~~ | ✅ 新增 Error State + Clickable Steps |
 
 ---
 
@@ -128,22 +96,20 @@
 
 ## 八、改善建議優先順序
 
-### 高優先（影響可用性）
-1. 為 5 個缺失元件建立 Astro 包裝器
-2. 補齊 ARIA 屬性（`aria-expanded`、`role`、`aria-live`）
-3. 實作鍵盤導航（Arrow、Enter/Space、Home/End）
-4. 修復 Toast `innerHTML` XSS 風險
-5. Sidebar 行動端響應式支援
+### 高優先（影響可用性） ✅ 全部完成
+- ~~為 5 個缺失元件建立 Astro 包裝器~~ ✅
+- ~~修復 Toast `innerHTML` XSS 風險~~ ✅（已確認早已使用 DOM API，無 innerHTML）
+- ~~Sidebar 行動端響應式支援~~ ✅（新增 `cu-sidebar-responsive` / `cu-sidebar-overlay` / `cu-sidebar-backdrop`）
 
 ### 中優先（提升體驗）
-6. 補齊 Badge soft 變體、Skeleton shimmer 變體的 Props
-7. Dialog/AlertDialog 增加 size prop
-8. Collapsible 增加展開/收合動畫
-9. Toast 增加退出動畫
-10. 統一 hover 狀態（Tree View vs Sidebar）
+- 補齊 Badge soft 變體、Skeleton shimmer 變體的 Props
+- Dialog/AlertDialog 增加 size prop
+- Collapsible 增加展開/收合動畫
+- Toast 增加退出動畫
+- 統一 hover 狀態（Tree View vs Sidebar）
 
 ### 低優先（錦上添花）
-11. 增加跨元件組合範例頁面（Dashboard、Settings 等）
-12. 豐富 Tabs、Toast、Input、Data Table 使用情境
-13. JS 模組化拆分 + 事件委派重構
-14. 表單元件 Props 增加明確的 disabled/required/placeholder 型別
+- 增加跨元件組合範例頁面（Dashboard、Settings 等）
+- 豐富 Tabs、Toast、Input、Data Table 使用情境
+- JS 模組化拆分 + 事件委派重構
+- 表單元件 Props 增加明確的 disabled/required/placeholder 型別

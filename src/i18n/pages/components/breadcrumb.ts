@@ -9,6 +9,7 @@ export const breadcrumbPage: Record<Locale, {
     classes: { title: string; classLabel: string; descriptionLabel: string };
     withIcon: { title: string; description: string };
     customSeparator: { title: string; description: string };
+    withEllipsis: { title: string; description: string };
   };
   classDescriptions: Record<string, string>;
 }> = {
@@ -33,6 +34,10 @@ export const breadcrumbPage: Record<Locale, {
       customSeparator: {
         title: 'Custom Separator',
         description: 'Replace the default chevron with any character or element.',
+      },
+      withEllipsis: {
+        title: 'With Ellipsis',
+        description: 'Collapse intermediate levels with an ellipsis for long navigation paths.',
       },
     },
     classDescriptions: {
@@ -64,6 +69,10 @@ export const breadcrumbPage: Record<Locale, {
       customSeparator: {
         title: '自訂分隔符',
         description: '以任意字元或元素取代預設的箭頭分隔符。',
+      },
+      withEllipsis: {
+        title: '省略號',
+        description: '對於較長的導航路徑，使用省略號折疊中間層級。',
       },
     },
     classDescriptions: {

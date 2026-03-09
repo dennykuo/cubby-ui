@@ -1,0 +1,23 @@
+---
+import { TOP_CLASS } from "../../config";
+
+interface Props {
+	value: string;
+	active?: boolean;
+	class?: string;
+	[key: string]: any;
+}
+
+const { value, active = false, class: className, ...rest } = Astro.props;
+const baseClass = `${TOP_CLASS}-multi-select-item`;
+const activeClass = active ? `${TOP_CLASS}-multi-select-item-active` : undefined;
+---
+
+<div
+	class:list={[baseClass, activeClass, className]}
+	data-cu-multi-select-item
+	data-cu-value={value}
+	{...rest}
+>
+	<slot />
+</div>

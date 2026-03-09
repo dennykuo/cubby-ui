@@ -1,0 +1,20 @@
+---
+import { TOP_CLASS } from "../../config";
+
+interface Props {
+	side: "left" | "right";
+	title: string;
+	class?: string;
+	[key: string]: any;
+}
+
+const { side, title, class: className, ...rest } = Astro.props;
+---
+
+<div class:list={[`${TOP_CLASS}-transfer-list-header`, className]} {...rest}>
+	<input type="checkbox" class={`${TOP_CLASS}-checkbox`} data-cu-transfer-check-all={side} />
+	<span class={`${TOP_CLASS}-transfer-list-header-title`}>{title}</span>
+	<span class={`${TOP_CLASS}-transfer-list-header-count`} data-cu-transfer-count={side}>
+		<slot />
+	</span>
+</div>

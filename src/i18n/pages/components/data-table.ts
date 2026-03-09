@@ -11,6 +11,9 @@ export const dataTablePage: Record<Locale, {
     withPagination: { title: string; description: string };
     withRowActions: { title: string; description: string };
     stripedRows: { title: string; description: string };
+    responsive: { title: string; description: string };
+    emptyState: { title: string; description: string };
+    loading: { title: string; description: string };
   };
   classDescriptions: Record<string, string>;
 }> = {
@@ -44,6 +47,18 @@ export const dataTablePage: Record<Locale, {
         title: 'Striped Rows',
         description: 'Add <code class="cu-code">cu-data-table-striped</code> to the container for alternating row backgrounds, improving readability in dense tables.',
       },
+      responsive: {
+        title: 'Responsive (Stacked)',
+        description: 'Add <code class="cu-code">cu-table-stacked</code> to the table wrapper. On mobile (&le;640px), rows become stacked cards with column labels via <code class="cu-code">data-label</code> attributes on each <code class="cu-code">&lt;td&gt;</code>.',
+      },
+      emptyState: {
+        title: 'Empty State',
+        description: 'Display a helpful message when no data matches the current filters or search.',
+      },
+      loading: {
+        title: 'Loading Skeleton',
+        description: 'Use skeleton placeholders to indicate data is being loaded.',
+      },
     },
     classDescriptions: {
       'cu-data-table': 'Data table container',
@@ -54,6 +69,7 @@ export const dataTablePage: Record<Locale, {
       'cu-data-table-row-selected': 'Selected row',
       'cu-data-table-striped': 'Alternating row backgrounds',
       'cu-data-table-info': 'Footer info bar (selection count, pagination, etc.)',
+      'cu-table-stacked': 'Mobile stacked card layout (≤640px)',
     },
   },
   'zh-tw': {
@@ -86,6 +102,18 @@ export const dataTablePage: Record<Locale, {
         title: '條紋列',
         description: '在容器加上 <code class="cu-code">cu-data-table-striped</code> 產生交替列背景，提升密集表格的可讀性。',
       },
+      responsive: {
+        title: '響應式（堆疊）',
+        description: '在表格包裝器加上 <code class="cu-code">cu-table-stacked</code>。行動端（&le;640px）時列會轉換成堆疊卡片，透過每個 <code class="cu-code">&lt;td&gt;</code> 的 <code class="cu-code">data-label</code> 屬性顯示欄位名稱。',
+      },
+      emptyState: {
+        title: '空狀態',
+        description: '當沒有資料符合目前的篩選條件或搜尋時，顯示友善的提示訊息。',
+      },
+      loading: {
+        title: '載入骨架',
+        description: '使用骨架佔位符來指示資料正在載入中。',
+      },
     },
     classDescriptions: {
       'cu-data-table': '資料表格容器',
@@ -96,6 +124,7 @@ export const dataTablePage: Record<Locale, {
       'cu-data-table-row-selected': '已選取的列',
       'cu-data-table-striped': '交替列背景',
       'cu-data-table-info': '底部資訊列（選取數量、分頁等）',
+      'cu-table-stacked': '行動端堆疊卡片佈局（≤640px）',
     },
   },
 };

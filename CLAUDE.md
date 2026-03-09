@@ -133,7 +133,7 @@ dist/
     └── components/
 ```
 
-互動元件 JS 原始檔位於 `src/scripts/cubby-ui.js`，使用 UMD 格式（支援 `require()`、AMD `define()`、`window.CubbyUI`），包含 13 個元件：Tabs、Dropdown、Dialog、Drawer、Alert Dialog、Toast、Popover、Menubar、Combobox、Multi Select、Number Input、Dropzone、Transfer List。Document 級事件監聯器使用 delegated pattern（click + keydown 各一個），避免每個元件實例各自註冊。Toast 內容使用 DOM API（`textContent` / `createElement`）建立，避免 innerHTML XSS 風險。Toast 自動消失時間預設 5000ms，可透過 `data-cu-toast-duration` 自訂。Toast 堆疊上限預設 5 則，可透過 `data-cu-toast-max` 自訂，超出時自動移除最舊通知。
+互動元件 JS 原始檔位於 `src/scripts/cubby-ui.js`，使用 UMD 格式（支援 `require()`、AMD `define()`、`window.CubbyUI`），包含 14 個元件：Tabs、Dropdown、Dialog、Drawer、Alert Dialog、Toast、Popover、Menubar、Combobox、Multi Select、Number Input、Dropzone、Transfer List、Mobile Nav。Document 級事件監聯器使用 delegated pattern（click + keydown 各一個），避免每個元件實例各自註冊。Toast 內容使用 DOM API（`textContent` / `createElement`）建立，避免 innerHTML XSS 風險。Toast 自動消失時間預設 5000ms，可透過 `data-cu-toast-duration` 自訂。Toast 堆疊上限預設 5 則，可透過 `data-cu-toast-max` 自訂，超出時自動移除最舊通知。
 
 ARIA 無障礙支援：
 - **Tabs** — `role="tablist/tab/tabpanel"`、`aria-selected`、`aria-controls` / `aria-labelledby` 雙向連結
@@ -143,6 +143,7 @@ ARIA 無障礙支援：
 - **Dialog / Drawer** — `aria-labelledby` + `aria-describedby` 自動連結標題與描述元素
 - **Alert Dialog** — `role="alertdialog"` + `aria-labelledby` + `aria-describedby`
 - **Number Input** — `role="spinbutton"` + `aria-valuemin` / `aria-valuemax` / `aria-valuenow`
+- **Mobile Nav** — `role="dialog"` + `aria-modal="true"` + `aria-label`、trigger 使用 `aria-expanded`
 
 公開 API：
 - `CubbyUI.init()` — 初始化所有互動元件（自動在 DOMContentLoaded 執行，可重複呼叫以初始化動態新增的元素）
@@ -438,7 +439,8 @@ src/
 - `cu-header` — 容器（`sticky top-0 z-50`、`backdrop-blur-xl`、`bg-background/80` 半透明模糊）
 - `cu-header-inner` — 內部 flex 容器（`h-14`、`justify-between`）
 - `cu-header-brand` — 左側品牌區（`gap-2.5`）
-- `cu-header-nav` — 中間導航區（`hidden md:flex`、`px-5`，行動端隱藏）
+- `cu-header-nav` — 中間導航區（`flex`、`px-5`，預設永遠可見）
+- `cu-header-nav-{sm|md|lg|xl}` — 斷點修飾類別（`hidden {bp}:flex`），控制導航在哪個斷點以上顯示
 - `cu-header-nav-start` — 導航靠左（`mr-auto`，緊鄰品牌）
 - `cu-header-nav-end` — 導航靠右（`ml-auto`，緊鄰操作區）
 - `cu-header-actions` — 右側操作區（`gap-2`）

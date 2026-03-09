@@ -102,6 +102,58 @@ const verticalCode = `<div class="cu-steps cu-steps-vertical">
 </div>`.trim();
 
 const checkIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>`;
+
+const errorCode = `<div class="cu-steps">
+  <div class="cu-steps-item cu-steps-item-completed">
+    <div class="cu-steps-number">
+      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+    </div>
+    <div class="cu-steps-content">
+      <div class="cu-steps-title">Account</div>
+    </div>
+  </div>
+  <div class="cu-steps-separator"></div>
+  <div class="cu-steps-item">
+    <div class="cu-steps-number border-destructive bg-destructive/10 text-destructive">
+      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+    </div>
+    <div class="cu-steps-content">
+      <div class="cu-steps-title text-destructive">Payment Failed</div>
+    </div>
+  </div>
+  <div class="cu-steps-separator"></div>
+  <div class="cu-steps-item cu-steps-item-upcoming">
+    <div class="cu-steps-number">3</div>
+    <div class="cu-steps-content">
+      <div class="cu-steps-title">Confirm</div>
+    </div>
+  </div>
+</div>`.trim();
+
+const clickableCode = `<div class="cu-steps">
+  <button class="cu-steps-item cu-steps-item-completed cursor-pointer group">
+    <div class="cu-steps-number group-hover:shadow-sm transition-shadow duration-150">
+      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+    </div>
+    <div class="cu-steps-content">
+      <div class="cu-steps-title">Details</div>
+    </div>
+  </button>
+  <div class="cu-steps-separator"></div>
+  <button class="cu-steps-item cursor-pointer group">
+    <div class="cu-steps-number group-hover:shadow-sm transition-shadow duration-150">2</div>
+    <div class="cu-steps-content">
+      <div class="cu-steps-title">Address</div>
+    </div>
+  </button>
+  <div class="cu-steps-separator"></div>
+  <button class="cu-steps-item cu-steps-item-upcoming cursor-pointer group" disabled>
+    <div class="cu-steps-number">3</div>
+    <div class="cu-steps-content">
+      <div class="cu-steps-title">Payment</div>
+    </div>
+  </button>
+</div>`.trim();
 ---
 
 <Layout title={t.title} category={t.category} componentName="Steps">
@@ -289,6 +341,66 @@ const checkIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14
                                 <div class="cu-steps-description">Package has arrived</div>
                             </div>
                         </StepsItem>
+                    </Steps>
+                </div>
+            </ComponentPreview>
+        </section>
+
+        <!-- Error State -->
+        <section class="space-y-3">
+            <h2 id="error" class="text-lg font-semibold tracking-tight relative group">
+              <a href="#error" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+              {t.sections.error.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">{t.sections.error.description}</p>
+            <ComponentPreview code={errorCode}>
+                <div class="w-full max-w-lg">
+                    <Steps>
+                        <StepsItem status="completed">
+                            <div class="cu-steps-number"><Fragment set:html={checkIcon} /></div>
+                            <div class="cu-steps-content"><div class="cu-steps-title">Account</div></div>
+                        </StepsItem>
+                        <StepsSeparator />
+                        <div class="cu-steps-item">
+                            <div class="cu-steps-number border-destructive bg-destructive/10 text-destructive">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+                            </div>
+                            <div class="cu-steps-content"><div class="cu-steps-title text-destructive">Payment Failed</div></div>
+                        </div>
+                        <StepsSeparator />
+                        <StepsItem status="upcoming">
+                            <div class="cu-steps-number">3</div>
+                            <div class="cu-steps-content"><div class="cu-steps-title">Confirm</div></div>
+                        </StepsItem>
+                    </Steps>
+                </div>
+            </ComponentPreview>
+        </section>
+
+        <!-- Clickable Steps -->
+        <section class="space-y-3">
+            <h2 id="clickable" class="text-lg font-semibold tracking-tight relative group">
+              <a href="#clickable" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+              {t.sections.clickable.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.clickable.description} />
+            <ComponentPreview code={clickableCode}>
+                <div class="w-full max-w-lg">
+                    <Steps>
+                        <button class="cu-steps-item cu-steps-item-completed cursor-pointer group">
+                            <div class="cu-steps-number group-hover:shadow-sm transition-shadow duration-150"><Fragment set:html={checkIcon} /></div>
+                            <div class="cu-steps-content"><div class="cu-steps-title">Details</div></div>
+                        </button>
+                        <StepsSeparator />
+                        <button class="cu-steps-item cursor-pointer group">
+                            <div class="cu-steps-number group-hover:shadow-sm transition-shadow duration-150">2</div>
+                            <div class="cu-steps-content"><div class="cu-steps-title">Address</div></div>
+                        </button>
+                        <StepsSeparator />
+                        <button class="cu-steps-item cu-steps-item-upcoming cursor-pointer group" disabled>
+                            <div class="cu-steps-number">3</div>
+                            <div class="cu-steps-content"><div class="cu-steps-title">Payment</div></div>
+                        </button>
                     </Steps>
                 </div>
             </ComponentPreview>

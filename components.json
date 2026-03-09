@@ -13,7 +13,7 @@
         "base": "cu-button",
         "variants": ["cu-button-default", "cu-button-destructive", "cu-button-outline", "cu-button-ghost", "cu-button-link"],
         "sizes": ["cu-button-sm", "cu-button-lg"],
-        "modifiers": ["cu-button-icon", "cu-button-icon-sm", "cu-button-icon-xs"]
+        "modifiers": ["cu-button-icon", "cu-button-icon-sm", "cu-button-icon-xs", "cu-button-block", "cu-button-block-sm"]
       },
       "notes": "Always combine base + one variant class. Icon buttons: combine cu-button + cu-button-ghost + cu-button-icon. Add hover shadow for solid variants.",
       "example": "<button class=\"cu-button cu-button-default\">Button</button>"
@@ -420,9 +420,10 @@
       "interactive": false,
       "cssClasses": {
         "base": "cu-table",
-        "wrapper": "cu-table-wrapper"
+        "wrapper": "cu-table-wrapper",
+        "modifiers": ["cu-table-stacked"]
       },
-      "notes": "Wrap table in cu-table-wrapper for overflow handling.",
+      "notes": "Wrap table in cu-table-wrapper for overflow handling. Add cu-table-stacked for mobile card layout (requires data-label on each td).",
       "example": "<div class=\"cu-table-wrapper\"><table class=\"cu-table\"><thead><tr><th>Name</th></tr></thead><tbody><tr><td>Row</td></tr></tbody></table></div>"
     },
     {
@@ -748,13 +749,19 @@
     {
       "name": "Header",
       "category": "layout",
-      "interactive": false,
+      "interactive": true,
       "cssClasses": {
         "base": "cu-header",
-        "parts": ["cu-header-inner", "cu-header-brand", "cu-header-nav", "cu-header-nav-start", "cu-header-nav-end", "cu-header-actions"]
+        "parts": ["cu-header-inner", "cu-header-brand", "cu-header-nav", "cu-header-nav-start", "cu-header-nav-end", "cu-header-actions", "cu-header-mobile-nav", "cu-header-mobile-backdrop", "cu-header-mobile-header", "cu-header-mobile-content", "cu-header-mobile-close"],
+        "modifiers": ["cu-header-nav-sm", "cu-header-nav-md", "cu-header-nav-lg", "cu-header-nav-xl"]
       },
-      "notes": "cu-header-nav-start: nav aligned left (after brand). cu-header-nav-end: nav aligned right (before actions). Header is sticky by default.",
-      "example": "<header class=\"cu-header\"><div class=\"cu-header-inner\"><div class=\"cu-header-brand\">Logo</div><div class=\"cu-header-actions\"><!-- buttons --></div></div></header>"
+      "dataAttributes": ["data-cu-mobile-nav-trigger", "data-cu-mobile-nav", "data-cu-mobile-nav-panel", "data-cu-mobile-nav-close", "data-cu-mobile-nav-open", "data-cu-mobile-nav-clone"],
+      "aria": {
+        "trigger": "aria-expanded, aria-label",
+        "panel": "role=dialog, aria-modal=true, aria-label"
+      },
+      "notes": "cu-header-nav is always visible by default; add cu-header-nav-{sm|md|lg|xl} to hide below a breakpoint. cu-header-nav-start: nav aligned left (after brand). cu-header-nav-end: nav aligned right (before actions). Header is sticky by default. Mobile nav: slide-in panel from left with backdrop, auto-clones desktop nav when data-cu-mobile-nav-clone is set. Supports Escape key, backdrop click, scroll lock, focus management.",
+      "example": "<header class=\"cu-header\"><div class=\"cu-header-inner\"><div class=\"cu-header-brand\">Logo</div><div class=\"cu-header-nav cu-header-nav-md\"><nav class=\"cu-nav\"><a class=\"cu-nav-item\" href=\"#\">Home</a></nav></div><div class=\"cu-header-actions\"><!-- buttons --><button data-cu-mobile-nav-trigger=\"main-nav\" class=\"cu-button cu-button-ghost cu-button-icon-sm md:hidden\" aria-label=\"Open menu\" aria-expanded=\"false\">☰</button></div></div></header><div id=\"main-nav\" class=\"cu-header-mobile-backdrop\" data-cu-mobile-nav></div><nav id=\"main-nav-panel\" class=\"cu-header-mobile-nav\" data-cu-mobile-nav-panel=\"main-nav\" data-cu-mobile-nav-clone role=\"dialog\" aria-modal=\"true\" aria-label=\"Navigation menu\"><div class=\"cu-header-mobile-header\"><span>Brand</span><button data-cu-mobile-nav-close class=\"cu-header-mobile-close\" aria-label=\"Close menu\">✕</button></div><div class=\"cu-header-mobile-content\"></div></nav>"
     },
     {
       "name": "Nav",

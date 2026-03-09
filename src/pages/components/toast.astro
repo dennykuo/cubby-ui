@@ -185,6 +185,22 @@ const customDurationCode = `<button class="cu-button cu-button-outline cu-button
   data-cu-toast-duration="10000">
   10s Toast
 </button>`.trim();
+
+const persistentCode = `<div class="cu-toast-container" data-cu-toast-container data-cu-toast-duration="0">
+  <!-- Toasts with duration="0" will not auto-dismiss -->
+</div>
+
+<button class="cu-button" onclick="CubbyUI.toast({ title: 'System Update', description: 'A new version is available. Please restart to apply.', variant: 'info', duration: 0 })">
+  Show Persistent Toast
+</button>`.trim();
+
+const stackedCode = `<div class="cu-toast-container" data-cu-toast-container data-cu-toast-max="3">
+  <!-- Maximum 3 toasts visible at once. Oldest removed when exceeded. -->
+</div>
+
+<button class="cu-button" onclick="CubbyUI.toast({ title: 'Notification', description: 'This is toast #' + Date.now() })">
+  Add Toast
+</button>`.trim();
 ---
 
 <Layout title={t.title} category={t.category} componentName="Toast">
@@ -433,6 +449,34 @@ const customDurationCode = `<button class="cu-button cu-button-outline cu-button
             </ComponentPreview>
         </section>
 
+        <!-- Persistent -->
+        <section class="space-y-3">
+            <h2 id="persistent" class="text-lg font-semibold tracking-tight relative group">
+                <a href="#persistent" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                {t.sections.persistent.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.persistent.description} />
+            <ComponentPreview code={persistentCode}>
+                <button class="cu-button cu-button-outline cu-button-md" id="toast-persistent-demo">
+                    Show Persistent Toast
+                </button>
+            </ComponentPreview>
+        </section>
+
+        <!-- Stack Limit -->
+        <section class="space-y-3">
+            <h2 id="stack-limit" class="text-lg font-semibold tracking-tight relative group">
+                <a href="#stack-limit" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                {t.sections.stacked.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.stacked.description} />
+            <ComponentPreview code={stackedCode}>
+                <button class="cu-button cu-button-outline cu-button-md" id="toast-stacked-demo">
+                    Add Toast
+                </button>
+            </ComponentPreview>
+        </section>
+
     </div>
 </Layout>
 
@@ -467,6 +511,66 @@ const customDurationCode = `<button class="cu-button cu-button-outline cu-button
         undoBtn.addEventListener("click", () => toast.remove());
         actions.appendChild(undoBtn);
         toast.appendChild(actions);
+
+        const closeBtn = document.createElement("button");
+        closeBtn.className = "cu-toast-close";
+        closeBtn.textContent = "\u00d7";
+        closeBtn.addEventListener("click", () => toast.remove());
+        toast.appendChild(closeBtn);
+
+        container.appendChild(toast);
+        setTimeout(() => {
+            if (toast.parentNode) toast.remove();
+        }, 5000);
+    });
+
+    document.getElementById("toast-persistent-demo")?.addEventListener("click", () => {
+        const container = document.querySelector("[data-cu-toast-container]");
+        if (!container) return;
+
+        const toast = document.createElement("div");
+        toast.className = "cu-toast cu-toast-info cu-toast-enter";
+
+        const body = document.createElement("div");
+        body.className = "cu-toast-body";
+        const titleEl = document.createElement("div");
+        titleEl.className = "cu-toast-title";
+        titleEl.textContent = "System Update";
+        body.appendChild(titleEl);
+        const descEl = document.createElement("div");
+        descEl.className = "cu-toast-description";
+        descEl.textContent = "A new version is available. Please restart to apply.";
+        body.appendChild(descEl);
+        toast.appendChild(body);
+
+        const closeBtn = document.createElement("button");
+        closeBtn.className = "cu-toast-close";
+        closeBtn.textContent = "\u00d7";
+        closeBtn.addEventListener("click", () => toast.remove());
+        toast.appendChild(closeBtn);
+
+        container.appendChild(toast);
+        // duration: 0 — no auto-dismiss
+    });
+
+    document.getElementById("toast-stacked-demo")?.addEventListener("click", () => {
+        const container = document.querySelector("[data-cu-toast-container]");
+        if (!container) return;
+
+        const toast = document.createElement("div");
+        toast.className = "cu-toast cu-toast-default cu-toast-enter";
+
+        const body = document.createElement("div");
+        body.className = "cu-toast-body";
+        const titleEl = document.createElement("div");
+        titleEl.className = "cu-toast-title";
+        titleEl.textContent = "Notification";
+        body.appendChild(titleEl);
+        const descEl = document.createElement("div");
+        descEl.className = "cu-toast-description";
+        descEl.textContent = "This is toast #" + Date.now();
+        body.appendChild(descEl);
+        toast.appendChild(body);
 
         const closeBtn = document.createElement("button");
         closeBtn.className = "cu-toast-close";

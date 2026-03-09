@@ -187,6 +187,40 @@ const withPaginationCode = `<div class="cu-data-table">
   </div>
 </div>`.trim();
 
+const responsiveCode = `<!-- Add cu-table-stacked + data-label on each td -->
+<div class="cu-table-wrapper cu-table-stacked rounded-lg border border-border">
+  <table class="cu-table">
+    <thead class="cu-table-header">
+      <tr class="cu-table-row">
+        <th class="cu-table-head">Name</th>
+        <th class="cu-table-head">Email</th>
+        <th class="cu-table-head">Role</th>
+        <th class="cu-table-head">Amount</th>
+      </tr>
+    </thead>
+    <tbody class="cu-table-body">
+      <tr class="cu-table-row">
+        <td class="cu-table-cell" data-label="Name">Alice Johnson</td>
+        <td class="cu-table-cell" data-label="Email">alice@example.com</td>
+        <td class="cu-table-cell" data-label="Role">Admin</td>
+        <td class="cu-table-cell" data-label="Amount">$250.00</td>
+      </tr>
+      <tr class="cu-table-row">
+        <td class="cu-table-cell" data-label="Name">Bob Smith</td>
+        <td class="cu-table-cell" data-label="Email">bob@example.com</td>
+        <td class="cu-table-cell" data-label="Role">Editor</td>
+        <td class="cu-table-cell" data-label="Amount">$150.00</td>
+      </tr>
+      <tr class="cu-table-row">
+        <td class="cu-table-cell" data-label="Name">Charlie Brown</td>
+        <td class="cu-table-cell" data-label="Email">charlie@example.com</td>
+        <td class="cu-table-cell" data-label="Role">Viewer</td>
+        <td class="cu-table-cell" data-label="Amount">$350.00</td>
+      </tr>
+    </tbody>
+  </table>
+</div>`.trim();
+
 const stripedRowsCode = `<div class="cu-data-table cu-data-table-striped">
   <div class="cu-table-wrapper rounded-lg border border-border">
     <table class="cu-table">
@@ -301,6 +335,66 @@ const withRowActionsCode = `<div class="cu-table-wrapper rounded-lg border borde
       </tr>
     </tbody>
   </table>
+</div>`.trim();
+
+const emptyStateCode = `<div class="cu-card">
+  <div class="cu-card-content-flush">
+    <div class="cu-table-wrapper">
+      <table class="cu-table cu-data-table">
+        <thead class="cu-table-header">
+          <tr class="cu-table-row">
+            <th class="cu-table-head">Name</th>
+            <th class="cu-table-head">Email</th>
+            <th class="cu-table-head">Status</th>
+          </tr>
+        </thead>
+        <tbody class="cu-table-body">
+          <tr class="cu-table-row">
+            <td class="cu-table-cell text-center text-muted-foreground py-10" colspan="3">
+              <div class="flex flex-col items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-muted-foreground/50"><path d="M21 12a9 9 0 1 1-6.22-8.56"/><path d="M21 3v4h-4"/></svg>
+                <p class="text-sm font-medium">No results found</p>
+                <p class="text-xs">Try adjusting your search or filters.</p>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>`.trim();
+
+const loadingCode = `<div class="cu-card">
+  <div class="cu-card-content-flush">
+    <div class="cu-table-wrapper">
+      <table class="cu-table cu-data-table">
+        <thead class="cu-table-header">
+          <tr class="cu-table-row">
+            <th class="cu-table-head">Name</th>
+            <th class="cu-table-head">Email</th>
+            <th class="cu-table-head">Status</th>
+          </tr>
+        </thead>
+        <tbody class="cu-table-body">
+          <tr class="cu-table-row">
+            <td class="cu-table-cell"><div class="cu-skeleton cu-skeleton-text w-24"></div></td>
+            <td class="cu-table-cell"><div class="cu-skeleton cu-skeleton-text w-36"></div></td>
+            <td class="cu-table-cell"><div class="cu-skeleton cu-skeleton-text w-16"></div></td>
+          </tr>
+          <tr class="cu-table-row">
+            <td class="cu-table-cell"><div class="cu-skeleton cu-skeleton-text w-20"></div></td>
+            <td class="cu-table-cell"><div class="cu-skeleton cu-skeleton-text w-32"></div></td>
+            <td class="cu-table-cell"><div class="cu-skeleton cu-skeleton-text w-16"></div></td>
+          </tr>
+          <tr class="cu-table-row">
+            <td class="cu-table-cell"><div class="cu-skeleton cu-skeleton-text w-28"></div></td>
+            <td class="cu-table-cell"><div class="cu-skeleton cu-skeleton-text w-40"></div></td>
+            <td class="cu-table-cell"><div class="cu-skeleton cu-skeleton-text w-16"></div></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
 </div>`.trim();
 ---
 
@@ -678,6 +772,132 @@ const withRowActionsCode = `<div class="cu-table-wrapper rounded-lg border borde
                                     </tr>
                                 </tbody>
                             </table>
+                        </div>
+                    </div>
+                </div>
+            </ComponentPreview>
+        </section>
+        <!-- Responsive (Stacked) -->
+        <section class="space-y-3">
+            <h2 id="responsive" class="text-lg font-semibold tracking-tight relative group">
+                <a href="#responsive" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                {t.sections.responsive.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.responsive.description} />
+            <ComponentPreview code={responsiveCode}>
+                <div class="cu-table-wrapper cu-table-stacked rounded-lg border border-border">
+                    <table class="cu-table">
+                        <thead class="cu-table-header">
+                            <tr class="cu-table-row">
+                                <th class="cu-table-head">Name</th>
+                                <th class="cu-table-head">Email</th>
+                                <th class="cu-table-head">Role</th>
+                                <th class="cu-table-head">Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody class="cu-table-body">
+                            <tr class="cu-table-row">
+                                <td class="cu-table-cell" data-label="Name">Alice Johnson</td>
+                                <td class="cu-table-cell" data-label="Email">alice@example.com</td>
+                                <td class="cu-table-cell" data-label="Role">Admin</td>
+                                <td class="cu-table-cell" data-label="Amount">$250.00</td>
+                            </tr>
+                            <tr class="cu-table-row">
+                                <td class="cu-table-cell" data-label="Name">Bob Smith</td>
+                                <td class="cu-table-cell" data-label="Email">bob@example.com</td>
+                                <td class="cu-table-cell" data-label="Role">Editor</td>
+                                <td class="cu-table-cell" data-label="Amount">$150.00</td>
+                            </tr>
+                            <tr class="cu-table-row">
+                                <td class="cu-table-cell" data-label="Name">Charlie Brown</td>
+                                <td class="cu-table-cell" data-label="Email">charlie@example.com</td>
+                                <td class="cu-table-cell" data-label="Role">Viewer</td>
+                                <td class="cu-table-cell" data-label="Amount">$350.00</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </ComponentPreview>
+        </section>
+
+        <!-- Empty State -->
+        <section class="space-y-3">
+            <h2 id="empty-state" class="text-lg font-semibold tracking-tight relative group">
+                <a href="#empty-state" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                {t.sections.emptyState.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">{t.sections.emptyState.description}</p>
+            <ComponentPreview code={emptyStateCode}>
+                <div class="w-full max-w-2xl">
+                    <div class="cu-card">
+                        <div class="cu-card-content-flush">
+                            <div class="cu-table-wrapper">
+                                <table class="cu-table cu-data-table">
+                                    <thead class="cu-table-header">
+                                        <tr class="cu-table-row">
+                                            <th class="cu-table-head">Name</th>
+                                            <th class="cu-table-head">Email</th>
+                                            <th class="cu-table-head">Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="cu-table-body">
+                                        <tr class="cu-table-row">
+                                            <td class="cu-table-cell text-center text-muted-foreground py-10" colspan="3">
+                                                <div class="flex flex-col items-center gap-2">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-muted-foreground/50"><path d="M21 12a9 9 0 1 1-6.22-8.56"/><path d="M21 3v4h-4"/></svg>
+                                                    <p class="text-sm font-medium">No results found</p>
+                                                    <p class="text-xs">Try adjusting your search or filters.</p>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ComponentPreview>
+        </section>
+
+        <!-- Loading Skeleton -->
+        <section class="space-y-3">
+            <h2 id="loading" class="text-lg font-semibold tracking-tight relative group">
+                <a href="#loading" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                {t.sections.loading.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">{t.sections.loading.description}</p>
+            <ComponentPreview code={loadingCode}>
+                <div class="w-full max-w-2xl">
+                    <div class="cu-card">
+                        <div class="cu-card-content-flush">
+                            <div class="cu-table-wrapper">
+                                <table class="cu-table cu-data-table">
+                                    <thead class="cu-table-header">
+                                        <tr class="cu-table-row">
+                                            <th class="cu-table-head">Name</th>
+                                            <th class="cu-table-head">Email</th>
+                                            <th class="cu-table-head">Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="cu-table-body">
+                                        <tr class="cu-table-row">
+                                            <td class="cu-table-cell"><div class="cu-skeleton cu-skeleton-text w-24"></div></td>
+                                            <td class="cu-table-cell"><div class="cu-skeleton cu-skeleton-text w-36"></div></td>
+                                            <td class="cu-table-cell"><div class="cu-skeleton cu-skeleton-text w-16"></div></td>
+                                        </tr>
+                                        <tr class="cu-table-row">
+                                            <td class="cu-table-cell"><div class="cu-skeleton cu-skeleton-text w-20"></div></td>
+                                            <td class="cu-table-cell"><div class="cu-skeleton cu-skeleton-text w-32"></div></td>
+                                            <td class="cu-table-cell"><div class="cu-skeleton cu-skeleton-text w-16"></div></td>
+                                        </tr>
+                                        <tr class="cu-table-row">
+                                            <td class="cu-table-cell"><div class="cu-skeleton cu-skeleton-text w-28"></div></td>
+                                            <td class="cu-table-cell"><div class="cu-skeleton cu-skeleton-text w-40"></div></td>
+                                            <td class="cu-table-cell"><div class="cu-skeleton cu-skeleton-text w-16"></div></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>

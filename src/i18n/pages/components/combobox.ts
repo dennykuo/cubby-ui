@@ -9,6 +9,8 @@ export const comboboxPage: Record<Locale, {
     classes: { title: string; classLabel: string; descriptionLabel: string };
     withIcons: { title: string; description: string };
     withFormGroup: { title: string; description: string };
+    disabled: { title: string; description: string };
+    grouped: { title: string; description: string };
   };
   classDescriptions: Record<string, string>;
 }> = {
@@ -33,6 +35,14 @@ export const comboboxPage: Record<Locale, {
       withFormGroup: {
         title: 'With Form Group',
         description: 'Pair the combobox with a Label and FormDescription for use in form layouts.',
+      },
+      disabled: {
+        title: 'Disabled Items',
+        description: 'Add <code class="cu-code">opacity-50 pointer-events-none</code> and <code class="cu-code">aria-disabled="true"</code> to prevent selection of specific options.',
+      },
+      grouped: {
+        title: 'Grouped Options',
+        description: 'Use label elements to group related options for better organization.',
       },
     },
     classDescriptions: {
@@ -72,6 +82,14 @@ export const comboboxPage: Record<Locale, {
       withFormGroup: {
         title: '搭配表單群組',
         description: '將 combobox 與 Label 和 FormDescription 搭配，用於表單佈局。',
+      },
+      disabled: {
+        title: '停用選項',
+        description: '加入 <code class="cu-code">opacity-50 pointer-events-none</code> 和 <code class="cu-code">aria-disabled="true"</code> 以防止選取特定選項。',
+      },
+      grouped: {
+        title: '分組選項',
+        description: '使用標籤元素將相關選項分組，提供更好的組織結構。',
       },
     },
     classDescriptions: {

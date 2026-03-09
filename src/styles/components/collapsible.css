@@ -2,6 +2,8 @@
    ------------------------------------------------------------------ */
 .cu-collapsible {
     @apply w-full;
+    /* Progressive enhancement: Chrome 129+, enables height 0→auto transition */
+    interpolate-size: allow-keywords;
 }
 
 .cu-collapsible-trigger {
@@ -27,6 +29,15 @@
 
 .cu-collapsible-content {
     @apply overflow-hidden pt-2 text-sm;
+    height: auto;
+    transition: height 0.2s ease, opacity 0.2s ease;
+}
+
+@starting-style {
+    .cu-collapsible[open] > .cu-collapsible-content {
+        height: 0;
+        opacity: 0;
+    }
 }
 
 /* Bordered variant */
