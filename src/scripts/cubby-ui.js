@@ -1033,7 +1033,7 @@
         if (getComputedStyle(panel).position !== "absolute") {
           document.body.style.overflow = "hidden";
         }
-        if (closeBtn) closeBtn.focus();
+        if (closeBtn) closeBtn.focus({ preventScroll: true });
       });
 
       if (closeBtn) {

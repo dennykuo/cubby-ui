@@ -177,7 +177,7 @@ src/
 │           └── ...
 ├── components/
 │   ├── Header.astro              — 頂部導航列（使用 cu-header / cu-header-brand / cu-header-actions）
-│   ├── ComponentPreview.astro     — 元件展示框（Preview/Code 切換 + responsive 裝置寬度切換）
+│   ├── ComponentPreview.astro     — 元件展示框（iframe 隔離預覽 + responsive 裝置寬度切換 + code 摺疊/複製）
 │   ├── PrevNextNav.astro          — 元件頁底部 prev/next 導航（從 component-nav.ts 取得順序）
 │   ├── sidebar/                   — 文檔站點專用側邊欄（使用 cu-sidebar-* classes）
 │   │   ├── Sidebar.astro          — 側邊欄（包含導航資料與結構）
@@ -444,6 +444,11 @@ src/
 - `cu-header-nav-start` — 導航靠左（`mr-auto`，緊鄰品牌）
 - `cu-header-nav-end` — 導航靠右（`ml-auto`，緊鄰操作區）
 - `cu-header-actions` — 右側操作區（`gap-2`）
+- `cu-header-mobile-backdrop` — 遮罩層（`fixed inset-0 z-50`、`bg-foreground/30`、`opacity` 過渡 360ms）
+- `cu-header-mobile-nav` — 右側滑入面板（`fixed right-0 z-[60] w-72`、`translate-x` 過渡 360ms）
+- `cu-header-mobile-header` — 面板頂部（`h-14`、`justify-end`）
+- `cu-header-mobile-content` — 面板可捲動內容區（`overflow-y-auto p-4`）
+- `cu-header-mobile-close` — 關閉按鈕（`size-9`、`focus-visible:ring-1 ring-ring/40`）
 
 #### UI Nav 元件（`src/components/ui/Nav*.astro`）
 

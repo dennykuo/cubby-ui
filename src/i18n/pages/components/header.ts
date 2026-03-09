@@ -7,12 +7,12 @@ export const headerPage: Record<Locale, {
   sections: {
     usage: { title: string; description: string };
     classes: { title: string; classLabel: string; descriptionLabel: string };
-    withNavigation: { title: string; description: string };
-    navStart: { title: string; description: string };
-    navEnd: { title: string; description: string };
+    navAlignment: { title: string; description: string; center: string; start: string; end: string };
+    headerActions: { title: string; description: string };
     brandVariations: { title: string; description: string };
     mobileNav: { title: string; description: string };
-    triggerVisibility: { title: string; description: string; alwaysVisible: string; hiddenAboveLg: string; breakpointList: string };
+    triggerVisibility: { title: string; description: string; alwaysVisible: string; hiddenAboveSm: string; breakpointList: string };
+    multiplePanels: { title: string; description: string; howItWorks: string };
   };
   classDescriptions: Record<string, string>;
 }> = {
@@ -30,17 +30,16 @@ export const headerPage: Record<Locale, {
         classLabel: 'Class',
         descriptionLabel: 'Description',
       },
-      withNavigation: {
-        title: 'With Navigation',
-        description: 'Add a <code class="cu-code">cu-header-nav</code> section with a <code class="cu-code">cu-nav</code> inside. Use a breakpoint modifier like <code class="cu-code">cu-header-nav-md</code> to hide on mobile and show from the <code class="cu-code">md</code> breakpoint.',
+      navAlignment: {
+        title: 'Navigation Alignment',
+        description: 'Add a <code class="cu-code">cu-header-nav</code> section with a <code class="cu-code">cu-nav</code> inside. Use <code class="cu-code">cu-header-nav-start</code> or <code class="cu-code">cu-header-nav-end</code> to control alignment. By default, navigation is centered between the brand and actions.',
+        center: 'Center (default)',
+        start: 'Start-aligned',
+        end: 'End-aligned',
       },
-      navStart: {
-        title: 'Navigation Start-Aligned',
-        description: 'Add <code class="cu-code">cu-header-nav-start</code> to keep navigation next to the brand, pushing actions to the far right.',
-      },
-      navEnd: {
-        title: 'Navigation End-Aligned',
-        description: 'Add <code class="cu-code">cu-header-nav-end</code> to push navigation to the right, adjacent to the actions area.',
+      headerActions: {
+        title: 'Actions Area',
+        description: 'The <code class="cu-code">cu-header-actions</code> area holds action buttons, icon links, avatars, or any interactive elements on the right side of the header.',
       },
       brandVariations: {
         title: 'Brand Variations',
@@ -54,8 +53,13 @@ export const headerPage: Record<Locale, {
         title: 'Trigger Visibility',
         description: 'Control when the hamburger button is visible by adding a responsive <code class="cu-code">{breakpoint}:hidden</code> class. Omit the hidden class entirely for an always-visible trigger — useful for app-style layouts where the sidebar is toggled at all screen sizes.',
         alwaysVisible: 'Always visible — no breakpoint class',
-        hiddenAboveLg: 'Hidden above lg — visible on mobile and tablet',
+        hiddenAboveSm: 'Hidden above sm — visible on mobile only',
         breakpointList: 'Available breakpoint classes: <code class="cu-code">sm:hidden</code> (≥640px), <code class="cu-code">md:hidden</code> (≥768px), <code class="cu-code">lg:hidden</code> (≥1024px), <code class="cu-code">xl:hidden</code> (≥1280px). Pair with the matching <code class="cu-code">cu-header-nav-{breakpoint}</code> to keep the trigger and nav in sync.',
+      },
+      multiplePanels: {
+        title: 'Multiple Panels',
+        description: 'You can have multiple independent mobile nav panels on the same page. Each panel is linked to its own trigger via a unique ID.',
+        howItWorks: 'The matching mechanism uses three <code class="cu-code">data-*</code> attributes: the trigger\'s <code class="cu-code">data-cu-mobile-nav-trigger</code> value must match the backdrop\'s <code class="cu-code">id</code>, and the panel\'s <code class="cu-code">data-cu-mobile-nav-panel</code> value. As long as the IDs are different, each group operates independently.',
       },
     },
     classDescriptions: {
@@ -70,7 +74,7 @@ export const headerPage: Record<Locale, {
       'cu-header-nav-start': 'Keep navigation next to the brand, push actions to the far right',
       'cu-header-nav-end': 'Push navigation to the right, adjacent to the actions area',
       'cu-header-actions': 'Right action button area',
-      'cu-header-mobile-nav': 'Slide-in mobile navigation panel (fixed left, w-72)',
+      'cu-header-mobile-nav': 'Slide-in mobile navigation panel (fixed right, w-72)',
       'cu-header-mobile-backdrop': 'Semi-transparent overlay behind mobile nav panel',
       'cu-header-mobile-header': 'Mobile nav panel header with brand and close button',
       'cu-header-mobile-content': 'Scrollable content area inside mobile nav panel',
@@ -91,17 +95,16 @@ export const headerPage: Record<Locale, {
         classLabel: '類別',
         descriptionLabel: '說明',
       },
-      withNavigation: {
-        title: '帶導航',
-        description: '加入 <code class="cu-code">cu-header-nav</code> 區塊，內部放入 <code class="cu-code">cu-nav</code>。使用斷點修飾類別如 <code class="cu-code">cu-header-nav-md</code> 在行動裝置上隱藏，從 <code class="cu-code">md</code> 斷點開始顯示。',
+      navAlignment: {
+        title: '導航對齊',
+        description: '加入 <code class="cu-code">cu-header-nav</code> 區塊，內部放入 <code class="cu-code">cu-nav</code>。使用 <code class="cu-code">cu-header-nav-start</code> 或 <code class="cu-code">cu-header-nav-end</code> 控制對齊方式。預設導航置於品牌與操作區域之間居中。',
+        center: '居中（預設）',
+        start: '左對齊',
+        end: '右對齊',
       },
-      navStart: {
-        title: '導航左對齊',
-        description: '加入 <code class="cu-code">cu-header-nav-start</code> 將導航保持在品牌旁邊，操作區域推至最右側。',
-      },
-      navEnd: {
-        title: '導航右對齊',
-        description: '加入 <code class="cu-code">cu-header-nav-end</code> 將導航推至右側，緊鄰操作區域。',
+      headerActions: {
+        title: '操作區域',
+        description: '<code class="cu-code">cu-header-actions</code> 區域用於放置操作按鈕、圖示連結、頭像或其他互動元素，位於 Header 的右側。',
       },
       brandVariations: {
         title: '品牌變化',
@@ -115,8 +118,13 @@ export const headerPage: Record<Locale, {
         title: '觸發按鈕可見性',
         description: '透過添加響應式 <code class="cu-code">{breakpoint}:hidden</code> class 來控制漢堡按鈕的顯示時機。完全省略 hidden class 可讓按鈕永遠可見 — 適用於側邊欄需要在所有螢幕尺寸下切換的應用程式佈局。',
         alwaysVisible: '永遠可見 — 不加斷點 class',
-        hiddenAboveLg: 'lg 以上隱藏 — 行動端與平板可見',
+        hiddenAboveSm: 'sm 以上隱藏 — 僅行動端可見',
         breakpointList: '可用的斷點 class：<code class="cu-code">sm:hidden</code>（≥640px）、<code class="cu-code">md:hidden</code>（≥768px）、<code class="cu-code">lg:hidden</code>（≥1024px）、<code class="cu-code">xl:hidden</code>（≥1280px）。搭配對應的 <code class="cu-code">cu-header-nav-{breakpoint}</code> 使觸發按鈕與導航列保持同步。',
+      },
+      multiplePanels: {
+        title: '多組面板',
+        description: '同一頁面可以有多組獨立的行動導航面板，每組面板透過唯一的 ID 與對應的觸發按鈕連結。',
+        howItWorks: '配對機制使用三個 <code class="cu-code">data-*</code> 屬性：trigger 的 <code class="cu-code">data-cu-mobile-nav-trigger</code> 值必須與 backdrop 的 <code class="cu-code">id</code> 一致，也必須與 panel 的 <code class="cu-code">data-cu-mobile-nav-panel</code> 值一致。只要 ID 不同，各組即可獨立運作、互不干擾。',
       },
     },
     classDescriptions: {
@@ -131,7 +139,7 @@ export const headerPage: Record<Locale, {
       'cu-header-nav-start': '將導航保持在品牌旁邊，操作區域推至最右側',
       'cu-header-nav-end': '將導航推至右側，緊鄰操作區域',
       'cu-header-actions': '右側操作按鈕區域',
-      'cu-header-mobile-nav': '滑入式行動導航面板（固定左側，寬度 w-72）',
+      'cu-header-mobile-nav': '滑入式行動導航面板（固定右側，寬度 w-72）',
       'cu-header-mobile-backdrop': '行動導航面板後方的半透明遮罩',
       'cu-header-mobile-header': '行動導航面板頂部列，含品牌和關閉按鈕',
       'cu-header-mobile-content': '行動導航面板內的可捲動內容區域',
