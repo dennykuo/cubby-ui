@@ -72,15 +72,15 @@
 
 ---
 
-## 六、缺少的跨元件組合範例
+## 六、缺少的跨元件組合範例 ✅ 全部完成
 
-目前文檔頁面都是單元件展示，缺少**真實應用場景**的組合頁面：
-
-1. **Dashboard 頁面** — Header + Sidebar + Stat Cards + Data Table + Filter Bar
-2. **表單精靈** — Steps + Form Group + Button（多步驟流程）
-3. **設定頁面** — Sidebar Nav + Setting Items + Toggle + Dialog 確認
-4. **資料管理頁面** — Page Header + Filter Bar + Data Table + Pagination + Toast 回饋
-5. **Modal 工作流** — Dialog 表單 → 提交 → Toast 通知
+| 範例 | 狀態 | 說明 |
+|------|------|------|
+| ~~Dashboard 頁面~~ | ✅ | V1-V5 共 5 個版本，涵蓋 Header + Sidebar + Stat Cards + Data Table + Filter Bar + Charts |
+| ~~表單精靈~~ | ✅ | 新增 `/examples/form-wizard/` — Steps + Form Group + Toggle + 表單驗證 + Toast 回饋，4 步驟流程含摘要確認頁 |
+| ~~設定頁面~~ | ✅ | V1 settings-v2 已完整展示 Sidebar Nav + Toggle + 表單 + 主題選擇器 + 安全性區塊 |
+| ~~資料管理頁面~~ | ✅ | V5 products 已展示 Page Header + Filter Bar + Data Table + Pagination + Dialog CRUD |
+| ~~Modal 工作流~~ | ✅ | 新增 `/examples/modal-workflow/` — 聯絡人 CRUD：Dialog 表單新增/編輯 → Alert Dialog 刪除確認 → Toast 即時回饋 |
 
 ---
 

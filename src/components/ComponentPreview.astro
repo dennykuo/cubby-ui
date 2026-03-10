@@ -127,12 +127,13 @@ const t = uiTranslations[locale];
 
 		previews.forEach((preview) => {
 			const el = preview as HTMLElement;
+			const isInitialized = el.hasAttribute("data-cu-preview-init");
 			const copyText = el.dataset.cuI18nCopy || "Copy";
 			const copiedText = el.dataset.cuI18nCopied || "Copied!";
 			const expandText = el.dataset.cuI18nExpand || "Expand Code";
 			const collapseText = el.dataset.cuI18nCollapse || "Collapse Code";
 
-			// --- iframe setup ---
+			// --- iframe setup（每次都重建）---
 			const template = preview.querySelector("[data-cu-preview-template]") as HTMLTemplateElement | null;
 			const iframe = preview.querySelector("[data-cu-preview-iframe]") as HTMLIFrameElement | null;
 			const cssUrl = el.dataset.cuCssUrl || "";
@@ -186,6 +187,10 @@ window.addEventListener('message', function(e) {
 </html>`;
 				iframe.srcdoc = srcdoc;
 			}
+
+			// --- Listeners（只綁一次）---
+			if (isInitialized) return;
+			el.setAttribute("data-cu-preview-init", "");
 
 			// --- Copy button ---
 			const copyBtn = preview.querySelector(

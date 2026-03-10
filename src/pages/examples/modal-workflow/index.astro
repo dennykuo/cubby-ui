@@ -1,0 +1,428 @@
+---
+import "@/styles/global.css";
+---
+
+<!doctype html>
+<html lang="zh-Hant">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="description" content="Modal Workflow — Cubby UI" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+			rel="stylesheet"
+		/>
+		<title>Modal 工作流 — Cubby UI</title>
+	</head>
+	<body class="min-h-screen bg-muted/30 font-sans">
+		<!-- Header -->
+		<header class="cu-header border-b border-border">
+			<div class="cu-header-inner mx-auto max-w-5xl">
+				<a class="cu-header-brand" href="/examples/modal-workflow">
+					<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-primary">
+						<path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+						<polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+						<line x1="12" y1="22.08" x2="12" y2="12"></line>
+					</svg>
+					<span class="text-base font-semibold tracking-tight">聯絡人管理</span>
+				</a>
+				<div class="cu-header-actions">
+					<a href="/" class="cu-button cu-button-ghost cu-button-sm">
+						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+						返回文檔
+					</a>
+				</div>
+			</div>
+		</header>
+
+		<!-- Main content -->
+		<main class="mx-auto max-w-5xl px-4 py-8 sm:px-6 sm:py-10">
+			<!-- Page header -->
+			<div class="cu-page-header mb-8">
+				<div class="cu-page-header-content">
+					<h1 class="cu-page-header-title">聯絡人</h1>
+					<p class="cu-page-header-description">管理您的聯絡人清單，支援新增、編輯與刪除操作。</p>
+				</div>
+				<div class="cu-page-header-actions">
+					<button class="cu-button cu-button-default cu-button-md" data-cu-action="add">
+						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
+						新增聯絡人
+					</button>
+				</div>
+			</div>
+
+			<!-- Filter bar -->
+			<div class="cu-filter-bar mb-6">
+				<div class="cu-filter-bar-inner">
+					<div class="cu-filter-bar-search">
+						<div class="cu-search-input-wrapper">
+							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="cu-search-input-icon"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+							<input class="cu-search-input" type="search" placeholder="搜尋聯絡人…" data-cu-contact-search />
+						</div>
+					</div>
+					<div class="cu-filter-bar-filters">
+						<div class="cu-select-wrapper">
+							<select class="cu-select cu-select-sm" data-cu-contact-filter>
+								<option value="">所有部門</option>
+								<option value="engineering">工程部</option>
+								<option value="design">設計部</option>
+								<option value="marketing">行銷部</option>
+								<option value="sales">業務部</option>
+							</select>
+							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="cu-select-icon"><path d="m6 9 6 6 6-6"></path></svg>
+						</div>
+						<span class="text-sm text-muted-foreground" data-cu-contact-count>6 位聯絡人</span>
+					</div>
+				</div>
+			</div>
+
+			<!-- Data table -->
+			<div class="cu-card">
+				<div class="cu-card-content-flush">
+					<div class="overflow-x-auto">
+						<table class="cu-table" data-cu-contact-table>
+							<thead>
+								<tr class="cu-table-row">
+									<th class="cu-table-header">聯絡人</th>
+									<th class="cu-table-header">Email</th>
+									<th class="cu-table-header hidden sm:table-cell">部門</th>
+									<th class="cu-table-header hidden md:table-cell">職稱</th>
+									<th class="cu-table-header text-right">操作</th>
+								</tr>
+							</thead>
+							<tbody data-cu-contact-tbody>
+								<!-- Rows rendered by JS -->
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+
+			<!-- Pagination -->
+			<div class="flex items-center justify-between mt-4">
+				<p class="text-sm text-muted-foreground" data-cu-contact-page-info>顯示 1-6 筆，共 6 筆</p>
+			</div>
+		</main>
+
+		<!-- Add/Edit Contact Dialog -->
+		<dialog id="contact-dialog" class="cu-dialog cu-dialog-md">
+			<button class="cu-dialog-close" data-cu-dialog-close aria-label="關閉">
+				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+			</button>
+			<div class="cu-dialog-header">
+				<h2 class="cu-dialog-title" data-cu-contact-dialog-title>新增聯絡人</h2>
+				<p class="cu-dialog-description">填寫聯絡人的基本資訊。</p>
+			</div>
+			<form class="mt-4 space-y-4" data-cu-contact-form>
+				<input type="hidden" data-cu-contact-id />
+				<div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+					<div class="cu-form-group">
+						<label class="cu-label cu-label-required" for="contact-name">姓名</label>
+						<input class="cu-input" id="contact-name" type="text" placeholder="王小明" required />
+					</div>
+					<div class="cu-form-group">
+						<label class="cu-label cu-label-required" for="contact-email">Email</label>
+						<input class="cu-input" id="contact-email" type="email" placeholder="name@example.com" required />
+					</div>
+				</div>
+				<div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+					<div class="cu-form-group">
+						<label class="cu-label" for="contact-dept">部門</label>
+						<div class="cu-select-wrapper">
+							<select class="cu-select" id="contact-dept">
+								<option value="engineering">工程部</option>
+								<option value="design">設計部</option>
+								<option value="marketing">行銷部</option>
+								<option value="sales">業務部</option>
+							</select>
+							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="cu-select-icon"><path d="m6 9 6 6 6-6"></path></svg>
+						</div>
+					</div>
+					<div class="cu-form-group">
+						<label class="cu-label" for="contact-title">職稱</label>
+						<input class="cu-input" id="contact-title" type="text" placeholder="軟體工程師" />
+					</div>
+				</div>
+				<div class="cu-form-group">
+					<label class="cu-label" for="contact-phone">電話</label>
+					<input class="cu-input" id="contact-phone" type="tel" placeholder="0912-345-678" />
+				</div>
+			</form>
+			<div class="cu-dialog-footer">
+				<button class="cu-button cu-button-outline cu-button-md" data-cu-dialog-close>取消</button>
+				<button class="cu-button cu-button-default cu-button-md" data-cu-contact-save>儲存</button>
+			</div>
+		</dialog>
+
+		<!-- Delete Confirmation Alert Dialog -->
+		<dialog id="delete-confirm" class="cu-alert-dialog cu-alert-dialog-sm">
+			<div class="cu-alert-dialog-header">
+				<h2 class="cu-alert-dialog-title">確認刪除</h2>
+				<p class="cu-alert-dialog-description">您確定要刪除 <strong data-cu-delete-name></strong> 嗎？此操作無法復原。</p>
+			</div>
+			<div class="cu-alert-dialog-footer">
+				<button class="cu-button cu-button-outline cu-button-md" data-cu-cancel-delete>取消</button>
+				<button class="cu-button cu-button-destructive cu-button-md" data-cu-contact-confirm-delete>刪除</button>
+			</div>
+		</dialog>
+
+		<!-- Toast container -->
+		<div class="cu-toast-container cu-toast-container-bottom-right" data-cu-toast-container></div>
+
+		<script>
+			(function () {
+				// --- Data ---
+				var deptMap = { engineering: "工程部", design: "設計部", marketing: "行銷部", sales: "業務部" };
+				var deptColors = { engineering: "cu-badge-soft-info", design: "cu-badge-soft-success", marketing: "cu-badge-soft-warning", sales: "cu-badge" };
+				var nextId = 7;
+				var contacts = [
+					{ id: 1, name: "林子涵", email: "zihan.lin@example.com", dept: "engineering", title: "資深前端工程師", phone: "0912-111-001" },
+					{ id: 2, name: "陳怡君", email: "yijun.chen@example.com", dept: "design", title: "UI/UX 設計師", phone: "0912-111-002" },
+					{ id: 3, name: "張家豪", email: "jiahao.zhang@example.com", dept: "engineering", title: "後端工程師", phone: "0912-111-003" },
+					{ id: 4, name: "王美玲", email: "meiling.wang@example.com", dept: "marketing", title: "行銷專員", phone: "0912-111-004" },
+					{ id: 5, name: "李建志", email: "jianzhi.li@example.com", dept: "sales", title: "業務經理", phone: "0912-111-005" },
+					{ id: 6, name: "黃雅婷", email: "yating.huang@example.com", dept: "design", title: "動態設計師", phone: "0912-111-006" },
+				];
+
+				var tbody = document.querySelector("[data-cu-contact-tbody]");
+				var searchInput = document.querySelector("[data-cu-contact-search]");
+				var filterSelect = document.querySelector("[data-cu-contact-filter]");
+				var countEl = document.querySelector("[data-cu-contact-count]");
+				var pageInfo = document.querySelector("[data-cu-contact-page-info]");
+				var pendingDeleteId = null;
+
+				function getInitials(name) {
+					return name.slice(0, 1);
+				}
+
+				function renderTable() {
+					var search = (searchInput.value || "").toLowerCase();
+					var dept = filterSelect.value;
+					var filtered = contacts.filter(function (c) {
+						var matchSearch = !search || c.name.toLowerCase().includes(search) || c.email.toLowerCase().includes(search);
+						var matchDept = !dept || c.dept === dept;
+						return matchSearch && matchDept;
+					});
+
+					countEl.textContent = filtered.length + " 位聯絡人";
+					pageInfo.textContent = "顯示 " + (filtered.length ? "1-" + filtered.length : "0") + " 筆，共 " + filtered.length + " 筆";
+
+					if (!filtered.length) {
+						tbody.innerHTML = '<tr class="cu-table-row"><td colspan="5" class="cu-table-cell text-center py-12 text-muted-foreground">沒有找到符合的聯絡人。</td></tr>';
+						return;
+					}
+
+					tbody.innerHTML = "";
+					filtered.forEach(function (c) {
+						var tr = document.createElement("tr");
+						tr.className = "cu-table-row";
+						tr.innerHTML =
+							'<td class="cu-table-cell">' +
+								'<div class="flex items-center gap-3">' +
+									'<div class="cu-avatar cu-avatar-sm"><div class="cu-avatar-fallback">' + getInitials(c.name) + '</div></div>' +
+									'<div><p class="font-medium text-sm">' + escapeHtml(c.name) + '</p>' +
+									'<p class="text-xs text-muted-foreground sm:hidden">' + escapeHtml(c.email) + '</p></div>' +
+								'</div>' +
+							'</td>' +
+							'<td class="cu-table-cell text-sm">' + escapeHtml(c.email) + '</td>' +
+							'<td class="cu-table-cell hidden sm:table-cell"><span class="cu-badge cu-badge-sm ' + (deptColors[c.dept] || "") + '">' + (deptMap[c.dept] || c.dept) + '</span></td>' +
+							'<td class="cu-table-cell hidden md:table-cell text-sm text-muted-foreground">' + escapeHtml(c.title || "—") + '</td>' +
+							'<td class="cu-table-cell text-right">' +
+								'<div class="flex items-center justify-end gap-1">' +
+									'<button class="cu-button cu-button-ghost cu-button-icon-xs" data-cu-edit-contact="' + c.id + '" aria-label="編輯">' +
+										'<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/></svg>' +
+									'</button>' +
+									'<button class="cu-button cu-button-ghost cu-button-icon-xs text-destructive" data-cu-delete-contact="' + c.id + '" aria-label="刪除">' +
+										'<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/></svg>' +
+									'</button>' +
+								'</div>' +
+							'</td>';
+						tbody.appendChild(tr);
+					});
+				}
+
+				function escapeHtml(str) {
+					var div = document.createElement("div");
+					div.textContent = str;
+					return div.innerHTML;
+				}
+
+				function showToast(title, desc, variant) {
+					var c = document.querySelector("[data-cu-toast-container]");
+					if (!c) return;
+					var toast = document.createElement("div");
+					toast.className = "cu-toast cu-toast-" + (variant || "default") + " cu-toast-enter";
+					toast.setAttribute("role", variant === "destructive" ? "alert" : "status");
+					toast.setAttribute("aria-live", variant === "destructive" ? "assertive" : "polite");
+
+					var body = document.createElement("div");
+					body.className = "cu-toast-body";
+					var titleEl = document.createElement("div");
+					titleEl.className = "cu-toast-title";
+					titleEl.textContent = title;
+					body.appendChild(titleEl);
+					if (desc) {
+						var descEl = document.createElement("div");
+						descEl.className = "cu-toast-description";
+						descEl.textContent = desc;
+						body.appendChild(descEl);
+					}
+					toast.appendChild(body);
+
+					var closeBtn = document.createElement("button");
+					closeBtn.className = "cu-toast-close";
+					closeBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>';
+					toast.appendChild(closeBtn);
+
+					c.appendChild(toast);
+					closeBtn.addEventListener("click", function () {
+						toast.classList.add("cu-toast-exit");
+						toast.addEventListener("animationend", function () { toast.remove(); });
+					});
+					setTimeout(function () {
+						if (toast.parentNode) {
+							toast.classList.add("cu-toast-exit");
+							toast.addEventListener("animationend", function () { toast.remove(); });
+						}
+					}, 4000);
+				}
+
+				function resetForm() {
+					document.getElementById("contact-name").value = "";
+					document.getElementById("contact-email").value = "";
+					document.getElementById("contact-dept").selectedIndex = 0;
+					document.getElementById("contact-title").value = "";
+					document.getElementById("contact-phone").value = "";
+					document.querySelector("[data-cu-contact-id]").value = "";
+				}
+
+				function openDialog(mode, contactId) {
+					var dialog = document.getElementById("contact-dialog");
+					var titleEl = document.querySelector("[data-cu-contact-dialog-title]");
+
+					if (mode === "edit" && contactId) {
+						var contact = contacts.find(function (c) { return c.id === contactId; });
+						if (!contact) return;
+						titleEl.textContent = "編輯聯絡人";
+						document.querySelector("[data-cu-contact-id]").value = contact.id;
+						document.getElementById("contact-name").value = contact.name;
+						document.getElementById("contact-email").value = contact.email;
+						document.getElementById("contact-dept").value = contact.dept;
+						document.getElementById("contact-title").value = contact.title || "";
+						document.getElementById("contact-phone").value = contact.phone || "";
+					} else {
+						titleEl.textContent = "新增聯絡人";
+						resetForm();
+					}
+					dialog.showModal();
+				}
+
+				// --- Event handlers ---
+
+				// Search & filter
+				searchInput.addEventListener("input", renderTable);
+				filterSelect.addEventListener("change", renderTable);
+
+				// Add button
+				document.querySelector('[data-cu-action="add"]').addEventListener("click", function () {
+					resetForm();
+					document.querySelector("[data-cu-contact-dialog-title]").textContent = "新增聯絡人";
+					document.getElementById("contact-dialog").showModal();
+				});
+
+				// Dialog close buttons
+				document.querySelectorAll("[data-cu-dialog-close]").forEach(function (btn) {
+					btn.addEventListener("click", function () {
+						document.getElementById("contact-dialog").close();
+					});
+				});
+
+				// Dialog backdrop click to close
+				var contactDialog = document.getElementById("contact-dialog");
+				contactDialog.addEventListener("click", function (e) {
+					if (e.target === contactDialog) contactDialog.close();
+				});
+
+				// Alert dialog cancel button
+				document.querySelector("[data-cu-cancel-delete]").addEventListener("click", function () {
+					document.getElementById("delete-confirm").close();
+				});
+
+				// Edit button (delegated)
+				document.addEventListener("click", function (e) {
+					var editBtn = e.target.closest("[data-cu-edit-contact]");
+					if (editBtn) {
+						var id = parseInt(editBtn.getAttribute("data-cu-edit-contact"));
+						openDialog("edit", id);
+						return;
+					}
+
+					var deleteBtn = e.target.closest("[data-cu-delete-contact]");
+					if (deleteBtn) {
+						var deleteId = parseInt(deleteBtn.getAttribute("data-cu-delete-contact"));
+						var contact = contacts.find(function (c) { return c.id === deleteId; });
+						if (!contact) return;
+						pendingDeleteId = deleteId;
+						document.querySelector("[data-cu-delete-name]").textContent = contact.name;
+						var confirmDialog = document.getElementById("delete-confirm");
+						confirmDialog.showModal();
+					}
+				});
+
+				// Save contact
+				document.querySelector("[data-cu-contact-save]").addEventListener("click", function () {
+					var name = document.getElementById("contact-name").value.trim();
+					var email = document.getElementById("contact-email").value.trim();
+					if (!name || !email) {
+						showToast("請填寫必填欄位", "姓名和 Email 為必填。", "destructive");
+						return;
+					}
+
+					var idVal = document.querySelector("[data-cu-contact-id]").value;
+					var dept = document.getElementById("contact-dept").value;
+					var title = document.getElementById("contact-title").value.trim();
+					var phone = document.getElementById("contact-phone").value.trim();
+
+					if (idVal) {
+						// Edit existing
+						var existing = contacts.find(function (c) { return c.id === parseInt(idVal); });
+						if (existing) {
+							existing.name = name;
+							existing.email = email;
+							existing.dept = dept;
+							existing.title = title;
+							existing.phone = phone;
+						}
+						showToast("已更新聯絡人", name + " 的資訊已儲存。", "success");
+					} else {
+						// Add new
+						contacts.push({ id: nextId++, name: name, email: email, dept: dept, title: title, phone: phone });
+						showToast("已新增聯絡人", name + " 已加入聯絡人清單。", "success");
+					}
+
+					document.getElementById("contact-dialog").close();
+					renderTable();
+				});
+
+				// Confirm delete
+				document.querySelector("[data-cu-contact-confirm-delete]").addEventListener("click", function () {
+					if (pendingDeleteId !== null) {
+						var contact = contacts.find(function (c) { return c.id === pendingDeleteId; });
+						var deletedName = contact ? contact.name : "";
+						contacts = contacts.filter(function (c) { return c.id !== pendingDeleteId; });
+						pendingDeleteId = null;
+						document.getElementById("delete-confirm").close();
+						renderTable();
+						showToast("已刪除聯絡人", deletedName + " 已從清單中移除。", "default");
+					}
+				});
+
+				// Init
+				renderTable();
+			})();
+		</script>
+	</body>
+</html>

@@ -8,6 +8,11 @@ export default defineConfig({
   outDir: 'docs',
   vite: {
     plugins: [tailwindcss()],
+    server: {
+      headers: {
+        'Cache-Control': 'no-store',
+      },
+    },
   },
 
   i18n: {

@@ -112,6 +112,8 @@ export const examplePages: NavItem[] = [
   { name: "Dashboard V3", path: "/examples/dashboard-v3" },
   { name: "Dashboard V4", path: "/examples/dashboard-v4" },
   { name: "Dashboard V5", path: "/examples/dashboard-v5" },
+  { name: "Form Wizard", path: "/examples/form-wizard" },
+  { name: "Modal Workflow", path: "/examples/modal-workflow" },
 ];
 
 /** All component groups in sidebar display order */
