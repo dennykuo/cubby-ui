@@ -1,0 +1,64 @@
+/* Resizable Panels
+   ---- */
+
+.cu-resizable {
+    @apply flex w-full overflow-hidden rounded-xl border border-border bg-background;
+}
+
+.cu-resizable-vertical {
+    @apply flex-col;
+}
+
+/* Panel: flex-basis 0 + flex-grow ratio = proportional sizing */
+.cu-resizable-panel {
+    flex-basis: 0;
+    flex-shrink: 1;
+    @apply overflow-auto;
+    min-width: 0;
+    min-height: 0;
+}
+
+/* Handle (horizontal split → vertical bar) */
+.cu-resizable-handle {
+    @apply relative flex shrink-0 grow-0 items-center justify-center transition-colors duration-150;
+    flex-basis: 6px;
+    background: color-mix(in srgb, var(--color-border) 60%, transparent);
+    cursor: col-resize;
+}
+
+.cu-resizable-handle:hover {
+    background: color-mix(in srgb, var(--color-primary) 15%, transparent);
+}
+
+.cu-resizable-handle:active,
+.cu-resizable-handle[data-cu-resizing] {
+    background: color-mix(in srgb, var(--color-primary) 25%, transparent);
+}
+
+/* Handle grip indicator */
+.cu-resizable-handle::after {
+    content: '';
+    @apply rounded-full transition-colors duration-150;
+    width: 3px;
+    height: 20px;
+    background: color-mix(in srgb, var(--color-border) 80%, transparent);
+}
+
+.cu-resizable-handle:hover::after {
+    background: color-mix(in srgb, var(--color-primary) 40%, transparent);
+}
+
+.cu-resizable-handle[data-cu-resizing]::after {
+    background: color-mix(in srgb, var(--color-primary) 50%, transparent);
+}
+
+/* Vertical variant (vertical split → horizontal bar) */
+.cu-resizable-vertical > .cu-resizable-handle {
+    flex-basis: 6px;
+    cursor: row-resize;
+}
+
+.cu-resizable-vertical > .cu-resizable-handle::after {
+    width: 20px;
+    height: 3px;
+}

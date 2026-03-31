@@ -1,0 +1,323 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import ComponentPreview from "@/components/ComponentPreview.astro";
+import { getLocaleFromUrl, useTranslations } from "@/i18n";
+import { datePickerPage } from "@/i18n/pages/components/date-picker";
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = useTranslations(datePickerPage, locale);
+
+const calendarIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="cu-date-picker-trigger-icon"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/></svg>`;
+
+const chevronLeft = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>`;
+
+const chevronRight = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>`;
+
+const calendarHtml = `<div class="cu-calendar" data-cu-calendar>
+  <div class="cu-calendar-header">
+    <button type="button" class="cu-calendar-nav" data-cu-calendar-prev aria-label="Previous month">${chevronLeft}</button>
+    <span class="cu-calendar-title" data-cu-calendar-title></span>
+    <button type="button" class="cu-calendar-nav" data-cu-calendar-next aria-label="Next month">${chevronRight}</button>
+  </div>
+  <div class="cu-calendar-weekdays">
+    <span class="cu-calendar-weekday">Su</span>
+    <span class="cu-calendar-weekday">Mo</span>
+    <span class="cu-calendar-weekday">Tu</span>
+    <span class="cu-calendar-weekday">We</span>
+    <span class="cu-calendar-weekday">Th</span>
+    <span class="cu-calendar-weekday">Fr</span>
+    <span class="cu-calendar-weekday">Sa</span>
+  </div>
+  <div class="cu-calendar-grid" data-cu-calendar-grid></div>
+</div>`;
+
+const usageCode = `<div class="cu-date-picker" data-cu-date-picker style="width: 240px;">
+  <button type="button" class="cu-date-picker-trigger" data-cu-date-picker-trigger>
+    ${calendarIcon}
+    <span data-cu-date-picker-value class="cu-date-picker-trigger-placeholder">Pick a date</span>
+  </button>
+  <input type="hidden" data-cu-date-picker-input />
+  <div class="cu-date-picker-content" data-cu-date-picker-content>
+    <div class="cu-calendar" data-cu-calendar>
+      <div class="cu-calendar-header">
+        <button type="button" class="cu-calendar-nav" data-cu-calendar-prev aria-label="Previous month">${chevronLeft}</button>
+        <span class="cu-calendar-title" data-cu-calendar-title></span>
+        <button type="button" class="cu-calendar-nav" data-cu-calendar-next aria-label="Next month">${chevronRight}</button>
+      </div>
+      <div class="cu-calendar-weekdays">
+        <span class="cu-calendar-weekday">Su</span>
+        <span class="cu-calendar-weekday">Mo</span>
+        <span class="cu-calendar-weekday">Tu</span>
+        <span class="cu-calendar-weekday">We</span>
+        <span class="cu-calendar-weekday">Th</span>
+        <span class="cu-calendar-weekday">Fr</span>
+        <span class="cu-calendar-weekday">Sa</span>
+      </div>
+      <div class="cu-calendar-grid" data-cu-calendar-grid></div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll("[data-cu-date-picker]").forEach((picker) => {
+    const trigger = picker.querySelector("[data-cu-date-picker-trigger]");
+    const content = picker.querySelector("[data-cu-date-picker-content]");
+    const calendar = picker.querySelector("[data-cu-calendar]");
+    const valueEl = picker.querySelector("[data-cu-date-picker-value]");
+    const hiddenInput = picker.querySelector("[data-cu-date-picker-input]");
+    if (!trigger || !content || !calendar) return;
+
+    content.style.display = "none";
+    initCalendar(calendar, (date) => {
+      const y = date.getFullYear();
+      const m = String(date.getMonth() + 1).padStart(2, "0");
+      const d = String(date.getDate()).padStart(2, "0");
+      valueEl.textContent = y + "/" + m + "/" + d;
+      valueEl.classList.remove("cu-date-picker-trigger-placeholder");
+      hiddenInput.value = y + "-" + m + "-" + d;
+      content.style.display = "none";
+    });
+
+    trigger.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const isHidden = content.style.display === "none";
+      content.style.display = isHidden ? "" : "none";
+      if (isHidden && calendar._cuRender) calendar._cuRender();
+    });
+
+    document.addEventListener("click", (e) => {
+      if (!picker.contains(e.target)) content.style.display = "none";
+    });
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") content.style.display = "none";
+    });
+  });
+
+  // Calendar init (same logic as cubby-ui.js)
+  function initCalendar(cal, onSelect) { /* see cubby-ui.js */ }
+</script>`.trim();
+
+const defaultValueCode = `<div class="cu-date-picker" data-cu-date-picker style="width: 240px;">
+  <button type="button" class="cu-date-picker-trigger" data-cu-date-picker-trigger>
+    ${calendarIcon}
+    <span data-cu-date-picker-value>2026/03/15</span>
+  </button>
+  <input type="hidden" data-cu-date-picker-input value="2026-03-15" />
+  <div class="cu-date-picker-content" data-cu-date-picker-content>
+    <!-- Calendar renders here -->
+  </div>
+</div>`.trim();
+
+const minMaxCode = `<!-- Only allow dates from 2026-03-10 to 2026-04-20 -->
+<div class="cu-date-picker" data-cu-date-picker style="width: 240px;">
+  <button type="button" class="cu-date-picker-trigger" data-cu-date-picker-trigger>
+    ${calendarIcon}
+    <span data-cu-date-picker-value class="cu-date-picker-trigger-placeholder">Pick a date</span>
+  </button>
+  <input type="hidden" data-cu-date-picker-input />
+  <div class="cu-date-picker-content" data-cu-date-picker-content>
+    <div class="cu-calendar" data-cu-calendar data-cu-calendar-min="2026-03-10" data-cu-calendar-max="2026-04-20">
+      <!-- Calendar renders with restricted dates -->
+    </div>
+  </div>
+</div>`.trim();
+
+const standaloneCalendarCode = calendarHtml;
+---
+
+<Layout title={t.title} category={t.category} componentName="Date Picker">
+  <div class="space-y-3">
+    <div class="flex items-center gap-3">
+      <h1 class="text-3xl font-bold tracking-tight">Date Picker</h1>
+      <span class="cu-badge cu-badge-secondary">{t.category}</span>
+    </div>
+    <p class="text-base text-muted-foreground leading-relaxed">
+      {t.description}
+    </p>
+  </div>
+
+  <div class="mt-10 space-y-10">
+    <!-- Usage -->
+    <section class="space-y-3">
+      <h2 id="usage" class="text-lg font-semibold tracking-tight relative group">
+        <a href="#usage" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+        {t.sections.usage.title}
+      </h2>
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
+      <ComponentPreview code={usageCode}>
+        <div class="cu-date-picker" data-cu-date-picker style="width: 240px;">
+          <button type="button" class="cu-date-picker-trigger" data-cu-date-picker-trigger>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="cu-date-picker-trigger-icon"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/></svg>
+            <span data-cu-date-picker-value class="cu-date-picker-trigger-placeholder">Pick a date</span>
+          </button>
+          <input type="hidden" data-cu-date-picker-input />
+          <div class="cu-date-picker-content" data-cu-date-picker-content>
+            <div class="cu-calendar" data-cu-calendar>
+              <div class="cu-calendar-header">
+                <button type="button" class="cu-calendar-nav" data-cu-calendar-prev aria-label="Previous month">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+                </button>
+                <span class="cu-calendar-title" data-cu-calendar-title></span>
+                <button type="button" class="cu-calendar-nav" data-cu-calendar-next aria-label="Next month">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                </button>
+              </div>
+              <div class="cu-calendar-weekdays">
+                <span class="cu-calendar-weekday">Su</span>
+                <span class="cu-calendar-weekday">Mo</span>
+                <span class="cu-calendar-weekday">Tu</span>
+                <span class="cu-calendar-weekday">We</span>
+                <span class="cu-calendar-weekday">Th</span>
+                <span class="cu-calendar-weekday">Fr</span>
+                <span class="cu-calendar-weekday">Sa</span>
+              </div>
+              <div class="cu-calendar-grid" data-cu-calendar-grid></div>
+            </div>
+          </div>
+        </div>
+      </ComponentPreview>
+    </section>
+
+    <!-- Default Value -->
+    <section class="space-y-3">
+      <h2 id="default-value" class="text-lg font-semibold tracking-tight relative group">
+        <a href="#default-value" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+        {t.sections.defaultValue.title}
+      </h2>
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.defaultValue.description} />
+      <ComponentPreview code={defaultValueCode}>
+        <div class="cu-date-picker" data-cu-date-picker style="width: 240px;">
+          <button type="button" class="cu-date-picker-trigger" data-cu-date-picker-trigger>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="cu-date-picker-trigger-icon"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/></svg>
+            <span data-cu-date-picker-value>2026/03/15</span>
+          </button>
+          <input type="hidden" data-cu-date-picker-input value="2026-03-15" />
+          <div class="cu-date-picker-content" data-cu-date-picker-content>
+            <div class="cu-calendar" data-cu-calendar>
+              <div class="cu-calendar-header">
+                <button type="button" class="cu-calendar-nav" data-cu-calendar-prev aria-label="Previous month">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+                </button>
+                <span class="cu-calendar-title" data-cu-calendar-title></span>
+                <button type="button" class="cu-calendar-nav" data-cu-calendar-next aria-label="Next month">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                </button>
+              </div>
+              <div class="cu-calendar-weekdays">
+                <span class="cu-calendar-weekday">Su</span>
+                <span class="cu-calendar-weekday">Mo</span>
+                <span class="cu-calendar-weekday">Tu</span>
+                <span class="cu-calendar-weekday">We</span>
+                <span class="cu-calendar-weekday">Th</span>
+                <span class="cu-calendar-weekday">Fr</span>
+                <span class="cu-calendar-weekday">Sa</span>
+              </div>
+              <div class="cu-calendar-grid" data-cu-calendar-grid></div>
+            </div>
+          </div>
+        </div>
+      </ComponentPreview>
+    </section>
+
+    <!-- Min/Max Date Range -->
+    <section class="space-y-3">
+      <h2 id="date-range" class="text-lg font-semibold tracking-tight relative group">
+        <a href="#date-range" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+        {t.sections.dateRange.title}
+      </h2>
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.dateRange.description} />
+      <ComponentPreview code={minMaxCode}>
+        <div class="cu-date-picker" data-cu-date-picker style="width: 240px;">
+          <button type="button" class="cu-date-picker-trigger" data-cu-date-picker-trigger>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="cu-date-picker-trigger-icon"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/></svg>
+            <span data-cu-date-picker-value class="cu-date-picker-trigger-placeholder">Pick a date</span>
+          </button>
+          <input type="hidden" data-cu-date-picker-input />
+          <div class="cu-date-picker-content" data-cu-date-picker-content>
+            <div class="cu-calendar" data-cu-calendar data-cu-calendar-min="2026-03-10" data-cu-calendar-max="2026-04-20">
+              <div class="cu-calendar-header">
+                <button type="button" class="cu-calendar-nav" data-cu-calendar-prev aria-label="Previous month">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+                </button>
+                <span class="cu-calendar-title" data-cu-calendar-title></span>
+                <button type="button" class="cu-calendar-nav" data-cu-calendar-next aria-label="Next month">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                </button>
+              </div>
+              <div class="cu-calendar-weekdays">
+                <span class="cu-calendar-weekday">Su</span>
+                <span class="cu-calendar-weekday">Mo</span>
+                <span class="cu-calendar-weekday">Tu</span>
+                <span class="cu-calendar-weekday">We</span>
+                <span class="cu-calendar-weekday">Th</span>
+                <span class="cu-calendar-weekday">Fr</span>
+                <span class="cu-calendar-weekday">Sa</span>
+              </div>
+              <div class="cu-calendar-grid" data-cu-calendar-grid></div>
+            </div>
+          </div>
+        </div>
+      </ComponentPreview>
+    </section>
+
+    <!-- Standalone Calendar -->
+    <section class="space-y-3">
+      <h2 id="standalone-calendar" class="text-lg font-semibold tracking-tight relative group">
+        <a href="#standalone-calendar" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+        {t.sections.standaloneCalendar.title}
+      </h2>
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.standaloneCalendar.description} />
+      <ComponentPreview code={standaloneCalendarCode}>
+        <div style="width: 280px;">
+          <div class="cu-calendar" data-cu-calendar>
+            <div class="cu-calendar-header">
+              <button type="button" class="cu-calendar-nav" data-cu-calendar-prev aria-label="Previous month">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+              </button>
+              <span class="cu-calendar-title" data-cu-calendar-title></span>
+              <button type="button" class="cu-calendar-nav" data-cu-calendar-next aria-label="Next month">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+              </button>
+            </div>
+            <div class="cu-calendar-weekdays">
+              <span class="cu-calendar-weekday">Su</span>
+              <span class="cu-calendar-weekday">Mo</span>
+              <span class="cu-calendar-weekday">Tu</span>
+              <span class="cu-calendar-weekday">We</span>
+              <span class="cu-calendar-weekday">Th</span>
+              <span class="cu-calendar-weekday">Fr</span>
+              <span class="cu-calendar-weekday">Sa</span>
+            </div>
+            <div class="cu-calendar-grid" data-cu-calendar-grid></div>
+          </div>
+        </div>
+      </ComponentPreview>
+    </section>
+
+    <!-- CSS Classes Reference -->
+    <section class="space-y-3 mt-10">
+      <h2 id="classes" class="text-lg font-semibold tracking-tight relative group">
+        <a href="#classes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+        {t.sections.classes.title}
+      </h2>
+      <div class="cu-table-wrapper rounded-lg border border-border">
+        <table class="cu-table">
+          <thead class="cu-table-header">
+            <tr class="cu-table-row">
+              <th class="cu-table-head">{t.sections.classes.classLabel}</th>
+              <th class="cu-table-head">{t.sections.classes.descriptionLabel}</th>
+            </tr>
+          </thead>
+          <tbody class="cu-table-body">
+            {Object.entries(t.classDescriptions).map(([cls, desc]) => (
+              <tr class="cu-table-row">
+                <td class="cu-table-cell"><code class="cu-code">{cls}</code></td>
+                <td class="cu-table-cell text-muted-foreground">{desc}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+</Layout>

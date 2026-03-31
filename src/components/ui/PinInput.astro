@@ -1,0 +1,49 @@
+---
+import { TOP_CLASS } from "../../config";
+
+interface Props {
+	length?: number;
+	type?: "numeric" | "alphanumeric";
+	class?: string;
+	disabled?: boolean;
+	error?: boolean;
+	size?: "sm" | "default" | "lg";
+	[key: string]: any;
+}
+
+const {
+	length = 4,
+	type = "numeric",
+	class: className,
+	disabled,
+	error,
+	size = "default",
+	...rest
+} = Astro.props;
+
+const fields = Array.from({ length }, (_, i) => i);
+---
+
+<div
+	class:list={[
+		`${TOP_CLASS}-pin-input`,
+		size === "sm" && `${TOP_CLASS}-pin-input-sm`,
+		size === "lg" && `${TOP_CLASS}-pin-input-lg`,
+		error && `${TOP_CLASS}-pin-input-error`,
+		className,
+	]}
+	data-cu-pin-input
+	data-cu-pin-input-type={type}
+	{...rest}
+>
+	{fields.map(() => (
+		<input
+			class={`${TOP_CLASS}-pin-input-field`}
+			type="text"
+			maxlength="1"
+			inputmode={type === "numeric" ? "numeric" : "text"}
+			autocomplete="one-time-code"
+			disabled={disabled}
+		/>
+	))}
+</div>

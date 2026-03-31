@@ -436,7 +436,8 @@
         "dotColors": ["cu-timeline-dot-primary", "cu-timeline-dot-success", "cu-timeline-dot-warning", "cu-timeline-dot-destructive", "cu-timeline-dot-info"],
         "modifiers": ["cu-timeline-dot-lg", "cu-timeline-horizontal"]
       },
-      "notes": "cu-timeline-dot-lg fits avatar images (size-8). cu-timeline-horizontal for horizontal step layout.",
+      "astroComponents": ["Timeline", "TimelineItem", "TimelineDot", "TimelineContent", "TimelineTime"],
+      "notes": "cu-timeline-dot-lg fits avatar images (size-8). cu-timeline-horizontal for horizontal step layout. Astro components available for typed props (variant, size, etc.).",
       "example": "<div class=\"cu-timeline\"><div class=\"cu-timeline-item\"><div class=\"cu-timeline-dot\"></div><div class=\"cu-timeline-content\"><div class=\"cu-timeline-title\">Event</div><div class=\"cu-timeline-time\">2h ago</div></div></div></div>"
     },
     {
@@ -503,9 +504,12 @@
       "category": "feedback",
       "interactive": false,
       "cssClasses": {
-        "base": "cu-spinner"
+        "base": "cu-spinner",
+        "sizes": ["cu-spinner-sm", "cu-spinner-md", "cu-spinner-lg"],
+        "colors": ["cu-spinner-primary", "cu-spinner-secondary", "cu-spinner-destructive", "cu-spinner-success", "cu-spinner-warning", "cu-spinner-info", "cu-spinner-muted"]
       },
-      "example": "<div class=\"cu-spinner\"></div>"
+      "notes": "Default size determined by font-size context. cu-spinner-lg uses thicker border (border-[3px]). Color classes set text-color which drives border-current.",
+      "example": "<div class=\"cu-spinner cu-spinner-md cu-spinner-primary\"></div>"
     },
     {
       "name": "Toast",
@@ -684,16 +688,19 @@
     {
       "name": "Segmented Control",
       "category": "navigation",
-      "interactive": false,
+      "interactive": true,
       "cssClasses": {
         "base": "cu-segmented",
-        "parts": ["cu-segmented-item"],
+        "parts": ["cu-segmented-item", "cu-segmented-input"],
         "states": ["cu-segmented-item-active"],
-        "sizes": ["cu-segmented-sm"],
+        "sizes": ["cu-segmented-sm", "cu-segmented-lg"],
         "modifiers": ["cu-segmented-block"]
       },
-      "notes": "Active item must have cu-segmented-item-active class. Manage active state via JS by toggling this class.",
-      "example": "<div class=\"cu-segmented\"><button class=\"cu-segmented-item cu-segmented-item-active\">Day</button><button class=\"cu-segmented-item\">Week</button></div>"
+      "dataAttributes": {
+        "container": "data-cu-segmented"
+      },
+      "notes": "Two usage modes: (1) Button-based — toggle cu-segmented-item-active class via JS. (2) Radio-based — use hidden cu-segmented-input (radio) + cu-segmented-item (label); JS auto-toggles cu-segmented-item-active on change. cu-segmented-block makes items fill full width.",
+      "example": "<div class=\"cu-segmented\" data-cu-segmented><input type=\"radio\" name=\"seg\" class=\"cu-segmented-input\" id=\"s1\" checked><label for=\"s1\" class=\"cu-segmented-item\">Day</label><input type=\"radio\" name=\"seg\" class=\"cu-segmented-input\" id=\"s2\"><label for=\"s2\" class=\"cu-segmented-item\">Week</label></div>"
     },
     {
       "name": "Steps",
@@ -853,6 +860,230 @@
       },
       "notes": "Animated bouncing dots indicator. Place inside cu-chat-bubble-content alongside cu-chat-bubble-avatar for contextual display.",
       "example": "<div class=\"cu-chat-typing\"><span class=\"cu-chat-typing-dot\"></span><span class=\"cu-chat-typing-dot\"></span><span class=\"cu-chat-typing-dot\"></span></div>"
+    },
+    {
+      "name": "Aspect Ratio",
+      "category": "layout",
+      "interactive": false,
+      "cssClasses": {
+        "base": "cu-aspect-ratio",
+        "ratios": ["cu-aspect-ratio-16/9", "cu-aspect-ratio-4/3", "cu-aspect-ratio-1/1", "cu-aspect-ratio-21/9"]
+      },
+      "notes": "Children are absolutely positioned to fill the container. Always combine base + one ratio class. Child elements get object-cover by default.",
+      "example": "<div class=\"cu-aspect-ratio cu-aspect-ratio-16/9\"><img src=\"photo.jpg\" alt=\"Photo\"></div>"
+    },
+    {
+      "name": "Carousel",
+      "category": "dataDisplay",
+      "interactive": true,
+      "cssClasses": {
+        "base": "cu-carousel",
+        "parts": ["cu-carousel-viewport", "cu-carousel-slide", "cu-carousel-prev", "cu-carousel-next", "cu-carousel-dots", "cu-carousel-dot"],
+        "states": ["cu-carousel-dot-active"],
+        "modifiers": ["cu-carousel-multi-2", "cu-carousel-multi-3"]
+      },
+      "dataAttributes": {
+        "container": "data-cu-carousel",
+        "viewport": "data-cu-carousel-viewport",
+        "slide": "data-cu-carousel-slide",
+        "prev": "data-cu-carousel-prev",
+        "next": "data-cu-carousel-next",
+        "dot": "data-cu-carousel-dot"
+      },
+      "notes": "Uses CSS scroll-snap for smooth slide transitions. Prev/next buttons auto-disable at edges. cu-carousel-multi-2 / cu-carousel-multi-3 show 2 or 3 slides at a time. Dots auto-sync with scroll position. Respects prefers-reduced-motion.",
+      "example": "<div class=\"cu-carousel\" data-cu-carousel><div class=\"cu-carousel-viewport\" data-cu-carousel-viewport><div class=\"cu-carousel-slide\" data-cu-carousel-slide>Slide 1</div><div class=\"cu-carousel-slide\" data-cu-carousel-slide>Slide 2</div></div><button class=\"cu-carousel-prev\" data-cu-carousel-prev>&#8249;</button><button class=\"cu-carousel-next\" data-cu-carousel-next>&#8250;</button><div class=\"cu-carousel-dots\"><button class=\"cu-carousel-dot cu-carousel-dot-active\" data-cu-carousel-dot></button><button class=\"cu-carousel-dot\" data-cu-carousel-dot></button></div></div>"
+    },
+    {
+      "name": "Checkbox Group",
+      "category": "forms",
+      "interactive": true,
+      "cssClasses": {
+        "base": "cu-checkbox-group",
+        "parts": ["cu-checkbox-group-label", "cu-checkbox-group-items", "cu-checkbox-group-selectall"]
+      },
+      "dataAttributes": {
+        "container": "data-cu-checkbox-group",
+        "selectAll": "data-cu-checkbox-group-selectall",
+        "item": "data-cu-checkbox-group-item"
+      },
+      "notes": "Select-all checkbox automatically toggles all items. Supports indeterminate state when some items are checked. cu-checkbox-group-selectall adds bottom border separator.",
+      "example": "<div class=\"cu-checkbox-group\" data-cu-checkbox-group><div class=\"cu-checkbox-group-label\">Options</div><div class=\"cu-checkbox-group-selectall\"><div class=\"cu-checkbox-wrapper\"><input type=\"checkbox\" class=\"cu-checkbox\" data-cu-checkbox-group-selectall><label>Select all</label></div></div><div class=\"cu-checkbox-group-items\"><div class=\"cu-checkbox-wrapper\"><input type=\"checkbox\" class=\"cu-checkbox\" data-cu-checkbox-group-item><label>Option A</label></div></div></div>"
+    },
+    {
+      "name": "Code Block",
+      "category": "dataDisplay",
+      "interactive": true,
+      "cssClasses": {
+        "base": "cu-code-block",
+        "parts": ["cu-code-block-header", "cu-code-block-pre", "cu-code-block-copy"],
+        "states": ["data-cu-copied"]
+      },
+      "dataAttributes": {
+        "container": "data-cu-code-block",
+        "copy": "data-cu-code-block-copy",
+        "label": "data-cu-code-block-label"
+      },
+      "notes": "Dark themed code container with optional header (language label) and copy button. Copy button can be absolute (no header) or inline (inside header). Copied state applied via data-cu-copied attribute on the button.",
+      "example": "<div class=\"cu-code-block\" data-cu-code-block><div class=\"cu-code-block-header\"><span>HTML</span><button class=\"cu-code-block-copy\" data-cu-code-block-copy><span data-cu-code-block-label>Copy</span></button></div><pre class=\"cu-code-block-pre\"><code>&lt;div&gt;Hello&lt;/div&gt;</code></pre></div>"
+    },
+    {
+      "name": "Color Picker",
+      "category": "forms",
+      "interactive": true,
+      "cssClasses": {
+        "base": "cu-color-picker",
+        "parts": ["cu-color-picker-saturation", "cu-color-picker-saturation-pointer", "cu-color-picker-hue", "cu-color-picker-hue-pointer", "cu-color-picker-controls", "cu-color-picker-preview", "cu-color-picker-input", "cu-color-picker-swatches", "cu-color-picker-swatch"]
+      },
+      "dataAttributes": {
+        "container": "data-cu-color-picker",
+        "saturation": "data-cu-color-picker-saturation",
+        "saturationPointer": "data-cu-color-picker-saturation-pointer",
+        "hue": "data-cu-color-picker-hue",
+        "huePointer": "data-cu-color-picker-hue-pointer",
+        "preview": "data-cu-color-picker-preview",
+        "input": "data-cu-color-picker-input",
+        "hidden": "data-cu-color-picker-hidden",
+        "swatch": "data-cu-color-picker-swatch",
+        "value": "data-cu-color-picker-value"
+      },
+      "notes": "HSV-based color picker with saturation panel, hue slider, hex input, and optional preset swatches. Supports drag interaction on saturation panel and hue bar. Initial value via data-cu-color-picker-value or hidden input value. Swatch colors set via data-cu-color-picker-swatch attribute.",
+      "example": "<div class=\"cu-color-picker\" data-cu-color-picker data-cu-color-picker-value=\"#3b82f6\"><div class=\"cu-color-picker-saturation\" data-cu-color-picker-saturation><div class=\"cu-color-picker-saturation-pointer\" data-cu-color-picker-saturation-pointer></div></div><div class=\"cu-color-picker-hue\" data-cu-color-picker-hue><div class=\"cu-color-picker-hue-pointer\" data-cu-color-picker-hue-pointer></div></div><div class=\"cu-color-picker-controls\"><div class=\"cu-color-picker-preview\" data-cu-color-picker-preview></div><input class=\"cu-color-picker-input\" data-cu-color-picker-input></div></div>"
+    },
+    {
+      "name": "Command Palette",
+      "category": "overlay",
+      "interactive": true,
+      "cssClasses": {
+        "base": "cu-command",
+        "parts": ["cu-command-input-wrapper", "cu-command-input-icon", "cu-command-input", "cu-command-list", "cu-command-group", "cu-command-group-heading", "cu-command-item", "cu-command-separator", "cu-command-shortcut", "cu-command-empty"]
+      },
+      "dataAttributes": {
+        "container": "data-cu-command",
+        "trigger": "data-cu-command-trigger",
+        "input": "data-cu-command-input",
+        "list": "data-cu-command-list",
+        "group": "data-cu-command-group",
+        "item": "data-cu-command-item",
+        "value": "data-cu-command-value",
+        "separator": "data-cu-command-separator",
+        "empty": "data-cu-command-empty",
+        "active": "data-cu-command-active"
+      },
+      "notes": "Uses native <dialog> with showModal(). Opens with Ctrl/Cmd+K globally. Supports keyboard navigation (ArrowUp/Down, Enter). Filters items by text content or data-cu-command-value. Groups auto-hide when all items are filtered out. Active item highlighted via data-cu-command-active attribute. Closes on backdrop click.",
+      "example": "<button data-cu-command-trigger=\"cmd\">Open Command</button><dialog id=\"cmd\" class=\"cu-command\" data-cu-command><div class=\"cu-command-input-wrapper\"><svg class=\"cu-command-input-icon\"><!-- search icon --></svg><input class=\"cu-command-input\" data-cu-command-input placeholder=\"Search...\"></div><div class=\"cu-command-list\" data-cu-command-list><div class=\"cu-command-group\" data-cu-command-group><div class=\"cu-command-group-heading\">Actions</div><button class=\"cu-command-item\" data-cu-command-item>New File</button></div></div><div class=\"cu-command-empty\" data-cu-command-empty hidden>No results.</div></dialog>"
+    },
+    {
+      "name": "Context Menu",
+      "category": "overlay",
+      "interactive": true,
+      "cssClasses": {
+        "base": "cu-context-menu",
+        "parts": ["cu-context-menu-content"]
+      },
+      "dataAttributes": {
+        "container": "data-cu-context-menu",
+        "content": "data-cu-context-menu-content"
+      },
+      "notes": "Right-click triggered context menu. Content is positioned at cursor location. Auto-closes on click, Escape, scroll, or right-click outside. Uses cu-dropdown-item / cu-dropdown-separator for menu items (shared styles). Add hidden attribute to content initially.",
+      "example": "<div class=\"cu-context-menu\" data-cu-context-menu><p>Right-click here</p><div class=\"cu-context-menu-content\" data-cu-context-menu-content hidden><button class=\"cu-dropdown-item\">Cut</button><button class=\"cu-dropdown-item\">Copy</button><div class=\"cu-dropdown-separator\"></div><button class=\"cu-dropdown-item\">Delete</button></div></div>"
+    },
+    {
+      "name": "Date Picker",
+      "category": "forms",
+      "interactive": true,
+      "cssClasses": {
+        "calendar": {
+          "base": "cu-calendar",
+          "parts": ["cu-calendar-header", "cu-calendar-title", "cu-calendar-nav", "cu-calendar-weekdays", "cu-calendar-weekday", "cu-calendar-grid", "cu-calendar-day"],
+          "states": ["cu-calendar-day-today", "cu-calendar-day-selected", "cu-calendar-day-outside", "cu-calendar-day-disabled"]
+        },
+        "picker": {
+          "base": "cu-date-picker",
+          "parts": ["cu-date-picker-trigger", "cu-date-picker-trigger-icon", "cu-date-picker-trigger-placeholder", "cu-date-picker-content"]
+        }
+      },
+      "dataAttributes": {
+        "calendar": "data-cu-calendar",
+        "calendarTitle": "data-cu-calendar-title",
+        "calendarPrev": "data-cu-calendar-prev",
+        "calendarNext": "data-cu-calendar-next",
+        "calendarGrid": "data-cu-calendar-grid",
+        "calendarMin": "data-cu-calendar-min",
+        "calendarMax": "data-cu-calendar-max",
+        "picker": "data-cu-date-picker",
+        "pickerTrigger": "data-cu-date-picker-trigger",
+        "pickerContent": "data-cu-date-picker-content",
+        "pickerValue": "data-cu-date-picker-value",
+        "pickerInput": "data-cu-date-picker-input"
+      },
+      "notes": "Two components: standalone Calendar and Date Picker (input + popover calendar). Calendar renders month grid with keyboard navigation (arrow keys). Date constraints via data-cu-calendar-min / data-cu-calendar-max (YYYY-MM-DD format). Date Picker stores ISO date in hidden input, displays formatted date in trigger.",
+      "example": "<div class=\"cu-date-picker\" data-cu-date-picker><button class=\"cu-date-picker-trigger\" data-cu-date-picker-trigger><span data-cu-date-picker-value class=\"cu-date-picker-trigger-placeholder\">Pick a date</span><svg class=\"cu-date-picker-trigger-icon\"><!-- calendar icon --></svg></button><div class=\"cu-date-picker-content\" data-cu-date-picker-content><div class=\"cu-calendar\" data-cu-calendar><div class=\"cu-calendar-header\"><button class=\"cu-calendar-nav\" data-cu-calendar-prev>&#8249;</button><span class=\"cu-calendar-title\" data-cu-calendar-title></span><button class=\"cu-calendar-nav\" data-cu-calendar-next>&#8250;</button></div><div class=\"cu-calendar-weekdays\"><span class=\"cu-calendar-weekday\">Su</span></div><div class=\"cu-calendar-grid\" data-cu-calendar-grid></div></div></div><input type=\"hidden\" data-cu-date-picker-input></div>"
+    },
+    {
+      "name": "Input Group",
+      "category": "forms",
+      "interactive": false,
+      "cssClasses": {
+        "base": "cu-input-group",
+        "parts": ["cu-input-group-text"],
+        "states": ["cu-input-group-disabled"]
+      },
+      "notes": "Groups input with addon text/icons. Children border-radius flattened; first-child gets rounded-l-lg, last-child gets rounded-r-lg. Negative margin (-ml-px) prevents double borders. Use cu-input inside the group for the input field.",
+      "example": "<div class=\"cu-input-group\"><span class=\"cu-input-group-text\">https://</span><input class=\"cu-input\" placeholder=\"example.com\"></div>"
+    },
+    {
+      "name": "Password Input",
+      "category": "forms",
+      "interactive": true,
+      "cssClasses": {
+        "base": "cu-password-input",
+        "parts": ["cu-password-input-field", "cu-password-input-toggle"]
+      },
+      "dataAttributes": {
+        "container": "data-cu-password-input",
+        "toggle": "data-cu-password-toggle",
+        "iconShow": "data-cu-password-icon-show",
+        "iconHide": "data-cu-password-icon-hide"
+      },
+      "notes": "Password field with show/hide toggle button. Toggle switches input type between password and text. Icon elements (show/hide) are toggled via display:none. Place two icon elements inside the toggle button, one with data-cu-password-icon-show (visible when type=password) and one with data-cu-password-icon-hide (visible when type=text, initially hidden).",
+      "example": "<div class=\"cu-password-input\" data-cu-password-input><input type=\"password\" class=\"cu-password-input-field\" placeholder=\"Password\"><button type=\"button\" class=\"cu-password-input-toggle\" data-cu-password-toggle><svg data-cu-password-icon-show><!-- eye icon --></svg><svg data-cu-password-icon-hide style=\"display:none\"><!-- eye-off icon --></svg></button></div>"
+    },
+    {
+      "name": "Pin Input",
+      "category": "forms",
+      "interactive": true,
+      "cssClasses": {
+        "base": "cu-pin-input",
+        "parts": ["cu-pin-input-field"],
+        "sizes": ["cu-pin-input-sm", "cu-pin-input-lg"],
+        "validation": ["cu-pin-input-error"]
+      },
+      "dataAttributes": {
+        "container": "data-cu-pin-input",
+        "type": "data-cu-pin-input-type"
+      },
+      "notes": "OTP / verification code input. Each field accepts one character, auto-advances on input. Backspace moves to previous field. Supports paste across all fields. Set data-cu-pin-input-type=\"numeric\" to restrict to digits only.",
+      "example": "<div class=\"cu-pin-input\" data-cu-pin-input data-cu-pin-input-type=\"numeric\"><input class=\"cu-pin-input-field\" maxlength=\"1\" inputmode=\"numeric\"><input class=\"cu-pin-input-field\" maxlength=\"1\" inputmode=\"numeric\"><input class=\"cu-pin-input-field\" maxlength=\"1\" inputmode=\"numeric\"><input class=\"cu-pin-input-field\" maxlength=\"1\" inputmode=\"numeric\"></div>"
+    },
+    {
+      "name": "Resizable Panels",
+      "category": "layout",
+      "interactive": true,
+      "cssClasses": {
+        "base": "cu-resizable",
+        "parts": ["cu-resizable-panel", "cu-resizable-handle"],
+        "modifiers": ["cu-resizable-vertical"]
+      },
+      "dataAttributes": {
+        "container": "data-cu-resizable",
+        "panel": "data-cu-resizable-panel",
+        "handle": "data-cu-resizable-handle",
+        "minSize": "data-cu-min-size",
+        "maxSize": "data-cu-max-size",
+        "resizing": "data-cu-resizing"
+      },
+      "notes": "Drag-to-resize panel layout. Default is horizontal (col-resize); add cu-resizable-vertical for vertical (row-resize). Panel sizes controlled via flex-grow, auto-distributed equally on init. Handles support mouse, touch, and keyboard (arrow keys, step=5). Min/max constraints via data-cu-min-size / data-cu-max-size (percentage values). data-cu-resizing attribute set on handle during active drag.",
+      "example": "<div class=\"cu-resizable\" data-cu-resizable><div class=\"cu-resizable-panel\" data-cu-resizable-panel data-cu-min-size=\"20\">Left</div><div class=\"cu-resizable-handle\" data-cu-resizable-handle tabindex=\"0\"></div><div class=\"cu-resizable-panel\" data-cu-resizable-panel>Right</div></div>"
     }
   ]
 }

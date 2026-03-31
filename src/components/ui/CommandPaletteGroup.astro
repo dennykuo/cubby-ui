@@ -1,0 +1,18 @@
+---
+import { TOP_CLASS } from "../../config";
+
+interface Props {
+    heading?: string;
+    class?: string;
+    [key: string]: any;
+}
+
+const { heading, class: className, ...rest } = Astro.props;
+const baseClass = `${TOP_CLASS}-command-group`;
+const headingClass = `${TOP_CLASS}-command-group-heading`;
+---
+
+<div class:list={[baseClass, className]} data-cu-command-group {...rest}>
+    {heading && <div class={headingClass}>{heading}</div>}
+    <slot />
+</div>

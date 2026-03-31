@@ -1,0 +1,174 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import AspectRatio from "@/components/ui/AspectRatio.astro";
+import ComponentPreview from "@/components/ComponentPreview.astro";
+import { getLocaleFromUrl, useTranslations } from "@/i18n";
+import { aspectRatioPage } from "@/i18n/pages/components/aspect-ratio";
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = useTranslations(aspectRatioPage, locale);
+
+const usageCode = `<div class="cu-aspect-ratio cu-aspect-ratio-16/9 rounded-xl overflow-hidden">
+  <img src="https://images.unsplash.com/photo-1588345921523-c2dcdb7f1dcd?w=800&dpr=2&q=80" alt="Photo" />
+</div>`.trim();
+
+const ratiosCode = `<div class="grid grid-cols-3 gap-4">
+  <div>
+    <div class="cu-aspect-ratio cu-aspect-ratio-16/9 rounded-lg overflow-hidden">
+      <img src="https://images.unsplash.com/photo-1588345921523-c2dcdb7f1dcd?w=800&dpr=2&q=80" alt="16:9" />
+    </div>
+    <p class="mt-2 text-sm text-muted-foreground text-center">16:9</p>
+  </div>
+  <div>
+    <div class="cu-aspect-ratio cu-aspect-ratio-4/3 rounded-lg overflow-hidden">
+      <img src="https://images.unsplash.com/photo-1588345921523-c2dcdb7f1dcd?w=800&dpr=2&q=80" alt="4:3" />
+    </div>
+    <p class="mt-2 text-sm text-muted-foreground text-center">4:3</p>
+  </div>
+  <div>
+    <div class="cu-aspect-ratio cu-aspect-ratio-1/1 rounded-lg overflow-hidden">
+      <img src="https://images.unsplash.com/photo-1588345921523-c2dcdb7f1dcd?w=800&dpr=2&q=80" alt="1:1" />
+    </div>
+    <p class="mt-2 text-sm text-muted-foreground text-center">1:1</p>
+  </div>
+</div>`.trim();
+
+const wideCode = `<div class="cu-aspect-ratio cu-aspect-ratio-21/9 rounded-xl overflow-hidden">
+  <img src="https://images.unsplash.com/photo-1588345921523-c2dcdb7f1dcd?w=800&dpr=2&q=80" alt="Ultra-wide" />
+</div>`.trim();
+
+const mapCode = `<div class="cu-aspect-ratio cu-aspect-ratio-16/9 rounded-xl overflow-hidden border border-border">
+  <iframe
+    src="https://www.openstreetmap.org/export/embed.html?bbox=-0.004017949104309083%2C51.47612752641776%2C0.00030577182769775393%2C51.478569861898606&layer=mapnik"
+    style="border:0"
+    loading="lazy"
+  ></iframe>
+</div>`.trim();
+---
+
+<Layout title={t.title} category={t.category} componentName="Aspect Ratio">
+  <div class="space-y-3">
+    <div class="flex items-center gap-3">
+      <h1 class="text-3xl font-bold tracking-tight">Aspect Ratio</h1>
+      <span class="cu-badge cu-badge-secondary">{t.category}</span>
+    </div>
+    <p class="text-base text-muted-foreground leading-relaxed">
+      {t.description}
+    </p>
+  </div>
+
+  <div class="mt-10 space-y-10">
+    <!-- Usage -->
+    <section class="space-y-3">
+      <h2 id="usage" class="text-lg font-semibold tracking-tight relative group">
+        <a href="#usage" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+        {t.sections.usage.title}
+      </h2>
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
+      <ComponentPreview code={usageCode}>
+        <div class="w-full max-w-lg">
+          <AspectRatio ratio="16/9" class="rounded-xl overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1588345921523-c2dcdb7f1dcd?w=800&dpr=2&q=80" alt="Photo" />
+          </AspectRatio>
+        </div>
+      </ComponentPreview>
+    </section>
+
+    <!-- Ratios -->
+    <section class="space-y-3">
+      <h2 id="ratios" class="text-lg font-semibold tracking-tight relative group">
+        <a href="#ratios" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+        {t.sections.ratios.title}
+      </h2>
+      <p class="text-base text-muted-foreground leading-relaxed">
+        {t.sections.ratios.description}
+      </p>
+      <ComponentPreview code={ratiosCode}>
+        <div class="grid grid-cols-3 gap-4 w-full">
+          <div>
+            <AspectRatio ratio="16/9" class="rounded-lg overflow-hidden">
+              <img src="https://images.unsplash.com/photo-1588345921523-c2dcdb7f1dcd?w=800&dpr=2&q=80" alt="16:9" />
+            </AspectRatio>
+            <p class="mt-2 text-sm text-muted-foreground text-center">16:9</p>
+          </div>
+          <div>
+            <AspectRatio ratio="4/3" class="rounded-lg overflow-hidden">
+              <img src="https://images.unsplash.com/photo-1588345921523-c2dcdb7f1dcd?w=800&dpr=2&q=80" alt="4:3" />
+            </AspectRatio>
+            <p class="mt-2 text-sm text-muted-foreground text-center">4:3</p>
+          </div>
+          <div>
+            <AspectRatio ratio="1/1" class="rounded-lg overflow-hidden">
+              <img src="https://images.unsplash.com/photo-1588345921523-c2dcdb7f1dcd?w=800&dpr=2&q=80" alt="1:1" />
+            </AspectRatio>
+            <p class="mt-2 text-sm text-muted-foreground text-center">1:1</p>
+          </div>
+        </div>
+      </ComponentPreview>
+    </section>
+
+    <!-- Ultra-wide -->
+    <section class="space-y-3">
+      <h2 id="ultra-wide" class="text-lg font-semibold tracking-tight relative group">
+        <a href="#ultra-wide" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+        {t.sections.ultraWide.title}
+      </h2>
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.ultraWide.description} />
+      <ComponentPreview code={wideCode}>
+        <div class="w-full max-w-lg">
+          <AspectRatio ratio="21/9" class="rounded-xl overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1588345921523-c2dcdb7f1dcd?w=800&dpr=2&q=80" alt="Ultra-wide" />
+          </AspectRatio>
+        </div>
+      </ComponentPreview>
+    </section>
+
+    <!-- With Iframe -->
+    <section class="space-y-3">
+      <h2 id="iframe" class="text-lg font-semibold tracking-tight relative group">
+        <a href="#iframe" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+        {t.sections.iframe.title}
+      </h2>
+      <p class="text-base text-muted-foreground leading-relaxed">
+        {t.sections.iframe.description}
+      </p>
+      <ComponentPreview code={mapCode}>
+        <div class="w-full max-w-lg">
+          <AspectRatio ratio="16/9" class="rounded-xl overflow-hidden border border-border">
+            <iframe
+              src="https://www.openstreetmap.org/export/embed.html?bbox=-0.004017949104309083%2C51.47612752641776%2C0.00030577182769775393%2C51.478569861898606&layer=mapnik"
+              style="border:0"
+              loading="lazy"
+            ></iframe>
+          </AspectRatio>
+        </div>
+      </ComponentPreview>
+    </section>
+
+    <!-- Classes Reference -->
+    <section class="space-y-3 mt-10">
+      <h2 id="classes" class="text-lg font-semibold tracking-tight relative group">
+        <a href="#classes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+        {t.sections.classes.title}
+      </h2>
+      <div class="cu-table-wrapper rounded-lg border border-border">
+        <table class="cu-table">
+          <thead class="cu-table-header">
+            <tr class="cu-table-row">
+              <th class="cu-table-head">{t.sections.classes.classLabel}</th>
+              <th class="cu-table-head">{t.sections.classes.descriptionLabel}</th>
+            </tr>
+          </thead>
+          <tbody class="cu-table-body">
+            {Object.entries(t.classDescriptions).map(([cls, desc]) => (
+              <tr class="cu-table-row">
+                <td class="cu-table-cell"><code class="cu-code">{cls}</code></td>
+                <td class="cu-table-cell text-muted-foreground">{desc}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+</Layout>

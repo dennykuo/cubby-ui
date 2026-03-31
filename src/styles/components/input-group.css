@@ -1,0 +1,41 @@
+/* Input Group
+   ------------------------------------------------------------------ */
+.cu-input-group {
+    @apply inline-flex w-full items-stretch;
+}
+
+/* -- shared child reset -- */
+.cu-input-group > * {
+    @apply rounded-none;
+}
+
+.cu-input-group > :first-child {
+    @apply rounded-l-lg;
+}
+
+.cu-input-group > :last-child {
+    @apply rounded-r-lg;
+}
+
+.cu-input-group > * + * {
+    @apply -ml-px;
+}
+
+/* -- input inside group -- */
+.cu-input-group > .cu-input {
+    @apply relative flex-1 focus-visible:z-10;
+}
+
+/* -- text / icon decoration -- */
+.cu-input-group-text {
+    @apply flex items-center border border-input bg-muted px-3 text-sm text-muted-foreground;
+}
+
+/* -- disabled state -- */
+.cu-input-group-disabled {
+    @apply pointer-events-none opacity-50;
+}
+
+.cu-input-group-disabled > .cu-input-group-text {
+    @apply bg-muted text-muted-foreground;
+}

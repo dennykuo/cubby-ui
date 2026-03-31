@@ -1,0 +1,78 @@
+/* Command Palette
+   ------------------------------------------------------------------ */
+.cu-command {
+    @apply fixed inset-0 z-50 m-auto h-fit w-full max-w-lg rounded-xl border border-border bg-background shadow-lg;
+    max-height: min(24rem, 80vh);
+    display: flex;
+    flex-direction: column;
+}
+
+.cu-command::backdrop {
+    background: color-mix(in srgb, var(--color-foreground) 50%, transparent);
+    backdrop-filter: blur(4px);
+    transition: opacity 0.2s ease, overlay 0.2s ease allow-discrete, display 0.2s ease allow-discrete;
+    opacity: 1;
+}
+
+/* -- open/close animation -- */
+.cu-command {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+    transition: opacity 0.2s ease, transform 0.2s ease, overlay 0.2s ease allow-discrete, display 0.2s ease allow-discrete;
+}
+
+@starting-style {
+    .cu-command[open] {
+        opacity: 0;
+        transform: scale(0.95) translateY(-8px);
+    }
+    .cu-command[open]::backdrop {
+        opacity: 0;
+    }
+}
+
+.cu-command-input-wrapper {
+    @apply relative flex items-center border-b border-border px-3;
+}
+
+.cu-command-input-icon {
+    @apply pointer-events-none size-4 shrink-0 text-muted-foreground;
+}
+
+.cu-command-input {
+    @apply flex h-11 w-full bg-transparent py-3 pl-2 text-sm outline-none placeholder:text-muted-foreground disabled:pointer-events-none disabled:opacity-50;
+}
+
+.cu-command-list {
+    @apply overflow-y-auto overscroll-contain p-1;
+    max-height: min(18rem, 60vh);
+}
+
+.cu-command-group {
+    @apply overflow-hidden;
+}
+
+.cu-command-group-heading {
+    @apply px-2 py-1.5 text-xs font-medium text-muted-foreground;
+}
+
+.cu-command-item {
+    @apply relative flex w-full cursor-pointer items-center rounded-md px-2 py-1.5 text-sm transition-colors duration-150 outline-none;
+}
+
+.cu-command-item:hover,
+.cu-command-item[data-cu-command-active] {
+    @apply bg-accent text-accent-foreground;
+}
+
+.cu-command-separator {
+    @apply -mx-1 my-1 h-px bg-border;
+}
+
+.cu-command-shortcut {
+    @apply ml-auto flex items-center gap-1;
+}
+
+.cu-command-empty {
+    @apply py-6 text-center text-sm text-muted-foreground;
+}

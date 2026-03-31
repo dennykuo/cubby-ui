@@ -1,0 +1,61 @@
+---
+import { TOP_CLASS } from "../../config";
+
+interface Props {
+	value?: string;
+	swatches?: string[];
+	class?: string;
+	[key: string]: any;
+}
+
+const {
+	value = "#ff0000",
+	swatches,
+	class: className,
+	...rest
+} = Astro.props;
+---
+
+<div
+	class:list={[`${TOP_CLASS}-color-picker`, className]}
+	data-cu-color-picker
+	data-cu-color-picker-value={value}
+	{...rest}
+>
+	<div class={`${TOP_CLASS}-color-picker-saturation`} data-cu-color-picker-saturation>
+		<div class={`${TOP_CLASS}-color-picker-saturation-pointer`} data-cu-color-picker-saturation-pointer></div>
+	</div>
+
+	<div class={`${TOP_CLASS}-color-picker-hue`} data-cu-color-picker-hue>
+		<div class={`${TOP_CLASS}-color-picker-hue-pointer`} data-cu-color-picker-hue-pointer></div>
+	</div>
+
+	<div class={`${TOP_CLASS}-color-picker-controls`}>
+		<div class={`${TOP_CLASS}-color-picker-preview`} data-cu-color-picker-preview></div>
+		<input
+			type="text"
+			class={`${TOP_CLASS}-color-picker-input`}
+			data-cu-color-picker-input
+			value={value}
+			maxlength="7"
+			spellcheck="false"
+			autocomplete="off"
+		/>
+	</div>
+
+	<input type="hidden" data-cu-color-picker-hidden value={value} />
+
+	{swatches && swatches.length > 0 && (
+		<div class={`${TOP_CLASS}-color-picker-swatches`}>
+			{swatches.map((color) => (
+				<button
+					type="button"
+					class={`${TOP_CLASS}-color-picker-swatch`}
+					data-cu-color-picker-swatch={color}
+					style={`background-color: ${color};`}
+					aria-label={`Select ${color}`}
+				/>
+			))}
+		</div>
+	)}
+</div>

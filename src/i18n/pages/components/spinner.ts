@@ -33,7 +33,7 @@ export const spinnerPage: Record<Locale, {
       },
       colors: {
         title: 'Colors',
-        description: 'The spinner inherits the current text color via <code class="cu-code">border-current</code>. Apply any text color utility to change it.',
+        description: 'Use color variant classes like <code class="cu-code">cu-spinner-primary</code> to apply semantic colors. The spinner also inherits the current text color via <code class="cu-code">border-current</code>.',
       },
       buttonLoading: {
         title: 'Button Loading',
@@ -45,6 +45,13 @@ export const spinnerPage: Record<Locale, {
       'cu-spinner-sm': 'Small size (16px)',
       'cu-spinner-md': 'Medium size (24px, default)',
       'cu-spinner-lg': 'Large size (32px)',
+      'cu-spinner-primary': 'Primary color',
+      'cu-spinner-secondary': 'Secondary color',
+      'cu-spinner-destructive': 'Destructive color',
+      'cu-spinner-success': 'Success color',
+      'cu-spinner-warning': 'Warning color',
+      'cu-spinner-info': 'Info color',
+      'cu-spinner-muted': 'Muted color',
     },
   },
   'zh-tw': {
@@ -67,7 +74,7 @@ export const spinnerPage: Record<Locale, {
       },
       colors: {
         title: '顏色',
-        description: 'Spinner 透過 <code class="cu-code">border-current</code> 繼承當前文字顏色。套用任何文字顏色工具類別即可更改。',
+        description: '使用顏色變體類別（如 <code class="cu-code">cu-spinner-primary</code>）套用語意色彩。Spinner 也透過 <code class="cu-code">border-current</code> 繼承當前文字顏色。',
       },
       buttonLoading: {
         title: '按鈕載入',
@@ -79,6 +86,13 @@ export const spinnerPage: Record<Locale, {
       'cu-spinner-sm': '小尺寸（16px）',
       'cu-spinner-md': '中尺寸（24px，預設）',
       'cu-spinner-lg': '大尺寸（32px）',
+      'cu-spinner-primary': 'Primary 顏色',
+      'cu-spinner-secondary': 'Secondary 顏色',
+      'cu-spinner-destructive': 'Destructive 顏色',
+      'cu-spinner-success': 'Success 顏色',
+      'cu-spinner-warning': 'Warning 顏色',
+      'cu-spinner-info': 'Info 顏色',
+      'cu-spinner-muted': 'Muted 顏色',
     },
   },
 };

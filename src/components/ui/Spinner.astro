@@ -3,17 +3,21 @@ import { TOP_CLASS } from "../../config";
 
 interface Props {
 	size?: "sm" | "md" | "lg";
+	color?: "primary" | "secondary" | "destructive" | "success" | "warning" | "info" | "muted";
 	class?: string;
 	[key: string]: any;
 }
 
-const { size = "md", class: className, ...rest } = Astro.props;
+const { size = "md", color, class: className, ...rest } = Astro.props;
+const sizeClass = `${TOP_CLASS}-spinner-${size}`;
+const colorClass = color ? `${TOP_CLASS}-spinner-${color}` : "";
 ---
 
 <span
     class:list={[
         `${TOP_CLASS}-spinner`,
-        `${TOP_CLASS}-spinner-${size}`,
+        sizeClass,
+        colorClass,
         className,
     ]}
     role="status"

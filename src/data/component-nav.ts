@@ -17,17 +17,20 @@ export const gettingStarted: NavItem[] = [
 ];
 
 export const layoutComponents: NavItem[] = [
+  { name: "Carousel", path: "/components/carousel" },
   { name: "Container", path: "/components/container" },
   { name: "Filter Bar", path: "/components/filter-bar" },
   { name: "Header", path: "/components/header" },
   { name: "Nav", path: "/components/nav" },
   { name: "Page Header", path: "/components/page-header" },
+  { name: "Resizable Panels", path: "/components/resizable-panels" },
   { name: "Scroll Area", path: "/components/scroll-area" },
   { name: "Sidebar", path: "/components/sidebar" },
   { name: "Toolbar", path: "/components/toolbar" },
 ];
 
 export const basicComponents: NavItem[] = [
+  { name: "Aspect Ratio", path: "/components/aspect-ratio" },
   { name: "Button", path: "/components/button" },
   { name: "Button Group", path: "/components/button-group" },
   { name: "Card", path: "/components/card" },
@@ -59,6 +62,7 @@ export const dataDisplayComponents: NavItem[] = [
   { name: "Accordion", path: "/components/accordion" },
   { name: "Avatar", path: "/components/avatar" },
   { name: "Badge", path: "/components/badge" },
+  { name: "Code Block", path: "/components/code-block" },
   { name: "Collapsible", path: "/components/collapsible" },
   { name: "Data Table", path: "/components/data-table" },
   { name: "Setting Item", path: "/components/setting-item" },
@@ -70,14 +74,20 @@ export const dataDisplayComponents: NavItem[] = [
 
 export const formComponents: NavItem[] = [
   { name: "Checkbox", path: "/components/checkbox" },
+  { name: "Checkbox Group", path: "/components/checkbox-group" },
+  { name: "Color Picker", path: "/components/color-picker" },
   { name: "Combobox", path: "/components/combobox" },
+  { name: "Date Picker", path: "/components/date-picker" },
   { name: "Dropzone", path: "/components/dropzone" },
   { name: "File Input", path: "/components/file-input" },
   { name: "Form Group", path: "/components/form-group" },
   { name: "Input", path: "/components/input" },
+  { name: "Input Group", path: "/components/input-group" },
   { name: "Label", path: "/components/label" },
   { name: "Multi Select", path: "/components/multi-select" },
   { name: "Number Input", path: "/components/number-input" },
+  { name: "Password Input", path: "/components/password-input" },
+  { name: "Pin Input", path: "/components/pin-input" },
   { name: "Radio", path: "/components/radio" },
   { name: "Range", path: "/components/range" },
   { name: "Search Input", path: "/components/search-input" },
@@ -98,6 +108,8 @@ export const feedbackComponents: NavItem[] = [
 
 export const overlayComponents: NavItem[] = [
   { name: "Alert Dialog", path: "/components/alert-dialog" },
+  { name: "Command Palette", path: "/components/command-palette" },
+  { name: "Context Menu", path: "/components/context-menu" },
   { name: "Dialog", path: "/components/dialog" },
   { name: "Drawer", path: "/components/drawer" },
   { name: "Dropdown Menu", path: "/components/dropdown" },

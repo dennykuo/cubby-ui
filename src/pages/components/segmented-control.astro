@@ -41,6 +41,15 @@ const blockCode = `<div class="cu-segmented cu-segmented-block">
   <button class="cu-segmented-item">Yearly</button>
 </div>`.trim();
 
+const accessibleCode = `<div class="cu-segmented" data-cu-segmented>
+  <input type="radio" name="view" value="list" class="cu-segmented-input" checked />
+  <label class="cu-segmented-item">List</label>
+  <input type="radio" name="view" value="grid" class="cu-segmented-input" />
+  <label class="cu-segmented-item">Grid</label>
+  <input type="radio" name="view" value="board" class="cu-segmented-input" />
+  <label class="cu-segmented-item">Board</label>
+</div>`.trim();
+
 const withIconsCode = `<div class="cu-segmented">
   <button class="cu-segmented-item cu-segmented-item-active">
     <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1.5"><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/></svg>
@@ -154,6 +163,25 @@ const withIconsCode = `<div class="cu-segmented">
                         <button class="cu-segmented-item">Monthly</button>
                         <button class="cu-segmented-item">Yearly</button>
                     </div>
+                </div>
+            </ComponentPreview>
+        </section>
+
+        <!-- Accessible (Radio Input) -->
+        <section class="space-y-3">
+            <h2 id="accessible" class="text-lg font-semibold tracking-tight relative group">
+                <a href="#accessible" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                {t.sections.accessible.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.accessible.description} />
+            <ComponentPreview code={accessibleCode}>
+                <div class="cu-segmented" data-cu-segmented>
+                    <input type="radio" name="view-demo" value="list" class="cu-segmented-input" checked />
+                    <label class="cu-segmented-item">List</label>
+                    <input type="radio" name="view-demo" value="grid" class="cu-segmented-input" />
+                    <label class="cu-segmented-item">Grid</label>
+                    <input type="radio" name="view-demo" value="board" class="cu-segmented-input" />
+                    <label class="cu-segmented-item">Board</label>
                 </div>
             </ComponentPreview>
         </section>

@@ -1458,6 +1458,815 @@
     });
   }
 
+  // ── Password Input ──────────────────────────────────────────────
+  function setupPasswordInputs() {
+    document.querySelectorAll("[data-cu-password-input]").forEach(function (container) {
+      if (container._cuInit) return;
+      container._cuInit = true;
+
+      var field = container.querySelector(".cu-password-input-field");
+      var toggle = container.querySelector("[data-cu-password-toggle]");
+      var iconShow = container.querySelector("[data-cu-password-icon-show]");
+      var iconHide = container.querySelector("[data-cu-password-icon-hide]");
+      if (!field || !toggle) return;
+
+      toggle.addEventListener("click", function () {
+        var isPassword = field.type === "password";
+        field.type = isPassword ? "text" : "password";
+        if (iconShow) iconShow.style.display = isPassword ? "none" : "";
+        if (iconHide) iconHide.style.display = isPassword ? "" : "none";
+      });
+    });
+  }
+
+  // ── Segmented Control ─────────────────────────────────────────
+  function setupSegmentedControls() {
+    document.querySelectorAll("[data-cu-segmented]").forEach(function (control) {
+      if (control._cuInit) return;
+      control._cuInit = true;
+
+      var inputs = control.querySelectorAll(".cu-segmented-input");
+
+      function updateActive() {
+        inputs.forEach(function (input) {
+          var label = input.nextElementSibling;
+          if (label && label.classList.contains("cu-segmented-item")) {
+            label.classList.toggle("cu-segmented-item-active", input.checked);
+          }
+        });
+      }
+
+      inputs.forEach(function (input) {
+        input.addEventListener("change", updateActive);
+      });
+
+      updateActive();
+    });
+  }
+
+  // ── Pin Input ─────────────────────────────────────────────────
+  function setupPinInputs() {
+    document.querySelectorAll("[data-cu-pin-input]").forEach(function (container) {
+      if (container._cuInit) return;
+      container._cuInit = true;
+
+      var fields = container.querySelectorAll(".cu-pin-input-field");
+      var isNumeric = container.getAttribute("data-cu-pin-input-type") === "numeric";
+
+      fields.forEach(function (field, index) {
+        field.addEventListener("input", function () {
+          var value = field.value;
+          if (isNumeric) value = value.replace(/[^0-9]/g, "");
+          field.value = value.slice(0, 1);
+          if (field.value && index < fields.length - 1) {
+            fields[index + 1].focus();
+          }
+        });
+
+        field.addEventListener("keydown", function (e) {
+          if (e.key === "Backspace" && !field.value && index > 0) {
+            fields[index - 1].focus();
+          }
+        });
+
+        field.addEventListener("paste", function (e) {
+          e.preventDefault();
+          var paste = (e.clipboardData || window.clipboardData).getData("text");
+          if (isNumeric) paste = paste.replace(/[^0-9]/g, "");
+          for (var i = 0; i < fields.length; i++) {
+            fields[i].value = paste[i] || "";
+          }
+          var lastFilled = Math.min(paste.length, fields.length) - 1;
+          if (lastFilled >= 0) {
+            fields[Math.min(lastFilled + 1, fields.length - 1)].focus();
+          }
+        });
+      });
+    });
+  }
+
+  // ── Checkbox Group ────────────────────────────────────────────
+  function setupCheckboxGroups() {
+    document.querySelectorAll("[data-cu-checkbox-group]").forEach(function (group) {
+      if (group._cuInit) return;
+      group._cuInit = true;
+
+      var selectAll = group.querySelector("[data-cu-checkbox-group-selectall]");
+      if (!selectAll) return;
+
+      var items = group.querySelectorAll("[data-cu-checkbox-group-item]");
+
+      function updateSelectAll() {
+        var total = items.length;
+        var checked = 0;
+        items.forEach(function (cb) { if (cb.checked) checked++; });
+        selectAll.checked = checked === total;
+        selectAll.indeterminate = checked > 0 && checked < total;
+      }
+
+      selectAll.addEventListener("change", function () {
+        var state = selectAll.checked;
+        items.forEach(function (cb) { if (!cb.disabled) cb.checked = state; });
+      });
+
+      items.forEach(function (cb) {
+        cb.addEventListener("change", updateSelectAll);
+      });
+
+      updateSelectAll();
+    });
+  }
+
+  // ── Code Block ────────────────────────────────────────────────
+  function setupCodeBlocks() {
+    document.querySelectorAll("[data-cu-code-block]").forEach(function (block) {
+      if (block._cuInit) return;
+      block._cuInit = true;
+
+      var btn = block.querySelector("[data-cu-code-block-copy]");
+      if (!btn) return;
+
+      btn.addEventListener("click", function () {
+        var pre = block.querySelector(".cu-code-block-pre");
+        if (!pre) return;
+
+        var text = pre.textContent || "";
+        navigator.clipboard.writeText(text).then(function () {
+          var label = btn.querySelector("[data-cu-code-block-label]");
+          btn.setAttribute("data-cu-copied", "");
+          if (label) label.textContent = "Copied!";
+
+          setTimeout(function () {
+            btn.removeAttribute("data-cu-copied");
+            if (label) label.textContent = "Copy";
+          }, 2000);
+        });
+      });
+    });
+  }
+
+  // ── Carousel ──────────────────────────────────────────────────
+  function setupCarousels() {
+    document.querySelectorAll("[data-cu-carousel]").forEach(function (carousel) {
+      if (carousel._cuInit) return;
+      carousel._cuInit = true;
+
+      var viewport = carousel.querySelector("[data-cu-carousel-viewport]");
+      var prevBtn = carousel.querySelector("[data-cu-carousel-prev]");
+      var nextBtn = carousel.querySelector("[data-cu-carousel-next]");
+      var dots = carousel.querySelectorAll("[data-cu-carousel-dot]");
+      if (!viewport) return;
+
+      var slides = viewport.querySelectorAll("[data-cu-carousel-slide]");
+      if (!slides.length) return;
+
+      function getSlideWidth() { return slides[0].offsetWidth; }
+
+      function getCurrentIndex() {
+        return Math.round(viewport.scrollLeft / getSlideWidth());
+      }
+
+      function updateState() {
+        var index = getCurrentIndex();
+        var visibleSlides = Math.round(viewport.offsetWidth / getSlideWidth());
+        var maxScrollIndex = Math.max(0, slides.length - visibleSlides);
+
+        if (prevBtn) prevBtn.disabled = index <= 0;
+        if (nextBtn) nextBtn.disabled = index >= maxScrollIndex;
+
+        dots.forEach(function (dot, i) {
+          dot.classList.toggle("cu-carousel-dot-active", i === index);
+        });
+      }
+
+      function scrollToIndex(index) {
+        viewport.scrollTo({ left: index * getSlideWidth(), behavior: "smooth" });
+      }
+
+      if (prevBtn) {
+        prevBtn.addEventListener("click", function () {
+          var index = getCurrentIndex();
+          if (index > 0) scrollToIndex(index - 1);
+        });
+      }
+
+      if (nextBtn) {
+        nextBtn.addEventListener("click", function () {
+          var index = getCurrentIndex();
+          var visibleSlides = Math.round(viewport.offsetWidth / getSlideWidth());
+          var maxScrollIndex = Math.max(0, slides.length - visibleSlides);
+          if (index < maxScrollIndex) scrollToIndex(index + 1);
+        });
+      }
+
+      dots.forEach(function (dot, i) {
+        dot.addEventListener("click", function () { scrollToIndex(i); });
+      });
+
+      var prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (prefersReduced) {
+        var origScrollTo = viewport.scrollTo.bind(viewport);
+        viewport.scrollTo = function (opts) {
+          origScrollTo({ left: opts.left, behavior: "auto" });
+        };
+      }
+
+      viewport.addEventListener("scroll", updateState);
+      updateState();
+    });
+  }
+
+  // ── Context Menu ──────────────────────────────────────────────
+  function setupContextMenus() {
+    document.querySelectorAll("[data-cu-context-menu]").forEach(function (container) {
+      if (container._cuInit) return;
+      container._cuInit = true;
+
+      var content = container.querySelector("[data-cu-context-menu-content]");
+      if (!content) return;
+
+      container.addEventListener("contextmenu", function (e) {
+        e.preventDefault();
+        document.querySelectorAll("[data-cu-context-menu-content]").forEach(function (c) {
+          if (c !== content) c.setAttribute("hidden", "");
+        });
+        content.removeAttribute("hidden");
+        var x = e.clientX;
+        var y = e.clientY;
+        var rect = content.getBoundingClientRect();
+        var vw = window.innerWidth;
+        var vh = window.innerHeight;
+        if (x + rect.width > vw) x = vw - rect.width - 4;
+        if (y + rect.height > vh) y = vh - rect.height - 4;
+        if (x < 0) x = 4;
+        if (y < 0) y = 4;
+        content.style.left = x + "px";
+        content.style.top = y + "px";
+      });
+
+      document.addEventListener("click", function () { content.setAttribute("hidden", ""); });
+      document.addEventListener("contextmenu", function (e) {
+        if (!container.contains(e.target)) content.setAttribute("hidden", "");
+      });
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape") content.setAttribute("hidden", "");
+      });
+      document.addEventListener("scroll", function () { content.setAttribute("hidden", ""); });
+    });
+  }
+
+  // ── Resizable Panels ─────────────────────────────────────────
+  function setupResizables() {
+    document.querySelectorAll("[data-cu-resizable]").forEach(function (container) {
+      if (container._cuResizableInit) return;
+      container._cuResizableInit = true;
+
+      var panels = Array.from(container.querySelectorAll(":scope > [data-cu-resizable-panel]"));
+      var handles = Array.from(container.querySelectorAll(":scope > [data-cu-resizable-handle]"));
+      var isVertical = container.classList.contains("cu-resizable-vertical");
+
+      if (panels.length < 2 || handles.length < 1) return;
+
+      var defaultSize = 100 / panels.length;
+      panels.forEach(function (panel) {
+        if (!panel.style.flexGrow || panel.style.flexGrow === "0") {
+          panel.style.flexGrow = String(defaultSize);
+        }
+      });
+
+      function applyConstraints(panel, value, total) {
+        var minSize = parseFloat(panel.dataset.cuMinSize);
+        var maxSize = parseFloat(panel.dataset.cuMaxSize);
+        if (!isNaN(minSize)) { var minGrow = (minSize / 100) * total; if (value < minGrow) value = minGrow; }
+        if (!isNaN(maxSize)) { var maxGrow = (maxSize / 100) * total; if (value > maxGrow) value = maxGrow; }
+        if (value < 0) value = 0;
+        return value;
+      }
+
+      function startResize(startX, startY, handle, handleIndex) {
+        var prevPanel = panels[handleIndex];
+        var nextPanel = panels[handleIndex + 1];
+        if (!prevPanel || !nextPanel) return;
+
+        var containerRect = container.getBoundingClientRect();
+        var containerSize = isVertical ? containerRect.height : containerRect.width;
+        var totalHandleSize = 0;
+        handles.forEach(function (h) { totalHandleSize += isVertical ? h.offsetHeight : h.offsetWidth; });
+        var availableSize = containerSize - totalHandleSize;
+        if (availableSize <= 0) return;
+
+        var startPos = isVertical ? startY : startX;
+        var prevGrow = parseFloat(prevPanel.style.flexGrow) || defaultSize;
+        var nextGrow = parseFloat(nextPanel.style.flexGrow) || defaultSize;
+        var totalGrow = prevGrow + nextGrow;
+        var allGrow = 0;
+        panels.forEach(function (p) { allGrow += parseFloat(p.style.flexGrow) || defaultSize; });
+
+        handle.setAttribute("data-cu-resizing", "");
+        document.body.style.cursor = isVertical ? "row-resize" : "col-resize";
+        document.body.style.userSelect = "none";
+        document.body.style.webkitUserSelect = "none";
+
+        function onMove(clientX, clientY) {
+          var currentPos = isVertical ? clientY : clientX;
+          var delta = currentPos - startPos;
+          var deltaGrow = (delta / availableSize) * allGrow;
+          var newPrevGrow = applyConstraints(prevPanel, prevGrow + deltaGrow, totalGrow);
+          var newNextGrow = totalGrow - newPrevGrow;
+          newNextGrow = applyConstraints(nextPanel, newNextGrow, totalGrow);
+          newPrevGrow = totalGrow - newNextGrow;
+          prevPanel.style.flexGrow = String(newPrevGrow);
+          nextPanel.style.flexGrow = String(newNextGrow);
+        }
+
+        function onMouseMove(e) { onMove(e.clientX, e.clientY); }
+        function onTouchMove(e) { if (e.touches.length === 1) onMove(e.touches[0].clientX, e.touches[0].clientY); }
+        function onEnd() {
+          handle.removeAttribute("data-cu-resizing");
+          document.body.style.cursor = "";
+          document.body.style.userSelect = "";
+          document.body.style.webkitUserSelect = "";
+          document.removeEventListener("mousemove", onMouseMove);
+          document.removeEventListener("mouseup", onEnd);
+          document.removeEventListener("touchmove", onTouchMove);
+          document.removeEventListener("touchend", onEnd);
+        }
+
+        document.addEventListener("mousemove", onMouseMove);
+        document.addEventListener("mouseup", onEnd);
+        document.addEventListener("touchmove", onTouchMove, { passive: false });
+        document.addEventListener("touchend", onEnd);
+      }
+
+      handles.forEach(function (handle, i) {
+        handle.addEventListener("mousedown", function (e) { e.preventDefault(); startResize(e.clientX, e.clientY, handle, i); });
+        handle.addEventListener("touchstart", function (e) {
+          if (e.touches.length !== 1) return;
+          e.preventDefault();
+          startResize(e.touches[0].clientX, e.touches[0].clientY, handle, i);
+        }, { passive: false });
+
+        handle.addEventListener("keydown", function (e) {
+          var step = 5;
+          var delta = 0;
+          if (!isVertical && (e.key === "ArrowLeft" || e.key === "ArrowRight")) {
+            delta = e.key === "ArrowLeft" ? -step : step;
+          } else if (isVertical && (e.key === "ArrowUp" || e.key === "ArrowDown")) {
+            delta = e.key === "ArrowUp" ? -step : step;
+          }
+          if (delta === 0) return;
+          e.preventDefault();
+          var prevPanel = panels[i];
+          var nextPanel = panels[i + 1];
+          if (!prevPanel || !nextPanel) return;
+          var prevGrow = parseFloat(prevPanel.style.flexGrow) || defaultSize;
+          var nextGrow = parseFloat(nextPanel.style.flexGrow) || defaultSize;
+          var total = prevGrow + nextGrow;
+          var newPrev = applyConstraints(prevPanel, prevGrow + delta, total);
+          var newNext = total - newPrev;
+          newNext = applyConstraints(nextPanel, newNext, total);
+          newPrev = total - newNext;
+          prevPanel.style.flexGrow = String(newPrev);
+          nextPanel.style.flexGrow = String(newNext);
+        });
+      });
+    });
+  }
+
+  // ── Command Palette ───────────────────────────────────────────
+  function setupCommandPalettes() {
+    if (!document._cuCommandPaletteGlobal) {
+      document._cuCommandPaletteGlobal = true;
+      document.addEventListener("keydown", function (e) {
+        if ((e.metaKey || e.ctrlKey) && e.key === "k") {
+          var palette = document.querySelector("[data-cu-command]");
+          if (!palette) return;
+          e.preventDefault();
+          if (palette.open) { palette.close(); } else {
+            palette.showModal();
+            var input = palette.querySelector("[data-cu-command-input]");
+            if (input) input.focus();
+          }
+        }
+      });
+    }
+
+    document.querySelectorAll("[data-cu-command]").forEach(function (palette) {
+      if (palette._cuInit) return;
+      palette._cuInit = true;
+
+      var input = palette.querySelector("[data-cu-command-input]");
+      var list = palette.querySelector("[data-cu-command-list]");
+      var empty = palette.querySelector("[data-cu-command-empty]");
+      var items = list ? Array.from(list.querySelectorAll("[data-cu-command-item]")) : [];
+
+      palette.addEventListener("click", function (e) { if (e.target === palette) palette.close(); });
+
+      if (input) {
+        input.addEventListener("input", function () {
+          var query = input.value.toLowerCase().trim();
+          var visibleCount = 0;
+          var groups = list ? Array.from(list.querySelectorAll("[data-cu-command-group]")) : [];
+
+          items.forEach(function (item) {
+            var text = (item.getAttribute("data-cu-command-value") || item.textContent || "").toLowerCase();
+            var match = !query || text.indexOf(query) !== -1;
+            item.hidden = !match;
+            if (match) visibleCount++;
+          });
+
+          groups.forEach(function (group) {
+            var visibleItems = group.querySelectorAll("[data-cu-command-item]:not([hidden])");
+            group.hidden = visibleItems.length === 0;
+          });
+
+          if (list) {
+            var separators = list.querySelectorAll("[data-cu-command-separator]");
+            separators.forEach(function (sep) {
+              var prev = sep.previousElementSibling;
+              var next = sep.nextElementSibling;
+              sep.hidden = (prev && prev.hidden) || (next && next.hidden) || false;
+            });
+          }
+
+          if (empty) empty.hidden = visibleCount > 0;
+
+          clearActive();
+          var firstVisible = list ? list.querySelector("[data-cu-command-item]:not([hidden])") : null;
+          if (firstVisible) firstVisible.setAttribute("data-cu-command-active", "");
+        });
+      }
+
+      function clearActive() {
+        items.forEach(function (item) { item.removeAttribute("data-cu-command-active"); });
+      }
+
+      function getVisibleItems() {
+        return items.filter(function (item) { return !item.hidden; });
+      }
+
+      palette.addEventListener("keydown", function (e) {
+        if (e.key === "ArrowDown" || e.key === "ArrowUp") {
+          e.preventDefault();
+          var visible = getVisibleItems();
+          if (visible.length === 0) return;
+          var activeIndex = -1;
+          visible.forEach(function (item, i) { if (item.hasAttribute("data-cu-command-active")) activeIndex = i; });
+          clearActive();
+          var nextIndex;
+          if (e.key === "ArrowDown") { nextIndex = activeIndex < visible.length - 1 ? activeIndex + 1 : 0; }
+          else { nextIndex = activeIndex > 0 ? activeIndex - 1 : visible.length - 1; }
+          visible[nextIndex].setAttribute("data-cu-command-active", "");
+          visible[nextIndex].scrollIntoView({ block: "nearest" });
+        }
+        if (e.key === "Enter") {
+          var active = list ? list.querySelector("[data-cu-command-item][data-cu-command-active]") : null;
+          if (active) { e.preventDefault(); active.click(); }
+        }
+      });
+
+      items.forEach(function (item) {
+        item.addEventListener("mouseenter", function () { clearActive(); item.setAttribute("data-cu-command-active", ""); });
+        item.addEventListener("mouseleave", function () { item.removeAttribute("data-cu-command-active"); });
+      });
+
+      palette.addEventListener("close", function () {
+        if (input) { input.value = ""; input.dispatchEvent(new Event("input")); }
+      });
+    });
+
+    document.querySelectorAll("[data-cu-command-trigger]").forEach(function (trigger) {
+      if (trigger._cuInit) return;
+      trigger._cuInit = true;
+      trigger.addEventListener("click", function () {
+        var id = trigger.getAttribute("data-cu-command-trigger");
+        var palette = document.getElementById(id);
+        if (palette && palette.showModal) {
+          palette.showModal();
+          var input = palette.querySelector("[data-cu-command-input]");
+          if (input) input.focus();
+        }
+      });
+    });
+  }
+
+  // ── Date Picker / Calendar helpers ────────────────────────────
+  function toISODate(date) {
+    var y = date.getFullYear();
+    var m = String(date.getMonth() + 1).padStart(2, "0");
+    var d = String(date.getDate()).padStart(2, "0");
+    return y + "-" + m + "-" + d;
+  }
+
+  function formatDate(date) {
+    var y = date.getFullYear();
+    var m = String(date.getMonth() + 1).padStart(2, "0");
+    var d = String(date.getDate()).padStart(2, "0");
+    return y + "/" + m + "/" + d;
+  }
+
+  function initCalendar(calendar, onSelect) {
+    var header = calendar.querySelector("[data-cu-calendar-title]");
+    var prevBtn = calendar.querySelector("[data-cu-calendar-prev]");
+    var nextBtn = calendar.querySelector("[data-cu-calendar-next]");
+    var grid = calendar.querySelector("[data-cu-calendar-grid]");
+    if (!header || !grid) return;
+
+    var today = new Date();
+    today.setHours(0, 0, 0, 0);
+    var currentMonth = today.getMonth();
+    var currentYear = today.getFullYear();
+
+    if (calendar._cuSelectedDate) {
+      currentMonth = calendar._cuSelectedDate.getMonth();
+      currentYear = calendar._cuSelectedDate.getFullYear();
+    }
+
+    var selectedDate = calendar._cuSelectedDate || null;
+    var minDate = null;
+    var maxDate = null;
+    var minAttr = calendar.getAttribute("data-cu-calendar-min");
+    var maxAttr = calendar.getAttribute("data-cu-calendar-max");
+    if (minAttr) { var mp = minAttr.split("-"); minDate = new Date(parseInt(mp[0]), parseInt(mp[1]) - 1, parseInt(mp[2])); minDate.setHours(0, 0, 0, 0); }
+    if (maxAttr) { var xp = maxAttr.split("-"); maxDate = new Date(parseInt(xp[0]), parseInt(xp[1]) - 1, parseInt(xp[2])); maxDate.setHours(0, 0, 0, 0); }
+
+    function render() {
+      var monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+      header.textContent = monthNames[currentMonth] + " " + currentYear;
+
+      if (prevBtn) {
+        if (minDate) { var prevMonth = new Date(currentYear, currentMonth, 0); prevBtn.disabled = prevMonth < minDate; } else { prevBtn.disabled = false; }
+      }
+      if (nextBtn) {
+        if (maxDate) { var nextMonthFirst = new Date(currentYear, currentMonth + 1, 1); nextBtn.disabled = nextMonthFirst > maxDate; } else { nextBtn.disabled = false; }
+      }
+
+      grid.innerHTML = "";
+      var firstDay = new Date(currentYear, currentMonth, 1).getDay();
+      var daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+      var daysInPrevMonth = new Date(currentYear, currentMonth, 0).getDate();
+
+      for (var p = firstDay - 1; p >= 0; p--) { grid.appendChild(createDayButton(daysInPrevMonth - p, currentMonth - 1, currentYear, true)); }
+      for (var d = 1; d <= daysInMonth; d++) { grid.appendChild(createDayButton(d, currentMonth, currentYear, false)); }
+      var totalCells = grid.children.length;
+      var remaining = totalCells <= 35 ? 35 - totalCells : 42 - totalCells;
+      for (var n = 1; n <= remaining; n++) { grid.appendChild(createDayButton(n, currentMonth + 1, currentYear, true)); }
+    }
+
+    function createDayButton(day, month, year, isOutside) {
+      var date = new Date(year, month, day);
+      date.setHours(0, 0, 0, 0);
+      var btn = document.createElement("button");
+      btn.type = "button";
+      btn.textContent = day;
+      var classes = ["cu-calendar-day"];
+      var isToday = date.getTime() === today.getTime();
+      var isSelected = selectedDate && date.getTime() === selectedDate.getTime();
+      if (isOutside) classes.push("cu-calendar-day-outside");
+      if (isToday && !isSelected) classes.push("cu-calendar-day-today");
+      if (isSelected) classes.push("cu-calendar-day-selected");
+      var isDisabled = false;
+      if (minDate && date < minDate) isDisabled = true;
+      if (maxDate && date > maxDate) isDisabled = true;
+      if (isDisabled) { classes.push("cu-calendar-day-disabled"); btn.disabled = true; }
+      btn.className = classes.join(" ");
+      if (!isDisabled) {
+        btn.addEventListener("click", function () {
+          selectedDate = date;
+          calendar._cuSelectedDate = date;
+          if (isOutside) { currentMonth = date.getMonth(); currentYear = date.getFullYear(); }
+          render();
+          if (onSelect) onSelect(date);
+        });
+      }
+      return btn;
+    }
+
+    if (prevBtn) { prevBtn.addEventListener("click", function () { currentMonth--; if (currentMonth < 0) { currentMonth = 11; currentYear--; } render(); }); }
+    if (nextBtn) { nextBtn.addEventListener("click", function () { currentMonth++; if (currentMonth > 11) { currentMonth = 0; currentYear++; } render(); }); }
+
+    grid.addEventListener("keydown", function (e) {
+      var focused = document.activeElement;
+      if (!focused || !grid.contains(focused)) return;
+      var buttons = Array.from(grid.querySelectorAll(".cu-calendar-day:not(.cu-calendar-day-disabled)"));
+      var idx = buttons.indexOf(focused);
+      if (idx === -1) return;
+      var newIdx = idx;
+      if (e.key === "ArrowRight") { e.preventDefault(); newIdx = idx + 1; }
+      else if (e.key === "ArrowLeft") { e.preventDefault(); newIdx = idx - 1; }
+      else if (e.key === "ArrowDown") { e.preventDefault(); newIdx = idx + 7; }
+      else if (e.key === "ArrowUp") { e.preventDefault(); newIdx = idx - 7; }
+      else if (e.key === "Enter" || e.key === " ") { e.preventDefault(); focused.click(); return; }
+      if (newIdx >= 0 && newIdx < buttons.length) { buttons[newIdx].focus(); }
+      else if (newIdx < 0 && prevBtn && !prevBtn.disabled) {
+        prevBtn.click();
+        setTimeout(function () { var nb = Array.from(grid.querySelectorAll(".cu-calendar-day:not(.cu-calendar-day-disabled)")); if (nb.length) nb[nb.length - 1].focus(); }, 0);
+      } else if (newIdx >= buttons.length && nextBtn && !nextBtn.disabled) {
+        nextBtn.click();
+        setTimeout(function () { var nb = Array.from(grid.querySelectorAll(".cu-calendar-day:not(.cu-calendar-day-disabled)")); if (nb.length) nb[0].focus(); }, 0);
+      }
+    });
+
+    calendar._cuRender = render;
+    render();
+  }
+
+  // ── Date Picker ───────────────────────────────────────────────
+  function setupDatePickers() {
+    document.querySelectorAll("[data-cu-calendar]").forEach(function (calendar) {
+      if (calendar._cuInit) return;
+      calendar._cuInit = true;
+      initCalendar(calendar, null);
+    });
+
+    document.querySelectorAll("[data-cu-date-picker]").forEach(function (picker) {
+      if (picker._cuInit) return;
+      picker._cuInit = true;
+
+      var trigger = picker.querySelector("[data-cu-date-picker-trigger]");
+      var content = picker.querySelector("[data-cu-date-picker-content]");
+      var calendar = picker.querySelector("[data-cu-calendar]");
+      var valueEl = picker.querySelector("[data-cu-date-picker-value]");
+      var hiddenInput = picker.querySelector("input[data-cu-date-picker-input]");
+      if (!trigger || !content || !calendar) return;
+
+      content.style.display = "none";
+      if (calendar._cuInit) calendar._cuInit = false;
+
+      initCalendar(calendar, function (date) {
+        var formatted = formatDate(date);
+        if (valueEl) { valueEl.textContent = formatted; valueEl.classList.remove("cu-date-picker-trigger-placeholder"); }
+        if (hiddenInput) hiddenInput.value = toISODate(date);
+        content.style.display = "none";
+      });
+
+      if (hiddenInput && hiddenInput.value) {
+        var parts = hiddenInput.value.split("-");
+        if (parts.length === 3) {
+          var initDate = new Date(parseInt(parts[0]), parseInt(parts[1]) - 1, parseInt(parts[2]));
+          if (!isNaN(initDate.getTime())) {
+            if (valueEl) { valueEl.textContent = formatDate(initDate); valueEl.classList.remove("cu-date-picker-trigger-placeholder"); }
+            calendar._cuSelectedDate = initDate;
+          }
+        }
+      }
+
+      trigger.addEventListener("click", function (e) {
+        e.stopPropagation();
+        var isHidden = content.style.display === "none";
+        content.style.display = isHidden ? "" : "none";
+        if (isHidden && calendar._cuRender) calendar._cuRender();
+      });
+
+      document.addEventListener("click", function (e) { if (!picker.contains(e.target)) content.style.display = "none"; });
+      document.addEventListener("keydown", function (e) { if (e.key === "Escape") content.style.display = "none"; });
+    });
+  }
+
+  // ── Color Picker ──────────────────────────────────────────────
+  function setupColorPickers() {
+    function hsvToRgb(h, s, v) {
+      h = h / 360;
+      var i = Math.floor(h * 6), f = h * 6 - i;
+      var p = v * (1 - s), q = v * (1 - f * s), t = v * (1 - (1 - f) * s);
+      var r, g, b;
+      switch (i % 6) {
+        case 0: r = v; g = t; b = p; break; case 1: r = q; g = v; b = p; break;
+        case 2: r = p; g = v; b = t; break; case 3: r = p; g = q; b = v; break;
+        case 4: r = t; g = p; b = v; break; case 5: r = v; g = p; b = q; break;
+      }
+      return [Math.round(r * 255), Math.round(g * 255), Math.round(b * 255)];
+    }
+
+    function rgbToHex(r, g, b) {
+      return "#" + [r, g, b].map(function (c) { return c.toString(16).padStart(2, "0"); }).join("");
+    }
+
+    function hexToRgb(hex) {
+      hex = hex.replace("#", "");
+      if (hex.length === 3) hex = hex[0] + hex[0] + hex[1] + hex[1] + hex[2] + hex[2];
+      return [parseInt(hex.slice(0, 2), 16), parseInt(hex.slice(2, 4), 16), parseInt(hex.slice(4, 6), 16)];
+    }
+
+    function rgbToHsv(r, g, b) {
+      r /= 255; g /= 255; b /= 255;
+      var max = Math.max(r, g, b), min = Math.min(r, g, b);
+      var h, s, v = max, d = max - min;
+      s = max === 0 ? 0 : d / max;
+      if (max === min) { h = 0; } else {
+        switch (max) {
+          case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+          case g: h = (b - r) / d + 2; break;
+          case b: h = (r - g) / d + 4; break;
+        }
+        h /= 6;
+      }
+      return [h * 360, s, v];
+    }
+
+    document.querySelectorAll("[data-cu-color-picker]").forEach(function (picker) {
+      if (picker._cuInit) return;
+      picker._cuInit = true;
+
+      var satPanel = picker.querySelector("[data-cu-color-picker-saturation]");
+      var satPointer = picker.querySelector("[data-cu-color-picker-saturation-pointer]");
+      var hueBar = picker.querySelector("[data-cu-color-picker-hue]");
+      var huePointer = picker.querySelector("[data-cu-color-picker-hue-pointer]");
+      var preview = picker.querySelector("[data-cu-color-picker-preview]");
+      var hexInput = picker.querySelector("[data-cu-color-picker-input]");
+      var hiddenInput = picker.querySelector("[data-cu-color-picker-hidden]");
+      var swatches = picker.querySelectorAll("[data-cu-color-picker-swatch]");
+      if (!satPanel || !hueBar) return;
+
+      var state = { h: 0, s: 1, v: 1 };
+      var initValue = (hiddenInput && hiddenInput.value) || picker.dataset.cuColorPickerValue || "#ff0000";
+      if (/^#[0-9a-fA-F]{3,6}$/.test(initValue)) {
+        var rgb = hexToRgb(initValue);
+        var hsv = rgbToHsv(rgb[0], rgb[1], rgb[2]);
+        state.h = hsv[0]; state.s = hsv[1]; state.v = hsv[2];
+      }
+
+      function update() {
+        var rgb = hsvToRgb(state.h, state.s, state.v);
+        var hex = rgbToHex(rgb[0], rgb[1], rgb[2]);
+        var pureRgb = hsvToRgb(state.h, 1, 1);
+        satPanel.style.backgroundColor = rgbToHex(pureRgb[0], pureRgb[1], pureRgb[2]);
+        if (satPointer) { satPointer.style.left = (state.s * 100) + "%"; satPointer.style.top = ((1 - state.v) * 100) + "%"; }
+        if (huePointer) huePointer.style.left = (state.h / 360 * 100) + "%";
+        if (preview) preview.style.backgroundColor = hex;
+        if (hexInput && document.activeElement !== hexInput) hexInput.value = hex;
+        if (hiddenInput) hiddenInput.value = hex;
+      }
+
+      function makeDragHandler(onDrag) {
+        return function (e) {
+          e.preventDefault();
+          var onMove = function (e2) {
+            var clientX = e2.touches ? e2.touches[0].clientX : e2.clientX;
+            var clientY = e2.touches ? e2.touches[0].clientY : e2.clientY;
+            onDrag(clientX, clientY);
+          };
+          var onUp = function () {
+            document.removeEventListener("mousemove", onMove);
+            document.removeEventListener("mouseup", onUp);
+            document.removeEventListener("touchmove", onMove);
+            document.removeEventListener("touchend", onUp);
+            document.body.style.userSelect = "";
+          };
+          document.body.style.userSelect = "none";
+          document.addEventListener("mousemove", onMove);
+          document.addEventListener("mouseup", onUp);
+          document.addEventListener("touchmove", onMove, { passive: false });
+          document.addEventListener("touchend", onUp);
+          onMove(e);
+        };
+      }
+
+      var onSatDrag = makeDragHandler(function (clientX, clientY) {
+        var rect = satPanel.getBoundingClientRect();
+        state.s = Math.max(0, Math.min(1, (clientX - rect.left) / rect.width));
+        state.v = Math.max(0, Math.min(1, 1 - (clientY - rect.top) / rect.height));
+        update();
+      });
+      satPanel.addEventListener("mousedown", onSatDrag);
+      satPanel.addEventListener("touchstart", onSatDrag, { passive: false });
+
+      var onHueDrag = makeDragHandler(function (clientX) {
+        var rect = hueBar.getBoundingClientRect();
+        state.h = Math.max(0, Math.min(360, (clientX - rect.left) / rect.width * 360));
+        update();
+      });
+      hueBar.addEventListener("mousedown", onHueDrag);
+      hueBar.addEventListener("touchstart", onHueDrag, { passive: false });
+
+      if (hexInput) {
+        hexInput.addEventListener("input", function () {
+          var val = hexInput.value.trim();
+          if (/^#[0-9a-fA-F]{6}$/.test(val)) {
+            var rgb = hexToRgb(val);
+            var hsv = rgbToHsv(rgb[0], rgb[1], rgb[2]);
+            state.h = hsv[0]; state.s = hsv[1]; state.v = hsv[2];
+            update();
+          }
+        });
+      }
+
+      swatches.forEach(function (swatch) {
+        swatch.addEventListener("click", function () {
+          var color = swatch.dataset.cuColorPickerSwatch;
+          if (color && /^#[0-9a-fA-F]{3,6}$/.test(color)) {
+            var rgb = hexToRgb(color);
+            var hsv = rgbToHsv(rgb[0], rgb[1], rgb[2]);
+            state.h = hsv[0]; state.s = hsv[1]; state.v = hsv[2];
+            update();
+          }
+        });
+      });
+
+      update();
+    });
+  }
+
   function init() {
     setupDocumentListeners();
     setupTabs();
@@ -1474,6 +2283,17 @@
     setupPopovers();
     setupMenubars();
     setupMobileNav();
+    setupPasswordInputs();
+    setupSegmentedControls();
+    setupPinInputs();
+    setupCheckboxGroups();
+    setupCodeBlocks();
+    setupCarousels();
+    setupContextMenus();
+    setupResizables();
+    setupCommandPalettes();
+    setupDatePickers();
+    setupColorPickers();
   }
 
   function destroy() {

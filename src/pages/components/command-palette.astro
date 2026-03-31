@@ -1,0 +1,342 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import ComponentPreview from "@/components/ComponentPreview.astro";
+import { getLocaleFromUrl, useTranslations } from "@/i18n";
+import { commandPalettePage } from "@/i18n/pages/components/command-palette";
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = useTranslations(commandPalettePage, locale);
+
+const usageCode = `<dialog class="cu-command" id="cmd-demo-1" data-cu-command>
+  <div class="cu-command-input-wrapper">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="cu-command-input-icon"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+    <input type="text" class="cu-command-input" placeholder="Type a command or search..." data-cu-command-input />
+  </div>
+  <div class="cu-command-list" data-cu-command-list>
+    <div class="cu-command-item" data-cu-command-item data-cu-command-value="new file">
+      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2 opacity-60"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M12 18v-6"/><path d="M9 15h6"/></svg>
+      New File
+    </div>
+    <div class="cu-command-item" data-cu-command-item data-cu-command-value="open file">
+      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2 opacity-60"><path d="m6 14 1.5-2.9A2 2 0 0 1 9.24 10H20a2 2 0 0 1 1.94 2.5l-1.54 6a2 2 0 0 1-1.95 1.5H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h3.9a2 2 0 0 1 1.69.9l.81 1.2a2 2 0 0 0 1.67.9H18a2 2 0 0 1 2 2v2"/></svg>
+      Open File
+    </div>
+    <div class="cu-command-item" data-cu-command-item data-cu-command-value="save">
+      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2 opacity-60"><path d="M15.2 3a2 2 0 0 1 1.4.6l3.8 3.8a2 2 0 0 1 .6 1.4V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/><path d="M17 21v-7a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v7"/><path d="M7 3v4a1 1 0 0 0 1 1h7"/></svg>
+      Save
+    </div>
+    <div class="cu-command-empty" data-cu-command-empty hidden>No results found.</div>
+  </div>
+</dialog>
+
+<button class="cu-button cu-button-outline" data-cu-command-trigger="cmd-demo-1">
+  Open Command Palette
+</button>`.trim();
+
+const withGroupsCode = `<dialog class="cu-command" id="cmd-demo-2" data-cu-command>
+  <div class="cu-command-input-wrapper">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="cu-command-input-icon"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+    <input type="text" class="cu-command-input" placeholder="Type a command or search..." data-cu-command-input />
+  </div>
+  <div class="cu-command-list" data-cu-command-list>
+    <div class="cu-command-group" data-cu-command-group>
+      <div class="cu-command-group-heading">Suggestions</div>
+      <div class="cu-command-item" data-cu-command-item data-cu-command-value="calendar">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2 opacity-60"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/></svg>
+        Calendar
+      </div>
+      <div class="cu-command-item" data-cu-command-item data-cu-command-value="search emoji">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2 opacity-60"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" x2="9.01" y1="9" y2="9"/><line x1="15" x2="15.01" y1="9" y2="9"/></svg>
+        Search Emoji
+      </div>
+      <div class="cu-command-item" data-cu-command-item data-cu-command-value="calculator">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2 opacity-60"><rect width="16" height="20" x="4" y="2" rx="2"/><line x1="8" x2="16" y1="6" y2="6"/><line x1="16" x2="16" y1="14" y2="18"/><path d="M16 10h.01"/><path d="M12 10h.01"/><path d="M8 10h.01"/><path d="M12 14h.01"/><path d="M8 14h.01"/><path d="M12 18h.01"/><path d="M8 18h.01"/></svg>
+        Calculator
+      </div>
+    </div>
+    <div class="cu-command-separator" data-cu-command-separator></div>
+    <div class="cu-command-group" data-cu-command-group>
+      <div class="cu-command-group-heading">Settings</div>
+      <div class="cu-command-item" data-cu-command-item data-cu-command-value="profile">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2 opacity-60"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        Profile
+      </div>
+      <div class="cu-command-item" data-cu-command-item data-cu-command-value="billing">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2 opacity-60"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg>
+        Billing
+      </div>
+      <div class="cu-command-item" data-cu-command-item data-cu-command-value="settings">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2 opacity-60"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
+        Settings
+      </div>
+    </div>
+    <div class="cu-command-empty" data-cu-command-empty hidden>No results found.</div>
+  </div>
+</dialog>
+
+<button class="cu-button cu-button-outline" data-cu-command-trigger="cmd-demo-2">
+  Open Grouped Palette
+</button>`.trim();
+
+const withShortcutsCode = `<dialog class="cu-command" id="cmd-demo-3" data-cu-command>
+  <div class="cu-command-input-wrapper">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="cu-command-input-icon"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+    <input type="text" class="cu-command-input" placeholder="Type a command or search..." data-cu-command-input />
+  </div>
+  <div class="cu-command-list" data-cu-command-list>
+    <div class="cu-command-group" data-cu-command-group>
+      <div class="cu-command-group-heading">File</div>
+      <div class="cu-command-item" data-cu-command-item data-cu-command-value="new file">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2 opacity-60"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M12 18v-6"/><path d="M9 15h6"/></svg>
+        New File
+        <span class="cu-command-shortcut">
+          <kbd class="cu-kbd">⌘</kbd><kbd class="cu-kbd">N</kbd>
+        </span>
+      </div>
+      <div class="cu-command-item" data-cu-command-item data-cu-command-value="save">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2 opacity-60"><path d="M15.2 3a2 2 0 0 1 1.4.6l3.8 3.8a2 2 0 0 1 .6 1.4V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/><path d="M17 21v-7a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v7"/><path d="M7 3v4a1 1 0 0 0 1 1h7"/></svg>
+        Save
+        <span class="cu-command-shortcut">
+          <kbd class="cu-kbd">⌘</kbd><kbd class="cu-kbd">S</kbd>
+        </span>
+      </div>
+      <div class="cu-command-item" data-cu-command-item data-cu-command-value="close tab">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2 opacity-60"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+        Close Tab
+        <span class="cu-command-shortcut">
+          <kbd class="cu-kbd">⌘</kbd><kbd class="cu-kbd">W</kbd>
+        </span>
+      </div>
+    </div>
+    <div class="cu-command-separator" data-cu-command-separator></div>
+    <div class="cu-command-group" data-cu-command-group>
+      <div class="cu-command-group-heading">Edit</div>
+      <div class="cu-command-item" data-cu-command-item data-cu-command-value="undo">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2 opacity-60"><path d="M3 7v6h6"/><path d="M21 17a9 9 0 0 0-9-9 9 9 0 0 0-6 2.3L3 13"/></svg>
+        Undo
+        <span class="cu-command-shortcut">
+          <kbd class="cu-kbd">⌘</kbd><kbd class="cu-kbd">Z</kbd>
+        </span>
+      </div>
+      <div class="cu-command-item" data-cu-command-item data-cu-command-value="redo">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2 opacity-60"><path d="M21 7v6h-6"/><path d="M3 17a9 9 0 0 1 9-9 9 9 0 0 1 6 2.3L21 13"/></svg>
+        Redo
+        <span class="cu-command-shortcut">
+          <kbd class="cu-kbd">⇧</kbd><kbd class="cu-kbd">⌘</kbd><kbd class="cu-kbd">Z</kbd>
+        </span>
+      </div>
+      <div class="cu-command-item" data-cu-command-item data-cu-command-value="find">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2 opacity-60"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+        Find
+        <span class="cu-command-shortcut">
+          <kbd class="cu-kbd">⌘</kbd><kbd class="cu-kbd">F</kbd>
+        </span>
+      </div>
+    </div>
+    <div class="cu-command-empty" data-cu-command-empty hidden>No results found.</div>
+  </div>
+</dialog>
+
+<button class="cu-button cu-button-outline" data-cu-command-trigger="cmd-demo-3">
+  Open Palette with Shortcuts
+</button>`.trim();
+---
+
+<Layout title={t.title} category={t.category} componentName="Command Palette">
+  <div class="space-y-3">
+    <div class="flex items-center gap-3">
+      <h1 class="text-3xl font-bold tracking-tight">Command Palette</h1>
+      <span class="cu-badge cu-badge-secondary">{t.category}</span>
+    </div>
+    <p class="text-base text-muted-foreground leading-relaxed" set:html={t.description} />
+  </div>
+
+  <div class="mt-10 space-y-10">
+    <!-- Usage -->
+    <section class="space-y-3">
+      <h2 id="usage" class="text-lg font-semibold tracking-tight relative group">
+        <a href="#usage" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+        {t.sections.usage.title}
+      </h2>
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
+      <ComponentPreview code={usageCode}>
+        <dialog class="cu-command" id="cmd-demo-1" data-cu-command>
+          <div class="cu-command-input-wrapper">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="cu-command-input-icon"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+            <input type="text" class="cu-command-input" placeholder="Type a command or search..." data-cu-command-input />
+          </div>
+          <div class="cu-command-list" data-cu-command-list>
+            <div class="cu-command-item" data-cu-command-item data-cu-command-value="new file">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2 opacity-60"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M12 18v-6"/><path d="M9 15h6"/></svg>
+              New File
+            </div>
+            <div class="cu-command-item" data-cu-command-item data-cu-command-value="open file">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2 opacity-60"><path d="m6 14 1.5-2.9A2 2 0 0 1 9.24 10H20a2 2 0 0 1 1.94 2.5l-1.54 6a2 2 0 0 1-1.95 1.5H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h3.9a2 2 0 0 1 1.69.9l.81 1.2a2 2 0 0 0 1.67.9H18a2 2 0 0 1 2 2v2"/></svg>
+              Open File
+            </div>
+            <div class="cu-command-item" data-cu-command-item data-cu-command-value="save">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2 opacity-60"><path d="M15.2 3a2 2 0 0 1 1.4.6l3.8 3.8a2 2 0 0 1 .6 1.4V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/><path d="M17 21v-7a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v7"/><path d="M7 3v4a1 1 0 0 0 1 1h7"/></svg>
+              Save
+            </div>
+            <div class="cu-command-empty" data-cu-command-empty hidden>No results found.</div>
+          </div>
+        </dialog>
+        <button class="cu-button cu-button-outline" data-cu-command-trigger="cmd-demo-1">
+          Open Command Palette
+        </button>
+      </ComponentPreview>
+    </section>
+
+    <!-- With Groups -->
+    <section class="space-y-3">
+      <h2 id="with-groups" class="text-lg font-semibold tracking-tight relative group">
+        <a href="#with-groups" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+        {t.sections.withGroups.title}
+      </h2>
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withGroups.description} />
+      <ComponentPreview code={withGroupsCode}>
+        <dialog class="cu-command" id="cmd-demo-2" data-cu-command>
+          <div class="cu-command-input-wrapper">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="cu-command-input-icon"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+            <input type="text" class="cu-command-input" placeholder="Type a command or search..." data-cu-command-input />
+          </div>
+          <div class="cu-command-list" data-cu-command-list>
+            <div class="cu-command-group" data-cu-command-group>
+              <div class="cu-command-group-heading">Suggestions</div>
+              <div class="cu-command-item" data-cu-command-item data-cu-command-value="calendar">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2 opacity-60"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/></svg>
+                Calendar
+              </div>
+              <div class="cu-command-item" data-cu-command-item data-cu-command-value="search emoji">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2 opacity-60"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" x2="9.01" y1="9" y2="9"/><line x1="15" x2="15.01" y1="9" y2="9"/></svg>
+                Search Emoji
+              </div>
+              <div class="cu-command-item" data-cu-command-item data-cu-command-value="calculator">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2 opacity-60"><rect width="16" height="20" x="4" y="2" rx="2"/><line x1="8" x2="16" y1="6" y2="6"/><line x1="16" x2="16" y1="14" y2="18"/><path d="M16 10h.01"/><path d="M12 10h.01"/><path d="M8 10h.01"/><path d="M12 14h.01"/><path d="M8 14h.01"/><path d="M12 18h.01"/><path d="M8 18h.01"/></svg>
+                Calculator
+              </div>
+            </div>
+            <div class="cu-command-separator" data-cu-command-separator></div>
+            <div class="cu-command-group" data-cu-command-group>
+              <div class="cu-command-group-heading">Settings</div>
+              <div class="cu-command-item" data-cu-command-item data-cu-command-value="profile">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2 opacity-60"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                Profile
+              </div>
+              <div class="cu-command-item" data-cu-command-item data-cu-command-value="billing">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2 opacity-60"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg>
+                Billing
+              </div>
+              <div class="cu-command-item" data-cu-command-item data-cu-command-value="settings">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2 opacity-60"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
+                Settings
+              </div>
+            </div>
+            <div class="cu-command-empty" data-cu-command-empty hidden>No results found.</div>
+          </div>
+        </dialog>
+        <button class="cu-button cu-button-outline" data-cu-command-trigger="cmd-demo-2">
+          Open Grouped Palette
+        </button>
+      </ComponentPreview>
+    </section>
+
+    <!-- With Shortcuts -->
+    <section class="space-y-3">
+      <h2 id="with-shortcuts" class="text-lg font-semibold tracking-tight relative group">
+        <a href="#with-shortcuts" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+        {t.sections.withShortcuts.title}
+      </h2>
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withShortcuts.description} />
+      <ComponentPreview code={withShortcutsCode}>
+        <dialog class="cu-command" id="cmd-demo-3" data-cu-command>
+          <div class="cu-command-input-wrapper">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="cu-command-input-icon"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+            <input type="text" class="cu-command-input" placeholder="Type a command or search..." data-cu-command-input />
+          </div>
+          <div class="cu-command-list" data-cu-command-list>
+            <div class="cu-command-group" data-cu-command-group>
+              <div class="cu-command-group-heading">File</div>
+              <div class="cu-command-item" data-cu-command-item data-cu-command-value="new file">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2 opacity-60"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M12 18v-6"/><path d="M9 15h6"/></svg>
+                New File
+                <span class="cu-command-shortcut">
+                  <kbd class="cu-kbd">⌘</kbd><kbd class="cu-kbd">N</kbd>
+                </span>
+              </div>
+              <div class="cu-command-item" data-cu-command-item data-cu-command-value="save">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2 opacity-60"><path d="M15.2 3a2 2 0 0 1 1.4.6l3.8 3.8a2 2 0 0 1 .6 1.4V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/><path d="M17 21v-7a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v7"/><path d="M7 3v4a1 1 0 0 0 1 1h7"/></svg>
+                Save
+                <span class="cu-command-shortcut">
+                  <kbd class="cu-kbd">⌘</kbd><kbd class="cu-kbd">S</kbd>
+                </span>
+              </div>
+              <div class="cu-command-item" data-cu-command-item data-cu-command-value="close tab">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2 opacity-60"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+                Close Tab
+                <span class="cu-command-shortcut">
+                  <kbd class="cu-kbd">⌘</kbd><kbd class="cu-kbd">W</kbd>
+                </span>
+              </div>
+            </div>
+            <div class="cu-command-separator" data-cu-command-separator></div>
+            <div class="cu-command-group" data-cu-command-group>
+              <div class="cu-command-group-heading">Edit</div>
+              <div class="cu-command-item" data-cu-command-item data-cu-command-value="undo">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2 opacity-60"><path d="M3 7v6h6"/><path d="M21 17a9 9 0 0 0-9-9 9 9 0 0 0-6 2.3L3 13"/></svg>
+                Undo
+                <span class="cu-command-shortcut">
+                  <kbd class="cu-kbd">⌘</kbd><kbd class="cu-kbd">Z</kbd>
+                </span>
+              </div>
+              <div class="cu-command-item" data-cu-command-item data-cu-command-value="redo">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2 opacity-60"><path d="M21 7v6h-6"/><path d="M3 17a9 9 0 0 1 9-9 9 9 0 0 1 6 2.3L21 13"/></svg>
+                Redo
+                <span class="cu-command-shortcut">
+                  <kbd class="cu-kbd">⇧</kbd><kbd class="cu-kbd">⌘</kbd><kbd class="cu-kbd">Z</kbd>
+                </span>
+              </div>
+              <div class="cu-command-item" data-cu-command-item data-cu-command-value="find">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2 opacity-60"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+                Find
+                <span class="cu-command-shortcut">
+                  <kbd class="cu-kbd">⌘</kbd><kbd class="cu-kbd">F</kbd>
+                </span>
+              </div>
+            </div>
+            <div class="cu-command-empty" data-cu-command-empty hidden>No results found.</div>
+          </div>
+        </dialog>
+        <button class="cu-button cu-button-outline" data-cu-command-trigger="cmd-demo-3">
+          Open Palette with Shortcuts
+        </button>
+      </ComponentPreview>
+    </section>
+
+    <!-- Classes Reference -->
+    <section class="space-y-3 mt-10">
+      <h2 id="classes" class="text-lg font-semibold tracking-tight relative group">
+        <a href="#classes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+        {t.sections.classes.title}
+      </h2>
+      <div class="cu-table-wrapper rounded-lg border border-border">
+        <table class="cu-table">
+          <thead class="cu-table-header">
+            <tr class="cu-table-row">
+              <th class="cu-table-head">{t.sections.classes.classLabel}</th>
+              <th class="cu-table-head">{t.sections.classes.descriptionLabel}</th>
+            </tr>
+          </thead>
+          <tbody class="cu-table-body">
+            {Object.entries(t.classDescriptions).map(([cls, desc]) => (
+              <tr class="cu-table-row">
+                <td class="cu-table-cell"><code class="cu-code">{cls}</code></td>
+                <td class="cu-table-cell text-muted-foreground">{desc}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+</Layout>

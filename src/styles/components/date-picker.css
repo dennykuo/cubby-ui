@@ -1,0 +1,80 @@
+/* Date Picker / Calendar
+   ------------------------------------------------------------------ */
+
+/* Calendar container */
+.cu-calendar {
+    @apply w-full rounded-xl border border-border bg-popover p-3 text-popover-foreground shadow-md;
+}
+
+/* Calendar header: month/year nav */
+.cu-calendar-header {
+    @apply mb-2 flex items-center justify-between;
+}
+
+.cu-calendar-title {
+    @apply text-sm font-medium;
+}
+
+.cu-calendar-nav {
+    @apply inline-flex size-7 items-center justify-center rounded-md text-muted-foreground transition-colors duration-150 hover:bg-muted/60 hover:text-foreground cursor-pointer disabled:pointer-events-none disabled:opacity-50;
+}
+
+/* Weekday header row */
+.cu-calendar-weekdays {
+    @apply mb-1 grid grid-cols-7;
+}
+
+.cu-calendar-weekday {
+    @apply text-center text-xs font-medium text-muted-foreground/70 py-1;
+}
+
+/* Day grid */
+.cu-calendar-grid {
+    @apply grid grid-cols-7;
+}
+
+/* Individual day cell */
+.cu-calendar-day {
+    @apply inline-flex size-8 items-center justify-center rounded-md text-sm transition-colors duration-150 hover:bg-muted/60 cursor-pointer outline-none;
+}
+
+/* Today marker */
+.cu-calendar-day-today {
+    @apply bg-accent text-accent-foreground font-semibold;
+}
+
+/* Selected day */
+.cu-calendar-day-selected {
+    @apply bg-primary text-primary-foreground hover:bg-primary/90 font-semibold;
+}
+
+/* Outside month (prev/next month days) */
+.cu-calendar-day-outside {
+    @apply text-muted-foreground/40 hover:bg-muted/40;
+}
+
+/* Disabled day */
+.cu-calendar-day-disabled {
+    @apply pointer-events-none opacity-30;
+}
+
+/* Date Picker wrapper (input + popover) */
+.cu-date-picker {
+    @apply relative inline-block;
+}
+
+.cu-date-picker-trigger {
+    @apply flex h-9 w-full items-center gap-2 rounded-lg border border-input bg-background px-3 py-1 text-sm transition-colors duration-150 hover:border-muted-foreground/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/40 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 disabled:bg-muted disabled:text-muted-foreground disabled:hover:border-input cursor-pointer;
+}
+
+.cu-date-picker-trigger-icon {
+    @apply size-4 shrink-0 text-muted-foreground/60;
+}
+
+.cu-date-picker-trigger-placeholder {
+    @apply text-muted-foreground;
+}
+
+.cu-date-picker-content {
+    @apply absolute z-50 mt-2;
+}

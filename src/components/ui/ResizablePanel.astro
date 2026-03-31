@@ -1,0 +1,25 @@
+---
+import { TOP_CLASS } from "../../config";
+
+interface Props {
+    class?: string;
+    defaultSize?: number;
+    minSize?: number;
+    maxSize?: number;
+    [key: string]: any;
+}
+
+const { class: className, defaultSize = 50, minSize, maxSize, ...rest } = Astro.props;
+const baseClass = `${TOP_CLASS}-resizable-panel`;
+---
+
+<div
+    class:list={[baseClass, className]}
+    data-cu-resizable-panel
+    style={`flex-grow: ${defaultSize}`}
+    {...(minSize !== undefined && { "data-cu-min-size": String(minSize) })}
+    {...(maxSize !== undefined && { "data-cu-max-size": String(maxSize) })}
+    {...rest}
+>
+    <slot />
+</div>

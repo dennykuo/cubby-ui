@@ -1,0 +1,36 @@
+---
+import { TOP_CLASS } from "../../config";
+
+interface Props {
+    name: string;
+    value: string;
+    checked?: boolean;
+    disabled?: boolean;
+    class?: string;
+    [key: string]: any;
+}
+
+const { name, value, checked, disabled, class: className, ...rest } = Astro.props;
+const id = `${TOP_CLASS}-seg-${name}-${value}`;
+---
+
+<input
+    type="radio"
+    id={id}
+    name={name}
+    value={value}
+    class={`${TOP_CLASS}-segmented-input`}
+    checked={checked}
+    disabled={disabled}
+/>
+<label
+    for={id}
+    class:list={[
+        `${TOP_CLASS}-segmented-item`,
+        checked && `${TOP_CLASS}-segmented-item-active`,
+        className
+    ]}
+    {...rest}
+>
+    <slot />
+</label>

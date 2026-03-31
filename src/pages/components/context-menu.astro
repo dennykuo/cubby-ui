@@ -1,0 +1,234 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import ComponentPreview from "@/components/ComponentPreview.astro";
+import { getLocaleFromUrl, useTranslations } from "@/i18n";
+import { contextMenuPage } from "@/i18n/pages/components/context-menu";
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = useTranslations(contextMenuPage, locale);
+
+const usageCode = `<div class="cu-context-menu" data-cu-context-menu>
+  <div class="flex h-36 items-center justify-center rounded-lg border border-dashed border-border text-sm text-muted-foreground">
+    Right-click here
+  </div>
+  <div class="cu-context-menu-content" data-cu-context-menu-content hidden>
+    <div class="cu-dropdown-item">Cut</div>
+    <div class="cu-dropdown-item">Copy</div>
+    <div class="cu-dropdown-item">Paste</div>
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll("[data-cu-context-menu]").forEach((container) => {
+    const content = container.querySelector("[data-cu-context-menu-content]");
+    if (!content) return;
+    container.addEventListener("contextmenu", (e) => {
+      e.preventDefault();
+      content.removeAttribute("hidden");
+      let x = e.clientX, y = e.clientY;
+      const rect = content.getBoundingClientRect();
+      if (x + rect.width > innerWidth) x = innerWidth - rect.width - 4;
+      if (y + rect.height > innerHeight) y = innerHeight - rect.height - 4;
+      content.style.left = x + "px";
+      content.style.top = y + "px";
+    });
+    document.addEventListener("click", () => content.setAttribute("hidden", ""));
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") content.setAttribute("hidden", "");
+    });
+  });
+</script>`.trim();
+
+const withLabelsCode = `<div class="cu-context-menu" data-cu-context-menu>
+  <div class="flex h-36 items-center justify-center rounded-lg border border-dashed border-border text-sm text-muted-foreground">
+    Right-click for options
+  </div>
+  <div class="cu-context-menu-content" data-cu-context-menu-content hidden>
+    <div class="cu-dropdown-label">Edit</div>
+    <div class="cu-dropdown-separator"></div>
+    <div class="cu-dropdown-item">
+      Undo
+      <span class="cu-dropdown-shortcut">⌘Z</span>
+    </div>
+    <div class="cu-dropdown-item">
+      Redo
+      <span class="cu-dropdown-shortcut">⇧⌘Z</span>
+    </div>
+    <div class="cu-dropdown-separator"></div>
+    <div class="cu-dropdown-item">
+      Cut
+      <span class="cu-dropdown-shortcut">⌘X</span>
+    </div>
+    <div class="cu-dropdown-item">
+      Copy
+      <span class="cu-dropdown-shortcut">⌘C</span>
+    </div>
+    <div class="cu-dropdown-item">
+      Paste
+      <span class="cu-dropdown-shortcut">⌘V</span>
+    </div>
+  </div>
+</div>`.trim();
+
+const withIconsCode = `<div class="cu-context-menu" data-cu-context-menu>
+  <div class="flex h-36 items-center justify-center rounded-lg border border-dashed border-border text-sm text-muted-foreground">
+    Right-click for actions
+  </div>
+  <div class="cu-context-menu-content" data-cu-context-menu-content hidden>
+    <div class="cu-dropdown-item">
+      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2 opacity-60"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/></svg>
+      Edit
+    </div>
+    <div class="cu-dropdown-item">
+      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2 opacity-60"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+      Duplicate
+    </div>
+    <div class="cu-dropdown-item">
+      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2 opacity-60"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" x2="12" y1="3" y2="15"/></svg>
+      Share
+    </div>
+    <div class="cu-dropdown-separator"></div>
+    <div class="cu-dropdown-item cu-dropdown-item-danger">
+      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/></svg>
+      Delete
+    </div>
+  </div>
+</div>`.trim();
+---
+
+<Layout title={t.title} category={t.category} componentName="Context Menu">
+  <div class="space-y-3">
+    <div class="flex items-center gap-3">
+      <h1 class="text-3xl font-bold tracking-tight">Context Menu</h1>
+      <span class="cu-badge cu-badge-secondary">{t.category}</span>
+    </div>
+    <p class="text-base text-muted-foreground leading-relaxed">
+      {t.description}
+    </p>
+  </div>
+
+  <div class="mt-10 space-y-10">
+    <!-- Usage -->
+    <section class="space-y-3">
+      <h2 id="usage" class="text-lg font-semibold tracking-tight relative group">
+        <a href="#usage" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+        {t.sections.usage.title}
+      </h2>
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
+      <ComponentPreview code={usageCode}>
+        <div class="cu-context-menu" data-cu-context-menu>
+          <div class="flex h-36 items-center justify-center rounded-lg border border-dashed border-border text-sm text-muted-foreground">
+            Right-click here
+          </div>
+          <div class="cu-context-menu-content" data-cu-context-menu-content hidden>
+            <div class="cu-dropdown-item">Cut</div>
+            <div class="cu-dropdown-item">Copy</div>
+            <div class="cu-dropdown-item">Paste</div>
+          </div>
+        </div>
+      </ComponentPreview>
+    </section>
+
+    <!-- With Labels and Separators -->
+    <section class="space-y-3">
+      <h2 id="with-labels-and-separators" class="text-lg font-semibold tracking-tight relative group">
+        <a href="#with-labels-and-separators" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+        {t.sections.withLabels.title}
+      </h2>
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withLabels.description} />
+      <ComponentPreview code={withLabelsCode}>
+        <div class="cu-context-menu" data-cu-context-menu>
+          <div class="flex h-36 items-center justify-center rounded-lg border border-dashed border-border text-sm text-muted-foreground">
+            Right-click for options
+          </div>
+          <div class="cu-context-menu-content" data-cu-context-menu-content hidden>
+            <div class="cu-dropdown-label">Edit</div>
+            <div class="cu-dropdown-separator"></div>
+            <div class="cu-dropdown-item">
+              Undo
+              <span class="cu-dropdown-shortcut">⌘Z</span>
+            </div>
+            <div class="cu-dropdown-item">
+              Redo
+              <span class="cu-dropdown-shortcut">⇧⌘Z</span>
+            </div>
+            <div class="cu-dropdown-separator"></div>
+            <div class="cu-dropdown-item">
+              Cut
+              <span class="cu-dropdown-shortcut">⌘X</span>
+            </div>
+            <div class="cu-dropdown-item">
+              Copy
+              <span class="cu-dropdown-shortcut">⌘C</span>
+            </div>
+            <div class="cu-dropdown-item">
+              Paste
+              <span class="cu-dropdown-shortcut">⌘V</span>
+            </div>
+          </div>
+        </div>
+      </ComponentPreview>
+    </section>
+
+    <!-- With Icons -->
+    <section class="space-y-3">
+      <h2 id="with-icons" class="text-lg font-semibold tracking-tight relative group">
+        <a href="#with-icons" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+        {t.sections.withIcons.title}
+      </h2>
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withIcons.description} />
+      <ComponentPreview code={withIconsCode}>
+        <div class="cu-context-menu" data-cu-context-menu>
+          <div class="flex h-36 items-center justify-center rounded-lg border border-dashed border-border text-sm text-muted-foreground">
+            Right-click for actions
+          </div>
+          <div class="cu-context-menu-content" data-cu-context-menu-content hidden>
+            <div class="cu-dropdown-item">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2 opacity-60"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/></svg>
+              Edit
+            </div>
+            <div class="cu-dropdown-item">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2 opacity-60"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+              Duplicate
+            </div>
+            <div class="cu-dropdown-item">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2 opacity-60"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" x2="12" y1="3" y2="15"/></svg>
+              Share
+            </div>
+            <div class="cu-dropdown-separator"></div>
+            <div class="cu-dropdown-item cu-dropdown-item-danger">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/></svg>
+              Delete
+            </div>
+          </div>
+        </div>
+      </ComponentPreview>
+    </section>
+
+    <!-- Classes Reference -->
+    <section class="space-y-3">
+      <h2 id="classes" class="text-lg font-semibold tracking-tight relative group">
+        <a href="#classes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+        {t.sections.classes.title}
+      </h2>
+      <div class="cu-table-wrapper rounded-lg border border-border">
+        <table class="cu-table">
+          <thead class="cu-table-header">
+            <tr class="cu-table-row">
+              <th class="cu-table-head">{t.sections.classes.classLabel}</th>
+              <th class="cu-table-head">{t.sections.classes.descriptionLabel}</th>
+            </tr>
+          </thead>
+          <tbody class="cu-table-body">
+            {Object.entries(t.classDescriptions).map(([cls, desc]) => (
+              <tr class="cu-table-row">
+                <td class="cu-table-cell"><code class="cu-code">{cls}</code></td>
+                <td class="cu-table-cell text-muted-foreground">{desc}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+</Layout>

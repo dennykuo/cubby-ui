@@ -1,0 +1,19 @@
+---
+import { TOP_CLASS } from "../../config";
+
+interface Props {
+    placeholder?: string;
+    class?: string;
+    [key: string]: any;
+}
+
+const { placeholder = "Type a command or search...", class: className, ...rest } = Astro.props;
+const wrapperClass = `${TOP_CLASS}-command-input-wrapper`;
+const iconClass = `${TOP_CLASS}-command-input-icon`;
+const inputClass = `${TOP_CLASS}-command-input`;
+---
+
+<div class={wrapperClass}>
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class={iconClass}><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+    <input type="text" class:list={[inputClass, className]} placeholder={placeholder} data-cu-command-input {...rest} />
+</div>

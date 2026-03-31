@@ -40,7 +40,7 @@ Cubby UI 是一個框架無關的 UI 元件庫，風格類似 shadcn/ui，使用
 - `index.ts` — `Locale` 型別、`getLocaleFromUrl()`、`localizePath()`、`getAlternatePath()`、`useTranslations()`
 - `ui.ts` — 共用 UI 翻譯（Header、Sidebar、ComponentPreview 的文字）
 - `pages/home.ts`、`usage.ts`、`theming.ts`、`dark-mode.ts`、`playground.ts` — 核心頁面翻譯
-- `pages/components/*.ts` — 68 個元件頁面翻譯（每頁一個檔案）
+- `pages/components/*.ts` — 80 個元件頁面翻譯（每頁一個檔案）
 
 **頁面 i18n 模式**：每個頁面透過 3 行程式碼取得翻譯：
 ```astro
@@ -62,7 +62,7 @@ const t = useTranslations(buttonPage, locale);
 
 元件有兩個層次：
 
-1. **CSS 類別層**（`src/styles/components.css` + `src/styles/components/*.css`）— 在 `@layer components` 中定義，使用 `cu-` 前綴（Cubby）。`components.css` 僅包含 `@layer components {}` 包裝和 `@import` 語句，各元件 CSS 規則拆分至 `components/` 資料夾的獨立檔案。CSS 按領域分九個區塊：`TYPOGRAPHY`（Headings, Kbd, Paragraph, Blockquote, List, Link, Text, HR）→ `BASIC`（Button, Button Group, Card, Separator）→ `FORMS`（Checkbox, Listbox, Combobox ~ Transfer List）→ `DATA DISPLAY`（Accordion, Avatar, Badge, Collapsible, Data Table, Setting Item, Stat, Table, Timeline, Tree View）→ `FEEDBACK`（Alert, Empty State, Progress, Skeleton, Toast）→ `OVERLAY`（Alert Dialog, Dialog, Drawer, Dropdown, Hover Card, Popover, Tooltip）→ `NAVIGATION`（Breadcrumb, Menubar, Pagination, Segmented Control, Steps, Tabs）→ `LAYOUT`（Container, Filter Bar, Header, Nav, Page Header, Scroll Area, Sidebar, Toolbar）→ `AI`（Chat Bubble, Chat Input, Chat Typing）。這是元件的核心，純 HTML 專案可以只用這些 CSS 類別。共用結構透過 `listbox.css` 以逗號選擇器去重（Combobox / Multi Select 共用 7 組 class）。
+1. **CSS 類別層**（`src/styles/components.css` + `src/styles/components/*.css`）— 在 `@layer components` 中定義，使用 `cu-` 前綴（Cubby）。`components.css` 僅包含 `@layer components {}` 包裝和 `@import` 語句，各元件 CSS 規則拆分至 `components/` 資料夾的獨立檔案。CSS 按領域分九個區塊：`TYPOGRAPHY`（Headings, Kbd, Paragraph, Blockquote, List, Link, Text, HR）→ `BASIC`（Aspect Ratio, Button, Button Group, Card, Separator）→ `FORMS`（Checkbox, Checkbox Group, Color Picker, Date Picker, Input Group, Listbox, Combobox, Password Input, Pin Input ~ Transfer List）→ `DATA DISPLAY`（Accordion, Avatar, Badge, Code Block, Collapsible, Data Table, Setting Item, Stat, Table, Timeline, Tree View）→ `FEEDBACK`（Alert, Empty State, Progress, Skeleton, Toast）→ `OVERLAY`（Alert Dialog, Command Palette, Context Menu, Dialog, Drawer, Dropdown, Hover Card, Popover, Tooltip）→ `NAVIGATION`（Breadcrumb, Menubar, Pagination, Segmented Control, Steps, Tabs）→ `LAYOUT`（Carousel, Container, Filter Bar, Header, Nav, Page Header, Resizable Panels, Scroll Area, Sidebar, Toolbar）→ `AI`（Chat Bubble, Chat Input, Chat Typing）。這是元件的核心，純 HTML 專案可以只用這些 CSS 類別。共用結構透過 `listbox.css` 以逗號選擇器去重（Combobox / Multi Select 共用 7 組 class）。
 2. **Astro 元件層**（`src/components/ui/`）— 包裝 CSS 類別的 `.astro` 檔案，提供 TypeScript Props 型別安全和屬性透傳。
 
 ### CSS 類別命名規則
@@ -133,7 +133,7 @@ dist/
     └── components/
 ```
 
-互動元件 JS 原始檔位於 `src/scripts/cubby-ui.js`，使用 UMD 格式（支援 `require()`、AMD `define()`、`window.CubbyUI`），包含 14 個元件：Tabs、Dropdown、Dialog、Drawer、Alert Dialog、Toast、Popover、Menubar、Combobox、Multi Select、Number Input、Dropzone、Transfer List、Mobile Nav。Document 級事件監聯器使用 delegated pattern（click + keydown 各一個），避免每個元件實例各自註冊。Toast 內容使用 DOM API（`textContent` / `createElement`）建立，避免 innerHTML XSS 風險。Toast 自動消失時間預設 5000ms，可透過 `data-cu-toast-duration` 自訂。Toast 堆疊上限預設 5 則，可透過 `data-cu-toast-max` 自訂，超出時自動移除最舊通知。
+互動元件 JS 原始檔位於 `src/scripts/cubby-ui.js`，使用 UMD 格式（支援 `require()`、AMD `define()`、`window.CubbyUI`），包含 25 個元件：Tabs、Dropdown、Dialog、Drawer、Alert Dialog、Toast、Popover、Menubar、Combobox、Multi Select、Number Input、Dropzone、Transfer List、Mobile Nav、Password Input、Segmented Control、Pin Input、Checkbox Group、Code Block、Carousel、Context Menu、Resizable Panels、Command Palette、Date Picker（含 Calendar）、Color Picker。Document 級事件監聯器使用 delegated pattern（click + keydown 各一個），避免每個元件實例各自註冊。Toast 內容使用 DOM API（`textContent` / `createElement`）建立，避免 innerHTML XSS 風險。Toast 自動消失時間預設 5000ms，可透過 `data-cu-toast-duration` 自訂。Toast 堆疊上限預設 5 則，可透過 `data-cu-toast-max` 自訂，超出時自動移除最舊通知。
 
 ARIA 無障礙支援：
 - **Tabs** — `role="tablist/tab/tabpanel"`、`aria-selected`、`aria-controls` / `aria-labelledby` 雙向連結
@@ -144,6 +144,8 @@ ARIA 無障礙支援：
 - **Alert Dialog** — `role="alertdialog"` + `aria-labelledby` + `aria-describedby`
 - **Number Input** — `role="spinbutton"` + `aria-valuemin` / `aria-valuemax` / `aria-valuenow`
 - **Mobile Nav** — `role="dialog"` + `aria-modal="true"` + `aria-label`、trigger 使用 `aria-expanded`
+- **Command Palette** — `role="dialog"` 透過 `<dialog>` 元素、內建鍵盤搜尋/篩選
+- **Calendar** — 完整鍵盤導航（方向鍵切換日期、Home/End 跳至月首/月末）
 
 公開 API：
 - `CubbyUI.init()` — 初始化所有互動元件（自動在 DOMContentLoaded 執行，可重複呼叫以初始化動態新增的元素）
@@ -171,7 +173,7 @@ src/
 │       ├── theming.ts
 │       ├── dark-mode.ts
 │       ├── playground.ts
-│       └── components/           — 65 個元件頁面翻譯（每元件一個檔案）
+│       └── components/           — 77 個元件頁面翻譯（每元件一個檔案）
 │           ├── button.ts
 │           ├── card.ts
 │           └── ...
@@ -191,6 +193,7 @@ src/
 │       ├── Link.astro              — 行內連結
 │       ├── List.astro              — 列表（type prop: disc / decimal）
 │       ├── Paragraph.astro         — 段落（variant prop: default / lead）
+│       ├── AspectRatio.astro       — 等比例容器
 │       ├── Accordion*.astro       — 手風琴（Accordion, AccordionItem, AccordionTrigger, AccordionContent）
 │       ├── Alert*.astro           — 警示（Alert, AlertTitle, AlertDescription）
 │       ├── AlertDialog*.astro     — 阻斷對話框（AlertDialog, AlertDialogHeader, AlertDialogTitle, AlertDialogDescription, AlertDialogFooter）
@@ -199,11 +202,19 @@ src/
 │       ├── Breadcrumb*.astro      — 麵包屑（Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbSeparator, BreadcrumbCurrent）
 │       ├── Button.astro           — 按鈕（variant + size + href props，href 時渲染為 <a>）
 │       ├── ButtonGroup.astro      — 按鈕群組（vertical prop）
+│       ├── Calendar.astro         — 日曆（鍵盤導航、日期選取）
 │       ├── Card*.astro            — 卡片（Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter）
+│       ├── Carousel*.astro        — 輪播（Carousel, CarouselSlide）
 │       ├── Checkbox.astro         — 核取方塊（自訂勾勾）
+│       ├── CheckboxGroup.astro    — 核取方塊群組
+│       ├── CodeBlock.astro        — 程式碼區塊
+│       ├── ColorPicker.astro      — 色彩選擇器
+│       ├── CommandPalette*.astro  — 命令面板（CommandPalette, CommandPaletteEmpty, CommandPaletteGroup, CommandPaletteInput, CommandPaletteItem, CommandPaletteList, CommandPaletteSeparator, CommandPaletteShortcut）
+│       ├── ContextMenu*.astro     — 右鍵選單（ContextMenu, ContextMenuContent, ContextMenuItem）
 │       ├── EmptyState*.astro      — 空狀態（EmptyState, EmptyStateIcon, EmptyStateTitle, EmptyStateDescription, EmptyStateAction）
 │       ├── Collapsible*.astro     — 可折疊區塊（Collapsible, CollapsibleTrigger, CollapsibleContent）
 │       ├── Container.astro        — 容器（size prop）
+│       ├── DatePicker.astro       — 日期選擇器
 │       ├── Dialog*.astro          — 對話框（Dialog, DialogHeader, DialogTitle, DialogDescription, DialogFooter, DialogClose）（Dialog 支援 size prop: sm / md / default / xl / full）
 │       ├── Dropdown*.astro        — 下拉選單（Dropdown, DropdownContent, DropdownItem, DropdownLabel, DropdownSeparator）
 │       ├── FileInput.astro        — 檔案上傳
@@ -214,6 +225,7 @@ src/
 │       ├── Header*.astro          — 頂部列（Header, HeaderInner, HeaderBrand, HeaderNav, HeaderActions）
 │       ├── HoverCard*.astro       — 懸停卡片（HoverCard, HoverCardContent）
 │       ├── Input.astro            — 文字輸入框（size prop: sm / default / lg）
+│       ├── InputGroup*.astro      — 輸入群組（InputGroup, InputGroupText）
 │       ├── Kbd.astro              — 鍵盤快捷鍵（size prop: sm / default / lg）
 │       ├── Label.astro            — 表單標籤
 │       ├── Menubar*.astro         — 選單列（Menubar, MenubarMenu, MenubarTrigger, MenubarContent, MenubarItem, MenubarSeparator, MenubarLabel, MenubarShortcut）
@@ -221,14 +233,18 @@ src/
 │       ├── NavItem.astro          — 導航項目（active prop）
 │       ├── PageHeader*.astro      — 頁面標頭（PageHeader, PageHeaderContent, PageHeaderTitle, PageHeaderDescription, PageHeaderActions）
 │       ├── Pagination*.astro      — 分頁（Pagination, PaginationItem, PaginationPrev, PaginationNext, PaginationEllipsis）
+│       ├── PasswordInput.astro    — 密碼輸入框（顯示/隱藏切換）
+│       ├── PinInput.astro         — PIN 碼輸入（多格輸入）
 │       ├── Popover*.astro         — 彈出層（Popover, PopoverContent）
 │       ├── Progress.astro         — 進度條（value prop）
 │       ├── Radio.astro            — 單選按鈕（自訂圓點）
 │       ├── Range.astro            — 滑桿
+│       ├── Resizable*.astro       — 可調整大小面板（Resizable, ResizableHandle, ResizablePanel）
 │       ├── ScrollArea.astro       — 自訂捲軸容器（horizontal prop）
 │       ├── SearchInput.astro      — 搜尋欄（含搜尋圖示）
 │       ├── Select.astro           — 下拉選擇（含裝飾箭頭）
 │       ├── SegmentedControl.astro  — 分段控制（size + block props）
+│       ├── SegmentedControlItem.astro — 分段控制項目
 │       ├── Separator.astro        — 分隔線（orientation prop）
 │       ├── SettingItem*.astro     — 設定項（SettingItem, SettingItemContent, SettingItemLabel, SettingItemDescription, SettingItemAction）
 │       ├── Drawer*.astro          — 側邊面板（Drawer, DrawerHeader, DrawerTitle, DrawerDescription, DrawerContent, DrawerFooter, DrawerClose）
@@ -240,6 +256,7 @@ src/
 │       ├── Textarea.astro         — 多行輸入框
 │       ├── Toast*.astro            — 通知（Toast, ToastContainer, ToastTitle, ToastDescription, ToastClose）
 │       ├── Toggle.astro           — 開關（純 CSS，size prop）
+│       ├── Timeline*.astro         — 時間軸（Timeline, TimelineItem, TimelineDot, TimelineContent, TimelineTime）
 │       ├── Toolbar*.astro         — 工具列（Toolbar, ToolbarGroup, ToolbarButton, ToolbarSeparator）
 │       ├── TreeView*.astro        — 樹狀結構（TreeView, TreeItem, TreeLeaf）
 │       ├── ChatBubble*.astro     — 聊天氣泡（ChatBubble, ChatBubbleAvatar, ChatBubbleContent, ChatBubbleName, ChatBubbleMessage, ChatBubbleTimestamp, ChatBubbleActions, ChatBubbleAction）
@@ -257,6 +274,7 @@ src/
 │       ├── accordion.astro
 │       ├── alert.astro
 │       ├── alert-dialog.astro
+│       ├── aspect-ratio.astro
 │       ├── avatar.astro
 │       ├── badge.astro
 │       ├── breadcrumb.astro
@@ -264,12 +282,19 @@ src/
 │       ├── blockquote.astro
 │       ├── button-group.astro
 │       ├── card.astro
+│       ├── carousel.astro
 │       ├── checkbox.astro
+│       ├── checkbox-group.astro
+│       ├── code-block.astro
+│       ├── color-picker.astro
+│       ├── command-palette.astro
+│       ├── context-menu.astro
 │       ├── collapsible.astro
 │       ├── color.astro
 │       ├── combobox.astro
 │       ├── container.astro
 │       ├── data-table.astro
+│       ├── date-picker.astro
 │       ├── dialog.astro
 │       ├── dropdown.astro
 │       ├── empty-state.astro
@@ -280,6 +305,7 @@ src/
 │       ├── hover-card.astro
 │       ├── hr.astro
 │       ├── input.astro
+│       ├── input-group.astro
 │       ├── kbd.astro
 │       ├── label.astro
 │       ├── links.astro
@@ -292,10 +318,13 @@ src/
 │       ├── nav.astro
 │       ├── pagination.astro
 │       ├── paragraphs.astro
+│       ├── password-input.astro
+│       ├── pin-input.astro
 │       ├── popover.astro
 │       ├── progress.astro
 │       ├── radio.astro
 │       ├── range.astro
+│       ├── resizable-panels.astro
 │       ├── scroll-area.astro
 │       ├── search-input.astro
 │       ├── segmented-control.astro
@@ -325,6 +354,7 @@ src/
     ├── components.css             — @layer components 包裝 + @import 各子檔案
     └── components/                — 各元件獨立 CSS 檔案
         ├── accordion.css
+        ├── aspect-ratio.css
         ├── blockquote.css
         ├── alert.css
         ├── alert-dialog.css
@@ -334,10 +364,17 @@ src/
         ├── button.css
         ├── button-group.css
         ├── card.css
+        ├── carousel.css
         ├── checkbox.css
+        ├── checkbox-group.css
+        ├── code-block.css
+        ├── color-picker.css
+        ├── command-palette.css
+        ├── context-menu.css
         ├── collapsible.css
         ├── combobox.css
         ├── container.css
+        ├── date-picker.css
         ├── data-table.css
         ├── dialog.css
         ├── dropdown.css
@@ -350,6 +387,7 @@ src/
         ├── hover-card.css
         ├── hr.css
         ├── input.css
+        ├── input-group.css
         ├── kbd.css
         ├── label.css
         ├── link.css
@@ -364,10 +402,13 @@ src/
         ├── page-header.css
         ├── pagination.css
         ├── paragraph.css
+        ├── password-input.css
+        ├── pin-input.css
         ├── popover.css
         ├── progress.css
         ├── radio.css
         ├── range.css
+        ├── resizable.css
         ├── scroll-area.css
         ├── search-input.css
         ├── segmented.css
@@ -412,13 +453,13 @@ src/
 
 元件分類：
 - **Components > Typography** — Headings, Kbd, Paragraphs, Blockquote, Lists, Links, Text, HR
-- **Components > Basic** — Button, Button Group, Card, Color, Separator
-- **Components > Forms** — Checkbox, Combobox, Dropzone, File Input, Form Group, Input, Label, Multi Select, Number Input, Radio, Range, Search Input, Select, Textarea, Toggle, Transfer List
-- **Components > Data Display** — Accordion, Avatar, Badge, Collapsible, Data Table, Setting Item, Stat Card, Table, Timeline, Tree View
+- **Components > Basic** — Aspect Ratio, Button, Button Group, Card, Color, Separator
+- **Components > Forms** — Checkbox, Checkbox Group, Color Picker, Combobox, Date Picker, Dropzone, File Input, Form Group, Input, Input Group, Label, Multi Select, Number Input, Password Input, Pin Input, Radio, Range, Search Input, Select, Textarea, Toggle, Transfer List
+- **Components > Data Display** — Accordion, Avatar, Badge, Code Block, Collapsible, Data Table, Setting Item, Stat Card, Table, Timeline, Tree View
 - **Components > Feedback** — Alert, Empty State, Progress, Skeleton, Spinner, Toast
-- **Components > Overlay** — Alert Dialog, Dialog, Drawer, Dropdown Menu, Hover Card, Popover, Tooltip
+- **Components > Overlay** — Alert Dialog, Command Palette, Context Menu, Dialog, Drawer, Dropdown Menu, Hover Card, Popover, Tooltip
 - **Components > Navigation** — Breadcrumb, Menubar, Pagination, Segmented Control, Steps, Tabs
-- **Components > Layouts** — Container, Filter Bar, Header, Nav, Page Header, Scroll Area, Sidebar, Toolbar
+- **Components > Layouts** — Carousel, Container, Filter Bar, Header, Nav, Page Header, Resizable Panels, Scroll Area, Sidebar, Toolbar
 - **Components > AI** — Chat Bubble, Chat Input, Chat Typing
 
 #### UI Sidebar 元件（`src/components/ui/Sidebar*.astro`）

@@ -1,0 +1,193 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import PinInput from "@/components/ui/PinInput.astro";
+import ComponentPreview from "@/components/ComponentPreview.astro";
+import { getLocaleFromUrl, useTranslations } from "@/i18n";
+import { pinInputPage } from "@/i18n/pages/components/pin-input";
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = useTranslations(pinInputPage, locale);
+
+const usageCode = `<div class="cu-pin-input" data-cu-pin-input data-cu-pin-input-type="numeric">
+  <input class="cu-pin-input-field" type="text" maxlength="1" inputmode="numeric" autocomplete="one-time-code" />
+  <input class="cu-pin-input-field" type="text" maxlength="1" inputmode="numeric" autocomplete="one-time-code" />
+  <input class="cu-pin-input-field" type="text" maxlength="1" inputmode="numeric" autocomplete="one-time-code" />
+  <input class="cu-pin-input-field" type="text" maxlength="1" inputmode="numeric" autocomplete="one-time-code" />
+</div>`.trim();
+
+const sixDigitCode = `<div class="cu-pin-input" data-cu-pin-input data-cu-pin-input-type="numeric">
+  <input class="cu-pin-input-field" type="text" maxlength="1" inputmode="numeric" autocomplete="one-time-code" />
+  <input class="cu-pin-input-field" type="text" maxlength="1" inputmode="numeric" autocomplete="one-time-code" />
+  <input class="cu-pin-input-field" type="text" maxlength="1" inputmode="numeric" autocomplete="one-time-code" />
+  <input class="cu-pin-input-field" type="text" maxlength="1" inputmode="numeric" autocomplete="one-time-code" />
+  <input class="cu-pin-input-field" type="text" maxlength="1" inputmode="numeric" autocomplete="one-time-code" />
+  <input class="cu-pin-input-field" type="text" maxlength="1" inputmode="numeric" autocomplete="one-time-code" />
+</div>`.trim();
+
+const alphanumericCode = `<div class="cu-pin-input" data-cu-pin-input data-cu-pin-input-type="alphanumeric">
+  <input class="cu-pin-input-field" type="text" maxlength="1" inputmode="text" autocomplete="one-time-code" />
+  <input class="cu-pin-input-field" type="text" maxlength="1" inputmode="text" autocomplete="one-time-code" />
+  <input class="cu-pin-input-field" type="text" maxlength="1" inputmode="text" autocomplete="one-time-code" />
+  <input class="cu-pin-input-field" type="text" maxlength="1" inputmode="text" autocomplete="one-time-code" />
+  <input class="cu-pin-input-field" type="text" maxlength="1" inputmode="text" autocomplete="one-time-code" />
+  <input class="cu-pin-input-field" type="text" maxlength="1" inputmode="text" autocomplete="one-time-code" />
+</div>`.trim();
+
+const sizesCode = `<!-- Small -->
+<div class="cu-pin-input cu-pin-input-sm" data-cu-pin-input data-cu-pin-input-type="numeric">
+  <input class="cu-pin-input-field" type="text" maxlength="1" inputmode="numeric" />
+  <input class="cu-pin-input-field" type="text" maxlength="1" inputmode="numeric" />
+  <input class="cu-pin-input-field" type="text" maxlength="1" inputmode="numeric" />
+  <input class="cu-pin-input-field" type="text" maxlength="1" inputmode="numeric" />
+</div>
+
+<!-- Default -->
+<div class="cu-pin-input" data-cu-pin-input data-cu-pin-input-type="numeric">
+  <input class="cu-pin-input-field" type="text" maxlength="1" inputmode="numeric" />
+  <input class="cu-pin-input-field" type="text" maxlength="1" inputmode="numeric" />
+  <input class="cu-pin-input-field" type="text" maxlength="1" inputmode="numeric" />
+  <input class="cu-pin-input-field" type="text" maxlength="1" inputmode="numeric" />
+</div>
+
+<!-- Large -->
+<div class="cu-pin-input cu-pin-input-lg" data-cu-pin-input data-cu-pin-input-type="numeric">
+  <input class="cu-pin-input-field" type="text" maxlength="1" inputmode="numeric" />
+  <input class="cu-pin-input-field" type="text" maxlength="1" inputmode="numeric" />
+  <input class="cu-pin-input-field" type="text" maxlength="1" inputmode="numeric" />
+  <input class="cu-pin-input-field" type="text" maxlength="1" inputmode="numeric" />
+</div>`.trim();
+
+const errorCode = `<div class="cu-pin-input cu-pin-input-error" data-cu-pin-input data-cu-pin-input-type="numeric">
+  <input class="cu-pin-input-field" type="text" maxlength="1" inputmode="numeric" autocomplete="one-time-code" />
+  <input class="cu-pin-input-field" type="text" maxlength="1" inputmode="numeric" autocomplete="one-time-code" />
+  <input class="cu-pin-input-field" type="text" maxlength="1" inputmode="numeric" autocomplete="one-time-code" />
+  <input class="cu-pin-input-field" type="text" maxlength="1" inputmode="numeric" autocomplete="one-time-code" />
+</div>
+<p class="cu-form-error">Invalid verification code.</p>`.trim();
+
+const disabledCode = `<div class="cu-pin-input" data-cu-pin-input data-cu-pin-input-type="numeric">
+  <input class="cu-pin-input-field" type="text" maxlength="1" inputmode="numeric" disabled />
+  <input class="cu-pin-input-field" type="text" maxlength="1" inputmode="numeric" disabled />
+  <input class="cu-pin-input-field" type="text" maxlength="1" inputmode="numeric" disabled />
+  <input class="cu-pin-input-field" type="text" maxlength="1" inputmode="numeric" disabled />
+</div>`.trim();
+---
+
+<Layout title={t.title} category={t.category} componentName="Pin Input">
+  <div class="space-y-3">
+    <div class="flex items-center gap-3">
+      <h1 class="text-3xl font-bold tracking-tight">Pin Input</h1>
+      <span class="cu-badge cu-badge-secondary">{t.category}</span>
+    </div>
+    <p class="text-base text-muted-foreground leading-relaxed">
+      {t.description}
+    </p>
+  </div>
+
+  <div class="mt-10 space-y-10">
+    <!-- Usage -->
+    <section class="space-y-3">
+      <h2 id="usage" class="text-lg font-semibold tracking-tight relative group">
+        <a href="#usage" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+        {t.sections.usage.title}
+      </h2>
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
+      <ComponentPreview code={usageCode}>
+        <PinInput />
+      </ComponentPreview>
+    </section>
+
+    <!-- 6 Digit -->
+    <section class="space-y-3">
+      <h2 id="six-digit" class="text-lg font-semibold tracking-tight relative group">
+        <a href="#six-digit" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+        {t.sections.sixDigit.title}
+      </h2>
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.sixDigit.description} />
+      <ComponentPreview code={sixDigitCode}>
+        <PinInput length={6} />
+      </ComponentPreview>
+    </section>
+
+    <!-- Alphanumeric -->
+    <section class="space-y-3">
+      <h2 id="alphanumeric" class="text-lg font-semibold tracking-tight relative group">
+        <a href="#alphanumeric" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+        {t.sections.alphanumeric.title}
+      </h2>
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.alphanumeric.description} />
+      <ComponentPreview code={alphanumericCode}>
+        <PinInput length={6} type="alphanumeric" />
+      </ComponentPreview>
+    </section>
+
+    <!-- Sizes -->
+    <section class="space-y-3">
+      <h2 id="sizes" class="text-lg font-semibold tracking-tight relative group">
+        <a href="#sizes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+        {t.sections.sizes.title}
+      </h2>
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.sizes.description} />
+      <ComponentPreview code={sizesCode}>
+        <div class="flex flex-col items-start gap-4">
+          <PinInput size="sm" />
+          <PinInput />
+          <PinInput size="lg" />
+        </div>
+      </ComponentPreview>
+    </section>
+
+    <!-- Error -->
+    <section class="space-y-3">
+      <h2 id="error" class="text-lg font-semibold tracking-tight relative group">
+        <a href="#error" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+        {t.sections.error.title}
+      </h2>
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.error.description} />
+      <ComponentPreview code={errorCode}>
+        <div class="space-y-2">
+          <PinInput error />
+          <p class="cu-form-error">Invalid verification code.</p>
+        </div>
+      </ComponentPreview>
+    </section>
+
+    <!-- Disabled -->
+    <section class="space-y-3">
+      <h2 id="disabled" class="text-lg font-semibold tracking-tight relative group">
+        <a href="#disabled" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+        {t.sections.disabled.title}
+      </h2>
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.disabled.description} />
+      <ComponentPreview code={disabledCode}>
+        <PinInput disabled />
+      </ComponentPreview>
+    </section>
+
+    <!-- Classes Reference -->
+    <section class="space-y-3">
+      <h2 id="classes" class="text-lg font-semibold tracking-tight relative group">
+        <a href="#classes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+        {t.sections.classes.title}
+      </h2>
+      <div class="cu-table-wrapper rounded-lg border border-border">
+        <table class="cu-table">
+          <thead class="cu-table-header">
+            <tr class="cu-table-row">
+              <th class="cu-table-head">{t.sections.classes.classLabel}</th>
+              <th class="cu-table-head">{t.sections.classes.descriptionLabel}</th>
+            </tr>
+          </thead>
+          <tbody class="cu-table-body">
+            {Object.entries(t.classDescriptions).map(([cls, desc]) => (
+              <tr class="cu-table-row">
+                <td class="cu-table-cell"><code class="cu-code">{cls}</code></td>
+                <td class="cu-table-cell text-muted-foreground">{desc}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+</Layout>

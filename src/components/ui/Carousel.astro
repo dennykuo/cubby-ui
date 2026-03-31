@@ -1,0 +1,25 @@
+---
+import { TOP_CLASS } from "../../config";
+
+interface Props {
+    class?: string;
+    multi?: 2 | 3;
+    [key: string]: any;
+}
+
+const { class: className, multi, ...rest } = Astro.props;
+const baseClass = `${TOP_CLASS}-carousel`;
+---
+
+<div
+    class:list={[
+        baseClass,
+        multi === 2 && `${baseClass}-multi-2`,
+        multi === 3 && `${baseClass}-multi-3`,
+        className,
+    ]}
+    data-cu-carousel
+    {...rest}
+>
+    <slot />
+</div>

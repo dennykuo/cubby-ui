@@ -1,0 +1,63 @@
+---
+import { TOP_CLASS } from "../../config";
+import Calendar from "./Calendar.astro";
+
+interface Props {
+	placeholder?: string;
+	value?: string;
+	min?: string;
+	max?: string;
+	disabled?: boolean;
+	class?: string;
+	[key: string]: any;
+}
+
+const {
+	placeholder = "Pick a date",
+	value,
+	min,
+	max,
+	disabled = false,
+	class: className,
+	...rest
+} = Astro.props;
+---
+
+<div
+	class:list={[`${TOP_CLASS}-date-picker`, className]}
+	data-cu-date-picker
+	{...rest}
+>
+	<button
+		type="button"
+		class={`${TOP_CLASS}-date-picker-trigger`}
+		data-cu-date-picker-trigger
+		disabled={disabled}
+	>
+		<svg
+			xmlns="http://www.w3.org/2000/svg"
+			width="16"
+			height="16"
+			viewBox="0 0 24 24"
+			fill="none"
+			stroke="currentColor"
+			stroke-width="2"
+			stroke-linecap="round"
+			stroke-linejoin="round"
+			class={`${TOP_CLASS}-date-picker-trigger-icon`}
+		>
+			<path d="M8 2v4" />
+			<path d="M16 2v4" />
+			<rect width="18" height="18" x="3" y="4" rx="2" />
+			<path d="M3 10h18" />
+		</svg>
+		<span
+			data-cu-date-picker-value
+			class:list={[{ [`${TOP_CLASS}-date-picker-trigger-placeholder`]: !value }]}
+		>{value || placeholder}</span>
+	</button>
+	<input type="hidden" data-cu-date-picker-input value={value || ""} />
+	<div class={`${TOP_CLASS}-date-picker-content`} data-cu-date-picker-content>
+		<Calendar min={min} max={max} />
+	</div>
+</div>

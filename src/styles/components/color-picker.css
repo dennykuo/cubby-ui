@@ -1,0 +1,58 @@
+/* Color Picker
+   ------------------------------------------------------------------ */
+
+/* Main container */
+.cu-color-picker {
+    @apply w-64 space-y-3 rounded-xl border border-border bg-popover p-3 text-popover-foreground shadow-md;
+}
+
+/* Saturation/brightness panel (HSV) */
+.cu-color-picker-saturation {
+    @apply relative h-40 w-full cursor-crosshair rounded-lg;
+    background-image:
+        linear-gradient(to bottom, transparent, #000),
+        linear-gradient(to right, #fff, transparent);
+}
+
+/* Draggable pointer on saturation panel */
+.cu-color-picker-saturation-pointer {
+    @apply absolute size-3.5 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-white pointer-events-none;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.3), 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+/* Hue slider bar (rainbow gradient) */
+.cu-color-picker-hue {
+    @apply relative h-3 w-full cursor-pointer rounded-full;
+    background: linear-gradient(to right, #ff0000, #ffff00, #00ff00, #00ffff, #0000ff, #ff00ff, #ff0000);
+}
+
+/* Draggable pointer on hue bar */
+.cu-color-picker-hue-pointer {
+    @apply absolute top-1/2 size-3.5 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-white pointer-events-none;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.3), 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+/* Controls row: preview + hex input */
+.cu-color-picker-controls {
+    @apply flex items-center gap-2;
+}
+
+/* Color preview swatch */
+.cu-color-picker-preview {
+    @apply size-9 shrink-0 rounded-lg border border-border;
+}
+
+/* Hex input field */
+.cu-color-picker-input {
+    @apply h-9 w-full rounded-lg border border-input bg-background px-3 font-mono text-sm transition-colors duration-150 hover:border-muted-foreground/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/40 focus-visible:ring-offset-2;
+}
+
+/* Swatch grid container */
+.cu-color-picker-swatches {
+    @apply flex flex-wrap gap-1.5;
+}
+
+/* Individual swatch button */
+.cu-color-picker-swatch {
+    @apply size-6 cursor-pointer rounded-md border border-border transition-transform duration-150 hover:scale-110 outline-none focus-visible:ring-2 focus-visible:ring-ring/40 focus-visible:ring-offset-1;
+}

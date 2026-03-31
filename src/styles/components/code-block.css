@@ -1,0 +1,44 @@
+/* Code Block
+   ------------------------------------------------------------------ */
+.cu-code-block {
+    @apply relative rounded-xl bg-zinc-950 text-zinc-50 overflow-hidden;
+}
+
+.cu-code-block-header {
+    @apply flex items-center justify-between border-b border-zinc-800 px-4 py-2 text-xs text-zinc-400;
+}
+
+.cu-code-block-pre {
+    @apply overflow-x-auto p-4 text-sm leading-relaxed;
+}
+
+.cu-code-block-pre code {
+    @apply font-mono;
+}
+
+/* Copy button — absolute top-right when no header */
+.cu-code-block-copy {
+    @apply absolute top-2.5 right-2.5 flex items-center gap-1.5 rounded-lg border border-zinc-700 bg-zinc-800 px-2.5 py-1.5 text-xs text-zinc-400 cursor-pointer transition-colors duration-150;
+}
+
+.cu-code-block-copy:hover {
+    @apply border-zinc-600 bg-zinc-700 text-zinc-200;
+}
+
+/* Copy button inside header — static, minimal style */
+.cu-code-block-header .cu-code-block-copy {
+    @apply static border-none bg-transparent p-0 rounded-md px-1.5 py-0.5;
+}
+
+.cu-code-block-header .cu-code-block-copy:hover {
+    @apply bg-zinc-800 text-zinc-200;
+}
+
+/* Copied state */
+.cu-code-block-copy[data-cu-copied] {
+    @apply text-success border-success/30;
+}
+
+.cu-code-block-header .cu-code-block-copy[data-cu-copied] {
+    @apply border-none;
+}

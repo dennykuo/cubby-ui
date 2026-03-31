@@ -1,0 +1,406 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Carousel from "@/components/ui/Carousel.astro";
+import CarouselSlide from "@/components/ui/CarouselSlide.astro";
+import ComponentPreview from "@/components/ComponentPreview.astro";
+import { getLocaleFromUrl, useTranslations } from "@/i18n";
+import { carouselPage } from "@/i18n/pages/components/carousel";
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = useTranslations(carouselPage, locale);
+
+const usageCode = `<div class="cu-carousel" data-cu-carousel>
+  <div class="cu-carousel-viewport" data-cu-carousel-viewport>
+    <div class="cu-carousel-slide" data-cu-carousel-slide>
+      <img src="https://picsum.photos/seed/a/800/400" alt="Slide 1" class="w-full rounded-lg" />
+    </div>
+    <div class="cu-carousel-slide" data-cu-carousel-slide>
+      <img src="https://picsum.photos/seed/b/800/400" alt="Slide 2" class="w-full rounded-lg" />
+    </div>
+    <div class="cu-carousel-slide" data-cu-carousel-slide>
+      <img src="https://picsum.photos/seed/c/800/400" alt="Slide 3" class="w-full rounded-lg" />
+    </div>
+  </div>
+  <button type="button" class="cu-carousel-prev" data-cu-carousel-prev>
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+  </button>
+  <button type="button" class="cu-carousel-next" data-cu-carousel-next>
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+  </button>
+</div>`.trim();
+
+const cardCode = `<div class="cu-carousel" data-cu-carousel>
+  <div class="cu-carousel-viewport" data-cu-carousel-viewport>
+    <div class="cu-carousel-slide" data-cu-carousel-slide>
+      <div class="cu-card mx-2">
+        <div class="cu-card-header">
+          <h3 class="cu-card-title">Project Alpha</h3>
+          <p class="cu-card-description">A modern web application framework.</p>
+        </div>
+        <div class="cu-card-content">
+          <p class="text-sm text-muted-foreground">Built with TypeScript and optimized for performance.</p>
+        </div>
+      </div>
+    </div>
+    <div class="cu-carousel-slide" data-cu-carousel-slide>
+      <div class="cu-card mx-2">
+        <div class="cu-card-header">
+          <h3 class="cu-card-title">Project Beta</h3>
+          <p class="cu-card-description">A design system toolkit.</p>
+        </div>
+        <div class="cu-card-content">
+          <p class="text-sm text-muted-foreground">Consistent, accessible components for every platform.</p>
+        </div>
+      </div>
+    </div>
+    <div class="cu-carousel-slide" data-cu-carousel-slide>
+      <div class="cu-card mx-2">
+        <div class="cu-card-header">
+          <h3 class="cu-card-title">Project Gamma</h3>
+          <p class="cu-card-description">A CLI productivity tool.</p>
+        </div>
+        <div class="cu-card-content">
+          <p class="text-sm text-muted-foreground">Automate repetitive tasks with simple commands.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button type="button" class="cu-carousel-prev" data-cu-carousel-prev>
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+  </button>
+  <button type="button" class="cu-carousel-next" data-cu-carousel-next>
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+  </button>
+</div>`.trim();
+
+const dotsCode = `<div class="cu-carousel" data-cu-carousel>
+  <div class="cu-carousel-viewport" data-cu-carousel-viewport>
+    <div class="cu-carousel-slide" data-cu-carousel-slide>
+      <img src="https://picsum.photos/seed/d/800/400" alt="Slide 1" class="w-full rounded-lg" />
+    </div>
+    <div class="cu-carousel-slide" data-cu-carousel-slide>
+      <img src="https://picsum.photos/seed/e/800/400" alt="Slide 2" class="w-full rounded-lg" />
+    </div>
+    <div class="cu-carousel-slide" data-cu-carousel-slide>
+      <img src="https://picsum.photos/seed/f/800/400" alt="Slide 3" class="w-full rounded-lg" />
+    </div>
+    <div class="cu-carousel-slide" data-cu-carousel-slide>
+      <img src="https://picsum.photos/seed/g/800/400" alt="Slide 4" class="w-full rounded-lg" />
+    </div>
+  </div>
+  <button type="button" class="cu-carousel-prev" data-cu-carousel-prev>
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+  </button>
+  <button type="button" class="cu-carousel-next" data-cu-carousel-next>
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+  </button>
+  <div class="cu-carousel-dots">
+    <button type="button" class="cu-carousel-dot cu-carousel-dot-active" data-cu-carousel-dot></button>
+    <button type="button" class="cu-carousel-dot" data-cu-carousel-dot></button>
+    <button type="button" class="cu-carousel-dot" data-cu-carousel-dot></button>
+    <button type="button" class="cu-carousel-dot" data-cu-carousel-dot></button>
+  </div>
+</div>`.trim();
+
+const multiCode = `<div class="cu-carousel cu-carousel-multi-3" data-cu-carousel>
+  <div class="cu-carousel-viewport" data-cu-carousel-viewport>
+    <div class="cu-carousel-slide" data-cu-carousel-slide>
+      <div class="cu-card mx-2">
+        <div class="cu-card-header">
+          <h3 class="cu-card-title">Analytics</h3>
+          <p class="cu-card-description">Track user behavior</p>
+        </div>
+      </div>
+    </div>
+    <div class="cu-carousel-slide" data-cu-carousel-slide>
+      <div class="cu-card mx-2">
+        <div class="cu-card-header">
+          <h3 class="cu-card-title">Security</h3>
+          <p class="cu-card-description">Enterprise-grade protection</p>
+        </div>
+      </div>
+    </div>
+    <div class="cu-carousel-slide" data-cu-carousel-slide>
+      <div class="cu-card mx-2">
+        <div class="cu-card-header">
+          <h3 class="cu-card-title">Storage</h3>
+          <p class="cu-card-description">Scalable cloud storage</p>
+        </div>
+      </div>
+    </div>
+    <div class="cu-carousel-slide" data-cu-carousel-slide>
+      <div class="cu-card mx-2">
+        <div class="cu-card-header">
+          <h3 class="cu-card-title">Compute</h3>
+          <p class="cu-card-description">High-performance processing</p>
+        </div>
+      </div>
+    </div>
+    <div class="cu-carousel-slide" data-cu-carousel-slide>
+      <div class="cu-card mx-2">
+        <div class="cu-card-header">
+          <h3 class="cu-card-title">Networking</h3>
+          <p class="cu-card-description">Global edge network</p>
+        </div>
+      </div>
+    </div>
+    <div class="cu-carousel-slide" data-cu-carousel-slide>
+      <div class="cu-card mx-2">
+        <div class="cu-card-header">
+          <h3 class="cu-card-title">Database</h3>
+          <p class="cu-card-description">Managed SQL and NoSQL</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button type="button" class="cu-carousel-prev" data-cu-carousel-prev>
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+  </button>
+  <button type="button" class="cu-carousel-next" data-cu-carousel-next>
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+  </button>
+</div>`.trim();
+
+const prevSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>`;
+const nextSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>`;
+---
+
+<Layout title={t.title} category={t.category} componentName="Carousel">
+  <div class="space-y-3">
+    <div class="flex items-center gap-3">
+      <h1 class="text-3xl font-bold tracking-tight">Carousel</h1>
+      <span class="cu-badge cu-badge-secondary">{t.category}</span>
+    </div>
+    <p class="text-base text-muted-foreground leading-relaxed" set:html={t.description} />
+  </div>
+
+  <div class="mt-10 space-y-10">
+    <!-- Usage -->
+    <section class="space-y-3">
+      <h2 id="usage" class="text-lg font-semibold tracking-tight relative group">
+        <a href="#usage" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+        {t.sections.usage.title}
+      </h2>
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
+      <ComponentPreview code={usageCode}>
+        <div class="w-full max-w-xl">
+          <Carousel>
+            <div class="cu-carousel-viewport" data-cu-carousel-viewport>
+              <CarouselSlide>
+                <img src="https://picsum.photos/seed/a/800/400" alt="Slide 1" class="w-full rounded-lg" />
+              </CarouselSlide>
+              <CarouselSlide>
+                <img src="https://picsum.photos/seed/b/800/400" alt="Slide 2" class="w-full rounded-lg" />
+              </CarouselSlide>
+              <CarouselSlide>
+                <img src="https://picsum.photos/seed/c/800/400" alt="Slide 3" class="w-full rounded-lg" />
+              </CarouselSlide>
+            </div>
+            <button type="button" class="cu-carousel-prev" data-cu-carousel-prev>
+              <Fragment set:html={prevSvg} />
+            </button>
+            <button type="button" class="cu-carousel-next" data-cu-carousel-next>
+              <Fragment set:html={nextSvg} />
+            </button>
+          </Carousel>
+        </div>
+      </ComponentPreview>
+    </section>
+
+    <!-- Card Carousel -->
+    <section class="space-y-3">
+      <h2 id="cards" class="text-lg font-semibold tracking-tight relative group">
+        <a href="#cards" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+        {t.sections.cards.title}
+      </h2>
+      <p class="text-base text-muted-foreground leading-relaxed">
+        {t.sections.cards.description}
+      </p>
+      <ComponentPreview code={cardCode}>
+        <div class="w-full max-w-xl">
+          <Carousel>
+            <div class="cu-carousel-viewport" data-cu-carousel-viewport>
+              <CarouselSlide>
+                <div class="cu-card mx-2">
+                  <div class="cu-card-header">
+                    <h3 class="cu-card-title">Project Alpha</h3>
+                    <p class="cu-card-description">A modern web application framework.</p>
+                  </div>
+                  <div class="cu-card-content">
+                    <p class="text-sm text-muted-foreground">Built with TypeScript and optimized for performance.</p>
+                  </div>
+                </div>
+              </CarouselSlide>
+              <CarouselSlide>
+                <div class="cu-card mx-2">
+                  <div class="cu-card-header">
+                    <h3 class="cu-card-title">Project Beta</h3>
+                    <p class="cu-card-description">A design system toolkit.</p>
+                  </div>
+                  <div class="cu-card-content">
+                    <p class="text-sm text-muted-foreground">Consistent, accessible components for every platform.</p>
+                  </div>
+                </div>
+              </CarouselSlide>
+              <CarouselSlide>
+                <div class="cu-card mx-2">
+                  <div class="cu-card-header">
+                    <h3 class="cu-card-title">Project Gamma</h3>
+                    <p class="cu-card-description">A CLI productivity tool.</p>
+                  </div>
+                  <div class="cu-card-content">
+                    <p class="text-sm text-muted-foreground">Automate repetitive tasks with simple commands.</p>
+                  </div>
+                </div>
+              </CarouselSlide>
+            </div>
+            <button type="button" class="cu-carousel-prev" data-cu-carousel-prev>
+              <Fragment set:html={prevSvg} />
+            </button>
+            <button type="button" class="cu-carousel-next" data-cu-carousel-next>
+              <Fragment set:html={nextSvg} />
+            </button>
+          </Carousel>
+        </div>
+      </ComponentPreview>
+    </section>
+
+    <!-- With Dots -->
+    <section class="space-y-3">
+      <h2 id="dots" class="text-lg font-semibold tracking-tight relative group">
+        <a href="#dots" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+        {t.sections.dots.title}
+      </h2>
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.dots.description} />
+      <ComponentPreview code={dotsCode}>
+        <div class="w-full max-w-xl">
+          <Carousel>
+            <div class="cu-carousel-viewport" data-cu-carousel-viewport>
+              <CarouselSlide>
+                <img src="https://picsum.photos/seed/d/800/400" alt="Slide 1" class="w-full rounded-lg" />
+              </CarouselSlide>
+              <CarouselSlide>
+                <img src="https://picsum.photos/seed/e/800/400" alt="Slide 2" class="w-full rounded-lg" />
+              </CarouselSlide>
+              <CarouselSlide>
+                <img src="https://picsum.photos/seed/f/800/400" alt="Slide 3" class="w-full rounded-lg" />
+              </CarouselSlide>
+              <CarouselSlide>
+                <img src="https://picsum.photos/seed/g/800/400" alt="Slide 4" class="w-full rounded-lg" />
+              </CarouselSlide>
+            </div>
+            <button type="button" class="cu-carousel-prev" data-cu-carousel-prev>
+              <Fragment set:html={prevSvg} />
+            </button>
+            <button type="button" class="cu-carousel-next" data-cu-carousel-next>
+              <Fragment set:html={nextSvg} />
+            </button>
+            <div class="cu-carousel-dots">
+              <button type="button" class="cu-carousel-dot cu-carousel-dot-active" data-cu-carousel-dot></button>
+              <button type="button" class="cu-carousel-dot" data-cu-carousel-dot></button>
+              <button type="button" class="cu-carousel-dot" data-cu-carousel-dot></button>
+              <button type="button" class="cu-carousel-dot" data-cu-carousel-dot></button>
+            </div>
+          </Carousel>
+        </div>
+      </ComponentPreview>
+    </section>
+
+    <!-- Multi Visible -->
+    <section class="space-y-3">
+      <h2 id="multi" class="text-lg font-semibold tracking-tight relative group">
+        <a href="#multi" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+        {t.sections.multi.title}
+      </h2>
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.multi.description} />
+      <ComponentPreview code={multiCode}>
+        <div class="w-full max-w-2xl">
+          <Carousel multi={3}>
+            <div class="cu-carousel-viewport" data-cu-carousel-viewport>
+              <CarouselSlide>
+                <div class="cu-card mx-2">
+                  <div class="cu-card-header">
+                    <h3 class="cu-card-title">Analytics</h3>
+                    <p class="cu-card-description">Track user behavior</p>
+                  </div>
+                </div>
+              </CarouselSlide>
+              <CarouselSlide>
+                <div class="cu-card mx-2">
+                  <div class="cu-card-header">
+                    <h3 class="cu-card-title">Security</h3>
+                    <p class="cu-card-description">Enterprise-grade protection</p>
+                  </div>
+                </div>
+              </CarouselSlide>
+              <CarouselSlide>
+                <div class="cu-card mx-2">
+                  <div class="cu-card-header">
+                    <h3 class="cu-card-title">Storage</h3>
+                    <p class="cu-card-description">Scalable cloud storage</p>
+                  </div>
+                </div>
+              </CarouselSlide>
+              <CarouselSlide>
+                <div class="cu-card mx-2">
+                  <div class="cu-card-header">
+                    <h3 class="cu-card-title">Compute</h3>
+                    <p class="cu-card-description">High-performance processing</p>
+                  </div>
+                </div>
+              </CarouselSlide>
+              <CarouselSlide>
+                <div class="cu-card mx-2">
+                  <div class="cu-card-header">
+                    <h3 class="cu-card-title">Networking</h3>
+                    <p class="cu-card-description">Global edge network</p>
+                  </div>
+                </div>
+              </CarouselSlide>
+              <CarouselSlide>
+                <div class="cu-card mx-2">
+                  <div class="cu-card-header">
+                    <h3 class="cu-card-title">Database</h3>
+                    <p class="cu-card-description">Managed SQL and NoSQL</p>
+                  </div>
+                </div>
+              </CarouselSlide>
+            </div>
+            <button type="button" class="cu-carousel-prev" data-cu-carousel-prev>
+              <Fragment set:html={prevSvg} />
+            </button>
+            <button type="button" class="cu-carousel-next" data-cu-carousel-next>
+              <Fragment set:html={nextSvg} />
+            </button>
+          </Carousel>
+        </div>
+      </ComponentPreview>
+    </section>
+
+    <!-- Classes Reference -->
+    <section class="space-y-3">
+      <h2 id="classes" class="text-lg font-semibold tracking-tight relative group">
+        <a href="#classes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+        {t.sections.classes.title}
+      </h2>
+      <div class="cu-table-wrapper rounded-lg border border-border">
+        <table class="cu-table">
+          <thead class="cu-table-header">
+            <tr class="cu-table-row">
+              <th class="cu-table-head">{t.sections.classes.classLabel}</th>
+              <th class="cu-table-head">{t.sections.classes.descriptionLabel}</th>
+            </tr>
+          </thead>
+          <tbody class="cu-table-body">
+            {Object.entries(t.classDescriptions).map(([cls, desc]) => (
+              <tr class="cu-table-row">
+                <td class="cu-table-cell"><code class="cu-code">{cls}</code></td>
+                <td class="cu-table-cell text-muted-foreground">{desc}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+</Layout>

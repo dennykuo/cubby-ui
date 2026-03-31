@@ -9,6 +9,7 @@ export const segmentedControlPage: Record<Locale, {
     classes: { title: string; classLabel: string; descriptionLabel: string };
     sizes: { title: string; description: string };
     block: { title: string; description: string };
+    accessible: { title: string; description: string };
     withIcons: { title: string; description: string };
   };
   classDescriptions: Record<string, string>;
@@ -35,6 +36,10 @@ export const segmentedControlPage: Record<Locale, {
         title: 'Block (Full Width)',
         description: 'Add <code class="cu-code">cu-segmented-block</code> to stretch the control to full width with equally-sized items.',
       },
+      accessible: {
+        title: 'Accessible (Radio Input)',
+        description: 'Use hidden radio inputs with <code class="cu-code">cu-segmented-input</code> for native keyboard navigation and form submission. Add <code class="cu-code">data-cu-segmented</code> on the container for JS-managed active state.',
+      },
       withIcons: {
         title: 'With Icons',
         description: 'Add SVG icons inside each item for visual cues.',
@@ -42,6 +47,7 @@ export const segmentedControlPage: Record<Locale, {
     },
     classDescriptions: {
       'cu-segmented': 'Container with muted background and rounded corners',
+      'cu-segmented-input': 'Hidden radio input for accessible keyboard navigation',
       'cu-segmented-item': 'Individual option with hover and focus states',
       'cu-segmented-item-active': 'Active option with elevated background',
       'cu-segmented-sm': 'Small size container',
@@ -71,6 +77,10 @@ export const segmentedControlPage: Record<Locale, {
         title: '滿版',
         description: '加入 <code class="cu-code">cu-segmented-block</code> 使控制項填滿寬度，各選項等寬。',
       },
+      accessible: {
+        title: '無障礙（Radio Input）',
+        description: '使用隱藏的 radio input 搭配 <code class="cu-code">cu-segmented-input</code> 以支援原生鍵盤導航和表單提交。在容器上加入 <code class="cu-code">data-cu-segmented</code> 讓 JS 管理啟用狀態。',
+      },
       withIcons: {
         title: '搭配圖示',
         description: '在每個選項中加入 SVG 圖示以提供視覺提示。',
@@ -78,6 +88,7 @@ export const segmentedControlPage: Record<Locale, {
     },
     classDescriptions: {
       'cu-segmented': '容器，帶淡色背景和圓角',
+      'cu-segmented-input': '隱藏的 radio input，用於無障礙鍵盤導航',
       'cu-segmented-item': '個別選項，帶 hover 和 focus 狀態',
       'cu-segmented-item-active': '啟用選項，帶浮凸背景',
       'cu-segmented-sm': '小尺寸容器',

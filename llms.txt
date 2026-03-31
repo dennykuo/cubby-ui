@@ -113,6 +113,15 @@ Classes: `cu-kbd`, `cu-kbd-sm`, `cu-kbd-lg`
 
 ### Basic
 
+**Aspect Ratio** — constrains child content to a specific aspect ratio
+Classes: `cu-aspect-ratio` (container, relative + overflow-hidden), `cu-aspect-ratio-16/9`, `cu-aspect-ratio-4/3`, `cu-aspect-ratio-1/1`, `cu-aspect-ratio-21/9`
+Child elements are stretched to fill via absolute positioning + `object-cover`.
+```html
+<div class="cu-aspect-ratio cu-aspect-ratio-16/9">
+  <img src="photo.jpg" alt="Landscape">
+</div>
+```
+
 **Button**
 Base: `cu-button`
 Variants: `cu-button-default` (solid primary), `cu-button-destructive`, `cu-button-outline`, `cu-button-ghost`, `cu-button-link`
@@ -168,6 +177,43 @@ Validation: `cu-input-error`, `cu-input-success`
 <input type="text" class="cu-input cu-input-error" placeholder="Error state">
 ```
 
+**Input Group** — combine input with text/icon addons
+Classes: `cu-input-group` (flex container, merges border-radius), `cu-input-group-text` (text/icon addon with muted bg), `cu-input-group-disabled` (disabled state for entire group)
+Children border-radius is auto-reset; first child gets `rounded-l-lg`, last gets `rounded-r-lg`. Adjacent children overlap borders with `-ml-px`.
+```html
+<div class="cu-input-group">
+  <span class="cu-input-group-text">https://</span>
+  <input type="text" class="cu-input" placeholder="example.com">
+</div>
+```
+
+**Password Input** ⚡ Interactive — input with toggle visibility button
+Classes: `cu-password-input` (container), `cu-password-input-field` (the text input, `pr-9` for toggle space), `cu-password-input-toggle` (eye icon button)
+Data attributes: `data-cu-password-input`, `data-cu-password-toggle`, `data-cu-password-icon-show`, `data-cu-password-icon-hide`
+```html
+<div class="cu-password-input" data-cu-password-input>
+  <input class="cu-password-input-field" type="password" placeholder="Enter password">
+  <button type="button" class="cu-password-input-toggle" data-cu-password-toggle aria-label="Toggle password visibility">
+    <svg data-cu-password-icon-show><!-- eye icon --></svg>
+    <svg data-cu-password-icon-hide style="display:none"><!-- eye-off icon --></svg>
+  </button>
+</div>
+```
+
+**Pin Input** ⚡ Interactive — multi-digit verification code input
+Classes: `cu-pin-input` (container), `cu-pin-input-field` (individual digit box)
+Sizes: `cu-pin-input-sm`, `cu-pin-input-lg`
+Error: `cu-pin-input-error` (destructive border)
+Data attributes: `data-cu-pin-input`, `data-cu-pin-input-type="numeric|alphanumeric"`
+```html
+<div class="cu-pin-input" data-cu-pin-input data-cu-pin-input-type="numeric">
+  <input class="cu-pin-input-field" type="text" maxlength="1" inputmode="numeric">
+  <input class="cu-pin-input-field" type="text" maxlength="1" inputmode="numeric">
+  <input class="cu-pin-input-field" type="text" maxlength="1" inputmode="numeric">
+  <input class="cu-pin-input-field" type="text" maxlength="1" inputmode="numeric">
+</div>
+```
+
 **Textarea**
 Validation: `cu-textarea-error`, `cu-textarea-success`
 Auto-resize: `cu-textarea-auto` (uses `field-sizing: content`)
@@ -197,6 +243,52 @@ Required marker: `cu-label-required` (adds red asterisk after label)
 <div class="cu-checkbox-wrapper">
   <input type="checkbox" id="cb1" class="cu-checkbox">
   <label for="cb1">Check me</label>
+</div>
+```
+
+**Checkbox Group** — group of checkboxes with optional select-all
+Classes: `cu-checkbox-group` (container), `cu-checkbox-group-label` (group label), `cu-checkbox-group-items` (items container, indented), `cu-checkbox-group-selectall` (select-all wrapper with bottom border)
+```html
+<div class="cu-checkbox-group">
+  <span class="cu-checkbox-group-label">Interests</span>
+  <div class="cu-checkbox-group-selectall">
+    <div class="cu-checkbox-wrapper">
+      <input type="checkbox" id="all" class="cu-checkbox">
+      <label for="all">Select All</label>
+    </div>
+  </div>
+  <div class="cu-checkbox-group-items">
+    <div class="cu-checkbox-wrapper">
+      <input type="checkbox" id="opt1" class="cu-checkbox">
+      <label for="opt1">Option 1</label>
+    </div>
+    <div class="cu-checkbox-wrapper">
+      <input type="checkbox" id="opt2" class="cu-checkbox">
+      <label for="opt2">Option 2</label>
+    </div>
+  </div>
+</div>
+```
+
+**Color Picker** ⚡ Interactive — HSV saturation panel + hue slider + hex input + preset swatches
+Classes: `cu-color-picker` (container, popover-styled), `cu-color-picker-saturation` (SV panel, crosshair cursor), `cu-color-picker-saturation-pointer` (draggable dot), `cu-color-picker-hue` (rainbow gradient bar), `cu-color-picker-hue-pointer` (draggable dot), `cu-color-picker-controls` (preview + input row), `cu-color-picker-preview` (color swatch), `cu-color-picker-input` (hex text field), `cu-color-picker-swatches` (grid container), `cu-color-picker-swatch` (individual swatch button)
+Data attributes: `data-cu-color-picker`, `data-cu-color-picker-value`, `data-cu-color-picker-saturation`, `data-cu-color-picker-saturation-pointer`, `data-cu-color-picker-hue`, `data-cu-color-picker-hue-pointer`, `data-cu-color-picker-preview`, `data-cu-color-picker-input`, `data-cu-color-picker-hidden`, `data-cu-color-picker-swatch`
+```html
+<div class="cu-color-picker" data-cu-color-picker data-cu-color-picker-value="#ff0000">
+  <div class="cu-color-picker-saturation" data-cu-color-picker-saturation>
+    <div class="cu-color-picker-saturation-pointer" data-cu-color-picker-saturation-pointer></div>
+  </div>
+  <div class="cu-color-picker-hue" data-cu-color-picker-hue>
+    <div class="cu-color-picker-hue-pointer" data-cu-color-picker-hue-pointer></div>
+  </div>
+  <div class="cu-color-picker-controls">
+    <div class="cu-color-picker-preview" data-cu-color-picker-preview></div>
+    <input type="text" class="cu-color-picker-input" data-cu-color-picker-input value="#ff0000" maxlength="7">
+  </div>
+  <input type="hidden" data-cu-color-picker-hidden value="#ff0000">
+  <div class="cu-color-picker-swatches">
+    <button class="cu-color-picker-swatch" data-cu-color-picker-swatch="#ef4444" style="background-color: #ef4444;" aria-label="Select #ef4444"></button>
+  </div>
 </div>
 ```
 
@@ -275,6 +367,39 @@ Active item: add `cu-combobox-item-active` class to pre-selected item.
 </div>
 ```
 
+**Date Picker** ⚡ Interactive — calendar popup for date selection
+Calendar classes: `cu-calendar` (container, popover-styled), `cu-calendar-header` (month/year nav row), `cu-calendar-title` (current month text), `cu-calendar-nav` (prev/next button), `cu-calendar-weekdays` (weekday header grid), `cu-calendar-weekday` (individual weekday), `cu-calendar-grid` (day grid), `cu-calendar-day` (day cell), `cu-calendar-day-today` (today highlight), `cu-calendar-day-selected` (selected day, primary bg), `cu-calendar-day-outside` (prev/next month days, dimmed), `cu-calendar-day-disabled` (non-selectable)
+Picker classes: `cu-date-picker` (wrapper), `cu-date-picker-trigger` (input-like button), `cu-date-picker-trigger-icon` (calendar icon), `cu-date-picker-trigger-placeholder` (placeholder text style), `cu-date-picker-content` (dropdown container)
+Data attributes: `data-cu-date-picker`, `data-cu-date-picker-trigger`, `data-cu-date-picker-value`, `data-cu-date-picker-input` (hidden input), `data-cu-date-picker-content`
+```html
+<div class="cu-date-picker" data-cu-date-picker>
+  <button type="button" class="cu-date-picker-trigger" data-cu-date-picker-trigger>
+    <svg class="cu-date-picker-trigger-icon"><!-- calendar icon --></svg>
+    <span data-cu-date-picker-value class="cu-date-picker-trigger-placeholder">Pick a date</span>
+  </button>
+  <input type="hidden" data-cu-date-picker-input value="">
+  <div class="cu-date-picker-content" data-cu-date-picker-content>
+    <div class="cu-calendar">
+      <div class="cu-calendar-header">
+        <button class="cu-calendar-nav">‹</button>
+        <span class="cu-calendar-title">March 2026</span>
+        <button class="cu-calendar-nav">›</button>
+      </div>
+      <div class="cu-calendar-weekdays">
+        <span class="cu-calendar-weekday">Su</span>
+        <!-- ...Mo Tu We Th Fr Sa -->
+      </div>
+      <div class="cu-calendar-grid">
+        <button class="cu-calendar-day cu-calendar-day-today">15</button>
+        <button class="cu-calendar-day cu-calendar-day-selected">20</button>
+        <button class="cu-calendar-day cu-calendar-day-outside">1</button>
+        <!-- ...more days -->
+      </div>
+    </div>
+  </div>
+</div>
+```
+
 **Multi Select** ⚡ Interactive — multiple selection with tags
 Key data attributes: `data-cu-multi-select`, `data-cu-multi-select-trigger`, `data-cu-multi-select-content`, `data-cu-multi-select-input`, `data-cu-multi-select-item` (with `data-cu-value`), `data-cu-multi-select-tags`, `data-cu-multi-select-placeholder`, `data-cu-multi-select-list`, `data-cu-multi-select-empty`
 ```html
@@ -349,6 +474,25 @@ Sizes: `cu-badge-sm`, `cu-badge-lg`
 ```html
 <span class="cu-badge cu-badge-default">New</span>
 <span class="cu-badge cu-badge-success cu-badge-sm">Active</span>
+```
+
+**Code Block** — syntax-highlighted code display with optional header and copy button
+Classes: `cu-code-block` (container, dark bg), `cu-code-block-header` (top bar with filename/language + copy btn), `cu-code-block-pre` (scrollable code area), `cu-code-block-copy` (copy button, absolute top-right when no header, inline when inside header)
+Copied state: add `data-cu-copied` attribute to `cu-code-block-copy` to show success styling.
+```html
+<div class="cu-code-block">
+  <div class="cu-code-block-header">
+    <span>index.js</span>
+    <button class="cu-code-block-copy">Copy</button>
+  </div>
+  <pre class="cu-code-block-pre"><code>const x = 42;</code></pre>
+</div>
+
+<!-- Without header (copy button floats top-right) -->
+<div class="cu-code-block">
+  <button class="cu-code-block-copy">Copy</button>
+  <pre class="cu-code-block-pre"><code>npm install cubby-ui</code></pre>
+</div>
 ```
 
 **Accordion** ⚡ CSS-driven (open/close via HTML `open` attribute on `<details>`)
@@ -476,8 +620,11 @@ Shapes: `cu-skeleton-circle`, `cu-skeleton-text`
 ```
 
 **Spinner**
+Sizes: `cu-spinner-sm` (16px), `cu-spinner-md` (24px), `cu-spinner-lg` (32px, thicker border)
+Colors: `cu-spinner-primary`, `cu-spinner-secondary`, `cu-spinner-destructive`, `cu-spinner-success`, `cu-spinner-warning`, `cu-spinner-info`, `cu-spinner-muted`
 ```html
-<div class="cu-spinner"></div>
+<div class="cu-spinner cu-spinner-md"></div>
+<div class="cu-spinner cu-spinner-lg cu-spinner-primary"></div>
 ```
 
 **Empty State**
@@ -517,6 +664,48 @@ Container position variants: `cu-toast-container-top-right`, `cu-toast-container
 ---
 
 ### Overlay
+
+**Command Palette** ⚡ Interactive — keyboard-driven command search overlay, uses native `<dialog>`
+Classes: `cu-command` (dialog container, centered, max-w-lg), `cu-command-input-wrapper` (search bar row with border-bottom), `cu-command-input-icon` (search icon), `cu-command-input` (text input), `cu-command-list` (scrollable results), `cu-command-group` (group container), `cu-command-group-heading` (group label), `cu-command-item` (selectable row), `cu-command-separator` (divider), `cu-command-shortcut` (right-aligned shortcut text), `cu-command-empty` (no results message)
+Active item: `data-cu-command-active` attribute highlights item.
+Data attributes: `data-cu-command`
+```html
+<dialog class="cu-command" data-cu-command>
+  <div class="cu-command-input-wrapper">
+    <svg class="cu-command-input-icon"><!-- search icon --></svg>
+    <input class="cu-command-input" placeholder="Type a command or search...">
+  </div>
+  <div class="cu-command-list">
+    <div class="cu-command-group">
+      <div class="cu-command-group-heading">Suggestions</div>
+      <button class="cu-command-item">
+        Calendar
+        <span class="cu-command-shortcut"><kbd class="cu-kbd cu-kbd-sm">⌘K</kbd></span>
+      </button>
+      <button class="cu-command-item">Search</button>
+    </div>
+    <div class="cu-command-separator"></div>
+    <div class="cu-command-empty">No results found.</div>
+  </div>
+</dialog>
+```
+
+**Context Menu** ⚡ Interactive — right-click triggered menu
+Classes: `cu-context-menu` (wrapper), `cu-context-menu-content` (popup panel, reuses dropdown item styles)
+Menu items use `cu-dropdown-item`, `cu-dropdown-label`, `cu-dropdown-separator` classes.
+Data attributes: `data-cu-context-menu`, `data-cu-context-menu-content`
+```html
+<div class="cu-context-menu" data-cu-context-menu>
+  <div>Right-click this area</div>
+  <div class="cu-context-menu-content" data-cu-context-menu-content hidden>
+    <button class="cu-dropdown-item">Cut</button>
+    <button class="cu-dropdown-item">Copy</button>
+    <button class="cu-dropdown-item">Paste</button>
+    <div class="cu-dropdown-separator"></div>
+    <button class="cu-dropdown-item">Delete</button>
+  </div>
+</div>
+```
 
 **Dialog** ⚡ Interactive — uses native `<dialog>` element
 Sizes: `cu-dialog-sm`, `cu-dialog-md` (default), `cu-dialog-xl`, `cu-dialog-full`
@@ -704,6 +893,26 @@ States: `cu-steps-item-active`, `cu-steps-item-completed`
 
 ### Layout
 
+**Carousel** ⚡ Interactive — horizontal slide carousel with snap scrolling
+Classes: `cu-carousel` (container), `cu-carousel-viewport` (scroll container, snap-x), `cu-carousel-slide` (each slide, snap-start), `cu-carousel-multi-2` / `cu-carousel-multi-3` (show 2 or 3 slides at a time, add on carousel container), `cu-carousel-prev` / `cu-carousel-next` (arrow buttons, absolute center-y), `cu-carousel-dots` (dot indicators container), `cu-carousel-dot` (individual dot), `cu-carousel-dot-active` (active dot, primary color)
+Data attributes: `data-cu-carousel`
+```html
+<div class="cu-carousel" data-cu-carousel>
+  <div class="cu-carousel-viewport">
+    <div class="cu-carousel-slide">Slide 1</div>
+    <div class="cu-carousel-slide">Slide 2</div>
+    <div class="cu-carousel-slide">Slide 3</div>
+  </div>
+  <button class="cu-carousel-prev" aria-label="Previous">‹</button>
+  <button class="cu-carousel-next" aria-label="Next">›</button>
+  <div class="cu-carousel-dots">
+    <button class="cu-carousel-dot cu-carousel-dot-active" aria-label="Slide 1"></button>
+    <button class="cu-carousel-dot" aria-label="Slide 2"></button>
+    <button class="cu-carousel-dot" aria-label="Slide 3"></button>
+  </div>
+</div>
+```
+
 **Container**
 Sizes: `cu-container-sm`, `cu-container-md`, `cu-container-lg`, `cu-container-xl`, `cu-container-2xl`, `cu-container-prose`
 ```html
@@ -799,6 +1008,30 @@ Centered variant: add `cu-page-header-centered` for center-aligned layout (opt-i
 </div>
 ```
 
+**Resizable Panels** ⚡ Interactive — draggable split pane layout
+Classes: `cu-resizable` (container, flex row), `cu-resizable-vertical` (vertical split, flex-col), `cu-resizable-panel` (flex-grow panel, proportional sizing), `cu-resizable-handle` (drag handle, 6px wide/tall, col-resize/row-resize cursor, grip indicator via `::after`)
+Handle states: `data-cu-resizing` attribute applied during drag (stronger highlight).
+Panel constraints: `data-cu-min-size` / `data-cu-max-size` (percentage).
+Data attributes: `data-cu-resizable`, `data-cu-resizable-panel`, `data-cu-resizable-handle`
+```html
+<div class="cu-resizable" data-cu-resizable>
+  <div class="cu-resizable-panel" data-cu-resizable-panel style="flex-grow: 50">
+    Left panel
+  </div>
+  <div class="cu-resizable-handle" data-cu-resizable-handle role="separator" tabindex="0"></div>
+  <div class="cu-resizable-panel" data-cu-resizable-panel style="flex-grow: 50">
+    Right panel
+  </div>
+</div>
+
+<!-- Vertical split -->
+<div class="cu-resizable cu-resizable-vertical" data-cu-resizable>
+  <div class="cu-resizable-panel" data-cu-resizable-panel style="flex-grow: 70">Top</div>
+  <div class="cu-resizable-handle" data-cu-resizable-handle role="separator" tabindex="0"></div>
+  <div class="cu-resizable-panel" data-cu-resizable-panel style="flex-grow: 30">Bottom</div>
+</div>
+```
+
 **Scroll Area** — custom scrollbar styling
 ```html
 <div class="cu-scroll-area" style="height: 200px">
@@ -875,10 +1108,18 @@ Centered variant: add `cu-page-header-centered` for center-aligned layout (opt-i
 |-----------|-----------|---------|---------|-------------|-------|
 | Tabs | `data-cu-tabs` | `data-cu-tabs-trigger="value"` | `data-cu-tabs-content="value"` | — | — |
 | Dropdown | `data-cu-dropdown` | `data-cu-dropdown-trigger` | `data-cu-dropdown-content` | — | — |
+| Carousel | `data-cu-carousel` | — | — | — | — |
+| Color Picker | `data-cu-color-picker` | — | — | — | `data-cu-color-picker-value`, `data-cu-color-picker-saturation`, `data-cu-color-picker-saturation-pointer`, `data-cu-color-picker-hue`, `data-cu-color-picker-hue-pointer`, `data-cu-color-picker-preview`, `data-cu-color-picker-input`, `data-cu-color-picker-hidden`, `data-cu-color-picker-swatch` |
 | Combobox | `data-cu-combobox` | `data-cu-combobox-trigger` | `data-cu-combobox-content` | — | `data-cu-combobox-input`, `data-cu-combobox-item`, `data-cu-combobox-value`, `data-cu-combobox-list`, `data-cu-combobox-empty` |
+| Command Palette | `data-cu-command` | — | — | — | `data-cu-command-active` (on active item) |
+| Context Menu | `data-cu-context-menu` | — | `data-cu-context-menu-content` | — | — |
+| Date Picker | `data-cu-date-picker` | `data-cu-date-picker-trigger` | `data-cu-date-picker-content` | — | `data-cu-date-picker-value`, `data-cu-date-picker-input` (hidden) |
 | Multi Select | `data-cu-multi-select` | `data-cu-multi-select-trigger` | `data-cu-multi-select-content` | — | `data-cu-multi-select-input`, `data-cu-multi-select-item`, `data-cu-multi-select-tags`, `data-cu-multi-select-placeholder`, `data-cu-multi-select-list`, `data-cu-multi-select-empty`, `data-cu-value` |
 | Number Input | `data-cu-number-input` | `data-cu-number-increment` / `data-cu-number-decrement` | — | — | `data-cu-number-field` (on input) |
+| Password Input | `data-cu-password-input` | — | — | — | `data-cu-password-toggle`, `data-cu-password-icon-show`, `data-cu-password-icon-hide` |
+| Pin Input | `data-cu-pin-input` | — | — | — | `data-cu-pin-input-type` |
 | Dropzone | `data-cu-dropzone` | — | — | — | `data-cu-dropzone-input` (on file input) |
+| Resizable | `data-cu-resizable` | — | — | — | `data-cu-resizable-panel`, `data-cu-resizable-handle`, `data-cu-resizing` (on active handle), `data-cu-min-size`, `data-cu-max-size` |
 | Transfer List | `data-cu-transfer-list` | `data-cu-transfer-to-right` / `data-cu-transfer-to-left` | `data-cu-transfer-panel="left\|right"` | — | `data-cu-transfer-check`, `data-cu-transfer-check-all="left\|right"`, `data-cu-transfer-count="left\|right"`, `data-cu-transfer-search="left\|right"`, `data-cu-value` |
 | Dialog | — | `data-cu-dialog-trigger="id"` | `data-cu-dialog` (on `<dialog id="...">`) | `data-cu-dialog-close` | — |
 | Drawer | — | `data-cu-drawer-trigger="id"` | `data-cu-drawer` (on `<dialog id="...">`) | `data-cu-drawer-close` | — |

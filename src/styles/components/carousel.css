@@ -1,0 +1,68 @@
+/* Carousel
+   ---- */
+
+.cu-carousel {
+    @apply relative;
+}
+
+.cu-carousel-viewport {
+    @apply flex overflow-x-auto scroll-smooth snap-x snap-mandatory;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.cu-carousel-viewport::-webkit-scrollbar {
+    display: none;
+}
+
+.cu-carousel-slide {
+    @apply min-w-full shrink-0 snap-start;
+}
+
+/* Multi-visible: show 2 or 3 slides at a time */
+.cu-carousel-multi-2 .cu-carousel-slide {
+    @apply min-w-[50%];
+}
+
+.cu-carousel-multi-3 .cu-carousel-slide {
+    @apply min-w-[33.333333%];
+}
+
+/* Navigation arrows */
+.cu-carousel-prev,
+.cu-carousel-next {
+    @apply absolute top-1/2 -translate-y-1/2 z-10 flex items-center justify-center
+           size-8 rounded-full border border-border bg-background/80 backdrop-blur-sm
+           text-foreground shadow-sm
+           hover:bg-muted transition-colors duration-150
+           disabled:pointer-events-none disabled:opacity-40;
+}
+
+.cu-carousel-prev {
+    @apply left-3;
+}
+
+.cu-carousel-next {
+    @apply right-3;
+}
+
+/* Dots indicator */
+.cu-carousel-dots {
+    @apply flex items-center justify-center gap-1.5 pt-3;
+}
+
+.cu-carousel-dot {
+    @apply size-2 rounded-full bg-foreground/20 transition-colors duration-200
+           hover:bg-foreground/40;
+}
+
+.cu-carousel-dot-active {
+    @apply bg-primary;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    .cu-carousel-viewport {
+        scroll-behavior: auto;
+    }
+}

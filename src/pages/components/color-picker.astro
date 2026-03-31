@@ -1,0 +1,216 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import ComponentPreview from "@/components/ComponentPreview.astro";
+import { getLocaleFromUrl, useTranslations } from "@/i18n";
+import { colorPickerPage } from "@/i18n/pages/components/color-picker";
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = useTranslations(colorPickerPage, locale);
+
+const pickerHtml = `<div class="cu-color-picker-saturation" data-cu-color-picker-saturation>
+    <div class="cu-color-picker-saturation-pointer" data-cu-color-picker-saturation-pointer></div>
+  </div>
+  <div class="cu-color-picker-hue" data-cu-color-picker-hue>
+    <div class="cu-color-picker-hue-pointer" data-cu-color-picker-hue-pointer></div>
+  </div>
+  <div class="cu-color-picker-controls">
+    <div class="cu-color-picker-preview" data-cu-color-picker-preview></div>
+    <input type="text" class="cu-color-picker-input" data-cu-color-picker-input maxlength="7" spellcheck="false" autocomplete="off" />
+  </div>
+  <input type="hidden" data-cu-color-picker-hidden />`;
+
+const usageCode = `<div class="cu-color-picker" data-cu-color-picker>
+  ${pickerHtml}
+</div>`;
+
+const defaultColorCode = `<div class="cu-color-picker" data-cu-color-picker data-cu-color-picker-value="#6366f1">
+  ${pickerHtml}
+</div>`;
+
+const popoverCode = `<div class="cu-popover" data-cu-popover>
+  <button type="button" class="cu-button cu-button-outline" data-cu-popover-trigger>
+    <span data-cu-color-picker-popover-swatch
+      style="width: 16px; height: 16px; border-radius: 4px; background: #f97316;"
+    ></span>
+    Pick a color
+  </button>
+  <div class="cu-popover-content w-auto p-0" data-cu-popover-content>
+    <div class="cu-color-picker" data-cu-color-picker data-cu-color-picker-value="#f97316"
+      style="border: none; box-shadow: none;">
+      <!-- Saturation panel, hue bar, controls... -->
+    </div>
+  </div>
+</div>`;
+
+const defaultSwatches = [
+  "#ef4444", "#f97316", "#eab308", "#22c55e", "#06b6d4",
+  "#3b82f6", "#6366f1", "#8b5cf6", "#ec4899", "#64748b",
+];
+
+const swatchesCode = `<div class="cu-color-picker" data-cu-color-picker data-cu-color-picker-value="#3b82f6">
+  ${pickerHtml}
+  <div class="cu-color-picker-swatches">
+    <button type="button" class="cu-color-picker-swatch" data-cu-color-picker-swatch="#ef4444" style="background-color: #ef4444;" aria-label="Select #ef4444"></button>
+    <button type="button" class="cu-color-picker-swatch" data-cu-color-picker-swatch="#f97316" style="background-color: #f97316;" aria-label="Select #f97316"></button>
+    <button type="button" class="cu-color-picker-swatch" data-cu-color-picker-swatch="#eab308" style="background-color: #eab308;" aria-label="Select #eab308"></button>
+    <button type="button" class="cu-color-picker-swatch" data-cu-color-picker-swatch="#22c55e" style="background-color: #22c55e;" aria-label="Select #22c55e"></button>
+    <button type="button" class="cu-color-picker-swatch" data-cu-color-picker-swatch="#06b6d4" style="background-color: #06b6d4;" aria-label="Select #06b6d4"></button>
+    <button type="button" class="cu-color-picker-swatch" data-cu-color-picker-swatch="#3b82f6" style="background-color: #3b82f6;" aria-label="Select #3b82f6"></button>
+    <button type="button" class="cu-color-picker-swatch" data-cu-color-picker-swatch="#6366f1" style="background-color: #6366f1;" aria-label="Select #6366f1"></button>
+    <button type="button" class="cu-color-picker-swatch" data-cu-color-picker-swatch="#8b5cf6" style="background-color: #8b5cf6;" aria-label="Select #8b5cf6"></button>
+    <button type="button" class="cu-color-picker-swatch" data-cu-color-picker-swatch="#ec4899" style="background-color: #ec4899;" aria-label="Select #ec4899"></button>
+    <button type="button" class="cu-color-picker-swatch" data-cu-color-picker-swatch="#64748b" style="background-color: #64748b;" aria-label="Select #64748b"></button>
+  </div>
+</div>`;
+---
+
+<Layout title={t.title} category={t.category} componentName="Color Picker">
+  <div class="space-y-3">
+    <div class="flex items-center gap-3">
+      <h1 class="text-3xl font-bold tracking-tight">Color Picker</h1>
+      <span class="cu-badge cu-badge-secondary">{t.category}</span>
+    </div>
+    <p class="text-base text-muted-foreground leading-relaxed">
+      {t.description}
+    </p>
+  </div>
+
+  <div class="mt-10 space-y-10">
+    <!-- Usage -->
+    <section class="space-y-3">
+      <h2 id="usage" class="text-lg font-semibold tracking-tight relative group">
+        <a href="#usage" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+        {t.sections.usage.title}
+      </h2>
+      <p class="text-base text-muted-foreground leading-relaxed">
+        {t.sections.usage.description}
+      </p>
+      <ComponentPreview code={usageCode}>
+        <div class="cu-color-picker" data-cu-color-picker>
+          <div class="cu-color-picker-saturation" data-cu-color-picker-saturation>
+            <div class="cu-color-picker-saturation-pointer" data-cu-color-picker-saturation-pointer></div>
+          </div>
+          <div class="cu-color-picker-hue" data-cu-color-picker-hue>
+            <div class="cu-color-picker-hue-pointer" data-cu-color-picker-hue-pointer></div>
+          </div>
+          <div class="cu-color-picker-controls">
+            <div class="cu-color-picker-preview" data-cu-color-picker-preview></div>
+            <input type="text" class="cu-color-picker-input" data-cu-color-picker-input maxlength="7" spellcheck="false" autocomplete="off" />
+          </div>
+          <input type="hidden" data-cu-color-picker-hidden />
+        </div>
+      </ComponentPreview>
+    </section>
+
+    <!-- Default Color -->
+    <section class="space-y-3">
+      <h2 id="default-color" class="text-lg font-semibold tracking-tight relative group">
+        <a href="#default-color" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+        {t.sections.defaultColor.title}
+      </h2>
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.defaultColor.description} />
+      <ComponentPreview code={defaultColorCode}>
+        <div class="cu-color-picker" data-cu-color-picker data-cu-color-picker-value="#6366f1">
+          <div class="cu-color-picker-saturation" data-cu-color-picker-saturation>
+            <div class="cu-color-picker-saturation-pointer" data-cu-color-picker-saturation-pointer></div>
+          </div>
+          <div class="cu-color-picker-hue" data-cu-color-picker-hue>
+            <div class="cu-color-picker-hue-pointer" data-cu-color-picker-hue-pointer></div>
+          </div>
+          <div class="cu-color-picker-controls">
+            <div class="cu-color-picker-preview" data-cu-color-picker-preview></div>
+            <input type="text" class="cu-color-picker-input" data-cu-color-picker-input maxlength="7" spellcheck="false" autocomplete="off" />
+          </div>
+          <input type="hidden" data-cu-color-picker-hidden />
+        </div>
+      </ComponentPreview>
+    </section>
+
+    <!-- With Popover -->
+    <section class="space-y-3">
+      <h2 id="with-popover" class="text-lg font-semibold tracking-tight relative group">
+        <a href="#with-popover" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+        {t.sections.withPopover.title}
+      </h2>
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withPopover.description} />
+      <ComponentPreview code={popoverCode}>
+        <div class="cu-popover" data-cu-popover>
+          <button type="button" class="cu-button cu-button-outline" data-cu-popover-trigger>
+            <span data-cu-color-picker-popover-swatch style="display: inline-block; width: 16px; height: 16px; border-radius: 4px; background: #f97316;"></span>
+            Pick a color
+          </button>
+          <div class="cu-popover-content w-auto p-0" data-cu-popover-content>
+            <div class="cu-color-picker" data-cu-color-picker data-cu-color-picker-value="#f97316" style="border: none; box-shadow: none;">
+              <div class="cu-color-picker-saturation" data-cu-color-picker-saturation>
+                <div class="cu-color-picker-saturation-pointer" data-cu-color-picker-saturation-pointer></div>
+              </div>
+              <div class="cu-color-picker-hue" data-cu-color-picker-hue>
+                <div class="cu-color-picker-hue-pointer" data-cu-color-picker-hue-pointer></div>
+              </div>
+              <div class="cu-color-picker-controls">
+                <div class="cu-color-picker-preview" data-cu-color-picker-preview></div>
+                <input type="text" class="cu-color-picker-input" data-cu-color-picker-input maxlength="7" spellcheck="false" autocomplete="off" />
+              </div>
+              <input type="hidden" data-cu-color-picker-hidden />
+            </div>
+          </div>
+        </div>
+      </ComponentPreview>
+    </section>
+
+    <!-- With Swatches -->
+    <section class="space-y-3">
+      <h2 id="with-swatches" class="text-lg font-semibold tracking-tight relative group">
+        <a href="#with-swatches" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+        {t.sections.withSwatches.title}
+      </h2>
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withSwatches.description} />
+      <ComponentPreview code={swatchesCode}>
+        <div class="cu-color-picker" data-cu-color-picker data-cu-color-picker-value="#3b82f6">
+          <div class="cu-color-picker-saturation" data-cu-color-picker-saturation>
+            <div class="cu-color-picker-saturation-pointer" data-cu-color-picker-saturation-pointer></div>
+          </div>
+          <div class="cu-color-picker-hue" data-cu-color-picker-hue>
+            <div class="cu-color-picker-hue-pointer" data-cu-color-picker-hue-pointer></div>
+          </div>
+          <div class="cu-color-picker-controls">
+            <div class="cu-color-picker-preview" data-cu-color-picker-preview></div>
+            <input type="text" class="cu-color-picker-input" data-cu-color-picker-input maxlength="7" spellcheck="false" autocomplete="off" />
+          </div>
+          <input type="hidden" data-cu-color-picker-hidden />
+          <div class="cu-color-picker-swatches">
+            {defaultSwatches.map((color) => (
+              <button type="button" class="cu-color-picker-swatch" data-cu-color-picker-swatch={color} style={`background-color: ${color};`} aria-label={`Select ${color}`}></button>
+            ))}
+          </div>
+        </div>
+      </ComponentPreview>
+    </section>
+
+    <!-- CSS Classes Reference -->
+    <section class="space-y-3 mt-10">
+      <h2 id="classes" class="text-lg font-semibold tracking-tight relative group">
+        <a href="#classes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+        {t.sections.classes.title}
+      </h2>
+      <div class="cu-table-wrapper rounded-lg border border-border">
+        <table class="cu-table">
+          <thead class="cu-table-header">
+            <tr class="cu-table-row">
+              <th class="cu-table-head">{t.sections.classes.classLabel}</th>
+              <th class="cu-table-head">{t.sections.classes.descriptionLabel}</th>
+            </tr>
+          </thead>
+          <tbody class="cu-table-body">
+            {Object.entries(t.classDescriptions).map(([cls, desc]) => (
+              <tr class="cu-table-row">
+                <td class="cu-table-cell"><code class="cu-code">{cls}</code></td>
+                <td class="cu-table-cell text-muted-foreground">{desc}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+</Layout>

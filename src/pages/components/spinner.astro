@@ -14,12 +14,12 @@ const sizesCode = `<span class="cu-spinner cu-spinner-sm" role="status" aria-lab
 <span class="cu-spinner cu-spinner-md" role="status" aria-label="Loading"></span>
 <span class="cu-spinner cu-spinner-lg" role="status" aria-label="Loading"></span>`.trim();
 
-const colorsCode = `<span class="cu-spinner cu-spinner-md text-primary" role="status"></span>
-<span class="cu-spinner cu-spinner-md text-success" role="status"></span>
-<span class="cu-spinner cu-spinner-md text-warning" role="status"></span>
-<span class="cu-spinner cu-spinner-md text-destructive" role="status"></span>
-<span class="cu-spinner cu-spinner-md text-info" role="status"></span>
-<span class="cu-spinner cu-spinner-md text-muted-foreground" role="status"></span>`.trim();
+const colorsCode = `<span class="cu-spinner cu-spinner-md cu-spinner-primary" role="status"></span>
+<span class="cu-spinner cu-spinner-md cu-spinner-success" role="status"></span>
+<span class="cu-spinner cu-spinner-md cu-spinner-warning" role="status"></span>
+<span class="cu-spinner cu-spinner-md cu-spinner-destructive" role="status"></span>
+<span class="cu-spinner cu-spinner-md cu-spinner-info" role="status"></span>
+<span class="cu-spinner cu-spinner-md cu-spinner-muted" role="status"></span>`.trim();
 
 const buttonLoadingCode = `<button class="cu-button cu-button-default" disabled>
   <span class="cu-spinner cu-spinner-sm mr-2"></span>
@@ -85,6 +85,34 @@ const buttonLoadingCode = `<button class="cu-button cu-button-default" disabled>
                             <td class="cu-table-cell"><code class="cu-code">cu-spinner-lg</code></td>
                             <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-spinner-lg']}</td>
                         </tr>
+                        <tr class="cu-table-row">
+                            <td class="cu-table-cell"><code class="cu-code">cu-spinner-primary</code></td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-spinner-primary']}</td>
+                        </tr>
+                        <tr class="cu-table-row">
+                            <td class="cu-table-cell"><code class="cu-code">cu-spinner-secondary</code></td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-spinner-secondary']}</td>
+                        </tr>
+                        <tr class="cu-table-row">
+                            <td class="cu-table-cell"><code class="cu-code">cu-spinner-destructive</code></td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-spinner-destructive']}</td>
+                        </tr>
+                        <tr class="cu-table-row">
+                            <td class="cu-table-cell"><code class="cu-code">cu-spinner-success</code></td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-spinner-success']}</td>
+                        </tr>
+                        <tr class="cu-table-row">
+                            <td class="cu-table-cell"><code class="cu-code">cu-spinner-warning</code></td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-spinner-warning']}</td>
+                        </tr>
+                        <tr class="cu-table-row">
+                            <td class="cu-table-cell"><code class="cu-code">cu-spinner-info</code></td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-spinner-info']}</td>
+                        </tr>
+                        <tr class="cu-table-row">
+                            <td class="cu-table-cell"><code class="cu-code">cu-spinner-muted</code></td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-spinner-muted']}</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -115,12 +143,12 @@ const buttonLoadingCode = `<button class="cu-button cu-button-default" disabled>
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.colors.description} />
             <ComponentPreview code={colorsCode}>
                 <div class="flex items-center gap-4 justify-center">
-                    <Spinner class="text-primary" />
-                    <Spinner class="text-success" />
-                    <Spinner class="text-warning" />
-                    <Spinner class="text-destructive" />
-                    <Spinner class="text-info" />
-                    <Spinner class="text-muted-foreground" />
+                    <Spinner color="primary" />
+                    <Spinner color="success" />
+                    <Spinner color="warning" />
+                    <Spinner color="destructive" />
+                    <Spinner color="info" />
+                    <Spinner color="muted" />
                 </div>
             </ComponentPreview>
         </section>

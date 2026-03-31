@@ -1,0 +1,249 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Input from "@/components/ui/Input.astro";
+import InputGroup from "@/components/ui/InputGroup.astro";
+import InputGroupText from "@/components/ui/InputGroupText.astro";
+import Label from "@/components/ui/Label.astro";
+import FormGroup from "@/components/ui/FormGroup.astro";
+import Button from "@/components/ui/Button.astro";
+import ComponentPreview from "@/components/ComponentPreview.astro";
+import { getLocaleFromUrl, useTranslations } from "@/i18n";
+import { inputGroupPage } from "@/i18n/pages/components/input-group";
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = useTranslations(inputGroupPage, locale);
+
+const usageCode = `<div class="cu-input-group">
+  <span class="cu-input-group-text">$</span>
+  <input class="cu-input" type="text" placeholder="0.00" />
+</div>`.trim();
+
+const textPrefixCode = `<div class="cu-input-group">
+  <span class="cu-input-group-text">https://</span>
+  <input class="cu-input" type="text" placeholder="example.com" />
+</div>`.trim();
+
+const textSuffixCode = `<div class="cu-input-group">
+  <input class="cu-input" type="text" placeholder="username" />
+  <span class="cu-input-group-text">@example.com</span>
+</div>`.trim();
+
+const iconPrefixCode = `<div class="cu-input-group">
+  <span class="cu-input-group-text">
+    <svg xmlns="http://www.w3.org/2000/svg" class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+  </span>
+  <input class="cu-input" type="text" placeholder="Username" />
+</div>`.trim();
+
+const buttonSuffixCode = `<div class="cu-input-group">
+  <input class="cu-input" type="text" placeholder="Search..." />
+  <button class="cu-button cu-button-secondary">Search</button>
+</div>`.trim();
+
+const combinedCode = `<div class="cu-input-group">
+  <span class="cu-input-group-text">
+    <svg xmlns="http://www.w3.org/2000/svg" class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+  </span>
+  <input class="cu-input" type="email" placeholder="you@example.com" />
+  <button class="cu-button cu-button-default">Subscribe</button>
+</div>`.trim();
+
+const disabledCode = `<div class="cu-input-group cu-input-group-disabled">
+  <span class="cu-input-group-text">$</span>
+  <input class="cu-input" type="text" placeholder="0.00" disabled />
+</div>`.trim();
+
+const withLabelCode = `<div class="cu-form-group">
+  <label class="cu-label" for="website">Website</label>
+  <div class="cu-input-group">
+    <span class="cu-input-group-text">https://</span>
+    <input class="cu-input" type="text" id="website" placeholder="example.com" />
+  </div>
+</div>`.trim();
+---
+
+<Layout title={t.title} category={t.category} componentName="Input Group">
+  <div class="space-y-3">
+    <div class="flex items-center gap-3">
+      <h1 class="text-3xl font-bold tracking-tight">Input Group</h1>
+      <span class="cu-badge cu-badge-secondary">{t.category}</span>
+    </div>
+    <p class="text-base text-muted-foreground leading-relaxed">
+      {t.description}
+    </p>
+  </div>
+
+  <div class="mt-10 space-y-10">
+    <!-- Usage -->
+    <section class="space-y-3">
+      <h2 id="usage" class="text-lg font-semibold tracking-tight relative group">
+        <a href="#usage" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+        {t.sections.usage.title}
+      </h2>
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
+      <ComponentPreview code={usageCode}>
+        <div class="w-full max-w-sm">
+          <InputGroup>
+            <InputGroupText>$</InputGroupText>
+            <Input type="text" placeholder="0.00" />
+          </InputGroup>
+        </div>
+      </ComponentPreview>
+    </section>
+
+    <!-- Text Prefix -->
+    <section class="space-y-3">
+      <h2 id="text-prefix" class="text-lg font-semibold tracking-tight relative group">
+        <a href="#text-prefix" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+        {t.sections.textPrefix.title}
+      </h2>
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.textPrefix.description} />
+      <ComponentPreview code={textPrefixCode}>
+        <div class="w-full max-w-sm">
+          <InputGroup>
+            <InputGroupText>https://</InputGroupText>
+            <Input type="text" placeholder="example.com" />
+          </InputGroup>
+        </div>
+      </ComponentPreview>
+    </section>
+
+    <!-- Text Suffix -->
+    <section class="space-y-3">
+      <h2 id="text-suffix" class="text-lg font-semibold tracking-tight relative group">
+        <a href="#text-suffix" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+        {t.sections.textSuffix.title}
+      </h2>
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.textSuffix.description} />
+      <ComponentPreview code={textSuffixCode}>
+        <div class="w-full max-w-sm">
+          <InputGroup>
+            <Input type="text" placeholder="username" />
+            <InputGroupText>@example.com</InputGroupText>
+          </InputGroup>
+        </div>
+      </ComponentPreview>
+    </section>
+
+    <!-- Icon Prefix -->
+    <section class="space-y-3">
+      <h2 id="icon-prefix" class="text-lg font-semibold tracking-tight relative group">
+        <a href="#icon-prefix" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+        {t.sections.iconPrefix.title}
+      </h2>
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.iconPrefix.description} />
+      <ComponentPreview code={iconPrefixCode}>
+        <div class="w-full max-w-sm">
+          <InputGroup>
+            <InputGroupText>
+              <svg xmlns="http://www.w3.org/2000/svg" class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </InputGroupText>
+            <Input type="text" placeholder="Username" />
+          </InputGroup>
+        </div>
+      </ComponentPreview>
+    </section>
+
+    <!-- Button Suffix -->
+    <section class="space-y-3">
+      <h2 id="button-suffix" class="text-lg font-semibold tracking-tight relative group">
+        <a href="#button-suffix" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+        {t.sections.buttonSuffix.title}
+      </h2>
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.buttonSuffix.description} />
+      <ComponentPreview code={buttonSuffixCode}>
+        <div class="w-full max-w-sm">
+          <InputGroup>
+            <Input type="text" placeholder="Search..." />
+            <Button variant="secondary">Search</Button>
+          </InputGroup>
+        </div>
+      </ComponentPreview>
+    </section>
+
+    <!-- Combined -->
+    <section class="space-y-3">
+      <h2 id="combined" class="text-lg font-semibold tracking-tight relative group">
+        <a href="#combined" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+        {t.sections.combined.title}
+      </h2>
+      <p class="text-base text-muted-foreground leading-relaxed">
+        {t.sections.combined.description}
+      </p>
+      <ComponentPreview code={combinedCode}>
+        <div class="w-full max-w-sm">
+          <InputGroup>
+            <InputGroupText>
+              <svg xmlns="http://www.w3.org/2000/svg" class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+            </InputGroupText>
+            <Input type="email" placeholder="you@example.com" />
+            <Button variant="default">Subscribe</Button>
+          </InputGroup>
+        </div>
+      </ComponentPreview>
+    </section>
+
+    <!-- Disabled -->
+    <section class="space-y-3">
+      <h2 id="disabled" class="text-lg font-semibold tracking-tight relative group">
+        <a href="#disabled" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+        {t.sections.disabled.title}
+      </h2>
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.disabled.description} />
+      <ComponentPreview code={disabledCode}>
+        <div class="w-full max-w-sm">
+          <InputGroup disabled>
+            <InputGroupText>$</InputGroupText>
+            <Input type="text" placeholder="0.00" disabled />
+          </InputGroup>
+        </div>
+      </ComponentPreview>
+    </section>
+
+    <!-- With Label -->
+    <section class="space-y-3">
+      <h2 id="with-label" class="text-lg font-semibold tracking-tight relative group">
+        <a href="#with-label" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+        {t.sections.withLabel.title}
+      </h2>
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withLabel.description} />
+      <ComponentPreview code={withLabelCode}>
+        <div class="w-full max-w-sm">
+          <FormGroup>
+            <Label for="website">Website</Label>
+            <InputGroup>
+              <InputGroupText>https://</InputGroupText>
+              <Input type="text" id="website" placeholder="example.com" />
+            </InputGroup>
+          </FormGroup>
+        </div>
+      </ComponentPreview>
+    </section>
+
+    <!-- Classes Reference -->
+    <section class="space-y-3 mt-10">
+      <h2 id="classes" class="text-lg font-semibold tracking-tight relative group">
+        <a href="#classes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+        {t.sections.classes.title}
+      </h2>
+      <div class="cu-table-wrapper rounded-lg border border-border">
+        <table class="cu-table">
+          <thead class="cu-table-header">
+            <tr class="cu-table-row">
+              <th class="cu-table-head">{t.sections.classes.classLabel}</th>
+              <th class="cu-table-head">{t.sections.classes.descriptionLabel}</th>
+            </tr>
+          </thead>
+          <tbody class="cu-table-body">
+            {Object.entries(t.classDescriptions).map(([cls, desc]) => (
+              <tr class="cu-table-row">
+                <td class="cu-table-cell"><code class="cu-code">{cls}</code></td>
+                <td class="cu-table-cell text-muted-foreground">{desc}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+</Layout>

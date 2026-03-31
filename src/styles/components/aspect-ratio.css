@@ -1,0 +1,25 @@
+/* Aspect Ratio
+   ------------------------------------------------------------------ */
+.cu-aspect-ratio {
+    @apply relative w-full overflow-hidden;
+}
+
+.cu-aspect-ratio > * {
+    @apply absolute inset-0 h-full w-full object-cover;
+}
+
+.cu-aspect-ratio-16\/9 {
+    aspect-ratio: 16 / 9;
+}
+
+.cu-aspect-ratio-4\/3 {
+    aspect-ratio: 4 / 3;
+}
+
+.cu-aspect-ratio-1\/1 {
+    aspect-ratio: 1 / 1;
+}
+
+.cu-aspect-ratio-21\/9 {
+    aspect-ratio: 21 / 9;
+}

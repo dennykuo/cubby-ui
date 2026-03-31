@@ -1,0 +1,24 @@
+---
+import { TOP_CLASS } from "../../config";
+
+interface Props {
+    class?: string;
+    vertical?: boolean;
+    [key: string]: any;
+}
+
+const { class: className, vertical, ...rest } = Astro.props;
+const baseClass = `${TOP_CLASS}-resizable`;
+---
+
+<div
+    class:list={[
+        baseClass,
+        vertical && `${baseClass}-vertical`,
+        className,
+    ]}
+    data-cu-resizable
+    {...rest}
+>
+    <slot />
+</div>

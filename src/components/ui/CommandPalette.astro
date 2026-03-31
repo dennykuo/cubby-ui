@@ -1,0 +1,16 @@
+---
+import { TOP_CLASS } from "../../config";
+
+interface Props {
+    id?: string;
+    class?: string;
+    [key: string]: any;
+}
+
+const { id, class: className, ...rest } = Astro.props;
+const baseClass = `${TOP_CLASS}-command`;
+---
+
+<dialog id={id} class:list={[baseClass, className]} data-cu-command {...rest}>
+    <slot />
+</dialog>

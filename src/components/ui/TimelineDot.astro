@@ -1,0 +1,17 @@
+---
+import { TOP_CLASS } from "../../config";
+
+interface Props {
+	color?: "primary" | "success" | "destructive" | "warning" | "info" | "muted";
+	class?: string;
+	[key: string]: any;
+}
+
+const { color, class: className, ...rest } = Astro.props;
+const baseClass = `${TOP_CLASS}-timeline-dot`;
+const colorClass = color ? `${TOP_CLASS}-timeline-dot-${color}` : "";
+---
+
+<div class:list={[baseClass, colorClass, className]} {...rest}>
+	<slot />
+</div>

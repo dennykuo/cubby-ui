@@ -1,0 +1,19 @@
+---
+import { TOP_CLASS } from "../../config";
+
+interface Props {
+    class?: string;
+    [key: string]: any;
+}
+
+const { class: className, ...rest } = Astro.props;
+const baseClass = `${TOP_CLASS}-resizable-handle`;
+---
+
+<div
+    class:list={[baseClass, className]}
+    data-cu-resizable-handle
+    role="separator"
+    tabindex="0"
+    {...rest}
+></div>

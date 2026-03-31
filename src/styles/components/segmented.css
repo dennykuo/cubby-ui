@@ -4,16 +4,30 @@
     @apply inline-flex h-10 items-center gap-1 rounded-lg bg-muted p-1;
 }
 
-.cu-segmented-item {
-    @apply inline-flex items-center justify-center whitespace-nowrap rounded-md px-3 py-1.5 text-sm font-medium text-muted-foreground outline-none focus-visible:ring-1 focus-visible:ring-ring/30 transition-all duration-150 cursor-pointer hover:text-foreground;
+/* Hidden radio input for accessible keyboard navigation */
+.cu-segmented-input {
+    @apply sr-only;
 }
 
+.cu-segmented-item {
+    @apply inline-flex items-center justify-center gap-1.5 whitespace-nowrap rounded-md px-3 py-1.5 text-sm font-medium text-muted-foreground outline-none focus-visible:ring-1 focus-visible:ring-ring/30 transition-all duration-150 cursor-pointer select-none hover:text-foreground;
+}
+
+/* Active state: via radio :checked or direct class */
+.cu-segmented-input:checked + .cu-segmented-item,
 .cu-segmented-item-active {
     @apply bg-background text-foreground shadow-sm;
 }
 
+/* Focus ring on radio-based usage */
+.cu-segmented-input:focus-visible + .cu-segmented-item {
+    @apply outline-none ring-2 ring-ring/40 ring-offset-2;
+}
+
+/* Disabled states */
 .cu-segmented-item:disabled,
-.cu-segmented-item[aria-disabled="true"] {
+.cu-segmented-item[aria-disabled="true"],
+.cu-segmented-input:disabled + .cu-segmented-item {
     @apply pointer-events-none opacity-50;
 }
 
