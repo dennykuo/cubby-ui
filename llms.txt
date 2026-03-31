@@ -740,6 +740,7 @@ Mobile nav attrs: `data-cu-mobile-nav-trigger="id"`, `data-cu-mobile-nav`, `data
 
 **Nav**
 Active: `cu-nav-item-active`
+Disabled: `cu-nav-item-disabled`
 Vertical: add `cu-nav-vertical` to container
 ```html
 <nav class="cu-nav">
@@ -768,6 +769,8 @@ Vertical: add `cu-nav-vertical` to container
 ```
 
 **Page Header**
+Bordered variant: add `cu-page-header-bordered` for a bottom border (opt-in).
+Centered variant: add `cu-page-header-centered` for center-aligned layout (opt-in, ideal for marketing/landing pages).
 ```html
 <div class="cu-page-header">
   <div class="cu-page-header-content">
@@ -815,6 +818,52 @@ Vertical: add `cu-nav-vertical` to container
   <div class="cu-toolbar-group">
     <button class="cu-toolbar-button">Align Left</button>
   </div>
+</div>
+```
+
+---
+
+### AI
+
+**Chat Bubble** — `cu-chat-bubble`, variants: `cu-chat-bubble-user` (right-aligned, primary bg), `cu-chat-bubble-assistant` (left-aligned, muted bg). Parts: `cu-chat-bubble-avatar`, `cu-chat-bubble-content`, `cu-chat-bubble-name`, `cu-chat-bubble-message`, `cu-chat-bubble-timestamp`, `cu-chat-bubble-actions`, `cu-chat-bubble-action`. Modifier: `cu-chat-bubble-message-prose` for markdown content.
+```html
+<div class="cu-chat-bubble cu-chat-bubble-assistant">
+  <div class="cu-chat-bubble-avatar">
+    <img src="avatar.png" alt="AI" />
+  </div>
+  <div class="cu-chat-bubble-content">
+    <span class="cu-chat-bubble-name">Assistant</span>
+    <div class="cu-chat-bubble-message">Hello! How can I help you?</div>
+    <div class="cu-chat-bubble-actions">
+      <button class="cu-chat-bubble-action" aria-label="Copy"><!-- icon --></button>
+    </div>
+    <span class="cu-chat-bubble-timestamp">2:30 PM</span>
+  </div>
+</div>
+
+<div class="cu-chat-bubble cu-chat-bubble-user">
+  <div class="cu-chat-bubble-content">
+    <div class="cu-chat-bubble-message">Can you help me with CSS?</div>
+  </div>
+</div>
+```
+
+**Chat Input** — `cu-chat-input`, `cu-chat-input-field` (auto-growing textarea), `cu-chat-input-actions`, `cu-chat-input-send` (primary button), `cu-chat-input-attach` (ghost button).
+```html
+<div class="cu-chat-input">
+  <textarea class="cu-chat-input-field" placeholder="Type a message..." rows="1"></textarea>
+  <div class="cu-chat-input-actions">
+    <button class="cu-chat-input-send" aria-label="Send"><!-- icon --></button>
+  </div>
+</div>
+```
+
+**Chat Typing** — `cu-chat-typing`, `cu-chat-typing-dot`. Animated bouncing dots for AI thinking indicator. Combine with `cu-chat-bubble` structure for contextual display.
+```html
+<div class="cu-chat-typing">
+  <span class="cu-chat-typing-dot"></span>
+  <span class="cu-chat-typing-dot"></span>
+  <span class="cu-chat-typing-dot"></span>
 </div>
 ```
 

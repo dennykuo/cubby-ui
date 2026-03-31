@@ -14,6 +14,13 @@ const usageCode = `<nav class="cu-nav">
   <a class="cu-nav-item" href="#">Contact</a>
 </nav>`.trim();
 
+const disabledCode = `<nav class="cu-nav">
+  <a class="cu-nav-item" href="#">Home</a>
+  <a class="cu-nav-item" href="#">Products</a>
+  <a class="cu-nav-item cu-nav-item-disabled" aria-disabled="true">About</a>
+  <a class="cu-nav-item" href="#">Contact</a>
+</nav>`.trim();
+
 const activeCode = `<nav class="cu-nav">
   <a class="cu-nav-item" href="#">Home</a>
   <a class="cu-nav-item cu-nav-item-active" href="#">Products</a>
@@ -127,6 +134,23 @@ const verticalIconsCode = `<nav class="cu-nav cu-nav-vertical" style="width:200p
 					<a class="cu-nav-item" href="#">Home</a>
 					<a class="cu-nav-item cu-nav-item-active" href="#">Products</a>
 					<a class="cu-nav-item" href="#">About</a>
+					<a class="cu-nav-item" href="#">Contact</a>
+				</nav>
+			</ComponentPreview>
+		</section>
+
+		<!-- Disabled -->
+		<section class="space-y-3">
+			<h2 id="disabled" class="text-lg font-semibold tracking-tight relative group">
+			  <a href="#disabled" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+			  {t.sections.disabled.title}
+			</h2>
+			<p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.disabled.description} />
+			<ComponentPreview code={disabledCode}>
+				<nav class="cu-nav">
+					<a class="cu-nav-item" href="#">Home</a>
+					<a class="cu-nav-item" href="#">Products</a>
+					<a class="cu-nav-item cu-nav-item-disabled" aria-disabled="true">About</a>
 					<a class="cu-nav-item" href="#">Contact</a>
 				</nav>
 			</ComponentPreview>

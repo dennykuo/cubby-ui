@@ -1,0 +1,17 @@
+---
+import { TOP_CLASS } from "../../config";
+
+interface Props {
+    class?: string;
+    [key: string]: any;
+}
+
+const { class: className, ...rest } = Astro.props;
+const baseClass = `${TOP_CLASS}-chat-typing`;
+---
+
+<div class:list={[baseClass, className]} {...rest}>
+    <span class={`${TOP_CLASS}-chat-typing-dot`}></span>
+    <span class={`${TOP_CLASS}-chat-typing-dot`}></span>
+    <span class={`${TOP_CLASS}-chat-typing-dot`}></span>
+</div>

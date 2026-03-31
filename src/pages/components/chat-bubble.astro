@@ -1,0 +1,412 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import ComponentPreview from "@/components/ComponentPreview.astro";
+import { getLocaleFromUrl, useTranslations } from "@/i18n";
+import { chatBubblePage } from "@/i18n/pages/components/chat-bubble";
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = useTranslations(chatBubblePage, locale);
+
+const usageCode = `<div class="cu-chat-bubble cu-chat-bubble-assistant">
+  <div class="cu-chat-bubble-content">
+    <span class="cu-chat-bubble-name">Assistant</span>
+    <div class="cu-chat-bubble-message">
+      Hello! How can I help you today?
+    </div>
+    <span class="cu-chat-bubble-timestamp">2:30 PM</span>
+  </div>
+</div>`.trim();
+
+const userMessageCode = `<div class="cu-chat-bubble cu-chat-bubble-user">
+  <div class="cu-chat-bubble-content">
+    <div class="cu-chat-bubble-message">
+      Can you explain how flexbox works?
+    </div>
+    <span class="cu-chat-bubble-timestamp">2:31 PM</span>
+  </div>
+</div>`.trim();
+
+const withAvatarCode = `<div class="cu-chat-bubble cu-chat-bubble-assistant">
+  <div class="cu-chat-bubble-avatar">
+    <img src="https://api.dicebear.com/9.x/bottts/svg?seed=cubby" alt="AI" />
+  </div>
+  <div class="cu-chat-bubble-content">
+    <span class="cu-chat-bubble-name">Cubby AI</span>
+    <div class="cu-chat-bubble-message">
+      Sure! I'd be happy to explain flexbox. It's a CSS layout model that makes it easier to design flexible responsive layouts.
+    </div>
+    <span class="cu-chat-bubble-timestamp">2:32 PM</span>
+  </div>
+</div>
+
+<div class="cu-chat-bubble cu-chat-bubble-user">
+  <div class="cu-chat-bubble-avatar">
+    <img src="https://i.pravatar.cc/32?img=8" alt="User" />
+  </div>
+  <div class="cu-chat-bubble-content">
+    <div class="cu-chat-bubble-message">
+      That sounds great, can you show me an example?
+    </div>
+    <span class="cu-chat-bubble-timestamp">2:33 PM</span>
+  </div>
+</div>`.trim();
+
+const withActionsCode = `<div class="cu-chat-bubble cu-chat-bubble-assistant">
+  <div class="cu-chat-bubble-avatar">
+    <img src="https://api.dicebear.com/9.x/bottts/svg?seed=cubby" alt="AI" />
+  </div>
+  <div class="cu-chat-bubble-content">
+    <span class="cu-chat-bubble-name">Cubby AI</span>
+    <div class="cu-chat-bubble-message">
+      Flexbox works by defining a flex container and its children become flex items. Use <code>display: flex</code> on the parent.
+    </div>
+    <div class="cu-chat-bubble-actions">
+      <button class="cu-chat-bubble-action" aria-label="Copy">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+      </button>
+      <button class="cu-chat-bubble-action" aria-label="Thumbs up">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 10v12"/><path d="M15 5.88 14 10h5.83a2 2 0 0 1 1.92 2.56l-2.33 8A2 2 0 0 1 17.5 22H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h2.76a2 2 0 0 0 1.79-1.11L12 2a3.13 3.13 0 0 1 3 3.88Z"/></svg>
+      </button>
+      <button class="cu-chat-bubble-action" aria-label="Thumbs down">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 14V2"/><path d="M9 18.12 10 14H4.17a2 2 0 0 1-1.92-2.56l2.33-8A2 2 0 0 1 6.5 2H20a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-2.76a2 2 0 0 0-1.79 1.11L12 22a3.13 3.13 0 0 1-3-3.88Z"/></svg>
+      </button>
+      <button class="cu-chat-bubble-action" aria-label="Regenerate">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/></svg>
+      </button>
+    </div>
+  </div>
+</div>`.trim();
+
+const proseCode = `<div class="cu-chat-bubble cu-chat-bubble-assistant">
+  <div class="cu-chat-bubble-avatar">
+    <img src="https://api.dicebear.com/9.x/bottts/svg?seed=cubby" alt="AI" />
+  </div>
+  <div class="cu-chat-bubble-content">
+    <span class="cu-chat-bubble-name">Cubby AI</span>
+    <div class="cu-chat-bubble-message cu-chat-bubble-message-prose">
+      <p>Here's a quick example of flexbox:</p>
+      <pre><code>.container {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}</code></pre>
+      <p>Key properties:</p>
+      <ul>
+        <li><code>justify-content</code> — main axis alignment</li>
+        <li><code>align-items</code> — cross axis alignment</li>
+        <li><code>gap</code> — spacing between items</li>
+      </ul>
+    </div>
+  </div>
+</div>`.trim();
+
+const conversationCode = `<div class="space-y-0">
+  <div class="cu-chat-bubble cu-chat-bubble-user">
+    <div class="cu-chat-bubble-avatar">
+      <img src="https://i.pravatar.cc/32?img=8" alt="User" />
+    </div>
+    <div class="cu-chat-bubble-content">
+      <div class="cu-chat-bubble-message">
+        What is the difference between margin and padding?
+      </div>
+      <span class="cu-chat-bubble-timestamp">2:30 PM</span>
+    </div>
+  </div>
+
+  <div class="cu-chat-bubble cu-chat-bubble-assistant">
+    <div class="cu-chat-bubble-avatar">
+      <img src="https://api.dicebear.com/9.x/bottts/svg?seed=cubby" alt="AI" />
+    </div>
+    <div class="cu-chat-bubble-content">
+      <span class="cu-chat-bubble-name">Cubby AI</span>
+      <div class="cu-chat-bubble-message cu-chat-bubble-message-prose">
+        <p>Great question! Here's the difference:</p>
+        <ul>
+          <li><strong>Margin</strong> — space <em>outside</em> the element's border</li>
+          <li><strong>Padding</strong> — space <em>inside</em> the element's border</li>
+        </ul>
+        <p>Think of it like a picture frame: padding is the mat inside the frame, margin is the wall space around it.</p>
+      </div>
+      <div class="cu-chat-bubble-actions">
+        <button class="cu-chat-bubble-action" aria-label="Copy">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+        </button>
+        <button class="cu-chat-bubble-action" aria-label="Thumbs up">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 10v12"/><path d="M15 5.88 14 10h5.83a2 2 0 0 1 1.92 2.56l-2.33 8A2 2 0 0 1 17.5 22H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h2.76a2 2 0 0 0 1.79-1.11L12 2a3.13 3.13 0 0 1 3 3.88Z"/></svg>
+        </button>
+        <button class="cu-chat-bubble-action" aria-label="Thumbs down">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 14V2"/><path d="M9 18.12 10 14H4.17a2 2 0 0 1-1.92-2.56l2.33-8A2 2 0 0 1 6.5 2H20a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-2.76a2 2 0 0 0-1.79 1.11L12 22a3.13 3.13 0 0 1-3-3.88Z"/></svg>
+        </button>
+      </div>
+      <span class="cu-chat-bubble-timestamp">2:31 PM</span>
+    </div>
+  </div>
+
+  <div class="cu-chat-bubble cu-chat-bubble-user">
+    <div class="cu-chat-bubble-avatar">
+      <img src="https://i.pravatar.cc/32?img=8" alt="User" />
+    </div>
+    <div class="cu-chat-bubble-content">
+      <div class="cu-chat-bubble-message">
+        That makes sense! Thanks for the analogy.
+      </div>
+      <span class="cu-chat-bubble-timestamp">2:32 PM</span>
+    </div>
+  </div>
+</div>`.trim();
+---
+
+<Layout title={t.title} category={t.category} componentName="Chat Bubble">
+    <div class="space-y-3">
+        <div class="flex items-center gap-3">
+            <h1 class="text-3xl font-bold tracking-tight">Chat Bubble</h1>
+            <span class="cu-badge cu-badge-secondary">{t.category}</span>
+        </div>
+        <p class="text-base text-muted-foreground leading-relaxed">
+            {t.description}
+        </p>
+    </div>
+
+    <div class="mt-10 space-y-10">
+        <!-- Usage -->
+        <section class="space-y-3">
+            <h2 id="usage" class="text-lg font-semibold tracking-tight relative group">
+                <a href="#usage" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                {t.sections.usage.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
+            <ComponentPreview code={usageCode}>
+                <div class="w-full max-w-lg">
+                    <div class="cu-chat-bubble cu-chat-bubble-assistant">
+                        <div class="cu-chat-bubble-content">
+                            <span class="cu-chat-bubble-name">Assistant</span>
+                            <div class="cu-chat-bubble-message">
+                                Hello! How can I help you today?
+                            </div>
+                            <span class="cu-chat-bubble-timestamp">2:30 PM</span>
+                        </div>
+                    </div>
+                </div>
+            </ComponentPreview>
+        </section>
+
+        <!-- Classes Reference -->
+        <section class="space-y-3">
+            <h2 id="classes" class="text-lg font-semibold tracking-tight relative group">
+                <a href="#classes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                {t.sections.classes.title}
+            </h2>
+            <div class="cu-table-wrapper rounded-lg border border-border">
+                <table class="cu-table">
+                    <thead class="cu-table-header">
+                        <tr class="cu-table-row">
+                            <th class="cu-table-head">{t.sections.classes.classLabel}</th>
+                            <th class="cu-table-head">{t.sections.classes.descriptionLabel}</th>
+                        </tr>
+                    </thead>
+                    <tbody class="cu-table-body">
+                        {Object.entries(t.classDescriptions).map(([cls, desc]) => (
+                            <tr class="cu-table-row">
+                                <td class="cu-table-cell"><code class="cu-code">{cls}</code></td>
+                                <td class="cu-table-cell text-muted-foreground">{desc}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- User Message -->
+        <section class="space-y-3">
+            <h2 id="user-message" class="text-lg font-semibold tracking-tight relative group">
+                <a href="#user-message" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                {t.sections.userMessage.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.userMessage.description} />
+            <ComponentPreview code={userMessageCode}>
+                <div class="w-full max-w-lg">
+                    <div class="cu-chat-bubble cu-chat-bubble-user">
+                        <div class="cu-chat-bubble-content">
+                            <div class="cu-chat-bubble-message">
+                                Can you explain how flexbox works?
+                            </div>
+                            <span class="cu-chat-bubble-timestamp">2:31 PM</span>
+                        </div>
+                    </div>
+                </div>
+            </ComponentPreview>
+        </section>
+
+        <!-- With Avatar -->
+        <section class="space-y-3">
+            <h2 id="with-avatar" class="text-lg font-semibold tracking-tight relative group">
+                <a href="#with-avatar" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                {t.sections.withAvatar.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withAvatar.description} />
+            <ComponentPreview code={withAvatarCode}>
+                <div class="w-full max-w-lg space-y-0">
+                    <div class="cu-chat-bubble cu-chat-bubble-assistant">
+                        <div class="cu-chat-bubble-avatar">
+                            <img src="https://api.dicebear.com/9.x/bottts/svg?seed=cubby" alt="AI" />
+                        </div>
+                        <div class="cu-chat-bubble-content">
+                            <span class="cu-chat-bubble-name">Cubby AI</span>
+                            <div class="cu-chat-bubble-message">
+                                Sure! I'd be happy to explain flexbox. It's a CSS layout model that makes it easier to design flexible responsive layouts.
+                            </div>
+                            <span class="cu-chat-bubble-timestamp">2:32 PM</span>
+                        </div>
+                    </div>
+                    <div class="cu-chat-bubble cu-chat-bubble-user">
+                        <div class="cu-chat-bubble-avatar">
+                            <img src="https://i.pravatar.cc/32?img=8" alt="User" />
+                        </div>
+                        <div class="cu-chat-bubble-content">
+                            <div class="cu-chat-bubble-message">
+                                That sounds great, can you show me an example?
+                            </div>
+                            <span class="cu-chat-bubble-timestamp">2:33 PM</span>
+                        </div>
+                    </div>
+                </div>
+            </ComponentPreview>
+        </section>
+
+        <!-- With Actions -->
+        <section class="space-y-3">
+            <h2 id="with-actions" class="text-lg font-semibold tracking-tight relative group">
+                <a href="#with-actions" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                {t.sections.withActions.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withActions.description} />
+            <ComponentPreview code={withActionsCode}>
+                <div class="w-full max-w-lg">
+                    <div class="cu-chat-bubble cu-chat-bubble-assistant">
+                        <div class="cu-chat-bubble-avatar">
+                            <img src="https://api.dicebear.com/9.x/bottts/svg?seed=cubby" alt="AI" />
+                        </div>
+                        <div class="cu-chat-bubble-content">
+                            <span class="cu-chat-bubble-name">Cubby AI</span>
+                            <div class="cu-chat-bubble-message">
+                                Flexbox works by defining a flex container and its children become flex items. Use <code>display: flex</code> on the parent.
+                            </div>
+                            <div class="cu-chat-bubble-actions">
+                                <button class="cu-chat-bubble-action" aria-label="Copy">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+                                </button>
+                                <button class="cu-chat-bubble-action" aria-label="Thumbs up">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 10v12"/><path d="M15 5.88 14 10h5.83a2 2 0 0 1 1.92 2.56l-2.33 8A2 2 0 0 1 17.5 22H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h2.76a2 2 0 0 0 1.79-1.11L12 2a3.13 3.13 0 0 1 3 3.88Z"/></svg>
+                                </button>
+                                <button class="cu-chat-bubble-action" aria-label="Thumbs down">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 14V2"/><path d="M9 18.12 10 14H4.17a2 2 0 0 1-1.92-2.56l2.33-8A2 2 0 0 1 6.5 2H20a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-2.76a2 2 0 0 0-1.79 1.11L12 22a3.13 3.13 0 0 1-3-3.88Z"/></svg>
+                                </button>
+                                <button class="cu-chat-bubble-action" aria-label="Regenerate">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/></svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ComponentPreview>
+        </section>
+
+        <!-- Prose -->
+        <section class="space-y-3">
+            <h2 id="prose" class="text-lg font-semibold tracking-tight relative group">
+                <a href="#prose" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                {t.sections.prose.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.prose.description} />
+            <ComponentPreview code={proseCode}>
+                <div class="w-full max-w-lg">
+                    <div class="cu-chat-bubble cu-chat-bubble-assistant">
+                        <div class="cu-chat-bubble-avatar">
+                            <img src="https://api.dicebear.com/9.x/bottts/svg?seed=cubby" alt="AI" />
+                        </div>
+                        <div class="cu-chat-bubble-content">
+                            <span class="cu-chat-bubble-name">Cubby AI</span>
+                            <div class="cu-chat-bubble-message cu-chat-bubble-message-prose">
+                                <p>Here's a quick example of flexbox:</p>
+                                <pre><code>.container &#123;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+&#125;</code></pre>
+                                <p>Key properties:</p>
+                                <ul>
+                                    <li><code>justify-content</code> — main axis alignment</li>
+                                    <li><code>align-items</code> — cross axis alignment</li>
+                                    <li><code>gap</code> — spacing between items</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ComponentPreview>
+        </section>
+
+        <!-- Full Conversation -->
+        <section class="space-y-3">
+            <h2 id="conversation" class="text-lg font-semibold tracking-tight relative group">
+                <a href="#conversation" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                {t.sections.conversation.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.conversation.description} />
+            <ComponentPreview code={conversationCode}>
+                <div class="w-full max-w-lg space-y-0">
+                    <div class="cu-chat-bubble cu-chat-bubble-user">
+                        <div class="cu-chat-bubble-avatar">
+                            <img src="https://i.pravatar.cc/32?img=8" alt="User" />
+                        </div>
+                        <div class="cu-chat-bubble-content">
+                            <div class="cu-chat-bubble-message">
+                                What is the difference between margin and padding?
+                            </div>
+                            <span class="cu-chat-bubble-timestamp">2:30 PM</span>
+                        </div>
+                    </div>
+                    <div class="cu-chat-bubble cu-chat-bubble-assistant">
+                        <div class="cu-chat-bubble-avatar">
+                            <img src="https://api.dicebear.com/9.x/bottts/svg?seed=cubby" alt="AI" />
+                        </div>
+                        <div class="cu-chat-bubble-content">
+                            <span class="cu-chat-bubble-name">Cubby AI</span>
+                            <div class="cu-chat-bubble-message cu-chat-bubble-message-prose">
+                                <p>Great question! Here's the difference:</p>
+                                <ul>
+                                    <li><strong>Margin</strong> — space <em>outside</em> the element's border</li>
+                                    <li><strong>Padding</strong> — space <em>inside</em> the element's border</li>
+                                </ul>
+                                <p>Think of it like a picture frame: padding is the mat inside the frame, margin is the wall space around it.</p>
+                            </div>
+                            <div class="cu-chat-bubble-actions">
+                                <button class="cu-chat-bubble-action" aria-label="Copy">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+                                </button>
+                                <button class="cu-chat-bubble-action" aria-label="Thumbs up">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 10v12"/><path d="M15 5.88 14 10h5.83a2 2 0 0 1 1.92 2.56l-2.33 8A2 2 0 0 1 17.5 22H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h2.76a2 2 0 0 0 1.79-1.11L12 2a3.13 3.13 0 0 1 3 3.88Z"/></svg>
+                                </button>
+                                <button class="cu-chat-bubble-action" aria-label="Thumbs down">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 14V2"/><path d="M9 18.12 10 14H4.17a2 2 0 0 1-1.92-2.56l2.33-8A2 2 0 0 1 6.5 2H20a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-2.76a2 2 0 0 0-1.79 1.11L12 22a3.13 3.13 0 0 1-3-3.88Z"/></svg>
+                                </button>
+                            </div>
+                            <span class="cu-chat-bubble-timestamp">2:31 PM</span>
+                        </div>
+                    </div>
+                    <div class="cu-chat-bubble cu-chat-bubble-user">
+                        <div class="cu-chat-bubble-avatar">
+                            <img src="https://i.pravatar.cc/32?img=8" alt="User" />
+                        </div>
+                        <div class="cu-chat-bubble-content">
+                            <div class="cu-chat-bubble-message">
+                                That makes sense! Thanks for the analogy.
+                            </div>
+                            <span class="cu-chat-bubble-timestamp">2:32 PM</span>
+                        </div>
+                    </div>
+                </div>
+            </ComponentPreview>
+        </section>
+    </div>
+</Layout>

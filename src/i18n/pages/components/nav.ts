@@ -8,6 +8,7 @@ export const navPage: Record<Locale, {
     usage: { title: string; description: string };
     classes: { title: string; classLabel: string; descriptionLabel: string };
     activeItem: { title: string; description: string };
+    disabled: { title: string; description: string };
     vertical: { title: string; description: string };
     withIcons: { title: string; description: string };
     verticalWithIcons: { title: string; description: string };
@@ -32,6 +33,10 @@ export const navPage: Record<Locale, {
         title: 'Active Item',
         description: 'Add <code class="cu-code">cu-nav-item-active</code> to mark the current page.',
       },
+      disabled: {
+        title: 'Disabled',
+        description: 'Add <code class="cu-code">cu-nav-item-disabled</code> to make a nav item non-interactive.',
+      },
       vertical: {
         title: 'Vertical',
         description: 'Add <code class="cu-code">cu-nav-vertical</code> for vertical layout, suitable for use inside sidebars.',
@@ -50,6 +55,7 @@ export const navPage: Record<Locale, {
       'cu-nav-vertical': 'Vertical layout modifier',
       'cu-nav-item': 'Navigation item link',
       'cu-nav-item-active': 'Active state with primary background and text',
+      'cu-nav-item-disabled': 'Disabled state, non-interactive',
     },
   },
   'zh-tw': {
@@ -70,6 +76,10 @@ export const navPage: Record<Locale, {
         title: '啟用項目',
         description: '加入 <code class="cu-code">cu-nav-item-active</code> 標記當前頁面。',
       },
+      disabled: {
+        title: '停用狀態',
+        description: '加入 <code class="cu-code">cu-nav-item-disabled</code> 使導航項目不可互動。',
+      },
       vertical: {
         title: '垂直排列',
         description: '加入 <code class="cu-code">cu-nav-vertical</code> 實現垂直佈局，適合在側邊欄中使用。',
@@ -88,6 +98,7 @@ export const navPage: Record<Locale, {
       'cu-nav-vertical': '垂直佈局修飾器',
       'cu-nav-item': '導航項目連結',
       'cu-nav-item-active': '啟用狀態，帶有 Primary 背景和文字',
+      'cu-nav-item-disabled': '停用狀態，不可互動',
     },
   },
 };

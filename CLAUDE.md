@@ -40,7 +40,7 @@ Cubby UI 是一個框架無關的 UI 元件庫，風格類似 shadcn/ui，使用
 - `index.ts` — `Locale` 型別、`getLocaleFromUrl()`、`localizePath()`、`getAlternatePath()`、`useTranslations()`
 - `ui.ts` — 共用 UI 翻譯（Header、Sidebar、ComponentPreview 的文字）
 - `pages/home.ts`、`usage.ts`、`theming.ts`、`dark-mode.ts`、`playground.ts` — 核心頁面翻譯
-- `pages/components/*.ts` — 65 個元件頁面翻譯（每頁一個檔案）
+- `pages/components/*.ts` — 68 個元件頁面翻譯（每頁一個檔案）
 
 **頁面 i18n 模式**：每個頁面透過 3 行程式碼取得翻譯：
 ```astro
@@ -62,7 +62,7 @@ const t = useTranslations(buttonPage, locale);
 
 元件有兩個層次：
 
-1. **CSS 類別層**（`src/styles/components.css` + `src/styles/components/*.css`）— 在 `@layer components` 中定義，使用 `cu-` 前綴（Cubby）。`components.css` 僅包含 `@layer components {}` 包裝和 `@import` 語句，各元件 CSS 規則拆分至 `components/` 資料夾的獨立檔案。CSS 按領域分八個區塊：`TYPOGRAPHY`（Headings, Kbd, Paragraph, Blockquote, List, Link, Text, HR）→ `BASIC`（Button, Button Group, Card, Separator）→ `FORMS`（Checkbox, Listbox, Combobox ~ Transfer List）→ `DATA DISPLAY`（Accordion, Avatar, Badge, Collapsible, Data Table, Setting Item, Stat, Table, Timeline, Tree View）→ `FEEDBACK`（Alert, Empty State, Progress, Skeleton, Toast）→ `OVERLAY`（Alert Dialog, Dialog, Drawer, Dropdown, Hover Card, Popover, Tooltip）→ `NAVIGATION`（Breadcrumb, Menubar, Pagination, Segmented Control, Steps, Tabs）→ `LAYOUT`（Container, Filter Bar, Header, Nav, Page Header, Scroll Area, Sidebar, Toolbar）。這是元件的核心，純 HTML 專案可以只用這些 CSS 類別。共用結構透過 `listbox.css` 以逗號選擇器去重（Combobox / Multi Select 共用 7 組 class）。
+1. **CSS 類別層**（`src/styles/components.css` + `src/styles/components/*.css`）— 在 `@layer components` 中定義，使用 `cu-` 前綴（Cubby）。`components.css` 僅包含 `@layer components {}` 包裝和 `@import` 語句，各元件 CSS 規則拆分至 `components/` 資料夾的獨立檔案。CSS 按領域分九個區塊：`TYPOGRAPHY`（Headings, Kbd, Paragraph, Blockquote, List, Link, Text, HR）→ `BASIC`（Button, Button Group, Card, Separator）→ `FORMS`（Checkbox, Listbox, Combobox ~ Transfer List）→ `DATA DISPLAY`（Accordion, Avatar, Badge, Collapsible, Data Table, Setting Item, Stat, Table, Timeline, Tree View）→ `FEEDBACK`（Alert, Empty State, Progress, Skeleton, Toast）→ `OVERLAY`（Alert Dialog, Dialog, Drawer, Dropdown, Hover Card, Popover, Tooltip）→ `NAVIGATION`（Breadcrumb, Menubar, Pagination, Segmented Control, Steps, Tabs）→ `LAYOUT`（Container, Filter Bar, Header, Nav, Page Header, Scroll Area, Sidebar, Toolbar）→ `AI`（Chat Bubble, Chat Input, Chat Typing）。這是元件的核心，純 HTML 專案可以只用這些 CSS 類別。共用結構透過 `listbox.css` 以逗號選擇器去重（Combobox / Multi Select 共用 7 組 class）。
 2. **Astro 元件層**（`src/components/ui/`）— 包裝 CSS 類別的 `.astro` 檔案，提供 TypeScript Props 型別安全和屬性透傳。
 
 ### CSS 類別命名規則
@@ -241,7 +241,10 @@ src/
 │       ├── Toast*.astro            — 通知（Toast, ToastContainer, ToastTitle, ToastDescription, ToastClose）
 │       ├── Toggle.astro           — 開關（純 CSS，size prop）
 │       ├── Toolbar*.astro         — 工具列（Toolbar, ToolbarGroup, ToolbarButton, ToolbarSeparator）
-│       └── TreeView*.astro        — 樹狀結構（TreeView, TreeItem, TreeLeaf）
+│       ├── TreeView*.astro        — 樹狀結構（TreeView, TreeItem, TreeLeaf）
+│       ├── ChatBubble*.astro     — 聊天氣泡（ChatBubble, ChatBubbleAvatar, ChatBubbleContent, ChatBubbleName, ChatBubbleMessage, ChatBubbleTimestamp, ChatBubbleActions, ChatBubbleAction）
+│       ├── ChatInput.astro       — 聊天輸入框
+│       └── ChatTyping.astro      — 打字指示器
 ├── config.ts                      — 全域配置（TOP_CLASS = 'cu'）
 ├── types.ts                       — 共用 TypeScript 型別（FeedbackVariant 等）
 ├── layouts/
@@ -311,7 +314,10 @@ src/
 │       ├── toggle.astro
 │       ├── toolbar.astro
 │       ├── tooltip.astro
-│       └── tree-view.astro
+│       ├── tree-view.astro
+│       ├── chat-bubble.astro
+│       ├── chat-input.astro
+│       └── chat-typing.astro
 └── styles/
     ├── global.css                 — 文檔站入口（引入 tailwindcss + theme + components + body/.cu-code 樣式）
     ├── theme.css                  — 設計 token（@theme 區塊 + .dark 暗色覆蓋）
@@ -382,7 +388,10 @@ src/
         ├── toggle.css
         ├── toolbar.css
         ├── tooltip.css
-        └── tree-view.css
+        ├── tree-view.css
+        ├── chat-bubble.css
+        ├── chat-input.css
+        └── chat-typing.css
 ```
 
 ### Astro 元件模式
@@ -397,7 +406,7 @@ src/
 
 #### 文檔站點側邊欄（`src/components/sidebar/`）
 
-導航資料集中在 `src/data/component-nav.ts` 中管理（single source of truth），`Sidebar.astro` 和 `PrevNextNav.astro` 共同引用。資料分為：`gettingStarted`、`componentGroups`（含 8 個分組：layouts / basic / typography / navigation / dataDisplay / forms / feedback / overlay）、`examplePages`。`allComponentPages` 為所有元件頁的扁平有序陣列，供 prev/next 導航使用。
+導航資料集中在 `src/data/component-nav.ts` 中管理（single source of truth），`Sidebar.astro` 和 `PrevNextNav.astro` 共同引用。資料分為：`gettingStarted`、`componentGroups`（含 9 個分組：layouts / basic / typography / navigation / dataDisplay / forms / feedback / overlay / ai）、`examplePages`。`allComponentPages` 為所有元件頁的扁平有序陣列，供 prev/next 導航使用。
 側邊欄子元件使用 `cu-*` CSS classes（dog-fooding）：`SidebarSection`（`cu-sidebar-section-title`）→ `SidebarGroup`（`cu-sidebar-group` + `cu-sidebar-group-title`）→ `SidebarLink`（`cu-sidebar-item` + `cu-sidebar-item-active`）。
 新增元件時需在 `component-nav.ts` 的對應陣列加一筆資料。
 
@@ -410,6 +419,7 @@ src/
 - **Components > Overlay** — Alert Dialog, Dialog, Drawer, Dropdown Menu, Hover Card, Popover, Tooltip
 - **Components > Navigation** — Breadcrumb, Menubar, Pagination, Segmented Control, Steps, Tabs
 - **Components > Layouts** — Container, Filter Bar, Header, Nav, Page Header, Scroll Area, Sidebar, Toolbar
+- **Components > AI** — Chat Bubble, Chat Input, Chat Typing
 
 #### UI Sidebar 元件（`src/components/ui/Sidebar*.astro`）
 
@@ -463,11 +473,13 @@ src/
 
 頁面標頭元件，用於展示頁面標題、描述和操作按鈕：
 
-- `cu-page-header` — 容器（`flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between`）
-- `cu-page-header-content` — 內容區（`space-y-1`）
-- `cu-page-header-title` — 標題（`text-2xl font-bold tracking-tight`）
-- `cu-page-header-description` — 描述（`text-muted-foreground`）
-- `cu-page-header-actions` — 操作區（`flex items-center gap-2`）
+- `cu-page-header` — 容器（`flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between`）
+- `cu-page-header-content` — 內容區（`min-w-0`）
+- `cu-page-header-title` — 標題（`text-3xl md:text-4xl font-bold tracking-tight`）
+- `cu-page-header-description` — 描述（`text-sm text-muted-foreground mt-2.5`）
+- `cu-page-header-actions` — 操作區（`flex items-center gap-2 shrink-0 sm:mt-1`）
+- `cu-page-header-bordered` — 底部分隔線變體（`pb-4 border-b border-border`，opt-in）
+- `cu-page-header-centered` — 置中對齊變體（`sm:flex-col sm:items-center sm:text-center`，opt-in）
 
 #### UI FilterBar 元件（`src/components/ui/FilterBar*.astro`）
 
@@ -517,11 +529,11 @@ Header logo 與 sidebar 連結文字齊左：
 
 ### 新增元件完整 Checklist
 
-1. **CSS**：在 `src/styles/components/` 建立獨立 `.css` 檔案定義 CSS 類別（使用 `cu-` 前綴），並在 `src/styles/components.css` 的 `@layer components` 對應區塊（BASIC / FORMS / DATA DISPLAY / FEEDBACK / OVERLAY / NAVIGATION / LAYOUT）加入 `@import` 語句
+1. **CSS**：在 `src/styles/components/` 建立獨立 `.css` 檔案定義 CSS 類別（使用 `cu-` 前綴），並在 `src/styles/components.css` 的 `@layer components` 對應區塊（BASIC / FORMS / DATA DISPLAY / FEEDBACK / OVERLAY / NAVIGATION / LAYOUT / AI）加入 `@import` 語句
 2. **Astro 元件**：在 `src/components/ui/` 建立對應的 `.astro` 元件檔（必須包含 `interface Props` 型別定義，使用 `class:list` 處理 class 組合）
 3. **i18n 翻譯**：在 `src/i18n/pages/components/` 建立翻譯檔（`Record<Locale, {...}>` 格式，包含 en/zh-tw 翻譯）
 4. **文檔頁面**：在 `src/pages/components/` 建立文檔頁面（使用 `ComponentPreview` 展示，含 Preview + Code 兩個 tab；引入翻譯並使用 `getLocaleFromUrl` + `useTranslations`，inline code 使用 `cu-code` class；code 範例使用 `cu-` class 系統，非原始 Tailwind utilities）
-5. **導航**：在 `src/data/component-nav.ts` 中將元件加入對應的導航陣列（layouts / basic / typography / navigation / dataDisplay / forms / feedback / overlay）
+5. **導航**：在 `src/data/component-nav.ts` 中將元件加入對應的導航陣列（layouts / basic / typography / navigation / dataDisplay / forms / feedback / overlay / ai）
 6. **components.json**：在根目錄 `components.json` 新增元件規格（`cssClasses`、`dataAttributes`、`aria`、`notes`、`example`）
 7. **llms.txt**：在根目錄 `llms.txt` 對應分類區塊加入元件說明（CSS class 清單 + HTML 範例）
 8. **互動元件 JS**（僅有 JS 互動的元件）：在 `src/scripts/cubby-ui.js` 加入 `setupXxx()` 函式（含 JSDoc + HTML 結構範例）與追蹤陣列；更新 `src/scripts/cubby-ui.d.ts` 的 `DATA_ATTRS` 常數；使用 `data-*` 屬性管理狀態（非框架狀態管理）

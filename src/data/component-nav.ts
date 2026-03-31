@@ -106,6 +106,12 @@ export const overlayComponents: NavItem[] = [
   { name: "Tooltip", path: "/components/tooltip" },
 ];
 
+export const aiComponents: NavItem[] = [
+  { name: "Chat Bubble", path: "/components/chat-bubble" },
+  { name: "Chat Input", path: "/components/chat-input" },
+  { name: "Chat Typing", path: "/components/chat-typing" },
+];
+
 export const examplePages: NavItem[] = [
   { name: "Dashboard V1", path: "/examples/dashboard" },
   { name: "Dashboard V2", path: "/examples/dashboard-v2" },
@@ -126,6 +132,7 @@ export const componentGroups = [
   { key: "forms" as const, items: formComponents },
   { key: "feedback" as const, items: feedbackComponents },
   { key: "overlay" as const, items: overlayComponents },
+  { key: "ai" as const, items: aiComponents },
 ];
 
 /** Flat ordered list of all component pages (for prev/next navigation) */

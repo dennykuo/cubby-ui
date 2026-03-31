@@ -3,15 +3,17 @@ import { TOP_CLASS } from "../../config";
 
 interface Props {
 	active?: boolean;
+	disabled?: boolean;
 	class?: string;
 	[key: string]: any;
 }
 
-const { active = false, class: className, ...rest } = Astro.props;
+const { active = false, disabled = false, class: className, ...rest } = Astro.props;
 const baseClass = `${TOP_CLASS}-nav-item`;
 const activeClass = active ? `${TOP_CLASS}-nav-item-active` : "";
+const disabledClass = disabled ? `${TOP_CLASS}-nav-item-disabled` : "";
 ---
 
-<a class:list={[baseClass, activeClass, className]} {...rest}>
+<a class:list={[baseClass, activeClass, disabledClass, className]} aria-disabled={disabled || undefined} {...rest}>
 	<slot />
 </a>

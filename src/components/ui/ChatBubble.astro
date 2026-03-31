@@ -1,0 +1,18 @@
+---
+import { TOP_CLASS } from "../../config";
+
+interface Props {
+    variant?: "user" | "assistant";
+    class?: string;
+    [key: string]: any;
+}
+
+const { variant = "assistant", class: className, ...rest } = Astro.props;
+
+const baseClass = `${TOP_CLASS}-chat-bubble`;
+const variantClass = `${TOP_CLASS}-chat-bubble-${variant}`;
+---
+
+<div class:list={[baseClass, variantClass, className]} {...rest}>
+    <slot />
+</div>

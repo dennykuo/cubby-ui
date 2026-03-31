@@ -6,6 +6,8 @@ import { pageHeaderPage } from "@/i18n/pages/components/page-header";
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(pageHeaderPage, locale);
+const SO = "<" + "script>";
+const SC = "</" + "script>";
 
 const usageCode = `<header class="cu-page-header">
   <div class="cu-page-header-content">
@@ -89,6 +91,86 @@ const minimalCode = `<header class="cu-page-header">
   <div class="cu-page-header-content">
     <h1 class="cu-page-header-title">Settings</h1>
     <p class="cu-page-header-description">Manage your account and preferences.</p>
+  </div>
+</header>`.trim();
+
+const backButtonCode = `<header class="cu-page-header">
+  <div class="cu-page-header-content">
+    <div class="flex items-center gap-2">
+      <a href="#" class="cu-button cu-button-ghost cu-button-icon-sm" aria-label="Go back">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+      </a>
+      <h1 class="cu-page-header-title">Edit Product</h1>
+    </div>
+    <p class="cu-page-header-description pl-10">Update product details and pricing information.</p>
+  </div>
+  <div class="cu-page-header-actions">
+    <button class="cu-button cu-button-outline cu-button-md">Cancel</button>
+    <button class="cu-button cu-button-default cu-button-md">Save</button>
+  </div>
+</header>`.trim();
+
+const withTabsCode = `<div>
+  <header class="cu-page-header">
+    <div class="cu-page-header-content">
+      <h1 class="cu-page-header-title">Settings</h1>
+      <p class="cu-page-header-description">Manage your account preferences and configuration.</p>
+    </div>
+  </header>
+  <div class="cu-tabs mt-6" data-cu-tabs>
+    <div class="cu-tabs-list-underline">
+      <button class="cu-tabs-trigger cu-tabs-trigger-active" data-cu-tabs-trigger="general">General</button>
+      <button class="cu-tabs-trigger" data-cu-tabs-trigger="security">Security</button>
+      <button class="cu-tabs-trigger" data-cu-tabs-trigger="notifications">Notifications</button>
+    </div>
+    <div class="cu-tabs-content" data-cu-tabs-content="general">
+      <p class="text-sm text-muted-foreground">General settings content goes here.</p>
+    </div>
+    <div class="cu-tabs-content" data-cu-tabs-content="security" hidden>
+      <p class="text-sm text-muted-foreground">Security settings content goes here.</p>
+    </div>
+    <div class="cu-tabs-content" data-cu-tabs-content="notifications" hidden>
+      <p class="text-sm text-muted-foreground">Notification preferences content goes here.</p>
+    </div>
+  </div>
+</div>
+
+${SO}
+  document.querySelectorAll("[data-cu-tabs]").forEach((tabs) => {
+    const triggers = tabs.querySelectorAll("[data-cu-tabs-trigger]");
+    const contents = tabs.querySelectorAll("[data-cu-tabs-content]");
+    triggers.forEach((trigger) => {
+      trigger.addEventListener("click", () => {
+        const value = trigger.getAttribute("data-cu-tabs-trigger");
+        triggers.forEach((t) => t.classList.remove("cu-tabs-trigger-active"));
+        trigger.classList.add("cu-tabs-trigger-active");
+        contents.forEach((c) => {
+          c.hidden = c.getAttribute("data-cu-tabs-content") !== value;
+        });
+      });
+    });
+  });
+${SC}`.trim();
+
+const centeredCode = `<header class="cu-page-header cu-page-header-centered">
+  <div class="cu-page-header-content">
+    <h1 class="cu-page-header-title">Welcome to Cubby UI</h1>
+    <p class="cu-page-header-description">A framework-agnostic UI component library built with pure HTML and Tailwind CSS.</p>
+  </div>
+  <div class="cu-page-header-actions">
+    <button class="cu-button cu-button-outline cu-button-md">Documentation</button>
+    <button class="cu-button cu-button-default cu-button-md">Get Started</button>
+  </div>
+</header>`.trim();
+
+const borderedCode = `<header class="cu-page-header cu-page-header-bordered">
+  <div class="cu-page-header-content">
+    <h1 class="cu-page-header-title">Dashboard</h1>
+    <p class="cu-page-header-description">Overview of your project metrics and activity.</p>
+  </div>
+  <div class="cu-page-header-actions">
+    <button class="cu-button cu-button-outline cu-button-md">Export</button>
+    <button class="cu-button cu-button-default cu-button-md">New Project</button>
   </div>
 </header>`.trim();
 ---
@@ -206,6 +288,36 @@ const minimalCode = `<header class="cu-page-header">
             </ComponentPreview>
         </section>
 
+        <!-- Back Button -->
+        <section class="space-y-3">
+            <h2 id="back-button" class="text-lg font-semibold tracking-tight relative group">
+                <a href="#back-button" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                {t.sections.backButton.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
+                {t.sections.backButton.description}
+            </p>
+            <ComponentPreview code={backButtonCode}>
+                <div class="w-full max-w-3xl">
+                    <header class="cu-page-header">
+                        <div class="cu-page-header-content">
+                            <div class="flex items-center gap-2">
+                                <a href="#" class="cu-button cu-button-ghost cu-button-icon-sm" aria-label="Go back">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+                                </a>
+                                <h1 class="cu-page-header-title">Edit Product</h1>
+                            </div>
+                            <p class="cu-page-header-description pl-10">Update product details and pricing information.</p>
+                        </div>
+                        <div class="cu-page-header-actions">
+                            <button class="cu-button cu-button-outline cu-button-md">Cancel</button>
+                            <button class="cu-button cu-button-default cu-button-md">Save</button>
+                        </div>
+                    </header>
+                </div>
+            </ComponentPreview>
+        </section>
+
         <!-- With Badge -->
         <section class="space-y-3">
             <h2 id="with-badge" class="text-lg font-semibold tracking-tight relative group">
@@ -282,6 +394,93 @@ const minimalCode = `<header class="cu-page-header">
                             </div>
                         </header>
                     </div>
+                </div>
+            </ComponentPreview>
+        </section>
+
+        <!-- With Tabs -->
+        <section class="space-y-3">
+            <h2 id="with-tabs" class="text-lg font-semibold tracking-tight relative group">
+                <a href="#with-tabs" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                {t.sections.withTabs.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withTabs.description} />
+            <ComponentPreview code={withTabsCode}>
+                <div class="w-full max-w-3xl">
+                    <div>
+                        <header class="cu-page-header">
+                            <div class="cu-page-header-content">
+                                <h1 class="cu-page-header-title">Settings</h1>
+                                <p class="cu-page-header-description">Manage your account preferences and configuration.</p>
+                            </div>
+                        </header>
+                        <div class="cu-tabs mt-6" data-cu-tabs>
+                            <div class="cu-tabs-list-underline">
+                                <button class="cu-tabs-trigger cu-tabs-trigger-active" data-cu-tabs-trigger="general">General</button>
+                                <button class="cu-tabs-trigger" data-cu-tabs-trigger="security">Security</button>
+                                <button class="cu-tabs-trigger" data-cu-tabs-trigger="notifications">Notifications</button>
+                            </div>
+                            <div class="cu-tabs-content" data-cu-tabs-content="general">
+                                <p class="text-sm text-muted-foreground">General settings content goes here.</p>
+                            </div>
+                            <div class="cu-tabs-content" data-cu-tabs-content="security" hidden>
+                                <p class="text-sm text-muted-foreground">Security settings content goes here.</p>
+                            </div>
+                            <div class="cu-tabs-content" data-cu-tabs-content="notifications" hidden>
+                                <p class="text-sm text-muted-foreground">Notification preferences content goes here.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ComponentPreview>
+        </section>
+
+        <!-- Bordered -->
+        <section class="space-y-3">
+            <h2 id="bordered" class="text-lg font-semibold tracking-tight relative group">
+                <a href="#bordered" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                {t.sections.bordered.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
+                {t.sections.bordered.description}
+            </p>
+            <ComponentPreview code={borderedCode}>
+                <div class="w-full max-w-3xl">
+                    <header class="cu-page-header cu-page-header-bordered">
+                        <div class="cu-page-header-content">
+                            <h1 class="cu-page-header-title">Dashboard</h1>
+                            <p class="cu-page-header-description">Overview of your project metrics and activity.</p>
+                        </div>
+                        <div class="cu-page-header-actions">
+                            <button class="cu-button cu-button-outline cu-button-md">Export</button>
+                            <button class="cu-button cu-button-default cu-button-md">New Project</button>
+                        </div>
+                    </header>
+                </div>
+            </ComponentPreview>
+        </section>
+
+        <!-- Centered -->
+        <section class="space-y-3">
+            <h2 id="centered" class="text-lg font-semibold tracking-tight relative group">
+                <a href="#centered" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                {t.sections.centered.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
+                {t.sections.centered.description}
+            </p>
+            <ComponentPreview code={centeredCode}>
+                <div class="w-full max-w-3xl">
+                    <header class="cu-page-header cu-page-header-centered">
+                        <div class="cu-page-header-content">
+                            <h1 class="cu-page-header-title">Welcome to Cubby UI</h1>
+                            <p class="cu-page-header-description">A framework-agnostic UI component library built with pure HTML and Tailwind CSS.</p>
+                        </div>
+                        <div class="cu-page-header-actions">
+                            <button class="cu-button cu-button-outline cu-button-md">Documentation</button>
+                            <button class="cu-button cu-button-default cu-button-md">Get Started</button>
+                        </div>
+                    </header>
                 </div>
             </ComponentPreview>
         </section>

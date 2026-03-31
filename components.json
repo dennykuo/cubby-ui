@@ -770,7 +770,7 @@
       "cssClasses": {
         "base": "cu-nav",
         "parts": ["cu-nav-item"],
-        "states": ["cu-nav-item-active"],
+        "states": ["cu-nav-item-active", "cu-nav-item-disabled"],
         "modifiers": ["cu-nav-vertical"]
       },
       "example": "<nav class=\"cu-nav\"><a href=\"/\" class=\"cu-nav-item cu-nav-item-active\">Home</a><a href=\"/about\" class=\"cu-nav-item\">About</a></nav>"
@@ -781,7 +781,8 @@
       "interactive": false,
       "cssClasses": {
         "base": "cu-page-header",
-        "parts": ["cu-page-header-content", "cu-page-header-title", "cu-page-header-description", "cu-page-header-actions"]
+        "parts": ["cu-page-header-content", "cu-page-header-title", "cu-page-header-description", "cu-page-header-actions"],
+        "variants": ["cu-page-header-bordered", "cu-page-header-centered"]
       },
       "example": "<div class=\"cu-page-header\"><div class=\"cu-page-header-content\"><h1 class=\"cu-page-header-title\">Title</h1><p class=\"cu-page-header-description\">Desc</p></div><div class=\"cu-page-header-actions\"><button class=\"cu-button cu-button-default\">Action</button></div></div>"
     },
@@ -817,6 +818,41 @@
         "parts": ["cu-toolbar-group", "cu-toolbar-button", "cu-toolbar-separator"]
       },
       "example": "<div class=\"cu-toolbar\"><div class=\"cu-toolbar-group\"><button class=\"cu-toolbar-button\">B</button><button class=\"cu-toolbar-button\">I</button></div><div class=\"cu-toolbar-separator\"></div><div class=\"cu-toolbar-group\"><button class=\"cu-toolbar-button\">≡</button></div></div>"
+    },
+    {
+      "name": "Chat Bubble",
+      "category": "ai",
+      "interactive": false,
+      "cssClasses": {
+        "base": "cu-chat-bubble",
+        "variants": ["cu-chat-bubble-user", "cu-chat-bubble-assistant"],
+        "parts": ["cu-chat-bubble-avatar", "cu-chat-bubble-content", "cu-chat-bubble-name", "cu-chat-bubble-message", "cu-chat-bubble-timestamp", "cu-chat-bubble-actions", "cu-chat-bubble-action"],
+        "modifiers": ["cu-chat-bubble-message-prose"]
+      },
+      "notes": "Use cu-chat-bubble-user for right-aligned user messages (primary bg) and cu-chat-bubble-assistant for left-aligned AI messages (muted bg). Actions are always visible.",
+      "example": "<div class=\"cu-chat-bubble cu-chat-bubble-assistant\"><div class=\"cu-chat-bubble-avatar\"><img src=\"avatar.png\" alt=\"AI\" /></div><div class=\"cu-chat-bubble-content\"><span class=\"cu-chat-bubble-name\">Assistant</span><div class=\"cu-chat-bubble-message\">Hello!</div></div></div>"
+    },
+    {
+      "name": "Chat Input",
+      "category": "ai",
+      "interactive": false,
+      "cssClasses": {
+        "base": "cu-chat-input",
+        "parts": ["cu-chat-input-field", "cu-chat-input-actions", "cu-chat-input-send", "cu-chat-input-attach"]
+      },
+      "notes": "Auto-growing textarea with field-sizing: content. Send button supports disabled state. Attach button is optional.",
+      "example": "<div class=\"cu-chat-input\"><textarea class=\"cu-chat-input-field\" placeholder=\"Type a message...\" rows=\"1\"></textarea><div class=\"cu-chat-input-actions\"><button class=\"cu-chat-input-send\">Send</button></div></div>"
+    },
+    {
+      "name": "Chat Typing",
+      "category": "ai",
+      "interactive": false,
+      "cssClasses": {
+        "base": "cu-chat-typing",
+        "parts": ["cu-chat-typing-dot"]
+      },
+      "notes": "Animated bouncing dots indicator. Place inside cu-chat-bubble-content alongside cu-chat-bubble-avatar for contextual display.",
+      "example": "<div class=\"cu-chat-typing\"><span class=\"cu-chat-typing-dot\"></span><span class=\"cu-chat-typing-dot\"></span><span class=\"cu-chat-typing-dot\"></span></div>"
     }
   ]
 }

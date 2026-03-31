@@ -1,0 +1,80 @@
+/* Chat Bubble
+   ------------------------------------------------------------------ */
+.cu-chat-bubble {
+    @apply flex gap-3 py-3;
+}
+
+.cu-chat-bubble-user {
+    @apply flex-row-reverse;
+}
+
+.cu-chat-bubble-assistant {
+    @apply flex-row;
+}
+
+/* -- avatar -- */
+.cu-chat-bubble-avatar {
+    @apply size-8 shrink-0 overflow-hidden rounded-full;
+}
+
+.cu-chat-bubble-avatar img {
+    @apply size-full object-cover;
+}
+
+/* -- content wrapper -- */
+.cu-chat-bubble-content {
+    @apply flex max-w-[75%] flex-col gap-1;
+}
+
+.cu-chat-bubble-user .cu-chat-bubble-content {
+    @apply items-end;
+}
+
+/* -- name -- */
+.cu-chat-bubble-name {
+    @apply text-xs font-medium text-muted-foreground;
+}
+
+/* -- message -- */
+.cu-chat-bubble-message {
+    @apply rounded-2xl px-4 py-2.5 text-sm leading-relaxed;
+}
+
+.cu-chat-bubble-user .cu-chat-bubble-message {
+    @apply rounded-br-sm bg-primary text-primary-foreground;
+}
+
+.cu-chat-bubble-assistant .cu-chat-bubble-message {
+    @apply rounded-bl-sm bg-muted text-foreground;
+}
+
+/* -- markdown prose inside assistant message -- */
+.cu-chat-bubble-message-prose :is(p, ul, ol) {
+    @apply mb-2 last:mb-0;
+}
+
+.cu-chat-bubble-message-prose code {
+    @apply rounded bg-foreground/10 px-1 py-0.5 text-xs;
+}
+
+.cu-chat-bubble-message-prose pre {
+    @apply my-2 overflow-x-auto rounded-lg bg-foreground/5 p-3 text-xs;
+}
+
+.cu-chat-bubble-message-prose pre code {
+    @apply bg-transparent p-0;
+}
+
+/* -- timestamp -- */
+.cu-chat-bubble-timestamp {
+    @apply text-[11px] text-muted-foreground/70;
+}
+
+/* -- actions -- */
+.cu-chat-bubble-actions {
+    @apply flex items-center gap-1;
+}
+
+.cu-chat-bubble-action {
+    @apply inline-flex size-7 cursor-pointer items-center justify-center rounded-md text-muted-foreground transition-colors duration-150 hover:bg-muted hover:text-foreground outline-none focus-visible:ring-1 focus-visible:ring-ring/30;
+}

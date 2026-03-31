@@ -25,6 +25,7 @@ export const uiTranslations: Record<Locale, {
   forms: string;
   feedback: string;
   overlay: string;
+  ai: string;
 
   // ComponentPreview
   copy: string;
@@ -55,6 +56,7 @@ export const uiTranslations: Record<Locale, {
     forms: 'Forms',
     feedback: 'Feedback',
     overlay: 'Overlay',
+    ai: 'AI',
 
     copy: 'Copy',
     copied: 'Copied!',
@@ -83,6 +85,7 @@ export const uiTranslations: Record<Locale, {
     forms: '表單',
     feedback: '回饋',
     overlay: '浮層',
+    ai: 'AI',
 
     copy: '複製',
     copied: '已複製！',
