@@ -1,7 +1,7 @@
 /* Chat Input
    ------------------------------------------------------------------ */
 .cu-chat-input {
-    @apply flex items-end gap-2 rounded-2xl border border-border bg-background p-2 shadow-sm transition-colors duration-200 focus-within:border-ring/50;
+    @apply flex items-end gap-2 rounded-2xl border border-border bg-background p-2 shadow-sm transition-colors duration-150 focus-within:border-ring/50;
 }
 
 .cu-chat-input-field {
@@ -15,9 +15,9 @@
 }
 
 .cu-chat-input-send {
-    @apply inline-flex size-8 cursor-pointer items-center justify-center rounded-lg bg-primary text-primary-foreground transition-colors duration-150 hover:bg-primary/90 disabled:pointer-events-none disabled:opacity-50 outline-none focus-visible:ring-1 focus-visible:ring-ring/30;
+    @apply inline-flex size-8 cursor-pointer items-center justify-center rounded-lg bg-primary text-primary-foreground transition-colors duration-150 hover:bg-primary/90 disabled:pointer-events-none disabled:opacity-50 outline-none focus-visible:ring-2 focus-visible:ring-ring/40 focus-visible:ring-offset-2;
 }
 
 .cu-chat-input-attach {
-    @apply inline-flex size-8 cursor-pointer items-center justify-center rounded-lg text-muted-foreground transition-colors duration-150 hover:bg-muted hover:text-foreground outline-none focus-visible:ring-1 focus-visible:ring-ring/30;
+    @apply inline-flex size-8 cursor-pointer items-center justify-center rounded-lg text-muted-foreground transition-colors duration-150 hover:bg-muted hover:text-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring/40 focus-visible:ring-offset-2;
 }

@@ -98,7 +98,7 @@ const t = useTranslations(buttonPage, locale);
 - Button icon 尺寸：`cu-button-icon`（h-9 w-9）、`cu-button-icon-sm`（h-8 w-8）、`cu-button-icon-xs`（h-7 w-7）
 - Card flush content：`cu-card-content-flush`（`p-0`），用於 table-in-card 等需要移除 padding 的場景；`cu-card-elevated` 提供較深陰影（`shadow-md`）
 - Button solid 變體帶有 `hover:shadow-sm` 微互動，transition 包含 box-shadow
-- 浮層暗色模式加強：Dropdown、Popover、Hover Card、Menubar 帶有 `dark:shadow-lg dark:shadow-black/20`
+- 浮層暗色模式加強：所有浮層型元件（Dropdown、Popover、Hover Card、Menubar、Context Menu、Combobox、Multi Select、Calendar、Color Picker）帶有 `dark:shadow-lg dark:shadow-black/20`
 - 表單驗證變體：Input 和 Textarea 提供 `cu-input-error` / `cu-input-success` / `cu-textarea-error` / `cu-textarea-success`
 - Label 必填標記：`cu-label-required` 在後方自動加上紅色星號
 - Textarea 自動高度：`cu-textarea-auto` 使用 `field-sizing: content`（漸進增強）
@@ -111,7 +111,12 @@ const t = useTranslations(buttonPage, locale);
 - Separator base class（`cu-separator`）僅含 `shrink-0 bg-border`，需明確搭配 `cu-separator-horizontal`（`h-px w-full`）或 `cu-separator-vertical`（`h-full w-px`）指定方向
 - 展開收合觸發器（Accordion、Collapsible、Tree View）使用 `outline-none` 搭配輕量 `focus-visible:ring-1 focus-visible:ring-ring/30` 焦點環
 - 導航互動元素（Tabs、Pagination、Nav、Breadcrumb、Menubar）使用 `outline-none` 搭配 `focus-visible:ring-1 focus-visible:ring-ring/30`
-- Dialog / Drawer 的 close 按鈕使用 `focus-visible:ring-1 focus-visible:ring-ring/40`
+- Dialog / Drawer / Alert 的 close 按鈕使用 `focus-visible:ring-1 focus-visible:ring-ring/40`
+- Chat Input send / attach 按鈕屬於主要互動元素，使用模式 A（`ring-2 ring-ring/40 ring-offset-2`）
+- Code Block 刻意使用硬編碼 `zinc-*` 色彩（非設計 token），因為程式碼區塊需要始終維持深色背景以確保語法高亮可讀性，與主題色彩解耦
+- Pin Input 預設 `h-10 w-10`（非標準表單 `h-9`），因為正方形格子需要較大尺寸以確保可讀性與點擊面積
+- Textarea 使用 `py-2`（非標準表單 `py-1`），因為多行輸入需要額外垂直間距以提升閱讀體驗
+- Chat 系列元件（Chat Input、Chat Message、Chat Typing）使用 `rounded-2xl`（非標準浮層 `rounded-xl`），遵循 chat UI 慣例（iMessage/WhatsApp 氣泡感）
 
 ### NPM 套件打包
 
