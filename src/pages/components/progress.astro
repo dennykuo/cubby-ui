@@ -79,6 +79,55 @@ const stripedCode = `<div class="cu-progress" role="progressbar">
   <div class="cu-progress-bar cu-progress-bar-info cu-progress-bar-striped cu-progress-bar-striped-animated" style="width: 45%"></div>
 </div>`.trim();
 
+const multiSegmentCode = `<div class="space-y-4">
+  <div>
+    <div class="flex justify-between text-sm mb-2">
+      <span class="font-medium">Storage Usage</span>
+      <span class="text-muted-foreground">73.5 GB / 100 GB</span>
+    </div>
+    <div class="cu-progress-multi">
+      <div class="cu-progress-bar cu-progress-bar-info" style="width: 40%"></div>
+      <div class="cu-progress-bar cu-progress-bar-success" style="width: 20%"></div>
+      <div class="cu-progress-bar cu-progress-bar-warning" style="width: 13.5%"></div>
+    </div>
+    <div class="flex gap-4 mt-2 text-xs text-muted-foreground">
+      <span class="flex items-center gap-1.5"><span class="size-2 rounded-full bg-info"></span>Documents (40 GB)</span>
+      <span class="flex items-center gap-1.5"><span class="size-2 rounded-full bg-success"></span>Photos (20 GB)</span>
+      <span class="flex items-center gap-1.5"><span class="size-2 rounded-full bg-warning"></span>Other (13.5 GB)</span>
+    </div>
+  </div>
+</div>`.trim();
+
+const circularCode = `<div class="flex items-center gap-8">
+  <div class="cu-progress-circular" style="width:48px;height:48px">
+    <svg viewBox="0 0 36 36">
+      <circle class="cu-progress-circular-track" cx="18" cy="18" r="16" fill="none" stroke-width="3"/>
+      <circle class="cu-progress-circular-bar" cx="18" cy="18" r="16" fill="none" stroke-width="3" stroke-dasharray="100.53" stroke-dashoffset="75.4" stroke-linecap="round"/>
+    </svg>
+    <span class="cu-progress-circular-value text-xs">25%</span>
+  </div>
+  <div class="cu-progress-circular" style="width:56px;height:56px">
+    <svg viewBox="0 0 36 36">
+      <circle class="cu-progress-circular-track" cx="18" cy="18" r="16" fill="none" stroke-width="3"/>
+      <circle class="cu-progress-circular-bar cu-progress-circular-bar-success" cx="18" cy="18" r="16" fill="none" stroke-width="3" stroke-dasharray="100.53" stroke-dashoffset="25.13" stroke-linecap="round"/>
+    </svg>
+    <span class="cu-progress-circular-value">75%</span>
+  </div>
+  <div class="cu-progress-circular" style="width:48px;height:48px">
+    <svg viewBox="0 0 36 36">
+      <circle class="cu-progress-circular-track" cx="18" cy="18" r="16" fill="none" stroke-width="3"/>
+      <circle class="cu-progress-circular-bar cu-progress-circular-bar-warning" cx="18" cy="18" r="16" fill="none" stroke-width="3" stroke-dasharray="100.53" stroke-dashoffset="50.27" stroke-linecap="round"/>
+    </svg>
+    <span class="cu-progress-circular-value text-xs">50%</span>
+  </div>
+  <div class="cu-progress-circular cu-progress-circular-indeterminate" style="width:48px;height:48px">
+    <svg viewBox="0 0 36 36">
+      <circle class="cu-progress-circular-track" cx="18" cy="18" r="16" fill="none" stroke-width="3"/>
+      <circle class="cu-progress-circular-bar cu-progress-circular-bar-info" cx="18" cy="18" r="16" fill="none" stroke-width="3" stroke-dasharray="100.53" stroke-dashoffset="75.4" stroke-linecap="round"/>
+    </svg>
+  </div>
+</div>`.trim();
+
 const colorsCode = `<!-- Success -->
 <div class="cu-progress" role="progressbar">
   <div class="cu-progress-bar bg-success" style="width: 75%"></div>
@@ -167,6 +216,30 @@ const colorsCode = `<!-- Success -->
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-progress-value</code></td>
                             <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-progress-value']}</td>
+                        </tr>
+                        <tr class="cu-table-row">
+                            <td class="cu-table-cell"><code class="cu-code">cu-progress-multi</code></td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-progress-multi']}</td>
+                        </tr>
+                        <tr class="cu-table-row">
+                            <td class="cu-table-cell"><code class="cu-code">cu-progress-circular</code></td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-progress-circular']}</td>
+                        </tr>
+                        <tr class="cu-table-row">
+                            <td class="cu-table-cell"><code class="cu-code">cu-progress-circular-track</code></td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-progress-circular-track']}</td>
+                        </tr>
+                        <tr class="cu-table-row">
+                            <td class="cu-table-cell"><code class="cu-code">cu-progress-circular-bar</code></td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-progress-circular-bar']}</td>
+                        </tr>
+                        <tr class="cu-table-row">
+                            <td class="cu-table-cell"><code class="cu-code">cu-progress-circular-value</code></td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-progress-circular-value']}</td>
+                        </tr>
+                        <tr class="cu-table-row">
+                            <td class="cu-table-cell"><code class="cu-code">cu-progress-circular-indeterminate</code></td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-progress-circular-indeterminate']}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -298,6 +371,75 @@ const colorsCode = `<!-- Success -->
                     </div>
                     <div class="cu-progress" role="progressbar">
                         <div class="cu-progress-bar bg-destructive" style="width: 30%"></div>
+                    </div>
+                </div>
+            </ComponentPreview>
+        </section>
+
+        <!-- Multi-Segment -->
+        <section class="space-y-3">
+            <h2 id="multi-segment" class="text-lg font-semibold tracking-tight relative group">
+                <a href="#multi-segment" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                {t.sections.multiSegment.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.multiSegment.description} />
+            <ComponentPreview code={multiSegmentCode}>
+                <div class="w-full max-w-md space-y-4">
+                    <div>
+                        <div class="flex justify-between text-sm mb-2">
+                            <span class="font-medium">Storage Usage</span>
+                            <span class="text-muted-foreground">73.5 GB / 100 GB</span>
+                        </div>
+                        <div class="cu-progress-multi">
+                            <div class="cu-progress-bar cu-progress-bar-info" style="width: 40%"></div>
+                            <div class="cu-progress-bar cu-progress-bar-success" style="width: 20%"></div>
+                            <div class="cu-progress-bar cu-progress-bar-warning" style="width: 13.5%"></div>
+                        </div>
+                        <div class="flex gap-4 mt-2 text-xs text-muted-foreground">
+                            <span class="flex items-center gap-1.5"><span class="size-2 rounded-full bg-info"></span>Documents (40 GB)</span>
+                            <span class="flex items-center gap-1.5"><span class="size-2 rounded-full bg-success"></span>Photos (20 GB)</span>
+                            <span class="flex items-center gap-1.5"><span class="size-2 rounded-full bg-warning"></span>Other (13.5 GB)</span>
+                        </div>
+                    </div>
+                </div>
+            </ComponentPreview>
+        </section>
+
+        <!-- Circular -->
+        <section class="space-y-3">
+            <h2 id="circular" class="text-lg font-semibold tracking-tight relative group">
+                <a href="#circular" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                {t.sections.circular.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.circular.description} />
+            <ComponentPreview code={circularCode}>
+                <div class="flex items-center gap-8">
+                    <div class="cu-progress-circular" style="width:48px;height:48px">
+                        <svg viewBox="0 0 36 36">
+                            <circle class="cu-progress-circular-track" cx="18" cy="18" r="16" fill="none" stroke-width="3"/>
+                            <circle class="cu-progress-circular-bar" cx="18" cy="18" r="16" fill="none" stroke-width="3" stroke-dasharray="100.53" stroke-dashoffset="75.4" stroke-linecap="round"/>
+                        </svg>
+                        <span class="cu-progress-circular-value text-xs">25%</span>
+                    </div>
+                    <div class="cu-progress-circular" style="width:56px;height:56px">
+                        <svg viewBox="0 0 36 36">
+                            <circle class="cu-progress-circular-track" cx="18" cy="18" r="16" fill="none" stroke-width="3"/>
+                            <circle class="cu-progress-circular-bar cu-progress-circular-bar-success" cx="18" cy="18" r="16" fill="none" stroke-width="3" stroke-dasharray="100.53" stroke-dashoffset="25.13" stroke-linecap="round"/>
+                        </svg>
+                        <span class="cu-progress-circular-value">75%</span>
+                    </div>
+                    <div class="cu-progress-circular" style="width:48px;height:48px">
+                        <svg viewBox="0 0 36 36">
+                            <circle class="cu-progress-circular-track" cx="18" cy="18" r="16" fill="none" stroke-width="3"/>
+                            <circle class="cu-progress-circular-bar cu-progress-circular-bar-warning" cx="18" cy="18" r="16" fill="none" stroke-width="3" stroke-dasharray="100.53" stroke-dashoffset="50.27" stroke-linecap="round"/>
+                        </svg>
+                        <span class="cu-progress-circular-value text-xs">50%</span>
+                    </div>
+                    <div class="cu-progress-circular cu-progress-circular-indeterminate" style="width:48px;height:48px">
+                        <svg viewBox="0 0 36 36">
+                            <circle class="cu-progress-circular-track" cx="18" cy="18" r="16" fill="none" stroke-width="3"/>
+                            <circle class="cu-progress-circular-bar cu-progress-circular-bar-info" cx="18" cy="18" r="16" fill="none" stroke-width="3" stroke-dasharray="100.53" stroke-dashoffset="75.4" stroke-linecap="round"/>
+                        </svg>
                     </div>
                 </div>
             </ComponentPreview>

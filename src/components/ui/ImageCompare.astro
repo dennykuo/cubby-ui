@@ -1,0 +1,21 @@
+---
+import { TOP_CLASS } from "../../config";
+
+interface Props {
+    vertical?: boolean;
+    class?: string;
+    [key: string]: any;
+}
+
+const { vertical, class: className, ...rest } = Astro.props;
+const baseClass = `${TOP_CLASS}-image-compare`;
+const verticalClass = vertical ? `${baseClass}-vertical` : undefined;
+---
+
+<div
+    class:list={[baseClass, verticalClass, className]}
+    data-cu-image-compare
+    {...rest}
+>
+    <slot />
+</div>

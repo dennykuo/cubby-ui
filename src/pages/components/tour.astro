@@ -1,0 +1,200 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import ComponentPreview from "@/components/ComponentPreview.astro";
+import { getLocaleFromUrl, useTranslations } from "@/i18n";
+import { tourPage } from "@/i18n/pages/components/tour";
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = useTranslations(tourPage, locale);
+
+const usageCode = `<!-- Tour container with step definitions -->
+<div data-cu-tour data-cu-tour-steps='[
+  {
+    "target": "#welcome-heading",
+    "title": "Welcome",
+    "content": "This is the main heading of your app."
+  },
+  {
+    "target": "#search-input",
+    "title": "Search",
+    "content": "Use this field to search for anything."
+  },
+  {
+    "target": "#profile-menu",
+    "title": "Your Profile",
+    "content": "Access settings and preferences here."
+  }
+]'>
+  <!-- Your page content -->
+  <h1 id="welcome-heading">Dashboard</h1>
+  <input id="search-input" type="text" placeholder="Search..." class="cu-input" />
+  <button id="profile-menu" class="cu-button cu-button-outline">Profile</button>
+</div>
+
+<!-- Trigger button -->
+<button class="cu-button" data-cu-tour-trigger>Start Tour</button>`.trim();
+
+const stepsCode = `<!-- Step format reference -->
+<div data-cu-tour data-cu-tour-steps='[
+  {
+    "target": "#step-1",
+    "title": "Step Title",
+    "content": "Descriptive text explaining this element.",
+    "placement": "bottom"
+  },
+  {
+    "target": ".nav-menu",
+    "title": "Navigation",
+    "content": "Browse different sections from here.",
+    "placement": "right"
+  },
+  {
+    "target": "[data-action=save]",
+    "title": "Save Your Work",
+    "content": "Click here to save changes. You can also use Ctrl+S.",
+    "placement": "top"
+  }
+]'>
+  <!-- Target elements matched by CSS selectors -->
+</div>`.trim();
+
+const placementCode = `<!-- Placement options: top, bottom, left, right -->
+<div data-cu-tour data-cu-tour-steps='[
+  {
+    "target": "#top-example",
+    "title": "Top Placement",
+    "content": "Tooltip appears above the element.",
+    "placement": "top"
+  },
+  {
+    "target": "#bottom-example",
+    "title": "Bottom Placement",
+    "content": "Tooltip appears below the element.",
+    "placement": "bottom"
+  },
+  {
+    "target": "#left-example",
+    "title": "Left Placement",
+    "content": "Tooltip appears to the left.",
+    "placement": "left"
+  },
+  {
+    "target": "#right-example",
+    "title": "Right Placement",
+    "content": "Tooltip appears to the right.",
+    "placement": "right"
+  }
+]'>
+  <div class="flex items-center justify-center gap-8 p-12">
+    <button id="left-example" class="cu-button cu-button-outline">Left</button>
+    <div class="flex flex-col gap-8">
+      <button id="top-example" class="cu-button cu-button-outline">Top</button>
+      <button id="bottom-example" class="cu-button cu-button-outline">Bottom</button>
+    </div>
+    <button id="right-example" class="cu-button cu-button-outline">Right</button>
+  </div>
+</div>`.trim();
+
+const autoStartCode = `<!-- Auto-start tour on page load -->
+<div data-cu-tour data-cu-tour-auto data-cu-tour-steps='[
+  {
+    "target": "#intro-section",
+    "title": "Welcome!",
+    "content": "This tour starts automatically when the page loads.",
+    "placement": "bottom"
+  },
+  {
+    "target": "#feature-list",
+    "title": "Features",
+    "content": "Here you can explore all available features.",
+    "placement": "right"
+  }
+]'>
+  <section id="intro-section">
+    <h2>Getting Started</h2>
+    <p>Welcome to the application.</p>
+  </section>
+  <ul id="feature-list">
+    <li>Feature A</li>
+    <li>Feature B</li>
+  </ul>
+</div>`.trim();
+---
+
+<Layout title={t.title} category={t.category} componentName="Tour">
+    <div class="space-y-3">
+        <div class="flex items-center gap-3">
+            <h1 class="text-3xl font-bold tracking-tight">Tour</h1>
+            <span class="cu-badge cu-badge-secondary">{t.category}</span>
+        </div>
+        <p class="text-base text-muted-foreground leading-relaxed" set:html={t.description} />
+    </div>
+
+    <div class="mt-10 space-y-10">
+        <!-- Usage -->
+        <section class="space-y-3">
+            <h2 id="usage" class="text-lg font-semibold tracking-tight relative group">
+                <a href="#usage" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                {t.sections.usage.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
+            <ComponentPreview code={usageCode} />
+        </section>
+
+        <!-- Classes Reference -->
+        <section class="space-y-3">
+            <h2 id="classes" class="text-lg font-semibold tracking-tight relative group">
+                <a href="#classes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                {t.sections.classes.title}
+            </h2>
+            <div class="cu-table-wrapper rounded-lg border border-border">
+                <table class="cu-table">
+                    <thead class="cu-table-header">
+                        <tr class="cu-table-row">
+                            <th class="cu-table-head">{t.sections.classes.classLabel}</th>
+                            <th class="cu-table-head">{t.sections.classes.descriptionLabel}</th>
+                        </tr>
+                    </thead>
+                    <tbody class="cu-table-body">
+                        {Object.entries(t.classDescriptions).map(([cls, desc]) => (
+                            <tr class="cu-table-row">
+                                <td class="cu-table-cell"><code class="cu-code">{cls}</code></td>
+                                <td class="cu-table-cell text-muted-foreground">{desc}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Steps -->
+        <section class="space-y-3">
+            <h2 id="steps" class="text-lg font-semibold tracking-tight relative group">
+                <a href="#steps" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                {t.sections.steps.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.steps.description} />
+            <ComponentPreview code={stepsCode} />
+        </section>
+
+        <!-- Placement -->
+        <section class="space-y-3">
+            <h2 id="placement" class="text-lg font-semibold tracking-tight relative group">
+                <a href="#placement" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                {t.sections.placement.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.placement.description} />
+            <ComponentPreview code={placementCode} />
+        </section>
+
+        <!-- Auto Start -->
+        <section class="space-y-3">
+            <h2 id="auto-start" class="text-lg font-semibold tracking-tight relative group">
+                <a href="#auto-start" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                {t.sections.autoStart.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.autoStart.description} />
+            <ComponentPreview code={autoStartCode} />
+        </section>
+    </div>
+</Layout>

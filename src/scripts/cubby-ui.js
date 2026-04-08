@@ -24,6 +24,19 @@
   var _dropzones = [];
   var _transferLists = [];
   var _mobileNavs = [];
+  var _tagInputs = [];
+  var _sortableLists = [];
+  var _toggleGroups = [];
+  var _ratings = [];
+  var _countdowns = [];
+  var _imageCompares = [];
+  var _speedDials = [];
+  var _backToTops = [];
+  var _kanbans = [];
+  var _tours = [];
+  var _inputClearables = [];
+  var _alertExpandables = [];
+  var _dataTableExpandables = [];
   var _docListenersReady = false;
 
   // Shared keyboard navigation helper for floating panels
@@ -105,6 +118,12 @@
           });
         }
       });
+      _speedDials.forEach(function (sd) {
+        if (!sd.el.contains(e.target) && sd.actions && sd.actions.hasAttribute("data-cu-open")) {
+          sd.actions.removeAttribute("data-cu-open");
+          if (sd.trigger) sd.trigger.setAttribute("aria-expanded", "false");
+        }
+      });
     });
 
     document.addEventListener("keydown", function (e) {
@@ -145,6 +164,12 @@
         _mobileNavs.forEach(function (mn) {
           if (mn.panel.hasAttribute("data-cu-mobile-nav-open")) {
             closeMobileNav(mn);
+          }
+        });
+        _speedDials.forEach(function (sd) {
+          if (sd.actions && sd.actions.hasAttribute("data-cu-open")) {
+            sd.actions.removeAttribute("data-cu-open");
+            if (sd.trigger) sd.trigger.setAttribute("aria-expanded", "false");
           }
         });
         return;
@@ -247,7 +272,9 @@
           }
         });
 
-        trigger.addEventListener("click", function () {
+        trigger.addEventListener("click", function (e) {
+          // Ignore clicks on the close button
+          if (e.target.closest("[data-cu-tabs-close]")) return;
           triggers.forEach(function (t) {
             t.classList.remove("cu-tabs-trigger-active");
             t.setAttribute("aria-selected", "false");
@@ -259,7 +286,62 @@
           });
         });
       });
+
+      // Closable tabs: handle close button clicks
+      tabs.querySelectorAll("[data-cu-tabs-close]").forEach(function (closeBtn) {
+        closeBtn.addEventListener("click", function (e) {
+          e.stopPropagation();
+          var trigger = closeBtn.closest("[data-cu-tabs-trigger]");
+          if (!trigger) return;
+          var value = trigger.getAttribute("data-cu-tabs-trigger");
+          var wasActive = trigger.classList.contains("cu-tabs-trigger-active");
+
+          // Remove trigger and corresponding content
+          trigger.remove();
+          contents.forEach(function (c) {
+            if (c.getAttribute("data-cu-tabs-content") === value) c.remove();
+          });
+
+          // If closed tab was active, activate first remaining trigger
+          if (wasActive) {
+            var remaining = tabs.querySelectorAll("[data-cu-tabs-trigger]");
+            if (remaining.length > 0) remaining[0].click();
+          }
+
+          tabs.dispatchEvent(new CustomEvent("cu:tabs:close", { detail: { value: value } }));
+        });
+      });
+
       _tabs.push({ el: tabs });
+    });
+
+    // Scrollable tabs
+    document.querySelectorAll("[data-cu-tabs-scrollable]").forEach(function (wrapper) {
+      if (wrapper._cuInit) return;
+      wrapper._cuInit = true;
+
+      var list = wrapper.querySelector(".cu-tabs-list");
+      var btnStart = wrapper.querySelector("[data-cu-tabs-scroll-start]");
+      var btnEnd = wrapper.querySelector("[data-cu-tabs-scroll-end]");
+      if (!list) return;
+
+      function updateArrows() {
+        if (btnStart) btnStart.hidden = list.scrollLeft <= 0;
+        if (btnEnd) btnEnd.hidden = list.scrollLeft + list.clientWidth >= list.scrollWidth - 1;
+      }
+
+      if (btnStart) btnStart.addEventListener("click", function () {
+        list.scrollBy({ left: -200, behavior: "smooth" });
+      });
+      if (btnEnd) btnEnd.addEventListener("click", function () {
+        list.scrollBy({ left: 200, behavior: "smooth" });
+      });
+
+      list.addEventListener("scroll", updateArrows);
+      if (typeof ResizeObserver !== "undefined") {
+        new ResizeObserver(updateArrows).observe(list);
+      }
+      updateArrows();
     });
   }
 
@@ -1219,6 +1301,151 @@
     }, { once: true });
   }
 
+  function ensureToastContainer() {
+    var container = document.querySelector("[data-cu-toast-container]");
+    if (!container) {
+      container = document.createElement("div");
+      container.className = "cu-toast-container cu-toast-container-bottom-right";
+      container.setAttribute("data-cu-toast-container", "");
+      container.setAttribute("role", "region");
+      container.setAttribute("aria-label", "Notifications");
+      document.body.appendChild(container);
+    }
+    return container;
+  }
+
+  function createToastEl(opts) {
+    var title = opts.title || "";
+    var desc = opts.description || "";
+    var variant = opts.variant || "default";
+
+    var toast = document.createElement("div");
+    toast.className = "cu-toast cu-toast-" + variant + " cu-toast-enter";
+    if (variant === "destructive") {
+      toast.setAttribute("role", "alert");
+      toast.setAttribute("aria-live", "assertive");
+    } else {
+      toast.setAttribute("role", "status");
+      toast.setAttribute("aria-live", "polite");
+    }
+
+    var body = document.createElement("div");
+    body.className = "cu-toast-body";
+    var titleEl = document.createElement("div");
+    titleEl.className = "cu-toast-title";
+    titleEl.textContent = title;
+    body.appendChild(titleEl);
+    if (desc) {
+      var descEl = document.createElement("div");
+      descEl.className = "cu-toast-description";
+      descEl.textContent = desc;
+      body.appendChild(descEl);
+    }
+    toast.appendChild(body);
+
+    var svgNS = "http://www.w3.org/2000/svg";
+    var closeBtn = document.createElement("button");
+    closeBtn.className = "cu-toast-close";
+    closeBtn.setAttribute("data-cu-toast-close", "");
+    var svg = document.createElementNS(svgNS, "svg");
+    svg.setAttribute("width", "14");
+    svg.setAttribute("height", "14");
+    svg.setAttribute("viewBox", "0 0 24 24");
+    svg.setAttribute("fill", "none");
+    svg.setAttribute("stroke", "currentColor");
+    svg.setAttribute("stroke-width", "2");
+    svg.setAttribute("stroke-linecap", "round");
+    svg.setAttribute("stroke-linejoin", "round");
+    var p1 = document.createElementNS(svgNS, "path");
+    p1.setAttribute("d", "M18 6 6 18");
+    var p2 = document.createElementNS(svgNS, "path");
+    p2.setAttribute("d", "m6 6 12 12");
+    svg.appendChild(p1);
+    svg.appendChild(p2);
+    closeBtn.appendChild(svg);
+    toast.appendChild(closeBtn);
+
+    return { toast: toast, body: body, titleEl: titleEl, closeBtn: closeBtn };
+  }
+
+  /** Programmatic toast API */
+  var toastAPI = {
+    show: function (opts) {
+      var c = ensureToastContainer();
+      var result = createToastEl(opts);
+      c.appendChild(result.toast);
+
+      var maxToasts = parseInt(c.getAttribute("data-cu-toast-max"), 10) || 5;
+      var existing = c.querySelectorAll(".cu-toast:not(.cu-toast-exit)");
+      if (existing.length > maxToasts) {
+        for (var ti = 0; ti < existing.length - maxToasts; ti++) {
+          dismissToast(existing[ti]);
+        }
+      }
+
+      var duration = (opts.duration !== undefined) ? opts.duration : 5000;
+      var timer;
+      if (duration > 0) {
+        timer = setTimeout(function () { dismissToast(result.toast); }, duration);
+      }
+      result.closeBtn.addEventListener("click", function () {
+        if (timer) clearTimeout(timer);
+        dismissToast(result.toast);
+      });
+
+      return result.toast;
+    },
+    promise: function (promise, opts) {
+      var loadingOpts = typeof opts.loading === "string" ? { title: opts.loading } : opts.loading;
+      loadingOpts.duration = 0;
+      loadingOpts.variant = loadingOpts.variant || "default";
+      var el = toastAPI.show(loadingOpts);
+
+      return promise.then(function (result) {
+        var successOpts = typeof opts.success === "function" ? opts.success(result) : opts.success;
+        successOpts = typeof successOpts === "string" ? { title: successOpts } : successOpts;
+        var variant = successOpts.variant || "success";
+        // Update existing toast
+        el.className = "cu-toast cu-toast-" + variant + " cu-toast-enter";
+        var titleEl = el.querySelector(".cu-toast-title");
+        if (titleEl) titleEl.textContent = successOpts.title || "";
+        var descEl = el.querySelector(".cu-toast-description");
+        if (successOpts.description) {
+          if (!descEl) {
+            descEl = document.createElement("div");
+            descEl.className = "cu-toast-description";
+            el.querySelector(".cu-toast-body").appendChild(descEl);
+          }
+          descEl.textContent = successOpts.description;
+        } else if (descEl) {
+          descEl.remove();
+        }
+        setTimeout(function () { dismissToast(el); }, successOpts.duration || 5000);
+        return result;
+      }).catch(function (err) {
+        var errorOpts = typeof opts.error === "function" ? opts.error(err) : opts.error;
+        errorOpts = typeof errorOpts === "string" ? { title: errorOpts } : errorOpts;
+        var variant = errorOpts.variant || "destructive";
+        el.className = "cu-toast cu-toast-" + variant + " cu-toast-enter";
+        var titleEl = el.querySelector(".cu-toast-title");
+        if (titleEl) titleEl.textContent = errorOpts.title || "";
+        var descEl = el.querySelector(".cu-toast-description");
+        if (errorOpts.description) {
+          if (!descEl) {
+            descEl = document.createElement("div");
+            descEl.className = "cu-toast-description";
+            el.querySelector(".cu-toast-body").appendChild(descEl);
+          }
+          descEl.textContent = errorOpts.description;
+        } else if (descEl) {
+          descEl.remove();
+        }
+        setTimeout(function () { dismissToast(el); }, errorOpts.duration || 5000);
+        throw err;
+      });
+    }
+  };
+
   /**
    * Toast — auto-dismissing notification triggered by button click.
    *
@@ -1250,16 +1477,7 @@
    * Toast content is built with DOM API (no innerHTML) to prevent XSS.
    */
   function setupToasts() {
-    // Ensure container exists
-    var container = document.querySelector("[data-cu-toast-container]");
-    if (!container) {
-      container = document.createElement("div");
-      container.className = "cu-toast-container cu-toast-container-bottom-right";
-      container.setAttribute("data-cu-toast-container", "");
-      container.setAttribute("role", "region");
-      container.setAttribute("aria-label", "Notifications");
-      document.body.appendChild(container);
-    }
+    ensureToastContainer();
 
     document
       .querySelectorAll("[data-cu-toast-trigger]")
@@ -1268,77 +1486,11 @@
         trigger._cuInit = true;
 
         trigger.addEventListener("click", function () {
-          var c = document.querySelector("[data-cu-toast-container]");
-          if (!c) return;
           var title = trigger.getAttribute("data-cu-toast-title") || "";
           var desc = trigger.getAttribute("data-cu-toast-description") || "";
-          var variant =
-            trigger.getAttribute("data-cu-toast-variant") || "default";
-          var toast = document.createElement("div");
-          toast.className = "cu-toast cu-toast-" + variant + " cu-toast-enter";
-          if (variant === "destructive") {
-            toast.setAttribute("role", "alert");
-            toast.setAttribute("aria-live", "assertive");
-          } else {
-            toast.setAttribute("role", "status");
-            toast.setAttribute("aria-live", "polite");
-          }
-
-          var body = document.createElement("div");
-          body.className = "cu-toast-body";
-          var titleEl = document.createElement("div");
-          titleEl.className = "cu-toast-title";
-          titleEl.textContent = title;
-          body.appendChild(titleEl);
-          if (desc) {
-            var descEl = document.createElement("div");
-            descEl.className = "cu-toast-description";
-            descEl.textContent = desc;
-            body.appendChild(descEl);
-          }
-          toast.appendChild(body);
-
-          var closeBtn = document.createElement("button");
-          closeBtn.className = "cu-toast-close";
-          closeBtn.setAttribute("data-cu-toast-close", "");
-          var svgNS = "http://www.w3.org/2000/svg";
-          var svg = document.createElementNS(svgNS, "svg");
-          svg.setAttribute("width", "14");
-          svg.setAttribute("height", "14");
-          svg.setAttribute("viewBox", "0 0 24 24");
-          svg.setAttribute("fill", "none");
-          svg.setAttribute("stroke", "currentColor");
-          svg.setAttribute("stroke-width", "2");
-          svg.setAttribute("stroke-linecap", "round");
-          svg.setAttribute("stroke-linejoin", "round");
-          var path1 = document.createElementNS(svgNS, "path");
-          path1.setAttribute("d", "M18 6 6 18");
-          var path2 = document.createElementNS(svgNS, "path");
-          path2.setAttribute("d", "m6 6 12 12");
-          svg.appendChild(path1);
-          svg.appendChild(path2);
-          closeBtn.appendChild(svg);
-          toast.appendChild(closeBtn);
-
-          c.appendChild(toast);
-
-          // Stack limit: dismiss oldest toasts when exceeding max (default 5)
-          var maxToasts = parseInt(c.getAttribute("data-cu-toast-max"), 10) || 5;
-          var existing = c.querySelectorAll(".cu-toast:not(.cu-toast-exit)");
-          if (existing.length > maxToasts) {
-            for (var ti = 0; ti < existing.length - maxToasts; ti++) {
-              dismissToast(existing[ti]);
-            }
-          }
-
+          var variant = trigger.getAttribute("data-cu-toast-variant") || "default";
           var duration = parseInt(trigger.getAttribute("data-cu-toast-duration"), 10) || 5000;
-          var timer = setTimeout(function () {
-            dismissToast(toast);
-          }, duration);
-          closeBtn.addEventListener("click", function () {
-            clearTimeout(timer);
-            dismissToast(toast);
-          });
+          toastAPI.show({ title: title, description: desc, variant: variant, duration: duration });
         });
       });
   }
@@ -2267,6 +2419,911 @@
     });
   }
 
+  // ───────────────────────────────────────────────
+  // Toggle Group
+  // ───────────────────────────────────────────────
+  /**
+   * Toggle Group — switchable button group (single or multiple selection).
+   *
+   * HTML structure:
+   *   <div data-cu-toggle-group>
+   *     <button class="cu-toggle-group-item cu-toggle-group-item-active">A</button>
+   *     <button class="cu-toggle-group-item">B</button>
+   *   </div>
+   *
+   * Multiple mode:
+   *   <div data-cu-toggle-group data-cu-toggle-group-multiple>
+   */
+  function setupToggleGroups() {
+    document.querySelectorAll("[data-cu-toggle-group]").forEach(function (el) {
+      if (el._cuInit) return;
+      el._cuInit = true;
+      var isMultiple = el.hasAttribute("data-cu-toggle-group-multiple");
+
+      el.addEventListener("click", function (e) {
+        var item = e.target.closest(".cu-toggle-group-item");
+        if (!item || item.disabled) return;
+
+        if (isMultiple) {
+          item.classList.toggle("cu-toggle-group-item-active");
+          item.setAttribute("aria-pressed", item.classList.contains("cu-toggle-group-item-active") ? "true" : "false");
+        } else {
+          el.querySelectorAll(".cu-toggle-group-item").forEach(function (btn) {
+            btn.classList.remove("cu-toggle-group-item-active");
+            btn.setAttribute("aria-pressed", "false");
+          });
+          item.classList.add("cu-toggle-group-item-active");
+          item.setAttribute("aria-pressed", "true");
+        }
+
+        el.dispatchEvent(new CustomEvent("cu:toggle-group:change", {
+          detail: {
+            value: isMultiple
+              ? Array.from(el.querySelectorAll(".cu-toggle-group-item-active")).map(function (b) { return b.textContent.trim(); })
+              : item.textContent.trim()
+          },
+          bubbles: true
+        }));
+      });
+
+      _toggleGroups.push({ el: el });
+    });
+  }
+
+  // ───────────────────────────────────────────────
+  // Rating
+  // ───────────────────────────────────────────────
+  /**
+   * Rating — interactive star rating.
+   *
+   * HTML structure:
+   *   <div class="cu-rating" data-cu-rating data-cu-rating-value="0" data-cu-rating-max="5">
+   *     <span class="cu-rating-item" data-cu-rating-star="1">★</span>
+   *     ...
+   *   </div>
+   */
+  function setupRatings() {
+    document.querySelectorAll("[data-cu-rating]").forEach(function (el) {
+      if (el._cuInit) return;
+      el._cuInit = true;
+      if (el.classList.contains("cu-rating-readonly") || el.classList.contains("cu-rating-disabled")) return;
+
+      var stars = el.querySelectorAll("[data-cu-rating-star]");
+
+      function updateStars(value) {
+        stars.forEach(function (star) {
+          var v = parseInt(star.getAttribute("data-cu-rating-star"), 10);
+          if (v <= value) {
+            star.classList.add("cu-rating-item-active");
+            star.classList.remove("cu-rating-item-half");
+          } else {
+            star.classList.remove("cu-rating-item-active");
+            star.classList.remove("cu-rating-item-half");
+          }
+        });
+      }
+
+      el.addEventListener("mouseover", function (e) {
+        var star = e.target.closest("[data-cu-rating-star]");
+        if (!star) return;
+        var v = parseInt(star.getAttribute("data-cu-rating-star"), 10);
+        updateStars(v);
+      });
+
+      el.addEventListener("mouseleave", function () {
+        var current = parseInt(el.getAttribute("data-cu-rating-value") || "0", 10);
+        updateStars(current);
+      });
+
+      el.addEventListener("click", function (e) {
+        var star = e.target.closest("[data-cu-rating-star]");
+        if (!star) return;
+        var v = parseInt(star.getAttribute("data-cu-rating-star"), 10);
+        el.setAttribute("data-cu-rating-value", v);
+        updateStars(v);
+        el.dispatchEvent(new CustomEvent("cu:rating:change", { detail: { value: v }, bubbles: true }));
+      });
+
+      _ratings.push({ el: el });
+    });
+  }
+
+  // ───────────────────────────────────────────────
+  // Tag Input
+  // ───────────────────────────────────────────────
+  /**
+   * Tag Input — add/remove tags with keyboard.
+   *
+   * HTML structure:
+   *   <div class="cu-tag-input" data-cu-tag-input>
+   *     <span class="cu-tag-input-tag">Tag <button class="cu-tag-input-tag-remove">&times;</button></span>
+   *     <input class="cu-tag-input-field" data-cu-tag-input-field placeholder="Add tag..." />
+   *   </div>
+   */
+  function setupTagInputs() {
+    document.querySelectorAll("[data-cu-tag-input]").forEach(function (el) {
+      if (el._cuInit) return;
+      el._cuInit = true;
+      var field = el.querySelector("[data-cu-tag-input-field]");
+      if (!field) return;
+
+      var maxTags = parseInt(el.getAttribute("data-cu-tag-max") || "0", 10) || Infinity;
+
+      function createTag(text) {
+        var tag = document.createElement("span");
+        tag.className = "cu-tag-input-tag";
+        tag.setAttribute("data-cu-tag-value", text);
+        tag.textContent = text;
+
+        var removeBtn = document.createElement("button");
+        removeBtn.className = "cu-tag-input-tag-remove";
+        removeBtn.setAttribute("type", "button");
+        removeBtn.setAttribute("aria-label", "Remove " + text);
+        var svgNs = "http://www.w3.org/2000/svg";
+        var svg = document.createElementNS(svgNs, "svg");
+        svg.setAttribute("width", "10");
+        svg.setAttribute("height", "10");
+        svg.setAttribute("viewBox", "0 0 24 24");
+        svg.setAttribute("fill", "none");
+        svg.setAttribute("stroke", "currentColor");
+        svg.setAttribute("stroke-width", "2.5");
+        svg.setAttribute("stroke-linecap", "round");
+        svg.setAttribute("stroke-linejoin", "round");
+        var line1 = document.createElementNS(svgNs, "line");
+        line1.setAttribute("x1", "18"); line1.setAttribute("y1", "6");
+        line1.setAttribute("x2", "6"); line1.setAttribute("y2", "18");
+        var line2 = document.createElementNS(svgNs, "line");
+        line2.setAttribute("x1", "6"); line2.setAttribute("y1", "6");
+        line2.setAttribute("x2", "18"); line2.setAttribute("y2", "18");
+        svg.appendChild(line1);
+        svg.appendChild(line2);
+        removeBtn.appendChild(svg);
+        removeBtn.addEventListener("click", function () {
+          tag.remove();
+          dispatchChange();
+        });
+        tag.appendChild(removeBtn);
+        return tag;
+      }
+
+      function getTags() {
+        return Array.from(el.querySelectorAll(".cu-tag-input-tag")).map(function (t) { return t.getAttribute("data-cu-tag-value"); });
+      }
+
+      function dispatchChange() {
+        el.dispatchEvent(new CustomEvent("cu:tag-input:change", { detail: { tags: getTags() }, bubbles: true }));
+      }
+
+      function addTag(text) {
+        text = text.trim();
+        if (!text) return;
+        var tags = getTags();
+        if (tags.length >= maxTags) return;
+        if (tags.indexOf(text) !== -1) return; // no duplicates
+        el.insertBefore(createTag(text), field);
+        field.value = "";
+        dispatchChange();
+      }
+
+      field.addEventListener("keydown", function (e) {
+        if (e.key === "Enter") {
+          e.preventDefault();
+          addTag(field.value);
+        } else if (e.key === "Backspace" && !field.value) {
+          var lastTag = el.querySelector(".cu-tag-input-tag:last-of-type");
+          if (lastTag) {
+            lastTag.remove();
+            dispatchChange();
+          }
+        }
+      });
+
+      // Wire up existing remove buttons
+      el.querySelectorAll(".cu-tag-input-tag-remove").forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          btn.closest(".cu-tag-input-tag").remove();
+          dispatchChange();
+        });
+      });
+
+      // Add data-cu-tag-value to existing tags if missing
+      el.querySelectorAll(".cu-tag-input-tag").forEach(function (tag) {
+        if (!tag.hasAttribute("data-cu-tag-value")) {
+          var removeBtn = tag.querySelector(".cu-tag-input-tag-remove");
+          var text = removeBtn ? tag.textContent.replace(removeBtn.textContent, "").trim() : tag.textContent.trim();
+          tag.setAttribute("data-cu-tag-value", text);
+        }
+      });
+
+      _tagInputs.push({ el: el });
+    });
+  }
+
+  // ───────────────────────────────────────────────
+  // Sortable List
+  // ───────────────────────────────────────────────
+  /**
+   * Sortable List — drag-and-drop reorderable list.
+   *
+   * HTML structure:
+   *   <div class="cu-sortable-list" data-cu-sortable-list>
+   *     <div class="cu-sortable-item" data-cu-sortable-item draggable="true">
+   *       <span class="cu-sortable-handle" data-cu-sortable-handle>⠿</span>
+   *       <div class="cu-sortable-content">Item 1</div>
+   *     </div>
+   *   </div>
+   */
+  function setupSortableLists() {
+    document.querySelectorAll("[data-cu-sortable-list]").forEach(function (el) {
+      if (el._cuInit) return;
+      el._cuInit = true;
+
+      var draggedItem = null;
+      var placeholder = null;
+
+      function getItems() {
+        return Array.from(el.querySelectorAll("[data-cu-sortable-item]"));
+      }
+
+      el.addEventListener("dragstart", function (e) {
+        var item = e.target.closest("[data-cu-sortable-item]");
+        if (!item || item.classList.contains("cu-sortable-item-disabled")) {
+          e.preventDefault();
+          return;
+        }
+        draggedItem = item;
+        setTimeout(function () {
+          item.classList.add("cu-sortable-item-dragging");
+        }, 0);
+        e.dataTransfer.effectAllowed = "move";
+      });
+
+      var rafPending = false;
+      el.addEventListener("dragover", function (e) {
+        e.preventDefault();
+        e.dataTransfer.dropEffect = "move";
+        if (rafPending) return;
+        rafPending = true;
+        var clientY = e.clientY;
+        requestAnimationFrame(function () {
+          rafPending = false;
+          if (!draggedItem) return;
+          var afterElement = getDragAfterElement(el, clientY);
+          if (!placeholder) {
+            placeholder = document.createElement("div");
+            placeholder.className = "cu-sortable-placeholder";
+            placeholder.style.height = draggedItem.offsetHeight + "px";
+          }
+          if (afterElement) {
+            el.insertBefore(placeholder, afterElement);
+          } else {
+            el.appendChild(placeholder);
+          }
+        });
+      });
+
+      el.addEventListener("dragend", function () {
+        if (draggedItem) {
+          draggedItem.classList.remove("cu-sortable-item-dragging");
+          if (placeholder && placeholder.parentNode) {
+            el.insertBefore(draggedItem, placeholder);
+            placeholder.remove();
+          }
+          draggedItem = null;
+          placeholder = null;
+
+          el.dispatchEvent(new CustomEvent("cu:sortable:change", {
+            detail: {
+              order: getItems().map(function (item, i) {
+                var content = item.querySelector(".cu-sortable-content");
+                return { index: i, text: content ? content.textContent.trim() : "" };
+              })
+            },
+            bubbles: true
+          }));
+        }
+      });
+
+      el.addEventListener("drop", function (e) {
+        e.preventDefault();
+      });
+
+      function getDragAfterElement(container, y) {
+        var items = Array.from(container.querySelectorAll("[data-cu-sortable-item]:not(.cu-sortable-item-dragging)"));
+        return items.reduce(function (closest, child) {
+          var box = child.getBoundingClientRect();
+          var offset = y - box.top - box.height / 2;
+          if (offset < 0 && offset > closest.offset) {
+            return { offset: offset, element: child };
+          }
+          return closest;
+        }, { offset: Number.NEGATIVE_INFINITY }).element;
+      }
+
+      _sortableLists.push({ el: el });
+    });
+  }
+
+  // ───────────────────────────────────────────────
+  // Countdown
+  // ───────────────────────────────────────────────
+  /**
+   * Countdown — timer counting down to a target date.
+   *
+   * HTML structure:
+   *   <div data-cu-countdown data-cu-countdown-target="2026-12-31T00:00:00">
+   *     <div class="cu-countdown-segment"><span class="cu-countdown-value" data-cu-countdown-days>00</span><span class="cu-countdown-label">Days</span></div>
+   *     <span class="cu-countdown-separator">:</span>
+   *     <div class="cu-countdown-segment"><span class="cu-countdown-value" data-cu-countdown-hours>00</span><span class="cu-countdown-label">Hours</span></div>
+   *     ...
+   *   </div>
+   */
+  function setupCountdowns() {
+    document.querySelectorAll("[data-cu-countdown]").forEach(function (el) {
+      if (el._cuInit) return;
+      el._cuInit = true;
+
+      var target = el.getAttribute("data-cu-countdown-target");
+      if (!target) return;
+      var targetDate = new Date(target).getTime();
+
+      var daysEl = el.querySelector("[data-cu-countdown-days]");
+      var hoursEl = el.querySelector("[data-cu-countdown-hours]");
+      var minutesEl = el.querySelector("[data-cu-countdown-minutes]");
+      var secondsEl = el.querySelector("[data-cu-countdown-seconds]");
+
+      function pad(n) { return n < 10 ? "0" + n : "" + n; }
+
+      function update() {
+        var now = Date.now();
+        var diff = Math.max(0, targetDate - now);
+        var d = Math.floor(diff / 86400000);
+        var h = Math.floor((diff % 86400000) / 3600000);
+        var m = Math.floor((diff % 3600000) / 60000);
+        var s = Math.floor((diff % 60000) / 1000);
+
+        if (daysEl) daysEl.textContent = pad(d);
+        if (hoursEl) hoursEl.textContent = pad(h);
+        if (minutesEl) minutesEl.textContent = pad(m);
+        if (secondsEl) secondsEl.textContent = pad(s);
+
+        if (diff === 0) {
+          el.classList.add("cu-countdown-complete");
+          el.dispatchEvent(new CustomEvent("cu:countdown:complete", { bubbles: true }));
+          return;
+        }
+        entry.timer = setTimeout(update, 1000);
+      }
+
+      var entry = { el: el, timer: 0 };
+      entry.timer = setTimeout(update, 0);
+      _countdowns.push(entry);
+    });
+  }
+
+  // ───────────────────────────────────────────────
+  // Image Compare
+  // ───────────────────────────────────────────────
+  /**
+   * Image Compare — before/after slider comparison.
+   *
+   * HTML structure:
+   *   <div class="cu-image-compare" data-cu-image-compare>
+   *     <img class="cu-image-compare-after" src="after.jpg" />
+   *     <img class="cu-image-compare-before" src="before.jpg" />
+   *     <div class="cu-image-compare-handle">
+   *       <div class="cu-image-compare-handle-line"></div>
+   *       <div class="cu-image-compare-handle-grip">⇔</div>
+   *     </div>
+   *   </div>
+   */
+  function setupImageCompares() {
+    document.querySelectorAll("[data-cu-image-compare]").forEach(function (el) {
+      if (el._cuInit) return;
+      el._cuInit = true;
+
+      var isDragging = false;
+      var isVertical = el.classList.contains("cu-image-compare-vertical");
+
+      function setPosition(percent) {
+        percent = Math.max(0, Math.min(100, percent));
+        el.style.setProperty("--cu-compare-position", percent + "%");
+      }
+
+      function getPercent(e) {
+        var rect = el.getBoundingClientRect();
+        var clientPos = e.touches ? e.touches[0] : e;
+        if (isVertical) {
+          return ((clientPos.clientY - rect.top) / rect.height) * 100;
+        }
+        return ((clientPos.clientX - rect.left) / rect.width) * 100;
+      }
+
+      el.addEventListener("mousedown", function (e) {
+        isDragging = true;
+        setPosition(getPercent(e));
+        e.preventDefault();
+      });
+      el.addEventListener("touchstart", function (e) {
+        isDragging = true;
+        setPosition(getPercent(e));
+      }, { passive: true });
+
+      function onMouseMove(e) { if (!isDragging) return; setPosition(getPercent(e)); }
+      function onTouchMove(e) { if (!isDragging) return; e.preventDefault(); setPosition(getPercent(e)); }
+      function onMouseUp() { isDragging = false; }
+      function onTouchEnd() { isDragging = false; }
+
+      document.addEventListener("mousemove", onMouseMove);
+      document.addEventListener("touchmove", onTouchMove, { passive: false });
+      document.addEventListener("mouseup", onMouseUp);
+      document.addEventListener("touchend", onTouchEnd);
+
+      setPosition(50);
+      _imageCompares.push({ el: el, cleanup: function () {
+        document.removeEventListener("mousemove", onMouseMove);
+        document.removeEventListener("touchmove", onTouchMove);
+        document.removeEventListener("mouseup", onMouseUp);
+        document.removeEventListener("touchend", onTouchEnd);
+      } });
+    });
+  }
+
+  // ───────────────────────────────────────────────
+  // Speed Dial
+  // ───────────────────────────────────────────────
+  /**
+   * Speed Dial — floating action button with expandable actions.
+   *
+   * HTML structure:
+   *   <div class="cu-speed-dial cu-speed-dial-bottom-right" data-cu-speed-dial>
+   *     <div class="cu-speed-dial-actions" data-cu-speed-dial-actions>
+   *       <div class="cu-speed-dial-action">...</div>
+   *     </div>
+   *     <button class="cu-speed-dial-trigger" data-cu-speed-dial-trigger>+</button>
+   *   </div>
+   */
+  function setupSpeedDials() {
+    document.querySelectorAll("[data-cu-speed-dial]").forEach(function (el) {
+      if (el._cuInit) return;
+      el._cuInit = true;
+
+      var trigger = el.querySelector("[data-cu-speed-dial-trigger]");
+      var actions = el.querySelector("[data-cu-speed-dial-actions]");
+      if (!trigger || !actions) return;
+
+      trigger.addEventListener("click", function () {
+        var isOpen = actions.hasAttribute("data-cu-open");
+        if (isOpen) {
+          actions.removeAttribute("data-cu-open");
+          trigger.setAttribute("aria-expanded", "false");
+        } else {
+          actions.setAttribute("data-cu-open", "");
+          trigger.setAttribute("aria-expanded", "true");
+        }
+      });
+
+      _speedDials.push({ el: el, trigger: trigger, actions: actions });
+    });
+  }
+
+  // ───────────────────────────────────────────────
+  // Back to Top
+  // ───────────────────────────────────────────────
+  /**
+   * Back to Top — scroll-to-top button that appears after scrolling.
+   *
+   * HTML structure:
+   *   <button class="cu-back-to-top" data-cu-back-to-top data-cu-back-to-top-threshold="300">↑</button>
+   */
+  function setupBackToTops() {
+    document.querySelectorAll("[data-cu-back-to-top]").forEach(function (el) {
+      if (el._cuInit) return;
+      el._cuInit = true;
+
+      var threshold = parseInt(el.getAttribute("data-cu-back-to-top-threshold") || "300", 10);
+
+      function onScroll() {
+        if (window.scrollY > threshold) {
+          el.setAttribute("data-cu-visible", "");
+        } else {
+          el.removeAttribute("data-cu-visible");
+        }
+      }
+
+      window.addEventListener("scroll", onScroll, { passive: true });
+      onScroll();
+
+      el.addEventListener("click", function () {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
+
+      _backToTops.push({ el: el, cleanup: function () {
+        window.removeEventListener("scroll", onScroll);
+      } });
+    });
+  }
+
+  // ───────────────────────────────────────────────
+  // Kanban Board
+  // ───────────────────────────────────────────────
+  /**
+   * Kanban Board — drag-and-drop cards between columns.
+   *
+   * HTML structure:
+   *   <div class="cu-kanban" data-cu-kanban>
+   *     <div class="cu-kanban-column" data-cu-kanban-column>
+   *       <div class="cu-kanban-column-header">...</div>
+   *       <div class="cu-kanban-column-body" data-cu-kanban-column-body>
+   *         <div class="cu-kanban-card" data-cu-kanban-card draggable="true">...</div>
+   *       </div>
+   *     </div>
+   *   </div>
+   */
+  function setupKanbans() {
+    document.querySelectorAll("[data-cu-kanban]").forEach(function (el) {
+      if (el._cuInit) return;
+      el._cuInit = true;
+
+      var draggedCard = null;
+
+      el.addEventListener("dragstart", function (e) {
+        var card = e.target.closest("[data-cu-kanban-card]");
+        if (!card) return;
+        draggedCard = card;
+        setTimeout(function () { card.classList.add("cu-kanban-card-dragging"); }, 0);
+        e.dataTransfer.effectAllowed = "move";
+      });
+
+      el.addEventListener("dragover", function (e) {
+        e.preventDefault();
+        e.dataTransfer.dropEffect = "move";
+        var body = e.target.closest("[data-cu-kanban-column-body]");
+        if (body && !body.classList.contains("cu-kanban-column-body-dragover")) {
+          el.querySelectorAll("[data-cu-kanban-column-body]").forEach(function (b) {
+            b.classList.remove("cu-kanban-column-body-dragover");
+          });
+          body.classList.add("cu-kanban-column-body-dragover");
+        }
+      });
+
+      el.addEventListener("dragleave", function (e) {
+        var body = e.target.closest("[data-cu-kanban-column-body]");
+        if (body && !body.contains(e.relatedTarget)) {
+          body.classList.remove("cu-kanban-column-body-dragover");
+        }
+      });
+
+      el.addEventListener("drop", function (e) {
+        e.preventDefault();
+        var body = e.target.closest("[data-cu-kanban-column-body]");
+        if (body && draggedCard) {
+          body.appendChild(draggedCard);
+          body.classList.remove("cu-kanban-column-body-dragover");
+
+          // Update counts
+          el.querySelectorAll("[data-cu-kanban-column]").forEach(function (col) {
+            var count = col.querySelector(".cu-kanban-column-count");
+            var colBody = col.querySelector("[data-cu-kanban-column-body]");
+            if (count && colBody) {
+              count.textContent = colBody.querySelectorAll("[data-cu-kanban-card]").length;
+            }
+          });
+
+          el.dispatchEvent(new CustomEvent("cu:kanban:change", {
+            detail: {
+              card: draggedCard,
+              column: body.closest("[data-cu-kanban-column]")
+            },
+            bubbles: true
+          }));
+        }
+      });
+
+      el.addEventListener("dragend", function () {
+        if (draggedCard) {
+          draggedCard.classList.remove("cu-kanban-card-dragging");
+          draggedCard = null;
+        }
+        el.querySelectorAll("[data-cu-kanban-column-body]").forEach(function (b) {
+          b.classList.remove("cu-kanban-column-body-dragover");
+        });
+      });
+
+      _kanbans.push({ el: el });
+    });
+  }
+
+  // ───────────────────────────────────────────────
+  // Tour / Spotlight
+  // ───────────────────────────────────────────────
+  /**
+   * Tour — multi-step guided tour with spotlight highlighting.
+   *
+   * HTML structure (programmatic — no static HTML needed):
+   *   CubbyUI managed via data-cu-tour on a container.
+   *
+   * Usage:
+   *   <div data-cu-tour data-cu-tour-steps='[{"target":"#btn","title":"Click here","description":"This is a button."}]'>
+   *   </div>
+   *
+   * Step format: { target: CSS selector, title, description, placement?: top|bottom|left|right }
+   */
+  function setupTours() {
+    document.querySelectorAll("[data-cu-tour]").forEach(function (el) {
+      if (el._cuInit) return;
+      el._cuInit = true;
+
+      var stepsAttr = el.getAttribute("data-cu-tour-steps");
+      if (!stepsAttr) return;
+      var steps;
+      try { steps = JSON.parse(stepsAttr); } catch (_) { return; }
+      if (!steps.length) return;
+
+      var currentStep = 0;
+      var overlay = null;
+      var tooltip = null;
+      var spotlight = null;
+      var currentTarget = null;
+
+      function show(index) {
+        currentStep = index;
+        var step = steps[index];
+        var targetEl = document.querySelector(step.target);
+        if (!targetEl) return;
+
+        currentTarget = targetEl;
+        targetEl.classList.add("cu-tour-target");
+
+        if (!overlay) {
+          overlay = document.createElement("div");
+          overlay.className = "cu-tour-overlay";
+          overlay.style.background = "transparent";
+          document.body.appendChild(overlay);
+
+          spotlight = document.createElement("div");
+          spotlight.className = "cu-tour-spotlight";
+          overlay.appendChild(spotlight);
+
+          tooltip = document.createElement("div");
+          tooltip.className = "cu-tour-tooltip";
+          document.body.appendChild(tooltip);
+        }
+
+        var rect = targetEl.getBoundingClientRect();
+        var pad = 8;
+        spotlight.style.top = (rect.top + window.scrollY - pad) + "px";
+        spotlight.style.left = (rect.left + window.scrollX - pad) + "px";
+        spotlight.style.width = (rect.width + pad * 2) + "px";
+        spotlight.style.height = (rect.height + pad * 2) + "px";
+
+        var placement = step.placement || "bottom";
+        while (tooltip.firstChild) tooltip.removeChild(tooltip.firstChild);
+
+        var titleEl = document.createElement("div");
+        titleEl.className = "cu-tour-tooltip-title";
+        titleEl.textContent = step.title || "";
+        tooltip.appendChild(titleEl);
+
+        if (step.description) {
+          var descEl = document.createElement("div");
+          descEl.className = "cu-tour-tooltip-description";
+          descEl.textContent = step.description;
+          tooltip.appendChild(descEl);
+        }
+
+        var footer = document.createElement("div");
+        footer.className = "cu-tour-tooltip-footer";
+
+        var progress = document.createElement("div");
+        progress.className = "cu-tour-tooltip-progress";
+        progress.textContent = (index + 1) + " / " + steps.length;
+        footer.appendChild(progress);
+
+        var actions = document.createElement("div");
+        actions.className = "cu-tour-tooltip-actions";
+
+        if (index > 0) {
+          var prevBtn = document.createElement("button");
+          prevBtn.className = "cu-button cu-button-ghost cu-button-sm";
+          prevBtn.textContent = "Back";
+          prevBtn.addEventListener("click", function () { clearTarget(); show(index - 1); });
+          actions.appendChild(prevBtn);
+        }
+
+        if (index < steps.length - 1) {
+          var nextBtn = document.createElement("button");
+          nextBtn.className = "cu-button cu-button-default cu-button-sm";
+          nextBtn.textContent = "Next";
+          nextBtn.addEventListener("click", function () { clearTarget(); show(index + 1); });
+          actions.appendChild(nextBtn);
+        } else {
+          var doneBtn = document.createElement("button");
+          doneBtn.className = "cu-button cu-button-default cu-button-sm";
+          doneBtn.textContent = "Done";
+          doneBtn.addEventListener("click", function () { close(); });
+          actions.appendChild(doneBtn);
+        }
+
+        footer.appendChild(actions);
+        tooltip.appendChild(footer);
+
+        // Position tooltip
+        var tRect = tooltip.getBoundingClientRect();
+        if (placement === "bottom") {
+          tooltip.style.top = (rect.bottom + window.scrollY + 12) + "px";
+          tooltip.style.left = (rect.left + window.scrollX + rect.width / 2 - tRect.width / 2) + "px";
+        } else if (placement === "top") {
+          tooltip.style.top = (rect.top + window.scrollY - tRect.height - 12) + "px";
+          tooltip.style.left = (rect.left + window.scrollX + rect.width / 2 - tRect.width / 2) + "px";
+        } else if (placement === "left") {
+          tooltip.style.top = (rect.top + window.scrollY + rect.height / 2 - tRect.height / 2) + "px";
+          tooltip.style.left = (rect.left + window.scrollX - tRect.width - 12) + "px";
+        } else {
+          tooltip.style.top = (rect.top + window.scrollY + rect.height / 2 - tRect.height / 2) + "px";
+          tooltip.style.left = (rect.right + window.scrollX + 12) + "px";
+        }
+      }
+
+      function clearTarget() {
+        if (currentTarget) {
+          currentTarget.classList.remove("cu-tour-target");
+          currentTarget = null;
+        }
+      }
+
+      function close() {
+        clearTarget();
+        if (overlay && overlay.parentNode) overlay.remove();
+        if (tooltip && tooltip.parentNode) tooltip.remove();
+        overlay = null; tooltip = null; spotlight = null;
+        el.dispatchEvent(new CustomEvent("cu:tour:complete", { bubbles: true }));
+      }
+
+      // Auto-start if data-cu-tour-auto is present
+      if (el.hasAttribute("data-cu-tour-auto")) {
+        show(0);
+      }
+
+      // Allow programmatic start via el.dispatchEvent(new Event("cu:tour:start"))
+      el.addEventListener("cu:tour:start", function () { show(0); });
+
+      _tours.push({ el: el, close: close });
+    });
+  }
+
+  // ───────────────────────────────────────────────
+  // Data Table Expandable Rows
+  // ───────────────────────────────────────────────
+  /**
+   * Data Table Expandable — toggle row expansion to show details.
+   *
+   * HTML structure:
+   *   <tr>
+   *     <td><button class="cu-data-table-expand-trigger" data-cu-expand-row aria-expanded="false"><svg>...</svg></button></td>
+   *     <td>...</td>
+   *   </tr>
+   *   <tr hidden>
+   *     <td colspan="..." class="cu-data-table-expanded-content">Details...</td>
+   *   </tr>
+   */
+  function setupDataTableExpandables() {
+    document.querySelectorAll("[data-cu-data-table-expandable]").forEach(function (el) {
+      if (el._cuInit) return;
+      el._cuInit = true;
+
+      el.querySelectorAll("[data-cu-expand-row]").forEach(function (trigger) {
+        trigger.addEventListener("click", function () {
+          var row = trigger.closest("tr");
+          if (!row) return;
+          var expandedRow = row.nextElementSibling;
+          if (!expandedRow) return;
+
+          var expanded = trigger.getAttribute("aria-expanded") === "true";
+          trigger.setAttribute("aria-expanded", String(!expanded));
+
+          if (expanded) {
+            expandedRow.setAttribute("hidden", "");
+            row.classList.remove("cu-data-table-expanded-row");
+          } else {
+            expandedRow.removeAttribute("hidden");
+            row.classList.add("cu-data-table-expanded-row");
+          }
+        });
+      });
+
+      _dataTableExpandables.push({ el: el });
+    });
+  }
+
+  // ───────────────────────────────────────────────
+  // Input Clearable
+  // ───────────────────────────────────────────────
+  /**
+   * Input Clearable — shows a clear button when input has value.
+   *
+   * HTML structure:
+   *   <div class="cu-input-icon-wrapper" data-cu-input-clearable>
+   *     <input class="cu-input cu-input-clearable" placeholder="Search..." />
+   *     <button type="button" class="cu-input-clear" data-cu-input-clear aria-label="Clear">
+   *       <svg>...</svg>
+   *     </button>
+   *   </div>
+   */
+  function setupInputClearables() {
+    document.querySelectorAll("[data-cu-input-clearable]").forEach(function (el) {
+      if (el._cuInit) return;
+      el._cuInit = true;
+
+      var input = el.querySelector(".cu-input-clearable, input");
+      var btn = el.querySelector("[data-cu-input-clear]");
+      if (!input || !btn) return;
+
+      function toggle() {
+        if (input.value.length > 0) {
+          btn.style.opacity = "0.7";
+          btn.style.pointerEvents = "auto";
+        } else {
+          btn.style.opacity = "0";
+          btn.style.pointerEvents = "none";
+        }
+      }
+
+      input.addEventListener("input", toggle);
+      btn.addEventListener("click", function () {
+        input.value = "";
+        input.dispatchEvent(new Event("input", { bubbles: true }));
+        input.focus();
+      });
+
+      toggle();
+      _inputClearables.push({ el: el });
+    });
+  }
+
+  // ───────────────────────────────────────────────
+  // Alert Expandable
+  // ───────────────────────────────────────────────
+  /**
+   * Alert Expandable — toggle extra content in an alert.
+   *
+   * HTML structure:
+   *   <div class="cu-alert cu-alert-info" data-cu-alert-expandable>
+   *     <div>
+   *       <h5 class="cu-alert-title">Title</h5>
+   *       <p class="cu-alert-description">Summary</p>
+   *       <button class="cu-alert-expand-trigger" data-cu-alert-expand-trigger aria-expanded="false">
+   *         Show more <svg>...</svg>
+   *       </button>
+   *     </div>
+   *     <div class="cu-alert-expandable-content" data-cu-alert-expandable-content>
+   *       <div>Expanded details...</div>
+   *     </div>
+   *   </div>
+   */
+  function setupAlertExpandables() {
+    document.querySelectorAll("[data-cu-alert-expandable]").forEach(function (el) {
+      if (el._cuInit) return;
+      el._cuInit = true;
+
+      var trigger = el.querySelector("[data-cu-alert-expand-trigger]");
+      var content = el.querySelector("[data-cu-alert-expandable-content]");
+      if (!trigger || !content) return;
+
+      trigger.addEventListener("click", function () {
+        var expanded = trigger.getAttribute("aria-expanded") === "true";
+        trigger.setAttribute("aria-expanded", String(!expanded));
+        if (expanded) {
+          content.removeAttribute("data-cu-expanded");
+        } else {
+          content.setAttribute("data-cu-expanded", "");
+        }
+      });
+
+      _alertExpandables.push({ el: el });
+    });
+  }
+
   function init() {
     setupDocumentListeners();
     setupTabs();
@@ -2294,6 +3351,19 @@
     setupCommandPalettes();
     setupDatePickers();
     setupColorPickers();
+    setupToggleGroups();
+    setupRatings();
+    setupTagInputs();
+    setupSortableLists();
+    setupCountdowns();
+    setupImageCompares();
+    setupSpeedDials();
+    setupBackToTops();
+    setupKanbans();
+    setupTours();
+    setupInputClearables();
+    setupAlertExpandables();
+    setupDataTableExpandables();
   }
 
   function destroy() {
@@ -2307,6 +3377,23 @@
     _dropzones = [];
     _transferLists = [];
     _mobileNavs = [];
+    _tagInputs = [];
+    _sortableLists = [];
+    _toggleGroups = [];
+    _ratings = [];
+    _countdowns.forEach(function (c) { clearTimeout(c.timer); });
+    _countdowns = [];
+    _imageCompares.forEach(function (c) { if (c.cleanup) c.cleanup(); });
+    _imageCompares = [];
+    _speedDials = [];
+    _backToTops.forEach(function (b) { if (b.cleanup) b.cleanup(); });
+    _backToTops = [];
+    _kanbans = [];
+    _tours.forEach(function (t) { if (t.close) t.close(); });
+    _tours = [];
+    _inputClearables = [];
+    _alertExpandables = [];
+    _dataTableExpandables = [];
   }
 
   function refresh() {
@@ -2321,6 +3408,22 @@
     _dropzones = _dropzones.filter(inBody);
     _transferLists = _transferLists.filter(inBody);
     _mobileNavs = _mobileNavs.filter(inBody);
+    _tagInputs = _tagInputs.filter(inBody);
+    _sortableLists = _sortableLists.filter(inBody);
+    _toggleGroups = _toggleGroups.filter(inBody);
+    _ratings = _ratings.filter(inBody);
+    _countdowns.forEach(function (c) { if (!inBody(c)) clearTimeout(c.timer); });
+    _countdowns = _countdowns.filter(inBody);
+    _imageCompares.forEach(function (c) { if (!inBody(c) && c.cleanup) c.cleanup(); });
+    _imageCompares = _imageCompares.filter(inBody);
+    _speedDials = _speedDials.filter(inBody);
+    _backToTops.forEach(function (b) { if (!inBody(b) && b.cleanup) b.cleanup(); });
+    _backToTops = _backToTops.filter(inBody);
+    _kanbans = _kanbans.filter(inBody);
+    _tours = _tours.filter(inBody);
+    _inputClearables = _inputClearables.filter(inBody);
+    _alertExpandables = _alertExpandables.filter(inBody);
+    _dataTableExpandables = _dataTableExpandables.filter(inBody);
     init();
   }
 
@@ -2333,5 +3436,5 @@
     }
   }
 
-  return { init: init, destroy: destroy, refresh: refresh };
+  return { init: init, destroy: destroy, refresh: refresh, toast: toastAPI };
 });

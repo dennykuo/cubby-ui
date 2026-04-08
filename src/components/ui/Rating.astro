@@ -1,0 +1,47 @@
+---
+import { TOP_CLASS } from "../../config";
+
+interface Props {
+    value?: number;
+    max?: number;
+    size?: "sm" | "default" | "lg";
+    readonly?: boolean;
+    disabled?: boolean;
+    class?: string;
+    [key: string]: any;
+}
+
+const { value = 0, max = 5, size, readonly: isReadonly, disabled, class: className, ...rest } = Astro.props;
+const baseClass = `${TOP_CLASS}-rating`;
+const sizeClass = size && size !== "default" ? `${baseClass}-${size}` : undefined;
+const readonlyClass = isReadonly ? `${baseClass}-readonly` : undefined;
+const disabledClass = disabled ? `${baseClass}-disabled` : undefined;
+---
+
+<div
+    class:list={[baseClass, sizeClass, readonlyClass, disabledClass, className]}
+    role="img"
+    aria-label={`${value} out of ${max} stars`}
+    {...rest}
+>
+    {Array.from({ length: max }, (_, i) => {
+        const filled = i < Math.floor(value);
+        const half = !filled && i < value;
+        return (
+            <span class:list={[
+                `${TOP_CLASS}-rating-item`,
+                filled && `${TOP_CLASS}-rating-item-active`,
+                half && `${TOP_CLASS}-rating-item-half`,
+            ]}>
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                </svg>
+                {half && (
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" style="clip-path: inset(0 50% 0 0); position: absolute; top: 0; left: 0;">
+                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                    </svg>
+                )}
+            </span>
+        );
+    })}
+</div>

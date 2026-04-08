@@ -75,6 +75,68 @@ const withButtonCode = `<div class="cu-card">
   </div>
 </div>`.trim();
 
+const withToggleCode = `<div class="cu-card w-full max-w-lg">
+  <div class="cu-setting-item">
+    <div class="cu-setting-item-content">
+      <p class="cu-setting-item-label">Push Notifications</p>
+      <p class="cu-setting-item-description">Receive push notifications on your device.</p>
+    </div>
+    <div class="cu-setting-item-action">
+      <label class="cu-toggle-wrapper">
+        <input type="checkbox" class="peer sr-only" checked />
+        <span class="cu-toggle"></span>
+      </label>
+    </div>
+  </div>
+</div>`.trim();
+
+const groupedCode = `<div class="cu-card w-full max-w-lg">
+  <div class="cu-card-header">
+    <h3 class="cu-card-title">Notifications</h3>
+    <p class="cu-card-description">Manage how you receive notifications.</p>
+  </div>
+  <div class="cu-card-content-flush">
+    <div class="cu-setting-item">
+      <div class="cu-setting-item-content">
+        <p class="cu-setting-item-label">Email Notifications</p>
+        <p class="cu-setting-item-description">Receive email about account activity.</p>
+      </div>
+      <div class="cu-setting-item-action">
+        <label class="cu-toggle-wrapper">
+          <input type="checkbox" class="peer sr-only" checked />
+          <span class="cu-toggle"></span>
+        </label>
+      </div>
+    </div>
+    <div class="cu-separator cu-separator-horizontal"></div>
+    <div class="cu-setting-item">
+      <div class="cu-setting-item-content">
+        <p class="cu-setting-item-label">Marketing Emails</p>
+        <p class="cu-setting-item-description">Receive emails about new products and features.</p>
+      </div>
+      <div class="cu-setting-item-action">
+        <label class="cu-toggle-wrapper">
+          <input type="checkbox" class="peer sr-only" />
+          <span class="cu-toggle"></span>
+        </label>
+      </div>
+    </div>
+    <div class="cu-separator cu-separator-horizontal"></div>
+    <div class="cu-setting-item">
+      <div class="cu-setting-item-content">
+        <p class="cu-setting-item-label">Security Alerts</p>
+        <p class="cu-setting-item-description">Get notified about unusual sign-in activity.</p>
+      </div>
+      <div class="cu-setting-item-action">
+        <label class="cu-toggle-wrapper">
+          <input type="checkbox" class="peer sr-only" checked />
+          <span class="cu-toggle"></span>
+        </label>
+      </div>
+    </div>
+  </div>
+</div>`.trim();
+
 const withSelectCode = `<div class="cu-card">
   <div class="cu-card-content-flush">
     <div class="divide-y divide-border">
@@ -301,6 +363,92 @@ const withSelectCode = `<div class="cu-card">
                                             <svg class="cu-select-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
                                         </div>
                                     </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ComponentPreview>
+        </section>
+
+        <!-- With Toggle -->
+        <section class="space-y-3">
+            <h2 id="with-toggle" class="text-lg font-semibold tracking-tight relative group">
+                <a href="#with-toggle" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                {t.sections.withToggle.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">{t.sections.withToggle.description}</p>
+            <ComponentPreview code={withToggleCode}>
+                <div class="w-full max-w-lg">
+                    <div class="cu-card">
+                        <div class="cu-setting-item">
+                            <div class="cu-setting-item-content">
+                                <p class="cu-setting-item-label">Push Notifications</p>
+                                <p class="cu-setting-item-description">Receive push notifications on your device.</p>
+                            </div>
+                            <div class="cu-setting-item-action">
+                                <label class="cu-toggle-wrapper">
+                                    <input type="checkbox" class="peer sr-only" checked />
+                                    <span class="cu-toggle"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ComponentPreview>
+        </section>
+
+        <!-- Grouped Settings -->
+        <section class="space-y-3">
+            <h2 id="grouped" class="text-lg font-semibold tracking-tight relative group">
+                <a href="#grouped" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                {t.sections.grouped.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">{t.sections.grouped.description}</p>
+            <ComponentPreview code={groupedCode}>
+                <div class="w-full max-w-lg">
+                    <div class="cu-card">
+                        <div class="cu-card-header">
+                            <h3 class="cu-card-title">Notifications</h3>
+                            <p class="cu-card-description">Manage how you receive notifications.</p>
+                        </div>
+                        <div class="cu-card-content-flush">
+                            <div class="cu-setting-item">
+                                <div class="cu-setting-item-content">
+                                    <p class="cu-setting-item-label">Email Notifications</p>
+                                    <p class="cu-setting-item-description">Receive email about account activity.</p>
+                                </div>
+                                <div class="cu-setting-item-action">
+                                    <label class="cu-toggle-wrapper">
+                                        <input type="checkbox" class="peer sr-only" checked />
+                                        <span class="cu-toggle"></span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="cu-separator cu-separator-horizontal"></div>
+                            <div class="cu-setting-item">
+                                <div class="cu-setting-item-content">
+                                    <p class="cu-setting-item-label">Marketing Emails</p>
+                                    <p class="cu-setting-item-description">Receive emails about new products and features.</p>
+                                </div>
+                                <div class="cu-setting-item-action">
+                                    <label class="cu-toggle-wrapper">
+                                        <input type="checkbox" class="peer sr-only" />
+                                        <span class="cu-toggle"></span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="cu-separator cu-separator-horizontal"></div>
+                            <div class="cu-setting-item">
+                                <div class="cu-setting-item-content">
+                                    <p class="cu-setting-item-label">Security Alerts</p>
+                                    <p class="cu-setting-item-description">Get notified about unusual sign-in activity.</p>
+                                </div>
+                                <div class="cu-setting-item-action">
+                                    <label class="cu-toggle-wrapper">
+                                        <input type="checkbox" class="peer sr-only" checked />
+                                        <span class="cu-toggle"></span>
+                                    </label>
                                 </div>
                             </div>
                         </div>

@@ -9,6 +9,8 @@ export const separatorPage: Record<Locale, {
     classes: { title: string; classLabel: string; descriptionLabel: string };
     withText: { title: string; description: string };
     vertical: { title: string; description: string };
+    inToolbar: { title: string; description: string };
+    withIcon: { title: string; description: string };
   };
   classDescriptions: Record<string, string>;
 }> = {
@@ -33,6 +35,14 @@ export const separatorPage: Record<Locale, {
       vertical: {
         title: 'Vertical',
         description: 'Use <code class="cu-code">cu-separator-vertical</code> to separate inline items.',
+      },
+      inToolbar: {
+        title: 'In Toolbar',
+        description: 'Use a vertical separator to visually divide groups of actions in a toolbar.',
+      },
+      withIcon: {
+        title: 'With Icon',
+        description: 'Combine a separator with a centered icon or label for decorative section breaks.',
       },
     },
     classDescriptions: {
@@ -62,6 +72,14 @@ export const separatorPage: Record<Locale, {
       vertical: {
         title: '垂直',
         description: '使用 <code class="cu-code">cu-separator-vertical</code> 來分隔行內項目。',
+      },
+      inToolbar: {
+        title: '工具列中使用',
+        description: '在工具列中使用垂直分隔線來視覺區分操作群組。',
+      },
+      withIcon: {
+        title: '搭配圖示',
+        description: '將分隔線與置中圖示或標籤結合，作為裝飾性段落分隔。',
       },
     },
     classDescriptions: {

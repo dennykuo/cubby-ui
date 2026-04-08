@@ -7,6 +7,7 @@ import MenubarContent from "@/components/ui/MenubarContent.astro";
 import MenubarItem from "@/components/ui/MenubarItem.astro";
 import MenubarSeparator from "@/components/ui/MenubarSeparator.astro";
 import MenubarShortcut from "@/components/ui/MenubarShortcut.astro";
+import MenubarLabel from "@/components/ui/MenubarLabel.astro";
 import ComponentPreview from "@/components/ComponentPreview.astro";
 import { getLocaleFromUrl, useTranslations } from "@/i18n";
 import { menubarPage } from "@/i18n/pages/components/menubar";
@@ -126,6 +127,164 @@ const withIconsCode = `<div class="cu-menubar" data-cu-menubar>
     </div>
   </div>
 </div>`.trim();
+
+const withShortcutsCode = `<div class="cu-menubar" data-cu-menubar>
+  <div class="cu-menubar-menu" data-cu-menubar-menu>
+    <button class="cu-menubar-trigger" data-cu-menubar-trigger aria-expanded="false">File</button>
+    <div class="cu-menubar-content" data-cu-menubar-content hidden>
+      <div class="cu-menubar-item">
+        New File <span class="cu-menubar-shortcut">⌘N</span>
+      </div>
+      <div class="cu-menubar-item">
+        Open... <span class="cu-menubar-shortcut">⌘O</span>
+      </div>
+      <div class="cu-menubar-item">
+        Save <span class="cu-menubar-shortcut">⌘S</span>
+      </div>
+      <div class="cu-menubar-item">
+        Save As... <span class="cu-menubar-shortcut">⇧⌘S</span>
+      </div>
+      <div class="cu-menubar-separator"></div>
+      <div class="cu-menubar-item">
+        Close Tab <span class="cu-menubar-shortcut">⌘W</span>
+      </div>
+    </div>
+  </div>
+  <div class="cu-menubar-menu" data-cu-menubar-menu>
+    <button class="cu-menubar-trigger" data-cu-menubar-trigger aria-expanded="false">Edit</button>
+    <div class="cu-menubar-content" data-cu-menubar-content hidden>
+      <div class="cu-menubar-item">
+        Undo <span class="cu-menubar-shortcut">⌘Z</span>
+      </div>
+      <div class="cu-menubar-item">
+        Redo <span class="cu-menubar-shortcut">⇧⌘Z</span>
+      </div>
+      <div class="cu-menubar-separator"></div>
+      <div class="cu-menubar-item">
+        Cut <span class="cu-menubar-shortcut">⌘X</span>
+      </div>
+      <div class="cu-menubar-item">
+        Copy <span class="cu-menubar-shortcut">⌘C</span>
+      </div>
+      <div class="cu-menubar-item">
+        Paste <span class="cu-menubar-shortcut">⌘V</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+${SO}
+  document.querySelectorAll("[data-cu-menubar]").forEach((bar) => {
+    const menus = bar.querySelectorAll("[data-cu-menubar-menu]");
+    menus.forEach((menu) => {
+      const trigger = menu.querySelector("[data-cu-menubar-trigger]");
+      const content = menu.querySelector("[data-cu-menubar-content]");
+      trigger?.addEventListener("click", () => {
+        const open = !content?.hasAttribute("hidden");
+        // close all menus in this bar
+        menus.forEach((m) => {
+          m.querySelector("[data-cu-menubar-content]")?.setAttribute("hidden", "");
+          m.querySelector("[data-cu-menubar-trigger]")?.setAttribute("aria-expanded", "false");
+        });
+        if (!open) {
+          content?.removeAttribute("hidden");
+          trigger.setAttribute("aria-expanded", "true");
+        }
+      });
+      // hover to switch while one is open
+      trigger?.addEventListener("mouseenter", () => {
+        const anyOpen = bar.querySelector("[data-cu-menubar-content]:not([hidden])");
+        if (anyOpen && anyOpen !== content) {
+          menus.forEach((m) => {
+            m.querySelector("[data-cu-menubar-content]")?.setAttribute("hidden", "");
+            m.querySelector("[data-cu-menubar-trigger]")?.setAttribute("aria-expanded", "false");
+          });
+          content?.removeAttribute("hidden");
+          trigger.setAttribute("aria-expanded", "true");
+        }
+      });
+    });
+    document.addEventListener("click", (e) => {
+      if (!bar.contains(e.target)) {
+        menus.forEach((m) => {
+          m.querySelector("[data-cu-menubar-content]")?.setAttribute("hidden", "");
+          m.querySelector("[data-cu-menubar-trigger]")?.setAttribute("aria-expanded", "false");
+        });
+      }
+    });
+  });
+${SC}`.trim();
+
+const withCheckboxRadioCode = `<div class="cu-menubar" data-cu-menubar>
+  <div class="cu-menubar-menu" data-cu-menubar-menu>
+    <button class="cu-menubar-trigger" data-cu-menubar-trigger aria-expanded="false">View</button>
+    <div class="cu-menubar-content" data-cu-menubar-content hidden>
+      <div class="cu-menubar-label">Panels</div>
+      <div class="cu-menubar-item">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2"><path d="m8 12 3 3 5-6"/></svg>
+        Sidebar
+      </div>
+      <div class="cu-menubar-item">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2"><path d="m8 12 3 3 5-6"/></svg>
+        Terminal
+      </div>
+      <div class="cu-menubar-item">
+        <span class="mr-2 w-3.5"></span>
+        Output
+      </div>
+      <div class="cu-menubar-separator"></div>
+      <div class="cu-menubar-label">Layout</div>
+      <div class="cu-menubar-item">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2"><circle cx="12" cy="12" r="5" fill="currentColor"/></svg>
+        Horizontal
+      </div>
+      <div class="cu-menubar-item">
+        <span class="mr-2 w-3.5"></span>
+        Vertical
+      </div>
+    </div>
+  </div>
+</div>
+
+${SO}
+  document.querySelectorAll("[data-cu-menubar]").forEach((bar) => {
+    const menus = bar.querySelectorAll("[data-cu-menubar-menu]");
+    menus.forEach((menu) => {
+      const trigger = menu.querySelector("[data-cu-menubar-trigger]");
+      const content = menu.querySelector("[data-cu-menubar-content]");
+      trigger?.addEventListener("click", () => {
+        const open = !content?.hasAttribute("hidden");
+        menus.forEach((m) => {
+          m.querySelector("[data-cu-menubar-content]")?.setAttribute("hidden", "");
+          m.querySelector("[data-cu-menubar-trigger]")?.setAttribute("aria-expanded", "false");
+        });
+        if (!open) {
+          content?.removeAttribute("hidden");
+          trigger.setAttribute("aria-expanded", "true");
+        }
+      });
+      trigger?.addEventListener("mouseenter", () => {
+        const anyOpen = bar.querySelector("[data-cu-menubar-content]:not([hidden])");
+        if (anyOpen && anyOpen !== content) {
+          menus.forEach((m) => {
+            m.querySelector("[data-cu-menubar-content]")?.setAttribute("hidden", "");
+            m.querySelector("[data-cu-menubar-trigger]")?.setAttribute("aria-expanded", "false");
+          });
+          content?.removeAttribute("hidden");
+          trigger.setAttribute("aria-expanded", "true");
+        }
+      });
+    });
+    document.addEventListener("click", (e) => {
+      if (!bar.contains(e.target)) {
+        menus.forEach((m) => {
+          m.querySelector("[data-cu-menubar-content]")?.setAttribute("hidden", "");
+          m.querySelector("[data-cu-menubar-trigger]")?.setAttribute("aria-expanded", "false");
+        });
+      }
+    });
+  });
+${SC}`.trim();
 
 const withLabelsCode = `<div class="cu-menubar" data-cu-menubar>
   <div class="cu-menubar-menu" data-cu-menubar-menu>
@@ -309,6 +468,86 @@ const withLabelsCode = `<div class="cu-menubar" data-cu-menubar>
                             <MenubarItem>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" x2="12" y1="3" y2="15"/></svg>
                                 Export
+                            </MenubarItem>
+                        </MenubarContent>
+                    </MenubarMenu>
+                </Menubar>
+            </ComponentPreview>
+        </section>
+
+        <!-- With Shortcuts -->
+        <section class="space-y-3">
+            <h2 id="with-shortcuts" class="text-lg font-semibold tracking-tight relative group">
+              <a href="#with-shortcuts" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+              {t.sections.withShortcuts.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
+                {t.sections.withShortcuts.description}
+            </p>
+            <ComponentPreview code={withShortcutsCode}>
+                <Menubar>
+                    <MenubarMenu>
+                        <MenubarTrigger>File</MenubarTrigger>
+                        <MenubarContent>
+                            <MenubarItem>New File <MenubarShortcut>⌘N</MenubarShortcut></MenubarItem>
+                            <MenubarItem>Open... <MenubarShortcut>⌘O</MenubarShortcut></MenubarItem>
+                            <MenubarItem>Save <MenubarShortcut>⌘S</MenubarShortcut></MenubarItem>
+                            <MenubarItem>Save As... <MenubarShortcut>⇧⌘S</MenubarShortcut></MenubarItem>
+                            <MenubarSeparator />
+                            <MenubarItem>Close Tab <MenubarShortcut>⌘W</MenubarShortcut></MenubarItem>
+                        </MenubarContent>
+                    </MenubarMenu>
+                    <MenubarMenu>
+                        <MenubarTrigger>Edit</MenubarTrigger>
+                        <MenubarContent>
+                            <MenubarItem>Undo <MenubarShortcut>⌘Z</MenubarShortcut></MenubarItem>
+                            <MenubarItem>Redo <MenubarShortcut>⇧⌘Z</MenubarShortcut></MenubarItem>
+                            <MenubarSeparator />
+                            <MenubarItem>Cut <MenubarShortcut>⌘X</MenubarShortcut></MenubarItem>
+                            <MenubarItem>Copy <MenubarShortcut>⌘C</MenubarShortcut></MenubarItem>
+                            <MenubarItem>Paste <MenubarShortcut>⌘V</MenubarShortcut></MenubarItem>
+                        </MenubarContent>
+                    </MenubarMenu>
+                </Menubar>
+            </ComponentPreview>
+        </section>
+
+        <!-- With Checkbox & Radio -->
+        <section class="space-y-3">
+            <h2 id="with-checkbox-radio" class="text-lg font-semibold tracking-tight relative group">
+              <a href="#with-checkbox-radio" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+              {t.sections.withCheckboxRadio.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
+                {t.sections.withCheckboxRadio.description}
+            </p>
+            <ComponentPreview code={withCheckboxRadioCode}>
+                <Menubar>
+                    <MenubarMenu>
+                        <MenubarTrigger>View</MenubarTrigger>
+                        <MenubarContent>
+                            <MenubarLabel>Panels</MenubarLabel>
+                            <MenubarItem>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2"><path d="m8 12 3 3 5-6"/></svg>
+                                Sidebar
+                            </MenubarItem>
+                            <MenubarItem>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2"><path d="m8 12 3 3 5-6"/></svg>
+                                Terminal
+                            </MenubarItem>
+                            <MenubarItem>
+                                <span class="mr-2 w-3.5"></span>
+                                Output
+                            </MenubarItem>
+                            <MenubarSeparator />
+                            <MenubarLabel>Layout</MenubarLabel>
+                            <MenubarItem>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2"><circle cx="12" cy="12" r="5" fill="currentColor"/></svg>
+                                Horizontal
+                            </MenubarItem>
+                            <MenubarItem>
+                                <span class="mr-2 w-3.5"></span>
+                                Vertical
                             </MenubarItem>
                         </MenubarContent>
                     </MenubarMenu>

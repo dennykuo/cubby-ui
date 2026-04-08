@@ -9,6 +9,8 @@ export const scrollAreaPage: Record<Locale, {
     classes: { title: string; classLabel: string; descriptionLabel: string };
     horizontal: { title: string; description: string };
     withTags: { title: string; description: string };
+    longList: { title: string; description: string };
+    nested: { title: string; description: string };
   };
   classDescriptions: Record<string, string>;
 }> = {
@@ -33,6 +35,14 @@ export const scrollAreaPage: Record<Locale, {
       withTags: {
         title: 'With Tags',
         description: 'Combine with badges for a horizontally scrollable tag list.',
+      },
+      longList: {
+        title: 'Long List',
+        description: 'A scroll area containing a long list of items with consistent spacing, ideal for sidebar navigation or settings panels.',
+      },
+      nested: {
+        title: 'Nested Scroll Areas',
+        description: 'Nest scroll areas for complex layouts where both horizontal and vertical scrolling are needed independently.',
       },
     },
     classDescriptions: {
@@ -61,6 +71,14 @@ export const scrollAreaPage: Record<Locale, {
       withTags: {
         title: '搭配標籤',
         description: '結合徽章建立可水平捲動的標籤列表。',
+      },
+      longList: {
+        title: '長列表',
+        description: '包含長列表項目的捲動區域，具有一致的間距，適用於側邊欄導航或設定面板。',
+      },
+      nested: {
+        title: '巢狀捲動區',
+        description: '巢狀捲動區域用於需要獨立水平和垂直捲動的複雜佈局。',
       },
     },
     classDescriptions: {

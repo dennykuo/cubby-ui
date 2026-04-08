@@ -201,6 +201,19 @@ const stackedCode = `<div class="cu-toast-container" data-cu-toast-container dat
 <button class="cu-button" onclick="CubbyUI.toast({ title: 'Notification', description: 'This is toast #' + Date.now() })">
   Add Toast
 </button>`.trim();
+
+const promiseToastCode = `<!-- Promise Toast requires JavaScript -->
+<button class="cu-button cu-button-default cu-button-md"
+  onclick="CubbyUI.toast.promise(
+    new Promise(function(resolve) { setTimeout(resolve, 2000); }),
+    {
+      loading: 'Saving changes...',
+      success: 'Changes saved successfully!',
+      error: 'Failed to save changes.'
+    }
+  )">
+  Save with Promise Toast
+</button>`.trim();
 ---
 
 <Layout title={t.title} category={t.category} componentName="Toast">
@@ -473,6 +486,20 @@ const stackedCode = `<div class="cu-toast-container" data-cu-toast-container dat
             <ComponentPreview code={stackedCode}>
                 <button class="cu-button cu-button-outline cu-button-md" id="toast-stacked-demo">
                     Add Toast
+                </button>
+            </ComponentPreview>
+        </section>
+
+        <!-- Promise Toast -->
+        <section class="space-y-3">
+            <h2 id="promise-toast" class="text-lg font-semibold tracking-tight relative group">
+                <a href="#promise-toast" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                {t.sections.promiseToast.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.promiseToast.description} />
+            <ComponentPreview code={promiseToastCode}>
+                <button class="cu-button cu-button-default cu-button-md" id="toast-promise-demo">
+                    Save with Promise Toast
                 </button>
             </ComponentPreview>
         </section>

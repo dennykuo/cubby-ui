@@ -1,0 +1,258 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import ComponentPreview from "@/components/ComponentPreview.astro";
+import { getLocaleFromUrl, useTranslations } from "@/i18n";
+import { diffViewerPage } from "@/i18n/pages/components/diff-viewer";
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = useTranslations(diffViewerPage, locale);
+
+const usageCode = `<div class="cu-diff-viewer">
+  <div class="cu-diff-viewer-header">
+    <span class="cu-diff-viewer-filename">src/utils/format.ts</span>
+  </div>
+  <div class="cu-diff-viewer-hunk">@@ -3,7 +3,8 @@ import { trim } from './string';</div>
+  <div class="cu-diff-viewer-line cu-diff-viewer-line-unchanged">
+    <span class="cu-diff-viewer-line-number">3</span>
+    <span class="cu-diff-viewer-line-number">3</span>
+    <span class="cu-diff-viewer-line-content">export function formatDate(date: Date) {</span>
+  </div>
+  <div class="cu-diff-viewer-line cu-diff-viewer-line-removed">
+    <span class="cu-diff-viewer-line-number">4</span>
+    <span class="cu-diff-viewer-line-number"></span>
+    <span class="cu-diff-viewer-line-content">  return date.toLocaleDateString();</span>
+  </div>
+  <div class="cu-diff-viewer-line cu-diff-viewer-line-added">
+    <span class="cu-diff-viewer-line-number"></span>
+    <span class="cu-diff-viewer-line-number">4</span>
+    <span class="cu-diff-viewer-line-content">  const options = { year: 'numeric', month: 'short', day: 'numeric' };</span>
+  </div>
+  <div class="cu-diff-viewer-line cu-diff-viewer-line-added">
+    <span class="cu-diff-viewer-line-number"></span>
+    <span class="cu-diff-viewer-line-number">5</span>
+    <span class="cu-diff-viewer-line-content">  return date.toLocaleDateString('en-US', options);</span>
+  </div>
+  <div class="cu-diff-viewer-line cu-diff-viewer-line-unchanged">
+    <span class="cu-diff-viewer-line-number">5</span>
+    <span class="cu-diff-viewer-line-number">6</span>
+    <span class="cu-diff-viewer-line-content">}</span>
+  </div>
+  <div class="cu-diff-viewer-line cu-diff-viewer-line-unchanged">
+    <span class="cu-diff-viewer-line-number">6</span>
+    <span class="cu-diff-viewer-line-number">7</span>
+    <span class="cu-diff-viewer-line-content">export function formatCurrency(amount: number) {</span>
+  </div>
+  <div class="cu-diff-viewer-line cu-diff-viewer-line-removed">
+    <span class="cu-diff-viewer-line-number">7</span>
+    <span class="cu-diff-viewer-line-number"></span>
+    <span class="cu-diff-viewer-line-content">  return '$' + amount.toFixed(2);</span>
+  </div>
+  <div class="cu-diff-viewer-line cu-diff-viewer-line-added">
+    <span class="cu-diff-viewer-line-number"></span>
+    <span class="cu-diff-viewer-line-number">8</span>
+    <span class="cu-diff-viewer-line-content">  return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(amount);</span>
+  </div>
+  <div class="cu-diff-viewer-line cu-diff-viewer-line-unchanged">
+    <span class="cu-diff-viewer-line-number">8</span>
+    <span class="cu-diff-viewer-line-number">9</span>
+    <span class="cu-diff-viewer-line-content">}</span>
+  </div>
+</div>`.trim();
+
+const hunkCode = `<div class="cu-diff-viewer">
+  <div class="cu-diff-viewer-header">
+    <span class="cu-diff-viewer-filename">src/config.ts</span>
+  </div>
+  <div class="cu-diff-viewer-hunk">@@ -1,4 +1,4 @@ // App configuration</div>
+  <div class="cu-diff-viewer-line cu-diff-viewer-line-unchanged">
+    <span class="cu-diff-viewer-line-number">1</span>
+    <span class="cu-diff-viewer-line-number">1</span>
+    <span class="cu-diff-viewer-line-content">export const config = {</span>
+  </div>
+  <div class="cu-diff-viewer-line cu-diff-viewer-line-removed">
+    <span class="cu-diff-viewer-line-number">2</span>
+    <span class="cu-diff-viewer-line-number"></span>
+    <span class="cu-diff-viewer-line-content">  apiUrl: 'http://localhost:3000',</span>
+  </div>
+  <div class="cu-diff-viewer-line cu-diff-viewer-line-added">
+    <span class="cu-diff-viewer-line-number"></span>
+    <span class="cu-diff-viewer-line-number">2</span>
+    <span class="cu-diff-viewer-line-content">  apiUrl: process.env.API_URL,</span>
+  </div>
+  <div class="cu-diff-viewer-line cu-diff-viewer-line-unchanged">
+    <span class="cu-diff-viewer-line-number">3</span>
+    <span class="cu-diff-viewer-line-number">3</span>
+    <span class="cu-diff-viewer-line-content">  timeout: 5000,</span>
+  </div>
+  <div class="cu-diff-viewer-line cu-diff-viewer-line-unchanged">
+    <span class="cu-diff-viewer-line-number">4</span>
+    <span class="cu-diff-viewer-line-number">4</span>
+    <span class="cu-diff-viewer-line-content">};</span>
+  </div>
+  <div class="cu-diff-viewer-hunk">@@ -12,3 +12,5 @@ export const routes = {</div>
+  <div class="cu-diff-viewer-line cu-diff-viewer-line-unchanged">
+    <span class="cu-diff-viewer-line-number">12</span>
+    <span class="cu-diff-viewer-line-number">12</span>
+    <span class="cu-diff-viewer-line-content">  dashboard: '/dashboard',</span>
+  </div>
+  <div class="cu-diff-viewer-line cu-diff-viewer-line-added">
+    <span class="cu-diff-viewer-line-number"></span>
+    <span class="cu-diff-viewer-line-number">13</span>
+    <span class="cu-diff-viewer-line-content">  settings: '/settings',</span>
+  </div>
+  <div class="cu-diff-viewer-line cu-diff-viewer-line-added">
+    <span class="cu-diff-viewer-line-number"></span>
+    <span class="cu-diff-viewer-line-number">14</span>
+    <span class="cu-diff-viewer-line-content">  profile: '/profile',</span>
+  </div>
+  <div class="cu-diff-viewer-line cu-diff-viewer-line-unchanged">
+    <span class="cu-diff-viewer-line-number">13</span>
+    <span class="cu-diff-viewer-line-number">15</span>
+    <span class="cu-diff-viewer-line-content">};</span>
+  </div>
+</div>`.trim();
+
+const sideBySideCode = `<div class="cu-diff-viewer cu-diff-viewer-side-by-side">
+  <div class="cu-diff-viewer-header">
+    <span class="cu-diff-viewer-filename">src/helpers.ts</span>
+  </div>
+  <div class="cu-diff-viewer-side">
+    <div class="cu-diff-viewer-line cu-diff-viewer-line-unchanged">
+      <span class="cu-diff-viewer-line-number">1</span>
+      <span class="cu-diff-viewer-line-content">function greet(name) {</span>
+    </div>
+    <div class="cu-diff-viewer-line cu-diff-viewer-line-removed">
+      <span class="cu-diff-viewer-line-number">2</span>
+      <span class="cu-diff-viewer-line-content">  return 'Hello ' + name;</span>
+    </div>
+    <div class="cu-diff-viewer-line cu-diff-viewer-line-unchanged">
+      <span class="cu-diff-viewer-line-number">3</span>
+      <span class="cu-diff-viewer-line-content">}</span>
+    </div>
+  </div>
+  <div class="cu-diff-viewer-side">
+    <div class="cu-diff-viewer-line cu-diff-viewer-line-unchanged">
+      <span class="cu-diff-viewer-line-number">1</span>
+      <span class="cu-diff-viewer-line-content">function greet(name) {</span>
+    </div>
+    <div class="cu-diff-viewer-line cu-diff-viewer-line-added">
+      <span class="cu-diff-viewer-line-number">2</span>
+      <span class="cu-diff-viewer-line-content">  return \`Hello, \${name}!\`;</span>
+    </div>
+    <div class="cu-diff-viewer-line cu-diff-viewer-line-unchanged">
+      <span class="cu-diff-viewer-line-number">3</span>
+      <span class="cu-diff-viewer-line-content">}</span>
+    </div>
+  </div>
+</div>`.trim();
+
+const wordLevelCode = `<div class="cu-diff-viewer">
+  <div class="cu-diff-viewer-header">
+    <span class="cu-diff-viewer-filename">src/api.ts</span>
+  </div>
+  <div class="cu-diff-viewer-hunk">@@ -5,3 +5,3 @@ export async function fetchUser(id) {</div>
+  <div class="cu-diff-viewer-line cu-diff-viewer-line-removed">
+    <span class="cu-diff-viewer-line-number">5</span>
+    <span class="cu-diff-viewer-line-number"></span>
+    <span class="cu-diff-viewer-line-content">  const res = await fetch(<span class="cu-diff-viewer-word-removed">'/api/user/'</span> + id);</span>
+  </div>
+  <div class="cu-diff-viewer-line cu-diff-viewer-line-added">
+    <span class="cu-diff-viewer-line-number"></span>
+    <span class="cu-diff-viewer-line-number">5</span>
+    <span class="cu-diff-viewer-line-content">  const res = await fetch(<span class="cu-diff-viewer-word-added">\`/api/v2/users/\${id}\`</span>);</span>
+  </div>
+  <div class="cu-diff-viewer-line cu-diff-viewer-line-removed">
+    <span class="cu-diff-viewer-line-number">6</span>
+    <span class="cu-diff-viewer-line-number"></span>
+    <span class="cu-diff-viewer-line-content">  return res.<span class="cu-diff-viewer-word-removed">json()</span>;</span>
+  </div>
+  <div class="cu-diff-viewer-line cu-diff-viewer-line-added">
+    <span class="cu-diff-viewer-line-number"></span>
+    <span class="cu-diff-viewer-line-number">6</span>
+    <span class="cu-diff-viewer-line-content">  return res.<span class="cu-diff-viewer-word-added">ok ? res.json() : null</span>;</span>
+  </div>
+  <div class="cu-diff-viewer-line cu-diff-viewer-line-unchanged">
+    <span class="cu-diff-viewer-line-number">7</span>
+    <span class="cu-diff-viewer-line-number">7</span>
+    <span class="cu-diff-viewer-line-content">}</span>
+  </div>
+</div>`.trim();
+---
+
+<Layout title={t.title} category={t.category} componentName="Diff Viewer">
+    <div class="space-y-3">
+        <div class="flex items-center gap-3">
+            <h1 class="text-3xl font-bold tracking-tight">Diff Viewer</h1>
+            <span class="cu-badge cu-badge-secondary">{t.category}</span>
+        </div>
+        <p class="text-base text-muted-foreground leading-relaxed" set:html={t.description} />
+    </div>
+
+    <div class="mt-10 space-y-10">
+        <!-- Usage -->
+        <section class="space-y-3">
+            <h2 id="usage" class="text-lg font-semibold tracking-tight relative group">
+                <a href="#usage" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                {t.sections.usage.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
+            <ComponentPreview code={usageCode} />
+        </section>
+
+        <!-- Classes Reference -->
+        <section class="space-y-3">
+            <h2 id="classes" class="text-lg font-semibold tracking-tight relative group">
+                <a href="#classes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                {t.sections.classes.title}
+            </h2>
+            <div class="cu-table-wrapper rounded-lg border border-border">
+                <table class="cu-table">
+                    <thead class="cu-table-header">
+                        <tr class="cu-table-row">
+                            <th class="cu-table-head">{t.sections.classes.classLabel}</th>
+                            <th class="cu-table-head">{t.sections.classes.descriptionLabel}</th>
+                        </tr>
+                    </thead>
+                    <tbody class="cu-table-body">
+                        {Object.entries(t.classDescriptions).map(([cls, desc]) => (
+                            <tr class="cu-table-row">
+                                <td class="cu-table-cell"><code class="cu-code">{cls}</code></td>
+                                <td class="cu-table-cell text-muted-foreground">{desc}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Side by Side -->
+        <section class="space-y-3">
+            <h2 id="side-by-side" class="text-lg font-semibold tracking-tight relative group">
+                <a href="#side-by-side" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                {t.sections.sideBySide.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.sideBySide.description} />
+            <ComponentPreview code={sideBySideCode} />
+        </section>
+
+        <!-- Hunk Headers -->
+        <section class="space-y-3">
+            <h2 id="hunk" class="text-lg font-semibold tracking-tight relative group">
+                <a href="#hunk" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                {t.sections.hunk.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.hunk.description} />
+            <ComponentPreview code={hunkCode} />
+        </section>
+
+        <!-- Word-Level Highlighting -->
+        <section class="space-y-3">
+            <h2 id="word-level" class="text-lg font-semibold tracking-tight relative group">
+                <a href="#word-level" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                {t.sections.wordLevel.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.wordLevel.description} />
+            <ComponentPreview code={wordLevelCode} />
+        </section>
+    </div>
+</Layout>

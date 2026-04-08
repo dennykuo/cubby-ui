@@ -9,6 +9,8 @@ export const alertDialogPage: Record<Locale, {
     classes: { title: string; classLabel: string; descriptionLabel: string };
     destructiveAction: { title: string; description: string };
     withIcon: { title: string; description: string };
+    withForm: { title: string; description: string };
+    withLongDescription: { title: string; description: string };
   };
   classDescriptions: Record<string, string>;
 }> = {
@@ -33,6 +35,14 @@ export const alertDialogPage: Record<Locale, {
       withIcon: {
         title: 'With Icon',
         description: 'Add a warning icon alongside the title for extra visual emphasis.',
+      },
+      withForm: {
+        title: 'With Custom Content',
+        description: 'Alert dialogs can contain custom content like form fields when additional user input is needed before confirming an action.',
+      },
+      withLongDescription: {
+        title: 'Long Description',
+        description: 'Use a longer description with bullet points or lists when the consequences of the action need detailed explanation.',
       },
     },
     classDescriptions: {
@@ -64,6 +74,14 @@ export const alertDialogPage: Record<Locale, {
       withIcon: {
         title: '帶圖示',
         description: '在標題旁加上警告圖示，提供額外的視覺強調。',
+      },
+      withForm: {
+        title: '自訂內容',
+        description: '當確認操作前需要額外使用者輸入時，Alert Dialog 可包含表單欄位等自訂內容。',
+      },
+      withLongDescription: {
+        title: '長描述',
+        description: '當操作後果需要詳細解釋時，使用較長的描述搭配條列或清單。',
       },
     },
     classDescriptions: {

@@ -71,6 +71,66 @@ const withTagsCode = `<div class="cu-scroll-area cu-scroll-area-horizontal w-80 
   </div>
 </div>`.trim();
 
+const longListCode = `<div class="cu-scroll-area h-64 w-[300px] rounded-lg border border-border">
+  <div class="p-4 space-y-1">
+    <h4 class="mb-3 text-sm font-semibold">Inbox</h4>
+    <div class="rounded-md px-3 py-2 text-sm hover:bg-muted/60 cursor-pointer">
+      <div class="font-medium">Meeting Notes</div>
+      <div class="text-xs text-muted-foreground">Action items from today's standup</div>
+    </div>
+    <div class="rounded-md px-3 py-2 text-sm hover:bg-muted/60 cursor-pointer bg-muted/40">
+      <div class="font-medium">Design Review</div>
+      <div class="text-xs text-muted-foreground">Feedback on the new dashboard</div>
+    </div>
+    <div class="rounded-md px-3 py-2 text-sm hover:bg-muted/60 cursor-pointer">
+      <div class="font-medium">Sprint Planning</div>
+      <div class="text-xs text-muted-foreground">Next sprint priorities and assignments</div>
+    </div>
+    <div class="rounded-md px-3 py-2 text-sm hover:bg-muted/60 cursor-pointer">
+      <div class="font-medium">Bug Report #234</div>
+      <div class="text-xs text-muted-foreground">Login page not loading on Safari</div>
+    </div>
+    <div class="rounded-md px-3 py-2 text-sm hover:bg-muted/60 cursor-pointer">
+      <div class="font-medium">Feature Request</div>
+      <div class="text-xs text-muted-foreground">Dark mode for mobile app</div>
+    </div>
+    <div class="rounded-md px-3 py-2 text-sm hover:bg-muted/60 cursor-pointer">
+      <div class="font-medium">Deployment Update</div>
+      <div class="text-xs text-muted-foreground">v2.3.1 deployed to production</div>
+    </div>
+    <div class="rounded-md px-3 py-2 text-sm hover:bg-muted/60 cursor-pointer">
+      <div class="font-medium">Code Review</div>
+      <div class="text-xs text-muted-foreground">PR #89 needs your review</div>
+    </div>
+    <div class="rounded-md px-3 py-2 text-sm hover:bg-muted/60 cursor-pointer">
+      <div class="font-medium">Security Alert</div>
+      <div class="text-xs text-muted-foreground">New login from unknown device</div>
+    </div>
+  </div>
+</div>`.trim();
+
+const nestedCode = `<div class="cu-scroll-area h-64 w-[350px] rounded-lg border border-border">
+  <div class="p-4 space-y-4">
+    <h4 class="text-sm font-semibold">Photo Gallery</h4>
+    <div class="cu-scroll-area cu-scroll-area-horizontal">
+      <div class="flex gap-3 pb-2">
+        <div class="h-24 w-32 shrink-0 rounded-lg bg-muted flex items-center justify-center text-xs text-muted-foreground">Photo 1</div>
+        <div class="h-24 w-32 shrink-0 rounded-lg bg-muted flex items-center justify-center text-xs text-muted-foreground">Photo 2</div>
+        <div class="h-24 w-32 shrink-0 rounded-lg bg-muted flex items-center justify-center text-xs text-muted-foreground">Photo 3</div>
+        <div class="h-24 w-32 shrink-0 rounded-lg bg-muted flex items-center justify-center text-xs text-muted-foreground">Photo 4</div>
+        <div class="h-24 w-32 shrink-0 rounded-lg bg-muted flex items-center justify-center text-xs text-muted-foreground">Photo 5</div>
+      </div>
+    </div>
+    <p class="text-sm text-muted-foreground">Scroll horizontally above and vertically here to see more content below.</p>
+    <div class="space-y-2">
+      <div class="rounded-md border border-border p-3 text-sm">Album: Summer Vacation 2024</div>
+      <div class="rounded-md border border-border p-3 text-sm">Album: Team Offsite</div>
+      <div class="rounded-md border border-border p-3 text-sm">Album: Product Launch</div>
+      <div class="rounded-md border border-border p-3 text-sm">Album: Holiday Party</div>
+    </div>
+  </div>
+</div>`.trim();
+
 const tags = ["v1.0.0", "v1.1.0", "v1.2.0", "v1.3.0", "v1.4.0", "v2.0.0", "v2.1.0", "v2.2.0", "v3.0.0", "v3.1.0"];
 ---
 
@@ -182,6 +242,90 @@ const tags = ["v1.0.0", "v1.1.0", "v1.2.0", "v1.3.0", "v1.4.0", "v2.0.0", "v2.1.
                         <span class="cu-badge cu-badge-default">Qwik</span>
                         <span class="cu-badge cu-badge-secondary">Ember</span>
                         <span class="cu-badge cu-badge-outline">Preact</span>
+                    </div>
+                </ScrollArea>
+            </ComponentPreview>
+        </section>
+
+        <!-- Long List -->
+        <section class="space-y-3">
+            <h2 id="long-list" class="text-lg font-semibold tracking-tight relative group">
+              <a href="#long-list" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+              Long List
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
+                A scroll area containing a long list of items with consistent spacing, ideal for sidebar navigation or settings panels.
+            </p>
+            <ComponentPreview code={longListCode}>
+                <ScrollArea class="h-64 w-[300px] rounded-lg border border-border">
+                    <div class="p-4 space-y-1">
+                        <h4 class="mb-3 text-sm font-semibold">Inbox</h4>
+                        <div class="rounded-md px-3 py-2 text-sm hover:bg-muted/60 cursor-pointer">
+                            <div class="font-medium">Meeting Notes</div>
+                            <div class="text-xs text-muted-foreground">Action items from today's standup</div>
+                        </div>
+                        <div class="rounded-md px-3 py-2 text-sm hover:bg-muted/60 cursor-pointer bg-muted/40">
+                            <div class="font-medium">Design Review</div>
+                            <div class="text-xs text-muted-foreground">Feedback on the new dashboard</div>
+                        </div>
+                        <div class="rounded-md px-3 py-2 text-sm hover:bg-muted/60 cursor-pointer">
+                            <div class="font-medium">Sprint Planning</div>
+                            <div class="text-xs text-muted-foreground">Next sprint priorities and assignments</div>
+                        </div>
+                        <div class="rounded-md px-3 py-2 text-sm hover:bg-muted/60 cursor-pointer">
+                            <div class="font-medium">Bug Report #234</div>
+                            <div class="text-xs text-muted-foreground">Login page not loading on Safari</div>
+                        </div>
+                        <div class="rounded-md px-3 py-2 text-sm hover:bg-muted/60 cursor-pointer">
+                            <div class="font-medium">Feature Request</div>
+                            <div class="text-xs text-muted-foreground">Dark mode for mobile app</div>
+                        </div>
+                        <div class="rounded-md px-3 py-2 text-sm hover:bg-muted/60 cursor-pointer">
+                            <div class="font-medium">Deployment Update</div>
+                            <div class="text-xs text-muted-foreground">v2.3.1 deployed to production</div>
+                        </div>
+                        <div class="rounded-md px-3 py-2 text-sm hover:bg-muted/60 cursor-pointer">
+                            <div class="font-medium">Code Review</div>
+                            <div class="text-xs text-muted-foreground">PR #89 needs your review</div>
+                        </div>
+                        <div class="rounded-md px-3 py-2 text-sm hover:bg-muted/60 cursor-pointer">
+                            <div class="font-medium">Security Alert</div>
+                            <div class="text-xs text-muted-foreground">New login from unknown device</div>
+                        </div>
+                    </div>
+                </ScrollArea>
+            </ComponentPreview>
+        </section>
+
+        <!-- Nested Scroll Areas -->
+        <section class="space-y-3">
+            <h2 id="nested" class="text-lg font-semibold tracking-tight relative group">
+              <a href="#nested" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+              Nested Scroll Areas
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
+                Nest scroll areas for complex layouts where both horizontal and vertical scrolling are needed independently.
+            </p>
+            <ComponentPreview code={nestedCode}>
+                <ScrollArea class="h-64 w-[350px] rounded-lg border border-border">
+                    <div class="p-4 space-y-4">
+                        <h4 class="text-sm font-semibold">Photo Gallery</h4>
+                        <ScrollArea horizontal>
+                            <div class="flex gap-3 pb-2">
+                                <div class="h-24 w-32 shrink-0 rounded-lg bg-muted flex items-center justify-center text-xs text-muted-foreground">Photo 1</div>
+                                <div class="h-24 w-32 shrink-0 rounded-lg bg-muted flex items-center justify-center text-xs text-muted-foreground">Photo 2</div>
+                                <div class="h-24 w-32 shrink-0 rounded-lg bg-muted flex items-center justify-center text-xs text-muted-foreground">Photo 3</div>
+                                <div class="h-24 w-32 shrink-0 rounded-lg bg-muted flex items-center justify-center text-xs text-muted-foreground">Photo 4</div>
+                                <div class="h-24 w-32 shrink-0 rounded-lg bg-muted flex items-center justify-center text-xs text-muted-foreground">Photo 5</div>
+                            </div>
+                        </ScrollArea>
+                        <p class="text-sm text-muted-foreground">Scroll horizontally above and vertically here to see more content below.</p>
+                        <div class="space-y-2">
+                            <div class="rounded-md border border-border p-3 text-sm">Album: Summer Vacation 2024</div>
+                            <div class="rounded-md border border-border p-3 text-sm">Album: Team Offsite</div>
+                            <div class="rounded-md border border-border p-3 text-sm">Album: Product Launch</div>
+                            <div class="rounded-md border border-border p-3 text-sm">Album: Holiday Party</div>
+                        </div>
                     </div>
                 </ScrollArea>
             </ComponentPreview>

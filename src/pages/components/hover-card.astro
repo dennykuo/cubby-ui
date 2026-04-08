@@ -35,6 +35,52 @@ const simpleCode = `<div class="cu-hover-card">
   </div>
 </div>`.trim();
 
+const userProfileCode = `<div class="cu-hover-card" data-cu-popover>
+  <a href="#" class="text-sm font-medium text-primary hover:underline" data-cu-popover-trigger>@johndoe</a>
+  <div class="cu-hover-card-content" data-cu-popover-content hidden>
+    <div class="flex gap-4">
+      <span class="cu-avatar cu-avatar-md">
+        <span class="cu-avatar-fallback">JD</span>
+      </span>
+      <div class="space-y-1">
+        <h4 class="text-sm font-semibold">John Doe</h4>
+        <p class="text-sm text-muted-foreground">Senior Engineer at Acme Corp. Building awesome things with code.</p>
+        <div class="flex items-center gap-4 pt-1">
+          <div class="flex items-center gap-1 text-xs text-muted-foreground">
+            <span class="font-semibold text-foreground">1,234</span> following
+          </div>
+          <div class="flex items-center gap-1 text-xs text-muted-foreground">
+            <span class="font-semibold text-foreground">5,678</span> followers
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>`.trim();
+
+const productPreviewCode = `<div class="cu-hover-card" data-cu-popover>
+  <a href="#" class="text-sm font-medium text-primary hover:underline" data-cu-popover-trigger>Wireless Headphones</a>
+  <div class="cu-hover-card-content" data-cu-popover-content hidden>
+    <div class="space-y-3">
+      <div class="h-32 w-full rounded-lg bg-muted flex items-center justify-center text-muted-foreground">
+        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>
+      </div>
+      <div>
+        <h4 class="text-sm font-semibold">Wireless Headphones Pro</h4>
+        <p class="text-xs text-muted-foreground mt-0.5">Active Noise Cancellation · 30hr Battery</p>
+      </div>
+      <div class="flex items-center justify-between">
+        <span class="text-lg font-bold">$249.00</span>
+        <div class="flex items-center gap-1 text-xs text-warning">
+          <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <span>4.8</span>
+          <span class="text-muted-foreground">(2,847)</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>`.trim();
+
 const topCode = `<div class="cu-hover-card">
   <a href="#" class="text-sm font-medium underline underline-offset-4">@cubby-ui</a>
   <div class="cu-hover-card-content cu-hover-card-content-top">
@@ -154,6 +200,76 @@ const topCode = `<div class="cu-hover-card">
                     <a href="#" class="cu-link">Terms of Service</a>
                     <div class="cu-hover-card-content">
                         <p class="text-sm text-muted-foreground">By using our service, you agree to our terms. We collect minimal data and respect your privacy.</p>
+                    </div>
+                </div>
+            </ComponentPreview>
+        </section>
+
+        <!-- User Profile -->
+        <section class="space-y-3">
+            <h2 id="user-profile" class="text-lg font-semibold tracking-tight relative group">
+                <a href="#user-profile" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                {t.sections.userProfile.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
+                {t.sections.userProfile.description}
+            </p>
+            <ComponentPreview code={userProfileCode}>
+                <div class="cu-hover-card" data-cu-popover>
+                    <a href="#" class="text-sm font-medium text-primary hover:underline" data-cu-popover-trigger>@johndoe</a>
+                    <div class="cu-hover-card-content" data-cu-popover-content hidden>
+                        <div class="flex gap-4">
+                            <span class="cu-avatar cu-avatar-md">
+                                <span class="cu-avatar-fallback">JD</span>
+                            </span>
+                            <div class="space-y-1">
+                                <h4 class="text-sm font-semibold">John Doe</h4>
+                                <p class="text-sm text-muted-foreground">Senior Engineer at Acme Corp. Building awesome things with code.</p>
+                                <div class="flex items-center gap-4 pt-1">
+                                    <div class="flex items-center gap-1 text-xs text-muted-foreground">
+                                        <span class="font-semibold text-foreground">1,234</span> following
+                                    </div>
+                                    <div class="flex items-center gap-1 text-xs text-muted-foreground">
+                                        <span class="font-semibold text-foreground">5,678</span> followers
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ComponentPreview>
+        </section>
+
+        <!-- Product Preview -->
+        <section class="space-y-3">
+            <h2 id="product-preview" class="text-lg font-semibold tracking-tight relative group">
+                <a href="#product-preview" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                {t.sections.productPreview.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
+                {t.sections.productPreview.description}
+            </p>
+            <ComponentPreview code={productPreviewCode}>
+                <div class="cu-hover-card" data-cu-popover>
+                    <a href="#" class="text-sm font-medium text-primary hover:underline" data-cu-popover-trigger>Wireless Headphones</a>
+                    <div class="cu-hover-card-content" data-cu-popover-content hidden>
+                        <div class="space-y-3">
+                            <div class="h-32 w-full rounded-lg bg-muted flex items-center justify-center text-muted-foreground">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>
+                            </div>
+                            <div>
+                                <h4 class="text-sm font-semibold">Wireless Headphones Pro</h4>
+                                <p class="text-xs text-muted-foreground mt-0.5">Active Noise Cancellation · 30hr Battery</p>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-lg font-bold">$249.00</span>
+                                <div class="flex items-center gap-1 text-xs text-warning">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                                    <span>4.8</span>
+                                    <span class="text-muted-foreground">(2,847)</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </ComponentPreview>

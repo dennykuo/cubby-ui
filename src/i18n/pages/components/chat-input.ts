@@ -9,6 +9,8 @@ export const chatInputPage: Record<Locale, {
     classes: { title: string; classLabel: string; descriptionLabel: string };
     withAttach: { title: string; description: string };
     disabled: { title: string; description: string };
+    multiRow: { title: string; description: string };
+    withToolbar: { title: string; description: string };
   };
   classDescriptions: Record<string, string>;
 }> = {
@@ -33,6 +35,14 @@ export const chatInputPage: Record<Locale, {
       disabled: {
         title: 'Disabled State',
         description: 'Disable the send button when the input is empty or while waiting for a response.',
+      },
+      multiRow: {
+        title: 'Multi-Row',
+        description: 'Use a taller chat input with auto-growing height for longer messages.',
+      },
+      withToolbar: {
+        title: 'With Toolbar',
+        description: 'Add a toolbar above or below the input with formatting options and actions.',
       },
     },
     classDescriptions: {
@@ -64,6 +74,14 @@ export const chatInputPage: Record<Locale, {
       disabled: {
         title: '停用狀態',
         description: '當輸入框為空或等待回應時停用送出按鈕。',
+      },
+      multiRow: {
+        title: '多行輸入',
+        description: '使用較高的聊天輸入框，支援自動增長高度以容納較長訊息。',
+      },
+      withToolbar: {
+        title: '搭配工具列',
+        description: '在輸入框上方或下方加入工具列，提供格式化選項和操作。',
       },
     },
     classDescriptions: {

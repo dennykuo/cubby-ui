@@ -9,6 +9,8 @@ export const passwordInputPage: Record<Locale, {
     classes: { title: string; classLabel: string; descriptionLabel: string };
     withLabel: { title: string; description: string };
     disabled: { title: string; description: string };
+    strengthIndicator: { title: string; description: string };
+    requirements: { title: string; description: string };
   };
   classDescriptions: Record<string, string>;
 }> = {
@@ -33,6 +35,14 @@ export const passwordInputPage: Record<Locale, {
       disabled: {
         title: 'Disabled',
         description: 'Add the <code class="cu-code">disabled</code> attribute to both the input and toggle button.',
+      },
+      strengthIndicator: {
+        title: 'Strength Indicator',
+        description: 'Display a visual password strength meter below the input to guide users toward stronger passwords.',
+      },
+      requirements: {
+        title: 'With Requirements',
+        description: 'Show a checklist of password requirements that update in real-time as the user types.',
       },
     },
     classDescriptions: {
@@ -62,6 +72,14 @@ export const passwordInputPage: Record<Locale, {
       disabled: {
         title: '停用',
         description: '在輸入框和切換按鈕上同時加入 <code class="cu-code">disabled</code> 屬性。',
+      },
+      strengthIndicator: {
+        title: '密碼強度指示',
+        description: '在輸入框下方顯示視覺化密碼強度計，引導使用者建立更強的密碼。',
+      },
+      requirements: {
+        title: '搭配需求條件',
+        description: '顯示密碼需求條件的檢查清單，隨使用者輸入即時更新。',
       },
     },
     classDescriptions: {

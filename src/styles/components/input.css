@@ -73,3 +73,16 @@
 .cu-input-has-icon {
     @apply pl-9;
 }
+
+/* -- clearable input -- */
+.cu-input-clearable {
+    @apply pr-8;
+}
+
+.cu-input-clear {
+    @apply absolute right-2 top-1/2 -translate-y-1/2 flex size-4 items-center justify-center rounded-sm text-muted-foreground opacity-0 transition-opacity duration-150 hover:text-foreground cursor-pointer;
+}
+
+.cu-input-clearable:not(:placeholder-shown) ~ .cu-input-clear {
+    @apply opacity-70;
+}

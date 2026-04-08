@@ -140,6 +140,63 @@ const withShortcutsCode = `<dialog class="cu-command" id="cmd-demo-3" data-cu-co
 <button class="cu-button cu-button-outline" data-cu-command-trigger="cmd-demo-3">
   Open Palette with Shortcuts
 </button>`.trim();
+
+const withIconsCode = `<dialog class="cu-command" id="cmd-demo-4" data-cu-command>
+  <div class="cu-command-input-wrapper">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="cu-command-input-icon"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+    <input type="text" class="cu-command-input" placeholder="Type a command..." data-cu-command-input />
+  </div>
+  <div class="cu-command-list" data-cu-command-list>
+    <div class="cu-command-group" data-cu-command-group>
+      <div class="cu-command-group-heading">Navigation</div>
+      <div class="cu-command-item" data-cu-command-item data-cu-command-value="go to dashboard">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2 opacity-60"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        Go to Dashboard
+      </div>
+      <div class="cu-command-item" data-cu-command-item data-cu-command-value="go to team">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2 opacity-60"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        Go to Team
+      </div>
+    </div>
+    <div class="cu-command-separator" data-cu-command-separator></div>
+    <div class="cu-command-group" data-cu-command-group>
+      <div class="cu-command-group-heading">Actions</div>
+      <div class="cu-command-item" data-cu-command-item data-cu-command-value="new project">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2 opacity-60"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
+        New Project
+      </div>
+      <div class="cu-command-item" data-cu-command-item data-cu-command-value="settings">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2 opacity-60"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+        Settings
+      </div>
+    </div>
+    <div class="cu-command-empty" data-cu-command-empty hidden>No results found.</div>
+  </div>
+</dialog>
+
+<button class="cu-button cu-button-outline" data-cu-command-trigger="cmd-demo-4">
+  Open Command Palette
+</button>`.trim();
+
+const emptyStateCode = `<dialog class="cu-command" id="cmd-demo-5" data-cu-command>
+  <div class="cu-command-input-wrapper">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="cu-command-input-icon"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+    <input type="text" class="cu-command-input" placeholder="Search commands..." data-cu-command-input value="xyzabc" />
+  </div>
+  <div class="cu-command-list" data-cu-command-list>
+    <div class="cu-command-empty">
+      <div class="flex flex-col items-center gap-2 py-6 text-muted-foreground">
+        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+        <p class="text-sm font-medium">No commands found</p>
+        <p class="text-xs">Try a different search term</p>
+      </div>
+    </div>
+  </div>
+</dialog>
+
+<button class="cu-button cu-button-outline" data-cu-command-trigger="cmd-demo-5">
+  Search Commands
+</button>`.trim();
 ---
 
 <Layout title={t.title} category={t.category} componentName="Command Palette">
@@ -309,6 +366,81 @@ const withShortcutsCode = `<dialog class="cu-command" id="cmd-demo-3" data-cu-co
         </dialog>
         <button class="cu-button cu-button-outline" data-cu-command-trigger="cmd-demo-3">
           Open Palette with Shortcuts
+        </button>
+      </ComponentPreview>
+    </section>
+
+    <!-- With Icons -->
+    <section class="space-y-3">
+      <h2 id="with-icons" class="text-lg font-semibold tracking-tight relative group">
+        <a href="#with-icons" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+        {t.sections.withIcons.title}
+      </h2>
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withIcons.description} />
+      <ComponentPreview code={withIconsCode}>
+        <dialog class="cu-command" id="cmd-demo-4" data-cu-command>
+          <div class="cu-command-input-wrapper">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="cu-command-input-icon"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+            <input type="text" class="cu-command-input" placeholder="Type a command..." data-cu-command-input />
+          </div>
+          <div class="cu-command-list" data-cu-command-list>
+            <div class="cu-command-group" data-cu-command-group>
+              <div class="cu-command-group-heading">Navigation</div>
+              <div class="cu-command-item" data-cu-command-item data-cu-command-value="go to dashboard">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2 opacity-60"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                Go to Dashboard
+              </div>
+              <div class="cu-command-item" data-cu-command-item data-cu-command-value="go to team">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2 opacity-60"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                Go to Team
+              </div>
+            </div>
+            <div class="cu-command-separator" data-cu-command-separator></div>
+            <div class="cu-command-group" data-cu-command-group>
+              <div class="cu-command-group-heading">Actions</div>
+              <div class="cu-command-item" data-cu-command-item data-cu-command-value="new project">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2 opacity-60"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
+                New Project
+              </div>
+              <div class="cu-command-item" data-cu-command-item data-cu-command-value="settings">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2 opacity-60"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+                Settings
+              </div>
+            </div>
+            <div class="cu-command-empty" data-cu-command-empty hidden>No results found.</div>
+          </div>
+        </dialog>
+        <button class="cu-button cu-button-outline" data-cu-command-trigger="cmd-demo-4">
+          Open Command Palette
+        </button>
+      </ComponentPreview>
+    </section>
+
+    <!-- Empty State -->
+    <section class="space-y-3">
+      <h2 id="empty-state" class="text-lg font-semibold tracking-tight relative group">
+        <a href="#empty-state" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+        {t.sections.emptyState.title}
+      </h2>
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.emptyState.description} />
+      <ComponentPreview code={emptyStateCode}>
+        <dialog class="cu-command" id="cmd-demo-5" data-cu-command>
+          <div class="cu-command-input-wrapper">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="cu-command-input-icon"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+            <input type="text" class="cu-command-input" placeholder="Search commands..." data-cu-command-input value="xyzabc" />
+          </div>
+          <div class="cu-command-list" data-cu-command-list>
+            <div class="cu-command-empty">
+              <div class="flex flex-col items-center gap-2 py-6 text-muted-foreground">
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+                <p class="text-sm font-medium">No commands found</p>
+                <p class="text-xs">Try a different search term</p>
+              </div>
+            </div>
+          </div>
+        </dialog>
+        <button class="cu-button cu-button-outline" data-cu-command-trigger="cmd-demo-5">
+          Search Commands
         </button>
       </ComponentPreview>
     </section>

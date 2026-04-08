@@ -9,6 +9,8 @@ export const tooltipPage: Record<Locale, {
     classes: { title: string; classLabel: string; descriptionLabel: string };
     positions: { title: string; description: string };
     iconButtons: { title: string; description: string };
+    richContent: { title: string; description: string };
+    withArrow: { title: string; description: string };
   };
   classDescriptions: Record<string, string>;
 }> = {
@@ -33,6 +35,14 @@ export const tooltipPage: Record<Locale, {
       iconButtons: {
         title: 'On Icon Buttons',
         description: 'Tooltips are essential for icon-only buttons to convey their purpose.',
+      },
+      richContent: {
+        title: 'Rich Content',
+        description: 'Tooltips can contain multiline text and formatted content for more detailed explanations.',
+      },
+      withArrow: {
+        title: 'With Arrow',
+        description: 'Add a small arrow indicator pointing to the trigger element for clearer visual connection.',
       },
     },
     classDescriptions: {
@@ -64,6 +74,14 @@ export const tooltipPage: Record<Locale, {
       iconButtons: {
         title: '搭配圖示按鈕',
         description: 'Tooltip 對於僅含圖示的按鈕至關重要，用來傳達按鈕的用途。',
+      },
+      richContent: {
+        title: '豐富內容',
+        description: 'Tooltip 可包含多行文字和格式化內容，提供更詳細的說明。',
+      },
+      withArrow: {
+        title: '帶箭頭',
+        description: '加入小箭頭指向觸發元素，增強視覺連結。',
       },
     },
     classDescriptions: {

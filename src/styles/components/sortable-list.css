@@ -1,0 +1,50 @@
+/* Sortable List */
+.cu-sortable-list {
+    @apply flex flex-col gap-1.5;
+}
+
+.cu-sortable-item {
+    @apply flex items-center gap-3 rounded-lg border border-border bg-background px-3 py-2.5 text-sm transition-shadow duration-150 select-none;
+}
+
+.cu-sortable-item:hover {
+    @apply shadow-sm;
+}
+
+/* Drag handle */
+.cu-sortable-handle {
+    @apply flex shrink-0 cursor-grab items-center text-muted-foreground/50 transition-colors duration-150 hover:text-muted-foreground active:cursor-grabbing;
+}
+
+/* Item content */
+.cu-sortable-content {
+    @apply flex-1 min-w-0;
+}
+
+/* Dragging state */
+.cu-sortable-item-dragging {
+    @apply shadow-lg opacity-90 ring-2 ring-primary/20 z-10;
+}
+
+/* Drop placeholder */
+.cu-sortable-placeholder {
+    @apply rounded-lg border-2 border-dashed border-primary/30 bg-primary/5;
+}
+
+/* Bordered variant */
+.cu-sortable-list-bordered .cu-sortable-item {
+    @apply rounded-none border-x-0 border-t-0 border-b border-border;
+}
+.cu-sortable-list-bordered .cu-sortable-item:last-child {
+    @apply border-b-0;
+}
+
+/* Compact variant */
+.cu-sortable-list-compact .cu-sortable-item {
+    @apply py-1.5 gap-2;
+}
+
+/* Disabled */
+.cu-sortable-item-disabled {
+    @apply pointer-events-none opacity-50;
+}

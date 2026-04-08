@@ -1,0 +1,88 @@
+/* Diff Viewer */
+.cu-diff-viewer {
+    @apply overflow-hidden rounded-lg border border-border bg-card text-sm;
+}
+
+.cu-diff-viewer-header {
+    @apply flex items-center justify-between border-b border-border bg-muted/50 px-4 py-2 text-xs text-muted-foreground;
+}
+
+.cu-diff-viewer-filename {
+    @apply font-medium text-foreground;
+}
+
+/* Shared line styles */
+.cu-diff-viewer-line {
+    @apply flex;
+}
+
+.cu-diff-viewer-line-number {
+    @apply shrink-0 select-none px-3 py-0.5 text-right text-xs text-muted-foreground/50 tabular-nums;
+    min-width: 3rem;
+}
+
+.cu-diff-viewer-line-content {
+    @apply flex-1 whitespace-pre px-3 py-0.5 font-mono text-xs;
+}
+
+/* Line types */
+.cu-diff-viewer-line-added {
+    @apply bg-success/8;
+}
+.cu-diff-viewer-line-added .cu-diff-viewer-line-number {
+    @apply bg-success/12 text-success/70;
+}
+.cu-diff-viewer-line-added .cu-diff-viewer-line-content::before {
+    content: "+";
+    @apply mr-2 text-success;
+}
+
+.cu-diff-viewer-line-removed {
+    @apply bg-destructive/8;
+}
+.cu-diff-viewer-line-removed .cu-diff-viewer-line-number {
+    @apply bg-destructive/12 text-destructive/70;
+}
+.cu-diff-viewer-line-removed .cu-diff-viewer-line-content::before {
+    content: "−";
+    @apply mr-2 text-destructive;
+}
+
+.cu-diff-viewer-line-unchanged .cu-diff-viewer-line-content::before {
+    content: " ";
+    @apply mr-2;
+}
+
+/* Hunk header (@@) */
+.cu-diff-viewer-hunk {
+    @apply bg-info/5 px-4 py-1 text-xs text-info font-mono border-y border-border;
+}
+
+/* Side-by-side variant */
+.cu-diff-viewer-side-by-side {
+    @apply grid grid-cols-2;
+}
+
+.cu-diff-viewer-side {
+    @apply overflow-x-auto;
+}
+.cu-diff-viewer-side:first-child {
+    @apply border-r border-border;
+}
+
+.cu-diff-viewer-side-header {
+    @apply border-b border-border bg-muted/50 px-4 py-2 text-xs font-medium;
+}
+
+/* Word-level highlight */
+.cu-diff-viewer-word-added {
+    @apply rounded-sm bg-success/20 px-0.5;
+}
+.cu-diff-viewer-word-removed {
+    @apply rounded-sm bg-destructive/20 px-0.5;
+}
+
+/* Expand collapsed lines */
+.cu-diff-viewer-expand {
+    @apply flex items-center justify-center gap-2 border-y border-border bg-muted/30 px-4 py-1 text-xs text-muted-foreground cursor-pointer transition-colors duration-150 hover:bg-muted/60;
+}

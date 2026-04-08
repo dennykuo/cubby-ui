@@ -89,3 +89,13 @@
 .cu-badge-count {
     @apply inline-flex items-center justify-center rounded-full px-1.5 text-[10px] font-semibold leading-none min-w-5 h-5;
 }
+
+/* -- animated dot (pulse) -- */
+.cu-badge-dot-animated::before {
+    animation: cu-badge-pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes cu-badge-pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+}

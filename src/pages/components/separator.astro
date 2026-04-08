@@ -30,6 +30,34 @@ const verticalCode = `<div class="flex h-5 items-center gap-4 text-sm">
   <div class="cu-separator cu-separator-vertical" role="separator"></div>
   <div>Blog</div>
 </div>`.trim();
+
+const inToolbarCode = `<div class="flex items-center gap-2 rounded-lg border border-border p-1.5">
+  <button class="cu-button cu-button-ghost cu-button-icon-sm">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4h8a4 4 0 0 1 4 4 4 4 0 0 1-4 4H6z"/><path d="M6 12h9a4 4 0 0 1 4 4 4 4 0 0 1-4 4H6z"/></svg>
+  </button>
+  <button class="cu-button cu-button-ghost cu-button-icon-sm">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" x2="10" y1="4" y2="4"/><line x1="14" x2="5" y1="20" y2="20"/><line x1="15" x2="9" y1="4" y2="20"/></svg>
+  </button>
+  <button class="cu-button cu-button-ghost cu-button-icon-sm">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4v16"/><path d="M13 4v16"/><path d="M22 4v16"/></svg>
+  </button>
+  <div class="cu-separator cu-separator-vertical h-6"></div>
+  <button class="cu-button cu-button-ghost cu-button-icon-sm">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="21" x2="3" y1="6" y2="6"/><line x1="21" x2="3" y1="12" y2="12"/><line x1="21" x2="3" y1="18" y2="18"/></svg>
+  </button>
+  <button class="cu-button cu-button-ghost cu-button-icon-sm">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="21" x2="3" y1="6" y2="6"/><line x1="17" x2="3" y1="12" y2="12"/><line x1="13" x2="3" y1="18" y2="18"/></svg>
+  </button>
+</div>`.trim();
+
+const withIconCode = `<div class="relative flex items-center py-4">
+  <div class="cu-separator cu-separator-horizontal flex-1"></div>
+  <span class="mx-4 flex items-center gap-2 text-xs text-muted-foreground">
+    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+    Featured
+  </span>
+  <div class="cu-separator cu-separator-horizontal flex-1"></div>
+</div>`.trim();
 ---
 
 <Layout title={t.title} category={t.category} componentName="Separator">
@@ -126,6 +154,60 @@ const verticalCode = `<div class="flex h-5 items-center gap-4 text-sm">
                     <div>Source</div>
                     <Separator orientation="vertical" />
                     <div>Blog</div>
+                </div>
+            </ComponentPreview>
+        </section>
+
+        <!-- In Toolbar -->
+        <section class="space-y-3">
+            <h2 id="in-toolbar" class="text-lg font-semibold tracking-tight relative group">
+                <a href="#in-toolbar" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                {t.sections.inToolbar.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
+                {t.sections.inToolbar.description}
+            </p>
+            <ComponentPreview code={inToolbarCode}>
+                <div class="flex items-center gap-2 rounded-lg border border-border p-1.5">
+                    <button class="cu-button cu-button-ghost cu-button-icon-sm">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4h8a4 4 0 0 1 4 4 4 4 0 0 1-4 4H6z"/><path d="M6 12h9a4 4 0 0 1 4 4 4 4 0 0 1-4 4H6z"/></svg>
+                    </button>
+                    <button class="cu-button cu-button-ghost cu-button-icon-sm">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" x2="10" y1="4" y2="4"/><line x1="14" x2="5" y1="20" y2="20"/><line x1="15" x2="9" y1="4" y2="20"/></svg>
+                    </button>
+                    <button class="cu-button cu-button-ghost cu-button-icon-sm">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4v16"/><path d="M13 4v16"/><path d="M22 4v16"/></svg>
+                    </button>
+                    <Separator orientation="vertical" class="h-6" />
+                    <button class="cu-button cu-button-ghost cu-button-icon-sm">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="21" x2="3" y1="6" y2="6"/><line x1="21" x2="3" y1="12" y2="12"/><line x1="21" x2="3" y1="18" y2="18"/></svg>
+                    </button>
+                    <button class="cu-button cu-button-ghost cu-button-icon-sm">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="21" x2="3" y1="6" y2="6"/><line x1="17" x2="3" y1="12" y2="12"/><line x1="13" x2="3" y1="18" y2="18"/></svg>
+                    </button>
+                </div>
+            </ComponentPreview>
+        </section>
+
+        <!-- With Icon -->
+        <section class="space-y-3">
+            <h2 id="with-icon" class="text-lg font-semibold tracking-tight relative group">
+                <a href="#with-icon" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                {t.sections.withIcon.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
+                {t.sections.withIcon.description}
+            </p>
+            <ComponentPreview code={withIconCode}>
+                <div class="w-full max-w-lg">
+                    <div class="relative flex items-center py-4">
+                        <Separator class="flex-1" />
+                        <span class="mx-4 flex items-center gap-2 text-xs text-muted-foreground">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                            Featured
+                        </span>
+                        <Separator class="flex-1" />
+                    </div>
                 </div>
             </ComponentPreview>
         </section>

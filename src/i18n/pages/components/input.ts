@@ -16,6 +16,7 @@ export const inputPage: Record<Locale, {
     disabled: { title: string; description: string };
     withFormGroup: { title: string; description: string };
     charCount: { title: string; description: string };
+    clearable: { title: string; description: string };
   };
   classDescriptions: Record<string, string>;
 }> = {
@@ -69,6 +70,10 @@ export const inputPage: Record<Locale, {
         title: 'Character Count',
         description: 'Display remaining characters with a counter below the input. Use <code class="cu-code">maxlength</code> and JavaScript to update the count.',
       },
+      clearable: {
+        title: 'Clearable',
+        description: 'Add <code class="cu-code">cu-input-clearable</code> to the input and a clear button with <code class="cu-code">data-cu-input-clear</code>. The clear button appears when the input has a value.',
+      },
     },
     classDescriptions: {
       'cu-input': 'Text input style with hover border, focus ring, and disabled state',
@@ -81,6 +86,8 @@ export const inputPage: Record<Locale, {
       'cu-input-has-icon': 'Input with left padding for icon',
       'cu-input-sm': 'Small size (h-8, matches cu-button-sm)',
       'cu-input-lg': 'Large size (h-10, matches cu-button-lg)',
+      'cu-input-clearable': 'Input with extra right padding for clear button',
+      'cu-input-clear': 'Clear button inside input wrapper',
     },
   },
   'zh-tw': {
@@ -133,6 +140,10 @@ export const inputPage: Record<Locale, {
         title: '字數限制',
         description: '在輸入框下方顯示剩餘字數。使用 <code class="cu-code">maxlength</code> 和 JavaScript 更新計數。',
       },
+      clearable: {
+        title: '可清除',
+        description: '在 input 上加入 <code class="cu-code">cu-input-clearable</code>，並搭配帶有 <code class="cu-code">data-cu-input-clear</code> 的清除按鈕。當輸入框有值時，清除按鈕會自動顯示。',
+      },
     },
     classDescriptions: {
       'cu-input': '文字輸入框樣式，含 hover 邊框、焦點環與停用狀態',
@@ -145,6 +156,8 @@ export const inputPage: Record<Locale, {
       'cu-input-has-icon': '帶圖示的輸入框，預留左側 padding',
       'cu-input-sm': '小尺寸（h-8，對應 cu-button-sm）',
       'cu-input-lg': '大尺寸（h-10，對應 cu-button-lg）',
+      'cu-input-clearable': '為清除按鈕預留右側空間的輸入框',
+      'cu-input-clear': '輸入框包裝器內的清除按鈕',
     },
   },
 };

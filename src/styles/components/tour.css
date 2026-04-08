@@ -1,0 +1,76 @@
+/* Tour / Spotlight */
+
+/* Overlay backdrop with spotlight hole */
+.cu-tour-overlay {
+    @apply fixed inset-0 z-[100];
+    background: rgba(0, 0, 0, 0.5);
+    transition: opacity 200ms;
+}
+
+/* Spotlight cutout — positioned via JS */
+.cu-tour-spotlight {
+    @apply absolute rounded-lg;
+    box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.5);
+    transition: top 300ms, left 300ms, width 300ms, height 300ms;
+}
+
+/* Tooltip popover */
+.cu-tour-tooltip {
+    @apply absolute z-[101] w-80 rounded-xl border border-border bg-card p-5 shadow-lg;
+    transition: opacity 200ms, transform 200ms;
+}
+
+.cu-tour-tooltip-title {
+    @apply text-sm font-semibold;
+}
+
+.cu-tour-tooltip-description {
+    @apply mt-1.5 text-sm text-muted-foreground leading-relaxed;
+}
+
+.cu-tour-tooltip-footer {
+    @apply mt-4 flex items-center justify-between;
+}
+
+.cu-tour-tooltip-progress {
+    @apply text-xs text-muted-foreground tabular-nums;
+}
+
+.cu-tour-tooltip-actions {
+    @apply flex items-center gap-2;
+}
+
+/* Arrow */
+.cu-tour-tooltip-arrow {
+    @apply absolute size-2.5 rotate-45 border border-border bg-card;
+}
+.cu-tour-tooltip-arrow-top {
+    @apply -top-[6px] left-1/2 -translate-x-1/2 border-b-0 border-r-0;
+}
+.cu-tour-tooltip-arrow-bottom {
+    @apply -bottom-[6px] left-1/2 -translate-x-1/2 border-t-0 border-l-0;
+}
+.cu-tour-tooltip-arrow-left {
+    @apply -left-[6px] top-1/2 -translate-y-1/2 border-t-0 border-r-0;
+}
+.cu-tour-tooltip-arrow-right {
+    @apply -right-[6px] top-1/2 -translate-y-1/2 border-b-0 border-l-0;
+}
+
+/* Step indicator dots */
+.cu-tour-dots {
+    @apply flex items-center gap-1.5;
+}
+.cu-tour-dot {
+    @apply size-1.5 rounded-full bg-muted-foreground/30;
+    transition: background-color 150ms, transform 150ms;
+}
+.cu-tour-dot-active {
+    @apply bg-primary;
+    transform: scale(1.3);
+}
+
+/* Highlighted target element */
+.cu-tour-target {
+    @apply relative z-[101];
+}

@@ -1,0 +1,23 @@
+---
+import { TOP_CLASS } from "../../config";
+
+interface Props {
+    active?: boolean;
+    disabled?: boolean;
+    class?: string;
+    [key: string]: any;
+}
+
+const { active, disabled, class: className, ...rest } = Astro.props;
+const baseClass = `${TOP_CLASS}-toggle-group-item`;
+const activeClass = active ? `${baseClass}-active` : undefined;
+---
+
+<button
+    class:list={[baseClass, activeClass, className]}
+    disabled={disabled}
+    aria-pressed={active ? "true" : "false"}
+    {...rest}
+>
+    <slot />
+</button>

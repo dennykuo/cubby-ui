@@ -1,0 +1,134 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import ComponentPreview from "@/components/ComponentPreview.astro";
+import { getLocaleFromUrl, useTranslations } from "@/i18n";
+import { backToTopPage } from "@/i18n/pages/components/back-to-top";
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = useTranslations(backToTopPage, locale);
+
+const arrowUpSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m18 15-6-6-6 6"/></svg>`;
+
+const usageCode = `<!-- In production, the button uses fixed positioning. Here we use absolute for demo. -->
+<div style="position: relative; height: 120px;">
+  <button class="cu-back-to-top cu-back-to-top-visible" style="position: absolute;" data-cu-back-to-top aria-label="Back to top">
+    ${arrowUpSvg}
+  </button>
+</div>`.trim();
+
+const primaryCode = `<div style="position: relative; height: 120px;">
+  <button class="cu-back-to-top cu-back-to-top-primary cu-back-to-top-visible" style="position: absolute;" data-cu-back-to-top aria-label="Back to top">
+    ${arrowUpSvg}
+  </button>
+</div>`.trim();
+
+const sizesCode = `<div style="position: relative; height: 120px; display: flex; align-items: end; justify-content: center; gap: 24px; padding-bottom: 16px;">
+  <!-- Small -->
+  <button class="cu-back-to-top cu-back-to-top-sm cu-back-to-top-visible" style="position: relative;" aria-label="Back to top">
+    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m18 15-6-6-6 6"/></svg>
+  </button>
+
+  <!-- Default -->
+  <button class="cu-back-to-top cu-back-to-top-visible" style="position: relative;" aria-label="Back to top">
+    ${arrowUpSvg}
+  </button>
+
+  <!-- Large -->
+  <button class="cu-back-to-top cu-back-to-top-lg cu-back-to-top-visible" style="position: relative;" aria-label="Back to top">
+    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m18 15-6-6-6 6"/></svg>
+  </button>
+</div>`.trim();
+
+const thresholdCode = `<!-- Appears after scrolling 500px -->
+<button class="cu-back-to-top" data-cu-back-to-top data-cu-back-to-top-threshold="500" aria-label="Back to top">
+  ${arrowUpSvg}
+</button>`.trim();
+
+const leftPositionCode = `<div style="position: relative; height: 120px;">
+  <button class="cu-back-to-top cu-back-to-top-left cu-back-to-top-visible" style="position: absolute;" data-cu-back-to-top aria-label="Back to top">
+    ${arrowUpSvg}
+  </button>
+</div>`.trim();
+---
+
+<Layout title={t.title} category={t.category} componentName="Back to Top">
+    <div class="space-y-3">
+        <div class="flex items-center gap-3">
+            <h1 class="text-3xl font-bold tracking-tight">Back to Top</h1>
+            <span class="cu-badge cu-badge-secondary">{t.category}</span>
+        </div>
+        <p class="text-base text-muted-foreground leading-relaxed" set:html={t.description} />
+    </div>
+
+    <div class="mt-10 space-y-10">
+        <section class="space-y-3">
+            <h2 id="usage" class="text-lg font-semibold tracking-tight relative group">
+                <a href="#usage" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                {t.sections.usage.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
+            <ComponentPreview code={usageCode} />
+        </section>
+
+        <section class="space-y-3">
+            <h2 id="classes" class="text-lg font-semibold tracking-tight relative group">
+                <a href="#classes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                {t.sections.classes.title}
+            </h2>
+            <div class="cu-table-wrapper rounded-lg border border-border">
+                <table class="cu-table">
+                    <thead class="cu-table-header">
+                        <tr class="cu-table-row">
+                            <th class="cu-table-head">{t.sections.classes.classLabel}</th>
+                            <th class="cu-table-head">{t.sections.classes.descriptionLabel}</th>
+                        </tr>
+                    </thead>
+                    <tbody class="cu-table-body">
+                        {Object.entries(t.classDescriptions).map(([cls, desc]) => (
+                            <tr class="cu-table-row">
+                                <td class="cu-table-cell"><code class="cu-code">{cls}</code></td>
+                                <td class="cu-table-cell text-muted-foreground">{desc}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class="space-y-3">
+            <h2 id="primary" class="text-lg font-semibold tracking-tight relative group">
+                <a href="#primary" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                {t.sections.primary.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.primary.description} />
+            <ComponentPreview code={primaryCode} />
+        </section>
+
+        <section class="space-y-3">
+            <h2 id="sizes" class="text-lg font-semibold tracking-tight relative group">
+                <a href="#sizes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                {t.sections.sizes.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.sizes.description} />
+            <ComponentPreview code={sizesCode} />
+        </section>
+
+        <section class="space-y-3">
+            <h2 id="threshold" class="text-lg font-semibold tracking-tight relative group">
+                <a href="#threshold" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                {t.sections.threshold.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.threshold.description} />
+            <ComponentPreview code={thresholdCode} />
+        </section>
+
+        <section class="space-y-3">
+            <h2 id="left-position" class="text-lg font-semibold tracking-tight relative group">
+                <a href="#left-position" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                {t.sections.leftPosition.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.leftPosition.description} />
+            <ComponentPreview code={leftPositionCode} />
+        </section>
+    </div>
+</Layout>

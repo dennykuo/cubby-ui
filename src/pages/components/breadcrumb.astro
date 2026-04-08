@@ -95,6 +95,39 @@ const ellipsisCode = `<nav aria-label="Breadcrumb">
     </li>
   </ol>
 </nav>`.trim();
+
+const collapsedCode = `<nav aria-label="Breadcrumb">
+  <ol class="cu-breadcrumb">
+    <li class="cu-breadcrumb-item">
+      <a class="cu-breadcrumb-link" href="#">Home</a>
+    </li>
+    <li role="presentation" aria-hidden="true" class="cu-breadcrumb-separator">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+    </li>
+    <li class="cu-breadcrumb-item">
+      <div data-cu-dropdown class="inline-flex">
+        <button class="cu-breadcrumb-ellipsis" data-cu-dropdown-trigger>...</button>
+        <div class="cu-dropdown-content" data-cu-dropdown-content hidden>
+          <a class="cu-dropdown-item" href="#">Documentation</a>
+          <a class="cu-dropdown-item" href="#">Components</a>
+          <a class="cu-dropdown-item" href="#">Guides</a>
+        </div>
+      </div>
+    </li>
+    <li role="presentation" aria-hidden="true" class="cu-breadcrumb-separator">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+    </li>
+    <li class="cu-breadcrumb-item">
+      <a class="cu-breadcrumb-link" href="#">Navigation</a>
+    </li>
+    <li role="presentation" aria-hidden="true" class="cu-breadcrumb-separator">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+    </li>
+    <li class="cu-breadcrumb-item">
+      <span class="cu-breadcrumb-current" aria-current="page">Breadcrumb</span>
+    </li>
+  </ol>
+</nav>`.trim();
 ---
 
 <Layout title={t.title} category={t.category} componentName="Breadcrumb">
@@ -165,6 +198,10 @@ const ellipsisCode = `<nav aria-label="Breadcrumb">
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-breadcrumb-current</code></td>
                             <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-breadcrumb-current']}</td>
+                        </tr>
+                        <tr class="cu-table-row">
+                            <td class="cu-table-cell"><code class="cu-code">cu-breadcrumb-ellipsis</code></td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-breadcrumb-ellipsis']}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -243,6 +280,39 @@ const ellipsisCode = `<nav aria-label="Breadcrumb">
                     <BreadcrumbSeparator />
                     <BreadcrumbItem>
                         <BreadcrumbLink href="#">Components</BreadcrumbLink>
+                    </BreadcrumbItem>
+                    <BreadcrumbSeparator />
+                    <BreadcrumbCurrent>Breadcrumb</BreadcrumbCurrent>
+                </Breadcrumb>
+            </ComponentPreview>
+        </section>
+
+        <!-- Collapsed with Dropdown -->
+        <section class="space-y-3">
+            <h2 id="collapsed" class="text-lg font-semibold tracking-tight relative group">
+              <a href="#collapsed" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+              {t.sections.collapsed.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.collapsed.description} />
+            <ComponentPreview code={collapsedCode}>
+                <Breadcrumb>
+                    <BreadcrumbItem>
+                        <BreadcrumbLink href="#">Home</BreadcrumbLink>
+                    </BreadcrumbItem>
+                    <BreadcrumbSeparator />
+                    <BreadcrumbItem>
+                        <div data-cu-dropdown class="inline-flex">
+                            <button class="cu-breadcrumb-ellipsis" data-cu-dropdown-trigger>...</button>
+                            <div class="cu-dropdown-content" data-cu-dropdown-content hidden>
+                                <a class="cu-dropdown-item" href="#">Documentation</a>
+                                <a class="cu-dropdown-item" href="#">Components</a>
+                                <a class="cu-dropdown-item" href="#">Guides</a>
+                            </div>
+                        </div>
+                    </BreadcrumbItem>
+                    <BreadcrumbSeparator />
+                    <BreadcrumbItem>
+                        <BreadcrumbLink href="#">Navigation</BreadcrumbLink>
                     </BreadcrumbItem>
                     <BreadcrumbSeparator />
                     <BreadcrumbCurrent>Breadcrumb</BreadcrumbCurrent>

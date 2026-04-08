@@ -44,6 +44,39 @@ const positionsCode = `<span class="cu-tooltip" data-cu-tooltip="Top tooltip">
 <span class="cu-tooltip cu-tooltip-right" data-cu-tooltip="Right tooltip">
   <button class="cu-button cu-button-outline cu-button-md">Right</button>
 </span>`.trim();
+
+const richContentCode = `<div class="flex items-center gap-8">
+  <!-- Rich tooltip using group-hover with DOM content -->
+  <div class="relative inline-flex group">
+    <button class="cu-button cu-button-outline cu-button-md">Keyboard Shortcut</button>
+    <div class="pointer-events-none absolute bottom-full left-1/2 -translate-x-1/2 mb-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-[opacity,visibility] duration-150 rounded-lg bg-foreground px-3 py-2 text-xs text-background w-max max-w-56" role="tooltip">
+      <div class="font-medium">Quick Save</div>
+      <div class="opacity-70 mt-0.5">Press ⌘S to save your work</div>
+    </div>
+  </div>
+  <div class="relative inline-flex group">
+    <button class="cu-button cu-button-outline cu-button-md">Details</button>
+    <div class="pointer-events-none absolute bottom-full left-1/2 -translate-x-1/2 mb-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-[opacity,visibility] duration-150 rounded-lg bg-foreground px-3 py-2 text-xs text-background w-max max-w-56" role="tooltip">
+      <div class="font-medium">Upload Limit</div>
+      <div class="opacity-70 mt-0.5">Maximum file size: 10MB<br/>Accepted formats: PNG, JPG, SVG</div>
+    </div>
+  </div>
+</div>`.trim();
+
+const withArrowCode = `<div class="flex items-center gap-8">
+  <span class="cu-tooltip" data-cu-tooltip="Tooltip with arrow">
+    <button class="cu-button cu-button-outline cu-button-md">Top</button>
+  </span>
+  <span class="cu-tooltip cu-tooltip-bottom" data-cu-tooltip="Tooltip with arrow">
+    <button class="cu-button cu-button-outline cu-button-md">Bottom</button>
+  </span>
+  <span class="cu-tooltip cu-tooltip-left" data-cu-tooltip="Tooltip with arrow">
+    <button class="cu-button cu-button-outline cu-button-md">Left</button>
+  </span>
+  <span class="cu-tooltip cu-tooltip-right" data-cu-tooltip="Tooltip with arrow">
+    <button class="cu-button cu-button-outline cu-button-md">Right</button>
+  </span>
+</div>`.trim();
 ---
 
 <Layout title={t.title} category={t.category} componentName="Tooltip">
@@ -163,6 +196,62 @@ const positionsCode = `<span class="cu-tooltip" data-cu-tooltip="Top tooltip">
                         <button class="cu-button cu-button-ghost cu-button-icon">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4v6a6 6 0 0 0 12 0V4"/><line x1="4" x2="20" y1="20" y2="20"/></svg>
                         </button>
+                    </span>
+                </div>
+            </ComponentPreview>
+        </section>
+
+        <!-- Rich Content -->
+        <section class="space-y-3">
+            <h2 id="rich-content" class="text-lg font-semibold tracking-tight relative group">
+                <a href="#rich-content" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                {t.sections.richContent.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
+                {t.sections.richContent.description}
+            </p>
+            <ComponentPreview code={richContentCode}>
+                <div class="flex items-center gap-8">
+                    <div class="relative inline-flex group">
+                        <button class="cu-button cu-button-outline cu-button-md">Keyboard Shortcut</button>
+                        <div class="pointer-events-none absolute bottom-full left-1/2 -translate-x-1/2 mb-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-[opacity,visibility] duration-150 rounded-lg bg-foreground px-3 py-2 text-xs text-background w-max max-w-56" role="tooltip">
+                            <div class="font-medium">Quick Save</div>
+                            <div class="opacity-70 mt-0.5">Press ⌘S to save your work</div>
+                        </div>
+                    </div>
+                    <div class="relative inline-flex group">
+                        <button class="cu-button cu-button-outline cu-button-md">Details</button>
+                        <div class="pointer-events-none absolute bottom-full left-1/2 -translate-x-1/2 mb-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-[opacity,visibility] duration-150 rounded-lg bg-foreground px-3 py-2 text-xs text-background w-max max-w-56" role="tooltip">
+                            <div class="font-medium">Upload Limit</div>
+                            <div class="opacity-70 mt-0.5">Maximum file size: 10MB<br/>Accepted formats: PNG, JPG, SVG</div>
+                        </div>
+                    </div>
+                </div>
+            </ComponentPreview>
+        </section>
+
+        <!-- With Arrow -->
+        <section class="space-y-3">
+            <h2 id="with-arrow" class="text-lg font-semibold tracking-tight relative group">
+                <a href="#with-arrow" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                {t.sections.withArrow.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
+                {t.sections.withArrow.description}
+            </p>
+            <ComponentPreview code={withArrowCode}>
+                <div class="flex items-center gap-8">
+                    <span class="cu-tooltip" data-cu-tooltip="Tooltip with arrow">
+                        <button class="cu-button cu-button-outline cu-button-md">Top</button>
+                    </span>
+                    <span class="cu-tooltip cu-tooltip-bottom" data-cu-tooltip="Tooltip with arrow">
+                        <button class="cu-button cu-button-outline cu-button-md">Bottom</button>
+                    </span>
+                    <span class="cu-tooltip cu-tooltip-left" data-cu-tooltip="Tooltip with arrow">
+                        <button class="cu-button cu-button-outline cu-button-md">Left</button>
+                    </span>
+                    <span class="cu-tooltip cu-tooltip-right" data-cu-tooltip="Tooltip with arrow">
+                        <button class="cu-button cu-button-outline cu-button-md">Right</button>
                     </span>
                 </div>
             </ComponentPreview>

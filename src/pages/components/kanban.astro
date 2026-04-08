@@ -1,0 +1,249 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import ComponentPreview from "@/components/ComponentPreview.astro";
+import { getLocaleFromUrl, useTranslations } from "@/i18n";
+import { kanbanPage } from "@/i18n/pages/components/kanban";
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = useTranslations(kanbanPage, locale);
+
+const plusIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg>`;
+
+const usageCode = `<div class="cu-kanban" data-cu-kanban>
+  <div class="cu-kanban-column" data-cu-kanban-column>
+    <div class="cu-kanban-column-header">
+      <h3 class="cu-kanban-column-title">To Do</h3>
+      <span class="cu-kanban-column-count">3</span>
+    </div>
+    <div class="cu-kanban-column-body" data-cu-kanban-column-body>
+      <div class="cu-kanban-card" data-cu-kanban-card draggable="true">
+        <p class="cu-kanban-card-title">Design landing page</p>
+        <p class="cu-kanban-card-description">Create wireframes and mockups for the new marketing site.</p>
+      </div>
+      <div class="cu-kanban-card" data-cu-kanban-card draggable="true">
+        <p class="cu-kanban-card-title">Write API docs</p>
+        <p class="cu-kanban-card-description">Document all REST endpoints with examples.</p>
+      </div>
+      <div class="cu-kanban-card" data-cu-kanban-card draggable="true">
+        <p class="cu-kanban-card-title">Set up CI pipeline</p>
+        <p class="cu-kanban-card-description">Configure GitHub Actions for automated testing.</p>
+      </div>
+    </div>
+  </div>
+  <div class="cu-kanban-column" data-cu-kanban-column>
+    <div class="cu-kanban-column-header">
+      <h3 class="cu-kanban-column-title">In Progress</h3>
+      <span class="cu-kanban-column-count">2</span>
+    </div>
+    <div class="cu-kanban-column-body" data-cu-kanban-column-body>
+      <div class="cu-kanban-card" data-cu-kanban-card draggable="true">
+        <p class="cu-kanban-card-title">Implement auth flow</p>
+        <p class="cu-kanban-card-description">OAuth2 integration with Google and GitHub.</p>
+      </div>
+      <div class="cu-kanban-card" data-cu-kanban-card draggable="true">
+        <p class="cu-kanban-card-title">Database migration</p>
+        <p class="cu-kanban-card-description">Migrate user table to new schema.</p>
+      </div>
+    </div>
+  </div>
+  <div class="cu-kanban-column" data-cu-kanban-column>
+    <div class="cu-kanban-column-header">
+      <h3 class="cu-kanban-column-title">Done</h3>
+      <span class="cu-kanban-column-count">2</span>
+    </div>
+    <div class="cu-kanban-column-body" data-cu-kanban-column-body>
+      <div class="cu-kanban-card" data-cu-kanban-card draggable="true">
+        <p class="cu-kanban-card-title">Project setup</p>
+        <p class="cu-kanban-card-description">Initialize repo with Vite + TypeScript.</p>
+      </div>
+      <div class="cu-kanban-card" data-cu-kanban-card draggable="true">
+        <p class="cu-kanban-card-title">Design system tokens</p>
+        <p class="cu-kanban-card-description">Define color, spacing, and typography tokens.</p>
+      </div>
+    </div>
+  </div>
+</div>`.trim();
+
+const withTagsCode = `<div class="cu-kanban" data-cu-kanban>
+  <div class="cu-kanban-column" data-cu-kanban-column>
+    <div class="cu-kanban-column-header">
+      <h3 class="cu-kanban-column-title">Backlog</h3>
+      <span class="cu-kanban-column-count">3</span>
+    </div>
+    <div class="cu-kanban-column-body" data-cu-kanban-column-body>
+      <div class="cu-kanban-card" data-cu-kanban-card draggable="true">
+        <p class="cu-kanban-card-title">Redesign dashboard</p>
+        <p class="cu-kanban-card-description">Update layout and charts for better UX.</p>
+        <div class="cu-kanban-card-footer">
+          <span class="cu-kanban-card-tag cu-kanban-card-tag-primary">Design</span>
+          <span class="cu-kanban-card-tag cu-kanban-card-tag-info">Frontend</span>
+        </div>
+      </div>
+      <div class="cu-kanban-card" data-cu-kanban-card draggable="true">
+        <p class="cu-kanban-card-title">Fix memory leak</p>
+        <p class="cu-kanban-card-description">Investigate and resolve WebSocket memory issue.</p>
+        <div class="cu-kanban-card-footer">
+          <span class="cu-kanban-card-tag cu-kanban-card-tag-destructive">Bug</span>
+          <span class="cu-kanban-card-tag cu-kanban-card-tag-warning">Urgent</span>
+        </div>
+      </div>
+      <div class="cu-kanban-card" data-cu-kanban-card draggable="true">
+        <p class="cu-kanban-card-title">Add export feature</p>
+        <p class="cu-kanban-card-description">Export data as CSV and PDF.</p>
+        <div class="cu-kanban-card-footer">
+          <span class="cu-kanban-card-tag cu-kanban-card-tag-success">Feature</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>`.trim();
+
+const compactCode = `<div class="cu-kanban cu-kanban-compact" data-cu-kanban>
+  <div class="cu-kanban-column" data-cu-kanban-column>
+    <div class="cu-kanban-column-header">
+      <h3 class="cu-kanban-column-title">To Do</h3>
+      <span class="cu-kanban-column-count">3</span>
+    </div>
+    <div class="cu-kanban-column-body" data-cu-kanban-column-body>
+      <div class="cu-kanban-card" data-cu-kanban-card draggable="true">
+        <p class="cu-kanban-card-title">Update README</p>
+      </div>
+      <div class="cu-kanban-card" data-cu-kanban-card draggable="true">
+        <p class="cu-kanban-card-title">Review PR #42</p>
+      </div>
+      <div class="cu-kanban-card" data-cu-kanban-card draggable="true">
+        <p class="cu-kanban-card-title">Fix typo in footer</p>
+      </div>
+    </div>
+  </div>
+  <div class="cu-kanban-column" data-cu-kanban-column>
+    <div class="cu-kanban-column-header">
+      <h3 class="cu-kanban-column-title">Done</h3>
+      <span class="cu-kanban-column-count">2</span>
+    </div>
+    <div class="cu-kanban-column-body" data-cu-kanban-column-body>
+      <div class="cu-kanban-card" data-cu-kanban-card draggable="true">
+        <p class="cu-kanban-card-title">Deploy v1.0</p>
+      </div>
+      <div class="cu-kanban-card" data-cu-kanban-card draggable="true">
+        <p class="cu-kanban-card-title">Set up monitoring</p>
+      </div>
+    </div>
+  </div>
+</div>`.trim();
+
+const addCardCode = `<div class="cu-kanban" data-cu-kanban>
+  <div class="cu-kanban-column" data-cu-kanban-column>
+    <div class="cu-kanban-column-header">
+      <h3 class="cu-kanban-column-title">To Do</h3>
+      <span class="cu-kanban-column-count">2</span>
+    </div>
+    <div class="cu-kanban-column-body" data-cu-kanban-column-body>
+      <div class="cu-kanban-card" data-cu-kanban-card draggable="true">
+        <p class="cu-kanban-card-title">Write unit tests</p>
+        <p class="cu-kanban-card-description">Cover auth module with Jest.</p>
+      </div>
+      <div class="cu-kanban-card" data-cu-kanban-card draggable="true">
+        <p class="cu-kanban-card-title">Optimize images</p>
+        <p class="cu-kanban-card-description">Compress and convert to WebP.</p>
+      </div>
+    </div>
+    <button class="cu-kanban-add" type="button">
+      ${plusIcon} Add card
+    </button>
+  </div>
+  <div class="cu-kanban-column" data-cu-kanban-column>
+    <div class="cu-kanban-column-header">
+      <h3 class="cu-kanban-column-title">In Progress</h3>
+      <span class="cu-kanban-column-count">1</span>
+    </div>
+    <div class="cu-kanban-column-body" data-cu-kanban-column-body>
+      <div class="cu-kanban-card" data-cu-kanban-card draggable="true">
+        <p class="cu-kanban-card-title">Refactor sidebar</p>
+        <p class="cu-kanban-card-description">Extract reusable nav components.</p>
+      </div>
+    </div>
+    <button class="cu-kanban-add" type="button">
+      ${plusIcon} Add card
+    </button>
+  </div>
+</div>`.trim();
+---
+
+<Layout title={t.title} category={t.category} componentName="Kanban" wide>
+    <div class="space-y-3">
+        <div class="flex items-center gap-3">
+            <h1 class="text-3xl font-bold tracking-tight">Kanban</h1>
+            <span class="cu-badge cu-badge-secondary">{t.category}</span>
+        </div>
+        <p class="text-base text-muted-foreground leading-relaxed" set:html={t.description} />
+    </div>
+
+    <div class="mt-10 space-y-10">
+        <!-- Usage -->
+        <section class="space-y-3">
+            <h2 id="usage" class="text-lg font-semibold tracking-tight relative group">
+                <a href="#usage" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                {t.sections.usage.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
+            <ComponentPreview code={usageCode} />
+        </section>
+
+        <!-- Classes Reference -->
+        <section class="space-y-3">
+            <h2 id="classes" class="text-lg font-semibold tracking-tight relative group">
+                <a href="#classes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                {t.sections.classes.title}
+            </h2>
+            <div class="cu-table-wrapper rounded-lg border border-border">
+                <table class="cu-table">
+                    <thead class="cu-table-header">
+                        <tr class="cu-table-row">
+                            <th class="cu-table-head">{t.sections.classes.classLabel}</th>
+                            <th class="cu-table-head">{t.sections.classes.descriptionLabel}</th>
+                        </tr>
+                    </thead>
+                    <tbody class="cu-table-body">
+                        {Object.entries(t.classDescriptions).map(([cls, desc]) => (
+                            <tr class="cu-table-row">
+                                <td class="cu-table-cell"><code class="cu-code">{cls}</code></td>
+                                <td class="cu-table-cell text-muted-foreground">{desc}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- With Tags -->
+        <section class="space-y-3">
+            <h2 id="with-tags" class="text-lg font-semibold tracking-tight relative group">
+                <a href="#with-tags" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                {t.sections.withTags.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withTags.description} />
+            <ComponentPreview code={withTagsCode} />
+        </section>
+
+        <!-- Compact -->
+        <section class="space-y-3">
+            <h2 id="compact" class="text-lg font-semibold tracking-tight relative group">
+                <a href="#compact" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                {t.sections.compact.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.compact.description} />
+            <ComponentPreview code={compactCode} />
+        </section>
+
+        <!-- Add Card -->
+        <section class="space-y-3">
+            <h2 id="add-card" class="text-lg font-semibold tracking-tight relative group">
+                <a href="#add-card" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                {t.sections.addCard.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.addCard.description} />
+            <ComponentPreview code={addCardCode} />
+        </section>
+    </div>
+</Layout>

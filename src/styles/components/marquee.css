@@ -1,0 +1,56 @@
+/* Marquee */
+.cu-marquee {
+    @apply relative flex overflow-hidden select-none;
+}
+
+.cu-marquee-content {
+    @apply flex shrink-0 items-center justify-around gap-8;
+    animation: cu-marquee-scroll var(--cu-marquee-duration, 30s) linear infinite;
+}
+
+.cu-marquee:hover .cu-marquee-content {
+    animation-play-state: var(--cu-marquee-pause-on-hover, running);
+}
+
+/* Pause on hover (opt-in) */
+.cu-marquee-pause-on-hover {
+    --cu-marquee-pause-on-hover: paused;
+}
+
+/* Direction: reverse */
+.cu-marquee-reverse .cu-marquee-content {
+    animation-direction: reverse;
+}
+
+/* Vertical */
+.cu-marquee-vertical {
+    @apply flex-col;
+}
+.cu-marquee-vertical .cu-marquee-content {
+    @apply flex-col;
+    animation-name: cu-marquee-scroll-vertical;
+}
+
+/* Fade edges */
+.cu-marquee-fade {
+    mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
+.cu-marquee-vertical.cu-marquee-fade {
+    mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
+}
+
+/* Marquee item */
+.cu-marquee-item {
+    @apply flex shrink-0 items-center justify-center;
+}
+
+/* Keyframes */
+@keyframes cu-marquee-scroll {
+    from { transform: translateX(0); }
+    to { transform: translateX(calc(-100% - 2rem)); }
+}
+
+@keyframes cu-marquee-scroll-vertical {
+    from { transform: translateY(0); }
+    to { transform: translateY(calc(-100% - 2rem)); }
+}

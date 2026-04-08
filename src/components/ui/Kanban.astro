@@ -1,0 +1,17 @@
+---
+import { TOP_CLASS } from "../../config";
+
+interface Props {
+    compact?: boolean;
+    class?: string;
+    [key: string]: any;
+}
+
+const { compact, class: className, ...rest } = Astro.props;
+const baseClass = `${TOP_CLASS}-kanban`;
+const compactClass = compact ? `${baseClass}-compact` : undefined;
+---
+
+<div class:list={[baseClass, compactClass, className]} data-cu-kanban {...rest}>
+    <slot />
+</div>

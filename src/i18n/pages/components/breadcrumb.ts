@@ -10,6 +10,7 @@ export const breadcrumbPage: Record<Locale, {
     withIcon: { title: string; description: string };
     customSeparator: { title: string; description: string };
     withEllipsis: { title: string; description: string };
+    collapsed: { title: string; description: string };
   };
   classDescriptions: Record<string, string>;
 }> = {
@@ -39,6 +40,10 @@ export const breadcrumbPage: Record<Locale, {
         title: 'With Ellipsis',
         description: 'Collapse intermediate levels with an ellipsis for long navigation paths.',
       },
+      collapsed: {
+        title: 'Collapsed with Dropdown',
+        description: 'Combine <code class="cu-code">cu-breadcrumb-ellipsis</code> with the Dropdown component to show hidden breadcrumb items in a dropdown menu.',
+      },
     },
     classDescriptions: {
       'cu-breadcrumb': 'Breadcrumb container with horizontal items',
@@ -46,6 +51,7 @@ export const breadcrumbPage: Record<Locale, {
       'cu-breadcrumb-link': 'Clickable navigation link',
       'cu-breadcrumb-separator': 'Separator between items',
       'cu-breadcrumb-current': 'Current page, bold foreground color',
+      'cu-breadcrumb-ellipsis': 'Clickable ellipsis button for collapsed items',
     },
   },
   'zh-tw': {
@@ -74,6 +80,10 @@ export const breadcrumbPage: Record<Locale, {
         title: '省略號',
         description: '對於較長的導航路徑，使用省略號折疊中間層級。',
       },
+      collapsed: {
+        title: '摺疊搭配下拉選單',
+        description: '將 <code class="cu-code">cu-breadcrumb-ellipsis</code> 與 Dropdown 元件結合，在下拉選單中顯示隱藏的麵包屑項目。',
+      },
     },
     classDescriptions: {
       'cu-breadcrumb': '麵包屑容器，水平排列項目',
@@ -81,6 +91,7 @@ export const breadcrumbPage: Record<Locale, {
       'cu-breadcrumb-link': '可點擊的導航連結',
       'cu-breadcrumb-separator': '項目之間的分隔符',
       'cu-breadcrumb-current': '當前頁面，粗體前景色',
+      'cu-breadcrumb-ellipsis': '摺疊項目的可點擊省略號按鈕',
     },
   },
 };

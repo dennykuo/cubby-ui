@@ -9,6 +9,8 @@ export const commandPalettePage: Record<Locale, {
     classes: { title: string; classLabel: string; descriptionLabel: string };
     withGroups: { title: string; description: string };
     withShortcuts: { title: string; description: string };
+    withIcons: { title: string; description: string };
+    emptyState: { title: string; description: string };
   };
   classDescriptions: Record<string, string>;
 }> = {
@@ -33,6 +35,14 @@ export const commandPalettePage: Record<Locale, {
       withShortcuts: {
         title: 'With Keyboard Shortcuts',
         description: 'Use <code class="cu-code">cu-command-shortcut</code> with <code class="cu-code">cu-kbd</code> elements to display keyboard shortcut hints on the right side of each item.',
+      },
+      withIcons: {
+        title: 'With Icons',
+        description: 'Add leading icons to command items for faster visual scanning and recognition.',
+      },
+      emptyState: {
+        title: 'Empty State',
+        description: 'Display a friendly message when search results return no matching commands.',
       },
     },
     classDescriptions: {
@@ -70,6 +80,14 @@ export const commandPalettePage: Record<Locale, {
       withShortcuts: {
         title: '鍵盤快捷鍵',
         description: '使用 <code class="cu-code">cu-command-shortcut</code> 搭配 <code class="cu-code">cu-kbd</code> 元素，在每個項目右側顯示鍵盤快捷鍵提示。',
+      },
+      withIcons: {
+        title: '搭配圖示',
+        description: '為指令項目加入前導圖示，加速視覺掃描和辨識。',
+      },
+      emptyState: {
+        title: '空狀態',
+        description: '當搜尋結果沒有匹配的指令時，顯示友善的提示訊息。',
       },
     },
     classDescriptions: {

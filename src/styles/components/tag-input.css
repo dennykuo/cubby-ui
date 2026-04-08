@@ -1,0 +1,50 @@
+/* Tag Input */
+.cu-tag-input {
+    @apply flex min-h-9 w-full flex-wrap items-center gap-1.5 rounded-lg border border-input bg-background px-3 py-1.5 text-sm transition-colors duration-150 hover:border-foreground/25;
+}
+
+.cu-tag-input:focus-within {
+    @apply border-ring ring-3 ring-ring/10;
+}
+
+.cu-tag-input-field {
+    @apply flex-1 min-w-[80px] border-0 bg-transparent p-0 text-sm outline-none placeholder:text-muted-foreground;
+}
+
+/* Tag (reuses badge-like styling) */
+.cu-tag-input-tag {
+    @apply inline-flex items-center gap-1 rounded-md bg-secondary px-2 py-0.5 text-xs font-medium text-secondary-foreground transition-colors duration-150;
+}
+
+.cu-tag-input-tag-remove {
+    @apply inline-flex size-3.5 shrink-0 items-center justify-center rounded-sm text-muted-foreground/60 transition-colors duration-150 cursor-pointer hover:text-foreground hover:bg-muted;
+}
+
+/* Variants */
+.cu-tag-input-primary .cu-tag-input-tag {
+    @apply bg-primary/10 text-primary;
+}
+
+.cu-tag-input-outline .cu-tag-input-tag {
+    @apply border border-border bg-transparent;
+}
+
+/* Disabled */
+.cu-tag-input-disabled {
+    @apply pointer-events-none opacity-50 bg-muted text-muted-foreground hover:border-input;
+}
+
+/* Error / Success validation */
+.cu-tag-input-error {
+    @apply border-destructive;
+}
+.cu-tag-input-error:focus-within {
+    @apply border-destructive ring-3 ring-destructive/10;
+}
+
+.cu-tag-input-success {
+    @apply border-success;
+}
+.cu-tag-input-success:focus-within {
+    @apply border-success ring-3 ring-success/10;
+}

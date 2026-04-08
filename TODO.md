@@ -1,5 +1,7 @@
 # TODO — 元件開發清單
 
+定期分析對比 shadcn/ui、Radix、Chakra UI、Ant Design、Flowbite 等主流元件庫，找出有價值的補強方向。
+
 ## 命名考慮清單
 - Cubby 小盒子
 - Caddy 小罐、小盒子或收納盒（如桌面整理盒）

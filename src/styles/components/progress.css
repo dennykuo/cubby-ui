@@ -83,3 +83,59 @@
 .cu-progress-value {
     @apply text-sm tabular-nums text-muted-foreground;
 }
+
+/* -- multi-segment -- */
+.cu-progress-multi {
+    @apply flex h-2 w-full overflow-hidden rounded-full bg-muted;
+}
+
+.cu-progress-multi .cu-progress-bar {
+    @apply rounded-none first:rounded-l-full last:rounded-r-full;
+}
+
+/* -- circular progress -- */
+.cu-progress-circular {
+    @apply relative inline-flex items-center justify-center;
+}
+
+.cu-progress-circular svg {
+    @apply -rotate-90;
+}
+
+.cu-progress-circular-track {
+    stroke: var(--color-muted);
+}
+
+.cu-progress-circular-bar {
+    stroke: var(--color-primary);
+    transition: stroke-dashoffset 0.2s ease;
+}
+
+.cu-progress-circular-bar-success {
+    stroke: var(--color-success);
+}
+
+.cu-progress-circular-bar-warning {
+    stroke: var(--color-warning);
+}
+
+.cu-progress-circular-bar-destructive {
+    stroke: var(--color-destructive);
+}
+
+.cu-progress-circular-bar-info {
+    stroke: var(--color-info);
+}
+
+.cu-progress-circular-value {
+    @apply absolute text-sm font-semibold tabular-nums;
+}
+
+.cu-progress-circular-indeterminate svg {
+    animation: cu-circular-spin 1.5s linear infinite;
+}
+
+@keyframes cu-circular-spin {
+    from { transform: rotate(-90deg); }
+    to { transform: rotate(270deg); }
+}

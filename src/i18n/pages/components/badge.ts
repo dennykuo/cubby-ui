@@ -13,6 +13,8 @@ export const badgePage: Record<Locale, {
     withDot: { title: string; description: string };
     dismissible: { title: string; description: string };
     count: { title: string; description: string };
+    animatedDot: { title: string; description: string };
+    onAvatar: { title: string; description: string };
   };
   classDescriptions: Record<string, string>;
 }> = {
@@ -54,6 +56,14 @@ export const badgePage: Record<Locale, {
         title: 'Count',
         description: 'Use <code class="cu-code">cu-badge-count</code> for compact circular count badges, ideal for notification indicators.',
       },
+      animatedDot: {
+        title: 'Animated Dot',
+        description: 'Add <code class="cu-code">cu-badge-dot-animated</code> alongside <code class="cu-code">cu-badge-dot</code> for a pulsing dot animation, drawing attention to live or unread indicators.',
+      },
+      onAvatar: {
+        title: 'Badge on Avatar',
+        description: 'Position a count badge on top of an avatar using a <code class="cu-code">relative</code> wrapper with <code class="cu-code">absolute</code> positioning. A common pattern for notification counts.',
+      },
     },
     classDescriptions: {
       'cu-badge': 'Badge base style',
@@ -71,6 +81,7 @@ export const badgePage: Record<Locale, {
       'cu-badge-count': 'Compact circular count badge for notifications',
       'cu-badge-sm': 'Small size',
       'cu-badge-lg': 'Large size',
+      'cu-badge-dot-animated': 'Pulsing animation on dot indicator',
     },
   },
   'zh-tw': {
@@ -111,6 +122,14 @@ export const badgePage: Record<Locale, {
         title: '計數',
         description: '使用 <code class="cu-code">cu-badge-count</code> 建立緊湊的圓形計數徽章，適用於通知指示器。',
       },
+      animatedDot: {
+        title: '動畫圓點',
+        description: '在 <code class="cu-code">cu-badge-dot</code> 旁加入 <code class="cu-code">cu-badge-dot-animated</code>，使圓點呈現脈衝動畫，用於吸引注意即時或未讀指示。',
+      },
+      onAvatar: {
+        title: '頭像上的徽章',
+        description: '透過 <code class="cu-code">relative</code> 包裝器搭配 <code class="cu-code">absolute</code> 定位，將計數徽章放置在頭像上方。常見的通知計數模式。',
+      },
     },
     classDescriptions: {
       'cu-badge': '徽章基礎樣式',
@@ -128,6 +147,7 @@ export const badgePage: Record<Locale, {
       'cu-badge-count': '緊湊的圓形計數徽章，用於通知',
       'cu-badge-sm': '小尺寸',
       'cu-badge-lg': '大尺寸',
+      'cu-badge-dot-animated': '圓點指示器脈衝動畫',
     },
   },
 };

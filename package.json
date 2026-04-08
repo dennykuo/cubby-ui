@@ -43,6 +43,7 @@
     "build:js": "npm run build:js:copy && npm run build:js:min",
     "build:js:copy": "cp ./src/scripts/cubby-ui.js ./dist/cubby-ui.js && cp ./src/scripts/cubby-ui.d.ts ./dist/cubby-ui.d.ts && cp ./components.json ./dist/components.json",
     "build:js:min": "terser ./dist/cubby-ui.js -o ./dist/cubby-ui.min.js -c -m --source-map",
+    "build:blade": "node scripts/generate-blade-components.cjs",
     "prepublishOnly": "npm run build:lib"
   },
   "sideEffects": [

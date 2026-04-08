@@ -9,6 +9,8 @@ export const popoverPage: Record<Locale, {
     classes: { title: string; classLabel: string; descriptionLabel: string };
     topPosition: { title: string; description: string };
     sizes: { title: string; description: string };
+    withForm: { title: string; description: string };
+    withNavigation: { title: string; description: string };
   };
   classDescriptions: Record<string, string>;
 }> = {
@@ -33,6 +35,14 @@ export const popoverPage: Record<Locale, {
       sizes: {
         title: 'Sizes',
         description: 'Use <code class="cu-code">cu-popover-content-sm</code> for a compact popover or <code class="cu-code">cu-popover-content-lg</code> for a wider one.',
+      },
+      withForm: {
+        title: 'With Form',
+        description: 'Embed a compact form inside a popover for quick inline editing without leaving the current view.',
+      },
+      withNavigation: {
+        title: 'With Navigation',
+        description: 'Use a popover as a mini navigation panel with grouped links and descriptions.',
       },
     },
     classDescriptions: {
@@ -63,6 +73,14 @@ export const popoverPage: Record<Locale, {
       sizes: {
         title: '尺寸',
         description: '使用 <code class="cu-code">cu-popover-content-sm</code> 建立緊湊的 Popover，或使用 <code class="cu-code">cu-popover-content-lg</code> 建立較寬的 Popover。',
+      },
+      withForm: {
+        title: '搭配表單',
+        description: '在 popover 中嵌入緊湊的表單，實現不離開當前頁面的快速行內編輯。',
+      },
+      withNavigation: {
+        title: '搭配導航',
+        description: '將 popover 用作帶有分組連結和說明的迷你導航面板。',
       },
     },
     classDescriptions: {

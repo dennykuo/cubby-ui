@@ -1,0 +1,25 @@
+---
+import { TOP_CLASS } from "../../config";
+
+interface Props {
+    label: string;
+    type?: string;
+    validation?: "error" | "success";
+    class?: string;
+    [key: string]: any;
+}
+
+const { label, type = "text", validation, class: className, ...rest } = Astro.props;
+const baseClass = `${TOP_CLASS}-floating-label`;
+const validationClass = validation ? `${baseClass}-${validation}` : undefined;
+---
+
+<div class:list={[baseClass, validationClass, className]}>
+    <input
+        type={type}
+        class={`${TOP_CLASS}-floating-label-input`}
+        placeholder=" "
+        {...rest}
+    />
+    <label class={`${TOP_CLASS}-floating-label-text`}>{label}</label>
+</div>

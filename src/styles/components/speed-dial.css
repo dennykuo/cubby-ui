@@ -1,0 +1,103 @@
+/* Speed Dial / FAB */
+.cu-speed-dial {
+    @apply fixed z-40;
+}
+
+/* Positioning */
+.cu-speed-dial-bottom-right {
+    @apply bottom-6 right-6;
+}
+.cu-speed-dial-bottom-left {
+    @apply bottom-6 left-6;
+}
+.cu-speed-dial-top-right {
+    @apply top-6 right-6;
+}
+.cu-speed-dial-top-left {
+    @apply top-6 left-6;
+}
+
+/* Main trigger button */
+.cu-speed-dial-trigger {
+    @apply flex size-14 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg cursor-pointer;
+    transition: transform 200ms, box-shadow 200ms, background-color 200ms;
+}
+.cu-speed-dial-trigger:hover {
+    @apply shadow-xl;
+    transform: scale(1.05);
+}
+.cu-speed-dial-trigger:active {
+    transform: scale(0.95);
+}
+.cu-speed-dial-trigger:focus-visible {
+    @apply outline-none ring-2 ring-ring/40 ring-offset-2;
+}
+.cu-speed-dial-trigger[aria-expanded="true"] {
+    transform: rotate(45deg);
+}
+
+/* Action items container */
+.cu-speed-dial-actions {
+    @apply absolute flex flex-col-reverse items-center gap-3 pb-3;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 200ms;
+}
+.cu-speed-dial-actions[data-cu-open] {
+    pointer-events: auto;
+    opacity: 1;
+}
+
+/* Individual action */
+.cu-speed-dial-action {
+    @apply flex items-center gap-2;
+    opacity: 0;
+    transform: translateY(8px) scale(0.8);
+    transition: opacity 150ms, transform 150ms;
+}
+.cu-speed-dial-actions[data-cu-open] .cu-speed-dial-action {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+/* Staggered animation */
+.cu-speed-dial-actions[data-cu-open] .cu-speed-dial-action:nth-child(1) { transition-delay: 30ms; }
+.cu-speed-dial-actions[data-cu-open] .cu-speed-dial-action:nth-child(2) { transition-delay: 60ms; }
+.cu-speed-dial-actions[data-cu-open] .cu-speed-dial-action:nth-child(3) { transition-delay: 90ms; }
+.cu-speed-dial-actions[data-cu-open] .cu-speed-dial-action:nth-child(4) { transition-delay: 120ms; }
+.cu-speed-dial-actions[data-cu-open] .cu-speed-dial-action:nth-child(5) { transition-delay: 150ms; }
+
+.cu-speed-dial-action-btn {
+    @apply flex size-10 items-center justify-center rounded-full bg-card border border-border text-foreground shadow-md cursor-pointer;
+    transition: background-color 150ms, box-shadow 150ms, transform 150ms;
+}
+.cu-speed-dial-action-btn:hover {
+    @apply bg-muted shadow-lg;
+}
+.cu-speed-dial-action-btn:focus-visible {
+    @apply outline-none ring-1 ring-ring/30;
+}
+
+.cu-speed-dial-action-label {
+    @apply whitespace-nowrap rounded-md bg-card border border-border px-2.5 py-1 text-xs font-medium shadow-sm;
+}
+
+/* Horizontal variant */
+.cu-speed-dial-horizontal .cu-speed-dial-actions {
+    @apply flex-row items-center gap-3 pb-0 pr-3;
+    bottom: auto;
+    top: 50%;
+    left: auto;
+    right: 100%;
+    transform: translateY(-50%);
+}
+
+/* Size: small trigger */
+.cu-speed-dial-sm .cu-speed-dial-trigger {
+    @apply size-12;
+}
+.cu-speed-dial-sm .cu-speed-dial-action-btn {
+    @apply size-9;
+}

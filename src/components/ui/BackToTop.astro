@@ -1,0 +1,28 @@
+---
+import { TOP_CLASS } from "../../config";
+
+interface Props {
+    variant?: "default" | "primary";
+    size?: "sm" | "default" | "lg";
+    left?: boolean;
+    threshold?: number;
+    class?: string;
+    [key: string]: any;
+}
+
+const { variant, size, left, threshold = 300, class: className, ...rest } = Astro.props;
+const baseClass = `${TOP_CLASS}-back-to-top`;
+const variantClass = variant === "primary" ? `${baseClass}-primary` : undefined;
+const sizeClass = size && size !== "default" ? `${baseClass}-${size}` : undefined;
+const leftClass = left ? `${baseClass}-left` : undefined;
+---
+
+<button
+    class:list={[baseClass, variantClass, sizeClass, leftClass, className]}
+    data-cu-back-to-top
+    data-cu-back-to-top-threshold={threshold}
+    aria-label="Back to top"
+    {...rest}
+>
+    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m18 15-6-6-6 6"/></svg>
+</button>

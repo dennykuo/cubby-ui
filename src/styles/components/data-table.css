@@ -32,3 +32,20 @@
 .cu-data-table-info {
     @apply flex items-center justify-between text-sm text-muted-foreground;
 }
+
+/* -- expandable rows -- */
+.cu-data-table-expand-trigger {
+    @apply inline-flex size-6 items-center justify-center rounded-sm cursor-pointer text-muted-foreground transition-transform duration-200 hover:text-foreground;
+}
+
+.cu-data-table-expand-trigger[aria-expanded="true"] {
+    @apply rotate-90;
+}
+
+.cu-data-table-expanded-row {
+    @apply bg-muted/20;
+}
+
+.cu-data-table-expanded-content {
+    @apply p-4 pl-12;
+}

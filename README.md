@@ -56,10 +56,11 @@ import 'cubby-ui';  // 自動初始化互動元件
 ## Commands
 
 ```bash
-npm run dev       # 啟動開發伺服器
-npm run build     # 建置文檔站點至 docs/
-npm run build:lib # 建置 NPM 套件至 dist/
-npm run preview   # 預覽建置結果
+npm run dev         # 啟動開發伺服器
+npm run build       # 建置文檔站點至 docs/
+npm run build:lib   # 建置 NPM 套件至 dist/
+npm run build:blade # 生成 Laravel Blade 匿名元件 + AI 文件至 dist/blade-components/（支援 --dry-run 預覽、--verbose 詳細輸出）
+npm run preview     # 預覽建置結果
 ```
 
 ## 元件系統
@@ -120,6 +121,17 @@ const button = manifest.components.find(c => c.name === 'Button');
 ```
 
 大多數 AI coding tools（Cursor、Claude Code、GitHub Copilot）會自動讀取專案根目錄的 `llms.txt`。
+
+### Laravel Blade
+
+`npm run build:blade` 會在 `dist/blade-components/cu/` 內生成 AI 友善文件：
+
+| 檔案 | 格式 | 內容 |
+|------|------|------|
+| `README.md` | Markdown | Blade 語法範例、props 說明、複合元件組合模式 |
+| `components.json` | JSON | 結構化元件清單（tag、props with values、children、dataAttributes） |
+
+兩個檔案放在 `cu/` 資料夾內，複製到 Laravel 專案時會一起帶過去，AI Agent 可直接讀取理解如何使用 `<x-cu.*>` 元件。
 
 ## 參考套件
 

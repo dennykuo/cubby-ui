@@ -13,6 +13,8 @@ export const tabsPage: Record<Locale, {
     withIcons: { title: string; description: string };
     disabledTab: { title: string; description: string };
     pills: { title: string; description: string };
+    withBadge: { title: string; description: string };
+    closable: { title: string; description: string };
     scrollable: { title: string; description: string };
   };
   classDescriptions: Record<string, string>;
@@ -55,9 +57,17 @@ export const tabsPage: Record<Locale, {
         title: 'Pills',
         description: 'Use <code class="cu-code">cu-tabs-list-pills</code> for a pill-shaped tab style with transparent background and filled active state.',
       },
+      withBadge: {
+        title: 'With Badge',
+        description: 'Add <code class="cu-code">cu-tabs-trigger-badge</code> inside a tab trigger to show a count or indicator. The badge color changes when the tab is active.',
+      },
+      closable: {
+        title: 'Closable',
+        description: 'Add a close button with <code class="cu-code">data-cu-tabs-close</code> inside a tab trigger. Clicking it removes the tab and its content panel.',
+      },
       scrollable: {
         title: 'Scrollable',
-        description: 'When there are many tabs, add <code class="cu-code">overflow-x-auto</code> to the tab list to enable horizontal scrolling on narrow viewports.',
+        description: 'Wrap the tab list in <code class="cu-code">data-cu-tabs-scrollable</code> with scroll buttons to handle overflow when there are many tabs.',
       },
     },
     classDescriptions: {
@@ -70,6 +80,11 @@ export const tabsPage: Record<Locale, {
       'cu-tabs-vertical': 'Vertical layout container (side-by-side)',
       'cu-tabs-list-vertical': 'Vertical tab list (stacked buttons)',
       'cu-tabs-list-pills': 'Pills variant — transparent bg, pill-shaped triggers',
+      'cu-tabs-trigger-badge': 'Count badge inside tab trigger',
+      'cu-tabs-trigger-close': 'Close button inside tab trigger',
+      'cu-tabs-list-scrollable': 'Scrollable wrapper for tab list',
+      'cu-tabs-scroll-btn': 'Scroll navigation button',
+      'cu-tabs-scroll-btn-end': 'Right/end scroll button',
     },
   },
   'zh-tw': {
@@ -110,9 +125,17 @@ export const tabsPage: Record<Locale, {
         title: '膠囊樣式',
         description: '使用 <code class="cu-code">cu-tabs-list-pills</code> 呈現膠囊形分頁樣式，透明背景搭配填滿的啟用狀態。',
       },
+      withBadge: {
+        title: '帶徽章',
+        description: '在 tab trigger 中加入 <code class="cu-code">cu-tabs-trigger-badge</code> 顯示計數或指示器。徽章顏色會在 tab 啟用時改變。',
+      },
+      closable: {
+        title: '可關閉',
+        description: '在 tab trigger 中加入帶有 <code class="cu-code">data-cu-tabs-close</code> 的關閉按鈕。點擊後會移除該 tab 及其內容面板。',
+      },
       scrollable: {
         title: '可捲動',
-        description: '當分頁數量較多時，在分頁列表上加入 <code class="cu-code">overflow-x-auto</code> 以在窄螢幕上啟用水平捲動。',
+        description: '將 tab list 包裝在 <code class="cu-code">data-cu-tabs-scrollable</code> 中並搭配捲動按鈕，處理多個 tab 時的溢出。',
       },
     },
     classDescriptions: {
@@ -125,6 +148,11 @@ export const tabsPage: Record<Locale, {
       'cu-tabs-vertical': '垂直佈局容器（左右並排）',
       'cu-tabs-list-vertical': '垂直分頁列表（堆疊按鈕）',
       'cu-tabs-list-pills': '膠囊變體 — 透明背景、膠囊形觸發器',
+      'cu-tabs-trigger-badge': 'Tab trigger 中的計數徽章',
+      'cu-tabs-trigger-close': 'Tab trigger 中的關閉按鈕',
+      'cu-tabs-list-scrollable': 'Tab list 的可捲動包裝器',
+      'cu-tabs-scroll-btn': '捲動導航按鈕',
+      'cu-tabs-scroll-btn-end': '右側/末端捲動按鈕',
     },
   },
 };

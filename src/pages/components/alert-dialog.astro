@@ -63,6 +63,44 @@ const withIconCode = `<button class="cu-button cu-button-outline cu-button-md" d
   </div>
 </dialog>`.trim();
 
+const withFormCode = `<button class="cu-button cu-button-outline cu-button-md" data-cu-alert-dialog-trigger="custom-alert-dialog">Transfer Ownership</button>
+<dialog id="custom-alert-dialog" class="cu-alert-dialog" data-cu-alert-dialog>
+  <div class="cu-alert-dialog-header">
+    <h2 class="cu-alert-dialog-title">Transfer Ownership</h2>
+    <p class="cu-alert-dialog-description">This will transfer all permissions and data to another user. Type the project name to confirm.</p>
+  </div>
+  <div class="mt-4">
+    <div class="cu-form-group">
+      <label class="cu-label" for="confirm-name">Project Name</label>
+      <input id="confirm-name" class="cu-input" placeholder="my-project" />
+    </div>
+  </div>
+  <div class="cu-alert-dialog-footer">
+    <button class="cu-button cu-button-outline cu-button-md" data-cu-alert-dialog-cancel>Cancel</button>
+    <button class="cu-button cu-button-destructive cu-button-md" data-cu-alert-dialog-action>Transfer</button>
+  </div>
+</dialog>`.trim();
+
+const withLongDescriptionCode = `<button class="cu-button cu-button-outline cu-button-md" data-cu-alert-dialog-trigger="long-alert-dialog">Delete Workspace</button>
+<dialog id="long-alert-dialog" class="cu-alert-dialog" data-cu-alert-dialog>
+  <div class="cu-alert-dialog-header">
+    <h2 class="cu-alert-dialog-title">Delete Workspace?</h2>
+    <div class="cu-alert-dialog-description">
+      <p>This action will permanently delete the workspace and cannot be undone. The following will be removed:</p>
+      <ul class="mt-2 list-disc pl-5 space-y-1">
+        <li>All projects and their configurations</li>
+        <li>Team member access and permissions</li>
+        <li>Deployment history and logs</li>
+        <li>Connected integrations and API keys</li>
+      </ul>
+    </div>
+  </div>
+  <div class="cu-alert-dialog-footer">
+    <button class="cu-button cu-button-outline cu-button-md" data-cu-alert-dialog-cancel>Cancel</button>
+    <button class="cu-button cu-button-destructive cu-button-md" data-cu-alert-dialog-action>Delete Workspace</button>
+  </div>
+</dialog>`.trim();
+
 const destructiveCode = `<button class="cu-button cu-button-destructive cu-button-md" data-cu-alert-dialog-trigger="destructive-alert-dialog">
   Remove Item
 </button>
@@ -210,6 +248,72 @@ const destructiveCode = `<button class="cu-button cu-button-destructive cu-butto
                     <div class="cu-alert-dialog-footer">
                         <button class="cu-button cu-button-outline cu-button-md" data-cu-alert-dialog-cancel>Keep Account</button>
                         <button class="cu-button cu-button-warning cu-button-md" data-cu-alert-dialog-action>Deactivate</button>
+                    </div>
+                </dialog>
+            </ComponentPreview>
+        </section>
+
+        <!-- With Custom Content -->
+        <section class="space-y-3">
+            <h2 id="with-form" class="text-lg font-semibold tracking-tight relative group">
+                <a href="#with-form" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                {t.sections.withForm.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
+                {t.sections.withForm.description}
+            </p>
+            <ComponentPreview code={withFormCode}>
+                <button class="cu-button cu-button-outline cu-button-md" data-cu-alert-dialog-trigger="custom-alert-dialog">
+                    Transfer Ownership
+                </button>
+                <dialog id="custom-alert-dialog" class="cu-alert-dialog" data-cu-alert-dialog>
+                    <div class="cu-alert-dialog-header">
+                        <h2 class="cu-alert-dialog-title">Transfer Ownership</h2>
+                        <p class="cu-alert-dialog-description">This will transfer all permissions and data to another user. Type the project name to confirm.</p>
+                    </div>
+                    <div class="mt-4">
+                        <div class="cu-form-group">
+                            <label class="cu-label" for="confirm-name">Project Name</label>
+                            <input id="confirm-name" class="cu-input" placeholder="my-project" />
+                        </div>
+                    </div>
+                    <div class="cu-alert-dialog-footer">
+                        <button class="cu-button cu-button-outline cu-button-md" data-cu-alert-dialog-cancel>Cancel</button>
+                        <button class="cu-button cu-button-destructive cu-button-md" data-cu-alert-dialog-action>Transfer</button>
+                    </div>
+                </dialog>
+            </ComponentPreview>
+        </section>
+
+        <!-- Long Description -->
+        <section class="space-y-3">
+            <h2 id="with-long-description" class="text-lg font-semibold tracking-tight relative group">
+                <a href="#with-long-description" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                {t.sections.withLongDescription.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed">
+                {t.sections.withLongDescription.description}
+            </p>
+            <ComponentPreview code={withLongDescriptionCode}>
+                <button class="cu-button cu-button-outline cu-button-md" data-cu-alert-dialog-trigger="long-alert-dialog">
+                    Delete Workspace
+                </button>
+                <dialog id="long-alert-dialog" class="cu-alert-dialog" data-cu-alert-dialog>
+                    <div class="cu-alert-dialog-header">
+                        <h2 class="cu-alert-dialog-title">Delete Workspace?</h2>
+                        <div class="cu-alert-dialog-description">
+                            <p>This action will permanently delete the workspace and cannot be undone. The following will be removed:</p>
+                            <ul class="mt-2 list-disc pl-5 space-y-1">
+                                <li>All projects and their configurations</li>
+                                <li>Team member access and permissions</li>
+                                <li>Deployment history and logs</li>
+                                <li>Connected integrations and API keys</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="cu-alert-dialog-footer">
+                        <button class="cu-button cu-button-outline cu-button-md" data-cu-alert-dialog-cancel>Cancel</button>
+                        <button class="cu-button cu-button-destructive cu-button-md" data-cu-alert-dialog-action>Delete Workspace</button>
                     </div>
                 </dialog>
             </ComponentPreview>

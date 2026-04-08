@@ -80,6 +80,13 @@ const charCountCode = `<div class="cu-form-group">
   <p class="text-sm text-muted-foreground text-right">0 / 80</p>
 </div>`.trim();
 
+const clearableCode = `<div class="cu-input-icon-wrapper w-[300px]" data-cu-input-clearable>
+  <input class="cu-input cu-input-clearable" placeholder="Type to search..." />
+  <button type="button" class="cu-input-clear" data-cu-input-clear aria-label="Clear">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+  </button>
+</div>`.trim();
+
 const formGroupCode = `<div class="cu-form-group">
   <label class="cu-label" for="username">Username</label>
   <input class="cu-input" type="text" id="username" placeholder="johndoe" />
@@ -331,5 +338,24 @@ const formGroupCode = `<div class="cu-form-group">
                 });
             }
         </script>
+
+        <!-- Clearable -->
+        <section class="space-y-3">
+            <h2 id="clearable" class="text-lg font-semibold tracking-tight relative group">
+              <a href="#clearable" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+              {t.sections.clearable.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.clearable.description} />
+            <ComponentPreview code={clearableCode}>
+                <div class="w-full max-w-sm">
+                    <div class="cu-input-icon-wrapper" data-cu-input-clearable>
+                        <input class="cu-input cu-input-clearable" placeholder="Type to search..." />
+                        <button type="button" class="cu-input-clear" data-cu-input-clear aria-label="Clear">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+                        </button>
+                    </div>
+                </div>
+            </ComponentPreview>
+        </section>
     </div>
 </Layout>

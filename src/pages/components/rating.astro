@@ -1,0 +1,200 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import ComponentPreview from "@/components/ComponentPreview.astro";
+import { getLocaleFromUrl, useTranslations } from "@/i18n";
+import { ratingPage } from "@/i18n/pages/components/rating";
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = useTranslations(ratingPage, locale);
+
+const starSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`;
+
+const usageCode = `<div class="cu-rating cu-rating-readonly">
+  <span class="cu-rating-item cu-rating-item-active">${starSvg}</span>
+  <span class="cu-rating-item cu-rating-item-active">${starSvg}</span>
+  <span class="cu-rating-item cu-rating-item-active">${starSvg}</span>
+  <span class="cu-rating-item cu-rating-item-active">${starSvg}</span>
+  <span class="cu-rating-item">${starSvg}</span>
+</div>`.trim();
+
+const valuesCode = `<!-- 1 star -->
+<div class="cu-rating cu-rating-readonly">
+  <span class="cu-rating-item cu-rating-item-active">${starSvg}</span>
+  <span class="cu-rating-item">${starSvg}</span>
+  <span class="cu-rating-item">${starSvg}</span>
+  <span class="cu-rating-item">${starSvg}</span>
+  <span class="cu-rating-item">${starSvg}</span>
+</div>
+
+<!-- 3 stars -->
+<div class="cu-rating cu-rating-readonly">
+  <span class="cu-rating-item cu-rating-item-active">${starSvg}</span>
+  <span class="cu-rating-item cu-rating-item-active">${starSvg}</span>
+  <span class="cu-rating-item cu-rating-item-active">${starSvg}</span>
+  <span class="cu-rating-item">${starSvg}</span>
+  <span class="cu-rating-item">${starSvg}</span>
+</div>
+
+<!-- 5 stars -->
+<div class="cu-rating cu-rating-readonly">
+  <span class="cu-rating-item cu-rating-item-active">${starSvg}</span>
+  <span class="cu-rating-item cu-rating-item-active">${starSvg}</span>
+  <span class="cu-rating-item cu-rating-item-active">${starSvg}</span>
+  <span class="cu-rating-item cu-rating-item-active">${starSvg}</span>
+  <span class="cu-rating-item cu-rating-item-active">${starSvg}</span>
+</div>`.trim();
+
+const halfStarCode = `<div class="cu-rating cu-rating-readonly">
+  <span class="cu-rating-item cu-rating-item-active">${starSvg}</span>
+  <span class="cu-rating-item cu-rating-item-active">${starSvg}</span>
+  <span class="cu-rating-item cu-rating-item-active">${starSvg}</span>
+  <span class="cu-rating-item cu-rating-item-half" style="position: relative;">
+    ${starSvg}
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" style="clip-path: inset(0 50% 0 0); position: absolute; top: 0; left: 0;" class="text-amber-400"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+  </span>
+  <span class="cu-rating-item">${starSvg}</span>
+</div>`.trim();
+
+const sizesCode = `<!-- Small -->
+<div class="cu-rating cu-rating-readonly cu-rating-sm">
+  <span class="cu-rating-item cu-rating-item-active"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span>
+  <span class="cu-rating-item cu-rating-item-active"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span>
+  <span class="cu-rating-item cu-rating-item-active"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span>
+  <span class="cu-rating-item"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span>
+  <span class="cu-rating-item"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span>
+</div>
+
+<!-- Default -->
+<div class="cu-rating cu-rating-readonly">
+  <span class="cu-rating-item cu-rating-item-active">${starSvg}</span>
+  <span class="cu-rating-item cu-rating-item-active">${starSvg}</span>
+  <span class="cu-rating-item cu-rating-item-active">${starSvg}</span>
+  <span class="cu-rating-item">${starSvg}</span>
+  <span class="cu-rating-item">${starSvg}</span>
+</div>
+
+<!-- Large -->
+<div class="cu-rating cu-rating-readonly cu-rating-lg">
+  <span class="cu-rating-item cu-rating-item-active"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span>
+  <span class="cu-rating-item cu-rating-item-active"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span>
+  <span class="cu-rating-item cu-rating-item-active"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span>
+  <span class="cu-rating-item"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span>
+  <span class="cu-rating-item"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span>
+</div>`.trim();
+
+const interactiveCode = `<div class="cu-rating" data-cu-rating data-cu-rating-value="0">
+  <span class="cu-rating-item" data-cu-rating-star="1">${starSvg}</span>
+  <span class="cu-rating-item" data-cu-rating-star="2">${starSvg}</span>
+  <span class="cu-rating-item" data-cu-rating-star="3">${starSvg}</span>
+  <span class="cu-rating-item" data-cu-rating-star="4">${starSvg}</span>
+  <span class="cu-rating-item" data-cu-rating-star="5">${starSvg}</span>
+</div>`.trim();
+
+const disabledCode = `<div class="cu-rating cu-rating-disabled">
+  <span class="cu-rating-item cu-rating-item-active">${starSvg}</span>
+  <span class="cu-rating-item cu-rating-item-active">${starSvg}</span>
+  <span class="cu-rating-item">${starSvg}</span>
+  <span class="cu-rating-item">${starSvg}</span>
+  <span class="cu-rating-item">${starSvg}</span>
+</div>`.trim();
+---
+
+<Layout title={t.title} category={t.category} componentName="Rating">
+    <div class="space-y-3">
+        <div class="flex items-center gap-3">
+            <h1 class="text-3xl font-bold tracking-tight">Rating</h1>
+            <span class="cu-badge cu-badge-secondary">{t.category}</span>
+        </div>
+        <p class="text-base text-muted-foreground leading-relaxed" set:html={t.description} />
+    </div>
+
+    <div class="mt-10 space-y-10">
+        <section class="space-y-3">
+            <h2 id="usage" class="text-lg font-semibold tracking-tight relative group">
+                <a href="#usage" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                {t.sections.usage.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
+            <ComponentPreview code={usageCode} />
+        </section>
+
+        <section class="space-y-3">
+            <h2 id="classes" class="text-lg font-semibold tracking-tight relative group">
+                <a href="#classes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                {t.sections.classes.title}
+            </h2>
+            <div class="cu-table-wrapper rounded-lg border border-border">
+                <table class="cu-table">
+                    <thead class="cu-table-header">
+                        <tr class="cu-table-row">
+                            <th class="cu-table-head">{t.sections.classes.classLabel}</th>
+                            <th class="cu-table-head">{t.sections.classes.descriptionLabel}</th>
+                        </tr>
+                    </thead>
+                    <tbody class="cu-table-body">
+                        {Object.entries(t.classDescriptions).map(([cls, desc]) => (
+                            <tr class="cu-table-row">
+                                <td class="cu-table-cell"><code class="cu-code">{cls}</code></td>
+                                <td class="cu-table-cell text-muted-foreground">{desc}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class="space-y-3">
+            <h2 id="values" class="text-lg font-semibold tracking-tight relative group">
+                <a href="#values" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                {t.sections.values.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.values.description} />
+            <ComponentPreview code={valuesCode} />
+        </section>
+
+        <section class="space-y-3">
+            <h2 id="half-star" class="text-lg font-semibold tracking-tight relative group">
+                <a href="#half-star" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                {t.sections.halfStar.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.halfStar.description} />
+            <ComponentPreview code={halfStarCode} />
+        </section>
+
+        <section class="space-y-3">
+            <h2 id="sizes" class="text-lg font-semibold tracking-tight relative group">
+                <a href="#sizes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                {t.sections.sizes.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.sizes.description} />
+            <ComponentPreview code={sizesCode} />
+        </section>
+
+        <section class="space-y-3">
+            <h2 id="interactive" class="text-lg font-semibold tracking-tight relative group">
+                <a href="#interactive" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                {t.sections.interactive.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.interactive.description} />
+            <ComponentPreview code={interactiveCode} />
+        </section>
+
+        <section class="space-y-3">
+            <h2 id="readonly" class="text-lg font-semibold tracking-tight relative group">
+                <a href="#readonly" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                {t.sections.readonly.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.readonly.description} />
+            <ComponentPreview code={usageCode} />
+        </section>
+
+        <section class="space-y-3">
+            <h2 id="disabled" class="text-lg font-semibold tracking-tight relative group">
+                <a href="#disabled" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                {t.sections.disabled.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.disabled.description} />
+            <ComponentPreview code={disabledCode} />
+        </section>
+    </div>
+</Layout>

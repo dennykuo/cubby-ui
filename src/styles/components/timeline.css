@@ -115,3 +115,32 @@
 .cu-timeline-horizontal .cu-timeline-content {
     @apply items-center;
 }
+
+/* -- alternating layout -- */
+.cu-timeline-alternating {
+    @apply pl-0;
+}
+
+.cu-timeline-alternating::before {
+    @apply left-1/2 -translate-x-px;
+}
+
+.cu-timeline-alternating .cu-timeline-item {
+    @apply w-1/2;
+}
+
+.cu-timeline-alternating .cu-timeline-item:nth-child(odd) {
+    @apply ml-auto pl-8;
+}
+
+.cu-timeline-alternating .cu-timeline-item:nth-child(odd) .cu-timeline-dot {
+    @apply -left-8;
+}
+
+.cu-timeline-alternating .cu-timeline-item:nth-child(even) {
+    @apply mr-auto pr-8 text-right;
+}
+
+.cu-timeline-alternating .cu-timeline-item:nth-child(even) .cu-timeline-dot {
+    @apply left-auto -right-8;
+}

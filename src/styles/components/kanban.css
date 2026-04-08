@@ -1,0 +1,97 @@
+/* Kanban Board */
+.cu-kanban {
+    @apply flex gap-4 overflow-x-auto pb-4;
+}
+
+.cu-kanban-column {
+    @apply flex w-72 shrink-0 flex-col rounded-lg bg-muted/40;
+}
+
+.cu-kanban-column-header {
+    @apply flex items-center justify-between px-3 py-2.5;
+}
+
+.cu-kanban-column-title {
+    @apply text-sm font-semibold;
+}
+
+.cu-kanban-column-count {
+    @apply flex size-5 items-center justify-center rounded-full bg-muted text-xs text-muted-foreground;
+}
+
+.cu-kanban-column-body {
+    @apply flex flex-1 flex-col gap-2 px-2 pb-2;
+    min-height: 4rem;
+}
+
+/* Drop zone highlight */
+.cu-kanban-column-body-dragover {
+    @apply bg-primary/5 rounded-md;
+    outline: 2px dashed color-mix(in srgb, var(--color-primary) 30%, transparent);
+    outline-offset: -2px;
+}
+
+/* Cards */
+.cu-kanban-card {
+    @apply rounded-lg border border-border bg-background p-3 shadow-sm cursor-grab select-none;
+    transition: box-shadow 150ms, opacity 150ms;
+}
+.cu-kanban-card:hover {
+    @apply shadow-md;
+}
+
+.cu-kanban-card-dragging {
+    @apply shadow-lg opacity-80 ring-2 ring-primary/20;
+}
+
+.cu-kanban-card-title {
+    @apply text-sm font-medium;
+}
+
+.cu-kanban-card-description {
+    @apply mt-1 text-xs text-muted-foreground;
+}
+
+.cu-kanban-card-footer {
+    @apply mt-2 flex items-center gap-2;
+}
+
+.cu-kanban-card-tag {
+    @apply inline-flex items-center rounded-md px-1.5 py-0.5 text-[10px] font-medium;
+}
+
+/* Tag colors */
+.cu-kanban-card-tag-primary {
+    @apply bg-primary/10 text-primary;
+}
+.cu-kanban-card-tag-success {
+    @apply bg-success/10 text-success;
+}
+.cu-kanban-card-tag-warning {
+    @apply bg-warning/10 text-warning;
+}
+.cu-kanban-card-tag-destructive {
+    @apply bg-destructive/10 text-destructive;
+}
+.cu-kanban-card-tag-info {
+    @apply bg-info/10 text-info;
+}
+
+/* Placeholder for empty column or drop target */
+.cu-kanban-placeholder {
+    @apply rounded-lg border-2 border-dashed border-primary/25 bg-primary/5;
+    min-height: 3rem;
+}
+
+/* Compact variant */
+.cu-kanban-compact .cu-kanban-card {
+    @apply p-2;
+}
+.cu-kanban-compact .cu-kanban-column {
+    @apply w-60;
+}
+
+/* Add card button */
+.cu-kanban-add {
+    @apply flex w-full items-center justify-center gap-1.5 rounded-lg border border-dashed border-border py-2 text-xs text-muted-foreground cursor-pointer transition-colors duration-150 hover:border-foreground/25 hover:text-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring/30;
+}

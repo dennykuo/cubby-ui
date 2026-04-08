@@ -9,6 +9,8 @@ export const dropzonePage: Record<Locale, {
     classes: { title: string; classLabel: string; descriptionLabel: string };
     withFileList: { title: string; description: string };
     disabled: { title: string; description: string };
+    imagePreview: { title: string; description: string };
+    acceptedTypes: { title: string; description: string };
   };
   classDescriptions: Record<string, string>;
 }> = {
@@ -33,6 +35,14 @@ export const dropzonePage: Record<Locale, {
       disabled: {
         title: 'Disabled',
         description: 'Add <code class="cu-code">cu-dropzone-disabled</code> to prevent interaction. No hidden input or <code class="cu-code">data-cu-dropzone</code> attribute needed.',
+      },
+      imagePreview: {
+        title: 'Image Preview',
+        description: 'Show thumbnail previews of uploaded images in a grid below the dropzone.',
+      },
+      acceptedTypes: {
+        title: 'Accepted File Types',
+        description: 'Restrict uploads to specific file types and display the accepted formats.',
       },
     },
     classDescriptions: {
@@ -65,6 +75,14 @@ export const dropzonePage: Record<Locale, {
       disabled: {
         title: '停用',
         description: '加入 <code class="cu-code">cu-dropzone-disabled</code> 以防止互動。不需要隱藏的 input 或 <code class="cu-code">data-cu-dropzone</code> 屬性。',
+      },
+      imagePreview: {
+        title: '圖片預覽',
+        description: '在拖放區下方以網格顯示已上傳圖片的縮圖預覽。',
+      },
+      acceptedTypes: {
+        title: '接受的檔案類型',
+        description: '限制上傳至特定檔案類型，並顯示接受的格式。',
       },
     },
     classDescriptions: {

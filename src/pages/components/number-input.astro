@@ -68,6 +68,50 @@ const disabledCode = `<div class="cu-number-input cu-number-input-disabled" data
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
   </button>
 </div>`.trim();
+
+const withPrefixSuffixCode = `<div class="flex items-center gap-6">
+  <div class="space-y-1.5">
+    <label class="cu-label text-xs">Weight</label>
+    <div class="flex items-center">
+      <div class="cu-number-input" data-cu-number-input>
+        <button class="cu-number-input-button" data-cu-number-decrement>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/></svg>
+        </button>
+        <input type="number" class="cu-number-input-field" data-cu-number-field value="75" min="0" max="500" />
+        <button class="cu-number-input-button" data-cu-number-increment>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
+        </button>
+      </div>
+      <span class="ml-2 text-sm text-muted-foreground">kg</span>
+    </div>
+  </div>
+  <div class="space-y-1.5">
+    <label class="cu-label text-xs">Opacity</label>
+    <div class="flex items-center">
+      <div class="cu-number-input" data-cu-number-input>
+        <button class="cu-number-input-button" data-cu-number-decrement>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/></svg>
+        </button>
+        <input type="number" class="cu-number-input-field" data-cu-number-field value="80" min="0" max="100" />
+        <button class="cu-number-input-button" data-cu-number-increment>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
+        </button>
+      </div>
+      <span class="ml-2 text-sm text-muted-foreground">%</span>
+    </div>
+  </div>
+</div>`.trim();
+
+const currencyCode = `<div class="w-[250px]">
+  <label class="cu-label" for="cur-amount">Amount</label>
+  <div class="flex items-center mt-1.5">
+    <span class="flex h-9 items-center rounded-l-lg border border-r-0 border-input bg-muted px-3 text-sm text-muted-foreground">$</span>
+    <div class="cu-number-input flex-1" data-cu-number-input>
+      <input type="number" id="cur-amount" class="cu-number-input-field !rounded-l-none" data-cu-number-field value="99" min="0" step="0.01" />
+    </div>
+  </div>
+  <p class="mt-1 text-xs text-muted-foreground">Enter the amount in USD</p>
+</div>`.trim();
 ---
 
 <Layout category={t.category} componentName="Number Input" title={t.title}>
@@ -173,6 +217,70 @@ const disabledCode = `<div class="cu-number-input cu-number-input-disabled" data
                     <button class="cu-number-input-button" data-cu-number-increment disabled>
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
                     </button>
+                </div>
+            </ComponentPreview>
+        </section>
+
+        <!-- With Prefix / Suffix -->
+        <section class="space-y-3">
+            <h2 id="with-prefix-suffix" class="text-lg font-semibold tracking-tight relative group">
+              <a href="#with-prefix-suffix" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+              {t.sections.withPrefixSuffix.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withPrefixSuffix.description} />
+            <ComponentPreview code={withPrefixSuffixCode}>
+                <div class="flex items-center gap-6">
+                    <div class="space-y-1.5">
+                        <label class="cu-label text-xs">Weight</label>
+                        <div class="flex items-center">
+                            <div class="cu-number-input" data-cu-number-input>
+                                <button class="cu-number-input-button" data-cu-number-decrement>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/></svg>
+                                </button>
+                                <input type="number" class="cu-number-input-field" data-cu-number-field value="75" min="0" max="500" />
+                                <button class="cu-number-input-button" data-cu-number-increment>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
+                                </button>
+                            </div>
+                            <span class="ml-2 text-sm text-muted-foreground">kg</span>
+                        </div>
+                    </div>
+                    <div class="space-y-1.5">
+                        <label class="cu-label text-xs">Opacity</label>
+                        <div class="flex items-center">
+                            <div class="cu-number-input" data-cu-number-input>
+                                <button class="cu-number-input-button" data-cu-number-decrement>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/></svg>
+                                </button>
+                                <input type="number" class="cu-number-input-field" data-cu-number-field value="80" min="0" max="100" />
+                                <button class="cu-number-input-button" data-cu-number-increment>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
+                                </button>
+                            </div>
+                            <span class="ml-2 text-sm text-muted-foreground">%</span>
+                        </div>
+                    </div>
+                </div>
+            </ComponentPreview>
+        </section>
+
+        <!-- Currency Input -->
+        <section class="space-y-3">
+            <h2 id="currency" class="text-lg font-semibold tracking-tight relative group">
+              <a href="#currency" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+              {t.sections.currency.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.currency.description} />
+            <ComponentPreview code={currencyCode}>
+                <div class="w-[250px]">
+                    <label class="cu-label" for="cur-amount">Amount</label>
+                    <div class="flex items-center mt-1.5">
+                        <span class="flex h-9 items-center rounded-l-lg border border-r-0 border-input bg-muted px-3 text-sm text-muted-foreground">$</span>
+                        <div class="cu-number-input flex-1" data-cu-number-input>
+                            <input type="number" id="cur-amount" class="cu-number-input-field !rounded-l-none" data-cu-number-field value="99" min="0" step="0.01" />
+                        </div>
+                    </div>
+                    <p class="mt-1 text-xs text-muted-foreground">Enter the amount in USD</p>
                 </div>
             </ComponentPreview>
         </section>

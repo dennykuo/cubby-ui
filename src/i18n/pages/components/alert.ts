@@ -13,6 +13,7 @@ export const alertPage: Record<Locale, {
     closable: { title: string; description: string };
     descriptionOnly: { title: string; description: string };
     accent: { title: string; description: string };
+    expandable: { title: string; description: string };
   };
   classDescriptions: Record<string, string>;
 }> = {
@@ -54,6 +55,10 @@ export const alertPage: Record<Locale, {
         title: 'Accent Border',
         description: 'Add <code class="cu-code">cu-alert-accent</code> for a prominent left border stripe. Combines with any variant.',
       },
+      expandable: {
+        title: 'Expandable',
+        description: 'Add <code class="cu-code">data-cu-alert-expandable</code> to create an alert with collapsible detail content. The expand trigger toggles the <code class="cu-code">cu-alert-expandable-content</code> area with a smooth height animation.',
+      },
     },
     classDescriptions: {
       'cu-alert': 'Alert base container with rounded corners, border, and SVG icon positioning',
@@ -67,6 +72,8 @@ export const alertPage: Record<Locale, {
       'cu-alert-closable': 'Adds right padding for the close button',
       'cu-alert-close': 'Close button, absolutely positioned top-right',
       'cu-alert-accent': 'Left accent border stripe (use with a variant)',
+      'cu-alert-expandable-content': 'Expandable content area with height animation',
+      'cu-alert-expand-trigger': 'Toggle button for expandable content',
     },
   },
   'zh-tw': {
@@ -107,6 +114,10 @@ export const alertPage: Record<Locale, {
         title: '重音邊框',
         description: '加入 <code class="cu-code">cu-alert-accent</code> 以顯示醒目的左側邊框條紋。可搭配任何變體使用。',
       },
+      expandable: {
+        title: '可展開',
+        description: '加入 <code class="cu-code">data-cu-alert-expandable</code> 建立帶有可摺疊詳細內容的警示。展開觸發器以平滑的高度動畫切換 <code class="cu-code">cu-alert-expandable-content</code> 區域。',
+      },
     },
     classDescriptions: {
       'cu-alert': 'Alert 基礎容器，含圓角、邊框及 SVG 圖示定位',
@@ -120,6 +131,8 @@ export const alertPage: Record<Locale, {
       'cu-alert-closable': '為關閉按鈕預留右側 padding',
       'cu-alert-close': '關閉按鈕，絕對定位於右上角',
       'cu-alert-accent': '左側重音邊框條紋（搭配變體使用）',
+      'cu-alert-expandable-content': '帶高度動畫的可展開內容區',
+      'cu-alert-expand-trigger': '可展開內容的切換按鈕',
     },
   },
 };

@@ -59,6 +59,36 @@ const countCode = `<span class="cu-badge cu-badge-count cu-badge-default">3</spa
 <span class="cu-badge cu-badge-count cu-badge-destructive">12</span>
 <span class="cu-badge cu-badge-count cu-badge-success">99+</span>
 <span class="cu-badge cu-badge-count cu-badge-soft-default">5</span>`.trim();
+
+const animatedDotCode = `<div class="flex flex-wrap gap-4">
+  <span class="cu-badge cu-badge-success cu-badge-dot cu-badge-dot-animated">Live</span>
+  <span class="cu-badge cu-badge-destructive cu-badge-dot cu-badge-dot-animated">Recording</span>
+  <span class="cu-badge cu-badge-info cu-badge-dot cu-badge-dot-animated">Syncing</span>
+  <span class="cu-badge cu-badge-warning cu-badge-dot cu-badge-dot-animated">Pending</span>
+</div>`.trim();
+
+const onAvatarCode = `<div class="flex items-center gap-8">
+  <div class="relative inline-block">
+    <span class="cu-avatar cu-avatar-md">
+      <span class="cu-avatar-fallback">JD</span>
+    </span>
+    <span class="cu-badge cu-badge-count cu-badge-destructive absolute -top-1 -right-1">3</span>
+  </div>
+  <div class="relative inline-block">
+    <span class="cu-avatar cu-avatar-md">
+      <img class="cu-avatar-image" src="https://i.pravatar.cc/80?img=5" alt="User" />
+    </span>
+    <span class="cu-badge cu-badge-count cu-badge-success absolute -top-1 -right-1">
+      <svg class="size-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m8 12 3 3 5-6"/></svg>
+    </span>
+  </div>
+  <div class="relative inline-block">
+    <span class="cu-avatar cu-avatar-lg">
+      <span class="cu-avatar-fallback">AB</span>
+    </span>
+    <span class="cu-badge cu-badge-count cu-badge-destructive absolute -top-1 -right-1">99+</span>
+  </div>
+</div>`.trim();
 ---
 
 <Layout title={t.title} category={t.category} componentName="Badge">
@@ -272,6 +302,56 @@ const countCode = `<span class="cu-badge cu-badge-count cu-badge-default">3</spa
                     <span class="cu-badge cu-badge-count cu-badge-destructive">12</span>
                     <span class="cu-badge cu-badge-count cu-badge-success">99+</span>
                     <span class="cu-badge cu-badge-count cu-badge-soft-default">5</span>
+                </div>
+            </ComponentPreview>
+        </section>
+
+        <!-- Animated Dot -->
+        <section class="space-y-3">
+            <h2 id="animated-dot" class="text-lg font-semibold tracking-tight relative group">
+                <a href="#animated-dot" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                {t.sections.animatedDot.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.animatedDot.description} />
+            <ComponentPreview code={animatedDotCode}>
+                <div class="flex flex-wrap gap-4">
+                    <span class="cu-badge cu-badge-success cu-badge-dot cu-badge-dot-animated">Live</span>
+                    <span class="cu-badge cu-badge-destructive cu-badge-dot cu-badge-dot-animated">Recording</span>
+                    <span class="cu-badge cu-badge-info cu-badge-dot cu-badge-dot-animated">Syncing</span>
+                    <span class="cu-badge cu-badge-warning cu-badge-dot cu-badge-dot-animated">Pending</span>
+                </div>
+            </ComponentPreview>
+        </section>
+
+        <!-- Badge on Avatar -->
+        <section class="space-y-3">
+            <h2 id="on-avatar" class="text-lg font-semibold tracking-tight relative group">
+                <a href="#on-avatar" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                {t.sections.onAvatar.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.onAvatar.description} />
+            <ComponentPreview code={onAvatarCode}>
+                <div class="flex items-center gap-8">
+                    <div class="relative inline-block">
+                        <span class="cu-avatar cu-avatar-md">
+                            <span class="cu-avatar-fallback">JD</span>
+                        </span>
+                        <span class="cu-badge cu-badge-count cu-badge-destructive absolute -top-1 -right-1">3</span>
+                    </div>
+                    <div class="relative inline-block">
+                        <span class="cu-avatar cu-avatar-md">
+                            <img class="cu-avatar-image" src="https://i.pravatar.cc/80?img=5" alt="User" />
+                        </span>
+                        <span class="cu-badge cu-badge-count cu-badge-success absolute -top-1 -right-1">
+                            <svg class="size-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m8 12 3 3 5-6"/></svg>
+                        </span>
+                    </div>
+                    <div class="relative inline-block">
+                        <span class="cu-avatar cu-avatar-lg">
+                            <span class="cu-avatar-fallback">AB</span>
+                        </span>
+                        <span class="cu-badge cu-badge-count cu-badge-destructive absolute -top-1 -right-1">99+</span>
+                    </div>
                 </div>
             </ComponentPreview>
         </section>

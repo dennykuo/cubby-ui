@@ -58,3 +58,45 @@
 .cu-tabs-vertical > .cu-tabs-content {
     @apply mt-0 flex-1;
 }
+
+/* -- badge on trigger -- */
+.cu-tabs-trigger-badge {
+    @apply ml-1.5 inline-flex items-center justify-center rounded-full bg-muted-foreground/15 px-1.5 text-[10px] font-semibold leading-none min-w-4 h-4 text-muted-foreground;
+}
+
+.cu-tabs-trigger-active .cu-tabs-trigger-badge {
+    @apply bg-primary/10 text-primary;
+}
+
+/* -- closable trigger -- */
+.cu-tabs-trigger-close {
+    @apply ml-1.5 inline-flex size-4 items-center justify-center rounded-sm opacity-50 transition-opacity duration-150 hover:opacity-100 cursor-pointer;
+}
+
+/* -- scrollable tab list -- */
+.cu-tabs-list-scrollable {
+    @apply relative;
+}
+
+.cu-tabs-list-scrollable .cu-tabs-list {
+    @apply overflow-x-auto flex-nowrap;
+    scrollbar-width: none;
+}
+
+.cu-tabs-list-scrollable .cu-tabs-list::-webkit-scrollbar {
+    display: none;
+}
+
+.cu-tabs-scroll-btn {
+    @apply absolute top-0 z-10 flex h-full w-8 items-center justify-center cursor-pointer text-muted-foreground transition-opacity duration-150 hover:text-foreground;
+    background: linear-gradient(to right, var(--color-background), transparent);
+}
+
+.cu-tabs-scroll-btn-end {
+    @apply right-0;
+    background: linear-gradient(to left, var(--color-background), transparent);
+}
+
+.cu-tabs-scroll-btn[hidden] {
+    @apply hidden;
+}

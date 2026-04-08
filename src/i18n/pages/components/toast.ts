@@ -14,6 +14,7 @@ export const toastPage: Record<Locale, {
     withIcon: { title: string; description: string };
     persistent: { title: string; description: string };
     stacked: { title: string; description: string };
+    promiseToast: { title: string; description: string };
   };
   classDescriptions: Record<string, string>;
 }> = {
@@ -59,6 +60,10 @@ export const toastPage: Record<Locale, {
         title: 'Stack Limit',
         description: 'Use <code class="cu-code">data-cu-toast-max</code> on the container to limit visible toasts. When exceeded, the oldest toast is automatically removed. Default is 5.',
       },
+      promiseToast: {
+        title: 'Promise Toast',
+        description: 'Use <code class="cu-code">CubbyUI.toast.promise()</code> to show a loading toast that automatically updates to success or error when the promise resolves or rejects.',
+      },
     },
     classDescriptions: {
       'cu-toast-container': 'Toast fixed position container',
@@ -79,6 +84,8 @@ export const toastPage: Record<Locale, {
       'cu-toast-description': 'Toast description text',
       'cu-toast-close': 'Toast close button',
       'cu-toast-enter': 'Toast enter animation',
+      'cu-toast-action': 'Toast action button container',
+      'cu-toast-action-btn': 'Action button inside toast',
     },
   },
   'zh-tw': {
@@ -123,6 +130,10 @@ export const toastPage: Record<Locale, {
         title: '堆疊上限',
         description: '在容器上使用 <code class="cu-code">data-cu-toast-max</code> 限制可見通知數量。超出時自動移除最舊的通知。預設為 5。',
       },
+      promiseToast: {
+        title: 'Promise Toast',
+        description: '使用 <code class="cu-code">CubbyUI.toast.promise()</code> 顯示載入中的 toast，當 Promise 解決或拒絕時自動更新為成功或錯誤。',
+      },
     },
     classDescriptions: {
       'cu-toast-container': 'Toast 固定定位容器',
@@ -143,6 +154,8 @@ export const toastPage: Record<Locale, {
       'cu-toast-description': 'Toast 描述文字',
       'cu-toast-close': 'Toast 關閉按鈕',
       'cu-toast-enter': 'Toast 進場動畫',
+      'cu-toast-action': 'Toast 操作按鈕容器',
+      'cu-toast-action-btn': 'Toast 內的操作按鈕',
     },
   },
 };

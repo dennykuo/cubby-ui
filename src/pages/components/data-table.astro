@@ -337,30 +337,38 @@ const withRowActionsCode = `<div class="cu-table-wrapper rounded-lg border borde
   </table>
 </div>`.trim();
 
-const emptyStateCode = `<div class="cu-card">
-  <div class="cu-card-content-flush">
-    <div class="cu-table-wrapper">
-      <table class="cu-table cu-data-table">
-        <thead class="cu-table-header">
-          <tr class="cu-table-row">
-            <th class="cu-table-head">Name</th>
-            <th class="cu-table-head">Email</th>
-            <th class="cu-table-head">Status</th>
-          </tr>
-        </thead>
-        <tbody class="cu-table-body">
-          <tr class="cu-table-row">
-            <td class="cu-table-cell text-center text-muted-foreground py-10" colspan="3">
-              <div class="flex flex-col items-center gap-2">
-                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-muted-foreground/50"><path d="M21 12a9 9 0 1 1-6.22-8.56"/><path d="M21 3v4h-4"/></svg>
-                <p class="text-sm font-medium">No results found</p>
-                <p class="text-xs">Try adjusting your search or filters.</p>
-              </div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+const emptyStateCode = `<div class="cu-data-table" data-cu-data-table>
+  <div class="cu-data-table-toolbar">
+    <div class="cu-data-table-toolbar-select">
+      <div class="cu-search-input-wrapper">
+        <svg class="cu-search-input-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+        <input type="search" placeholder="Search..." class="cu-search-input" />
+      </div>
     </div>
+  </div>
+  <div class="cu-table-wrapper">
+    <table class="cu-table cu-data-table-table">
+      <thead class="cu-table-header">
+        <tr class="cu-table-row">
+          <th class="cu-table-head">Name</th>
+          <th class="cu-table-head">Status</th>
+          <th class="cu-table-head">Date</th>
+        </tr>
+      </thead>
+      <tbody class="cu-table-body">
+        <tr class="cu-table-row">
+          <td class="cu-table-cell text-center py-12" colspan="3">
+            <div class="cu-empty-state">
+              <div class="cu-empty-state-icon text-muted-foreground bg-muted">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+              </div>
+              <h3 class="cu-empty-state-title">No results found</h3>
+              <p class="cu-empty-state-description">Try adjusting your search or filter criteria.</p>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </div>`.trim();
 
@@ -394,6 +402,66 @@ const loadingCode = `<div class="cu-card">
         </tbody>
       </table>
     </div>
+  </div>
+</div>`.trim();
+
+const expandableRowsCode = `<div class="cu-data-table" data-cu-data-table data-cu-data-table-expandable>
+  <div class="cu-table-wrapper rounded-lg border border-border">
+    <table class="cu-table cu-data-table-table">
+      <thead class="cu-table-header">
+        <tr class="cu-table-row">
+          <th class="cu-table-head w-10"></th>
+          <th class="cu-table-head">Order</th>
+          <th class="cu-table-head">Customer</th>
+          <th class="cu-table-head">Status</th>
+          <th class="cu-table-head text-right">Total</th>
+        </tr>
+      </thead>
+      <tbody class="cu-table-body">
+        <tr class="cu-table-row">
+          <td class="cu-table-cell">
+            <button class="cu-data-table-expand-trigger" data-cu-expand-row aria-expanded="false">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+            </button>
+          </td>
+          <td class="cu-table-cell font-medium">#1001</td>
+          <td class="cu-table-cell">Alice Johnson</td>
+          <td class="cu-table-cell"><span class="cu-badge cu-badge-success cu-badge-sm">Delivered</span></td>
+          <td class="cu-table-cell text-right">$249.00</td>
+        </tr>
+        <tr hidden>
+          <td colspan="5" class="cu-data-table-expanded-content">
+            <div class="grid grid-cols-2 gap-4 text-sm">
+              <div><span class="text-muted-foreground">Shipping:</span> Express (2-day)</div>
+              <div><span class="text-muted-foreground">Address:</span> 123 Main St, NY</div>
+              <div><span class="text-muted-foreground">Items:</span> Widget Pro x2, Cable x1</div>
+              <div><span class="text-muted-foreground">Tracking:</span> 1Z999AA10123456784</div>
+            </div>
+          </td>
+        </tr>
+        <tr class="cu-table-row">
+          <td class="cu-table-cell">
+            <button class="cu-data-table-expand-trigger" data-cu-expand-row aria-expanded="false">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+            </button>
+          </td>
+          <td class="cu-table-cell font-medium">#1002</td>
+          <td class="cu-table-cell">Bob Smith</td>
+          <td class="cu-table-cell"><span class="cu-badge cu-badge-warning cu-badge-sm">Processing</span></td>
+          <td class="cu-table-cell text-right">$89.50</td>
+        </tr>
+        <tr hidden>
+          <td colspan="5" class="cu-data-table-expanded-content">
+            <div class="grid grid-cols-2 gap-4 text-sm">
+              <div><span class="text-muted-foreground">Shipping:</span> Standard (5-7 days)</div>
+              <div><span class="text-muted-foreground">Address:</span> 456 Oak Ave, CA</div>
+              <div><span class="text-muted-foreground">Items:</span> Gadget Mini x1</div>
+              <div><span class="text-muted-foreground">Tracking:</span> Pending</div>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </div>`.trim();
 ---
@@ -528,6 +596,18 @@ const loadingCode = `<div class="cu-card">
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-data-table-info</code></td>
                             <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-data-table-info']}</td>
+                        </tr>
+                        <tr class="cu-table-row">
+                            <td class="cu-table-cell"><code class="cu-code">cu-data-table-expand-trigger</code></td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-data-table-expand-trigger']}</td>
+                        </tr>
+                        <tr class="cu-table-row">
+                            <td class="cu-table-cell"><code class="cu-code">cu-data-table-expanded-row</code></td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-data-table-expanded-row']}</td>
+                        </tr>
+                        <tr class="cu-table-row">
+                            <td class="cu-table-cell"><code class="cu-code">cu-data-table-expanded-content</code></td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-data-table-expanded-content']}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -828,31 +908,39 @@ const loadingCode = `<div class="cu-card">
             </h2>
             <p class="text-base text-muted-foreground leading-relaxed">{t.sections.emptyState.description}</p>
             <ComponentPreview code={emptyStateCode}>
-                <div class="w-full max-w-2xl">
-                    <div class="cu-card">
-                        <div class="cu-card-content-flush">
-                            <div class="cu-table-wrapper">
-                                <table class="cu-table cu-data-table">
-                                    <thead class="cu-table-header">
-                                        <tr class="cu-table-row">
-                                            <th class="cu-table-head">Name</th>
-                                            <th class="cu-table-head">Email</th>
-                                            <th class="cu-table-head">Status</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody class="cu-table-body">
-                                        <tr class="cu-table-row">
-                                            <td class="cu-table-cell text-center text-muted-foreground py-10" colspan="3">
-                                                <div class="flex flex-col items-center gap-2">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-muted-foreground/50"><path d="M21 12a9 9 0 1 1-6.22-8.56"/><path d="M21 3v4h-4"/></svg>
-                                                    <p class="text-sm font-medium">No results found</p>
-                                                    <p class="text-xs">Try adjusting your search or filters.</p>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                <div class="w-full max-w-3xl">
+                    <div class="cu-data-table" data-cu-data-table>
+                        <div class="cu-data-table-toolbar">
+                            <div class="cu-data-table-toolbar-select">
+                                <div class="cu-search-input-wrapper">
+                                    <svg class="cu-search-input-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+                                    <input type="search" placeholder="Search..." class="cu-search-input" />
+                                </div>
                             </div>
+                        </div>
+                        <div class="cu-table-wrapper">
+                            <table class="cu-table cu-data-table-table">
+                                <thead class="cu-table-header">
+                                    <tr class="cu-table-row">
+                                        <th class="cu-table-head">Name</th>
+                                        <th class="cu-table-head">Status</th>
+                                        <th class="cu-table-head">Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="cu-table-body">
+                                    <tr class="cu-table-row">
+                                        <td class="cu-table-cell text-center py-12" colspan="3">
+                                            <div class="cu-empty-state">
+                                                <div class="cu-empty-state-icon text-muted-foreground bg-muted">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+                                                </div>
+                                                <h3 class="cu-empty-state-title">No results found</h3>
+                                                <p class="cu-empty-state-description">Try adjusting your search or filter criteria.</p>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
@@ -898,6 +986,78 @@ const loadingCode = `<div class="cu-card">
                                     </tbody>
                                 </table>
                             </div>
+                        </div>
+                    </div>
+                </div>
+            </ComponentPreview>
+        </section>
+
+        <!-- Expandable Rows -->
+        <section class="space-y-3">
+            <h2 id="expandable-rows" class="text-lg font-semibold tracking-tight relative group">
+                <a href="#expandable-rows" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                {t.sections.expandableRows.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.expandableRows.description} />
+            <ComponentPreview code={expandableRowsCode}>
+                <div class="w-full max-w-3xl">
+                    <div class="cu-data-table" data-cu-data-table data-cu-data-table-expandable>
+                        <div class="cu-table-wrapper rounded-lg border border-border">
+                            <table class="cu-table cu-data-table-table">
+                                <thead class="cu-table-header">
+                                    <tr class="cu-table-row">
+                                        <th class="cu-table-head w-10"></th>
+                                        <th class="cu-table-head">Order</th>
+                                        <th class="cu-table-head">Customer</th>
+                                        <th class="cu-table-head">Status</th>
+                                        <th class="cu-table-head text-right">Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="cu-table-body">
+                                    <tr class="cu-table-row">
+                                        <td class="cu-table-cell">
+                                            <button class="cu-data-table-expand-trigger" data-cu-expand-row aria-expanded="false">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                                            </button>
+                                        </td>
+                                        <td class="cu-table-cell font-medium">#1001</td>
+                                        <td class="cu-table-cell">Alice Johnson</td>
+                                        <td class="cu-table-cell"><span class="cu-badge cu-badge-success cu-badge-sm">Delivered</span></td>
+                                        <td class="cu-table-cell text-right">$249.00</td>
+                                    </tr>
+                                    <tr hidden>
+                                        <td colspan="5" class="cu-data-table-expanded-content">
+                                            <div class="grid grid-cols-2 gap-4 text-sm">
+                                                <div><span class="text-muted-foreground">Shipping:</span> Express (2-day)</div>
+                                                <div><span class="text-muted-foreground">Address:</span> 123 Main St, NY</div>
+                                                <div><span class="text-muted-foreground">Items:</span> Widget Pro x2, Cable x1</div>
+                                                <div><span class="text-muted-foreground">Tracking:</span> 1Z999AA10123456784</div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr class="cu-table-row">
+                                        <td class="cu-table-cell">
+                                            <button class="cu-data-table-expand-trigger" data-cu-expand-row aria-expanded="false">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                                            </button>
+                                        </td>
+                                        <td class="cu-table-cell font-medium">#1002</td>
+                                        <td class="cu-table-cell">Bob Smith</td>
+                                        <td class="cu-table-cell"><span class="cu-badge cu-badge-warning cu-badge-sm">Processing</span></td>
+                                        <td class="cu-table-cell text-right">$89.50</td>
+                                    </tr>
+                                    <tr hidden>
+                                        <td colspan="5" class="cu-data-table-expanded-content">
+                                            <div class="grid grid-cols-2 gap-4 text-sm">
+                                                <div><span class="text-muted-foreground">Shipping:</span> Standard (5-7 days)</div>
+                                                <div><span class="text-muted-foreground">Address:</span> 456 Oak Ave, CA</div>
+                                                <div><span class="text-muted-foreground">Items:</span> Gadget Mini x1</div>
+                                                <div><span class="text-muted-foreground">Tracking:</span> Pending</div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>

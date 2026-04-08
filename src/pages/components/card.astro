@@ -277,6 +277,79 @@ const pricingCardCode = `<div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
   </div>
 </div>`.trim();
 
+const withImageCode = `<div class="cu-card w-[380px]">
+  <img class="cu-card-img-top h-48" src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&h=300&fit=crop" alt="Mountain landscape" />
+  <div class="cu-card-header">
+    <h3 class="cu-card-title">Mountain Retreat</h3>
+    <p class="cu-card-description">Escape to the peaks for a weekend getaway.</p>
+  </div>
+  <div class="cu-card-content">
+    <div class="flex items-center gap-2 text-sm text-muted-foreground">
+      <svg class="size-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+      Swiss Alps, Switzerland
+    </div>
+  </div>
+  <div class="cu-card-footer justify-between">
+    <span class="text-lg font-bold">$299<span class="text-sm font-normal text-muted-foreground">/night</span></span>
+    <button class="cu-button cu-button-default cu-button-sm">Book Now</button>
+  </div>
+</div>`.trim();
+
+const horizontalCardCode = `<div class="cu-card cu-card-horizontal w-full max-w-lg">
+  <img class="cu-card-horizontal-img" src="https://images.unsplash.com/photo-1551963831-b3b1ca40c98e?w=300&h=300&fit=crop" alt="Breakfast" />
+  <div>
+    <div class="cu-card-header">
+      <h3 class="cu-card-title">Weekend Brunch</h3>
+      <p class="cu-card-description">Start your morning with a delicious spread.</p>
+    </div>
+    <div class="cu-card-content">
+      <div class="flex gap-2">
+        <span class="cu-badge cu-badge-secondary">Breakfast</span>
+        <span class="cu-badge cu-badge-secondary">Popular</span>
+      </div>
+    </div>
+    <div class="cu-card-footer">
+      <button class="cu-button cu-button-outline cu-button-sm">View Recipe</button>
+    </div>
+  </div>
+</div>`.trim();
+
+const selectableCardCode = `<fieldset class="grid grid-cols-1 gap-4 sm:grid-cols-3">
+  <label class="cu-card cu-card-selectable">
+    <input type="radio" name="plan" value="starter" class="sr-only" checked />
+    <div class="cu-card-header">
+      <h3 class="cu-card-title text-base">Starter</h3>
+      <p class="cu-card-description">For personal projects</p>
+    </div>
+    <div class="cu-card-content">
+      <span class="text-2xl font-bold">$9</span>
+      <span class="text-sm text-muted-foreground">/month</span>
+    </div>
+  </label>
+  <label class="cu-card cu-card-selectable">
+    <input type="radio" name="plan" value="pro" class="sr-only" />
+    <div class="cu-card-header">
+      <h3 class="cu-card-title text-base">Pro</h3>
+      <p class="cu-card-description">For growing teams</p>
+    </div>
+    <div class="cu-card-content">
+      <span class="text-2xl font-bold">$29</span>
+      <span class="text-sm text-muted-foreground">/month</span>
+    </div>
+  </label>
+  <label class="cu-card cu-card-selectable">
+    <input type="radio" name="plan" value="enterprise" class="sr-only" />
+    <div class="cu-card-header">
+      <h3 class="cu-card-title text-base">Enterprise</h3>
+      <p class="cu-card-description">For organizations</p>
+    </div>
+    <div class="cu-card-content">
+      <span class="text-2xl font-bold">$99</span>
+      <span class="text-sm text-muted-foreground">/month</span>
+    </div>
+  </label>
+</fieldset>`.trim();
+
 const tableInCardCode = `<div class="cu-card">
   <div class="cu-card-header">
     <h3 class="cu-card-title">Recent Orders</h3>
@@ -761,6 +834,109 @@ const tableInCardCode = `<div class="cu-card">
                         </CardFooter>
                     </Card>
                 </div>
+            </ComponentPreview>
+        </section>
+
+        <!-- Card with Image -->
+        <section class="space-y-3">
+            <h2 id="with-image" class="text-lg font-semibold tracking-tight relative group">
+                <a href="#with-image" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                {t.sections.withImage.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withImage.description} />
+            <ComponentPreview code={withImageCode}>
+                <Card class="w-[380px]">
+                    <img class="cu-card-img-top h-48" src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&h=300&fit=crop" alt="Mountain landscape" />
+                    <CardHeader>
+                        <CardTitle>Mountain Retreat</CardTitle>
+                        <CardDescription>Escape to the peaks for a weekend getaway.</CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                        <div class="flex items-center gap-2 text-sm text-muted-foreground">
+                            <svg class="size-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                            Swiss Alps, Switzerland
+                        </div>
+                    </CardContent>
+                    <CardFooter class="justify-between">
+                        <span class="text-lg font-bold">$299<span class="text-sm font-normal text-muted-foreground">/night</span></span>
+                        <Button size="sm">Book Now</Button>
+                    </CardFooter>
+                </Card>
+            </ComponentPreview>
+        </section>
+
+        <!-- Horizontal Card -->
+        <section class="space-y-3">
+            <h2 id="horizontal" class="text-lg font-semibold tracking-tight relative group">
+                <a href="#horizontal" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                {t.sections.horizontal.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.horizontal.description} />
+            <ComponentPreview code={horizontalCardCode}>
+                <Card class="cu-card-horizontal w-full max-w-lg">
+                    <img class="cu-card-horizontal-img" src="https://images.unsplash.com/photo-1551963831-b3b1ca40c98e?w=300&h=300&fit=crop" alt="Breakfast" />
+                    <div>
+                        <CardHeader>
+                            <CardTitle>Weekend Brunch</CardTitle>
+                            <CardDescription>Start your morning with a delicious spread.</CardDescription>
+                        </CardHeader>
+                        <CardContent>
+                            <div class="flex gap-2">
+                                <Badge variant="secondary">Breakfast</Badge>
+                                <Badge variant="secondary">Popular</Badge>
+                            </div>
+                        </CardContent>
+                        <CardFooter>
+                            <Button variant="outline" size="sm">View Recipe</Button>
+                        </CardFooter>
+                    </div>
+                </Card>
+            </ComponentPreview>
+        </section>
+
+        <!-- Selectable Card -->
+        <section class="space-y-3">
+            <h2 id="selectable" class="text-lg font-semibold tracking-tight relative group">
+                <a href="#selectable" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                {t.sections.selectable.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.selectable.description} />
+            <ComponentPreview code={selectableCardCode}>
+                <fieldset class="grid w-full grid-cols-1 gap-4 sm:grid-cols-3">
+                    <label class="cu-card cu-card-selectable">
+                        <input type="radio" name="card-plan" value="starter" class="sr-only" checked />
+                        <CardHeader>
+                            <CardTitle class="text-base">Starter</CardTitle>
+                            <CardDescription>For personal projects</CardDescription>
+                        </CardHeader>
+                        <CardContent>
+                            <span class="text-2xl font-bold">$9</span>
+                            <span class="text-sm text-muted-foreground">/month</span>
+                        </CardContent>
+                    </label>
+                    <label class="cu-card cu-card-selectable">
+                        <input type="radio" name="card-plan" value="pro" class="sr-only" />
+                        <CardHeader>
+                            <CardTitle class="text-base">Pro</CardTitle>
+                            <CardDescription>For growing teams</CardDescription>
+                        </CardHeader>
+                        <CardContent>
+                            <span class="text-2xl font-bold">$29</span>
+                            <span class="text-sm text-muted-foreground">/month</span>
+                        </CardContent>
+                    </label>
+                    <label class="cu-card cu-card-selectable">
+                        <input type="radio" name="card-plan" value="enterprise" class="sr-only" />
+                        <CardHeader>
+                            <CardTitle class="text-base">Enterprise</CardTitle>
+                            <CardDescription>For organizations</CardDescription>
+                        </CardHeader>
+                        <CardContent>
+                            <span class="text-2xl font-bold">$99</span>
+                            <span class="text-sm text-muted-foreground">/month</span>
+                        </CardContent>
+                    </label>
+                </fieldset>
             </ComponentPreview>
         </section>
 

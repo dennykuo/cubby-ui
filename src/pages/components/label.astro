@@ -30,6 +30,52 @@ const requiredCode = `<!-- Using cu-label-required (automatic asterisk) -->
   </label>
   <input class="cu-input" type="email" id="email-req" placeholder="you@example.com" required />
 </div>`.trim();
+
+const optionalCode = `<div class="space-y-4 w-[300px]">
+  <div class="cu-form-group">
+    <label class="cu-label cu-label-required" for="opt-name">Full Name</label>
+    <input id="opt-name" class="cu-input" placeholder="Jane Doe" />
+  </div>
+  <div class="cu-form-group">
+    <label class="cu-label" for="opt-email">
+      Email <span class="text-xs font-normal text-muted-foreground">(optional)</span>
+    </label>
+    <input id="opt-email" class="cu-input" placeholder="jane@example.com" />
+  </div>
+  <div class="cu-form-group">
+    <label class="cu-label" for="opt-phone">
+      Phone <span class="text-xs font-normal text-muted-foreground">(optional)</span>
+    </label>
+    <input id="opt-phone" class="cu-input" placeholder="+1 (555) 000-0000" />
+  </div>
+</div>`.trim();
+
+const withTooltipCode = `<div class="space-y-4 w-[300px]">
+  <div class="cu-form-group">
+    <div class="flex items-center gap-1.5">
+      <label class="cu-label" for="tip-api">API Key</label>
+      <div class="cu-tooltip">
+        <button type="button" class="text-muted-foreground hover:text-foreground transition-colors duration-150">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+        </button>
+        <div class="cu-tooltip-content" role="tooltip">Find your API key in Settings → API</div>
+      </div>
+    </div>
+    <input id="tip-api" class="cu-input" placeholder="sk-..." />
+  </div>
+  <div class="cu-form-group">
+    <div class="flex items-center gap-1.5">
+      <label class="cu-label cu-label-required" for="tip-webhook">Webhook URL</label>
+      <div class="cu-tooltip">
+        <button type="button" class="text-muted-foreground hover:text-foreground transition-colors duration-150">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+        </button>
+        <div class="cu-tooltip-content" role="tooltip">We'll send event notifications to this URL</div>
+      </div>
+    </div>
+    <input id="tip-webhook" class="cu-input" placeholder="https://..." />
+  </div>
+</div>`.trim();
 ---
 
 <Layout category={t.category} componentName="Label" title={t.title}>
@@ -116,6 +162,72 @@ const requiredCode = `<!-- Using cu-label-required (automatic asterisk) -->
                             Email <span class="text-destructive">*</span>
                         </Label>
                         <Input type="email" id="email-req" placeholder="you@example.com" required />
+                    </FormGroup>
+                </div>
+            </ComponentPreview>
+        </section>
+
+        <!-- Optional Label -->
+        <section class="space-y-3">
+            <h2 id="optional" class="text-lg font-semibold tracking-tight relative group">
+              <a href="#optional" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+              {t.sections.optional.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.optional.description} />
+            <ComponentPreview code={optionalCode}>
+                <div class="space-y-4 w-[300px]">
+                    <FormGroup>
+                        <Label for="opt-name" class="cu-label-required">Full Name</Label>
+                        <Input id="opt-name" placeholder="Jane Doe" />
+                    </FormGroup>
+                    <FormGroup>
+                        <Label for="opt-email">
+                            Email <span class="text-xs font-normal text-muted-foreground">(optional)</span>
+                        </Label>
+                        <Input id="opt-email" placeholder="jane@example.com" />
+                    </FormGroup>
+                    <FormGroup>
+                        <Label for="opt-phone">
+                            Phone <span class="text-xs font-normal text-muted-foreground">(optional)</span>
+                        </Label>
+                        <Input id="opt-phone" placeholder="+1 (555) 000-0000" />
+                    </FormGroup>
+                </div>
+            </ComponentPreview>
+        </section>
+
+        <!-- With Tooltip -->
+        <section class="space-y-3">
+            <h2 id="with-tooltip" class="text-lg font-semibold tracking-tight relative group">
+              <a href="#with-tooltip" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+              {t.sections.withTooltip.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withTooltip.description} />
+            <ComponentPreview code={withTooltipCode}>
+                <div class="space-y-4 w-[300px]">
+                    <FormGroup>
+                        <div class="flex items-center gap-1.5">
+                            <Label for="tip-api">API Key</Label>
+                            <div class="cu-tooltip">
+                                <button type="button" class="text-muted-foreground hover:text-foreground transition-colors duration-150">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+                                </button>
+                                <div class="cu-tooltip-content" role="tooltip">Find your API key in Settings → API</div>
+                            </div>
+                        </div>
+                        <Input id="tip-api" placeholder="sk-..." />
+                    </FormGroup>
+                    <FormGroup>
+                        <div class="flex items-center gap-1.5">
+                            <Label for="tip-webhook" class="cu-label-required">Webhook URL</Label>
+                            <div class="cu-tooltip">
+                                <button type="button" class="text-muted-foreground hover:text-foreground transition-colors duration-150">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+                                </button>
+                                <div class="cu-tooltip-content" role="tooltip">We'll send event notifications to this URL</div>
+                            </div>
+                        </div>
+                        <Input id="tip-webhook" placeholder="https://..." />
                     </FormGroup>
                 </div>
             </ComponentPreview>

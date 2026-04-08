@@ -77,6 +77,62 @@ const sizesCode = `<!-- Small -->
   </div>
 </div>`.trim();
 
+const withFormCode = `<div data-cu-popover class="inline-flex">
+  <button class="cu-button cu-button-outline cu-button-md" data-cu-popover-trigger>Edit Dimensions</button>
+  <div class="cu-popover-content cu-popover-content-sm" data-cu-popover-content hidden>
+    <div class="space-y-4">
+      <div>
+        <h4 class="text-sm font-semibold mb-3">Dimensions</h4>
+        <div class="grid grid-cols-2 gap-3">
+          <div class="cu-form-group">
+            <label class="cu-label text-xs" for="pop-w">Width</label>
+            <input id="pop-w" class="cu-input cu-input-sm" value="100%" />
+          </div>
+          <div class="cu-form-group">
+            <label class="cu-label text-xs" for="pop-h">Height</label>
+            <input id="pop-h" class="cu-input cu-input-sm" value="auto" />
+          </div>
+          <div class="cu-form-group">
+            <label class="cu-label text-xs" for="pop-mw">Max Width</label>
+            <input id="pop-mw" class="cu-input cu-input-sm" value="300px" />
+          </div>
+          <div class="cu-form-group">
+            <label class="cu-label text-xs" for="pop-mh">Max Height</label>
+            <input id="pop-mh" class="cu-input cu-input-sm" value="none" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>`.trim();
+
+const withNavigationCode = `<div data-cu-popover class="inline-flex">
+  <button class="cu-button cu-button-outline cu-button-md" data-cu-popover-trigger>
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1.5"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+    Quick Links
+  </button>
+  <div class="cu-popover-content cu-popover-content-lg" data-cu-popover-content hidden>
+    <div class="grid grid-cols-2 gap-1">
+      <a href="#" class="rounded-lg p-3 hover:bg-muted/60 transition-colors duration-150">
+        <div class="text-sm font-medium">Dashboard</div>
+        <div class="text-xs text-muted-foreground mt-0.5">Overview and analytics</div>
+      </a>
+      <a href="#" class="rounded-lg p-3 hover:bg-muted/60 transition-colors duration-150">
+        <div class="text-sm font-medium">Projects</div>
+        <div class="text-xs text-muted-foreground mt-0.5">Manage your projects</div>
+      </a>
+      <a href="#" class="rounded-lg p-3 hover:bg-muted/60 transition-colors duration-150">
+        <div class="text-sm font-medium">Team</div>
+        <div class="text-xs text-muted-foreground mt-0.5">Members and roles</div>
+      </a>
+      <a href="#" class="rounded-lg p-3 hover:bg-muted/60 transition-colors duration-150">
+        <div class="text-sm font-medium">Settings</div>
+        <div class="text-xs text-muted-foreground mt-0.5">Account preferences</div>
+      </a>
+    </div>
+  </div>
+</div>`.trim();
+
 const topCode = `<div class="cu-popover" data-cu-popover>
   <button class="cu-button cu-button-outline cu-button-md" data-cu-popover-trigger>
     Top Popover
@@ -218,6 +274,82 @@ const topCode = `<div class="cu-popover" data-cu-popover>
                         </button>
                         <div class="cu-popover-content cu-popover-content-lg" data-cu-popover-content>
                             <p class="text-sm text-muted-foreground">A wider popover panel for more content.</p>
+                        </div>
+                    </div>
+                </div>
+            </ComponentPreview>
+        </section>
+
+        <!-- With Form -->
+        <section class="space-y-3">
+            <h2 id="with-form" class="text-lg font-semibold tracking-tight relative group">
+                <a href="#with-form" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                {t.sections.withForm.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withForm.description} />
+            <ComponentPreview code={withFormCode}>
+                <div data-cu-popover class="inline-flex">
+                    <button class="cu-button cu-button-outline cu-button-md" data-cu-popover-trigger>Edit Dimensions</button>
+                    <div class="cu-popover-content cu-popover-content-sm" data-cu-popover-content hidden>
+                        <div class="space-y-4">
+                            <div>
+                                <h4 class="text-sm font-semibold mb-3">Dimensions</h4>
+                                <div class="grid grid-cols-2 gap-3">
+                                    <div class="cu-form-group">
+                                        <label class="cu-label text-xs" for="pop-w">Width</label>
+                                        <input id="pop-w" class="cu-input cu-input-sm" value="100%" />
+                                    </div>
+                                    <div class="cu-form-group">
+                                        <label class="cu-label text-xs" for="pop-h">Height</label>
+                                        <input id="pop-h" class="cu-input cu-input-sm" value="auto" />
+                                    </div>
+                                    <div class="cu-form-group">
+                                        <label class="cu-label text-xs" for="pop-mw">Max Width</label>
+                                        <input id="pop-mw" class="cu-input cu-input-sm" value="300px" />
+                                    </div>
+                                    <div class="cu-form-group">
+                                        <label class="cu-label text-xs" for="pop-mh">Max Height</label>
+                                        <input id="pop-mh" class="cu-input cu-input-sm" value="none" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ComponentPreview>
+        </section>
+
+        <!-- With Navigation -->
+        <section class="space-y-3">
+            <h2 id="with-navigation" class="text-lg font-semibold tracking-tight relative group">
+                <a href="#with-navigation" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                {t.sections.withNavigation.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withNavigation.description} />
+            <ComponentPreview code={withNavigationCode}>
+                <div data-cu-popover class="inline-flex">
+                    <button class="cu-button cu-button-outline cu-button-md" data-cu-popover-trigger>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1.5"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+                        Quick Links
+                    </button>
+                    <div class="cu-popover-content cu-popover-content-lg" data-cu-popover-content hidden>
+                        <div class="grid grid-cols-2 gap-1">
+                            <a href="#" class="rounded-lg p-3 hover:bg-muted/60 transition-colors duration-150">
+                                <div class="text-sm font-medium">Dashboard</div>
+                                <div class="text-xs text-muted-foreground mt-0.5">Overview and analytics</div>
+                            </a>
+                            <a href="#" class="rounded-lg p-3 hover:bg-muted/60 transition-colors duration-150">
+                                <div class="text-sm font-medium">Projects</div>
+                                <div class="text-xs text-muted-foreground mt-0.5">Manage your projects</div>
+                            </a>
+                            <a href="#" class="rounded-lg p-3 hover:bg-muted/60 transition-colors duration-150">
+                                <div class="text-sm font-medium">Team</div>
+                                <div class="text-xs text-muted-foreground mt-0.5">Members and roles</div>
+                            </a>
+                            <a href="#" class="rounded-lg p-3 hover:bg-muted/60 transition-colors duration-150">
+                                <div class="text-sm font-medium">Settings</div>
+                                <div class="text-xs text-muted-foreground mt-0.5">Account preferences</div>
+                            </a>
                         </div>
                     </div>
                 </div>

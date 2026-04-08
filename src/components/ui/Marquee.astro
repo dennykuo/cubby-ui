@@ -1,0 +1,33 @@
+---
+import { TOP_CLASS } from "../../config";
+
+interface Props {
+    duration?: string;
+    reverse?: boolean;
+    vertical?: boolean;
+    fade?: boolean;
+    pauseOnHover?: boolean;
+    class?: string;
+    [key: string]: any;
+}
+
+const { duration = "30s", reverse, vertical, fade, pauseOnHover, class: className, ...rest } = Astro.props;
+const baseClass = `${TOP_CLASS}-marquee`;
+const reverseClass = reverse ? `${baseClass}-reverse` : undefined;
+const verticalClass = vertical ? `${baseClass}-vertical` : undefined;
+const fadeClass = fade ? `${baseClass}-fade` : undefined;
+const pauseClass = pauseOnHover ? `${baseClass}-pause-on-hover` : undefined;
+---
+
+<div
+    class:list={[baseClass, reverseClass, verticalClass, fadeClass, pauseClass, className]}
+    style={`--cu-marquee-duration: ${duration};`}
+    {...rest}
+>
+    <div class={`${TOP_CLASS}-marquee-content`}>
+        <slot />
+    </div>
+    <div class={`${TOP_CLASS}-marquee-content`} aria-hidden="true">
+        <slot />
+    </div>
+</div>

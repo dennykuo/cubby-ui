@@ -1,0 +1,65 @@
+/* Image Compare */
+.cu-image-compare {
+    @apply relative overflow-hidden rounded-lg select-none;
+}
+
+.cu-image-compare-before,
+.cu-image-compare-after {
+    @apply block w-full;
+}
+
+.cu-image-compare-before {
+    @apply absolute inset-0;
+    clip-path: inset(0 calc(100% - var(--cu-compare-position, 50%)) 0 0);
+}
+
+.cu-image-compare-after {
+    @apply block w-full;
+}
+
+/* Slider handle */
+.cu-image-compare-handle {
+    @apply absolute top-0 bottom-0 z-10 flex items-center justify-center cursor-ew-resize;
+    left: var(--cu-compare-position, 50%);
+    transform: translateX(-50%);
+}
+
+.cu-image-compare-handle-line {
+    @apply absolute top-0 bottom-0 w-0.5 bg-white shadow-sm;
+}
+
+.cu-image-compare-handle-grip {
+    @apply relative z-10 flex size-10 items-center justify-center rounded-full bg-white shadow-md;
+    transition: transform 150ms, box-shadow 150ms;
+}
+
+.cu-image-compare-handle-grip:hover {
+    @apply shadow-lg;
+    transform: scale(1.1);
+}
+
+/* Labels */
+.cu-image-compare-label {
+    @apply absolute top-3 z-10 rounded-md bg-black/60 px-2.5 py-1 text-xs font-medium text-white;
+}
+.cu-image-compare-label-before {
+    @apply left-3;
+}
+.cu-image-compare-label-after {
+    @apply right-3;
+}
+
+/* Vertical variant */
+.cu-image-compare-vertical .cu-image-compare-before {
+    clip-path: inset(0 0 calc(100% - var(--cu-compare-position, 50%)) 0);
+}
+.cu-image-compare-vertical .cu-image-compare-handle {
+    @apply left-0 right-0 flex justify-center;
+    top: var(--cu-compare-position, 50%);
+    bottom: auto;
+    transform: translateY(-50%);
+    cursor: ns-resize;
+}
+.cu-image-compare-vertical .cu-image-compare-handle-line {
+    @apply top-auto left-0 right-0 h-0.5 w-full;
+}

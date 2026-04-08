@@ -1,0 +1,63 @@
+/* Toggle Group */
+.cu-toggle-group {
+    @apply inline-flex items-center gap-1 rounded-lg bg-muted p-1;
+}
+
+.cu-toggle-group-item {
+    @apply inline-flex items-center justify-center gap-1.5 whitespace-nowrap rounded-md px-3 py-1.5 text-sm font-medium text-muted-foreground outline-none transition-colors duration-150 cursor-pointer select-none hover:text-foreground focus-visible:ring-1 focus-visible:ring-ring/30;
+}
+
+.cu-toggle-group-item-active {
+    @apply bg-background text-foreground shadow-sm;
+}
+
+/* Multiple mode: softer active state */
+.cu-toggle-group-multiple .cu-toggle-group-item-active {
+    @apply bg-primary/10 text-primary;
+}
+
+/* Size variants */
+.cu-toggle-group-sm {
+    @apply p-0.5;
+}
+.cu-toggle-group-sm .cu-toggle-group-item {
+    @apply px-2 py-1 text-xs;
+}
+
+.cu-toggle-group-lg {
+    @apply p-1.5;
+}
+.cu-toggle-group-lg .cu-toggle-group-item {
+    @apply px-4 py-2;
+}
+
+/* Full width */
+.cu-toggle-group-block {
+    @apply flex w-full;
+}
+.cu-toggle-group-block .cu-toggle-group-item {
+    @apply flex-1;
+}
+
+/* Outline variant */
+.cu-toggle-group-outline {
+    @apply bg-transparent border border-border p-0 gap-0;
+}
+.cu-toggle-group-outline .cu-toggle-group-item {
+    @apply rounded-none border-r border-border px-3 py-2;
+}
+.cu-toggle-group-outline .cu-toggle-group-item:first-child {
+    @apply rounded-l-lg;
+}
+.cu-toggle-group-outline .cu-toggle-group-item:last-child {
+    @apply rounded-r-lg border-r-0;
+}
+.cu-toggle-group-outline .cu-toggle-group-item-active {
+    @apply bg-primary/8 text-primary;
+}
+
+/* Disabled */
+.cu-toggle-group-item:disabled,
+.cu-toggle-group-item[aria-disabled="true"] {
+    @apply pointer-events-none opacity-50;
+}

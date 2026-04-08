@@ -1,0 +1,25 @@
+---
+import { TOP_CLASS } from "../../config";
+
+interface Props {
+    position?: "bottom-right" | "bottom-left" | "top-right" | "top-left";
+    size?: "sm" | "default";
+    horizontal?: boolean;
+    class?: string;
+    [key: string]: any;
+}
+
+const { position = "bottom-right", size, horizontal, class: className, ...rest } = Astro.props;
+const baseClass = `${TOP_CLASS}-speed-dial`;
+const posClass = `${baseClass}-${position}`;
+const sizeClass = size === "sm" ? `${baseClass}-sm` : undefined;
+const horizontalClass = horizontal ? `${baseClass}-horizontal` : undefined;
+---
+
+<div
+    class:list={[baseClass, posClass, sizeClass, horizontalClass, className]}
+    data-cu-speed-dial
+    {...rest}
+>
+    <slot />
+</div>

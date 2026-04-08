@@ -34,8 +34,9 @@
       "interactive": false,
       "cssClasses": {
         "base": "cu-card",
-        "parts": ["cu-card-header", "cu-card-title", "cu-card-description", "cu-card-content", "cu-card-footer"],
-        "modifiers": ["cu-card-hover", "cu-card-elevated", "cu-card-content-flush"]
+        "parts": ["cu-card-header", "cu-card-title", "cu-card-description", "cu-card-content", "cu-card-footer", "cu-card-horizontal-img", "cu-card-img-top"],
+        "variants": ["cu-card-horizontal"],
+        "modifiers": ["cu-card-hover", "cu-card-elevated", "cu-card-content-flush", "cu-card-selectable"]
       },
       "notes": "cu-card-hover: opt-in hover shadow (not default). cu-card-elevated: shadow-md. cu-card-content-flush: p-0 for table-in-card.",
       "example": "<div class=\"cu-card\"><div class=\"cu-card-header\"><h3 class=\"cu-card-title\">Title</h3></div><div class=\"cu-card-content\">Content</div></div>"
@@ -124,7 +125,13 @@
       "cssClasses": {
         "base": "cu-input",
         "sizes": ["cu-input-sm", "cu-input-lg"],
-        "validation": ["cu-input-error", "cu-input-success"]
+        "validation": ["cu-input-error", "cu-input-success"],
+        "modifiers": ["cu-input-clearable"],
+        "parts": ["cu-input-clear"]
+      },
+      "dataAttributes": {
+        "clearable": "data-cu-input-clearable",
+        "clear": "data-cu-input-clear"
       },
       "example": "<input type=\"text\" class=\"cu-input\" placeholder=\"Enter text\">"
     },
@@ -352,7 +359,7 @@
         "base": "cu-avatar",
         "parts": ["cu-avatar-image", "cu-avatar-fallback"],
         "sizes": ["cu-avatar-sm", "cu-avatar-lg", "cu-avatar-xl"],
-        "modifiers": ["cu-avatar-ring"],
+        "modifiers": ["cu-avatar-ring", "cu-avatar-square"],
         "status": ["cu-avatar-status", "cu-avatar-status-online", "cu-avatar-status-offline", "cu-avatar-status-busy", "cu-avatar-status-away"]
       },
       "notes": "Fallback shows when image fails to load. Status indicator: add cu-avatar-status + one status variant.",
@@ -365,7 +372,8 @@
       "cssClasses": {
         "base": "cu-badge",
         "variants": ["cu-badge-default", "cu-badge-secondary", "cu-badge-destructive", "cu-badge-outline", "cu-badge-success", "cu-badge-warning", "cu-badge-info"],
-        "sizes": ["cu-badge-sm", "cu-badge-lg"]
+        "sizes": ["cu-badge-sm", "cu-badge-lg"],
+        "modifiers": ["cu-badge-dot-animated"]
       },
       "example": "<span class=\"cu-badge cu-badge-success\">Active</span>"
     },
@@ -386,11 +394,15 @@
       "interactive": false,
       "cssClasses": {
         "base": "cu-data-table",
-        "parts": ["cu-data-table-toolbar", "cu-data-table-head-sortable", "cu-data-table-info"],
+        "parts": ["cu-data-table-toolbar", "cu-data-table-head-sortable", "cu-data-table-info", "cu-data-table-expand-trigger", "cu-data-table-expanded-row", "cu-data-table-expanded-content"],
         "states": ["cu-data-table-head-sorted-asc", "cu-data-table-head-sorted-desc", "cu-data-table-row-selected"],
         "modifiers": ["cu-data-table-striped"]
       },
-      "notes": "Enhanced table with sorting, filtering, row selection. cu-data-table-striped adds alternating row backgrounds.",
+      "dataAttributes": {
+        "expandable": "data-cu-data-table-expandable",
+        "expandRow": "data-cu-expand-row"
+      },
+      "notes": "Enhanced table with sorting, filtering, row selection. cu-data-table-striped adds alternating row backgrounds. Expandable rows via data-cu-data-table-expandable on container and data-cu-expand-row on trigger buttons.",
       "example": "<div class=\"cu-data-table\"><div class=\"cu-table-wrapper\"><table class=\"cu-table\"><thead><tr><th>Name</th></tr></thead><tbody><tr><td>Row</td></tr></tbody></table></div></div>"
     },
     {
@@ -434,7 +446,7 @@
         "base": "cu-timeline",
         "parts": ["cu-timeline-item", "cu-timeline-dot", "cu-timeline-dot-icon", "cu-timeline-content", "cu-timeline-title", "cu-timeline-description", "cu-timeline-time"],
         "dotColors": ["cu-timeline-dot-primary", "cu-timeline-dot-success", "cu-timeline-dot-warning", "cu-timeline-dot-destructive", "cu-timeline-dot-info"],
-        "modifiers": ["cu-timeline-dot-lg", "cu-timeline-horizontal"]
+        "modifiers": ["cu-timeline-dot-lg", "cu-timeline-horizontal", "cu-timeline-alternating"]
       },
       "astroComponents": ["Timeline", "TimelineItem", "TimelineDot", "TimelineContent", "TimelineTime"],
       "notes": "cu-timeline-dot-lg fits avatar images (size-8). cu-timeline-horizontal for horizontal step layout. Astro components available for typed props (variant, size, etc.).",
@@ -459,10 +471,15 @@
       "cssClasses": {
         "base": "cu-alert",
         "variants": ["cu-alert-default", "cu-alert-destructive", "cu-alert-success", "cu-alert-warning", "cu-alert-info"],
-        "parts": ["cu-alert-title", "cu-alert-description"],
+        "parts": ["cu-alert-title", "cu-alert-description", "cu-alert-expandable-content", "cu-alert-expand-trigger"],
         "modifiers": ["cu-alert-accent"]
       },
-      "notes": "cu-alert-accent adds left border stripe (border-l-4) for stronger visual.",
+      "dataAttributes": {
+        "expandable": "data-cu-alert-expandable",
+        "expandTrigger": "data-cu-alert-expand-trigger",
+        "expandableContent": "data-cu-alert-expandable-content"
+      },
+      "notes": "cu-alert-accent adds left border stripe (border-l-4) for stronger visual. Expandable alerts use data-cu-alert-expandable with data-cu-alert-expand-trigger and data-cu-alert-expandable-content.",
       "example": "<div class=\"cu-alert cu-alert-success\"><div class=\"cu-alert-title\">Success</div><div class=\"cu-alert-description\">Done!</div></div>"
     },
     {
@@ -482,7 +499,13 @@
       "cssClasses": {
         "base": "cu-progress",
         "bar": "cu-progress-bar",
-        "modifiers": ["cu-progress-bar-striped", "cu-progress-bar-striped-animated", "cu-progress-bar-gradient"]
+        "modifiers": ["cu-progress-bar-striped", "cu-progress-bar-striped-animated", "cu-progress-bar-gradient", "cu-progress-multi"],
+        "circular": {
+          "base": "cu-progress-circular",
+          "parts": ["cu-progress-circular-track", "cu-progress-circular-bar", "cu-progress-circular-value"],
+          "modifiers": ["cu-progress-circular-indeterminate"],
+          "colors": ["cu-progress-circular-bar-success", "cu-progress-circular-bar-warning", "cu-progress-circular-bar-destructive", "cu-progress-circular-bar-info"]
+        }
       },
       "notes": "Set width via inline style or Tailwind on cu-progress-bar.",
       "example": "<div class=\"cu-progress\"><div class=\"cu-progress-bar\" style=\"width: 60%\"></div></div>"
@@ -518,7 +541,7 @@
       "cssClasses": {
         "base": "cu-toast",
         "variants": ["cu-toast-default", "cu-toast-destructive", "cu-toast-success", "cu-toast-warning", "cu-toast-info"],
-        "parts": ["cu-toast-body", "cu-toast-title", "cu-toast-description", "cu-toast-close"],
+        "parts": ["cu-toast-body", "cu-toast-title", "cu-toast-description", "cu-toast-close", "cu-toast-action", "cu-toast-action-btn"],
         "container": "cu-toast-container",
         "containerPositions": ["cu-toast-container-bottom-right", "cu-toast-container-bottom-left", "cu-toast-container-top-right", "cu-toast-container-top-left", "cu-toast-container-top-center", "cu-toast-container-bottom-center"]
       },
@@ -532,7 +555,7 @@
         "max": "data-cu-toast-max",
         "close": "data-cu-toast-close"
       },
-      "notes": "Container auto-created at bottom-right if not in DOM. Default duration: 5000ms. Default max stack: 5. data-cu-toast-variant values: default | destructive | success | warning | info.",
+      "notes": "Container auto-created at bottom-right if not in DOM. Default duration: 5000ms. Default max stack: 5. data-cu-toast-variant values: default | destructive | success | warning | info. Programmatic API: CubbyUI.toast.show({ title, description, variant, duration }) and CubbyUI.toast.promise(asyncFn, { loading, success, error }) for async operations.",
       "example": "<button class=\"cu-button cu-button-default\" data-cu-toast-trigger data-cu-toast-title=\"Saved\" data-cu-toast-variant=\"success\">Save</button>"
     },
     {
@@ -559,7 +582,7 @@
       "interactive": true,
       "cssClasses": {
         "base": "cu-dialog",
-        "parts": ["cu-dialog-header", "cu-dialog-title", "cu-dialog-description", "cu-dialog-footer", "cu-dialog-close"],
+        "parts": ["cu-dialog-header", "cu-dialog-title", "cu-dialog-description", "cu-dialog-footer", "cu-dialog-close", "cu-dialog-body", "cu-dialog-scroll"],
         "sizes": ["cu-dialog-sm", "cu-dialog-md", "cu-dialog-xl", "cu-dialog-full"]
       },
       "dataAttributes": {
@@ -652,7 +675,7 @@
       "interactive": false,
       "cssClasses": {
         "base": "cu-breadcrumb",
-        "parts": ["cu-breadcrumb-item", "cu-breadcrumb-link", "cu-breadcrumb-separator", "cu-breadcrumb-current"]
+        "parts": ["cu-breadcrumb-item", "cu-breadcrumb-link", "cu-breadcrumb-separator", "cu-breadcrumb-current", "cu-breadcrumb-ellipsis"]
       },
       "example": "<nav class=\"cu-breadcrumb\"><ol><li class=\"cu-breadcrumb-item\"><a class=\"cu-breadcrumb-link\" href=\"/\">Home</a></li><li class=\"cu-breadcrumb-separator\">/</li><li class=\"cu-breadcrumb-item\"><span class=\"cu-breadcrumb-current\">Page</span></li></ol></nav>"
     },
@@ -719,14 +742,18 @@
       "interactive": true,
       "cssClasses": {
         "base": "cu-tabs",
-        "parts": ["cu-tabs-list", "cu-tabs-trigger", "cu-tabs-content"],
+        "parts": ["cu-tabs-list", "cu-tabs-trigger", "cu-tabs-content", "cu-tabs-trigger-badge", "cu-tabs-trigger-close", "cu-tabs-list-scrollable", "cu-tabs-scroll-btn", "cu-tabs-scroll-btn-end"],
         "states": ["cu-tabs-trigger-active"],
         "variants": ["cu-tabs-list-pills"]
       },
       "dataAttributes": {
         "container": "data-cu-tabs",
         "trigger": "data-cu-tabs-trigger",
-        "content": "data-cu-tabs-content"
+        "content": "data-cu-tabs-content",
+        "close": "data-cu-tabs-close",
+        "scrollable": "data-cu-tabs-scrollable",
+        "scrollStart": "data-cu-tabs-scroll-start",
+        "scrollEnd": "data-cu-tabs-scroll-end"
       },
       "aria": ["tablist", "tab", "tabpanel"],
       "notes": "trigger and content values must match. Default active tab: add cu-tabs-trigger-active to trigger and DO NOT add hidden to its content. Add hidden to all inactive content panels.",
@@ -1084,6 +1111,236 @@
       },
       "notes": "Drag-to-resize panel layout. Default is horizontal (col-resize); add cu-resizable-vertical for vertical (row-resize). Panel sizes controlled via flex-grow, auto-distributed equally on init. Handles support mouse, touch, and keyboard (arrow keys, step=5). Min/max constraints via data-cu-min-size / data-cu-max-size (percentage values). data-cu-resizing attribute set on handle during active drag.",
       "example": "<div class=\"cu-resizable\" data-cu-resizable><div class=\"cu-resizable-panel\" data-cu-resizable-panel data-cu-min-size=\"20\">Left</div><div class=\"cu-resizable-handle\" data-cu-resizable-handle tabindex=\"0\"></div><div class=\"cu-resizable-panel\" data-cu-resizable-panel>Right</div></div>"
+    },
+    {
+      "name": "Toggle Group",
+      "category": "forms",
+      "interactive": true,
+      "cssClasses": {
+        "base": "cu-toggle-group",
+        "parts": ["cu-toggle-group-item", "cu-toggle-group-item-active"],
+        "variants": ["cu-toggle-group-outline", "cu-toggle-group-multiple"],
+        "sizes": ["cu-toggle-group-sm", "cu-toggle-group-lg"],
+        "modifiers": ["cu-toggle-group-block"]
+      },
+      "dataAttributes": {
+        "container": "data-cu-toggle-group",
+        "multiple": "data-cu-toggle-group-multiple"
+      },
+      "notes": "Switchable button group. Single selection by default; add data-cu-toggle-group-multiple for multi-select. Outline variant for bordered style. Fires cu:toggle-group:change event.",
+      "example": "<div class=\"cu-toggle-group\" data-cu-toggle-group><button class=\"cu-toggle-group-item cu-toggle-group-item-active\">A</button><button class=\"cu-toggle-group-item\">B</button></div>"
+    },
+    {
+      "name": "Rating",
+      "category": "forms",
+      "interactive": true,
+      "cssClasses": {
+        "base": "cu-rating",
+        "parts": ["cu-rating-item", "cu-rating-item-active", "cu-rating-item-half"],
+        "sizes": ["cu-rating-sm", "cu-rating-lg"],
+        "modifiers": ["cu-rating-readonly", "cu-rating-disabled"]
+      },
+      "dataAttributes": {
+        "container": "data-cu-rating",
+        "star": "data-cu-rating-star",
+        "value": "data-cu-rating-value"
+      },
+      "notes": "Star rating component. Use cu-rating-readonly for display-only, data-cu-rating for interactive. Half stars via cu-rating-item-half with CSS clip-path. Fires cu:rating:change event.",
+      "example": "<div class=\"cu-rating cu-rating-readonly\"><span class=\"cu-rating-item cu-rating-item-active\">★</span><span class=\"cu-rating-item cu-rating-item-active\">★</span><span class=\"cu-rating-item\">★</span></div>"
+    },
+    {
+      "name": "Tag Input",
+      "category": "forms",
+      "interactive": true,
+      "cssClasses": {
+        "base": "cu-tag-input",
+        "parts": ["cu-tag-input-field", "cu-tag-input-tag", "cu-tag-input-tag-remove"],
+        "variants": ["cu-tag-input-primary", "cu-tag-input-outline"],
+        "modifiers": ["cu-tag-input-disabled", "cu-tag-input-error", "cu-tag-input-success"]
+      },
+      "dataAttributes": {
+        "container": "data-cu-tag-input",
+        "field": "data-cu-tag-input-field",
+        "maxTags": "data-cu-tag-max",
+        "tagValue": "data-cu-tag-value"
+      },
+      "notes": "Tag/chip input with Enter to add and Backspace to remove. Prevents duplicate tags. Max tags limit via data-cu-tag-max. Fires cu:tag-input:change event.",
+      "example": "<div class=\"cu-tag-input\" data-cu-tag-input><span class=\"cu-tag-input-tag\" data-cu-tag-value=\"Tag\">Tag<button class=\"cu-tag-input-tag-remove\">&times;</button></span><input class=\"cu-tag-input-field\" data-cu-tag-input-field placeholder=\"Add tag...\"/></div>"
+    },
+    {
+      "name": "Marquee",
+      "category": "dataDisplay",
+      "interactive": false,
+      "cssClasses": {
+        "base": "cu-marquee",
+        "parts": ["cu-marquee-content", "cu-marquee-item"],
+        "modifiers": ["cu-marquee-reverse", "cu-marquee-vertical", "cu-marquee-fade", "cu-marquee-pause-on-hover"]
+      },
+      "notes": "Infinite scrolling content (logo walls, testimonials). Pure CSS animation, no JS needed. Duplicate cu-marquee-content (with aria-hidden) for seamless loop. Speed via --cu-marquee-duration CSS variable (default: 30s).",
+      "example": "<div class=\"cu-marquee cu-marquee-fade\" style=\"--cu-marquee-duration: 20s;\"><div class=\"cu-marquee-content\"><span class=\"cu-marquee-item\">A</span><span class=\"cu-marquee-item\">B</span></div><div class=\"cu-marquee-content\" aria-hidden=\"true\"><span class=\"cu-marquee-item\">A</span><span class=\"cu-marquee-item\">B</span></div></div>"
+    },
+    {
+      "name": "Sortable List",
+      "category": "dataDisplay",
+      "interactive": true,
+      "cssClasses": {
+        "base": "cu-sortable-list",
+        "parts": ["cu-sortable-item", "cu-sortable-handle", "cu-sortable-content", "cu-sortable-placeholder"],
+        "variants": ["cu-sortable-list-bordered", "cu-sortable-list-compact"],
+        "modifiers": ["cu-sortable-item-dragging", "cu-sortable-item-disabled"]
+      },
+      "dataAttributes": {
+        "container": "data-cu-sortable-list",
+        "item": "data-cu-sortable-item",
+        "handle": "data-cu-sortable-handle"
+      },
+      "notes": "Drag-and-drop reorderable list using native HTML Drag and Drop API. Items must have draggable=\"true\". Fires cu:sortable:change event with new order. Disabled items via cu-sortable-item-disabled.",
+      "example": "<div class=\"cu-sortable-list\" data-cu-sortable-list><div class=\"cu-sortable-item\" data-cu-sortable-item draggable=\"true\"><span class=\"cu-sortable-handle\" data-cu-sortable-handle>⠿</span><div class=\"cu-sortable-content\">Item</div></div></div>"
+    },
+    {
+      "name": "Countdown",
+      "category": "dataDisplay",
+      "interactive": true,
+      "cssClasses": {
+        "base": "cu-countdown",
+        "parts": ["cu-countdown-segment", "cu-countdown-value", "cu-countdown-label", "cu-countdown-separator"],
+        "sizes": ["cu-countdown-sm", "cu-countdown-lg"],
+        "modifiers": ["cu-countdown-flush", "cu-countdown-complete"]
+      },
+      "dataAttributes": {
+        "container": "data-cu-countdown",
+        "target": "data-cu-countdown-target",
+        "days": "data-cu-countdown-days",
+        "hours": "data-cu-countdown-hours",
+        "minutes": "data-cu-countdown-minutes",
+        "seconds": "data-cu-countdown-seconds"
+      },
+      "notes": "Countdown timer to a target ISO date. Auto-updates every second. Fires cu:countdown:complete when done. Use cu-countdown-flush for minimal look.",
+      "example": "<div class=\"cu-countdown\" data-cu-countdown data-cu-countdown-target=\"2026-12-31T00:00:00\"><div class=\"cu-countdown-segment\"><span class=\"cu-countdown-value\" data-cu-countdown-days>00</span><span class=\"cu-countdown-label\">Days</span></div></div>"
+    },
+    {
+      "name": "Image Compare",
+      "category": "dataDisplay",
+      "interactive": true,
+      "cssClasses": {
+        "base": "cu-image-compare",
+        "parts": ["cu-image-compare-before", "cu-image-compare-after", "cu-image-compare-handle", "cu-image-compare-handle-line", "cu-image-compare-handle-grip", "cu-image-compare-label"],
+        "modifiers": ["cu-image-compare-vertical", "cu-image-compare-label-before", "cu-image-compare-label-after"]
+      },
+      "dataAttributes": {
+        "container": "data-cu-image-compare"
+      },
+      "notes": "Before/after image comparison slider. Drag handle to reveal. Position controlled via --cu-compare-position CSS variable. Supports touch events.",
+      "example": "<div class=\"cu-image-compare\" data-cu-image-compare><img class=\"cu-image-compare-after\" src=\"after.jpg\"/><img class=\"cu-image-compare-before\" src=\"before.jpg\"/><div class=\"cu-image-compare-handle\"><div class=\"cu-image-compare-handle-line\"></div><div class=\"cu-image-compare-handle-grip\">⇔</div></div></div>"
+    },
+    {
+      "name": "Floating Label",
+      "category": "forms",
+      "interactive": false,
+      "cssClasses": {
+        "base": "cu-floating-label",
+        "parts": ["cu-floating-label-input", "cu-floating-label-text", "cu-floating-label-textarea"],
+        "modifiers": ["cu-floating-label-error", "cu-floating-label-success"]
+      },
+      "notes": "Material Design-style floating label. Input MUST have placeholder=\" \" (space) for CSS :placeholder-shown to work. Label must come after input in DOM.",
+      "example": "<div class=\"cu-floating-label\"><input class=\"cu-floating-label-input\" placeholder=\" \"/><label class=\"cu-floating-label-text\">Email</label></div>"
+    },
+    {
+      "name": "Notification",
+      "category": "feedback",
+      "interactive": false,
+      "cssClasses": {
+        "base": "cu-notification",
+        "parts": ["cu-notification-icon", "cu-notification-content", "cu-notification-title", "cu-notification-description", "cu-notification-time", "cu-notification-actions", "cu-notification-close"],
+        "variants": ["cu-notification-info", "cu-notification-success", "cu-notification-warning", "cu-notification-destructive"],
+        "modifiers": ["cu-notification-unread", "cu-notification-list"]
+      },
+      "notes": "Static notification cards for activity feeds and notification panels. For floating alerts, use Toast instead. Unread state via cu-notification-unread.",
+      "example": "<div class=\"cu-notification\"><div class=\"cu-notification-icon\">🔔</div><div class=\"cu-notification-content\"><div class=\"cu-notification-title\">Title</div><div class=\"cu-notification-description\">Description</div></div></div>"
+    },
+    {
+      "name": "Speed Dial",
+      "category": "navigation",
+      "interactive": true,
+      "cssClasses": {
+        "base": "cu-speed-dial",
+        "parts": ["cu-speed-dial-trigger", "cu-speed-dial-actions", "cu-speed-dial-action", "cu-speed-dial-action-btn", "cu-speed-dial-action-label"],
+        "variants": ["cu-speed-dial-bottom-right", "cu-speed-dial-bottom-left", "cu-speed-dial-top-right", "cu-speed-dial-top-left"],
+        "modifiers": ["cu-speed-dial-sm", "cu-speed-dial-horizontal"]
+      },
+      "dataAttributes": {
+        "container": "data-cu-speed-dial",
+        "trigger": "data-cu-speed-dial-trigger",
+        "actions": "data-cu-speed-dial-actions"
+      },
+      "notes": "Floating action button with expandable actions. Click trigger to toggle. Closes on outside click. Staggered animation on actions. Trigger rotates 45deg when open.",
+      "example": "<div class=\"cu-speed-dial cu-speed-dial-bottom-right\" data-cu-speed-dial><div class=\"cu-speed-dial-actions\" data-cu-speed-dial-actions><div class=\"cu-speed-dial-action\"><button class=\"cu-speed-dial-action-btn\">✏️</button></div></div><button class=\"cu-speed-dial-trigger\" data-cu-speed-dial-trigger>+</button></div>"
+    },
+    {
+      "name": "Back to Top",
+      "category": "navigation",
+      "interactive": true,
+      "cssClasses": {
+        "base": "cu-back-to-top",
+        "variants": ["cu-back-to-top-primary"],
+        "sizes": ["cu-back-to-top-sm", "cu-back-to-top-lg"],
+        "modifiers": ["cu-back-to-top-left"]
+      },
+      "dataAttributes": {
+        "container": "data-cu-back-to-top",
+        "threshold": "data-cu-back-to-top-threshold"
+      },
+      "notes": "Scroll-to-top button. Auto shows/hides based on scroll position. Default threshold: 300px, customizable via data-cu-back-to-top-threshold. Smooth scrolls to top on click.",
+      "example": "<button class=\"cu-back-to-top\" data-cu-back-to-top data-cu-back-to-top-threshold=\"300\">↑</button>"
+    },
+    {
+      "name": "Diff Viewer",
+      "category": "dataDisplay",
+      "interactive": false,
+      "cssClasses": {
+        "base": "cu-diff-viewer",
+        "parts": ["cu-diff-viewer-header", "cu-diff-viewer-filename", "cu-diff-viewer-line", "cu-diff-viewer-line-number", "cu-diff-viewer-line-content", "cu-diff-viewer-hunk", "cu-diff-viewer-side", "cu-diff-viewer-side-header", "cu-diff-viewer-expand"],
+        "variants": ["cu-diff-viewer-line-added", "cu-diff-viewer-line-removed", "cu-diff-viewer-line-unchanged"],
+        "modifiers": ["cu-diff-viewer-side-by-side", "cu-diff-viewer-word-added", "cu-diff-viewer-word-removed"]
+      },
+      "notes": "Code diff viewer with unified or side-by-side layout. Lines use ::before pseudo for +/- prefix. Word-level highlighting via inline spans.",
+      "example": "<div class=\"cu-diff-viewer\"><div class=\"cu-diff-viewer-header\"><span class=\"cu-diff-viewer-filename\">file.js</span></div><div class=\"cu-diff-viewer-line cu-diff-viewer-line-added\"><span class=\"cu-diff-viewer-line-number\">1</span><span class=\"cu-diff-viewer-line-content\">added line</span></div></div>"
+    },
+    {
+      "name": "Kanban",
+      "category": "layout",
+      "interactive": true,
+      "cssClasses": {
+        "base": "cu-kanban",
+        "parts": ["cu-kanban-column", "cu-kanban-column-header", "cu-kanban-column-title", "cu-kanban-column-count", "cu-kanban-column-body", "cu-kanban-card", "cu-kanban-card-title", "cu-kanban-card-description", "cu-kanban-card-footer", "cu-kanban-card-tag", "cu-kanban-add", "cu-kanban-placeholder"],
+        "variants": ["cu-kanban-card-tag-primary", "cu-kanban-card-tag-success", "cu-kanban-card-tag-warning", "cu-kanban-card-tag-destructive", "cu-kanban-card-tag-info"],
+        "modifiers": ["cu-kanban-compact", "cu-kanban-card-dragging", "cu-kanban-column-body-dragover"]
+      },
+      "dataAttributes": {
+        "container": "data-cu-kanban",
+        "column": "data-cu-kanban-column",
+        "columnBody": "data-cu-kanban-column-body",
+        "card": "data-cu-kanban-card"
+      },
+      "notes": "Drag-and-drop kanban board. Cards move between columns via native HTML DnD. Auto-updates column counts. Fires cu:kanban:change event.",
+      "example": "<div class=\"cu-kanban\" data-cu-kanban><div class=\"cu-kanban-column\" data-cu-kanban-column><div class=\"cu-kanban-column-header\"><span class=\"cu-kanban-column-title\">To Do</span><span class=\"cu-kanban-column-count\">2</span></div><div class=\"cu-kanban-column-body\" data-cu-kanban-column-body><div class=\"cu-kanban-card\" data-cu-kanban-card draggable=\"true\"><div class=\"cu-kanban-card-title\">Task</div></div></div></div></div>"
+    },
+    {
+      "name": "Tour",
+      "category": "overlay",
+      "interactive": true,
+      "cssClasses": {
+        "base": "cu-tour-overlay",
+        "parts": ["cu-tour-spotlight", "cu-tour-tooltip", "cu-tour-tooltip-title", "cu-tour-tooltip-description", "cu-tour-tooltip-footer", "cu-tour-tooltip-progress", "cu-tour-tooltip-actions", "cu-tour-tooltip-arrow", "cu-tour-dots", "cu-tour-dot"],
+        "modifiers": ["cu-tour-dot-active", "cu-tour-target", "cu-tour-tooltip-arrow-top", "cu-tour-tooltip-arrow-bottom", "cu-tour-tooltip-arrow-left", "cu-tour-tooltip-arrow-right"]
+      },
+      "dataAttributes": {
+        "container": "data-cu-tour",
+        "steps": "data-cu-tour-steps",
+        "auto": "data-cu-tour-auto"
+      },
+      "notes": "Guided tour overlay. Steps defined as JSON array in data-cu-tour-steps. Each step: { target, title, description, placement }. Auto-start via data-cu-tour-auto or programmatic via cu:tour:start event. Fires cu:tour:complete when done.",
+      "example": "<div data-cu-tour data-cu-tour-steps='[{\"target\":\"#btn\",\"title\":\"Click here\",\"description\":\"This button does something.\"}]'></div>"
     }
   ]
 }

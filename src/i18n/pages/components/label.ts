@@ -9,6 +9,8 @@ export const labelPage: Record<Locale, {
     classes: { title: string; classLabel: string; descriptionLabel: string };
     withInput: { title: string; description: string };
     requiredIndicator: { title: string; description: string };
+    optional: { title: string; description: string };
+    withTooltip: { title: string; description: string };
   };
   classDescriptions: Record<string, string>;
 }> = {
@@ -33,6 +35,14 @@ export const labelPage: Record<Locale, {
       requiredIndicator: {
         title: 'Required Indicator',
         description: 'Add <code class="cu-code">cu-label-required</code> to automatically append a red asterisk, or manually add one with <code class="cu-code">text-destructive</code>.',
+      },
+      optional: {
+        title: 'Optional Label',
+        description: 'Display an \'(optional)\' indicator for non-required fields to reduce cognitive load on long forms.',
+      },
+      withTooltip: {
+        title: 'With Tooltip',
+        description: 'Pair a label with an info icon and tooltip for additional context without cluttering the form.',
       },
     },
     classDescriptions: {
@@ -61,6 +71,14 @@ export const labelPage: Record<Locale, {
       requiredIndicator: {
         title: '必填標記',
         description: '加入 <code class="cu-code">cu-label-required</code> 自動在文字後方附加紅色星號，或手動以 <code class="cu-code">text-destructive</code> 加入。',
+      },
+      optional: {
+        title: '選填標籤',
+        description: '為非必填欄位顯示「(選填)」標示，降低長表單的認知負擔。',
+      },
+      withTooltip: {
+        title: '搭配 Tooltip',
+        description: '將標籤搭配資訊圖示和 tooltip，在不擾亂表單的情況下提供額外說明。',
       },
     },
     classDescriptions: {

@@ -10,6 +10,9 @@ export const emptyStatePage: Record<Locale, {
     noResults: { title: string; description: string };
     withoutAction: { title: string; description: string };
     errorState: { title: string; description: string };
+    noPermission: { title: string; description: string };
+    maintenance: { title: string; description: string };
+    searchNoResults: { title: string; description: string };
   };
   classDescriptions: Record<string, string>;
 }> = {
@@ -38,6 +41,18 @@ export const emptyStatePage: Record<Locale, {
       errorState: {
         title: 'Error State',
         description: 'Use a destructive color icon with a retry button to indicate a loading failure.',
+      },
+      noPermission: {
+        title: 'No Permission',
+        description: 'Display when the user lacks access to a resource or feature.',
+      },
+      maintenance: {
+        title: 'Maintenance',
+        description: 'Display during scheduled maintenance or downtime periods.',
+      },
+      searchNoResults: {
+        title: 'Search No Results',
+        description: 'Display when a search query returns no matching items.',
       },
     },
     classDescriptions: {
@@ -73,6 +88,18 @@ export const emptyStatePage: Record<Locale, {
       errorState: {
         title: '錯誤狀態',
         description: '使用危險色圖示搭配重試按鈕，表示載入失敗的情境。',
+      },
+      noPermission: {
+        title: '無權限',
+        description: '當使用者缺乏資源或功能存取權限時顯示。',
+      },
+      maintenance: {
+        title: '維護中',
+        description: '在預定維護或停機期間顯示。',
+      },
+      searchNoResults: {
+        title: '搜尋無結果',
+        description: '當搜尋查詢未傳回任何匹配項目時顯示。',
       },
     },
     classDescriptions: {

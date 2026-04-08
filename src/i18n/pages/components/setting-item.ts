@@ -9,6 +9,8 @@ export const settingItemPage: Record<Locale, {
     classes: { title: string; classLabel: string; descriptionLabel: string };
     withButton: { title: string; description: string };
     withSelect: { title: string; description: string };
+    withToggle: { title: string; description: string };
+    grouped: { title: string; description: string };
   };
   classDescriptions: Record<string, string>;
 }> = {
@@ -33,6 +35,14 @@ export const settingItemPage: Record<Locale, {
       withSelect: {
         title: 'With Select',
         description: 'Use select dropdowns for settings with predefined options.',
+      },
+      withToggle: {
+        title: 'With Toggle',
+        description: 'Pair the setting item with a toggle switch for boolean preferences like notifications or dark mode.',
+      },
+      grouped: {
+        title: 'Grouped Settings',
+        description: 'Group multiple setting items in a card with separator dividers for organized settings pages.',
       },
     },
     classDescriptions: {
@@ -64,6 +74,14 @@ export const settingItemPage: Record<Locale, {
       withSelect: {
         title: '搭配下拉選擇',
         description: '為具有預定義選項的設定項目使用下拉選擇框。',
+      },
+      withToggle: {
+        title: '搭配開關',
+        description: '將設定項搭配開關切換器，適用於通知或深色模式等布林偏好設定。',
+      },
+      grouped: {
+        title: '分組設定',
+        description: '在卡片中分組多個設定項並以分隔線區隔，建立有組織的設定頁面。',
       },
     },
     classDescriptions: {

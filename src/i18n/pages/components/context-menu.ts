@@ -9,6 +9,8 @@ export const contextMenuPage: Record<Locale, {
     classes: { title: string; classLabel: string; descriptionLabel: string };
     withLabels: { title: string; description: string };
     withIcons: { title: string; description: string };
+    withCheckbox: { title: string; description: string };
+    withSubmenu: { title: string; description: string };
   };
   classDescriptions: Record<string, string>;
 }> = {
@@ -33,6 +35,14 @@ export const contextMenuPage: Record<Locale, {
       withIcons: {
         title: 'With Icons',
         description: 'Place inline SVGs before the label text. Use <code class="cu-code">cu-dropdown-item-danger</code> for destructive actions.',
+      },
+      withCheckbox: {
+        title: 'With Checkbox Items',
+        description: 'Include checkable items in the context menu for toggling options like visibility or status.',
+      },
+      withSubmenu: {
+        title: 'With Submenu',
+        description: 'Nest a submenu inside a context menu item for hierarchical navigation of options.',
       },
     },
     classDescriptions: {
@@ -66,6 +76,14 @@ export const contextMenuPage: Record<Locale, {
       withIcons: {
         title: '帶圖示',
         description: '在標籤文字前放置行內 SVG。使用 <code class="cu-code">cu-dropdown-item-danger</code> 標示具破壞性的操作。',
+      },
+      withCheckbox: {
+        title: '帶核取項目',
+        description: '在右鍵選單中加入可勾選項目，用於切換可見性或狀態等選項。',
+      },
+      withSubmenu: {
+        title: '帶子選單',
+        description: '在右鍵選單項目中巢狀子選單，實現選項的層級導航。',
       },
     },
     classDescriptions: {

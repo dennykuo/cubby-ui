@@ -15,6 +15,7 @@ Cubby UI 是一個框架無關的 UI 元件庫，風格類似 shadcn/ui，使用
 - `npm run build:docs` — 建置文檔站點至 `docs/`（自動先執行 `i18n:routes`）
 - `npm run build:lib` — 同 `build`（向後相容別名）
 - `npm run preview` — 預覽建置結果
+- `npm run build:blade` — 將 Astro 元件轉換為 Laravel Blade 匿名元件，輸出至 `dist/blade-components/cu/`（支援 `--dry-run` 預覽不寫入、`--verbose` 詳細輸出）
 - `npm run i18n:routes` — 將 `src/pages/` 下的英文頁面複製到 `src/pages/zh-tw/`，產生中文路由
 
 目前無 lint 或 test 命令。
@@ -40,7 +41,7 @@ Cubby UI 是一個框架無關的 UI 元件庫，風格類似 shadcn/ui，使用
 - `index.ts` — `Locale` 型別、`getLocaleFromUrl()`、`localizePath()`、`getAlternatePath()`、`useTranslations()`
 - `ui.ts` — 共用 UI 翻譯（Header、Sidebar、ComponentPreview 的文字）
 - `pages/home.ts`、`usage.ts`、`theming.ts`、`dark-mode.ts`、`playground.ts` — 核心頁面翻譯
-- `pages/components/*.ts` — 80 個元件頁面翻譯（每頁一個檔案）
+- `pages/components/*.ts` — 85 個元件頁面翻譯（每頁一個檔案）
 
 **頁面 i18n 模式**：每個頁面透過 3 行程式碼取得翻譯：
 ```astro
@@ -62,7 +63,7 @@ const t = useTranslations(buttonPage, locale);
 
 元件有兩個層次：
 
-1. **CSS 類別層**（`src/styles/components.css` + `src/styles/components/*.css`）— 在 `@layer components` 中定義，使用 `cu-` 前綴（Cubby）。`components.css` 僅包含 `@layer components {}` 包裝和 `@import` 語句，各元件 CSS 規則拆分至 `components/` 資料夾的獨立檔案。CSS 按領域分九個區塊：`TYPOGRAPHY`（Headings, Kbd, Paragraph, Blockquote, List, Link, Text, HR）→ `BASIC`（Aspect Ratio, Button, Button Group, Card, Separator）→ `FORMS`（Checkbox, Checkbox Group, Color Picker, Date Picker, Input Group, Listbox, Combobox, Password Input, Pin Input ~ Transfer List）→ `DATA DISPLAY`（Accordion, Avatar, Badge, Code Block, Collapsible, Data Table, Setting Item, Stat, Table, Timeline, Tree View）→ `FEEDBACK`（Alert, Empty State, Progress, Skeleton, Toast）→ `OVERLAY`（Alert Dialog, Command Palette, Context Menu, Dialog, Drawer, Dropdown, Hover Card, Popover, Tooltip）→ `NAVIGATION`（Breadcrumb, Menubar, Pagination, Segmented Control, Steps, Tabs）→ `LAYOUT`（Carousel, Container, Filter Bar, Header, Nav, Page Header, Resizable Panels, Scroll Area, Sidebar, Toolbar）→ `AI`（Chat Bubble, Chat Input, Chat Typing）。這是元件的核心，純 HTML 專案可以只用這些 CSS 類別。共用結構透過 `listbox.css` 以逗號選擇器去重（Combobox / Multi Select 共用 7 組 class）。
+1. **CSS 類別層**（`src/styles/components.css` + `src/styles/components/*.css`）— 在 `@layer components` 中定義，使用 `cu-` 前綴（Cubby）。`components.css` 僅包含 `@layer components {}` 包裝和 `@import` 語句，各元件 CSS 規則拆分至 `components/` 資料夾的獨立檔案。CSS 按領域分九個區塊：`TYPOGRAPHY`（Headings, Kbd, Paragraph, Blockquote, List, Link, Text, HR）→ `BASIC`（Aspect Ratio, Button, Button Group, Card, Separator）→ `FORMS`（Checkbox, Checkbox Group, Color Picker, Date Picker, Floating Label, Input Group, Listbox, Combobox, Password Input, Pin Input, Rating, Tag Input, Toggle Group ~ Transfer List）→ `DATA DISPLAY`（Accordion, Avatar, Badge, Code Block, Collapsible, Countdown, Data Table, Diff Viewer, Image Compare, Marquee, Setting Item, Sortable List, Stat, Table, Timeline, Tree View）→ `FEEDBACK`（Alert, Empty State, Progress, Skeleton, Toast）→ `OVERLAY`（Alert Dialog, Command Palette, Context Menu, Dialog, Drawer, Dropdown, Hover Card, Popover, Tooltip）→ `NAVIGATION`（Breadcrumb, Menubar, Pagination, Segmented Control, Steps, Tabs）→ `LAYOUT`（Carousel, Container, Filter Bar, Header, Nav, Page Header, Resizable Panels, Scroll Area, Sidebar, Toolbar）→ `AI`（Chat Bubble, Chat Input, Chat Typing）。這是元件的核心，純 HTML 專案可以只用這些 CSS 類別。共用結構透過 `listbox.css` 以逗號選擇器去重（Combobox / Multi Select 共用 7 組 class）。
 2. **Astro 元件層**（`src/components/ui/`）— 包裝 CSS 類別的 `.astro` 檔案，提供 TypeScript Props 型別安全和屬性透傳。
 
 ### CSS 類別命名規則
@@ -117,6 +118,20 @@ const t = useTranslations(buttonPage, locale);
 - Pin Input 預設 `h-10 w-10`（非標準表單 `h-9`），因為正方形格子需要較大尺寸以確保可讀性與點擊面積
 - Textarea 使用 `py-2`（非標準表單 `py-1`），因為多行輸入需要額外垂直間距以提升閱讀體驗
 - Chat 系列元件（Chat Input、Chat Message、Chat Typing）使用 `rounded-2xl`（非標準浮層 `rounded-xl`），遵循 chat UI 慣例（iMessage/WhatsApp 氣泡感）
+- Card 支援水平佈局：`cu-card-horizontal`（flex-row）+ `cu-card-horizontal-img`（w-48 側圖）；頂部圖片 `cu-card-img-top`（負邊距貼合邊框圓角）；可選取 `cu-card-selectable`（`:has(input:checked)` CSS-only 選取）
+- Avatar 方形變體：`cu-avatar-square`（`rounded-lg`）
+- Badge 脈衝動畫：`cu-badge-dot-animated`（在 `cu-badge-dot` 基礎上加入 pulse 動畫）
+- Toast action 按鈕：`cu-toast-action`（容器）+ `cu-toast-action-btn`（按鈕樣式）
+- Timeline 交錯排列：`cu-timeline-alternating`（置中軸線，`:nth-child(odd/even)` 左右交替）
+- Progress 多段：`cu-progress-multi`（flex 容器，多個 `cu-progress-bar` 彩色段落）；環形 `cu-progress-circular`（SVG-based，`stroke-dasharray/dashoffset` 控制填充）
+- Input 可清除：`cu-input-clearable` + `cu-input-clear`（清除按鈕，JS 控制顯隱）
+- Alert 可展開：`cu-alert-expandable-content`（`grid-template-rows: 0fr/1fr` 動畫）+ `cu-alert-expand-trigger`
+- Tabs 徽章：`cu-tabs-trigger-badge`；可關閉：`cu-tabs-trigger-close`（JS 移除 tab）；可捲動：`cu-tabs-list-scrollable` + `cu-tabs-scroll-btn`（JS 捲動控制）
+- Data Table 展開列：`cu-data-table-expand-trigger` + `cu-data-table-expanded-row` + `cu-data-table-expanded-content`
+- Dialog 可捲動：`cu-dialog-body`（`max-height: 85vh`）+ `cu-dialog-scroll`（`overflow-y-auto`）
+- Breadcrumb 摺疊省略：`cu-breadcrumb-ellipsis`（可點擊，搭配 Dropdown 展開隱藏項目）
+- Skeleton 模板：Table Skeleton / List Skeleton（組合現有 `cu-skeleton-*` class）
+- Empty State 場景模板：No Permission / Maintenance / Search No Results
 
 ### NPM 套件打包
 
@@ -138,7 +153,26 @@ dist/
     └── components/
 ```
 
-互動元件 JS 原始檔位於 `src/scripts/cubby-ui.js`，使用 UMD 格式（支援 `require()`、AMD `define()`、`window.CubbyUI`），包含 25 個元件：Tabs、Dropdown、Dialog、Drawer、Alert Dialog、Toast、Popover、Menubar、Combobox、Multi Select、Number Input、Dropzone、Transfer List、Mobile Nav、Password Input、Segmented Control、Pin Input、Checkbox Group、Code Block、Carousel、Context Menu、Resizable Panels、Command Palette、Date Picker（含 Calendar）、Color Picker。Document 級事件監聯器使用 delegated pattern（click + keydown 各一個），避免每個元件實例各自註冊。Toast 內容使用 DOM API（`textContent` / `createElement`）建立，避免 innerHTML XSS 風險。Toast 自動消失時間預設 5000ms，可透過 `data-cu-toast-duration` 自訂。Toast 堆疊上限預設 5 則，可透過 `data-cu-toast-max` 自訂，超出時自動移除最舊通知。
+執行 `npm run build:blade` 後產生：
+
+```
+dist/
+└── blade-components/
+    └── cu/
+        ├── button.blade.php          # 獨立元件
+        ├── card/
+        │   ├── index.blade.php       # 主元件（Card）
+        │   ├── header.blade.php      # 子元件（CardHeader）
+        │   ├── title.blade.php       # 子元件（CardTitle）
+        │   └── ...
+        ├── ...
+        ├── README.md                 # AI 友善文件（Blade 語法範例、props、組合模式）
+        └── components.json           # 結構化元件清單（tag、props、children、dataAttributes）
+```
+
+轉換器腳本位於 `scripts/generate-blade-components.cjs`，搭配 `scripts/blade/parser.cjs`（解析 Astro frontmatter + Props）、`scripts/blade/transformers.cjs`（轉換 template 語法）和 `scripts/blade/generate-ai-docs.cjs`（生成 AI 友善文件）。手動 override 放在 `scripts/blade/overrides/*.blade.php`，會跳過自動轉換直接使用。支援 `--dry-run`（預覽轉換結果，不寫入檔案）和 `--verbose`（印出每個檔案的轉換路徑及完整 Blade 內容）。建置時自動生成 `README.md`（敘述式 Blade 使用文件）和 `components.json`（結構化 metadata），供 AI Agent 在 Laravel 專案中理解和使用元件。
+
+互動元件 JS 原始檔位於 `src/scripts/cubby-ui.js`，使用 UMD 格式（支援 `require()`、AMD `define()`、`window.CubbyUI`），包含 38 個元件：Tabs（含 closable / scrollable）、Dropdown、Dialog、Drawer、Alert Dialog、Toast（含 promise API）、Popover、Menubar、Combobox、Multi Select、Number Input、Dropzone、Transfer List、Mobile Nav、Password Input、Segmented Control、Pin Input、Checkbox Group、Code Block、Carousel、Context Menu、Resizable Panels、Command Palette、Date Picker（含 Calendar）、Color Picker、Toggle Group、Rating、Tag Input、Sortable List、Countdown、Image Compare、Speed Dial、Back to Top、Kanban、Tour、Input Clearable、Alert Expandable、Data Table Expandable。Document 級事件監聯器使用 delegated pattern（click + keydown 各一個），避免每個元件實例各自註冊。Toast 內容使用 DOM API（`textContent` / `createElement`）建立，避免 innerHTML XSS 風險。Toast 自動消失時間預設 5000ms，可透過 `data-cu-toast-duration` 自訂。Toast 堆疊上限預設 5 則，可透過 `data-cu-toast-max` 自訂，超出時自動移除最舊通知。
 
 ARIA 無障礙支援：
 - **Tabs** — `role="tablist/tab/tabpanel"`、`aria-selected`、`aria-controls` / `aria-labelledby` 雙向連結
@@ -156,6 +190,8 @@ ARIA 無障礙支援：
 - `CubbyUI.init()` — 初始化所有互動元件（自動在 DOMContentLoaded 執行，可重複呼叫以初始化動態新增的元素）
 - `CubbyUI.destroy()` — 清除內部追蹤陣列（配合 SPA 路由切換使用）
 - `CubbyUI.refresh()` — 清理已移除元素的過時參照，並重新執行 init()（適用於動態內容更新後）
+- `CubbyUI.toast.show({ title, description?, variant?, duration? })` — 程式化建立 toast 通知，回傳 toast DOM 元素
+- `CubbyUI.toast.promise(promise, { loading, success, error })` — 顯示載入中 toast，Promise resolve 時更新為 success，reject 時更新為 error
 
 `package.json` 的 `exports` 欄位中 `"style"` condition 非 Node.js 標準，但 Vite、Parcel 等打包工具支援。標準引入方式為 `import "cubby-ui/css"`。
 
@@ -261,6 +297,12 @@ src/
 │       ├── Textarea.astro         — 多行輸入框
 │       ├── Toast*.astro            — 通知（Toast, ToastContainer, ToastTitle, ToastDescription, ToastClose）
 │       ├── Toggle.astro           — 開關（純 CSS，size prop）
+│       ├── ToggleGroup*.astro     — 切換群組（ToggleGroup, ToggleGroupItem）
+│       ├── TagInput.astro         — 標籤輸入（互動式新增/移除標籤）
+│       ├── Rating.astro           — 評分（星星評分，支援半星、唯讀）
+│       ├── Marquee.astro          — 跑馬燈（無限滾動內容，純 CSS）
+│       ├── SortableList.astro     — 可排序列表容器
+│       ├── SortableItem.astro     — 可排序列表項目（含拖曳把手）
 │       ├── Timeline*.astro         — 時間軸（Timeline, TimelineItem, TimelineDot, TimelineContent, TimelineTime）
 │       ├── Toolbar*.astro         — 工具列（Toolbar, ToolbarGroup, ToolbarButton, ToolbarSeparator）
 │       ├── TreeView*.astro        — 樹狀結構（TreeView, TreeItem, TreeLeaf）
@@ -346,6 +388,11 @@ src/
 │       ├── timeline.astro
 │       ├── toast.astro
 │       ├── toggle.astro
+│       ├── toggle-group.astro
+│       ├── tag-input.astro
+│       ├── rating.astro
+│       ├── marquee.astro
+│       ├── sortable-list.astro
 │       ├── toolbar.astro
 │       ├── tooltip.astro
 │       ├── tree-view.astro
@@ -432,6 +479,11 @@ src/
         ├── timeline.css
         ├── toast.css
         ├── toggle.css
+        ├── toggle-group.css
+        ├── tag-input.css
+        ├── rating.css
+        ├── marquee.css
+        ├── sortable-list.css
         ├── toolbar.css
         ├── tooltip.css
         ├── tree-view.css
@@ -459,12 +511,12 @@ src/
 元件分類：
 - **Components > Typography** — Headings, Kbd, Paragraphs, Blockquote, Lists, Links, Text, HR
 - **Components > Basic** — Aspect Ratio, Button, Button Group, Card, Color, Separator
-- **Components > Forms** — Checkbox, Checkbox Group, Color Picker, Combobox, Date Picker, Dropzone, File Input, Form Group, Input, Input Group, Label, Multi Select, Number Input, Password Input, Pin Input, Radio, Range, Search Input, Select, Textarea, Toggle, Transfer List
-- **Components > Data Display** — Accordion, Avatar, Badge, Code Block, Collapsible, Data Table, Setting Item, Stat Card, Table, Timeline, Tree View
-- **Components > Feedback** — Alert, Empty State, Progress, Skeleton, Spinner, Toast
-- **Components > Overlay** — Alert Dialog, Command Palette, Context Menu, Dialog, Drawer, Dropdown Menu, Hover Card, Popover, Tooltip
-- **Components > Navigation** — Breadcrumb, Menubar, Pagination, Segmented Control, Steps, Tabs
-- **Components > Layouts** — Carousel, Container, Filter Bar, Header, Nav, Page Header, Resizable Panels, Scroll Area, Sidebar, Toolbar
+- **Components > Forms** — Checkbox, Checkbox Group, Color Picker, Combobox, Date Picker, Dropzone, File Input, Floating Label, Form Group, Input, Input Group, Label, Multi Select, Number Input, Password Input, Pin Input, Radio, Range, Rating, Search Input, Select, Tag Input, Textarea, Toggle, Toggle Group, Transfer List
+- **Components > Data Display** — Accordion, Avatar, Badge, Code Block, Collapsible, Countdown, Data Table, Diff Viewer, Image Compare, Marquee, Setting Item, Sortable List, Stat Card, Table, Timeline, Tree View
+- **Components > Feedback** — Alert, Empty State, Notification, Progress, Skeleton, Spinner, Toast
+- **Components > Overlay** — Alert Dialog, Command Palette, Context Menu, Dialog, Drawer, Dropdown Menu, Hover Card, Popover, Tooltip, Tour
+- **Components > Navigation** — Back to Top, Breadcrumb, Menubar, Pagination, Segmented Control, Speed Dial, Steps, Tabs
+- **Components > Layouts** — Carousel, Container, Filter Bar, Header, Kanban, Nav, Page Header, Resizable Panels, Scroll Area, Sidebar, Toolbar
 - **Components > AI** — Chat Bubble, Chat Input, Chat Typing
 
 #### UI Sidebar 元件（`src/components/ui/Sidebar*.astro`）

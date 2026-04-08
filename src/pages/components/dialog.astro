@@ -96,6 +96,74 @@ const deleteCode = `<button class="cu-button cu-button-destructive cu-button-md"
   </div>
 </dialog>`.trim();
 
+const scrollableCode = `<button class="cu-button cu-button-outline cu-button-md" data-cu-dialog-trigger="scrollable-dialog">Open Scrollable Dialog</button>
+<dialog id="scrollable-dialog" class="cu-dialog" data-cu-dialog>
+  <div class="cu-dialog-body">
+    <div class="cu-dialog-header">
+      <h2 class="cu-dialog-title">Terms of Service</h2>
+      <p class="cu-dialog-description">Please read and accept the terms below.</p>
+    </div>
+    <div class="cu-dialog-scroll">
+      <div class="space-y-4 text-sm text-muted-foreground">
+        <h3 class="font-semibold text-foreground">1. Acceptance of Terms</h3>
+        <p>By accessing and using this service, you accept and agree to be bound by the terms and conditions of this agreement.</p>
+        <h3 class="font-semibold text-foreground">2. Use License</h3>
+        <p>Permission is granted to temporarily download one copy of the materials for personal, non-commercial transitory viewing only.</p>
+        <h3 class="font-semibold text-foreground">3. Disclaimer</h3>
+        <p>The materials on this website are provided on an 'as is' basis. We make no warranties, expressed or implied, and hereby disclaim all warranties.</p>
+        <h3 class="font-semibold text-foreground">4. Limitations</h3>
+        <p>In no event shall the company or its suppliers be liable for any damages arising out of the use or inability to use the materials.</p>
+        <h3 class="font-semibold text-foreground">5. Revisions</h3>
+        <p>We may revise these terms at any time without notice. By using this website you are agreeing to be bound by the current version.</p>
+        <h3 class="font-semibold text-foreground">6. Privacy Policy</h3>
+        <p>Your privacy is important to us. It is our policy to respect your privacy regarding any information we may collect from you.</p>
+      </div>
+    </div>
+    <div class="cu-dialog-footer">
+      <button class="cu-button cu-button-outline cu-button-md" data-cu-dialog-close>Decline</button>
+      <button class="cu-button cu-button-default cu-button-md" data-cu-dialog-close>Accept</button>
+    </div>
+  </div>
+  <button class="cu-dialog-close" data-cu-dialog-close aria-label="Close">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+  </button>
+</dialog>`.trim();
+
+const nestedCode = `<button class="cu-button cu-button-outline cu-button-md" data-cu-dialog-trigger="outer-dialog">Open Dialog</button>
+<dialog id="outer-dialog" class="cu-dialog" data-cu-dialog>
+  <div class="cu-dialog-header">
+    <h2 class="cu-dialog-title">Edit Profile</h2>
+    <p class="cu-dialog-description">Make changes to your profile here.</p>
+  </div>
+  <div class="mt-4 space-y-4">
+    <div class="cu-form-group">
+      <label class="cu-label">Name</label>
+      <input class="cu-input" value="Jane Doe" />
+    </div>
+    <div class="cu-form-group">
+      <label class="cu-label">Email</label>
+      <input class="cu-input" value="jane@example.com" />
+    </div>
+  </div>
+  <div class="cu-dialog-footer">
+    <button class="cu-button cu-button-outline cu-button-md" data-cu-dialog-close>Cancel</button>
+    <button class="cu-button cu-button-destructive cu-button-md" data-cu-dialog-trigger="confirm-dialog">Delete Account</button>
+  </div>
+  <button class="cu-dialog-close" data-cu-dialog-close aria-label="Close">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+  </button>
+</dialog>
+<dialog id="confirm-dialog" class="cu-dialog cu-dialog-sm" data-cu-dialog>
+  <div class="cu-dialog-header">
+    <h2 class="cu-dialog-title">Are you sure?</h2>
+    <p class="cu-dialog-description">This action cannot be undone. Your account and all data will be permanently deleted.</p>
+  </div>
+  <div class="cu-dialog-footer">
+    <button class="cu-button cu-button-outline cu-button-md" data-cu-dialog-close>Cancel</button>
+    <button class="cu-button cu-button-destructive cu-button-md" data-cu-dialog-close>Delete</button>
+  </div>
+</dialog>`.trim();
+
 const successCode = `<button class="cu-button cu-button-outline cu-button-md" data-cu-dialog-trigger="success-dialog">
   Show Success
 </button>
@@ -343,6 +411,94 @@ const successCode = `<button class="cu-button cu-button-outline cu-button-md" da
                     </div>
                     <div class="cu-dialog-footer sm:justify-center">
                         <button class="cu-button cu-button-default cu-button-md" data-cu-dialog-close>Done</button>
+                    </div>
+                </dialog>
+            </ComponentPreview>
+        </section>
+
+        <!-- Scrollable Content -->
+        <section class="space-y-3">
+            <h2 id="scrollable" class="text-lg font-semibold tracking-tight relative group">
+                <a href="#scrollable" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                {t.sections.scrollable.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.scrollable.description} />
+            <ComponentPreview code={scrollableCode}>
+                <button class="cu-button cu-button-outline cu-button-md" data-cu-dialog-trigger="scrollable-dialog">Open Scrollable Dialog</button>
+                <dialog id="scrollable-dialog" class="cu-dialog" data-cu-dialog>
+                    <div class="cu-dialog-body">
+                        <div class="cu-dialog-header">
+                            <h2 class="cu-dialog-title">Terms of Service</h2>
+                            <p class="cu-dialog-description">Please read and accept the terms below.</p>
+                        </div>
+                        <div class="cu-dialog-scroll">
+                            <div class="space-y-4 text-sm text-muted-foreground">
+                                <h3 class="font-semibold text-foreground">1. Acceptance of Terms</h3>
+                                <p>By accessing and using this service, you accept and agree to be bound by the terms and conditions of this agreement.</p>
+                                <h3 class="font-semibold text-foreground">2. Use License</h3>
+                                <p>Permission is granted to temporarily download one copy of the materials for personal, non-commercial transitory viewing only.</p>
+                                <h3 class="font-semibold text-foreground">3. Disclaimer</h3>
+                                <p>The materials on this website are provided on an 'as is' basis. We make no warranties, expressed or implied, and hereby disclaim all warranties.</p>
+                                <h3 class="font-semibold text-foreground">4. Limitations</h3>
+                                <p>In no event shall the company or its suppliers be liable for any damages arising out of the use or inability to use the materials.</p>
+                                <h3 class="font-semibold text-foreground">5. Revisions</h3>
+                                <p>We may revise these terms at any time without notice. By using this website you are agreeing to be bound by the current version.</p>
+                                <h3 class="font-semibold text-foreground">6. Privacy Policy</h3>
+                                <p>Your privacy is important to us. It is our policy to respect your privacy regarding any information we may collect from you.</p>
+                            </div>
+                        </div>
+                        <div class="cu-dialog-footer">
+                            <button class="cu-button cu-button-outline cu-button-md" data-cu-dialog-close>Decline</button>
+                            <button class="cu-button cu-button-default cu-button-md" data-cu-dialog-close>Accept</button>
+                        </div>
+                    </div>
+                    <button class="cu-dialog-close" data-cu-dialog-close aria-label="Close">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+                    </button>
+                </dialog>
+            </ComponentPreview>
+        </section>
+
+        <!-- Nested Dialog -->
+        <section class="space-y-3">
+            <h2 id="nested" class="text-lg font-semibold tracking-tight relative group">
+                <a href="#nested" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                {t.sections.nested.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.nested.description} />
+            <ComponentPreview code={nestedCode}>
+                <button class="cu-button cu-button-outline cu-button-md" data-cu-dialog-trigger="outer-dialog">Open Dialog</button>
+                <dialog id="outer-dialog" class="cu-dialog" data-cu-dialog>
+                    <div class="cu-dialog-header">
+                        <h2 class="cu-dialog-title">Edit Profile</h2>
+                        <p class="cu-dialog-description">Make changes to your profile here.</p>
+                    </div>
+                    <div class="mt-4 space-y-4">
+                        <div class="cu-form-group">
+                            <label class="cu-label">Name</label>
+                            <input class="cu-input" value="Jane Doe" />
+                        </div>
+                        <div class="cu-form-group">
+                            <label class="cu-label">Email</label>
+                            <input class="cu-input" value="jane@example.com" />
+                        </div>
+                    </div>
+                    <div class="cu-dialog-footer">
+                        <button class="cu-button cu-button-outline cu-button-md" data-cu-dialog-close>Cancel</button>
+                        <button class="cu-button cu-button-destructive cu-button-md" data-cu-dialog-trigger="confirm-dialog">Delete Account</button>
+                    </div>
+                    <button class="cu-dialog-close" data-cu-dialog-close aria-label="Close">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+                    </button>
+                </dialog>
+                <dialog id="confirm-dialog" class="cu-dialog cu-dialog-sm" data-cu-dialog>
+                    <div class="cu-dialog-header">
+                        <h2 class="cu-dialog-title">Are you sure?</h2>
+                        <p class="cu-dialog-description">This action cannot be undone. Your account and all data will be permanently deleted.</p>
+                    </div>
+                    <div class="cu-dialog-footer">
+                        <button class="cu-button cu-button-outline cu-button-md" data-cu-dialog-close>Cancel</button>
+                        <button class="cu-button cu-button-destructive cu-button-md" data-cu-dialog-close>Delete</button>
                     </div>
                 </dialog>
             </ComponentPreview>

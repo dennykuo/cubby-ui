@@ -9,6 +9,8 @@ export const numberInputPage: Record<Locale, {
     classes: { title: string; classLabel: string; descriptionLabel: string };
     withMinMax: { title: string; description: string };
     disabled: { title: string; description: string };
+    withPrefixSuffix: { title: string; description: string };
+    currency: { title: string; description: string };
   };
   classDescriptions: Record<string, string>;
 }> = {
@@ -33,6 +35,14 @@ export const numberInputPage: Record<Locale, {
       disabled: {
         title: 'Disabled',
         description: 'Add <code class="cu-code">cu-number-input-disabled</code> to the container and <code class="cu-code">disabled</code> to the buttons and input.',
+      },
+      withPrefixSuffix: {
+        title: 'With Prefix / Suffix',
+        description: 'Wrap the number input with prefix or suffix text to indicate the unit of measurement.',
+      },
+      currency: {
+        title: 'Currency Input',
+        description: 'Combine with a currency symbol prefix for price or monetary value inputs.',
       },
     },
     classDescriptions: {
@@ -63,6 +73,14 @@ export const numberInputPage: Record<Locale, {
       disabled: {
         title: '停用',
         description: '在容器上加入 <code class="cu-code">cu-number-input-disabled</code>，並在按鈕和 input 上加入 <code class="cu-code">disabled</code>。',
+      },
+      withPrefixSuffix: {
+        title: '前綴 / 後綴',
+        description: '在數字輸入框前後加入前綴或後綴文字，指示計量單位。',
+      },
+      currency: {
+        title: '貨幣輸入',
+        description: '搭配貨幣符號前綴，用於價格或金額輸入。',
       },
     },
     classDescriptions: {

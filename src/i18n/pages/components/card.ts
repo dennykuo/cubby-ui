@@ -15,6 +15,9 @@ export const cardPage: Record<Locale, {
     hoverEffect: { title: string; description: string };
     metricCard: { title: string; description: string };
     pricingCards: { title: string; description: string };
+    withImage: { title: string; description: string };
+    horizontal: { title: string; description: string };
+    selectable: { title: string; description: string };
   };
   classDescriptions: Record<string, string>;
 }> = {
@@ -64,6 +67,18 @@ export const cardPage: Record<Locale, {
         title: 'Pricing Cards',
         description: 'A pricing comparison grid. Highlight the recommended plan with a stronger border and shadow.',
       },
+      withImage: {
+        title: 'Card with Image',
+        description: 'Use <code class="cu-code">cu-card-img-top</code> for a top image that sits flush against the card border with matching border radius.',
+      },
+      horizontal: {
+        title: 'Horizontal Card',
+        description: 'Add <code class="cu-code">cu-card-horizontal</code> for a side-by-side layout with an image on the left and content on the right.',
+      },
+      selectable: {
+        title: 'Selectable Card',
+        description: 'Add <code class="cu-code">cu-card-selectable</code> to make cards selectable. Uses CSS <code class="cu-code">:has(input:checked)</code> for pure CSS selection with hidden radio or checkbox inputs.',
+      },
     },
     classDescriptions: {
       'cu-card': 'Base card',
@@ -77,6 +92,10 @@ export const cardPage: Record<Locale, {
       'cu-card-content-sm': 'Compact content padding',
       'cu-card-footer': 'Card footer',
       'cu-card-elevated': 'Higher shadow (shadow-md)',
+      'cu-card-img-top': 'Top image with flush border radius',
+      'cu-card-horizontal': 'Horizontal flex-row layout',
+      'cu-card-horizontal-img': 'Side image for horizontal card (w-48)',
+      'cu-card-selectable': 'Selectable card with ring on checked',
     },
   },
   'zh-tw': {
@@ -125,6 +144,18 @@ export const cardPage: Record<Locale, {
         title: '定價卡片',
         description: '定價比較網格。使用更明顯的邊框和陰影突顯推薦方案。',
       },
+      withImage: {
+        title: '圖片卡片',
+        description: '使用 <code class="cu-code">cu-card-img-top</code> 讓頂部圖片貼合卡片邊框並匹配圓角。',
+      },
+      horizontal: {
+        title: '水平卡片',
+        description: '加入 <code class="cu-code">cu-card-horizontal</code> 建立左右並排佈局，圖片在左、內容在右。',
+      },
+      selectable: {
+        title: '可選取卡片',
+        description: '加入 <code class="cu-code">cu-card-selectable</code> 使卡片可被選取。透過 CSS <code class="cu-code">:has(input:checked)</code> 搭配隱藏的 radio 或 checkbox 實現純 CSS 選取效果。',
+      },
     },
     classDescriptions: {
       'cu-card': '基礎卡片',
@@ -138,6 +169,10 @@ export const cardPage: Record<Locale, {
       'cu-card-content-sm': '緊湊內容內距',
       'cu-card-footer': '卡片頁尾',
       'cu-card-elevated': '更高陰影（shadow-md）',
+      'cu-card-img-top': '頂部圖片（貼合邊框圓角）',
+      'cu-card-horizontal': '水平 flex-row 佈局',
+      'cu-card-horizontal-img': '水平卡片側邊圖片（w-48）',
+      'cu-card-selectable': '可選取卡片（checked 時顯示 ring）',
     },
   },
 };

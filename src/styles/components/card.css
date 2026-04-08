@@ -43,3 +43,27 @@
 .cu-card-footer {
     @apply flex items-center p-6 pt-0;
 }
+
+/* Card with Image */
+.cu-card-img-top {
+    @apply -mx-px -mt-px w-[calc(100%+2px)] rounded-t-xl object-cover;
+}
+
+/* Horizontal Card */
+.cu-card-horizontal {
+    @apply flex flex-row overflow-hidden;
+}
+
+.cu-card-horizontal-img {
+    @apply w-48 shrink-0 object-cover;
+}
+
+/* Selectable Card */
+.cu-card-selectable {
+    @apply cursor-pointer transition-[box-shadow,border-color] duration-200 hover:border-primary/30;
+}
+
+.cu-card-selectable:has(input:checked),
+.cu-card-selectable[aria-selected="true"] {
+    @apply border-primary ring-2 ring-primary/20;
+}

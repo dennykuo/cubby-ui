@@ -14,6 +14,7 @@ export const dataTablePage: Record<Locale, {
     responsive: { title: string; description: string };
     emptyState: { title: string; description: string };
     loading: { title: string; description: string };
+    expandableRows: { title: string; description: string };
   };
   classDescriptions: Record<string, string>;
 }> = {
@@ -53,11 +54,15 @@ export const dataTablePage: Record<Locale, {
       },
       emptyState: {
         title: 'Empty State',
-        description: 'Display a helpful message when no data matches the current filters or search.',
+        description: 'Display a meaningful empty state when the table has no data. Embed the Empty State component inside a full-width table cell.',
       },
       loading: {
         title: 'Loading Skeleton',
         description: 'Use skeleton placeholders to indicate data is being loaded.',
+      },
+      expandableRows: {
+        title: 'Expandable Rows',
+        description: 'Add <code class="cu-code">data-cu-data-table-expandable</code> to the table wrapper and <code class="cu-code">data-cu-expand-row</code> on expand trigger buttons. Each expandable row is followed by a hidden row containing the expanded content.',
       },
     },
     classDescriptions: {
@@ -70,6 +75,9 @@ export const dataTablePage: Record<Locale, {
       'cu-data-table-striped': 'Alternating row backgrounds',
       'cu-data-table-info': 'Footer info bar (selection count, pagination, etc.)',
       'cu-table-stacked': 'Mobile stacked card layout (≤640px)',
+      'cu-data-table-expand-trigger': 'Expand/collapse trigger button for rows',
+      'cu-data-table-expanded-row': 'Active state for parent row when expanded',
+      'cu-data-table-expanded-content': 'Content area inside expanded row',
     },
   },
   'zh-tw': {
@@ -108,11 +116,15 @@ export const dataTablePage: Record<Locale, {
       },
       emptyState: {
         title: '空狀態',
-        description: '當沒有資料符合目前的篩選條件或搜尋時，顯示友善的提示訊息。',
+        description: '當表格無資料時顯示有意義的空狀態。在全寬表格儲存格中嵌入 Empty State 元件。',
       },
       loading: {
         title: '載入骨架',
         description: '使用骨架佔位符來指示資料正在載入中。',
+      },
+      expandableRows: {
+        title: '可展開列',
+        description: '在表格包裝器上加入 <code class="cu-code">data-cu-data-table-expandable</code>，並在展開觸發按鈕上加入 <code class="cu-code">data-cu-expand-row</code>。每個可展開列後面跟著一個隱藏列，包含展開的內容。',
       },
     },
     classDescriptions: {
@@ -125,6 +137,9 @@ export const dataTablePage: Record<Locale, {
       'cu-data-table-striped': '交替列背景',
       'cu-data-table-info': '底部資訊列（選取數量、分頁等）',
       'cu-table-stacked': '行動端堆疊卡片佈局（≤640px）',
+      'cu-data-table-expand-trigger': '列的展開/收合觸發按鈕',
+      'cu-data-table-expanded-row': '展開時父列的啟用狀態',
+      'cu-data-table-expanded-content': '展開列內的內容區域',
     },
   },
 };

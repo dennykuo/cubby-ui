@@ -13,6 +13,8 @@ export const progressPage: Record<Locale, {
     withLabel: { title: string; description: string };
     customColors: { title: string; description: string };
     striped: { title: string; description: string };
+    multiSegment: { title: string; description: string };
+    circular: { title: string; description: string };
   };
   classDescriptions: Record<string, string>;
 }> = {
@@ -54,6 +56,14 @@ export const progressPage: Record<Locale, {
         title: 'Striped',
         description: 'Add <code class="cu-code">cu-progress-bar-striped</code> for a striped pattern. Combine with <code class="cu-code">cu-progress-bar-striped-animated</code> for a moving stripe animation.',
       },
+      multiSegment: {
+        title: 'Multi-Segment',
+        description: 'Use <code class="cu-code">cu-progress-multi</code> to display multiple colored segments in a single progress bar, useful for usage breakdowns or category distributions.',
+      },
+      circular: {
+        title: 'Circular Progress',
+        description: 'Use <code class="cu-code">cu-progress-circular</code> for SVG-based ring progress indicators. Set <code class="cu-code">stroke-dasharray</code> to the circle circumference and <code class="cu-code">stroke-dashoffset</code> to control the fill level.',
+      },
     },
     classDescriptions: {
       'cu-progress': 'Progress bar outer track',
@@ -69,6 +79,12 @@ export const progressPage: Record<Locale, {
       'cu-progress-value': 'Percentage value on the right',
       'cu-progress-bar-striped': 'Striped pattern overlay on progress bar',
       'cu-progress-bar-striped-animated': 'Animated stripes (add with cu-progress-bar-striped)',
+      'cu-progress-multi': 'Multi-segment progress container',
+      'cu-progress-circular': 'Circular SVG progress container',
+      'cu-progress-circular-track': 'Circular background track',
+      'cu-progress-circular-bar': 'Circular progress bar stroke',
+      'cu-progress-circular-value': 'Centered value label',
+      'cu-progress-circular-indeterminate': 'Spinning animation for indeterminate state',
     },
   },
   'zh-tw': {
@@ -109,6 +125,14 @@ export const progressPage: Record<Locale, {
         title: '條紋',
         description: '加入 <code class="cu-code">cu-progress-bar-striped</code> 以顯示條紋圖案。搭配 <code class="cu-code">cu-progress-bar-striped-animated</code> 可產生移動條紋動畫。',
       },
+      multiSegment: {
+        title: '多段進度條',
+        description: '使用 <code class="cu-code">cu-progress-multi</code> 在單一進度條中顯示多個彩色段落，適用於用量分佈或類別佔比。',
+      },
+      circular: {
+        title: '環形進度條',
+        description: '使用 <code class="cu-code">cu-progress-circular</code> 建立基於 SVG 的環形進度指示器。設定 <code class="cu-code">stroke-dasharray</code> 為圓周長，<code class="cu-code">stroke-dashoffset</code> 控制填充量。',
+      },
     },
     classDescriptions: {
       'cu-progress': '進度條外層軌道',
@@ -124,6 +148,12 @@ export const progressPage: Record<Locale, {
       'cu-progress-value': '右側百分比數值',
       'cu-progress-bar-striped': '進度條條紋圖案',
       'cu-progress-bar-striped-animated': '條紋動畫（搭配 cu-progress-bar-striped）',
+      'cu-progress-multi': '多段進度條容器',
+      'cu-progress-circular': '環形 SVG 進度條容器',
+      'cu-progress-circular-track': '環形背景軌道',
+      'cu-progress-circular-bar': '環形進度條描邊',
+      'cu-progress-circular-value': '置中數值標籤',
+      'cu-progress-circular-indeterminate': '不確定狀態旋轉動畫',
     },
   },
 };

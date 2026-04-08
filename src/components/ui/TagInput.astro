@@ -1,0 +1,30 @@
+---
+import { TOP_CLASS } from "../../config";
+
+interface Props {
+    placeholder?: string;
+    variant?: "default" | "primary" | "outline";
+    disabled?: boolean;
+    class?: string;
+    [key: string]: any;
+}
+
+const { placeholder = "Add tag...", variant, disabled, class: className, ...rest } = Astro.props;
+const baseClass = `${TOP_CLASS}-tag-input`;
+const variantClass = variant && variant !== "default" ? `${baseClass}-${variant}` : undefined;
+const disabledClass = disabled ? `${baseClass}-disabled` : undefined;
+---
+
+<div
+    class:list={[baseClass, variantClass, disabledClass, className]}
+    data-cu-tag-input
+    {...rest}
+>
+    <input
+        type="text"
+        class={`${TOP_CLASS}-tag-input-field`}
+        placeholder={placeholder}
+        disabled={disabled}
+        data-cu-tag-input-field
+    />
+</div>

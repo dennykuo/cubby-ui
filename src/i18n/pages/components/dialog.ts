@@ -11,6 +11,8 @@ export const dialogPage: Record<Locale, {
     withForm: { title: string; description: string };
     destructiveConfirmation: { title: string; description: string };
     successState: { title: string; description: string };
+    scrollable: { title: string; description: string };
+    nested: { title: string; description: string };
   };
   classDescriptions: Record<string, string>;
 }> = {
@@ -44,6 +46,14 @@ export const dialogPage: Record<Locale, {
         title: 'Success State',
         description: 'A centered dialog for success confirmations. Use a smaller <code class="cu-code">max-w-sm</code> width.',
       },
+      scrollable: {
+        title: 'Scrollable Content',
+        description: 'Use <code class="cu-code">cu-dialog-body</code> and <code class="cu-code">cu-dialog-scroll</code> to create a dialog with a fixed header/footer and scrollable middle section.',
+      },
+      nested: {
+        title: 'Nested Dialog',
+        description: 'Open a second dialog from within the first. Native <code class="cu-code">&lt;dialog&gt;</code> elements support stacking via the top-layer API.',
+      },
     },
     classDescriptions: {
       'cu-dialog': 'Dialog container with centered positioning, rounded corners, and open/close animation',
@@ -56,6 +66,8 @@ export const dialogPage: Record<Locale, {
       'cu-dialog-md': 'Medium size (max-w-md)',
       'cu-dialog-xl': 'Extra-large size (max-w-xl)',
       'cu-dialog-full': 'Full size (max-w-3xl)',
+      'cu-dialog-body': 'Flex column with max height for scrollable layout',
+      'cu-dialog-scroll': 'Scrollable content area inside dialog body',
     },
   },
   'zh-tw': {
@@ -88,6 +100,14 @@ export const dialogPage: Record<Locale, {
         title: '成功狀態',
         description: '置中的成功確認對話框。使用較小的 <code class="cu-code">max-w-sm</code> 寬度。',
       },
+      scrollable: {
+        title: '可捲動內容',
+        description: '使用 <code class="cu-code">cu-dialog-body</code> 和 <code class="cu-code">cu-dialog-scroll</code> 建立固定標頭/頁尾、中間可捲動的對話框。',
+      },
+      nested: {
+        title: '巢狀對話框',
+        description: '從第一個對話框中開啟第二個。原生 <code class="cu-code">&lt;dialog&gt;</code> 元素透過 top-layer API 支援堆疊。',
+      },
     },
     classDescriptions: {
       'cu-dialog': 'Dialog 容器，包含置中定位、圓角和開關動畫',
@@ -100,6 +120,8 @@ export const dialogPage: Record<Locale, {
       'cu-dialog-md': '中尺寸（max-w-md）',
       'cu-dialog-xl': '超大尺寸（max-w-xl）',
       'cu-dialog-full': '完整尺寸（max-w-3xl）',
+      'cu-dialog-body': '具有最大高度的 flex 欄佈局（用於可捲動版面）',
+      'cu-dialog-scroll': '對話框主體內的可捲動內容區',
     },
   },
 };

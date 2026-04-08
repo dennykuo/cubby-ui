@@ -12,6 +12,7 @@ export const avatarPage: Record<Locale, {
     avatarGroup: { title: string; description: string };
     withStatusIndicator: { title: string; description: string };
     status: { title: string; description: string };
+    square: { title: string; description: string };
   };
   classDescriptions: Record<string, string>;
 }> = {
@@ -49,6 +50,10 @@ export const avatarPage: Record<Locale, {
         title: 'Status Indicator',
         description: 'Use <code class="cu-code">cu-avatar-status</code> with a size and color class to show online/offline/busy/away status.',
       },
+      square: {
+        title: 'Square Avatar',
+        description: 'Add <code class="cu-code">cu-avatar-square</code> for a rounded-square shape instead of a circle. Useful for workspace or team icons.',
+      },
     },
     classDescriptions: {
       'cu-avatar': 'Avatar container with circular clipping',
@@ -68,6 +73,7 @@ export const avatarPage: Record<Locale, {
       'cu-avatar-status-offline': 'Offline (gray)',
       'cu-avatar-status-busy': 'Busy (red)',
       'cu-avatar-status-away': 'Away (yellow)',
+      'cu-avatar-square': 'Square shape (rounded-lg)',
     },
   },
   'zh-tw': {
@@ -104,6 +110,10 @@ export const avatarPage: Record<Locale, {
         title: '狀態指示',
         description: '使用 <code class="cu-code">cu-avatar-status</code> 搭配尺寸和顏色類別以顯示在線/離線/忙碌/離開狀態。',
       },
+      square: {
+        title: '方形頭像',
+        description: '加入 <code class="cu-code">cu-avatar-square</code> 將圓形改為圓角方形。適用於工作區或團隊圖示。',
+      },
     },
     classDescriptions: {
       'cu-avatar': '頭像容器，圓形裁切',
@@ -123,6 +133,7 @@ export const avatarPage: Record<Locale, {
       'cu-avatar-status-offline': '離線（灰色）',
       'cu-avatar-status-busy': '忙碌（紅色）',
       'cu-avatar-status-away': '離開（黃色）',
+      'cu-avatar-square': '方形外觀（rounded-lg）',
     },
   },
 };

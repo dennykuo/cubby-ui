@@ -21,6 +21,7 @@ export const layoutComponents: NavItem[] = [
   { name: "Container", path: "/components/container" },
   { name: "Filter Bar", path: "/components/filter-bar" },
   { name: "Header", path: "/components/header" },
+  { name: "Kanban", path: "/components/kanban" },
   { name: "Nav", path: "/components/nav" },
   { name: "Page Header", path: "/components/page-header" },
   { name: "Resizable Panels", path: "/components/resizable-panels" },
@@ -54,8 +55,10 @@ export const navigationComponents: NavItem[] = [
   { name: "Menubar", path: "/components/menubar" },
   { name: "Pagination", path: "/components/pagination" },
   { name: "Segmented Control", path: "/components/segmented-control" },
+  { name: "Speed Dial", path: "/components/speed-dial" },
   { name: "Steps", path: "/components/steps" },
   { name: "Tabs", path: "/components/tabs" },
+  { name: "Back to Top", path: "/components/back-to-top" },
 ];
 
 export const dataDisplayComponents: NavItem[] = [
@@ -65,9 +68,14 @@ export const dataDisplayComponents: NavItem[] = [
   { name: "Code Block", path: "/components/code-block" },
   { name: "Collapsible", path: "/components/collapsible" },
   { name: "Data Table", path: "/components/data-table" },
+  { name: "Diff Viewer", path: "/components/diff-viewer" },
   { name: "Setting Item", path: "/components/setting-item" },
   { name: "Stat Card", path: "/components/stat-card" },
   { name: "Table", path: "/components/table" },
+  { name: "Marquee", path: "/components/marquee" },
+  { name: "Countdown", path: "/components/countdown" },
+  { name: "Image Compare", path: "/components/image-compare" },
+  { name: "Sortable List", path: "/components/sortable-list" },
   { name: "Timeline", path: "/components/timeline" },
   { name: "Tree View", path: "/components/tree-view" },
 ];
@@ -80,6 +88,7 @@ export const formComponents: NavItem[] = [
   { name: "Date Picker", path: "/components/date-picker" },
   { name: "Dropzone", path: "/components/dropzone" },
   { name: "File Input", path: "/components/file-input" },
+  { name: "Floating Label", path: "/components/floating-label" },
   { name: "Form Group", path: "/components/form-group" },
   { name: "Input", path: "/components/input" },
   { name: "Input Group", path: "/components/input-group" },
@@ -90,10 +99,13 @@ export const formComponents: NavItem[] = [
   { name: "Pin Input", path: "/components/pin-input" },
   { name: "Radio", path: "/components/radio" },
   { name: "Range", path: "/components/range" },
+  { name: "Rating", path: "/components/rating" },
   { name: "Search Input", path: "/components/search-input" },
   { name: "Select", path: "/components/select" },
+  { name: "Tag Input", path: "/components/tag-input" },
   { name: "Textarea", path: "/components/textarea" },
   { name: "Toggle", path: "/components/toggle" },
+  { name: "Toggle Group", path: "/components/toggle-group" },
   { name: "Transfer List", path: "/components/transfer-list" },
 ];
 
@@ -102,6 +114,7 @@ export const feedbackComponents: NavItem[] = [
   { name: "Empty State", path: "/components/empty-state" },
   { name: "Progress", path: "/components/progress" },
   { name: "Skeleton", path: "/components/skeleton" },
+  { name: "Notification", path: "/components/notification" },
   { name: "Spinner", path: "/components/spinner" },
   { name: "Toast", path: "/components/toast" },
 ];
@@ -116,6 +129,7 @@ export const overlayComponents: NavItem[] = [
   { name: "Hover Card", path: "/components/hover-card" },
   { name: "Popover", path: "/components/popover" },
   { name: "Tooltip", path: "/components/tooltip" },
+  { name: "Tour", path: "/components/tour" },
 ];
 
 export const aiComponents: NavItem[] = [

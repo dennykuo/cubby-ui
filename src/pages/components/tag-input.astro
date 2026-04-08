@@ -1,0 +1,168 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import ComponentPreview from "@/components/ComponentPreview.astro";
+import { getLocaleFromUrl, useTranslations } from "@/i18n";
+import { tagInputPage } from "@/i18n/pages/components/tag-input";
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = useTranslations(tagInputPage, locale);
+
+const usageCode = `<div class="cu-tag-input" data-cu-tag-input>
+  <input type="text" class="cu-tag-input-field" placeholder="Type and press Enter..." data-cu-tag-input-field />
+</div>`.trim();
+
+const withTagsCode = `<div class="cu-tag-input" data-cu-tag-input>
+  <span class="cu-tag-input-tag" data-cu-tag-value="React">
+    React
+    <button class="cu-tag-input-tag-remove" type="button" aria-label="Remove React">
+      <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </span>
+  <span class="cu-tag-input-tag" data-cu-tag-value="Vue">
+    Vue
+    <button class="cu-tag-input-tag-remove" type="button" aria-label="Remove Vue">
+      <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </span>
+  <span class="cu-tag-input-tag" data-cu-tag-value="Svelte">
+    Svelte
+    <button class="cu-tag-input-tag-remove" type="button" aria-label="Remove Svelte">
+      <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </span>
+  <input type="text" class="cu-tag-input-field" placeholder="Add framework..." data-cu-tag-input-field />
+</div>`.trim();
+
+const variantsCode = `<!-- Default -->
+<div class="cu-tag-input" data-cu-tag-input>
+  <span class="cu-tag-input-tag" data-cu-tag-value="Default">Default<button class="cu-tag-input-tag-remove" type="button"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button></span>
+  <input type="text" class="cu-tag-input-field" placeholder="Add tag..." data-cu-tag-input-field />
+</div>
+
+<!-- Primary -->
+<div class="cu-tag-input cu-tag-input-primary" data-cu-tag-input>
+  <span class="cu-tag-input-tag" data-cu-tag-value="Primary">Primary<button class="cu-tag-input-tag-remove" type="button"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button></span>
+  <input type="text" class="cu-tag-input-field" placeholder="Add tag..." data-cu-tag-input-field />
+</div>
+
+<!-- Outline -->
+<div class="cu-tag-input cu-tag-input-outline" data-cu-tag-input>
+  <span class="cu-tag-input-tag" data-cu-tag-value="Outline">Outline<button class="cu-tag-input-tag-remove" type="button"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button></span>
+  <input type="text" class="cu-tag-input-field" placeholder="Add tag..." data-cu-tag-input-field />
+</div>`.trim();
+
+const maxTagsCode = `<div class="cu-tag-input" data-cu-tag-input data-cu-tag-max="3">
+  <span class="cu-tag-input-tag" data-cu-tag-value="One">One<button class="cu-tag-input-tag-remove" type="button"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button></span>
+  <span class="cu-tag-input-tag" data-cu-tag-value="Two">Two<button class="cu-tag-input-tag-remove" type="button"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button></span>
+  <input type="text" class="cu-tag-input-field" placeholder="Max 3 tags..." data-cu-tag-input-field />
+</div>`.trim();
+
+const validationCode = `<!-- Error -->
+<div class="cu-tag-input cu-tag-input-error" data-cu-tag-input>
+  <span class="cu-tag-input-tag" data-cu-tag-value="Invalid">Invalid<button class="cu-tag-input-tag-remove" type="button"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button></span>
+  <input type="text" class="cu-tag-input-field" placeholder="Add tag..." data-cu-tag-input-field />
+</div>
+
+<!-- Success -->
+<div class="cu-tag-input cu-tag-input-success" data-cu-tag-input>
+  <span class="cu-tag-input-tag" data-cu-tag-value="Valid">Valid<button class="cu-tag-input-tag-remove" type="button"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button></span>
+  <input type="text" class="cu-tag-input-field" placeholder="Add tag..." data-cu-tag-input-field />
+</div>`.trim();
+
+const disabledCode = `<div class="cu-tag-input cu-tag-input-disabled">
+  <span class="cu-tag-input-tag" data-cu-tag-value="Locked">Locked</span>
+  <span class="cu-tag-input-tag" data-cu-tag-value="Tag">Tag</span>
+  <input type="text" class="cu-tag-input-field" placeholder="Disabled..." disabled />
+</div>`.trim();
+---
+
+<Layout title={t.title} category={t.category} componentName="Tag Input">
+    <div class="space-y-3">
+        <div class="flex items-center gap-3">
+            <h1 class="text-3xl font-bold tracking-tight">Tag Input</h1>
+            <span class="cu-badge cu-badge-secondary">{t.category}</span>
+        </div>
+        <p class="text-base text-muted-foreground leading-relaxed" set:html={t.description} />
+    </div>
+
+    <div class="mt-10 space-y-10">
+        <section class="space-y-3">
+            <h2 id="usage" class="text-lg font-semibold tracking-tight relative group">
+                <a href="#usage" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                {t.sections.usage.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
+            <ComponentPreview code={usageCode} />
+        </section>
+
+        <section class="space-y-3">
+            <h2 id="classes" class="text-lg font-semibold tracking-tight relative group">
+                <a href="#classes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                {t.sections.classes.title}
+            </h2>
+            <div class="cu-table-wrapper rounded-lg border border-border">
+                <table class="cu-table">
+                    <thead class="cu-table-header">
+                        <tr class="cu-table-row">
+                            <th class="cu-table-head">{t.sections.classes.classLabel}</th>
+                            <th class="cu-table-head">{t.sections.classes.descriptionLabel}</th>
+                        </tr>
+                    </thead>
+                    <tbody class="cu-table-body">
+                        {Object.entries(t.classDescriptions).map(([cls, desc]) => (
+                            <tr class="cu-table-row">
+                                <td class="cu-table-cell"><code class="cu-code">{cls}</code></td>
+                                <td class="cu-table-cell text-muted-foreground">{desc}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class="space-y-3">
+            <h2 id="with-tags" class="text-lg font-semibold tracking-tight relative group">
+                <a href="#with-tags" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                {t.sections.withTags.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withTags.description} />
+            <ComponentPreview code={withTagsCode} />
+        </section>
+
+        <section class="space-y-3">
+            <h2 id="variants" class="text-lg font-semibold tracking-tight relative group">
+                <a href="#variants" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                {t.sections.variants.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.variants.description} />
+            <ComponentPreview code={variantsCode} />
+        </section>
+
+        <section class="space-y-3">
+            <h2 id="max-tags" class="text-lg font-semibold tracking-tight relative group">
+                <a href="#max-tags" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                {t.sections.maxTags.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.maxTags.description} />
+            <ComponentPreview code={maxTagsCode} />
+        </section>
+
+        <section class="space-y-3">
+            <h2 id="validation" class="text-lg font-semibold tracking-tight relative group">
+                <a href="#validation" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                {t.sections.validation.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.validation.description} />
+            <ComponentPreview code={validationCode} />
+        </section>
+
+        <section class="space-y-3">
+            <h2 id="disabled" class="text-lg font-semibold tracking-tight relative group">
+                <a href="#disabled" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                {t.sections.disabled.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.disabled.description} />
+            <ComponentPreview code={disabledCode} />
+        </section>
+    </div>
+</Layout>

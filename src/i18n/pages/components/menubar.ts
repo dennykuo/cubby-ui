@@ -9,6 +9,8 @@ export const menubarPage: Record<Locale, {
     classes: { title: string; classLabel: string; descriptionLabel: string };
     withLabels: { title: string; description: string };
     withIcons: { title: string; description: string };
+    withShortcuts: { title: string; description: string };
+    withCheckboxRadio: { title: string; description: string };
   };
   classDescriptions: Record<string, string>;
 }> = {
@@ -33,6 +35,14 @@ export const menubarPage: Record<Locale, {
       withIcons: {
         title: 'With Icons',
         description: 'Add inline SVG icons before menu item text for visual hierarchy.',
+      },
+      withShortcuts: {
+        title: 'With Shortcuts',
+        description: 'Display keyboard shortcut hints alongside menu items for power users.',
+      },
+      withCheckboxRadio: {
+        title: 'With Checkbox & Radio',
+        description: 'Include checkable and radio-selectable items in menu dropdowns for toggle-style preferences.',
       },
     },
     classDescriptions: {
@@ -69,6 +79,14 @@ export const menubarPage: Record<Locale, {
       withIcons: {
         title: '帶圖示',
         description: '在選單項目文字前加入 SVG 圖示，增強視覺層次。',
+      },
+      withShortcuts: {
+        title: '搭配快捷鍵',
+        description: '在選單項目旁顯示鍵盤快捷鍵提示，方便進階使用者操作。',
+      },
+      withCheckboxRadio: {
+        title: '搭配核取和單選',
+        description: '在選單下拉中加入可勾選和單選項目，用於切換式偏好設定。',
       },
     },
     classDescriptions: {

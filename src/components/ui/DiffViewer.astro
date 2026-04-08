@@ -1,0 +1,17 @@
+---
+import { TOP_CLASS } from "../../config";
+
+interface Props {
+    sideBySide?: boolean;
+    class?: string;
+    [key: string]: any;
+}
+
+const { sideBySide, class: className, ...rest } = Astro.props;
+const baseClass = `${TOP_CLASS}-diff-viewer`;
+const sideClass = sideBySide ? `${baseClass}-side-by-side` : undefined;
+---
+
+<div class:list={[baseClass, sideClass, className]} {...rest}>
+    <slot />
+</div>

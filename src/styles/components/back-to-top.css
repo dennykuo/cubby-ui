@@ -1,0 +1,43 @@
+/* Back to Top */
+.cu-back-to-top {
+    @apply fixed bottom-6 right-6 z-40 flex size-10 items-center justify-center rounded-full bg-card border border-border text-muted-foreground shadow-md cursor-pointer;
+    transition: opacity 200ms, transform 200ms, background-color 150ms, color 150ms;
+    opacity: 0;
+    transform: translateY(16px);
+    pointer-events: none;
+}
+
+.cu-back-to-top[data-cu-visible] {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+.cu-back-to-top:hover {
+    @apply bg-muted text-foreground shadow-lg;
+}
+
+.cu-back-to-top:focus-visible {
+    @apply outline-none ring-1 ring-ring/30;
+}
+
+/* Positions */
+.cu-back-to-top-left {
+    @apply right-auto left-6;
+}
+
+/* Sizes */
+.cu-back-to-top-sm {
+    @apply size-8;
+}
+.cu-back-to-top-lg {
+    @apply size-12;
+}
+
+/* Primary variant */
+.cu-back-to-top-primary {
+    @apply bg-primary text-primary-foreground border-primary;
+}
+.cu-back-to-top-primary:hover {
+    @apply bg-primary/90 text-primary-foreground;
+}

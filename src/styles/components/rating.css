@@ -1,0 +1,80 @@
+/* Rating */
+.cu-rating {
+    @apply inline-flex items-center gap-0.5;
+    --cu-rating-color: var(--color-amber-400, #fbbf24);
+    --cu-rating-color-hover: var(--color-amber-300, #fcd34d);
+}
+
+.cu-rating-item {
+    @apply relative cursor-pointer text-muted-foreground/30;
+    transition: color 150ms, transform 150ms;
+}
+
+.cu-rating-item-active {
+    color: var(--cu-rating-color);
+}
+
+/* Half-star support: left-half overlay */
+.cu-rating-item-half {
+    @apply text-muted-foreground/30;
+}
+.cu-rating-item-half::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 50%;
+    height: 100%;
+    overflow: hidden;
+}
+.cu-rating-item-half svg:first-child {
+    color: var(--cu-rating-color);
+    clip-path: inset(0 50% 0 0);
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+/* Hover effect */
+.cu-rating:not(.cu-rating-readonly) .cu-rating-item:hover {
+    color: var(--cu-rating-color-hover);
+    transform: scale(1.15);
+}
+
+/* Hidden radio input for form submission */
+.cu-rating-input {
+    @apply sr-only;
+}
+
+/* Checked via radio */
+.cu-rating-input:checked ~ .cu-rating-label {
+    @apply text-muted-foreground/30;
+}
+.cu-rating-input:checked + .cu-rating-label,
+.cu-rating-input:checked + .cu-rating-label ~ .cu-rating-label-fill {
+    color: var(--cu-rating-color);
+}
+
+/* Readonly */
+.cu-rating-readonly {
+    @apply pointer-events-none;
+}
+
+/* Sizes */
+.cu-rating-sm .cu-rating-item {
+    @apply size-4;
+}
+
+.cu-rating-lg .cu-rating-item {
+    @apply size-7;
+}
+
+/* Focus */
+.cu-rating-input:focus-visible + .cu-rating-label {
+    @apply outline-none ring-2 ring-ring/40 ring-offset-2 rounded-sm;
+}
+
+/* Disabled */
+.cu-rating-disabled {
+    @apply pointer-events-none opacity-50;
+}

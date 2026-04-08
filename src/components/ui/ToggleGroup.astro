@@ -1,0 +1,27 @@
+---
+import { TOP_CLASS } from "../../config";
+
+interface Props {
+    size?: "sm" | "default" | "lg";
+    variant?: "default" | "outline";
+    multiple?: boolean;
+    block?: boolean;
+    class?: string;
+    [key: string]: any;
+}
+
+const { size, variant, multiple, block, class: className, ...rest } = Astro.props;
+const baseClass = `${TOP_CLASS}-toggle-group`;
+const sizeClass = size && size !== "default" ? `${baseClass}-${size}` : undefined;
+const variantClass = variant === "outline" ? `${baseClass}-outline` : undefined;
+const multipleClass = multiple ? `${baseClass}-multiple` : undefined;
+const blockClass = block ? `${baseClass}-block` : undefined;
+---
+
+<div
+    class:list={[baseClass, sizeClass, variantClass, multipleClass, blockClass, className]}
+    role="group"
+    {...rest}
+>
+    <slot />
+</div>

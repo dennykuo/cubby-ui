@@ -45,3 +45,30 @@
 .cu-alert-close {
     @apply absolute right-3 top-3 rounded-sm opacity-70 transition-opacity duration-150 hover:opacity-100 cursor-pointer focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring/40;
 }
+
+/* -- expandable -- */
+.cu-alert-expandable-content {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.2s ease;
+}
+
+.cu-alert-expandable-content[data-cu-expanded] {
+    grid-template-rows: 1fr;
+}
+
+.cu-alert-expandable-content > div {
+    @apply overflow-hidden;
+}
+
+.cu-alert-expand-trigger {
+    @apply mt-2 inline-flex cursor-pointer items-center gap-1 text-xs font-medium opacity-70 transition-opacity duration-150 hover:opacity-100;
+}
+
+.cu-alert-expand-trigger svg {
+    @apply size-3 transition-transform duration-200;
+}
+
+.cu-alert-expand-trigger[aria-expanded="true"] svg {
+    @apply rotate-180;
+}

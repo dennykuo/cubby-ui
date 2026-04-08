@@ -1,0 +1,21 @@
+---
+import { TOP_CLASS } from "../../config";
+
+interface Props {
+    variant?: "default" | "bordered" | "compact";
+    class?: string;
+    [key: string]: any;
+}
+
+const { variant, class: className, ...rest } = Astro.props;
+const baseClass = `${TOP_CLASS}-sortable-list`;
+const variantClass = variant && variant !== "default" ? `${baseClass}-${variant}` : undefined;
+---
+
+<div
+    class:list={[baseClass, variantClass, className]}
+    data-cu-sortable-list
+    {...rest}
+>
+    <slot />
+</div>

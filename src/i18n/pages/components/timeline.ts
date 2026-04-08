@@ -12,6 +12,7 @@ export const timelinePage: Record<Locale, {
     withAvatars: { title: string; description: string };
     withCardContent: { title: string; description: string };
     horizontal: { title: string; description: string };
+    alternating: { title: string; description: string };
   };
   classDescriptions: Record<string, string>;
 }> = {
@@ -49,6 +50,10 @@ export const timelinePage: Record<Locale, {
         title: 'Horizontal',
         description: 'Use <code class="cu-code">cu-timeline-horizontal</code> for a horizontal step-based timeline, suitable for order tracking or workflow progress.',
       },
+      alternating: {
+        title: 'Alternating',
+        description: 'Use <code class="cu-code">cu-timeline-alternating</code> for a centered timeline with items alternating between left and right sides.',
+      },
     },
     classDescriptions: {
       'cu-timeline': 'Container with vertical connector line',
@@ -66,6 +71,7 @@ export const timelinePage: Record<Locale, {
       'cu-timeline-description': 'Event description text',
       'cu-timeline-time': 'Timestamp text',
       'cu-timeline-horizontal': 'Horizontal timeline layout',
+      'cu-timeline-alternating': 'Centered alternating left-right layout',
     },
   },
   'zh-tw': {
@@ -102,6 +108,10 @@ export const timelinePage: Record<Locale, {
         title: '水平佈局',
         description: '使用 <code class="cu-code">cu-timeline-horizontal</code> 建立水平步驟式時間軸，適合訂單追蹤或流程進度。',
       },
+      alternating: {
+        title: '交錯排列',
+        description: '使用 <code class="cu-code">cu-timeline-alternating</code> 建立置中時間軸，項目在左右兩側交替排列。',
+      },
     },
     classDescriptions: {
       'cu-timeline': '容器，帶垂直連接線',
@@ -119,6 +129,7 @@ export const timelinePage: Record<Locale, {
       'cu-timeline-description': '事件描述文字',
       'cu-timeline-time': '時間戳文字',
       'cu-timeline-horizontal': '水平時間軸佈局',
+      'cu-timeline-alternating': '置中左右交替佈局',
     },
   },
 };

@@ -1,0 +1,59 @@
+/* Floating Label */
+.cu-floating-label {
+    @apply relative;
+}
+
+.cu-floating-label-input {
+    @apply flex h-12 w-full rounded-lg border border-input bg-background px-3 pt-5 pb-1.5 text-sm placeholder-transparent transition-colors duration-150 hover:border-foreground/25 focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/10 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50 disabled:bg-muted disabled:text-muted-foreground disabled:hover:border-input;
+}
+
+.cu-floating-label-textarea {
+    @apply flex min-h-[5rem] w-full rounded-lg border border-input bg-background px-3 pt-6 pb-2 text-sm placeholder-transparent transition-colors duration-150 hover:border-foreground/25 focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/10 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50 disabled:bg-muted disabled:text-muted-foreground disabled:hover:border-input;
+}
+
+.cu-floating-label-text {
+    @apply absolute left-3 top-1/2 -translate-y-1/2 text-sm text-muted-foreground pointer-events-none origin-top-left;
+    transition: transform 150ms, font-size 150ms, color 150ms;
+}
+
+/* Float up when input/textarea has focus or value */
+.cu-floating-label-input:focus ~ .cu-floating-label-text,
+.cu-floating-label-input:not(:placeholder-shown) ~ .cu-floating-label-text,
+.cu-floating-label-textarea:focus ~ .cu-floating-label-text,
+.cu-floating-label-textarea:not(:placeholder-shown) ~ .cu-floating-label-text {
+    @apply text-xs;
+    transform: translateY(-130%) translateX(0);
+}
+
+.cu-floating-label-input:focus ~ .cu-floating-label-text,
+.cu-floating-label-textarea:focus ~ .cu-floating-label-text {
+    @apply text-primary;
+}
+
+/* Validation — error */
+.cu-floating-label-error .cu-floating-label-input,
+.cu-floating-label-error .cu-floating-label-textarea {
+    @apply border-destructive;
+}
+.cu-floating-label-error .cu-floating-label-input:focus,
+.cu-floating-label-error .cu-floating-label-textarea:focus {
+    @apply border-destructive ring-3 ring-destructive/10;
+}
+.cu-floating-label-error .cu-floating-label-input:focus ~ .cu-floating-label-text,
+.cu-floating-label-error .cu-floating-label-textarea:focus ~ .cu-floating-label-text {
+    @apply text-destructive;
+}
+
+/* Validation — success */
+.cu-floating-label-success .cu-floating-label-input,
+.cu-floating-label-success .cu-floating-label-textarea {
+    @apply border-success;
+}
+.cu-floating-label-success .cu-floating-label-input:focus,
+.cu-floating-label-success .cu-floating-label-textarea:focus {
+    @apply border-success ring-3 ring-success/10;
+}
+.cu-floating-label-success .cu-floating-label-input:focus ~ .cu-floating-label-text,
+.cu-floating-label-success .cu-floating-label-textarea:focus ~ .cu-floating-label-text {
+    @apply text-success;
+}

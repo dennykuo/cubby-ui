@@ -198,37 +198,84 @@ const disabledTabCode = `<div class="cu-tabs" data-cu-tabs>
   </div>
 </div>`.trim();
 
-const scrollableCode = `<div class="cu-tabs" data-cu-tabs>
-  <div class="cu-tabs-list overflow-x-auto">
-    <button class="cu-tabs-trigger cu-tabs-trigger-active" data-cu-tabs-trigger="dashboard">Dashboard</button>
-    <button class="cu-tabs-trigger" data-cu-tabs-trigger="analytics">Analytics</button>
-    <button class="cu-tabs-trigger" data-cu-tabs-trigger="reports">Reports</button>
-    <button class="cu-tabs-trigger" data-cu-tabs-trigger="notifications">Notifications</button>
-    <button class="cu-tabs-trigger" data-cu-tabs-trigger="settings">Settings</button>
-    <button class="cu-tabs-trigger" data-cu-tabs-trigger="billing">Billing</button>
-    <button class="cu-tabs-trigger" data-cu-tabs-trigger="integrations">Integrations</button>
+const withBadgeCode = `<div class="cu-tabs" data-cu-tabs>
+  <div class="cu-tabs-list">
+    <button class="cu-tabs-trigger cu-tabs-trigger-active" data-cu-tabs-trigger="inbox">Inbox <span class="cu-tabs-trigger-badge">12</span></button>
+    <button class="cu-tabs-trigger" data-cu-tabs-trigger="drafts">Drafts <span class="cu-tabs-trigger-badge">3</span></button>
+    <button class="cu-tabs-trigger" data-cu-tabs-trigger="sent">Sent</button>
   </div>
-  <div class="cu-tabs-content" data-cu-tabs-content="dashboard">
-    <p class="text-sm text-muted-foreground">Dashboard overview and metrics.</p>
+  <div class="cu-tabs-content" data-cu-tabs-content="inbox">
+    <p class="text-sm text-muted-foreground">You have 12 unread messages.</p>
   </div>
-  <div class="cu-tabs-content" data-cu-tabs-content="analytics" hidden>
-    <p class="text-sm text-muted-foreground">Analytics and performance data.</p>
+  <div class="cu-tabs-content" data-cu-tabs-content="drafts" hidden>
+    <p class="text-sm text-muted-foreground">3 draft messages waiting to be sent.</p>
   </div>
-  <div class="cu-tabs-content" data-cu-tabs-content="reports" hidden>
-    <p class="text-sm text-muted-foreground">Generate and download reports.</p>
+  <div class="cu-tabs-content" data-cu-tabs-content="sent" hidden>
+    <p class="text-sm text-muted-foreground">All sent messages.</p>
   </div>
-  <div class="cu-tabs-content" data-cu-tabs-content="notifications" hidden>
-    <p class="text-sm text-muted-foreground">Notification preferences.</p>
+</div>`.trim();
+
+const closableCode = `<div class="cu-tabs" data-cu-tabs>
+  <div class="cu-tabs-list">
+    <button class="cu-tabs-trigger cu-tabs-trigger-active" data-cu-tabs-trigger="file1">
+      index.ts
+      <button class="cu-tabs-trigger-close" data-cu-tabs-close aria-label="Close">
+        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+      </button>
+    </button>
+    <button class="cu-tabs-trigger" data-cu-tabs-trigger="file2">
+      styles.css
+      <button class="cu-tabs-trigger-close" data-cu-tabs-close aria-label="Close">
+        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+      </button>
+    </button>
+    <button class="cu-tabs-trigger" data-cu-tabs-trigger="file3">
+      app.tsx
+      <button class="cu-tabs-trigger-close" data-cu-tabs-close aria-label="Close">
+        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+      </button>
+    </button>
   </div>
-  <div class="cu-tabs-content" data-cu-tabs-content="settings" hidden>
-    <p class="text-sm text-muted-foreground">Application settings.</p>
+  <div class="cu-tabs-content" data-cu-tabs-content="file1">
+    <p class="text-sm text-muted-foreground">Content of index.ts</p>
   </div>
-  <div class="cu-tabs-content" data-cu-tabs-content="billing" hidden>
-    <p class="text-sm text-muted-foreground">Billing and subscription details.</p>
+  <div class="cu-tabs-content" data-cu-tabs-content="file2" hidden>
+    <p class="text-sm text-muted-foreground">Content of styles.css</p>
   </div>
-  <div class="cu-tabs-content" data-cu-tabs-content="integrations" hidden>
-    <p class="text-sm text-muted-foreground">Third-party integrations.</p>
+  <div class="cu-tabs-content" data-cu-tabs-content="file3" hidden>
+    <p class="text-sm text-muted-foreground">Content of app.tsx</p>
   </div>
+</div>`.trim();
+
+const scrollableCode = `<div class="cu-tabs-list-scrollable" data-cu-tabs-scrollable>
+  <button class="cu-tabs-scroll-btn" data-cu-tabs-scroll-start hidden>
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+  </button>
+  <div class="cu-tabs" data-cu-tabs>
+    <div class="cu-tabs-list">
+      <button class="cu-tabs-trigger cu-tabs-trigger-active" data-cu-tabs-trigger="t1">Overview</button>
+      <button class="cu-tabs-trigger" data-cu-tabs-trigger="t2">Analytics</button>
+      <button class="cu-tabs-trigger" data-cu-tabs-trigger="t3">Reports</button>
+      <button class="cu-tabs-trigger" data-cu-tabs-trigger="t4">Notifications</button>
+      <button class="cu-tabs-trigger" data-cu-tabs-trigger="t5">Settings</button>
+      <button class="cu-tabs-trigger" data-cu-tabs-trigger="t6">Integrations</button>
+      <button class="cu-tabs-trigger" data-cu-tabs-trigger="t7">Billing</button>
+      <button class="cu-tabs-trigger" data-cu-tabs-trigger="t8">Security</button>
+    </div>
+    <div class="cu-tabs-content" data-cu-tabs-content="t1">
+      <p class="text-sm text-muted-foreground">Overview content</p>
+    </div>
+    <div class="cu-tabs-content" data-cu-tabs-content="t2" hidden><p class="text-sm text-muted-foreground">Analytics content</p></div>
+    <div class="cu-tabs-content" data-cu-tabs-content="t3" hidden><p class="text-sm text-muted-foreground">Reports content</p></div>
+    <div class="cu-tabs-content" data-cu-tabs-content="t4" hidden><p class="text-sm text-muted-foreground">Notifications content</p></div>
+    <div class="cu-tabs-content" data-cu-tabs-content="t5" hidden><p class="text-sm text-muted-foreground">Settings content</p></div>
+    <div class="cu-tabs-content" data-cu-tabs-content="t6" hidden><p class="text-sm text-muted-foreground">Integrations content</p></div>
+    <div class="cu-tabs-content" data-cu-tabs-content="t7" hidden><p class="text-sm text-muted-foreground">Billing content</p></div>
+    <div class="cu-tabs-content" data-cu-tabs-content="t8" hidden><p class="text-sm text-muted-foreground">Security content</p></div>
+  </div>
+  <button class="cu-tabs-scroll-btn cu-tabs-scroll-btn-end" data-cu-tabs-scroll-end>
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+  </button>
 </div>`.trim();
 ---
 
@@ -315,6 +362,30 @@ const scrollableCode = `<div class="cu-tabs" data-cu-tabs>
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-tabs-list-vertical</code></td>
                             <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-tabs-list-vertical']}</td>
+                        </tr>
+                        <tr class="cu-table-row">
+                            <td class="cu-table-cell"><code class="cu-code">cu-tabs-list-pills</code></td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-tabs-list-pills']}</td>
+                        </tr>
+                        <tr class="cu-table-row">
+                            <td class="cu-table-cell"><code class="cu-code">cu-tabs-trigger-badge</code></td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-tabs-trigger-badge']}</td>
+                        </tr>
+                        <tr class="cu-table-row">
+                            <td class="cu-table-cell"><code class="cu-code">cu-tabs-trigger-close</code></td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-tabs-trigger-close']}</td>
+                        </tr>
+                        <tr class="cu-table-row">
+                            <td class="cu-table-cell"><code class="cu-code">cu-tabs-list-scrollable</code></td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-tabs-list-scrollable']}</td>
+                        </tr>
+                        <tr class="cu-table-row">
+                            <td class="cu-table-cell"><code class="cu-code">cu-tabs-scroll-btn</code></td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-tabs-scroll-btn']}</td>
+                        </tr>
+                        <tr class="cu-table-row">
+                            <td class="cu-table-cell"><code class="cu-code">cu-tabs-scroll-btn-end</code></td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-tabs-scroll-btn-end']}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -554,6 +625,79 @@ const scrollableCode = `<div class="cu-tabs" data-cu-tabs>
                 </div>
             </ComponentPreview>
         </section>
+        <!-- With Badge -->
+        <section class="space-y-3">
+            <h2 id="with-badge" class="text-lg font-semibold tracking-tight relative group">
+              <a href="#with-badge" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+              {t.sections.withBadge.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withBadge.description} />
+            <ComponentPreview code={withBadgeCode}>
+                <div class="w-full max-w-md">
+                    <div class="cu-tabs" data-cu-tabs>
+                        <div class="cu-tabs-list">
+                            <button class="cu-tabs-trigger cu-tabs-trigger-active" data-cu-tabs-trigger="inbox">Inbox <span class="cu-tabs-trigger-badge">12</span></button>
+                            <button class="cu-tabs-trigger" data-cu-tabs-trigger="drafts">Drafts <span class="cu-tabs-trigger-badge">3</span></button>
+                            <button class="cu-tabs-trigger" data-cu-tabs-trigger="sent">Sent</button>
+                        </div>
+                        <div class="cu-tabs-content" data-cu-tabs-content="inbox">
+                            <p class="text-sm text-muted-foreground">You have 12 unread messages.</p>
+                        </div>
+                        <div class="cu-tabs-content" data-cu-tabs-content="drafts" hidden>
+                            <p class="text-sm text-muted-foreground">3 draft messages waiting to be sent.</p>
+                        </div>
+                        <div class="cu-tabs-content" data-cu-tabs-content="sent" hidden>
+                            <p class="text-sm text-muted-foreground">All sent messages.</p>
+                        </div>
+                    </div>
+                </div>
+            </ComponentPreview>
+        </section>
+
+        <!-- Closable -->
+        <section class="space-y-3">
+            <h2 id="closable" class="text-lg font-semibold tracking-tight relative group">
+              <a href="#closable" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+              {t.sections.closable.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.closable.description} />
+            <ComponentPreview code={closableCode}>
+                <div class="w-full max-w-md">
+                    <div class="cu-tabs" data-cu-tabs>
+                        <div class="cu-tabs-list">
+                            <button class="cu-tabs-trigger cu-tabs-trigger-active" data-cu-tabs-trigger="file1">
+                                index.ts
+                                <button class="cu-tabs-trigger-close" data-cu-tabs-close aria-label="Close">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+                                </button>
+                            </button>
+                            <button class="cu-tabs-trigger" data-cu-tabs-trigger="file2">
+                                styles.css
+                                <button class="cu-tabs-trigger-close" data-cu-tabs-close aria-label="Close">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+                                </button>
+                            </button>
+                            <button class="cu-tabs-trigger" data-cu-tabs-trigger="file3">
+                                app.tsx
+                                <button class="cu-tabs-trigger-close" data-cu-tabs-close aria-label="Close">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+                                </button>
+                            </button>
+                        </div>
+                        <div class="cu-tabs-content" data-cu-tabs-content="file1">
+                            <p class="text-sm text-muted-foreground">Content of index.ts</p>
+                        </div>
+                        <div class="cu-tabs-content" data-cu-tabs-content="file2" hidden>
+                            <p class="text-sm text-muted-foreground">Content of styles.css</p>
+                        </div>
+                        <div class="cu-tabs-content" data-cu-tabs-content="file3" hidden>
+                            <p class="text-sm text-muted-foreground">Content of app.tsx</p>
+                        </div>
+                    </div>
+                </div>
+            </ComponentPreview>
+        </section>
+
         <!-- Scrollable -->
         <section class="space-y-3">
             <h2 id="scrollable" class="text-lg font-semibold tracking-tight relative group">
@@ -562,38 +706,36 @@ const scrollableCode = `<div class="cu-tabs" data-cu-tabs>
             </h2>
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.scrollable.description} />
             <ComponentPreview code={scrollableCode}>
-                <div class="w-full max-w-md">
-                    <div class="cu-tabs" data-cu-tabs>
-                        <div class="cu-tabs-list overflow-x-auto">
-                            <button class="cu-tabs-trigger cu-tabs-trigger-active" data-cu-tabs-trigger="s7dashboard">Dashboard</button>
-                            <button class="cu-tabs-trigger" data-cu-tabs-trigger="s7analytics">Analytics</button>
-                            <button class="cu-tabs-trigger" data-cu-tabs-trigger="s7reports">Reports</button>
-                            <button class="cu-tabs-trigger" data-cu-tabs-trigger="s7notifications">Notifications</button>
-                            <button class="cu-tabs-trigger" data-cu-tabs-trigger="s7settings">Settings</button>
-                            <button class="cu-tabs-trigger" data-cu-tabs-trigger="s7billing">Billing</button>
-                            <button class="cu-tabs-trigger" data-cu-tabs-trigger="s7integrations">Integrations</button>
+                <div class="w-full max-w-lg">
+                    <div class="cu-tabs-list-scrollable" data-cu-tabs-scrollable>
+                        <button class="cu-tabs-scroll-btn" data-cu-tabs-scroll-start hidden>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+                        </button>
+                        <div class="cu-tabs" data-cu-tabs>
+                            <div class="cu-tabs-list">
+                                <button class="cu-tabs-trigger cu-tabs-trigger-active" data-cu-tabs-trigger="t1">Overview</button>
+                                <button class="cu-tabs-trigger" data-cu-tabs-trigger="t2">Analytics</button>
+                                <button class="cu-tabs-trigger" data-cu-tabs-trigger="t3">Reports</button>
+                                <button class="cu-tabs-trigger" data-cu-tabs-trigger="t4">Notifications</button>
+                                <button class="cu-tabs-trigger" data-cu-tabs-trigger="t5">Settings</button>
+                                <button class="cu-tabs-trigger" data-cu-tabs-trigger="t6">Integrations</button>
+                                <button class="cu-tabs-trigger" data-cu-tabs-trigger="t7">Billing</button>
+                                <button class="cu-tabs-trigger" data-cu-tabs-trigger="t8">Security</button>
+                            </div>
+                            <div class="cu-tabs-content" data-cu-tabs-content="t1">
+                                <p class="text-sm text-muted-foreground">Overview content</p>
+                            </div>
+                            <div class="cu-tabs-content" data-cu-tabs-content="t2" hidden><p class="text-sm text-muted-foreground">Analytics content</p></div>
+                            <div class="cu-tabs-content" data-cu-tabs-content="t3" hidden><p class="text-sm text-muted-foreground">Reports content</p></div>
+                            <div class="cu-tabs-content" data-cu-tabs-content="t4" hidden><p class="text-sm text-muted-foreground">Notifications content</p></div>
+                            <div class="cu-tabs-content" data-cu-tabs-content="t5" hidden><p class="text-sm text-muted-foreground">Settings content</p></div>
+                            <div class="cu-tabs-content" data-cu-tabs-content="t6" hidden><p class="text-sm text-muted-foreground">Integrations content</p></div>
+                            <div class="cu-tabs-content" data-cu-tabs-content="t7" hidden><p class="text-sm text-muted-foreground">Billing content</p></div>
+                            <div class="cu-tabs-content" data-cu-tabs-content="t8" hidden><p class="text-sm text-muted-foreground">Security content</p></div>
                         </div>
-                        <div class="cu-tabs-content" data-cu-tabs-content="s7dashboard">
-                            <p class="text-sm text-muted-foreground">Dashboard overview and metrics.</p>
-                        </div>
-                        <div class="cu-tabs-content" data-cu-tabs-content="s7analytics" hidden>
-                            <p class="text-sm text-muted-foreground">Analytics and performance data.</p>
-                        </div>
-                        <div class="cu-tabs-content" data-cu-tabs-content="s7reports" hidden>
-                            <p class="text-sm text-muted-foreground">Generate and download reports.</p>
-                        </div>
-                        <div class="cu-tabs-content" data-cu-tabs-content="s7notifications" hidden>
-                            <p class="text-sm text-muted-foreground">Notification preferences.</p>
-                        </div>
-                        <div class="cu-tabs-content" data-cu-tabs-content="s7settings" hidden>
-                            <p class="text-sm text-muted-foreground">Application settings.</p>
-                        </div>
-                        <div class="cu-tabs-content" data-cu-tabs-content="s7billing" hidden>
-                            <p class="text-sm text-muted-foreground">Billing and subscription details.</p>
-                        </div>
-                        <div class="cu-tabs-content" data-cu-tabs-content="s7integrations" hidden>
-                            <p class="text-sm text-muted-foreground">Third-party integrations.</p>
-                        </div>
+                        <button class="cu-tabs-scroll-btn cu-tabs-scroll-btn-end" data-cu-tabs-scroll-end>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                        </button>
                     </div>
                 </div>
             </ComponentPreview>
