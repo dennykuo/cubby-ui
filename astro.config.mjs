@@ -1,8 +1,8 @@
 import { defineConfig } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
-import { cpSync, mkdirSync, rmSync, existsSync } from 'node:fs';
+import { cpSync, mkdirSync, rmSync, existsSync, readdirSync } from 'node:fs';
 import { join, relative, dirname } from 'node:path';
-import { readdirSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
 
 import expressiveCode from 'astro-expressive-code';
 
@@ -10,7 +10,7 @@ import expressiveCode from 'astro-expressive-code';
  * Vite plugin: dev 模式下 watch src/pages/ 變動，自動同步至 zh-tw/
  */
 function i18nHotSync() {
-  const pagesDir = new URL('./src/pages/', import.meta.url).pathname;
+  const pagesDir = fileURLToPath(new URL('./src/pages/', import.meta.url));
   const targetDir = join(pagesDir, 'zh-tw');
   const excludeDirs = ['zh-tw', 'examples'];
 
@@ -48,13 +48,13 @@ function i18nHotSync() {
     cpSync(filePath, dest);
   }
 
+  // 立即執行初始同步（模組載入時，早於 Astro 路由掃描）
+  syncAll();
+
   return {
     name: 'i18n-hot-sync',
     apply: 'serve',
     configureServer(server) {
-      // 初始同步
-      syncAll();
-
       server.watcher.on('change', (filePath) => {
         if (filePath.startsWith(pagesDir) && !filePath.startsWith(targetDir)) {
           syncOne(filePath);
