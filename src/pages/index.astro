@@ -10,10 +10,10 @@ const t = useTranslations(homePage, locale);
 const lp = (path: string) => localizePath(path, locale);
 
 const quickStartCode = `<!-- 1. Add CSS via CDN -->
-<link rel="stylesheet" href="https://unpkg.com/cubby-ui/dist/cubby-ui.min.css" />
+<link rel="stylesheet" href="https://unpkg.com/cubby-ui/dist/core/cubby-ui.min.css" />
 
 <!-- 2. Add JS via CDN (only for interactive components) -->
-<script src="https://unpkg.com/cubby-ui/dist/cubby-ui.min.js"><\/script>
+<script src="https://unpkg.com/cubby-ui/dist/core/cubby-ui.min.js"><\/script>
 
 <!-- 3. Use cu- prefixed classes to build your UI -->
 <div class="cu-card" style="max-width: 22rem;">
@@ -110,7 +110,7 @@ const quickStartCode = `<!-- 1. Add CSS via CDN -->
             <div class="rounded-xl border border-border overflow-hidden">
                 <div class="bg-muted/30">
                     <div class="flex items-center justify-between px-4 py-2.5 border-b border-border/20">
-                        <span class="text-[11px] font-medium uppercase tracking-wider text-muted-foreground/60">HTML</span>
+                        <span class="text-[11px] font-medium tracking-wider text-muted-foreground/60">HTML</span>
                     </div>
                     <div class="px-4 py-3">
                         <Code code={quickStartCode} lang="html" />

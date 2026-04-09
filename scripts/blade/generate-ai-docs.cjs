@@ -90,17 +90,25 @@ function generateBladeReadme(componentTree) {
 
   lines.push('## Setup');
   lines.push('');
-  lines.push('1. Copy the `cu/` folder into `resources/views/components/`');
-  lines.push('2. Include CSS and JS in your layout:');
+  lines.push('1. `npm install cubby-ui`');
+  lines.push('2. Register in `AppServiceProvider::boot()`:');
   lines.push('');
-  lines.push('```html');
-  lines.push('<link rel="stylesheet" href="https://unpkg.com/cubby-ui/dist/cubby-ui.min.css">');
-  lines.push('<script src="https://unpkg.com/cubby-ui/dist/cubby-ui.min.js"></script>');
+  lines.push('```php');
+  lines.push('// 從 node_modules 載入 Cubby UI Blade 元件，使用 <x-cu.*> 前綴');
+  lines.push("Blade::anonymousComponentPath(base_path('node_modules/cubby-ui/dist/laravel/components'), 'cu');");
+  lines.push('```');
+  lines.push('');
+  lines.push('3. Import CSS / JS via Vite in `resources/js/app.js`:');
+  lines.push('');
+  lines.push('```js');
+  lines.push("import 'cubby-ui/css';  // CSS styles");
+  lines.push("import 'cubby-ui';       // Interactive JS (auto-init)");
   lines.push('```');
   lines.push('');
   lines.push('- **CSS**: Required for all components');
   lines.push('- **JS**: Required only for interactive components (marked with ⚡)');
   lines.push('- **Dark mode**: Add `dark` class on `<html>` or `<body>`');
+  lines.push('- **Update**: `npm update cubby-ui` updates everything automatically');
   lines.push('');
 
   lines.push('## Usage Convention');

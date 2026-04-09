@@ -4,7 +4,7 @@
  * Astro → Blade 元件轉換器
  *
  * 掃描 src/components/ui/*.astro，自動生成 Laravel Blade 匿名元件。
- * 輸出至 dist/blade/components/cu/。
+ * 輸出至 dist/laravel/components/cu/。
  *
  * 用法：
  *   node scripts/generate-blade-components.js [--dry-run] [--verbose]
@@ -19,7 +19,7 @@ const { buildComponentTree, generateBladeReadme, generateBladeManifest } = requi
 // ── 設定 ──────────────────────────────────────────────
 
 const SRC_DIR = path.join(__dirname, '..', 'src', 'components', 'ui');
-const OUT_DIR = path.join(__dirname, '..', 'dist', 'blade-components', 'cu');
+const OUT_DIR = path.join(__dirname, '..', 'dist', 'laravel', 'components', 'cu');
 const OVERRIDES_DIR = path.join(__dirname, 'blade', 'overrides');
 
 const args = process.argv.slice(2);

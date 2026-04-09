@@ -11,6 +11,7 @@ export interface NavItem {
 export const gettingStarted: NavItem[] = [
   { name: "Getting Started", path: "/" },
   { name: "Usage", path: "/usage" },
+  { name: "Laravel", path: "/laravel" },
   { name: "Theming", path: "/theming" },
   { name: "Dark Mode", path: "/dark-mode" },
   { name: "Playground", path: "/playground" },

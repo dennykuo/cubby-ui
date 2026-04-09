@@ -12,11 +12,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link rel="stylesheet" href="https://unpkg.com/cubby-ui/dist/cubby-ui.min.css" />
+  <link rel="stylesheet" href="https://unpkg.com/cubby-ui/dist/core/cubby-ui.min.css" />
 </head>
 <body>
   <!-- Your content -->
-  <script src="https://unpkg.com/cubby-ui/dist/cubby-ui.min.js"></script>
+  <script src="https://unpkg.com/cubby-ui/dist/core/cubby-ui.min.js"></script>
 </body>
 </html>
 ```
@@ -31,7 +31,7 @@ npm install cubby-ui
 
 ```javascript
 // 在你的 JS/TS 入口檔案
-import 'cubby-ui/dist/cubby-ui.css';
+import 'cubby-ui/css';
 import 'cubby-ui';  // 自動初始化互動元件
 ```
 
@@ -59,7 +59,7 @@ import 'cubby-ui';  // 自動初始化互動元件
 npm run dev         # 啟動開發伺服器
 npm run build       # 建置文檔站點至 docs/
 npm run build:lib   # 建置 NPM 套件至 dist/
-npm run build:blade # 生成 Laravel Blade 匿名元件 + AI 文件至 dist/blade-components/（支援 --dry-run 預覽、--verbose 詳細輸出）
+npm run build:blade # 生成 Laravel Blade 匿名元件 + AI 文件至 dist/laravel/（支援 --dry-run 預覽、--verbose 詳細輸出）
 npm run preview     # 預覽建置結果
 ```
 
@@ -124,14 +124,25 @@ const button = manifest.components.find(c => c.name === 'Button');
 
 ### Laravel Blade
 
-`npm run build:blade` 會在 `dist/blade-components/cu/` 內生成 AI 友善文件：
+套件內含自動生成的 Blade 匿名元件，在 `AppServiceProvider` 加一行即可從 `node_modules` 直接載入：
 
-| 檔案 | 格式 | 內容 |
-|------|------|------|
-| `README.md` | Markdown | Blade 語法範例、props 說明、複合元件組合模式 |
-| `components.json` | JSON | 結構化元件清單（tag、props with values、children、dataAttributes） |
+```php
+// app/Providers/AppServiceProvider.php boot()
+Blade::anonymousComponentPath(
+    base_path('node_modules/cubby-ui/dist/laravel/components'),
+    'cu'
+);
+```
 
-兩個檔案放在 `cu/` 資料夾內，複製到 Laravel 專案時會一起帶過去，AI Agent 可直接讀取理解如何使用 `<x-cu.*>` 元件。
+CSS / JS 透過 Vite 引入：
+
+```js
+// resources/js/app.js
+import 'cubby-ui/css';
+import 'cubby-ui';
+```
+
+所有資源皆從 `node_modules` 載入，`npm update cubby-ui` 即自動更新全部。詳細設定請參考 `dist/laravel/README.md`。`dist/laravel/components/cu/` 內另有 AI 友善文件（`README.md` + `components.json`），供 AI Agent 理解如何使用 `<x-cu.*>` 元件。
 
 ## 參考套件
 
