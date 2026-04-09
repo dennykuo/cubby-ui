@@ -13,7 +13,7 @@ const appServiceProviderCode = `<?php
 
 namespace App\\Providers;
 
-use Illuminate\\Support\\Facades\\Blade;
+use Illuminate\\Support\\Facades\\Blade; // [!] Add this line
 use Illuminate\\Support\\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -155,50 +155,6 @@ const cdnCopyCode = `cp -r node_modules/cubby-ui/dist/laravel/components/cu reso
                     </div>
                 </div>
                 <p class="text-sm text-muted-foreground" set:html={t.step2.benefit} />
-
-                <!-- Alternative: Separate ServiceProvider -->
-                <div class="rounded-lg border border-border p-4 space-y-3">
-                    <p class="text-sm font-medium">{t.altProvider.heading}</p>
-                    <p class="text-xs text-muted-foreground" set:html={t.altProvider.description} />
-
-                    <div class="space-y-2">
-                        <p class="text-xs text-muted-foreground">{t.altProvider.step1}</p>
-                        <div class="rounded-xl border border-border bg-muted/20 overflow-hidden">
-                            <div class="flex items-center px-4 py-2.5 border-b border-border/40">
-                                <span class="text-[11px] font-medium tracking-wider text-muted-foreground/60">Bash</span>
-                            </div>
-                            <div class="px-4 py-3">
-                                <Code code={cpProviderCode} lang="bash" frame="none" />
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="space-y-2">
-                        <p class="text-xs text-muted-foreground" set:html={t.altProvider.step2} />
-                        <div class="rounded-xl border border-border bg-muted/20 overflow-hidden">
-                            <div class="flex items-center px-4 py-2.5 border-b border-border/40">
-                                <span class="text-[11px] font-medium tracking-wider text-muted-foreground/60">bootstrap/providers.php</span>
-                            </div>
-                            <div class="px-4 py-3">
-                                <Code code={registerProviderCode} lang="php" />
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Monorepo note -->
-                    <div class="rounded-lg border border-border/60 bg-muted/10 p-3 space-y-2">
-                        <p class="text-xs font-medium">{t.altProvider.monorepoHeading}</p>
-                        <p class="text-xs text-muted-foreground" set:html={t.altProvider.monorepoDescription} />
-                        <div class="rounded-xl border border-border bg-muted/20 overflow-hidden">
-                            <div class="flex items-center px-4 py-2.5 border-b border-border/40">
-                                <span class="text-[11px] font-medium tracking-wider text-muted-foreground/60">config/cubby-ui.php</span>
-                            </div>
-                            <div class="px-4 py-3">
-                                <Code code={monorepoConfigCode} lang="php" />
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
 
             <!-- Step 3: Vite -->
@@ -214,6 +170,51 @@ const cdnCopyCode = `cp -r node_modules/cubby-ui/dist/laravel/components/cu reso
                     </div>
                     <div class="px-4 py-3">
                         <Code code={viteImportCode} lang="javascript" />
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Alternative: Separate ServiceProvider -->
+        <section class="space-y-4">
+            <h2 class="text-lg font-semibold tracking-tight">{t.altProvider.heading}</h2>
+            <p class="text-sm text-muted-foreground" set:html={t.altProvider.skipNote} />
+            <p class="text-sm text-muted-foreground" set:html={t.altProvider.description} />
+
+            <div class="space-y-3">
+                <p class="text-sm text-muted-foreground">{t.altProvider.step1}</p>
+                <div class="rounded-xl border border-border bg-muted/20 overflow-hidden">
+                    <div class="flex items-center px-4 py-2.5 border-b border-border/40">
+                        <span class="text-[11px] font-medium tracking-wider text-muted-foreground/60">Bash</span>
+                    </div>
+                    <div class="px-4 py-3">
+                        <Code code={cpProviderCode} lang="bash" frame="none" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="space-y-3">
+                <p class="text-sm text-muted-foreground" set:html={t.altProvider.step2} />
+                <div class="rounded-xl border border-border bg-muted/20 overflow-hidden">
+                    <div class="flex items-center px-4 py-2.5 border-b border-border/40">
+                        <span class="text-[11px] font-medium tracking-wider text-muted-foreground/60">bootstrap/providers.php</span>
+                    </div>
+                    <div class="px-4 py-3">
+                        <Code code={registerProviderCode} lang="php" />
+                    </div>
+                </div>
+            </div>
+
+            <!-- Monorepo note -->
+            <div class="rounded-lg border border-border/60 bg-muted/10 p-4 space-y-3">
+                <p class="text-sm font-medium">{t.altProvider.monorepoHeading}</p>
+                <p class="text-sm text-muted-foreground" set:html={t.altProvider.monorepoDescription} />
+                <div class="rounded-xl border border-border bg-muted/20 overflow-hidden">
+                    <div class="flex items-center px-4 py-2.5 border-b border-border/40">
+                        <span class="text-[11px] font-medium tracking-wider text-muted-foreground/60">config/cubby-ui.php</span>
+                    </div>
+                    <div class="px-4 py-3">
+                        <Code code={monorepoConfigCode} lang="php" />
                     </div>
                 </div>
             </div>

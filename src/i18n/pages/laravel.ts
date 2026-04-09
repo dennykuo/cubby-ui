@@ -61,6 +61,7 @@ export const laravelPage: Record<Locale, {
 
   altProvider: {
     heading: string;
+    skipNote: string;
     description: string;
     step1: string;
     step2: string;
@@ -137,6 +138,7 @@ export const laravelPage: Record<Locale, {
 
     altProvider: {
       heading: 'Alternative: Separate ServiceProvider',
+      skipNote: 'If you have already registered in <code class="cu-code">AppServiceProvider</code> (Step 2 above), you can skip this section.',
       description: 'If you prefer to keep Cubby UI registration in its own ServiceProvider instead of modifying <code class="cu-code">AppServiceProvider</code>, you can use the pre-built file:',
       step1: 'Copy ServiceProvider to your project',
       step2: 'Register in <code class="cu-code">bootstrap/providers.php</code>:',
@@ -214,6 +216,7 @@ export const laravelPage: Record<Locale, {
 
     altProvider: {
       heading: '替代方案：獨立 ServiceProvider',
+      skipNote: '若已在 <code class="cu-code">AppServiceProvider</code> 中完成註冊（上方步驟 2），可跳過此段落。',
       description: '如果你偏好將 Cubby UI 註冊放在獨立的 ServiceProvider，而非修改 <code class="cu-code">AppServiceProvider</code>，可使用預建的檔案：',
       step1: '複製 ServiceProvider 到專案中',
       step2: '在 <code class="cu-code">bootstrap/providers.php</code> 中註冊：',
