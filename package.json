@@ -3,23 +3,22 @@
   "version": "0.1.0",
   "description": "Framework-agnostic UI components with pure HTML + Tailwind CSS",
   "type": "module",
-  "main": "dist/cubby-ui.js",
-  "types": "dist/cubby-ui.d.ts",
-  "style": "dist/cubby-ui.css",
-  "browser": "dist/cubby-ui.min.js",
-  "unpkg": "dist/cubby-ui.min.css",
-  "jsdelivr": "dist/cubby-ui.min.css",
+  "main": "dist/core/cubby-ui.js",
+  "types": "dist/core/cubby-ui.d.ts",
+  "style": "dist/core/cubby-ui.css",
+  "browser": "dist/core/cubby-ui.min.js",
+  "unpkg": "dist/core/cubby-ui.min.css",
+  "jsdelivr": "dist/core/cubby-ui.min.css",
   "exports": {
     ".": {
-      "types": "./dist/cubby-ui.d.ts",
-      "default": "./dist/cubby-ui.js",
-      "style": "./dist/cubby-ui.css"
+      "types": "./dist/core/cubby-ui.d.ts",
+      "default": "./dist/core/cubby-ui.js",
+      "style": "./dist/core/cubby-ui.css"
     },
-    "./css": "./dist/cubby-ui.css",
-    "./css/min": "./dist/cubby-ui.min.css",
-    "./js": "./dist/cubby-ui.js",
-    "./js/min": "./dist/cubby-ui.min.js",
-    "./src/*": "./dist/src/*",
+    "./css": "./dist/core/cubby-ui.css",
+    "./css/min": "./dist/core/cubby-ui.min.css",
+    "./js": "./dist/core/cubby-ui.js",
+    "./js/min": "./dist/core/cubby-ui.min.js",
     "./components.json": "./dist/components.json"
   },
   "files": [
@@ -29,27 +28,21 @@
     "components.json"
   ],
   "scripts": {
-    "i18n:routes": "node scripts/generate-i18n-routes.js",
-    "dev": "npm run i18n:routes && astro dev",
-    "build": "rm -rf dist && npm run build:css && npm run build:js",
+    "dev": "astro dev",
+    "build": "rm -rf dist && mkdir -p dist/core && tailwindcss -i ./src/styles/lib.css -o ./dist/core/cubby-ui.css && tailwindcss -i ./src/styles/lib.css -o ./dist/core/cubby-ui.min.css --minify && cp ./src/scripts/cubby-ui.js ./dist/core/cubby-ui.js && cp ./src/scripts/cubby-ui.d.ts ./dist/core/cubby-ui.d.ts && cp ./components.json ./dist/components.json && terser ./dist/core/cubby-ui.js -o ./dist/core/cubby-ui.min.js -c -m --source-map",
+    "build:blade": "node scripts/generate-blade-components.cjs && cp stubs/laravel/CubbyUiServiceProvider.php stubs/laravel/README.md dist/laravel/",
     "build:docs": "npm run i18n:routes && astro build",
+    "build:all": "npm run build && npm run build:blade && npm run build:docs",
     "preview": "astro preview",
+    "clean": "rm -rf dist node_modules/.astro node_modules/.vite",
+    "i18n:routes": "node scripts/generate-i18n-routes.js",
     "astro": "astro",
-    "build:lib": "rm -rf dist && npm run build:css && npm run build:js",
-    "build:css": "npm run build:css:full && npm run build:css:min && npm run build:css:src",
-    "build:css:full": "tailwindcss -i ./src/styles/lib.css -o ./dist/cubby-ui.css",
-    "build:css:min": "tailwindcss -i ./src/styles/lib.css -o ./dist/cubby-ui.min.css --minify",
-    "build:css:src": "mkdir -p ./dist/src && cp -r ./src/styles/* ./dist/src/",
-    "build:js": "npm run build:js:copy && npm run build:js:min",
-    "build:js:copy": "cp ./src/scripts/cubby-ui.js ./dist/cubby-ui.js && cp ./src/scripts/cubby-ui.d.ts ./dist/cubby-ui.d.ts && cp ./components.json ./dist/components.json",
-    "build:js:min": "terser ./dist/cubby-ui.js -o ./dist/cubby-ui.min.js -c -m --source-map",
-    "build:blade": "node scripts/generate-blade-components.cjs",
-    "prepublishOnly": "npm run build:lib"
+    "prepublishOnly": "npm run build"
   },
   "sideEffects": [
     "*.css",
-    "dist/cubby-ui.js",
-    "dist/cubby-ui.min.js"
+    "dist/core/cubby-ui.js",
+    "dist/core/cubby-ui.min.js"
   ],
   "keywords": [
     "ui",

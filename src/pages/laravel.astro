@@ -1,0 +1,381 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { Code } from "astro-expressive-code/components";
+import { getLocaleFromUrl, useTranslations } from "@/i18n";
+import { laravelPage } from "@/i18n/pages/laravel";
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = useTranslations(laravelPage, locale);
+
+const npmInstallCode = `npm install cubby-ui`;
+
+const appServiceProviderCode = `<?php
+
+namespace App\\Providers;
+
+use Illuminate\\Support\\Facades\\Blade;
+use Illuminate\\Support\\ServiceProvider;
+
+class AppServiceProvider extends ServiceProvider
+{
+    public function boot(): void
+    {
+        // 從 node_modules 載入 Cubby UI Blade 元件，使用 <x-cu.*> 前綴
+        Blade::anonymousComponentPath(
+            base_path('node_modules/cubby-ui/dist/laravel/components'),
+            'cu'
+        );
+    }
+}`;
+
+const viteImportCode = `import 'cubby-ui/css';  // CSS
+import 'cubby-ui';       // Interactive JS (auto-init)`;
+
+const simpleComponentCode = `<x-cu.button variant="default">Save</x-cu.button>
+<x-cu.button variant="outline" size="sm">Cancel</x-cu.button>
+<x-cu.button variant="destructive">Delete</x-cu.button>`;
+
+const compositeComponentCode = `<x-cu.card>
+  <x-cu.card.header>
+    <x-cu.card.title>Notifications</x-cu.card.title>
+    <x-cu.card.description>You have 3 unread messages.</x-cu.card.description>
+  </x-cu.card.header>
+  <x-cu.card.content>
+    <p>Card content goes here.</p>
+  </x-cu.card.content>
+  <x-cu.card.footer>
+    <x-cu.button variant="default">View all</x-cu.button>
+  </x-cu.card.footer>
+</x-cu.card>`;
+
+const attributePassthroughCode = `{{-- Extra classes are merged --}}
+<x-cu.button class="mt-4 w-full">Full width</x-cu.button>
+
+{{-- HTML attributes pass through --}}
+<x-cu.input id="email" type="email" placeholder="Email" required />
+
+{{-- Data and ARIA attributes --}}
+<x-cu.button data-action="submit" aria-label="Submit form">
+  Submit
+</x-cu.button>`;
+
+const themeCode = `:root {
+    --color-primary: oklch(0.55 0.2 250);
+    --color-primary-foreground: oklch(0.98 0 0);
+    --color-secondary: oklch(0.97 0.001 286);
+    --color-secondary-foreground: oklch(0.21 0.006 286);
+    --radius-lg: 0.5rem;
+}`;
+
+const darkModeCode = `<html class="dark">
+  ...
+</html>`;
+
+const dynamicContentCode = `// After Livewire / AJAX content is loaded
+CubbyUI.refresh();`;
+
+const jsApiCode = `// Initialize all interactive components (auto-runs on page load, safe to call again)
+CubbyUI.init();
+
+// Clear internal tracking (use before SPA route transition)
+CubbyUI.destroy();
+
+// Remove stale refs + re-init (use after dynamic content updates)
+CubbyUI.refresh();
+
+// Toast notification API
+CubbyUI.toast.show({ title: 'Saved!', variant: 'success' });
+CubbyUI.toast.promise(fetch('/api/data'), {
+    loading: 'Loading...',
+    success: 'Done!',
+    error: 'Failed'
+});`;
+
+const npmUpdateCode = `npm update cubby-ui`;
+
+const cpProviderCode = `cp node_modules/cubby-ui/dist/laravel/CubbyUiServiceProvider.php app/Providers/`;
+
+const registerProviderCode = `return [
+    App\\Providers\\AppServiceProvider::class,
+    App\\Providers\\CubbyUiServiceProvider::class,
+];`;
+
+const monorepoConfigCode = `<?php
+return [
+    'components_path' => base_path('../../node_modules/cubby-ui/dist/laravel/components'),
+];`;
+
+const cdnCode = `<link rel="stylesheet" href="https://unpkg.com/cubby-ui/dist/core/cubby-ui.min.css">
+<script src="https://unpkg.com/cubby-ui/dist/core/cubby-ui.min.js"><\/script>`;
+
+const cdnCopyCode = `cp -r node_modules/cubby-ui/dist/laravel/components/cu resources/views/components/cu`;
+---
+
+<Layout title={t.title}>
+    <div class="space-y-3">
+        <h1 class="text-3xl font-bold tracking-tight">{t.heading}</h1>
+        <p class="text-base text-muted-foreground leading-relaxed" set:html={t.description} />
+    </div>
+
+    <div class="mt-10 space-y-12">
+        <!-- Installation -->
+        <section class="space-y-6">
+            <h2 class="text-xl font-semibold tracking-tight">{t.install.heading}</h2>
+
+            <!-- Step 1: npm install -->
+            <div class="space-y-3">
+                <div class="flex items-center gap-2">
+                    <span class="flex size-5 items-center justify-center rounded-full bg-primary text-[11px] font-semibold text-primary-foreground">1</span>
+                    <h3 class="text-base font-medium">{t.step1.heading}</h3>
+                </div>
+                <p class="text-sm text-muted-foreground">{t.step1.description}</p>
+                <div class="rounded-xl border border-border bg-muted/20 overflow-hidden">
+                    <div class="flex items-center px-4 py-2.5 border-b border-border/40">
+                        <span class="text-[11px] font-medium tracking-wider text-muted-foreground/60">Bash</span>
+                    </div>
+                    <div class="px-4 py-3">
+                        <Code code={npmInstallCode} lang="bash" frame="none" />
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 2: Register in AppServiceProvider -->
+            <div class="space-y-3">
+                <div class="flex items-center gap-2">
+                    <span class="flex size-5 items-center justify-center rounded-full bg-primary text-[11px] font-semibold text-primary-foreground">2</span>
+                    <h3 class="text-base font-medium">{t.step2.heading}</h3>
+                </div>
+                <p class="text-sm text-muted-foreground" set:html={t.step2.description} />
+                <div class="rounded-xl border border-border bg-muted/20 overflow-hidden">
+                    <div class="flex items-center px-4 py-2.5 border-b border-border/40">
+                        <span class="text-[11px] font-medium tracking-wider text-muted-foreground/60">app/Providers/AppServiceProvider.php</span>
+                    </div>
+                    <div class="px-4 py-3">
+                        <Code code={appServiceProviderCode} lang="php" />
+                    </div>
+                </div>
+                <p class="text-sm text-muted-foreground" set:html={t.step2.benefit} />
+
+                <!-- Alternative: Separate ServiceProvider -->
+                <div class="rounded-lg border border-border p-4 space-y-3">
+                    <p class="text-sm font-medium">{t.altProvider.heading}</p>
+                    <p class="text-xs text-muted-foreground" set:html={t.altProvider.description} />
+
+                    <div class="space-y-2">
+                        <p class="text-xs text-muted-foreground">{t.altProvider.step1}</p>
+                        <div class="rounded-xl border border-border bg-muted/20 overflow-hidden">
+                            <div class="flex items-center px-4 py-2.5 border-b border-border/40">
+                                <span class="text-[11px] font-medium tracking-wider text-muted-foreground/60">Bash</span>
+                            </div>
+                            <div class="px-4 py-3">
+                                <Code code={cpProviderCode} lang="bash" frame="none" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="space-y-2">
+                        <p class="text-xs text-muted-foreground" set:html={t.altProvider.step2} />
+                        <div class="rounded-xl border border-border bg-muted/20 overflow-hidden">
+                            <div class="flex items-center px-4 py-2.5 border-b border-border/40">
+                                <span class="text-[11px] font-medium tracking-wider text-muted-foreground/60">bootstrap/providers.php</span>
+                            </div>
+                            <div class="px-4 py-3">
+                                <Code code={registerProviderCode} lang="php" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Monorepo note -->
+                    <div class="rounded-lg border border-border/60 bg-muted/10 p-3 space-y-2">
+                        <p class="text-xs font-medium">{t.altProvider.monorepoHeading}</p>
+                        <p class="text-xs text-muted-foreground" set:html={t.altProvider.monorepoDescription} />
+                        <div class="rounded-xl border border-border bg-muted/20 overflow-hidden">
+                            <div class="flex items-center px-4 py-2.5 border-b border-border/40">
+                                <span class="text-[11px] font-medium tracking-wider text-muted-foreground/60">config/cubby-ui.php</span>
+                            </div>
+                            <div class="px-4 py-3">
+                                <Code code={monorepoConfigCode} lang="php" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 3: Vite -->
+            <div class="space-y-3">
+                <div class="flex items-center gap-2">
+                    <span class="flex size-5 items-center justify-center rounded-full bg-primary text-[11px] font-semibold text-primary-foreground">3</span>
+                    <h3 class="text-base font-medium">{t.step3.heading}</h3>
+                </div>
+                <p class="text-sm text-muted-foreground" set:html={t.step3.description} />
+                <div class="rounded-xl border border-border bg-muted/20 overflow-hidden">
+                    <div class="flex items-center px-4 py-2.5 border-b border-border/40">
+                        <span class="text-[11px] font-medium tracking-wider text-muted-foreground/60">resources/js/app.js</span>
+                    </div>
+                    <div class="px-4 py-3">
+                        <Code code={viteImportCode} lang="javascript" />
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Update -->
+        <section class="space-y-4">
+            <h2 class="text-lg font-semibold tracking-tight">{t.update.heading}</h2>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.update.description} />
+            <div class="rounded-xl border border-border bg-muted/20 overflow-hidden">
+                <div class="flex items-center px-4 py-2.5 border-b border-border/40">
+                    <span class="text-[11px] font-medium tracking-wider text-muted-foreground/60">Bash</span>
+                </div>
+                <div class="px-4 py-3">
+                    <Code code={npmUpdateCode} lang="bash" frame="none" />
+                </div>
+            </div>
+        </section>
+
+        <!-- Divider -->
+        <div class="cu-separator"></div>
+
+        <!-- Using Components -->
+        <section class="space-y-6">
+            <h2 class="text-lg font-semibold tracking-tight">{t.usage.heading}</h2>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.usage.description} />
+
+            <!-- Simple -->
+            <div class="space-y-2">
+                <h3 class="text-sm font-medium">{t.usage.simpleHeading}</h3>
+                <div class="rounded-xl border border-border bg-muted/20 overflow-hidden">
+                    <div class="flex items-center px-4 py-2.5 border-b border-border/40">
+                        <span class="text-[11px] font-medium tracking-wider text-muted-foreground/60">Blade</span>
+                    </div>
+                    <div class="px-4 py-3">
+                        <Code code={simpleComponentCode} lang="blade" />
+                    </div>
+                </div>
+            </div>
+
+            <!-- Composite -->
+            <div class="space-y-2">
+                <h3 class="text-sm font-medium">{t.usage.compositeHeading}</h3>
+                <div class="rounded-xl border border-border bg-muted/20 overflow-hidden">
+                    <div class="flex items-center px-4 py-2.5 border-b border-border/40">
+                        <span class="text-[11px] font-medium tracking-wider text-muted-foreground/60">Blade</span>
+                    </div>
+                    <div class="px-4 py-3">
+                        <Code code={compositeComponentCode} lang="blade" />
+                    </div>
+                </div>
+            </div>
+
+            <!-- Attribute pass-through -->
+            <div class="space-y-2">
+                <h3 class="text-sm font-medium">{t.usage.attributeHeading}</h3>
+                <p class="text-sm text-muted-foreground" set:html={t.usage.attributeDescription} />
+                <div class="rounded-xl border border-border bg-muted/20 overflow-hidden">
+                    <div class="flex items-center px-4 py-2.5 border-b border-border/40">
+                        <span class="text-[11px] font-medium tracking-wider text-muted-foreground/60">Blade</span>
+                    </div>
+                    <div class="px-4 py-3">
+                        <Code code={attributePassthroughCode} lang="blade" />
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Theme -->
+        <section class="space-y-4">
+            <h2 class="text-lg font-semibold tracking-tight">{t.theme.heading}</h2>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.theme.description} />
+            <div class="rounded-xl border border-border bg-muted/20 overflow-hidden">
+                <div class="flex items-center px-4 py-2.5 border-b border-border/40">
+                    <span class="text-[11px] font-medium tracking-wider text-muted-foreground/60">resources/css/app.css</span>
+                </div>
+                <div class="px-4 py-3">
+                    <Code code={themeCode} lang="css" />
+                </div>
+            </div>
+        </section>
+
+        <!-- Dark Mode -->
+        <section class="space-y-4">
+            <h2 class="text-lg font-semibold tracking-tight">{t.darkMode.heading}</h2>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.darkMode.description} />
+            <div class="rounded-xl border border-border bg-muted/20 overflow-hidden">
+                <div class="flex items-center px-4 py-2.5 border-b border-border/40">
+                    <span class="text-[11px] font-medium tracking-wider text-muted-foreground/60">HTML</span>
+                </div>
+                <div class="px-4 py-3">
+                    <Code code={darkModeCode} lang="html" />
+                </div>
+            </div>
+        </section>
+
+        <!-- Dynamic Content -->
+        <section class="space-y-4">
+            <h2 class="text-lg font-semibold tracking-tight">{t.dynamic.heading}</h2>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.dynamic.description} />
+            <div class="rounded-xl border border-border bg-muted/20 overflow-hidden">
+                <div class="flex items-center px-4 py-2.5 border-b border-border/40">
+                    <span class="text-[11px] font-medium tracking-wider text-muted-foreground/60">JavaScript</span>
+                </div>
+                <div class="px-4 py-3">
+                    <Code code={dynamicContentCode} lang="javascript" />
+                </div>
+            </div>
+        </section>
+
+        <!-- JavaScript API -->
+        <section class="space-y-4">
+            <h2 class="text-lg font-semibold tracking-tight">{t.jsApi.heading}</h2>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.jsApi.description} />
+            <div class="rounded-xl border border-border bg-muted/20 overflow-hidden">
+                <div class="flex items-center px-4 py-2.5 border-b border-border/40">
+                    <span class="text-[11px] font-medium tracking-wider text-muted-foreground/60">JavaScript</span>
+                </div>
+                <div class="px-4 py-3">
+                    <Code code={jsApiCode} lang="javascript" />
+                </div>
+            </div>
+        </section>
+
+        <!-- Divider -->
+        <div class="cu-separator"></div>
+
+        <!-- CDN Alternative -->
+        <section class="space-y-4">
+            <h2 class="text-lg font-semibold tracking-tight">{t.cdn.heading}</h2>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.cdn.description} />
+
+            <div class="space-y-3">
+                <div class="flex items-center gap-2">
+                    <span class="flex size-5 items-center justify-center rounded-full bg-muted text-[11px] font-semibold text-muted-foreground">1</span>
+                    <span class="text-sm font-medium">{t.cdn.step1}</span>
+                </div>
+                <div class="rounded-xl border border-border bg-muted/20 overflow-hidden">
+                    <div class="flex items-center px-4 py-2.5 border-b border-border/40">
+                        <span class="text-[11px] font-medium tracking-wider text-muted-foreground/60">HTML</span>
+                    </div>
+                    <div class="px-4 py-3">
+                        <Code code={cdnCode} lang="html" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="space-y-3">
+                <div class="flex items-center gap-2">
+                    <span class="flex size-5 items-center justify-center rounded-full bg-muted text-[11px] font-semibold text-muted-foreground">2</span>
+                    <span class="text-sm font-medium">{t.cdn.step2}</span>
+                </div>
+                <div class="rounded-xl border border-border bg-muted/20 overflow-hidden">
+                    <div class="flex items-center px-4 py-2.5 border-b border-border/40">
+                        <span class="text-[11px] font-medium tracking-wider text-muted-foreground/60">Bash</span>
+                    </div>
+                    <div class="px-4 py-3">
+                        <Code code={cdnCopyCode} lang="bash" frame="none" />
+                    </div>
+                </div>
+                <p class="text-sm text-muted-foreground" set:html={t.cdn.step2Note} />
+            </div>
+        </section>
+    </div>
+</Layout>

@@ -10,13 +10,12 @@ Cubby UI 是一個框架無關的 UI 元件庫，風格類似 shadcn/ui，使用
 
 ## Commands
 
-- `npm run dev` — 啟動 Astro 開發伺服器（自動先執行 `i18n:routes`）
+- `npm run dev` — 啟動 Astro 開發伺服器（i18n 路由由 Vite plugin 自動同步）
 - `npm run build` — 建置 NPM 套件至 `dist/`（CSS + JS）
+- `npm run build:blade` — 將 Astro 元件轉換為 Laravel Blade 匿名元件，輸出至 `dist/laravel/components/cu/`（支援 `--dry-run` 預覽不寫入、`--verbose` 詳細輸出）
 - `npm run build:docs` — 建置文檔站點至 `docs/`（自動先執行 `i18n:routes`）
-- `npm run build:lib` — 同 `build`（向後相容別名）
+- `npm run build:all` — 一次建置全部（NPM 套件 + Blade 元件 + 文檔站）
 - `npm run preview` — 預覽建置結果
-- `npm run build:blade` — 將 Astro 元件轉換為 Laravel Blade 匿名元件，輸出至 `dist/blade-components/cu/`（支援 `--dry-run` 預覽不寫入、`--verbose` 詳細輸出）
-- `npm run i18n:routes` — 將 `src/pages/` 下的英文頁面複製到 `src/pages/zh-tw/`，產生中文路由
 
 目前無 lint 或 test 命令。
 
@@ -139,35 +138,34 @@ const t = useTranslations(buttonPage, locale);
 
 ```
 dist/
-├── cubby-ui.css          # 預編譯 CSS（@apply 已展開，不需 Tailwind，使用 source(none) 排除 utility）
-├── cubby-ui.min.css      # 壓縮版
-├── cubby-ui.js           # 互動元件 JS（UMD，支援 CommonJS / AMD / browser global）
-├── cubby-ui.min.js       # 壓縮版
-├── cubby-ui.min.js.map   # Source map（方便除錯）
-├── cubby-ui.d.ts         # TypeScript 型別定義（CubbyUI API）
-└── src/                  # 原始 Tailwind CSS（進階用戶自訂主題用）
-    ├── global.css        # 文檔站入口（引入 tailwindcss + theme + components + body 樣式）
-    ├── theme.css         # 設計 token（@theme 區塊 + .dark 暗色覆蓋）
-    ├── lib.css           # NPM 套件建置入口（引入 tailwindcss source(none) + theme + components）
-    ├── components.css
-    └── components/
+├── core/                 # 框架無關的核心檔案
+│   ├── cubby-ui.css      # 預編譯 CSS（@apply 已展開，不需 Tailwind，使用 source(none) 排除 utility）
+│   ├── cubby-ui.min.css  # 壓縮版
+│   ├── cubby-ui.js       # 互動元件 JS（UMD，支援 CommonJS / AMD / browser global）
+│   ├── cubby-ui.min.js   # 壓縮版
+│   ├── cubby-ui.min.js.map # Source map（方便除錯）
+│   └── cubby-ui.d.ts     # TypeScript 型別定義（CubbyUI API）
+└── components.json       # 元件 manifest（跨框架共用）
 ```
 
 執行 `npm run build:blade` 後產生：
 
 ```
 dist/
-└── blade-components/
-    └── cu/
-        ├── button.blade.php          # 獨立元件
-        ├── card/
-        │   ├── index.blade.php       # 主元件（Card）
-        │   ├── header.blade.php      # 子元件（CardHeader）
-        │   ├── title.blade.php       # 子元件（CardTitle）
-        │   └── ...
-        ├── ...
-        ├── README.md                 # AI 友善文件（Blade 語法範例、props、組合模式）
-        └── components.json           # 結構化元件清單（tag、props、children、dataAttributes）
+└── laravel/
+    ├── CubbyUiServiceProvider.php   # 可選 ServiceProvider（從 node_modules 載入 Blade 元件）
+    ├── README.md                    # Laravel 專用設定指南
+    └── components/
+        └── cu/
+            ├── button.blade.php     # 獨立元件
+            ├── card/
+            │   ├── index.blade.php  # 主元件（Card）
+            │   ├── header.blade.php # 子元件（CardHeader）
+            │   ├── title.blade.php  # 子元件（CardTitle）
+            │   └── ...
+            ├── ...
+            ├── README.md            # AI 友善文件（Blade 語法範例、props、組合模式）
+            └── components.json      # 結構化元件清單（tag、props、children、dataAttributes）
 ```
 
 轉換器腳本位於 `scripts/generate-blade-components.cjs`，搭配 `scripts/blade/parser.cjs`（解析 Astro frontmatter + Props）、`scripts/blade/transformers.cjs`（轉換 template 語法）和 `scripts/blade/generate-ai-docs.cjs`（生成 AI 友善文件）。手動 override 放在 `scripts/blade/overrides/*.blade.php`，會跳過自動轉換直接使用。支援 `--dry-run`（預覽轉換結果，不寫入檔案）和 `--verbose`（印出每個檔案的轉換路徑及完整 Blade 內容）。建置時自動生成 `README.md`（敘述式 Blade 使用文件）和 `components.json`（結構化 metadata），供 AI Agent 在 Laravel 專案中理解和使用元件。

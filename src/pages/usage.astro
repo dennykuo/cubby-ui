@@ -7,20 +7,20 @@ import { usagePage } from "@/i18n/pages/usage";
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(usagePage, locale);
 
-const cdnCssCode = `<link rel="stylesheet" href="https://unpkg.com/cubby-ui/dist/cubby-ui.min.css" />`;
+const cdnCssCode = `<link rel="stylesheet" href="https://unpkg.com/cubby-ui/dist/core/cubby-ui.min.css" />`;
 
-const cdnJsCode = `<script src="https://unpkg.com/cubby-ui/dist/cubby-ui.min.js"><\/script>`;
+const cdnJsCode = `<script src="https://unpkg.com/cubby-ui/dist/core/cubby-ui.min.js"><\/script>`;
 
 const cdnJsdelivrCode = `<!-- CSS -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cubby-ui/dist/cubby-ui.min.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cubby-ui/dist/core/cubby-ui.min.css" />
 
 <!-- JS -->
-<script src="https://cdn.jsdelivr.net/npm/cubby-ui/dist/cubby-ui.min.js"><\/script>`;
+<script src="https://cdn.jsdelivr.net/npm/cubby-ui/dist/core/cubby-ui.min.js"><\/script>`;
 
 const npmInstallCode = `npm install cubby-ui`;
 
 const npmUsageCode = `// Import CSS (in your main JS/TS file)
-import 'cubby-ui/dist/cubby-ui.css';
+import 'cubby-ui/css';
 
 // Import JS for interactive components
 import 'cubby-ui';`;
@@ -137,6 +137,9 @@ const darkModeCode = `<html class="dark">
                         <span class="text-sm font-medium" set:html={t.cdn.step1Label} />
                     </div>
                     <div class="rounded-xl border border-border bg-muted/20 overflow-hidden">
+                        <div class="flex items-center px-4 py-2.5 border-b border-border/40">
+                            <span class="text-[11px] font-medium tracking-wider text-muted-foreground/60">HTML</span>
+                        </div>
                         <div class="px-4 py-3">
                             <Code code={cdnCssCode} lang="html" />
                         </div>
@@ -154,6 +157,9 @@ const darkModeCode = `<html class="dark">
                         {t.cdn.step2Note}
                     </p>
                     <div class="rounded-xl border border-border bg-muted/20 overflow-hidden">
+                        <div class="flex items-center px-4 py-2.5 border-b border-border/40">
+                            <span class="text-[11px] font-medium tracking-wider text-muted-foreground/60">HTML</span>
+                        </div>
                         <div class="px-4 py-3">
                             <Code code={cdnJsCode} lang="html" />
                         </div>
@@ -165,6 +171,9 @@ const darkModeCode = `<html class="dark">
                     {t.cdn.jsdelivrNote} <a href="https://www.jsdelivr.com/" target="_blank" rel="noreferrer" class="text-primary hover:underline underline-offset-4">jsDelivr</a>:
                 </p>
                 <div class="rounded-xl border border-border bg-muted/20 overflow-hidden">
+                    <div class="flex items-center px-4 py-2.5 border-b border-border/40">
+                        <span class="text-[11px] font-medium tracking-wider text-muted-foreground/60">HTML</span>
+                    </div>
                     <div class="px-4 py-3">
                         <Code code={cdnJsdelivrCode} lang="html" />
                     </div>
@@ -179,15 +188,15 @@ const darkModeCode = `<html class="dark">
                 </p>
                 <div class="rounded-xl border border-border bg-muted/20 overflow-hidden">
                     <div class="flex items-center px-4 py-2.5 border-b border-border/40">
-                        <span class="text-[11px] font-medium uppercase tracking-wider text-muted-foreground/60">Terminal</span>
+                        <span class="text-[11px] font-medium tracking-wider text-muted-foreground/60">Bash</span>
                     </div>
                     <div class="px-4 py-3">
-                        <Code code={npmInstallCode} lang="bash" />
+                        <Code code={npmInstallCode} lang="bash" frame="none" />
                     </div>
                 </div>
                 <div class="rounded-xl border border-border bg-muted/20 overflow-hidden">
                     <div class="flex items-center px-4 py-2.5 border-b border-border/40">
-                        <span class="text-[11px] font-medium uppercase tracking-wider text-muted-foreground/60">main.js</span>
+                        <span class="text-[11px] font-medium tracking-wider text-muted-foreground/60">main.js</span>
                     </div>
                     <div class="px-4 py-3">
                         <Code code={npmUsageCode} lang="javascript" />
@@ -233,7 +242,7 @@ const darkModeCode = `<html class="dark">
                 </div>
                 <div class="rounded-xl border border-border bg-muted/20 overflow-hidden">
                     <div class="flex items-center px-4 py-2.5 border-b border-border/40">
-                        <span class="text-[11px] font-medium uppercase tracking-wider text-muted-foreground/60">main.css</span>
+                        <span class="text-[11px] font-medium tracking-wider text-muted-foreground/60">main.css</span>
                     </div>
                     <div class="px-4 py-3">
                         <Code code={manualCssImportCode} lang="css" />
@@ -241,7 +250,7 @@ const darkModeCode = `<html class="dark">
                 </div>
                 <div class="rounded-xl border border-border bg-muted/20 overflow-hidden">
                     <div class="flex items-center px-4 py-2.5 border-b border-border/40">
-                        <span class="text-[11px] font-medium uppercase tracking-wider text-muted-foreground/60">index.html</span>
+                        <span class="text-[11px] font-medium tracking-wider text-muted-foreground/60">index.html</span>
                     </div>
                     <div class="px-4 py-3">
                         <Code code={manualHtmlCode} lang="html" />
@@ -259,7 +268,7 @@ const darkModeCode = `<html class="dark">
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.classNaming.description} />
             <div class="rounded-xl border border-border bg-muted/20 overflow-hidden">
                 <div class="flex items-center px-4 py-2.5 border-b border-border/40">
-                    <span class="text-[11px] font-medium uppercase tracking-wider text-muted-foreground/60">Pattern</span>
+                    <span class="text-[11px] font-medium tracking-wider text-muted-foreground/60">Pattern</span>
                 </div>
                 <div class="px-4 py-3">
                     <Code code={classNamingCode} lang="css" />
@@ -283,7 +292,7 @@ const darkModeCode = `<html class="dark">
                     </div>
                     <div class="border-t border-border/40 bg-muted/30">
                         <div class="flex items-center px-4 py-2.5 border-b border-border/20">
-                            <span class="text-[11px] font-medium uppercase tracking-wider text-muted-foreground/60">Button</span>
+                            <span class="text-[11px] font-medium tracking-wider text-muted-foreground/60">Button</span>
                         </div>
                         <div class="px-4 py-3">
                             <Code code={buttonExample} lang="html" />
@@ -308,7 +317,7 @@ const darkModeCode = `<html class="dark">
                     </div>
                     <div class="border-t border-border/40 bg-muted/30">
                         <div class="flex items-center px-4 py-2.5 border-b border-border/20">
-                            <span class="text-[11px] font-medium uppercase tracking-wider text-muted-foreground/60">Card</span>
+                            <span class="text-[11px] font-medium tracking-wider text-muted-foreground/60">Card</span>
                         </div>
                         <div class="px-4 py-3">
                             <Code code={cardExample} lang="html" />
@@ -391,8 +400,9 @@ const darkModeCode = `<html class="dark">
             <div class="rounded-xl border border-border overflow-hidden">
                 <div class="p-8 flex items-center justify-center bg-background/50 relative">
                     <div class="absolute inset-0 -z-10 bg-white dark:bg-slate-950 bg-[radial-gradient(#f1f5f9_1px,transparent_1px)] dark:bg-[radial-gradient(#1e293b_1px,transparent_1px)] [background-size:16px_16px]"></div>
-                    <div class="cu-tabs w-full max-w-md" data-cu-tabs>
-                        <div class="cu-tabs-list">
+                    <div class="mx-auto">
+                    <div class="cu-tabs" data-cu-tabs>
+                        <div class="cu-tabs-list justify-center">
                             <button class="cu-tabs-trigger cu-tabs-trigger-active" data-cu-tabs-trigger="tab1">Tab 1</button>
                             <button class="cu-tabs-trigger" data-cu-tabs-trigger="tab2">Tab 2</button>
                         </div>
@@ -403,10 +413,11 @@ const darkModeCode = `<html class="dark">
                             Content for tab 2
                         </div>
                     </div>
+                    </div>
                 </div>
                 <div class="border-t border-border/40 bg-muted/30">
                     <div class="flex items-center px-4 py-2.5 border-b border-border/20">
-                        <span class="text-[11px] font-medium uppercase tracking-wider text-muted-foreground/60">Tabs example</span>
+                        <span class="text-[11px] font-medium tracking-wider text-muted-foreground/60">Tabs example</span>
                     </div>
                     <div class="px-4 py-3">
                         <Code code={tabsExample} lang="html" />
@@ -421,7 +432,7 @@ const darkModeCode = `<html class="dark">
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.darkMode.description} />
             <div class="rounded-xl border border-border bg-muted/20 overflow-hidden">
                 <div class="flex items-center px-4 py-2.5 border-b border-border/40">
-                    <span class="text-[11px] font-medium uppercase tracking-wider text-muted-foreground/60">HTML</span>
+                    <span class="text-[11px] font-medium tracking-wider text-muted-foreground/60">HTML</span>
                 </div>
                 <div class="px-4 py-3">
                     <Code code={darkModeCode} lang="html" />
