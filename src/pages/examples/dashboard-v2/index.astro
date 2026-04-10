@@ -99,19 +99,19 @@ const recentActivity = [
 <DashboardV2Layout title="系統狀態概覽 — CubbyPro">
     <div class="space-y-6 max-w-7xl mx-auto">
         <!-- Page Header -->
-        <div class="sm:flex sm:items-center sm:justify-between">
-            <div>
-                <h1 class="text-2xl font-bold tracking-tight text-slate-900">
+        <div class="cu-page-header">
+            <div class="cu-page-header-content">
+                <h1 class="cu-page-header-title text-2xl md:text-2xl">
                     系統狀態概覽
                 </h1>
-                <p class="mt-2 text-slate-500">
+                <p class="cu-page-header-description">
                     監控系統核心指標、資料庫狀態與最新操作紀錄。
                 </p>
             </div>
-            <div class="mt-4 sm:mt-0 flex gap-3">
+            <div class="cu-page-header-actions">
                 <Button
                     variant="outline"
-                    class="gap-2 bg-white hover:bg-slate-50"
+                    class="gap-2"
                 >
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -139,14 +139,14 @@ const recentActivity = [
         <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {
                 systemStats.map((stat) => (
-                    <Card class="bg-white border shadow-sm rounded-xl overflow-hidden hover:shadow-md transition-shadow duration-200">
+                    <Card class="border shadow-sm rounded-xl overflow-hidden hover:shadow-md transition-shadow duration-200">
                         <CardContent class="p-6">
                             <div class="flex items-center justify-between">
                                 <div class="space-y-1">
-                                    <p class="text-sm font-medium text-slate-500">
+                                    <p class="text-sm font-medium text-muted-foreground">
                                         {stat.label}
                                     </p>
-                                    <p class="text-2xl font-bold text-slate-900">
+                                    <p class="text-2xl font-bold text-foreground">
                                         {stat.value}
                                     </p>
                                 </div>
@@ -267,7 +267,7 @@ const recentActivity = [
                                     )}
                                     {stat.trend}
                                 </span>
-                                <span class="text-slate-400 ml-2">較上月</span>
+                                <span class="text-muted-foreground ml-2">較上月</span>
                             </div>
                         </CardContent>
                     </Card>
@@ -276,30 +276,30 @@ const recentActivity = [
         </div>
 
         <!-- System Activity Log -->
-        <Card class="bg-white border shadow-sm rounded-xl overflow-hidden">
+        <Card class="border shadow-sm rounded-xl overflow-hidden">
             <CardHeader
-                class="border-b bg-slate-50/50 px-6 py-4 flex flex-row items-center justify-between"
+                class="border-b bg-muted/50 px-6 py-4 flex flex-row items-center justify-between"
             >
                 <div>
-                    <CardTitle class="text-lg text-slate-900"
+                    <CardTitle class="text-lg"
                         >系統活動日誌</CardTitle
                     >
-                    <p class="text-sm text-slate-500 mt-1">
+                    <p class="text-sm text-muted-foreground mt-1">
                         追蹤所有 CRUD 操作與系統事件
                     </p>
                 </div>
                 <Button
                     variant="ghost"
                     size="sm"
-                    class="text-xs text-slate-500 hover:text-indigo-600"
+                    class="text-xs text-muted-foreground hover:text-primary"
                 >
                     查看完整日誌
                 </Button>
             </CardHeader>
-            <div class="overflow-x-auto">
+            <div class="overflow-x-auto" role="region" aria-label="系統活動日誌" tabindex="0">
                 <Table>
                     <TableHeader>
-                        <TableRow class="bg-slate-50/50 hover:bg-slate-50/50">
+                        <TableRow class="bg-muted/50 hover:bg-muted/50">
                             <TableHead class="w-[120px] pl-6">ID</TableHead>
                             <TableHead class="w-[180px]">操作類型</TableHead>
                             <TableHead>詳細內容</TableHead>
@@ -313,47 +313,29 @@ const recentActivity = [
                     <TableBody>
                         {
                             recentActivity.map((log) => (
-                                <TableRow class="hover:bg-slate-50/50 transition-colors">
+                                <TableRow class="hover:bg-muted/50 transition-colors duration-150">
                                     <TableCell class="pl-6">
-                                        <span class="font-mono text-xs font-medium text-slate-500 bg-slate-100 px-2 py-1 rounded">
+                                        <span class="font-mono text-xs font-medium text-muted-foreground bg-muted px-2 py-1 rounded">
                                             {log.id}
                                         </span>
                                     </TableCell>
                                     <TableCell>
-                                        <span class="font-medium text-slate-700">
+                                        <span class="font-medium text-foreground">
                                             {log.action}
                                         </span>
                                     </TableCell>
-                                    <TableCell class="text-slate-600">
+                                    <TableCell class="text-muted-foreground">
                                         {log.details}
                                     </TableCell>
-                                    <TableCell class="text-slate-500 text-sm">
+                                    <TableCell class="text-muted-foreground text-sm">
                                         {log.user}
                                     </TableCell>
                                     <TableCell>
-                                        <Badge
-                                            variant={
-                                                log.status === "Success"
-                                                    ? "secondary"
-                                                    : log.status === "Warning"
-                                                      ? "outline"
-                                                      : "default"
-                                            }
-                                            class={`
-                                                ${log.status === "Success" ? "bg-emerald-50 text-emerald-700 ring-1 ring-inset ring-emerald-600/20" : ""}
-                                                ${log.status === "Warning" ? "bg-amber-50 text-amber-700 ring-1 ring-inset ring-amber-600/20" : ""}
-                                            `}
-                                        >
-                                            {log.status === "Success" && (
-                                                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 mr-1.5" />
-                                            )}
-                                            {log.status === "Warning" && (
-                                                <span class="w-1.5 h-1.5 rounded-full bg-amber-500 mr-1.5" />
-                                            )}
+                                        <span class={`cu-badge ${log.status === "Success" ? "cu-badge-soft-success" : log.status === "Warning" ? "cu-badge-soft-warning" : "cu-badge-soft-secondary"}`}>
                                             {log.status}
-                                        </Badge>
+                                        </span>
                                     </TableCell>
-                                    <TableCell class="text-right pr-6 text-slate-400 text-sm">
+                                    <TableCell class="text-right pr-6 text-muted-foreground text-sm">
                                         {log.time}
                                     </TableCell>
                                 </TableRow>

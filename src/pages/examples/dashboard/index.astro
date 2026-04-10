@@ -5,12 +5,12 @@ import DashboardLayout from "@/layouts/DashboardLayout.astro";
 <DashboardLayout title="儀表板 — Acme Inc.">
 	<div class="space-y-8">
 		<!-- Page header -->
-		<div class="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-			<div>
-				<h1 class="text-2xl font-bold tracking-tight">儀表板</h1>
-				<p class="text-muted-foreground mt-1">歡迎回來，這是您的業務概覽。</p>
+		<div class="cu-page-header sm:items-end">
+			<div class="cu-page-header-content">
+				<h1 class="cu-page-header-title text-2xl md:text-2xl">儀表板</h1>
+				<p class="cu-page-header-description mt-1">歡迎回來，這是您的業務概覽。</p>
 			</div>
-			<div class="flex items-center gap-2">
+			<div class="cu-page-header-actions">
 				<button class="cu-button cu-button-outline cu-button-md">
 					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
 					匯出
@@ -23,7 +23,7 @@ import DashboardLayout from "@/layouts/DashboardLayout.astro";
 		</div>
 
 		<!-- Stat cards -->
-		<div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+		<div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
 			<div class="cu-stat">
 				<div class="cu-stat-header">
 					<span class="cu-stat-label">總營收</span>
@@ -81,17 +81,17 @@ import DashboardLayout from "@/layouts/DashboardLayout.astro";
 				<div class="cu-card-header">
 					<div class="flex items-center justify-between">
 						<div>
-							<h3 class="cu-card-title">概覽</h3>
+							<h2 class="cu-card-title">概覽</h2>
 							<p class="cu-card-description">本月營收趨勢</p>
 						</div>
 						<div class="flex items-center gap-1.5 text-xs text-muted-foreground">
-							<span class="inline-block w-2.5 h-2.5 rounded-sm bg-primary/30"></span>
+							<span class="inline-block size-2.5 rounded-sm bg-primary/30"></span>
 							月營收
 						</div>
 					</div>
 				</div>
 				<div class="cu-card-content">
-					<div class="flex gap-3 h-52">
+					<div class="flex gap-3 h-52" role="img" aria-label="本月營收趨勢長條圖：1月至12月逐月增長，12月最高">
 						<!-- Y-axis labels -->
 						<div class="flex flex-col justify-between text-[11px] text-muted-foreground/60 tabular-nums pb-6 shrink-0">
 							<span>$8k</span>
@@ -117,29 +117,29 @@ import DashboardLayout from "@/layouts/DashboardLayout.astro";
 									<div class="flex-1 rounded-t bg-primary/15 h-[35%] transition-colors duration-200 hover:bg-primary/30"></div>
 									<div class="flex-1 rounded-t bg-primary/20 h-[60%] transition-colors duration-200 hover:bg-primary/35"></div>
 									<div class="flex-1 rounded-t bg-primary/20 h-[50%] transition-colors duration-200 hover:bg-primary/35"></div>
-									<div class="flex-1 rounded-t bg-primary/25 h-[75%] transition-colors duration-200 hover:bg-primary/40"></div>
-									<div class="flex-1 rounded-t bg-primary/25 h-[65%] transition-colors duration-200 hover:bg-primary/40"></div>
-									<div class="flex-1 rounded-t bg-primary/30 h-[85%] transition-colors duration-200 hover:bg-primary/45"></div>
-									<div class="flex-1 rounded-t bg-primary/30 h-[70%] transition-colors duration-200 hover:bg-primary/45"></div>
-									<div class="flex-1 rounded-t bg-primary/35 h-[90%] transition-colors duration-200 hover:bg-primary/50"></div>
-									<div class="flex-1 rounded-t bg-primary/35 h-[80%] transition-colors duration-200 hover:bg-primary/50"></div>
-									<div class="flex-1 rounded-t bg-primary/40 h-full transition-colors duration-200 hover:bg-primary/55"></div>
+									<div class="flex-1 rounded-t bg-primary/20 h-[75%] transition-colors duration-200 hover:bg-primary/35"></div>
+									<div class="flex-1 rounded-t bg-primary/20 h-[65%] transition-colors duration-200 hover:bg-primary/35"></div>
+									<div class="flex-1 rounded-t bg-primary/20 h-[85%] transition-colors duration-200 hover:bg-primary/35"></div>
+									<div class="flex-1 rounded-t bg-primary/20 h-[70%] transition-colors duration-200 hover:bg-primary/35"></div>
+									<div class="flex-1 rounded-t bg-primary/20 h-[90%] transition-colors duration-200 hover:bg-primary/35"></div>
+									<div class="flex-1 rounded-t bg-primary/20 h-[80%] transition-colors duration-200 hover:bg-primary/35"></div>
+									<div class="flex-1 rounded-t bg-primary h-full transition-colors duration-200 hover:bg-primary/85"></div>
 								</div>
 							</div>
 							<!-- X-axis labels -->
 							<div class="flex gap-1.5 pt-2 border-t border-border/40">
-								<span class="flex-1 text-center text-[10px] text-muted-foreground/50">1月</span>
-								<span class="flex-1 text-center text-[10px] text-muted-foreground/50">2月</span>
-								<span class="flex-1 text-center text-[10px] text-muted-foreground/50">3月</span>
-								<span class="flex-1 text-center text-[10px] text-muted-foreground/50">4月</span>
-								<span class="flex-1 text-center text-[10px] text-muted-foreground/50">5月</span>
-								<span class="flex-1 text-center text-[10px] text-muted-foreground/50">6月</span>
-								<span class="flex-1 text-center text-[10px] text-muted-foreground/50">7月</span>
-								<span class="flex-1 text-center text-[10px] text-muted-foreground/50">8月</span>
-								<span class="flex-1 text-center text-[10px] text-muted-foreground/50">9月</span>
-								<span class="flex-1 text-center text-[10px] text-muted-foreground/50">10月</span>
-								<span class="flex-1 text-center text-[10px] text-muted-foreground/50">11月</span>
-								<span class="flex-1 text-center text-[10px] text-muted-foreground/50">12月</span>
+								<span class="flex-1 text-center text-[10px] text-muted-foreground/70">1月</span>
+								<span class="flex-1 text-center text-[10px] text-muted-foreground/70">2月</span>
+								<span class="flex-1 text-center text-[10px] text-muted-foreground/70">3月</span>
+								<span class="flex-1 text-center text-[10px] text-muted-foreground/70">4月</span>
+								<span class="flex-1 text-center text-[10px] text-muted-foreground/70">5月</span>
+								<span class="flex-1 text-center text-[10px] text-muted-foreground/70">6月</span>
+								<span class="flex-1 text-center text-[10px] text-muted-foreground/70">7月</span>
+								<span class="flex-1 text-center text-[10px] text-muted-foreground/70">8月</span>
+								<span class="flex-1 text-center text-[10px] text-muted-foreground/70">9月</span>
+								<span class="flex-1 text-center text-[10px] text-muted-foreground/70">10月</span>
+								<span class="flex-1 text-center text-[10px] text-muted-foreground/70">11月</span>
+								<span class="flex-1 text-center text-[10px] text-muted-foreground/70">12月</span>
 							</div>
 						</div>
 					</div>
@@ -151,14 +151,14 @@ import DashboardLayout from "@/layouts/DashboardLayout.astro";
 				<div class="cu-card-header">
 					<div class="flex items-center justify-between">
 						<div>
-							<h3 class="cu-card-title">近期銷售</h3>
+							<h2 class="cu-card-title">近期銷售</h2>
 							<p class="cu-card-description">本月共 265 筆銷售</p>
 						</div>
-						<a href="#" class="text-xs text-muted-foreground hover:text-foreground transition-colors duration-150">查看全部</a>
+						<a href="#" class="cu-link-muted text-xs">查看全部</a>
 					</div>
 				</div>
 				<div class="cu-card-content">
-					<div class="space-y-0 divide-y divide-border/50">
+					<div class="space-y-0 divide-y divide-border/70">
 						<div class="flex items-center gap-3 py-3 first:pt-0">
 							<div class="cu-avatar cu-avatar-sm"><div class="cu-avatar-fallback">OL</div></div>
 							<div class="flex-1 min-w-0">
@@ -209,14 +209,14 @@ import DashboardLayout from "@/layouts/DashboardLayout.astro";
 			<div class="cu-card-header">
 				<div class="flex items-center justify-between">
 					<div>
-						<h3 class="cu-card-title">最近訂單</h3>
+						<h2 class="cu-card-title">最近訂單</h2>
 						<p class="cu-card-description">近期的交易記錄</p>
 					</div>
-					<a href="#" class="text-xs text-muted-foreground hover:text-foreground transition-colors duration-150">查看全部</a>
+					<a href="#" class="cu-link-muted text-xs">查看全部</a>
 				</div>
 			</div>
 			<div class="cu-card-content cu-card-content-flush">
-				<div class="cu-table-wrapper">
+				<div class="cu-table-wrapper" role="region" aria-label="訂單表格" tabindex="0">
 					<table class="cu-table">
 						<thead class="cu-table-header">
 							<tr class="cu-table-row">
@@ -252,7 +252,7 @@ import DashboardLayout from "@/layouts/DashboardLayout.astro";
 							<tr class="cu-table-row">
 								<td class="cu-table-cell font-medium">#3207</td>
 								<td class="cu-table-cell">William Kim</td>
-								<td class="cu-table-cell"><span class="cu-badge cu-badge-destructive">已取消</span></td>
+								<td class="cu-table-cell"><span class="cu-badge cu-badge-soft-destructive">已取消</span></td>
 								<td class="cu-table-cell text-right tabular-nums">$99.00</td>
 								<td class="cu-table-cell text-right text-muted-foreground tabular-nums">2026-01-14</td>
 							</tr>
