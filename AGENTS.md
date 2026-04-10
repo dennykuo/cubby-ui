@@ -24,13 +24,15 @@ Cubby UI 是一個框架無關的 UI 元件庫，使用純 HTML + Tailwind CSS �
 ## Commands
 
 ```bash
-npm run dev         # 啟動開發伺服器
-npm run build       # 建置 NPM 套件至 dist/
-npm run build:docs  # 建置文檔站點至 docs/
+npm run dev         # 啟動開發伺服器（i18n 路由由 Vite plugin 自動同步）
+npm run build       # 建置 NPM 套件至 dist/（CSS + JS）
 npm run build:blade # 生成 Laravel Blade 元件至 dist/laravel/
+npm run build:all   # 一次建置全部（build + build:blade）
+npm run build:docs  # 建置文檔站點至 docs/
 npm run preview     # 預覽建置結果
-npm run build:lib   # 同 build（向後相容別名）
 ```
+
+> 透過 git URL 安裝時，`prepare` script 自動執行 `build:all`，產生完整 `dist/` 產出。
 
 ## NPM Package
 

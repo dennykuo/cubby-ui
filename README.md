@@ -29,6 +29,18 @@
 npm install cubby-ui
 ```
 
+此為私有套件，可透過 git URL 安裝：
+
+```bash
+# SSH
+npm install git+ssh://git@github.com:dennykuo/cubby-ui.git
+
+# 指定分支
+npm install git+ssh://git@github.com:dennykuo/cubby-ui.git#develop
+```
+
+安裝時會自動執行 `prepare` script 進行建置（`build:all`），產生 `dist/` 下所有產出（CSS、JS、Laravel Blade 元件等），無需手動 build。
+
 ```javascript
 // 在你的 JS/TS 入口檔案
 import 'cubby-ui/css';
@@ -56,12 +68,15 @@ import 'cubby-ui';  // 自動初始化互動元件
 ## Commands
 
 ```bash
-npm run dev         # 啟動開發伺服器
-npm run build       # 建置文檔站點至 docs/
-npm run build:lib   # 建置 NPM 套件至 dist/
-npm run build:blade # 生成 Laravel Blade 匿名元件 + AI 文件至 dist/laravel/（支援 --dry-run 預覽、--verbose 詳細輸出）
+npm run dev         # 啟動開發伺服器（i18n 路由由 Vite plugin 自動同步）
+npm run build       # 建置 NPM 套件至 dist/（CSS + JS）
+npm run build:blade # 生成 Laravel Blade 元件至 dist/laravel/
+npm run build:all   # 一次建置全部（build + build:blade）
+npm run build:docs  # 建置文檔站點至 docs/
 npm run preview     # 預覽建置結果
 ```
+
+> `prepare` script 會在 `npm install`（含 git URL 安裝）時自動執行 `build:all`，確保 `dist/` 產出可用。
 
 ## 元件系統
 

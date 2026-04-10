@@ -13,8 +13,8 @@ Cubby UI 是一個框架無關的 UI 元件庫，風格類似 shadcn/ui，使用
 - `npm run dev` — 啟動 Astro 開發伺服器（i18n 路由由 Vite plugin 自動同步）
 - `npm run build` — 建置 NPM 套件至 `dist/`（CSS + JS）
 - `npm run build:blade` — 將 Astro 元件轉換為 Laravel Blade 匿名元件，輸出至 `dist/laravel/components/cu/`（支援 `--dry-run` 預覽不寫入、`--verbose` 詳細輸出）
+- `npm run build:all` — 一次建置全部（`build` + `build:blade`），也作為 `prepare` script 在 git URL 安裝時自動執行
 - `npm run build:docs` — 建置文檔站點至 `docs/`（自動先執行 `i18n:routes`）
-- `npm run build:all` — 一次建置全部（NPM 套件 + Blade 元件 + 文檔站）
 - `npm run preview` — 預覽建置結果
 
 目前無 lint 或 test 命令。
