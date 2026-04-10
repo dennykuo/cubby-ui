@@ -29,7 +29,27 @@ const usageCode = `<div class="cu-carousel" data-cu-carousel>
   </button>
 </div>`.trim();
 
-const cardCode = `<div class="cu-carousel" data-cu-carousel>
+const outsideNavCode = `<div class="cu-carousel cu-carousel-nav-outside" data-cu-carousel>
+  <div class="cu-carousel-viewport" data-cu-carousel-viewport>
+    <div class="cu-carousel-slide" data-cu-carousel-slide>
+      <img src="https://picsum.photos/seed/h/800/400" alt="Slide 1" class="w-full rounded-lg" />
+    </div>
+    <div class="cu-carousel-slide" data-cu-carousel-slide>
+      <img src="https://picsum.photos/seed/i/800/400" alt="Slide 2" class="w-full rounded-lg" />
+    </div>
+    <div class="cu-carousel-slide" data-cu-carousel-slide>
+      <img src="https://picsum.photos/seed/j/800/400" alt="Slide 3" class="w-full rounded-lg" />
+    </div>
+  </div>
+  <button type="button" class="cu-carousel-prev" data-cu-carousel-prev>
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+  </button>
+  <button type="button" class="cu-carousel-next" data-cu-carousel-next>
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+  </button>
+</div>`.trim();
+
+const cardCode = `<div class="cu-carousel cu-carousel-nav-outside" data-cu-carousel>
   <div class="cu-carousel-viewport" data-cu-carousel-viewport>
     <div class="cu-carousel-slide" data-cu-carousel-slide>
       <div class="cu-card mx-2">
@@ -102,7 +122,7 @@ const dotsCode = `<div class="cu-carousel" data-cu-carousel>
   </div>
 </div>`.trim();
 
-const multiCode = `<div class="cu-carousel cu-carousel-multi-3" data-cu-carousel>
+const multiCode = `<div class="cu-carousel cu-carousel-multi-3 cu-carousel-nav-outside" data-cu-carousel>
   <div class="cu-carousel-viewport" data-cu-carousel-viewport>
     <div class="cu-carousel-slide" data-cu-carousel-slide>
       <div class="cu-card mx-2">
@@ -207,6 +227,38 @@ const nextSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" 
       </ComponentPreview>
     </section>
 
+    <!-- Outside Navigation -->
+    <section class="space-y-3">
+      <h2 id="outside-nav" class="text-lg font-semibold tracking-tight relative group">
+        <a href="#outside-nav" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+        {t.sections.outsideNav.title}
+      </h2>
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.outsideNav.description} />
+      <ComponentPreview code={outsideNavCode}>
+        <div class="w-full max-w-xl">
+          <Carousel class="cu-carousel-nav-outside">
+            <div class="cu-carousel-viewport" data-cu-carousel-viewport>
+              <CarouselSlide>
+                <img src="https://picsum.photos/seed/h/800/400" alt="Slide 1" class="w-full rounded-lg" />
+              </CarouselSlide>
+              <CarouselSlide>
+                <img src="https://picsum.photos/seed/i/800/400" alt="Slide 2" class="w-full rounded-lg" />
+              </CarouselSlide>
+              <CarouselSlide>
+                <img src="https://picsum.photos/seed/j/800/400" alt="Slide 3" class="w-full rounded-lg" />
+              </CarouselSlide>
+            </div>
+            <button type="button" class="cu-carousel-prev" data-cu-carousel-prev>
+              <Fragment set:html={prevSvg} />
+            </button>
+            <button type="button" class="cu-carousel-next" data-cu-carousel-next>
+              <Fragment set:html={nextSvg} />
+            </button>
+          </Carousel>
+        </div>
+      </ComponentPreview>
+    </section>
+
     <!-- Card Carousel -->
     <section class="space-y-3">
       <h2 id="cards" class="text-lg font-semibold tracking-tight relative group">
@@ -218,7 +270,7 @@ const nextSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" 
       </p>
       <ComponentPreview code={cardCode}>
         <div class="w-full max-w-xl">
-          <Carousel>
+          <Carousel class="cu-carousel-nav-outside">
             <div class="cu-carousel-viewport" data-cu-carousel-viewport>
               <CarouselSlide>
                 <div class="cu-card mx-2">
@@ -315,7 +367,7 @@ const nextSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" 
       <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.multi.description} />
       <ComponentPreview code={multiCode}>
         <div class="w-full max-w-2xl">
-          <Carousel multi={3}>
+          <Carousel multi={3} class="cu-carousel-nav-outside">
             <div class="cu-carousel-viewport" data-cu-carousel-viewport>
               <CarouselSlide>
                 <div class="cu-card mx-2">

@@ -22,6 +22,7 @@ export const uiTranslations: Record<Locale, {
   typography: string;
   navigation: string;
   dataDisplay: string;
+  content: string;
   forms: string;
   feedback: string;
   overlay: string;
@@ -53,6 +54,7 @@ export const uiTranslations: Record<Locale, {
     typography: 'Typography',
     navigation: 'Navigation',
     dataDisplay: 'Data Display',
+    content: 'Content',
     forms: 'Forms',
     feedback: 'Feedback',
     overlay: 'Overlay',
@@ -82,6 +84,7 @@ export const uiTranslations: Record<Locale, {
     typography: '排版',
     navigation: '導航',
     dataDisplay: '資料展示',
+    content: '內容展示',
     forms: '表單',
     feedback: '回饋',
     overlay: '浮層',

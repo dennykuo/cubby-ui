@@ -16,7 +16,7 @@ export const diffViewerPage: Record<Locale, {
   en: {
     title: 'Diff Viewer — Cubby UI',
     description: 'Displays code differences in a unified or side-by-side view with line numbers, hunk headers, and word-level highlighting.',
-    category: 'Data Display',
+    category: 'Content',
     sections: {
       usage: {
         title: 'Usage',
@@ -60,7 +60,7 @@ export const diffViewerPage: Record<Locale, {
   'zh-tw': {
     title: 'Diff Viewer — Cubby UI',
     description: '以統一或並排檢視方式顯示程式碼差異，支援行號、hunk 標頭與字詞級高亮。',
-    category: '資料展示',
+    category: '內容展示',
     sections: {
       usage: {
         title: '使用方式',

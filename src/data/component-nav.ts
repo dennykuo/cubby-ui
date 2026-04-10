@@ -18,7 +18,6 @@ export const gettingStarted: NavItem[] = [
 ];
 
 export const layoutComponents: NavItem[] = [
-  { name: "Carousel", path: "/components/carousel" },
   { name: "Container", path: "/components/container" },
   { name: "Filter Bar", path: "/components/filter-bar" },
   { name: "Header", path: "/components/header" },
@@ -33,6 +32,8 @@ export const layoutComponents: NavItem[] = [
 
 export const basicComponents: NavItem[] = [
   { name: "Aspect Ratio", path: "/components/aspect-ratio" },
+  { name: "Avatar", path: "/components/avatar" },
+  { name: "Badge", path: "/components/badge" },
   { name: "Button", path: "/components/button" },
   { name: "Button Group", path: "/components/button-group" },
   { name: "Card", path: "/components/card" },
@@ -64,21 +65,23 @@ export const navigationComponents: NavItem[] = [
 
 export const dataDisplayComponents: NavItem[] = [
   { name: "Accordion", path: "/components/accordion" },
-  { name: "Avatar", path: "/components/avatar" },
-  { name: "Badge", path: "/components/badge" },
   { name: "Code Block", path: "/components/code-block" },
   { name: "Collapsible", path: "/components/collapsible" },
   { name: "Data Table", path: "/components/data-table" },
-  { name: "Diff Viewer", path: "/components/diff-viewer" },
   { name: "Setting Item", path: "/components/setting-item" },
+  { name: "Sortable List", path: "/components/sortable-list" },
   { name: "Stat Card", path: "/components/stat-card" },
   { name: "Table", path: "/components/table" },
-  { name: "Marquee", path: "/components/marquee" },
-  { name: "Countdown", path: "/components/countdown" },
-  { name: "Image Compare", path: "/components/image-compare" },
-  { name: "Sortable List", path: "/components/sortable-list" },
   { name: "Timeline", path: "/components/timeline" },
   { name: "Tree View", path: "/components/tree-view" },
+];
+
+export const contentComponents: NavItem[] = [
+  { name: "Carousel", path: "/components/carousel" },
+  { name: "Countdown", path: "/components/countdown" },
+  { name: "Diff Viewer", path: "/components/diff-viewer" },
+  { name: "Image Compare", path: "/components/image-compare" },
+  { name: "Marquee", path: "/components/marquee" },
 ];
 
 export const formComponents: NavItem[] = [
@@ -156,6 +159,7 @@ export const componentGroups = [
   { key: "typography" as const, items: typographyComponents },
   { key: "navigation" as const, items: navigationComponents },
   { key: "dataDisplay" as const, items: dataDisplayComponents },
+  { key: "content" as const, items: contentComponents },
   { key: "forms" as const, items: formComponents },
   { key: "feedback" as const, items: feedbackComponents },
   { key: "overlay" as const, items: overlayComponents },

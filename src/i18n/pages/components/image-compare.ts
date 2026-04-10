@@ -16,7 +16,7 @@ export const imageComparePage: Record<Locale, {
   en: {
     title: 'Image Compare — Cubby UI',
     description: 'A before/after image comparison slider with a draggable handle to reveal differences between two images.',
-    category: 'Data Display',
+    category: 'Content',
     sections: {
       usage: {
         title: 'Usage',
@@ -54,7 +54,7 @@ export const imageComparePage: Record<Locale, {
   'zh-tw': {
     title: 'Image Compare 圖片比較 — Cubby UI',
     description: '前後對比的圖片比較滑桿，透過可拖曳的把手來揭示兩張圖片之間的差異。',
-    category: 'Data Display',
+    category: 'Content',
     sections: {
       usage: {
         title: '使用方式',

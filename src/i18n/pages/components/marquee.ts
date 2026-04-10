@@ -19,7 +19,7 @@ export const marqueePage: Record<Locale, {
   en: {
     title: 'Marquee — Cubby UI',
     description: 'An infinitely scrolling content area, perfect for logo walls, testimonials, or any repeating content.',
-    category: 'Data Display',
+    category: 'Content',
     sections: {
       usage: {
         title: 'Usage',
@@ -68,7 +68,7 @@ export const marqueePage: Record<Locale, {
   'zh-tw': {
     title: 'Marquee 跑馬燈 — Cubby UI',
     description: '無限滾動的內容區域，適合用於 Logo 牆、客戶評價或任何重複內容的展示。',
-    category: 'Data Display',
+    category: 'Content',
     sections: {
       usage: {
         title: '使用方式',

@@ -31,10 +31,42 @@ const ratiosCode = `<div class="grid grid-cols-3 gap-4">
     </div>
     <p class="mt-2 text-sm text-muted-foreground text-center">1:1</p>
   </div>
-</div>`.trim();
-
-const wideCode = `<div class="cu-aspect-ratio cu-aspect-ratio-21/9 rounded-xl overflow-hidden">
-  <img src="https://images.unsplash.com/photo-1588345921523-c2dcdb7f1dcd?w=800&dpr=2&q=80" alt="Ultra-wide" />
+  <div>
+    <div class="cu-aspect-ratio cu-aspect-ratio-21/9 rounded-lg overflow-hidden">
+      <img src="https://images.unsplash.com/photo-1588345921523-c2dcdb7f1dcd?w=800&dpr=2&q=80" alt="21:9" />
+    </div>
+    <p class="mt-2 text-sm text-muted-foreground text-center">21:9</p>
+  </div>
+  <div>
+    <div class="cu-aspect-ratio cu-aspect-ratio-3/2 rounded-lg overflow-hidden">
+      <img src="https://images.unsplash.com/photo-1588345921523-c2dcdb7f1dcd?w=800&dpr=2&q=80" alt="3:2" />
+    </div>
+    <p class="mt-2 text-sm text-muted-foreground text-center">3:2</p>
+  </div>
+  <div>
+    <div class="cu-aspect-ratio cu-aspect-ratio-5/4 rounded-lg overflow-hidden">
+      <img src="https://images.unsplash.com/photo-1588345921523-c2dcdb7f1dcd?w=800&dpr=2&q=80" alt="5:4" />
+    </div>
+    <p class="mt-2 text-sm text-muted-foreground text-center">5:4</p>
+  </div>
+  <div>
+    <div class="cu-aspect-ratio cu-aspect-ratio-3/4 rounded-lg overflow-hidden">
+      <img src="https://images.unsplash.com/photo-1588345921523-c2dcdb7f1dcd?w=800&dpr=2&q=80" alt="3:4" />
+    </div>
+    <p class="mt-2 text-sm text-muted-foreground text-center">3:4</p>
+  </div>
+  <div>
+    <div class="cu-aspect-ratio cu-aspect-ratio-2/3 rounded-lg overflow-hidden">
+      <img src="https://images.unsplash.com/photo-1588345921523-c2dcdb7f1dcd?w=800&dpr=2&q=80" alt="2:3" />
+    </div>
+    <p class="mt-2 text-sm text-muted-foreground text-center">2:3</p>
+  </div>
+  <div>
+    <div class="cu-aspect-ratio cu-aspect-ratio-9/16 rounded-lg overflow-hidden">
+      <img src="https://images.unsplash.com/photo-1588345921523-c2dcdb7f1dcd?w=800&dpr=2&q=80" alt="9:16" />
+    </div>
+    <p class="mt-2 text-sm text-muted-foreground text-center">9:16</p>
+  </div>
 </div>`.trim();
 
 const mapCode = `<div class="cu-aspect-ratio cu-aspect-ratio-16/9 rounded-xl overflow-hidden border border-border">
@@ -103,22 +135,42 @@ const mapCode = `<div class="cu-aspect-ratio cu-aspect-ratio-16/9 rounded-xl ove
             </AspectRatio>
             <p class="mt-2 text-sm text-muted-foreground text-center">1:1</p>
           </div>
-        </div>
-      </ComponentPreview>
-    </section>
-
-    <!-- Ultra-wide -->
-    <section class="space-y-3">
-      <h2 id="ultra-wide" class="text-lg font-semibold tracking-tight relative group">
-        <a href="#ultra-wide" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-        {t.sections.ultraWide.title}
-      </h2>
-      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.ultraWide.description} />
-      <ComponentPreview code={wideCode}>
-        <div class="w-full max-w-lg">
-          <AspectRatio ratio="21/9" class="rounded-xl overflow-hidden">
-            <img src="https://images.unsplash.com/photo-1588345921523-c2dcdb7f1dcd?w=800&dpr=2&q=80" alt="Ultra-wide" />
-          </AspectRatio>
+          <div>
+            <AspectRatio ratio="21/9" class="rounded-lg overflow-hidden">
+              <img src="https://images.unsplash.com/photo-1588345921523-c2dcdb7f1dcd?w=800&dpr=2&q=80" alt="21:9" />
+            </AspectRatio>
+            <p class="mt-2 text-sm text-muted-foreground text-center">21:9</p>
+          </div>
+          <div>
+            <AspectRatio ratio="3/2" class="rounded-lg overflow-hidden">
+              <img src="https://images.unsplash.com/photo-1588345921523-c2dcdb7f1dcd?w=800&dpr=2&q=80" alt="3:2" />
+            </AspectRatio>
+            <p class="mt-2 text-sm text-muted-foreground text-center">3:2</p>
+          </div>
+          <div>
+            <AspectRatio ratio="5/4" class="rounded-lg overflow-hidden">
+              <img src="https://images.unsplash.com/photo-1588345921523-c2dcdb7f1dcd?w=800&dpr=2&q=80" alt="5:4" />
+            </AspectRatio>
+            <p class="mt-2 text-sm text-muted-foreground text-center">5:4</p>
+          </div>
+          <div>
+            <AspectRatio ratio="3/4" class="rounded-lg overflow-hidden">
+              <img src="https://images.unsplash.com/photo-1588345921523-c2dcdb7f1dcd?w=800&dpr=2&q=80" alt="3:4" />
+            </AspectRatio>
+            <p class="mt-2 text-sm text-muted-foreground text-center">3:4</p>
+          </div>
+          <div>
+            <AspectRatio ratio="2/3" class="rounded-lg overflow-hidden">
+              <img src="https://images.unsplash.com/photo-1588345921523-c2dcdb7f1dcd?w=800&dpr=2&q=80" alt="2:3" />
+            </AspectRatio>
+            <p class="mt-2 text-sm text-muted-foreground text-center">2:3</p>
+          </div>
+          <div>
+            <AspectRatio ratio="9/16" class="rounded-lg overflow-hidden">
+              <img src="https://images.unsplash.com/photo-1588345921523-c2dcdb7f1dcd?w=800&dpr=2&q=80" alt="9:16" />
+            </AspectRatio>
+            <p class="mt-2 text-sm text-muted-foreground text-center">9:16</p>
+          </div>
         </div>
       </ComponentPreview>
     </section>

@@ -21,7 +21,7 @@ export const badgePage: Record<Locale, {
   en: {
     title: 'Badge — Cubby UI',
     description: 'Displays a badge or a component that looks like a badge.',
-    category: 'Data Display',
+    category: 'Basic',
     sections: {
       usage: {
         title: 'Usage',
@@ -87,7 +87,7 @@ export const badgePage: Record<Locale, {
   'zh-tw': {
     title: 'Badge — Cubby UI',
     description: '顯示徽章或外觀類似徽章的元件。',
-    category: '資料展示',
+    category: '基礎',
     sections: {
       usage: {
         title: '使用方式',

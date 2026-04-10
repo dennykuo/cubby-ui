@@ -7,6 +7,7 @@ export const carouselPage: Record<Locale, {
   sections: {
     usage: { title: string; description: string };
     classes: { title: string; classLabel: string; descriptionLabel: string };
+    outsideNav: { title: string; description: string };
     cards: { title: string; description: string };
     dots: { title: string; description: string };
     multi: { title: string; description: string };
@@ -16,7 +17,7 @@ export const carouselPage: Record<Locale, {
   en: {
     title: 'Carousel — Cubby UI',
     description: 'A horizontal carousel component built with native CSS <code class="cu-code">scroll-snap</code>. Supports navigation arrows, dot indicators, mouse drag, and touch swipe.',
-    category: 'Data Display',
+    category: 'Content',
     sections: {
       usage: {
         title: 'Usage',
@@ -26,6 +27,10 @@ export const carouselPage: Record<Locale, {
         title: 'CSS Classes',
         classLabel: 'Class',
         descriptionLabel: 'Description',
+      },
+      outsideNav: {
+        title: 'Outside Navigation',
+        description: 'Use <code class="cu-code">cu-carousel-nav-outside</code> to place arrow buttons outside the carousel viewport. This is ideal for card carousels and content-heavy slides where arrows would overlap the content.',
       },
       cards: {
         title: 'Card Carousel',
@@ -51,12 +56,13 @@ export const carouselPage: Record<Locale, {
       'cu-carousel-dot-active': 'Active dot state (primary color)',
       'cu-carousel-multi-2': 'Show 2 slides at a time',
       'cu-carousel-multi-3': 'Show 3 slides at a time',
+      'cu-carousel-nav-outside': 'Place arrows outside the carousel viewport',
     },
   },
   'zh-tw': {
     title: 'Carousel — Cubby UI',
     description: '使用原生 CSS <code class="cu-code">scroll-snap</code> 建構的水平輪播元件。支援導航箭頭、圓點指示器、滑鼠拖曳和觸控滑動。',
-    category: '資料顯示',
+    category: '內容展示',
     sections: {
       usage: {
         title: '使用方式',
@@ -66,6 +72,10 @@ export const carouselPage: Record<Locale, {
         title: 'CSS 類別',
         classLabel: '類別',
         descriptionLabel: '說明',
+      },
+      outsideNav: {
+        title: '外側導航',
+        description: '使用 <code class="cu-code">cu-carousel-nav-outside</code> 將箭頭按鈕放置在輪播區域外側。適用於卡片輪播和內容較多的幻燈片，避免箭頭遮擋內容。',
       },
       cards: {
         title: '卡片輪播',
@@ -91,6 +101,7 @@ export const carouselPage: Record<Locale, {
       'cu-carousel-dot-active': '啟用狀態的圓點（primary 色）',
       'cu-carousel-multi-2': '同時顯示 2 張幻燈片',
       'cu-carousel-multi-3': '同時顯示 3 張幻燈片',
+      'cu-carousel-nav-outside': '將箭頭放置在輪播區域外側',
     },
   },
 };
