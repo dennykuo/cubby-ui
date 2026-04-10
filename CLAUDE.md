@@ -63,7 +63,7 @@ const t = useTranslations(buttonPage, locale);
 
 元件有兩個層次：
 
-1. **CSS 類別層**（`src/styles/components.css` + `src/styles/components/*.css`）— 在 `@layer components` 中定義，使用 `cu-` 前綴（Cubby）。`components.css` 僅包含 `@layer components {}` 包裝和 `@import` 語句，各元件 CSS 規則拆分至 `components/` 資料夾的獨立檔案。CSS 按領域分九個區塊：`TYPOGRAPHY`（Headings, Kbd, Paragraph, Blockquote, List, Link, Text, HR）→ `BASIC`（Aspect Ratio, Button, Button Group, Card, Separator）→ `FORMS`（Checkbox, Checkbox Group, Color Picker, Date Picker, Floating Label, Input Group, Listbox, Combobox, Password Input, Pin Input, Rating, Tag Input, Toggle Group ~ Transfer List）→ `DATA DISPLAY`（Accordion, Avatar, Badge, Code Block, Collapsible, Countdown, Data Table, Diff Viewer, Image Compare, Marquee, Setting Item, Sortable List, Stat, Table, Timeline, Tree View）→ `FEEDBACK`（Alert, Empty State, Progress, Skeleton, Toast）→ `OVERLAY`（Alert Dialog, Command Palette, Context Menu, Dialog, Drawer, Dropdown, Hover Card, Popover, Tooltip）→ `NAVIGATION`（Breadcrumb, Menubar, Pagination, Segmented Control, Steps, Tabs）→ `LAYOUT`（Carousel, Container, Filter Bar, Header, Nav, Page Header, Resizable Panels, Scroll Area, Sidebar, Toolbar）→ `AI`（Chat Bubble, Chat Input, Chat Typing）。這是元件的核心，純 HTML 專案可以只用這些 CSS 類別。共用結構透過 `listbox.css` 以逗號選擇器去重（Combobox / Multi Select 共用 7 組 class）。
+1. **CSS 類別層**（`src/styles/components.css` + `src/styles/components/*.css`）— 在 `@layer components` 中定義，使用 `cu-` 前綴（Cubby）。`components.css` 僅包含 `@layer components {}` 包裝和 `@import` 語句，各元件 CSS 規則拆分至 `components/` 資料夾的獨立檔案。CSS 按領域分十個區塊：`TYPOGRAPHY`（Headings, Kbd, Paragraph, Blockquote, List, Link, Text, HR）→ `BASIC`（Aspect Ratio, Avatar, Badge, Button, Button Group, Card, Separator）→ `FORMS`（Checkbox, Checkbox Group, Color Picker, Date Picker, Floating Label, Input Group, Listbox, Combobox, Password Input, Pin Input, Rating, Tag Input, Toggle Group ~ Transfer List）→ `DATA DISPLAY`（Accordion, Code Block, Collapsible, Data Table, Setting Item, Sortable List, Stat, Table, Timeline, Tree View）→ `CONTENT`（Carousel, Countdown, Diff Viewer, Image Compare, Marquee）→ `FEEDBACK`（Alert, Empty State, Progress, Skeleton, Toast）→ `OVERLAY`（Alert Dialog, Command Palette, Context Menu, Dialog, Drawer, Dropdown, Hover Card, Popover, Tooltip）→ `NAVIGATION`（Breadcrumb, Menubar, Pagination, Segmented Control, Steps, Tabs）→ `LAYOUT`（Container, Filter Bar, Header, Nav, Page Header, Resizable Panels, Scroll Area, Sidebar, Toolbar）→ `AI`（Chat Bubble, Chat Input, Chat Typing）。這是元件的核心，純 HTML 專案可以只用這些 CSS 類別。共用結構透過 `listbox.css` 以逗號選擇器去重（Combobox / Multi Select 共用 7 組 class）。
 2. **Astro 元件層**（`src/components/ui/`）— 包裝 CSS 類別的 `.astro` 檔案，提供 TypeScript Props 型別安全和屬性透傳。
 
 ### CSS 類別命名規則
@@ -89,7 +89,7 @@ const t = useTranslations(buttonPage, locale);
 - 文檔站工具類別：`.cu-code`（inline code 樣式，定義在 `global.css`）
 - 動畫慣例：微互動 `duration-150`、狀態切換 `duration-200`；所有 `transition-*` 必須搭配明確的 `duration-*`；偏好具體 transition 屬性（`transition-colors`、`transition-shadow`、`transition-opacity`）而非 `transition-all`；Dialog/Drawer/Alert Dialog 使用 CSS `@starting-style` + `transition-behavior: allow-discrete` 實現開關動畫（統一 `0.2s ease`）
 - 色彩引用：避免硬編碼 HSL 值，使用 `color-mix(in srgb, var(--color-*) N%, transparent)` 處理半透明語意色
-- 陰影層次：`shadow-sm`（卡片靜態）→ `shadow-md`（浮層）→ `shadow-lg`（遮罩級 Dialog/Drawer/Toast）
+- 陰影層次：`shadow-xs`（卡片靜態）→ `shadow-md`（浮層）→ `shadow-lg`（遮罩級 Dialog/Drawer/Toast）
 - 浮層圓角統一為 `rounded-xl`（Dialog, Dropdown, Combobox, Multi Select, Popover, Hover Card）
 - Alert / Toast 變體帶有 `bg-{color}/5` 極淡背景色調，增強視覺辨識度
 - Card 的 hover shadow 為 opt-in（`cu-card-hover`），非預設行為
@@ -504,19 +504,20 @@ src/
 
 #### 文檔站點側邊欄（`src/components/sidebar/`）
 
-導航資料集中在 `src/data/component-nav.ts` 中管理（single source of truth），`Sidebar.astro` 和 `PrevNextNav.astro` 共同引用。資料分為：`gettingStarted`、`componentGroups`（含 9 個分組：layouts / basic / typography / navigation / dataDisplay / forms / feedback / overlay / ai）、`examplePages`。`allComponentPages` 為所有元件頁的扁平有序陣列，供 prev/next 導航使用。
+導航資料集中在 `src/data/component-nav.ts` 中管理（single source of truth），`Sidebar.astro` 和 `PrevNextNav.astro` 共同引用。資料分為：`gettingStarted`、`componentGroups`（含 10 個分組：layouts / basic / typography / navigation / dataDisplay / content / forms / feedback / overlay / ai）、`examplePages`。`allComponentPages` 為所有元件頁的扁平有序陣列，供 prev/next 導航使用。
 側邊欄子元件使用 `cu-*` CSS classes（dog-fooding）：`SidebarSection`（`cu-sidebar-section-title`）→ `SidebarGroup`（`cu-sidebar-group` + `cu-sidebar-group-title`）→ `SidebarLink`（`cu-sidebar-item` + `cu-sidebar-item-active`）。
 新增元件時需在 `component-nav.ts` 的對應陣列加一筆資料。
 
 元件分類：
 - **Components > Typography** — Headings, Kbd, Paragraphs, Blockquote, Lists, Links, Text, HR
-- **Components > Basic** — Aspect Ratio, Button, Button Group, Card, Color, Separator
+- **Components > Basic** — Aspect Ratio, Avatar, Badge, Button, Button Group, Card, Color, Separator
 - **Components > Forms** — Checkbox, Checkbox Group, Color Picker, Combobox, Date Picker, Dropzone, File Input, Floating Label, Form Group, Input, Input Group, Label, Multi Select, Number Input, Password Input, Pin Input, Radio, Range, Rating, Search Input, Select, Tag Input, Textarea, Toggle, Toggle Group, Transfer List
-- **Components > Data Display** — Accordion, Avatar, Badge, Code Block, Collapsible, Countdown, Data Table, Diff Viewer, Image Compare, Marquee, Setting Item, Sortable List, Stat Card, Table, Timeline, Tree View
+- **Components > Data Display** — Accordion, Code Block, Collapsible, Data Table, Setting Item, Sortable List, Stat Card, Table, Timeline, Tree View
+- **Components > Content** — Carousel, Countdown, Diff Viewer, Image Compare, Marquee
 - **Components > Feedback** — Alert, Empty State, Notification, Progress, Skeleton, Spinner, Toast
 - **Components > Overlay** — Alert Dialog, Command Palette, Context Menu, Dialog, Drawer, Dropdown Menu, Hover Card, Popover, Tooltip, Tour
 - **Components > Navigation** — Back to Top, Breadcrumb, Menubar, Pagination, Segmented Control, Speed Dial, Steps, Tabs
-- **Components > Layouts** — Carousel, Container, Filter Bar, Header, Kanban, Nav, Page Header, Resizable Panels, Scroll Area, Sidebar, Toolbar
+- **Components > Layouts** — Container, Filter Bar, Header, Kanban, Nav, Page Header, Resizable Panels, Scroll Area, Sidebar, Toolbar
 - **Components > AI** — Chat Bubble, Chat Input, Chat Typing
 
 #### UI Sidebar 元件（`src/components/ui/Sidebar*.astro`）
@@ -627,11 +628,11 @@ Header logo 與 sidebar 連結文字齊左：
 
 ### 新增元件完整 Checklist
 
-1. **CSS**：在 `src/styles/components/` 建立獨立 `.css` 檔案定義 CSS 類別（使用 `cu-` 前綴），並在 `src/styles/components.css` 的 `@layer components` 對應區塊（BASIC / FORMS / DATA DISPLAY / FEEDBACK / OVERLAY / NAVIGATION / LAYOUT / AI）加入 `@import` 語句
+1. **CSS**：在 `src/styles/components/` 建立獨立 `.css` 檔案定義 CSS 類別（使用 `cu-` 前綴），並在 `src/styles/components.css` 的 `@layer components` 對應區塊（BASIC / FORMS / DATA DISPLAY / CONTENT / FEEDBACK / OVERLAY / NAVIGATION / LAYOUT / AI）加入 `@import` 語句
 2. **Astro 元件**：在 `src/components/ui/` 建立對應的 `.astro` 元件檔（必須包含 `interface Props` 型別定義，使用 `class:list` 處理 class 組合）
 3. **i18n 翻譯**：在 `src/i18n/pages/components/` 建立翻譯檔（`Record<Locale, {...}>` 格式，包含 en/zh-tw 翻譯）
 4. **文檔頁面**：在 `src/pages/components/` 建立文檔頁面（使用 `ComponentPreview` 展示，含 Preview + Code 兩個 tab；引入翻譯並使用 `getLocaleFromUrl` + `useTranslations`，inline code 使用 `cu-code` class；code 範例使用 `cu-` class 系統，非原始 Tailwind utilities）
-5. **導航**：在 `src/data/component-nav.ts` 中將元件加入對應的導航陣列（layouts / basic / typography / navigation / dataDisplay / forms / feedback / overlay / ai）
+5. **導航**：在 `src/data/component-nav.ts` 中將元件加入對應的導航陣列（layouts / basic / typography / navigation / dataDisplay / content / forms / feedback / overlay / ai）
 6. **components.json**：在根目錄 `components.json` 新增元件規格（`cssClasses`、`dataAttributes`、`aria`、`notes`、`example`）
 7. **llms.txt**：在根目錄 `llms.txt` 對應分類區塊加入元件說明（CSS class 清單 + HTML 範例）
 8. **互動元件 JS**（僅有 JS 互動的元件）：在 `src/scripts/cubby-ui.js` 加入 `setupXxx()` 函式（含 JSDoc + HTML 結構範例）與追蹤陣列；更新 `src/scripts/cubby-ui.d.ts` 的 `DATA_ATTRS` 常數；使用 `data-*` 屬性管理狀態（非框架狀態管理）

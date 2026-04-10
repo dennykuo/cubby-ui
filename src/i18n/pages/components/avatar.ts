@@ -19,7 +19,7 @@ export const avatarPage: Record<Locale, {
   en: {
     title: 'Avatar — Cubby UI',
     description: 'An image element with a fallback for representing the user.',
-    category: 'Data Display',
+    category: 'Basic',
     sections: {
       usage: {
         title: 'Usage',
@@ -79,7 +79,7 @@ export const avatarPage: Record<Locale, {
   'zh-tw': {
     title: 'Avatar — Cubby UI',
     description: '帶有備用顯示的圖片元素，用於代表使用者。',
-    category: '資料展示',
+    category: '基礎',
     sections: {
       usage: {
         title: '使用方式',

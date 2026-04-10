@@ -17,14 +17,14 @@ const t = useTranslations(cardPage, locale);
 
 const usageCode = `<div class="cu-card">
   <div class="cu-card-header">
-    <h3 class="cu-card-title">Card Title</h3>
-    <p class="cu-card-description">Card description goes here.</p>
+    <h3 class="cu-card-title">Project Settings</h3>
+    <p class="cu-card-description">Manage your project configuration and preferences.</p>
   </div>
   <div class="cu-card-content">
-    <p>Card content.</p>
+    <p class="text-sm text-muted-foreground">Configure your project name, description, and visibility settings from this panel.</p>
   </div>
   <div class="cu-card-footer">
-    <button class="cu-button cu-button-default cu-button-md">Action</button>
+    <button class="cu-button cu-button-default cu-button-md">Save Changes</button>
   </div>
 </div>`.trim();
 
@@ -69,24 +69,24 @@ const notificationCardCode = `<div class="cu-card w-[380px]">
     <div class="flex items-center gap-4 rounded-lg border border-border p-3">
       <span class="flex h-2 w-2 rounded-full bg-primary"></span>
       <div class="flex-1 space-y-0.5">
-        <p class="text-sm font-medium leading-none">Push notifications</p>
-        <p class="text-xs text-muted-foreground">Send to device.</p>
+        <p class="text-sm font-medium leading-none">Push Notifications</p>
+        <p class="text-xs text-muted-foreground">Sent to your mobile device.</p>
       </div>
       <span class="text-xs text-muted-foreground">2m ago</span>
     </div>
     <div class="flex items-center gap-4 rounded-lg border border-border p-3">
       <span class="flex h-2 w-2 rounded-full bg-primary"></span>
       <div class="flex-1 space-y-0.5">
-        <p class="text-sm font-medium leading-none">Email digest</p>
-        <p class="text-xs text-muted-foreground">Weekly summary.</p>
+        <p class="text-sm font-medium leading-none">Email Digest</p>
+        <p class="text-xs text-muted-foreground">Sent every Monday morning.</p>
       </div>
       <span class="text-xs text-muted-foreground">1h ago</span>
     </div>
     <div class="flex items-center gap-4 rounded-lg border border-border p-3">
       <span class="flex h-2 w-2 rounded-full bg-muted-foreground/30"></span>
       <div class="flex-1 space-y-0.5">
-        <p class="text-sm font-medium leading-none">SMS alerts</p>
-        <p class="text-xs text-muted-foreground">Critical only.</p>
+        <p class="text-sm font-medium leading-none">SMS Alerts</p>
+        <p class="text-xs text-muted-foreground">Only for critical incidents.</p>
       </div>
       <span class="text-xs text-muted-foreground">3d ago</span>
     </div>
@@ -104,8 +104,8 @@ const metricCode = `<div class="cu-card">
     <p class="cu-card-description">January - June 2024</p>
   </div>
   <div class="cu-card-content">
-    <div class="text-3xl font-bold">$45,231.89</div>
-    <p class="text-xs text-muted-foreground mt-1">+20.1% from last month</p>
+    <div class="text-3xl font-bold">$2,480</div>
+    <p class="text-xs text-muted-foreground mt-1">+12.5% from last month</p>
   </div>
 </div>`.trim();
 
@@ -113,7 +113,7 @@ const outlinedCode = `<div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
   <div class="cu-card">
     <div class="cu-card-header">
       <h3 class="cu-card-title">Default Card</h3>
-      <p class="cu-card-description">With default shadow-sm.</p>
+      <p class="cu-card-description">With default shadow-xs.</p>
     </div>
   </div>
   <div class="cu-card cu-card-outlined">
@@ -131,7 +131,7 @@ const hoverCode = `<div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 2 7l10 5 10-5-10-5Z"/><path d="m2 17 10 5 10-5"/><path d="m2 12 10 5 10-5"/></svg>
       </div>
       <h3 class="cu-card-title">Components</h3>
-      <p class="cu-card-description">60+ beautifully crafted UI components.</p>
+      <p class="cu-card-description">Over 90 production-ready UI components.</p>
     </div>
   </div>
   <div class="cu-card cu-card-hover">
@@ -140,7 +140,7 @@ const hoverCode = `<div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
       </div>
       <h3 class="cu-card-title">Framework Free</h3>
-      <p class="cu-card-description">Pure HTML + CSS, no JavaScript required.</p>
+      <p class="cu-card-description">Works with any stack — no dependencies.</p>
     </div>
   </div>
   <div class="cu-card cu-card-hover">
@@ -149,7 +149,7 @@ const hoverCode = `<div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m8 12 3 3 5-6"/></svg>
       </div>
       <h3 class="cu-card-title">Accessible</h3>
-      <p class="cu-card-description">Built with semantic HTML and ARIA attributes.</p>
+      <p class="cu-card-description">Follows WAI-ARIA guidelines by default.</p>
     </div>
   </div>
 </div>`.trim();
@@ -157,29 +157,29 @@ const hoverCode = `<div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
 const profileCardCode = `<div class="cu-card w-[380px]">
   <div class="cu-card-header items-center text-center">
     <span class="cu-avatar cu-avatar-lg">
-      <span class="cu-avatar-fallback">JD</span>
+      <span class="cu-avatar-fallback">AC</span>
     </span>
-    <h3 class="cu-card-title mt-2">Jane Doe</h3>
-    <p class="cu-card-description">Senior Frontend Engineer</p>
+    <h3 class="cu-card-title mt-2">Alex Chen</h3>
+    <p class="cu-card-description">Product Designer</p>
     <div class="flex gap-2 mt-2">
-      <span class="cu-badge cu-badge-secondary">React</span>
-      <span class="cu-badge cu-badge-secondary">TypeScript</span>
-      <span class="cu-badge cu-badge-secondary">Tailwind</span>
+      <span class="cu-badge cu-badge-secondary">Figma</span>
+      <span class="cu-badge cu-badge-secondary">Design Systems</span>
+      <span class="cu-badge cu-badge-secondary">Prototyping</span>
     </div>
   </div>
   <div class="cu-card-content">
     <div class="cu-separator cu-separator-horizontal"></div>
     <div class="mt-4 grid grid-cols-3 gap-4 text-center">
       <div>
-        <div class="text-lg font-bold">128</div>
+        <div class="text-lg font-bold">86</div>
         <div class="text-xs text-muted-foreground">Posts</div>
       </div>
       <div>
-        <div class="text-lg font-bold">4.2K</div>
+        <div class="text-lg font-bold">2.1K</div>
         <div class="text-xs text-muted-foreground">Followers</div>
       </div>
       <div>
-        <div class="text-lg font-bold">312</div>
+        <div class="text-lg font-bold">248</div>
         <div class="text-xs text-muted-foreground">Following</div>
       </div>
     </div>
@@ -210,8 +210,8 @@ const pricingCardCode = `<div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
         1 GB storage
       </div>
       <div class="flex items-center gap-2 text-sm text-muted-foreground">
-        <svg class="size-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
-        Priority support
+        <svg class="size-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m8 12 3 3 5-6"/></svg>
+        Community support
       </div>
     </div>
     <div class="cu-card-footer">
@@ -268,7 +268,7 @@ const pricingCardCode = `<div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
       </div>
       <div class="flex items-center gap-2 text-sm">
         <svg class="size-4 text-success" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m8 12 3 3 5-6"/></svg>
-        Dedicated account manager
+        Dedicated manager
       </div>
     </div>
     <div class="cu-card-footer">
@@ -411,14 +411,14 @@ const tableInCardCode = `<div class="cu-card">
             <ComponentPreview code={usageCode}>
                 <Card class="w-[380px]">
                     <CardHeader>
-                        <CardTitle>Card Title</CardTitle>
-                        <CardDescription>Card description goes here.</CardDescription>
+                        <CardTitle>Project Settings</CardTitle>
+                        <CardDescription>Manage your project configuration and preferences.</CardDescription>
                     </CardHeader>
                     <CardContent>
-                        <p>Card content.</p>
+                        <p class="text-sm text-muted-foreground">Configure your project name, description, and visibility settings from this panel.</p>
                     </CardContent>
                     <CardFooter>
-                        <Button>Action</Button>
+                        <Button>Save Changes</Button>
                     </CardFooter>
                 </Card>
             </ComponentPreview>
@@ -463,7 +463,7 @@ const tableInCardCode = `<div class="cu-card">
                     <Card>
                         <CardHeader>
                             <CardTitle>Default Card</CardTitle>
-                            <CardDescription>With default shadow-sm.</CardDescription>
+                            <CardDescription>With default shadow-xs.</CardDescription>
                         </CardHeader>
                     </Card>
                     <Card class="cu-card-outlined">
@@ -491,7 +491,7 @@ const tableInCardCode = `<div class="cu-card">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 2 7l10 5 10-5-10-5Z"/><path d="m2 17 10 5 10-5"/><path d="m2 12 10 5 10-5"/></svg>
                             </div>
                             <CardTitle>Components</CardTitle>
-                            <CardDescription>60+ beautifully crafted UI components.</CardDescription>
+                            <CardDescription>Over 90 production-ready UI components.</CardDescription>
                         </CardHeader>
                     </Card>
                     <Card class="cu-card-hover">
@@ -500,7 +500,7 @@ const tableInCardCode = `<div class="cu-card">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
                             </div>
                             <CardTitle>Framework Free</CardTitle>
-                            <CardDescription>Pure HTML + CSS, no JavaScript required.</CardDescription>
+                            <CardDescription>Works with any stack — no dependencies.</CardDescription>
                         </CardHeader>
                     </Card>
                     <Card class="cu-card-hover">
@@ -509,7 +509,7 @@ const tableInCardCode = `<div class="cu-card">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m8 12 3 3 5-6"/></svg>
                             </div>
                             <CardTitle>Accessible</CardTitle>
-                            <CardDescription>Built with semantic HTML and ARIA attributes.</CardDescription>
+                            <CardDescription>Follows WAI-ARIA guidelines by default.</CardDescription>
                         </CardHeader>
                     </Card>
                 </div>
@@ -533,8 +533,8 @@ const tableInCardCode = `<div class="cu-card">
                             <CardDescription>January - June 2024</CardDescription>
                         </CardHeader>
                         <CardContent>
-                            <div class="text-3xl font-bold">$45,231.89</div>
-                            <p class="text-xs text-muted-foreground mt-1">+20.1% from last month</p>
+                            <div class="text-3xl font-bold">$2,480</div>
+                            <p class="text-xs text-muted-foreground mt-1">+12.5% from last month</p>
                         </CardContent>
                     </Card>
                     <Card class="w-[200px]">
@@ -614,24 +614,24 @@ const tableInCardCode = `<div class="cu-card">
                         <div class="flex items-center gap-4 rounded-lg border border-border p-3">
                             <span class="flex h-2 w-2 rounded-full bg-primary"></span>
                             <div class="flex-1 space-y-0.5">
-                                <p class="text-sm font-medium leading-none">Push notifications</p>
-                                <p class="text-xs text-muted-foreground">Send to device.</p>
+                                <p class="text-sm font-medium leading-none">Push Notifications</p>
+                                <p class="text-xs text-muted-foreground">Sent to your mobile device.</p>
                             </div>
                             <span class="text-xs text-muted-foreground">2m ago</span>
                         </div>
                         <div class="flex items-center gap-4 rounded-lg border border-border p-3">
                             <span class="flex h-2 w-2 rounded-full bg-primary"></span>
                             <div class="flex-1 space-y-0.5">
-                                <p class="text-sm font-medium leading-none">Email digest</p>
-                                <p class="text-xs text-muted-foreground">Weekly summary.</p>
+                                <p class="text-sm font-medium leading-none">Email Digest</p>
+                                <p class="text-xs text-muted-foreground">Sent every Monday morning.</p>
                             </div>
                             <span class="text-xs text-muted-foreground">1h ago</span>
                         </div>
                         <div class="flex items-center gap-4 rounded-lg border border-border p-3">
                             <span class="flex h-2 w-2 rounded-full bg-muted-foreground/30"></span>
                             <div class="flex-1 space-y-0.5">
-                                <p class="text-sm font-medium leading-none">SMS alerts</p>
-                                <p class="text-xs text-muted-foreground">Critical only.</p>
+                                <p class="text-sm font-medium leading-none">SMS Alerts</p>
+                                <p class="text-xs text-muted-foreground">Only for critical incidents.</p>
                             </div>
                             <span class="text-xs text-muted-foreground">3d ago</span>
                         </div>
@@ -703,29 +703,29 @@ const tableInCardCode = `<div class="cu-card">
                 <Card class="w-[380px]">
                     <CardHeader class="items-center text-center">
                         <span class="cu-avatar cu-avatar-lg">
-                            <span class="cu-avatar-fallback">JD</span>
+                            <span class="cu-avatar-fallback">AC</span>
                         </span>
-                        <CardTitle class="mt-2">Jane Doe</CardTitle>
-                        <CardDescription>Senior Frontend Engineer</CardDescription>
+                        <CardTitle class="mt-2">Alex Chen</CardTitle>
+                        <CardDescription>Product Designer</CardDescription>
                         <div class="flex gap-2 mt-2">
-                            <Badge variant="secondary">React</Badge>
-                            <Badge variant="secondary">TypeScript</Badge>
-                            <Badge variant="secondary">Tailwind</Badge>
+                            <Badge variant="secondary">Figma</Badge>
+                            <Badge variant="secondary">Design Systems</Badge>
+                            <Badge variant="secondary">Prototyping</Badge>
                         </div>
                     </CardHeader>
                     <CardContent>
                         <div class="cu-separator cu-separator-horizontal"></div>
                         <div class="mt-4 grid grid-cols-3 gap-4 text-center">
                             <div>
-                                <div class="text-lg font-bold">128</div>
+                                <div class="text-lg font-bold">86</div>
                                 <div class="text-xs text-muted-foreground">Posts</div>
                             </div>
                             <div>
-                                <div class="text-lg font-bold">4.2K</div>
+                                <div class="text-lg font-bold">2.1K</div>
                                 <div class="text-xs text-muted-foreground">Followers</div>
                             </div>
                             <div>
-                                <div class="text-lg font-bold">312</div>
+                                <div class="text-lg font-bold">248</div>
                                 <div class="text-xs text-muted-foreground">Following</div>
                             </div>
                         </div>
@@ -768,8 +768,8 @@ const tableInCardCode = `<div class="cu-card">
                                 1 GB storage
                             </div>
                             <div class="flex items-center gap-2 text-sm text-muted-foreground">
-                                <svg class="size-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
-                                Priority support
+                                <svg class="size-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m8 12 3 3 5-6"/></svg>
+                                Community support
                             </div>
                         </CardContent>
                         <CardFooter>
@@ -826,7 +826,7 @@ const tableInCardCode = `<div class="cu-card">
                             </div>
                             <div class="flex items-center gap-2 text-sm">
                                 <svg class="size-4 text-success" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m8 12 3 3 5-6"/></svg>
-                                Dedicated account manager
+                                Dedicated manager
                             </div>
                         </CardContent>
                         <CardFooter>

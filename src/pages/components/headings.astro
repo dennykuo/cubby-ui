@@ -13,7 +13,8 @@ const usageCode = `<h1 class="cu-h1">This is an H1 heading</h1>`.trim();
 const allLevelsCode = `<h1 class="cu-h1">This is an H1 heading</h1>
 <h2 class="cu-h2">This is an H2 heading</h2>
 <h3 class="cu-h3">This is an H3 heading</h3>
-<h4 class="cu-h4">This is an H4 heading</h4>`.trim();
+<h4 class="cu-h4">This is an H4 heading</h4>
+<h5 class="cu-h5">This is an H5 heading</h5>`.trim();
 ---
 
 <Layout title={t.title} category={t.category} componentName="Headings">
@@ -69,6 +70,10 @@ const allLevelsCode = `<h1 class="cu-h1">This is an H1 heading</h1>
               <td class="cu-table-cell"><code class="cu-code">cu-h4</code></td>
               <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-h4']}</td>
             </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell"><code class="cu-code">cu-h5</code></td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-h5']}</td>
+            </tr>
           </tbody>
         </table>
       </div>
@@ -88,6 +93,7 @@ const allLevelsCode = `<h1 class="cu-h1">This is an H1 heading</h1>
                     <Heading level={2}>This is an H2 heading</Heading>
                     <Heading level={3}>This is an H3 heading</Heading>
                     <Heading level={4}>This is an H4 heading</Heading>
+                    <Heading level={5}>This is an H5 heading</Heading>
                 </div>
             </ComponentPreview>
         </section>

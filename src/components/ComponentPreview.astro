@@ -31,6 +31,7 @@ const t = uiTranslations[locale];
 	data-cu-css-url={globalCssUrl}
 	data-cu-js-url={cubbyUiJsUrl}
 	data-cu-preview-align={align}
+	data-cu-preview-code={code}
 >
 	<!-- Responsive toggle toolbar -->
 	<div class="flex items-center gap-1 px-4 py-2 border-b border-border/20">
@@ -142,7 +143,12 @@ const t = uiTranslations[locale];
 
 			if (template && iframe && !iframe.srcdoc) {
 				const cacheBust = import.meta.env.DEV ? "?t=" + Date.now() : "";
-				const templateContent = template.innerHTML;
+				let templateContent = template.innerHTML;
+
+				// Fallback: 如果 slot 為空，使用 code prop 作為 preview HTML
+				if (!templateContent.trim()) {
+					templateContent = el.dataset.cuPreviewCode || "";
+				}
 				const alignStyles =
 					align === "center"
 						? "justify-content: center;"

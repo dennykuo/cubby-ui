@@ -17,7 +17,7 @@ export const countdownPage: Record<Locale, {
   en: {
     title: 'Countdown — Cubby UI',
     description: 'Displays a countdown timer to a target date/time, with individual segments for days, hours, minutes, and seconds.',
-    category: 'Data Display',
+    category: 'Content',
     sections: {
       usage: {
         title: 'Usage',
@@ -59,7 +59,7 @@ export const countdownPage: Record<Locale, {
   'zh-tw': {
     title: 'Countdown 倒數計時 — Cubby UI',
     description: '顯示目標日期/時間的倒數計時器，包含天、時、分、秒等獨立區段。',
-    category: 'Data Display',
+    category: 'Content',
     sections: {
       usage: {
         title: '使用方式',

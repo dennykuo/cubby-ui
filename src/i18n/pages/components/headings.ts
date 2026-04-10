@@ -13,12 +13,12 @@ export const headingsPage: Record<Locale, {
 }> = {
   en: {
     title: 'Headings — Cubby UI',
-    description: 'Semantic heading styles from H1 to H4 for page titles, section headers, and content hierarchy.',
+    description: 'Semantic heading styles from H1 to H5 for page titles, section headers, and content hierarchy.',
     category: 'Typography',
     sections: {
       usage: {
         title: 'Usage',
-        description: 'Apply <code class="cu-code">cu-h1</code> through <code class="cu-code">cu-h4</code> to heading elements.',
+        description: 'Apply <code class="cu-code">cu-h1</code> through <code class="cu-code">cu-h5</code> to heading elements.',
       },
       classes: {
         title: 'CSS Classes',
@@ -27,7 +27,7 @@ export const headingsPage: Record<Locale, {
       },
       allLevels: {
         title: 'All Levels',
-        description: 'Four heading levels with progressively decreasing size and weight.',
+        description: 'Five heading levels with progressively decreasing size and weight.',
       },
     },
     classDescriptions: {
@@ -35,16 +35,17 @@ export const headingsPage: Record<Locale, {
       'cu-h2': 'Heading 2, large semi-bold',
       'cu-h3': 'Heading 3, medium semi-bold',
       'cu-h4': 'Heading 4, small semi-bold',
+      'cu-h5': 'Heading 5, small semi-bold',
     },
   },
   'zh-tw': {
     title: 'Headings — Cubby UI',
-    description: '從 H1 到 H4 的語意標題樣式，適用於頁面標題、區段標頭和內容層級。',
+    description: '從 H1 到 H5 的語意標題樣式，適用於頁面標題、區段標頭和內容層級。',
     category: '排版',
     sections: {
       usage: {
         title: '使用方式',
-        description: '將 <code class="cu-code">cu-h1</code> 到 <code class="cu-code">cu-h4</code> 套用至標題元素。',
+        description: '將 <code class="cu-code">cu-h1</code> 到 <code class="cu-code">cu-h5</code> 套用至標題元素。',
       },
       classes: {
         title: 'CSS 類別',
@@ -53,7 +54,7 @@ export const headingsPage: Record<Locale, {
       },
       allLevels: {
         title: '所有層級',
-        description: '四個標題層級，尺寸與字重依序遞減。',
+        description: '五個標題層級，尺寸與字重依序遞減。',
       },
     },
     classDescriptions: {
@@ -61,6 +62,7 @@ export const headingsPage: Record<Locale, {
       'cu-h2': '標題 2，大半粗體',
       'cu-h3': '標題 3，中半粗體',
       'cu-h4': '標題 4，小半粗體',
+      'cu-h5': '標題 5，小半粗體',
     },
   },
 };

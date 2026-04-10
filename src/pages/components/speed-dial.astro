@@ -12,66 +12,102 @@ const editSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" 
 const shareSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>`;
 const trashSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>`;
 
-const usageCode = `<!-- In production, use fixed positioning (default). Here we use absolute for demo. -->
-<div style="position: relative; height: 200px;">
-  <div class="cu-speed-dial cu-speed-dial-bottom-right" style="position: absolute;" data-cu-speed-dial>
-    <div class="cu-speed-dial-actions">
-      <button class="cu-speed-dial-action" aria-label="Edit">${editSvg}</button>
-      <button class="cu-speed-dial-action" aria-label="Share">${shareSvg}</button>
-      <button class="cu-speed-dial-action" aria-label="Delete">${trashSvg}</button>
+const usageCode = `<div style="display: flex; justify-content: center; align-items: flex-end; height: 120px; padding-bottom: 16px;">
+  <div class="cu-speed-dial" style="position: relative;" data-cu-speed-dial>
+    <div class="cu-speed-dial-actions" data-cu-speed-dial-actions>
+      <div class="cu-speed-dial-action">
+        <button class="cu-speed-dial-action-btn" aria-label="Edit">${editSvg}</button>
+      </div>
+      <div class="cu-speed-dial-action">
+        <button class="cu-speed-dial-action-btn" aria-label="Share">${shareSvg}</button>
+      </div>
+      <div class="cu-speed-dial-action">
+        <button class="cu-speed-dial-action-btn" aria-label="Delete">${trashSvg}</button>
+      </div>
     </div>
-    <button class="cu-speed-dial-trigger" aria-label="Actions">${plusSvg}</button>
+    <button class="cu-speed-dial-trigger" data-cu-speed-dial-trigger aria-label="Actions">${plusSvg}</button>
+  </div>
+</div>`.trim();
+
+const expandedCode = `<div style="display: flex; justify-content: center; align-items: flex-end; height: 260px; padding-bottom: 16px;">
+  <div class="cu-speed-dial" style="position: relative;" data-cu-speed-dial>
+    <div class="cu-speed-dial-actions" data-cu-speed-dial-actions data-cu-open>
+      <div class="cu-speed-dial-action">
+        <button class="cu-speed-dial-action-btn" aria-label="Edit">${editSvg}</button>
+      </div>
+      <div class="cu-speed-dial-action">
+        <button class="cu-speed-dial-action-btn" aria-label="Share">${shareSvg}</button>
+      </div>
+      <div class="cu-speed-dial-action">
+        <button class="cu-speed-dial-action-btn" aria-label="Delete">${trashSvg}</button>
+      </div>
+    </div>
+    <button class="cu-speed-dial-trigger" data-cu-speed-dial-trigger aria-expanded="true" aria-label="Actions">${plusSvg}</button>
   </div>
 </div>`.trim();
 
 const positionsCode = `<div style="position: relative; height: 250px;">
   <!-- Bottom Right -->
   <div class="cu-speed-dial cu-speed-dial-bottom-right" style="position: absolute;" data-cu-speed-dial>
-    <div class="cu-speed-dial-actions">
-      <button class="cu-speed-dial-action" aria-label="Edit">${editSvg}</button>
-      <button class="cu-speed-dial-action" aria-label="Share">${shareSvg}</button>
+    <div class="cu-speed-dial-actions" data-cu-speed-dial-actions>
+      <div class="cu-speed-dial-action">
+        <button class="cu-speed-dial-action-btn" aria-label="Edit">${editSvg}</button>
+      </div>
+      <div class="cu-speed-dial-action">
+        <button class="cu-speed-dial-action-btn" aria-label="Share">${shareSvg}</button>
+      </div>
     </div>
-    <button class="cu-speed-dial-trigger" aria-label="Actions">${plusSvg}</button>
+    <button class="cu-speed-dial-trigger" data-cu-speed-dial-trigger aria-label="Actions">${plusSvg}</button>
   </div>
 
   <!-- Bottom Left -->
   <div class="cu-speed-dial cu-speed-dial-bottom-left" style="position: absolute;" data-cu-speed-dial>
-    <div class="cu-speed-dial-actions">
-      <button class="cu-speed-dial-action" aria-label="Edit">${editSvg}</button>
-      <button class="cu-speed-dial-action" aria-label="Share">${shareSvg}</button>
+    <div class="cu-speed-dial-actions" data-cu-speed-dial-actions>
+      <div class="cu-speed-dial-action">
+        <button class="cu-speed-dial-action-btn" aria-label="Edit">${editSvg}</button>
+      </div>
+      <div class="cu-speed-dial-action">
+        <button class="cu-speed-dial-action-btn" aria-label="Share">${shareSvg}</button>
+      </div>
     </div>
-    <button class="cu-speed-dial-trigger" aria-label="Actions">${plusSvg}</button>
+    <button class="cu-speed-dial-trigger" data-cu-speed-dial-trigger aria-label="Actions">${plusSvg}</button>
   </div>
 </div>`.trim();
 
-const withLabelsCode = `<div style="position: relative; height: 250px;">
-  <div class="cu-speed-dial cu-speed-dial-bottom-right" style="position: absolute;" data-cu-speed-dial>
-    <div class="cu-speed-dial-actions">
-      <div class="cu-speed-dial-action-wrapper">
-        <span class="cu-speed-dial-label">Edit</span>
-        <button class="cu-speed-dial-action" aria-label="Edit">${editSvg}</button>
+const withLabelsCode = `<div style="display: flex; justify-content: center; align-items: flex-end; height: 280px; padding-bottom: 16px;">
+  <div class="cu-speed-dial" style="position: relative;" data-cu-speed-dial>
+    <div class="cu-speed-dial-actions" data-cu-speed-dial-actions data-cu-open>
+      <div class="cu-speed-dial-action">
+        <span class="cu-speed-dial-action-label">Edit</span>
+        <button class="cu-speed-dial-action-btn" aria-label="Edit">${editSvg}</button>
       </div>
-      <div class="cu-speed-dial-action-wrapper">
-        <span class="cu-speed-dial-label">Share</span>
-        <button class="cu-speed-dial-action" aria-label="Share">${shareSvg}</button>
+      <div class="cu-speed-dial-action">
+        <span class="cu-speed-dial-action-label">Share</span>
+        <button class="cu-speed-dial-action-btn" aria-label="Share">${shareSvg}</button>
       </div>
-      <div class="cu-speed-dial-action-wrapper">
-        <span class="cu-speed-dial-label">Delete</span>
-        <button class="cu-speed-dial-action" aria-label="Delete">${trashSvg}</button>
+      <div class="cu-speed-dial-action">
+        <span class="cu-speed-dial-action-label">Delete</span>
+        <button class="cu-speed-dial-action-btn" aria-label="Delete">${trashSvg}</button>
       </div>
     </div>
-    <button class="cu-speed-dial-trigger" aria-label="Actions">${plusSvg}</button>
+    <button class="cu-speed-dial-trigger" data-cu-speed-dial-trigger aria-expanded="true" aria-label="Actions">${plusSvg}</button>
   </div>
 </div>`.trim();
 
-const smallCode = `<div style="position: relative; height: 200px;">
-  <div class="cu-speed-dial cu-speed-dial-sm cu-speed-dial-bottom-right" style="position: absolute;" data-cu-speed-dial>
-    <div class="cu-speed-dial-actions">
-      <button class="cu-speed-dial-action" aria-label="Edit">${editSvg}</button>
-      <button class="cu-speed-dial-action" aria-label="Share">${shareSvg}</button>
-      <button class="cu-speed-dial-action" aria-label="Delete">${trashSvg}</button>
+const smallCode = `<div style="display: flex; justify-content: center; align-items: flex-end; height: 120px; padding-bottom: 16px;">
+  <div class="cu-speed-dial cu-speed-dial-sm" style="position: relative;" data-cu-speed-dial>
+    <div class="cu-speed-dial-actions" data-cu-speed-dial-actions>
+      <div class="cu-speed-dial-action">
+        <button class="cu-speed-dial-action-btn" aria-label="Edit">${editSvg}</button>
+      </div>
+      <div class="cu-speed-dial-action">
+        <button class="cu-speed-dial-action-btn" aria-label="Share">${shareSvg}</button>
+      </div>
+      <div class="cu-speed-dial-action">
+        <button class="cu-speed-dial-action-btn" aria-label="Delete">${trashSvg}</button>
+      </div>
     </div>
-    <button class="cu-speed-dial-trigger" aria-label="Actions">${plusSvg}</button>
+    <button class="cu-speed-dial-trigger" data-cu-speed-dial-trigger aria-label="Actions">${plusSvg}</button>
   </div>
 </div>`.trim();
 ---
@@ -118,6 +154,15 @@ const smallCode = `<div style="position: relative; height: 200px;">
                     </tbody>
                 </table>
             </div>
+        </section>
+
+        <section class="space-y-3">
+            <h2 id="expanded" class="text-lg font-semibold tracking-tight relative group">
+                <a href="#expanded" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                {t.sections.expanded.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.expanded.description} />
+            <ComponentPreview code={expandedCode} />
         </section>
 
         <section class="space-y-3">

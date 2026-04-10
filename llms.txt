@@ -68,12 +68,13 @@ Dark mode: add `.dark` class on `<html>` or `<body>`.
 
 ### Typography
 
-**Headings**
+**Headings** (H1 to H5)
 ```html
 <h1 class="cu-h1">Heading 1</h1>
 <h2 class="cu-h2">Heading 2</h2>
 <h3 class="cu-h3">Heading 3</h3>
 <h4 class="cu-h4">Heading 4</h4>
+<h5 class="cu-h5">Heading 5</h5>
 ```
 
 **Paragraph**
@@ -114,7 +115,7 @@ Classes: `cu-kbd`, `cu-kbd-sm`, `cu-kbd-lg`
 ### Basic
 
 **Aspect Ratio** — constrains child content to a specific aspect ratio
-Classes: `cu-aspect-ratio` (container, relative + overflow-hidden), `cu-aspect-ratio-16/9`, `cu-aspect-ratio-4/3`, `cu-aspect-ratio-1/1`, `cu-aspect-ratio-21/9`
+Classes: `cu-aspect-ratio` (container, relative + overflow-hidden), `cu-aspect-ratio-16/9`, `cu-aspect-ratio-4/3`, `cu-aspect-ratio-1/1`, `cu-aspect-ratio-21/9`, `cu-aspect-ratio-3/2`, `cu-aspect-ratio-2/3`, `cu-aspect-ratio-9/16`, `cu-aspect-ratio-3/4`, `cu-aspect-ratio-5/4`
 Child elements are stretched to fill via absolute positioning + `object-cover`.
 ```html
 <div class="cu-aspect-ratio cu-aspect-ratio-16/9">
@@ -166,6 +167,27 @@ Requires explicit direction class.
 ```html
 <hr class="cu-separator cu-separator-horizontal"> <!-- horizontal line -->
 <div class="cu-separator cu-separator-vertical"></div> <!-- vertical line -->
+```
+
+**Avatar**
+Sizes: `cu-avatar-sm`, `cu-avatar-lg`, `cu-avatar-xl`
+Status: `cu-avatar-status` + `cu-avatar-status-online` / `cu-avatar-status-offline` / `cu-avatar-status-busy` / `cu-avatar-status-away`
+Shape: `cu-avatar-square` (rounded-lg instead of rounded-full)
+Ring: `cu-avatar-ring`
+```html
+<div class="cu-avatar">
+  <img class="cu-avatar-image" src="photo.jpg" alt="User">
+  <span class="cu-avatar-fallback">AB</span>
+</div>
+```
+
+**Badge**
+Variants: `cu-badge-default`, `cu-badge-secondary`, `cu-badge-destructive`, `cu-badge-outline`, `cu-badge-success`, `cu-badge-warning`, `cu-badge-info`
+Sizes: `cu-badge-sm`, `cu-badge-lg`
+Dot animation: `cu-badge-dot-animated` (pulsing animation on dot indicator)
+```html
+<span class="cu-badge cu-badge-default">New</span>
+<span class="cu-badge cu-badge-success cu-badge-sm">Active</span>
 ```
 
 ---
@@ -521,27 +543,6 @@ Note: Input MUST have `placeholder=" "` (space) for the CSS `:placeholder-shown`
 
 ### Data Display
 
-**Avatar**
-Sizes: `cu-avatar-sm`, `cu-avatar-lg`, `cu-avatar-xl`
-Status: `cu-avatar-status` + `cu-avatar-status-online` / `cu-avatar-status-offline` / `cu-avatar-status-busy` / `cu-avatar-status-away`
-Shape: `cu-avatar-square` (rounded-lg instead of rounded-full)
-Ring: `cu-avatar-ring`
-```html
-<div class="cu-avatar">
-  <img class="cu-avatar-image" src="photo.jpg" alt="User">
-  <span class="cu-avatar-fallback">AB</span>
-</div>
-```
-
-**Badge**
-Variants: `cu-badge-default`, `cu-badge-secondary`, `cu-badge-destructive`, `cu-badge-outline`, `cu-badge-success`, `cu-badge-warning`, `cu-badge-info`
-Sizes: `cu-badge-sm`, `cu-badge-lg`
-Dot animation: `cu-badge-dot-animated` (pulsing animation on dot indicator)
-```html
-<span class="cu-badge cu-badge-default">New</span>
-<span class="cu-badge cu-badge-success cu-badge-sm">Active</span>
-```
-
 **Code Block** — syntax-highlighted code display with optional header and copy button
 Classes: `cu-code-block` (container, dark bg), `cu-code-block-header` (top bar with filename/language + copy btn), `cu-code-block-pre` (scrollable code area), `cu-code-block-copy` (copy button, absolute top-right when no header, inline when inside header)
 Copied state: add `data-cu-copied` attribute to `cu-code-block-copy` to show success styling.
@@ -571,24 +572,6 @@ Copied state: add `data-cu-copied` attribute to `cu-code-block-copy` to show suc
 </div>
 ```
 
-**Marquee** — infinitely scrolling content (logo walls, testimonials). Pure CSS.
-Classes: `cu-marquee`, `cu-marquee-content`, `cu-marquee-item`, `cu-marquee-reverse`, `cu-marquee-vertical`, `cu-marquee-fade`, `cu-marquee-pause-on-hover`
-CSS Variable: `--cu-marquee-duration` (default: 30s)
-```html
-<div class="cu-marquee cu-marquee-fade" style="--cu-marquee-duration: 20s;">
-  <div class="cu-marquee-content">
-    <span class="cu-marquee-item px-8">Acme</span>
-    <span class="cu-marquee-item px-8">Globex</span>
-    <span class="cu-marquee-item px-8">Initech</span>
-  </div>
-  <div class="cu-marquee-content" aria-hidden="true">
-    <span class="cu-marquee-item px-8">Acme</span>
-    <span class="cu-marquee-item px-8">Globex</span>
-    <span class="cu-marquee-item px-8">Initech</span>
-  </div>
-</div>
-```
-
 **Sortable List** — drag-and-drop reorderable list
 Classes: `cu-sortable-list`, `cu-sortable-item`, `cu-sortable-handle`, `cu-sortable-content`, `cu-sortable-placeholder`, `cu-sortable-item-dragging`, `cu-sortable-item-disabled`, `cu-sortable-list-bordered`, `cu-sortable-list-compact`
 Data: `data-cu-sortable-list`, `data-cu-sortable-item`, `data-cu-sortable-handle`
@@ -601,37 +584,6 @@ Data: `data-cu-sortable-list`, `data-cu-sortable-item`, `data-cu-sortable-handle
   <div class="cu-sortable-item" data-cu-sortable-item draggable="true">
     <span class="cu-sortable-handle" data-cu-sortable-handle>⠿</span>
     <div class="cu-sortable-content">Item 2</div>
-  </div>
-</div>
-```
-
-**Countdown** — countdown timer to a target date
-Classes: `cu-countdown`, `cu-countdown-segment`, `cu-countdown-value`, `cu-countdown-label`, `cu-countdown-separator`, `cu-countdown-sm`, `cu-countdown-lg`, `cu-countdown-flush`, `cu-countdown-complete`
-Data: `data-cu-countdown`, `data-cu-countdown-target`, `data-cu-countdown-days`, `data-cu-countdown-hours`, `data-cu-countdown-minutes`, `data-cu-countdown-seconds`
-```html
-<div class="cu-countdown" data-cu-countdown data-cu-countdown-target="2026-12-31T00:00:00">
-  <div class="cu-countdown-segment">
-    <span class="cu-countdown-value" data-cu-countdown-days>00</span>
-    <span class="cu-countdown-label">Days</span>
-  </div>
-  <span class="cu-countdown-separator">:</span>
-  <div class="cu-countdown-segment">
-    <span class="cu-countdown-value" data-cu-countdown-hours>00</span>
-    <span class="cu-countdown-label">Hours</span>
-  </div>
-</div>
-```
-
-**Image Compare** — before/after image comparison slider
-Classes: `cu-image-compare`, `cu-image-compare-before`, `cu-image-compare-after`, `cu-image-compare-handle`, `cu-image-compare-handle-line`, `cu-image-compare-handle-grip`, `cu-image-compare-label`, `cu-image-compare-vertical`
-Data: `data-cu-image-compare`
-```html
-<div class="cu-image-compare" data-cu-image-compare>
-  <img class="cu-image-compare-after" src="after.jpg" alt="After" />
-  <img class="cu-image-compare-before" src="before.jpg" alt="Before" />
-  <div class="cu-image-compare-handle">
-    <div class="cu-image-compare-handle-line"></div>
-    <div class="cu-image-compare-handle-grip">⇔</div>
   </div>
 </div>
 ```
@@ -722,6 +674,47 @@ Responsive: Add `cu-table-stacked` to wrapper + `data-label` on each `<td>` for 
 </div>
 ```
 
+---
+
+### Content
+
+**Carousel** ⚡ Interactive — horizontal slide carousel with snap scrolling
+Classes: `cu-carousel` (container), `cu-carousel-viewport` (scroll container, snap-x), `cu-carousel-slide` (each slide, snap-start), `cu-carousel-multi-2` / `cu-carousel-multi-3` (show 2 or 3 slides at a time, add on carousel container), `cu-carousel-nav-outside` (place arrows outside viewport, add on carousel container), `cu-carousel-prev` / `cu-carousel-next` (arrow buttons, absolute center-y), `cu-carousel-dots` (dot indicators container), `cu-carousel-dot` (individual dot), `cu-carousel-dot-active` (active dot, primary color)
+Data attributes: `data-cu-carousel`
+```html
+<div class="cu-carousel" data-cu-carousel>
+  <div class="cu-carousel-viewport">
+    <div class="cu-carousel-slide">Slide 1</div>
+    <div class="cu-carousel-slide">Slide 2</div>
+    <div class="cu-carousel-slide">Slide 3</div>
+  </div>
+  <button class="cu-carousel-prev" aria-label="Previous">‹</button>
+  <button class="cu-carousel-next" aria-label="Next">›</button>
+  <div class="cu-carousel-dots">
+    <button class="cu-carousel-dot cu-carousel-dot-active" aria-label="Slide 1"></button>
+    <button class="cu-carousel-dot" aria-label="Slide 2"></button>
+    <button class="cu-carousel-dot" aria-label="Slide 3"></button>
+  </div>
+</div>
+```
+
+**Countdown** — countdown timer to a target date
+Classes: `cu-countdown`, `cu-countdown-segment`, `cu-countdown-value`, `cu-countdown-label`, `cu-countdown-separator`, `cu-countdown-sm`, `cu-countdown-lg`, `cu-countdown-flush`, `cu-countdown-complete`
+Data: `data-cu-countdown`, `data-cu-countdown-target`, `data-cu-countdown-days`, `data-cu-countdown-hours`, `data-cu-countdown-minutes`, `data-cu-countdown-seconds`
+```html
+<div class="cu-countdown" data-cu-countdown data-cu-countdown-target="2026-12-31T00:00:00">
+  <div class="cu-countdown-segment">
+    <span class="cu-countdown-value" data-cu-countdown-days>00</span>
+    <span class="cu-countdown-label">Days</span>
+  </div>
+  <span class="cu-countdown-separator">:</span>
+  <div class="cu-countdown-segment">
+    <span class="cu-countdown-value" data-cu-countdown-hours>00</span>
+    <span class="cu-countdown-label">Hours</span>
+  </div>
+</div>
+```
+
 **Diff Viewer** — code diff display (unified or side-by-side)
 Classes: `cu-diff-viewer`, `cu-diff-viewer-header`, `cu-diff-viewer-filename`, `cu-diff-viewer-hunk`, `cu-diff-viewer-line`, `cu-diff-viewer-line-number`, `cu-diff-viewer-line-content`, `cu-diff-viewer-line-added`, `cu-diff-viewer-line-removed`, `cu-diff-viewer-line-unchanged`, `cu-diff-viewer-side-by-side`, `cu-diff-viewer-side`, `cu-diff-viewer-word-added`, `cu-diff-viewer-word-removed`
 ```html
@@ -741,6 +734,38 @@ Classes: `cu-diff-viewer`, `cu-diff-viewer-header`, `cu-diff-viewer-filename`, `
   <div class="cu-diff-viewer-line cu-diff-viewer-line-added">
     <span class="cu-diff-viewer-line-number">2</span>
     <span class="cu-diff-viewer-line-content">const App = () => &lt;div&gt;Hello&lt;/div&gt;;</span>
+  </div>
+</div>
+```
+
+**Image Compare** — before/after image comparison slider
+Classes: `cu-image-compare`, `cu-image-compare-before`, `cu-image-compare-after`, `cu-image-compare-handle`, `cu-image-compare-handle-line`, `cu-image-compare-handle-grip`, `cu-image-compare-label`, `cu-image-compare-vertical`
+Data: `data-cu-image-compare`
+```html
+<div class="cu-image-compare" data-cu-image-compare>
+  <img class="cu-image-compare-after" src="after.jpg" alt="After" />
+  <img class="cu-image-compare-before" src="before.jpg" alt="Before" />
+  <div class="cu-image-compare-handle">
+    <div class="cu-image-compare-handle-line"></div>
+    <div class="cu-image-compare-handle-grip">⇔</div>
+  </div>
+</div>
+```
+
+**Marquee** — infinitely scrolling content (logo walls, testimonials). Pure CSS.
+Classes: `cu-marquee`, `cu-marquee-content`, `cu-marquee-item`, `cu-marquee-reverse`, `cu-marquee-vertical`, `cu-marquee-fade`, `cu-marquee-pause-on-hover`
+CSS Variable: `--cu-marquee-duration` (default: 30s)
+```html
+<div class="cu-marquee cu-marquee-fade" style="--cu-marquee-duration: 20s;">
+  <div class="cu-marquee-content">
+    <span class="cu-marquee-item px-8">Acme</span>
+    <span class="cu-marquee-item px-8">Globex</span>
+    <span class="cu-marquee-item px-8">Initech</span>
+  </div>
+  <div class="cu-marquee-content" aria-hidden="true">
+    <span class="cu-marquee-item px-8">Acme</span>
+    <span class="cu-marquee-item px-8">Globex</span>
+    <span class="cu-marquee-item px-8">Initech</span>
   </div>
 </div>
 ```
@@ -1129,26 +1154,6 @@ Data: `data-cu-kanban`, `data-cu-kanban-column`, `data-cu-kanban-column-body`, `
         <div class="cu-kanban-card-title">Design mockups</div>
       </div>
     </div>
-  </div>
-</div>
-```
-
-**Carousel** ⚡ Interactive — horizontal slide carousel with snap scrolling
-Classes: `cu-carousel` (container), `cu-carousel-viewport` (scroll container, snap-x), `cu-carousel-slide` (each slide, snap-start), `cu-carousel-multi-2` / `cu-carousel-multi-3` (show 2 or 3 slides at a time, add on carousel container), `cu-carousel-prev` / `cu-carousel-next` (arrow buttons, absolute center-y), `cu-carousel-dots` (dot indicators container), `cu-carousel-dot` (individual dot), `cu-carousel-dot-active` (active dot, primary color)
-Data attributes: `data-cu-carousel`
-```html
-<div class="cu-carousel" data-cu-carousel>
-  <div class="cu-carousel-viewport">
-    <div class="cu-carousel-slide">Slide 1</div>
-    <div class="cu-carousel-slide">Slide 2</div>
-    <div class="cu-carousel-slide">Slide 3</div>
-  </div>
-  <button class="cu-carousel-prev" aria-label="Previous">‹</button>
-  <button class="cu-carousel-next" aria-label="Next">›</button>
-  <div class="cu-carousel-dots">
-    <button class="cu-carousel-dot cu-carousel-dot-active" aria-label="Slide 1"></button>
-    <button class="cu-carousel-dot" aria-label="Slide 2"></button>
-    <button class="cu-carousel-dot" aria-label="Slide 3"></button>
   </div>
 </div>
 ```

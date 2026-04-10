@@ -8,7 +8,6 @@ export const aspectRatioPage: Record<Locale, {
     usage: { title: string; description: string };
     classes: { title: string; classLabel: string; descriptionLabel: string };
     ratios: { title: string; description: string };
-    ultraWide: { title: string; description: string };
     iframe: { title: string; description: string };
   };
   classDescriptions: Record<string, string>;
@@ -31,10 +30,6 @@ export const aspectRatioPage: Record<Locale, {
         title: 'Ratios',
         description: 'Compare different aspect ratios side by side.',
       },
-      ultraWide: {
-        title: 'Ultra-wide (21:9)',
-        description: 'Use <code class="cu-code">cu-aspect-ratio-21/9</code> for cinematic ultra-wide content.',
-      },
       iframe: {
         title: 'With Iframe',
         description: 'Embed maps, videos, or other iframe content in a fixed ratio.',
@@ -46,6 +41,11 @@ export const aspectRatioPage: Record<Locale, {
       'cu-aspect-ratio-4/3': '4:3 standard ratio',
       'cu-aspect-ratio-1/1': '1:1 square ratio',
       'cu-aspect-ratio-21/9': '21:9 ultra-wide ratio',
+      'cu-aspect-ratio-3/2': '3:2 photography ratio',
+      'cu-aspect-ratio-2/3': '2:3 portrait photography ratio',
+      'cu-aspect-ratio-9/16': '9:16 vertical video ratio (Stories, Reels)',
+      'cu-aspect-ratio-3/4': '3:4 portrait ratio',
+      'cu-aspect-ratio-5/4': '5:4 large format ratio',
     },
   },
   'zh-tw': {
@@ -66,10 +66,6 @@ export const aspectRatioPage: Record<Locale, {
         title: '比例',
         description: '並排比較不同的長寬比。',
       },
-      ultraWide: {
-        title: '超寬 (21:9)',
-        description: '使用 <code class="cu-code">cu-aspect-ratio-21/9</code> 呈現電影級超寬內容。',
-      },
       iframe: {
         title: '搭配 Iframe',
         description: '在固定比例中嵌入地圖、影片或其他 iframe 內容。',
@@ -81,6 +77,11 @@ export const aspectRatioPage: Record<Locale, {
       'cu-aspect-ratio-4/3': '4:3 標準比例',
       'cu-aspect-ratio-1/1': '1:1 正方形比例',
       'cu-aspect-ratio-21/9': '21:9 超寬比例',
+      'cu-aspect-ratio-3/2': '3:2 攝影比例',
+      'cu-aspect-ratio-2/3': '2:3 直式攝影比例',
+      'cu-aspect-ratio-9/16': '9:16 直式影片比例（Stories、Reels）',
+      'cu-aspect-ratio-3/4': '3:4 直式比例',
+      'cu-aspect-ratio-5/4': '5:4 大片幅比例',
     },
   },
 };

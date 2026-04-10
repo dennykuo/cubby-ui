@@ -7,34 +7,34 @@ import { segmentedControlPage } from "@/i18n/pages/components/segmented-control"
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(segmentedControlPage, locale);
 
-const usageCode = `<div class="cu-segmented">
+const usageCode = `<div class="cu-segmented" data-cu-segmented>
   <button class="cu-segmented-item cu-segmented-item-active">List</button>
   <button class="cu-segmented-item">Grid</button>
   <button class="cu-segmented-item">Board</button>
 </div>`.trim();
 
 const sizesCode = `<!-- Small -->
-<div class="cu-segmented cu-segmented-sm">
+<div class="cu-segmented cu-segmented-sm" data-cu-segmented>
   <button class="cu-segmented-item cu-segmented-item-active">S</button>
   <button class="cu-segmented-item">M</button>
   <button class="cu-segmented-item">L</button>
 </div>
 
 <!-- Default -->
-<div class="cu-segmented">
+<div class="cu-segmented" data-cu-segmented>
   <button class="cu-segmented-item cu-segmented-item-active">Small</button>
   <button class="cu-segmented-item">Medium</button>
   <button class="cu-segmented-item">Large</button>
 </div>
 
 <!-- Large -->
-<div class="cu-segmented cu-segmented-lg">
+<div class="cu-segmented cu-segmented-lg" data-cu-segmented>
   <button class="cu-segmented-item cu-segmented-item-active">Small</button>
   <button class="cu-segmented-item">Medium</button>
   <button class="cu-segmented-item">Large</button>
 </div>`.trim();
 
-const blockCode = `<div class="cu-segmented cu-segmented-block">
+const blockCode = `<div class="cu-segmented cu-segmented-block" data-cu-segmented>
   <button class="cu-segmented-item cu-segmented-item-active">Daily</button>
   <button class="cu-segmented-item">Weekly</button>
   <button class="cu-segmented-item">Monthly</button>
@@ -50,7 +50,7 @@ const accessibleCode = `<div class="cu-segmented" data-cu-segmented>
   <label class="cu-segmented-item">Board</label>
 </div>`.trim();
 
-const withIconsCode = `<div class="cu-segmented">
+const withIconsCode = `<div class="cu-segmented" data-cu-segmented>
   <button class="cu-segmented-item cu-segmented-item-active">
     <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1.5"><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/></svg>
     List
@@ -86,7 +86,7 @@ const withIconsCode = `<div class="cu-segmented">
             </h2>
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
             <ComponentPreview code={usageCode}>
-                <div class="cu-segmented">
+                <div class="cu-segmented" data-cu-segmented>
                     <button class="cu-segmented-item cu-segmented-item-active">List</button>
                     <button class="cu-segmented-item">Grid</button>
                     <button class="cu-segmented-item">Board</button>
@@ -129,17 +129,17 @@ const withIconsCode = `<div class="cu-segmented">
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.sizes.description} />
             <ComponentPreview code={sizesCode}>
                 <div class="flex flex-col items-center gap-4">
-                    <div class="cu-segmented cu-segmented-sm">
+                    <div class="cu-segmented cu-segmented-sm" data-cu-segmented>
                         <button class="cu-segmented-item cu-segmented-item-active">S</button>
                         <button class="cu-segmented-item">M</button>
                         <button class="cu-segmented-item">L</button>
                     </div>
-                    <div class="cu-segmented">
+                    <div class="cu-segmented" data-cu-segmented>
                         <button class="cu-segmented-item cu-segmented-item-active">Small</button>
                         <button class="cu-segmented-item">Medium</button>
                         <button class="cu-segmented-item">Large</button>
                     </div>
-                    <div class="cu-segmented cu-segmented-lg">
+                    <div class="cu-segmented cu-segmented-lg" data-cu-segmented>
                         <button class="cu-segmented-item cu-segmented-item-active">Small</button>
                         <button class="cu-segmented-item">Medium</button>
                         <button class="cu-segmented-item">Large</button>
@@ -157,7 +157,7 @@ const withIconsCode = `<div class="cu-segmented">
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.block.description} />
             <ComponentPreview code={blockCode}>
                 <div class="w-full max-w-md">
-                    <div class="cu-segmented cu-segmented-block">
+                    <div class="cu-segmented cu-segmented-block" data-cu-segmented>
                         <button class="cu-segmented-item cu-segmented-item-active">Daily</button>
                         <button class="cu-segmented-item">Weekly</button>
                         <button class="cu-segmented-item">Monthly</button>
@@ -194,7 +194,7 @@ const withIconsCode = `<div class="cu-segmented">
             </h2>
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withIcons.description} />
             <ComponentPreview code={withIconsCode}>
-                <div class="cu-segmented">
+                <div class="cu-segmented" data-cu-segmented>
                     <button class="cu-segmented-item cu-segmented-item-active">
                         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1.5"><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/></svg>
                         List

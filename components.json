@@ -57,7 +57,7 @@
       "category": "typography",
       "interactive": false,
       "cssClasses": {
-        "variants": ["cu-h1", "cu-h2", "cu-h3", "cu-h4"]
+        "variants": ["cu-h1", "cu-h2", "cu-h3", "cu-h4", "cu-h5"]
       },
       "example": "<h1 class=\"cu-h1\">Heading</h1>"
     },
@@ -353,7 +353,7 @@
     },
     {
       "name": "Avatar",
-      "category": "dataDisplay",
+      "category": "basic",
       "interactive": false,
       "cssClasses": {
         "base": "cu-avatar",
@@ -367,7 +367,7 @@
     },
     {
       "name": "Badge",
-      "category": "dataDisplay",
+      "category": "basic",
       "interactive": false,
       "cssClasses": {
         "base": "cu-badge",
@@ -894,20 +894,20 @@
       "interactive": false,
       "cssClasses": {
         "base": "cu-aspect-ratio",
-        "ratios": ["cu-aspect-ratio-16/9", "cu-aspect-ratio-4/3", "cu-aspect-ratio-1/1", "cu-aspect-ratio-21/9"]
+        "ratios": ["cu-aspect-ratio-16/9", "cu-aspect-ratio-4/3", "cu-aspect-ratio-1/1", "cu-aspect-ratio-21/9", "cu-aspect-ratio-3/2", "cu-aspect-ratio-2/3", "cu-aspect-ratio-9/16", "cu-aspect-ratio-3/4", "cu-aspect-ratio-5/4"]
       },
       "notes": "Children are absolutely positioned to fill the container. Always combine base + one ratio class. Child elements get object-cover by default.",
       "example": "<div class=\"cu-aspect-ratio cu-aspect-ratio-16/9\"><img src=\"photo.jpg\" alt=\"Photo\"></div>"
     },
     {
       "name": "Carousel",
-      "category": "dataDisplay",
+      "category": "content",
       "interactive": true,
       "cssClasses": {
         "base": "cu-carousel",
         "parts": ["cu-carousel-viewport", "cu-carousel-slide", "cu-carousel-prev", "cu-carousel-next", "cu-carousel-dots", "cu-carousel-dot"],
         "states": ["cu-carousel-dot-active"],
-        "modifiers": ["cu-carousel-multi-2", "cu-carousel-multi-3"]
+        "modifiers": ["cu-carousel-multi-2", "cu-carousel-multi-3", "cu-carousel-nav-outside"]
       },
       "dataAttributes": {
         "container": "data-cu-carousel",
@@ -1169,7 +1169,7 @@
     },
     {
       "name": "Marquee",
-      "category": "dataDisplay",
+      "category": "content",
       "interactive": false,
       "cssClasses": {
         "base": "cu-marquee",
@@ -1199,7 +1199,7 @@
     },
     {
       "name": "Countdown",
-      "category": "dataDisplay",
+      "category": "content",
       "interactive": true,
       "cssClasses": {
         "base": "cu-countdown",
@@ -1220,7 +1220,7 @@
     },
     {
       "name": "Image Compare",
-      "category": "dataDisplay",
+      "category": "content",
       "interactive": true,
       "cssClasses": {
         "base": "cu-image-compare",
@@ -1295,7 +1295,7 @@
     },
     {
       "name": "Diff Viewer",
-      "category": "dataDisplay",
+      "category": "content",
       "interactive": false,
       "cssClasses": {
         "base": "cu-diff-viewer",
