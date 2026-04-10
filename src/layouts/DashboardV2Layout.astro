@@ -101,9 +101,12 @@ const navGroups = [
     >
         <div class="flex min-h-screen">
             <!-- Sidebar (Dark Mode Style for V2) -->
+            <!-- Sidebar overlay (mobile) -->
+            <div class="fixed inset-0 z-40 bg-black/50 hidden lg:hidden" data-cu-dashboard-v2-overlay></div>
+
             <Sidebar
-                class="hidden lg:flex fixed inset-y-0 left-0 z-50 w-64 flex-col bg-[#0F172A] text-white border-r-0"
-                data-cu-dashboard-sidebar
+                class="fixed inset-y-0 left-0 z-50 w-64 flex-col bg-[#0F172A] text-white border-r-0 -translate-x-full lg:translate-x-0 transition-transform duration-200"
+                data-cu-dashboard-v2-sidebar
                 aria-label="主導航"
             >
                 <SidebarHeader
@@ -150,7 +153,7 @@ const navGroups = [
                                                 class:list={[
                                                     "flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-md transition-colors duration-200",
                                                     isActive
-                                                        ? "bg-indigo-500 text-white shadow-sm"
+                                                        ? "bg-primary text-primary-foreground shadow-sm"
                                                         : "text-slate-400 hover:text-white hover:bg-white/5",
                                                 ]}
                                             >
@@ -412,7 +415,10 @@ const navGroups = [
                 >
                     <div class="flex items-center gap-4 flex-1">
                         <button
-                            class="lg:hidden p-2 -ml-2 text-muted-foreground hover:text-foreground"
+                            class="lg:hidden p-2 -ml-2 text-muted-foreground hover:text-foreground transition-colors duration-150"
+                            aria-label="開啟導航選單"
+                            aria-expanded="false"
+                            data-cu-dashboard-v2-toggle
                         >
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -449,8 +455,10 @@ const navGroups = [
                                 ><circle cx="11" cy="11" r="8"></circle><path
                                     d="m21 21-4.3-4.3"></path></svg
                             >
+                            <label for="global-search" class="sr-only">搜尋專案、檔案或成員</label>
                             <input
-                                type="text"
+                                id="global-search"
+                                type="search"
                                 placeholder="搜尋專案、檔案或成員..."
                                 class="flex h-9 w-full rounded-md border border-input bg-background/50 px-3 py-1 pl-9 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
                             />
@@ -467,7 +475,8 @@ const navGroups = [
 
                     <div class="flex items-center gap-3">
                         <button
-                            class="relative p-2 text-muted-foreground hover:bg-muted rounded-full transition-colors"
+                            class="relative p-2 text-muted-foreground hover:bg-muted rounded-full transition-colors duration-150"
+                            aria-label="通知"
                         >
                             <span
                                 class="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full border-2 border-background"
@@ -490,7 +499,8 @@ const navGroups = [
                         </button>
                         <div class="h-8 w-[1px] bg-border mx-1"></div>
                         <button
-                            class="flex items-center gap-2 hover:bg-muted rounded-full pr-3 pl-1 py-1 transition-colors"
+                            class="flex items-center gap-2 hover:bg-muted rounded-full pr-3 pl-1 py-1 transition-colors duration-150"
+                            aria-label="使用者選單"
                         >
                             <Avatar class="w-8 h-8">
                                 <AvatarFallback
@@ -506,10 +516,40 @@ const navGroups = [
                 </header>
 
                 <!-- Main Content -->
-                <main class="flex-1 py-8 px-4 sm:px-6 lg:px-8">
+                <main class="flex-1 py-8 px-4 sm:px-6 lg:px-8" aria-label="主要內容">
                     <slot />
                 </main>
             </div>
         </div>
+        <script>
+            const toggle = document.querySelector("[data-cu-dashboard-v2-toggle]");
+            const sidebar = document.querySelector("[data-cu-dashboard-v2-sidebar]");
+            const overlay = document.querySelector("[data-cu-dashboard-v2-overlay]");
+
+            function openMenu() {
+                sidebar?.classList.remove("-translate-x-full");
+                sidebar?.classList.add("translate-x-0");
+                overlay?.classList.remove("hidden");
+                toggle?.setAttribute("aria-expanded", "true");
+                const firstLink = sidebar?.querySelector("a");
+                firstLink?.focus();
+            }
+
+            function closeMenu() {
+                sidebar?.classList.add("-translate-x-full");
+                sidebar?.classList.remove("translate-x-0");
+                overlay?.classList.add("hidden");
+                toggle?.setAttribute("aria-expanded", "false");
+                toggle?.focus();
+            }
+
+            toggle?.addEventListener("click", openMenu);
+            overlay?.addEventListener("click", closeMenu);
+            document.addEventListener("keydown", (e) => {
+                if (e.key === "Escape" && !sidebar?.classList.contains("-translate-x-full")) {
+                    closeMenu();
+                }
+            });
+        </script>
     </body>
 </html>
