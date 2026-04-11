@@ -55,6 +55,7 @@ export const accordionPage: Record<Locale, {
       'cu-accordion-item': 'Accordion item (<code class="cu-code">&lt;details&gt;</code> element)',
       'cu-accordion-trigger': 'Expand / collapse trigger (<code class="cu-code">&lt;summary&gt;</code> element)',
       'cu-accordion-content': 'Collapsible content area',
+      'cu-accordion-bordered': 'Bordered variant — each item has its own border with card-like appearance',
     },
   },
   'zh-tw': {
@@ -97,6 +98,7 @@ export const accordionPage: Record<Locale, {
       'cu-accordion-item': '手風琴項目（<code class="cu-code">&lt;details&gt;</code> 元素）',
       'cu-accordion-trigger': '展開 / 收合觸發器（<code class="cu-code">&lt;summary&gt;</code> 元素）',
       'cu-accordion-content': '可收合的內容區域',
+      'cu-accordion-bordered': '邊框變體 — 每個項目擁有獨立邊框，呈現卡片式外觀',
     },
   },
 };

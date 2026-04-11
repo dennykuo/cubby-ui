@@ -543,28 +543,39 @@ Note: Input MUST have `placeholder=" "` (space) for the CSS `:placeholder-shown`
 
 ### Data Display
 
-**Code Block** — syntax-highlighted code display with optional header and copy button
-Classes: `cu-code-block` (container, dark bg), `cu-code-block-header` (top bar with filename/language + copy btn), `cu-code-block-pre` (scrollable code area), `cu-code-block-copy` (copy button, absolute top-right when no header, inline when inside header)
+**Code Block** — code display with optional header, copy button, and syntax highlighting support
+Classes: `cu-code-block` (container, dark bg), `cu-code-block-light` (light bg variant with subtle border), `cu-code-block-header` (top bar with filename/language + copy btn), `cu-code-block-pre` (scrollable code area), `cu-code-block-copy` (copy button, absolute top-right when no header, inline when inside header)
 Copied state: add `data-cu-copied` attribute to `cu-code-block-copy` to show success styling.
+Syntax highlighting: add `language-xxx` class on `<code>` element to enable third-party highlighting (Prism.js / Highlight.js).
 ```html
 <div class="cu-code-block">
   <div class="cu-code-block-header">
     <span>index.js</span>
     <button class="cu-code-block-copy">Copy</button>
   </div>
-  <pre class="cu-code-block-pre"><code>const x = 42;</code></pre>
+  <pre class="cu-code-block-pre"><code class="language-javascript">const x = 42;</code></pre>
 </div>
 
-<!-- Without header (copy button floats top-right) -->
-<div class="cu-code-block">
+<!-- Light variant -->
+<div class="cu-code-block cu-code-block-light">
   <button class="cu-code-block-copy">Copy</button>
   <pre class="cu-code-block-pre"><code>npm install cubby-ui</code></pre>
 </div>
 ```
 
 **Accordion** ⚡ CSS-driven (open/close via HTML `open` attribute on `<details>`)
+Classes: `cu-accordion`, `cu-accordion-item`, `cu-accordion-trigger`, `cu-accordion-content`, `cu-accordion-bordered`
 ```html
 <div class="cu-accordion">
+  <details class="cu-accordion-item">
+    <summary class="cu-accordion-trigger">Section Title</summary>
+    <div class="cu-accordion-content">Content here</div>
+  </details>
+</div>
+```
+Bordered variant — each item has its own border:
+```html
+<div class="cu-accordion cu-accordion-bordered">
   <details class="cu-accordion-item">
     <summary class="cu-accordion-trigger">Section Title</summary>
     <div class="cu-accordion-content">Content here</div>

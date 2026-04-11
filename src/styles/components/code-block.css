@@ -44,3 +44,29 @@
 .cu-code-block-header .cu-code-block-copy[data-cu-copied] {
     @apply border-none;
 }
+
+/* Light variant
+   ------------------------------------------------------------------ */
+.cu-code-block-light {
+    @apply bg-zinc-50 text-zinc-900 border border-zinc-200;
+}
+
+.cu-code-block-light .cu-code-block-header {
+    @apply border-b-zinc-200 text-zinc-500 bg-zinc-100/60;
+}
+
+.cu-code-block-light .cu-code-block-copy {
+    @apply border-zinc-300 bg-zinc-100 text-zinc-500;
+}
+
+.cu-code-block-light .cu-code-block-copy:hover {
+    @apply border-zinc-400 bg-zinc-200 text-zinc-700;
+}
+
+.cu-code-block-light .cu-code-block-header .cu-code-block-copy {
+    @apply border-none bg-transparent;
+}
+
+.cu-code-block-light .cu-code-block-header .cu-code-block-copy:hover {
+    @apply bg-zinc-200 text-zinc-700;
+}

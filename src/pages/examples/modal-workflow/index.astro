@@ -175,8 +175,8 @@ import "@/styles/global.css";
 		<script>
 			(function () {
 				// --- Data ---
-				var deptMap = { engineering: "工程部", design: "設計部", marketing: "行銷部", sales: "業務部" };
-				var deptColors = { engineering: "cu-badge-soft-info", design: "cu-badge-soft-success", marketing: "cu-badge-soft-warning", sales: "cu-badge" };
+				var deptMap: Record<string, string> = { engineering: "工程部", design: "設計部", marketing: "行銷部", sales: "業務部" };
+				var deptColors: Record<string, string> = { engineering: "cu-badge-soft-info", design: "cu-badge-soft-success", marketing: "cu-badge-soft-warning", sales: "cu-badge" };
 				var nextId = 7;
 				var contacts = [
 					{ id: 1, name: "林子涵", email: "zihan.lin@example.com", dept: "engineering", title: "資深前端工程師", phone: "0912-111-001" },
@@ -187,14 +187,14 @@ import "@/styles/global.css";
 					{ id: 6, name: "黃雅婷", email: "yating.huang@example.com", dept: "design", title: "動態設計師", phone: "0912-111-006" },
 				];
 
-				var tbody = document.querySelector("[data-cu-contact-tbody]");
-				var searchInput = document.querySelector("[data-cu-contact-search]");
-				var filterSelect = document.querySelector("[data-cu-contact-filter]");
-				var countEl = document.querySelector("[data-cu-contact-count]");
-				var pageInfo = document.querySelector("[data-cu-contact-page-info]");
-				var pendingDeleteId = null;
+				var tbody = document.querySelector("[data-cu-contact-tbody]")!;
+				var searchInput = document.querySelector("[data-cu-contact-search]") as HTMLInputElement;
+				var filterSelect = document.querySelector("[data-cu-contact-filter]") as HTMLSelectElement;
+				var countEl = document.querySelector("[data-cu-contact-count]")!;
+				var pageInfo = document.querySelector("[data-cu-contact-page-info]")!;
+				var pendingDeleteId: number | null = null;
 
-				function getInitials(name) {
+				function getInitials(name: string) {
 					return name.slice(0, 1);
 				}
 
@@ -244,13 +244,13 @@ import "@/styles/global.css";
 					});
 				}
 
-				function escapeHtml(str) {
+				function escapeHtml(str: string) {
 					var div = document.createElement("div");
 					div.textContent = str;
 					return div.innerHTML;
 				}
 
-				function showToast(title, desc, variant) {
+				function showToast(title: string, desc: string, variant: string) {
 					var c = document.querySelector("[data-cu-toast-container]");
 					if (!c) return;
 					var toast = document.createElement("div");
@@ -291,28 +291,28 @@ import "@/styles/global.css";
 				}
 
 				function resetForm() {
-					document.getElementById("contact-name").value = "";
-					document.getElementById("contact-email").value = "";
-					document.getElementById("contact-dept").selectedIndex = 0;
-					document.getElementById("contact-title").value = "";
-					document.getElementById("contact-phone").value = "";
-					document.querySelector("[data-cu-contact-id]").value = "";
+					(document.getElementById("contact-name") as HTMLInputElement).value = "";
+					(document.getElementById("contact-email") as HTMLInputElement).value = "";
+					(document.getElementById("contact-dept") as HTMLSelectElement).selectedIndex = 0;
+					(document.getElementById("contact-title") as HTMLInputElement).value = "";
+					(document.getElementById("contact-phone") as HTMLInputElement).value = "";
+					(document.querySelector("[data-cu-contact-id]") as HTMLInputElement).value = "";
 				}
 
-				function openDialog(mode, contactId) {
-					var dialog = document.getElementById("contact-dialog");
-					var titleEl = document.querySelector("[data-cu-contact-dialog-title]");
+				function openDialog(mode: string, contactId?: number) {
+					var dialog = document.getElementById("contact-dialog") as HTMLDialogElement;
+					var titleEl = document.querySelector("[data-cu-contact-dialog-title]")!;
 
 					if (mode === "edit" && contactId) {
 						var contact = contacts.find(function (c) { return c.id === contactId; });
 						if (!contact) return;
 						titleEl.textContent = "編輯聯絡人";
-						document.querySelector("[data-cu-contact-id]").value = contact.id;
-						document.getElementById("contact-name").value = contact.name;
-						document.getElementById("contact-email").value = contact.email;
-						document.getElementById("contact-dept").value = contact.dept;
-						document.getElementById("contact-title").value = contact.title || "";
-						document.getElementById("contact-phone").value = contact.phone || "";
+						(document.querySelector("[data-cu-contact-id]") as HTMLInputElement).value = String(contact.id);
+						(document.getElementById("contact-name") as HTMLInputElement).value = contact.name;
+						(document.getElementById("contact-email") as HTMLInputElement).value = contact.email;
+						(document.getElementById("contact-dept") as HTMLSelectElement).value = contact.dept;
+						(document.getElementById("contact-title") as HTMLInputElement).value = contact.title || "";
+						(document.getElementById("contact-phone") as HTMLInputElement).value = contact.phone || "";
 					} else {
 						titleEl.textContent = "新增聯絡人";
 						resetForm();
@@ -327,64 +327,64 @@ import "@/styles/global.css";
 				filterSelect.addEventListener("change", renderTable);
 
 				// Add button
-				document.querySelector('[data-cu-action="add"]').addEventListener("click", function () {
+				document.querySelector('[data-cu-action="add"]')!.addEventListener("click", function () {
 					resetForm();
-					document.querySelector("[data-cu-contact-dialog-title]").textContent = "新增聯絡人";
-					document.getElementById("contact-dialog").showModal();
+					document.querySelector("[data-cu-contact-dialog-title]")!.textContent = "新增聯絡人";
+					(document.getElementById("contact-dialog") as HTMLDialogElement).showModal();
 				});
 
 				// Dialog close buttons
 				document.querySelectorAll("[data-cu-dialog-close]").forEach(function (btn) {
 					btn.addEventListener("click", function () {
-						document.getElementById("contact-dialog").close();
+						(document.getElementById("contact-dialog") as HTMLDialogElement).close();
 					});
 				});
 
 				// Dialog backdrop click to close
-				var contactDialog = document.getElementById("contact-dialog");
+				var contactDialog = document.getElementById("contact-dialog") as HTMLDialogElement;
 				contactDialog.addEventListener("click", function (e) {
 					if (e.target === contactDialog) contactDialog.close();
 				});
 
 				// Alert dialog cancel button
-				document.querySelector("[data-cu-cancel-delete]").addEventListener("click", function () {
-					document.getElementById("delete-confirm").close();
+				document.querySelector("[data-cu-cancel-delete]")!.addEventListener("click", function () {
+					(document.getElementById("delete-confirm") as HTMLDialogElement).close();
 				});
 
 				// Edit button (delegated)
 				document.addEventListener("click", function (e) {
-					var editBtn = e.target.closest("[data-cu-edit-contact]");
+					var editBtn = (e.target as Element).closest("[data-cu-edit-contact]");
 					if (editBtn) {
-						var id = parseInt(editBtn.getAttribute("data-cu-edit-contact"));
+						var id = parseInt(editBtn.getAttribute("data-cu-edit-contact")!);
 						openDialog("edit", id);
 						return;
 					}
 
-					var deleteBtn = e.target.closest("[data-cu-delete-contact]");
+					var deleteBtn = (e.target as Element).closest("[data-cu-delete-contact]");
 					if (deleteBtn) {
-						var deleteId = parseInt(deleteBtn.getAttribute("data-cu-delete-contact"));
+						var deleteId = parseInt(deleteBtn.getAttribute("data-cu-delete-contact")!);
 						var contact = contacts.find(function (c) { return c.id === deleteId; });
 						if (!contact) return;
 						pendingDeleteId = deleteId;
-						document.querySelector("[data-cu-delete-name]").textContent = contact.name;
-						var confirmDialog = document.getElementById("delete-confirm");
+						document.querySelector("[data-cu-delete-name]")!.textContent = contact.name;
+						var confirmDialog = document.getElementById("delete-confirm") as HTMLDialogElement;
 						confirmDialog.showModal();
 					}
 				});
 
 				// Save contact
-				document.querySelector("[data-cu-contact-save]").addEventListener("click", function () {
-					var name = document.getElementById("contact-name").value.trim();
-					var email = document.getElementById("contact-email").value.trim();
+				document.querySelector("[data-cu-contact-save]")!.addEventListener("click", function () {
+					var name = (document.getElementById("contact-name") as HTMLInputElement).value.trim();
+					var email = (document.getElementById("contact-email") as HTMLInputElement).value.trim();
 					if (!name || !email) {
 						showToast("請填寫必填欄位", "姓名和 Email 為必填。", "destructive");
 						return;
 					}
 
-					var idVal = document.querySelector("[data-cu-contact-id]").value;
-					var dept = document.getElementById("contact-dept").value;
-					var title = document.getElementById("contact-title").value.trim();
-					var phone = document.getElementById("contact-phone").value.trim();
+					var idVal = (document.querySelector("[data-cu-contact-id]") as HTMLInputElement).value;
+					var dept = (document.getElementById("contact-dept") as HTMLSelectElement).value;
+					var title = (document.getElementById("contact-title") as HTMLInputElement).value.trim();
+					var phone = (document.getElementById("contact-phone") as HTMLInputElement).value.trim();
 
 					if (idVal) {
 						// Edit existing
@@ -403,18 +403,18 @@ import "@/styles/global.css";
 						showToast("已新增聯絡人", name + " 已加入聯絡人清單。", "success");
 					}
 
-					document.getElementById("contact-dialog").close();
+					(document.getElementById("contact-dialog") as HTMLDialogElement).close();
 					renderTable();
 				});
 
 				// Confirm delete
-				document.querySelector("[data-cu-contact-confirm-delete]").addEventListener("click", function () {
+				document.querySelector("[data-cu-contact-confirm-delete]")!.addEventListener("click", function () {
 					if (pendingDeleteId !== null) {
 						var contact = contacts.find(function (c) { return c.id === pendingDeleteId; });
 						var deletedName = contact ? contact.name : "";
 						contacts = contacts.filter(function (c) { return c.id !== pendingDeleteId; });
 						pendingDeleteId = null;
-						document.getElementById("delete-confirm").close();
+						(document.getElementById("delete-confirm") as HTMLDialogElement).close();
 						renderTable();
 						showToast("已刪除聯絡人", deletedName + " 已從清單中移除。", "default");
 					}

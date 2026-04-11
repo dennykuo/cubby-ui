@@ -345,14 +345,14 @@ import "@/styles/global.css";
 			(function () {
 				var currentStep = 0;
 				var totalSteps = 4;
-				var panels = document.querySelectorAll("[data-cu-wizard-panel]");
+				var panels = document.querySelectorAll("[data-cu-wizard-panel]") as NodeListOf<HTMLElement>;
 				var indicators = document.querySelectorAll("[data-cu-wizard-step-indicator]");
-				var separators = document.querySelectorAll(".cu-steps-separator");
+				var separators = document.querySelectorAll(".cu-steps-separator") as NodeListOf<HTMLElement>;
 				var checkSvg = '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>';
 
 				function updateSteps() {
-					indicators.forEach(function (ind, i) {
-						var num = ind.querySelector(".cu-steps-number");
+					indicators.forEach(function (ind: Element, i: number) {
+						var num = ind.querySelector(".cu-steps-number")!;
 						ind.classList.remove("cu-steps-item-completed", "cu-steps-item-active", "cu-steps-item-upcoming");
 						if (i < currentStep) {
 							ind.classList.add("cu-steps-item-completed");
@@ -366,7 +366,7 @@ import "@/styles/global.css";
 						}
 					});
 					// Update separator colors
-					separators.forEach(function (sep, i) {
+					separators.forEach(function (sep: HTMLElement, i: number) {
 						if (i < currentStep) {
 							sep.style.backgroundColor = "var(--color-primary)";
 						} else {
@@ -375,20 +375,20 @@ import "@/styles/global.css";
 					});
 				}
 
-				function showPanel(step) {
-					panels.forEach(function (p) {
-						p.hidden = parseInt(p.getAttribute("data-cu-wizard-panel")) !== step;
+				function showPanel(step: number) {
+					panels.forEach(function (p: HTMLElement) {
+						p.hidden = parseInt(p.getAttribute("data-cu-wizard-panel")!) !== step;
 					});
 					// Populate summary on step 4
 					if (step === 3) populateSummary();
 				}
 
-				function validateStep(step) {
+				function validateStep(step: number) {
 					if (step === 0) {
-						var email = document.getElementById("wiz-email");
-						var pw = document.getElementById("wiz-password");
-						var pwc = document.getElementById("wiz-password-confirm");
-						var user = document.getElementById("wiz-username");
+						var email = document.getElementById("wiz-email") as HTMLInputElement;
+						var pw = document.getElementById("wiz-password") as HTMLInputElement;
+						var pwc = document.getElementById("wiz-password-confirm") as HTMLInputElement;
+						var user = document.getElementById("wiz-username") as HTMLInputElement;
 						// Check required fields
 						if (!email.value || !pw.value || !pwc.value || !user.value) {
 							showValidationError("請填寫所有必填欄位。");
@@ -412,8 +412,8 @@ import "@/styles/global.css";
 						}
 						clearValidation([email, pw, pwc, user]);
 					} else if (step === 1) {
-						var fn = document.getElementById("wiz-first-name");
-						var ln = document.getElementById("wiz-last-name");
+						var fn = document.getElementById("wiz-first-name") as HTMLInputElement;
+						var ln = document.getElementById("wiz-last-name") as HTMLInputElement;
 						if (!fn.value || !ln.value) {
 							showValidationError("請填寫姓名欄位。");
 							markInvalidFields([fn, ln]);
@@ -421,8 +421,8 @@ import "@/styles/global.css";
 						}
 						clearValidation([fn, ln]);
 					} else if (step === 2) {
-						var role = document.getElementById("wiz-role");
-						var terms = document.querySelector("[data-cu-wizard-terms]");
+						var role = document.getElementById("wiz-role") as HTMLSelectElement;
+						var terms = document.querySelector("[data-cu-wizard-terms]") as HTMLInputElement;
 						if (!role.value) {
 							showValidationError("請選擇您的角色。");
 							return false;
@@ -435,23 +435,23 @@ import "@/styles/global.css";
 					return true;
 				}
 
-				function markInvalidFields(fields) {
-					fields.forEach(function (f) {
+				function markInvalidFields(fields: HTMLInputElement[]) {
+					fields.forEach(function (f: HTMLInputElement) {
 						if (!f.value) f.classList.add("cu-input-error");
 					});
 				}
 
-				function clearValidation(fields) {
-					fields.forEach(function (f) {
+				function clearValidation(fields: HTMLInputElement[]) {
+					fields.forEach(function (f: HTMLInputElement) {
 						f.classList.remove("cu-input-error");
 					});
 				}
 
-				function showValidationError(msg) {
+				function showValidationError(msg: string) {
 					showToast(msg, "", "destructive");
 				}
 
-				function showToast(title, desc, variant) {
+				function showToast(title: string, desc: string, variant: string) {
 					var c = document.querySelector("[data-cu-toast-container]");
 					if (!c) return;
 					var toast = document.createElement("div");
@@ -492,32 +492,32 @@ import "@/styles/global.css";
 				}
 
 				function populateSummary() {
-					var s = function (key) { return document.querySelector('[data-cu-wizard-summary="' + key + '"]'); };
-					var email = document.getElementById("wiz-email");
-					var user = document.getElementById("wiz-username");
-					var fn = document.getElementById("wiz-first-name");
-					var ln = document.getElementById("wiz-last-name");
-					var phone = document.getElementById("wiz-phone");
-					var company = document.getElementById("wiz-company");
-					var role = document.getElementById("wiz-role");
+					var s = function (key: string) { return document.querySelector('[data-cu-wizard-summary="' + key + '"]'); };
+					var email = document.getElementById("wiz-email") as HTMLInputElement;
+					var user = document.getElementById("wiz-username") as HTMLInputElement;
+					var fn = document.getElementById("wiz-first-name") as HTMLInputElement;
+					var ln = document.getElementById("wiz-last-name") as HTMLInputElement;
+					var phone = document.getElementById("wiz-phone") as HTMLInputElement;
+					var company = document.getElementById("wiz-company") as HTMLInputElement;
+					var role = document.getElementById("wiz-role") as HTMLSelectElement;
 
-					s("email").textContent = email.value || "—";
-					s("username").textContent = user.value || "—";
-					s("name").textContent = (ln.value || "") + (fn.value || "");
-					s("phone").textContent = phone.value || "未填寫";
-					s("company").textContent = company.value || "未填寫";
+					s("email")!.textContent = email.value || "—";
+					s("username")!.textContent = user.value || "—";
+					s("name")!.textContent = (ln.value || "") + (fn.value || "");
+					s("phone")!.textContent = phone.value || "未填寫";
+					s("company")!.textContent = company.value || "未填寫";
 
-					var roleMap = { developer: "開發者", designer: "設計師", pm: "產品經理", marketing: "行銷人員", other: "其他" };
-					s("role").textContent = roleMap[role.value] || "—";
+					var roleMap: Record<string, string> = { developer: "開發者", designer: "設計師", pm: "產品經理", marketing: "行銷人員", other: "其他" };
+					s("role")!.textContent = roleMap[role.value] || "—";
 
-					var notifs = [];
-					if (document.querySelector('[data-cu-wizard-pref="email"]').checked) notifs.push("Email");
-					if (document.querySelector('[data-cu-wizard-pref="product"]').checked) notifs.push("產品更新");
-					if (document.querySelector('[data-cu-wizard-pref="marketing"]').checked) notifs.push("行銷");
-					s("notifications").textContent = notifs.length ? notifs.join("、") : "全部關閉";
+					var notifs: string[] = [];
+					if ((document.querySelector('[data-cu-wizard-pref="email"]') as HTMLInputElement).checked) notifs.push("Email");
+					if ((document.querySelector('[data-cu-wizard-pref="product"]') as HTMLInputElement).checked) notifs.push("產品更新");
+					if ((document.querySelector('[data-cu-wizard-pref="marketing"]') as HTMLInputElement).checked) notifs.push("行銷");
+					s("notifications")!.textContent = notifs.length ? notifs.join("、") : "全部關閉";
 				}
 
-				function goToStep(step) {
+				function goToStep(step: number) {
 					currentStep = step;
 					updateSteps();
 					showPanel(step);
@@ -543,23 +543,23 @@ import "@/styles/global.css";
 				// Go-to buttons (edit from summary)
 				document.querySelectorAll("[data-cu-wizard-goto]").forEach(function (btn) {
 					btn.addEventListener("click", function () {
-						var step = parseInt(btn.getAttribute("data-cu-wizard-goto"));
+						var step = parseInt(btn.getAttribute("data-cu-wizard-goto")!);
 						goToStep(step);
 					});
 				});
 
 				// Submit
-				var submitBtn = document.querySelector("[data-cu-wizard-submit]");
+				var submitBtn = document.querySelector("[data-cu-wizard-submit]") as HTMLButtonElement | null;
 				if (submitBtn) {
 					submitBtn.addEventListener("click", function () {
 						// Simulate submission
-						submitBtn.disabled = true;
-						submitBtn.innerHTML = '<svg class="animate-spin" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg> 送出中…';
+						submitBtn!.disabled = true;
+						submitBtn!.innerHTML = '<svg class="animate-spin" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg> 送出中…';
 						setTimeout(function () {
 							// Hide all panels and steps
-							panels.forEach(function (p) { p.hidden = true; });
-							document.querySelector("[data-cu-wizard-steps]").style.display = "none";
-							document.querySelector("[data-cu-wizard-success]").hidden = false;
+							panels.forEach(function (p: HTMLElement) { p.hidden = true; });
+							(document.querySelector("[data-cu-wizard-steps]") as HTMLElement).style.display = "none";
+							(document.querySelector("[data-cu-wizard-success]") as HTMLElement).hidden = false;
 							showToast("帳號建立成功", "驗證信已寄出，請至信箱確認。", "success");
 						}, 1500);
 					});
@@ -571,14 +571,14 @@ import "@/styles/global.css";
 					resetBtn.addEventListener("click", function () {
 						// Reset all forms
 						document.querySelectorAll("[data-cu-wizard-form] input, [data-cu-wizard-form] textarea, [data-cu-wizard-form] select").forEach(function (f) {
-							if (f.type === "checkbox") f.checked = f.hasAttribute("checked");
-							else if (f.tagName === "SELECT") f.selectedIndex = 0;
-							else f.value = "";
+							if (f instanceof HTMLInputElement && f.type === "checkbox") f.checked = f.hasAttribute("checked");
+							else if (f instanceof HTMLSelectElement) f.selectedIndex = 0;
+							else (f as HTMLInputElement).value = "";
 						});
-						document.querySelector("[data-cu-wizard-terms]").checked = false;
-						document.querySelector("[data-cu-wizard-steps]").style.display = "";
-						document.querySelector("[data-cu-wizard-success]").hidden = true;
-						var sb = document.querySelector("[data-cu-wizard-submit]");
+						(document.querySelector("[data-cu-wizard-terms]") as HTMLInputElement).checked = false;
+						(document.querySelector("[data-cu-wizard-steps]") as HTMLElement).style.display = "";
+						(document.querySelector("[data-cu-wizard-success]") as HTMLElement).hidden = true;
+						var sb = document.querySelector("[data-cu-wizard-submit]") as HTMLButtonElement;
 						sb.disabled = false;
 						sb.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> 送出申請';
 						goToStep(0);

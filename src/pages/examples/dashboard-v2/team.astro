@@ -234,7 +234,7 @@ const users = [
                                     <TableCell>
                                         {user.status === "Active" && (
                                             <Badge
-                                                variant="soft"
+                                                variant="soft-success"
                                                 class="bg-emerald-50 text-emerald-700 ring-1 ring-inset ring-emerald-600/20"
                                             >
                                                 <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 mr-1.5" />
@@ -243,7 +243,7 @@ const users = [
                                         )}
                                         {user.status === "Offline" && (
                                             <Badge
-                                                variant="soft"
+                                                variant="soft-secondary"
                                                 class="bg-slate-100 text-slate-600 ring-1 ring-inset ring-slate-500/10"
                                             >
                                                 <span class="w-1.5 h-1.5 rounded-full bg-slate-400 mr-1.5" />
@@ -252,7 +252,7 @@ const users = [
                                         )}
                                         {user.status === "Suspended" && (
                                             <Badge
-                                                variant="soft"
+                                                variant="soft-destructive"
                                                 class="bg-rose-50 text-rose-700 ring-1 ring-inset ring-rose-600/20"
                                             >
                                                 <span class="w-1.5 h-1.5 rounded-full bg-rose-500 mr-1.5" />

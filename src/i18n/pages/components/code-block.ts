@@ -10,12 +10,15 @@ export const codeBlockPage: Record<Locale, {
     language: { title: string; description: string };
     filename: { title: string; description: string };
     multiline: { title: string; description: string };
+    light: { title: string; description: string };
+    lightLanguage: { title: string; description: string };
+    syntaxHighlighting: { title: string; description: string };
   };
   classDescriptions: Record<string, string>;
 }> = {
   en: {
     title: 'Code Block — Cubby UI',
-    description: 'A block-level code display container with a copy-to-clipboard button. Does not handle syntax highlighting — use Prism, Shiki, or similar tools for that. For inline code, use the <code class="cu-code">cu-code</code> class instead.',
+    description: 'A block-level code display container with a copy-to-clipboard button. Supports optional syntax highlighting via third-party libraries like Prism.js or Highlight.js. For inline code, use the <code class="cu-code">cu-code</code> class instead.',
     category: 'Data Display',
     sections: {
       usage: {
@@ -39,9 +42,22 @@ export const codeBlockPage: Record<Locale, {
         title: 'Multiline Code',
         description: 'Long code blocks scroll horizontally. The container uses <code class="cu-code">overflow-x: auto</code> to handle wide content without breaking the layout.',
       },
+      light: {
+        title: 'Light Variant',
+        description: 'Add the <code class="cu-code">cu-code-block-light</code> class for a light background. Suitable for light-themed pages or documentation sites.',
+      },
+      lightLanguage: {
+        title: 'Light with Language Label',
+        description: 'The light variant works seamlessly with header labels.',
+      },
+      syntaxHighlighting: {
+        title: 'Syntax Highlighting',
+        description: 'Set the <code class="cu-code">language</code> prop to automatically add a <code class="cu-code">language-xxx</code> class on the <code class="cu-code">&lt;code&gt;</code> element. This enables integration with third-party syntax highlighting libraries like <strong>Prism.js</strong> or <strong>Highlight.js</strong> — simply include their CSS and JS, and syntax colors will apply automatically.',
+      },
     },
     classDescriptions: {
       'cu-code-block': 'Container with dark background and rounded corners',
+      'cu-code-block-light': 'Light background variant with subtle border',
       'cu-code-block-header': 'Optional header area for language name or filename',
       'cu-code-block-copy': 'Copy-to-clipboard button',
       'cu-code-block-pre': 'Pre-formatted text wrapper with horizontal scroll',
@@ -49,7 +65,7 @@ export const codeBlockPage: Record<Locale, {
   },
   'zh-tw': {
     title: 'Code Block — Cubby UI',
-    description: '區塊級的程式碼顯示容器，附帶複製到剪貼簿按鈕。不處理語法高亮 — 請使用 Prism、Shiki 或類似工具。行內程式碼請改用 <code class="cu-code">cu-code</code> class。',
+    description: '區塊級的程式碼顯示容器，附帶複製到剪貼簿按鈕。支援透過 Prism.js 或 Highlight.js 等第三方套件進行語法高亮。行內程式碼請改用 <code class="cu-code">cu-code</code> class。',
     category: '資料展示',
     sections: {
       usage: {
@@ -73,9 +89,22 @@ export const codeBlockPage: Record<Locale, {
         title: '多行程式碼',
         description: '較長的程式碼區塊會水平捲動。容器使用 <code class="cu-code">overflow-x: auto</code> 處理寬內容，不會破壞版面配置。',
       },
+      light: {
+        title: '淺色變體',
+        description: '加上 <code class="cu-code">cu-code-block-light</code> class 可使用淺色背景。適合淺色主題頁面或文件網站。',
+      },
+      lightLanguage: {
+        title: '淺色搭配語言標籤',
+        description: '淺色變體可與標頭標籤無縫搭配使用。',
+      },
+      syntaxHighlighting: {
+        title: '語法高亮',
+        description: '設定 <code class="cu-code">language</code> prop 會自動在 <code class="cu-code">&lt;code&gt;</code> 元素加上 <code class="cu-code">language-xxx</code> class。這讓 <strong>Prism.js</strong> 或 <strong>Highlight.js</strong> 等第三方語法高亮套件能自動上色 — 只需引入它們的 CSS 和 JS 即可。',
+      },
     },
     classDescriptions: {
       'cu-code-block': '帶有深色背景和圓角的容器',
+      'cu-code-block-light': '帶有淺色背景和細邊框的變體',
       'cu-code-block-header': '選用的標頭區域，顯示語言名稱或檔案名稱',
       'cu-code-block-copy': '複製到剪貼簿按鈕',
       'cu-code-block-pre': '預格式化文字包裝器，支援水平捲動',

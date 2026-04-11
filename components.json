@@ -346,9 +346,10 @@
       "interactive": false,
       "cssClasses": {
         "base": "cu-accordion",
-        "parts": ["cu-accordion-item", "cu-accordion-trigger", "cu-accordion-content"]
+        "parts": ["cu-accordion-item", "cu-accordion-trigger", "cu-accordion-content"],
+        "variants": ["cu-accordion-bordered"]
       },
-      "notes": "CSS-driven via native <details> open attribute. No JS needed.",
+      "notes": "CSS-driven via native <details> open attribute. No JS needed. Bordered variant adds individual borders per item.",
       "example": "<div class=\"cu-accordion\"><details class=\"cu-accordion-item\"><summary class=\"cu-accordion-trigger\">Title</summary><div class=\"cu-accordion-content\">Content</div></details></div>"
     },
     {
@@ -943,6 +944,7 @@
       "interactive": true,
       "cssClasses": {
         "base": "cu-code-block",
+        "variants": ["cu-code-block-light"],
         "parts": ["cu-code-block-header", "cu-code-block-pre", "cu-code-block-copy"],
         "states": ["data-cu-copied"]
       },
@@ -951,8 +953,8 @@
         "copy": "data-cu-code-block-copy",
         "label": "data-cu-code-block-label"
       },
-      "notes": "Dark themed code container with optional header (language label) and copy button. Copy button can be absolute (no header) or inline (inside header). Copied state applied via data-cu-copied attribute on the button.",
-      "example": "<div class=\"cu-code-block\" data-cu-code-block><div class=\"cu-code-block-header\"><span>HTML</span><button class=\"cu-code-block-copy\" data-cu-code-block-copy><span data-cu-code-block-label>Copy</span></button></div><pre class=\"cu-code-block-pre\"><code>&lt;div&gt;Hello&lt;/div&gt;</code></pre></div>"
+      "notes": "Code container with optional header (language label) and copy button. Default dark theme; add cu-code-block-light for light variant. Copy button can be absolute (no header) or inline (inside header). Copied state applied via data-cu-copied attribute. Set language-xxx class on <code> element for third-party syntax highlighting (Prism.js / Highlight.js).",
+      "example": "<div class=\"cu-code-block\" data-cu-code-block><div class=\"cu-code-block-header\"><span>HTML</span><button class=\"cu-code-block-copy\" data-cu-code-block-copy><span data-cu-code-block-label>Copy</span></button></div><pre class=\"cu-code-block-pre\"><code class=\"language-html\">&lt;div&gt;Hello&lt;/div&gt;</code></pre></div>"
     },
     {
       "name": "Color Picker",

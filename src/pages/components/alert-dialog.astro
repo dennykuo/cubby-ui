@@ -327,6 +327,7 @@ const destructiveCode = `<button class="cu-button cu-button-destructive cu-butto
         document.querySelectorAll("[data-cu-alert-dialog-trigger]").forEach((trigger) => {
             trigger.addEventListener("click", () => {
                 const id = trigger.getAttribute("data-cu-alert-dialog-trigger");
+                if (!id) return;
                 const dialog = document.getElementById(id) as HTMLDialogElement | null;
                 dialog?.showModal();
             });

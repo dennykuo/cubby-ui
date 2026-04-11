@@ -167,7 +167,7 @@ import DashboardLayout from "@/layouts/DashboardLayout.astro";
 					triggers.forEach((t) => t.classList.remove("cu-tabs-trigger-active"));
 					trigger.classList.add("cu-tabs-trigger-active");
 					contents.forEach((c) => {
-						c.hidden = c.getAttribute("data-cu-tabs-content") !== value;
+						(c as HTMLElement).hidden = c.getAttribute("data-cu-tabs-content") !== value;
 					});
 				});
 			});

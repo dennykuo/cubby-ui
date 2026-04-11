@@ -522,8 +522,8 @@ const navGroups = [
             </div>
         </div>
         <script>
-            const toggle = document.querySelector("[data-cu-dashboard-v2-toggle]");
-            const sidebar = document.querySelector("[data-cu-dashboard-v2-sidebar]");
+            const toggle = document.querySelector("[data-cu-dashboard-v2-toggle]") as HTMLElement | null;
+            const sidebar = document.querySelector("[data-cu-dashboard-v2-sidebar]") as HTMLElement | null;
             const overlay = document.querySelector("[data-cu-dashboard-v2-overlay]");
 
             function openMenu() {
@@ -531,7 +531,7 @@ const navGroups = [
                 sidebar?.classList.add("translate-x-0");
                 overlay?.classList.remove("hidden");
                 toggle?.setAttribute("aria-expanded", "true");
-                const firstLink = sidebar?.querySelector("a");
+                const firstLink = sidebar?.querySelector("a") as HTMLElement | null;
                 firstLink?.focus();
             }
 

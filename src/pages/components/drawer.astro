@@ -406,6 +406,7 @@ const sidesCode = `<button class="cu-button cu-button-outline cu-button-md" data
         document.querySelectorAll("[data-cu-drawer-trigger]").forEach((trigger) => {
             trigger.addEventListener("click", () => {
                 const id = trigger.getAttribute("data-cu-drawer-trigger");
+                if (!id) return;
                 const dialog = document.getElementById(id) as HTMLDialogElement | null;
                 dialog?.showModal();
             });

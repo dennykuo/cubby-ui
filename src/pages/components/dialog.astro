@@ -512,6 +512,7 @@ const successCode = `<button class="cu-button cu-button-outline cu-button-md" da
         document.querySelectorAll("[data-cu-dialog-trigger]").forEach((trigger) => {
             trigger.addEventListener("click", () => {
                 const id = trigger.getAttribute("data-cu-dialog-trigger");
+                if (!id) return;
                 const dialog = document.getElementById(id) as HTMLDialogElement | null;
                 dialog?.showModal();
             });

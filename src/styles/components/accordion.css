@@ -11,7 +11,7 @@
 }
 
 .cu-accordion-trigger {
-    @apply flex w-full items-center justify-between py-4 text-sm font-medium outline-none focus-visible:ring-1 focus-visible:ring-ring/30 transition-colors duration-150 cursor-pointer hover:bg-muted/60 rounded-xl -mx-3 px-3;
+    @apply flex items-center justify-between py-4 text-sm font-medium outline-none focus-visible:ring-1 focus-visible:ring-ring/30 transition-colors duration-150 cursor-pointer hover:bg-muted/60 rounded-xl -mx-5 px-5 select-none;
 }
 
 .cu-accordion-trigger svg {
@@ -25,12 +25,31 @@
 .cu-accordion-content {
     @apply overflow-hidden pb-4 pt-2 text-sm text-muted-foreground;
     height: auto;
-    transition: height 0.2s ease, opacity 0.2s ease;
+    transition: height 0.25s ease, opacity 0.2s ease, padding 0.25s ease;
+}
+
+/* Bordered variant — each item has its own border + rounded corners */
+.cu-accordion-bordered {
+    @apply divide-y-0 space-y-3;
+}
+
+.cu-accordion-bordered .cu-accordion-item {
+    @apply rounded-xl border border-border overflow-hidden;
+}
+
+.cu-accordion-bordered .cu-accordion-trigger {
+    @apply mx-0 rounded-none;
+}
+
+.cu-accordion-bordered .cu-accordion-content {
+    @apply px-5;
 }
 
 @starting-style {
     .cu-accordion-item[open] > .cu-accordion-content {
         height: 0;
         opacity: 0;
+        padding-top: 0;
+        padding-bottom: 0;
     }
 }

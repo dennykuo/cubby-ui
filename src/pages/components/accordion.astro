@@ -1,5 +1,6 @@
 ---
 import Layout from "@/layouts/Layout.astro";
+// @ts-ignore - Astro component used in template
 import Accordion from "@/components/ui/Accordion.astro";
 import AccordionItem from "@/components/ui/AccordionItem.astro";
 import AccordionTrigger from "@/components/ui/AccordionTrigger.astro";
@@ -122,8 +123,8 @@ const withIconsCode = `<div class="cu-accordion">
   </details>
 </div>`.trim();
 
-const borderedCode = `<div class="cu-accordion divide-y-0 space-y-3">
-  <details class="cu-accordion-item rounded-xl border border-border px-3">
+const borderedCode = `<div class="cu-accordion cu-accordion-bordered">
+  <details class="cu-accordion-item">
     <summary class="cu-accordion-trigger">
       Getting Started
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
@@ -132,7 +133,7 @@ const borderedCode = `<div class="cu-accordion divide-y-0 space-y-3">
       Install the package, import the CSS file, and start using the component classes in your HTML. No build step required.
     </div>
   </details>
-  <details class="cu-accordion-item rounded-xl border border-border px-3">
+  <details class="cu-accordion-item">
     <summary class="cu-accordion-trigger">
       Customization
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
@@ -141,7 +142,7 @@ const borderedCode = `<div class="cu-accordion divide-y-0 space-y-3">
       Override CSS variables in your theme to customize colors, spacing, and typography. All components inherit from the design token system.
     </div>
   </details>
-  <details class="cu-accordion-item rounded-xl border border-border px-3">
+  <details class="cu-accordion-item">
     <summary class="cu-accordion-trigger">
       Browser Support
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
@@ -259,6 +260,10 @@ const richContentCode = `<div class="cu-accordion">
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-accordion-content</code></td>
                             <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-accordion-content']}</td>
+                        </tr>
+                        <tr class="cu-table-row">
+                            <td class="cu-table-cell"><code class="cu-code">cu-accordion-bordered</code></td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-accordion-bordered']}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -389,20 +394,20 @@ const richContentCode = `<div class="cu-accordion">
             <p class="text-base text-muted-foreground leading-relaxed">{t.sections.bordered.description}</p>
             <ComponentPreview code={borderedCode}>
                 <div class="w-full max-w-lg">
-                    <Accordion class="divide-y-0 space-y-3">
-                        <AccordionItem class="rounded-xl border border-border px-3">
+                    <Accordion class="cu-accordion-bordered">
+                        <AccordionItem>
                             <AccordionTrigger>Getting Started</AccordionTrigger>
                             <AccordionContent>
                                 Install the package, import the CSS file, and start using the component classes in your HTML. No build step required.
                             </AccordionContent>
                         </AccordionItem>
-                        <AccordionItem class="rounded-xl border border-border px-3">
+                        <AccordionItem>
                             <AccordionTrigger>Customization</AccordionTrigger>
                             <AccordionContent>
                                 Override CSS variables in your theme to customize colors, spacing, and typography. All components inherit from the design token system.
                             </AccordionContent>
                         </AccordionItem>
-                        <AccordionItem class="rounded-xl border border-border px-3">
+                        <AccordionItem>
                             <AccordionTrigger>Browser Support</AccordionTrigger>
                             <AccordionContent>
                                 Supports all modern browsers — Chrome 90+, Firefox 90+, Safari 15+, and Edge 90+.
