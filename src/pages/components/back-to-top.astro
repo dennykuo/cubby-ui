@@ -40,15 +40,12 @@ const sizesCode = `<div style="position: relative; height: 120px; display: flex;
 </div>`.trim();
 
 const thresholdCode = `<!-- Appears after scrolling 500px -->
-<button class="cu-back-to-top" data-cu-back-to-top data-cu-back-to-top-threshold="500" aria-label="Back to top">
-  ${arrowUpSvg}
-</button>`.trim();
-
-const leftPositionCode = `<div style="position: relative; height: 120px;">
-  <button class="cu-back-to-top cu-back-to-top-left cu-back-to-top-visible" style="position: absolute;" data-cu-back-to-top aria-label="Back to top">
+<div style="position: relative; height: 120px;">
+  <button class="cu-back-to-top cu-back-to-top-visible" style="position: absolute;" data-cu-back-to-top data-cu-back-to-top-threshold="500" aria-label="Back to top">
     ${arrowUpSvg}
   </button>
 </div>`.trim();
+
 ---
 
 <Layout title={t.title} category={t.category} componentName="Back to Top">
@@ -122,13 +119,5 @@ const leftPositionCode = `<div style="position: relative; height: 120px;">
             <ComponentPreview code={thresholdCode} />
         </section>
 
-        <section class="space-y-3">
-            <h2 id="left-position" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#left-position" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.leftPosition.title}
-            </h2>
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.leftPosition.description} />
-            <ComponentPreview code={leftPositionCode} />
-        </section>
     </div>
 </Layout>

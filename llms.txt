@@ -1096,17 +1096,46 @@ Sizes: `cu-segmented-sm`; full-width: add `cu-segmented-block`
 </div>
 ```
 
-**Steps** — progress indicator
-States: `cu-steps-item-active`, `cu-steps-item-completed`
+**Steps** — progress indicator for multi-step workflows
+Classes: `cu-steps`, `cu-steps-item`, `cu-steps-number`, `cu-steps-content`, `cu-steps-title`, `cu-steps-description`, `cu-steps-separator`
+States: `cu-steps-item-completed`, `cu-steps-item-active`, `cu-steps-item-upcoming`, `cu-steps-item-error`
+Modifiers: `cu-steps-vertical` (vertical layout)
 ```html
 <div class="cu-steps">
-  <div class="cu-steps-item cu-steps-item-completed">Step 1</div>
+  <div class="cu-steps-item cu-steps-item-completed">
+    <div class="cu-steps-number">✓</div>
+    <div class="cu-steps-content"><div class="cu-steps-title">Account</div></div>
+  </div>
   <div class="cu-steps-separator"></div>
-  <div class="cu-steps-item cu-steps-item-active">Step 2</div>
+  <div class="cu-steps-item cu-steps-item-active">
+    <div class="cu-steps-number">2</div>
+    <div class="cu-steps-content"><div class="cu-steps-title">Profile</div></div>
+  </div>
   <div class="cu-steps-separator"></div>
-  <div class="cu-steps-item">Step 3</div>
+  <div class="cu-steps-item cu-steps-item-upcoming">
+    <div class="cu-steps-number">3</div>
+    <div class="cu-steps-content"><div class="cu-steps-title">Complete</div></div>
+  </div>
 </div>
 ```
+Vertical layout:
+```html
+<div class="cu-steps cu-steps-vertical">
+  <div class="cu-steps-item cu-steps-item-completed">
+    <div class="cu-steps-number">✓</div>
+    <div class="cu-steps-content">
+      <div class="cu-steps-title">Order placed</div>
+      <div class="cu-steps-description">Your order has been confirmed</div>
+    </div>
+  </div>
+  <div class="cu-steps-separator"></div>
+  <div class="cu-steps-item cu-steps-item-active">
+    <div class="cu-steps-number">2</div>
+    <div class="cu-steps-content"><div class="cu-steps-title">Shipping</div></div>
+  </div>
+</div>
+```
+Error state: use `cu-steps-item-error` on the item for destructive styling.
 
 **Menubar** — see Overlay section above.
 
@@ -1127,7 +1156,7 @@ Data: `data-cu-speed-dial`, `data-cu-speed-dial-trigger`, `data-cu-speed-dial-ac
 ```
 
 **Back to Top** — scroll-to-top button that appears after scrolling
-Classes: `cu-back-to-top`, `cu-back-to-top-primary`, `cu-back-to-top-sm`, `cu-back-to-top-lg`, `cu-back-to-top-left`
+Classes: `cu-back-to-top`, `cu-back-to-top-primary`, `cu-back-to-top-sm`, `cu-back-to-top-lg`
 Data: `data-cu-back-to-top`, `data-cu-back-to-top-threshold="300"`
 ```html
 <button class="cu-back-to-top" data-cu-back-to-top data-cu-back-to-top-threshold="300" aria-label="Back to top">

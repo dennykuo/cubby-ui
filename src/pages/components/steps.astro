@@ -113,12 +113,12 @@ const errorCode = `<div class="cu-steps">
     </div>
   </div>
   <div class="cu-steps-separator"></div>
-  <div class="cu-steps-item">
-    <div class="cu-steps-number border-destructive bg-destructive/10 text-destructive">
+  <div class="cu-steps-item cu-steps-item-error">
+    <div class="cu-steps-number">
       <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
     </div>
     <div class="cu-steps-content">
-      <div class="cu-steps-title text-destructive">Payment Failed</div>
+      <div class="cu-steps-title">Payment Failed</div>
     </div>
   </div>
   <div class="cu-steps-separator"></div>
@@ -235,6 +235,10 @@ const clickableCode = `<div class="cu-steps">
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-steps-item-upcoming</code></td>
                             <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-steps-item-upcoming']}</td>
+                        </tr>
+                        <tr class="cu-table-row">
+                            <td class="cu-table-cell"><code class="cu-code">cu-steps-item-error</code></td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-steps-item-error']}</td>
                         </tr>
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-steps-number</code></td>
@@ -361,11 +365,11 @@ const clickableCode = `<div class="cu-steps">
                             <div class="cu-steps-content"><div class="cu-steps-title">Account</div></div>
                         </StepsItem>
                         <StepsSeparator />
-                        <div class="cu-steps-item">
-                            <div class="cu-steps-number border-destructive bg-destructive/10 text-destructive">
+                        <div class="cu-steps-item cu-steps-item-error">
+                            <div class="cu-steps-number">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
                             </div>
-                            <div class="cu-steps-content"><div class="cu-steps-title text-destructive">Payment Failed</div></div>
+                            <div class="cu-steps-content"><div class="cu-steps-title">Payment Failed</div></div>
                         </div>
                         <StepsSeparator />
                         <StepsItem status="upcoming">

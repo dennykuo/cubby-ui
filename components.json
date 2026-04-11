@@ -731,8 +731,9 @@
       "interactive": false,
       "cssClasses": {
         "base": "cu-steps",
-        "parts": ["cu-steps-item", "cu-steps-separator"],
-        "states": ["cu-steps-item-active", "cu-steps-item-completed"]
+        "parts": ["cu-steps-item", "cu-steps-separator", "cu-steps-number", "cu-steps-content", "cu-steps-title", "cu-steps-description"],
+        "states": ["cu-steps-item-active", "cu-steps-item-completed", "cu-steps-item-upcoming", "cu-steps-item-error"],
+        "modifiers": ["cu-steps-vertical"]
       },
       "example": "<div class=\"cu-steps\"><div class=\"cu-steps-item cu-steps-item-completed\">1</div><div class=\"cu-steps-separator\"></div><div class=\"cu-steps-item cu-steps-item-active\">2</div></div>"
     },
@@ -1284,7 +1285,7 @@
         "base": "cu-back-to-top",
         "variants": ["cu-back-to-top-primary"],
         "sizes": ["cu-back-to-top-sm", "cu-back-to-top-lg"],
-        "modifiers": ["cu-back-to-top-left"]
+        "modifiers": []
       },
       "dataAttributes": {
         "container": "data-cu-back-to-top",

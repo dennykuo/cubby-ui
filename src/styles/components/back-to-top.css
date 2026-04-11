@@ -7,7 +7,8 @@
     pointer-events: none;
 }
 
-.cu-back-to-top[data-cu-visible] {
+.cu-back-to-top[data-cu-visible],
+.cu-back-to-top-visible {
     opacity: 1;
     transform: translateY(0);
     pointer-events: auto;
@@ -19,11 +20,6 @@
 
 .cu-back-to-top:focus-visible {
     @apply outline-none ring-1 ring-ring/30;
-}
-
-/* Positions */
-.cu-back-to-top-left {
-    @apply right-auto left-6;
 }
 
 /* Sizes */

@@ -10,7 +10,6 @@ export const backToTopPage: Record<Locale, {
     primary: { title: string; description: string };
     sizes: { title: string; description: string };
     threshold: { title: string; description: string };
-    leftPosition: { title: string; description: string };
   };
   classDescriptions: Record<string, string>;
 }> = {
@@ -40,10 +39,6 @@ export const backToTopPage: Record<Locale, {
         title: 'Scroll Threshold',
         description: 'Use <code class="cu-code">data-cu-back-to-top-threshold</code> to customize the scroll distance (in pixels) before the button appears. Defaults to 300.',
       },
-      leftPosition: {
-        title: 'Left Position',
-        description: 'Use <code class="cu-code">cu-back-to-top-left</code> to position the button on the bottom-left instead of the default bottom-right.',
-      },
     },
     classDescriptions: {
       'cu-back-to-top': 'Base class for the back-to-top button',
@@ -51,7 +46,6 @@ export const backToTopPage: Record<Locale, {
       'cu-back-to-top-primary': 'Primary color variant',
       'cu-back-to-top-sm': 'Small size (36px)',
       'cu-back-to-top-lg': 'Large size (52px)',
-      'cu-back-to-top-left': 'Position on the bottom-left',
     },
   },
   'zh-tw': {
@@ -80,10 +74,6 @@ export const backToTopPage: Record<Locale, {
         title: '捲動閾值',
         description: '使用 <code class="cu-code">data-cu-back-to-top-threshold</code> 自訂按鈕出現前的捲動距離（像素）。預設為 300。',
       },
-      leftPosition: {
-        title: '左側位置',
-        description: '使用 <code class="cu-code">cu-back-to-top-left</code> 將按鈕定位在左下角，而非預設的右下角。',
-      },
     },
     classDescriptions: {
       'cu-back-to-top': '回到頂部按鈕的基礎類別',
@@ -91,7 +81,6 @@ export const backToTopPage: Record<Locale, {
       'cu-back-to-top-primary': '主要色彩變體',
       'cu-back-to-top-sm': '小尺寸（36px）',
       'cu-back-to-top-lg': '大尺寸（52px）',
-      'cu-back-to-top-left': '定位在左下角',
     },
   },
 };
