@@ -58,6 +58,147 @@ const compactCode = `<div class="cu-sortable-list cu-sortable-list-compact" data
   </div>
 </div>`.trim();
 
+const cardCode = `<div class="cu-sortable-list cu-sortable-list-card" data-cu-sortable-list>
+  <div class="cu-sortable-item" data-cu-sortable-item draggable="true">
+    <span class="cu-sortable-handle" data-cu-sortable-handle>${gripIcon}</span>
+    <div class="cu-sortable-content">
+      <div class="font-medium">Brand Guidelines</div>
+      <div class="text-xs text-muted-foreground mt-0.5">Updated 2 hours ago</div>
+    </div>
+  </div>
+  <div class="cu-sortable-item" data-cu-sortable-item draggable="true">
+    <span class="cu-sortable-handle" data-cu-sortable-handle>${gripIcon}</span>
+    <div class="cu-sortable-content">
+      <div class="font-medium">Design System Tokens</div>
+      <div class="text-xs text-muted-foreground mt-0.5">Updated yesterday</div>
+    </div>
+  </div>
+  <div class="cu-sortable-item" data-cu-sortable-item draggable="true">
+    <span class="cu-sortable-handle" data-cu-sortable-handle>${gripIcon}</span>
+    <div class="cu-sortable-content">
+      <div class="font-medium">Component Library</div>
+      <div class="text-xs text-muted-foreground mt-0.5">Updated 3 days ago</div>
+    </div>
+  </div>
+</div>`.trim();
+
+const ghostCode = `<div class="cu-sortable-list cu-sortable-list-ghost" data-cu-sortable-list>
+  <div class="cu-sortable-item" data-cu-sortable-item draggable="true">
+    <span class="cu-sortable-handle" data-cu-sortable-handle>${gripIcon}</span>
+    <div class="cu-sortable-content">Introduction</div>
+  </div>
+  <div class="cu-sortable-item" data-cu-sortable-item draggable="true">
+    <span class="cu-sortable-handle" data-cu-sortable-handle>${gripIcon}</span>
+    <div class="cu-sortable-content">Getting Started</div>
+  </div>
+  <div class="cu-sortable-item" data-cu-sortable-item draggable="true">
+    <span class="cu-sortable-handle" data-cu-sortable-handle>${gripIcon}</span>
+    <div class="cu-sortable-content">Configuration</div>
+  </div>
+  <div class="cu-sortable-item" data-cu-sortable-item draggable="true">
+    <span class="cu-sortable-handle" data-cu-sortable-handle>${gripIcon}</span>
+    <div class="cu-sortable-content">Advanced Usage</div>
+  </div>
+</div>`.trim();
+
+const stripedCode = `<div class="cu-sortable-list cu-sortable-list-striped" data-cu-sortable-list>
+  <div class="cu-sortable-item" data-cu-sortable-item draggable="true">
+    <span class="cu-sortable-handle" data-cu-sortable-handle>${gripIcon}</span>
+    <div class="cu-sortable-content">Authentication</div>
+  </div>
+  <div class="cu-sortable-item" data-cu-sortable-item draggable="true">
+    <span class="cu-sortable-handle" data-cu-sortable-handle>${gripIcon}</span>
+    <div class="cu-sortable-content">Database</div>
+  </div>
+  <div class="cu-sortable-item" data-cu-sortable-item draggable="true">
+    <span class="cu-sortable-handle" data-cu-sortable-handle>${gripIcon}</span>
+    <div class="cu-sortable-content">API Routes</div>
+  </div>
+  <div class="cu-sortable-item" data-cu-sortable-item draggable="true">
+    <span class="cu-sortable-handle" data-cu-sortable-handle>${gripIcon}</span>
+    <div class="cu-sortable-content">Middleware</div>
+  </div>
+  <div class="cu-sortable-item" data-cu-sortable-item draggable="true">
+    <span class="cu-sortable-handle" data-cu-sortable-handle>${gripIcon}</span>
+    <div class="cu-sortable-content">Deployment</div>
+  </div>
+</div>`.trim();
+
+const numberedCode = `<div class="cu-sortable-list cu-sortable-list-numbered" data-cu-sortable-list>
+  <div class="cu-sortable-item" data-cu-sortable-item draggable="true">
+    <span class="cu-sortable-handle" data-cu-sortable-handle>${gripIcon}</span>
+    <div class="cu-sortable-content">Gather requirements</div>
+  </div>
+  <div class="cu-sortable-item" data-cu-sortable-item draggable="true">
+    <span class="cu-sortable-handle" data-cu-sortable-handle>${gripIcon}</span>
+    <div class="cu-sortable-content">Create wireframes</div>
+  </div>
+  <div class="cu-sortable-item" data-cu-sortable-item draggable="true">
+    <span class="cu-sortable-handle" data-cu-sortable-handle>${gripIcon}</span>
+    <div class="cu-sortable-content">Build prototype</div>
+  </div>
+  <div class="cu-sortable-item" data-cu-sortable-item draggable="true">
+    <span class="cu-sortable-handle" data-cu-sortable-handle>${gripIcon}</span>
+    <div class="cu-sortable-content">User testing</div>
+  </div>
+</div>`.trim();
+
+const arrowIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 15 5 5 5-5"/><path d="m7 9 5-5 5 5"/></svg>`;
+const menuIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>`;
+
+const customHandleCode = `<div class="space-y-8">
+  <div>
+    <p class="text-xs font-medium text-muted-foreground mb-2">Arrow</p>
+    <div class="cu-sortable-list" data-cu-sortable-list>
+      <div class="cu-sortable-item" data-cu-sortable-item draggable="true">
+        <span class="cu-sortable-handle" data-cu-sortable-handle>${arrowIcon}</span>
+        <div class="cu-sortable-content">Arrow handle</div>
+      </div>
+      <div class="cu-sortable-item" data-cu-sortable-item draggable="true">
+        <span class="cu-sortable-handle" data-cu-sortable-handle>${arrowIcon}</span>
+        <div class="cu-sortable-content">Drag me up or down</div>
+      </div>
+      <div class="cu-sortable-item" data-cu-sortable-item draggable="true">
+        <span class="cu-sortable-handle" data-cu-sortable-handle>${arrowIcon}</span>
+        <div class="cu-sortable-content">Reorder with arrows</div>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <p class="text-xs font-medium text-muted-foreground mb-2">Hamburger</p>
+    <div class="cu-sortable-list" data-cu-sortable-list>
+      <div class="cu-sortable-item" data-cu-sortable-item draggable="true">
+        <span class="cu-sortable-handle" data-cu-sortable-handle>${menuIcon}</span>
+        <div class="cu-sortable-content">Menu handle</div>
+      </div>
+      <div class="cu-sortable-item" data-cu-sortable-item draggable="true">
+        <span class="cu-sortable-handle" data-cu-sortable-handle>${menuIcon}</span>
+        <div class="cu-sortable-content">Three lines style</div>
+      </div>
+      <div class="cu-sortable-item" data-cu-sortable-item draggable="true">
+        <span class="cu-sortable-handle" data-cu-sortable-handle>${menuIcon}</span>
+        <div class="cu-sortable-content">Familiar pattern</div>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <p class="text-xs font-medium text-muted-foreground mb-2">Hidden</p>
+    <div class="cu-sortable-list" data-cu-sortable-list>
+      <div class="cu-sortable-item" data-cu-sortable-item draggable="true">
+        <div class="cu-sortable-content">No handle — drag anywhere</div>
+      </div>
+      <div class="cu-sortable-item" data-cu-sortable-item draggable="true">
+        <div class="cu-sortable-content">Cleaner, handleless look</div>
+      </div>
+      <div class="cu-sortable-item" data-cu-sortable-item draggable="true">
+        <div class="cu-sortable-content">Entire row is the drag target</div>
+      </div>
+    </div>
+  </div>
+</div>`.trim();
+
 const withContentCode = `<div class="cu-sortable-list" data-cu-sortable-list>
   <div class="cu-sortable-item" data-cu-sortable-item draggable="true">
     <span class="cu-sortable-handle" data-cu-sortable-handle>${gripIcon}</span>
@@ -161,6 +302,51 @@ const disabledCode = `<div class="cu-sortable-list" data-cu-sortable-list>
             </h2>
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.compact.description} />
             <ComponentPreview code={compactCode} />
+        </section>
+
+        <section class="space-y-3">
+            <h2 id="card" class="text-lg font-semibold tracking-tight relative group">
+                <a href="#card" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                {t.sections.card.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.card.description} />
+            <ComponentPreview code={cardCode} />
+        </section>
+
+        <section class="space-y-3">
+            <h2 id="ghost" class="text-lg font-semibold tracking-tight relative group">
+                <a href="#ghost" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                {t.sections.ghost.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.ghost.description} />
+            <ComponentPreview code={ghostCode} />
+        </section>
+
+        <section class="space-y-3">
+            <h2 id="striped" class="text-lg font-semibold tracking-tight relative group">
+                <a href="#striped" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                {t.sections.striped.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.striped.description} />
+            <ComponentPreview code={stripedCode} />
+        </section>
+
+        <section class="space-y-3">
+            <h2 id="numbered" class="text-lg font-semibold tracking-tight relative group">
+                <a href="#numbered" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                {t.sections.numbered.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.numbered.description} />
+            <ComponentPreview code={numberedCode} />
+        </section>
+
+        <section class="space-y-3">
+            <h2 id="custom-handle" class="text-lg font-semibold tracking-tight relative group">
+                <a href="#custom-handle" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                {t.sections.customHandle.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.customHandle.description} />
+            <ComponentPreview code={customHandleCode} />
         </section>
 
         <section class="space-y-3">

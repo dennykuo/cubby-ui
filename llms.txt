@@ -257,6 +257,7 @@ Required marker: `cu-label-required` (adds red asterisk after label)
 ```
 
 **Select** — custom arrow decoration
+- `cu-select-sm` — small size (h-8, matches cu-button-sm)
 ```html
 <div class="cu-select-wrapper">
   <select class="cu-select">
@@ -649,7 +650,7 @@ Data: `data-cu-sortable-list`, `data-cu-sortable-item`, `data-cu-sortable-handle
 </div>
 ```
 
-**Data Table** — `cu-data-table`, `cu-data-table-toolbar`, `cu-data-table-head-sortable`, `cu-data-table-head-sorted-asc/desc`, `cu-data-table-row-selected`, `cu-data-table-striped`, `cu-data-table-info`. Enhanced table with sorting, filtering, row selection.
+**Data Table** — `cu-data-table`, `cu-data-table-check`, `cu-data-table-toolbar`, `cu-data-table-head-sortable`, `cu-data-table-head-sorted-asc/desc`, `cu-data-table-row-selected`, `cu-data-table-striped`, `cu-data-table-info`. Enhanced table with sorting, filtering, row selection. `cu-data-table-check` centers checkbox in narrow column.
 Expandable rows: `cu-data-table-expand-trigger` (row expand/collapse trigger), `cu-data-table-expanded-row` (active parent row state), `cu-data-table-expanded-content` (expanded content area)
 Data attributes: `data-cu-data-table-expandable` (on table container), `data-cu-expand-row` (on expand trigger)
 ```html
@@ -674,14 +675,14 @@ Responsive: Add `cu-table-stacked` to wrapper + `data-label` on each `<td>` for 
 </div>
 ```
 
-**Setting Item**
+**Setting Item** — `cu-setting-item`, `cu-setting-item-content`, `cu-setting-item-label`, `cu-setting-item-description`, `cu-setting-item-action`, `cu-setting-item-icon`. `cu-setting-item-icon` adds a leading icon container (rounded, muted background).
 ```html
 <div class="cu-setting-item">
   <div class="cu-setting-item-content">
-    <div class="cu-setting-item-label">Setting Name</div>
-    <div class="cu-setting-item-description">Description text</div>
+    <p class="cu-setting-item-label">Setting Name</p>
+    <p class="cu-setting-item-description">Description text</p>
   </div>
-  <div class="cu-setting-item-action"><!-- control --></div>
+  <div class="cu-setting-item-action"><!-- toggle, button, select --></div>
 </div>
 ```
 

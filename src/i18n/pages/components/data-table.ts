@@ -67,6 +67,7 @@ export const dataTablePage: Record<Locale, {
     },
     classDescriptions: {
       'cu-data-table': 'Data table container',
+      'cu-data-table-check': 'Checkbox column cell (centered, narrow width)',
       'cu-data-table-toolbar': 'Toolbar (search, filter, etc.)',
       'cu-data-table-head-sortable': 'Sortable header column',
       'cu-data-table-head-sorted-asc': 'Ascending sort state',
@@ -129,6 +130,7 @@ export const dataTablePage: Record<Locale, {
     },
     classDescriptions: {
       'cu-data-table': '資料表格容器',
+      'cu-data-table-check': '核取方塊欄位儲存格（置中、窄寬度）',
       'cu-data-table-toolbar': '工具列（搜尋、篩選等）',
       'cu-data-table-head-sortable': '可排序的標頭欄位',
       'cu-data-table-head-sorted-asc': '升冪排序狀態',

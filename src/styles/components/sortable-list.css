@@ -16,6 +16,16 @@
     @apply flex shrink-0 cursor-grab items-center text-muted-foreground/50 transition-colors duration-150 hover:text-muted-foreground active:cursor-grabbing;
 }
 
+/* Handle present: grab cursor on handle only, balance right padding */
+.cu-sortable-item:has(.cu-sortable-handle) {
+    @apply pr-7;
+}
+
+/* Handle absent: grab cursor on entire item, symmetric padding */
+.cu-sortable-item:not(:has(.cu-sortable-handle)) {
+    @apply px-5 cursor-grab;
+}
+
 /* Item content */
 .cu-sortable-content {
     @apply flex-1 min-w-0;
@@ -23,7 +33,7 @@
 
 /* Dragging state */
 .cu-sortable-item-dragging {
-    @apply shadow-lg opacity-90 ring-2 ring-primary/20 z-10;
+    @apply shadow-lg opacity-90 ring-2 ring-primary/20 z-10 cursor-grabbing;
 }
 
 /* Drop placeholder */
@@ -42,6 +52,57 @@
 /* Compact variant */
 .cu-sortable-list-compact .cu-sortable-item {
     @apply py-1.5 gap-2;
+}
+
+/* Card variant — elevated with stronger shadow */
+.cu-sortable-list-card {
+    @apply gap-2.5;
+}
+.cu-sortable-list-card .cu-sortable-item {
+    @apply rounded-xl border-border/60 bg-card px-4 py-3 shadow-sm;
+}
+.cu-sortable-list-card .cu-sortable-item:hover {
+    @apply shadow-md;
+}
+
+/* Ghost variant — borderless, minimal */
+.cu-sortable-list-ghost .cu-sortable-item {
+    @apply border-transparent bg-transparent rounded-md px-2.5;
+}
+.cu-sortable-list-ghost .cu-sortable-item:hover {
+    @apply bg-muted/60 shadow-none;
+}
+
+/* Striped variant — alternating backgrounds */
+.cu-sortable-list-striped {
+    @apply gap-0;
+}
+.cu-sortable-list-striped .cu-sortable-item {
+    @apply rounded-none border-x-0 border-t-0 border-b border-border/50;
+}
+.cu-sortable-list-striped .cu-sortable-item:nth-child(odd) {
+    @apply bg-muted/30;
+}
+.cu-sortable-list-striped .cu-sortable-item:first-child {
+    @apply rounded-t-lg;
+}
+.cu-sortable-list-striped .cu-sortable-item:last-child {
+    @apply border-b-0 rounded-b-lg;
+}
+.cu-sortable-list-striped .cu-sortable-item:hover {
+    @apply bg-muted/60 shadow-none;
+}
+
+/* Numbered variant — auto counter badges */
+.cu-sortable-list-numbered {
+    counter-reset: sortable-counter;
+}
+.cu-sortable-list-numbered .cu-sortable-item {
+    counter-increment: sortable-counter;
+}
+.cu-sortable-list-numbered .cu-sortable-item::before {
+    content: counter(sortable-counter);
+    @apply flex size-6 shrink-0 items-center justify-center rounded-full bg-primary/10 text-xs font-semibold text-primary;
 }
 
 /* Disabled */

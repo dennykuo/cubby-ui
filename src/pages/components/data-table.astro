@@ -22,7 +22,7 @@ const usageCode = `<div class="cu-data-table">
     <table class="cu-table" data-cu-data-table>
       <thead class="cu-table-header">
         <tr class="cu-table-row">
-          <th class="cu-table-head w-12"><input type="checkbox" class="cu-checkbox" data-cu-data-table-select-all /></th>
+          <th class="cu-table-head cu-data-table-check"><input type="checkbox" class="cu-checkbox" data-cu-data-table-select-all /></th>
           <th class="cu-table-head cu-data-table-head-sortable" data-sort="status">
             Status ${chevronSvg}
           </th>
@@ -36,31 +36,31 @@ const usageCode = `<div class="cu-data-table">
       </thead>
       <tbody class="cu-table-body">
         <tr class="cu-table-row" data-email="ken99@yahoo.com">
-          <td class="cu-table-cell"><input type="checkbox" class="cu-checkbox" data-cu-data-table-select /></td>
+          <td class="cu-table-cell cu-data-table-check"><input type="checkbox" class="cu-checkbox" data-cu-data-table-select /></td>
           <td class="cu-table-cell"><span class="cu-badge cu-badge-success">Success</span></td>
           <td class="cu-table-cell">ken99@yahoo.com</td>
           <td class="cu-table-cell text-right font-medium">$316.00</td>
         </tr>
         <tr class="cu-table-row" data-email="abe45@gmail.com">
-          <td class="cu-table-cell"><input type="checkbox" class="cu-checkbox" data-cu-data-table-select /></td>
+          <td class="cu-table-cell cu-data-table-check"><input type="checkbox" class="cu-checkbox" data-cu-data-table-select /></td>
           <td class="cu-table-cell"><span class="cu-badge cu-badge-success">Success</span></td>
           <td class="cu-table-cell">abe45@gmail.com</td>
           <td class="cu-table-cell text-right font-medium">$242.00</td>
         </tr>
         <tr class="cu-table-row" data-email="monserrat44@gmail.com">
-          <td class="cu-table-cell"><input type="checkbox" class="cu-checkbox" data-cu-data-table-select /></td>
+          <td class="cu-table-cell cu-data-table-check"><input type="checkbox" class="cu-checkbox" data-cu-data-table-select /></td>
           <td class="cu-table-cell"><span class="cu-badge cu-badge-warning">Pending</span></td>
           <td class="cu-table-cell">monserrat44@gmail.com</td>
           <td class="cu-table-cell text-right font-medium">$837.00</td>
         </tr>
         <tr class="cu-table-row" data-email="silas22@gmail.com">
-          <td class="cu-table-cell"><input type="checkbox" class="cu-checkbox" data-cu-data-table-select /></td>
+          <td class="cu-table-cell cu-data-table-check"><input type="checkbox" class="cu-checkbox" data-cu-data-table-select /></td>
           <td class="cu-table-cell"><span class="cu-badge cu-badge-destructive">Failed</span></td>
           <td class="cu-table-cell">silas22@gmail.com</td>
           <td class="cu-table-cell text-right font-medium">$874.00</td>
         </tr>
         <tr class="cu-table-row" data-email="carmella@hotmail.com">
-          <td class="cu-table-cell"><input type="checkbox" class="cu-checkbox" data-cu-data-table-select /></td>
+          <td class="cu-table-cell cu-data-table-check"><input type="checkbox" class="cu-checkbox" data-cu-data-table-select /></td>
           <td class="cu-table-cell"><span class="cu-badge cu-badge-success">Success</span></td>
           <td class="cu-table-cell">carmella@hotmail.com</td>
           <td class="cu-table-cell text-right font-medium">$721.00</td>
@@ -337,17 +337,15 @@ const withRowActionsCode = `<div class="cu-table-wrapper rounded-lg border borde
   </table>
 </div>`.trim();
 
-const emptyStateCode = `<div class="cu-data-table" data-cu-data-table>
+const emptyStateCode = `<div class="cu-data-table">
   <div class="cu-data-table-toolbar">
-    <div class="cu-data-table-toolbar-select">
-      <div class="cu-search-input-wrapper">
-        <svg class="cu-search-input-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-        <input type="search" placeholder="Search..." class="cu-search-input" />
-      </div>
+    <div class="cu-input-search">
+      <svg class="cu-input-search-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+      <input type="search" placeholder="Search..." class="cu-input-search-field" />
     </div>
   </div>
-  <div class="cu-table-wrapper">
-    <table class="cu-table cu-data-table-table">
+  <div class="cu-table-wrapper rounded-lg border border-border">
+    <table class="cu-table">
       <thead class="cu-table-header">
         <tr class="cu-table-row">
           <th class="cu-table-head">Name</th>
@@ -407,7 +405,7 @@ const loadingCode = `<div class="cu-card">
 
 const expandableRowsCode = `<div class="cu-data-table" data-cu-data-table data-cu-data-table-expandable>
   <div class="cu-table-wrapper rounded-lg border border-border">
-    <table class="cu-table cu-data-table-table">
+    <table class="cu-table">
       <thead class="cu-table-header">
         <tr class="cu-table-row">
           <th class="cu-table-head w-10"></th>
@@ -496,7 +494,7 @@ const expandableRowsCode = `<div class="cu-data-table" data-cu-data-table data-c
                             <table class="cu-table" data-cu-data-table>
                                 <thead class="cu-table-header">
                                     <tr class="cu-table-row">
-                                        <th class="cu-table-head w-12"><input type="checkbox" class="cu-checkbox" data-cu-data-table-select-all /></th>
+                                        <th class="cu-table-head cu-data-table-check"><input type="checkbox" class="cu-checkbox" data-cu-data-table-select-all /></th>
                                         <th class="cu-table-head cu-data-table-head-sortable" data-sort="status">
                                             Status <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 15 5 5 5-5"/><path d="m7 9 5-5 5 5"/></svg>
                                         </th>
@@ -510,31 +508,31 @@ const expandableRowsCode = `<div class="cu-data-table" data-cu-data-table data-c
                                 </thead>
                                 <tbody class="cu-table-body">
                                     <tr class="cu-table-row" data-email="ken99@yahoo.com">
-                                        <td class="cu-table-cell"><input type="checkbox" class="cu-checkbox" data-cu-data-table-select /></td>
+                                        <td class="cu-table-cell cu-data-table-check"><input type="checkbox" class="cu-checkbox" data-cu-data-table-select /></td>
                                         <td class="cu-table-cell"><span class="cu-badge cu-badge-success">Success</span></td>
                                         <td class="cu-table-cell">ken99@yahoo.com</td>
                                         <td class="cu-table-cell text-right font-medium">$316.00</td>
                                     </tr>
                                     <tr class="cu-table-row" data-email="abe45@gmail.com">
-                                        <td class="cu-table-cell"><input type="checkbox" class="cu-checkbox" data-cu-data-table-select /></td>
+                                        <td class="cu-table-cell cu-data-table-check"><input type="checkbox" class="cu-checkbox" data-cu-data-table-select /></td>
                                         <td class="cu-table-cell"><span class="cu-badge cu-badge-success">Success</span></td>
                                         <td class="cu-table-cell">abe45@gmail.com</td>
                                         <td class="cu-table-cell text-right font-medium">$242.00</td>
                                     </tr>
                                     <tr class="cu-table-row" data-email="monserrat44@gmail.com">
-                                        <td class="cu-table-cell"><input type="checkbox" class="cu-checkbox" data-cu-data-table-select /></td>
+                                        <td class="cu-table-cell cu-data-table-check"><input type="checkbox" class="cu-checkbox" data-cu-data-table-select /></td>
                                         <td class="cu-table-cell"><span class="cu-badge cu-badge-warning">Pending</span></td>
                                         <td class="cu-table-cell">monserrat44@gmail.com</td>
                                         <td class="cu-table-cell text-right font-medium">$837.00</td>
                                     </tr>
                                     <tr class="cu-table-row" data-email="silas22@gmail.com">
-                                        <td class="cu-table-cell"><input type="checkbox" class="cu-checkbox" data-cu-data-table-select /></td>
+                                        <td class="cu-table-cell cu-data-table-check"><input type="checkbox" class="cu-checkbox" data-cu-data-table-select /></td>
                                         <td class="cu-table-cell"><span class="cu-badge cu-badge-destructive">Failed</span></td>
                                         <td class="cu-table-cell">silas22@gmail.com</td>
                                         <td class="cu-table-cell text-right font-medium">$874.00</td>
                                     </tr>
                                     <tr class="cu-table-row" data-email="carmella@hotmail.com">
-                                        <td class="cu-table-cell"><input type="checkbox" class="cu-checkbox" data-cu-data-table-select /></td>
+                                        <td class="cu-table-cell cu-data-table-check"><input type="checkbox" class="cu-checkbox" data-cu-data-table-select /></td>
                                         <td class="cu-table-cell"><span class="cu-badge cu-badge-success">Success</span></td>
                                         <td class="cu-table-cell">carmella@hotmail.com</td>
                                         <td class="cu-table-cell text-right font-medium">$721.00</td>
@@ -568,6 +566,10 @@ const expandableRowsCode = `<div class="cu-data-table" data-cu-data-table data-c
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-data-table</code></td>
                             <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-data-table']}</td>
+                        </tr>
+                        <tr class="cu-table-row">
+                            <td class="cu-table-cell"><code class="cu-code">cu-data-table-check</code></td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-data-table-check']}</td>
                         </tr>
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-data-table-toolbar</code></td>
@@ -909,17 +911,15 @@ const expandableRowsCode = `<div class="cu-data-table" data-cu-data-table data-c
             <p class="text-base text-muted-foreground leading-relaxed">{t.sections.emptyState.description}</p>
             <ComponentPreview code={emptyStateCode}>
                 <div class="w-full max-w-3xl">
-                    <div class="cu-data-table" data-cu-data-table>
+                    <div class="cu-data-table">
                         <div class="cu-data-table-toolbar">
-                            <div class="cu-data-table-toolbar-select">
-                                <div class="cu-search-input-wrapper">
-                                    <svg class="cu-search-input-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-                                    <input type="search" placeholder="Search..." class="cu-search-input" />
-                                </div>
+                            <div class="cu-input-search">
+                                <svg class="cu-input-search-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+                                <input type="search" placeholder="Search..." class="cu-input-search-field" />
                             </div>
                         </div>
-                        <div class="cu-table-wrapper">
-                            <table class="cu-table cu-data-table-table">
+                        <div class="cu-table-wrapper rounded-lg border border-border">
+                            <table class="cu-table">
                                 <thead class="cu-table-header">
                                     <tr class="cu-table-row">
                                         <th class="cu-table-head">Name</th>
@@ -1003,7 +1003,7 @@ const expandableRowsCode = `<div class="cu-data-table" data-cu-data-table data-c
                 <div class="w-full max-w-3xl">
                     <div class="cu-data-table" data-cu-data-table data-cu-data-table-expandable>
                         <div class="cu-table-wrapper rounded-lg border border-border">
-                            <table class="cu-table cu-data-table-table">
+                            <table class="cu-table">
                                 <thead class="cu-table-header">
                                     <tr class="cu-table-row">
                                         <th class="cu-table-head w-10"></th>
