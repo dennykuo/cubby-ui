@@ -11,6 +11,9 @@ export const statCardPage: Record<Locale, {
     iconBox: { title: string; description: string };
     trendPill: { title: string; description: string };
     accentBorder: { title: string; description: string };
+    flat: { title: string; description: string };
+    ghost: { title: string; description: string };
+    sharp: { title: string; description: string };
     withProgress: { title: string; description: string };
     hoverEffect: { title: string; description: string };
   };
@@ -46,6 +49,18 @@ export const statCardPage: Record<Locale, {
         title: 'Accent Border',
         description: 'Use <code class="cu-code">cu-stat-accent</code> to add a colored accent stripe on the left for category identification. With variants such as <code class="cu-code">cu-stat-accent-success</code>, <code class="cu-code">cu-stat-accent-warning</code>.',
       },
+      flat: {
+        title: 'Flat',
+        description: 'Add <code class="cu-code">cu-stat-flat</code> to remove the shadow, keeping only the border for a flatter appearance.',
+      },
+      ghost: {
+        title: 'Ghost',
+        description: 'Add <code class="cu-code">cu-stat-ghost</code> to remove both border and shadow for a minimal, borderless look.',
+      },
+      sharp: {
+        title: 'Sharp',
+        description: 'Add <code class="cu-code">cu-stat-sharp</code> to remove border-radius for a sharp-edged appearance.',
+      },
       withProgress: {
         title: 'With Progress',
         description: 'Use <code class="cu-code">cu-stat-footer</code> with progress bar, suitable for quota or goal completion.',
@@ -57,6 +72,9 @@ export const statCardPage: Record<Locale, {
     },
     classDescriptions: {
       'cu-stat': 'Stat card container',
+      'cu-stat-flat': 'Remove shadow (border only)',
+      'cu-stat-ghost': 'Remove border and shadow (borderless)',
+      'cu-stat-sharp': 'Remove border-radius (sharp edges)',
       'cu-stat-hover': 'Enable hover shadow effect',
       'cu-stat-header': 'Top area (label and icon)',
       'cu-stat-label': 'Stat name label',
@@ -104,6 +122,18 @@ export const statCardPage: Record<Locale, {
         title: '強調邊線',
         description: '使用 <code class="cu-code">cu-stat-accent</code> 在左側加上彩色強調條紋以識別類別。支援變體如 <code class="cu-code">cu-stat-accent-success</code>、<code class="cu-code">cu-stat-accent-warning</code>。',
       },
+      flat: {
+        title: '無陰影',
+        description: '加上 <code class="cu-code">cu-stat-flat</code> 移除陰影，僅保留邊框，呈現更平面的外觀。',
+      },
+      ghost: {
+        title: '無邊框',
+        description: '加上 <code class="cu-code">cu-stat-ghost</code> 同時移除邊框與陰影，呈現極簡的無框外觀。',
+      },
+      sharp: {
+        title: '無圓角',
+        description: '加上 <code class="cu-code">cu-stat-sharp</code> 移除圓角，呈現銳利的直角外觀。',
+      },
       withProgress: {
         title: '搭配進度條',
         description: '使用 <code class="cu-code">cu-stat-footer</code> 搭配進度條，適合用於配額或目標完成度。',
@@ -115,6 +145,9 @@ export const statCardPage: Record<Locale, {
     },
     classDescriptions: {
       'cu-stat': '指標卡片容器',
+      'cu-stat-flat': '移除陰影（僅保留邊框）',
+      'cu-stat-ghost': '移除邊框與陰影（無框）',
+      'cu-stat-sharp': '移除圓角（直角邊緣）',
       'cu-stat-hover': '啟用懸停陰影效果',
       'cu-stat-header': '頂部區域（標籤和圖示）',
       'cu-stat-label': '指標名稱標籤',

@@ -422,7 +422,8 @@
       "cssClasses": {
         "base": "cu-stat",
         "parts": ["cu-stat-header", "cu-stat-label", "cu-stat-value", "cu-stat-description"],
-        "trend": ["cu-stat-trend", "cu-stat-trend-up", "cu-stat-trend-down"]
+        "trend": ["cu-stat-trend", "cu-stat-trend-up", "cu-stat-trend-down"],
+        "variants": ["cu-stat-flat", "cu-stat-ghost", "cu-stat-sharp"]
       },
       "example": "<div class=\"cu-stat\"><div class=\"cu-stat-header\"><span class=\"cu-stat-label\">Revenue</span></div><div class=\"cu-stat-value\">$12,345</div><span class=\"cu-stat-trend cu-stat-trend-up\">↑ 20%</span></div>"
     },
@@ -446,10 +447,10 @@
         "base": "cu-timeline",
         "parts": ["cu-timeline-item", "cu-timeline-dot", "cu-timeline-dot-icon", "cu-timeline-content", "cu-timeline-title", "cu-timeline-description", "cu-timeline-time"],
         "dotColors": ["cu-timeline-dot-primary", "cu-timeline-dot-success", "cu-timeline-dot-warning", "cu-timeline-dot-destructive", "cu-timeline-dot-info"],
-        "modifiers": ["cu-timeline-dot-lg", "cu-timeline-horizontal", "cu-timeline-alternating"]
+        "modifiers": ["cu-timeline-horizontal", "cu-timeline-alternating"]
       },
       "astroComponents": ["Timeline", "TimelineItem", "TimelineDot", "TimelineContent", "TimelineTime"],
-      "notes": "cu-timeline-dot-lg fits avatar images (size-8). cu-timeline-horizontal for horizontal step layout. Astro components available for typed props (variant, size, etc.).",
+      "notes": "cu-timeline-horizontal for horizontal step layout. cu-timeline-alternating for centered alternating left-right layout. Astro components available for typed props (variant, size, etc.).",
       "example": "<div class=\"cu-timeline\"><div class=\"cu-timeline-item\"><div class=\"cu-timeline-dot\"></div><div class=\"cu-timeline-content\"><div class=\"cu-timeline-title\">Event</div><div class=\"cu-timeline-time\">2h ago</div></div></div></div>"
     },
     {
@@ -459,9 +460,9 @@
       "cssClasses": {
         "base": "cu-tree",
         "parts": ["cu-tree-item", "cu-tree-trigger", "cu-tree-trigger-icon", "cu-tree-content", "cu-tree-leaf"],
-        "modifiers": ["cu-tree-leaf-active"]
+        "modifiers": ["cu-tree-leaf-active", "cu-tree-relaxed"]
       },
-      "notes": "Uses native <details>/<summary> for expand/collapse. cu-tree-leaf-active highlights the selected node.",
+      "notes": "Uses native <details>/<summary> for expand/collapse. cu-tree-leaf-active highlights the selected node. cu-tree-relaxed adds slightly more spacing between items and within nodes.",
       "example": "<div class=\"cu-tree\"><details class=\"cu-tree-item\"><summary class=\"cu-tree-trigger\">Folder</summary><div class=\"cu-tree-content\"><div class=\"cu-tree-leaf\">file.txt</div></div></details></div>"
     },
     {
