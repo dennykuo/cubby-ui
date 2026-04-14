@@ -40,6 +40,31 @@ const usageCode = `<div class="cu-tree">
   <div class="cu-tree-leaf">Changelog</div>
 </div>`.trim();
 
+const relaxedCode = `<div class="cu-tree cu-tree-relaxed">
+  <details class="cu-tree-item">
+    <summary class="cu-tree-trigger">
+      <svg class="cu-tree-trigger-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+      Getting Started
+    </summary>
+    <div class="cu-tree-content">
+      <div class="cu-tree-leaf">Introduction</div>
+      <div class="cu-tree-leaf">Installation</div>
+    </div>
+  </details>
+  <details class="cu-tree-item">
+    <summary class="cu-tree-trigger">
+      <svg class="cu-tree-trigger-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+      Components
+    </summary>
+    <div class="cu-tree-content">
+      <div class="cu-tree-leaf">Button</div>
+      <div class="cu-tree-leaf">Input</div>
+      <div class="cu-tree-leaf">Card</div>
+    </div>
+  </details>
+  <div class="cu-tree-leaf">Changelog</div>
+</div>`.trim();
+
 const fileExplorerCode = `<div class="cu-tree">
   <details class="cu-tree-item" open>
     <summary class="cu-tree-trigger">
@@ -242,6 +267,43 @@ const defaultOpenCode = `<div class="cu-tree">
             </div>
         </section>
 
+
+        <!-- Relaxed -->
+        <section class="space-y-3">
+            <h2 id="relaxed" class="text-lg font-semibold tracking-tight relative group">
+                <a href="#relaxed" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
+                {t.sections.relaxed.title}
+            </h2>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.relaxed.description} />
+            <ComponentPreview code={relaxedCode}>
+                <div class="w-full max-w-xs">
+                    <TreeView class="cu-tree-relaxed">
+                        <TreeItem>
+                            <summary class="cu-tree-trigger">
+                                <Fragment set:html={chevronIcon} />
+                                Getting Started
+                            </summary>
+                            <div class="cu-tree-content">
+                                <TreeLeaf>Introduction</TreeLeaf>
+                                <TreeLeaf>Installation</TreeLeaf>
+                            </div>
+                        </TreeItem>
+                        <TreeItem>
+                            <summary class="cu-tree-trigger">
+                                <Fragment set:html={chevronIcon} />
+                                Components
+                            </summary>
+                            <div class="cu-tree-content">
+                                <TreeLeaf>Button</TreeLeaf>
+                                <TreeLeaf>Input</TreeLeaf>
+                                <TreeLeaf>Card</TreeLeaf>
+                            </div>
+                        </TreeItem>
+                        <TreeLeaf>Changelog</TreeLeaf>
+                    </TreeView>
+                </div>
+            </ComponentPreview>
+        </section>
 
         <!-- File Explorer -->
         <section class="space-y-3">

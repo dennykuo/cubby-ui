@@ -102,39 +102,6 @@ const withIconsCode = `<div class="cu-timeline">
   </div>
 </div>`.trim();
 
-const withAvatarsCode = `<div class="cu-timeline">
-  <div class="cu-timeline-item">
-    <div class="cu-timeline-dot cu-timeline-dot-lg">
-      <img src="https://i.pravatar.cc/32?img=1" alt="Alice" />
-    </div>
-    <div class="cu-timeline-content">
-      <p class="cu-timeline-title">Alice commented</p>
-      <p class="cu-timeline-description">Looks great! Ship it.</p>
-      <p class="cu-timeline-time">10 minutes ago</p>
-    </div>
-  </div>
-  <div class="cu-timeline-item">
-    <div class="cu-timeline-dot cu-timeline-dot-lg">
-      <img src="https://i.pravatar.cc/32?img=3" alt="Bob" />
-    </div>
-    <div class="cu-timeline-content">
-      <p class="cu-timeline-title">Bob pushed a commit</p>
-      <p class="cu-timeline-description">fix: resolve login redirect loop</p>
-      <p class="cu-timeline-time">25 minutes ago</p>
-    </div>
-  </div>
-  <div class="cu-timeline-item">
-    <div class="cu-timeline-dot cu-timeline-dot-lg">
-      <img src="https://i.pravatar.cc/32?img=5" alt="Carol" />
-    </div>
-    <div class="cu-timeline-content">
-      <p class="cu-timeline-title">Carol opened a PR</p>
-      <p class="cu-timeline-description">feat: add dark mode support (#142)</p>
-      <p class="cu-timeline-time">1 hour ago</p>
-    </div>
-  </div>
-</div>`.trim();
-
 const withCardContentCode = `<div class="cu-timeline">
   <div class="cu-timeline-item">
     <div class="cu-timeline-dot cu-timeline-dot-success">
@@ -142,13 +109,13 @@ const withCardContentCode = `<div class="cu-timeline">
     </div>
     <div class="cu-timeline-content">
       <p class="cu-timeline-time">Today, 4:30 PM</p>
-      <div class="cu-card mt-2">
-        <div class="cu-card-header">
-          <h3 class="cu-card-title">Deploy v2.4.1</h3>
-          <p class="cu-card-description">Production deployment completed</p>
+      <div class="cu-card mt-2.5">
+        <div class="cu-card-header p-4">
+          <h3 class="cu-card-title text-sm">Deploy v2.4.1</h3>
+          <p class="cu-card-description text-xs">Production deployment completed</p>
         </div>
-        <div class="cu-card-content">
-          <p class="text-sm text-muted-foreground">3 files changed, 42 insertions, 8 deletions</p>
+        <div class="cu-card-content p-4 pt-0">
+          <p class="text-xs text-muted-foreground">3 files changed, 42 insertions, 8 deletions</p>
         </div>
       </div>
     </div>
@@ -159,13 +126,13 @@ const withCardContentCode = `<div class="cu-timeline">
     </div>
     <div class="cu-timeline-content">
       <p class="cu-timeline-time">Today, 2:15 PM</p>
-      <div class="cu-card mt-2">
-        <div class="cu-card-header">
-          <h3 class="cu-card-title">Merge PR #142</h3>
-          <p class="cu-card-description">feat: add dark mode support</p>
+      <div class="cu-card mt-2.5">
+        <div class="cu-card-header p-4">
+          <h3 class="cu-card-title text-sm">Merge PR #142</h3>
+          <p class="cu-card-description text-xs">feat: add dark mode support</p>
         </div>
-        <div class="cu-card-content">
-          <p class="text-sm text-muted-foreground">Reviewed by Alice, Bob · 12 commits</p>
+        <div class="cu-card-content p-4 pt-0">
+          <p class="text-xs text-muted-foreground">Reviewed by Alice, Bob · 12 commits</p>
         </div>
       </div>
     </div>
@@ -422,51 +389,6 @@ const horizontalCode = `<div class="cu-timeline cu-timeline-horizontal">
             </ComponentPreview>
         </section>
 
-        <!-- With Avatars -->
-        <section class="space-y-3">
-            <h2 id="with-avatars" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#with-avatars" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.withAvatars.title}
-            </h2>
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withAvatars.description} />
-            <ComponentPreview code={withAvatarsCode}>
-                <div class="w-full max-w-md">
-                    <div class="cu-timeline">
-                        <div class="cu-timeline-item">
-                            <div class="cu-timeline-dot cu-timeline-dot-lg">
-                                <img src="https://i.pravatar.cc/32?img=1" alt="Alice" />
-                            </div>
-                            <div class="cu-timeline-content">
-                                <p class="cu-timeline-title">Alice commented</p>
-                                <p class="cu-timeline-description">Looks great! Ship it.</p>
-                                <p class="cu-timeline-time">10 minutes ago</p>
-                            </div>
-                        </div>
-                        <div class="cu-timeline-item">
-                            <div class="cu-timeline-dot cu-timeline-dot-lg">
-                                <img src="https://i.pravatar.cc/32?img=3" alt="Bob" />
-                            </div>
-                            <div class="cu-timeline-content">
-                                <p class="cu-timeline-title">Bob pushed a commit</p>
-                                <p class="cu-timeline-description">fix: resolve login redirect loop</p>
-                                <p class="cu-timeline-time">25 minutes ago</p>
-                            </div>
-                        </div>
-                        <div class="cu-timeline-item">
-                            <div class="cu-timeline-dot cu-timeline-dot-lg">
-                                <img src="https://i.pravatar.cc/32?img=5" alt="Carol" />
-                            </div>
-                            <div class="cu-timeline-content">
-                                <p class="cu-timeline-title">Carol opened a PR</p>
-                                <p class="cu-timeline-description">feat: add dark mode support (#142)</p>
-                                <p class="cu-timeline-time">1 hour ago</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </ComponentPreview>
-        </section>
-
         <!-- With Card Content -->
         <section class="space-y-3">
             <h2 id="with-card-content" class="text-lg font-semibold tracking-tight relative group">
@@ -483,13 +405,13 @@ const horizontalCode = `<div class="cu-timeline cu-timeline-horizontal">
                             </div>
                             <div class="cu-timeline-content">
                                 <p class="cu-timeline-time">Today, 4:30 PM</p>
-                                <div class="cu-card mt-2">
-                                    <div class="cu-card-header">
-                                        <h3 class="cu-card-title">Deploy v2.4.1</h3>
-                                        <p class="cu-card-description">Production deployment completed</p>
+                                <div class="cu-card mt-2.5">
+                                    <div class="cu-card-header p-4">
+                                        <h3 class="cu-card-title text-sm">Deploy v2.4.1</h3>
+                                        <p class="cu-card-description text-xs">Production deployment completed</p>
                                     </div>
-                                    <div class="cu-card-content">
-                                        <p class="text-sm text-muted-foreground">3 files changed, 42 insertions, 8 deletions</p>
+                                    <div class="cu-card-content p-4 pt-0">
+                                        <p class="text-xs text-muted-foreground">3 files changed, 42 insertions, 8 deletions</p>
                                     </div>
                                 </div>
                             </div>
@@ -500,13 +422,13 @@ const horizontalCode = `<div class="cu-timeline cu-timeline-horizontal">
                             </div>
                             <div class="cu-timeline-content">
                                 <p class="cu-timeline-time">Today, 2:15 PM</p>
-                                <div class="cu-card mt-2">
-                                    <div class="cu-card-header">
-                                        <h3 class="cu-card-title">Merge PR #142</h3>
-                                        <p class="cu-card-description">feat: add dark mode support</p>
+                                <div class="cu-card mt-2.5">
+                                    <div class="cu-card-header p-4">
+                                        <h3 class="cu-card-title text-sm">Merge PR #142</h3>
+                                        <p class="cu-card-description text-xs">feat: add dark mode support</p>
                                     </div>
-                                    <div class="cu-card-content">
-                                        <p class="text-sm text-muted-foreground">Reviewed by Alice, Bob · 12 commits</p>
+                                    <div class="cu-card-content p-4 pt-0">
+                                        <p class="text-xs text-muted-foreground">Reviewed by Alice, Bob · 12 commits</p>
                                     </div>
                                 </div>
                             </div>

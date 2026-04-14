@@ -25,7 +25,7 @@
 }
 
 .cu-tree-content {
-    @apply ml-4 border-l border-border pl-2 pt-0.5;
+    @apply ml-4 border-l border-border pl-4 pt-0.5;
 }
 
 .cu-tree-leaf {
@@ -34,4 +34,18 @@
 
 .cu-tree-leaf-active {
     @apply bg-primary/8 font-medium text-primary;
+}
+
+/* Relaxed variant — slightly more spacing */
+.cu-tree-relaxed {
+    @apply space-y-1;
+}
+
+.cu-tree-relaxed .cu-tree-trigger,
+.cu-tree-relaxed .cu-tree-leaf {
+    @apply gap-2 px-2.5 py-1.5;
+}
+
+.cu-tree-relaxed .cu-tree-content {
+    @apply ml-[18px] pt-1;
 }

@@ -7,6 +7,7 @@ export const treeViewPage: Record<Locale, {
   sections: {
     usage: { title: string; description: string };
     classes: { title: string; classLabel: string; descriptionLabel: string };
+    relaxed: { title: string; description: string };
     fileExplorer: { title: string; description: string };
     defaultOpen: { title: string; description: string };
     activeState: { title: string; description: string };
@@ -27,6 +28,10 @@ export const treeViewPage: Record<Locale, {
         title: 'CSS Classes',
         classLabel: 'Class',
         descriptionLabel: 'Description',
+      },
+      relaxed: {
+        title: 'Relaxed',
+        description: 'Add <code class="cu-code">cu-tree-relaxed</code> for slightly more spacing between items and within each node, useful when the default compact view feels too tight.',
       },
       fileExplorer: {
         title: 'File Explorer',
@@ -53,6 +58,7 @@ export const treeViewPage: Record<Locale, {
       'cu-tree-content': 'Child node content area with left connector line',
       'cu-tree-leaf': 'Leaf node (non-expandable)',
       'cu-tree-leaf-active': 'Active / selected leaf node highlight',
+      'cu-tree-relaxed': 'Relaxed spacing variant — more padding and gap between items',
     },
   },
   'zh-tw': {
@@ -68,6 +74,10 @@ export const treeViewPage: Record<Locale, {
         title: 'CSS 類別',
         classLabel: '類別',
         descriptionLabel: '說明',
+      },
+      relaxed: {
+        title: '寬鬆間距',
+        description: '加上 <code class="cu-code">cu-tree-relaxed</code> 可稍微增加項目之間及節點內部的間距，適用於預設緊湊檢視感覺太擠的場景。',
       },
       fileExplorer: {
         title: '檔案總管',
@@ -94,6 +104,7 @@ export const treeViewPage: Record<Locale, {
       'cu-tree-content': '子節點內容區域，帶左側連接線',
       'cu-tree-leaf': '葉節點（不可展開）',
       'cu-tree-leaf-active': '啟用 / 選取狀態的葉節點高亮',
+      'cu-tree-relaxed': '寬鬆間距變體 — 增加項目之間及內部的間距',
     },
   },
 };

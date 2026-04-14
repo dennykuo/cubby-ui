@@ -213,54 +213,12 @@ const clickableCode = `<div class="cu-steps">
                         </tr>
                     </thead>
                     <tbody class="cu-table-body">
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-steps</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-steps']}</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-steps-vertical</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-steps-vertical']}</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-steps-item</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-steps-item']}</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-steps-item-completed</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-steps-item-completed']}</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-steps-item-active</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-steps-item-active']}</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-steps-item-upcoming</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-steps-item-upcoming']}</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-steps-item-error</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-steps-item-error']}</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-steps-number</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-steps-number']}</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-steps-content</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-steps-content']}</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-steps-title</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-steps-title']}</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-steps-description</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-steps-description']}</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-steps-separator</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-steps-separator']}</td>
-                        </tr>
+                        {Object.entries(t.classDescriptions).map(([cls, desc]) => (
+                            <tr class="cu-table-row">
+                                <td class="cu-table-cell"><code class="cu-code">{cls}</code></td>
+                                <td class="cu-table-cell text-muted-foreground">{desc}</td>
+                            </tr>
+                        ))}
                     </tbody>
                 </table>
             </div>

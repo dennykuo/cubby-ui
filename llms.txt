@@ -608,19 +608,20 @@ Data: `data-cu-sortable-list`, `data-cu-sortable-item`, `data-cu-sortable-handle
 </details>
 ```
 
-**Stat Card**
+**Stat Card** — `cu-stat`, `cu-stat-header`, `cu-stat-label`, `cu-stat-icon`, `cu-stat-icon-box`, `cu-stat-value`, `cu-stat-description`, `cu-stat-trend`, `cu-stat-trend-up/down`, `cu-stat-trend-pill`, `cu-stat-footer`, `cu-stat-accent`. Variants: `cu-stat-flat` (no shadow), `cu-stat-ghost` (no border/shadow), `cu-stat-sharp` (no border-radius), `cu-stat-hover` (hover elevation). Icon box colors: `cu-stat-icon-box-secondary/success/warning/destructive/info`. Accent colors: `cu-stat-accent-success/warning/destructive/info`.
 ```html
 <div class="cu-stat">
   <div class="cu-stat-header">
     <span class="cu-stat-label">Revenue</span>
   </div>
   <div class="cu-stat-value">$12,345</div>
-  <p class="cu-stat-description">+20% from last month</p>
-  <span class="cu-stat-trend cu-stat-trend-up">↑ 20%</span>
+  <p class="cu-stat-description">
+    <span class="cu-stat-trend cu-stat-trend-up">+20%</span> vs last month
+  </p>
 </div>
 ```
 
-**Timeline** — `cu-timeline`, `cu-timeline-item`, `cu-timeline-dot`, `cu-timeline-dot-icon`, `cu-timeline-content`, `cu-timeline-title`, `cu-timeline-description`, `cu-timeline-time`. Dot colors: `cu-timeline-dot-primary/success/warning/destructive/info`. Modifiers: `cu-timeline-dot-lg` (avatar size), `cu-timeline-horizontal` (horizontal step layout), `cu-timeline-alternating` (centered alternating left-right layout).
+**Timeline** — `cu-timeline`, `cu-timeline-item`, `cu-timeline-dot`, `cu-timeline-dot-icon`, `cu-timeline-content`, `cu-timeline-title`, `cu-timeline-description`, `cu-timeline-time`. Dot colors: `cu-timeline-dot-primary/success/warning/destructive/info`. Modifiers: `cu-timeline-horizontal` (horizontal step layout), `cu-timeline-alternating` (centered alternating left-right layout).
 ```html
 <div class="cu-timeline">
   <div class="cu-timeline-item">
@@ -634,7 +635,7 @@ Data: `data-cu-sortable-list`, `data-cu-sortable-item`, `data-cu-sortable-handle
 </div>
 ```
 
-**Tree View** — `cu-tree`, `cu-tree-item` (`<details>`), `cu-tree-trigger` (`<summary>`), `cu-tree-trigger-icon`, `cu-tree-content`, `cu-tree-leaf`, `cu-tree-leaf-active`. Uses native `<details>`/`<summary>` for expand/collapse.
+**Tree View** — `cu-tree`, `cu-tree-item` (`<details>`), `cu-tree-trigger` (`<summary>`), `cu-tree-trigger-icon`, `cu-tree-content`, `cu-tree-leaf`, `cu-tree-leaf-active`, `cu-tree-relaxed`. Uses native `<details>`/`<summary>` for expand/collapse. `cu-tree-relaxed` adds slightly more spacing between items and within nodes.
 ```html
 <div class="cu-tree">
   <details class="cu-tree-item">

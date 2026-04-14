@@ -121,7 +121,9 @@ const t = useTranslations(buttonPage, locale);
 - Avatar 方形變體：`cu-avatar-square`（`rounded-lg`）
 - Badge 脈衝動畫：`cu-badge-dot-animated`（在 `cu-badge-dot` 基礎上加入 pulse 動畫）
 - Toast action 按鈕：`cu-toast-action`（容器）+ `cu-toast-action-btn`（按鈕樣式）
-- Timeline 交錯排列：`cu-timeline-alternating`（置中軸線，`:nth-child(odd/even)` 左右交替）
+- Timeline 交錯排列：`cu-timeline-alternating`（置中軸線，`:nth-child(odd/even)` 左右交替）；水平排列：`cu-timeline-horizontal`（flex 橫向）
+- Timeline dot 色彩背景使用 `color-mix(in srgb, var(--color-*) 12%, var(--color-background))` 產生不透明實色，避免直線透過圓圈顯示
+- Timeline alternating/horizontal dot 使用 `translate` 置中對齊線條（alternating: `left-0 -translate-x-1/2` / `right-0 translate-x-1/2`；horizontal: `left-1/2 -translate-x-1/2 top-0`）
 - Progress 多段：`cu-progress-multi`（flex 容器，多個 `cu-progress-bar` 彩色段落）；環形 `cu-progress-circular`（SVG-based，`stroke-dasharray/dashoffset` 控制填充）
 - Input 可清除：`cu-input-clearable` + `cu-input-clear`（清除按鈕，JS 控制顯隱）
 - Alert 可展開：`cu-alert-expandable-content`（`grid-template-rows: 0fr/1fr` 動畫）+ `cu-alert-expand-trigger`
