@@ -9,7 +9,6 @@ export const timelinePage: Record<Locale, {
     classes: { title: string; classLabel: string; descriptionLabel: string };
     withColors: { title: string; description: string };
     withIcons: { title: string; description: string };
-    withAvatars: { title: string; description: string };
     withCardContent: { title: string; description: string };
     horizontal: { title: string; description: string };
     alternating: { title: string; description: string };
@@ -38,10 +37,6 @@ export const timelinePage: Record<Locale, {
         title: 'With Icons',
         description: 'Place an SVG icon with <code class="cu-code">cu-timeline-dot-icon</code> inside the dot for richer visual cues.',
       },
-      withAvatars: {
-        title: 'With Avatars',
-        description: 'Use <code class="cu-code">cu-timeline-dot-lg</code> for a larger dot that fits an avatar image, ideal for activity feeds or comment threads.',
-      },
       withCardContent: {
         title: 'With Card Content',
         description: 'Wrap timeline content in a <code class="cu-code">cu-card</code> for richer entries like commit details or deployment logs.',
@@ -60,7 +55,6 @@ export const timelinePage: Record<Locale, {
       'cu-timeline-item': 'Individual timeline entry',
       'cu-timeline-dot': 'Circle marker on the timeline',
       'cu-timeline-dot-icon': 'Icon inside the dot',
-      'cu-timeline-dot-lg': 'Large dot for avatars (size-8)',
       'cu-timeline-dot-primary': 'Primary colored dot',
       'cu-timeline-dot-success': 'Success colored dot',
       'cu-timeline-dot-warning': 'Warning colored dot',
@@ -96,10 +90,6 @@ export const timelinePage: Record<Locale, {
         title: '搭配圖示',
         description: '在圓點內放入帶有 <code class="cu-code">cu-timeline-dot-icon</code> 的 SVG 圖示，以提供更豐富的視覺提示。',
       },
-      withAvatars: {
-        title: '搭配頭像',
-        description: '使用 <code class="cu-code">cu-timeline-dot-lg</code> 搭配較大的圓點來放置頭像圖片，適合活動紀錄或評論串。',
-      },
       withCardContent: {
         title: '搭配卡片內容',
         description: '將時間軸內容包裹在 <code class="cu-code">cu-card</code> 中，適合呈現 commit 詳情或部署日誌等豐富內容。',
@@ -118,7 +108,6 @@ export const timelinePage: Record<Locale, {
       'cu-timeline-item': '個別時間軸項目',
       'cu-timeline-dot': '時間軸上的圓形標記',
       'cu-timeline-dot-icon': '圓點內的圖示',
-      'cu-timeline-dot-lg': '大圓點，放頭像用（size-8）',
       'cu-timeline-dot-primary': '主色圓點',
       'cu-timeline-dot-success': '成功色圓點',
       'cu-timeline-dot-warning': '警告色圓點',
