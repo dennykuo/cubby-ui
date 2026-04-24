@@ -585,7 +585,8 @@ Bordered variant — each item has its own border:
 ```
 
 **Sortable List** — drag-and-drop reorderable list
-Classes: `cu-sortable-list`, `cu-sortable-item`, `cu-sortable-handle`, `cu-sortable-content`, `cu-sortable-placeholder`, `cu-sortable-item-dragging`, `cu-sortable-item-disabled`, `cu-sortable-list-bordered`, `cu-sortable-list-compact`
+Classes: `cu-sortable-list`, `cu-sortable-item`, `cu-sortable-handle`, `cu-sortable-content`, `cu-sortable-placeholder`, `cu-sortable-item-dragging`, `cu-sortable-item-disabled`
+Variants: `cu-sortable-list-bordered` (shared border), `cu-sortable-list-compact` (tighter spacing), `cu-sortable-list-card` (elevated card style with shadow), `cu-sortable-list-ghost` (no border, hover-only background), `cu-sortable-list-striped` (alternating row backgrounds), `cu-sortable-list-numbered` (auto counter badges via CSS counter)
 Data: `data-cu-sortable-list`, `data-cu-sortable-item`, `data-cu-sortable-handle`
 ```html
 <div class="cu-sortable-list" data-cu-sortable-list>
@@ -621,7 +622,7 @@ Data: `data-cu-sortable-list`, `data-cu-sortable-item`, `data-cu-sortable-handle
 </div>
 ```
 
-**Timeline** — `cu-timeline`, `cu-timeline-item`, `cu-timeline-dot`, `cu-timeline-dot-icon`, `cu-timeline-content`, `cu-timeline-title`, `cu-timeline-description`, `cu-timeline-time`. Dot colors: `cu-timeline-dot-primary/success/warning/destructive/info`. Modifiers: `cu-timeline-horizontal` (horizontal step layout), `cu-timeline-alternating` (centered alternating left-right layout).
+**Timeline** — `cu-timeline`, `cu-timeline-item`, `cu-timeline-dot`, `cu-timeline-dot-icon`, `cu-timeline-content`, `cu-timeline-title`, `cu-timeline-description`, `cu-timeline-time`. Dot colors: `cu-timeline-dot-primary/success/warning/destructive/info/muted`. Modifiers: `cu-timeline-horizontal` (horizontal step layout), `cu-timeline-alternating` (centered alternating left-right layout).
 ```html
 <div class="cu-timeline">
   <div class="cu-timeline-item">
@@ -1055,7 +1056,7 @@ Programmatic start: `el.dispatchEvent(new Event("cu:tour:start"))`
 
 **Tabs** ⚡ Interactive — show/hide panels
 Active trigger: `cu-tabs-trigger-active`
-Variants: `cu-tabs-list-pills` (pill-shaped tab bar)
+List variants: `cu-tabs-list-pills` (pill-shaped tab bar), `cu-tabs-list-underline` (underline-only, transparent background), `cu-tabs-list-vertical` (vertical column list — use with `cu-tabs-vertical` on the root container for side-by-side layout)
 Tab extras: `cu-tabs-trigger-badge` (badge inside tab trigger), `cu-tabs-trigger-close` (close button inside tab trigger)
 Scrollable: `cu-tabs-list-scrollable` (scrollable wrapper), `cu-tabs-scroll-btn` (scroll left button), `cu-tabs-scroll-btn-end` (scroll right button)
 Data attributes: `data-cu-tabs-close` (on close button), `data-cu-tabs-scrollable` (on scrollable wrapper)
@@ -1170,6 +1171,7 @@ Data: `data-cu-speed-dial`, `data-cu-speed-dial-trigger`, `data-cu-speed-dial-ac
 
 **Back to Top** — scroll-to-top button that appears after scrolling
 Classes: `cu-back-to-top`, `cu-back-to-top-primary`, `cu-back-to-top-sm`, `cu-back-to-top-lg`
+Visible state (JS-toggled): `cu-back-to-top-visible` class or `data-cu-visible` attribute
 Data: `data-cu-back-to-top`, `data-cu-back-to-top-threshold="300"`
 ```html
 <button class="cu-back-to-top" data-cu-back-to-top data-cu-back-to-top-threshold="300" aria-label="Back to top">

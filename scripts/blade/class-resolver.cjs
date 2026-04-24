@@ -313,12 +313,12 @@ function buildBladeClassString(items, useAttributes = true) {
     return `@class([${joined}])`;
   }
 
-  // 多行格式
+  // 多行格式（entries 的每行已以 `,` 結尾，勿再重複追加）
   const inner = entries.map((e) => `    ${e},`).join('\n');
   if (useAttributes) {
     return `{{ $attributes->class([\n${inner}\n]) }}`;
   }
-  return `@class([\n${inner},\n])`;
+  return `@class([\n${inner}\n])`;
 }
 
 module.exports = {

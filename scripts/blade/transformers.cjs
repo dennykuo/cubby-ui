@@ -332,6 +332,25 @@ function transformAttributeExpressions(template, parsed) {
     }
   );
 
+  // attr={prop || undefined} → @if($prop) attr="true" @endif
+  result = result.replace(
+    /(\w[\w-]*)=\{(\w+)\s*\|\|\s*undefined\}/g,
+    (match, attr, cond) => {
+      const phpCond = propToPhp(cond, parsed.renamedProps);
+      return `@if(${phpCond}) ${attr}="true" @endif`;
+    }
+  );
+
+  // attr={prop || "fallback"} → attr="{{ $prop ?: 'fallback' }}"
+  // 用 ?: （Elvis）對應 JS falsy 短路語意，而非 ??（只 catch null）
+  result = result.replace(
+    /(\w[\w-]*)=\{(\w+)\s*\|\|\s*["']([^"']*)["']\}/g,
+    (match, attr, prop, fallback) => {
+      const phpProp = propToPhp(prop, parsed.renamedProps);
+      return `${attr}="{{ ${phpProp} ?: '${fallback}' }}"`;
+    }
+  );
+
   return result;
 }
 

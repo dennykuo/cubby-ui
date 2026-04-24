@@ -16,8 +16,9 @@ Cubby UI 是一個框架無關的 UI 元件庫，風格類似 shadcn/ui，使用
 - `npm run build:all` — 一次建置全部（`build` + `build:blade`），也作為 `prepare` script 在 git URL 安裝時自動執行
 - `npm run build:docs` — 建置文檔站點至 `docs/`（自動先執行 `i18n:routes`）
 - `npm run preview` — 預覽建置結果
+- `npm run test:blade` — 對 `dist/laravel/` 下所有 `.blade.php` 做回歸檢查：已知壞 pattern（`,,`、空陣列元素、未轉譯 JSX 屬性）、並萃取 `@class` / `@props` / `@if` / `{{ … }}` 中的 PHP 片段以 `php -l` 驗證（安裝 PHP 時生效，可加 `--skip-php` 略過）
 
-目前無 lint 或 test 命令。
+目前無 lint 命令。
 
 ## Architecture
 

@@ -31,6 +31,7 @@
     "dev": "astro dev",
     "build": "rm -rf dist && mkdir -p dist/core && tailwindcss -i ./src/styles/lib.css -o ./dist/core/cubby-ui.css && tailwindcss -i ./src/styles/lib.css -o ./dist/core/cubby-ui.min.css --minify && cp ./src/scripts/cubby-ui.js ./dist/core/cubby-ui.js && cp ./src/scripts/cubby-ui.d.ts ./dist/core/cubby-ui.d.ts && cp ./components.json ./dist/components.json && terser ./dist/core/cubby-ui.js -o ./dist/core/cubby-ui.min.js -c -m --source-map",
     "build:blade": "node scripts/generate-blade-components.cjs && cp stubs/laravel/CubbyUiServiceProvider.php stubs/laravel/README.md dist/laravel/",
+    "test:blade": "node scripts/blade/test-blade-syntax.cjs",
     "build:docs": "npm run i18n:routes && astro build",
     "build:all": "npm run build && npm run build:blade",
     "preview": "astro preview",
