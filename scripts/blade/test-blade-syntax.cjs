@@ -91,7 +91,8 @@ function checkBadPatterns(files) {
 
 const BLADE_COMMENT_RE = /\{\{--[\s\S]*?--\}\}/g;
 const ARRAY_DIRECTIVE_RE = /@(class|props)\(\s*(\[[\s\S]*?\])\s*\)/g;
-const IF_DIRECTIVE_RE = /@(?:else)?if\(([^\n]+?)\)/g;
+// 允許條件式內含一層巢狀括號（如 `$slot->isEmpty()` 或 `! is_null($x)`）
+const IF_DIRECTIVE_RE = /@(?:else)?if\(((?:[^()\n]|\([^()\n]*\))+)\)/g;
 const ECHO_DIRECTIVE_RE = /\{\{\s*([\s\S]*?)\s*\}\}/g;
 
 /**

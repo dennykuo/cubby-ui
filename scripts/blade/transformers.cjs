@@ -256,15 +256,35 @@ function resolveHelperClassAttr(funcName, arg, parsed) {
 
 /**
  * Pass 5: 轉換 slot
+ *
+ * 處理順序很關鍵：必須先處理「帶 fallback 內容」的版本，
+ * 因為 `<slot>` 開頭標籤會被自閉合 regex `/<slot\s*\/?>/` 誤匹配，
+ * 造成 fallback 內容與 `</slot>` 結尾被遺留。
  */
 function transformSlots(template) {
-  // <slot name="xxx" /> → {{ $xxx ?? '' }}
-  let result = template.replace(
+  let result = template;
+
+  // <slot name="xxx">fallback</slot> — named slot with fallback content
+  result = result.replace(
+    /<slot\s+name=["'](\w+)["']\s*>([\s\S]*?)<\/slot>/g,
+    (_m, name, fallback) =>
+      `@if(! isset($${name}) || $${name}->isEmpty())\n${fallback.trim()}\n@else\n{{ $${name} }}\n@endif`
+  );
+
+  // <slot name="xxx" /> — self-closing named slot
+  result = result.replace(
     /<slot\s+name=["'](\w+)["']\s*\/?>/g,
     '{{ $$$1 ?? \'\' }}'
   );
 
-  // <slot /> → {{ $slot }}
+  // <slot>fallback</slot> — default slot with fallback content
+  result = result.replace(
+    /<slot\s*>([\s\S]*?)<\/slot>/g,
+    (_m, fallback) =>
+      `@if($slot->isEmpty())\n${fallback.trim()}\n@else\n{{ $slot }}\n@endif`
+  );
+
+  // <slot /> or bare <slot> — default slot
   result = result.replace(/<slot\s*\/?>/g, '{{ $slot }}');
 
   return result;

@@ -297,6 +297,8 @@ function validateBlade(content, fileName) {
     { pattern: /<slot\s+name=/, msg: '殘留 <slot name=>' },
     { pattern: /\$\{TOP_CLASS\}/, msg: '殘留 ${TOP_CLASS}' },
     { pattern: /\{\.\.\.rest\}/, msg: '殘留 {...rest}' },
+    { pattern: /\{\.\.\.\(/, msg: '殘留條件 spread {...(cond ? ... : ...)}' },
+    { pattern: /<\/slot>/, msg: '殘留 </slot> 閉合標籤' },
   ];
 
   for (const { pattern, msg } of checks) {
