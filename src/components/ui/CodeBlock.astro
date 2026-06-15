@@ -4,17 +4,20 @@ import { TOP_CLASS } from "../../config";
 interface Props {
 	language?: string;
 	filename?: string;
+	theme?: "dark" | "light";
+	/** 舊名,建議改用 theme;保留以向後相容 */
 	variant?: "dark" | "light";
 	class?: string;
 	[key: string]: any;
 }
 
-const { language, filename, variant = "dark", class: className, ...rest } = Astro.props;
+const { language, filename, theme, variant, class: className, ...rest } = Astro.props;
+const codeTheme = theme ?? variant ?? "dark";
 const hasHeader = !!(language || filename);
 const langClass = language ? `language-${language.toLowerCase()}` : undefined;
 ---
 
-<div class:list={[`${TOP_CLASS}-code-block`, variant === "light" && `${TOP_CLASS}-code-block-light`, className]} data-cu-code-block {...rest}>
+<div class:list={[`${TOP_CLASS}-code-block`, codeTheme === "light" && `${TOP_CLASS}-code-block-light`, className]} data-cu-code-block {...rest}>
     {hasHeader ? (
         <div class={`${TOP_CLASS}-code-block-header`}>
             <span>{filename || language}</span>

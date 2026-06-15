@@ -2,15 +2,18 @@
 import { TOP_CLASS } from "../../config";
 
 interface Props {
+    role?: "user" | "assistant";
+    /** 舊名,建議改用 role;保留以向後相容 */
     variant?: "user" | "assistant";
     class?: string;
     [key: string]: any;
 }
 
-const { variant = "assistant", class: className, ...rest } = Astro.props;
+const { role, variant, class: className, ...rest } = Astro.props;
+const bubbleRole = role ?? variant ?? "assistant";
 
 const baseClass = `${TOP_CLASS}-chat-bubble`;
-const variantClass = `${TOP_CLASS}-chat-bubble-${variant}`;
+const variantClass = `${TOP_CLASS}-chat-bubble-${bubbleRole}`;
 ---
 
 <div class:list={[baseClass, variantClass, className]} {...rest}>
