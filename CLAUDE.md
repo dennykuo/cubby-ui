@@ -180,11 +180,11 @@ ARIA 無障礙支援：
 - **Dropdown** — `aria-haspopup="menu"`、`aria-expanded`、`role="menu"` / `role="menuitem"`
 - **Combobox / Multi Select** — `aria-haspopup="listbox"`、`aria-expanded`、`role="listbox"` / `role="option"`、`aria-selected`
 - **Popover** — `aria-haspopup="dialog"`、`aria-expanded`、`aria-controls`
-- **Dialog / Drawer** — `aria-labelledby` + `aria-describedby` 自動連結標題與描述元素
+- **Dialog / Drawer** — `aria-labelledby` + `aria-describedby` 自動連結標題與描述元素；開啟時聚焦首個可互動元素（尊重 `[autofocus]`），關閉時焦點返回觸發按鈕
 - **Alert Dialog** — `role="alertdialog"` + `aria-labelledby` + `aria-describedby`
 - **Number Input** — `role="spinbutton"` + `aria-valuemin` / `aria-valuemax` / `aria-valuenow`
 - **Mobile Nav** — `role="dialog"` + `aria-modal="true"` + `aria-label`、trigger 使用 `aria-expanded`
-- **Command Palette** — `role="dialog"` 透過 `<dialog>` 元素、內建鍵盤搜尋/篩選
+- **Command Palette** — `role="dialog"` 透過 `<dialog>` 元素、內建鍵盤搜尋/篩選（方向鍵與 Tab / Shift+Tab 循環結果、Enter 選取）
 - **Calendar** — 完整鍵盤導航（方向鍵切換日期、Home/End 跳至月首/月末）
 
 公開 API：

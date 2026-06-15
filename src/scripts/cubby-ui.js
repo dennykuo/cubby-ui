@@ -1131,6 +1131,16 @@
   }
 
   function setupOverlay(config) {
+    // Move focus into the dialog on open (WCAG 2.4.3): first focusable element,
+    // unless the author already designated one via [autofocus].
+    function focusInitial(dialog) {
+      if (dialog.querySelector("[autofocus]")) return;
+      var focusable = dialog.querySelector(
+        'button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
+      );
+      if (focusable) requestAnimationFrame(function () { focusable.focus(); });
+    }
+
     document
       .querySelectorAll("[" + config.triggerAttr + "]")
       .forEach(function (trigger) {
@@ -1143,6 +1153,7 @@
           if (dialog && dialog.showModal) {
             dialog._cuTrigger = trigger;
             dialog.showModal();
+            focusInitial(dialog);
           }
         });
       });
@@ -2072,7 +2083,10 @@
       }
 
       palette.addEventListener("keydown", function (e) {
-        if (e.key === "ArrowDown" || e.key === "ArrowUp") {
+        // Tab / Shift+Tab cycle through results just like ArrowDown / ArrowUp
+        var isNext = e.key === "ArrowDown" || (e.key === "Tab" && !e.shiftKey);
+        var isPrev = e.key === "ArrowUp" || (e.key === "Tab" && e.shiftKey);
+        if (isNext || isPrev) {
           e.preventDefault();
           var visible = getVisibleItems();
           if (visible.length === 0) return;
@@ -2080,7 +2094,7 @@
           visible.forEach(function (item, i) { if (item.hasAttribute("data-cu-command-active")) activeIndex = i; });
           clearActive();
           var nextIndex;
-          if (e.key === "ArrowDown") { nextIndex = activeIndex < visible.length - 1 ? activeIndex + 1 : 0; }
+          if (isNext) { nextIndex = activeIndex < visible.length - 1 ? activeIndex + 1 : 0; }
           else { nextIndex = activeIndex > 0 ? activeIndex - 1 : visible.length - 1; }
           visible[nextIndex].setAttribute("data-cu-command-active", "");
           visible[nextIndex].scrollIntoView({ block: "nearest" });
