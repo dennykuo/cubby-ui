@@ -41,6 +41,10 @@
   var _docClickHandler = null;
   var _docKeydownHandler = null;
   var _cmdPaletteKeyHandler = null;
+  var _docContextmenuHandler = null;
+  var _docScrollHandler = null;
+  var _contextMenus = [];
+  var _datePickers = [];
 
   // Shared keyboard navigation helper for floating panels
   function navigateItems(items, key, highlightClass) {
@@ -127,6 +131,12 @@
           if (sd.trigger) sd.trigger.setAttribute("aria-expanded", "false");
         }
       });
+      _datePickers.forEach(function (dp) {
+        if (dp.content && !dp.el.contains(e.target)) dp.content.style.display = "none";
+      });
+      _contextMenus.forEach(function (cm) {
+        if (cm.content) cm.content.setAttribute("hidden", "");
+      });
     };
 
     _docKeydownHandler = function (e) {
@@ -174,6 +184,12 @@
             sd.actions.removeAttribute("data-cu-open");
             if (sd.trigger) sd.trigger.setAttribute("aria-expanded", "false");
           }
+        });
+        _contextMenus.forEach(function (cm) {
+          if (cm.content) cm.content.setAttribute("hidden", "");
+        });
+        _datePickers.forEach(function (dp) {
+          if (dp.content) dp.content.style.display = "none";
         });
         return;
       }
@@ -224,8 +240,21 @@
       }
     };
 
+    _docContextmenuHandler = function (e) {
+      _contextMenus.forEach(function (cm) {
+        if (cm.content && !cm.el.contains(e.target)) cm.content.setAttribute("hidden", "");
+      });
+    };
+    _docScrollHandler = function () {
+      _contextMenus.forEach(function (cm) {
+        if (cm.content) cm.content.setAttribute("hidden", "");
+      });
+    };
+
     document.addEventListener("click", _docClickHandler);
     document.addEventListener("keydown", _docKeydownHandler);
+    document.addEventListener("contextmenu", _docContextmenuHandler);
+    document.addEventListener("scroll", _docScrollHandler);
   }
 
   function genId(prefix) {
@@ -1887,14 +1916,9 @@
         content.style.top = y + "px";
       });
 
-      document.addEventListener("click", function () { content.setAttribute("hidden", ""); });
-      document.addEventListener("contextmenu", function (e) {
-        if (!container.contains(e.target)) content.setAttribute("hidden", "");
-      });
-      document.addEventListener("keydown", function (e) {
-        if (e.key === "Escape") content.setAttribute("hidden", "");
-      });
-      document.addEventListener("scroll", function () { content.setAttribute("hidden", ""); });
+      // 全域關閉(click/contextmenu/keydown/scroll)由 setupDocumentListeners 的
+      // delegated handler 統一處理(遍歷 _contextMenus),避免每實例累積 document listener
+      _contextMenus.push({ el: container, content: content });
     });
   }
 
@@ -2305,8 +2329,8 @@
         if (isHidden && calendar._cuRender) calendar._cuRender();
       });
 
-      document.addEventListener("click", function (e) { if (!picker.contains(e.target)) content.style.display = "none"; });
-      document.addEventListener("keydown", function (e) { if (e.key === "Escape") content.style.display = "none"; });
+      // 全域關閉(click 外部 / Escape)由 setupDocumentListeners 的 delegated handler 統一處理
+      _datePickers.push({ el: picker, content: content });
     });
   }
 
@@ -3434,9 +3458,15 @@
     if (_docClickHandler) document.removeEventListener("click", _docClickHandler);
     if (_docKeydownHandler) document.removeEventListener("keydown", _docKeydownHandler);
     if (_cmdPaletteKeyHandler) document.removeEventListener("keydown", _cmdPaletteKeyHandler);
+    if (_docContextmenuHandler) document.removeEventListener("contextmenu", _docContextmenuHandler);
+    if (_docScrollHandler) document.removeEventListener("scroll", _docScrollHandler);
     _docClickHandler = null;
     _docKeydownHandler = null;
     _cmdPaletteKeyHandler = null;
+    _docContextmenuHandler = null;
+    _docScrollHandler = null;
+    _contextMenus = [];
+    _datePickers = [];
     _docListenersReady = false;
     document._cuCommandPaletteGlobal = false;
   }
@@ -3457,6 +3487,8 @@
     _sortableLists = _sortableLists.filter(inBody);
     _toggleGroups = _toggleGroups.filter(inBody);
     _ratings = _ratings.filter(inBody);
+    _contextMenus = _contextMenus.filter(inBody);
+    _datePickers = _datePickers.filter(inBody);
     _countdowns.forEach(function (c) { if (!inBody(c)) clearTimeout(c.timer); });
     _countdowns = _countdowns.filter(inBody);
     _imageCompares.forEach(function (c) { if (!inBody(c) && c.cleanup) c.cleanup(); });
