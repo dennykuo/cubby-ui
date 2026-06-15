@@ -189,7 +189,7 @@ ARIA 無障礙支援：
 
 公開 API：
 - `CubbyUI.init()` — 初始化所有互動元件（自動在 DOMContentLoaded 執行，可重複呼叫以初始化動態新增的元素）
-- `CubbyUI.destroy()` — 清除內部追蹤陣列（配合 SPA 路由切換使用）
+- `CubbyUI.destroy()` — 清除內部追蹤陣列並移除 document 級事件監聽器（配合 SPA 路由切換使用；`init()` 會重新註冊）
 - `CubbyUI.refresh()` — 清理已移除元素的過時參照，並重新執行 init()（適用於動態內容更新後）
 - `CubbyUI.toast.show({ title, description?, variant?, duration? })` — 程式化建立 toast 通知，回傳 toast DOM 元素
 - `CubbyUI.toast.promise(promise, { loading, success, error })` — 顯示載入中 toast，Promise resolve 時更新為 success，reject 時更新為 error

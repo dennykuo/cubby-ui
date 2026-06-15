@@ -38,6 +38,9 @@
   var _alertExpandables = [];
   var _dataTableExpandables = [];
   var _docListenersReady = false;
+  var _docClickHandler = null;
+  var _docKeydownHandler = null;
+  var _cmdPaletteKeyHandler = null;
 
   // Shared keyboard navigation helper for floating panels
   function navigateItems(items, key, highlightClass) {
@@ -75,7 +78,7 @@
     if (_docListenersReady) return;
     _docListenersReady = true;
 
-    document.addEventListener("click", function (e) {
+    _docClickHandler = function (e) {
       _dropdowns.forEach(function (d) {
         if (!d.el.contains(e.target) && d.content) {
           d.content.setAttribute("hidden", "");
@@ -124,9 +127,9 @@
           if (sd.trigger) sd.trigger.setAttribute("aria-expanded", "false");
         }
       });
-    });
+    };
 
-    document.addEventListener("keydown", function (e) {
+    _docKeydownHandler = function (e) {
       // --- Escape: close all floating panels ---
       if (e.key === "Escape") {
         _dropdowns.forEach(function (d) {
@@ -219,7 +222,10 @@
           navigateItems(items, e.key, "cu-multi-select-item-highlight");
         });
       }
-    });
+    };
+
+    document.addEventListener("click", _docClickHandler);
+    document.addEventListener("keydown", _docKeydownHandler);
   }
 
   function genId(prefix) {
@@ -2014,7 +2020,7 @@
   function setupCommandPalettes() {
     if (!document._cuCommandPaletteGlobal) {
       document._cuCommandPaletteGlobal = true;
-      document.addEventListener("keydown", function (e) {
+      _cmdPaletteKeyHandler = function (e) {
         if ((e.metaKey || e.ctrlKey) && e.key === "k") {
           var palette = document.querySelector("[data-cu-command]");
           if (!palette) return;
@@ -2025,7 +2031,8 @@
             if (input) input.focus();
           }
         }
-      });
+      };
+      document.addEventListener("keydown", _cmdPaletteKeyHandler);
     }
 
     document.querySelectorAll("[data-cu-command]").forEach(function (palette) {
@@ -3422,6 +3429,16 @@
     _inputClearables = [];
     _alertExpandables = [];
     _dataTableExpandables = [];
+
+    // 完整卸載 document 級 delegated listener(init() 會在重新初始化時重新註冊)
+    if (_docClickHandler) document.removeEventListener("click", _docClickHandler);
+    if (_docKeydownHandler) document.removeEventListener("keydown", _docKeydownHandler);
+    if (_cmdPaletteKeyHandler) document.removeEventListener("keydown", _cmdPaletteKeyHandler);
+    _docClickHandler = null;
+    _docKeydownHandler = null;
+    _cmdPaletteKeyHandler = null;
+    _docListenersReady = false;
+    document._cuCommandPaletteGlobal = false;
   }
 
   function refresh() {
