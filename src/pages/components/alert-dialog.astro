@@ -1,5 +1,6 @@
 ---
 import Layout from "@/layouts/Layout.astro";
+import SectionHeading from "@/components/SectionHeading.astro";
 import ComponentPreview from "@/components/ComponentPreview.astro";
 import { getLocaleFromUrl, useTranslations } from "@/i18n";
 import { alertDialogPage } from "@/i18n/pages/components/alert-dialog";
@@ -131,10 +132,7 @@ const destructiveCode = `<button class="cu-button cu-button-destructive cu-butto
     <div class="mt-10 space-y-10">
         <!-- Usage -->
         <section class="space-y-3">
-            <h2 id="usage" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#usage" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.usage.title}
-            </h2>
+            <SectionHeading id="usage" title={t.sections.usage.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
             <ComponentPreview code={usageCode}>
                 <button class="cu-button cu-button-outline cu-button-md" data-cu-alert-dialog-trigger="demo-alert-dialog">
@@ -155,10 +153,7 @@ const destructiveCode = `<button class="cu-button cu-button-destructive cu-butto
 
         <!-- Classes Reference -->
         <section class="space-y-3">
-            <h2 id="classes" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#classes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.classes.title}
-            </h2>
+            <SectionHeading id="classes" title={t.sections.classes.title} />
             <div class="cu-table-wrapper rounded-lg border border-border">
                 <table class="cu-table">
                     <thead class="cu-table-header">
@@ -196,10 +191,7 @@ const destructiveCode = `<button class="cu-button cu-button-destructive cu-butto
 
         <!-- Destructive -->
         <section class="space-y-3">
-            <h2 id="destructive-action" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#destructive-action" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.destructiveAction.title}
-            </h2>
+            <SectionHeading id="destructive-action" title={t.sections.destructiveAction.title} />
             <p class="text-base text-muted-foreground leading-relaxed">
                 {t.sections.destructiveAction.description}
             </p>
@@ -222,10 +214,7 @@ const destructiveCode = `<button class="cu-button cu-button-destructive cu-butto
 
         <!-- With Icon -->
         <section class="space-y-3">
-            <h2 id="with-icon" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#with-icon" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.withIcon.title}
-            </h2>
+            <SectionHeading id="with-icon" title={t.sections.withIcon.title} />
             <p class="text-base text-muted-foreground leading-relaxed">
                 {t.sections.withIcon.description}
             </p>
@@ -255,10 +244,7 @@ const destructiveCode = `<button class="cu-button cu-button-destructive cu-butto
 
         <!-- With Custom Content -->
         <section class="space-y-3">
-            <h2 id="with-form" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#with-form" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.withForm.title}
-            </h2>
+            <SectionHeading id="with-form" title={t.sections.withForm.title} />
             <p class="text-base text-muted-foreground leading-relaxed">
                 {t.sections.withForm.description}
             </p>
@@ -287,10 +273,7 @@ const destructiveCode = `<button class="cu-button cu-button-destructive cu-butto
 
         <!-- Long Description -->
         <section class="space-y-3">
-            <h2 id="with-long-description" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#with-long-description" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.withLongDescription.title}
-            </h2>
+            <SectionHeading id="with-long-description" title={t.sections.withLongDescription.title} />
             <p class="text-base text-muted-foreground leading-relaxed">
                 {t.sections.withLongDescription.description}
             </p>

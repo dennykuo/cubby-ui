@@ -1,5 +1,6 @@
 ---
 import Layout from "@/layouts/Layout.astro";
+import SectionHeading from "@/components/SectionHeading.astro";
 import ComponentPreview from "@/components/ComponentPreview.astro";
 import { getLocaleFromUrl, useTranslations } from "@/i18n";
 import { dataTablePage } from "@/i18n/pages/components/data-table";
@@ -476,10 +477,7 @@ const expandableRowsCode = `<div class="cu-data-table" data-cu-data-table data-c
     <div class="mt-10 space-y-10">
         <!-- Usage -->
         <section class="space-y-3">
-            <h2 id="usage" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#usage" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.usage.title}
-            </h2>
+            <SectionHeading id="usage" title={t.sections.usage.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
             <ComponentPreview code={usageCode}>
                 <div class="w-full max-w-3xl">
@@ -550,10 +548,7 @@ const expandableRowsCode = `<div class="cu-data-table" data-cu-data-table data-c
 
         <!-- Classes Reference -->
         <section class="space-y-3 mt-10">
-            <h2 id="classes" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#classes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.classes.title}
-            </h2>
+            <SectionHeading id="classes" title={t.sections.classes.title} />
             <div class="cu-table-wrapper rounded-lg border border-border">
                 <table class="cu-table">
                     <thead class="cu-table-header">
@@ -618,10 +613,7 @@ const expandableRowsCode = `<div class="cu-data-table" data-cu-data-table data-c
 
         <!-- Column Sorting -->
         <section class="space-y-3">
-            <h2 id="column-sorting" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#column-sorting" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.columnSorting.title}
-            </h2>
+            <SectionHeading id="column-sorting" title={t.sections.columnSorting.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.columnSorting.description} />
             <ComponentPreview code={columnSortingCode}>
                 <div class="w-full max-w-2xl">
@@ -665,10 +657,7 @@ const expandableRowsCode = `<div class="cu-data-table" data-cu-data-table data-c
 
         <!-- With Pagination -->
         <section class="space-y-3">
-            <h2 id="with-pagination" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#with-pagination" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.withPagination.title}
-            </h2>
+            <SectionHeading id="with-pagination" title={t.sections.withPagination.title} />
             <p class="text-base text-muted-foreground leading-relaxed">{t.sections.withPagination.description}</p>
             <ComponentPreview code={withPaginationCode}>
                 <div class="w-full max-w-2xl">
@@ -722,10 +711,7 @@ const expandableRowsCode = `<div class="cu-data-table" data-cu-data-table data-c
 
         <!-- With Row Actions -->
         <section class="space-y-3">
-            <h2 id="with-row-actions" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#with-row-actions" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.withRowActions.title}
-            </h2>
+            <SectionHeading id="with-row-actions" title={t.sections.withRowActions.title} />
             <p class="text-base text-muted-foreground leading-relaxed">{t.sections.withRowActions.description}</p>
             <ComponentPreview code={withRowActionsCode}>
                 <div class="w-full max-w-2xl">
@@ -803,10 +789,7 @@ const expandableRowsCode = `<div class="cu-data-table" data-cu-data-table data-c
 
         <!-- Striped Rows -->
         <section class="space-y-3">
-            <h2 id="striped-rows" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#striped-rows" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.stripedRows.title}
-            </h2>
+            <SectionHeading id="striped-rows" title={t.sections.stripedRows.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.stripedRows.description} />
             <ComponentPreview code={stripedRowsCode}>
                 <div class="w-full max-w-2xl">
@@ -861,10 +844,7 @@ const expandableRowsCode = `<div class="cu-data-table" data-cu-data-table data-c
         </section>
         <!-- Responsive (Stacked) -->
         <section class="space-y-3">
-            <h2 id="responsive" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#responsive" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.responsive.title}
-            </h2>
+            <SectionHeading id="responsive" title={t.sections.responsive.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.responsive.description} />
             <ComponentPreview code={responsiveCode}>
                 <div class="cu-table-wrapper cu-table-stacked rounded-lg border border-border">
@@ -904,10 +884,7 @@ const expandableRowsCode = `<div class="cu-data-table" data-cu-data-table data-c
 
         <!-- Empty State -->
         <section class="space-y-3">
-            <h2 id="empty-state" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#empty-state" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.emptyState.title}
-            </h2>
+            <SectionHeading id="empty-state" title={t.sections.emptyState.title} />
             <p class="text-base text-muted-foreground leading-relaxed">{t.sections.emptyState.description}</p>
             <ComponentPreview code={emptyStateCode}>
                 <div class="w-full max-w-3xl">
@@ -949,10 +926,7 @@ const expandableRowsCode = `<div class="cu-data-table" data-cu-data-table data-c
 
         <!-- Loading Skeleton -->
         <section class="space-y-3">
-            <h2 id="loading" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#loading" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.loading.title}
-            </h2>
+            <SectionHeading id="loading" title={t.sections.loading.title} />
             <p class="text-base text-muted-foreground leading-relaxed">{t.sections.loading.description}</p>
             <ComponentPreview code={loadingCode}>
                 <div class="w-full max-w-2xl">
@@ -994,10 +968,7 @@ const expandableRowsCode = `<div class="cu-data-table" data-cu-data-table data-c
 
         <!-- Expandable Rows -->
         <section class="space-y-3">
-            <h2 id="expandable-rows" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#expandable-rows" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.expandableRows.title}
-            </h2>
+            <SectionHeading id="expandable-rows" title={t.sections.expandableRows.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.expandableRows.description} />
             <ComponentPreview code={expandableRowsCode}>
                 <div class="w-full max-w-3xl">

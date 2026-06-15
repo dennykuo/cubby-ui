@@ -1,5 +1,6 @@
 ---
 import Layout from "@/layouts/Layout.astro";
+import SectionHeading from "@/components/SectionHeading.astro";
 import ComponentPreview from "@/components/ComponentPreview.astro";
 import { getLocaleFromUrl, useTranslations } from "@/i18n";
 import { drawerPage } from "@/i18n/pages/components/drawer";
@@ -170,10 +171,7 @@ const sidesCode = `<button class="cu-button cu-button-outline cu-button-md" data
     <div class="mt-10 space-y-10">
         <!-- Usage -->
         <section class="space-y-3">
-            <h2 id="usage" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#usage" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.usage.title}
-            </h2>
+            <SectionHeading id="usage" title={t.sections.usage.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
             <ComponentPreview code={usageCode}>
                 <button class="cu-button cu-button-outline cu-button-md" data-cu-drawer-trigger="demo-drawer">
@@ -209,10 +207,7 @@ const sidesCode = `<button class="cu-button cu-button-outline cu-button-md" data
 
         <!-- Classes Reference -->
         <section class="space-y-3">
-            <h2 id="classes" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#classes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.classes.title}
-            </h2>
+            <SectionHeading id="classes" title={t.sections.classes.title} />
             <div class="cu-table-wrapper rounded-lg border border-border">
                 <table class="cu-table">
                     <thead class="cu-table-header">
@@ -274,10 +269,7 @@ const sidesCode = `<button class="cu-button cu-button-outline cu-button-md" data
 
         <!-- Left Side -->
         <section class="space-y-3">
-            <h2 id="left-side" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#left-side" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.leftSide.title}
-            </h2>
+            <SectionHeading id="left-side" title={t.sections.leftSide.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.leftSide.description} />
             <ComponentPreview code={leftCode}>
                 <button class="cu-button cu-button-outline cu-button-md" data-cu-drawer-trigger="left-drawer">
@@ -306,10 +298,7 @@ const sidesCode = `<button class="cu-button cu-button-outline cu-button-md" data
 
         <!-- Top & Bottom -->
         <section class="space-y-3">
-            <h2 id="top--bottom" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#top--bottom" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.topBottom.title}
-            </h2>
+            <SectionHeading id="top--bottom" title={t.sections.topBottom.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.topBottom.description} />
             <ComponentPreview code={sidesCode}>
                 <div class="flex gap-2">
@@ -345,10 +334,7 @@ const sidesCode = `<button class="cu-button cu-button-outline cu-button-md" data
 
         <!-- Scrollable Content -->
         <section class="space-y-3">
-            <h2 id="scrollable-content" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#scrollable-content" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.scrollableContent.title}
-            </h2>
+            <SectionHeading id="scrollable-content" title={t.sections.scrollableContent.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.scrollableContent.description} />
             <ComponentPreview code={scrollableCode}>
                 <button class="cu-button cu-button-outline cu-button-md" data-cu-drawer-trigger="scroll-drawer">

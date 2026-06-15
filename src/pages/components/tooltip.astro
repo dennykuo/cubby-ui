@@ -1,5 +1,6 @@
 ---
 import Layout from "@/layouts/Layout.astro";
+import SectionHeading from "@/components/SectionHeading.astro";
 import ComponentPreview from "@/components/ComponentPreview.astro";
 import { getLocaleFromUrl, useTranslations } from "@/i18n";
 import { tooltipPage } from "@/i18n/pages/components/tooltip";
@@ -93,10 +94,7 @@ const withArrowCode = `<div class="flex items-center gap-8">
     <div class="mt-10 space-y-10">
         <!-- Usage -->
         <section class="space-y-3">
-            <h2 id="usage" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#usage" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.usage.title}
-            </h2>
+            <SectionHeading id="usage" title={t.sections.usage.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
             <ComponentPreview code={usageCode}>
                 <span class="cu-tooltip" data-cu-tooltip="This is a tooltip">
@@ -107,10 +105,7 @@ const withArrowCode = `<div class="flex items-center gap-8">
 
         <!-- Classes Reference -->
         <section class="space-y-3">
-            <h2 id="classes" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#classes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.classes.title}
-            </h2>
+            <SectionHeading id="classes" title={t.sections.classes.title} />
             <div class="cu-table-wrapper rounded-lg border border-border">
                 <table class="cu-table">
                     <thead class="cu-table-header">
@@ -148,10 +143,7 @@ const withArrowCode = `<div class="flex items-center gap-8">
 
         <!-- Positions -->
         <section class="space-y-3">
-            <h2 id="positions" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#positions" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.positions.title}
-            </h2>
+            <SectionHeading id="positions" title={t.sections.positions.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.positions.description} />
             <ComponentPreview code={positionsCode}>
                 <div class="flex flex-wrap gap-4 items-center justify-center">
@@ -173,10 +165,7 @@ const withArrowCode = `<div class="flex items-center gap-8">
 
         <!-- On Icon Buttons -->
         <section class="space-y-3">
-            <h2 id="icon-buttons" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#icon-buttons" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.iconButtons.title}
-            </h2>
+            <SectionHeading id="icon-buttons" title={t.sections.iconButtons.title} />
             <p class="text-base text-muted-foreground leading-relaxed">
                 {t.sections.iconButtons.description}
             </p>
@@ -203,10 +192,7 @@ const withArrowCode = `<div class="flex items-center gap-8">
 
         <!-- Rich Content -->
         <section class="space-y-3">
-            <h2 id="rich-content" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#rich-content" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.richContent.title}
-            </h2>
+            <SectionHeading id="rich-content" title={t.sections.richContent.title} />
             <p class="text-base text-muted-foreground leading-relaxed">
                 {t.sections.richContent.description}
             </p>
@@ -232,10 +218,7 @@ const withArrowCode = `<div class="flex items-center gap-8">
 
         <!-- With Arrow -->
         <section class="space-y-3">
-            <h2 id="with-arrow" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#with-arrow" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.withArrow.title}
-            </h2>
+            <SectionHeading id="with-arrow" title={t.sections.withArrow.title} />
             <p class="text-base text-muted-foreground leading-relaxed">
                 {t.sections.withArrow.description}
             </p>

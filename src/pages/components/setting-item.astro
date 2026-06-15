@@ -1,5 +1,6 @@
 ---
 import Layout from "@/layouts/Layout.astro";
+import SectionHeading from "@/components/SectionHeading.astro";
 import ComponentPreview from "@/components/ComponentPreview.astro";
 import { getLocaleFromUrl, useTranslations } from "@/i18n";
 import { settingItemPage } from "@/i18n/pages/components/setting-item";
@@ -409,10 +410,7 @@ const dangerZoneCode = `<div class="cu-card border-destructive/20">
     <div class="mt-10 space-y-10">
         <!-- Usage -->
         <section class="space-y-3">
-            <h2 id="usage" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#usage" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.usage.title}
-            </h2>
+            <SectionHeading id="usage" title={t.sections.usage.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
             <ComponentPreview code={usageCode}>
                 <div class="w-full max-w-xl">
@@ -466,10 +464,7 @@ const dangerZoneCode = `<div class="cu-card border-destructive/20">
 
         <!-- Classes Reference -->
         <section class="space-y-3">
-            <h2 id="classes" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#classes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.classes.title}
-            </h2>
+            <SectionHeading id="classes" title={t.sections.classes.title} />
             <div class="cu-table-wrapper rounded-lg border border-border">
                 <table class="cu-table">
                     <thead class="cu-table-header">
@@ -510,10 +505,7 @@ const dangerZoneCode = `<div class="cu-card border-destructive/20">
 
         <!-- With Icon -->
         <section class="space-y-3">
-            <h2 id="with-icon" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#with-icon" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.withIcon.title}
-            </h2>
+            <SectionHeading id="with-icon" title={t.sections.withIcon.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withIcon.description} />
             <ComponentPreview code={withIconCode}>
                 <div class="w-full max-w-xl">
@@ -602,10 +594,7 @@ const dangerZoneCode = `<div class="cu-card border-destructive/20">
 
         <!-- With Toggle -->
         <section class="space-y-3">
-            <h2 id="with-toggle" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#with-toggle" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.withToggle.title}
-            </h2>
+            <SectionHeading id="with-toggle" title={t.sections.withToggle.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withToggle.description} />
             <ComponentPreview code={withToggleCode}>
                 <div class="w-full max-w-xl">
@@ -656,10 +645,7 @@ const dangerZoneCode = `<div class="cu-card border-destructive/20">
 
         <!-- With Button -->
         <section class="space-y-3">
-            <h2 id="with-button" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#with-button" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.withButton.title}
-            </h2>
+            <SectionHeading id="with-button" title={t.sections.withButton.title} />
             <p class="text-base text-muted-foreground leading-relaxed">{t.sections.withButton.description}</p>
             <ComponentPreview code={withButtonCode}>
                 <div class="w-full max-w-xl">
@@ -701,10 +687,7 @@ const dangerZoneCode = `<div class="cu-card border-destructive/20">
 
         <!-- With Select -->
         <section class="space-y-3">
-            <h2 id="with-select" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#with-select" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.withSelect.title}
-            </h2>
+            <SectionHeading id="with-select" title={t.sections.withSelect.title} />
             <p class="text-base text-muted-foreground leading-relaxed">{t.sections.withSelect.description}</p>
             <ComponentPreview code={withSelectCode}>
                 <div class="w-full max-w-xl">
@@ -752,10 +735,7 @@ const dangerZoneCode = `<div class="cu-card border-destructive/20">
 
         <!-- Mixed Controls -->
         <section class="space-y-3">
-            <h2 id="mixed-controls" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#mixed-controls" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.mixedControls.title}
-            </h2>
+            <SectionHeading id="mixed-controls" title={t.sections.mixedControls.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.mixedControls.description} />
             <ComponentPreview code={mixedControlsCode}>
                 <div class="w-full max-w-xl">
@@ -834,10 +814,7 @@ const dangerZoneCode = `<div class="cu-card border-destructive/20">
 
         <!-- Grouped Settings -->
         <section class="space-y-3">
-            <h2 id="grouped" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#grouped" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.grouped.title}
-            </h2>
+            <SectionHeading id="grouped" title={t.sections.grouped.title} />
             <p class="text-base text-muted-foreground leading-relaxed">{t.sections.grouped.description}</p>
             <ComponentPreview code={groupedCode}>
                 <div class="w-full max-w-lg">
@@ -892,10 +869,7 @@ const dangerZoneCode = `<div class="cu-card border-destructive/20">
 
         <!-- Danger Zone -->
         <section class="space-y-3">
-            <h2 id="danger-zone" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#danger-zone" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.dangerZone.title}
-            </h2>
+            <SectionHeading id="danger-zone" title={t.sections.dangerZone.title} />
             <p class="text-base text-muted-foreground leading-relaxed">{t.sections.dangerZone.description}</p>
             <ComponentPreview code={dangerZoneCode}>
                 <div class="w-full max-w-lg">

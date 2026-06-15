@@ -1,5 +1,6 @@
 ---
 import Layout from "@/layouts/Layout.astro";
+import SectionHeading from "@/components/SectionHeading.astro";
 import ComponentPreview from "@/components/ComponentPreview.astro";
 import { getLocaleFromUrl, useTranslations } from "@/i18n";
 import { dropdownPage } from "@/i18n/pages/components/dropdown";
@@ -184,10 +185,7 @@ const userMenuCode = `<div class="cu-dropdown" data-cu-dropdown>
     <div class="mt-10 space-y-10">
         <!-- Usage -->
         <section class="space-y-3">
-            <h2 id="usage" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#usage" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.usage.title}
-            </h2>
+            <SectionHeading id="usage" title={t.sections.usage.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
             <ComponentPreview code={usageCode}>
                 <div class="cu-dropdown" data-cu-dropdown>
@@ -205,10 +203,7 @@ const userMenuCode = `<div class="cu-dropdown" data-cu-dropdown>
 
         <!-- Classes Reference -->
         <section class="space-y-3">
-            <h2 id="classes" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#classes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.classes.title}
-            </h2>
+            <SectionHeading id="classes" title={t.sections.classes.title} />
             <div class="cu-table-wrapper rounded-lg border border-border">
                 <table class="cu-table">
                     <thead class="cu-table-header">
@@ -258,10 +253,7 @@ const userMenuCode = `<div class="cu-dropdown" data-cu-dropdown>
 
         <!-- With Labels and Separators -->
         <section class="space-y-3">
-            <h2 id="with-labels-and-separators" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#with-labels-and-separators" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.withLabelsAndSeparators.title}
-            </h2>
+            <SectionHeading id="with-labels-and-separators" title={t.sections.withLabelsAndSeparators.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withLabelsAndSeparators.description} />
             <ComponentPreview code={withLabelsCode}>
                 <div class="cu-dropdown" data-cu-dropdown>
@@ -283,10 +275,7 @@ const userMenuCode = `<div class="cu-dropdown" data-cu-dropdown>
 
         <!-- With Icons -->
         <section class="space-y-3">
-            <h2 id="with-icons" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#with-icons" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.withIcons.title}
-            </h2>
+            <SectionHeading id="with-icons" title={t.sections.withIcons.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withIcons.description} />
             <ComponentPreview code={withIconsCode}>
                 <div class="cu-dropdown" data-cu-dropdown>
@@ -318,10 +307,7 @@ const userMenuCode = `<div class="cu-dropdown" data-cu-dropdown>
 
         <!-- With Shortcuts -->
         <section class="space-y-3">
-            <h2 id="with-shortcuts" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#with-shortcuts" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.withShortcuts.title}
-            </h2>
+            <SectionHeading id="with-shortcuts" title={t.sections.withShortcuts.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withShortcuts.description} />
             <ComponentPreview code={withShortcutsCode}>
                 <div class="cu-dropdown" data-cu-dropdown>
@@ -362,10 +348,7 @@ const userMenuCode = `<div class="cu-dropdown" data-cu-dropdown>
 
         <!-- With Danger Item -->
         <section class="space-y-3">
-            <h2 id="with-danger-item" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#with-danger-item" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.withDangerItem.title}
-            </h2>
+            <SectionHeading id="with-danger-item" title={t.sections.withDangerItem.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withDangerItem.description} />
             <ComponentPreview code={withDangerCode}>
                 <div class="cu-dropdown" data-cu-dropdown>
@@ -397,10 +380,7 @@ const userMenuCode = `<div class="cu-dropdown" data-cu-dropdown>
 
         <!-- User Menu -->
         <section class="space-y-3">
-            <h2 id="user-menu" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#user-menu" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.userMenu.title}
-            </h2>
+            <SectionHeading id="user-menu" title={t.sections.userMenu.title} />
             <p class="text-base text-muted-foreground leading-relaxed">
                 {t.sections.userMenu.description}
             </p>

@@ -1,5 +1,6 @@
 ---
 import Layout from "@/layouts/Layout.astro";
+import SectionHeading from "@/components/SectionHeading.astro";
 import ComponentPreview from "@/components/ComponentPreview.astro";
 import { getLocaleFromUrl, useTranslations } from "@/i18n";
 import { colorPickerPage } from "@/i18n/pages/components/color-picker";
@@ -78,10 +79,7 @@ const swatchesCode = `<div class="cu-color-picker" data-cu-color-picker data-cu-
   <div class="mt-10 space-y-10">
     <!-- Usage -->
     <section class="space-y-3">
-      <h2 id="usage" class="text-lg font-semibold tracking-tight relative group">
-        <a href="#usage" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-        {t.sections.usage.title}
-      </h2>
+      <SectionHeading id="usage" title={t.sections.usage.title} />
       <p class="text-base text-muted-foreground leading-relaxed">
         {t.sections.usage.description}
       </p>
@@ -104,10 +102,7 @@ const swatchesCode = `<div class="cu-color-picker" data-cu-color-picker data-cu-
 
     <!-- Default Color -->
     <section class="space-y-3">
-      <h2 id="default-color" class="text-lg font-semibold tracking-tight relative group">
-        <a href="#default-color" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-        {t.sections.defaultColor.title}
-      </h2>
+      <SectionHeading id="default-color" title={t.sections.defaultColor.title} />
       <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.defaultColor.description} />
       <ComponentPreview code={defaultColorCode}>
         <div class="cu-color-picker" data-cu-color-picker data-cu-color-picker-value="#6366f1">
@@ -128,10 +123,7 @@ const swatchesCode = `<div class="cu-color-picker" data-cu-color-picker data-cu-
 
     <!-- With Popover -->
     <section class="space-y-3">
-      <h2 id="with-popover" class="text-lg font-semibold tracking-tight relative group">
-        <a href="#with-popover" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-        {t.sections.withPopover.title}
-      </h2>
+      <SectionHeading id="with-popover" title={t.sections.withPopover.title} />
       <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withPopover.description} />
       <ComponentPreview code={popoverCode}>
         <div class="cu-popover" data-cu-popover>
@@ -160,10 +152,7 @@ const swatchesCode = `<div class="cu-color-picker" data-cu-color-picker data-cu-
 
     <!-- With Swatches -->
     <section class="space-y-3">
-      <h2 id="with-swatches" class="text-lg font-semibold tracking-tight relative group">
-        <a href="#with-swatches" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-        {t.sections.withSwatches.title}
-      </h2>
+      <SectionHeading id="with-swatches" title={t.sections.withSwatches.title} />
       <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withSwatches.description} />
       <ComponentPreview code={swatchesCode}>
         <div class="cu-color-picker" data-cu-color-picker data-cu-color-picker-value="#3b82f6">
@@ -189,10 +178,7 @@ const swatchesCode = `<div class="cu-color-picker" data-cu-color-picker data-cu-
 
     <!-- CSS Classes Reference -->
     <section class="space-y-3 mt-10">
-      <h2 id="classes" class="text-lg font-semibold tracking-tight relative group">
-        <a href="#classes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-        {t.sections.classes.title}
-      </h2>
+      <SectionHeading id="classes" title={t.sections.classes.title} />
       <div class="cu-table-wrapper rounded-lg border border-border">
         <table class="cu-table">
           <thead class="cu-table-header">

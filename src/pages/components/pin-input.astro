@@ -1,5 +1,6 @@
 ---
 import Layout from "@/layouts/Layout.astro";
+import SectionHeading from "@/components/SectionHeading.astro";
 // @ts-ignore - Astro component used in template
 import PinInput from "@/components/ui/PinInput.astro";
 import ComponentPreview from "@/components/ComponentPreview.astro";
@@ -88,10 +89,7 @@ const disabledCode = `<div class="cu-pin-input" data-cu-pin-input data-cu-pin-in
   <div class="mt-10 space-y-10">
     <!-- Usage -->
     <section class="space-y-3">
-      <h2 id="usage" class="text-lg font-semibold tracking-tight relative group">
-        <a href="#usage" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-        {t.sections.usage.title}
-      </h2>
+      <SectionHeading id="usage" title={t.sections.usage.title} />
       <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
       <ComponentPreview code={usageCode}>
         <PinInput />
@@ -100,10 +98,7 @@ const disabledCode = `<div class="cu-pin-input" data-cu-pin-input data-cu-pin-in
 
     <!-- 6 Digit -->
     <section class="space-y-3">
-      <h2 id="six-digit" class="text-lg font-semibold tracking-tight relative group">
-        <a href="#six-digit" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-        {t.sections.sixDigit.title}
-      </h2>
+      <SectionHeading id="six-digit" title={t.sections.sixDigit.title} />
       <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.sixDigit.description} />
       <ComponentPreview code={sixDigitCode}>
         <PinInput length={6} />
@@ -112,10 +107,7 @@ const disabledCode = `<div class="cu-pin-input" data-cu-pin-input data-cu-pin-in
 
     <!-- Alphanumeric -->
     <section class="space-y-3">
-      <h2 id="alphanumeric" class="text-lg font-semibold tracking-tight relative group">
-        <a href="#alphanumeric" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-        {t.sections.alphanumeric.title}
-      </h2>
+      <SectionHeading id="alphanumeric" title={t.sections.alphanumeric.title} />
       <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.alphanumeric.description} />
       <ComponentPreview code={alphanumericCode}>
         <PinInput length={6} type="alphanumeric" />
@@ -124,10 +116,7 @@ const disabledCode = `<div class="cu-pin-input" data-cu-pin-input data-cu-pin-in
 
     <!-- Sizes -->
     <section class="space-y-3">
-      <h2 id="sizes" class="text-lg font-semibold tracking-tight relative group">
-        <a href="#sizes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-        {t.sections.sizes.title}
-      </h2>
+      <SectionHeading id="sizes" title={t.sections.sizes.title} />
       <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.sizes.description} />
       <ComponentPreview code={sizesCode}>
         <div class="flex flex-col items-start gap-4">
@@ -140,10 +129,7 @@ const disabledCode = `<div class="cu-pin-input" data-cu-pin-input data-cu-pin-in
 
     <!-- Error -->
     <section class="space-y-3">
-      <h2 id="error" class="text-lg font-semibold tracking-tight relative group">
-        <a href="#error" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-        {t.sections.error.title}
-      </h2>
+      <SectionHeading id="error" title={t.sections.error.title} />
       <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.error.description} />
       <ComponentPreview code={errorCode}>
         <div class="space-y-2">
@@ -155,10 +141,7 @@ const disabledCode = `<div class="cu-pin-input" data-cu-pin-input data-cu-pin-in
 
     <!-- Disabled -->
     <section class="space-y-3">
-      <h2 id="disabled" class="text-lg font-semibold tracking-tight relative group">
-        <a href="#disabled" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-        {t.sections.disabled.title}
-      </h2>
+      <SectionHeading id="disabled" title={t.sections.disabled.title} />
       <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.disabled.description} />
       <ComponentPreview code={disabledCode}>
         <PinInput disabled />
@@ -167,10 +150,7 @@ const disabledCode = `<div class="cu-pin-input" data-cu-pin-input data-cu-pin-in
 
     <!-- Classes Reference -->
     <section class="space-y-3">
-      <h2 id="classes" class="text-lg font-semibold tracking-tight relative group">
-        <a href="#classes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-        {t.sections.classes.title}
-      </h2>
+      <SectionHeading id="classes" title={t.sections.classes.title} />
       <div class="cu-table-wrapper rounded-lg border border-border">
         <table class="cu-table">
           <thead class="cu-table-header">

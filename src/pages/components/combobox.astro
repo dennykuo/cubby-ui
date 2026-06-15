@@ -1,5 +1,6 @@
 ---
 import Layout from "@/layouts/Layout.astro";
+import SectionHeading from "@/components/SectionHeading.astro";
 import ComponentPreview from "@/components/ComponentPreview.astro";
 import { getLocaleFromUrl, useTranslations } from "@/i18n";
 import { comboboxPage } from "@/i18n/pages/components/combobox";
@@ -205,10 +206,7 @@ const withFormGroupCode = `<div class="cu-form-group" style="width: 300px;">
     <div class="mt-10 space-y-10">
         <!-- Usage -->
         <section class="space-y-3">
-            <h2 id="usage" class="text-lg font-semibold tracking-tight relative group">
-              <a href="#usage" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              {t.sections.usage.title}
-            </h2>
+            <SectionHeading id="usage" title={t.sections.usage.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
             <ComponentPreview code={usageCode}>
                 <div class="cu-combobox" data-cu-combobox style="width: 200px;">
@@ -236,10 +234,7 @@ const withFormGroupCode = `<div class="cu-form-group" style="width: 300px;">
 
         <!-- Classes Reference -->
         <section class="space-y-3">
-            <h2 id="classes" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#classes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.classes.title}
-            </h2>
+            <SectionHeading id="classes" title={t.sections.classes.title} />
             <div class="cu-table-wrapper rounded-lg border border-border">
                 <table class="cu-table">
                     <thead class="cu-table-header">
@@ -308,10 +303,7 @@ const withFormGroupCode = `<div class="cu-form-group" style="width: 300px;">
 
         <!-- With Icons -->
         <section class="space-y-3">
-            <h2 id="with-icons" class="text-lg font-semibold tracking-tight relative group">
-              <a href="#with-icons" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              {t.sections.withIcons.title}
-            </h2>
+            <SectionHeading id="with-icons" title={t.sections.withIcons.title} />
             <p class="text-base text-muted-foreground leading-relaxed">{t.sections.withIcons.description}</p>
             <ComponentPreview code={withIconsCode}>
                 <div class="cu-combobox" data-cu-combobox style="width: 220px;">
@@ -350,10 +342,7 @@ const withFormGroupCode = `<div class="cu-form-group" style="width: 300px;">
 
         <!-- With Form Group -->
         <section class="space-y-3">
-            <h2 id="with-form-group" class="text-lg font-semibold tracking-tight relative group">
-              <a href="#with-form-group" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              {t.sections.withFormGroup.title}
-            </h2>
+            <SectionHeading id="with-form-group" title={t.sections.withFormGroup.title} />
             <p class="text-base text-muted-foreground leading-relaxed">{t.sections.withFormGroup.description}</p>
             <ComponentPreview code={withFormGroupCode}>
                 <div class="cu-form-group" style="width: 300px;">
@@ -385,10 +374,7 @@ const withFormGroupCode = `<div class="cu-form-group" style="width: 300px;">
 
         <!-- Disabled Items -->
         <section class="space-y-3">
-            <h2 id="disabled-items" class="text-lg font-semibold tracking-tight relative group">
-              <a href="#disabled-items" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              {t.sections.disabled.title}
-            </h2>
+            <SectionHeading id="disabled-items" title={t.sections.disabled.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.disabled.description} />
             <ComponentPreview code={disabledCode}>
                 <div class="cu-combobox" data-cu-combobox style="width: 200px;">
@@ -415,10 +401,7 @@ const withFormGroupCode = `<div class="cu-form-group" style="width: 300px;">
 
         <!-- Grouped Options -->
         <section class="space-y-3">
-            <h2 id="grouped" class="text-lg font-semibold tracking-tight relative group">
-              <a href="#grouped" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              {t.sections.grouped.title}
-            </h2>
+            <SectionHeading id="grouped" title={t.sections.grouped.title} />
             <p class="text-base text-muted-foreground leading-relaxed">{t.sections.grouped.description}</p>
             <ComponentPreview code={groupedCode}>
                 <div class="cu-combobox" data-cu-combobox style="width: 220px;">

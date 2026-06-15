@@ -1,5 +1,6 @@
 ---
 import Layout from "@/layouts/Layout.astro";
+import SectionHeading from "@/components/SectionHeading.astro";
 // @ts-ignore - Astro component used in template
 import Pagination from "@/components/ui/Pagination.astro";
 import PaginationItem from "@/components/ui/PaginationItem.astro";
@@ -75,10 +76,7 @@ const withInfoTextCode = `<div class="flex items-center justify-between">
     <div class="mt-10 space-y-10">
         <!-- Usage -->
         <section class="space-y-3">
-            <h2 id="usage" class="text-lg font-semibold tracking-tight relative group">
-              <a href="#usage" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              {t.sections.usage.title}
-            </h2>
+            <SectionHeading id="usage" title={t.sections.usage.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
             <ComponentPreview code={usageCode}>
                 <Pagination>
@@ -91,10 +89,7 @@ const withInfoTextCode = `<div class="flex items-center justify-between">
 
         <!-- Classes Reference -->
         <section class="space-y-3">
-            <h2 id="classes" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#classes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.classes.title}
-            </h2>
+            <SectionHeading id="classes" title={t.sections.classes.title} />
             <div class="cu-table-wrapper rounded-lg border border-border">
                 <table class="cu-table">
                     <thead class="cu-table-header">
@@ -136,10 +131,7 @@ const withInfoTextCode = `<div class="flex items-center justify-between">
 
         <!-- With Ellipsis -->
         <section class="space-y-3">
-            <h2 id="with-ellipsis" class="text-lg font-semibold tracking-tight relative group">
-              <a href="#with-ellipsis" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              {t.sections.withEllipsis.title}
-            </h2>
+            <SectionHeading id="with-ellipsis" title={t.sections.withEllipsis.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withEllipsis.description} />
             <ComponentPreview code={withEllipsisCode}>
                 <Pagination>
@@ -156,10 +148,7 @@ const withInfoTextCode = `<div class="flex items-center justify-between">
 
         <!-- With Prev/Next -->
         <section class="space-y-3">
-            <h2 id="with-prev-next" class="text-lg font-semibold tracking-tight relative group">
-              <a href="#with-prev-next" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              {t.sections.withPrevNext.title}
-            </h2>
+            <SectionHeading id="with-prev-next" title={t.sections.withPrevNext.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withPrevNext.description} />
             <ComponentPreview code={withPrevNextCode}>
                 <Pagination>
@@ -176,10 +165,7 @@ const withInfoTextCode = `<div class="flex items-center justify-between">
 
         <!-- With Info Text -->
         <section class="space-y-3">
-            <h2 id="with-info-text" class="text-lg font-semibold tracking-tight relative group">
-              <a href="#with-info-text" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              {t.sections.withInfoText.title}
-            </h2>
+            <SectionHeading id="with-info-text" title={t.sections.withInfoText.title} />
             <p class="text-base text-muted-foreground leading-relaxed">{t.sections.withInfoText.description}</p>
             <ComponentPreview code={withInfoTextCode}>
                 <div class="w-full max-w-xl">

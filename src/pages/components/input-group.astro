@@ -1,5 +1,6 @@
 ---
 import Layout from "@/layouts/Layout.astro";
+import SectionHeading from "@/components/SectionHeading.astro";
 import Input from "@/components/ui/Input.astro";
 // @ts-ignore - Astro component used in template
 import InputGroup from "@/components/ui/InputGroup.astro";
@@ -77,10 +78,7 @@ const withLabelCode = `<div class="cu-form-group">
   <div class="mt-10 space-y-10">
     <!-- Usage -->
     <section class="space-y-3">
-      <h2 id="usage" class="text-lg font-semibold tracking-tight relative group">
-        <a href="#usage" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-        {t.sections.usage.title}
-      </h2>
+      <SectionHeading id="usage" title={t.sections.usage.title} />
       <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
       <ComponentPreview code={usageCode}>
         <div class="w-full max-w-sm">
@@ -94,10 +92,7 @@ const withLabelCode = `<div class="cu-form-group">
 
     <!-- Text Prefix -->
     <section class="space-y-3">
-      <h2 id="text-prefix" class="text-lg font-semibold tracking-tight relative group">
-        <a href="#text-prefix" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-        {t.sections.textPrefix.title}
-      </h2>
+      <SectionHeading id="text-prefix" title={t.sections.textPrefix.title} />
       <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.textPrefix.description} />
       <ComponentPreview code={textPrefixCode}>
         <div class="w-full max-w-sm">
@@ -111,10 +106,7 @@ const withLabelCode = `<div class="cu-form-group">
 
     <!-- Text Suffix -->
     <section class="space-y-3">
-      <h2 id="text-suffix" class="text-lg font-semibold tracking-tight relative group">
-        <a href="#text-suffix" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-        {t.sections.textSuffix.title}
-      </h2>
+      <SectionHeading id="text-suffix" title={t.sections.textSuffix.title} />
       <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.textSuffix.description} />
       <ComponentPreview code={textSuffixCode}>
         <div class="w-full max-w-sm">
@@ -128,10 +120,7 @@ const withLabelCode = `<div class="cu-form-group">
 
     <!-- Icon Prefix -->
     <section class="space-y-3">
-      <h2 id="icon-prefix" class="text-lg font-semibold tracking-tight relative group">
-        <a href="#icon-prefix" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-        {t.sections.iconPrefix.title}
-      </h2>
+      <SectionHeading id="icon-prefix" title={t.sections.iconPrefix.title} />
       <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.iconPrefix.description} />
       <ComponentPreview code={iconPrefixCode}>
         <div class="w-full max-w-sm">
@@ -147,10 +136,7 @@ const withLabelCode = `<div class="cu-form-group">
 
     <!-- Button Suffix -->
     <section class="space-y-3">
-      <h2 id="button-suffix" class="text-lg font-semibold tracking-tight relative group">
-        <a href="#button-suffix" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-        {t.sections.buttonSuffix.title}
-      </h2>
+      <SectionHeading id="button-suffix" title={t.sections.buttonSuffix.title} />
       <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.buttonSuffix.description} />
       <ComponentPreview code={buttonSuffixCode}>
         <div class="w-full max-w-sm">
@@ -164,10 +150,7 @@ const withLabelCode = `<div class="cu-form-group">
 
     <!-- Combined -->
     <section class="space-y-3">
-      <h2 id="combined" class="text-lg font-semibold tracking-tight relative group">
-        <a href="#combined" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-        {t.sections.combined.title}
-      </h2>
+      <SectionHeading id="combined" title={t.sections.combined.title} />
       <p class="text-base text-muted-foreground leading-relaxed">
         {t.sections.combined.description}
       </p>
@@ -186,10 +169,7 @@ const withLabelCode = `<div class="cu-form-group">
 
     <!-- Disabled -->
     <section class="space-y-3">
-      <h2 id="disabled" class="text-lg font-semibold tracking-tight relative group">
-        <a href="#disabled" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-        {t.sections.disabled.title}
-      </h2>
+      <SectionHeading id="disabled" title={t.sections.disabled.title} />
       <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.disabled.description} />
       <ComponentPreview code={disabledCode}>
         <div class="w-full max-w-sm">
@@ -203,10 +183,7 @@ const withLabelCode = `<div class="cu-form-group">
 
     <!-- With Label -->
     <section class="space-y-3">
-      <h2 id="with-label" class="text-lg font-semibold tracking-tight relative group">
-        <a href="#with-label" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-        {t.sections.withLabel.title}
-      </h2>
+      <SectionHeading id="with-label" title={t.sections.withLabel.title} />
       <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withLabel.description} />
       <ComponentPreview code={withLabelCode}>
         <div class="w-full max-w-sm">
@@ -223,10 +200,7 @@ const withLabelCode = `<div class="cu-form-group">
 
     <!-- Classes Reference -->
     <section class="space-y-3 mt-10">
-      <h2 id="classes" class="text-lg font-semibold tracking-tight relative group">
-        <a href="#classes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-        {t.sections.classes.title}
-      </h2>
+      <SectionHeading id="classes" title={t.sections.classes.title} />
       <div class="cu-table-wrapper rounded-lg border border-border">
         <table class="cu-table">
           <thead class="cu-table-header">

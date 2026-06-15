@@ -1,5 +1,6 @@
 ---
 import Layout from "@/layouts/Layout.astro";
+import SectionHeading from "@/components/SectionHeading.astro";
 // @ts-ignore - Astro component used in template
 import Toggle from "@/components/ui/Toggle.astro";
 import Label from "@/components/ui/Label.astro";
@@ -86,10 +87,7 @@ const disabledCode = `<label class="cu-toggle-wrapper">
     <div class="mt-10 space-y-10">
         <!-- Usage -->
         <section class="space-y-3">
-            <h2 id="usage" class="text-lg font-semibold tracking-tight relative group">
-              <a href="#usage" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              {t.sections.usage.title}
-            </h2>
+            <SectionHeading id="usage" title={t.sections.usage.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
             <ComponentPreview code={usageCode}>
                 <Toggle />
@@ -98,10 +96,7 @@ const disabledCode = `<label class="cu-toggle-wrapper">
 
         <!-- Classes Reference -->
         <section class="space-y-3">
-          <h2 id="classes" class="text-lg font-semibold tracking-tight relative group">
-            <a href="#classes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-            {t.sections.classes.title}
-          </h2>
+          <SectionHeading id="classes" title={t.sections.classes.title} />
           <div class="cu-table-wrapper rounded-lg border border-border">
             <table class="cu-table">
               <thead class="cu-table-header">
@@ -143,10 +138,7 @@ const disabledCode = `<label class="cu-toggle-wrapper">
 
         <!-- With Label -->
         <section class="space-y-3">
-            <h2 id="with-label" class="text-lg font-semibold tracking-tight relative group">
-              <a href="#with-label" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              {t.sections.withLabel.title}
-            </h2>
+            <SectionHeading id="with-label" title={t.sections.withLabel.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withLabel.description} />
             <ComponentPreview code={withLabelCode}>
                 <Toggle>
@@ -157,10 +149,7 @@ const disabledCode = `<label class="cu-toggle-wrapper">
 
         <!-- Sizes -->
         <section class="space-y-3">
-            <h2 id="sizes" class="text-lg font-semibold tracking-tight relative group">
-              <a href="#sizes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              {t.sections.sizes.title}
-            </h2>
+            <SectionHeading id="sizes" title={t.sections.sizes.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.sizes.description} />
             <ComponentPreview code={sizesCode}>
                 <div class="flex flex-col gap-4">
@@ -179,10 +168,7 @@ const disabledCode = `<label class="cu-toggle-wrapper">
 
         <!-- Checked by Default -->
         <section class="space-y-3">
-            <h2 id="checked-by-default" class="text-lg font-semibold tracking-tight relative group">
-              <a href="#checked-by-default" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              {t.sections.checkedByDefault.title}
-            </h2>
+            <SectionHeading id="checked-by-default" title={t.sections.checkedByDefault.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.checkedByDefault.description} />
             <ComponentPreview code={checkedCode}>
                 <Toggle checked>
@@ -193,10 +179,7 @@ const disabledCode = `<label class="cu-toggle-wrapper">
 
         <!-- Disabled -->
         <section class="space-y-3">
-            <h2 id="disabled" class="text-lg font-semibold tracking-tight relative group">
-              <a href="#disabled" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              {t.sections.disabled.title}
-            </h2>
+            <SectionHeading id="disabled" title={t.sections.disabled.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.disabled.description} />
             <ComponentPreview code={disabledCode}>
                 <div class="flex flex-col gap-4">

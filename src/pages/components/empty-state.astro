@@ -1,5 +1,6 @@
 ---
 import Layout from "@/layouts/Layout.astro";
+import SectionHeading from "@/components/SectionHeading.astro";
 import Button from "@/components/ui/Button.astro";
 // @ts-ignore - Astro component used in template
 import EmptyState from "@/components/ui/EmptyState.astro";
@@ -108,10 +109,7 @@ const errorStateCode = `<div class="cu-empty-state">
     <div class="mt-10 space-y-10">
         <!-- Usage -->
         <section class="space-y-3">
-            <h2 id="usage" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#usage" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.usage.title}
-            </h2>
+            <SectionHeading id="usage" title={t.sections.usage.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
             <ComponentPreview code={usageCode}>
                 <EmptyState>
@@ -131,10 +129,7 @@ const errorStateCode = `<div class="cu-empty-state">
 
         <!-- Classes Reference -->
         <section class="space-y-3">
-            <h2 id="classes" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#classes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.classes.title}
-            </h2>
+            <SectionHeading id="classes" title={t.sections.classes.title} />
             <div class="cu-table-wrapper rounded-lg border border-border">
                 <table class="cu-table">
                     <thead class="cu-table-header">
@@ -172,10 +167,7 @@ const errorStateCode = `<div class="cu-empty-state">
 
         <!-- No Results -->
         <section class="space-y-3">
-            <h2 id="no-results" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#no-results" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.noResults.title}
-            </h2>
+            <SectionHeading id="no-results" title={t.sections.noResults.title} />
             <p class="text-base text-muted-foreground leading-relaxed">
                 {t.sections.noResults.description}
             </p>
@@ -197,10 +189,7 @@ const errorStateCode = `<div class="cu-empty-state">
 
         <!-- Without Action -->
         <section class="space-y-3">
-            <h2 id="without-action" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#without-action" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.withoutAction.title}
-            </h2>
+            <SectionHeading id="without-action" title={t.sections.withoutAction.title} />
             <p class="text-base text-muted-foreground leading-relaxed">
                 {t.sections.withoutAction.description}
             </p>
@@ -219,10 +208,7 @@ const errorStateCode = `<div class="cu-empty-state">
 
         <!-- Error State -->
         <section class="space-y-3">
-            <h2 id="error-state" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#error-state" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.errorState.title}
-            </h2>
+            <SectionHeading id="error-state" title={t.sections.errorState.title} />
             <p class="text-base text-muted-foreground leading-relaxed">{t.sections.errorState.description}</p>
             <ComponentPreview code={errorStateCode}>
                 <EmptyState>
@@ -242,10 +228,7 @@ const errorStateCode = `<div class="cu-empty-state">
 
         <!-- No Permission -->
         <section class="space-y-3">
-            <h2 id="no-permission" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#no-permission" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.noPermission.title}
-            </h2>
+            <SectionHeading id="no-permission" title={t.sections.noPermission.title} />
             <p class="text-base text-muted-foreground leading-relaxed">{t.sections.noPermission.description}</p>
             <ComponentPreview code={noPermissionCode}>
                 <EmptyState>
@@ -265,10 +248,7 @@ const errorStateCode = `<div class="cu-empty-state">
 
         <!-- Maintenance -->
         <section class="space-y-3">
-            <h2 id="maintenance" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#maintenance" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.maintenance.title}
-            </h2>
+            <SectionHeading id="maintenance" title={t.sections.maintenance.title} />
             <p class="text-base text-muted-foreground leading-relaxed">{t.sections.maintenance.description}</p>
             <ComponentPreview code={maintenanceCode}>
                 <EmptyState>
@@ -285,10 +265,7 @@ const errorStateCode = `<div class="cu-empty-state">
 
         <!-- Search No Results -->
         <section class="space-y-3">
-            <h2 id="search-no-results" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#search-no-results" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.searchNoResults.title}
-            </h2>
+            <SectionHeading id="search-no-results" title={t.sections.searchNoResults.title} />
             <p class="text-base text-muted-foreground leading-relaxed">{t.sections.searchNoResults.description}</p>
             <ComponentPreview code={searchNoResultsCode}>
                 <EmptyState>

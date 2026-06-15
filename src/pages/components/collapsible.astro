@@ -1,5 +1,6 @@
 ---
 import Layout from "@/layouts/Layout.astro";
+import SectionHeading from "@/components/SectionHeading.astro";
 // @ts-ignore - Astro component used in template
 import Collapsible from "@/components/ui/Collapsible.astro";
 import CollapsibleTrigger from "@/components/ui/CollapsibleTrigger.astro";
@@ -141,10 +142,7 @@ const defaultOpenCode = `<details class="cu-collapsible cu-collapsible-bordered"
     <div class="mt-10 space-y-10">
         <!-- Usage -->
         <section class="space-y-3">
-            <h2 id="usage" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#usage" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.usage.title}
-            </h2>
+            <SectionHeading id="usage" title={t.sections.usage.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
             <ComponentPreview code={usageCode}>
                 <div class="w-full max-w-lg">
@@ -160,10 +158,7 @@ const defaultOpenCode = `<details class="cu-collapsible cu-collapsible-bordered"
 
         <!-- Classes Reference -->
         <section class="space-y-3">
-            <h2 id="classes" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#classes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.classes.title}
-            </h2>
+            <SectionHeading id="classes" title={t.sections.classes.title} />
             <div class="cu-table-wrapper rounded-lg border border-border">
                 <table class="cu-table">
                     <thead class="cu-table-header">
@@ -201,10 +196,7 @@ const defaultOpenCode = `<details class="cu-collapsible cu-collapsible-bordered"
 
         <!-- Bordered -->
         <section class="space-y-3">
-            <h2 id="bordered" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#bordered" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.bordered.title}
-            </h2>
+            <SectionHeading id="bordered" title={t.sections.bordered.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.bordered.description} />
             <ComponentPreview code={borderedCode}>
                 <div class="w-full max-w-lg">
@@ -222,10 +214,7 @@ const defaultOpenCode = `<details class="cu-collapsible cu-collapsible-bordered"
 
         <!-- Group -->
         <section class="space-y-3">
-            <h2 id="group" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#group" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.group.title}
-            </h2>
+            <SectionHeading id="group" title={t.sections.group.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.group.description} />
             <ComponentPreview code={groupCode}>
                 <div class="w-full max-w-lg">
@@ -255,10 +244,7 @@ const defaultOpenCode = `<details class="cu-collapsible cu-collapsible-bordered"
 
         <!-- With Icon -->
         <section class="space-y-3">
-            <h2 id="with-icon" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#with-icon" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.withIcon.title}
-            </h2>
+            <SectionHeading id="with-icon" title={t.sections.withIcon.title} />
             <p class="text-base text-muted-foreground leading-relaxed">{t.sections.withIcon.description}</p>
             <ComponentPreview code={withIconCode}>
                 <div class="w-full max-w-lg">
@@ -283,10 +269,7 @@ const defaultOpenCode = `<details class="cu-collapsible cu-collapsible-bordered"
 
         <!-- Nested -->
         <section class="space-y-3">
-            <h2 id="nested" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#nested" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.nested.title}
-            </h2>
+            <SectionHeading id="nested" title={t.sections.nested.title} />
             <p class="text-base text-muted-foreground leading-relaxed">{t.sections.nested.description}</p>
             <ComponentPreview code={nestedCode}>
                 <div class="w-full max-w-lg">
@@ -313,10 +296,7 @@ const defaultOpenCode = `<details class="cu-collapsible cu-collapsible-bordered"
 
         <!-- Default Open -->
         <section class="space-y-3">
-            <h2 id="default-open" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#default-open" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.defaultOpen.title}
-            </h2>
+            <SectionHeading id="default-open" title={t.sections.defaultOpen.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.defaultOpen.description} />
             <ComponentPreview code={defaultOpenCode}>
                 <div class="w-full max-w-lg">

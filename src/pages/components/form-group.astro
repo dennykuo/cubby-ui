@@ -1,5 +1,6 @@
 ---
 import Layout from "@/layouts/Layout.astro";
+import SectionHeading from "@/components/SectionHeading.astro";
 import Input from "@/components/ui/Input.astro";
 import Textarea from "@/components/ui/Textarea.astro";
 import Select from "@/components/ui/Select.astro";
@@ -109,10 +110,7 @@ const completeFormCode = `<div class="cu-card w-[420px]">
     <div class="mt-10 space-y-10">
         <!-- Usage -->
         <section class="space-y-3">
-            <h2 id="usage" class="text-lg font-semibold tracking-tight relative group">
-              <a href="#usage" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              {t.sections.usage.title}
-            </h2>
+            <SectionHeading id="usage" title={t.sections.usage.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
             <ComponentPreview code={usageCode}>
                 <div class="w-full max-w-sm">
@@ -126,10 +124,7 @@ const completeFormCode = `<div class="cu-card w-[420px]">
 
         <!-- Classes Reference -->
         <section class="space-y-3">
-            <h2 id="classes" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#classes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.classes.title}
-            </h2>
+            <SectionHeading id="classes" title={t.sections.classes.title} />
             <div class="cu-table-wrapper rounded-lg border border-border">
                 <table class="cu-table">
                     <thead class="cu-table-header">
@@ -159,10 +154,7 @@ const completeFormCode = `<div class="cu-card w-[420px]">
 
         <!-- With Description -->
         <section class="space-y-3">
-            <h2 id="with-description" class="text-lg font-semibold tracking-tight relative group">
-              <a href="#with-description" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              {t.sections.withDescription.title}
-            </h2>
+            <SectionHeading id="with-description" title={t.sections.withDescription.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withDescription.description} />
             <ComponentPreview code={descriptionCode}>
                 <div class="w-full max-w-sm">
@@ -177,10 +169,7 @@ const completeFormCode = `<div class="cu-card w-[420px]">
 
         <!-- With Error -->
         <section class="space-y-3">
-            <h2 id="with-error" class="text-lg font-semibold tracking-tight relative group">
-              <a href="#with-error" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              {t.sections.withError.title}
-            </h2>
+            <SectionHeading id="with-error" title={t.sections.withError.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withError.description} />
             <ComponentPreview code={errorCode}>
                 <div class="w-full max-w-sm">
@@ -195,10 +184,7 @@ const completeFormCode = `<div class="cu-card w-[420px]">
 
         <!-- Complete Form -->
         <section class="space-y-3">
-            <h2 id="complete-form" class="text-lg font-semibold tracking-tight relative group">
-              <a href="#complete-form" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              {t.sections.completeForm.title}
-            </h2>
+            <SectionHeading id="complete-form" title={t.sections.completeForm.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.completeForm.description} />
             <ComponentPreview code={completeFormCode}>
                 <Card class="w-[420px]">

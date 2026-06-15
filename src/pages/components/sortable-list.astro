@@ -1,5 +1,6 @@
 ---
 import Layout from "@/layouts/Layout.astro";
+import SectionHeading from "@/components/SectionHeading.astro";
 import ComponentPreview from "@/components/ComponentPreview.astro";
 import { getLocaleFromUrl, useTranslations } from "@/i18n";
 import { sortableListPage } from "@/i18n/pages/components/sortable-list";
@@ -253,19 +254,13 @@ const disabledCode = `<div class="cu-sortable-list" data-cu-sortable-list>
 
     <div class="mt-10 space-y-10">
         <section class="space-y-3">
-            <h2 id="usage" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#usage" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.usage.title}
-            </h2>
+            <SectionHeading id="usage" title={t.sections.usage.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
             <ComponentPreview code={usageCode} />
         </section>
 
         <section class="space-y-3">
-            <h2 id="classes" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#classes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.classes.title}
-            </h2>
+            <SectionHeading id="classes" title={t.sections.classes.title} />
             <div class="cu-table-wrapper rounded-lg border border-border">
                 <table class="cu-table">
                     <thead class="cu-table-header">
@@ -287,82 +282,55 @@ const disabledCode = `<div class="cu-sortable-list" data-cu-sortable-list>
         </section>
 
         <section class="space-y-3">
-            <h2 id="bordered" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#bordered" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.bordered.title}
-            </h2>
+            <SectionHeading id="bordered" title={t.sections.bordered.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.bordered.description} />
             <ComponentPreview code={borderedCode} />
         </section>
 
         <section class="space-y-3">
-            <h2 id="compact" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#compact" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.compact.title}
-            </h2>
+            <SectionHeading id="compact" title={t.sections.compact.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.compact.description} />
             <ComponentPreview code={compactCode} />
         </section>
 
         <section class="space-y-3">
-            <h2 id="card" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#card" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.card.title}
-            </h2>
+            <SectionHeading id="card" title={t.sections.card.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.card.description} />
             <ComponentPreview code={cardCode} />
         </section>
 
         <section class="space-y-3">
-            <h2 id="ghost" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#ghost" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.ghost.title}
-            </h2>
+            <SectionHeading id="ghost" title={t.sections.ghost.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.ghost.description} />
             <ComponentPreview code={ghostCode} />
         </section>
 
         <section class="space-y-3">
-            <h2 id="striped" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#striped" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.striped.title}
-            </h2>
+            <SectionHeading id="striped" title={t.sections.striped.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.striped.description} />
             <ComponentPreview code={stripedCode} />
         </section>
 
         <section class="space-y-3">
-            <h2 id="numbered" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#numbered" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.numbered.title}
-            </h2>
+            <SectionHeading id="numbered" title={t.sections.numbered.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.numbered.description} />
             <ComponentPreview code={numberedCode} />
         </section>
 
         <section class="space-y-3">
-            <h2 id="custom-handle" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#custom-handle" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.customHandle.title}
-            </h2>
+            <SectionHeading id="custom-handle" title={t.sections.customHandle.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.customHandle.description} />
             <ComponentPreview code={customHandleCode} />
         </section>
 
         <section class="space-y-3">
-            <h2 id="with-content" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#with-content" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.withContent.title}
-            </h2>
+            <SectionHeading id="with-content" title={t.sections.withContent.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withContent.description} />
             <ComponentPreview code={withContentCode} />
         </section>
 
         <section class="space-y-3">
-            <h2 id="disabled" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#disabled" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.disabled.title}
-            </h2>
+            <SectionHeading id="disabled" title={t.sections.disabled.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.disabled.description} />
             <ComponentPreview code={disabledCode} />
         </section>

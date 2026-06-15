@@ -1,5 +1,6 @@
 ---
 import Layout from "@/layouts/Layout.astro";
+import SectionHeading from "@/components/SectionHeading.astro";
 // @ts-ignore - Astro component used in template
 import ScrollArea from "@/components/ui/ScrollArea.astro";
 import Separator from "@/components/ui/Separator.astro";
@@ -149,10 +150,7 @@ const tags = ["v1.0.0", "v1.1.0", "v1.2.0", "v1.3.0", "v1.4.0", "v2.0.0", "v2.1.
     <div class="mt-10 space-y-10">
         <!-- Usage -->
         <section class="space-y-3">
-            <h2 id="usage" class="text-lg font-semibold tracking-tight relative group">
-              <a href="#usage" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              Usage
-            </h2>
+            <SectionHeading id="usage" title="Usage" />
             <p class="text-base text-muted-foreground leading-relaxed">
                 Apply <code class="cu-code">cu-scroll-area</code> to a container with a fixed height.
                 The scrollbar is styled to be thin and subtle.
@@ -172,10 +170,7 @@ const tags = ["v1.0.0", "v1.1.0", "v1.2.0", "v1.3.0", "v1.4.0", "v2.0.0", "v2.1.
 
         <!-- Classes Reference -->
         <section class="space-y-3">
-            <h2 id="classes" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#classes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                CSS Classes
-            </h2>
+            <SectionHeading id="classes" title="CSS Classes" />
             <div class="cu-table-wrapper rounded-lg border border-border">
                 <table class="cu-table">
                     <thead class="cu-table-header">
@@ -201,10 +196,7 @@ const tags = ["v1.0.0", "v1.1.0", "v1.2.0", "v1.3.0", "v1.4.0", "v2.0.0", "v2.1.
 
         <!-- Horizontal -->
         <section class="space-y-3">
-            <h2 id="horizontal" class="text-lg font-semibold tracking-tight relative group">
-              <a href="#horizontal" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              Horizontal
-            </h2>
+            <SectionHeading id="horizontal" title="Horizontal" />
             <p class="text-base text-muted-foreground leading-relaxed">
                 Use <code class="cu-code">cu-scroll-area-horizontal</code> for horizontal scrolling with a fixed width.
             </p>
@@ -224,10 +216,7 @@ const tags = ["v1.0.0", "v1.1.0", "v1.2.0", "v1.3.0", "v1.4.0", "v2.0.0", "v2.1.
 
         <!-- With Tags -->
         <section class="space-y-3">
-            <h2 id="with-tags" class="text-lg font-semibold tracking-tight relative group">
-              <a href="#with-tags" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              With Tags
-            </h2>
+            <SectionHeading id="with-tags" title="With Tags" />
             <p class="text-base text-muted-foreground leading-relaxed">
                 Combine with badges for a horizontally scrollable tag list.
             </p>
@@ -250,10 +239,7 @@ const tags = ["v1.0.0", "v1.1.0", "v1.2.0", "v1.3.0", "v1.4.0", "v2.0.0", "v2.1.
 
         <!-- Long List -->
         <section class="space-y-3">
-            <h2 id="long-list" class="text-lg font-semibold tracking-tight relative group">
-              <a href="#long-list" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              Long List
-            </h2>
+            <SectionHeading id="long-list" title="Long List" />
             <p class="text-base text-muted-foreground leading-relaxed">
                 A scroll area containing a long list of items with consistent spacing, ideal for sidebar navigation or settings panels.
             </p>
@@ -300,10 +286,7 @@ const tags = ["v1.0.0", "v1.1.0", "v1.2.0", "v1.3.0", "v1.4.0", "v2.0.0", "v2.1.
 
         <!-- Nested Scroll Areas -->
         <section class="space-y-3">
-            <h2 id="nested" class="text-lg font-semibold tracking-tight relative group">
-              <a href="#nested" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              Nested Scroll Areas
-            </h2>
+            <SectionHeading id="nested" title="Nested Scroll Areas" />
             <p class="text-base text-muted-foreground leading-relaxed">
                 Nest scroll areas for complex layouts where both horizontal and vertical scrolling are needed independently.
             </p>

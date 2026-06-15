@@ -1,5 +1,6 @@
 ---
 import Layout from "@/layouts/Layout.astro";
+import SectionHeading from "@/components/SectionHeading.astro";
 // @ts-ignore - Astro component used in template
 import SearchInput from "@/components/ui/SearchInput.astro";
 import ComponentPreview from "@/components/ComponentPreview.astro";
@@ -57,10 +58,7 @@ const disabledCode = `<div class="cu-input-search">
     <div class="mt-10 space-y-10">
         <!-- Usage -->
         <section class="space-y-3">
-            <h2 id="usage" class="text-lg font-semibold tracking-tight relative group">
-              <a href="#usage" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              {t.sections.usage.title}
-            </h2>
+            <SectionHeading id="usage" title={t.sections.usage.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
             <ComponentPreview code={usageCode}>
                 <div class="w-full max-w-sm">
@@ -71,10 +69,7 @@ const disabledCode = `<div class="cu-input-search">
 
         <!-- Classes Reference -->
         <section class="space-y-3">
-            <h2 id="classes" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#classes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.classes.title}
-            </h2>
+            <SectionHeading id="classes" title={t.sections.classes.title} />
             <div class="cu-table-wrapper rounded-lg border border-border">
                 <table class="cu-table">
                     <thead class="cu-table-header">
@@ -108,10 +103,7 @@ const disabledCode = `<div class="cu-input-search">
 
         <!-- Clearable -->
         <section class="space-y-3">
-            <h2 id="clearable" class="text-lg font-semibold tracking-tight relative group">
-              <a href="#clearable" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              {t.sections.clearable.title}
-            </h2>
+            <SectionHeading id="clearable" title={t.sections.clearable.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.clearable.description} />
             <ComponentPreview code={clearableCode}>
                 <div class="w-full max-w-sm">
@@ -122,10 +114,7 @@ const disabledCode = `<div class="cu-input-search">
 
         <!-- With Placeholder -->
         <section class="space-y-3">
-            <h2 id="with-placeholder" class="text-lg font-semibold tracking-tight relative group">
-              <a href="#with-placeholder" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              {t.sections.withPlaceholder.title}
-            </h2>
+            <SectionHeading id="with-placeholder" title={t.sections.withPlaceholder.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withPlaceholder.description} />
             <ComponentPreview code={placeholderCode}>
                 <div class="w-full max-w-sm">
@@ -136,10 +125,7 @@ const disabledCode = `<div class="cu-input-search">
 
         <!-- Disabled -->
         <section class="space-y-3">
-            <h2 id="disabled" class="text-lg font-semibold tracking-tight relative group">
-              <a href="#disabled" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              {t.sections.disabled.title}
-            </h2>
+            <SectionHeading id="disabled" title={t.sections.disabled.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.disabled.description} />
             <ComponentPreview code={disabledCode}>
                 <div class="w-full max-w-sm">

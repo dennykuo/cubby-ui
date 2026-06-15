@@ -1,5 +1,6 @@
 ---
 import Layout from "@/layouts/Layout.astro";
+import SectionHeading from "@/components/SectionHeading.astro";
 import ComponentPreview from "@/components/ComponentPreview.astro";
 import { getLocaleFromUrl, useTranslations } from "@/i18n";
 import { filterBarPage } from "@/i18n/pages/components/filter-bar";
@@ -134,10 +135,7 @@ const withChipsCode = `<div class="cu-filter-bar">
     <div class="mt-10 space-y-10">
         <!-- Usage -->
         <section class="space-y-3">
-            <h2 id="usage" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#usage" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.usage.title}
-            </h2>
+            <SectionHeading id="usage" title={t.sections.usage.title} />
             <p class="text-base text-muted-foreground leading-relaxed">
                 {t.sections.usage.description}
             </p>
@@ -179,10 +177,7 @@ const withChipsCode = `<div class="cu-filter-bar">
 
         <!-- Classes Reference -->
         <section class="space-y-3">
-            <h2 id="classes" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#classes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.classes.title}
-            </h2>
+            <SectionHeading id="classes" title={t.sections.classes.title} />
             <div class="cu-table-wrapper rounded-lg border border-border">
                 <table class="cu-table">
                     <thead class="cu-table-header">
@@ -206,10 +201,7 @@ const withChipsCode = `<div class="cu-filter-bar">
 
         <!-- Simple Search -->
         <section class="space-y-3">
-            <h2 id="simple" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#simple" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.simple.title}
-            </h2>
+            <SectionHeading id="simple" title={t.sections.simple.title} />
             <p class="text-base text-muted-foreground leading-relaxed">
                 {t.sections.simple.description}
             </p>
@@ -233,10 +225,7 @@ const withChipsCode = `<div class="cu-filter-bar">
 
         <!-- With Date Range -->
         <section class="space-y-3">
-            <h2 id="with-date" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#with-date" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.withDate.title}
-            </h2>
+            <SectionHeading id="with-date" title={t.sections.withDate.title} />
             <p class="text-base text-muted-foreground leading-relaxed">
                 {t.sections.withDate.description}
             </p>
@@ -276,10 +265,7 @@ const withChipsCode = `<div class="cu-filter-bar">
 
         <!-- With Active Chips -->
         <section class="space-y-3">
-            <h2 id="with-chips" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#with-chips" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.withChips.title}
-            </h2>
+            <SectionHeading id="with-chips" title={t.sections.withChips.title} />
             <p class="text-base text-muted-foreground leading-relaxed">
                 {t.sections.withChips.description}
             </p>

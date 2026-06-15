@@ -1,5 +1,6 @@
 ---
 import Layout from "@/layouts/Layout.astro";
+import SectionHeading from "@/components/SectionHeading.astro";
 // @ts-ignore - Astro component used in template
 import Skeleton from "@/components/ui/Skeleton.astro";
 import ComponentPreview from "@/components/ComponentPreview.astro";
@@ -99,10 +100,7 @@ const listSkeletonCode = `<div class="space-y-4">
     <div class="mt-10 space-y-10">
         <!-- Usage -->
         <section class="space-y-3">
-            <h2 id="usage" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#usage" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.usage.title}
-            </h2>
+            <SectionHeading id="usage" title={t.sections.usage.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
             <ComponentPreview code={usageCode}>
                 <Skeleton class="h-4 w-[250px]" />
@@ -111,10 +109,7 @@ const listSkeletonCode = `<div class="space-y-4">
 
         <!-- Classes Reference -->
         <section class="space-y-3">
-            <h2 id="classes" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#classes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.classes.title}
-            </h2>
+            <SectionHeading id="classes" title={t.sections.classes.title} />
             <div class="cu-table-wrapper rounded-lg border border-border">
                 <table class="cu-table">
                     <thead class="cu-table-header">
@@ -140,10 +135,7 @@ const listSkeletonCode = `<div class="space-y-4">
 
         <!-- Shimmer -->
         <section class="space-y-3">
-            <h2 id="shimmer" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#shimmer" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.shimmer.title}
-            </h2>
+            <SectionHeading id="shimmer" title={t.sections.shimmer.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.shimmer.description} />
             <ComponentPreview code={shimmerCode}>
                 <div class="space-y-3 w-full max-w-md">
@@ -157,10 +149,7 @@ const listSkeletonCode = `<div class="space-y-4">
 
         <!-- Card Skeleton -->
         <section class="space-y-3">
-            <h2 id="card-skeleton" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#card-skeleton" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.cardSkeleton.title}
-            </h2>
+            <SectionHeading id="card-skeleton" title={t.sections.cardSkeleton.title} />
             <p class="text-base text-muted-foreground leading-relaxed">
                 {t.sections.cardSkeleton.description}
             </p>
@@ -177,10 +166,7 @@ const listSkeletonCode = `<div class="space-y-4">
 
         <!-- Table Skeleton -->
         <section class="space-y-3">
-            <h2 id="table-skeleton" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#table-skeleton" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.tableSkeleton.title}
-            </h2>
+            <SectionHeading id="table-skeleton" title={t.sections.tableSkeleton.title} />
             <p class="text-base text-muted-foreground leading-relaxed">
                 {t.sections.tableSkeleton.description}
             </p>
@@ -222,10 +208,7 @@ const listSkeletonCode = `<div class="space-y-4">
 
         <!-- List Skeleton -->
         <section class="space-y-3">
-            <h2 id="list-skeleton" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#list-skeleton" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.listSkeleton.title}
-            </h2>
+            <SectionHeading id="list-skeleton" title={t.sections.listSkeleton.title} />
             <p class="text-base text-muted-foreground leading-relaxed">
                 {t.sections.listSkeleton.description}
             </p>

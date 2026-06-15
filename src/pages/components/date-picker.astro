@@ -1,5 +1,6 @@
 ---
 import Layout from "@/layouts/Layout.astro";
+import SectionHeading from "@/components/SectionHeading.astro";
 import ComponentPreview from "@/components/ComponentPreview.astro";
 import { getLocaleFromUrl, useTranslations } from "@/i18n";
 import { datePickerPage } from "@/i18n/pages/components/date-picker";
@@ -139,10 +140,7 @@ const standaloneCalendarCode = calendarHtml;
   <div class="mt-10 space-y-10">
     <!-- Usage -->
     <section class="space-y-3">
-      <h2 id="usage" class="text-lg font-semibold tracking-tight relative group">
-        <a href="#usage" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-        {t.sections.usage.title}
-      </h2>
+      <SectionHeading id="usage" title={t.sections.usage.title} />
       <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
       <ComponentPreview code={usageCode}>
         <div class="cu-date-picker" data-cu-date-picker style="width: 240px;">
@@ -180,10 +178,7 @@ const standaloneCalendarCode = calendarHtml;
 
     <!-- Default Value -->
     <section class="space-y-3">
-      <h2 id="default-value" class="text-lg font-semibold tracking-tight relative group">
-        <a href="#default-value" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-        {t.sections.defaultValue.title}
-      </h2>
+      <SectionHeading id="default-value" title={t.sections.defaultValue.title} />
       <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.defaultValue.description} />
       <ComponentPreview code={defaultValueCode}>
         <div class="cu-date-picker" data-cu-date-picker style="width: 240px;">
@@ -221,10 +216,7 @@ const standaloneCalendarCode = calendarHtml;
 
     <!-- Min/Max Date Range -->
     <section class="space-y-3">
-      <h2 id="date-range" class="text-lg font-semibold tracking-tight relative group">
-        <a href="#date-range" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-        {t.sections.dateRange.title}
-      </h2>
+      <SectionHeading id="date-range" title={t.sections.dateRange.title} />
       <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.dateRange.description} />
       <ComponentPreview code={minMaxCode}>
         <div class="cu-date-picker" data-cu-date-picker style="width: 240px;">
@@ -262,10 +254,7 @@ const standaloneCalendarCode = calendarHtml;
 
     <!-- Standalone Calendar -->
     <section class="space-y-3">
-      <h2 id="standalone-calendar" class="text-lg font-semibold tracking-tight relative group">
-        <a href="#standalone-calendar" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-        {t.sections.standaloneCalendar.title}
-      </h2>
+      <SectionHeading id="standalone-calendar" title={t.sections.standaloneCalendar.title} />
       <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.standaloneCalendar.description} />
       <ComponentPreview code={standaloneCalendarCode}>
         <div style="width: 280px;">
@@ -296,10 +285,7 @@ const standaloneCalendarCode = calendarHtml;
 
     <!-- CSS Classes Reference -->
     <section class="space-y-3 mt-10">
-      <h2 id="classes" class="text-lg font-semibold tracking-tight relative group">
-        <a href="#classes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-        {t.sections.classes.title}
-      </h2>
+      <SectionHeading id="classes" title={t.sections.classes.title} />
       <div class="cu-table-wrapper rounded-lg border border-border">
         <table class="cu-table">
           <thead class="cu-table-header">

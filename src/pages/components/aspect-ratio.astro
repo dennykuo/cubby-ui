@@ -1,5 +1,6 @@
 ---
 import Layout from "@/layouts/Layout.astro";
+import SectionHeading from "@/components/SectionHeading.astro";
 // @ts-ignore - Astro component used in template
 import AspectRatio from "@/components/ui/AspectRatio.astro";
 import ComponentPreview from "@/components/ComponentPreview.astro";
@@ -93,10 +94,7 @@ const mapCode = `<div class="cu-aspect-ratio cu-aspect-ratio-16/9 rounded-xl ove
   <div class="mt-10 space-y-10">
     <!-- Usage -->
     <section class="space-y-3">
-      <h2 id="usage" class="text-lg font-semibold tracking-tight relative group">
-        <a href="#usage" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-        {t.sections.usage.title}
-      </h2>
+      <SectionHeading id="usage" title={t.sections.usage.title} />
       <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
       <ComponentPreview code={usageCode}>
         <div class="w-full max-w-lg">
@@ -109,10 +107,7 @@ const mapCode = `<div class="cu-aspect-ratio cu-aspect-ratio-16/9 rounded-xl ove
 
     <!-- Ratios -->
     <section class="space-y-3">
-      <h2 id="ratios" class="text-lg font-semibold tracking-tight relative group">
-        <a href="#ratios" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-        {t.sections.ratios.title}
-      </h2>
+      <SectionHeading id="ratios" title={t.sections.ratios.title} />
       <p class="text-base text-muted-foreground leading-relaxed">
         {t.sections.ratios.description}
       </p>
@@ -178,10 +173,7 @@ const mapCode = `<div class="cu-aspect-ratio cu-aspect-ratio-16/9 rounded-xl ove
 
     <!-- With Iframe -->
     <section class="space-y-3">
-      <h2 id="iframe" class="text-lg font-semibold tracking-tight relative group">
-        <a href="#iframe" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-        {t.sections.iframe.title}
-      </h2>
+      <SectionHeading id="iframe" title={t.sections.iframe.title} />
       <p class="text-base text-muted-foreground leading-relaxed">
         {t.sections.iframe.description}
       </p>
@@ -200,10 +192,7 @@ const mapCode = `<div class="cu-aspect-ratio cu-aspect-ratio-16/9 rounded-xl ove
 
     <!-- Classes Reference -->
     <section class="space-y-3 mt-10">
-      <h2 id="classes" class="text-lg font-semibold tracking-tight relative group">
-        <a href="#classes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-        {t.sections.classes.title}
-      </h2>
+      <SectionHeading id="classes" title={t.sections.classes.title} />
       <div class="cu-table-wrapper rounded-lg border border-border">
         <table class="cu-table">
           <thead class="cu-table-header">

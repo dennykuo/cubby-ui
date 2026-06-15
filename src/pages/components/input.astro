@@ -1,5 +1,6 @@
 ---
 import Layout from "@/layouts/Layout.astro";
+import SectionHeading from "@/components/SectionHeading.astro";
 // @ts-ignore - Astro component used in template
 import Input from "@/components/ui/Input.astro";
 import Label from "@/components/ui/Label.astro";
@@ -113,10 +114,7 @@ const formGroupCode = `<div class="cu-form-group">
     <div class="mt-10 space-y-10">
         <!-- Usage -->
         <section class="space-y-3">
-            <h2 id="usage" class="text-lg font-semibold tracking-tight relative group">
-              <a href="#usage" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              {t.sections.usage.title}
-            </h2>
+            <SectionHeading id="usage" title={t.sections.usage.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
             <ComponentPreview code={usageCode}>
                 <div class="w-full max-w-sm">
@@ -127,10 +125,7 @@ const formGroupCode = `<div class="cu-form-group">
 
         <!-- Classes Reference -->
         <section class="space-y-3">
-          <h2 id="classes" class="text-lg font-semibold tracking-tight relative group">
-            <a href="#classes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-            {t.sections.classes.title}
-          </h2>
+          <SectionHeading id="classes" title={t.sections.classes.title} />
           <div class="cu-table-wrapper rounded-lg border border-border">
             <table class="cu-table">
               <thead class="cu-table-header">
@@ -154,10 +149,7 @@ const formGroupCode = `<div class="cu-form-group">
 
         <!-- Sizes -->
         <section class="space-y-3">
-            <h2 id="sizes" class="text-lg font-semibold tracking-tight relative group">
-              <a href="#sizes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              {t.sections.sizes.title}
-            </h2>
+            <SectionHeading id="sizes" title={t.sections.sizes.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.sizes.description} />
             <ComponentPreview code={sizesCode}>
                 <div class="w-full max-w-sm space-y-3">
@@ -170,10 +162,7 @@ const formGroupCode = `<div class="cu-form-group">
 
         <!-- With Label -->
         <section class="space-y-3">
-            <h2 id="with-label" class="text-lg font-semibold tracking-tight relative group">
-              <a href="#with-label" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              {t.sections.withLabel.title}
-            </h2>
+            <SectionHeading id="with-label" title={t.sections.withLabel.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withLabel.description} />
             <ComponentPreview code={withLabelCode}>
                 <div class="w-full max-w-sm">
@@ -187,10 +176,7 @@ const formGroupCode = `<div class="cu-form-group">
 
         <!-- Input Types -->
         <section class="space-y-3">
-            <h2 id="input-types" class="text-lg font-semibold tracking-tight relative group">
-              <a href="#input-types" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              {t.sections.inputTypes.title}
-            </h2>
+            <SectionHeading id="input-types" title={t.sections.inputTypes.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.inputTypes.description} />
             <ComponentPreview code={typesCode}>
                 <div class="w-full max-w-sm space-y-4">
@@ -212,10 +198,7 @@ const formGroupCode = `<div class="cu-form-group">
 
         <!-- With Form Group -->
         <section class="space-y-3">
-            <h2 id="with-form-group" class="text-lg font-semibold tracking-tight relative group">
-              <a href="#with-form-group" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              {t.sections.withFormGroup.title}
-            </h2>
+            <SectionHeading id="with-form-group" title={t.sections.withFormGroup.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withFormGroup.description} />
             <ComponentPreview code={formGroupCode}>
                 <div class="w-full max-w-sm space-y-4">
@@ -235,10 +218,7 @@ const formGroupCode = `<div class="cu-form-group">
 
         <!-- With Addon -->
         <section class="space-y-3">
-            <h2 id="with-addon" class="text-lg font-semibold tracking-tight relative group">
-              <a href="#with-addon" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              {t.sections.withAddon.title}
-            </h2>
+            <SectionHeading id="with-addon" title={t.sections.withAddon.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withAddon.description} />
             <ComponentPreview code={withAddonCode}>
                 <div class="w-full max-w-sm space-y-4">
@@ -261,10 +241,7 @@ const formGroupCode = `<div class="cu-form-group">
 
         <!-- With Icon -->
         <section class="space-y-3">
-            <h2 id="with-icon" class="text-lg font-semibold tracking-tight relative group">
-              <a href="#with-icon" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              {t.sections.withIcon.title}
-            </h2>
+            <SectionHeading id="with-icon" title={t.sections.withIcon.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withIcon.description} />
             <ComponentPreview code={withIconCode}>
                 <div class="w-full max-w-sm">
@@ -278,10 +255,7 @@ const formGroupCode = `<div class="cu-form-group">
 
         <!-- Validation -->
         <section class="space-y-3">
-            <h2 id="validation" class="text-lg font-semibold tracking-tight relative group">
-              <a href="#validation" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              {t.sections.validation.title}
-            </h2>
+            <SectionHeading id="validation" title={t.sections.validation.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.validation.description} />
             <ComponentPreview code={validationCode}>
                 <div class="w-full max-w-sm space-y-4">
@@ -300,10 +274,7 @@ const formGroupCode = `<div class="cu-form-group">
 
         <!-- Disabled -->
         <section class="space-y-3">
-            <h2 id="disabled" class="text-lg font-semibold tracking-tight relative group">
-              <a href="#disabled" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              {t.sections.disabled.title}
-            </h2>
+            <SectionHeading id="disabled" title={t.sections.disabled.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.disabled.description} />
             <ComponentPreview code={disabledCode}>
                 <div class="w-full max-w-sm">
@@ -314,10 +285,7 @@ const formGroupCode = `<div class="cu-form-group">
 
         <!-- Character Count -->
         <section class="space-y-3">
-            <h2 id="character-count" class="text-lg font-semibold tracking-tight relative group">
-              <a href="#character-count" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              {t.sections.charCount.title}
-            </h2>
+            <SectionHeading id="character-count" title={t.sections.charCount.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.charCount.description} />
             <ComponentPreview code={charCountCode}>
                 <div class="w-full max-w-sm">
@@ -342,10 +310,7 @@ const formGroupCode = `<div class="cu-form-group">
 
         <!-- Clearable -->
         <section class="space-y-3">
-            <h2 id="clearable" class="text-lg font-semibold tracking-tight relative group">
-              <a href="#clearable" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              {t.sections.clearable.title}
-            </h2>
+            <SectionHeading id="clearable" title={t.sections.clearable.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.clearable.description} />
             <ComponentPreview code={clearableCode}>
                 <div class="w-full max-w-sm">

@@ -1,5 +1,6 @@
 ---
 import Layout from "@/layouts/Layout.astro";
+import SectionHeading from "@/components/SectionHeading.astro";
 // @ts-ignore - Astro component used in template
 import Steps from "@/components/ui/Steps.astro";
 import StepsItem from "@/components/ui/StepsItem.astro";
@@ -171,10 +172,7 @@ const clickableCode = `<div class="cu-steps">
     <div class="mt-10 space-y-10">
         <!-- Usage -->
         <section class="space-y-3">
-            <h2 id="usage" class="text-lg font-semibold tracking-tight relative group">
-              <a href="#usage" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              {t.sections.usage.title}
-            </h2>
+            <SectionHeading id="usage" title={t.sections.usage.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
             <ComponentPreview code={usageCode}>
                 <div class="w-full max-w-lg">
@@ -200,10 +198,7 @@ const clickableCode = `<div class="cu-steps">
 
         <!-- Classes Reference -->
         <section class="space-y-3">
-            <h2 id="classes" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#classes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.classes.title}
-            </h2>
+            <SectionHeading id="classes" title={t.sections.classes.title} />
             <div class="cu-table-wrapper rounded-lg border border-border">
                 <table class="cu-table">
                     <thead class="cu-table-header">
@@ -227,10 +222,7 @@ const clickableCode = `<div class="cu-steps">
 
         <!-- With Descriptions -->
         <section class="space-y-3">
-            <h2 id="with-descriptions" class="text-lg font-semibold tracking-tight relative group">
-              <a href="#with-descriptions" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              {t.sections.withDescriptions.title}
-            </h2>
+            <SectionHeading id="with-descriptions" title={t.sections.withDescriptions.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withDescriptions.description} />
             <ComponentPreview code={withDescCode}>
                 <div class="w-full max-w-lg">
@@ -265,10 +257,7 @@ const clickableCode = `<div class="cu-steps">
 
         <!-- Vertical -->
         <section class="space-y-3">
-            <h2 id="vertical" class="text-lg font-semibold tracking-tight relative group">
-              <a href="#vertical" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              {t.sections.vertical.title}
-            </h2>
+            <SectionHeading id="vertical" title={t.sections.vertical.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.vertical.description} />
             <ComponentPreview code={verticalCode}>
                 <div class="w-full max-w-sm">
@@ -311,10 +300,7 @@ const clickableCode = `<div class="cu-steps">
 
         <!-- Error State -->
         <section class="space-y-3">
-            <h2 id="error" class="text-lg font-semibold tracking-tight relative group">
-              <a href="#error" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              {t.sections.error.title}
-            </h2>
+            <SectionHeading id="error" title={t.sections.error.title} />
             <p class="text-base text-muted-foreground leading-relaxed">{t.sections.error.description}</p>
             <ComponentPreview code={errorCode}>
                 <div class="w-full max-w-lg">
@@ -342,10 +328,7 @@ const clickableCode = `<div class="cu-steps">
 
         <!-- Clickable Steps -->
         <section class="space-y-3">
-            <h2 id="clickable" class="text-lg font-semibold tracking-tight relative group">
-              <a href="#clickable" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              {t.sections.clickable.title}
-            </h2>
+            <SectionHeading id="clickable" title={t.sections.clickable.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.clickable.description} />
             <ComponentPreview code={clickableCode}>
                 <div class="w-full max-w-lg">

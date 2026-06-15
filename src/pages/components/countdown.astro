@@ -1,5 +1,6 @@
 ---
 import Layout from "@/layouts/Layout.astro";
+import SectionHeading from "@/components/SectionHeading.astro";
 import ComponentPreview from "@/components/ComponentPreview.astro";
 import { getLocaleFromUrl, useTranslations } from "@/i18n";
 import { countdownPage } from "@/i18n/pages/components/countdown";
@@ -176,19 +177,13 @@ const completeCode = `<div class="cu-countdown">
 
     <div class="mt-10 space-y-10">
         <section class="space-y-3">
-            <h2 id="usage" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#usage" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.usage.title}
-            </h2>
+            <SectionHeading id="usage" title={t.sections.usage.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
             <ComponentPreview code={usageCode} />
         </section>
 
         <section class="space-y-3">
-            <h2 id="classes" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#classes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.classes.title}
-            </h2>
+            <SectionHeading id="classes" title={t.sections.classes.title} />
             <div class="cu-table-wrapper rounded-lg border border-border">
                 <table class="cu-table">
                     <thead class="cu-table-header">
@@ -210,37 +205,25 @@ const completeCode = `<div class="cu-countdown">
         </section>
 
         <section class="space-y-3">
-            <h2 id="sizes" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#sizes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.sizes.title}
-            </h2>
+            <SectionHeading id="sizes" title={t.sections.sizes.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.sizes.description} />
             <ComponentPreview code={sizesCode} />
         </section>
 
         <section class="space-y-3">
-            <h2 id="flush" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#flush" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.flush.title}
-            </h2>
+            <SectionHeading id="flush" title={t.sections.flush.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.flush.description} />
             <ComponentPreview code={flushCode} />
         </section>
 
         <section class="space-y-3">
-            <h2 id="with-separator" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#with-separator" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.withSeparator.title}
-            </h2>
+            <SectionHeading id="with-separator" title={t.sections.withSeparator.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withSeparator.description} />
             <ComponentPreview code={withSeparatorCode} />
         </section>
 
         <section class="space-y-3">
-            <h2 id="complete" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#complete" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.complete.title}
-            </h2>
+            <SectionHeading id="complete" title={t.sections.complete.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.complete.description} />
             <ComponentPreview code={completeCode} />
         </section>

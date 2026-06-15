@@ -1,5 +1,6 @@
 ---
 import Layout from "@/layouts/Layout.astro";
+import SectionHeading from "@/components/SectionHeading.astro";
 import ComponentPreview from "@/components/ComponentPreview.astro";
 import { getLocaleFromUrl, useTranslations } from "@/i18n";
 import { tablePage } from "@/i18n/pages/components/table";
@@ -223,10 +224,7 @@ const withRowActionsCode = `<div class="cu-table-wrapper rounded-lg border borde
     <div class="mt-10 space-y-10">
         <!-- Usage -->
         <section class="space-y-3">
-            <h2 id="usage" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#usage" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.usage.title}
-            </h2>
+            <SectionHeading id="usage" title={t.sections.usage.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
             <ComponentPreview code={usageCode}>
                 <div class="w-full max-w-2xl">
@@ -268,10 +266,7 @@ const withRowActionsCode = `<div class="cu-table-wrapper rounded-lg border borde
 
         <!-- Classes Reference -->
         <section class="space-y-3">
-            <h2 id="classes" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#classes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.classes.title}
-            </h2>
+            <SectionHeading id="classes" title={t.sections.classes.title} />
             <div class="cu-table-wrapper rounded-lg border border-border">
                 <table class="cu-table">
                     <thead class="cu-table-header">
@@ -345,10 +340,7 @@ const withRowActionsCode = `<div class="cu-table-wrapper rounded-lg border borde
 
         <!-- With Footer -->
         <section class="space-y-3">
-            <h2 id="with-footer" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#with-footer" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.withFooter.title}
-            </h2>
+            <SectionHeading id="with-footer" title={t.sections.withFooter.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withFooter.description} />
             <ComponentPreview code={withFooterCode}>
                 <div class="w-full max-w-2xl">
@@ -388,10 +380,7 @@ const withRowActionsCode = `<div class="cu-table-wrapper rounded-lg border borde
 
         <!-- With Toolbar -->
         <section class="space-y-3">
-            <h2 id="with-toolbar" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#with-toolbar" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.withToolbar.title}
-            </h2>
+            <SectionHeading id="with-toolbar" title={t.sections.withToolbar.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withToolbar.description} />
             <ComponentPreview code={withToolbarCode}>
                 <div class="w-full max-w-2xl">
@@ -453,10 +442,7 @@ const withRowActionsCode = `<div class="cu-table-wrapper rounded-lg border borde
 
         <!-- With Row Actions -->
         <section class="space-y-3">
-            <h2 id="with-row-actions" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#with-row-actions" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.withRowActions.title}
-            </h2>
+            <SectionHeading id="with-row-actions" title={t.sections.withRowActions.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withRowActions.description} />
             <ComponentPreview code={withRowActionsCode}>
                 <div class="w-full max-w-2xl">
@@ -525,10 +511,7 @@ const withRowActionsCode = `<div class="cu-table-wrapper rounded-lg border borde
 
         <!-- Sticky Header -->
         <section class="space-y-3">
-            <h2 id="sticky-header" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#sticky-header" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.stickyHeader.title}
-            </h2>
+            <SectionHeading id="sticky-header" title={t.sections.stickyHeader.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.stickyHeader.description} />
             <ComponentPreview code={stickyHeaderCode}>
                 <div class="w-full max-w-2xl">

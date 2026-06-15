@@ -1,5 +1,6 @@
 ---
 import Layout from "@/layouts/Layout.astro";
+import SectionHeading from "@/components/SectionHeading.astro";
 import ComponentPreview from "@/components/ComponentPreview.astro";
 import { getLocaleFromUrl, useTranslations } from "@/i18n";
 import { tourPage } from "@/i18n/pages/components/tour";
@@ -133,20 +134,14 @@ const autoStartCode = `<!-- Auto-start tour on page load -->
     <div class="mt-10 space-y-10">
         <!-- Usage -->
         <section class="space-y-3">
-            <h2 id="usage" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#usage" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.usage.title}
-            </h2>
+            <SectionHeading id="usage" title={t.sections.usage.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
             <ComponentPreview code={usageCode} />
         </section>
 
         <!-- Classes Reference -->
         <section class="space-y-3">
-            <h2 id="classes" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#classes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.classes.title}
-            </h2>
+            <SectionHeading id="classes" title={t.sections.classes.title} />
             <div class="cu-table-wrapper rounded-lg border border-border">
                 <table class="cu-table">
                     <thead class="cu-table-header">
@@ -169,30 +164,21 @@ const autoStartCode = `<!-- Auto-start tour on page load -->
 
         <!-- Steps -->
         <section class="space-y-3">
-            <h2 id="steps" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#steps" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.steps.title}
-            </h2>
+            <SectionHeading id="steps" title={t.sections.steps.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.steps.description} />
             <ComponentPreview code={stepsCode} />
         </section>
 
         <!-- Placement -->
         <section class="space-y-3">
-            <h2 id="placement" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#placement" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.placement.title}
-            </h2>
+            <SectionHeading id="placement" title={t.sections.placement.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.placement.description} />
             <ComponentPreview code={placementCode} />
         </section>
 
         <!-- Auto Start -->
         <section class="space-y-3">
-            <h2 id="auto-start" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#auto-start" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.autoStart.title}
-            </h2>
+            <SectionHeading id="auto-start" title={t.sections.autoStart.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.autoStart.description} />
             <ComponentPreview code={autoStartCode} />
         </section>

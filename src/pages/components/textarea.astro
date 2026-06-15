@@ -1,5 +1,6 @@
 ---
 import Layout from "@/layouts/Layout.astro";
+import SectionHeading from "@/components/SectionHeading.astro";
 // @ts-ignore - Astro component used in template
 import Textarea from "@/components/ui/Textarea.astro";
 import Label from "@/components/ui/Label.astro";
@@ -50,10 +51,7 @@ const disabledCode = `<textarea class="cu-textarea" placeholder="Disabled textar
     <div class="mt-10 space-y-10">
         <!-- Usage -->
         <section class="space-y-3">
-            <h2 id="usage" class="text-lg font-semibold tracking-tight relative group">
-              <a href="#usage" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              {t.sections.usage.title}
-            </h2>
+            <SectionHeading id="usage" title={t.sections.usage.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
             <ComponentPreview code={usageCode}>
                 <div class="w-full max-w-sm">
@@ -64,10 +62,7 @@ const disabledCode = `<textarea class="cu-textarea" placeholder="Disabled textar
 
         <!-- Classes Reference -->
         <section class="space-y-3">
-          <h2 id="classes" class="text-lg font-semibold tracking-tight relative group">
-            <a href="#classes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-            {t.sections.classes.title}
-          </h2>
+          <SectionHeading id="classes" title={t.sections.classes.title} />
           <div class="cu-table-wrapper rounded-lg border border-border">
             <table class="cu-table">
               <thead class="cu-table-header">
@@ -91,10 +86,7 @@ const disabledCode = `<textarea class="cu-textarea" placeholder="Disabled textar
 
         <!-- With Label -->
         <section class="space-y-3">
-            <h2 id="with-label" class="text-lg font-semibold tracking-tight relative group">
-              <a href="#with-label" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              {t.sections.withLabel.title}
-            </h2>
+            <SectionHeading id="with-label" title={t.sections.withLabel.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withLabel.description} />
             <ComponentPreview code={withLabelCode}>
                 <div class="w-full max-w-sm">
@@ -108,10 +100,7 @@ const disabledCode = `<textarea class="cu-textarea" placeholder="Disabled textar
 
         <!-- Validation -->
         <section class="space-y-3">
-            <h2 id="validation" class="text-lg font-semibold tracking-tight relative group">
-              <a href="#validation" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              {t.sections.validation.title}
-            </h2>
+            <SectionHeading id="validation" title={t.sections.validation.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.validation.description} />
             <ComponentPreview code={validationCode}>
                 <div class="w-full max-w-sm space-y-4">
@@ -130,10 +119,7 @@ const disabledCode = `<textarea class="cu-textarea" placeholder="Disabled textar
 
         <!-- Auto Resize -->
         <section class="space-y-3">
-            <h2 id="auto-resize" class="text-lg font-semibold tracking-tight relative group">
-              <a href="#auto-resize" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              {t.sections.autoResize.title}
-            </h2>
+            <SectionHeading id="auto-resize" title={t.sections.autoResize.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.autoResize.description} />
             <ComponentPreview code={autoResizeCode}>
                 <div class="w-full max-w-sm">
@@ -144,10 +130,7 @@ const disabledCode = `<textarea class="cu-textarea" placeholder="Disabled textar
 
         <!-- With Default Value -->
         <section class="space-y-3">
-            <h2 id="with-default-value" class="text-lg font-semibold tracking-tight relative group">
-              <a href="#with-default-value" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              {t.sections.withDefaultValue.title}
-            </h2>
+            <SectionHeading id="with-default-value" title={t.sections.withDefaultValue.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withDefaultValue.description} />
             <ComponentPreview code={defaultValueCode}>
                 <div class="w-full max-w-sm">
@@ -158,10 +141,7 @@ const disabledCode = `<textarea class="cu-textarea" placeholder="Disabled textar
 
         <!-- Disabled -->
         <section class="space-y-3">
-            <h2 id="disabled" class="text-lg font-semibold tracking-tight relative group">
-              <a href="#disabled" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              {t.sections.disabled.title}
-            </h2>
+            <SectionHeading id="disabled" title={t.sections.disabled.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.disabled.description} />
             <ComponentPreview code={disabledCode}>
                 <div class="w-full max-w-sm">

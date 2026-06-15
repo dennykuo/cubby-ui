@@ -1,5 +1,6 @@
 ---
 import Layout from "@/layouts/Layout.astro";
+import SectionHeading from "@/components/SectionHeading.astro";
 // @ts-ignore - Astro component used in template
 import Alert from "@/components/ui/Alert.astro";
 import AlertTitle from "@/components/ui/AlertTitle.astro";
@@ -182,10 +183,7 @@ const accentCode = `<div class="cu-alert cu-alert-destructive cu-alert-accent" r
     <div class="mt-10 space-y-10">
         <!-- Usage -->
         <section class="space-y-3">
-            <h2 id="usage" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#usage" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.usage.title}
-            </h2>
+            <SectionHeading id="usage" title={t.sections.usage.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
             <ComponentPreview code={usageCode}>
                 <Alert class="max-w-lg">
@@ -199,10 +197,7 @@ const accentCode = `<div class="cu-alert cu-alert-destructive cu-alert-accent" r
 
         <!-- Classes Reference -->
         <section class="space-y-3">
-            <h2 id="classes" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#classes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.classes.title}
-            </h2>
+            <SectionHeading id="classes" title={t.sections.classes.title} />
             <div class="cu-table-wrapper rounded-lg border border-border">
                 <table class="cu-table">
                     <thead class="cu-table-header">
@@ -268,10 +263,7 @@ const accentCode = `<div class="cu-alert cu-alert-destructive cu-alert-accent" r
 
         <!-- Variants -->
         <section class="space-y-3">
-            <h2 id="variants" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#variants" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.variants.title}
-            </h2>
+            <SectionHeading id="variants" title={t.sections.variants.title} />
             <p class="text-base text-muted-foreground leading-relaxed">
                 {t.sections.variants.description}
             </p>
@@ -313,10 +305,7 @@ const accentCode = `<div class="cu-alert cu-alert-destructive cu-alert-accent" r
 
         <!-- All Icons -->
         <section class="space-y-3">
-            <h2 id="icons-for-every-variant" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#icons-for-every-variant" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.iconsForEveryVariant.title}
-            </h2>
+            <SectionHeading id="icons-for-every-variant" title={t.sections.iconsForEveryVariant.title} />
             <p class="text-base text-muted-foreground leading-relaxed">
                 {t.sections.iconsForEveryVariant.description}
             </p>
@@ -356,10 +345,7 @@ const accentCode = `<div class="cu-alert cu-alert-destructive cu-alert-accent" r
 
         <!-- With Action -->
         <section class="space-y-3">
-            <h2 id="with-action" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#with-action" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.withAction.title}
-            </h2>
+            <SectionHeading id="with-action" title={t.sections.withAction.title} />
             <p class="text-base text-muted-foreground leading-relaxed">
                 {t.sections.withAction.description}
             </p>
@@ -382,10 +368,7 @@ const accentCode = `<div class="cu-alert cu-alert-destructive cu-alert-accent" r
 
         <!-- Closable -->
         <section class="space-y-3">
-            <h2 id="closable" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#closable" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.closable.title}
-            </h2>
+            <SectionHeading id="closable" title={t.sections.closable.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.closable.description} />
             <ComponentPreview code={closableCode}>
                 <div class="cu-alert cu-alert-info cu-alert-closable max-w-lg" role="alert">
@@ -403,10 +386,7 @@ const accentCode = `<div class="cu-alert cu-alert-destructive cu-alert-accent" r
 
         <!-- Description Only -->
         <section class="space-y-3">
-            <h2 id="description-only" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#description-only" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.descriptionOnly.title}
-            </h2>
+            <SectionHeading id="description-only" title={t.sections.descriptionOnly.title} />
             <p class="text-base text-muted-foreground leading-relaxed">
                 {t.sections.descriptionOnly.description}
             </p>
@@ -422,10 +402,7 @@ const accentCode = `<div class="cu-alert cu-alert-destructive cu-alert-accent" r
 
         <!-- Accent Border -->
         <section class="space-y-3">
-            <h2 id="accent" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#accent" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.accent.title}
-            </h2>
+            <SectionHeading id="accent" title={t.sections.accent.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.accent.description} />
             <ComponentPreview code={accentCode}>
                 <div class="max-w-lg space-y-3">
@@ -459,10 +436,7 @@ const accentCode = `<div class="cu-alert cu-alert-destructive cu-alert-accent" r
 
         <!-- Expandable -->
         <section class="space-y-3">
-            <h2 id="expandable" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#expandable" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.expandable.title}
-            </h2>
+            <SectionHeading id="expandable" title={t.sections.expandable.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.expandable.description} />
             <ComponentPreview code={expandableCode}>
                 <div class="cu-alert cu-alert-info max-w-lg" data-cu-alert-expandable>
