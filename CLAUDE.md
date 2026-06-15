@@ -41,7 +41,7 @@ Cubby UI 是一個框架無關的 UI 元件庫，風格類似 shadcn/ui，使用
 - `index.ts` — `Locale` 型別、`getLocaleFromUrl()`、`localizePath()`、`getAlternatePath()`、`useTranslations()`
 - `ui.ts` — 共用 UI 翻譯（Header、Sidebar、ComponentPreview 的文字）
 - `pages/home.ts`、`usage.ts`、`theming.ts`、`dark-mode.ts`、`playground.ts` — 核心頁面翻譯
-- `pages/components/*.ts` — 85 個元件頁面翻譯（每頁一個檔案）
+- `pages/components/*.ts` — 95 個元件頁面翻譯（每頁一個檔案）
 
 **頁面 i18n 模式**：每個頁面透過 3 行程式碼取得翻譯：
 ```astro
@@ -215,7 +215,7 @@ src/
 │       ├── theming.ts
 │       ├── dark-mode.ts
 │       ├── playground.ts
-│       └── components/           — 77 個元件頁面翻譯（每元件一個檔案）
+│       └── components/           — 95 個元件頁面翻譯（每元件一個檔案）
 │           ├── button.ts
 │           ├── card.ts
 │           └── ...
