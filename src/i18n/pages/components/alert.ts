@@ -52,8 +52,8 @@ export const alertPage: Record<Locale, {
         description: 'The title is optional — use description alone for a compact inline message.',
       },
       accent: {
-        title: 'Accent Border',
-        description: 'Add <code class="cu-code">cu-alert-accent</code> for a prominent left border stripe. Combines with any variant.',
+        title: 'Accent Emphasis',
+        description: 'Add <code class="cu-code">cu-alert-accent</code> for a prominent filled emphasis (full border + tinted background). Combines with any variant.',
       },
       expandable: {
         title: 'Expandable',
@@ -71,7 +71,7 @@ export const alertPage: Record<Locale, {
       'cu-alert-description': 'Alert description text',
       'cu-alert-closable': 'Adds right padding for the close button',
       'cu-alert-close': 'Close button, absolutely positioned top-right',
-      'cu-alert-accent': 'Left accent border stripe (use with a variant)',
+      'cu-alert-accent': 'Prominent filled accent: full border + tinted background (use with a variant)',
       'cu-alert-expandable-content': 'Expandable content area with height animation',
       'cu-alert-expand-trigger': 'Toggle button for expandable content',
     },
@@ -111,8 +111,8 @@ export const alertPage: Record<Locale, {
         description: '標題為選用 — 單獨使用描述即可呈現精簡的行內訊息。',
       },
       accent: {
-        title: '重音邊框',
-        description: '加入 <code class="cu-code">cu-alert-accent</code> 以顯示醒目的左側邊框條紋。可搭配任何變體使用。',
+        title: '重音強調',
+        description: '加入 <code class="cu-code">cu-alert-accent</code> 以顯示醒目的填色強調（全框 + 背景色調）。可搭配任何變體使用。',
       },
       expandable: {
         title: '可展開',
@@ -130,7 +130,7 @@ export const alertPage: Record<Locale, {
       'cu-alert-description': 'Alert 描述文字',
       'cu-alert-closable': '為關閉按鈕預留右側 padding',
       'cu-alert-close': '關閉按鈕，絕對定位於右上角',
-      'cu-alert-accent': '左側重音邊框條紋（搭配變體使用）',
+      'cu-alert-accent': '醒目填色強調：全框 + 背景色調（搭配變體使用）',
       'cu-alert-expandable-content': '帶高度動畫的可展開內容區',
       'cu-alert-expand-trigger': '可展開內容的切換按鈕',
     },

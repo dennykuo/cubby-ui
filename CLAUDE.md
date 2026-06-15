@@ -106,7 +106,7 @@ const t = useTranslations(buttonPage, locale);
 - Progress 支援條紋動畫：`cu-progress-bar-striped` + `cu-progress-bar-striped-animated`；漸層色彩 `cu-progress-bar-gradient`
 - Badge 支援尺寸：`cu-badge-sm` / `cu-badge-lg`
 - Avatar 支援狀態指示器：`cu-avatar-status` + `cu-avatar-status-online/offline/busy/away`；外環 `cu-avatar-ring`
-- Alert accent 變體：`cu-alert-accent`（左側色條 `border-l-4`）
+- Alert accent 變體：`cu-alert-accent`（醒目填色強調，全框 + 背景 tint，取代舊的左側色條）
 - Tabs pills 變體：`cu-tabs-list-pills`（圓角藥丸形標籤）
 - Popover 尺寸：`cu-popover-content-sm`（`w-56`）/ `cu-popover-content-lg`（`w-96`）
 - Separator base class（`cu-separator`）僅含 `shrink-0 bg-border`，需明確搭配 `cu-separator-horizontal`（`h-px w-full`）或 `cu-separator-vertical`（`h-full w-px`）指定方向
