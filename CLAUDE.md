@@ -554,8 +554,9 @@ src/
 - `cu-header-nav-start` — 導航靠左（`mr-auto`，緊鄰品牌）
 - `cu-header-nav-end` — 導航靠右（`ml-auto`，緊鄰操作區）
 - `cu-header-actions` — 右側操作區（`gap-2`）
-- `cu-header-mobile-backdrop` — 遮罩層（`fixed inset-0 z-50`、`bg-foreground/30`、`opacity` 過渡 360ms）
-- `cu-header-mobile-nav` — 右側滑入面板（`fixed right-0 z-[60] w-72`、`translate-x` 過渡 360ms）
+- `cu-header-mobile-backdrop` — 遮罩層（`fixed inset-0 z-50`、`bg-foreground/30`；關閉為 `display:none`，開啟 `opacity` 過渡 360ms，採 `@starting-style` + `transition-behavior: allow-discrete`）
+- `cu-header-mobile-nav` — 右側滑入面板（`fixed right-0 z-[60] w-72`；關閉為 `display:none`、開啟 `translate-x` 過渡 360ms，採 `@starting-style` + `allow-discrete`，與 Drawer 一致）
+- `cu-header-mobile-{nav|backdrop}-{sm|md|lg|xl}` — 桌機斷點移除修飾類別（`{bp}:hidden`，含 `[data-cu-mobile-nav-open]` 變體以蓋過開啟狀態）；應與 `HeaderMobileToggle` 的 `breakpoint` 一致（皆預設 `md`）。面板/遮罩預設帶 `hidden` 屬性防 FOUC（CSS 載入前由 UA stylesheet 隱藏），JS 於開啟時移除以還原 a11y 語意
 - `cu-header-mobile-header` — 面板頂部（`h-14`、`justify-end`）
 - `cu-header-mobile-content` — 面板可捲動內容區（`overflow-y-auto p-4`）
 - `cu-header-mobile-close` — 關閉按鈕（`size-9`、`focus-visible:ring-1 ring-ring/40`）

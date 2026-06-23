@@ -1220,11 +1220,11 @@ Sizes: `cu-container-sm`, `cu-container-md`, `cu-container-lg`, `cu-container-xl
     </div>
   </div>
 </header>
-<!-- Mobile nav backdrop + panel -->
-<div id="main-nav" class="cu-header-mobile-backdrop" data-cu-mobile-nav></div>
-<nav id="main-nav-panel" class="cu-header-mobile-nav"
+<!-- Mobile nav backdrop + panel (hidden attr prevents FOUC; -md removes them on desktop) -->
+<div id="main-nav" class="cu-header-mobile-backdrop cu-header-mobile-backdrop-md" data-cu-mobile-nav hidden></div>
+<nav id="main-nav-panel" class="cu-header-mobile-nav cu-header-mobile-nav-md"
      data-cu-mobile-nav-panel="main-nav" data-cu-mobile-nav-clone
-     role="dialog" aria-modal="true" aria-label="Navigation menu">
+     role="dialog" aria-modal="true" aria-label="Navigation menu" hidden>
   <div class="cu-header-mobile-header">
     <button data-cu-mobile-nav-close class="cu-header-mobile-close" aria-label="Close menu">✕</button>
   </div>
@@ -1234,6 +1234,8 @@ Sizes: `cu-container-sm`, `cu-container-md`, `cu-container-lg`, `cu-container-xl
 Nav breakpoint modifiers: `cu-header-nav-sm`, `cu-header-nav-md`, `cu-header-nav-lg`, `cu-header-nav-xl` — hide nav below that breakpoint (cu-header-nav alone is always visible)
 Nav alignment variants: `cu-header-nav-start` (left, next to brand), `cu-header-nav-end` (right, next to actions)
 Mobile nav classes: `cu-header-mobile-nav` (right-side slide-in panel, w-72), `cu-header-mobile-backdrop` (overlay, bg-foreground/30), `cu-header-mobile-header` (justify-end), `cu-header-mobile-content`, `cu-header-mobile-close`
+Mobile nav breakpoint removal: `cu-header-mobile-nav-{sm|md|lg|xl}` + `cu-header-mobile-backdrop-{sm|md|lg|xl}` — fully hide (display:none) panel/backdrop at/above that breakpoint; match the trigger's breakpoint (default md)
+Mobile nav behavior: panel/backdrop are display:none when closed (removed from a11y tree, animated open via @starting-style + allow-discrete); add the `hidden` attribute to both by default to prevent FOUC before CSS loads (JS strips it on open)
 Mobile nav attrs: `data-cu-mobile-nav-trigger="id"`, `data-cu-mobile-nav`, `data-cu-mobile-nav-panel="id"`, `data-cu-mobile-nav-close`, `data-cu-mobile-nav-clone` (auto-clone desktop nav)
 
 **Nav**

@@ -138,12 +138,12 @@ const mobileNavCode = `<header class="cu-header">
   </div>
 </header>
 
-<!-- Backdrop -->
-<div id="main-nav" class="cu-header-mobile-backdrop" data-cu-mobile-nav></div>
+<!-- Backdrop (hidden until opened; md:hidden removes it on desktop) -->
+<div id="main-nav" class="cu-header-mobile-backdrop cu-header-mobile-backdrop-md" data-cu-mobile-nav hidden></div>
 <!-- Slide-in panel -->
-<nav id="main-nav-panel" class="cu-header-mobile-nav"
+<nav id="main-nav-panel" class="cu-header-mobile-nav cu-header-mobile-nav-md"
      data-cu-mobile-nav-panel="main-nav" data-cu-mobile-nav-clone
-     role="dialog" aria-modal="true" aria-label="Navigation menu">
+     role="dialog" aria-modal="true" aria-label="Navigation menu" hidden>
   <div class="cu-header-mobile-header">
     <button data-cu-mobile-nav-close class="cu-header-mobile-close" aria-label="Close menu">
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
@@ -178,10 +178,10 @@ const multiplePanelsCode = `<header class="cu-header">
 </header>
 
 <!-- Panel A: main-nav -->
-<div id="main-nav" class="cu-header-mobile-backdrop" data-cu-mobile-nav></div>
+<div id="main-nav" class="cu-header-mobile-backdrop" data-cu-mobile-nav hidden></div>
 <nav id="main-nav-panel" class="cu-header-mobile-nav"
      data-cu-mobile-nav-panel="main-nav"
-     role="dialog" aria-modal="true" aria-label="Main navigation">
+     role="dialog" aria-modal="true" aria-label="Main navigation" hidden>
   <div class="cu-header-mobile-header">
     <span class="mr-auto text-base font-semibold tracking-tight">Navigation</span>
     <button data-cu-mobile-nav-close class="cu-header-mobile-close" aria-label="Close menu">
@@ -198,10 +198,10 @@ const multiplePanelsCode = `<header class="cu-header">
 </nav>
 
 <!-- Panel B: filter-nav -->
-<div id="filter-nav" class="cu-header-mobile-backdrop" data-cu-mobile-nav></div>
+<div id="filter-nav" class="cu-header-mobile-backdrop" data-cu-mobile-nav hidden></div>
 <nav id="filter-nav-panel" class="cu-header-mobile-nav"
      data-cu-mobile-nav-panel="filter-nav"
-     role="dialog" aria-modal="true" aria-label="Filters">
+     role="dialog" aria-modal="true" aria-label="Filters" hidden>
   <div class="cu-header-mobile-header">
     <span class="mr-auto text-base font-semibold tracking-tight">Filters</span>
     <button data-cu-mobile-nav-close class="cu-header-mobile-close" aria-label="Close filters">
@@ -485,9 +485,9 @@ const triggerVisibilityCode = `<!-- Always visible — no breakpoint class -->
 						</div>
 					</header>
 					<!-- Backdrop (absolute for demo) -->
-					<div id="demo-nav" class="cu-header-mobile-backdrop" data-cu-mobile-nav style="position:absolute;"></div>
+					<div id="demo-nav" class="cu-header-mobile-backdrop" data-cu-mobile-nav style="position:absolute;" hidden></div>
 					<!-- Panel (absolute for demo) -->
-					<nav id="demo-nav-panel" class="cu-header-mobile-nav" data-cu-mobile-nav-panel="demo-nav" role="dialog" aria-modal="true" aria-label="Navigation menu" style="position:absolute;">
+					<nav id="demo-nav-panel" class="cu-header-mobile-nav" data-cu-mobile-nav-panel="demo-nav" role="dialog" aria-modal="true" aria-label="Navigation menu" style="position:absolute;" hidden>
 						<div class="cu-header-mobile-header">
 							<button data-cu-mobile-nav-close class="cu-header-mobile-close" aria-label="Close menu">
 								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
@@ -584,8 +584,8 @@ const triggerVisibilityCode = `<!-- Always visible — no breakpoint class -->
 						</div>
 					</header>
 					<!-- Panel A backdrop + panel -->
-					<div id="demo-main-nav" class="cu-header-mobile-backdrop" data-cu-mobile-nav style="position:absolute;"></div>
-					<nav id="demo-main-nav-panel" class="cu-header-mobile-nav" data-cu-mobile-nav-panel="demo-main-nav" role="dialog" aria-modal="true" aria-label="Main navigation" style="position:absolute;">
+					<div id="demo-main-nav" class="cu-header-mobile-backdrop" data-cu-mobile-nav style="position:absolute;" hidden></div>
+					<nav id="demo-main-nav-panel" class="cu-header-mobile-nav" data-cu-mobile-nav-panel="demo-main-nav" role="dialog" aria-modal="true" aria-label="Main navigation" style="position:absolute;" hidden>
 						<div class="cu-header-mobile-header">
 							<span class="mr-auto text-base font-semibold tracking-tight">Navigation</span>
 							<button data-cu-mobile-nav-close class="cu-header-mobile-close" aria-label="Close menu">
@@ -601,8 +601,8 @@ const triggerVisibilityCode = `<!-- Always visible — no breakpoint class -->
 						</div>
 					</nav>
 					<!-- Panel B backdrop + panel -->
-					<div id="demo-filter-nav" class="cu-header-mobile-backdrop" data-cu-mobile-nav style="position:absolute;"></div>
-					<nav id="demo-filter-nav-panel" class="cu-header-mobile-nav" data-cu-mobile-nav-panel="demo-filter-nav" role="dialog" aria-modal="true" aria-label="Filters" style="position:absolute;">
+					<div id="demo-filter-nav" class="cu-header-mobile-backdrop" data-cu-mobile-nav style="position:absolute;" hidden></div>
+					<nav id="demo-filter-nav-panel" class="cu-header-mobile-nav" data-cu-mobile-nav-panel="demo-filter-nav" role="dialog" aria-modal="true" aria-label="Filters" style="position:absolute;" hidden>
 						<div class="cu-header-mobile-header">
 							<span class="mr-auto text-base font-semibold tracking-tight">Filters</span>
 							<button data-cu-mobile-nav-close class="cu-header-mobile-close" aria-label="Close filters">

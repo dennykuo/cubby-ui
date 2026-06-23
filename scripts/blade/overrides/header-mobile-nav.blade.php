@@ -2,25 +2,30 @@
     'id' => null,
     'label' => 'Navigation menu',
     'clone' => false,
+    'breakpoint' => 'md',
 ])
 
 @php
     $panelId = $id . '-panel';
+    $navBp = $breakpoint === 'always' ? '' : 'cu-header-mobile-nav-' . $breakpoint;
+    $backdropBp = $breakpoint === 'always' ? '' : 'cu-header-mobile-backdrop-' . $breakpoint;
 @endphp
 
 <div
     id="{{ $id }}"
-    {{ $attributes->class(['cu-header-mobile-backdrop']) }}
+    {{ $attributes->class(array_filter(['cu-header-mobile-backdrop', $backdropBp])) }}
     data-cu-mobile-nav
+    hidden
 ></div>
 <nav
     id="{{ $panelId }}"
-    class="cu-header-mobile-nav"
+    @class(array_filter(['cu-header-mobile-nav', $navBp]))
     data-cu-mobile-nav-panel="{{ $id }}"
     @if($clone) data-cu-mobile-nav-clone @endif
     role="dialog"
     aria-modal="true"
     aria-label="{{ $label }}"
+    hidden
     {{ $attributes->except('class') }}
 >
     <div class="cu-header-mobile-header">

@@ -1108,6 +1108,11 @@
       _mobileNavs.push(mn);
 
       trigger.addEventListener("click", function () {
+        // Drop the FOUC-guard `hidden` attribute (UA-hidden until CSS loads) so
+        // the panel re-enters the a11y tree; the closed state is governed by the
+        // CSS display:none from here on.
+        panel.removeAttribute("hidden");
+        backdrop.removeAttribute("hidden");
         panel.setAttribute("data-cu-mobile-nav-open", "");
         backdrop.setAttribute("data-cu-mobile-nav-open", "");
         trigger.setAttribute("aria-expanded", "true");

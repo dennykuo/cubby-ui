@@ -5,23 +5,29 @@ interface Props {
 	id: string;
 	label?: string;
 	clone?: boolean;
+	/** Breakpoint at/above which the panel + backdrop are fully removed
+	 *  (display:none). Should match the paired HeaderMobileToggle. */
+	breakpoint?: "sm" | "md" | "lg" | "xl" | "always";
 	class?: string;
 	[key: string]: any;
 }
 
-const { id, label = "Navigation menu", clone = false, class: className, ...rest } = Astro.props;
+const { id, label = "Navigation menu", clone = false, breakpoint = "md", class: className, ...rest } = Astro.props;
 const panelId = `${id}-panel`;
+const navBp = breakpoint === "always" ? "" : `${TOP_CLASS}-header-mobile-nav-${breakpoint}`;
+const backdropBp = breakpoint === "always" ? "" : `${TOP_CLASS}-header-mobile-backdrop-${breakpoint}`;
 ---
 
-<div id={id} class:list={[`${TOP_CLASS}-header-mobile-backdrop`, className]} data-cu-mobile-nav></div>
+<div id={id} class:list={[`${TOP_CLASS}-header-mobile-backdrop`, backdropBp, className]} data-cu-mobile-nav hidden></div>
 <nav
 	id={panelId}
-	class:list={[`${TOP_CLASS}-header-mobile-nav`]}
+	class:list={[`${TOP_CLASS}-header-mobile-nav`, navBp]}
 	data-cu-mobile-nav-panel={id}
 	{...(clone ? { "data-cu-mobile-nav-clone": "" } : {})}
 	role="dialog"
 	aria-modal="true"
 	aria-label={label}
+	hidden
 	{...rest}
 >
 	<div class={`${TOP_CLASS}-header-mobile-header`}>
