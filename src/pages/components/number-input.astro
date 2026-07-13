@@ -1,5 +1,6 @@
 ---
 import Layout from "@/layouts/Layout.astro";
+import SectionHeading from "@/components/SectionHeading.astro";
 import ComponentPreview from "@/components/ComponentPreview.astro";
 import { getLocaleFromUrl, useTranslations } from "@/i18n";
 import { numberInputPage } from "@/i18n/pages/components/number-input";
@@ -126,10 +127,7 @@ const currencyCode = `<div class="w-[250px]">
     <div class="mt-10 space-y-10">
         <!-- Usage -->
         <section class="space-y-3">
-            <h2 id="usage" class="text-lg font-semibold tracking-tight relative group">
-              <a href="#usage" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              {t.sections.usage.title}
-            </h2>
+            <SectionHeading id="usage" title={t.sections.usage.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
             <ComponentPreview code={usageCode}>
                 <div class="cu-number-input" data-cu-number-input>
@@ -146,10 +144,7 @@ const currencyCode = `<div class="w-[250px]">
 
         <!-- Classes Reference -->
         <section class="space-y-3">
-            <h2 id="classes" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#classes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.classes.title}
-            </h2>
+            <SectionHeading id="classes" title={t.sections.classes.title} />
             <div class="cu-table-wrapper rounded-lg border border-border">
                 <table class="cu-table">
                     <thead class="cu-table-header">
@@ -183,10 +178,7 @@ const currencyCode = `<div class="w-[250px]">
 
         <!-- With Min/Max -->
         <section class="space-y-3">
-            <h2 id="with-min-max" class="text-lg font-semibold tracking-tight relative group">
-              <a href="#with-min-max" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              {t.sections.withMinMax.title}
-            </h2>
+            <SectionHeading id="with-min-max" title={t.sections.withMinMax.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withMinMax.description} />
             <ComponentPreview code={minMaxCode}>
                 <div class="cu-number-input" data-cu-number-input>
@@ -203,10 +195,7 @@ const currencyCode = `<div class="w-[250px]">
 
         <!-- Disabled -->
         <section class="space-y-3">
-            <h2 id="disabled" class="text-lg font-semibold tracking-tight relative group">
-              <a href="#disabled" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              {t.sections.disabled.title}
-            </h2>
+            <SectionHeading id="disabled" title={t.sections.disabled.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.disabled.description} />
             <ComponentPreview code={disabledCode}>
                 <div class="cu-number-input cu-number-input-disabled" data-cu-number-input>
@@ -223,10 +212,7 @@ const currencyCode = `<div class="w-[250px]">
 
         <!-- With Prefix / Suffix -->
         <section class="space-y-3">
-            <h2 id="with-prefix-suffix" class="text-lg font-semibold tracking-tight relative group">
-              <a href="#with-prefix-suffix" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              {t.sections.withPrefixSuffix.title}
-            </h2>
+            <SectionHeading id="with-prefix-suffix" title={t.sections.withPrefixSuffix.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withPrefixSuffix.description} />
             <ComponentPreview code={withPrefixSuffixCode}>
                 <div class="flex items-center gap-6">
@@ -266,10 +252,7 @@ const currencyCode = `<div class="w-[250px]">
 
         <!-- Currency Input -->
         <section class="space-y-3">
-            <h2 id="currency" class="text-lg font-semibold tracking-tight relative group">
-              <a href="#currency" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              {t.sections.currency.title}
-            </h2>
+            <SectionHeading id="currency" title={t.sections.currency.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.currency.description} />
             <ComponentPreview code={currencyCode}>
                 <div class="w-[250px]">

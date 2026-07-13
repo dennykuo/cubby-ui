@@ -1,0 +1,36 @@
+name: CI
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+
+# 同一分支的新 push 取消尚在執行的舊 run，節省額度
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      # npm ci 會觸發 prepare → build:all（build + build:blade），
+      # 因此安裝步驟本身即驗證了 NPM 套件與 Blade 元件可正常建置。
+      - name: 安裝依賴並建置（prepare 執行 build:all）
+        run: npm ci
+
+      - name: 元件清單同步檢查
+        run: npm run check:sync
+
+      - name: 型別檢查
+        run: npm run type-check
+
+      - name: Blade 回歸測試
+        run: npm run test:blade

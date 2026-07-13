@@ -1,5 +1,6 @@
 ---
 import Layout from "@/layouts/Layout.astro";
+import SectionHeading from "@/components/SectionHeading.astro";
 import ComponentPreview from "@/components/ComponentPreview.astro";
 import { getLocaleFromUrl, useTranslations } from "@/i18n";
 import { chatInputPage } from "@/i18n/pages/components/chat-input";
@@ -98,10 +99,7 @@ const withToolbarCode = `<div class="w-full max-w-lg space-y-0">
     <div class="mt-10 space-y-10">
         <!-- Usage -->
         <section class="space-y-3">
-            <h2 id="usage" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#usage" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.usage.title}
-            </h2>
+            <SectionHeading id="usage" title={t.sections.usage.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
             <ComponentPreview code={usageCode}>
                 <div class="w-full max-w-lg">
@@ -119,10 +117,7 @@ const withToolbarCode = `<div class="w-full max-w-lg space-y-0">
 
         <!-- Classes Reference -->
         <section class="space-y-3">
-            <h2 id="classes" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#classes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.classes.title}
-            </h2>
+            <SectionHeading id="classes" title={t.sections.classes.title} />
             <div class="cu-table-wrapper rounded-lg border border-border">
                 <table class="cu-table">
                     <thead class="cu-table-header">
@@ -145,10 +140,7 @@ const withToolbarCode = `<div class="w-full max-w-lg space-y-0">
 
         <!-- With Attachment Button -->
         <section class="space-y-3">
-            <h2 id="with-attach" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#with-attach" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.withAttach.title}
-            </h2>
+            <SectionHeading id="with-attach" title={t.sections.withAttach.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withAttach.description} />
             <ComponentPreview code={withAttachCode}>
                 <div class="w-full max-w-lg">
@@ -171,10 +163,7 @@ const withToolbarCode = `<div class="w-full max-w-lg space-y-0">
 
         <!-- Disabled State -->
         <section class="space-y-3">
-            <h2 id="disabled" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#disabled" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.disabled.title}
-            </h2>
+            <SectionHeading id="disabled" title={t.sections.disabled.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.disabled.description} />
             <ComponentPreview code={disabledCode}>
                 <div class="w-full max-w-lg">
@@ -192,10 +181,7 @@ const withToolbarCode = `<div class="w-full max-w-lg space-y-0">
 
         <!-- Multi-Row -->
         <section class="space-y-3">
-            <h2 id="multi-row" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#multi-row" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.multiRow.title}
-            </h2>
+            <SectionHeading id="multi-row" title={t.sections.multiRow.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.multiRow.description} />
             <ComponentPreview code={multiRowCode}>
                 <div class="cu-chat-input w-full max-w-lg">
@@ -214,10 +200,7 @@ const withToolbarCode = `<div class="w-full max-w-lg space-y-0">
 
         <!-- With Toolbar -->
         <section class="space-y-3">
-            <h2 id="with-toolbar" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#with-toolbar" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.withToolbar.title}
-            </h2>
+            <SectionHeading id="with-toolbar" title={t.sections.withToolbar.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withToolbar.description} />
             <ComponentPreview code={withToolbarCode}>
                 <div class="w-full max-w-lg space-y-0">

@@ -1,5 +1,6 @@
 ---
 import Layout from "@/layouts/Layout.astro";
+import SectionHeading from "@/components/SectionHeading.astro";
 // @ts-ignore - Astro component used in template
 import Separator from "@/components/ui/Separator.astro";
 import ComponentPreview from "@/components/ComponentPreview.astro";
@@ -75,10 +76,7 @@ const withIconCode = `<div class="relative flex items-center py-4">
     <div class="mt-10 space-y-10">
         <!-- Usage -->
         <section class="space-y-3">
-            <h2 id="usage" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#usage" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.usage.title}
-            </h2>
+            <SectionHeading id="usage" title={t.sections.usage.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
             <ComponentPreview code={usageCode}>
                 <div class="w-full max-w-lg">
@@ -89,10 +87,7 @@ const withIconCode = `<div class="relative flex items-center py-4">
 
     <!-- Classes Reference -->
     <section class="space-y-3">
-      <h2 id="classes" class="text-lg font-semibold tracking-tight relative group">
-        <a href="#classes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-        {t.sections.classes.title}
-      </h2>
+      <SectionHeading id="classes" title={t.sections.classes.title} />
       <div class="cu-table-wrapper rounded-lg border border-border">
         <table class="cu-table">
           <thead class="cu-table-header">
@@ -116,10 +111,7 @@ const withIconCode = `<div class="relative flex items-center py-4">
 
         <!-- With Text -->
         <section class="space-y-3">
-            <h2 id="with-text" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#with-text" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.withText.title}
-            </h2>
+            <SectionHeading id="with-text" title={t.sections.withText.title} />
             <p class="text-base text-muted-foreground leading-relaxed">
                 {t.sections.withText.description}
             </p>
@@ -143,10 +135,7 @@ const withIconCode = `<div class="relative flex items-center py-4">
 
         <!-- Vertical -->
         <section class="space-y-3">
-            <h2 id="vertical" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#vertical" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.vertical.title}
-            </h2>
+            <SectionHeading id="vertical" title={t.sections.vertical.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.vertical.description} />
             <ComponentPreview code={verticalCode}>
                 <div class="flex h-5 items-center gap-4 text-sm">
@@ -161,10 +150,7 @@ const withIconCode = `<div class="relative flex items-center py-4">
 
         <!-- In Toolbar -->
         <section class="space-y-3">
-            <h2 id="in-toolbar" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#in-toolbar" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.inToolbar.title}
-            </h2>
+            <SectionHeading id="in-toolbar" title={t.sections.inToolbar.title} />
             <p class="text-base text-muted-foreground leading-relaxed">
                 {t.sections.inToolbar.description}
             </p>
@@ -192,10 +178,7 @@ const withIconCode = `<div class="relative flex items-center py-4">
 
         <!-- With Icon -->
         <section class="space-y-3">
-            <h2 id="with-icon" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#with-icon" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.withIcon.title}
-            </h2>
+            <SectionHeading id="with-icon" title={t.sections.withIcon.title} />
             <p class="text-base text-muted-foreground leading-relaxed">
                 {t.sections.withIcon.description}
             </p>

@@ -1,5 +1,6 @@
 ---
 import Layout from "@/layouts/Layout.astro";
+import SectionHeading from "@/components/SectionHeading.astro";
 import Button from "@/components/ui/Button.astro";
 // @ts-ignore - Astro component used in template
 import Card from "@/components/ui/Card.astro";
@@ -404,10 +405,7 @@ const tableInCardCode = `<div class="cu-card">
     <div class="mt-10 space-y-10">
         <!-- Usage -->
         <section class="space-y-3">
-            <h2 id="usage" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#usage" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.usage.title}
-            </h2>
+            <SectionHeading id="usage" title={t.sections.usage.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
             <ComponentPreview code={usageCode}>
                 <Card class="w-[380px]">
@@ -427,10 +425,7 @@ const tableInCardCode = `<div class="cu-card">
 
     <!-- Classes Reference -->
     <section class="space-y-3">
-      <h2 id="classes" class="text-lg font-semibold tracking-tight relative group">
-        <a href="#classes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-        {t.sections.classes.title}
-      </h2>
+      <SectionHeading id="classes" title={t.sections.classes.title} />
       <div class="cu-table-wrapper rounded-lg border border-border">
         <table class="cu-table">
           <thead class="cu-table-header">
@@ -454,10 +449,7 @@ const tableInCardCode = `<div class="cu-card">
 
         <!-- Outlined -->
         <section class="space-y-3">
-            <h2 id="outlined" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#outlined" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.outlined.title}
-            </h2>
+            <SectionHeading id="outlined" title={t.sections.outlined.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.outlined.description} />
             <ComponentPreview code={outlinedCode}>
                 <div class="grid w-full grid-cols-1 gap-4 sm:grid-cols-2">
@@ -479,10 +471,7 @@ const tableInCardCode = `<div class="cu-card">
 
         <!-- Hover Cards -->
         <section class="space-y-3">
-            <h2 id="hover-effect" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#hover-effect" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.hoverEffect.title}
-            </h2>
+            <SectionHeading id="hover-effect" title={t.sections.hoverEffect.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.hoverEffect.description} />
             <ComponentPreview code={hoverCode}>
                 <div class="grid w-full grid-cols-1 gap-4 sm:grid-cols-3">
@@ -519,10 +508,7 @@ const tableInCardCode = `<div class="cu-card">
 
         <!-- Metric Card -->
         <section class="space-y-3">
-            <h2 id="metric-card" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#metric-card" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.metricCard.title}
-            </h2>
+            <SectionHeading id="metric-card" title={t.sections.metricCard.title} />
             <p class="text-base text-muted-foreground leading-relaxed">
                 {t.sections.metricCard.description}
             </p>
@@ -554,10 +540,7 @@ const tableInCardCode = `<div class="cu-card">
 
         <!-- Form Card -->
         <section class="space-y-3">
-            <h2 id="form-card" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#form-card" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.formCard.title}
-            </h2>
+            <SectionHeading id="form-card" title={t.sections.formCard.title} />
             <p class="text-base text-muted-foreground leading-relaxed">
                 {t.sections.formCard.description}
             </p>
@@ -598,10 +581,7 @@ const tableInCardCode = `<div class="cu-card">
 
         <!-- Notification Card -->
         <section class="space-y-3">
-            <h2 id="notification-card" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#notification-card" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.notificationCard.title}
-            </h2>
+            <SectionHeading id="notification-card" title={t.sections.notificationCard.title} />
             <p class="text-base text-muted-foreground leading-relaxed">
                 {t.sections.notificationCard.description}
             </p>
@@ -646,10 +626,7 @@ const tableInCardCode = `<div class="cu-card">
 
         <!-- Table in Card -->
         <section class="space-y-3">
-            <h2 id="table-in-card" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#table-in-card" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.tableInCard.title}
-            </h2>
+            <SectionHeading id="table-in-card" title={t.sections.tableInCard.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.tableInCard.description} />
             <ComponentPreview code={tableInCardCode}>
                 <Card class="w-full max-w-lg">
@@ -693,10 +670,7 @@ const tableInCardCode = `<div class="cu-card">
 
         <!-- Profile Card -->
         <section class="space-y-3">
-            <h2 id="profile-card" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#profile-card" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.profileCard.title}
-            </h2>
+            <SectionHeading id="profile-card" title={t.sections.profileCard.title} />
             <p class="text-base text-muted-foreground leading-relaxed">
                 {t.sections.profileCard.description}
             </p>
@@ -741,10 +715,7 @@ const tableInCardCode = `<div class="cu-card">
 
         <!-- Pricing Cards -->
         <section class="space-y-3">
-            <h2 id="pricing-cards" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#pricing-cards" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.pricingCards.title}
-            </h2>
+            <SectionHeading id="pricing-cards" title={t.sections.pricingCards.title} />
             <p class="text-base text-muted-foreground leading-relaxed">
                 {t.sections.pricingCards.description}
             </p>
@@ -840,10 +811,7 @@ const tableInCardCode = `<div class="cu-card">
 
         <!-- Card with Image -->
         <section class="space-y-3">
-            <h2 id="with-image" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#with-image" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.withImage.title}
-            </h2>
+            <SectionHeading id="with-image" title={t.sections.withImage.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withImage.description} />
             <ComponentPreview code={withImageCode}>
                 <Card class="w-[380px]">
@@ -868,10 +836,7 @@ const tableInCardCode = `<div class="cu-card">
 
         <!-- Horizontal Card -->
         <section class="space-y-3">
-            <h2 id="horizontal" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#horizontal" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.horizontal.title}
-            </h2>
+            <SectionHeading id="horizontal" title={t.sections.horizontal.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.horizontal.description} />
             <ComponentPreview code={horizontalCardCode}>
                 <Card class="cu-card-horizontal w-full max-w-lg">
@@ -897,10 +862,7 @@ const tableInCardCode = `<div class="cu-card">
 
         <!-- Selectable Card -->
         <section class="space-y-3">
-            <h2 id="selectable" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#selectable" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.selectable.title}
-            </h2>
+            <SectionHeading id="selectable" title={t.sections.selectable.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.selectable.description} />
             <ComponentPreview code={selectableCardCode}>
                 <fieldset class="grid w-full grid-cols-1 gap-4 sm:grid-cols-3">

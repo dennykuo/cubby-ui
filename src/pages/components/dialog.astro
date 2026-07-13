@@ -1,5 +1,6 @@
 ---
 import Layout from "@/layouts/Layout.astro";
+import SectionHeading from "@/components/SectionHeading.astro";
 import ComponentPreview from "@/components/ComponentPreview.astro";
 import { getLocaleFromUrl, useTranslations } from "@/i18n";
 import { dialogPage } from "@/i18n/pages/components/dialog";
@@ -196,10 +197,7 @@ const successCode = `<button class="cu-button cu-button-outline cu-button-md" da
     <div class="mt-10 space-y-10">
         <!-- Usage -->
         <section class="space-y-3">
-            <h2 id="usage" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#usage" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.usage.title}
-            </h2>
+            <SectionHeading id="usage" title={t.sections.usage.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
             <ComponentPreview code={usageCode}>
                 <button class="cu-button cu-button-outline cu-button-md" data-cu-dialog-trigger="demo-dialog">
@@ -224,10 +222,7 @@ const successCode = `<button class="cu-button cu-button-outline cu-button-md" da
 
         <!-- Classes Reference -->
         <section class="space-y-3">
-            <h2 id="classes" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#classes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.classes.title}
-            </h2>
+            <SectionHeading id="classes" title={t.sections.classes.title} />
             <div class="cu-table-wrapper rounded-lg border border-border">
                 <table class="cu-table">
                     <thead class="cu-table-header">
@@ -251,10 +246,7 @@ const successCode = `<button class="cu-button cu-button-outline cu-button-md" da
 
         <!-- Sizes -->
         <section class="space-y-3">
-            <h2 id="sizes" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#sizes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.sizes.title}
-            </h2>
+            <SectionHeading id="sizes" title={t.sections.sizes.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.sizes.description} />
             <ComponentPreview code={sizesCode}>
                 <div class="flex flex-wrap gap-3 items-center justify-center">
@@ -320,10 +312,7 @@ const successCode = `<button class="cu-button cu-button-outline cu-button-md" da
 
         <!-- With Form -->
         <section class="space-y-3">
-            <h2 id="with-form" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#with-form" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.withForm.title}
-            </h2>
+            <SectionHeading id="with-form" title={t.sections.withForm.title} />
             <p class="text-base text-muted-foreground leading-relaxed">
                 {t.sections.withForm.description}
             </p>
@@ -359,10 +348,7 @@ const successCode = `<button class="cu-button cu-button-outline cu-button-md" da
 
         <!-- Destructive Confirmation -->
         <section class="space-y-3">
-            <h2 id="destructive-confirmation" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#destructive-confirmation" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.destructiveConfirmation.title}
-            </h2>
+            <SectionHeading id="destructive-confirmation" title={t.sections.destructiveConfirmation.title} />
             <p class="text-base text-muted-foreground leading-relaxed">
                 {t.sections.destructiveConfirmation.description}
             </p>
@@ -392,10 +378,7 @@ const successCode = `<button class="cu-button cu-button-outline cu-button-md" da
 
         <!-- Success State -->
         <section class="space-y-3">
-            <h2 id="success-state" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#success-state" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.successState.title}
-            </h2>
+            <SectionHeading id="success-state" title={t.sections.successState.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.successState.description} />
             <ComponentPreview code={successCode}>
                 <button class="cu-button cu-button-outline cu-button-md" data-cu-dialog-trigger="success-dialog">
@@ -418,10 +401,7 @@ const successCode = `<button class="cu-button cu-button-outline cu-button-md" da
 
         <!-- Scrollable Content -->
         <section class="space-y-3">
-            <h2 id="scrollable" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#scrollable" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.scrollable.title}
-            </h2>
+            <SectionHeading id="scrollable" title={t.sections.scrollable.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.scrollable.description} />
             <ComponentPreview code={scrollableCode}>
                 <button class="cu-button cu-button-outline cu-button-md" data-cu-dialog-trigger="scrollable-dialog">Open Scrollable Dialog</button>
@@ -461,10 +441,7 @@ const successCode = `<button class="cu-button cu-button-outline cu-button-md" da
 
         <!-- Nested Dialog -->
         <section class="space-y-3">
-            <h2 id="nested" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#nested" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.nested.title}
-            </h2>
+            <SectionHeading id="nested" title={t.sections.nested.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.nested.description} />
             <ComponentPreview code={nestedCode}>
                 <button class="cu-button cu-button-outline cu-button-md" data-cu-dialog-trigger="outer-dialog">Open Dialog</button>

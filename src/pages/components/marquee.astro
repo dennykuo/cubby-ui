@@ -1,5 +1,6 @@
 ---
 import Layout from "@/layouts/Layout.astro";
+import SectionHeading from "@/components/SectionHeading.astro";
 import ComponentPreview from "@/components/ComponentPreview.astro";
 import { getLocaleFromUrl, useTranslations } from "@/i18n";
 import { marqueePage } from "@/i18n/pages/components/marquee";
@@ -235,19 +236,13 @@ const logosCode = `<div class="cu-marquee cu-marquee-fade cu-marquee-pause-on-ho
 
     <div class="mt-10 space-y-10">
         <section class="space-y-3">
-            <h2 id="usage" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#usage" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.usage.title}
-            </h2>
+            <SectionHeading id="usage" title={t.sections.usage.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
             <ComponentPreview code={usageCode} />
         </section>
 
         <section class="space-y-3">
-            <h2 id="classes" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#classes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.classes.title}
-            </h2>
+            <SectionHeading id="classes" title={t.sections.classes.title} />
             <div class="cu-table-wrapper rounded-lg border border-border">
                 <table class="cu-table">
                     <thead class="cu-table-header">
@@ -269,55 +264,37 @@ const logosCode = `<div class="cu-marquee cu-marquee-fade cu-marquee-pause-on-ho
         </section>
 
         <section class="space-y-3">
-            <h2 id="reverse" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#reverse" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.reverse.title}
-            </h2>
+            <SectionHeading id="reverse" title={t.sections.reverse.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.reverse.description} />
             <ComponentPreview code={reverseCode} />
         </section>
 
         <section class="space-y-3">
-            <h2 id="fade" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#fade" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.fade.title}
-            </h2>
+            <SectionHeading id="fade" title={t.sections.fade.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.fade.description} />
             <ComponentPreview code={fadeCode} />
         </section>
 
         <section class="space-y-3">
-            <h2 id="pause-on-hover" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#pause-on-hover" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.pauseOnHover.title}
-            </h2>
+            <SectionHeading id="pause-on-hover" title={t.sections.pauseOnHover.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.pauseOnHover.description} />
             <ComponentPreview code={pauseOnHoverCode} />
         </section>
 
         <section class="space-y-3">
-            <h2 id="vertical" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#vertical" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.vertical.title}
-            </h2>
+            <SectionHeading id="vertical" title={t.sections.vertical.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.vertical.description} />
             <ComponentPreview code={verticalCode} />
         </section>
 
         <section class="space-y-3">
-            <h2 id="speed" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#speed" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.speed.title}
-            </h2>
+            <SectionHeading id="speed" title={t.sections.speed.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.speed.description} />
             <ComponentPreview code={speedCode} />
         </section>
 
         <section class="space-y-3">
-            <h2 id="logos" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#logos" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.logos.title}
-            </h2>
+            <SectionHeading id="logos" title={t.sections.logos.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.logos.description} />
             <ComponentPreview code={logosCode} />
         </section>

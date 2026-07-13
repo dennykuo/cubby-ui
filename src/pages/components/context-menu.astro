@@ -1,5 +1,6 @@
 ---
 import Layout from "@/layouts/Layout.astro";
+import SectionHeading from "@/components/SectionHeading.astro";
 import ComponentPreview from "@/components/ComponentPreview.astro";
 import { getLocaleFromUrl, useTranslations } from "@/i18n";
 import { contextMenuPage } from "@/i18n/pages/components/context-menu";
@@ -172,10 +173,7 @@ const withIconsCode = `<div class="cu-context-menu" data-cu-context-menu>
   <div class="mt-10 space-y-10">
     <!-- Usage -->
     <section class="space-y-3">
-      <h2 id="usage" class="text-lg font-semibold tracking-tight relative group">
-        <a href="#usage" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-        {t.sections.usage.title}
-      </h2>
+      <SectionHeading id="usage" title={t.sections.usage.title} />
       <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
       <ComponentPreview code={usageCode}>
         <div class="cu-context-menu" data-cu-context-menu>
@@ -193,10 +191,7 @@ const withIconsCode = `<div class="cu-context-menu" data-cu-context-menu>
 
     <!-- With Labels and Separators -->
     <section class="space-y-3">
-      <h2 id="with-labels-and-separators" class="text-lg font-semibold tracking-tight relative group">
-        <a href="#with-labels-and-separators" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-        {t.sections.withLabels.title}
-      </h2>
+      <SectionHeading id="with-labels-and-separators" title={t.sections.withLabels.title} />
       <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withLabels.description} />
       <ComponentPreview code={withLabelsCode}>
         <div class="cu-context-menu" data-cu-context-menu>
@@ -234,10 +229,7 @@ const withIconsCode = `<div class="cu-context-menu" data-cu-context-menu>
 
     <!-- With Icons -->
     <section class="space-y-3">
-      <h2 id="with-icons" class="text-lg font-semibold tracking-tight relative group">
-        <a href="#with-icons" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-        {t.sections.withIcons.title}
-      </h2>
+      <SectionHeading id="with-icons" title={t.sections.withIcons.title} />
       <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withIcons.description} />
       <ComponentPreview code={withIconsCode}>
         <div class="cu-context-menu" data-cu-context-menu>
@@ -269,10 +261,7 @@ const withIconsCode = `<div class="cu-context-menu" data-cu-context-menu>
 
     <!-- With Checkbox Items -->
     <section class="space-y-3">
-      <h2 id="with-checkbox" class="text-lg font-semibold tracking-tight relative group">
-        <a href="#with-checkbox" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-        {t.sections.withCheckbox.title}
-      </h2>
+      <SectionHeading id="with-checkbox" title={t.sections.withCheckbox.title} />
       <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withCheckbox.description} />
       <ComponentPreview code={withCheckboxCode}>
         <div class="cu-context-menu" data-cu-context-menu>
@@ -312,10 +301,7 @@ const withIconsCode = `<div class="cu-context-menu" data-cu-context-menu>
 
     <!-- With Submenu -->
     <section class="space-y-3">
-      <h2 id="with-submenu" class="text-lg font-semibold tracking-tight relative group">
-        <a href="#with-submenu" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-        {t.sections.withSubmenu.title}
-      </h2>
+      <SectionHeading id="with-submenu" title={t.sections.withSubmenu.title} />
       <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withSubmenu.description} />
       <ComponentPreview code={withSubmenuCode}>
         <div class="cu-context-menu" data-cu-context-menu>
@@ -351,10 +337,7 @@ const withIconsCode = `<div class="cu-context-menu" data-cu-context-menu>
 
     <!-- Classes Reference -->
     <section class="space-y-3">
-      <h2 id="classes" class="text-lg font-semibold tracking-tight relative group">
-        <a href="#classes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-        {t.sections.classes.title}
-      </h2>
+      <SectionHeading id="classes" title={t.sections.classes.title} />
       <div class="cu-table-wrapper rounded-lg border border-border">
         <table class="cu-table">
           <thead class="cu-table-header">

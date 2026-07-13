@@ -1,5 +1,6 @@
 ---
 import Layout from "@/layouts/Layout.astro";
+import SectionHeading from "@/components/SectionHeading.astro";
 import List from "@/components/ui/List.astro";
 import ComponentPreview from "@/components/ComponentPreview.astro";
 import { getLocaleFromUrl, useTranslations } from "@/i18n";
@@ -136,10 +137,7 @@ const dlHorizontalCode = `<dl class="cu-dl cu-dl-horizontal">
     <div class="mt-10 space-y-10">
         <!-- Usage -->
         <section class="space-y-3">
-            <h2 id="usage" class="text-lg font-semibold tracking-tight relative group">
-              <a href="#usage" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              {t.sections.usage.title}
-            </h2>
+            <SectionHeading id="usage" title={t.sections.usage.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
             <ComponentPreview code={unorderedCode}>
                 <div class="w-full max-w-lg">
@@ -154,10 +152,7 @@ const dlHorizontalCode = `<dl class="cu-dl cu-dl-horizontal">
 
     <!-- Classes Reference -->
     <section class="space-y-3">
-      <h2 id="classes" class="text-lg font-semibold tracking-tight relative group">
-        <a href="#classes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-        {t.sections.classes.title}
-      </h2>
+      <SectionHeading id="classes" title={t.sections.classes.title} />
       <div class="cu-table-wrapper rounded-lg border border-border">
         <table class="cu-table">
           <thead class="cu-table-header">
@@ -219,10 +214,7 @@ const dlHorizontalCode = `<dl class="cu-dl cu-dl-horizontal">
 
         <!-- Ordered -->
         <section class="space-y-3">
-            <h2 id="ordered" class="text-lg font-semibold tracking-tight relative group">
-              <a href="#ordered" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              {t.sections.ordered.title}
-            </h2>
+            <SectionHeading id="ordered" title={t.sections.ordered.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.ordered.description} />
             <ComponentPreview code={orderedCode}>
                 <div class="w-full max-w-lg">
@@ -237,10 +229,7 @@ const dlHorizontalCode = `<dl class="cu-dl cu-dl-horizontal">
 
         <!-- Nested -->
         <section class="space-y-3">
-            <h2 id="nested" class="text-lg font-semibold tracking-tight relative group">
-              <a href="#nested" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              {t.sections.nested.title}
-            </h2>
+            <SectionHeading id="nested" title={t.sections.nested.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.nested.description} />
             <ComponentPreview code={nestedCode}>
                 <div class="w-full max-w-lg">
@@ -265,10 +254,7 @@ const dlHorizontalCode = `<dl class="cu-dl cu-dl-horizontal">
 
         <!-- Icon List -->
         <section class="space-y-3">
-            <h2 id="icon-list" class="text-lg font-semibold tracking-tight relative group">
-              <a href="#icon-list" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              {t.sections.iconList.title}
-            </h2>
+            <SectionHeading id="icon-list" title={t.sections.iconList.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.iconList.description} />
             <ComponentPreview code={iconListCode}>
                 <div class="w-full max-w-lg">
@@ -296,10 +282,7 @@ const dlHorizontalCode = `<dl class="cu-dl cu-dl-horizontal">
 
         <!-- Bordered -->
         <section class="space-y-3">
-            <h2 id="bordered" class="text-lg font-semibold tracking-tight relative group">
-              <a href="#bordered" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              {t.sections.bordered.title}
-            </h2>
+            <SectionHeading id="bordered" title={t.sections.bordered.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.bordered.description} />
             <ComponentPreview code={borderedCode}>
                 <div class="w-full max-w-lg">
@@ -332,10 +315,7 @@ const dlHorizontalCode = `<dl class="cu-dl cu-dl-horizontal">
 
         <!-- Inline -->
         <section class="space-y-3">
-            <h2 id="inline" class="text-lg font-semibold tracking-tight relative group">
-              <a href="#inline" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              {t.sections.inline.title}
-            </h2>
+            <SectionHeading id="inline" title={t.sections.inline.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.inline.description} />
             <ComponentPreview code={inlineCode}>
                 <div class="w-full max-w-lg">
@@ -354,10 +334,7 @@ const dlHorizontalCode = `<dl class="cu-dl cu-dl-horizontal">
 
         <!-- Description List -->
         <section class="space-y-3">
-            <h2 id="description-list" class="text-lg font-semibold tracking-tight relative group">
-              <a href="#description-list" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              {t.sections.descriptionList.title}
-            </h2>
+            <SectionHeading id="description-list" title={t.sections.descriptionList.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.descriptionList.description} />
             <ComponentPreview code={dlVerticalCode}>
                 <div class="w-full max-w-lg">
@@ -381,10 +358,7 @@ const dlHorizontalCode = `<dl class="cu-dl cu-dl-horizontal">
 
         <!-- Horizontal Description List -->
         <section class="space-y-3">
-            <h2 id="horizontal-description-list" class="text-lg font-semibold tracking-tight relative group">
-              <a href="#horizontal-description-list" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              {t.sections.horizontalDescriptionList.title}
-            </h2>
+            <SectionHeading id="horizontal-description-list" title={t.sections.horizontalDescriptionList.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.horizontalDescriptionList.description} />
             <ComponentPreview code={dlHorizontalCode}>
                 <div class="w-full max-w-lg">

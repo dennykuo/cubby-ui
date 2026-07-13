@@ -1,5 +1,6 @@
 ---
 import Layout from "@/layouts/Layout.astro";
+import SectionHeading from "@/components/SectionHeading.astro";
 import ComponentPreview from "@/components/ComponentPreview.astro";
 import { getLocaleFromUrl, useTranslations } from "@/i18n";
 import { tagInputPage } from "@/i18n/pages/components/tag-input";
@@ -87,19 +88,13 @@ const disabledCode = `<div class="cu-tag-input cu-tag-input-disabled">
 
     <div class="mt-10 space-y-10">
         <section class="space-y-3">
-            <h2 id="usage" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#usage" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.usage.title}
-            </h2>
+            <SectionHeading id="usage" title={t.sections.usage.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
             <ComponentPreview code={usageCode} />
         </section>
 
         <section class="space-y-3">
-            <h2 id="classes" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#classes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.classes.title}
-            </h2>
+            <SectionHeading id="classes" title={t.sections.classes.title} />
             <div class="cu-table-wrapper rounded-lg border border-border">
                 <table class="cu-table">
                     <thead class="cu-table-header">
@@ -121,46 +116,31 @@ const disabledCode = `<div class="cu-tag-input cu-tag-input-disabled">
         </section>
 
         <section class="space-y-3">
-            <h2 id="with-tags" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#with-tags" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.withTags.title}
-            </h2>
+            <SectionHeading id="with-tags" title={t.sections.withTags.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withTags.description} />
             <ComponentPreview code={withTagsCode} />
         </section>
 
         <section class="space-y-3">
-            <h2 id="variants" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#variants" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.variants.title}
-            </h2>
+            <SectionHeading id="variants" title={t.sections.variants.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.variants.description} />
             <ComponentPreview code={variantsCode} />
         </section>
 
         <section class="space-y-3">
-            <h2 id="max-tags" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#max-tags" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.maxTags.title}
-            </h2>
+            <SectionHeading id="max-tags" title={t.sections.maxTags.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.maxTags.description} />
             <ComponentPreview code={maxTagsCode} />
         </section>
 
         <section class="space-y-3">
-            <h2 id="validation" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#validation" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.validation.title}
-            </h2>
+            <SectionHeading id="validation" title={t.sections.validation.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.validation.description} />
             <ComponentPreview code={validationCode} />
         </section>
 
         <section class="space-y-3">
-            <h2 id="disabled" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#disabled" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.disabled.title}
-            </h2>
+            <SectionHeading id="disabled" title={t.sections.disabled.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.disabled.description} />
             <ComponentPreview code={disabledCode} />
         </section>

@@ -41,7 +41,7 @@ Cubby UI 是一個框架無關的 UI 元件庫，風格類似 shadcn/ui，使用
 - `index.ts` — `Locale` 型別、`getLocaleFromUrl()`、`localizePath()`、`getAlternatePath()`、`useTranslations()`
 - `ui.ts` — 共用 UI 翻譯（Header、Sidebar、ComponentPreview 的文字）
 - `pages/home.ts`、`usage.ts`、`theming.ts`、`dark-mode.ts`、`playground.ts` — 核心頁面翻譯
-- `pages/components/*.ts` — 85 個元件頁面翻譯（每頁一個檔案）
+- `pages/components/*.ts` — 95 個元件頁面翻譯（每頁一個檔案）
 
 **頁面 i18n 模式**：每個頁面透過 3 行程式碼取得翻譯：
 ```astro
@@ -106,7 +106,7 @@ const t = useTranslations(buttonPage, locale);
 - Progress 支援條紋動畫：`cu-progress-bar-striped` + `cu-progress-bar-striped-animated`；漸層色彩 `cu-progress-bar-gradient`
 - Badge 支援尺寸：`cu-badge-sm` / `cu-badge-lg`
 - Avatar 支援狀態指示器：`cu-avatar-status` + `cu-avatar-status-online/offline/busy/away`；外環 `cu-avatar-ring`
-- Alert accent 變體：`cu-alert-accent`（左側色條 `border-l-4`）
+- Alert accent 變體：`cu-alert-accent`（醒目填色強調，全框 + 背景 tint，取代舊的左側色條）
 - Tabs pills 變體：`cu-tabs-list-pills`（圓角藥丸形標籤）
 - Popover 尺寸：`cu-popover-content-sm`（`w-56`）/ `cu-popover-content-lg`（`w-96`）
 - Separator base class（`cu-separator`）僅含 `shrink-0 bg-border`，需明確搭配 `cu-separator-horizontal`（`h-px w-full`）或 `cu-separator-vertical`（`h-full w-px`）指定方向
@@ -173,23 +173,23 @@ dist/
 
 轉換器腳本位於 `scripts/generate-blade-components.cjs`，搭配 `scripts/blade/parser.cjs`（解析 Astro frontmatter + Props）、`scripts/blade/transformers.cjs`（轉換 template 語法）和 `scripts/blade/generate-ai-docs.cjs`（生成 AI 友善文件）。手動 override 放在 `scripts/blade/overrides/*.blade.php`，會跳過自動轉換直接使用。支援 `--dry-run`（預覽轉換結果，不寫入檔案）和 `--verbose`（印出每個檔案的轉換路徑及完整 Blade 內容）。建置時自動生成 `README.md`（敘述式 Blade 使用文件）和 `components.json`（結構化 metadata），供 AI Agent 在 Laravel 專案中理解和使用元件。
 
-互動元件 JS 原始檔位於 `src/scripts/cubby-ui.js`，使用 UMD 格式（支援 `require()`、AMD `define()`、`window.CubbyUI`），包含 38 個元件：Tabs（含 closable / scrollable）、Dropdown、Dialog、Drawer、Alert Dialog、Toast（含 promise API）、Popover、Menubar、Combobox、Multi Select、Number Input、Dropzone、Transfer List、Mobile Nav、Password Input、Segmented Control、Pin Input、Checkbox Group、Code Block、Carousel、Context Menu、Resizable Panels、Command Palette、Date Picker（含 Calendar）、Color Picker、Toggle Group、Rating、Tag Input、Sortable List、Countdown、Image Compare、Speed Dial、Back to Top、Kanban、Tour、Input Clearable、Alert Expandable、Data Table Expandable。Document 級事件監聯器使用 delegated pattern（click + keydown 各一個），避免每個元件實例各自註冊。Toast 內容使用 DOM API（`textContent` / `createElement`）建立，避免 innerHTML XSS 風險。Toast 自動消失時間預設 5000ms，可透過 `data-cu-toast-duration` 自訂。Toast 堆疊上限預設 5 則，可透過 `data-cu-toast-max` 自訂，超出時自動移除最舊通知。
+互動元件 JS 原始檔位於 `src/scripts/cubby-ui.js`，使用 UMD 格式（支援 `require()`、AMD `define()`、`window.CubbyUI`），包含 38 個元件：Tabs（含 closable / scrollable）、Dropdown、Dialog、Drawer、Alert Dialog、Toast（含 promise API）、Popover、Menubar、Combobox、Multi Select、Number Input、Dropzone、Transfer List、Mobile Nav、Password Input、Segmented Control、Pin Input、Checkbox Group、Code Block、Carousel、Context Menu、Resizable Panels、Command Palette、Date Picker（含 Calendar）、Color Picker、Toggle Group、Rating、Tag Input、Sortable List、Countdown、Image Compare、Speed Dial、Back to Top、Kanban、Tour、Input Clearable、Alert Expandable、Data Table Expandable。Document 級事件監聽器使用 delegated pattern（click / keydown / contextmenu / scroll），避免每個元件實例各自註冊（Context Menu、Date Picker 等透過 tracking array 共用單一 handler，`destroy()` 時統一移除）。Toast 內容使用 DOM API（`textContent` / `createElement`）建立，避免 innerHTML XSS 風險。Toast 自動消失時間預設 5000ms，可透過 `data-cu-toast-duration` 自訂。Toast 堆疊上限預設 5 則，可透過 `data-cu-toast-max` 自訂，超出時自動移除最舊通知。
 
 ARIA 無障礙支援：
 - **Tabs** — `role="tablist/tab/tabpanel"`、`aria-selected`、`aria-controls` / `aria-labelledby` 雙向連結
 - **Dropdown** — `aria-haspopup="menu"`、`aria-expanded`、`role="menu"` / `role="menuitem"`
 - **Combobox / Multi Select** — `aria-haspopup="listbox"`、`aria-expanded`、`role="listbox"` / `role="option"`、`aria-selected`
 - **Popover** — `aria-haspopup="dialog"`、`aria-expanded`、`aria-controls`
-- **Dialog / Drawer** — `aria-labelledby` + `aria-describedby` 自動連結標題與描述元素
+- **Dialog / Drawer** — `aria-labelledby` + `aria-describedby` 自動連結標題與描述元素；開啟時聚焦首個可互動元素（尊重 `[autofocus]`），關閉時焦點返回觸發按鈕
 - **Alert Dialog** — `role="alertdialog"` + `aria-labelledby` + `aria-describedby`
 - **Number Input** — `role="spinbutton"` + `aria-valuemin` / `aria-valuemax` / `aria-valuenow`
 - **Mobile Nav** — `role="dialog"` + `aria-modal="true"` + `aria-label`、trigger 使用 `aria-expanded`
-- **Command Palette** — `role="dialog"` 透過 `<dialog>` 元素、內建鍵盤搜尋/篩選
+- **Command Palette** — `role="dialog"` 透過 `<dialog>` 元素、內建鍵盤搜尋/篩選（方向鍵與 Tab / Shift+Tab 循環結果、Enter 選取）
 - **Calendar** — 完整鍵盤導航（方向鍵切換日期、Home/End 跳至月首/月末）
 
 公開 API：
 - `CubbyUI.init()` — 初始化所有互動元件（自動在 DOMContentLoaded 執行，可重複呼叫以初始化動態新增的元素）
-- `CubbyUI.destroy()` — 清除內部追蹤陣列（配合 SPA 路由切換使用）
+- `CubbyUI.destroy()` — 清除內部追蹤陣列並移除 document 級事件監聽器（配合 SPA 路由切換使用；`init()` 會重新註冊）
 - `CubbyUI.refresh()` — 清理已移除元素的過時參照，並重新執行 init()（適用於動態內容更新後）
 - `CubbyUI.toast.show({ title, description?, variant?, duration? })` — 程式化建立 toast 通知，回傳 toast DOM 元素
 - `CubbyUI.toast.promise(promise, { loading, success, error })` — 顯示載入中 toast，Promise resolve 時更新為 success，reject 時更新為 error
@@ -215,7 +215,7 @@ src/
 │       ├── theming.ts
 │       ├── dark-mode.ts
 │       ├── playground.ts
-│       └── components/           — 77 個元件頁面翻譯（每元件一個檔案）
+│       └── components/           — 95 個元件頁面翻譯（每元件一個檔案）
 │           ├── button.ts
 │           ├── card.ts
 │           └── ...

@@ -1,5 +1,6 @@
 ---
 import Layout from "@/layouts/Layout.astro";
+import SectionHeading from "@/components/SectionHeading.astro";
 import Stat from "@/components/ui/Stat.astro";
 import StatHeader from "@/components/ui/StatHeader.astro";
 import StatLabel from "@/components/ui/StatLabel.astro";
@@ -358,10 +359,7 @@ const hoverCode = `<div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
     <div class="mt-10 space-y-10">
         <!-- Usage -->
         <section class="space-y-3">
-            <h2 id="usage" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#usage" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.usage.title}
-            </h2>
+            <SectionHeading id="usage" title={t.sections.usage.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
             <ComponentPreview code={usageCode}>
                 <div class="w-full max-w-xs">
@@ -381,10 +379,7 @@ const hoverCode = `<div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
 
         <!-- Classes Reference -->
         <section class="space-y-3">
-            <h2 id="classes" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#classes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.classes.title}
-            </h2>
+            <SectionHeading id="classes" title={t.sections.classes.title} />
             <div class="cu-table-wrapper rounded-lg border border-border">
                 <table class="cu-table">
                     <thead class="cu-table-header">
@@ -407,10 +402,7 @@ const hoverCode = `<div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
 
         <!-- Dashboard Grid -->
         <section class="space-y-3">
-            <h2 id="dashboard-grid" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#dashboard-grid" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.dashboardGrid.title}
-            </h2>
+            <SectionHeading id="dashboard-grid" title={t.sections.dashboardGrid.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.dashboardGrid.description} />
             <ComponentPreview code={gridCode}>
                 <div class="grid w-full grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
@@ -460,10 +452,7 @@ const hoverCode = `<div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
 
         <!-- Icon Box -->
         <section class="space-y-3">
-            <h2 id="icon-box" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#icon-box" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.iconBox.title}
-            </h2>
+            <SectionHeading id="icon-box" title={t.sections.iconBox.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.iconBox.description} />
             <ComponentPreview code={iconBoxCode}>
                 <div class="grid w-full grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
@@ -517,10 +506,7 @@ const hoverCode = `<div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
 
         <!-- Trend Pill -->
         <section class="space-y-3">
-            <h2 id="trend-pill" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#trend-pill" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.trendPill.title}
-            </h2>
+            <SectionHeading id="trend-pill" title={t.sections.trendPill.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.trendPill.description} />
             <ComponentPreview code={trendPillCode}>
                 <div class="flex w-full max-w-lg gap-4">
@@ -548,10 +534,7 @@ const hoverCode = `<div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
 
         <!-- Accent Border -->
         <section class="space-y-3">
-            <h2 id="accent-border" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#accent-border" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.accentBorder.title}
-            </h2>
+            <SectionHeading id="accent-border" title={t.sections.accentBorder.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.accentBorder.description} />
             <ComponentPreview code={accentCode}>
                 <div class="grid w-full grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -582,10 +565,7 @@ const hoverCode = `<div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
 
         <!-- Flat -->
         <section class="space-y-3">
-            <h2 id="flat" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#flat" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.flat.title}
-            </h2>
+            <SectionHeading id="flat" title={t.sections.flat.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.flat.description} />
             <ComponentPreview code={flatCode}>
                 <div class="grid w-full grid-cols-1 gap-4 sm:grid-cols-3">
@@ -625,10 +605,7 @@ const hoverCode = `<div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
 
         <!-- Ghost -->
         <section class="space-y-3">
-            <h2 id="ghost" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#ghost" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.ghost.title}
-            </h2>
+            <SectionHeading id="ghost" title={t.sections.ghost.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.ghost.description} />
             <ComponentPreview code={ghostCode}>
                 <div class="grid w-full grid-cols-1 gap-4 sm:grid-cols-3">
@@ -665,10 +642,7 @@ const hoverCode = `<div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
 
         <!-- Sharp -->
         <section class="space-y-3">
-            <h2 id="sharp" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#sharp" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.sharp.title}
-            </h2>
+            <SectionHeading id="sharp" title={t.sections.sharp.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.sharp.description} />
             <ComponentPreview code={sharpCode}>
                 <div class="grid w-full grid-cols-1 gap-4 sm:grid-cols-3">
@@ -708,10 +682,7 @@ const hoverCode = `<div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
 
         <!-- With Progress -->
         <section class="space-y-3">
-            <h2 id="with-progress" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#with-progress" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.withProgress.title}
-            </h2>
+            <SectionHeading id="with-progress" title={t.sections.withProgress.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withProgress.description} />
             <ComponentPreview code={withProgressCode}>
                 <div class="grid w-full grid-cols-1 gap-4 sm:grid-cols-2">
@@ -747,10 +718,7 @@ const hoverCode = `<div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
 
         <!-- Hover Effect -->
         <section class="space-y-3">
-            <h2 id="hover-effect" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#hover-effect" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.hoverEffect.title}
-            </h2>
+            <SectionHeading id="hover-effect" title={t.sections.hoverEffect.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.hoverEffect.description} />
             <ComponentPreview code={hoverCode}>
                 <div class="grid w-full grid-cols-1 gap-4 sm:grid-cols-3">

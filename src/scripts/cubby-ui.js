@@ -38,6 +38,13 @@
   var _alertExpandables = [];
   var _dataTableExpandables = [];
   var _docListenersReady = false;
+  var _docClickHandler = null;
+  var _docKeydownHandler = null;
+  var _cmdPaletteKeyHandler = null;
+  var _docContextmenuHandler = null;
+  var _docScrollHandler = null;
+  var _contextMenus = [];
+  var _datePickers = [];
 
   // Shared keyboard navigation helper for floating panels
   function navigateItems(items, key, highlightClass) {
@@ -75,7 +82,7 @@
     if (_docListenersReady) return;
     _docListenersReady = true;
 
-    document.addEventListener("click", function (e) {
+    _docClickHandler = function (e) {
       _dropdowns.forEach(function (d) {
         if (!d.el.contains(e.target) && d.content) {
           d.content.setAttribute("hidden", "");
@@ -124,9 +131,15 @@
           if (sd.trigger) sd.trigger.setAttribute("aria-expanded", "false");
         }
       });
-    });
+      _datePickers.forEach(function (dp) {
+        if (dp.content && !dp.el.contains(e.target)) dp.content.style.display = "none";
+      });
+      _contextMenus.forEach(function (cm) {
+        if (cm.content) cm.content.setAttribute("hidden", "");
+      });
+    };
 
-    document.addEventListener("keydown", function (e) {
+    _docKeydownHandler = function (e) {
       // --- Escape: close all floating panels ---
       if (e.key === "Escape") {
         _dropdowns.forEach(function (d) {
@@ -171,6 +184,12 @@
             sd.actions.removeAttribute("data-cu-open");
             if (sd.trigger) sd.trigger.setAttribute("aria-expanded", "false");
           }
+        });
+        _contextMenus.forEach(function (cm) {
+          if (cm.content) cm.content.setAttribute("hidden", "");
+        });
+        _datePickers.forEach(function (dp) {
+          if (dp.content) dp.content.style.display = "none";
         });
         return;
       }
@@ -219,7 +238,23 @@
           navigateItems(items, e.key, "cu-multi-select-item-highlight");
         });
       }
-    });
+    };
+
+    _docContextmenuHandler = function (e) {
+      _contextMenus.forEach(function (cm) {
+        if (cm.content && !cm.el.contains(e.target)) cm.content.setAttribute("hidden", "");
+      });
+    };
+    _docScrollHandler = function () {
+      _contextMenus.forEach(function (cm) {
+        if (cm.content) cm.content.setAttribute("hidden", "");
+      });
+    };
+
+    document.addEventListener("click", _docClickHandler);
+    document.addEventListener("keydown", _docKeydownHandler);
+    document.addEventListener("contextmenu", _docContextmenuHandler);
+    document.addEventListener("scroll", _docScrollHandler);
   }
 
   function genId(prefix) {
@@ -1136,6 +1171,16 @@
   }
 
   function setupOverlay(config) {
+    // Move focus into the dialog on open (WCAG 2.4.3): first focusable element,
+    // unless the author already designated one via [autofocus].
+    function focusInitial(dialog) {
+      if (dialog.querySelector("[autofocus]")) return;
+      var focusable = dialog.querySelector(
+        'button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
+      );
+      if (focusable) requestAnimationFrame(function () { focusable.focus(); });
+    }
+
     document
       .querySelectorAll("[" + config.triggerAttr + "]")
       .forEach(function (trigger) {
@@ -1148,6 +1193,7 @@
           if (dialog && dialog.showModal) {
             dialog._cuTrigger = trigger;
             dialog.showModal();
+            focusInitial(dialog);
           }
         });
       });
@@ -1875,14 +1921,9 @@
         content.style.top = y + "px";
       });
 
-      document.addEventListener("click", function () { content.setAttribute("hidden", ""); });
-      document.addEventListener("contextmenu", function (e) {
-        if (!container.contains(e.target)) content.setAttribute("hidden", "");
-      });
-      document.addEventListener("keydown", function (e) {
-        if (e.key === "Escape") content.setAttribute("hidden", "");
-      });
-      document.addEventListener("scroll", function () { content.setAttribute("hidden", ""); });
+      // 全域關閉(click/contextmenu/keydown/scroll)由 setupDocumentListeners 的
+      // delegated handler 統一處理(遍歷 _contextMenus),避免每實例累積 document listener
+      _contextMenus.push({ el: container, content: content });
     });
   }
 
@@ -2008,7 +2049,7 @@
   function setupCommandPalettes() {
     if (!document._cuCommandPaletteGlobal) {
       document._cuCommandPaletteGlobal = true;
-      document.addEventListener("keydown", function (e) {
+      _cmdPaletteKeyHandler = function (e) {
         if ((e.metaKey || e.ctrlKey) && e.key === "k") {
           var palette = document.querySelector("[data-cu-command]");
           if (!palette) return;
@@ -2019,7 +2060,8 @@
             if (input) input.focus();
           }
         }
-      });
+      };
+      document.addEventListener("keydown", _cmdPaletteKeyHandler);
     }
 
     document.querySelectorAll("[data-cu-command]").forEach(function (palette) {
@@ -2077,7 +2119,10 @@
       }
 
       palette.addEventListener("keydown", function (e) {
-        if (e.key === "ArrowDown" || e.key === "ArrowUp") {
+        // Tab / Shift+Tab cycle through results just like ArrowDown / ArrowUp
+        var isNext = e.key === "ArrowDown" || (e.key === "Tab" && !e.shiftKey);
+        var isPrev = e.key === "ArrowUp" || (e.key === "Tab" && e.shiftKey);
+        if (isNext || isPrev) {
           e.preventDefault();
           var visible = getVisibleItems();
           if (visible.length === 0) return;
@@ -2085,7 +2130,7 @@
           visible.forEach(function (item, i) { if (item.hasAttribute("data-cu-command-active")) activeIndex = i; });
           clearActive();
           var nextIndex;
-          if (e.key === "ArrowDown") { nextIndex = activeIndex < visible.length - 1 ? activeIndex + 1 : 0; }
+          if (isNext) { nextIndex = activeIndex < visible.length - 1 ? activeIndex + 1 : 0; }
           else { nextIndex = activeIndex > 0 ? activeIndex - 1 : visible.length - 1; }
           visible[nextIndex].setAttribute("data-cu-command-active", "");
           visible[nextIndex].scrollIntoView({ block: "nearest" });
@@ -2289,8 +2334,8 @@
         if (isHidden && calendar._cuRender) calendar._cuRender();
       });
 
-      document.addEventListener("click", function (e) { if (!picker.contains(e.target)) content.style.display = "none"; });
-      document.addEventListener("keydown", function (e) { if (e.key === "Escape") content.style.display = "none"; });
+      // 全域關閉(click 外部 / Escape)由 setupDocumentListeners 的 delegated handler 統一處理
+      _datePickers.push({ el: picker, content: content });
     });
   }
 
@@ -3413,6 +3458,22 @@
     _inputClearables = [];
     _alertExpandables = [];
     _dataTableExpandables = [];
+
+    // 完整卸載 document 級 delegated listener(init() 會在重新初始化時重新註冊)
+    if (_docClickHandler) document.removeEventListener("click", _docClickHandler);
+    if (_docKeydownHandler) document.removeEventListener("keydown", _docKeydownHandler);
+    if (_cmdPaletteKeyHandler) document.removeEventListener("keydown", _cmdPaletteKeyHandler);
+    if (_docContextmenuHandler) document.removeEventListener("contextmenu", _docContextmenuHandler);
+    if (_docScrollHandler) document.removeEventListener("scroll", _docScrollHandler);
+    _docClickHandler = null;
+    _docKeydownHandler = null;
+    _cmdPaletteKeyHandler = null;
+    _docContextmenuHandler = null;
+    _docScrollHandler = null;
+    _contextMenus = [];
+    _datePickers = [];
+    _docListenersReady = false;
+    document._cuCommandPaletteGlobal = false;
   }
 
   function refresh() {
@@ -3431,6 +3492,8 @@
     _sortableLists = _sortableLists.filter(inBody);
     _toggleGroups = _toggleGroups.filter(inBody);
     _ratings = _ratings.filter(inBody);
+    _contextMenus = _contextMenus.filter(inBody);
+    _datePickers = _datePickers.filter(inBody);
     _countdowns.forEach(function (c) { if (!inBody(c)) clearTimeout(c.timer); });
     _countdowns = _countdowns.filter(inBody);
     _imageCompares.forEach(function (c) { if (!inBody(c) && c.cleanup) c.cleanup(); });

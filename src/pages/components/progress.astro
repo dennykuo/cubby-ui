@@ -1,5 +1,6 @@
 ---
 import Layout from "@/layouts/Layout.astro";
+import SectionHeading from "@/components/SectionHeading.astro";
 // @ts-ignore - Astro component used in template
 import Progress from "@/components/ui/Progress.astro";
 import ComponentPreview from "@/components/ComponentPreview.astro";
@@ -159,10 +160,7 @@ const colorsCode = `<!-- Success -->
     <div class="mt-10 space-y-10">
         <!-- Usage -->
         <section class="space-y-3">
-            <h2 id="usage" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#usage" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.usage.title}
-            </h2>
+            <SectionHeading id="usage" title={t.sections.usage.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
             <ComponentPreview code={usageCode}>
                 <div class="w-full max-w-md">
@@ -173,10 +171,7 @@ const colorsCode = `<!-- Success -->
 
         <!-- Classes Reference -->
         <section class="space-y-3">
-            <h2 id="classes" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#classes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.classes.title}
-            </h2>
+            <SectionHeading id="classes" title={t.sections.classes.title} />
             <div class="cu-table-wrapper rounded-lg border border-border">
                 <table class="cu-table">
                     <thead class="cu-table-header">
@@ -250,10 +245,7 @@ const colorsCode = `<!-- Success -->
 
         <!-- Sizes -->
         <section class="space-y-3">
-            <h2 id="sizes" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#sizes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.sizes.title}
-            </h2>
+            <SectionHeading id="sizes" title={t.sections.sizes.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.sizes.description} />
             <ComponentPreview code={sizesCode}>
                 <div class="w-full max-w-md space-y-4">
@@ -270,10 +262,7 @@ const colorsCode = `<!-- Success -->
 
         <!-- Different Values -->
         <section class="space-y-3">
-            <h2 id="different-values" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#different-values" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.differentValues.title}
-            </h2>
+            <SectionHeading id="different-values" title={t.sections.differentValues.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.differentValues.description} />
             <ComponentPreview code={valuesCode}>
                 <div class="w-full max-w-md space-y-4">
@@ -286,10 +275,7 @@ const colorsCode = `<!-- Success -->
 
         <!-- Color Variants -->
         <section class="space-y-3">
-            <h2 id="color-variants" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#color-variants" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.colorVariants.title}
-            </h2>
+            <SectionHeading id="color-variants" title={t.sections.colorVariants.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.colorVariants.description} />
             <ComponentPreview code={colorVariantsCode}>
                 <div class="w-full max-w-md space-y-4">
@@ -311,10 +297,7 @@ const colorsCode = `<!-- Success -->
 
         <!-- With Label -->
         <section class="space-y-3">
-            <h2 id="with-label" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#with-label" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.withLabel.title}
-            </h2>
+            <SectionHeading id="with-label" title={t.sections.withLabel.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withLabel.description} />
             <ComponentPreview code={withLabelCode}>
                 <div class="w-full max-w-md space-y-4">
@@ -338,10 +321,7 @@ const colorsCode = `<!-- Success -->
 
         <!-- Striped -->
         <section class="space-y-3">
-            <h2 id="striped" class="text-lg font-semibold tracking-tight relative group">
-              <a href="#striped" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              {t.sections.striped.title}
-            </h2>
+            <SectionHeading id="striped" title={t.sections.striped.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.striped.description} />
             <ComponentPreview code={stripedCode}>
                 <div class="w-full max-w-md space-y-4">
@@ -357,10 +337,7 @@ const colorsCode = `<!-- Success -->
 
         <!-- Custom Colors -->
         <section class="space-y-3">
-            <h2 id="custom-colors" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#custom-colors" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.customColors.title}
-            </h2>
+            <SectionHeading id="custom-colors" title={t.sections.customColors.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.customColors.description} />
             <ComponentPreview code={colorsCode}>
                 <div class="w-full max-w-md space-y-4">
@@ -379,10 +356,7 @@ const colorsCode = `<!-- Success -->
 
         <!-- Multi-Segment -->
         <section class="space-y-3">
-            <h2 id="multi-segment" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#multi-segment" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.multiSegment.title}
-            </h2>
+            <SectionHeading id="multi-segment" title={t.sections.multiSegment.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.multiSegment.description} />
             <ComponentPreview code={multiSegmentCode}>
                 <div class="w-full max-w-md space-y-4">
@@ -408,10 +382,7 @@ const colorsCode = `<!-- Success -->
 
         <!-- Circular -->
         <section class="space-y-3">
-            <h2 id="circular" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#circular" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.circular.title}
-            </h2>
+            <SectionHeading id="circular" title={t.sections.circular.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.circular.description} />
             <ComponentPreview code={circularCode}>
                 <div class="flex items-center gap-8">

@@ -1,5 +1,6 @@
 ---
 import Layout from "@/layouts/Layout.astro";
+import SectionHeading from "@/components/SectionHeading.astro";
 import ComponentPreview from "@/components/ComponentPreview.astro";
 import { getLocaleFromUrl, useTranslations } from "@/i18n";
 import { timelinePage } from "@/i18n/pages/components/timeline";
@@ -234,10 +235,7 @@ const horizontalCode = `<div class="cu-timeline cu-timeline-horizontal">
     <div class="mt-10 space-y-10">
         <!-- Usage -->
         <section class="space-y-3">
-            <h2 id="usage" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#usage" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.usage.title}
-            </h2>
+            <SectionHeading id="usage" title={t.sections.usage.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
             <ComponentPreview code={usageCode}>
                 <div class="w-full max-w-md">
@@ -273,10 +271,7 @@ const horizontalCode = `<div class="cu-timeline cu-timeline-horizontal">
 
         <!-- Classes Reference -->
         <section class="space-y-3">
-            <h2 id="classes" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#classes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.classes.title}
-            </h2>
+            <SectionHeading id="classes" title={t.sections.classes.title} />
             <div class="cu-table-wrapper rounded-lg border border-border">
                 <table class="cu-table">
                     <thead class="cu-table-header">
@@ -299,10 +294,7 @@ const horizontalCode = `<div class="cu-timeline cu-timeline-horizontal">
 
         <!-- With Colors -->
         <section class="space-y-3">
-            <h2 id="with-colors" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#with-colors" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.withColors.title}
-            </h2>
+            <SectionHeading id="with-colors" title={t.sections.withColors.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withColors.description} />
             <ComponentPreview code={withColorsCode}>
                 <div class="w-full max-w-md">
@@ -346,10 +338,7 @@ const horizontalCode = `<div class="cu-timeline cu-timeline-horizontal">
 
         <!-- With Icons -->
         <section class="space-y-3">
-            <h2 id="with-icons" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#with-icons" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.withIcons.title}
-            </h2>
+            <SectionHeading id="with-icons" title={t.sections.withIcons.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withIcons.description} />
             <ComponentPreview code={withIconsCode}>
                 <div class="w-full max-w-md">
@@ -391,10 +380,7 @@ const horizontalCode = `<div class="cu-timeline cu-timeline-horizontal">
 
         <!-- With Card Content -->
         <section class="space-y-3">
-            <h2 id="with-card-content" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#with-card-content" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.withCardContent.title}
-            </h2>
+            <SectionHeading id="with-card-content" title={t.sections.withCardContent.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withCardContent.description} />
             <ComponentPreview code={withCardContentCode}>
                 <div class="w-full max-w-md">
@@ -440,10 +426,7 @@ const horizontalCode = `<div class="cu-timeline cu-timeline-horizontal">
 
         <!-- Horizontal -->
         <section class="space-y-3">
-            <h2 id="horizontal" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#horizontal" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.horizontal.title}
-            </h2>
+            <SectionHeading id="horizontal" title={t.sections.horizontal.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.horizontal.description} />
             <ComponentPreview code={horizontalCode}>
                 <div class="w-full max-w-2xl">
@@ -489,10 +472,7 @@ const horizontalCode = `<div class="cu-timeline cu-timeline-horizontal">
 
         <!-- Alternating -->
         <section class="space-y-3">
-            <h2 id="alternating" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#alternating" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.alternating.title}
-            </h2>
+            <SectionHeading id="alternating" title={t.sections.alternating.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.alternating.description} />
             <ComponentPreview code={alternatingCode}>
                 <div class="w-full max-w-2xl">

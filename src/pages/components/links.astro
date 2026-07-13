@@ -1,5 +1,6 @@
 ---
 import Layout from "@/layouts/Layout.astro";
+import SectionHeading from "@/components/SectionHeading.astro";
 import Link from "@/components/ui/Link.astro";
 import ComponentPreview from "@/components/ComponentPreview.astro";
 import { getLocaleFromUrl, useTranslations } from "@/i18n";
@@ -58,10 +59,7 @@ const cardLinksCode = `<div class="cu-card cu-card-hover p-5 space-y-3 max-w-sm"
     <div class="mt-10 space-y-10">
         <!-- Usage -->
         <section class="space-y-3">
-            <h2 id="usage" class="text-lg font-semibold tracking-tight relative group">
-              <a href="#usage" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              {t.sections.usage.title}
-            </h2>
+            <SectionHeading id="usage" title={t.sections.usage.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
             <ComponentPreview code={usageCode}>
                 <Link href="#">Click here</Link>
@@ -70,10 +68,7 @@ const cardLinksCode = `<div class="cu-card cu-card-hover p-5 space-y-3 max-w-sm"
 
     <!-- Classes Reference -->
     <section class="space-y-3">
-      <h2 id="classes" class="text-lg font-semibold tracking-tight relative group">
-        <a href="#classes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-        {t.sections.classes.title}
-      </h2>
+      <SectionHeading id="classes" title={t.sections.classes.title} />
       <div class="cu-table-wrapper rounded-lg border border-border">
         <table class="cu-table">
           <thead class="cu-table-header">
@@ -111,10 +106,7 @@ const cardLinksCode = `<div class="cu-card cu-card-hover p-5 space-y-3 max-w-sm"
 
         <!-- Variants -->
         <section class="space-y-3">
-            <h2 id="variants" class="text-lg font-semibold tracking-tight relative group">
-              <a href="#variants" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              {t.sections.variants.title}
-            </h2>
+            <SectionHeading id="variants" title={t.sections.variants.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.variants.description} />
             <ComponentPreview code={variantsCode}>
                 <div class="flex flex-wrap items-center gap-6">
@@ -128,10 +120,7 @@ const cardLinksCode = `<div class="cu-card cu-card-hover p-5 space-y-3 max-w-sm"
 
         <!-- Inline -->
         <section class="space-y-3">
-            <h2 id="inline" class="text-lg font-semibold tracking-tight relative group">
-              <a href="#inline" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              {t.sections.inline.title}
-            </h2>
+            <SectionHeading id="inline" title={t.sections.inline.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.inline.description} />
             <ComponentPreview code={inlineCode}>
                 <div class="w-full max-w-lg">
@@ -147,10 +136,7 @@ const cardLinksCode = `<div class="cu-card cu-card-hover p-5 space-y-3 max-w-sm"
 
         <!-- External -->
         <section class="space-y-3">
-            <h2 id="external-link" class="text-lg font-semibold tracking-tight relative group">
-              <a href="#external-link" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              {t.sections.externalLink.title}
-            </h2>
+            <SectionHeading id="external-link" title={t.sections.externalLink.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.externalLink.description} />
             <ComponentPreview code={externalCode}>
                 <a class="cu-link cu-link-external" href="#" target="_blank" rel="noopener noreferrer">
@@ -162,10 +148,7 @@ const cardLinksCode = `<div class="cu-card cu-card-hover p-5 space-y-3 max-w-sm"
 
         <!-- Nav List -->
         <section class="space-y-3">
-            <h2 id="navigation-list" class="text-lg font-semibold tracking-tight relative group">
-              <a href="#navigation-list" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              {t.sections.navigationList.title}
-            </h2>
+            <SectionHeading id="navigation-list" title={t.sections.navigationList.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.navigationList.description} />
             <ComponentPreview code={navListCode}>
                 <div class="w-full max-w-xs">
@@ -183,10 +166,7 @@ const cardLinksCode = `<div class="cu-card cu-card-hover p-5 space-y-3 max-w-sm"
 
         <!-- Card Links -->
         <section class="space-y-3">
-            <h2 id="card-links" class="text-lg font-semibold tracking-tight relative group">
-              <a href="#card-links" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              {t.sections.cardLinks.title}
-            </h2>
+            <SectionHeading id="card-links" title={t.sections.cardLinks.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.cardLinks.description} />
             <ComponentPreview code={cardLinksCode}>
                 <div class="cu-card cu-card-hover p-5 space-y-3 max-w-sm">

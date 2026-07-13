@@ -1,5 +1,6 @@
 ---
 import Layout from "@/layouts/Layout.astro";
+import SectionHeading from "@/components/SectionHeading.astro";
 import Button from "@/components/ui/Button.astro";
 // @ts-ignore - Astro component used in template
 import ButtonGroup from "@/components/ui/ButtonGroup.astro";
@@ -106,10 +107,7 @@ const verticalCode = `<div class="cu-button-group cu-button-group-vertical" role
   <div class="mt-10 space-y-10">
     <!-- Usage -->
     <section class="space-y-3">
-      <h2 id="usage" class="text-lg font-semibold tracking-tight relative group">
-        <a href="#usage" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-        {t.sections.usage.title}
-      </h2>
+      <SectionHeading id="usage" title={t.sections.usage.title} />
       <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
       <ComponentPreview code={usageCode}>
         <ButtonGroup>
@@ -122,10 +120,7 @@ const verticalCode = `<div class="cu-button-group cu-button-group-vertical" role
 
     <!-- Classes Reference -->
     <section class="space-y-3">
-      <h2 id="classes" class="text-lg font-semibold tracking-tight relative group">
-        <a href="#classes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-        {t.sections.classes.title}
-      </h2>
+      <SectionHeading id="classes" title={t.sections.classes.title} />
       <div class="cu-table-wrapper rounded-lg border border-border">
         <table class="cu-table">
           <thead class="cu-table-header">
@@ -149,10 +144,7 @@ const verticalCode = `<div class="cu-button-group cu-button-group-vertical" role
 
     <!-- Variants -->
     <section class="space-y-3">
-      <h2 id="variants" class="text-lg font-semibold tracking-tight relative group">
-        <a href="#variants" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-        {t.sections.variants.title}
-      </h2>
+      <SectionHeading id="variants" title={t.sections.variants.title} />
       <p class="text-base text-muted-foreground leading-relaxed">
         {t.sections.variants.description}
       </p>
@@ -179,10 +171,7 @@ const verticalCode = `<div class="cu-button-group cu-button-group-vertical" role
 
     <!-- With Icons -->
     <section class="space-y-3">
-      <h2 id="with-icons" class="text-lg font-semibold tracking-tight relative group">
-        <a href="#with-icons" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-        {t.sections.withIcons.title}
-      </h2>
+      <SectionHeading id="with-icons" title={t.sections.withIcons.title} />
       <p class="text-base text-muted-foreground leading-relaxed">
         {t.sections.withIcons.description}
       </p>
@@ -206,10 +195,7 @@ const verticalCode = `<div class="cu-button-group cu-button-group-vertical" role
 
     <!-- Icon Only -->
     <section class="space-y-3">
-      <h2 id="icon-only" class="text-lg font-semibold tracking-tight relative group">
-        <a href="#icon-only" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-        {t.sections.iconOnly.title}
-      </h2>
+      <SectionHeading id="icon-only" title={t.sections.iconOnly.title} />
       <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.iconOnly.description} />
       <ComponentPreview code={iconOnlyCode}>
         <ButtonGroup>
@@ -228,10 +214,7 @@ const verticalCode = `<div class="cu-button-group cu-button-group-vertical" role
 
     <!-- Sizes -->
     <section class="space-y-3">
-      <h2 id="sizes" class="text-lg font-semibold tracking-tight relative group">
-        <a href="#sizes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-        {t.sections.sizes.title}
-      </h2>
+      <SectionHeading id="sizes" title={t.sections.sizes.title} />
       <p class="text-base text-muted-foreground leading-relaxed">
         {t.sections.sizes.description}
       </p>
@@ -258,10 +241,7 @@ const verticalCode = `<div class="cu-button-group cu-button-group-vertical" role
 
     <!-- Vertical -->
     <section class="space-y-3">
-      <h2 id="vertical" class="text-lg font-semibold tracking-tight relative group">
-        <a href="#vertical" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-        {t.sections.vertical.title}
-      </h2>
+      <SectionHeading id="vertical" title={t.sections.vertical.title} />
       <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.vertical.description} />
       <ComponentPreview code={verticalCode}>
         <ButtonGroup vertical>

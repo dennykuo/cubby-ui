@@ -1,5 +1,6 @@
 ---
 import Layout from "@/layouts/Layout.astro";
+import SectionHeading from "@/components/SectionHeading.astro";
 // @ts-ignore - Astro component used in template
 import Toolbar from "@/components/ui/Toolbar.astro";
 import ToolbarGroup from "@/components/ui/ToolbarGroup.astro";
@@ -131,10 +132,7 @@ const withDropdownCode = `<div class="cu-toolbar" role="toolbar">
     <div class="mt-10 space-y-10">
         <!-- Usage -->
         <section class="space-y-3">
-            <h2 id="usage" class="text-lg font-semibold tracking-tight relative group">
-              <a href="#usage" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              Usage
-            </h2>
+            <SectionHeading id="usage" title="Usage" />
             <p class="text-base text-muted-foreground leading-relaxed">
                 Use <code class="cu-code">cu-toolbar</code> as the container,
                 <code class="cu-code">cu-toolbar-group</code> for button groups,
@@ -172,10 +170,7 @@ const withDropdownCode = `<div class="cu-toolbar" role="toolbar">
 
         <!-- Classes Reference -->
         <section class="space-y-3">
-            <h2 id="classes" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#classes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                CSS Classes
-            </h2>
+            <SectionHeading id="classes" title="CSS Classes" />
             <div class="cu-table-wrapper rounded-lg border border-border">
                 <table class="cu-table">
                     <thead class="cu-table-header">
@@ -213,10 +208,7 @@ const withDropdownCode = `<div class="cu-toolbar" role="toolbar">
 
         <!-- Text Formatting -->
         <section class="space-y-3">
-            <h2 id="text-formatting" class="text-lg font-semibold tracking-tight relative group">
-              <a href="#text-formatting" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              Text Formatting
-            </h2>
+            <SectionHeading id="text-formatting" title="Text Formatting" />
             <p class="text-base text-muted-foreground leading-relaxed">
                 A text editor toolbar with bold, italic, strikethrough, underline toggles and alignment options.
                 Use <code class="cu-code">cu-toolbar-button-active</code> for active states.
@@ -255,10 +247,7 @@ const withDropdownCode = `<div class="cu-toolbar" role="toolbar">
 
         <!-- With Separator -->
         <section class="space-y-3">
-            <h2 id="with-separator" class="text-lg font-semibold tracking-tight relative group">
-              <a href="#with-separator" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              With Separator
-            </h2>
+            <SectionHeading id="with-separator" title="With Separator" />
             <p class="text-base text-muted-foreground leading-relaxed">
                 Use <code class="cu-code">cu-toolbar-separator</code> to visually separate button groups for different action categories.
             </p>
@@ -290,10 +279,7 @@ const withDropdownCode = `<div class="cu-toolbar" role="toolbar">
 
         <!-- With Dropdown -->
         <section class="space-y-3">
-            <h2 id="with-dropdown" class="text-lg font-semibold tracking-tight relative group">
-              <a href="#with-dropdown" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              {t.sections.withDropdown.title}
-            </h2>
+            <SectionHeading id="with-dropdown" title={t.sections.withDropdown.title} />
             <p class="text-base text-muted-foreground leading-relaxed">{t.sections.withDropdown.description}</p>
             <ComponentPreview code={withDropdownCode}>
                 <Toolbar>

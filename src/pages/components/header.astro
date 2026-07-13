@@ -1,5 +1,6 @@
 ---
 import Layout from "@/layouts/Layout.astro";
+import SectionHeading from "@/components/SectionHeading.astro";
 import ComponentPreview from "@/components/ComponentPreview.astro";
 import { getLocaleFromUrl, useTranslations } from "@/i18n";
 import { headerPage } from "@/i18n/pages/components/header";
@@ -256,10 +257,7 @@ const triggerVisibilityCode = `<!-- Always visible — no breakpoint class -->
 	<div class="mt-10 space-y-10">
 		<!-- Usage -->
 		<section class="space-y-3">
-			<h2 id="usage" class="text-lg font-semibold tracking-tight relative group">
-			  <a href="#usage" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-			  {t.sections.usage.title}
-			</h2>
+			<SectionHeading id="usage" title={t.sections.usage.title} />
 			<p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
 			<ComponentPreview code={usageCode}>
 				<div class="w-full rounded-lg border border-border overflow-hidden">
@@ -282,10 +280,7 @@ const triggerVisibilityCode = `<!-- Always visible — no breakpoint class -->
 
 		<!-- Classes Reference -->
 		<section class="space-y-3">
-			<h2 id="classes" class="text-lg font-semibold tracking-tight relative group">
-				<a href="#classes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-				{t.sections.classes.title}
-			</h2>
+			<SectionHeading id="classes" title={t.sections.classes.title} />
 			<div class="cu-table-wrapper rounded-lg border border-border">
 				<table class="cu-table">
 					<thead class="cu-table-header">
@@ -309,10 +304,7 @@ const triggerVisibilityCode = `<!-- Always visible — no breakpoint class -->
 
 		<!-- Brand Variations -->
 		<section class="space-y-3">
-			<h2 id="brand-variations" class="text-lg font-semibold tracking-tight relative group">
-			  <a href="#brand-variations" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-			  {t.sections.brandVariations.title}
-			</h2>
+			<SectionHeading id="brand-variations" title={t.sections.brandVariations.title} />
 			<p class="text-base text-muted-foreground leading-relaxed">
 				{t.sections.brandVariations.description}
 			</p>
@@ -343,10 +335,7 @@ const triggerVisibilityCode = `<!-- Always visible — no breakpoint class -->
 
 		<!-- Navigation Alignment -->
 		<section class="space-y-3">
-			<h2 id="nav-alignment" class="text-lg font-semibold tracking-tight relative group">
-			  <a href="#nav-alignment" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-			  {t.sections.navAlignment.title}
-			</h2>
+			<SectionHeading id="nav-alignment" title={t.sections.navAlignment.title} />
 			<p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.navAlignment.description} />
 			<ComponentPreview code={navAlignmentCode}>
 				<div class="w-full space-y-3">
@@ -419,10 +408,7 @@ const triggerVisibilityCode = `<!-- Always visible — no breakpoint class -->
 
 		<!-- Actions Area -->
 		<section class="space-y-3">
-			<h2 id="actions" class="text-lg font-semibold tracking-tight relative group">
-			  <a href="#actions" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-			  {t.sections.headerActions.title}
-			</h2>
+			<SectionHeading id="actions" title={t.sections.headerActions.title} />
 			<p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.headerActions.description} />
 			<ComponentPreview code={headerActionsCode}>
 				<div class="w-full rounded-lg border border-border overflow-hidden">
@@ -455,10 +441,7 @@ const triggerVisibilityCode = `<!-- Always visible — no breakpoint class -->
 
 		<!-- Mobile Navigation -->
 		<section class="space-y-3">
-			<h2 id="mobile-nav" class="text-lg font-semibold tracking-tight relative group">
-			  <a href="#mobile-nav" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-			  {t.sections.mobileNav.title}
-			</h2>
+			<SectionHeading id="mobile-nav" title={t.sections.mobileNav.title} />
 			<p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.mobileNav.description} />
 			<ComponentPreview code={mobileNavCode}>
 				<div class="w-full rounded-lg border border-border overflow-hidden relative" style="height:280px;">
@@ -507,10 +490,7 @@ const triggerVisibilityCode = `<!-- Always visible — no breakpoint class -->
 
 		<!-- Trigger Visibility -->
 		<section class="space-y-3">
-			<h2 id="trigger-visibility" class="text-lg font-semibold tracking-tight relative group">
-			  <a href="#trigger-visibility" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-			  {t.sections.triggerVisibility.title}
-			</h2>
+			<SectionHeading id="trigger-visibility" title={t.sections.triggerVisibility.title} />
 			<p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.triggerVisibility.description} />
 			<p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.triggerVisibility.breakpointList} />
 			<ComponentPreview code={triggerVisibilityCode}>
@@ -553,10 +533,7 @@ const triggerVisibilityCode = `<!-- Always visible — no breakpoint class -->
 
 		<!-- Multiple Panels -->
 		<section class="space-y-3">
-			<h2 id="multiple-panels" class="text-lg font-semibold tracking-tight relative group">
-			  <a href="#multiple-panels" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-			  {t.sections.multiplePanels.title}
-			</h2>
+			<SectionHeading id="multiple-panels" title={t.sections.multiplePanels.title} />
 			<p class="text-base text-muted-foreground leading-relaxed">
 				{t.sections.multiplePanels.description}
 			</p>

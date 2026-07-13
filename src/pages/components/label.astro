@@ -1,5 +1,6 @@
 ---
 import Layout from "@/layouts/Layout.astro";
+import SectionHeading from "@/components/SectionHeading.astro";
 // @ts-ignore - Astro component used in template
 import Label from "@/components/ui/Label.astro";
 import Input from "@/components/ui/Input.astro";
@@ -91,10 +92,7 @@ const withTooltipCode = `<div class="space-y-4 w-[300px]">
     <div class="mt-10 space-y-10">
         <!-- Usage -->
         <section class="space-y-3">
-            <h2 id="usage" class="text-lg font-semibold tracking-tight relative group">
-              <a href="#usage" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              {t.sections.usage.title}
-            </h2>
+            <SectionHeading id="usage" title={t.sections.usage.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
             <ComponentPreview code={usageCode}>
                 <Label>Email</Label>
@@ -103,10 +101,7 @@ const withTooltipCode = `<div class="space-y-4 w-[300px]">
 
         <!-- Classes Reference -->
         <section class="space-y-3">
-          <h2 id="classes" class="text-lg font-semibold tracking-tight relative group">
-            <a href="#classes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-            {t.sections.classes.title}
-          </h2>
+          <SectionHeading id="classes" title={t.sections.classes.title} />
           <div class="cu-table-wrapper rounded-lg border border-border">
             <table class="cu-table">
               <thead class="cu-table-header">
@@ -130,10 +125,7 @@ const withTooltipCode = `<div class="space-y-4 w-[300px]">
 
         <!-- With Input -->
         <section class="space-y-3">
-            <h2 id="with-input" class="text-lg font-semibold tracking-tight relative group">
-              <a href="#with-input" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              {t.sections.withInput.title}
-            </h2>
+            <SectionHeading id="with-input" title={t.sections.withInput.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withInput.description} />
             <ComponentPreview code={withInputCode}>
                 <div class="w-full max-w-sm">
@@ -147,10 +139,7 @@ const withTooltipCode = `<div class="space-y-4 w-[300px]">
 
         <!-- Required Indicator -->
         <section class="space-y-3">
-            <h2 id="required-indicator" class="text-lg font-semibold tracking-tight relative group">
-              <a href="#required-indicator" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              {t.sections.requiredIndicator.title}
-            </h2>
+            <SectionHeading id="required-indicator" title={t.sections.requiredIndicator.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.requiredIndicator.description} />
             <ComponentPreview code={requiredCode}>
                 <div class="w-full max-w-sm space-y-4">
@@ -170,10 +159,7 @@ const withTooltipCode = `<div class="space-y-4 w-[300px]">
 
         <!-- Optional Label -->
         <section class="space-y-3">
-            <h2 id="optional" class="text-lg font-semibold tracking-tight relative group">
-              <a href="#optional" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              {t.sections.optional.title}
-            </h2>
+            <SectionHeading id="optional" title={t.sections.optional.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.optional.description} />
             <ComponentPreview code={optionalCode}>
                 <div class="space-y-4 w-[300px]">
@@ -199,10 +185,7 @@ const withTooltipCode = `<div class="space-y-4 w-[300px]">
 
         <!-- With Tooltip -->
         <section class="space-y-3">
-            <h2 id="with-tooltip" class="text-lg font-semibold tracking-tight relative group">
-              <a href="#with-tooltip" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              {t.sections.withTooltip.title}
-            </h2>
+            <SectionHeading id="with-tooltip" title={t.sections.withTooltip.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withTooltip.description} />
             <ComponentPreview code={withTooltipCode}>
                 <div class="space-y-4 w-[300px]">

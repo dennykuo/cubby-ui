@@ -1,5 +1,6 @@
 ---
 import Layout from "@/layouts/Layout.astro";
+import SectionHeading from "@/components/SectionHeading.astro";
 // @ts-ignore - Astro component used in template
 import CheckboxGroup from "@/components/ui/CheckboxGroup.astro";
 import Checkbox from "@/components/ui/Checkbox.astro";
@@ -106,10 +107,7 @@ const disabledCode = `<div class="cu-checkbox-group" data-cu-checkbox-group>
   <div class="mt-10 space-y-10">
     <!-- Usage -->
     <section class="space-y-3">
-      <h2 id="usage" class="text-lg font-semibold tracking-tight relative group">
-        <a href="#usage" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-        {t.sections.usage.title}
-      </h2>
+      <SectionHeading id="usage" title={t.sections.usage.title} />
       <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
       <ComponentPreview code={usageCode}>
         <CheckboxGroup>
@@ -134,10 +132,7 @@ const disabledCode = `<div class="cu-checkbox-group" data-cu-checkbox-group>
 
     <!-- Select All -->
     <section class="space-y-3">
-      <h2 id="select-all" class="text-lg font-semibold tracking-tight relative group">
-        <a href="#select-all" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-        {t.sections.selectAll.title}
-      </h2>
+      <SectionHeading id="select-all" title={t.sections.selectAll.title} />
       <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.selectAll.description} />
       <ComponentPreview code={selectAllCode}>
         <CheckboxGroup>
@@ -166,10 +161,7 @@ const disabledCode = `<div class="cu-checkbox-group" data-cu-checkbox-group>
 
     <!-- Pre-selected -->
     <section class="space-y-3">
-      <h2 id="pre-selected" class="text-lg font-semibold tracking-tight relative group">
-        <a href="#pre-selected" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-        {t.sections.preSelected.title}
-      </h2>
+      <SectionHeading id="pre-selected" title={t.sections.preSelected.title} />
       <p class="text-base text-muted-foreground leading-relaxed">
         {t.sections.preSelected.description}
       </p>
@@ -200,10 +192,7 @@ const disabledCode = `<div class="cu-checkbox-group" data-cu-checkbox-group>
 
     <!-- Disabled -->
     <section class="space-y-3">
-      <h2 id="disabled" class="text-lg font-semibold tracking-tight relative group">
-        <a href="#disabled" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-        {t.sections.disabled.title}
-      </h2>
+      <SectionHeading id="disabled" title={t.sections.disabled.title} />
       <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.disabled.description} />
       <ComponentPreview code={disabledCode}>
         <CheckboxGroup>
@@ -228,10 +217,7 @@ const disabledCode = `<div class="cu-checkbox-group" data-cu-checkbox-group>
 
     <!-- Classes Reference -->
     <section class="space-y-3 mt-10">
-      <h2 id="classes" class="text-lg font-semibold tracking-tight relative group">
-        <a href="#classes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-        {t.sections.classes.title}
-      </h2>
+      <SectionHeading id="classes" title={t.sections.classes.title} />
       <div class="cu-table-wrapper rounded-lg border border-border">
         <table class="cu-table">
           <thead class="cu-table-header">

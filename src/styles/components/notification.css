@@ -31,12 +31,16 @@
     @apply shrink-0 self-start rounded-md p-1 text-muted-foreground/50 transition-colors duration-150 cursor-pointer hover:text-foreground hover:bg-muted focus-visible:ring-1 focus-visible:ring-ring/40 focus-visible:outline-none;
 }
 
-/* Unread indicator */
+/* Unread indicator (background tint + leading dot; replaces the old left-side stripe) */
 .cu-notification-unread {
-    @apply border-l-2 border-l-primary bg-primary/3;
+    @apply bg-primary/5;
 }
 .cu-notification-unread .cu-notification-title {
     @apply font-semibold;
+}
+.cu-notification-unread .cu-notification-title::before {
+    content: "";
+    @apply mr-2 inline-block size-2 shrink-0 rounded-full bg-primary align-middle;
 }
 
 /* Variants */

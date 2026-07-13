@@ -1,5 +1,6 @@
 ---
 import Layout from "@/layouts/Layout.astro";
+import SectionHeading from "@/components/SectionHeading.astro";
 // @ts-ignore - Astro component used in template
 import Kbd from "@/components/ui/Kbd.astro";
 import ComponentPreview from "@/components/ComponentPreview.astro";
@@ -77,10 +78,7 @@ const inContextCode = `<!-- In a menubar item -->
     <div class="mt-10 space-y-10">
         <!-- Usage -->
         <section class="space-y-3">
-            <h2 id="usage" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#usage" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.usage.title}
-            </h2>
+            <SectionHeading id="usage" title={t.sections.usage.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
             <ComponentPreview code={usageCode}>
                 <div class="flex flex-wrap gap-2 items-center justify-center">
@@ -94,10 +92,7 @@ const inContextCode = `<!-- In a menubar item -->
 
         <!-- Classes Reference -->
         <section class="space-y-3">
-            <h2 id="classes" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#classes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.classes.title}
-            </h2>
+            <SectionHeading id="classes" title={t.sections.classes.title} />
             <div class="cu-table-wrapper rounded-lg border border-border">
                 <table class="cu-table">
                     <thead class="cu-table-header">
@@ -120,10 +115,7 @@ const inContextCode = `<!-- In a menubar item -->
 
         <!-- Sizes -->
         <section class="space-y-3">
-            <h2 id="sizes" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#sizes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.sizes.title}
-            </h2>
+            <SectionHeading id="sizes" title={t.sections.sizes.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.sizes.description} />
             <ComponentPreview code={sizesCode}>
                 <div class="flex flex-wrap gap-3 items-end justify-center">
@@ -136,10 +128,7 @@ const inContextCode = `<!-- In a menubar item -->
 
         <!-- Combinations -->
         <section class="space-y-3">
-            <h2 id="combinations" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#combinations" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.combinations.title}
-            </h2>
+            <SectionHeading id="combinations" title={t.sections.combinations.title} />
             <p class="text-base text-muted-foreground leading-relaxed">
                 {t.sections.combinations.description}
             </p>
@@ -168,10 +157,7 @@ const inContextCode = `<!-- In a menubar item -->
 
         <!-- In Context -->
         <section class="space-y-3">
-            <h2 id="in-context" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#in-context" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.inContext.title}
-            </h2>
+            <SectionHeading id="in-context" title={t.sections.inContext.title} />
             <p class="text-base text-muted-foreground leading-relaxed">
                 {t.sections.inContext.description}
             </p>

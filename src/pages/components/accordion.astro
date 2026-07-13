@@ -1,5 +1,6 @@
 ---
 import Layout from "@/layouts/Layout.astro";
+import SectionHeading from "@/components/SectionHeading.astro";
 // @ts-ignore - Astro component used in template
 import Accordion from "@/components/ui/Accordion.astro";
 import AccordionItem from "@/components/ui/AccordionItem.astro";
@@ -211,10 +212,7 @@ const richContentCode = `<div class="cu-accordion">
     <div class="mt-10 space-y-10">
         <!-- Usage -->
         <section class="space-y-3">
-            <h2 id="usage" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#usage" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.usage.title}
-            </h2>
+            <SectionHeading id="usage" title={t.sections.usage.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
             <ComponentPreview code={usageCode}>
                 <div class="w-full max-w-lg">
@@ -232,10 +230,7 @@ const richContentCode = `<div class="cu-accordion">
 
         <!-- Classes Reference -->
         <section class="space-y-3">
-            <h2 id="classes" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#classes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.classes.title}
-            </h2>
+            <SectionHeading id="classes" title={t.sections.classes.title} />
             <div class="cu-table-wrapper rounded-lg border border-border">
                 <table class="cu-table">
                     <thead class="cu-table-header">
@@ -273,10 +268,7 @@ const richContentCode = `<div class="cu-accordion">
 
         <!-- Multiple Items -->
         <section class="space-y-3">
-            <h2 id="multiple-items" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#multiple-items" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.multipleItems.title}
-            </h2>
+            <SectionHeading id="multiple-items" title={t.sections.multipleItems.title} />
             <p class="text-base text-muted-foreground leading-relaxed">{t.sections.multipleItems.description}</p>
             <ComponentPreview code={multipleCode}>
                 <div class="w-full max-w-lg">
@@ -306,10 +298,7 @@ const richContentCode = `<div class="cu-accordion">
 
         <!-- Default Open -->
         <section class="space-y-3">
-            <h2 id="default-open" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#default-open" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.defaultOpen.title}
-            </h2>
+            <SectionHeading id="default-open" title={t.sections.defaultOpen.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.defaultOpen.description} />
             <ComponentPreview code={defaultOpenCode}>
                 <div class="w-full max-w-lg">
@@ -339,10 +328,7 @@ const richContentCode = `<div class="cu-accordion">
 
         <!-- With Icons -->
         <section class="space-y-3">
-            <h2 id="with-icons" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#with-icons" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.withIcons.title}
-            </h2>
+            <SectionHeading id="with-icons" title={t.sections.withIcons.title} />
             <p class="text-base text-muted-foreground leading-relaxed">{t.sections.withIcons.description}</p>
             <ComponentPreview code={withIconsCode}>
                 <div class="w-full max-w-lg">
@@ -387,10 +373,7 @@ const richContentCode = `<div class="cu-accordion">
 
         <!-- Bordered -->
         <section class="space-y-3">
-            <h2 id="bordered" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#bordered" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.bordered.title}
-            </h2>
+            <SectionHeading id="bordered" title={t.sections.bordered.title} />
             <p class="text-base text-muted-foreground leading-relaxed">{t.sections.bordered.description}</p>
             <ComponentPreview code={borderedCode}>
                 <div class="w-full max-w-lg">
@@ -420,10 +403,7 @@ const richContentCode = `<div class="cu-accordion">
 
         <!-- Rich Content -->
         <section class="space-y-3">
-            <h2 id="rich-content" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#rich-content" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.richContent.title}
-            </h2>
+            <SectionHeading id="rich-content" title={t.sections.richContent.title} />
             <p class="text-base text-muted-foreground leading-relaxed">{t.sections.richContent.description}</p>
             <ComponentPreview code={richContentCode}>
                 <div class="w-full max-w-lg">

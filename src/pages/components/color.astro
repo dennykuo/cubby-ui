@@ -1,5 +1,6 @@
 ---
 import Layout from "@/layouts/Layout.astro";
+import SectionHeading from "@/components/SectionHeading.astro";
 import { getLocaleFromUrl, useTranslations } from "@/i18n";
 import { colorPage } from "@/i18n/pages/components/color";
 
@@ -49,10 +50,7 @@ const utilityColors: Swatch[] = [
     <div class="mt-10 space-y-10">
         <!-- Semantic Colors -->
         <section class="space-y-3">
-            <h2 id="semantic-colors" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#semantic-colors" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.semanticColors.title}
-            </h2>
+            <SectionHeading id="semantic-colors" title={t.sections.semanticColors.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.semanticColors.description} />
             <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
                 {semanticColors.map((c) => (
@@ -71,10 +69,7 @@ const utilityColors: Swatch[] = [
 
         <!-- Surface Colors -->
         <section class="space-y-3">
-            <h2 id="surface-colors" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#surface-colors" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.surfaceColors.title}
-            </h2>
+            <SectionHeading id="surface-colors" title={t.sections.surfaceColors.title} />
             <p class="text-base text-muted-foreground leading-relaxed">
                 {t.sections.surfaceColors.description}
             </p>
@@ -93,10 +88,7 @@ const utilityColors: Swatch[] = [
 
         <!-- Utility Colors -->
         <section class="space-y-3">
-            <h2 id="utility-colors" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#utility-colors" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.utilityColors.title}
-            </h2>
+            <SectionHeading id="utility-colors" title={t.sections.utilityColors.title} />
             <p class="text-base text-muted-foreground leading-relaxed">
                 {t.sections.utilityColors.description}
             </p>
@@ -115,10 +107,7 @@ const utilityColors: Swatch[] = [
 
         <!-- Customization -->
         <section class="space-y-3">
-            <h2 id="customization" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#customization" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.customization.title}
-            </h2>
+            <SectionHeading id="customization" title={t.sections.customization.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.customization.description} />
         </section>
     </div>

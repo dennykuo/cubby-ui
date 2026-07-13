@@ -1,5 +1,6 @@
 ---
 import Layout from "@/layouts/Layout.astro";
+import SectionHeading from "@/components/SectionHeading.astro";
 import ComponentPreview from "@/components/ComponentPreview.astro";
 import { getLocaleFromUrl, useTranslations } from "@/i18n";
 import { chatBubblePage } from "@/i18n/pages/components/chat-bubble";
@@ -170,10 +171,7 @@ const conversationCode = `<div class="space-y-0">
     <div class="mt-10 space-y-10">
         <!-- Usage -->
         <section class="space-y-3">
-            <h2 id="usage" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#usage" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.usage.title}
-            </h2>
+            <SectionHeading id="usage" title={t.sections.usage.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
             <ComponentPreview code={usageCode}>
                 <div class="w-full max-w-lg">
@@ -192,10 +190,7 @@ const conversationCode = `<div class="space-y-0">
 
         <!-- Classes Reference -->
         <section class="space-y-3">
-            <h2 id="classes" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#classes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.classes.title}
-            </h2>
+            <SectionHeading id="classes" title={t.sections.classes.title} />
             <div class="cu-table-wrapper rounded-lg border border-border">
                 <table class="cu-table">
                     <thead class="cu-table-header">
@@ -218,10 +213,7 @@ const conversationCode = `<div class="space-y-0">
 
         <!-- User Message -->
         <section class="space-y-3">
-            <h2 id="user-message" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#user-message" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.userMessage.title}
-            </h2>
+            <SectionHeading id="user-message" title={t.sections.userMessage.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.userMessage.description} />
             <ComponentPreview code={userMessageCode}>
                 <div class="w-full max-w-lg">
@@ -239,10 +231,7 @@ const conversationCode = `<div class="space-y-0">
 
         <!-- With Avatar -->
         <section class="space-y-3">
-            <h2 id="with-avatar" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#with-avatar" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.withAvatar.title}
-            </h2>
+            <SectionHeading id="with-avatar" title={t.sections.withAvatar.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withAvatar.description} />
             <ComponentPreview code={withAvatarCode}>
                 <div class="w-full max-w-lg space-y-0">
@@ -275,10 +264,7 @@ const conversationCode = `<div class="space-y-0">
 
         <!-- With Actions -->
         <section class="space-y-3">
-            <h2 id="with-actions" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#with-actions" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.withActions.title}
-            </h2>
+            <SectionHeading id="with-actions" title={t.sections.withActions.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withActions.description} />
             <ComponentPreview code={withActionsCode}>
                 <div class="w-full max-w-lg">
@@ -313,10 +299,7 @@ const conversationCode = `<div class="space-y-0">
 
         <!-- Prose -->
         <section class="space-y-3">
-            <h2 id="prose" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#prose" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.prose.title}
-            </h2>
+            <SectionHeading id="prose" title={t.sections.prose.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.prose.description} />
             <ComponentPreview code={proseCode}>
                 <div class="w-full max-w-lg">
@@ -348,10 +331,7 @@ const conversationCode = `<div class="space-y-0">
 
         <!-- Full Conversation -->
         <section class="space-y-3">
-            <h2 id="conversation" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#conversation" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.conversation.title}
-            </h2>
+            <SectionHeading id="conversation" title={t.sections.conversation.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.conversation.description} />
             <ComponentPreview code={conversationCode}>
                 <div class="w-full max-w-lg space-y-0">

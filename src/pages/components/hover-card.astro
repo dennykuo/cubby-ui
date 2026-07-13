@@ -1,5 +1,6 @@
 ---
 import Layout from "@/layouts/Layout.astro";
+import SectionHeading from "@/components/SectionHeading.astro";
 // @ts-ignore - Astro component used in template
 import HoverCard from "@/components/ui/HoverCard.astro";
 import HoverCardContent from "@/components/ui/HoverCardContent.astro";
@@ -107,10 +108,7 @@ const topCode = `<div class="cu-hover-card">
     <div class="mt-10 space-y-10">
         <!-- Usage -->
         <section class="space-y-3">
-            <h2 id="usage" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#usage" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.usage.title}
-            </h2>
+            <SectionHeading id="usage" title={t.sections.usage.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
             <ComponentPreview code={usageCode}>
                 <HoverCard>
@@ -136,10 +134,7 @@ const topCode = `<div class="cu-hover-card">
 
         <!-- Classes Reference -->
         <section class="space-y-3">
-            <h2 id="classes" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#classes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.classes.title}
-            </h2>
+            <SectionHeading id="classes" title={t.sections.classes.title} />
             <div class="cu-table-wrapper rounded-lg border border-border">
                 <table class="cu-table">
                     <thead class="cu-table-header">
@@ -169,10 +164,7 @@ const topCode = `<div class="cu-hover-card">
 
         <!-- Top Position -->
         <section class="space-y-3">
-            <h2 id="top-position" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#top-position" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.topPosition.title}
-            </h2>
+            <SectionHeading id="top-position" title={t.sections.topPosition.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.topPosition.description} />
             <ComponentPreview code={topCode}>
                 <HoverCard>
@@ -189,10 +181,7 @@ const topCode = `<div class="cu-hover-card">
 
         <!-- Simple -->
         <section class="space-y-3">
-            <h2 id="simple" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#simple" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.simple.title}
-            </h2>
+            <SectionHeading id="simple" title={t.sections.simple.title} />
             <p class="text-base text-muted-foreground leading-relaxed">
                 {t.sections.simple.description}
             </p>
@@ -208,10 +197,7 @@ const topCode = `<div class="cu-hover-card">
 
         <!-- User Profile -->
         <section class="space-y-3">
-            <h2 id="user-profile" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#user-profile" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.userProfile.title}
-            </h2>
+            <SectionHeading id="user-profile" title={t.sections.userProfile.title} />
             <p class="text-base text-muted-foreground leading-relaxed">
                 {t.sections.userProfile.description}
             </p>
@@ -243,10 +229,7 @@ const topCode = `<div class="cu-hover-card">
 
         <!-- Product Preview -->
         <section class="space-y-3">
-            <h2 id="product-preview" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#product-preview" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.productPreview.title}
-            </h2>
+            <SectionHeading id="product-preview" title={t.sections.productPreview.title} />
             <p class="text-base text-muted-foreground leading-relaxed">
                 {t.sections.productPreview.description}
             </p>

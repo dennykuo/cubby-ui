@@ -1,5 +1,6 @@
 ---
 import Layout from "@/layouts/Layout.astro";
+import SectionHeading from "@/components/SectionHeading.astro";
 import ComponentPreview from "@/components/ComponentPreview.astro";
 import { getLocaleFromUrl, useTranslations } from "@/i18n";
 import { kanbanPage } from "@/i18n/pages/components/kanban";
@@ -182,20 +183,14 @@ const addCardCode = `<div class="cu-kanban" data-cu-kanban>
     <div class="mt-10 space-y-10">
         <!-- Usage -->
         <section class="space-y-3">
-            <h2 id="usage" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#usage" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.usage.title}
-            </h2>
+            <SectionHeading id="usage" title={t.sections.usage.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
             <ComponentPreview code={usageCode} />
         </section>
 
         <!-- Classes Reference -->
         <section class="space-y-3">
-            <h2 id="classes" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#classes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.classes.title}
-            </h2>
+            <SectionHeading id="classes" title={t.sections.classes.title} />
             <div class="cu-table-wrapper rounded-lg border border-border">
                 <table class="cu-table">
                     <thead class="cu-table-header">
@@ -218,30 +213,21 @@ const addCardCode = `<div class="cu-kanban" data-cu-kanban>
 
         <!-- With Tags -->
         <section class="space-y-3">
-            <h2 id="with-tags" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#with-tags" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.withTags.title}
-            </h2>
+            <SectionHeading id="with-tags" title={t.sections.withTags.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withTags.description} />
             <ComponentPreview code={withTagsCode} />
         </section>
 
         <!-- Compact -->
         <section class="space-y-3">
-            <h2 id="compact" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#compact" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.compact.title}
-            </h2>
+            <SectionHeading id="compact" title={t.sections.compact.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.compact.description} />
             <ComponentPreview code={compactCode} />
         </section>
 
         <!-- Add Card -->
         <section class="space-y-3">
-            <h2 id="add-card" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#add-card" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.addCard.title}
-            </h2>
+            <SectionHeading id="add-card" title={t.sections.addCard.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.addCard.description} />
             <ComponentPreview code={addCardCode} />
         </section>

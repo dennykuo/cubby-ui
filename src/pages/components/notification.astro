@@ -1,5 +1,6 @@
 ---
 import Layout from "@/layouts/Layout.astro";
+import SectionHeading from "@/components/SectionHeading.astro";
 import ComponentPreview from "@/components/ComponentPreview.astro";
 import { getLocaleFromUrl, useTranslations } from "@/i18n";
 import { notificationPage } from "@/i18n/pages/components/notification";
@@ -129,19 +130,13 @@ const listCode = `<div class="cu-notification-list">
 
     <div class="mt-10 space-y-10">
         <section class="space-y-3">
-            <h2 id="usage" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#usage" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.usage.title}
-            </h2>
+            <SectionHeading id="usage" title={t.sections.usage.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
             <ComponentPreview code={usageCode} />
         </section>
 
         <section class="space-y-3">
-            <h2 id="classes" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#classes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.classes.title}
-            </h2>
+            <SectionHeading id="classes" title={t.sections.classes.title} />
             <div class="cu-table-wrapper rounded-lg border border-border">
                 <table class="cu-table">
                     <thead class="cu-table-header">
@@ -163,37 +158,25 @@ const listCode = `<div class="cu-notification-list">
         </section>
 
         <section class="space-y-3">
-            <h2 id="unread" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#unread" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.unread.title}
-            </h2>
+            <SectionHeading id="unread" title={t.sections.unread.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.unread.description} />
             <ComponentPreview code={unreadCode} />
         </section>
 
         <section class="space-y-3">
-            <h2 id="variants" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#variants" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.variants.title}
-            </h2>
+            <SectionHeading id="variants" title={t.sections.variants.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.variants.description} />
             <ComponentPreview code={variantsCode} />
         </section>
 
         <section class="space-y-3">
-            <h2 id="with-actions" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#with-actions" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.withActions.title}
-            </h2>
+            <SectionHeading id="with-actions" title={t.sections.withActions.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withActions.description} />
             <ComponentPreview code={withActionsCode} />
         </section>
 
         <section class="space-y-3">
-            <h2 id="list" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#list" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.list.title}
-            </h2>
+            <SectionHeading id="list" title={t.sections.list.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.list.description} />
             <ComponentPreview code={listCode} />
         </section>

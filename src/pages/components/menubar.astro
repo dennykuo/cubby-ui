@@ -1,5 +1,6 @@
 ---
 import Layout from "@/layouts/Layout.astro";
+import SectionHeading from "@/components/SectionHeading.astro";
 // @ts-ignore - Astro component used in template
 import Menubar from "@/components/ui/Menubar.astro";
 import MenubarMenu from "@/components/ui/MenubarMenu.astro";
@@ -317,10 +318,7 @@ const withLabelsCode = `<div class="cu-menubar" data-cu-menubar>
     <div class="mt-10 space-y-10">
         <!-- Usage -->
         <section class="space-y-3">
-            <h2 id="usage" class="text-lg font-semibold tracking-tight relative group">
-              <a href="#usage" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              {t.sections.usage.title}
-            </h2>
+            <SectionHeading id="usage" title={t.sections.usage.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
             <ComponentPreview code={usageCode}>
                 <Menubar>
@@ -359,10 +357,7 @@ const withLabelsCode = `<div class="cu-menubar" data-cu-menubar>
 
         <!-- Classes Reference -->
         <section class="space-y-3">
-            <h2 id="classes" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#classes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.classes.title}
-            </h2>
+            <SectionHeading id="classes" title={t.sections.classes.title} />
             <div class="cu-table-wrapper rounded-lg border border-border">
                 <table class="cu-table">
                     <thead class="cu-table-header">
@@ -420,10 +415,7 @@ const withLabelsCode = `<div class="cu-menubar" data-cu-menubar>
 
         <!-- With Labels -->
         <section class="space-y-3">
-            <h2 id="with-labels-disabled-items" class="text-lg font-semibold tracking-tight relative group">
-              <a href="#with-labels-disabled-items" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              {t.sections.withLabels.title}
-            </h2>
+            <SectionHeading id="with-labels-disabled-items" title={t.sections.withLabels.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withLabels.description} />
             <ComponentPreview code={withLabelsCode}>
                 <Menubar>
@@ -445,10 +437,7 @@ const withLabelsCode = `<div class="cu-menubar" data-cu-menubar>
 
         <!-- With Icons -->
         <section class="space-y-3">
-            <h2 id="with-icons" class="text-lg font-semibold tracking-tight relative group">
-              <a href="#with-icons" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              {t.sections.withIcons.title}
-            </h2>
+            <SectionHeading id="with-icons" title={t.sections.withIcons.title} />
             <p class="text-base text-muted-foreground leading-relaxed">
                 {t.sections.withIcons.description}
             </p>
@@ -478,10 +467,7 @@ const withLabelsCode = `<div class="cu-menubar" data-cu-menubar>
 
         <!-- With Shortcuts -->
         <section class="space-y-3">
-            <h2 id="with-shortcuts" class="text-lg font-semibold tracking-tight relative group">
-              <a href="#with-shortcuts" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              {t.sections.withShortcuts.title}
-            </h2>
+            <SectionHeading id="with-shortcuts" title={t.sections.withShortcuts.title} />
             <p class="text-base text-muted-foreground leading-relaxed">
                 {t.sections.withShortcuts.description}
             </p>
@@ -515,10 +501,7 @@ const withLabelsCode = `<div class="cu-menubar" data-cu-menubar>
 
         <!-- With Checkbox & Radio -->
         <section class="space-y-3">
-            <h2 id="with-checkbox-radio" class="text-lg font-semibold tracking-tight relative group">
-              <a href="#with-checkbox-radio" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              {t.sections.withCheckboxRadio.title}
-            </h2>
+            <SectionHeading id="with-checkbox-radio" title={t.sections.withCheckboxRadio.title} />
             <p class="text-base text-muted-foreground leading-relaxed">
                 {t.sections.withCheckboxRadio.description}
             </p>

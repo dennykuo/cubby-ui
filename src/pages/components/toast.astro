@@ -1,5 +1,6 @@
 ---
 import Layout from "@/layouts/Layout.astro";
+import SectionHeading from "@/components/SectionHeading.astro";
 import ComponentPreview from "@/components/ComponentPreview.astro";
 import { getLocaleFromUrl, useTranslations } from "@/i18n";
 import { toastPage } from "@/i18n/pages/components/toast";
@@ -230,10 +231,7 @@ const promiseToastCode = `<!-- Promise Toast requires JavaScript -->
     <div class="mt-10 space-y-10">
         <!-- Usage -->
         <section class="space-y-3">
-            <h2 id="usage" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#usage" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.usage.title}
-            </h2>
+            <SectionHeading id="usage" title={t.sections.usage.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
             <ComponentPreview code={usageCode}>
                 <button class="cu-button cu-button-outline cu-button-md" data-cu-toast-trigger
@@ -246,10 +244,7 @@ const promiseToastCode = `<!-- Promise Toast requires JavaScript -->
 
         <!-- Classes Reference -->
         <section class="space-y-3">
-            <h2 id="classes" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#classes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.classes.title}
-            </h2>
+            <SectionHeading id="classes" title={t.sections.classes.title} />
             <div class="cu-table-wrapper rounded-lg border border-border">
                 <table class="cu-table">
                     <thead class="cu-table-header">
@@ -339,10 +334,7 @@ const promiseToastCode = `<!-- Promise Toast requires JavaScript -->
 
         <!-- Variants -->
         <section class="space-y-3">
-            <h2 id="variants" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#variants" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.variants.title}
-            </h2>
+            <SectionHeading id="variants" title={t.sections.variants.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.variants.description} />
             <ComponentPreview code={variantsCode}>
                 <div class="flex flex-wrap gap-2">
@@ -372,10 +364,7 @@ const promiseToastCode = `<!-- Promise Toast requires JavaScript -->
 
         <!-- With Action -->
         <section class="space-y-3">
-            <h2 id="with-action" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#with-action" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.withAction.title}
-            </h2>
+            <SectionHeading id="with-action" title={t.sections.withAction.title} />
             <p class="text-base text-muted-foreground leading-relaxed">{t.sections.withAction.description}</p>
             <ComponentPreview code={withActionCode}>
                 <button class="cu-button cu-button-outline cu-button-md" id="toast-action-demo">
@@ -386,10 +375,7 @@ const promiseToastCode = `<!-- Promise Toast requires JavaScript -->
 
         <!-- Custom Duration -->
         <section class="space-y-3">
-            <h2 id="custom-duration" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#custom-duration" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.customDuration.title}
-            </h2>
+            <SectionHeading id="custom-duration" title={t.sections.customDuration.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.customDuration.description} />
             <ComponentPreview code={customDurationCode}>
                 <div class="flex flex-wrap gap-2">
@@ -411,10 +397,7 @@ const promiseToastCode = `<!-- Promise Toast requires JavaScript -->
 
         <!-- Positions -->
         <section class="space-y-3">
-            <h2 id="positions" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#positions" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.positions.title}
-            </h2>
+            <SectionHeading id="positions" title={t.sections.positions.title} />
             <p class="text-base text-muted-foreground leading-relaxed">{t.sections.positions.description}</p>
             <ComponentPreview code={positionsCode}>
                 <div class="relative w-full h-64 border border-border rounded-xl bg-muted/20">
@@ -430,10 +413,7 @@ const promiseToastCode = `<!-- Promise Toast requires JavaScript -->
 
         <!-- With Icon -->
         <section class="space-y-3">
-            <h2 id="with-icon" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#with-icon" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.withIcon.title}
-            </h2>
+            <SectionHeading id="with-icon" title={t.sections.withIcon.title} />
             <p class="text-base text-muted-foreground leading-relaxed">{t.sections.withIcon.description}</p>
             <ComponentPreview code={withIconCode}>
                 <div class="flex flex-col gap-3 w-full max-w-sm">
@@ -464,10 +444,7 @@ const promiseToastCode = `<!-- Promise Toast requires JavaScript -->
 
         <!-- Persistent -->
         <section class="space-y-3">
-            <h2 id="persistent" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#persistent" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.persistent.title}
-            </h2>
+            <SectionHeading id="persistent" title={t.sections.persistent.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.persistent.description} />
             <ComponentPreview code={persistentCode}>
                 <button class="cu-button cu-button-outline cu-button-md" id="toast-persistent-demo">
@@ -478,10 +455,7 @@ const promiseToastCode = `<!-- Promise Toast requires JavaScript -->
 
         <!-- Stack Limit -->
         <section class="space-y-3">
-            <h2 id="stack-limit" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#stack-limit" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.stacked.title}
-            </h2>
+            <SectionHeading id="stack-limit" title={t.sections.stacked.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.stacked.description} />
             <ComponentPreview code={stackedCode}>
                 <button class="cu-button cu-button-outline cu-button-md" id="toast-stacked-demo">
@@ -492,10 +466,7 @@ const promiseToastCode = `<!-- Promise Toast requires JavaScript -->
 
         <!-- Promise Toast -->
         <section class="space-y-3">
-            <h2 id="promise-toast" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#promise-toast" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.promiseToast.title}
-            </h2>
+            <SectionHeading id="promise-toast" title={t.sections.promiseToast.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.promiseToast.description} />
             <ComponentPreview code={promiseToastCode}>
                 <button class="cu-button cu-button-default cu-button-md" id="toast-promise-demo">

@@ -1,5 +1,6 @@
 ---
 import Layout from "@/layouts/Layout.astro";
+import SectionHeading from "@/components/SectionHeading.astro";
 // @ts-ignore - Astro component used in template
 import Badge from "@/components/ui/Badge.astro";
 import ComponentPreview from "@/components/ComponentPreview.astro";
@@ -104,10 +105,7 @@ const onAvatarCode = `<div class="flex items-center gap-8">
     <div class="mt-10 space-y-10">
         <!-- Usage -->
         <section class="space-y-3">
-            <h2 id="usage" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#usage" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.usage.title}
-            </h2>
+            <SectionHeading id="usage" title={t.sections.usage.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
             <ComponentPreview code={usageCode}>
                 <Badge>Badge</Badge>
@@ -116,10 +114,7 @@ const onAvatarCode = `<div class="flex items-center gap-8">
 
         <!-- Classes Reference -->
         <section class="space-y-3">
-            <h2 id="classes" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#classes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.classes.title}
-            </h2>
+            <SectionHeading id="classes" title={t.sections.classes.title} />
             <div class="cu-table-wrapper rounded-lg border border-border">
                 <table class="cu-table">
                     <thead class="cu-table-header">
@@ -189,10 +184,7 @@ const onAvatarCode = `<div class="flex items-center gap-8">
 
         <!-- Variants -->
         <section class="space-y-3">
-            <h2 id="variants" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#variants" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.variants.title}
-            </h2>
+            <SectionHeading id="variants" title={t.sections.variants.title} />
             <p class="text-base text-muted-foreground leading-relaxed">{t.sections.variants.description}</p>
             <ComponentPreview code={variantsCode}>
                 <div class="flex flex-wrap gap-2 items-center justify-center">
@@ -209,10 +201,7 @@ const onAvatarCode = `<div class="flex items-center gap-8">
 
         <!-- Soft Variants -->
         <section class="space-y-3">
-            <h2 id="soft-variants" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#soft-variants" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.softVariants.title}
-            </h2>
+            <SectionHeading id="soft-variants" title={t.sections.softVariants.title} />
             <p class="text-base text-muted-foreground leading-relaxed">{t.sections.softVariants.description}</p>
             <ComponentPreview code={softVariantsCode}>
                 <div class="flex flex-wrap gap-2 items-center justify-center">
@@ -228,10 +217,7 @@ const onAvatarCode = `<div class="flex items-center gap-8">
 
         <!-- With Icon -->
         <section class="space-y-3">
-            <h2 id="with-icon" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#with-icon" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.withIcon.title}
-            </h2>
+            <SectionHeading id="with-icon" title={t.sections.withIcon.title} />
             <p class="text-base text-muted-foreground leading-relaxed">{t.sections.withIcon.description}</p>
             <ComponentPreview code={withIconCode}>
                 <Badge>
@@ -243,10 +229,7 @@ const onAvatarCode = `<div class="flex items-center gap-8">
 
         <!-- With Dot -->
         <section class="space-y-3">
-            <h2 id="with-dot" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#with-dot" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.withDot.title}
-            </h2>
+            <SectionHeading id="with-dot" title={t.sections.withDot.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withDot.description} />
             <ComponentPreview code={withDotCode}>
                 <div class="flex flex-wrap gap-2 items-center justify-center">
@@ -261,10 +244,7 @@ const onAvatarCode = `<div class="flex items-center gap-8">
 
         <!-- Dismissible -->
         <section class="space-y-3">
-            <h2 id="dismissible" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#dismissible" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.dismissible.title}
-            </h2>
+            <SectionHeading id="dismissible" title={t.sections.dismissible.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.dismissible.description} />
             <ComponentPreview code={dismissibleCode}>
                 <div class="flex flex-wrap gap-2 items-center justify-center">
@@ -292,10 +272,7 @@ const onAvatarCode = `<div class="flex items-center gap-8">
 
         <!-- Count -->
         <section class="space-y-3">
-            <h2 id="count" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#count" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.count.title}
-            </h2>
+            <SectionHeading id="count" title={t.sections.count.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.count.description} />
             <ComponentPreview code={countCode}>
                 <div class="flex flex-wrap gap-2 items-center justify-center">
@@ -309,10 +286,7 @@ const onAvatarCode = `<div class="flex items-center gap-8">
 
         <!-- Animated Dot -->
         <section class="space-y-3">
-            <h2 id="animated-dot" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#animated-dot" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.animatedDot.title}
-            </h2>
+            <SectionHeading id="animated-dot" title={t.sections.animatedDot.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.animatedDot.description} />
             <ComponentPreview code={animatedDotCode}>
                 <div class="flex flex-wrap gap-4">
@@ -326,10 +300,7 @@ const onAvatarCode = `<div class="flex items-center gap-8">
 
         <!-- Badge on Avatar -->
         <section class="space-y-3">
-            <h2 id="on-avatar" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#on-avatar" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.onAvatar.title}
-            </h2>
+            <SectionHeading id="on-avatar" title={t.sections.onAvatar.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.onAvatar.description} />
             <ComponentPreview code={onAvatarCode}>
                 <div class="flex items-center gap-8">

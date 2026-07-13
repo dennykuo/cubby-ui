@@ -1,5 +1,6 @@
 ---
 import Layout from "@/layouts/Layout.astro";
+import SectionHeading from "@/components/SectionHeading.astro";
 import ComponentPreview from "@/components/ComponentPreview.astro";
 import { getLocaleFromUrl, useTranslations } from "@/i18n";
 import { commandPalettePage } from "@/i18n/pages/components/command-palette";
@@ -211,10 +212,7 @@ const emptyStateCode = `<dialog class="cu-command" id="cmd-demo-5" data-cu-comma
   <div class="mt-10 space-y-10">
     <!-- Usage -->
     <section class="space-y-3">
-      <h2 id="usage" class="text-lg font-semibold tracking-tight relative group">
-        <a href="#usage" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-        {t.sections.usage.title}
-      </h2>
+      <SectionHeading id="usage" title={t.sections.usage.title} />
       <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
       <ComponentPreview code={usageCode}>
         <dialog class="cu-command" id="cmd-demo-1" data-cu-command>
@@ -246,10 +244,7 @@ const emptyStateCode = `<dialog class="cu-command" id="cmd-demo-5" data-cu-comma
 
     <!-- With Groups -->
     <section class="space-y-3">
-      <h2 id="with-groups" class="text-lg font-semibold tracking-tight relative group">
-        <a href="#with-groups" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-        {t.sections.withGroups.title}
-      </h2>
+      <SectionHeading id="with-groups" title={t.sections.withGroups.title} />
       <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withGroups.description} />
       <ComponentPreview code={withGroupsCode}>
         <dialog class="cu-command" id="cmd-demo-2" data-cu-command>
@@ -300,10 +295,7 @@ const emptyStateCode = `<dialog class="cu-command" id="cmd-demo-5" data-cu-comma
 
     <!-- With Shortcuts -->
     <section class="space-y-3">
-      <h2 id="with-shortcuts" class="text-lg font-semibold tracking-tight relative group">
-        <a href="#with-shortcuts" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-        {t.sections.withShortcuts.title}
-      </h2>
+      <SectionHeading id="with-shortcuts" title={t.sections.withShortcuts.title} />
       <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withShortcuts.description} />
       <ComponentPreview code={withShortcutsCode}>
         <dialog class="cu-command" id="cmd-demo-3" data-cu-command>
@@ -372,10 +364,7 @@ const emptyStateCode = `<dialog class="cu-command" id="cmd-demo-5" data-cu-comma
 
     <!-- With Icons -->
     <section class="space-y-3">
-      <h2 id="with-icons" class="text-lg font-semibold tracking-tight relative group">
-        <a href="#with-icons" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-        {t.sections.withIcons.title}
-      </h2>
+      <SectionHeading id="with-icons" title={t.sections.withIcons.title} />
       <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withIcons.description} />
       <ComponentPreview code={withIconsCode}>
         <dialog class="cu-command" id="cmd-demo-4" data-cu-command>
@@ -418,10 +407,7 @@ const emptyStateCode = `<dialog class="cu-command" id="cmd-demo-5" data-cu-comma
 
     <!-- Empty State -->
     <section class="space-y-3">
-      <h2 id="empty-state" class="text-lg font-semibold tracking-tight relative group">
-        <a href="#empty-state" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-        {t.sections.emptyState.title}
-      </h2>
+      <SectionHeading id="empty-state" title={t.sections.emptyState.title} />
       <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.emptyState.description} />
       <ComponentPreview code={emptyStateCode}>
         <dialog class="cu-command" id="cmd-demo-5" data-cu-command>
@@ -447,10 +433,7 @@ const emptyStateCode = `<dialog class="cu-command" id="cmd-demo-5" data-cu-comma
 
     <!-- Classes Reference -->
     <section class="space-y-3 mt-10">
-      <h2 id="classes" class="text-lg font-semibold tracking-tight relative group">
-        <a href="#classes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-        {t.sections.classes.title}
-      </h2>
+      <SectionHeading id="classes" title={t.sections.classes.title} />
       <div class="cu-table-wrapper rounded-lg border border-border">
         <table class="cu-table">
           <thead class="cu-table-header">

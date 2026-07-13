@@ -1,5 +1,6 @@
 ---
 import Layout from "@/layouts/Layout.astro";
+import SectionHeading from "@/components/SectionHeading.astro";
 import ComponentPreview from "@/components/ComponentPreview.astro";
 import { getLocaleFromUrl, useTranslations } from "@/i18n";
 import { diffViewerPage } from "@/i18n/pages/components/diff-viewer";
@@ -191,20 +192,14 @@ const wordLevelCode = `<div class="cu-diff-viewer">
     <div class="mt-10 space-y-10">
         <!-- Usage -->
         <section class="space-y-3">
-            <h2 id="usage" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#usage" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.usage.title}
-            </h2>
+            <SectionHeading id="usage" title={t.sections.usage.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
             <ComponentPreview code={usageCode} />
         </section>
 
         <!-- Classes Reference -->
         <section class="space-y-3">
-            <h2 id="classes" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#classes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.classes.title}
-            </h2>
+            <SectionHeading id="classes" title={t.sections.classes.title} />
             <div class="cu-table-wrapper rounded-lg border border-border">
                 <table class="cu-table">
                     <thead class="cu-table-header">
@@ -227,30 +222,21 @@ const wordLevelCode = `<div class="cu-diff-viewer">
 
         <!-- Side by Side -->
         <section class="space-y-3">
-            <h2 id="side-by-side" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#side-by-side" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.sideBySide.title}
-            </h2>
+            <SectionHeading id="side-by-side" title={t.sections.sideBySide.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.sideBySide.description} />
             <ComponentPreview code={sideBySideCode} />
         </section>
 
         <!-- Hunk Headers -->
         <section class="space-y-3">
-            <h2 id="hunk" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#hunk" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.hunk.title}
-            </h2>
+            <SectionHeading id="hunk" title={t.sections.hunk.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.hunk.description} />
             <ComponentPreview code={hunkCode} />
         </section>
 
         <!-- Word-Level Highlighting -->
         <section class="space-y-3">
-            <h2 id="word-level" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#word-level" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.wordLevel.title}
-            </h2>
+            <SectionHeading id="word-level" title={t.sections.wordLevel.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.wordLevel.description} />
             <ComponentPreview code={wordLevelCode} />
         </section>

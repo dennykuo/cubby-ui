@@ -1,5 +1,6 @@
 ---
 import Layout from "@/layouts/Layout.astro";
+import SectionHeading from "@/components/SectionHeading.astro";
 // @ts-ignore - Astro component used in template
 import Carousel from "@/components/ui/Carousel.astro";
 import CarouselSlide from "@/components/ui/CarouselSlide.astro";
@@ -198,10 +199,7 @@ const nextSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" 
   <div class="mt-10 space-y-10">
     <!-- Usage -->
     <section class="space-y-3">
-      <h2 id="usage" class="text-lg font-semibold tracking-tight relative group">
-        <a href="#usage" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-        {t.sections.usage.title}
-      </h2>
+      <SectionHeading id="usage" title={t.sections.usage.title} />
       <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
       <ComponentPreview code={usageCode}>
         <div class="w-full max-w-xl">
@@ -230,10 +228,7 @@ const nextSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" 
 
     <!-- Outside Navigation -->
     <section class="space-y-3">
-      <h2 id="outside-nav" class="text-lg font-semibold tracking-tight relative group">
-        <a href="#outside-nav" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-        {t.sections.outsideNav.title}
-      </h2>
+      <SectionHeading id="outside-nav" title={t.sections.outsideNav.title} />
       <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.outsideNav.description} />
       <ComponentPreview code={outsideNavCode}>
         <div class="w-full max-w-xl">
@@ -262,10 +257,7 @@ const nextSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" 
 
     <!-- Card Carousel -->
     <section class="space-y-3">
-      <h2 id="cards" class="text-lg font-semibold tracking-tight relative group">
-        <a href="#cards" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-        {t.sections.cards.title}
-      </h2>
+      <SectionHeading id="cards" title={t.sections.cards.title} />
       <p class="text-base text-muted-foreground leading-relaxed">
         {t.sections.cards.description}
       </p>
@@ -320,10 +312,7 @@ const nextSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" 
 
     <!-- With Dots -->
     <section class="space-y-3">
-      <h2 id="dots" class="text-lg font-semibold tracking-tight relative group">
-        <a href="#dots" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-        {t.sections.dots.title}
-      </h2>
+      <SectionHeading id="dots" title={t.sections.dots.title} />
       <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.dots.description} />
       <ComponentPreview code={dotsCode}>
         <div class="w-full max-w-xl">
@@ -361,10 +350,7 @@ const nextSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" 
 
     <!-- Multi Visible -->
     <section class="space-y-3">
-      <h2 id="multi" class="text-lg font-semibold tracking-tight relative group">
-        <a href="#multi" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-        {t.sections.multi.title}
-      </h2>
+      <SectionHeading id="multi" title={t.sections.multi.title} />
       <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.multi.description} />
       <ComponentPreview code={multiCode}>
         <div class="w-full max-w-2xl">
@@ -432,10 +418,7 @@ const nextSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" 
 
     <!-- Classes Reference -->
     <section class="space-y-3">
-      <h2 id="classes" class="text-lg font-semibold tracking-tight relative group">
-        <a href="#classes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-        {t.sections.classes.title}
-      </h2>
+      <SectionHeading id="classes" title={t.sections.classes.title} />
       <div class="cu-table-wrapper rounded-lg border border-border">
         <table class="cu-table">
           <thead class="cu-table-header">

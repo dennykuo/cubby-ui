@@ -1,5 +1,6 @@
 ---
 import Layout from "@/layouts/Layout.astro";
+import SectionHeading from "@/components/SectionHeading.astro";
 import ComponentPreview from "@/components/ComponentPreview.astro";
 import { getLocaleFromUrl, useTranslations } from "@/i18n";
 import { pageHeaderPage } from "@/i18n/pages/components/page-header";
@@ -189,10 +190,7 @@ const borderedCode = `<header class="cu-page-header cu-page-header-bordered">
     <div class="mt-10 space-y-10">
         <!-- Usage -->
         <section class="space-y-3">
-            <h2 id="usage" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#usage" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.usage.title}
-            </h2>
+            <SectionHeading id="usage" title={t.sections.usage.title} />
             <p class="text-base text-muted-foreground leading-relaxed">
                 {t.sections.usage.description}
             </p>
@@ -214,10 +212,7 @@ const borderedCode = `<header class="cu-page-header cu-page-header-bordered">
 
         <!-- Classes Reference -->
         <section class="space-y-3">
-            <h2 id="classes" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#classes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.classes.title}
-            </h2>
+            <SectionHeading id="classes" title={t.sections.classes.title} />
             <div class="cu-table-wrapper rounded-lg border border-border">
                 <table class="cu-table">
                     <thead class="cu-table-header">
@@ -240,10 +235,7 @@ const borderedCode = `<header class="cu-page-header cu-page-header-bordered">
 
         <!-- Minimal -->
         <section class="space-y-3">
-            <h2 id="minimal" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#minimal" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.minimal.title}
-            </h2>
+            <SectionHeading id="minimal" title={t.sections.minimal.title} />
             <p class="text-base text-muted-foreground leading-relaxed">
                 {t.sections.minimal.description}
             </p>
@@ -261,10 +253,7 @@ const borderedCode = `<header class="cu-page-header cu-page-header-bordered">
 
         <!-- Icon Actions -->
         <section class="space-y-3">
-            <h2 id="icon-actions" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#icon-actions" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.iconActions.title}
-            </h2>
+            <SectionHeading id="icon-actions" title={t.sections.iconActions.title} />
             <p class="text-base text-muted-foreground leading-relaxed">
                 {t.sections.iconActions.description}
             </p>
@@ -290,10 +279,7 @@ const borderedCode = `<header class="cu-page-header cu-page-header-bordered">
 
         <!-- Back Button -->
         <section class="space-y-3">
-            <h2 id="back-button" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#back-button" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.backButton.title}
-            </h2>
+            <SectionHeading id="back-button" title={t.sections.backButton.title} />
             <p class="text-base text-muted-foreground leading-relaxed">
                 {t.sections.backButton.description}
             </p>
@@ -320,10 +306,7 @@ const borderedCode = `<header class="cu-page-header cu-page-header-bordered">
 
         <!-- With Badge -->
         <section class="space-y-3">
-            <h2 id="with-badge" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#with-badge" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.withBadge.title}
-            </h2>
+            <SectionHeading id="with-badge" title={t.sections.withBadge.title} />
             <p class="text-base text-muted-foreground leading-relaxed">
                 {t.sections.withBadge.description}
             </p>
@@ -354,10 +337,7 @@ const borderedCode = `<header class="cu-page-header cu-page-header-bordered">
 
         <!-- With Breadcrumb -->
         <section class="space-y-3">
-            <h2 id="with-breadcrumb" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#with-breadcrumb" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.withBreadcrumb.title}
-            </h2>
+            <SectionHeading id="with-breadcrumb" title={t.sections.withBreadcrumb.title} />
             <p class="text-base text-muted-foreground leading-relaxed">
                 {t.sections.withBreadcrumb.description}
             </p>
@@ -400,10 +380,7 @@ const borderedCode = `<header class="cu-page-header cu-page-header-bordered">
 
         <!-- With Tabs -->
         <section class="space-y-3">
-            <h2 id="with-tabs" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#with-tabs" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.withTabs.title}
-            </h2>
+            <SectionHeading id="with-tabs" title={t.sections.withTabs.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withTabs.description} />
             <ComponentPreview code={withTabsCode}>
                 <div class="w-full max-w-3xl">
@@ -437,10 +414,7 @@ const borderedCode = `<header class="cu-page-header cu-page-header-bordered">
 
         <!-- Bordered -->
         <section class="space-y-3">
-            <h2 id="bordered" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#bordered" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.bordered.title}
-            </h2>
+            <SectionHeading id="bordered" title={t.sections.bordered.title} />
             <p class="text-base text-muted-foreground leading-relaxed">
                 {t.sections.bordered.description}
             </p>
@@ -462,10 +436,7 @@ const borderedCode = `<header class="cu-page-header cu-page-header-bordered">
 
         <!-- Centered -->
         <section class="space-y-3">
-            <h2 id="centered" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#centered" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.centered.title}
-            </h2>
+            <SectionHeading id="centered" title={t.sections.centered.title} />
             <p class="text-base text-muted-foreground leading-relaxed">
                 {t.sections.centered.description}
             </p>

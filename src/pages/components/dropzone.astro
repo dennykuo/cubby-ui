@@ -1,5 +1,6 @@
 ---
 import Layout from "@/layouts/Layout.astro";
+import SectionHeading from "@/components/SectionHeading.astro";
 import ComponentPreview from "@/components/ComponentPreview.astro";
 import { getLocaleFromUrl, useTranslations } from "@/i18n";
 import { dropzonePage } from "@/i18n/pages/components/dropzone";
@@ -112,10 +113,7 @@ const disabledCode = `<div class="cu-dropzone cu-dropzone-disabled">
     <div class="mt-10 space-y-10">
         <!-- Usage -->
         <section class="space-y-3">
-            <h2 id="usage" class="text-lg font-semibold tracking-tight relative group">
-              <a href="#usage" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              {t.sections.usage.title}
-            </h2>
+            <SectionHeading id="usage" title={t.sections.usage.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
             <ComponentPreview code={usageCode}>
                 <div class="w-full max-w-md">
@@ -131,10 +129,7 @@ const disabledCode = `<div class="cu-dropzone cu-dropzone-disabled">
 
         <!-- Classes Reference -->
         <section class="space-y-3">
-            <h2 id="classes" class="text-lg font-semibold tracking-tight relative group">
-                <a href="#classes" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-                {t.sections.classes.title}
-            </h2>
+            <SectionHeading id="classes" title={t.sections.classes.title} />
             <div class="cu-table-wrapper rounded-lg border border-border">
                 <table class="cu-table">
                     <thead class="cu-table-header">
@@ -176,10 +171,7 @@ const disabledCode = `<div class="cu-dropzone cu-dropzone-disabled">
 
         <!-- With File List -->
         <section class="space-y-3">
-            <h2 id="with-file-list" class="text-lg font-semibold tracking-tight relative group">
-              <a href="#with-file-list" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              {t.sections.withFileList.title}
-            </h2>
+            <SectionHeading id="with-file-list" title={t.sections.withFileList.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withFileList.description} />
             <ComponentPreview code={fileListCode}>
                 <div class="w-full max-w-md">
@@ -196,10 +188,7 @@ const disabledCode = `<div class="cu-dropzone cu-dropzone-disabled">
 
         <!-- Disabled -->
         <section class="space-y-3">
-            <h2 id="disabled" class="text-lg font-semibold tracking-tight relative group">
-              <a href="#disabled" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              {t.sections.disabled.title}
-            </h2>
+            <SectionHeading id="disabled" title={t.sections.disabled.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.disabled.description} />
             <ComponentPreview code={disabledCode}>
                 <div class="w-full max-w-md">
@@ -214,10 +203,7 @@ const disabledCode = `<div class="cu-dropzone cu-dropzone-disabled">
 
         <!-- Image Preview -->
         <section class="space-y-3">
-            <h2 id="image-preview" class="text-lg font-semibold tracking-tight relative group">
-              <a href="#image-preview" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              {t.sections.imagePreview.title}
-            </h2>
+            <SectionHeading id="image-preview" title={t.sections.imagePreview.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.imagePreview.description} />
             <ComponentPreview code={imagePreviewCode}>
                 <div class="space-y-4 w-full max-w-md">
@@ -243,10 +229,7 @@ const disabledCode = `<div class="cu-dropzone cu-dropzone-disabled">
 
         <!-- Accepted File Types -->
         <section class="space-y-3">
-            <h2 id="accepted-types" class="text-lg font-semibold tracking-tight relative group">
-              <a href="#accepted-types" class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150">#</a>
-              {t.sections.acceptedTypes.title}
-            </h2>
+            <SectionHeading id="accepted-types" title={t.sections.acceptedTypes.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.acceptedTypes.description} />
             <ComponentPreview code={acceptedTypesCode}>
                 <div class="cu-dropzone w-full max-w-md" data-cu-dropzone>
