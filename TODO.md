@@ -45,7 +45,7 @@
 
 以下項目自已歸檔的 `references/archive/PLAN-3.md` 與 `references/archive/UI-UX-REVIEW.md` 移入（2026-09-28）。
 
-- [ ] **Dialog 點擊內部 padding 誤關閉** — `src/scripts/core/overlay.js` 以 `e.target === dialog` 判斷點擊 backdrop，但 `cu-dialog` 的 `p-6` 設在 `<dialog>` 本體上，點在對話框內部 padding 或子元素間的空白也會關閉（已實測重現）。改用 `getBoundingClientRect()` 比對點擊座標，並補 E2E 測試。Drawer 本體無 padding、Alert Dialog 不允許 backdrop 關閉，兩者不受影響（來源：PLAN-3 #4）
+- [x] **Dialog 點擊內部 padding 誤關閉** — `src/scripts/core/overlay.js` 以 `e.target === dialog` 判斷點擊 backdrop，但 `cu-dialog` 的 `p-6` 設在 `<dialog>` 本體上，點在對話框內部 padding 或子元素間的空白也會關閉（已實測重現）。改用 `getBoundingClientRect()` 比對點擊座標，並補 E2E 測試。Drawer 本體無 padding、Alert Dialog 不允許 backdrop 關閉，兩者不受影響（來源：PLAN-3 #4）
 - [ ] **JS 型別檢查** — `tsconfig.json` 啟用 `allowJs` + `checkJs`，讓 `src/scripts/` 的 ESM 模組納入 `npm run type-check`（來源：PLAN-3 #1）
 - [ ] **Lint / Format** — 導入 Prettier + `prettier-plugin-tailwindcss`（Tailwind class 自動排序）與 ESLint，並加入 CI（來源：PLAN-3 #2）
 - [ ] **版本發布流程** — 導入 Changesets，自動產生 `CHANGELOG.md` 與版本號（來源：PLAN-3 #5）

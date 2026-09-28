@@ -49,6 +49,35 @@ test.describe("Dialog / Drawer / Alert Dialog", () => {
     await expect(page.locator("#my-dialog")).not.toHaveAttribute("open");
   });
 
+  test("Dialog：點擊對話框內部 padding 區不關閉", async ({ page }) => {
+    const dialog = page.locator("#my-dialog");
+    await page.click("#dialog-trigger");
+    await expect(dialog).toHaveAttribute("open", "");
+
+    // 等開場動畫（scale 0.95 → 1）結束，避免邊界框仍在變動
+    await dialog.evaluate((el) => Promise.all(el.getAnimations().map((a) => a.finished)));
+    const box = (await dialog.boundingBox())!;
+    // 邊界框內側 8px 落在 p-6（24px）padding 內，event target 仍是 <dialog> 本身
+    await page.mouse.click(box.x + 8, box.y + 8);
+    await page.mouse.click(box.x + box.width - 8, box.y + box.height - 8);
+    await expect(dialog).toHaveAttribute("open", "");
+  });
+
+  test("Dialog：非指標觸發的 click（detail 0，座標 0,0）不視為 backdrop 點擊", async ({ page }) => {
+    const dialog = page.locator("#my-dialog");
+    await page.click("#dialog-trigger");
+    await expect(dialog).toHaveAttribute("open", "");
+
+    const detail = await dialog.evaluate((el: HTMLDialogElement) => {
+      let d = -1;
+      el.addEventListener("click", (e) => { d = e.detail; }, { once: true });
+      el.click();
+      return d;
+    });
+    expect(detail).toBe(0);
+    await expect(dialog).toHaveAttribute("open", "");
+  });
+
   test("Drawer：開關與焦點返回", async ({ page }) => {
     const drawer = page.locator("#my-drawer");
     await page.click("#drawer-trigger");

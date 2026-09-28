@@ -62,7 +62,19 @@ export function setupOverlay(config) {
       });
       if (config.closeOnBackdrop) {
         dialog.addEventListener("click", function (e) {
-          if (e.target === dialog) dialog.close();
+          // Clicks on the dialog's own padding also target <dialog>, so only
+          // treat it as a backdrop click when the pointer lands outside the
+          // dialog box. Keyboard / synthetic clicks (detail 0) report 0,0 coords.
+          if (e.target !== dialog || e.detail === 0) return;
+          var rect = dialog.getBoundingClientRect();
+          if (
+            e.clientX < rect.left ||
+            e.clientX > rect.right ||
+            e.clientY < rect.top ||
+            e.clientY > rect.bottom
+          ) {
+            dialog.close();
+          }
         });
       }
 
