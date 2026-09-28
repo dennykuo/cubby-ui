@@ -1,5 +1,7 @@
 # 實作計畫 - tw-components
 
+> **已歸檔（2026-09-28，v0.2.0）**：專案初期（tw-components 時期）的實作計畫，原位於 `agent-guide/`。文中描述的 `tailwind.config.js`、`src/main.css`、`src/components/*/*.html` 結構已被現行架構取代（Tailwind v4 `@theme`、`src/styles/components/*.css`、`src/components/ui/*.astro`），僅供追溯設計決策。
+
 ## 目標描述
 建立一個極簡、優雅的元件庫，使用純 HTML 和 Tailwind CSS。目標是擁有類似 shadcn/ui 的美學和實用性，但不綁定 React、Vue 或任何特定框架。元件應設計為可直接複製貼上使用。
 

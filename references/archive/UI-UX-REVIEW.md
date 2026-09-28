@@ -1,5 +1,11 @@
 # Cubby UI — 資深 UI/UX 設計師審查報告
 
+> **已歸檔（2026-09-28，v0.2.0）**：本文件為歷史紀錄，不再維護。
+>
+> - 第一至六節全數完成；第八節「中優先」各項已於第一、四節完成
+> - 第七節 JS 架構問題：模組化拆分、事件委派、清理機制已於 v0.2.0 完成（`src/scripts/` ESM 模組、delegated document listener、`destroy()` / `refresh()`）
+> - 仍未完成、已移至根目錄 `TODO.md`：Combobox / Multi Select 搜尋 debounce（第七節）、表單元件 Props 明確型別（第八節）
+
 ---
 
 ## 一、設計系統基礎（整體優秀） ✅ 全部修復

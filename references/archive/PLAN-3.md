@@ -1,5 +1,16 @@
 # Cubby UI 專案優化建議 (Project Optimization Suggestions)
 
+> **已歸檔（2026-09-28，v0.2.0）**：本文件為歷史紀錄，不再維護。未完成項目已移至根目錄 `TODO.md`。
+>
+> | # | 項目 | 狀態 |
+> |---|------|------|
+> | 1 | TypeScript 型別系統 | 部分完成：已有 `tsconfig.json`（Astro strict），未啟用 `allowJs` / `checkJs` → 移至 TODO |
+> | 2 | Prettier / ESLint | 未做 → 移至 TODO |
+> | 3 | Playwright 測試 | 完成（v0.2.0，`tests/e2e/`） |
+> | 4 | Dialog backdrop 判斷 | 未做，已實測確認為實際 bug → 移至 TODO |
+> | 5 | Changesets 發布流程 | 未做 → 移至 TODO |
+> | 6 | 互動式 Playground | 完成（`/playground`） |
+
 基於程式碼分析 (`cubby-ui.js`, `package.json`) 與現有計畫 (`PLAN-2.md`)，為了提升開發體驗 (DX)、程式碼品質與專案維護性，制定以下優化建議。
 
 ## 1. 引入 TypeScript 與型別系統 (Type Safety)

@@ -14,6 +14,10 @@
  *   6. src/scripts/{index.js, core/, components/} 使用的所有 `data-cu-*`
  *      ⇔ src/scripts/cubby-ui.d.ts `DATA_ATTRS` 常數列出的值（雙向皆須一致）
  *
+ * 以及 README 的元件分類表：
+ *   7. README.md「### 元件分類」表格的每一列 ⇔ component-nav.ts 的 componentGroups
+ *      （分類標籤取自 src/i18n/ui.ts 的英文 sidebar 標籤，元件集合須完全一致）
+ *
  * 三種來源使用三套命名（slug / CSS 檔名 / 顯示名），下方別名表記錄已知分歧；
  * 任一來源缺漏或出現孤兒頁面時以非 0 結束，方便併入 CI / npm test。
  *
@@ -123,6 +127,51 @@ for (const a of jsAttrs)
 for (const a of dtsAttrs)
   if (!jsAttrs.has(a)) problems.push(`DATA_ATTRS 孤兒：cubby-ui.d.ts 列出 \`${a}\`，src/scripts/ 未使用`);
 
+// --- README 元件分類表 ⇔ component-nav.ts 分組 ----------------------------------
+const navSrc = read("src/data/component-nav.ts");
+const uiSrc = read("src/i18n/ui.ts");
+const navGroups = [
+  ...navSrc.matchAll(/\{\s*key:\s*"(\w+)"\s+as const,\s*items:\s*(\w+)\s*\}/g),
+].map(([, key, varName]) => {
+  const block = navSrc.match(new RegExp(`export const ${varName}: NavItem\\[\\] = \\[([\\s\\S]*?)\\];`));
+  // 第一個 `key: '...'` 為英文標籤（interface 宣告為 `key: string;`，不會被匹配）
+  const label = uiSrc.match(new RegExp(`^\\s+${key}:\\s*'([^']+)'`, "m"));
+  return {
+    key,
+    label: label ? label[1] : key,
+    names: block ? [...block[1].matchAll(/name:\s*"([^"]+)"/g)].map((m) => m[1]) : [],
+  };
+});
+
+const readmeSrc = read("README.md");
+const tableStart = readmeSrc.indexOf("### 元件分類");
+const readmeRows = new Map();
+if (tableStart === -1) {
+  problems.push("README 缺漏：找不到「### 元件分類」段落");
+} else {
+  const section = readmeSrc.slice(tableStart).split(/\n(?=#{2,3} )/)[0];
+  for (const [, label, cells] of section.matchAll(/^\|\s*([^|]+?)\s*\|\s*([^|]+?)\s*\|\s*$/gm)) {
+    if (label === "分類" || /^-+$/.test(label)) continue;
+    readmeRows.set(label, cells.split(",").map((n) => n.trim()).filter(Boolean));
+  }
+  for (const g of navGroups) {
+    const row = readmeRows.get(g.label);
+    if (!row) {
+      problems.push(`README 分類表缺漏：沒有「${g.label}」列（component-nav.ts 分組 ${g.key}）`);
+      continue;
+    }
+    const rowSet = new Set(row);
+    const navSet = new Set(g.names);
+    for (const n of g.names)
+      if (!rowSet.has(n)) problems.push(`README 分類表缺漏：「${g.label}」列缺少 ${n}`);
+    for (const n of row)
+      if (!navSet.has(n)) problems.push(`README 分類表多餘：「${g.label}」列的 ${n} 不在 component-nav.ts 該分組`);
+  }
+  const navLabels = new Set(navGroups.map((g) => g.label));
+  for (const label of readmeRows.keys())
+    if (!navLabels.has(label)) problems.push(`README 分類表多餘：「${label}」列不對應任何 component-nav.ts 分組`);
+}
+
 // --- 輸出 -------------------------------------------------------------------
 const counts = {
   nav: navItems.length,
@@ -134,6 +183,8 @@ const counts = {
   "js sources": jsSources.length,
   "data-cu-* (js)": jsAttrs.size,
   "data-cu-* (d.ts)": dtsAttrs.size,
+  "nav groups": navGroups.length,
+  "README 分類列": readmeRows.size,
 };
 if (VERBOSE) console.log("來源計數：", JSON.stringify(counts, null, 2));
 
@@ -143,6 +194,7 @@ if (problems.length === 0) {
       `（DOC_ONLY 例外：${[...DOC_ONLY].join(", ")}）`
   );
   console.log(`✓ DATA_ATTRS 同步：${jsAttrs.size} 個 data-cu-* 屬性在 src/scripts/（${jsSources.length} 個模組）與 cubby-ui.d.ts 一致`);
+  console.log(`✓ README 分類表同步：${navGroups.length} 個分類與 component-nav.ts 一致`);
   process.exit(0);
 }
 console.error(`✗ 元件清單同步發現 ${problems.length} 處問題：\n`);

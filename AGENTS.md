@@ -333,7 +333,7 @@ Toast variants: `default` | `destructive` | `success` | `warning` | `info`
 2. **Astro 元件**：在 `src/components/ui/` 建立 `.astro` 元件檔（含 `interface Props` 型別定義，使用 `class:list`）
 3. **i18n 翻譯**：在 `src/i18n/pages/components/` 建立翻譯檔（`Record<Locale, {...}>` 格式，含 en/zh-tw）
 4. **文檔頁面**：在 `src/pages/components/` 建立文檔頁面（使用 `ComponentPreview` 展示，含 Preview + Code 兩個 tab）
-5. **導航**：在 `src/data/component-nav.ts` 的對應陣列加入 NavItem
+5. **導航**：在 `src/data/component-nav.ts` 的對應陣列加入 NavItem，並把元件名加進 `README.md` 元件分類表的同一分類列（`check:sync` 會檢查）
 6. **components.json**：更新根目錄 `components.json`，加入新元件規格（cssClasses、dataAttributes、aria、notes、example）
 7. **llms.txt**：更新根目錄 `llms.txt`，在對應分類區塊加入元件說明（class 清單 + HTML 範例）
 8. **互動元件 JS**（有 JS 互動才需要）：在 `src/scripts/components/` 新增模組並匯出 `setupXxx()`（含 JSDoc）；需要追蹤陣列時在 `core/registry.js` 加欄位並於 `index.js` 的 `init()` / `destroy()` / `refresh()` 登記；更新 `src/scripts/cubby-ui.d.ts` 的 `DATA_ATTRS` 常數

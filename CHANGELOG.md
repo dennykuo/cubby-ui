@@ -4,6 +4,14 @@
 
 ## [Unreleased]
 
+### Added
+- `check:sync` 新增 README 元件分類表檢查：每個分類的元件須與 `component-nav.ts` 的 `componentGroups` 完全一致，分類標籤取自 `src/i18n/ui.ts` 的 sidebar 英文標籤
+
+### Changed
+- **README 元件分類表**依 `component-nav.ts` 重建：由 8 類補齊為 10 類（新增 Content、AI），元件由 59 個補到 95 個，Avatar、Badge 由 Data Display 改回 Basic，分類順序與文檔站側邊欄一致
+- **TODO.md** 勾選 12 個已完成元件項目，並新增「工程與品質」段落，移入已歸檔計畫中尚未完成的 6 項待辦（含已實測重現的 Dialog 點擊內部 padding 誤關閉問題）
+- 已完成或過時的計畫文件移至 `references/archive/`，各檔開頭加註歸檔狀態與未完成項目去向：`PLAN-3.md`、`UI-UX-REVIEW.md`、`agent-guide/implementation_plan.md`
+
 ## [0.2.0] - 2026-09-28
 
 ### Changed

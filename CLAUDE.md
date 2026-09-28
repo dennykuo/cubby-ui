@@ -20,7 +20,7 @@ Cubby UI 是一個框架無關的 UI 元件庫，風格類似 shadcn/ui，使用
 - `npm run test:blade` — 對 `dist/laravel/` 下所有 `.blade.php` 做回歸檢查：已知壞 pattern（`,,`、空陣列元素、未轉譯 JSX 屬性）、並萃取 `@class` / `@props` / `@if` / `{{ … }}` 中的 PHP 片段以 `php -l` 驗證（安裝 PHP 時生效，可加 `--skip-php` 略過）
 - `npm run test:e2e` — Playwright 互動元件測試（`tests/e2e/*.spec.ts`），對 `dist/core/cubby-ui.{css,js}` 出貨產物執行，fixture 為 `tests/e2e/fixtures/*.html` 靜態頁；需先 `npm run build`。另含 `docs-smoke.spec.ts`：逐頁載入 `docs/` 產出的元件頁與範例頁，檢查無未捕捉例外、無 console error、重複 `init()` / `refresh()` 安全（`docs/` 不存在時自動略過，CI 會先 `build:docs`）。無法下載瀏覽器的環境可設 `PLAYWRIGHT_CHROMIUM_EXECUTABLE` 指向既有 Chromium
 - `npm run test` — 依序執行 `check:sync` → `test:blade` → `test:e2e`
-- `npm run check:sync` — 元件清單跨來源一致性檢查（`component-nav.ts` / 頁面 / i18n / CSS / `components.json` / `llms.txt`），並雙向比對 `src/scripts/` 各模組使用的 `data-cu-*` 與 `cubby-ui.d.ts` 的 `DATA_ATTRS`
+- `npm run check:sync` — 元件清單跨來源一致性檢查（`component-nav.ts` / 頁面 / i18n / CSS / `components.json` / `llms.txt` / README 元件分類表），並雙向比對 `src/scripts/` 各模組使用的 `data-cu-*` 與 `cubby-ui.d.ts` 的 `DATA_ATTRS`
 - `npm run type-check` — `astro check`（`tsconfig.json` 已排除 `dist/` 與 `docs/`）
 
 目前無 lint 命令。
@@ -645,7 +645,7 @@ Header logo 與 sidebar 連結文字齊左：
 2. **Astro 元件**：在 `src/components/ui/` 建立對應的 `.astro` 元件檔（必須包含 `interface Props` 型別定義，使用 `class:list` 處理 class 組合）
 3. **i18n 翻譯**：在 `src/i18n/pages/components/` 建立翻譯檔（`Record<Locale, {...}>` 格式，包含 en/zh-tw 翻譯）
 4. **文檔頁面**：在 `src/pages/components/` 建立文檔頁面（使用 `ComponentPreview` 展示，含 Preview + Code 兩個 tab；引入翻譯並使用 `getLocaleFromUrl` + `useTranslations`，inline code 使用 `cu-code` class；code 範例使用 `cu-` class 系統，非原始 Tailwind utilities）
-5. **導航**：在 `src/data/component-nav.ts` 中將元件加入對應的導航陣列（layouts / basic / typography / navigation / dataDisplay / content / forms / feedback / overlay / ai）
+5. **導航**：在 `src/data/component-nav.ts` 中將元件加入對應的導航陣列（layouts / basic / typography / navigation / dataDisplay / content / forms / feedback / overlay / ai），並把元件名加進 `README.md` 元件分類表的同一分類列（`check:sync` 會檢查）
 6. **components.json**：在根目錄 `components.json` 新增元件規格（`cssClasses`、`dataAttributes`、`aria`、`notes`、`example`）
 7. **llms.txt**：在根目錄 `llms.txt` 對應分類區塊加入元件說明（CSS class 清單 + HTML 範例）
 8. **互動元件 JS**（僅有 JS 互動的元件）：在 `src/scripts/components/` 新增模組並匯出 `setupXxx()`（含 JSDoc + HTML 結構範例），需要追蹤陣列時在 `src/scripts/core/registry.js` 加欄位並於 `src/scripts/index.js` 的 `init()` / `destroy()` / `refresh()` 登記；更新 `src/scripts/cubby-ui.d.ts` 的 `DATA_ATTRS` 常數；使用 `data-*` 屬性管理狀態（非框架狀態管理）

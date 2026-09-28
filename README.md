@@ -98,16 +98,20 @@ npm run preview     # 預覽建置結果
 
 ### 元件分類
 
+分類與順序和文檔站側邊欄一致（來源：`src/data/component-nav.ts`），`npm run check:sync` 會檢查兩者是否同步。
+
 | 分類 | 元件 |
 |------|------|
-| Typography | Headings, Paragraphs, Blockquote, Lists, Links, Text, HR |
-| Basic | Button, Button Group, Card, Color, Separator |
-| Forms | Checkbox, Combobox, Dropzone, File Input, Form Group, Input, Label, Multi Select, Number Input, Radio, Range, Search Input, Select, Textarea, Toggle, Transfer List |
-| Data Display | Accordion, Avatar, Badge, Collapsible, Data Table, Stat Card, Table, Tree View |
-| Feedback | Alert, Empty State, Progress, Skeleton, Toast |
-| Overlay | Alert Dialog, Dialog, Drawer, Dropdown Menu, Hover Card, Popover, Tooltip |
-| Navigation | Breadcrumb, Menubar, Pagination, Steps, Tabs |
-| Layouts | Container, Header, Nav, Scroll Area, Sidebar, Toolbar |
+| Layouts | Container, Filter Bar, Header, Kanban, Nav, Page Header, Resizable Panels, Scroll Area, Sidebar, Toolbar |
+| Basic | Aspect Ratio, Avatar, Badge, Button, Button Group, Card, Color, Separator |
+| Typography | Headings, Kbd, Paragraphs, Blockquote, Lists, Links, Text, HR |
+| Navigation | Breadcrumb, Menubar, Pagination, Segmented Control, Speed Dial, Steps, Tabs, Back to Top |
+| Data Display | Accordion, Code Block, Collapsible, Data Table, Setting Item, Sortable List, Stat Card, Table, Timeline, Tree View |
+| Content | Carousel, Countdown, Diff Viewer, Image Compare, Marquee |
+| Forms | Checkbox, Checkbox Group, Color Picker, Combobox, Date Picker, Dropzone, File Input, Floating Label, Form Group, Input, Input Group, Label, Multi Select, Number Input, Password Input, Pin Input, Radio, Range, Rating, Search Input, Select, Tag Input, Textarea, Toggle, Toggle Group, Transfer List |
+| Feedback | Alert, Empty State, Progress, Skeleton, Notification, Spinner, Toast |
+| Overlay | Alert Dialog, Command Palette, Context Menu, Dialog, Drawer, Dropdown Menu, Hover Card, Popover, Tooltip, Tour |
+| AI | Chat Bubble, Chat Input, Chat Typing |
 
 ## Style Guide
 
