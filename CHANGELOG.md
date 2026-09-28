@@ -4,6 +4,8 @@
 
 ## [Unreleased]
 
+## [0.2.0] - 2026-09-28
+
 ### Changed
 - **互動 JS 模組化**：`src/scripts/cubby-ui.js`（單一 3,500 行 UMD 檔）拆為 ESM 模組 — 入口 `src/scripts/index.js`、`core/`（`registry.js` 共享追蹤狀態、`utils.js`、`document-listeners.js`、`overlay.js`）與 `components/*.js`（每元件一個模組）。新增 `scripts/build-js.mjs` 以 esbuild 打包回 `dist/core/cubby-ui.js`，UMD wrapper、公開 API（`init` / `destroy` / `refresh` / `toast`）、自動初始化與所有 `data-cu-*` 行為不變；文檔站改由 `astro.config.mjs` 的 `cubbyUiJsBundle` Vite plugin 於 dev / build 前打包並監看重建。新增 `build:js` npm script
 - `package.json` `exports` 的 `style` condition 移到 `default` 之前（condition 依序匹配，`default` 需為最後一項）
@@ -14,6 +16,9 @@
 - `check:sync` 新增 `data-cu-*` 對照：雙向比對 `src/scripts/` 各模組實際使用的屬性與 `cubby-ui.d.ts` 的 `DATA_ATTRS`
 - `DATA_ATTRS` 補齊 63 個缺漏屬性（Calendar、Carousel、Checkbox Group、Code Block、Color Picker、Command Palette、Context Menu、Date Picker、Password Input、Pin Input、Resizable、Segmented Control 等，以及 `data-cu-open` / `data-cu-expanded` / `data-cu-visible` / `data-cu-copied` / `data-cu-resizing` / `data-cu-command-active` 狀態屬性）
 - CI workflow（`.github/workflows/ci.yml`）：push / PR 時執行建置、型別檢查、清單同步與 Blade 回歸測試
+
+### Removed
+- 移除誤入版控的 AI 工具目錄（`.agent/`、`.claude/`、`.codex/`、`.gemini/`、`.shared/`、`.idea/`、`.intent/`，皆已在 `.gitignore`）與所有 `__pycache__` / `*.pyc`；`.gitignore` 補上 `__pycache__/`、`*.pyc` 與 `.intent/`
 - `type-check`（`astro check`）與 `check:sync` npm script
 - `scripts/check-component-sync.cjs`：防止元件清單在 `component-nav.ts` / 頁面 / i18n / CSS / `components.json` / `llms.txt` 之間漂移
 - 治理文件：`DESIGN.md`、`CONTRIBUTING.md`、`CHANGELOG.md`
