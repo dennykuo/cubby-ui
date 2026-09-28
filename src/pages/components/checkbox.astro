@@ -278,23 +278,23 @@ const groupCode = `<fieldset>
                         </div>
                     </div>
                 </div>
+                {/* 預覽在 iframe 內渲染，示範腳本必須隨 slot 一起進 iframe（is:inline 避免被 Astro 提升至主頁面） */}
+                <script is:inline>
+                    var selectAllDemo = document.getElementById('select-all-demo');
+                    var itemDemos = document.querySelectorAll('#item-demo-1, #item-demo-2, #item-demo-3');
+                    function updateSelectAllDemo() {
+                        var checked = Array.prototype.filter.call(itemDemos, function (i) { return i.checked; }).length;
+                        selectAllDemo.checked = checked === itemDemos.length;
+                        selectAllDemo.indeterminate = checked > 0 && checked < itemDemos.length;
+                    }
+                    itemDemos.forEach(function (i) { i.addEventListener('change', updateSelectAllDemo); });
+                    selectAllDemo.addEventListener('change', function () {
+                        itemDemos.forEach(function (i) { i.checked = selectAllDemo.checked; });
+                    });
+                    updateSelectAllDemo();
+                </script>
             </ComponentPreview>
         </section>
-
-        <script>
-            const selectAllDemo = document.getElementById('select-all-demo') as HTMLInputElement;
-            const itemDemos = document.querySelectorAll('#item-demo-1, #item-demo-2, #item-demo-3') as NodeListOf<HTMLInputElement>;
-            function updateSelectAllDemo() {
-                const checked = [...itemDemos].filter(i => i.checked).length;
-                selectAllDemo.checked = checked === itemDemos.length;
-                selectAllDemo.indeterminate = checked > 0 && checked < itemDemos.length;
-            }
-            itemDemos.forEach(i => i.addEventListener('change', updateSelectAllDemo));
-            selectAllDemo.addEventListener('change', () => {
-                itemDemos.forEach(i => { i.checked = selectAllDemo.checked; });
-            });
-            updateSelectAllDemo();
-        </script>
 
         <!-- Inline Layout -->
         <section class="space-y-3">

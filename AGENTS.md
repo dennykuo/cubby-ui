@@ -9,7 +9,7 @@ Cubby UI 是一個框架無關的 UI 元件庫，使用純 HTML + Tailwind CSS �
 - **元件 CSS 參考**：`/llms.txt`（完整 class 列表 + 範例）
 - **機器可讀 Manifest**：`/components.json`（所有元件的 class、data-attr、ARIA）
 - **CSS 原始檔**：`src/styles/components/*.css`（每個元件一個檔案）
-- **JS 互動元件**：`src/scripts/cubby-ui.js`
+- **JS 互動元件**：`src/scripts/index.js`（入口）+ `core/`（registry / utils / document-listeners / overlay）+ `components/*.js`（每元件一個模組）
 
 ## Guidelines
 
@@ -38,7 +38,7 @@ npm run preview     # 預覽建置結果
 
 執行 `npm run build` 產生：
 - `dist/core/cubby-ui.css` / `.min.css` — 預編譯 CSS
-- `dist/core/cubby-ui.js` / `.min.js` — 互動元件 JS (UMD)
+- `dist/core/cubby-ui.js` / `.min.js` — 互動元件 JS (UMD，由 `scripts/build-js.mjs` 以 esbuild 打包)
 - `dist/core/cubby-ui.d.ts` — TypeScript 型別
 - `dist/components.json` — 元件 manifest（跨框架共用）
 
@@ -47,7 +47,7 @@ npm run preview     # 預覽建置結果
 - `dist/laravel/README.md` — Laravel 設定指南
 - `dist/laravel/components/cu/` — Blade 匿名元件
 
-互動元件 JS 原始檔：`src/scripts/cubby-ui.js`
+互動元件 JS 原始碼：`src/scripts/index.js` + `src/scripts/core/` + `src/scripts/components/`（ESM 模組，esbuild 打包成 UMD）
 
 ## CSS Class Naming Rules
 
@@ -336,7 +336,7 @@ Toast variants: `default` | `destructive` | `success` | `warning` | `info`
 5. **導航**：在 `src/data/component-nav.ts` 的對應陣列加入 NavItem
 6. **components.json**：更新根目錄 `components.json`，加入新元件規格（cssClasses、dataAttributes、aria、notes、example）
 7. **llms.txt**：更新根目錄 `llms.txt`，在對應分類區塊加入元件說明（class 清單 + HTML 範例）
-8. **互動元件 JS**（有 JS 互動才需要）：在 `src/scripts/cubby-ui.js` 加入 `setupXxx()` 函式（含 JSDoc）與追蹤陣列；更新 `src/scripts/cubby-ui.d.ts` 的 `DATA_ATTRS` 常數
+8. **互動元件 JS**（有 JS 互動才需要）：在 `src/scripts/components/` 新增模組並匯出 `setupXxx()`（含 JSDoc）；需要追蹤陣列時在 `core/registry.js` 加欄位並於 `index.js` 的 `init()` / `destroy()` / `refresh()` 登記；更新 `src/scripts/cubby-ui.d.ts` 的 `DATA_ATTRS` 常數
 9. **Dark / Light mode**：切換 `.dark` class，確認兩種模式下色彩、邊框、陰影皆正確
 10. **build 驗證**：執行 `npm run build` 確認 CSS 正確編譯；有 JS 互動的元件另在 `tests/e2e/` 加 fixture 與 spec（`npm run test:e2e`）；`npm run check:sync` 會驗證 `data-cu-*` 屬性已列入 `DATA_ATTRS`
 

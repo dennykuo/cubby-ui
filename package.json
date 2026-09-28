@@ -12,8 +12,8 @@
   "exports": {
     ".": {
       "types": "./dist/core/cubby-ui.d.ts",
-      "default": "./dist/core/cubby-ui.js",
-      "style": "./dist/core/cubby-ui.css"
+      "style": "./dist/core/cubby-ui.css",
+      "default": "./dist/core/cubby-ui.js"
     },
     "./css": "./dist/core/cubby-ui.css",
     "./css/min": "./dist/core/cubby-ui.min.css",
@@ -29,7 +29,8 @@
   ],
   "scripts": {
     "dev": "astro dev",
-    "build": "rm -rf dist && mkdir -p dist/core && tailwindcss -i ./src/styles/lib.css -o ./dist/core/cubby-ui.css && tailwindcss -i ./src/styles/lib.css -o ./dist/core/cubby-ui.min.css --minify && cp ./src/scripts/cubby-ui.js ./dist/core/cubby-ui.js && cp ./src/scripts/cubby-ui.d.ts ./dist/core/cubby-ui.d.ts && cp ./components.json ./dist/components.json && terser ./dist/core/cubby-ui.js -o ./dist/core/cubby-ui.min.js -c -m --source-map",
+    "build": "rm -rf dist && mkdir -p dist/core && tailwindcss -i ./src/styles/lib.css -o ./dist/core/cubby-ui.css && tailwindcss -i ./src/styles/lib.css -o ./dist/core/cubby-ui.min.css --minify && node scripts/build-js.mjs && cp ./src/scripts/cubby-ui.d.ts ./dist/core/cubby-ui.d.ts && cp ./components.json ./dist/components.json && terser ./dist/core/cubby-ui.js -o ./dist/core/cubby-ui.min.js -c -m --source-map",
+    "build:js": "node scripts/build-js.mjs",
     "build:blade": "node scripts/generate-blade-components.cjs && cp stubs/laravel/CubbyUiServiceProvider.php stubs/laravel/README.md dist/laravel/",
     "test": "npm run check:sync && npm run test:blade && npm run test:e2e",
     "test:blade": "node scripts/blade/test-blade-syntax.cjs",
@@ -76,6 +77,7 @@
     "@types/node": "^20.19.43",
     "astro": "^5.1.0",
     "astro-expressive-code": "^0.41.6",
+    "esbuild": "^0.28.2",
     "tailwindcss": "^4.1.18",
     "terser": "^5.37.0"
   }

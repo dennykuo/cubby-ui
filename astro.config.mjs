@@ -5,6 +5,7 @@ import { join, relative, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import expressiveCode from 'astro-expressive-code';
+import { buildCubbyUiJs } from './scripts/build-js.mjs';
 
 /**
  * Vite plugin: dev 模式下 watch src/pages/ 變動，自動同步至 zh-tw/
@@ -70,11 +71,44 @@ function i18nHotSync() {
   };
 }
 
+/**
+ * Vite plugin: 以 esbuild 將 src/scripts/（ESM 模組）打包成 dist/core/cubby-ui.js（UMD）。
+ * 文檔站的 Layout / ComponentPreview 以 `?url` 載入該產物（頁面與 iframe 預覽都需要
+ * window.CubbyUI 全域），因此必須在模組解析前就緒；dev 模式監看 src/scripts/ 變動自動重建。
+ */
+function cubbyUiJsBundle() {
+  const scriptsDir = fileURLToPath(new URL('./src/scripts/', import.meta.url));
+  const isLibSource = (filePath) =>
+    filePath.startsWith(scriptsDir) && filePath.endsWith('.js') && !filePath.endsWith('playground.js');
+
+  return {
+    name: 'cubby-ui-js-bundle',
+    configResolved() {
+      buildCubbyUiJs();
+    },
+    configureServer(server) {
+      server.watcher.add(scriptsDir);
+      const rebuild = (filePath) => {
+        if (!isLibSource(filePath)) return;
+        try {
+          buildCubbyUiJs();
+          server.ws.send({ type: 'full-reload' });
+        } catch (err) {
+          server.config.logger.error(`[cubby-ui-js-bundle] ${err.message}`);
+        }
+      };
+      server.watcher.on('change', rebuild);
+      server.watcher.on('add', rebuild);
+      server.watcher.on('unlink', rebuild);
+    },
+  };
+}
+
 // https://astro.build/config
 export default defineConfig({
   outDir: 'docs',
   vite: {
-    plugins: [tailwindcss(), i18nHotSync()],
+    plugins: [tailwindcss(), cubbyUiJsBundle(), i18nHotSync()],
     server: {
       headers: {
         'Cache-Control': 'no-store',

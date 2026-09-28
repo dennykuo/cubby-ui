@@ -11,15 +11,16 @@ Cubby UI 是一個框架無關的 UI 元件庫，風格類似 shadcn/ui，使用
 ## Commands
 
 - `npm run dev` — 啟動 Astro 開發伺服器（i18n 路由由 Vite plugin 自動同步）
-- `npm run build` — 建置 NPM 套件至 `dist/`（CSS + JS）
+- `npm run build` — 建置 NPM 套件至 `dist/`（CSS + JS；JS 由 `scripts/build-js.mjs` 以 esbuild 將 `src/scripts/` ESM 模組打包成 UMD）
+- `npm run build:js` — 只重新打包 `dist/core/cubby-ui.js`
 - `npm run build:blade` — 將 Astro 元件轉換為 Laravel Blade 匿名元件，輸出至 `dist/laravel/components/cu/`（支援 `--dry-run` 預覽不寫入、`--verbose` 詳細輸出）
 - `npm run build:all` — 一次建置全部（`build` + `build:blade`），也作為 `prepare` script 在 git URL 安裝時自動執行
 - `npm run build:docs` — 建置文檔站點至 `docs/`（自動先執行 `i18n:routes`）
 - `npm run preview` — 預覽建置結果
 - `npm run test:blade` — 對 `dist/laravel/` 下所有 `.blade.php` 做回歸檢查：已知壞 pattern（`,,`、空陣列元素、未轉譯 JSX 屬性）、並萃取 `@class` / `@props` / `@if` / `{{ … }}` 中的 PHP 片段以 `php -l` 驗證（安裝 PHP 時生效，可加 `--skip-php` 略過）
-- `npm run test:e2e` — Playwright 互動元件測試（`tests/e2e/*.spec.ts`），對 `dist/core/cubby-ui.{css,js}` 出貨產物執行，fixture 為 `tests/e2e/fixtures/*.html` 靜態頁；需先 `npm run build`。無法下載瀏覽器的環境可設 `PLAYWRIGHT_CHROMIUM_EXECUTABLE` 指向既有 Chromium
+- `npm run test:e2e` — Playwright 互動元件測試（`tests/e2e/*.spec.ts`），對 `dist/core/cubby-ui.{css,js}` 出貨產物執行，fixture 為 `tests/e2e/fixtures/*.html` 靜態頁；需先 `npm run build`。另含 `docs-smoke.spec.ts`：逐頁載入 `docs/` 產出的元件頁與範例頁，檢查無未捕捉例外、無 console error、重複 `init()` / `refresh()` 安全（`docs/` 不存在時自動略過，CI 會先 `build:docs`）。無法下載瀏覽器的環境可設 `PLAYWRIGHT_CHROMIUM_EXECUTABLE` 指向既有 Chromium
 - `npm run test` — 依序執行 `check:sync` → `test:blade` → `test:e2e`
-- `npm run check:sync` — 元件清單跨來源一致性檢查（`component-nav.ts` / 頁面 / i18n / CSS / `components.json` / `llms.txt`），並雙向比對 `cubby-ui.js` 使用的 `data-cu-*` 與 `cubby-ui.d.ts` 的 `DATA_ATTRS`
+- `npm run check:sync` — 元件清單跨來源一致性檢查（`component-nav.ts` / 頁面 / i18n / CSS / `components.json` / `llms.txt`），並雙向比對 `src/scripts/` 各模組使用的 `data-cu-*` 與 `cubby-ui.d.ts` 的 `DATA_ATTRS`
 - `npm run type-check` — `astro check`（`tsconfig.json` 已排除 `dist/` 與 `docs/`）
 
 目前無 lint 命令。
@@ -177,7 +178,7 @@ dist/
 
 轉換器腳本位於 `scripts/generate-blade-components.cjs`，搭配 `scripts/blade/parser.cjs`（解析 Astro frontmatter + Props）、`scripts/blade/transformers.cjs`（轉換 template 語法）和 `scripts/blade/generate-ai-docs.cjs`（生成 AI 友善文件）。手動 override 放在 `scripts/blade/overrides/*.blade.php`，會跳過自動轉換直接使用。支援 `--dry-run`（預覽轉換結果，不寫入檔案）和 `--verbose`（印出每個檔案的轉換路徑及完整 Blade 內容）。建置時自動生成 `README.md`（敘述式 Blade 使用文件）和 `components.json`（結構化 metadata），供 AI Agent 在 Laravel 專案中理解和使用元件。
 
-互動元件 JS 原始檔位於 `src/scripts/cubby-ui.js`，使用 UMD 格式（支援 `require()`、AMD `define()`、`window.CubbyUI`），包含 38 個元件：Tabs（含 closable / scrollable）、Dropdown、Dialog、Drawer、Alert Dialog、Toast（含 promise API）、Popover、Menubar、Combobox、Multi Select、Number Input、Dropzone、Transfer List、Mobile Nav、Password Input、Segmented Control、Pin Input、Checkbox Group、Code Block、Carousel、Context Menu、Resizable Panels、Command Palette、Date Picker（含 Calendar）、Color Picker、Toggle Group、Rating、Tag Input、Sortable List、Countdown、Image Compare、Speed Dial、Back to Top、Kanban、Tour、Input Clearable、Alert Expandable、Data Table Expandable。Document 級事件監聽器使用 delegated pattern（click / keydown / contextmenu / scroll），避免每個元件實例各自註冊（Context Menu、Date Picker 等透過 tracking array 共用單一 handler，`destroy()` 時統一移除）。Toast 內容使用 DOM API（`textContent` / `createElement`）建立，避免 innerHTML XSS 風險。Toast 自動消失時間預設 5000ms，可透過 `data-cu-toast-duration` 自訂。Toast 堆疊上限預設 5 則，可透過 `data-cu-toast-max` 自訂，超出時自動移除最舊通知。
+互動元件 JS 原始碼為 ESM 模組：入口 `src/scripts/index.js`（`init` / `destroy` / `refresh` 與自動初始化）、`src/scripts/core/`（`registry.js` 共享追蹤狀態、`utils.js` 通用 helper、`document-listeners.js` document 級 delegated handler、`overlay.js` Dialog / Drawer / Alert Dialog 共用邏輯）、`src/scripts/components/*.js`（每元件一個模組，匯出 `setupXxx()`）。`scripts/build-js.mjs` 以 esbuild 打包成 `dist/core/cubby-ui.js`，並用 banner / footer 包上 UMD wrapper（支援 `require()`、AMD `define()`、`window.CubbyUI`）；文檔站的 `Layout.astro` / `ComponentPreview.astro` 以 `?url` 載入該產物，`astro.config.mjs` 的 `cubbyUiJsBundle` Vite plugin 於 dev / build 前先打包並在 dev 監看 `src/scripts/` 自動重建。包含 38 個元件：Tabs（含 closable / scrollable）、Dropdown、Dialog、Drawer、Alert Dialog、Toast（含 promise API）、Popover、Menubar、Combobox、Multi Select、Number Input、Dropzone、Transfer List、Mobile Nav、Password Input、Segmented Control、Pin Input、Checkbox Group、Code Block、Carousel、Context Menu、Resizable Panels、Command Palette、Date Picker（含 Calendar）、Color Picker、Toggle Group、Rating、Tag Input、Sortable List、Countdown、Image Compare、Speed Dial、Back to Top、Kanban、Tour、Input Clearable、Alert Expandable、Data Table Expandable。Document 級事件監聽器使用 delegated pattern（click / keydown / contextmenu / scroll），避免每個元件實例各自註冊（Context Menu、Date Picker 等透過 tracking array 共用單一 handler，`destroy()` 時統一移除）。Toast 內容使用 DOM API（`textContent` / `createElement`）建立，避免 innerHTML XSS 風險。Toast 自動消失時間預設 5000ms，可透過 `data-cu-toast-duration` 自訂。Toast 堆疊上限預設 5 則，可透過 `data-cu-toast-max` 自訂，超出時自動移除最舊通知。
 
 ARIA 無障礙支援：
 - **Tabs** — `role="tablist/tab/tabpanel"`、`aria-selected`、`aria-controls` / `aria-labelledby` 雙向連結
@@ -205,7 +206,13 @@ ARIA 無障礙支援：
 ```
 src/
 ├── scripts/
-│   ├── cubby-ui.js               — 互動元件 JS（打包來源）
+│   ├── index.js                  — 互動元件 JS 入口（init / destroy / refresh、自動初始化；esbuild 打包來源）
+│   ├── core/
+│   │   ├── registry.js           — 共享追蹤狀態（各元件 tracking array + document 級 handler 參照）
+│   │   ├── utils.js              — genId、navigateItems、roundToStep、clampValue
+│   │   ├── document-listeners.js — document 級 delegated click / keydown / contextmenu / scroll
+│   │   └── overlay.js            — Dialog / Drawer / Alert Dialog 共用的 <dialog> 邏輯
+│   ├── components/               — 每元件一個 ESM 模組（tabs.js、dropdown.js、toast.js …，匯出 setupXxx）
 │   ├── cubby-ui.d.ts             — TypeScript 型別定義（打包來源）
 │   └── playground.js             — Playground 頁面客戶端邏輯（IIFE，元件 registry + 控制項 + 主題）
 ├── data/
@@ -641,7 +648,7 @@ Header logo 與 sidebar 連結文字齊左：
 5. **導航**：在 `src/data/component-nav.ts` 中將元件加入對應的導航陣列（layouts / basic / typography / navigation / dataDisplay / content / forms / feedback / overlay / ai）
 6. **components.json**：在根目錄 `components.json` 新增元件規格（`cssClasses`、`dataAttributes`、`aria`、`notes`、`example`）
 7. **llms.txt**：在根目錄 `llms.txt` 對應分類區塊加入元件說明（CSS class 清單 + HTML 範例）
-8. **互動元件 JS**（僅有 JS 互動的元件）：在 `src/scripts/cubby-ui.js` 加入 `setupXxx()` 函式（含 JSDoc + HTML 結構範例）與追蹤陣列；更新 `src/scripts/cubby-ui.d.ts` 的 `DATA_ATTRS` 常數；使用 `data-*` 屬性管理狀態（非框架狀態管理）
+8. **互動元件 JS**（僅有 JS 互動的元件）：在 `src/scripts/components/` 新增模組並匯出 `setupXxx()`（含 JSDoc + HTML 結構範例），需要追蹤陣列時在 `src/scripts/core/registry.js` 加欄位並於 `src/scripts/index.js` 的 `init()` / `destroy()` / `refresh()` 登記；更新 `src/scripts/cubby-ui.d.ts` 的 `DATA_ATTRS` 常數；使用 `data-*` 屬性管理狀態（非框架狀態管理）
 9. **Dark / Light mode**：在瀏覽器切換 `.dark` class，確認兩種模式下色彩 token、邊框、陰影皆正確；半透明色使用 `color-mix(in srgb, var(--color-*) N%, transparent)` 而非硬編碼 HSL
 10. **CSS 規範驗證**：
     - Disabled 狀態：`disabled:pointer-events-none disabled:opacity-50 disabled:bg-muted disabled:text-muted-foreground`（帶 hover border 的輸入元件額外加 `disabled:hover:border-input`）

@@ -31,11 +31,11 @@ npm run test         # check:sync → test:blade → test:e2e
 
 PR 推送後 `.github/workflows/ci.yml` 會執行以下檢查，請先在本機確認通過：
 
-- `npm run check:sync` — 元件清單在 5 個來源（`component-nav.ts` / 頁面 / i18n / CSS / `components.json` / `llms.txt`）一致；`cubby-ui.js` 使用的 `data-cu-*` 與 `cubby-ui.d.ts` 的 `DATA_ATTRS` 雙向一致
+- `npm run check:sync` — 元件清單在 5 個來源（`component-nav.ts` / 頁面 / i18n / CSS / `components.json` / `llms.txt`）一致；`src/scripts/` 各模組使用的 `data-cu-*` 與 `cubby-ui.d.ts` 的 `DATA_ATTRS` 雙向一致
 - `npm run type-check` — 0 errors
 - `npm run build` 與 `npm run build:blade` — 建置通過
 - `npm run test:blade` — Blade 回歸通過
-- `npm run test:e2e` — Playwright 互動元件測試通過（CI 會先 `npx playwright install --with-deps chromium`）
+- `npm run test:e2e` — Playwright 互動元件測試通過（CI 會先 `npx playwright install --with-deps chromium` 與 `npm run build:docs`，讓 `docs-smoke.spec.ts` 逐頁驗證文檔站）
 
 ### E2E 測試
 
@@ -53,7 +53,7 @@ PR 推送後 `.github/workflows/ci.yml` 會執行以下檢查，請先在本機�
 4. **文檔頁面** — 在 `src/pages/components/` 建立（用 `ComponentPreview` 展示，範例使用 `cu-` class 系統）
 5. **導航** — 在 `src/data/component-nav.ts` 對應分組加一筆
 6. **manifest** — 更新 `components.json` 與 `llms.txt`
-7. **互動 JS**（如需）— 在 `src/scripts/cubby-ui.js` 加 `setupXxx()` + tracking array，更新 `cubby-ui.d.ts`
+7. **互動 JS**（如需）— 在 `src/scripts/components/` 新增模組並匯出 `setupXxx()`；需要 tracking array 時在 `src/scripts/core/registry.js` 加欄位並於 `src/scripts/index.js` 的 `init()` / `destroy()` / `refresh()` 登記；更新 `cubby-ui.d.ts`
 8. **驗證** — `npm run check:sync` 應全綠（含 `DATA_ATTRS` 對照）；有 JS 互動則補 `tests/e2e/` 測試；確認 dark / light 兩模式
 
 ## 修改既有元件
@@ -65,7 +65,7 @@ PR 推送後 `.github/workflows/ci.yml` 會執行以下檢查，請先在本機�
 ## 程式碼規範
 
 - **CSS class** 一律 `cu-` 前綴；變體 `cu-{component}-{variant}`、尺寸 `cu-{component}-{size}`
-- **互動 JS** 使用 delegated document-level events + tracking array（供 `destroy()` / `refresh()` 清理；勿在每個元件實例各自註冊 document listener）
+- **互動 JS** 為 ESM 模組（`src/scripts/`），由 `scripts/build-js.mjs` 以 esbuild 打包成 UMD；使用 delegated document-level events + `core/registry.js` 的 tracking array（供 `destroy()` / `refresh()` 清理；勿在每個元件實例各自註冊 document listener）；原始碼維持 ES5 風格（`var` / `function`），打包目標 `es2015`
 - **動畫** transition 用具體屬性（`transition-colors` 等）+ 明確 `duration-*`，禁止 `transition-all`
 - **色彩** 避免硬編碼 HSL，半透明用 `color-mix`；中性色 tint 向品牌 hue，不用純 `#fff` / `#000`
 - **焦點環** 導航/觸發器用 `focus-visible:ring-1 ring-ring/30`，控制元件用 `ring-2 ring-ring/40 ring-offset-2`，close 按鈕用 `ring-1 ring-ring/40`

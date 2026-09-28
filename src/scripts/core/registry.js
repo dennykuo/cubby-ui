@@ -1,0 +1,37 @@
+/**
+ * 共享的執行期狀態：各元件的追蹤陣列與 document 級 delegated handler。
+ * 使用單一物件（而非各自的 module binding）是因為 destroy() / refresh() 需要整個重新指派。
+ */
+export const registry = {
+  dropdowns: [],
+  comboboxes: [],
+  multiSelects: [],
+  popovers: [],
+  menubars: [],
+  tabs: [],
+  numberInputs: [],
+  dropzones: [],
+  transferLists: [],
+  mobileNavs: [],
+  tagInputs: [],
+  sortableLists: [],
+  toggleGroups: [],
+  ratings: [],
+  countdowns: [],
+  imageCompares: [],
+  speedDials: [],
+  backToTops: [],
+  kanbans: [],
+  tours: [],
+  inputClearables: [],
+  alertExpandables: [],
+  dataTableExpandables: [],
+  docListenersReady: false,
+  docClickHandler: null,
+  docKeydownHandler: null,
+  cmdPaletteKeyHandler: null,
+  docContextmenuHandler: null,
+  docScrollHandler: null,
+  contextMenus: [],
+  datePickers: [],
+};
