@@ -151,6 +151,7 @@ export declare const DATA_ATTRS: {
   readonly MULTI_SELECT_PLACEHOLDER: 'data-cu-multi-select-placeholder';
   readonly MULTI_SELECT_EMPTY: 'data-cu-multi-select-empty';
   readonly MULTI_SELECT_VALUE: 'data-cu-value'; // also used by Transfer List
+  readonly MULTI_SELECT_REMOVE: 'data-cu-remove'; // tag remove button, value = item value
 
   // Number Input
   readonly NUMBER_INPUT: 'data-cu-number-input';
@@ -225,11 +226,13 @@ export declare const DATA_ATTRS: {
   readonly RATING: 'data-cu-rating';
   readonly RATING_STAR: 'data-cu-rating-star';
   readonly RATING_VALUE: 'data-cu-rating-value';
+  readonly RATING_MAX: 'data-cu-rating-max';
 
   // Tag Input
   readonly TAG_INPUT: 'data-cu-tag-input';
   readonly TAG_INPUT_FIELD: 'data-cu-tag-input-field';
   readonly TAG_MAX: 'data-cu-tag-max';
+  readonly TAG_VALUE: 'data-cu-tag-value';
 
   // Sortable List
   readonly SORTABLE_LIST: 'data-cu-sortable-list';
@@ -279,4 +282,90 @@ export declare const DATA_ATTRS: {
   readonly ALERT_EXPANDABLE: 'data-cu-alert-expandable';
   readonly ALERT_EXPAND_TRIGGER: 'data-cu-alert-expand-trigger';
   readonly ALERT_EXPANDABLE_CONTENT: 'data-cu-alert-expandable-content';
+
+  // Password Input
+  readonly PASSWORD_INPUT: 'data-cu-password-input';
+  readonly PASSWORD_TOGGLE: 'data-cu-password-toggle';
+  readonly PASSWORD_ICON_SHOW: 'data-cu-password-icon-show';
+  readonly PASSWORD_ICON_HIDE: 'data-cu-password-icon-hide';
+
+  // Segmented Control
+  readonly SEGMENTED: 'data-cu-segmented';
+
+  // Pin Input
+  readonly PIN_INPUT: 'data-cu-pin-input';
+  readonly PIN_INPUT_TYPE: 'data-cu-pin-input-type'; // "numeric" | "alphanumeric"
+
+  // Checkbox Group
+  readonly CHECKBOX_GROUP: 'data-cu-checkbox-group';
+  readonly CHECKBOX_GROUP_ITEM: 'data-cu-checkbox-group-item';
+  readonly CHECKBOX_GROUP_SELECTALL: 'data-cu-checkbox-group-selectall';
+
+  // Code Block
+  readonly CODE_BLOCK: 'data-cu-code-block';
+  readonly CODE_BLOCK_COPY: 'data-cu-code-block-copy';
+  readonly CODE_BLOCK_LABEL: 'data-cu-code-block-label';
+
+  // Carousel
+  readonly CAROUSEL: 'data-cu-carousel';
+  readonly CAROUSEL_VIEWPORT: 'data-cu-carousel-viewport';
+  readonly CAROUSEL_SLIDE: 'data-cu-carousel-slide';
+  readonly CAROUSEL_PREV: 'data-cu-carousel-prev';
+  readonly CAROUSEL_NEXT: 'data-cu-carousel-next';
+  readonly CAROUSEL_DOT: 'data-cu-carousel-dot';
+
+  // Context Menu
+  readonly CONTEXT_MENU: 'data-cu-context-menu';
+  readonly CONTEXT_MENU_CONTENT: 'data-cu-context-menu-content';
+
+  // Resizable Panels
+  readonly RESIZABLE: 'data-cu-resizable';
+  readonly RESIZABLE_PANEL: 'data-cu-resizable-panel';
+  readonly RESIZABLE_HANDLE: 'data-cu-resizable-handle';
+
+  // Command Palette
+  readonly COMMAND: 'data-cu-command';
+  readonly COMMAND_TRIGGER: 'data-cu-command-trigger';
+  readonly COMMAND_INPUT: 'data-cu-command-input';
+  readonly COMMAND_LIST: 'data-cu-command-list';
+  readonly COMMAND_GROUP: 'data-cu-command-group';
+  readonly COMMAND_ITEM: 'data-cu-command-item';
+  readonly COMMAND_VALUE: 'data-cu-command-value';
+  readonly COMMAND_SEPARATOR: 'data-cu-command-separator';
+  readonly COMMAND_EMPTY: 'data-cu-command-empty';
+
+  // Calendar
+  readonly CALENDAR: 'data-cu-calendar';
+  readonly CALENDAR_GRID: 'data-cu-calendar-grid';
+  readonly CALENDAR_TITLE: 'data-cu-calendar-title';
+  readonly CALENDAR_PREV: 'data-cu-calendar-prev';
+  readonly CALENDAR_NEXT: 'data-cu-calendar-next';
+  readonly CALENDAR_MIN: 'data-cu-calendar-min';
+  readonly CALENDAR_MAX: 'data-cu-calendar-max';
+
+  // Date Picker
+  readonly DATE_PICKER: 'data-cu-date-picker';
+  readonly DATE_PICKER_TRIGGER: 'data-cu-date-picker-trigger';
+  readonly DATE_PICKER_CONTENT: 'data-cu-date-picker-content';
+  readonly DATE_PICKER_INPUT: 'data-cu-date-picker-input';
+  readonly DATE_PICKER_VALUE: 'data-cu-date-picker-value';
+
+  // Color Picker
+  readonly COLOR_PICKER: 'data-cu-color-picker';
+  readonly COLOR_PICKER_SATURATION: 'data-cu-color-picker-saturation';
+  readonly COLOR_PICKER_SATURATION_POINTER: 'data-cu-color-picker-saturation-pointer';
+  readonly COLOR_PICKER_HUE: 'data-cu-color-picker-hue';
+  readonly COLOR_PICKER_HUE_POINTER: 'data-cu-color-picker-hue-pointer';
+  readonly COLOR_PICKER_PREVIEW: 'data-cu-color-picker-preview';
+  readonly COLOR_PICKER_INPUT: 'data-cu-color-picker-input';
+  readonly COLOR_PICKER_HIDDEN: 'data-cu-color-picker-hidden';
+  readonly COLOR_PICKER_SWATCH: 'data-cu-color-picker-swatch';
+
+  // State attributes (set / removed by the runtime; useful as CSS hooks)
+  readonly STATE_OPEN: 'data-cu-open'; // Speed Dial actions panel
+  readonly STATE_EXPANDED: 'data-cu-expanded'; // Alert Expandable content
+  readonly STATE_VISIBLE: 'data-cu-visible'; // Back to Top button
+  readonly STATE_COPIED: 'data-cu-copied'; // Code Block copy button
+  readonly STATE_RESIZING: 'data-cu-resizing'; // Resizable handle while dragging
+  readonly STATE_COMMAND_ACTIVE: 'data-cu-command-active'; // Command Palette highlighted item
 };

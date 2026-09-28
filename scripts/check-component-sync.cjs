@@ -10,6 +10,10 @@
  *   4. components.json 的 components[].name                （依 name，套 NAME_ALIAS）
  *   5. llms.txt    行首 **元件名**                          （依 name，套 NAME_ALIAS）
  *
+ * 另外比對互動 JS 與型別定義的 data-* 屬性集合：
+ *   6. src/scripts/cubby-ui.js 使用的所有 `data-cu-*`
+ *      ⇔ src/scripts/cubby-ui.d.ts `DATA_ATTRS` 常數列出的值（雙向皆須一致）
+ *
  * 三種來源使用三套命名（slug / CSS 檔名 / 顯示名），下方別名表記錄已知分歧；
  * 任一來源缺漏或出現孤兒頁面時以非 0 結束，方便併入 CI / npm test。
  *
@@ -95,6 +99,19 @@ for (const slug of pageSlugs)
   if (!navSlugs.has(slug))
     problems.push(`孤兒頁面：src/pages/components/${slug}.astro 未列於 component-nav.ts`);
 
+// --- data-cu-* 屬性：JS 實作 ⇔ d.ts DATA_ATTRS --------------------------------
+const ATTR_RE = /data-cu-[a-z0-9-]+/g;
+const jsAttrs = new Set(read("src/scripts/cubby-ui.js").match(ATTR_RE) || []);
+const dtsSrc = read("src/scripts/cubby-ui.d.ts");
+const dtsBlock = dtsSrc.slice(dtsSrc.indexOf("export declare const DATA_ATTRS"));
+const dtsAttrs = new Set(
+  [...dtsBlock.matchAll(/readonly\s+[A-Z0-9_]+:\s*'(data-cu-[a-z0-9-]+)'/g)].map((m) => m[1])
+);
+for (const a of jsAttrs)
+  if (!dtsAttrs.has(a)) problems.push(`DATA_ATTRS 缺漏：cubby-ui.js 使用 \`${a}\`，cubby-ui.d.ts 未列出`);
+for (const a of dtsAttrs)
+  if (!jsAttrs.has(a)) problems.push(`DATA_ATTRS 孤兒：cubby-ui.d.ts 列出 \`${a}\`，cubby-ui.js 未使用`);
+
 // --- 輸出 -------------------------------------------------------------------
 const counts = {
   nav: navItems.length,
@@ -103,6 +120,8 @@ const counts = {
   css: cssFiles.size,
   "components.json": cjNameKeys.size,
   "llms.txt": llmsNameKeys.size,
+  "data-cu-* (js)": jsAttrs.size,
+  "data-cu-* (d.ts)": dtsAttrs.size,
 };
 if (VERBOSE) console.log("來源計數：", JSON.stringify(counts, null, 2));
 
@@ -111,6 +130,7 @@ if (problems.length === 0) {
     `✓ 元件清單同步：${navItems.length} 個導航項在所有來源一致` +
       `（DOC_ONLY 例外：${[...DOC_ONLY].join(", ")}）`
   );
+  console.log(`✓ DATA_ATTRS 同步：${jsAttrs.size} 個 data-cu-* 屬性在 cubby-ui.js 與 cubby-ui.d.ts 一致`);
   process.exit(0);
 }
 console.error(`✗ 元件清單同步發現 ${problems.length} 處問題：\n`);

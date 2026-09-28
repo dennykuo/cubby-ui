@@ -19,8 +19,10 @@ npm run build        # 建置 NPM 套件至 dist/（CSS + JS）
 npm run build:blade  # 轉換為 Laravel Blade 匿名元件
 npm run build:docs   # 建置文檔站
 npm run type-check   # astro check 型別檢查
-npm run check:sync   # 元件清單跨來源同步檢查
+npm run check:sync   # 元件清單跨來源同步檢查 + data-cu-* 與 DATA_ATTRS 對照
 npm run test:blade   # Blade 語法回歸測試
+npm run test:e2e     # Playwright 互動元件測試（需先 npm run build）
+npm run test         # check:sync → test:blade → test:e2e
 ```
 
 > macOS 若使用 npm ≥ 10.9 遇到 `npm ci` 的 `Invalid Version` 錯誤，請先 `npm install` 重新生成 lock。
@@ -29,10 +31,19 @@ npm run test:blade   # Blade 語法回歸測試
 
 PR 推送後 `.github/workflows/ci.yml` 會執行以下檢查，請先在本機確認通過：
 
-- `npm run check:sync` — 元件清單在 5 個來源（`component-nav.ts` / 頁面 / i18n / CSS / `components.json` / `llms.txt`）一致
+- `npm run check:sync` — 元件清單在 5 個來源（`component-nav.ts` / 頁面 / i18n / CSS / `components.json` / `llms.txt`）一致；`cubby-ui.js` 使用的 `data-cu-*` 與 `cubby-ui.d.ts` 的 `DATA_ATTRS` 雙向一致
 - `npm run type-check` — 0 errors
 - `npm run build` 與 `npm run build:blade` — 建置通過
 - `npm run test:blade` — Blade 回歸通過
+- `npm run test:e2e` — Playwright 互動元件測試通過（CI 會先 `npx playwright install --with-deps chromium`）
+
+### E2E 測試
+
+- 測試對象是 `dist/core/cubby-ui.{css,js}` 出貨產物，不是 Astro 文檔站；先 `npm run build` 再跑
+- fixture 放在 `tests/e2e/fixtures/*.html`，spec 放在 `tests/e2e/*.spec.ts`，透過 `openFixture(page, "name")` 載入
+- 新增互動元件時，至少補一個 fixture 與涵蓋「開啟 / 關閉 / 鍵盤 / ARIA」的 smoke test
+- 無法下載 Playwright 瀏覽器的環境（離線、受限網路）可用既有 Chromium：
+  `PLAYWRIGHT_CHROMIUM_EXECUTABLE=/path/to/chrome npm run test:e2e`
 
 ## 新增元件 Checklist
 
@@ -43,7 +54,7 @@ PR 推送後 `.github/workflows/ci.yml` 會執行以下檢查，請先在本機�
 5. **導航** — 在 `src/data/component-nav.ts` 對應分組加一筆
 6. **manifest** — 更新 `components.json` 與 `llms.txt`
 7. **互動 JS**（如需）— 在 `src/scripts/cubby-ui.js` 加 `setupXxx()` + tracking array，更新 `cubby-ui.d.ts`
-8. **驗證** — `npm run check:sync` 應全綠；確認 dark / light 兩模式
+8. **驗證** — `npm run check:sync` 應全綠（含 `DATA_ATTRS` 對照）；有 JS 互動則補 `tests/e2e/` 測試；確認 dark / light 兩模式
 
 ## 修改既有元件
 

@@ -17,6 +17,10 @@ Cubby UI 是一個框架無關的 UI 元件庫，風格類似 shadcn/ui，使用
 - `npm run build:docs` — 建置文檔站點至 `docs/`（自動先執行 `i18n:routes`）
 - `npm run preview` — 預覽建置結果
 - `npm run test:blade` — 對 `dist/laravel/` 下所有 `.blade.php` 做回歸檢查：已知壞 pattern（`,,`、空陣列元素、未轉譯 JSX 屬性）、並萃取 `@class` / `@props` / `@if` / `{{ … }}` 中的 PHP 片段以 `php -l` 驗證（安裝 PHP 時生效，可加 `--skip-php` 略過）
+- `npm run test:e2e` — Playwright 互動元件測試（`tests/e2e/*.spec.ts`），對 `dist/core/cubby-ui.{css,js}` 出貨產物執行，fixture 為 `tests/e2e/fixtures/*.html` 靜態頁；需先 `npm run build`。無法下載瀏覽器的環境可設 `PLAYWRIGHT_CHROMIUM_EXECUTABLE` 指向既有 Chromium
+- `npm run test` — 依序執行 `check:sync` → `test:blade` → `test:e2e`
+- `npm run check:sync` — 元件清單跨來源一致性檢查（`component-nav.ts` / 頁面 / i18n / CSS / `components.json` / `llms.txt`），並雙向比對 `cubby-ui.js` 使用的 `data-cu-*` 與 `cubby-ui.d.ts` 的 `DATA_ATTRS`
+- `npm run type-check` — `astro check`（`tsconfig.json` 已排除 `dist/` 與 `docs/`）
 
 目前無 lint 命令。
 
@@ -137,7 +141,7 @@ const t = useTranslations(buttonPage, locale);
 
 ### NPM 套件打包
 
-執行 `npm run build:lib` 後產生：
+執行 `npm run build` 後產生：
 
 ```
 dist/
@@ -643,7 +647,7 @@ Header logo 與 sidebar 連結文字齊左：
     - Disabled 狀態：`disabled:pointer-events-none disabled:opacity-50 disabled:bg-muted disabled:text-muted-foreground`（帶 hover border 的輸入元件額外加 `disabled:hover:border-input`）
     - Transition：使用具體屬性（`transition-colors`、`transition-shadow`、`transition-opacity`）+ 明確 `duration-150` 或 `duration-200`，禁止 `transition-all`
     - Focus ring：導航/互動元素加 `focus-visible:ring-1 focus-visible:ring-ring/30`；關閉按鈕用 `ring-ring/40`
-11. **build 驗證**：執行 `npm run build:lib` 確認 CSS 正確編譯（`@apply` 全部展開，無編譯錯誤）
+11. **build 驗證**：執行 `npm run build` 確認 CSS 正確編譯（`@apply` 全部展開，無編譯錯誤）；有 JS 互動的元件另在 `tests/e2e/` 加 fixture 與 spec，執行 `npm run test:e2e`；`npm run check:sync` 會驗證新 `data-cu-*` 屬性已列入 `DATA_ATTRS`
 12. **dev 驗證**：執行 `npm run dev` 確認 `i18n:routes` 自動產生 `src/pages/zh-tw/components/` 路由，en/zh-tw 兩語言頁面皆正常顯示
 
 ### 修改已有元件時的額外確認

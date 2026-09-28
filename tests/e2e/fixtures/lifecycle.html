@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Lifecycle fixture</title>
+  <link rel="stylesheet" href="../../../dist/core/cubby-ui.css" />
+  <script>
+    // 在載入 cubby-ui.js 之前攔截 document 級 listener 註冊，統計各事件型別的淨數量
+    window.__listeners = {};
+    (function () {
+      var add = document.addEventListener.bind(document);
+      var remove = document.removeEventListener.bind(document);
+      document.addEventListener = function (type, fn, opts) {
+        window.__listeners[type] = (window.__listeners[type] || 0) + 1;
+        return add(type, fn, opts);
+      };
+      document.removeEventListener = function (type, fn, opts) {
+        window.__listeners[type] = (window.__listeners[type] || 0) - 1;
+        return remove(type, fn, opts);
+      };
+    })();
+  </script>
+</head>
+<body>
+  <button id="outside" class="cu-button cu-button-ghost">Outside</button>
+
+  <div id="host">
+    <div class="cu-dropdown" data-cu-dropdown>
+      <button id="trigger" class="cu-button cu-button-outline" data-cu-dropdown-trigger>Options</button>
+      <div class="cu-dropdown-content" data-cu-dropdown-content hidden>
+        <button class="cu-dropdown-item">Edit</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="../../../dist/core/cubby-ui.js"></script>
+</body>
+</html>

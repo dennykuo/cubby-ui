@@ -1358,10 +1358,11 @@
       container = document.createElement("div");
       container.className = "cu-toast-container cu-toast-container-bottom-right";
       container.setAttribute("data-cu-toast-container", "");
-      container.setAttribute("role", "region");
-      container.setAttribute("aria-label", "Notifications");
       document.body.appendChild(container);
     }
+    // 作者自行提供的容器也補上 landmark 語意（不覆寫既有值）
+    if (!container.getAttribute("role")) container.setAttribute("role", "region");
+    if (!container.getAttribute("aria-label")) container.setAttribute("aria-label", "Notifications");
     return container;
   }
 

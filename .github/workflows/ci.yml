@@ -34,3 +34,9 @@ jobs:
 
       - name: Blade 回歸測試
         run: npm run test:blade
+
+      - name: 安裝 Playwright Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: 互動元件 E2E 測試（Playwright）
+        run: npm run test:e2e

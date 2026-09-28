@@ -338,7 +338,7 @@ Toast variants: `default` | `destructive` | `success` | `warning` | `info`
 7. **llms.txt**：更新根目錄 `llms.txt`，在對應分類區塊加入元件說明（class 清單 + HTML 範例）
 8. **互動元件 JS**（有 JS 互動才需要）：在 `src/scripts/cubby-ui.js` 加入 `setupXxx()` 函式（含 JSDoc）與追蹤陣列；更新 `src/scripts/cubby-ui.d.ts` 的 `DATA_ATTRS` 常數
 9. **Dark / Light mode**：切換 `.dark` class，確認兩種模式下色彩、邊框、陰影皆正確
-10. **build 驗證**：執行 `npm run build:lib` 確認 CSS 正確編譯
+10. **build 驗證**：執行 `npm run build` 確認 CSS 正確編譯；有 JS 互動的元件另在 `tests/e2e/` 加 fixture 與 spec（`npm run test:e2e`）；`npm run check:sync` 會驗證 `data-cu-*` 屬性已列入 `DATA_ATTRS`
 
 ### 修改已有元件時的額外確認
 

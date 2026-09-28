@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Overlays fixture</title>
+  <link rel="stylesheet" href="../../../dist/core/cubby-ui.css" />
+</head>
+<body>
+  <button id="dialog-trigger" class="cu-button cu-button-default" data-cu-dialog-trigger="my-dialog">Open Dialog</button>
+  <dialog id="my-dialog" class="cu-dialog" data-cu-dialog>
+    <div class="cu-dialog-header">
+      <h2 class="cu-dialog-title">Dialog Title</h2>
+      <p class="cu-dialog-description">Dialog description.</p>
+    </div>
+    <div class="cu-dialog-footer">
+      <button id="dialog-cancel" class="cu-button cu-button-outline" data-cu-dialog-close>Cancel</button>
+      <button id="dialog-confirm" class="cu-button cu-button-default">Confirm</button>
+    </div>
+  </dialog>
+
+  <button id="autofocus-trigger" class="cu-button cu-button-default" data-cu-dialog-trigger="autofocus-dialog">Open Autofocus Dialog</button>
+  <dialog id="autofocus-dialog" class="cu-dialog" data-cu-dialog>
+    <div class="cu-dialog-header">
+      <h2 class="cu-dialog-title">Autofocus</h2>
+    </div>
+    <button class="cu-button cu-button-outline" data-cu-dialog-close>First</button>
+    <input id="autofocus-input" class="cu-input" autofocus />
+  </dialog>
+
+  <button id="drawer-trigger" class="cu-button cu-button-default" data-cu-drawer-trigger="my-drawer">Open Drawer</button>
+  <dialog id="my-drawer" class="cu-drawer cu-drawer-right" data-cu-drawer>
+    <div class="cu-drawer-header">
+      <h2 class="cu-drawer-title">Drawer Title</h2>
+      <button id="drawer-x" class="cu-button cu-button-ghost cu-button-icon" data-cu-drawer-close aria-label="Close">✕</button>
+    </div>
+    <div class="cu-drawer-content">Drawer content</div>
+    <div class="cu-drawer-footer">
+      <button class="cu-button cu-button-outline" data-cu-drawer-close>Close</button>
+    </div>
+  </dialog>
+
+  <button id="alert-trigger" class="cu-button cu-button-destructive" data-cu-alert-dialog-trigger="my-alert">Delete</button>
+  <dialog id="my-alert" class="cu-alert-dialog" data-cu-alert-dialog>
+    <div class="cu-alert-dialog-header">
+      <h2 class="cu-alert-dialog-title">Are you sure?</h2>
+      <p class="cu-alert-dialog-description">This cannot be undone.</p>
+    </div>
+    <div class="cu-alert-dialog-footer">
+      <button id="alert-cancel" class="cu-button cu-button-outline" data-cu-alert-dialog-cancel>Cancel</button>
+      <button id="alert-action" class="cu-button cu-button-destructive" data-cu-alert-dialog-action>Confirm</button>
+    </div>
+  </dialog>
+
+  <script src="../../../dist/core/cubby-ui.js"></script>
+</body>
+</html>

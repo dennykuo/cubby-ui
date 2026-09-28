@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Dropdown fixture</title>
+  <link rel="stylesheet" href="../../../dist/core/cubby-ui.css" />
+</head>
+<body>
+  <div class="cu-dropdown" data-cu-dropdown>
+    <button id="trigger" class="cu-button cu-button-outline" data-cu-dropdown-trigger>Options</button>
+    <div class="cu-dropdown-content" data-cu-dropdown-content hidden>
+      <div class="cu-dropdown-label">Actions</div>
+      <button class="cu-dropdown-item" onclick="window.__clicked = this.textContent">Edit</button>
+      <button class="cu-dropdown-item" onclick="window.__clicked = this.textContent">Duplicate</button>
+      <button class="cu-dropdown-item" disabled onclick="window.__clicked = this.textContent">Archive</button>
+      <div class="cu-dropdown-separator"></div>
+      <button class="cu-dropdown-item" onclick="window.__clicked = this.textContent">Delete</button>
+    </div>
+  </div>
+
+  <button id="outside" class="cu-button cu-button-ghost">Outside</button>
+
+  <script src="../../../dist/core/cubby-ui.js"></script>
+</body>
+</html>
