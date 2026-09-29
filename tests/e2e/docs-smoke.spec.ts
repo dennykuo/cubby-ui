@@ -12,11 +12,16 @@ import type { AddressInfo } from "node:net";
  *   - 沒有未捕捉的 JS 例外（含 ComponentPreview 的 iframe）
  *   - 沒有來自 cubby-ui.js 的 console error
  *   - window.CubbyUI 已就緒，且重複呼叫 init() / refresh() 不會拋錯
+ *   - 同源資源（CSS、JS、favicon、iframe 預覽載入的產物）沒有 4xx / 5xx
  * 這是 JS 打包產物的廣域行為驗證：每個元件頁都會實際初始化該元件的所有變體。
  * docs/ 不存在時整組略過（本機未建置文檔站）。
+ *
+ * 設定 BASE_PATH（如 `/cubby-ui`，需與 build:docs 時相同）時，伺服器只在該子路徑下
+ * 提供 docs/，模擬 GitHub Pages 專案站；寫死根路徑的資源會 404 而使測試失敗。
  */
 const ROOT = resolve(fileURLToPath(new URL(".", import.meta.url)), "../..");
 const DOCS = resolve(ROOT, "docs");
+const BASE = (process.env.BASE_PATH || "/").replace(/\/+$/, "");
 const MIME: Record<string, string> = {
   ".html": "text/html; charset=utf-8",
   ".js": "text/javascript",
@@ -37,18 +42,32 @@ function collectPages(dir: string, prefix = ""): string[] {
   return out;
 }
 
-/** 只跑英文頁；zh-tw 是同一份頁面的複製，互動 JS 行為相同 */
+/**
+ * 只跑英文頁；zh-tw 是同一份頁面的複製，互動 JS 行為相同。
+ * `examples/dashboard-v5/feedback/` 是提交進版控的舊建置快照（非 .astro 產生，引用已不存在的
+ * `/_astro/*.css`），不列入。
+ */
 const pages = existsSync(DOCS)
-  ? collectPages(DOCS).filter((p) => !p.startsWith("/zh-tw/") && (p.startsWith("/components/") || p.startsWith("/examples/") || p === "/playground/"))
+  ? collectPages(DOCS).filter(
+      (p) =>
+        !p.startsWith("/zh-tw/") &&
+        !p.startsWith("/examples/dashboard-v5/feedback/") &&
+        (p.startsWith("/components/") || p.startsWith("/examples/") || p === "/playground/")
+    )
   : [];
 
 let server: Server;
+let origin: string;
 let baseURL: string;
 
 test.beforeAll(async () => {
   test.skip(pages.length === 0, "docs/ 尚未建置，請先執行 npm run build:docs");
   server = createServer((req, res) => {
-    const urlPath = decodeURIComponent((req.url || "/").split("?")[0]);
+    let urlPath = decodeURIComponent((req.url || "/").split("?")[0]);
+    if (BASE) {
+      if (urlPath !== BASE && !urlPath.startsWith(`${BASE}/`)) { res.writeHead(404); res.end(); return; }
+      urlPath = urlPath.slice(BASE.length) || "/";
+    }
     let filePath = normalize(join(DOCS, urlPath));
     if (!filePath.startsWith(DOCS)) { res.writeHead(403); res.end(); return; }
     if (existsSync(filePath) && statSync(filePath).isDirectory()) filePath = join(filePath, "index.html");
@@ -57,7 +76,8 @@ test.beforeAll(async () => {
     res.end(readFileSync(filePath));
   });
   await new Promise<void>((r) => server.listen(0, "127.0.0.1", r));
-  baseURL = `http://127.0.0.1:${(server.address() as AddressInfo).port}`;
+  origin = `http://127.0.0.1:${(server.address() as AddressInfo).port}`;
+  baseURL = origin + BASE;
 });
 
 test.afterAll(async () => {
@@ -68,7 +88,11 @@ for (const path of pages) {
   test(`docs ${path}`, async ({ page }) => {
     const pageErrors: string[] = [];
     const consoleErrors: string[] = [];
+    const failedRequests: string[] = [];
     page.on("pageerror", (err) => pageErrors.push(err.message));
+    page.on("response", (res) => {
+      if (res.url().startsWith(origin) && res.status() >= 400) failedRequests.push(`${res.status()} ${res.url()}`);
+    });
     page.on("console", (msg) => {
       if (msg.type() !== "error") return;
       const text = msg.text();
@@ -79,7 +103,7 @@ for (const path of pages) {
 
     // 封鎖所有外部請求（Google Fonts、CDN）：離線環境下才不會卡在 load，也避免測試依賴外網
     await page.route("**/*", (route) => {
-      route.request().url().startsWith(baseURL) ? route.continue() : route.abort();
+      route.request().url().startsWith(origin) ? route.continue() : route.abort();
     });
 
     await page.goto(baseURL + path, { waitUntil: "load" });
@@ -98,5 +122,6 @@ for (const path of pages) {
 
     expect(pageErrors, `未捕捉例外：\n${pageErrors.join("\n")}`).toEqual([]);
     expect(consoleErrors, `console error：\n${consoleErrors.join("\n")}`).toEqual([]);
+    expect(failedRequests, `同源資源載入失敗：\n${failedRequests.join("\n")}`).toEqual([]);
   });
 }

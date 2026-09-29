@@ -1,6 +1,7 @@
 ---
 import type { Locale } from "@/i18n";
 import { localizePath } from "@/i18n";
+import { withBase } from "@/utils/paths";
 import { uiTranslations } from "@/i18n/ui";
 import {
 	gettingStarted as gsRaw,
@@ -25,7 +26,7 @@ const groups = componentGroups.map((g) => ({
 	key: g.key,
 	items: localize(g.items),
 }));
-const examplePages = exRaw.map((i) => ({ name: i.name, href: i.path }));
+const examplePages = exRaw.map((i) => ({ name: i.name, href: withBase(i.path) }));
 ---
 
 <!-- Mobile Navigation Drawer -->

@@ -1,4 +1,5 @@
 ---
+import { withBase, stripBase } from "@/utils/paths";
 import "@/styles/global.css";
 import Sidebar from "@/components/ui/Sidebar.astro";
 import SidebarContent from "@/components/ui/SidebarContent.astro";
@@ -19,7 +20,8 @@ interface Props {
 }
 
 const { title } = Astro.props;
-const pathname = Astro.url.pathname;
+// 去掉 base 與尾端斜線（build 輸出的 pathname 帶 `/`，導航資料不帶）
+const pathname = stripBase(Astro.url.pathname).replace(/(.)\/$/, "$1");
 
 // Enhanced Navigation Structure
 const navGroups = [
@@ -33,7 +35,7 @@ const navGroups = [
             },
             {
                 label: "數據分析",
-                href: "/examples/dashboard-v2/analytics",
+                href: "#", // 範例未實作此頁
                 icon: "bar-chart",
             },
         ],
@@ -53,12 +55,12 @@ const navGroups = [
             },
             {
                 label: "文件中心",
-                href: "/examples/dashboard-v2/documents",
+                href: "#", // 範例未實作此頁
                 icon: "file-text",
             },
             {
                 label: "訊息通知",
-                href: "/examples/dashboard-v2/messages",
+                href: "#", // 範例未實作此頁
                 icon: "mail",
             },
         ],
@@ -73,7 +75,7 @@ const navGroups = [
             },
             {
                 label: "API 金鑰",
-                href: "/examples/dashboard-v2/api",
+                href: "#", // 範例未實作此頁
                 icon: "key",
             },
         ],
@@ -87,7 +89,7 @@ const navGroups = [
         <meta charset="UTF-8" />
         <meta name="description" content="Dashboard V2 — Cubby UI" />
         <meta name="viewport" content="width=device-width" />
-        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <link rel="icon" type="image/svg+xml" href={withBase("/favicon.svg")} />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link
@@ -114,7 +116,7 @@ const navGroups = [
                 >
                     <a
                         class="flex items-center gap-2.5 font-bold text-lg tracking-tight"
-                        href="/examples/dashboard-v2"
+                        href={withBase("/examples/dashboard-v2")}
                     >
                         <div
                             class="flex items-center justify-center w-8 h-8 rounded-lg bg-indigo-500 text-white"
@@ -149,7 +151,7 @@ const navGroups = [
                                         const isActive = pathname === item.href;
                                         return (
                                             <a
-                                                href={item.href}
+                                                href={withBase(item.href)}
                                                 class:list={[
                                                     "flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-md transition-colors duration-200",
                                                     isActive

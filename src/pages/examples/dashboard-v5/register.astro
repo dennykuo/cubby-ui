@@ -1,4 +1,5 @@
 ---
+import { withBase } from "@/utils/paths";
 import "@/styles/global.css";
 ---
 
@@ -8,7 +9,7 @@ import "@/styles/global.css";
 		<meta charset="UTF-8" />
 		<meta name="description" content="Register — DataHub" />
 		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="icon" type="image/svg+xml" href={withBase("/favicon.svg")} />
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 		<link
@@ -24,7 +25,7 @@ import "@/styles/global.css";
 				<div class="cu-card">
 					<div class="cu-card-header text-center pb-2">
 						<!-- Logo -->
-						<a href="/examples/dashboard-v5" class="inline-flex items-center gap-2.5 mb-6">
+						<a href={withBase("/examples/dashboard-v5")} class="inline-flex items-center gap-2.5 mb-6">
 							<div class="flex items-center justify-center w-10 h-10 rounded-lg bg-primary text-primary-foreground">
 								<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
 									<path d="m7.5 4.27 9 5.15"/><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/>
@@ -36,7 +37,7 @@ import "@/styles/global.css";
 						<p class="cu-card-description">填寫以下資訊以開始使用</p>
 					</div>
 					<div class="cu-card-content space-y-4">
-						<form class="space-y-4" action="/examples/dashboard-v5">
+						<form class="space-y-4" action={withBase("/examples/dashboard-v5")}>
 							<div class="grid grid-cols-2 gap-3">
 								<div class="cu-form-group">
 									<label class="cu-label" for="first-name">姓</label>
@@ -85,7 +86,7 @@ import "@/styles/global.css";
 					<div class="cu-card-footer justify-center">
 						<p class="text-sm text-muted-foreground">
 							已經有帳號？
-							<a href="/examples/dashboard-v5/login" class="cu-link">立即登入</a>
+							<a href={withBase("/examples/dashboard-v5/login")} class="cu-link">立即登入</a>
 						</p>
 					</div>
 				</div>

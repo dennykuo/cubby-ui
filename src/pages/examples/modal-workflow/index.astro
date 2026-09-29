@@ -1,4 +1,5 @@
 ---
+import { withBase } from "@/utils/paths";
 import "@/styles/global.css";
 ---
 
@@ -8,7 +9,7 @@ import "@/styles/global.css";
 		<meta charset="UTF-8" />
 		<meta name="description" content="Modal Workflow — Cubby UI" />
 		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="icon" type="image/svg+xml" href={withBase("/favicon.svg")} />
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 		<link
@@ -21,7 +22,7 @@ import "@/styles/global.css";
 		<!-- Header -->
 		<header class="cu-header border-b border-border">
 			<div class="cu-header-inner mx-auto max-w-5xl">
-				<a class="cu-header-brand" href="/examples/modal-workflow">
+				<a class="cu-header-brand" href={withBase("/examples/modal-workflow")}>
 					<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-primary">
 						<path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
 						<polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
@@ -30,7 +31,7 @@ import "@/styles/global.css";
 					<span class="text-base font-semibold tracking-tight">聯絡人管理</span>
 				</a>
 				<div class="cu-header-actions">
-					<a href="/" class="cu-button cu-button-ghost cu-button-sm">
+					<a href={withBase("/")} class="cu-button cu-button-ghost cu-button-sm">
 						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
 						返回文檔
 					</a>

@@ -6,6 +6,7 @@ import Sidebar from "@/components/sidebar/Sidebar.astro";
 import PrevNextNav from "@/components/PrevNextNav.astro";
 import cubbyUiUrl from "../../dist/core/cubby-ui.js?url";
 import { getLocaleFromUrl, getAlternatePath } from "@/i18n";
+import { withBase } from "@/utils/paths";
 import { uiTranslations } from "@/i18n/ui";
 
 interface Props {
@@ -35,7 +36,7 @@ const alternateHreflang = alternateLocale === 'zh-tw' ? 'zh-TW' : 'en';
 		<meta charset="UTF-8" />
 		<meta name="description" content="Elegant Tailwind CSS Components" />
 		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="icon" type="image/svg+xml" href={withBase("/favicon.svg")} />
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 		<link

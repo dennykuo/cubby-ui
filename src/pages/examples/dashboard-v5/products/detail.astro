@@ -1,11 +1,12 @@
 ---
+import { withBase } from "@/utils/paths";
 import DashboardV5Layout from "@/layouts/DashboardV5Layout.astro";
 ---
 
 <DashboardV5Layout title='MacBook Pro 14" — DataHub'>
     <Fragment slot="breadcrumb">
         <span class="text-muted-foreground/50">/</span>
-        <a href="/examples/dashboard-v5" class="text-muted-foreground hover:text-foreground transition-colors duration-150">產品管理</a>
+        <a href={withBase("/examples/dashboard-v5")} class="text-muted-foreground hover:text-foreground transition-colors duration-150">產品管理</a>
         <span class="text-muted-foreground/50">/</span>
         <span class="font-medium">MacBook Pro 14"</span>
     </Fragment>
@@ -23,11 +24,11 @@ import DashboardV5Layout from "@/layouts/DashboardV5Layout.astro";
                 </div>
             </div>
             <div class="cu-page-header-actions">
-                <a href="/examples/dashboard-v5" class="cu-button cu-button-outline">
+                <a href={withBase("/examples/dashboard-v5")} class="cu-button cu-button-outline">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>
                     返回列表
                 </a>
-                <a href="/examples/dashboard-v5/products/create" class="cu-button cu-button-default">
+                <a href={withBase("/examples/dashboard-v5/products/create")} class="cu-button cu-button-default">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/></svg>
                     編輯
                 </a>
@@ -133,7 +134,7 @@ import DashboardV5Layout from "@/layouts/DashboardV5Layout.astro";
                         </div>
                     </div>
                     <div class="cu-card-footer">
-                        <a href="/examples/dashboard-v5/orders" class="text-sm cu-link">查看所有訂單 &rarr;</a>
+                        <a href={withBase("/examples/dashboard-v5/orders")} class="text-sm cu-link">查看所有訂單 &rarr;</a>
                     </div>
                 </div>
             </div>
@@ -175,7 +176,7 @@ import DashboardV5Layout from "@/layouts/DashboardV5Layout.astro";
                         <h2 class="cu-card-title text-base">操作</h2>
                     </div>
                     <div class="cu-card-content space-y-3">
-                        <a href="/examples/dashboard-v5/products/create" class="cu-button cu-button-default w-full">
+                        <a href={withBase("/examples/dashboard-v5/products/create")} class="cu-button cu-button-default w-full">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/></svg>
                             編輯產品
                         </a>

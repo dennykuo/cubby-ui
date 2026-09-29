@@ -38,8 +38,19 @@ jobs:
       - name: 安裝 Playwright Chromium
         run: npx playwright install --with-deps chromium
 
-      - name: 建置文檔站（供 docs smoke test 使用）
+      # 以 GitHub Pages 專案站的子路徑建置，smoke test 與連結檢查驗證的即為實際部署設定
+      # （寫死根路徑的連結或資源會在此失敗）；與 deploy-docs.yml 由 configure-pages 取得的值一致
+      - name: 建置文檔站（base：/cubby-ui）
         run: npm run build:docs
+        env:
+          BASE_PATH: /cubby-ui
+
+      - name: 站內連結檢查
+        run: npm run check:links
+        env:
+          BASE_PATH: /cubby-ui
 
       - name: 互動元件 E2E 測試（Playwright，含文檔站 smoke）
         run: npm run test:e2e
+        env:
+          BASE_PATH: /cubby-ui

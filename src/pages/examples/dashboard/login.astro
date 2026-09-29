@@ -1,4 +1,5 @@
 ---
+import { withBase } from "@/utils/paths";
 import "@/styles/global.css";
 ---
 
@@ -8,7 +9,7 @@ import "@/styles/global.css";
 		<meta charset="UTF-8" />
 		<meta name="description" content="Login — Dashboard" />
 		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="icon" type="image/svg+xml" href={withBase("/favicon.svg")} />
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 		<link
@@ -57,7 +58,7 @@ import "@/styles/global.css";
 						<p class="text-sm text-muted-foreground">請輸入您的帳號資訊以登入</p>
 					</div>
 
-					<form class="space-y-4" action="/examples/dashboard">
+					<form class="space-y-4" action={withBase("/examples/dashboard")}>
 						<div class="cu-form-group">
 							<label class="cu-label" for="email">Email</label>
 							<input class="cu-input" id="email" type="email" placeholder="name@example.com" required aria-required="true" />
@@ -65,7 +66,7 @@ import "@/styles/global.css";
 						<div class="cu-form-group">
 							<div class="flex items-center justify-between">
 								<label class="cu-label" for="password">密碼</label>
-								<a href="/examples/dashboard/forgot-password" class="text-xs text-muted-foreground hover:text-foreground transition-colors duration-150">忘記密碼？</a>
+								<a href={withBase("/examples/dashboard/forgot-password")} class="text-xs text-muted-foreground hover:text-foreground transition-colors duration-150">忘記密碼？</a>
 							</div>
 							<input class="cu-input" id="password" type="password" placeholder="請輸入密碼" required aria-required="true" />
 						</div>
@@ -88,7 +89,7 @@ import "@/styles/global.css";
 
 					<p class="text-center text-sm text-muted-foreground">
 						還沒有帳號？
-						<a href="/examples/dashboard/register" class="cu-link">立即註冊</a>
+						<a href={withBase("/examples/dashboard/register")} class="cu-link">立即註冊</a>
 					</p>
 				</div>
 			</div>

@@ -1,4 +1,5 @@
 ---
+import { withBase, stripBase } from "@/utils/paths";
 import "@/styles/global.css";
 
 interface Props {
@@ -6,7 +7,7 @@ interface Props {
 }
 
 const { title } = Astro.props;
-const pathname = Astro.url.pathname;
+const pathname = stripBase(Astro.url.pathname);
 const normalizedPath = pathname.endsWith("/") && pathname.length > 1 ? pathname.slice(0, -1) : pathname;
 
 const navItems = [
@@ -25,7 +26,7 @@ const navItems = [
         <meta charset="UTF-8" />
         <meta name="description" content="Dashboard V5 — Cubby UI" />
         <meta name="viewport" content="width=device-width" />
-        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <link rel="icon" type="image/svg+xml" href={withBase("/favicon.svg")} />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link
@@ -40,7 +41,7 @@ const navItems = [
             <aside class="cu-sidebar hidden lg:flex fixed inset-y-0 left-0 z-40 w-60 border-r border-border">
                 <!-- Logo -->
                 <div class="cu-sidebar-header h-14 border-b pl-6">
-                    <a href="/examples/dashboard-v5" class="cu-header-brand">
+                    <a href={withBase("/examples/dashboard-v5")} class="cu-header-brand">
                         <div class="flex items-center justify-center w-8 h-8 rounded-lg bg-primary text-primary-foreground">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <path d="m7.5 4.27 9 5.15"/><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/>
@@ -60,7 +61,7 @@ const navItems = [
                                 (item.patterns?.some(p => normalizedPath.startsWith(p)) ?? false);
                             return (
                                 <a
-                                    href={item.href}
+                                    href={withBase(item.href)}
                                     class:list={[
                                         "cu-sidebar-item",
                                         isActive && "cu-sidebar-item-active",
@@ -134,7 +135,7 @@ const navItems = [
 
                         <!-- Breadcrumb -->
                         <nav class="hidden lg:flex items-center gap-2 text-sm">
-                            <a href="/examples/dashboard-v5" class="text-muted-foreground hover:text-foreground transition-colors">首頁</a>
+                            <a href={withBase("/examples/dashboard-v5")} class="text-muted-foreground hover:text-foreground transition-colors">首頁</a>
                             <slot name="breadcrumb">
                                 <span class="text-muted-foreground/50">/</span>
                                 <span class="font-medium">資料管理</span>
@@ -179,7 +180,7 @@ const navItems = [
         <!-- Mobile Nav Drawer -->
         <dialog class="cu-drawer cu-drawer-left" id="mobile-nav" data-cu-drawer>
             <div class="cu-drawer-header border-b">
-                <a href="/examples/dashboard-v5" class="cu-header-brand">
+                <a href={withBase("/examples/dashboard-v5")} class="cu-header-brand">
                     <div class="flex items-center justify-center w-8 h-8 rounded-lg bg-primary text-primary-foreground">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <path d="m7.5 4.27 9 5.15"/><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/>
@@ -200,7 +201,7 @@ const navItems = [
                             (item.patterns?.some(p => normalizedPath.startsWith(p)) ?? false);
                         return (
                             <a
-                                href={item.href}
+                                href={withBase(item.href)}
                                 class:list={[
                                     "cu-sidebar-item",
                                     isActive && "cu-sidebar-item-active",

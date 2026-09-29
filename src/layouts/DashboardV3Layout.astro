@@ -1,4 +1,5 @@
 ---
+import { withBase, stripBase } from "@/utils/paths";
 import "@/styles/global.css";
 import Avatar from "@/components/ui/Avatar.astro";
 import AvatarFallback from "@/components/ui/AvatarFallback.astro";
@@ -8,7 +9,8 @@ interface Props {
 }
 
 const { title } = Astro.props;
-const pathname = Astro.url.pathname;
+// 去掉 base 與尾端斜線（build 輸出的 pathname 帶 `/`，導航資料不帶）
+const pathname = stripBase(Astro.url.pathname).replace(/(.)\/$/, "$1");
 
 // Navigation tabs
 const navTabs = [
@@ -25,7 +27,7 @@ const navTabs = [
         <meta charset="UTF-8" />
         <meta name="description" content="Nexus — AI-Powered SaaS Analytics Platform" />
         <meta name="viewport" content="width=device-width" />
-        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <link rel="icon" type="image/svg+xml" href={withBase("/favicon.svg")} />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link
@@ -52,7 +54,7 @@ const navTabs = [
                 <div class="flex-1 py-6 px-3">
                     <nav class="flex flex-col gap-2">
                         <a
-                            href="/examples/dashboard-v3"
+                            href={withBase("/examples/dashboard-v3")}
                             class:list={[
                                 "flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all duration-200 group",
                                 pathname === "/examples/dashboard-v3"
@@ -80,7 +82,7 @@ const navTabs = [
                             <span class="text-sm font-medium opacity-0 group-hover/sidebar:opacity-100 transition-opacity duration-300 whitespace-nowrap">Dashboard</span>
                         </a>
                         <a
-                            href="/examples/dashboard-v3/analytics"
+                            href={withBase("/examples/dashboard-v3/analytics")}
                             class:list={[
                                 "flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all duration-200 group",
                                 pathname === "/examples/dashboard-v3/analytics"
@@ -107,7 +109,7 @@ const navTabs = [
                             <span class="text-sm font-medium opacity-0 group-hover/sidebar:opacity-100 transition-opacity duration-300 whitespace-nowrap">Analytics</span>
                         </a>
                         <a
-                            href="/examples/dashboard-v3/customers"
+                            href={withBase("/examples/dashboard-v3/customers")}
                             class:list={[
                                 "flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all duration-200 group",
                                 pathname === "/examples/dashboard-v3/customers"
@@ -135,7 +137,7 @@ const navTabs = [
                             <span class="text-sm font-medium opacity-0 group-hover/sidebar:opacity-100 transition-opacity duration-300 whitespace-nowrap">Customers</span>
                         </a>
                         <a
-                            href="/examples/dashboard-v3/settings"
+                            href={withBase("/examples/dashboard-v3/settings")}
                             class:list={[
                                 "flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all duration-200 group",
                                 pathname === "/examples/dashboard-v3/settings"
@@ -197,7 +199,7 @@ const navTabs = [
                 >
                     <div class="flex items-center gap-8 flex-1">
                         <!-- Brand Logo -->
-                        <a href="/examples/dashboard-v3" class="flex items-center gap-2.5 font-bold text-lg">
+                        <a href={withBase("/examples/dashboard-v3")} class="flex items-center gap-2.5 font-bold text-lg">
                             <div class="flex items-center justify-center w-8 h-8 rounded-lg bg-gradient-to-br from-teal-600 to-emerald-600 text-white shadow-md">
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
@@ -222,7 +224,7 @@ const navTabs = [
                                 const isActive = pathname === tab.href;
                                 return (
                                     <a
-                                        href={tab.href}
+                                        href={withBase(tab.href)}
                                         class:list={[
                                             "px-3 py-2 text-sm font-medium rounded-md transition-colors duration-200",
                                             isActive

@@ -15,10 +15,11 @@ Cubby UI 是一個框架無關的 UI 元件庫，風格類似 shadcn/ui，使用
 - `npm run build:js` — 只重新打包 `dist/core/cubby-ui.js`
 - `npm run build:blade` — 將 Astro 元件轉換為 Laravel Blade 匿名元件，輸出至 `dist/laravel/components/cu/`（支援 `--dry-run` 預覽不寫入、`--verbose` 詳細輸出）
 - `npm run build:all` — 一次建置全部（`build` + `build:blade`），也作為 `prepare` script 在 git URL 安裝時自動執行
-- `npm run build:docs` — 建置文檔站點至 `docs/`（自動先執行 `i18n:routes`）
+- `npm run build:docs` — 建置文檔站點至 `docs/`（自動先執行 `i18n:routes`）。可設 `BASE_PATH`（如 `/cubby-ui`）與 `SITE_URL` 環境變數指定部署子路徑，未設定時為根目錄
+- `npm run check:links` — 掃描 `docs/` 所有頁面的 `href` / `src` / `action`，確認站內根路徑連結都帶 base、目標檔案存在（`BASE_PATH` 需與建置時相同；略過 `<template>` 預覽片段與 `<pre>` / `<code>`）
 - `npm run preview` — 預覽建置結果
 - `npm run test:blade` — 對 `dist/laravel/` 下所有 `.blade.php` 做回歸檢查：已知壞 pattern（`,,`、空陣列元素、未轉譯 JSX 屬性）、並萃取 `@class` / `@props` / `@if` / `{{ … }}` 中的 PHP 片段以 `php -l` 驗證（安裝 PHP 時生效，可加 `--skip-php` 略過）
-- `npm run test:e2e` — Playwright 互動元件測試（`tests/e2e/*.spec.ts`），對 `dist/core/cubby-ui.{css,js}` 出貨產物執行，fixture 為 `tests/e2e/fixtures/*.html` 靜態頁；需先 `npm run build`。另含 `docs-smoke.spec.ts`：逐頁載入 `docs/` 產出的元件頁與範例頁，檢查無未捕捉例外、無 console error、重複 `init()` / `refresh()` 安全（`docs/` 不存在時自動略過，CI 會先 `build:docs`）。無法下載瀏覽器的環境可設 `PLAYWRIGHT_CHROMIUM_EXECUTABLE` 指向既有 Chromium
+- `npm run test:e2e` — Playwright 互動元件測試（`tests/e2e/*.spec.ts`），對 `dist/core/cubby-ui.{css,js}` 出貨產物執行，fixture 為 `tests/e2e/fixtures/*.html` 靜態頁；需先 `npm run build`。另含 `docs-smoke.spec.ts`：逐頁載入 `docs/` 產出的元件頁與範例頁，檢查無未捕捉例外、無 console error、重複 `init()` / `refresh()` 安全、同源資源無 4xx / 5xx（`docs/` 不存在時自動略過，CI 會先 `build:docs`；設 `BASE_PATH` 時只在該子路徑下伺服 `docs/`，模擬 GitHub Pages）。無法下載瀏覽器的環境可設 `PLAYWRIGHT_CHROMIUM_EXECUTABLE` 指向既有 Chromium
 - `npm run test` — 依序執行 `check:sync` → `test:blade` → `test:e2e`
 - `npm run check:sync` — 元件清單跨來源一致性檢查（`component-nav.ts` / 頁面 / i18n / CSS / `components.json` / `llms.txt` / README 元件分類表），並雙向比對 `src/scripts/` 各模組使用的 `data-cu-*` 與 `cubby-ui.d.ts` 的 `DATA_ATTRS`
 - `npm run type-check` — `astro check`（`tsconfig.json` 已排除 `dist/` 與 `docs/`）
@@ -34,6 +35,16 @@ Cubby UI 是一個框架無關的 UI 元件庫，風格類似 shadcn/ui，使用
 - **astro-expressive-code** — 程式碼區塊語法高亮（主題：min-light, min-dark；內建複製按鈕已停用）
 - **Vanilla JS** — 極少量，僅用於互動效果，使用 `data-*` 屬性管理狀態
 
+### 部署（GitHub Pages）
+
+`.github/workflows/deploy-docs.yml` 在 `main` 的 CI 成功後（`workflow_run`）或手動觸發時，以 `actions/configure-pages` 取得網址與子路徑，帶入 `SITE_URL` / `BASE_PATH` 執行 `build:docs` → `check:links`，再以 `upload-pages-artifact` + `deploy-pages` 發布 `docs/`。專案站網址為 `https://dennykuo.github.io/cubby-ui/`（repo Settings → Pages 的 Source 須設為 GitHub Actions）。CI（`ci.yml`）同樣以 `BASE_PATH=/cubby-ui` 建置文檔站並跑連結檢查與 smoke test，驗證的即是部署設定。
+
+**站內路徑規則**：`astro.config.mjs` 的 `base` 來自 `BASE_PATH`，所有站內連結必須經過 `src/utils/paths.ts`：
+- 文檔頁連結用 `localizePath(path, locale)`（已含 base）；語言切換用 `getAlternatePath()`（輸入可含 base，輸出含 base）
+- 其他根路徑連結（範例頁、favicon、表單 `action`）用 `withBase("/examples/...")`；非根路徑（`#`、外部 URL）原樣回傳
+- 比對目前頁面時先 `stripBase(Astro.url.pathname)` 再與導航資料（不含 base）比較；`getLocaleFromUrl()` 已內建
+- 不要在 `.astro` 中寫死 `href="/..."`，CI 的 `check:links` 會失敗；靜態資源放 `public/`（目前僅 `favicon.svg`）
+
 ### 國際化（i18n）
 
 文檔站支援英文（預設）和繁體中文兩種語言。
@@ -43,7 +54,7 @@ Cubby UI 是一個框架無關的 UI 元件庫，風格類似 shadcn/ui，使用
 **路由產生**：`scripts/generate-i18n-routes.js` 在 dev/build 前自動將 `src/pages/` 下的頁面複製到 `src/pages/zh-tw/`（已加入 `.gitignore`）。複製後的頁面透過 `Astro.url.pathname` 中的 `/zh-tw/` 前綴自動切換語言。
 
 **翻譯系統**（`src/i18n/`）：
-- `index.ts` — `Locale` 型別、`getLocaleFromUrl()`、`localizePath()`、`getAlternatePath()`、`useTranslations()`
+- `index.ts` — `Locale` 型別、`getLocaleFromUrl()`、`localizePath()`、`getAlternatePath()`、`useTranslations()`（路徑函式皆處理 base，見「部署」）
 - `ui.ts` — 共用 UI 翻譯（Header、Sidebar、ComponentPreview 的文字）
 - `pages/home.ts`、`usage.ts`、`theming.ts`、`dark-mode.ts`、`playground.ts` — 核心頁面翻譯
 - `pages/components/*.ts` — 95 個元件頁面翻譯（每頁一個檔案）
@@ -215,6 +226,8 @@ src/
 │   ├── components/               — 每元件一個 ESM 模組（tabs.js、dropdown.js、toast.js …，匯出 setupXxx）
 │   ├── cubby-ui.d.ts             — TypeScript 型別定義（打包來源）
 │   └── playground.js             — Playground 頁面客戶端邏輯（IIFE，元件 registry + 控制項 + 主題）
+├── utils/
+│   └── paths.ts                  — withBase() / stripBase()：站內路徑與 Astro base（GitHub Pages 子路徑）轉換
 ├── data/
 │   └── component-nav.ts          — 共享導航資料（Sidebar + PrevNext 共用，single source of truth）
 ├── i18n/

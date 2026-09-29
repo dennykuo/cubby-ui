@@ -2,6 +2,8 @@
 
 框架無關的 UI 元件庫，風格類似 shadcn/ui，使用純 HTML + Tailwind CSS 構建。元件設計為可直接複製貼上使用，不依賴 React、Vue 或任何前端框架。
 
+**文檔站**：<https://dennykuo.github.io/cubby-ui/>（每次 `main` 的 CI 通過後自動部署）
+
 ## Installation
 
 ### CDN（推薦）
@@ -73,6 +75,7 @@ npm run build       # 建置 NPM 套件至 dist/（CSS + JS）
 npm run build:blade # 生成 Laravel Blade 元件至 dist/laravel/
 npm run build:all   # 一次建置全部（build + build:blade）
 npm run build:docs  # 建置文檔站點至 docs/
+npm run check:links # 檢查文檔站站內連結（需先 build:docs）
 npm run preview     # 預覽建置結果
 ```
 

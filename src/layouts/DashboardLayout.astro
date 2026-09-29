@@ -1,4 +1,5 @@
 ---
+import { withBase, stripBase } from "@/utils/paths";
 import "@/styles/global.css";
 import Sidebar from "@/components/ui/Sidebar.astro";
 import SidebarContent from "@/components/ui/SidebarContent.astro";
@@ -10,7 +11,7 @@ interface Props {
 }
 
 const { title } = Astro.props;
-const pathname = Astro.url.pathname;
+const pathname = stripBase(Astro.url.pathname);
 const normalizedPath =
 	pathname.endsWith("/") && pathname.length > 1
 		? pathname.slice(0, -1)
@@ -30,7 +31,7 @@ const navItems = [
 		<meta charset="UTF-8" />
 		<meta name="description" content="Dashboard — Cubby UI" />
 		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="icon" type="image/svg+xml" href={withBase("/favicon.svg")} />
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 		<link
@@ -48,7 +49,7 @@ const navItems = [
 						<button class="cu-button cu-button-ghost cu-button-icon-sm lg:hidden" data-cu-dashboard-menu-toggle aria-label="開啟導航選單" aria-expanded="false">
 							<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
 						</button>
-						<a class="cu-header-brand" href="/examples/dashboard">
+						<a class="cu-header-brand" href={withBase("/examples/dashboard")}>
 							<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-primary">
 								<path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
 								<polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
@@ -81,7 +82,7 @@ const navItems = [
 							{navItems.map((item) => {
 								const isActive = normalizedPath === item.href || (item.href !== "/examples/dashboard" && normalizedPath.startsWith(item.href));
 								return (
-									<SidebarItem href={item.href} active={isActive}>
+									<SidebarItem href={withBase(item.href)} active={isActive}>
 										{item.icon === "home" && (
 											<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
 										)}
@@ -98,7 +99,7 @@ const navItems = [
 						</nav>
 					</SidebarContent>
 					<SidebarFooter>
-						<SidebarItem href="/examples/dashboard/login">
+						<SidebarItem href={withBase("/examples/dashboard/login")}>
 							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/></svg>
 							<span>登出</span>
 						</SidebarItem>

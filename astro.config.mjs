@@ -104,8 +104,16 @@ function cubbyUiJsBundle() {
   };
 }
 
+// 部署位置：GitHub Pages workflow 由 actions/configure-pages 取得並傳入
+// SITE_URL（如 https://dennykuo.github.io）與 BASE_PATH（如 /cubby-ui）；
+// 本機 dev / build / E2E 未設定時維持根目錄。站內連結一律經 src/utils/paths.ts 的 withBase()。
+const site = process.env.SITE_URL || undefined;
+const base = process.env.BASE_PATH || '/';
+
 // https://astro.build/config
 export default defineConfig({
+  site,
+  base,
   outDir: 'docs',
   vite: {
     plugins: [tailwindcss(), cubbyUiJsBundle(), i18nHotSync()],

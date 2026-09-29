@@ -1,4 +1,5 @@
 ---
+import { withBase } from "@/utils/paths";
 import "@/styles/global.css";
 ---
 
@@ -8,7 +9,7 @@ import "@/styles/global.css";
 		<meta charset="UTF-8" />
 		<meta name="description" content="Register — Dashboard" />
 		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="icon" type="image/svg+xml" href={withBase("/favicon.svg")} />
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 		<link
@@ -70,7 +71,7 @@ import "@/styles/global.css";
 						<p class="text-sm text-muted-foreground">填寫以下資訊以開始使用</p>
 					</div>
 
-					<form class="space-y-4" action="/examples/dashboard">
+					<form class="space-y-4" action={withBase("/examples/dashboard")}>
 						<div class="grid grid-cols-2 gap-3">
 							<div class="cu-form-group">
 								<label class="cu-label" for="first-name">姓</label>
@@ -108,7 +109,7 @@ import "@/styles/global.css";
 
 					<p class="text-center text-sm text-muted-foreground">
 						已經有帳號？
-						<a href="/examples/dashboard/login" class="cu-link">立即登入</a>
+						<a href={withBase("/examples/dashboard/login")} class="cu-link">立即登入</a>
 					</p>
 				</div>
 			</div>

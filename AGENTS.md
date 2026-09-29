@@ -28,9 +28,12 @@ npm run dev         # 啟動開發伺服器（i18n 路由由 Vite plugin 自動�
 npm run build       # 建置 NPM 套件至 dist/（CSS + JS）
 npm run build:blade # 生成 Laravel Blade 元件至 dist/laravel/
 npm run build:all   # 一次建置全部（build + build:blade）
-npm run build:docs  # 建置文檔站點至 docs/
+npm run build:docs  # 建置文檔站點至 docs/（BASE_PATH=/cubby-ui 模擬 GitHub Pages 子路徑）
+npm run check:links # 檢查 docs/ 站內連結帶 base 且目標存在（BASE_PATH 需與建置時相同）
 npm run preview     # 預覽建置結果
 ```
+
+> 文檔站部署到 GitHub Pages（`https://dennykuo.github.io/cubby-ui/`，`.github/workflows/deploy-docs.yml`，main 的 CI 通過後觸發）。站內連結不可寫死 `href="/..."`：文檔頁用 `localizePath()`，其他根路徑用 `src/utils/paths.ts` 的 `withBase()`，比對目前路徑前先 `stripBase(Astro.url.pathname)`。
 
 > 透過 git URL 安裝時，`prepare` script 自動執行 `build:all`，產生完整 `dist/` 產出。
 
