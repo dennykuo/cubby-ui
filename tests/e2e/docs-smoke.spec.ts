@@ -42,18 +42,9 @@ function collectPages(dir: string, prefix = ""): string[] {
   return out;
 }
 
-/**
- * 只跑英文頁；zh-tw 是同一份頁面的複製，互動 JS 行為相同。
- * `examples/dashboard-v5/feedback/` 是提交進版控的舊建置快照（非 .astro 產生，引用已不存在的
- * `/_astro/*.css`），不列入。
- */
+/** 只跑英文頁；zh-tw 是同一份頁面的複製，互動 JS 行為相同 */
 const pages = existsSync(DOCS)
-  ? collectPages(DOCS).filter(
-      (p) =>
-        !p.startsWith("/zh-tw/") &&
-        !p.startsWith("/examples/dashboard-v5/feedback/") &&
-        (p.startsWith("/components/") || p.startsWith("/examples/") || p === "/playground/")
-    )
+  ? collectPages(DOCS).filter((p) => !p.startsWith("/zh-tw/") && (p.startsWith("/components/") || p.startsWith("/examples/") || p === "/playground/"))
   : [];
 
 let server: Server;

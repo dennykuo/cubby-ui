@@ -23,13 +23,6 @@ const ROOT = resolve(fileURLToPath(new URL("..", import.meta.url)));
 const outDir = resolve(ROOT, process.argv[2] || "docs");
 const base = (process.env.BASE_PATH || "/").replace(/\/+$/, "");
 
-/**
- * 已知的非建置頁面：`src/pages/examples/dashboard-v5/feedback/` 為提交進版控的
- * 舊建置快照（`.html`，內含寫死的根路徑與已不存在的 `/_astro/*.css`），不是由
- * `.astro` 原始碼產生，無法套用 base。
- */
-const IGNORE_PREFIXES = ["examples/dashboard-v5/feedback/"];
-
 if (!existsSync(outDir)) {
   console.error(`✗ 找不到建置目錄 ${relative(ROOT, outDir)}，請先執行 npm run build:docs`);
   process.exit(1);
@@ -70,7 +63,6 @@ let checked = 0;
 const pages = listHtml(outDir);
 for (const file of pages) {
   const rel = relative(outDir, file).split(sep).join("/");
-  if (IGNORE_PREFIXES.some((p) => rel.startsWith(p))) continue;
 
   // 頁面自身的站內 URL（供解析相對連結）
   const pageUrl = new URL(
