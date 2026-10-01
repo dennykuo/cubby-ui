@@ -38,7 +38,7 @@ export const multiSelectPage: Record<Locale, {
       },
       presetValues: {
         title: 'Preset Values',
-        description: 'Pre-select items by adding <code class="cu-code">cu-multi-select-item-active</code> to items and rendering tags in the trigger area on initial load.',
+        description: 'Pre-select items by adding <code class="cu-code">cu-multi-select-item-active</code> to them. The tags are rendered in the trigger automatically on initialization, so do not write them in the markup (a <code class="cu-code">&lt;button&gt;</code> nested inside the trigger button breaks HTML parsing).',
       },
       withFormGroup: {
         title: 'With Form Group',
@@ -88,7 +88,7 @@ export const multiSelectPage: Record<Locale, {
       },
       presetValues: {
         title: '預設值',
-        description: '在項目上加入 <code class="cu-code">cu-multi-select-item-active</code> 並在初始載入時於觸發區域渲染標籤，以預選項目。',
+        description: '在項目上加入 <code class="cu-code">cu-multi-select-item-active</code> 即可預選。標籤會在初始化時自動渲染到觸發區域，不需要寫在標記中（在觸發按鈕內巢狀 <code class="cu-code">&lt;button&gt;</code> 會破壞 HTML 解析）。',
       },
       withFormGroup: {
         title: '搭配表單群組',
