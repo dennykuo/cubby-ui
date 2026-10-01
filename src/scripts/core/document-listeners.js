@@ -74,8 +74,10 @@ export function setupDocumentListeners() {
       });
       registry.comboboxes.forEach(function (c) {
         if (c.content && !c.content.hasAttribute("hidden")) {
+          var hadFocus = c.content.contains(document.activeElement);
           c.content.setAttribute("hidden", "");
           if (c.trigger) c.trigger.setAttribute("aria-expanded", "false");
+          if (hadFocus && c.trigger) c.trigger.focus();
           if (c.input) {
             c.input.value = "";
             c.input.dispatchEvent(new Event("input"));
@@ -84,8 +86,10 @@ export function setupDocumentListeners() {
       });
       registry.multiSelects.forEach(function (ms) {
         if (ms.content && !ms.content.hasAttribute("hidden")) {
+          var hadFocus = ms.content.contains(document.activeElement);
           ms.content.setAttribute("hidden", "");
           if (ms.trigger) ms.trigger.setAttribute("aria-expanded", "false");
+          if (hadFocus && ms.trigger) ms.trigger.focus();
           if (ms.input) {
             ms.input.value = "";
             ms.input.dispatchEvent(new Event("input"));
@@ -113,7 +117,10 @@ export function setupDocumentListeners() {
         if (cm.content) cm.content.setAttribute("hidden", "");
       });
       registry.datePickers.forEach(function (dp) {
-        if (dp.content) dp.content.style.display = "none";
+        if (!dp.content || dp.content.style.display === "none") return;
+        var hadFocus = dp.content.contains(document.activeElement);
+        dp.content.style.display = "none";
+        if (hadFocus && dp.trigger) dp.trigger.focus();
       });
       return;
     }
@@ -140,7 +147,7 @@ export function setupDocumentListeners() {
         var items = c.getItems();
         if (!items || items.length === 0) return;
         if (e.key === "Enter") {
-          var active = c.content.querySelector(".cu-combobox-item-highlight");
+          var active = c.content.querySelector(".cu-combobox-item-highlight:not([hidden])");
           if (active) { active.click(); e.preventDefault(); }
           return;
         }
@@ -154,7 +161,7 @@ export function setupDocumentListeners() {
         var items = ms.getItems();
         if (!items || items.length === 0) return;
         if (e.key === "Enter") {
-          var active = ms.content.querySelector(".cu-multi-select-item-highlight");
+          var active = ms.content.querySelector(".cu-multi-select-item-highlight:not([hidden])");
           if (active) { active.click(); e.preventDefault(); }
           return;
         }

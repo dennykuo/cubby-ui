@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Multi Select fixture</title>
+  <link rel="stylesheet" href="../../../dist/core/cubby-ui.css" />
+  <style>
+    body { display: flex; flex-wrap: wrap; gap: 24px; align-items: flex-start; padding: 16px; }
+  </style>
+</head>
+<body>
+  <!-- 文檔 Usage 範例（無搜尋框） -->
+  <div id="ms-frameworks" class="cu-multi-select" data-cu-multi-select style="width: 300px;">
+    <button class="cu-multi-select-trigger" data-cu-multi-select-trigger>
+      <div class="cu-multi-select-tags" data-cu-multi-select-tags>
+        <span class="cu-multi-select-placeholder" data-cu-multi-select-placeholder>Select frameworks...</span>
+      </div>
+      <svg class="cu-multi-select-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 15 5 5 5-5"/><path d="m7 9 5-5 5 5"/></svg>
+    </button>
+    <div class="cu-multi-select-content" data-cu-multi-select-content hidden>
+      <div class="cu-multi-select-list" data-cu-multi-select-list>
+        <div class="cu-multi-select-empty" data-cu-multi-select-empty hidden>No results found.</div>
+        <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="react">React</div>
+        <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="vue">Vue</div>
+        <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="angular">Angular</div>
+        <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="svelte">Svelte</div>
+        <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="astro">Astro</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 文檔 With Search 範例 -->
+  <div id="ms-members" class="cu-multi-select" data-cu-multi-select style="width: 300px;">
+    <button class="cu-multi-select-trigger" data-cu-multi-select-trigger>
+      <div class="cu-multi-select-tags" data-cu-multi-select-tags>
+        <span class="cu-multi-select-placeholder" data-cu-multi-select-placeholder>Select members...</span>
+      </div>
+      <svg class="cu-multi-select-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 15 5 5 5-5"/><path d="m7 9 5-5 5 5"/></svg>
+    </button>
+    <div class="cu-multi-select-content" data-cu-multi-select-content hidden>
+      <div class="cu-multi-select-search">
+        <input class="cu-multi-select-input" data-cu-multi-select-input placeholder="Search members..." />
+      </div>
+      <div class="cu-multi-select-list" data-cu-multi-select-list>
+        <div class="cu-multi-select-empty" data-cu-multi-select-empty hidden>No results found.</div>
+        <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="alice">Alice</div>
+        <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="bob">Bob</div>
+        <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="charlie">Charlie</div>
+        <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="diana">Diana</div>
+        <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="eve">Eve</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 預設值：以 cu-multi-select-item-active 標記預選項目，標籤由 JS 產生。
+       （文檔 Preset Values 範例把含 <button> 的靜態標籤寫在 trigger <button> 內，
+       HTML parser 會提前關閉 trigger 與容器，結構無法使用，故這裡不照抄靜態標籤。） -->
+  <form id="form" action="#" onsubmit="event.preventDefault(); window.__submits = (window.__submits || 0) + 1;">
+    <div id="ms-preset" class="cu-multi-select" data-cu-multi-select style="width: 300px;">
+      <button class="cu-multi-select-trigger" data-cu-multi-select-trigger>
+        <div class="cu-multi-select-tags" data-cu-multi-select-tags>
+          <span class="cu-multi-select-placeholder" data-cu-multi-select-placeholder>Select tags...</span>
+        </div>
+      </button>
+      <div class="cu-multi-select-content" data-cu-multi-select-content hidden>
+        <div class="cu-multi-select-list" data-cu-multi-select-list>
+          <div class="cu-multi-select-item cu-multi-select-item-active" data-cu-multi-select-item data-cu-value="bug">Bug</div>
+          <div class="cu-multi-select-item cu-multi-select-item-active" data-cu-multi-select-item data-cu-value="feature">Feature</div>
+          <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="docs">Documentation</div>
+          <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value='12" display'>12" Display</div>
+        </div>
+      </div>
+    </div>
+    <button id="submit" type="submit" class="cu-button cu-button-default">Submit</button>
+  </form>
+
+  <button id="outside" class="cu-button cu-button-ghost">Outside</button>
+
+  <script>
+    window.__events = [];
+    document.addEventListener("cu:multiselect:change", function (e) {
+      window.__events.push({ id: e.target.id, selected: e.detail.selected });
+    });
+  </script>
+  <script src="../../../dist/core/cubby-ui.js"></script>
+</body>
+</html>

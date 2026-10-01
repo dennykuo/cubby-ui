@@ -58,6 +58,8 @@ export function setupMultiSelects() {
       if (trigger) {
         trigger.setAttribute("aria-haspopup", "listbox");
         trigger.setAttribute("aria-expanded", "false");
+        // 未指定 type 的 <button> 在 <form> 內預設為 submit，開啟面板會送出表單
+        if (trigger.tagName === "BUTTON" && !trigger.hasAttribute("type")) trigger.type = "button";
       }
       if (content) {
         var list = content.querySelector("[data-cu-multi-select-list]") || content;
@@ -85,7 +87,11 @@ export function setupMultiSelects() {
         } else {
           if (placeholder) placeholder.hidden = true;
           selected.forEach(function (val) {
-            var item = ms.querySelector('[data-cu-value="' + val + '"]');
+            // 逐一比對而非組 selector 字串：值含引號、反斜線時 querySelector 會拋錯
+            var item = null;
+            getItems().forEach(function (i) {
+              if (!item && (i.dataset.cuValue || "") === val) item = i;
+            });
             if (!item) return;
             var tag = document.createElement("span");
             tag.className = "cu-multi-select-tag";
@@ -96,10 +102,13 @@ export function setupMultiSelects() {
             removeBtn.textContent = "\u00d7";
             removeBtn.addEventListener("click", function (e) {
               e.stopPropagation();
+              var hadFocus = document.activeElement === removeBtn;
               selected.delete(val);
               item.classList.remove("cu-multi-select-item-active");
               item.setAttribute("aria-selected", "false");
               renderTags();
+              // 按鈕已隨標籤移除，鍵盤使用者的焦點移回 trigger
+              if (hadFocus && trigger) trigger.focus();
               ms.dispatchEvent(new CustomEvent("cu:multiselect:change", {
                 bubbles: true,
                 detail: { selected: Array.from(selected) }
@@ -119,9 +128,12 @@ export function setupMultiSelects() {
         if (empty) empty.toggleAttribute("hidden", visible > 0);
       }
 
+      // 預選項目（cu-multi-select-item-active）於初始化時渲染為標籤
+      if (selected.size > 0) renderTags();
+
       trigger &&
-        trigger.addEventListener("click", function (e) {
-          e.stopPropagation();
+        trigger.addEventListener("click", function () {
+          // 不阻止冒泡：讓 document 級 handler 關閉其他已開啟的浮層（自身因 contains 判斷不受影響）
           var isHidden = content && content.hasAttribute("hidden");
           content && content.toggleAttribute("hidden");
           trigger.setAttribute("aria-expanded", String(isHidden));

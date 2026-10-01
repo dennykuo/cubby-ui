@@ -25,7 +25,10 @@ export function navigateItems(items, key, highlightClass) {
     next = current > 0 ? current - 1 : visible.length - 1;
   }
 
-  if (current >= 0) visible[current].classList.remove(highlightClass);
+  // 清除所有項目的高亮（含已被篩選隱藏的項目），確保同時只有一個高亮
+  items.forEach(function (item) {
+    item.classList.remove(highlightClass);
+  });
   visible[next].classList.add(highlightClass);
   visible[next].scrollIntoView({ block: "nearest" });
 }
