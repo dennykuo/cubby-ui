@@ -37,6 +37,7 @@ export const basicComponents: NavItem[] = [
   { name: "Button", path: "/components/button" },
   { name: "Button Group", path: "/components/button-group" },
   { name: "Card", path: "/components/card" },
+  { name: "Copy Button", path: "/components/copy-button" },
   { name: "Color", path: "/components/color" },
   { name: "Separator", path: "/components/separator" },
 ];

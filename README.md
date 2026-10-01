@@ -106,7 +106,7 @@ npm run preview     # 預覽建置結果
 | 分類 | 元件 |
 |------|------|
 | Layouts | Container, Filter Bar, Header, Kanban, Nav, Page Header, Resizable Panels, Scroll Area, Sidebar, Toolbar |
-| Basic | Aspect Ratio, Avatar, Badge, Button, Button Group, Card, Color, Separator |
+| Basic | Aspect Ratio, Avatar, Badge, Button, Button Group, Card, Copy Button, Color, Separator |
 | Typography | Headings, Kbd, Paragraphs, Blockquote, Lists, Links, Text, HR |
 | Navigation | Breadcrumb, Menubar, Pagination, Segmented Control, Speed Dial, Steps, Tabs, Back to Top |
 | Data Display | Accordion, Chart, Code Block, Collapsible, Data Table, Setting Item, Sortable List, Stat Card, Table, Timeline, Tree View |

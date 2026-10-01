@@ -1,0 +1,84 @@
+/* Copy Button
+   ------------------------------------------------------------------ */
+/* 一鍵複製按鈕。JS（data-cu-copy / data-cu-copy-target）寫入剪貼簿後，
+   於按鈕加上 data-cu-copied（成功）或 data-cu-copy-failed（失敗）狀態屬性，
+   此處以屬性切換圖示與色彩（與 Code Block 的 data-cu-copied 一致）。 */
+.cu-copy-button {
+    @apply relative inline-flex h-8 min-w-8 shrink-0 cursor-pointer items-center justify-center gap-1.5 rounded-md px-2 text-xs font-medium whitespace-nowrap text-muted-foreground transition-colors duration-150 hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/40 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0;
+}
+
+/* -- variants -- */
+.cu-copy-button-outline {
+    @apply border border-input bg-background shadow-xs;
+}
+
+/* -- sizes -- */
+.cu-copy-button-sm {
+    @apply h-7 min-w-7 px-1.5 [&_svg]:size-3.5;
+}
+
+.cu-copy-button-lg {
+    @apply h-9 min-w-9 px-2.5 text-sm;
+}
+
+/* -- icons：預設顯示 copy 圖示，複製成功後切換為 check -- */
+.cu-copy-button-check {
+    @apply hidden;
+}
+
+.cu-copy-button[data-cu-copied] .cu-copy-button-icon {
+    @apply hidden;
+}
+
+.cu-copy-button[data-cu-copied] .cu-copy-button-check {
+    @apply block;
+    animation: cu-copy-pop 0.2s ease-out;
+}
+
+/* -- states -- */
+.cu-copy-button[data-cu-copied],
+.cu-copy-button[data-cu-copied]:hover {
+    color: color-mix(in srgb, var(--color-success) 70%, var(--color-foreground));
+}
+
+.cu-copy-button[data-cu-copy-failed],
+.cu-copy-button[data-cu-copy-failed]:hover {
+    color: color-mix(in srgb, var(--color-destructive) 65%, var(--color-foreground));
+}
+
+@keyframes cu-copy-pop {
+    from {
+        opacity: 0;
+        transform: scale(0.6);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Copy Field — 唯讀值 + 複製按鈕（ID、API Key、指令片段）
+   ------------------------------------------------------------------ */
+.cu-copy-field {
+    @apply flex h-9 w-full min-w-0 items-center gap-2 rounded-lg border border-input bg-background pr-1 pl-3 text-sm shadow-xs;
+}
+
+.cu-copy-field-muted {
+    @apply border-border/60 bg-muted/40 shadow-none;
+}
+
+/* 可為 <span> / <code> 或 <input readonly> */
+.cu-copy-field-value {
+    @apply min-w-0 flex-1 truncate border-0 bg-transparent p-0 font-mono text-[13px] text-foreground outline-none select-all;
+}
+
+/* 多行片段：值保留換行並可水平捲動，按鈕對齊頂端 */
+.cu-copy-field-multiline {
+    @apply h-auto items-start py-1;
+}
+
+.cu-copy-field-multiline .cu-copy-field-value {
+    @apply overflow-x-auto py-1.5 leading-relaxed whitespace-pre;
+    text-overflow: clip;
+}

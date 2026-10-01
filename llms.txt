@@ -170,6 +170,33 @@ Selectable: `cu-card-selectable` (ring on checked state via `:has(input:checked)
 </div>
 ```
 
+**Copy Button** ⚡ JS-driven (document-level delegated click; dynamically added buttons work without re-init)
+Classes: `cu-copy-button` (ghost, h-8, square when icon-only), `cu-copy-button-outline`, `cu-copy-button-sm` (h-7), `cu-copy-button-lg` (h-9), `cu-copy-button-icon` (copy icon, hidden while copied), `cu-copy-button-check` (check icon, shown while copied)
+Copy Field: `cu-copy-field` (read-only value + button), `cu-copy-field-value` (code / span / input readonly, truncated mono text), `cu-copy-field-muted` (tinted, no shadow), `cu-copy-field-multiline` (keeps line breaks, scrolls)
+Data: `data-cu-copy="text"` or `data-cu-copy-target="#selector"` (input/textarea/select → value, other elements → trimmed textContent); optional `data-cu-copy-label` (child text swaps to the message), `data-cu-copy-success-text` (default "Copied!"), `data-cu-copy-error-text` (default "Copy failed"), `data-cu-copy-duration` (ms, default 2000), `data-cu-copy-live` (custom aria-live region; auto-created otherwise)
+States: `data-cu-copied` (success), `data-cu-copy-failed` (Clipboard API unavailable / denied and execCommand fallback failed). Events: `cu:copy-button:copy` (detail.text), `cu:copy-button:error` (detail.error), both bubble.
+A11y: icon-only buttons need `aria-label`; messages are announced via a shared visually hidden `role="status"` `aria-live="polite"` region.
+```html
+<button type="button" class="cu-copy-button" data-cu-copy="usr_8f2a91c4" aria-label="Copy user ID">
+  <svg class="cu-copy-button-icon" aria-hidden="true"><!-- copy icon --></svg>
+  <svg class="cu-copy-button-check" aria-hidden="true"><!-- check icon --></svg>
+</button>
+
+<div class="cu-copy-field">
+  <code id="api-key" class="cu-copy-field-value">sk_live_51H8xQ2</code>
+  <button type="button" class="cu-copy-button cu-copy-button-sm" data-cu-copy-target="#api-key" aria-label="Copy API key">
+    <svg class="cu-copy-button-icon" aria-hidden="true"><!-- copy icon --></svg>
+    <svg class="cu-copy-button-check" aria-hidden="true"><!-- check icon --></svg>
+  </button>
+</div>
+
+<button type="button" class="cu-copy-button cu-copy-button-outline" data-cu-copy="https://example.com/invite">
+  <svg class="cu-copy-button-icon" aria-hidden="true"><!-- copy icon --></svg>
+  <svg class="cu-copy-button-check" aria-hidden="true"><!-- check icon --></svg>
+  <span data-cu-copy-label>Copy link</span>
+</button>
+```
+
 **Separator**
 Requires explicit direction class.
 ```html
@@ -1455,5 +1482,6 @@ Data attributes: `data-cu-resizable`, `data-cu-resizable-panel`, `data-cu-resiza
 | Input Clearable | `data-cu-input-clearable` | — | — | `data-cu-input-clear` | — |
 | Alert Expandable | `data-cu-alert-expandable` | `data-cu-alert-expand-trigger` | `data-cu-alert-expandable-content` | — | — |
 | Data Table Expandable | `data-cu-data-table-expandable` | `data-cu-expand-row` | — | — | — |
+| Copy Button | — | `data-cu-copy="text"` / `data-cu-copy-target="#id"` | — | — | `data-cu-copy-label`, `data-cu-copy-success-text`, `data-cu-copy-error-text`, `data-cu-copy-duration`, `data-cu-copy-live`; states `data-cu-copied`, `data-cu-copy-failed` |
 | Popover | `data-cu-popover` | `data-cu-popover-trigger` | `data-cu-popover-content` | — | — |
 | Menubar | `data-cu-menubar` | `data-cu-menubar-trigger` | `data-cu-menubar-content` | — | `data-cu-menubar-menu` (per menu wrapper) |
