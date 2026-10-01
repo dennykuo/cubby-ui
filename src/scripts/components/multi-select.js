@@ -33,12 +33,12 @@ export function setupMultiSelects() {
 
       var trigger = ms.querySelector("[data-cu-multi-select-trigger]");
       var content = ms.querySelector("[data-cu-multi-select-content]");
-      var input = ms.querySelector("[data-cu-multi-select-input]");
+      var input = /** @type {HTMLInputElement} */ (ms.querySelector("[data-cu-multi-select-input]"));
       var empty = ms.querySelector("[data-cu-multi-select-empty]");
       var tagsEl = ms.querySelector("[data-cu-multi-select-tags]");
-      var placeholder = ms.querySelector(
+      var placeholder = /** @type {HTMLElement} */ (ms.querySelector(
         "[data-cu-multi-select-placeholder]"
-      );
+      ));
       var selected = new Set();
 
       // Dynamic items query — always returns fresh NodeList
@@ -67,7 +67,7 @@ export function setupMultiSelects() {
       syncItemsAria();
 
       // Init from preset active items
-      getItems().forEach(function (item) {
+      getItems().forEach(function (/** @type {HTMLElement} */ item) {
         if (item.classList.contains("cu-multi-select-item-active")) {
           selected.add(item.dataset.cuValue || "");
         }
@@ -147,7 +147,7 @@ export function setupMultiSelects() {
 
       content &&
         content.addEventListener("click", function (e) {
-          var item = e.target.closest("[data-cu-multi-select-item]");
+          var item = /** @type {HTMLElement} */ (/** @type {Element} */ (e.target).closest("[data-cu-multi-select-item]"));
           if (!item) return;
           e.stopPropagation();
           var val = item.dataset.cuValue || "";

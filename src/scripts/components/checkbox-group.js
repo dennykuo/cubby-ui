@@ -4,10 +4,10 @@ export function setupCheckboxGroups() {
     if (group._cuInit) return;
     group._cuInit = true;
 
-    var selectAll = group.querySelector("[data-cu-checkbox-group-selectall]");
+    var selectAll = /** @type {HTMLInputElement} */ (group.querySelector("[data-cu-checkbox-group-selectall]"));
     if (!selectAll) return;
 
-    var items = group.querySelectorAll("[data-cu-checkbox-group-item]");
+    var items = /** @type {NodeListOf<HTMLInputElement>} */ (group.querySelectorAll("[data-cu-checkbox-group-item]"));
 
     function updateSelectAll() {
       var total = items.length;

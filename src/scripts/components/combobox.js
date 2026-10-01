@@ -31,7 +31,7 @@ export function setupComboboxes() {
 
     var trigger = combobox.querySelector("[data-cu-combobox-trigger]");
     var content = combobox.querySelector("[data-cu-combobox-content]");
-    var input = combobox.querySelector("[data-cu-combobox-input]");
+    var input = /** @type {HTMLInputElement} */ (combobox.querySelector("[data-cu-combobox-input]"));
     var empty = combobox.querySelector("[data-cu-combobox-empty]");
     var valueEl = combobox.querySelector("[data-cu-combobox-value]");
 
@@ -92,7 +92,7 @@ export function setupComboboxes() {
 
     content &&
       content.addEventListener("click", function (e) {
-        var item = e.target.closest("[data-cu-combobox-item]");
+        var item = /** @type {HTMLElement} */ (/** @type {Element} */ (e.target).closest("[data-cu-combobox-item]"));
         if (!item) return;
         if (valueEl) {
           valueEl.textContent = item.textContent;

@@ -24,14 +24,12 @@ export function setupTours() {
     try { steps = JSON.parse(stepsAttr); } catch (_) { return; }
     if (!steps.length) return;
 
-    var currentStep = 0;
     var overlay = null;
     var tooltip = null;
     var spotlight = null;
     var currentTarget = null;
 
     function show(index) {
-      currentStep = index;
       var step = steps[index];
       var targetEl = document.querySelector(step.target);
       if (!targetEl) return;

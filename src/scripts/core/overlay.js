@@ -13,13 +13,13 @@ export function setupOverlay(config) {
 
   document
     .querySelectorAll("[" + config.triggerAttr + "]")
-    .forEach(function (trigger) {
+    .forEach(function (/** @type {HTMLElement} */ trigger) {
       if (trigger._cuInit) return;
       trigger._cuInit = true;
 
       trigger.addEventListener("click", function () {
         var id = trigger.getAttribute(config.triggerAttr);
-        var dialog = document.getElementById(id);
+        var dialog = /** @type {HTMLDialogElement} */ (document.getElementById(id));
         if (dialog && dialog.showModal) {
           dialog._cuTrigger = trigger;
           dialog.showModal();
@@ -30,7 +30,7 @@ export function setupOverlay(config) {
 
   document
     .querySelectorAll("[" + config.dialogAttr + "]")
-    .forEach(function (dialog) {
+    .forEach(function (/** @type {HTMLDialogElement} */ dialog) {
       if (dialog._cuInit) return;
       dialog._cuInit = true;
 

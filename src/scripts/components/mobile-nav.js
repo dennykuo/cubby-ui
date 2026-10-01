@@ -74,7 +74,7 @@ export function setupMobileNav() {
         if (header) {
           var desktopNav = header.querySelector(".cu-header-nav");
           if (desktopNav) {
-            var clone = desktopNav.cloneNode(true);
+            var clone = /** @type {Element} */ (desktopNav.cloneNode(true));
             // Convert to vertical mobile nav
             clone.classList.remove("cu-header-nav");
             clone.classList.remove("hidden");
@@ -100,7 +100,7 @@ export function setupMobileNav() {
       }
     }
 
-    var closeBtn = panel.querySelector("[data-cu-mobile-nav-close]");
+    var closeBtn = /** @type {HTMLElement} */ (panel.querySelector("[data-cu-mobile-nav-close]"));
 
     var mn = { trigger: trigger, backdrop: backdrop, panel: panel, el: trigger };
     registry.mobileNavs.push(mn);

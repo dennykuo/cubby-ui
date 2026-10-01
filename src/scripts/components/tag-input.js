@@ -14,7 +14,7 @@ export function setupTagInputs() {
   document.querySelectorAll("[data-cu-tag-input]").forEach(function (el) {
     if (el._cuInit) return;
     el._cuInit = true;
-    var field = el.querySelector("[data-cu-tag-input-field]");
+    var field = /** @type {HTMLInputElement} */ (el.querySelector("[data-cu-tag-input-field]"));
     if (!field) return;
 
     var maxTags = parseInt(el.getAttribute("data-cu-tag-max") || "0", 10) || Infinity;

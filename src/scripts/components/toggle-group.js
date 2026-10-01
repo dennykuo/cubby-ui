@@ -20,7 +20,7 @@ export function setupToggleGroups() {
     var isMultiple = el.hasAttribute("data-cu-toggle-group-multiple");
 
     el.addEventListener("click", function (e) {
-      var item = e.target.closest(".cu-toggle-group-item");
+      var item = /** @type {HTMLButtonElement} */ (/** @type {Element} */ (e.target).closest(".cu-toggle-group-item"));
       if (!item || item.disabled) return;
 
       if (isMultiple) {

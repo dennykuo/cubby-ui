@@ -25,7 +25,7 @@ export function setupTabs() {
     tabs._cuInit = true;
 
     var triggers = tabs.querySelectorAll("[data-cu-tabs-trigger]");
-    var contents = tabs.querySelectorAll("[data-cu-tabs-content]");
+    var contents = /** @type {NodeListOf<HTMLElement>} */ (tabs.querySelectorAll("[data-cu-tabs-content]"));
 
     // ARIA: set tablist role on list container
     var tabList = tabs.querySelector(".cu-tabs-list");
@@ -49,7 +49,7 @@ export function setupTabs() {
 
       trigger.addEventListener("click", function (e) {
         // Ignore clicks on the close button
-        if (e.target.closest("[data-cu-tabs-close]")) return;
+        if (/** @type {Element} */ (e.target).closest("[data-cu-tabs-close]")) return;
         triggers.forEach(function (t) {
           t.classList.remove("cu-tabs-trigger-active");
           t.setAttribute("aria-selected", "false");
@@ -79,7 +79,7 @@ export function setupTabs() {
 
         // If closed tab was active, activate first remaining trigger
         if (wasActive) {
-          var remaining = tabs.querySelectorAll("[data-cu-tabs-trigger]");
+          var remaining = /** @type {NodeListOf<HTMLElement>} */ (tabs.querySelectorAll("[data-cu-tabs-trigger]"));
           if (remaining.length > 0) remaining[0].click();
         }
 
@@ -96,8 +96,8 @@ export function setupTabs() {
     wrapper._cuInit = true;
 
     var list = wrapper.querySelector(".cu-tabs-list");
-    var btnStart = wrapper.querySelector("[data-cu-tabs-scroll-start]");
-    var btnEnd = wrapper.querySelector("[data-cu-tabs-scroll-end]");
+    var btnStart = /** @type {HTMLElement} */ (wrapper.querySelector("[data-cu-tabs-scroll-start]"));
+    var btnEnd = /** @type {HTMLElement} */ (wrapper.querySelector("[data-cu-tabs-scroll-end]"));
     if (!list) return;
 
     function updateArrows() {

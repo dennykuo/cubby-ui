@@ -14,10 +14,10 @@ export function setupDatePickers() {
     picker._cuInit = true;
 
     var trigger = picker.querySelector("[data-cu-date-picker-trigger]");
-    var content = picker.querySelector("[data-cu-date-picker-content]");
+    var content = /** @type {HTMLElement} */ (picker.querySelector("[data-cu-date-picker-content]"));
     var calendar = picker.querySelector("[data-cu-calendar]");
     var valueEl = picker.querySelector("[data-cu-date-picker-value]");
-    var hiddenInput = picker.querySelector("input[data-cu-date-picker-input]");
+    var hiddenInput = /** @type {HTMLInputElement} */ (picker.querySelector("input[data-cu-date-picker-input]"));
     if (!trigger || !content || !calendar) return;
 
     content.style.display = "none";

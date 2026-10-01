@@ -4,10 +4,10 @@ export function setupPasswordInputs() {
     if (container._cuInit) return;
     container._cuInit = true;
 
-    var field = container.querySelector(".cu-password-input-field");
+    var field = /** @type {HTMLInputElement} */ (container.querySelector(".cu-password-input-field"));
     var toggle = container.querySelector("[data-cu-password-toggle]");
-    var iconShow = container.querySelector("[data-cu-password-icon-show]");
-    var iconHide = container.querySelector("[data-cu-password-icon-hide]");
+    var iconShow = /** @type {HTMLElement | SVGElement} */ (container.querySelector("[data-cu-password-icon-show]"));
+    var iconHide = /** @type {HTMLElement | SVGElement} */ (container.querySelector("[data-cu-password-icon-hide]"));
     if (!field || !toggle) return;
 
     toggle.addEventListener("click", function () {

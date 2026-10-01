@@ -4,13 +4,13 @@ export function setupCarousels() {
     if (carousel._cuInit) return;
     carousel._cuInit = true;
 
-    var viewport = carousel.querySelector("[data-cu-carousel-viewport]");
-    var prevBtn = carousel.querySelector("[data-cu-carousel-prev]");
-    var nextBtn = carousel.querySelector("[data-cu-carousel-next]");
+    var viewport = /** @type {HTMLElement} */ (carousel.querySelector("[data-cu-carousel-viewport]"));
+    var prevBtn = /** @type {HTMLButtonElement} */ (carousel.querySelector("[data-cu-carousel-prev]"));
+    var nextBtn = /** @type {HTMLButtonElement} */ (carousel.querySelector("[data-cu-carousel-next]"));
     var dots = carousel.querySelectorAll("[data-cu-carousel-dot]");
     if (!viewport) return;
 
-    var slides = viewport.querySelectorAll("[data-cu-carousel-slide]");
+    var slides = /** @type {NodeListOf<HTMLElement>} */ (viewport.querySelectorAll("[data-cu-carousel-slide]"));
     if (!slides.length) return;
 
     function getSlideWidth() { return slides[0].offsetWidth; }

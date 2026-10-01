@@ -94,7 +94,7 @@ export function initCalendar(calendar, onSelect) {
   if (nextBtn) { nextBtn.addEventListener("click", function () { currentMonth++; if (currentMonth > 11) { currentMonth = 0; currentYear++; } render(); }); }
 
   grid.addEventListener("keydown", function (e) {
-    var focused = document.activeElement;
+    var focused = /** @type {HTMLElement} */ (document.activeElement);
     if (!focused || !grid.contains(focused)) return;
     var buttons = Array.from(grid.querySelectorAll(".cu-calendar-day:not(.cu-calendar-day-disabled)"));
     var idx = buttons.indexOf(focused);

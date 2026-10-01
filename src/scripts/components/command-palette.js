@@ -6,12 +6,12 @@ export function setupCommandPalettes() {
     document._cuCommandPaletteGlobal = true;
     registry.cmdPaletteKeyHandler = function (e) {
       if ((e.metaKey || e.ctrlKey) && e.key === "k") {
-        var palette = document.querySelector("[data-cu-command]");
+        var palette = /** @type {HTMLDialogElement} */ (document.querySelector("[data-cu-command]"));
         if (!palette) return;
         e.preventDefault();
         if (palette.open) { palette.close(); } else {
           palette.showModal();
-          var input = palette.querySelector("[data-cu-command-input]");
+          var input = /** @type {HTMLInputElement} */ (palette.querySelector("[data-cu-command-input]"));
           if (input) input.focus();
         }
       }
@@ -19,14 +19,14 @@ export function setupCommandPalettes() {
     document.addEventListener("keydown", registry.cmdPaletteKeyHandler);
   }
 
-  document.querySelectorAll("[data-cu-command]").forEach(function (palette) {
+  document.querySelectorAll("[data-cu-command]").forEach(function (/** @type {HTMLDialogElement} */ palette) {
     if (palette._cuInit) return;
     palette._cuInit = true;
 
-    var input = palette.querySelector("[data-cu-command-input]");
+    var input = /** @type {HTMLInputElement} */ (palette.querySelector("[data-cu-command-input]"));
     var list = palette.querySelector("[data-cu-command-list]");
-    var empty = palette.querySelector("[data-cu-command-empty]");
-    var items = list ? Array.from(list.querySelectorAll("[data-cu-command-item]")) : [];
+    var empty = /** @type {HTMLElement} */ (palette.querySelector("[data-cu-command-empty]"));
+    var items = list ? Array.from(/** @type {NodeListOf<HTMLElement>} */ (list.querySelectorAll("[data-cu-command-item]"))) : [];
 
     palette.addEventListener("click", function (e) { if (e.target === palette) palette.close(); });
 
@@ -34,7 +34,7 @@ export function setupCommandPalettes() {
       input.addEventListener("input", function () {
         var query = input.value.toLowerCase().trim();
         var visibleCount = 0;
-        var groups = list ? Array.from(list.querySelectorAll("[data-cu-command-group]")) : [];
+        var groups = list ? Array.from(/** @type {NodeListOf<HTMLElement>} */ (list.querySelectorAll("[data-cu-command-group]"))) : [];
 
         items.forEach(function (item) {
           var text = (item.getAttribute("data-cu-command-value") || item.textContent || "").toLowerCase();
@@ -50,9 +50,9 @@ export function setupCommandPalettes() {
 
         if (list) {
           var separators = list.querySelectorAll("[data-cu-command-separator]");
-          separators.forEach(function (sep) {
-            var prev = sep.previousElementSibling;
-            var next = sep.nextElementSibling;
+          separators.forEach(function (/** @type {HTMLElement} */ sep) {
+            var prev = /** @type {HTMLElement} */ (sep.previousElementSibling);
+            var next = /** @type {HTMLElement} */ (sep.nextElementSibling);
             sep.hidden = (prev && prev.hidden) || (next && next.hidden) || false;
           });
         }
@@ -91,7 +91,7 @@ export function setupCommandPalettes() {
         visible[nextIndex].scrollIntoView({ block: "nearest" });
       }
       if (e.key === "Enter") {
-        var active = list ? list.querySelector("[data-cu-command-item][data-cu-command-active]") : null;
+        var active = list ? /** @type {HTMLElement} */ (list.querySelector("[data-cu-command-item][data-cu-command-active]")) : null;
         if (active) { e.preventDefault(); active.click(); }
       }
     });
@@ -111,10 +111,10 @@ export function setupCommandPalettes() {
     trigger._cuInit = true;
     trigger.addEventListener("click", function () {
       var id = trigger.getAttribute("data-cu-command-trigger");
-      var palette = document.getElementById(id);
+      var palette = /** @type {HTMLDialogElement} */ (document.getElementById(id));
       if (palette && palette.showModal) {
         palette.showModal();
-        var input = palette.querySelector("[data-cu-command-input]");
+        var input = /** @type {HTMLInputElement} */ (palette.querySelector("[data-cu-command-input]"));
         if (input) input.focus();
       }
     });

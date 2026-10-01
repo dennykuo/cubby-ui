@@ -4,8 +4,8 @@ export function setupResizables() {
     if (container._cuResizableInit) return;
     container._cuResizableInit = true;
 
-    var panels = Array.from(container.querySelectorAll(":scope > [data-cu-resizable-panel]"));
-    var handles = Array.from(container.querySelectorAll(":scope > [data-cu-resizable-handle]"));
+    var panels = Array.from(/** @type {NodeListOf<HTMLElement>} */ (container.querySelectorAll(":scope > [data-cu-resizable-panel]")));
+    var handles = Array.from(/** @type {NodeListOf<HTMLElement>} */ (container.querySelectorAll(":scope > [data-cu-resizable-handle]")));
     var isVertical = container.classList.contains("cu-resizable-vertical");
 
     if (panels.length < 2 || handles.length < 1) return;
