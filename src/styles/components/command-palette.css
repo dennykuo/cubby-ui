@@ -3,8 +3,13 @@
 .cu-command {
     @apply fixed inset-0 z-50 m-auto h-fit w-full max-w-lg rounded-xl border border-border bg-background shadow-lg;
     max-height: min(24rem, 80vh);
-    display: flex;
     flex-direction: column;
+}
+
+/* display 只在開啟時設定：作者樣式的 display 會蓋過瀏覽器 `dialog:not([open]) { display: none }`，
+   寫在基礎 class 上會讓關閉中的 palette 以 fixed 置中疊在頁面上 */
+.cu-command[open] {
+    display: flex;
 }
 
 .cu-command::backdrop {

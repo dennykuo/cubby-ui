@@ -247,6 +247,7 @@ src/
 │   ├── Header.astro              — 頂部導航列（使用 cu-header / cu-header-brand / cu-header-actions）
 │   ├── ComponentPreview.astro     — 元件展示框（iframe 隔離預覽 + responsive 裝置寬度切換 + code 摺疊/複製）
 │   ├── PrevNextNav.astro          — 元件頁底部 prev/next 導航（從 component-nav.ts 取得順序）
+│   ├── DocsSearch.astro           — 文檔站搜尋（Command Palette dog-fooding，項目取自 component-nav.ts；由 Header 的 data-cu-command-trigger 或 ⌘K / Ctrl+K 開啟）
 │   ├── sidebar/                   — 文檔站點專用側邊欄（使用 cu-sidebar-* classes）
 │   │   ├── Sidebar.astro          — 側邊欄（包含導航資料與結構）
 │   │   ├── SidebarSection.astro   — 第一層分類標題（使用 cu-sidebar-section-title）

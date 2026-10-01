@@ -1,0 +1,94 @@
+---
+/**
+ * 文檔站搜尋（dog-fooding Command Palette）
+ *
+ * 以 `cu-command-*` class 與 `data-cu-command*` 屬性直接撰寫（與純 HTML 使用者的寫法相同），
+ * 項目使用 `<a>`：Command Palette 的 Enter 會對選中項目呼叫 `click()`，連結因此直接導航，
+ * 並保有中鍵開新分頁等原生行為。資料來自 `component-nav.ts`，與側邊欄同步。
+ *
+ * 開啟方式：`data-cu-command-trigger="docs-search"` 的按鈕（Header），或 ⌘K / Ctrl+K
+ * （cubby-ui.js 的全域快捷鍵會開啟頁面上第一個 `[data-cu-command]`）。
+ */
+import type { Locale } from "@/i18n";
+import { localizePath } from "@/i18n";
+import { uiTranslations } from "@/i18n/ui";
+import { withBase } from "@/utils/paths";
+import {
+	gettingStarted,
+	componentGroups,
+	examplePages,
+	type NavItem,
+} from "@/data/component-nav";
+
+interface Props {
+	locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = uiTranslations[locale];
+const en = uiTranslations.en;
+const zh = uiTranslations["zh-tw"];
+
+/** 搜尋比對字串：名稱 + 路徑代稱 + 中英文分類名（英文頁也能用「表單」找到表單元件） */
+const searchValue = (item: NavItem, labels: string[]) =>
+	[item.name, item.path.split("/").pop() ?? "", ...labels].join(" ");
+
+const groups = [
+	{
+		id: "getting-started",
+		heading: t.gettingStarted,
+		items: gettingStarted.map((i) => ({
+			name: i.name,
+			href: localizePath(i.path, locale),
+			value: searchValue(i, [en.gettingStarted, zh.gettingStarted]),
+		})),
+	},
+	...componentGroups.map((g) => ({
+		id: g.key,
+		heading: `${t.components} · ${t[g.key]}`,
+		items: g.items.map((i) => ({
+			name: i.name,
+			href: localizePath(i.path, locale),
+			value: searchValue(i, [en[g.key], zh[g.key]]),
+		})),
+	})),
+	{
+		id: "examples",
+		heading: t.examples,
+		// 範例頁不翻譯，不加語系前綴
+		items: examplePages.map((i) => ({
+			name: i.name,
+			href: withBase(i.path),
+			value: searchValue(i, [en.examples, zh.examples]),
+		})),
+	},
+];
+---
+
+<dialog id="docs-search" class="cu-command" data-cu-command aria-label={t.searchLabel}>
+	<div class="cu-command-input-wrapper">
+		<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="cu-command-input-icon" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+		<input
+			type="text"
+			class="cu-command-input"
+			placeholder={t.searchInputPlaceholder}
+			aria-label={t.searchLabel}
+			autocomplete="off"
+			spellcheck="false"
+			data-cu-command-input
+		/>
+	</div>
+	<div class="cu-command-list" data-cu-command-list>
+		<div class="cu-command-empty" data-cu-command-empty hidden>{t.searchEmpty}</div>
+		{groups.map((group) => (
+			<div class="cu-command-group" data-cu-command-group data-docs-search-group={group.id}>
+				<div class="cu-command-group-heading">{group.heading}</div>
+				{group.items.map((item) => (
+					<a class="cu-command-item" href={item.href} data-cu-command-item data-cu-command-value={item.value}>
+						{item.name}
+					</a>
+				))}
+			</div>
+		))}
+	</div>
+</dialog>

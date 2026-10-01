@@ -4,6 +4,9 @@ import type { Locale } from './index';
 export const uiTranslations: Record<Locale, {
   // Header
   searchPlaceholder: string;
+  searchLabel: string;
+  searchInputPlaceholder: string;
+  searchEmpty: string;
   toggleDarkMode: string;
   openMenu: string;
   closeMenu: string;
@@ -40,6 +43,9 @@ export const uiTranslations: Record<Locale, {
 }> = {
   en: {
     searchPlaceholder: 'Search components...',
+    searchLabel: 'Search documentation',
+    searchInputPlaceholder: 'Search components, guides and examples...',
+    searchEmpty: 'No results found.',
     toggleDarkMode: 'Toggle dark mode',
     openMenu: 'Open menu',
     closeMenu: 'Close menu',
@@ -70,6 +76,9 @@ export const uiTranslations: Record<Locale, {
   },
   'zh-tw': {
     searchPlaceholder: '搜尋元件...',
+    searchLabel: '搜尋文件',
+    searchInputPlaceholder: '搜尋元件、指南與範例...',
+    searchEmpty: '找不到符合的結果。',
     toggleDarkMode: '切換深色模式',
     openMenu: '開啟選單',
     closeMenu: '關閉選單',

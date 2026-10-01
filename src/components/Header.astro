@@ -2,6 +2,7 @@
 import type { Locale } from "@/i18n";
 import { getAlternatePath, localizePath } from "@/i18n";
 import { uiTranslations } from "@/i18n/ui";
+import DocsSearch from "@/components/DocsSearch.astro";
 
 interface Props {
 	locale: Locale;
@@ -53,14 +54,39 @@ const homeHref = localizePath('/', locale);
 		</a>
 		</div>
 
-		<!-- Search trigger -->
-		<button class="hidden sm:inline-flex items-center gap-2 rounded-lg border border-border bg-background/60 px-3 py-1.5 text-sm text-muted-foreground transition-colors duration-150 hover:bg-muted/60 hover:text-foreground w-56 cursor-pointer">
-			<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-			<span class="flex-1 text-left text-xs">{t.searchPlaceholder}</span>
-			<kbd class="text-[10px] border border-border rounded px-1.5 py-0.5 bg-muted font-sans">⌘K</kbd>
+		<!-- Search trigger（開啟 DocsSearch；⌘K / Ctrl+K 由 cubby-ui.js 全域快捷鍵處理） -->
+		<button
+			type="button"
+			class="hidden sm:inline-flex items-center gap-2 rounded-lg border border-border bg-background/60 px-3 py-1.5 text-sm text-muted-foreground transition-colors duration-150 hover:bg-muted/60 hover:text-foreground w-64 cursor-pointer"
+			data-cu-command-trigger="docs-search"
+			aria-haspopup="dialog"
+			aria-keyshortcuts="Meta+K Control+K"
+		>
+			<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+			<span class="min-w-0 flex-1 truncate text-left text-xs">{t.searchPlaceholder}</span>
+			<kbd class="shrink-0 whitespace-nowrap text-[10px] border border-border rounded px-1.5 py-0.5 bg-muted font-sans" data-docs-search-shortcut>⌘K</kbd>
 		</button>
+		<script is:inline>
+			// 非 Apple 平台沒有 ⌘ 鍵，快捷鍵提示改為 Ctrl K（cubby-ui.js 同時接受 Meta+K 與 Ctrl+K）
+			(function () {
+				var platform = (navigator.userAgentData && navigator.userAgentData.platform) || navigator.platform || "";
+				if (/mac|iphone|ipad|ipod/i.test(platform)) return;
+				document.querySelectorAll("[data-docs-search-shortcut]").forEach(function (el) { el.textContent = "Ctrl K"; });
+			})();
+		</script>
 
 		<div class="cu-header-actions">
+			<!-- Search trigger（mobile，sm 以上改用上方的搜尋框） -->
+			<button
+				type="button"
+				class="inline-flex h-8 w-8 items-center justify-center rounded-lg text-muted-foreground transition-colors duration-150 hover:text-foreground cursor-pointer sm:hidden"
+				data-cu-command-trigger="docs-search"
+				aria-haspopup="dialog"
+				aria-label={t.searchLabel}
+			>
+				<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+			</button>
+
 			<!-- Language switcher -->
 			<div class="cu-dropdown" data-cu-dropdown>
 				<button
@@ -115,6 +141,8 @@ const homeHref = localizePath('/', locale);
 		</div>
 	</div>
 </header>
+
+<DocsSearch locale={locale} />
 
 <script>
 	function setupThemeToggle() {

@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Command Palette fixture</title>
+  <link rel="stylesheet" href="../../../dist/core/cubby-ui.css" />
+</head>
+<body>
+  <button id="trigger" class="cu-button cu-button-outline" data-cu-command-trigger="cmd">Open Command Palette</button>
+
+  <dialog id="cmd" class="cu-command" data-cu-command>
+    <div class="cu-command-input-wrapper">
+      <input type="text" class="cu-command-input" placeholder="Search..." data-cu-command-input />
+    </div>
+    <div class="cu-command-list" data-cu-command-list>
+      <div class="cu-command-group" data-cu-command-group>
+        <div class="cu-command-group-heading">Files</div>
+        <div class="cu-command-item" data-cu-command-item data-cu-command-value="new file" onclick="window.__ran = 'new file'">New File</div>
+        <div class="cu-command-item" data-cu-command-item data-cu-command-value="open file" onclick="window.__ran = 'open file'">Open File</div>
+      </div>
+      <div class="cu-command-separator" data-cu-command-separator></div>
+      <div class="cu-command-group" data-cu-command-group>
+        <div class="cu-command-group-heading">Settings</div>
+        <div class="cu-command-item" data-cu-command-item data-cu-command-value="preferences" onclick="window.__ran = 'preferences'">Preferences</div>
+      </div>
+      <div class="cu-command-empty" data-cu-command-empty hidden>No results found.</div>
+    </div>
+  </dialog>
+
+  <script src="../../../dist/core/cubby-ui.js"></script>
+</body>
+</html>
