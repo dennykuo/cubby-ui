@@ -22,7 +22,9 @@ npm run dev          # 啟動 Astro 開發伺服器（自動同步 i18n 路由�
 npm run build        # 建置 NPM 套件至 dist/（CSS + JS）
 npm run build:blade  # 轉換為 Laravel Blade 匿名元件
 npm run build:docs   # 建置文檔站
-npm run type-check   # astro check 型別檢查
+npm run type-check   # astro check + type-check:scripts（互動 JS 的 checkJs）
+npm run type-check:scripts  # 只檢查 src/scripts/ 互動 JS（tsc -p tsconfig.scripts.json）
+npm run lint         # ESLint 檢查 src/scripts/（只含正確性規則，無排版規則）
 npm run check:sync   # 元件清單跨來源同步檢查 + data-cu-* 與 DATA_ATTRS 對照
 npm run check:links  # 文檔站站內連結檢查（需先 build:docs；BASE_PATH 與建置時相同）
 npm run test:blade   # Blade 語法回歸測試
@@ -37,7 +39,8 @@ npm run test         # check:sync → test:blade → test:e2e
 PR 推送後 `.github/workflows/ci.yml` 會執行以下檢查，請先在本機確認通過：
 
 - `npm run check:sync` — 元件清單在各來源（`component-nav.ts` / 頁面 / i18n / CSS / `components.json` / `llms.txt` / README 元件分類表）一致；`src/scripts/` 各模組使用的 `data-cu-*` 與 `cubby-ui.d.ts` 的 `DATA_ATTRS` 雙向一致
-- `npm run type-check` — 0 errors
+- `npm run type-check` — 0 errors（`astro check` 與 `src/scripts/` 互動 JS 的 `tsc -p tsconfig.scripts.json`）
+- `npm run lint` — ESLint 0 problems（範圍 `src/scripts/`）
 - `npm run build` 與 `npm run build:blade` — 建置通過
 - `npm run test:blade` — Blade 回歸通過
 - `npm run check:links` — 文檔站所有站內連結帶 base 且目標存在（CI 以 `BASE_PATH=/cubby-ui` 建置文檔站，與 GitHub Pages 部署設定相同）
@@ -68,7 +71,7 @@ BASE_PATH=/cubby-ui npm run test:e2e
 5. **導航** — 在 `src/data/component-nav.ts` 對應分組加一筆，並把元件名加進 `README.md` 元件分類表的同一分類列
 6. **manifest** — 更新 `components.json` 與 `llms.txt`
 7. **互動 JS**（如需）— 在 `src/scripts/components/` 新增模組並匯出 `setupXxx()`；需要 tracking array 時在 `src/scripts/core/registry.js` 加欄位並於 `src/scripts/index.js` 的 `init()` / `destroy()` / `refresh()` 登記；更新 `cubby-ui.d.ts`
-8. **驗證** — `npm run check:sync` 應全綠（含 `DATA_ATTRS` 對照）；有 JS 互動則補 `tests/e2e/` 測試；確認 dark / light 兩模式
+8. **驗證** — `npm run check:sync` 應全綠（含 `DATA_ATTRS` 對照）；有 JS 互動則 `npm run type-check` 與 `npm run lint` 須通過，並補 `tests/e2e/` 測試；確認 dark / light 兩模式
 
 ## 修改既有元件
 
@@ -80,6 +83,7 @@ BASE_PATH=/cubby-ui npm run test:e2e
 
 - **CSS class** 一律 `cu-` 前綴；變體 `cu-{component}-{variant}`、尺寸 `cu-{component}-{size}`
 - **互動 JS** 為 ESM 模組（`src/scripts/`），由 `scripts/build-js.mjs` 以 esbuild 打包成 UMD；使用 delegated document-level events + `core/registry.js` 的 tracking array（供 `destroy()` / `refresh()` 清理；勿在每個元件實例各自註冊 document listener）；原始碼維持 ES5 風格（`var` / `function`），打包目標 `es2015`
+- **互動 JS 型別與 lint** `tsconfig.scripts.json` 以 `checkJs` 檢查 `src/scripts/`（非 strict，`lib` 為 `es2017` + DOM）：DOM 查詢結果用 JSDoc 轉型（`/** @type {HTMLInputElement} */ (el.querySelector(...))`），`forEach` 回呼參數用行內 `/** @type {HTMLElement} */` 註記，`e.target` 先轉 `Element` 再 `.closest()`；元素 expando 屬性（`_cuInit` 等）宣告在 `src/scripts/globals.d.ts`，不要為此修改對外公開的 `cubby-ui.d.ts`；`@ts-ignore` / `@ts-expect-error` 非必要不用，用了須附理由。ESLint（`eslint.config.js`）只啟用正確性規則，不加排版 / 風格規則，也不導入 Prettier
 - **站內連結** 文檔站部署在 GitHub Pages 子路徑（`/cubby-ui/`），`.astro` 內不可寫死 `href="/..."`：文檔頁用 `localizePath(path, locale)`，範例頁、favicon、表單 `action` 等其他根路徑用 `src/utils/paths.ts` 的 `withBase()`；與導航資料比對目前頁面前先 `stripBase(Astro.url.pathname)`。靜態資源放 `public/`
 - **動畫** transition 用具體屬性（`transition-colors` 等）+ 明確 `duration-*`，禁止 `transition-all`
 - **色彩** 避免硬編碼 HSL，半透明用 `color-mix`；中性色 tint 向品牌 hue，不用純 `#fff` / `#000`
