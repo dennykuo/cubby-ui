@@ -4,6 +4,7 @@ import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
 import { extname, join, normalize, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import type { AddressInfo } from "node:net";
+import { uiTranslations } from "../../src/i18n/ui";
 
 /**
  * 文檔站 smoke test
@@ -31,6 +32,8 @@ const MIME: Record<string, string> = {
   ".ico": "image/x-icon",
   ".woff2": "font/woff2",
   ".json": "application/json",
+  ".xml": "application/xml",
+  ".txt": "text/plain; charset=utf-8",
 };
 
 function collectPages(dir: string, prefix = ""): string[] {
@@ -240,5 +243,159 @@ test.describe("docs search", () => {
     });
     await open(page, "/components/button/");
     await expect(page.locator("[data-docs-search-shortcut]")).toHaveText("⌘K");
+  });
+});
+
+/**
+ * 文檔站 SEO
+ * ---------------------------------------------------------------------------
+ * - 每個使用 Layout 的頁面（核心頁 + 元件頁，en / zh-tw）都有專屬、非預設、純文字的 meta description
+ * - Open Graph / Twitter card / hreflang（含 x-default）標籤存在，og:locale 依語系
+ * - 建置時有設定 SITE_URL（HTML 有 canonical）時：canonical / og:url / hreflang 為含 base 的絕對網址，
+ *   sitemap-index.xml 與 robots.txt 存在且指向含 base 的網址；未設定時改驗證不輸出 canonical 與 sitemap
+ */
+test.describe("docs SEO", () => {
+  /** 使用 Layout.astro 的文檔頁（排除各自 layout 的範例頁），回傳不含 base 的路徑 */
+  const layoutPages = existsSync(DOCS) ? collectPages(DOCS).filter((p) => !p.includes("/examples/")) : [];
+  const readHtml = (path: string) => readFileSync(join(DOCS, path, "index.html"), "utf8");
+  const attr = (html: string, re: RegExp) => html.match(re)?.[1];
+  const NAMED: Record<string, string> = { amp: "&", lt: "<", gt: ">", quot: '"', apos: "'" };
+  /** 讀取 meta description 並還原一層屬性跳脫（Astro 會把 `&`、`"` 轉成 `&#38;`、`&#34;`） */
+  const metaDescription = (html: string) =>
+    attr(html, /<meta name="description" content="([^"]*)"/)?.replace(/&(#\d+|#x[0-9a-f]+|[a-z]+);/gi, (m, e: string) =>
+      e[0] !== "#" ? NAMED[e] ?? m : String.fromCodePoint(e[1] === "x" ? parseInt(e.slice(2), 16) : Number(e.slice(1))));
+  const canonicalOf = (html: string) => attr(html, /<link rel="canonical" href="([^"]*)"/);
+
+  /** 建置時是否設定 site：由首頁是否輸出 canonical 判斷（與 SITE_URL 環境變數無關，測試可單獨執行） */
+  const indexCanonical = layoutPages.includes("/") ? canonicalOf(readHtml("/")) : undefined;
+  const hasSite = Boolean(indexCanonical);
+  /** 站台根網址（含 base、尾端斜線），如 https://dennykuo.github.io/cubby-ui/ */
+  const siteRoot = indexCanonical ?? "";
+
+  // 封鎖外部請求（Google Fonts 等），與上方逐頁 smoke 相同
+  test.beforeEach(async ({ page }) => {
+    await page.route("**/*", (route) => {
+      route.request().url().startsWith(origin) ? route.continue() : route.abort();
+    });
+  });
+  const goto = (page: import("@playwright/test").Page, path: string) =>
+    page.goto(baseURL + path, { waitUntil: "domcontentloaded" });
+  const content = (page: import("@playwright/test").Page, selector: string) =>
+    page.locator(selector).first().getAttribute(selector.startsWith("link") ? "href" : "content");
+
+  test("每頁有專屬、非預設的純文字 description", () => {
+    expect(layoutPages.length).toBeGreaterThan(100);
+    const defaults = new Set(Object.values(uiTranslations).map((t) => t.siteDescription));
+    const seen = new Map<string, string>();
+    for (const path of layoutPages) {
+      const desc = metaDescription(readHtml(path));
+      expect(desc, `${path} 缺少 description`).toBeTruthy();
+      expect(defaults.has(desc!), `${path} 使用站台預設 description（未傳入 description prop）`).toBe(false);
+      // 翻譯字串中的 <code> / <kbd> / <br /> / &lt; 等須轉為純文字（原文的 `<details>` 這類文字可保留）
+      expect(desc, `${path} description 含 HTML`).not.toMatch(/<\/?(code|kbd|br|a|span)\b|class=|&(lt|gt|amp|quot|nbsp|#\d+);/);
+      expect(seen.get(desc!), `${path} 與 ${seen.get(desc!)} description 重複`).toBeUndefined();
+      seen.set(desc!, path);
+      if (path.startsWith("/zh-tw/")) expect(desc, `${path} 繁中頁描述應為中文`).toMatch(/[\u4e00-\u9fff]/);
+    }
+  });
+
+  test("Open Graph / Twitter / hreflang 標籤", async ({ page }) => {
+    for (const [path, locale, alternate] of [
+      ["/components/button/", "en_US", "zh_TW"],
+      ["/zh-tw/components/button/", "zh_TW", "en_US"],
+    ] as const) {
+      await goto(page, path);
+      const description = await content(page, 'meta[name="description"]');
+      expect(await content(page, 'meta[property="og:title"]')).toBe(await page.title());
+      expect(await content(page, 'meta[property="og:description"]')).toBe(description);
+      expect(await content(page, 'meta[property="og:type"]')).toBe("website");
+      expect(await content(page, 'meta[property="og:site_name"]')).toBe("Cubby UI");
+      expect(await content(page, 'meta[property="og:locale"]')).toBe(locale);
+      expect(await content(page, 'meta[property="og:locale:alternate"]')).toBe(alternate);
+      expect(await content(page, 'meta[name="twitter:card"]')).toBe("summary");
+      for (const lang of ["en", "zh-TW", "x-default"]) {
+        await expect(page.locator(`link[rel="alternate"][hreflang="${lang}"]`)).toHaveCount(1);
+      }
+      expect(await content(page, 'link[rel="alternate"][hreflang="x-default"]'))
+        .toBe(await content(page, 'link[rel="alternate"][hreflang="en"]'));
+    }
+
+    // 不同頁面、不同語系的 description 各不相同
+    await goto(page, "/components/button/");
+    const buttonEn = await content(page, 'meta[name="description"]');
+    await goto(page, "/components/card/");
+    const cardEn = await content(page, 'meta[name="description"]');
+    await goto(page, "/zh-tw/components/button/");
+    const buttonZh = await content(page, 'meta[name="description"]');
+    expect(new Set([buttonEn, cardEn, buttonZh]).size).toBe(3);
+    expect(buttonZh).toMatch(/[\u4e00-\u9fff]/);
+  });
+
+  test("canonical / og:url / hreflang 為含 base 的絕對網址", async ({ page }) => {
+    test.skip(!hasSite, "建置時未設定 SITE_URL，不輸出 canonical");
+    const root = new URL(siteRoot);
+    expect(root.pathname).toBe(`${BASE}/`);
+    if (process.env.SITE_URL) expect(root.origin).toBe(new URL(process.env.SITE_URL).origin);
+
+    for (const [path, en, zh] of [
+      ["/components/button/", "components/button/", "zh-tw/components/button/"],
+      ["/zh-tw/components/button/", "components/button/", "zh-tw/components/button/"],
+      ["/zh-tw/", "", "zh-tw/"],
+    ] as const) {
+      await goto(page, path);
+      const self = path.startsWith("/zh-tw/") ? zh : en;
+      expect(await content(page, 'link[rel="canonical"]')).toBe(siteRoot + self);
+      expect(await content(page, 'meta[property="og:url"]')).toBe(siteRoot + self);
+      expect(await content(page, 'link[rel="alternate"][hreflang="en"]')).toBe(siteRoot + en);
+      expect(await content(page, 'link[rel="alternate"][hreflang="zh-TW"]')).toBe(siteRoot + zh);
+      expect(await content(page, 'link[rel="alternate"][hreflang="x-default"]')).toBe(siteRoot + en);
+      expect(await content(page, 'link[rel="sitemap"]')).toBe(`${BASE}/sitemap-index.xml`);
+    }
+  });
+
+  test("sitemap 含 base 路徑與 i18n 對應，排除 404 示範頁", async ({ request }) => {
+    test.skip(!hasSite, "建置時未設定 SITE_URL，不產生 sitemap");
+    const index = await request.get(`${baseURL}/sitemap-index.xml`);
+    expect(index.status()).toBe(200);
+    const indexXml = await index.text();
+    const sitemapUrls = [...indexXml.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1]);
+    expect(sitemapUrls.length).toBeGreaterThan(0);
+
+    const locs: string[] = [];
+    let xml = "";
+    for (const url of sitemapUrls) {
+      expect(url.startsWith(siteRoot), `${url} 應以 ${siteRoot} 開頭`).toBe(true);
+      const res = await request.get(baseURL + "/" + url.slice(siteRoot.length));
+      expect(res.status()).toBe(200);
+      const body = await res.text();
+      xml += body;
+      locs.push(...[...body.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1]));
+    }
+    expect(locs).toContain(siteRoot);
+    expect(locs).toContain(`${siteRoot}components/button/`);
+    expect(locs).toContain(`${siteRoot}zh-tw/components/button/`);
+    expect(locs.every((loc) => loc.startsWith(siteRoot)), "所有網址都應含 base").toBe(true);
+    expect(locs.filter((loc) => /\/404\/$/.test(loc)), "404 示範頁不應收錄").toEqual([]);
+    expect(locs.filter((loc) => !loc.endsWith("/")), "只收錄頁面（不含 robots.txt 等端點）").toEqual([]);
+    expect(xml).toContain(`hreflang="zh-TW" href="${siteRoot}zh-tw/components/button/"`);
+  });
+
+  test("robots.txt 指向含 base 的 sitemap，且沒有 zh-tw 版本", async ({ request }) => {
+    const res = await request.get(`${baseURL}/robots.txt`);
+    expect(res.status()).toBe(200);
+    const body = await res.text();
+    expect(body).toMatch(/^User-agent: \*$/m);
+    expect((await request.get(`${baseURL}/zh-tw/robots.txt`)).status()).toBe(404);
+    if (hasSite) expect(body).toContain(`Sitemap: ${siteRoot}sitemap-index.xml`);
+    else expect(body).not.toContain("Sitemap:");
+  });
+
+  test("未設定 site 時不輸出 canonical / og:url / sitemap", async ({ page }) => {
+    test.skip(hasSite, "建置時有設定 SITE_URL");
+    expect(existsSync(join(DOCS, "sitemap-index.xml"))).toBe(false);
+    await goto(page, "/components/button/");
+    await expect(page.locator('link[rel="canonical"]')).toHaveCount(0);
+    await expect(page.locator('meta[property="og:url"]')).toHaveCount(0);
+    await expect(page.locator('link[rel="sitemap"]')).toHaveCount(0);
   });
 });

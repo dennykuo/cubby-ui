@@ -7,16 +7,22 @@ import PrevNextNav from "@/components/PrevNextNav.astro";
 import cubbyUiUrl from "../../dist/core/cubby-ui.js?url";
 import { getLocaleFromUrl, getAlternatePath } from "@/i18n";
 import { withBase } from "@/utils/paths";
+import { absoluteUrl, toPlainText } from "@/utils/seo";
 import { uiTranslations } from "@/i18n/ui";
 
 interface Props {
 	title: string;
+	/**
+	 * 頁面專屬的 meta description（og:description 共用）。可含翻譯字串中的 HTML，
+	 * 輸出前會轉為純文字；未傳入時使用 `uiTranslations[locale].siteDescription`。
+	 */
+	description?: string;
 	category?: string;
 	componentName?: string;
 	wide?: boolean;
 }
 
-const { title, category, componentName, wide } = Astro.props;
+const { title, description, category, componentName, wide } = Astro.props;
 const locale = getLocaleFromUrl(Astro.url);
 const t = uiTranslations[locale];
 const pathname = Astro.url.pathname;
@@ -25,17 +31,26 @@ const normalizedPath =
 		? pathname.slice(0, -1)
 		: pathname;
 const htmlLang = locale === 'zh-tw' ? 'zh-TW' : 'en';
-const alternatePath = getAlternatePath(normalizedPath, locale === 'en' ? 'zh-tw' : 'en');
-const alternateLocale = locale === 'en' ? 'zh-tw' : 'en';
-const alternateHreflang = alternateLocale === 'zh-tw' ? 'zh-TW' : 'en';
+const metaDescription = (description && toPlainText(description)) || t.siteDescription;
+
+// canonical / hreflang / og:url：設定 SITE_URL（astro.config 的 site）時輸出含 base 的絕對網址；
+// 本機未設定時不輸出 canonical 與 og:url（避免寫入錯誤網域），hreflang 維持站內相對路徑
+const site = Astro.site;
+const toHref = (path: string) => (site ? absoluteUrl(path, site) : path);
+const enHref = toHref(getAlternatePath(normalizedPath, 'en'));
+const zhHref = toHref(getAlternatePath(normalizedPath, 'zh-tw'));
+const canonicalUrl = site ? (locale === 'zh-tw' ? zhHref : enHref) : undefined;
+const ogLocale = locale === 'zh-tw' ? 'zh_TW' : 'en_US';
+const ogLocaleAlternate = locale === 'zh-tw' ? 'en_US' : 'zh_TW';
 ---
 
 <!doctype html>
 <html lang={htmlLang}>
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="description" content="Elegant Tailwind CSS Components" />
+		<meta name="description" content={metaDescription} />
 		<meta name="viewport" content="width=device-width" />
+		{canonicalUrl && <link rel="canonical" href={canonicalUrl} />}
 		<link rel="icon" type="image/svg+xml" href={withBase("/favicon.svg")} />
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -43,8 +58,18 @@ const alternateHreflang = alternateLocale === 'zh-tw' ? 'zh-TW' : 'en';
 			href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
 			rel="stylesheet"
 		/>
-		<link rel="alternate" hreflang={alternateHreflang} href={alternatePath} />
-		<link rel="alternate" hreflang={htmlLang} href={normalizedPath} />
+		<link rel="alternate" hreflang="en" href={enHref} />
+		<link rel="alternate" hreflang="zh-TW" href={zhHref} />
+		<link rel="alternate" hreflang="x-default" href={enHref} />
+		{site && <link rel="sitemap" type="application/xml" href={withBase("/sitemap-index.xml")} />}
+		<meta property="og:type" content="website" />
+		<meta property="og:site_name" content="Cubby UI" />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={metaDescription} />
+		{canonicalUrl && <meta property="og:url" content={canonicalUrl} />}
+		<meta property="og:locale" content={ogLocale} />
+		<meta property="og:locale:alternate" content={ogLocaleAlternate} />
+		<meta name="twitter:card" content="summary" />
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
 	</head>

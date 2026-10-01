@@ -40,13 +40,13 @@ PR 推送後 `.github/workflows/ci.yml` 會執行以下檢查，請先在本機�
 - `npm run type-check` — 0 errors
 - `npm run build` 與 `npm run build:blade` — 建置通過
 - `npm run test:blade` — Blade 回歸通過
-- `npm run check:links` — 文檔站所有站內連結帶 base 且目標存在（CI 以 `BASE_PATH=/cubby-ui` 建置文檔站，與 GitHub Pages 部署設定相同）
+- `npm run check:links` — 文檔站所有站內連結帶 base 且目標存在（CI 以 `SITE_URL=https://dennykuo.github.io` + `BASE_PATH=/cubby-ui` 建置文檔站，與 GitHub Pages 部署設定相同；有 `SITE_URL` 才會產生 sitemap 與 canonical）
 - `npm run test:e2e` — Playwright 互動元件測試通過（CI 會先 `npx playwright install --with-deps chromium` 與 `npm run build:docs`，讓 `docs-smoke.spec.ts` 逐頁驗證文檔站；設 `BASE_PATH` 時在子路徑下伺服，同源資源 404 即失敗）
 
 本機重現 CI 的文檔站檢查：
 
 ```bash
-BASE_PATH=/cubby-ui npm run build:docs
+SITE_URL=https://dennykuo.github.io BASE_PATH=/cubby-ui npm run build:docs
 BASE_PATH=/cubby-ui npm run check:links
 BASE_PATH=/cubby-ui npm run test:e2e
 ```
@@ -64,7 +64,7 @@ BASE_PATH=/cubby-ui npm run test:e2e
 1. **CSS** — 在 `src/styles/components/` 建立 `.css` 檔（`cu-` 前綴），在 `src/styles/components.css` 對應區塊加 `@import`
 2. **Astro 元件** — 在 `src/components/ui/` 建立 `.astro`（含 `interface Props`，用 `class:list` 組合）
 3. **i18n** — 在 `src/i18n/pages/components/` 建立翻譯檔（en + zh-tw）
-4. **文檔頁面** — 在 `src/pages/components/` 建立（用 `ComponentPreview` 展示，範例使用 `cu-` class 系統）
+4. **文檔頁面** — 在 `src/pages/components/` 建立（用 `ComponentPreview` 展示，範例使用 `cu-` class 系統）；`<Layout>` 必須傳入 `description={t.description}`，翻譯檔頂層 `description`（en / zh-tw）寫成該頁專屬的一句描述（作為 meta description 與 `og:description`，可含 `<code>`，輸出時自動轉純文字）。漏傳會退回站台預設描述，`docs-smoke.spec.ts` 的 SEO 測試會失敗
 5. **導航** — 在 `src/data/component-nav.ts` 對應分組加一筆，並把元件名加進 `README.md` 元件分類表的同一分類列
 6. **manifest** — 更新 `components.json` 與 `llms.txt`
 7. **互動 JS**（如需）— 在 `src/scripts/components/` 新增模組並匯出 `setupXxx()`；需要 tracking array 時在 `src/scripts/core/registry.js` 加欄位並於 `src/scripts/index.js` 的 `init()` / `destroy()` / `refresh()` 登記；更新 `cubby-ui.d.ts`

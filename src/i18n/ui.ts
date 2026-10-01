@@ -40,6 +40,9 @@ export const uiTranslations: Record<Locale, {
   // Layout — inline code copy
   clickToCopy: string;
   copiedMessage: string;
+
+  // Layout — 頁面未傳入 description 時的預設 meta description
+  siteDescription: string;
 }> = {
   en: {
     searchPlaceholder: 'Search components...',
@@ -73,6 +76,8 @@ export const uiTranslations: Record<Locale, {
 
     clickToCopy: 'Click to copy',
     copiedMessage: 'Copied!',
+
+    siteDescription: 'Cubby UI is a framework-agnostic UI component library built with pure HTML and Tailwind CSS. Copy, paste, and ship.',
   },
   'zh-tw': {
     searchPlaceholder: '搜尋元件...',
@@ -106,5 +111,7 @@ export const uiTranslations: Record<Locale, {
 
     clickToCopy: '點擊複製',
     copiedMessage: '已複製！',
+
+    siteDescription: 'Cubby UI 是以純 HTML 與 Tailwind CSS 打造的框架無關 UI 元件庫，複製貼上即可使用。',
   },
 };

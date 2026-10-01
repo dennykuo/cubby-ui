@@ -8,7 +8,7 @@ const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(playgroundPage, locale);
 ---
 
-<Layout title={t.title} wide>
+<Layout title={t.title} description={t.description} wide>
 	<div class="mb-6">
 		<h1 class="cu-h2">{t.heading}</h1>
 		<p class="mt-2 text-muted-foreground">{t.description}</p>

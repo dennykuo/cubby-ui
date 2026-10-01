@@ -111,7 +111,7 @@ const cdnCode = `<link rel="stylesheet" href="https://unpkg.com/cubby-ui/dist/co
 const cdnCopyCode = `cp -r node_modules/cubby-ui/dist/laravel/components/cu resources/views/components/cu`;
 ---
 
-<Layout title={t.title}>
+<Layout title={t.title} description={t.description}>
     <div class="space-y-3">
         <h1 class="text-3xl font-bold tracking-tight">{t.heading}</h1>
         <p class="text-base text-muted-foreground leading-relaxed" set:html={t.description} />
