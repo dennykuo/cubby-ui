@@ -65,6 +65,7 @@ export const navigationComponents: NavItem[] = [
 
 export const dataDisplayComponents: NavItem[] = [
   { name: "Accordion", path: "/components/accordion" },
+  { name: "Chart", path: "/components/chart" },
   { name: "Code Block", path: "/components/code-block" },
   { name: "Collapsible", path: "/components/collapsible" },
   { name: "Data Table", path: "/components/data-table" },

@@ -1,0 +1,630 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import SectionHeading from "@/components/SectionHeading.astro";
+import ComponentPreview from "@/components/ComponentPreview.astro";
+import { Code } from "astro-expressive-code/components";
+import Chart from "@/components/ui/Chart.astro";
+import ChartHeader from "@/components/ui/ChartHeader.astro";
+import ChartHeaderContent from "@/components/ui/ChartHeaderContent.astro";
+import ChartTitle from "@/components/ui/ChartTitle.astro";
+import ChartDescription from "@/components/ui/ChartDescription.astro";
+import ChartValue from "@/components/ui/ChartValue.astro";
+import ChartActions from "@/components/ui/ChartActions.astro";
+import ChartBody from "@/components/ui/ChartBody.astro";
+import ChartCanvas from "@/components/ui/ChartCanvas.astro";
+import ChartLegend from "@/components/ui/ChartLegend.astro";
+import ChartLegendItem from "@/components/ui/ChartLegendItem.astro";
+import ChartFooter from "@/components/ui/ChartFooter.astro";
+import ChartEmpty from "@/components/ui/ChartEmpty.astro";
+import { getLocaleFromUrl, useTranslations } from "@/i18n";
+import { chartPage } from "@/i18n/pages/components/chart";
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = useTranslations(chartPage, locale);
+
+// ── Sample data & SVG geometry (inline SVG previews; no chart library at runtime) ──
+const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+const r1 = (n: number) => Math.round(n * 10) / 10;
+
+/** Bar with 4px rounded data-end, anchored to the baseline */
+function barPath(x: number, y: number, w: number, base: number, r = 4) {
+	const rr = Math.min(r, (base - y) / 2, w / 2);
+	return `M${r1(x)},${base} V${r1(y + rr)} Q${r1(x)},${r1(y)} ${r1(x + rr)},${r1(y)} H${r1(x + w - rr)} Q${r1(x + w)},${r1(y)} ${r1(x + w)},${r1(y + rr)} V${base} Z`;
+}
+
+/** Smooth line through points (Catmull-Rom → cubic Bézier) */
+function smoothPath(pts: [number, number][]) {
+	let d = `M${r1(pts[0][0])},${r1(pts[0][1])}`;
+	for (let i = 0; i < pts.length - 1; i++) {
+		const p0 = pts[i - 1] || pts[i];
+		const p1 = pts[i];
+		const p2 = pts[i + 1];
+		const p3 = pts[i + 2] || p2;
+		const c1 = [p1[0] + (p2[0] - p0[0]) / 6, p1[1] + (p2[1] - p0[1]) / 6];
+		const c2 = [p2[0] - (p3[0] - p1[0]) / 6, p2[1] - (p3[1] - p1[1]) / 6];
+		d += ` C${r1(c1[0])},${r1(c1[1])} ${r1(c2[0])},${r1(c2[1])} ${r1(p2[0])},${r1(p2[1])}`;
+	}
+	return d;
+}
+
+// Grouped bar chart — Visitors (Desktop / Mobile)
+const bar = { w: 560, h: 256, left: 40, right: 552, top: 12, base: 224, max: 300 };
+const desktop = [186, 285, 237, 173, 209, 264];
+const mobile = [80, 200, 120, 190, 130, 140];
+const barY = (v: number) => bar.base - (v / bar.max) * (bar.base - bar.top);
+const groupW = (bar.right - bar.left) / desktop.length;
+const barW = 22;
+const barGap = 3;
+const barTicks = [0, 100, 200, 300];
+const bars = desktop.map((d, i) => {
+	const cx = bar.left + groupW * i + groupW / 2;
+	return {
+		label: months[i],
+		cx,
+		desktop: barPath(cx - barW - barGap / 2, barY(d), barW, bar.base),
+		mobile: barPath(cx + barGap / 2, barY(mobile[i]), barW, bar.base),
+	};
+});
+
+// Area + line chart — Revenue (this year / last year), thousands
+const line = { w: 560, h: 192, left: 40, right: 552, top: 8, base: 164, max: 50 };
+const thisYear = [18, 22, 20, 27, 31, 29, 35, 38, 34, 41, 45, 48];
+const lastYear = [15, 17, 19, 18, 22, 24, 23, 27, 29, 28, 32, 35];
+const lineX = (i: number) => line.left + ((line.right - line.left) / (months.length - 1)) * i;
+const lineY = (v: number) => line.base - (v / line.max) * (line.base - line.top);
+const thisPts = thisYear.map((v, i) => [lineX(i), lineY(v)] as [number, number]);
+const lastPts = lastYear.map((v, i) => [lineX(i), lineY(v)] as [number, number]);
+const thisLine = smoothPath(thisPts);
+const thisArea = `${thisLine} L${line.right},${line.base} L${line.left},${line.base} Z`;
+const lastLine = smoothPath(lastPts);
+const lineTicks = [0, 25, 50];
+const hoverIndex = 8;
+const hoverX = lineX(hoverIndex);
+const hoverLeftPct = r1((hoverX / line.w) * 100);
+
+// Donut — Traffic sources
+const sources = [
+	{ name: "Direct", value: 4120, color: "1" as const },
+	{ name: "Search", value: 3260, color: "2" as const },
+	{ name: "Social", value: 1840, color: "3" as const },
+	{ name: "Referral", value: 980, color: "4" as const },
+];
+const sourceTotal = sources.reduce((s, x) => s + x.value, 0);
+let acc = 0;
+const donut = sources.map((s) => {
+	const pct = (s.value / sourceTotal) * 100;
+	const seg = { ...s, dash: `${r1(pct - 1.2)} ${r1(100 - pct + 1.2)}`, offset: r1(-acc - 0.6), pct: Math.round(pct) };
+	acc += pct;
+	return seg;
+});
+
+// 100% stacked bar — palette preview
+const share = [34, 24, 18, 14, 10];
+let shareAcc = 0;
+const shareBars = share.map((v, i) => {
+	const x = (shareAcc / 100) * 560;
+	shareAcc += v;
+	return { x: r1(x + (i === 0 ? 0 : 1)), w: r1((v / 100) * 560 - (i === 0 || i === share.length - 1 ? 1 : 2)), color: String(i + 1) };
+});
+
+const canvasComment = `<!-- Chart.js <canvas> or inline <svg role="img" aria-label="..."> -->`;
+
+const usageCode = `<div class="cu-chart">
+  <div class="cu-chart-header">
+    <div class="cu-chart-header-content">
+      <h3 class="cu-chart-title">Visitors</h3>
+      <p class="cu-chart-description">January – June 2026</p>
+    </div>
+  </div>
+  <div class="cu-chart-body">
+    <div class="cu-chart-canvas">
+      <canvas id="visitors-chart" role="img" aria-label="Monthly visitors by device"></canvas>
+    </div>
+  </div>
+  <div class="cu-chart-footer">
+    <div class="cu-chart-legend">
+      <span class="cu-chart-legend-item"><span class="cu-chart-swatch cu-chart-color-1"></span>Desktop</span>
+      <span class="cu-chart-legend-item"><span class="cu-chart-swatch cu-chart-color-2"></span>Mobile</span>
+    </div>
+  </div>
+</div>`;
+
+const lineCode = `<div class="cu-chart">
+  <div class="cu-chart-header">
+    <div class="cu-chart-header-content">
+      <h3 class="cu-chart-title">Revenue</h3>
+      <p class="cu-chart-description">Monthly, compared with last year</p>
+      <div class="cu-chart-value">$398,000</div>
+    </div>
+    <div class="cu-chart-actions">
+      <div class="cu-segmented cu-segmented-sm" data-cu-segmented>
+        <button class="cu-segmented-item">3M</button>
+        <button class="cu-segmented-item">6M</button>
+        <button class="cu-segmented-item cu-segmented-item-active">12M</button>
+      </div>
+    </div>
+  </div>
+  <div class="cu-chart-body">
+    <div class="cu-chart-canvas cu-chart-canvas-sm">
+      ${canvasComment}
+    </div>
+    <div class="cu-chart-legend cu-chart-legend-center">
+      <span class="cu-chart-legend-item"><span class="cu-chart-swatch cu-chart-swatch-line cu-chart-color-1"></span>This year</span>
+      <span class="cu-chart-legend-item"><span class="cu-chart-swatch cu-chart-swatch-line cu-chart-color-2"></span>Last year</span>
+    </div>
+  </div>
+</div>`;
+
+const donutCode = `<div class="cu-chart">
+  <div class="cu-chart-header">
+    <div class="cu-chart-header-content">
+      <h3 class="cu-chart-title">Traffic Sources</h3>
+      <p class="cu-chart-description">Sessions, last 30 days</p>
+    </div>
+  </div>
+  <div class="cu-chart-body cu-chart-body-split">
+    <div class="cu-chart-canvas cu-chart-canvas-square">
+      ${canvasComment}
+    </div>
+    <div class="cu-chart-legend cu-chart-legend-vertical">
+${sources.map((s) => `      <span class="cu-chart-legend-item"><span class="cu-chart-swatch cu-chart-swatch-dot cu-chart-color-${s.color}"></span>${s.name}<span class="cu-chart-legend-value">${s.value.toLocaleString("en-US")}</span></span>`).join("\n")}
+    </div>
+  </div>
+</div>`;
+
+const colorsCode = `<!-- Tokens (theme.css) — redefined under .dark -->
+<!-- --color-chart-1 … --color-chart-5 -->
+
+<div class="cu-chart-legend">
+${[1, 2, 3, 4, 5].map((n) => `  <span class="cu-chart-legend-item"><span class="cu-chart-swatch cu-chart-color-${n}"></span>--color-chart-${n}</span>`).join("\n")}
+</div>
+
+<!-- Inline SVG marks pick up the palette through currentColor -->
+<svg viewBox="0 0 560 24" role="img" aria-label="Share by plan">
+  <rect class="cu-chart-color-1" fill="currentColor" x="0" y="0" width="189" height="24" rx="4" />
+  <!-- … -->
+</svg>`;
+
+const legendCode = `<!-- Shapes: square (bars / areas), dot (points), line (lines) -->
+<div class="cu-chart-legend">
+  <span class="cu-chart-legend-item"><span class="cu-chart-swatch cu-chart-color-1"></span>Revenue</span>
+  <span class="cu-chart-legend-item"><span class="cu-chart-swatch cu-chart-swatch-dot cu-chart-color-2"></span>Orders</span>
+  <span class="cu-chart-legend-item"><span class="cu-chart-swatch cu-chart-swatch-line cu-chart-color-3"></span>Target</span>
+</div>
+
+<!-- Toggleable series (wire the click to your chart library) -->
+<div class="cu-chart-legend">
+  <button type="button" class="cu-chart-legend-item" aria-pressed="true"><span class="cu-chart-swatch cu-chart-color-1"></span>Desktop</button>
+  <button type="button" class="cu-chart-legend-item" aria-pressed="true"><span class="cu-chart-swatch cu-chart-color-2"></span>Mobile</button>
+  <button type="button" class="cu-chart-legend-item cu-chart-legend-item-inactive" aria-pressed="false"><span class="cu-chart-swatch cu-chart-color-3"></span>Tablet</button>
+</div>`;
+
+const tooltipCode = `<div class="cu-chart-tooltip" role="tooltip" style="position: absolute; left: 62%; top: 4px; transform: translateX(-100%);">
+  <div class="cu-chart-tooltip-label">September</div>
+  <div class="cu-chart-tooltip-item">
+    <span class="cu-chart-swatch cu-chart-swatch-line cu-chart-color-1"></span>This year
+    <span class="cu-chart-tooltip-value">$34,000</span>
+  </div>
+  <div class="cu-chart-tooltip-item">
+    <span class="cu-chart-swatch cu-chart-swatch-line cu-chart-color-2"></span>Last year
+    <span class="cu-chart-tooltip-value">$29,000</span>
+  </div>
+</div>`;
+
+const emptyCode = `<div class="cu-chart">
+  <div class="cu-chart-header">
+    <div class="cu-chart-header-content">
+      <h3 class="cu-chart-title">Conversions</h3>
+      <p class="cu-chart-description">Last 7 days</p>
+    </div>
+  </div>
+  <div class="cu-chart-body">
+    <div class="cu-chart-canvas cu-chart-canvas-sm">
+      <div class="cu-chart-empty">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v16a2 2 0 0 0 2 2h16"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg>
+        <p class="cu-chart-empty-title">No data yet</p>
+        <p class="cu-chart-empty-description">Data will appear here once the first events are recorded.</p>
+      </div>
+    </div>
+  </div>
+</div>`;
+
+const loadingCode = `<div class="cu-chart">
+  <div class="cu-chart-header">
+    <div class="cu-chart-header-content">
+      <h3 class="cu-chart-title">Orders</h3>
+      <p class="cu-chart-description">Last 12 months</p>
+    </div>
+  </div>
+  <div class="cu-chart-body">
+    <div class="cu-chart-canvas cu-chart-canvas-sm" aria-busy="true" aria-label="Loading chart">
+      <div class="cu-chart-loading">
+${Array.from({ length: 12 }, () => `        <div class="cu-chart-loading-bar"></div>`).join("\n")}
+      </div>
+    </div>
+  </div>
+</div>`;
+
+const chartjsCode = `<div class="cu-chart">
+  <div class="cu-chart-header">
+    <div class="cu-chart-header-content">
+      <h3 class="cu-chart-title">Visitors</h3>
+      <p class="cu-chart-description">January – June 2026</p>
+    </div>
+  </div>
+  <div class="cu-chart-body">
+    <div class="cu-chart-canvas">
+      <canvas id="visitors-chart" role="img" aria-label="Monthly visitors by device"></canvas>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4"><\/script>
+<script>
+  // Read Cubby UI design tokens (they change when .dark toggles)
+  function theme() {
+    const css = getComputedStyle(document.documentElement);
+    const token = (name) => css.getPropertyValue(name).trim();
+    return {
+      series: [1, 2, 3, 4, 5].map((n) => token(\`--color-chart-\${n}\`)),
+      grid: token("--color-border"),
+      text: token("--color-muted-foreground"),
+    };
+  }
+
+  const t = theme();
+  const chart = new Chart(document.getElementById("visitors-chart"), {
+    type: "bar",
+    data: {
+      labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+      datasets: [
+        { label: "Desktop", data: [186, 285, 237, 173, 209, 264], backgroundColor: t.series[0], borderRadius: 4 },
+        { label: "Mobile", data: [80, 200, 120, 190, 130, 140], backgroundColor: t.series[1], borderRadius: 4 },
+      ],
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false, // cu-chart-canvas provides the height
+      plugins: { legend: { display: false } }, // use cu-chart-legend instead
+      scales: {
+        x: { grid: { display: false }, ticks: { color: t.text } },
+        y: { grid: { color: t.grid }, border: { display: false }, ticks: { color: t.text } },
+      },
+    },
+  });
+
+  // Re-apply colors when dark mode toggles
+  new MutationObserver(() => {
+    const next = theme();
+    chart.data.datasets.forEach((ds, i) => (ds.backgroundColor = next.series[i]));
+    chart.options.scales.x.ticks.color = next.text;
+    chart.options.scales.y.ticks.color = next.text;
+    chart.options.scales.y.grid.color = next.grid;
+    chart.update("none");
+  }).observe(document.documentElement, { attributes: true, attributeFilter: ["class"] });
+<\/script>`;
+---
+
+<Layout title={t.title} category={t.category} componentName="Chart">
+	<div class="space-y-3">
+		<div class="flex items-center gap-3">
+			<h1 class="text-3xl font-bold tracking-tight">Chart</h1>
+			<span class="cu-badge cu-badge-secondary">{t.category}</span>
+		</div>
+		<p class="text-base text-muted-foreground leading-relaxed" set:html={t.description} />
+	</div>
+
+	<div class="mt-10 space-y-10">
+		<!-- Usage -->
+		<section class="space-y-3">
+			<SectionHeading id="usage" title={t.sections.usage.title} />
+			<p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
+			<ComponentPreview code={usageCode}>
+				<div class="w-full max-w-xl">
+					<Chart>
+						<ChartHeader>
+							<ChartHeaderContent>
+								<ChartTitle>Visitors</ChartTitle>
+								<ChartDescription>January – June 2026</ChartDescription>
+							</ChartHeaderContent>
+						</ChartHeader>
+						<ChartBody>
+							<ChartCanvas>
+								<svg viewBox={`0 0 ${bar.w} ${bar.h}`} role="img" aria-label="Monthly visitors by device, January to June">
+									{barTicks.map((v) => (
+										<g>
+											<line class={v === 0 ? "cu-chart-axis-line" : "cu-chart-grid"} x1={bar.left} x2={bar.right} y1={barY(v)} y2={barY(v)} />
+											<text class="cu-chart-axis" x={bar.left - 10} y={barY(v)} text-anchor="end" dominant-baseline="middle">{v}</text>
+										</g>
+									))}
+									<g class="cu-chart-color-1">
+										{bars.map((b) => <path d={b.desktop} fill="currentColor"><title>{`${b.label} · Desktop`}</title></path>)}
+									</g>
+									<g class="cu-chart-color-2">
+										{bars.map((b) => <path d={b.mobile} fill="currentColor"><title>{`${b.label} · Mobile`}</title></path>)}
+									</g>
+									{bars.map((b) => <text class="cu-chart-axis" x={b.cx} y={bar.base + 20} text-anchor="middle">{b.label}</text>)}
+								</svg>
+							</ChartCanvas>
+						</ChartBody>
+						<ChartFooter>
+							<ChartLegend>
+								<ChartLegendItem color="1">Desktop</ChartLegendItem>
+								<ChartLegendItem color="2">Mobile</ChartLegendItem>
+							</ChartLegend>
+						</ChartFooter>
+					</Chart>
+				</div>
+			</ComponentPreview>
+		</section>
+
+		<!-- Value & Actions -->
+		<section class="space-y-3">
+			<SectionHeading id="value-actions" title={t.sections.line.title} />
+			<p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.line.description} />
+			<ComponentPreview code={lineCode}>
+				<div class="w-full max-w-xl">
+					<Chart>
+						<ChartHeader>
+							<ChartHeaderContent>
+								<ChartTitle>Revenue</ChartTitle>
+								<ChartDescription>Monthly, compared with last year</ChartDescription>
+								<ChartValue>$398,000</ChartValue>
+							</ChartHeaderContent>
+							<ChartActions>
+								<div class="cu-segmented cu-segmented-sm" data-cu-segmented>
+									<button class="cu-segmented-item">3M</button>
+									<button class="cu-segmented-item">6M</button>
+									<button class="cu-segmented-item cu-segmented-item-active">12M</button>
+								</div>
+							</ChartActions>
+						</ChartHeader>
+						<ChartBody>
+							<ChartCanvas size="sm">
+								<svg viewBox={`0 0 ${line.w} ${line.h}`} role="img" aria-label="Monthly revenue, this year versus last year">
+									{lineTicks.map((v) => (
+										<g>
+											<line class={v === 0 ? "cu-chart-axis-line" : "cu-chart-grid"} x1={line.left} x2={line.right} y1={lineY(v)} y2={lineY(v)} />
+											<text class="cu-chart-axis" x={line.left - 10} y={lineY(v)} text-anchor="end" dominant-baseline="middle">{v === 0 ? "$0" : `$${v}k`}</text>
+										</g>
+									))}
+									<g class="cu-chart-color-1">
+										<defs>
+											<linearGradient id="chart-revenue-fill" x1="0" y1="0" x2="0" y2="1">
+												<stop offset="0%" stop-color="currentColor" stop-opacity="0.22" />
+												<stop offset="100%" stop-color="currentColor" stop-opacity="0" />
+											</linearGradient>
+										</defs>
+										<path d={thisArea} fill="url(#chart-revenue-fill)" />
+										<path d={thisLine} fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+									</g>
+									<g class="cu-chart-color-2">
+										<path d={lastLine} fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="5 4" stroke-linecap="round" stroke-linejoin="round" />
+									</g>
+									{months.map((m, i) => i % 2 === 0 && <text class="cu-chart-axis" x={lineX(i)} y={line.base + 20} text-anchor="middle">{m}</text>)}
+								</svg>
+							</ChartCanvas>
+							<ChartLegend center>
+								<ChartLegendItem color="1" shape="line">This year</ChartLegendItem>
+								<ChartLegendItem color="2" shape="line">Last year</ChartLegendItem>
+							</ChartLegend>
+						</ChartBody>
+					</Chart>
+				</div>
+			</ComponentPreview>
+		</section>
+
+		<!-- Donut -->
+		<section class="space-y-3">
+			<SectionHeading id="donut" title={t.sections.donut.title} />
+			<p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.donut.description} />
+			<ComponentPreview code={donutCode}>
+				<div class="w-full max-w-md">
+					<Chart>
+						<ChartHeader>
+							<ChartHeaderContent>
+								<ChartTitle>Traffic Sources</ChartTitle>
+								<ChartDescription>Sessions, last 30 days</ChartDescription>
+							</ChartHeaderContent>
+						</ChartHeader>
+						<ChartBody split>
+							<ChartCanvas size="square">
+								<svg viewBox="0 0 200 200" role="img" aria-label="Sessions by traffic source">
+									<g transform="rotate(-90 100 100)">
+										{donut.map((s) => (
+											<circle class={`cu-chart-color-${s.color}`} cx="100" cy="100" r="76" fill="none" stroke="currentColor" stroke-width="22" pathLength="100" stroke-dasharray={s.dash} stroke-dashoffset={s.offset}>
+												<title>{`${s.name} · ${s.pct}%`}</title>
+											</circle>
+										))}
+									</g>
+									<text x="100" y="96" text-anchor="middle" fill="currentColor" font-size="28" font-weight="600">{(sourceTotal / 1000).toFixed(1)}k</text>
+									<text class="cu-chart-axis" x="100" y="120" text-anchor="middle">Sessions</text>
+								</svg>
+							</ChartCanvas>
+							<ChartLegend vertical>
+								{sources.map((s) => (
+									<ChartLegendItem color={s.color} shape="dot">
+										{s.name}<span class="cu-chart-legend-value">{s.value.toLocaleString("en-US")}</span>
+									</ChartLegendItem>
+								))}
+							</ChartLegend>
+						</ChartBody>
+					</Chart>
+				</div>
+			</ComponentPreview>
+		</section>
+
+		<!-- Colors -->
+		<section class="space-y-3">
+			<SectionHeading id="colors" title={t.sections.colors.title} />
+			<p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.colors.description} />
+			<ComponentPreview code={colorsCode}>
+				<div class="w-full max-w-xl space-y-4">
+					<ChartLegend>
+						{[1, 2, 3, 4, 5].map((n) => (
+							<ChartLegendItem color={String(n) as "1"}><span class="font-mono">--color-chart-{n}</span></ChartLegendItem>
+						))}
+					</ChartLegend>
+					<svg viewBox="0 0 560 24" class="block w-full" role="img" aria-label="Share by plan">
+						{shareBars.map((s) => <rect class={`cu-chart-color-${s.color}`} fill="currentColor" x={s.x} y="0" width={s.w} height="24" rx="4" />)}
+					</svg>
+				</div>
+			</ComponentPreview>
+		</section>
+
+		<!-- Legend -->
+		<section class="space-y-3">
+			<SectionHeading id="legend" title={t.sections.legend.title} />
+			<p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.legend.description} />
+			<ComponentPreview code={legendCode}>
+				<div class="flex flex-col items-center gap-5">
+					<ChartLegend>
+						<ChartLegendItem color="1">Revenue</ChartLegendItem>
+						<ChartLegendItem color="2" shape="dot">Orders</ChartLegendItem>
+						<ChartLegendItem color="3" shape="line">Target</ChartLegendItem>
+					</ChartLegend>
+					<div class="cu-chart-legend">
+						<button type="button" class="cu-chart-legend-item" aria-pressed="true"><span class="cu-chart-swatch cu-chart-color-1"></span>Desktop</button>
+						<button type="button" class="cu-chart-legend-item" aria-pressed="true"><span class="cu-chart-swatch cu-chart-color-2"></span>Mobile</button>
+						<button type="button" class="cu-chart-legend-item cu-chart-legend-item-inactive" aria-pressed="false"><span class="cu-chart-swatch cu-chart-color-3"></span>Tablet</button>
+					</div>
+				</div>
+			</ComponentPreview>
+		</section>
+
+		<!-- Tooltip -->
+		<section class="space-y-3">
+			<SectionHeading id="tooltip" title={t.sections.tooltip.title} />
+			<p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.tooltip.description} />
+			<ComponentPreview code={tooltipCode}>
+				<div class="w-full max-w-xl">
+					<Chart>
+						<ChartBody class="pt-6">
+							<ChartCanvas size="sm">
+								<svg viewBox={`0 0 ${line.w} ${line.h}`} role="img" aria-label="Monthly revenue, this year versus last year">
+									{lineTicks.map((v) => (
+										<g>
+											<line class={v === 0 ? "cu-chart-axis-line" : "cu-chart-grid"} x1={line.left} x2={line.right} y1={lineY(v)} y2={lineY(v)} />
+											<text class="cu-chart-axis" x={line.left - 10} y={lineY(v)} text-anchor="end" dominant-baseline="middle">{v === 0 ? "$0" : `$${v}k`}</text>
+										</g>
+									))}
+									<line class="cu-chart-axis-line" x1={hoverX} x2={hoverX} y1={line.top} y2={line.base} />
+									<g class="cu-chart-color-2">
+										<path d={lastLine} fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="5 4" stroke-linecap="round" stroke-linejoin="round" />
+										<circle cx={lastPts[hoverIndex][0]} cy={lastPts[hoverIndex][1]} r="4.5" fill="currentColor" style="stroke: var(--color-card); stroke-width: 2" />
+									</g>
+									<g class="cu-chart-color-1">
+										<path d={thisLine} fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+										<circle cx={thisPts[hoverIndex][0]} cy={thisPts[hoverIndex][1]} r="4.5" fill="currentColor" style="stroke: var(--color-card); stroke-width: 2" />
+									</g>
+									{months.map((m, i) => i % 2 === 0 && <text class="cu-chart-axis" x={lineX(i)} y={line.base + 20} text-anchor="middle">{m}</text>)}
+								</svg>
+								<div class="cu-chart-tooltip" role="tooltip" style={`position: absolute; left: calc(${hoverLeftPct}% - 12px); top: 4px; transform: translateX(-100%);`}>
+									<div class="cu-chart-tooltip-label">September</div>
+									<div class="cu-chart-tooltip-item">
+										<span class="cu-chart-swatch cu-chart-swatch-line cu-chart-color-1"></span>This year
+										<span class="cu-chart-tooltip-value">$34,000</span>
+									</div>
+									<div class="cu-chart-tooltip-item">
+										<span class="cu-chart-swatch cu-chart-swatch-line cu-chart-color-2"></span>Last year
+										<span class="cu-chart-tooltip-value">$29,000</span>
+									</div>
+								</div>
+							</ChartCanvas>
+						</ChartBody>
+					</Chart>
+				</div>
+			</ComponentPreview>
+		</section>
+
+		<!-- Empty -->
+		<section class="space-y-3">
+			<SectionHeading id="empty" title={t.sections.empty.title} />
+			<p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.empty.description} />
+			<ComponentPreview code={emptyCode}>
+				<div class="w-full max-w-xl">
+					<Chart>
+						<ChartHeader>
+							<ChartHeaderContent>
+								<ChartTitle>Conversions</ChartTitle>
+								<ChartDescription>Last 7 days</ChartDescription>
+							</ChartHeaderContent>
+						</ChartHeader>
+						<ChartBody>
+							<ChartCanvas size="sm">
+								<ChartEmpty>
+									<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v16a2 2 0 0 0 2 2h16"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg>
+									<p class="cu-chart-empty-title">No data yet</p>
+									<p class="cu-chart-empty-description">Data will appear here once the first events are recorded.</p>
+								</ChartEmpty>
+							</ChartCanvas>
+						</ChartBody>
+					</Chart>
+				</div>
+			</ComponentPreview>
+		</section>
+
+		<!-- Loading -->
+		<section class="space-y-3">
+			<SectionHeading id="loading" title={t.sections.loading.title} />
+			<p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.loading.description} />
+			<ComponentPreview code={loadingCode}>
+				<div class="w-full max-w-xl">
+					<Chart>
+						<ChartHeader>
+							<ChartHeaderContent>
+								<ChartTitle>Orders</ChartTitle>
+								<ChartDescription>Last 12 months</ChartDescription>
+							</ChartHeaderContent>
+						</ChartHeader>
+						<ChartBody>
+							<ChartCanvas size="sm" aria-busy="true" aria-label="Loading chart">
+								<div class="cu-chart-loading">
+									{Array.from({ length: 12 }, () => <div class="cu-chart-loading-bar"></div>)}
+								</div>
+							</ChartCanvas>
+						</ChartBody>
+					</Chart>
+				</div>
+			</ComponentPreview>
+		</section>
+
+		<!-- Chart.js -->
+		<section class="space-y-3">
+			<SectionHeading id="chartjs" title={t.sections.chartjs.title} />
+			<p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.chartjs.description} />
+			<div class="rounded-xl border border-border bg-muted/20 overflow-hidden">
+				<div class="flex items-center px-4 py-2.5 border-b border-border/40">
+					<span class="text-[11px] font-medium tracking-wider text-muted-foreground/60">HTML + JS</span>
+				</div>
+				<div class="px-4 py-3">
+					<Code code={chartjsCode} lang="html" />
+				</div>
+			</div>
+			<p class="text-sm text-muted-foreground">{t.sections.chartjs.note}</p>
+		</section>
+
+		<!-- Classes Reference -->
+		<section class="space-y-3">
+			<SectionHeading id="classes" title={t.sections.classes.title} />
+			<div class="cu-table-wrapper rounded-lg border border-border">
+				<table class="cu-table">
+					<thead class="cu-table-header">
+						<tr class="cu-table-row">
+							<th class="cu-table-head">{t.sections.classes.classLabel}</th>
+							<th class="cu-table-head">{t.sections.classes.descriptionLabel}</th>
+						</tr>
+					</thead>
+					<tbody class="cu-table-body">
+						{Object.entries(t.classDescriptions).map(([cls, desc]) => (
+							<tr class="cu-table-row">
+								<td class="cu-table-cell"><code class="cu-code">{cls}</code></td>
+								<td class="cu-table-cell text-muted-foreground">{desc}</td>
+							</tr>
+						))}
+					</tbody>
+				</table>
+			</div>
+		</section>
+	</div>
+</Layout>

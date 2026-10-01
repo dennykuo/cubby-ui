@@ -57,7 +57,7 @@ Cubby UI 是一個框架無關的 UI 元件庫，風格類似 shadcn/ui，使用
 - `index.ts` — `Locale` 型別、`getLocaleFromUrl()`、`localizePath()`、`getAlternatePath()`、`useTranslations()`（路徑函式皆處理 base，見「部署」）
 - `ui.ts` — 共用 UI 翻譯（Header、Sidebar、ComponentPreview 的文字）
 - `pages/home.ts`、`usage.ts`、`theming.ts`、`dark-mode.ts`、`playground.ts` — 核心頁面翻譯
-- `pages/components/*.ts` — 95 個元件頁面翻譯（每頁一個檔案）
+- `pages/components/*.ts` — 96 個元件頁面翻譯（每頁一個檔案）
 
 **頁面 i18n 模式**：每個頁面透過 3 行程式碼取得翻譯：
 ```astro
@@ -79,7 +79,7 @@ const t = useTranslations(buttonPage, locale);
 
 元件有兩個層次：
 
-1. **CSS 類別層**（`src/styles/components.css` + `src/styles/components/*.css`）— 在 `@layer components` 中定義，使用 `cu-` 前綴（Cubby）。`components.css` 僅包含 `@layer components {}` 包裝和 `@import` 語句，各元件 CSS 規則拆分至 `components/` 資料夾的獨立檔案。CSS 按領域分十個區塊：`TYPOGRAPHY`（Headings, Kbd, Paragraph, Blockquote, List, Link, Text, HR）→ `BASIC`（Aspect Ratio, Avatar, Badge, Button, Button Group, Card, Separator）→ `FORMS`（Checkbox, Checkbox Group, Color Picker, Date Picker, Floating Label, Input Group, Listbox, Combobox, Password Input, Pin Input, Rating, Tag Input, Toggle Group ~ Transfer List）→ `DATA DISPLAY`（Accordion, Code Block, Collapsible, Data Table, Setting Item, Sortable List, Stat, Table, Timeline, Tree View）→ `CONTENT`（Carousel, Countdown, Diff Viewer, Image Compare, Marquee）→ `FEEDBACK`（Alert, Empty State, Progress, Skeleton, Toast）→ `OVERLAY`（Alert Dialog, Command Palette, Context Menu, Dialog, Drawer, Dropdown, Hover Card, Popover, Tooltip）→ `NAVIGATION`（Breadcrumb, Menubar, Pagination, Segmented Control, Steps, Tabs）→ `LAYOUT`（Container, Filter Bar, Header, Nav, Page Header, Resizable Panels, Scroll Area, Sidebar, Toolbar）→ `AI`（Chat Bubble, Chat Input, Chat Typing）。這是元件的核心，純 HTML 專案可以只用這些 CSS 類別。共用結構透過 `listbox.css` 以逗號選擇器去重（Combobox / Multi Select 共用 7 組 class）。
+1. **CSS 類別層**（`src/styles/components.css` + `src/styles/components/*.css`）— 在 `@layer components` 中定義，使用 `cu-` 前綴（Cubby）。`components.css` 僅包含 `@layer components {}` 包裝和 `@import` 語句，各元件 CSS 規則拆分至 `components/` 資料夾的獨立檔案。CSS 按領域分十個區塊：`TYPOGRAPHY`（Headings, Kbd, Paragraph, Blockquote, List, Link, Text, HR）→ `BASIC`（Aspect Ratio, Avatar, Badge, Button, Button Group, Card, Separator）→ `FORMS`（Checkbox, Checkbox Group, Color Picker, Date Picker, Floating Label, Input Group, Listbox, Combobox, Password Input, Pin Input, Rating, Tag Input, Toggle Group ~ Transfer List）→ `DATA DISPLAY`（Accordion, Chart, Code Block, Collapsible, Data Table, Setting Item, Sortable List, Stat, Table, Timeline, Tree View）→ `CONTENT`（Carousel, Countdown, Diff Viewer, Image Compare, Marquee）→ `FEEDBACK`（Alert, Empty State, Progress, Skeleton, Toast）→ `OVERLAY`（Alert Dialog, Command Palette, Context Menu, Dialog, Drawer, Dropdown, Hover Card, Popover, Tooltip）→ `NAVIGATION`（Breadcrumb, Menubar, Pagination, Segmented Control, Steps, Tabs）→ `LAYOUT`（Container, Filter Bar, Header, Nav, Page Header, Resizable Panels, Scroll Area, Sidebar, Toolbar）→ `AI`（Chat Bubble, Chat Input, Chat Typing）。這是元件的核心，純 HTML 專案可以只用這些 CSS 類別。共用結構透過 `listbox.css` 以逗號選擇器去重（Combobox / Multi Select 共用 7 組 class）。
 2. **Astro 元件層**（`src/components/ui/`）— 包裝 CSS 類別的 `.astro` 檔案，提供 TypeScript Props 型別安全和屬性透傳。
 
 ### CSS 類別命名規則
@@ -150,6 +150,8 @@ const t = useTranslations(buttonPage, locale);
 - Breadcrumb 摺疊省略：`cu-breadcrumb-ellipsis`（可點擊，搭配 Dropdown 展開隱藏項目）
 - Skeleton 模板：Table Skeleton / List Skeleton（組合現有 `cu-skeleton-*` class）
 - Empty State 場景模板：No Permission / Maintenance / Search No Results
+- 圖表色盤：`--color-chart-1` ~ `--color-chart-5`（`theme.css`，`.dark` 另有一組），類別色依固定順序指派，已以亮度帶、色覺辨識差異與對卡片 3:1 對比驗證；`cu-chart-color-N` 設定 `currentColor` 供圖例色塊與 SVG `fill` / `stroke="currentColor"` 共用
+- Chart 只提供包裝樣式（`cu-chart` 卡片、header / body / canvas / legend / tooltip / empty / loading），不內建繪圖 JS；`cu-chart-canvas` 為 `relative` + 明確高度，符合 Chart.js `maintainAspectRatio: false`；文檔頁預覽以內嵌 SVG 示範，Chart.js 整合僅以程式碼呈現
 
 ### NPM 套件打包
 
@@ -239,7 +241,7 @@ src/
 │       ├── theming.ts
 │       ├── dark-mode.ts
 │       ├── playground.ts
-│       └── components/           — 95 個元件頁面翻譯（每元件一個檔案）
+│       └── components/           — 96 個元件頁面翻譯（每元件一個檔案）
 │           ├── button.ts
 │           ├── card.ts
 │           └── ...
@@ -537,7 +539,7 @@ src/
 - **Components > Typography** — Headings, Kbd, Paragraphs, Blockquote, Lists, Links, Text, HR
 - **Components > Basic** — Aspect Ratio, Avatar, Badge, Button, Button Group, Card, Color, Separator
 - **Components > Forms** — Checkbox, Checkbox Group, Color Picker, Combobox, Date Picker, Dropzone, File Input, Floating Label, Form Group, Input, Input Group, Label, Multi Select, Number Input, Password Input, Pin Input, Radio, Range, Rating, Search Input, Select, Tag Input, Textarea, Toggle, Toggle Group, Transfer List
-- **Components > Data Display** — Accordion, Code Block, Collapsible, Data Table, Setting Item, Sortable List, Stat Card, Table, Timeline, Tree View
+- **Components > Data Display** — Accordion, Chart, Code Block, Collapsible, Data Table, Setting Item, Sortable List, Stat Card, Table, Timeline, Tree View
 - **Components > Content** — Carousel, Countdown, Diff Viewer, Image Compare, Marquee
 - **Components > Feedback** — Alert, Empty State, Notification, Progress, Skeleton, Spinner, Toast
 - **Components > Overlay** — Alert Dialog, Command Palette, Context Menu, Dialog, Drawer, Dropdown Menu, Hover Card, Popover, Tooltip, Tour

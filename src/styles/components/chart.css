@@ -1,0 +1,220 @@
+/* Chart
+   ------------------------------------------------------------------ */
+/* 圖表容器：提供卡片外框、標題、圖例、tooltip、空狀態 / 載入狀態等包裝樣式；
+   圖形本身由外部圖表庫（Chart.js 等）或內嵌 SVG 繪製。
+   系列色彩來自 --color-chart-1 ~ --color-chart-5（theme.css，含 .dark 覆蓋），
+   外部圖表庫可透過 getComputedStyle() 讀取。 */
+.cu-chart {
+    @apply flex flex-col rounded-xl border border-border/60 bg-card text-card-foreground shadow-xs;
+}
+
+.cu-chart-flat {
+    @apply shadow-none;
+}
+
+.cu-chart-ghost {
+    @apply border-transparent bg-transparent shadow-none;
+}
+
+/* -- header -- */
+.cu-chart-header {
+    @apply flex flex-col gap-3 px-6 pt-6 sm:flex-row sm:items-start sm:justify-between;
+}
+
+.cu-chart-header-content {
+    @apply min-w-0 space-y-1.5;
+}
+
+.cu-chart-title {
+    @apply text-base font-semibold leading-none tracking-tight;
+}
+
+.cu-chart-description {
+    @apply text-sm text-muted-foreground;
+}
+
+.cu-chart-value {
+    @apply pt-1 text-2xl font-semibold tracking-tight tabular-nums;
+}
+
+.cu-chart-actions {
+    @apply flex shrink-0 items-center gap-2;
+}
+
+/* -- body / plot area -- */
+.cu-chart-body {
+    @apply px-6 pt-5 pb-6;
+}
+
+/* 繪圖區與圖例並排（pie / donut + 垂直圖例），窄螢幕時上下堆疊 */
+.cu-chart-body-split {
+    @apply flex flex-col items-center gap-6 sm:flex-row sm:justify-center sm:gap-10;
+}
+
+/* Chart.js 等需要「relative + 明確高度」的父容器，搭配 maintainAspectRatio: false */
+.cu-chart-canvas {
+    @apply relative h-64 w-full;
+}
+
+.cu-chart-canvas > svg {
+    @apply block h-full w-full overflow-visible;
+}
+
+.cu-chart-canvas-sm {
+    @apply h-48;
+}
+
+.cu-chart-canvas-lg {
+    @apply h-80;
+}
+
+/* Pie / donut：正方形繪圖區 */
+.cu-chart-canvas-square {
+    @apply mx-auto aspect-square h-auto max-w-52;
+}
+
+.cu-chart-body-split > .cu-chart-canvas {
+    @apply mx-0 shrink-0;
+}
+
+/* 繪圖區下方的圖例自動留白 */
+.cu-chart-canvas + .cu-chart-legend {
+    @apply mt-4;
+}
+
+.cu-chart-body-split > .cu-chart-canvas + .cu-chart-legend {
+    @apply mt-0;
+}
+
+.cu-chart-footer {
+    @apply flex flex-wrap items-center gap-x-4 gap-y-2 border-t border-border/60 px-6 py-4 text-sm text-muted-foreground;
+}
+
+/* -- legend -- */
+.cu-chart-legend {
+    @apply flex flex-wrap items-center gap-x-4 gap-y-1.5 text-xs text-muted-foreground;
+}
+
+.cu-chart-legend-center {
+    @apply justify-center;
+}
+
+.cu-chart-legend-vertical {
+    @apply flex-col items-start gap-y-2;
+}
+
+.cu-chart-legend-item {
+    @apply inline-flex items-center gap-1.5 whitespace-nowrap;
+}
+
+/* 可切換系列顯示的圖例（搭配 aria-pressed） */
+button.cu-chart-legend-item {
+    @apply -mx-1 cursor-pointer rounded-md px-1 py-0.5 outline-none transition-[color,opacity] duration-150 hover:text-foreground focus-visible:ring-1 focus-visible:ring-ring/30;
+}
+
+.cu-chart-legend-item-inactive {
+    @apply opacity-40;
+}
+
+.cu-chart-legend-value {
+    @apply ml-0.5 font-medium tabular-nums text-foreground;
+}
+
+/* -- swatch (legend / tooltip 色塊) -- */
+.cu-chart-swatch {
+    @apply inline-block size-2.5 shrink-0 rounded-[3px] bg-current;
+    color: var(--color-chart-1);
+}
+
+.cu-chart-swatch-dot {
+    @apply rounded-full;
+}
+
+.cu-chart-swatch-line {
+    @apply h-0.5 w-3 rounded-full;
+}
+
+/* -- series colors：設定 currentColor，SVG 以 fill / stroke="currentColor" 取用 -- */
+.cu-chart-color-1 {
+    color: var(--color-chart-1);
+}
+
+.cu-chart-color-2 {
+    color: var(--color-chart-2);
+}
+
+.cu-chart-color-3 {
+    color: var(--color-chart-3);
+}
+
+.cu-chart-color-4 {
+    color: var(--color-chart-4);
+}
+
+.cu-chart-color-5 {
+    color: var(--color-chart-5);
+}
+
+/* -- tooltip（Chart.js external tooltip 或自繪 SVG hover 使用；定位由使用者設定） -- */
+.cu-chart-tooltip {
+    @apply pointer-events-none min-w-36 rounded-lg border border-border/60 bg-popover px-2.5 py-2 text-xs text-popover-foreground shadow-md transition-opacity duration-150 dark:shadow-lg dark:shadow-black/20;
+}
+
+.cu-chart-tooltip-label {
+    @apply mb-1.5 font-medium text-foreground;
+}
+
+.cu-chart-tooltip-item {
+    @apply flex items-center gap-2 whitespace-nowrap py-0.5 text-muted-foreground;
+}
+
+.cu-chart-tooltip-value {
+    @apply ml-auto pl-4 font-medium tabular-nums text-foreground;
+}
+
+/* -- inline SVG helpers（自繪圖表時的格線與軸標籤，保持低調） -- */
+.cu-chart-grid {
+    stroke: var(--color-border);
+    stroke-width: 1;
+    stroke-dasharray: 3 3;
+}
+
+.cu-chart-axis-line {
+    stroke: var(--color-border);
+    stroke-width: 1;
+}
+
+.cu-chart-axis {
+    fill: var(--color-muted-foreground);
+    font-size: 11px;
+}
+
+/* -- empty state（放在 cu-chart-canvas 內） -- */
+.cu-chart-empty {
+    @apply absolute inset-0 flex flex-col items-center justify-center gap-1 rounded-lg border border-dashed border-border bg-muted/30 px-4 text-center [&_svg]:mb-2 [&_svg]:size-8 [&_svg]:text-muted-foreground/50;
+}
+
+.cu-chart-empty-title {
+    @apply text-sm font-medium text-foreground;
+}
+
+.cu-chart-empty-description {
+    @apply max-w-xs text-xs text-muted-foreground;
+}
+
+/* -- loading state（放在 cu-chart-canvas 內，canvas 加 aria-busy="true"） -- */
+.cu-chart-loading {
+    @apply absolute inset-0 flex items-end gap-2 border-b border-border/60;
+}
+
+.cu-chart-loading-bar {
+    @apply flex-1 animate-pulse rounded-t bg-muted;
+}
+
+.cu-chart-loading-bar:nth-child(7n + 1) { height: 45%; }
+.cu-chart-loading-bar:nth-child(7n + 2) { height: 70%; }
+.cu-chart-loading-bar:nth-child(7n + 3) { height: 55%; }
+.cu-chart-loading-bar:nth-child(7n + 4) { height: 85%; }
+.cu-chart-loading-bar:nth-child(7n + 5) { height: 62%; }
+.cu-chart-loading-bar:nth-child(7n + 6) { height: 76%; }
+.cu-chart-loading-bar:nth-child(7n + 7) { height: 38%; }

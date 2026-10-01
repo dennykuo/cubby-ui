@@ -968,6 +968,28 @@
       "example": "<div class=\"cu-code-block\" data-cu-code-block><div class=\"cu-code-block-header\"><span>HTML</span><button class=\"cu-code-block-copy\" data-cu-code-block-copy><span data-cu-code-block-label>Copy</span></button></div><pre class=\"cu-code-block-pre\"><code class=\"language-html\">&lt;div&gt;Hello&lt;/div&gt;</code></pre></div>"
     },
     {
+      "name": "Chart",
+      "category": "dataDisplay",
+      "interactive": false,
+      "cssClasses": {
+        "base": "cu-chart",
+        "variants": ["cu-chart-flat", "cu-chart-ghost"],
+        "parts": ["cu-chart-header", "cu-chart-header-content", "cu-chart-title", "cu-chart-description", "cu-chart-value", "cu-chart-actions", "cu-chart-body", "cu-chart-canvas", "cu-chart-footer"],
+        "modifiers": ["cu-chart-body-split"],
+        "canvasSizes": ["cu-chart-canvas-sm", "cu-chart-canvas-lg", "cu-chart-canvas-square"],
+        "legend": ["cu-chart-legend", "cu-chart-legend-center", "cu-chart-legend-vertical", "cu-chart-legend-item", "cu-chart-legend-item-inactive", "cu-chart-legend-value"],
+        "swatch": ["cu-chart-swatch", "cu-chart-swatch-dot", "cu-chart-swatch-line"],
+        "colors": ["cu-chart-color-1", "cu-chart-color-2", "cu-chart-color-3", "cu-chart-color-4", "cu-chart-color-5"],
+        "tooltip": ["cu-chart-tooltip", "cu-chart-tooltip-label", "cu-chart-tooltip-item", "cu-chart-tooltip-value"],
+        "svg": ["cu-chart-grid", "cu-chart-axis", "cu-chart-axis-line"],
+        "states": ["cu-chart-empty", "cu-chart-empty-title", "cu-chart-empty-description", "cu-chart-loading", "cu-chart-loading-bar"]
+      },
+      "tokens": ["--color-chart-1", "--color-chart-2", "--color-chart-3", "--color-chart-4", "--color-chart-5"],
+      "aria": ["img"],
+      "notes": "Wrapper styles for charts drawn by an external library (Chart.js, ECharts, ...) or inline SVG; Cubby UI ships no charting JS. Series colors come from --color-chart-1 ~ --color-chart-5 (fixed order, redefined under .dark); read them with getComputedStyle(document.documentElement).getPropertyValue('--color-chart-1') and re-render when the .dark class toggles. cu-chart-canvas is position:relative with an explicit height (h-64; -sm h-48, -lg h-80, -square for pie/donut) as Chart.js expects with maintainAspectRatio:false. cu-chart-color-N sets currentColor so swatches and SVG marks (fill/stroke=\"currentColor\") share the palette. cu-chart-empty / cu-chart-loading are absolutely positioned inside cu-chart-canvas; cu-chart-loading-bar heights vary automatically via :nth-child. cu-chart-tooltip is unpositioned (set left/top yourself, e.g. in a Chart.js external tooltip handler). A11y: Give the <canvas> / <svg> role=\"img\" and an aria-label summarising the data (or provide a table view). Set aria-busy=\"true\" on cu-chart-canvas while cu-chart-loading is shown. Legend swatches are aria-hidden; toggleable legend items are <button aria-pressed>.",
+      "example": "<div class=\"cu-chart\"><div class=\"cu-chart-header\"><div class=\"cu-chart-header-content\"><h3 class=\"cu-chart-title\">Revenue</h3><p class=\"cu-chart-description\">Jan – Jun 2026</p></div></div><div class=\"cu-chart-body\"><div class=\"cu-chart-canvas\"><canvas id=\"revenue\" role=\"img\" aria-label=\"Monthly revenue\"></canvas></div><div class=\"cu-chart-legend cu-chart-legend-center\"><span class=\"cu-chart-legend-item\"><span class=\"cu-chart-swatch cu-chart-color-1\"></span>Desktop</span><span class=\"cu-chart-legend-item\"><span class=\"cu-chart-swatch cu-chart-color-2\"></span>Mobile</span></div></div></div>"
+    },
+    {
       "name": "Color Picker",
       "category": "forms",
       "interactive": true,

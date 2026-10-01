@@ -1,0 +1,19 @@
+---
+import { TOP_CLASS } from "../../config";
+
+interface Props {
+    /** 繪圖區高度：sm（h-48）/ default（h-64）/ lg（h-80）/ square（pie、donut 用正方形） */
+    size?: "default" | "sm" | "lg" | "square";
+    class?: string;
+    [key: string]: any;
+}
+
+const { size, class: className, ...rest } = Astro.props;
+
+const baseClass = `${TOP_CLASS}-chart-canvas`;
+const sizeClass = size && size !== "default" ? `${TOP_CLASS}-chart-canvas-${size}` : undefined;
+---
+
+<div class:list={[baseClass, sizeClass, className]} {...rest}>
+    <slot />
+</div>

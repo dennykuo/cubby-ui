@@ -26,12 +26,17 @@ const CATEGORY_ORDER = [
 // ── 巢狀結構定義（wrapper → nested children） ──────────
 
 const NESTED_PARTS = {
-  header: ['title', 'description'],
+  header: ['header-content', 'title', 'description'],
+  'header-content': ['title', 'description', 'value'],
   footer: [],
   content: [],
-  body: [],
+  body: ['canvas', 'legend'],
+  legend: ['legend-item'],
   list: ['item'],
 };
+
+/** 有 header-content 時，actions 與其並列於 header 內（Chart / Page Header 式標頭）；否則 actions 為獨立區塊（如 Transfer List） */
+const HEADER_WITH_CONTENT_EXTRA = ['actions'];
 
 // ── 工具函式 ──────────────────────────────────────────
 
@@ -146,6 +151,7 @@ function generateBladeReadme(componentTree) {
   lines.push('- `--color-background` / `--color-foreground`');
   lines.push('- `--color-card` / `--color-card-foreground`');
   lines.push('- `--color-border`, `--color-input`, `--color-ring`');
+  lines.push('- `--color-chart-1` … `--color-chart-5` (chart series palette, fixed order)');
   lines.push('');
 
   lines.push('## JavaScript API');
@@ -383,34 +389,37 @@ function generateCompositeExample(tag, props, children) {
   const patterns = [
     ['header', 'title', 'description'],
     ['content'],
-    ['footer'],
     ['body'],
+    ['footer'],
     ['trigger'],
     ['list', 'item'],
     ['label', 'action'],
   ];
 
   const used = new Set();
+  // 依 NESTED_PARTS 遞迴輸出（如 Chart：header > header-content > title）
+  const renderPart = (part, depth) => {
+    const child = childMap.get(part);
+    used.add(part);
+    const indent = '  '.repeat(depth);
+    const candidates = (NESTED_PARTS[part] || []).concat(
+      part === 'header' && childMap.has('header-content') ? HEADER_WITH_CONTENT_EXTRA : []
+    );
+    const nestedParts = candidates.filter((np) => childMap.has(np) && !used.has(np));
+    if (nestedParts.length > 0) {
+      lines.push(`${indent}<${child.tag}>`);
+      for (const np of nestedParts) {
+        if (!used.has(np)) renderPart(np, depth + 1);
+      }
+      lines.push(`${indent}</${child.tag}>`);
+    } else {
+      lines.push(`${indent}<${child.tag}>${getPartContent(part)}</${child.tag}>`);
+    }
+  };
   for (const pattern of patterns) {
     for (const part of pattern) {
-      const child = childMap.get(part);
-      if (!child || used.has(part)) continue;
-      used.add(part);
-
-      const nestedParts = NESTED_PARTS[part];
-      if (nestedParts && nestedParts.some((np) => childMap.has(np) && !used.has(np))) {
-        lines.push(`<${child.tag}>`);
-        for (const np of nestedParts) {
-          const nested = childMap.get(np);
-          if (nested && !used.has(np)) {
-            used.add(np);
-            lines.push(`  <${nested.tag}>${getPartContent(np)}</${nested.tag}>`);
-          }
-        }
-        lines.push(`</${child.tag}>`);
-      } else {
-        lines.push(`  <${child.tag}>${getPartContent(part)}</${child.tag}>`);
-      }
+      if (!childMap.has(part) || used.has(part)) continue;
+      renderPart(part, 1);
     }
   }
 
@@ -443,6 +452,8 @@ const PART_CONTENT = {
   timestamp: '2 min ago',
   value: '$12,345',
   time: '2h ago',
+  canvas: '<canvas></canvas>',
+  'legend-item': 'Series',
 };
 
 function getPartContent(part) {

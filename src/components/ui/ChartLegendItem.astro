@@ -1,0 +1,24 @@
+---
+import { TOP_CLASS } from "../../config";
+
+interface Props {
+    /** 系列色彩，對應 --color-chart-1 ~ --color-chart-5 */
+    color?: "1" | "2" | "3" | "4" | "5";
+    /** 色塊形狀：square（長條 / 面積）、dot（散點）、line（折線） */
+    shape?: "square" | "dot" | "line";
+    class?: string;
+    [key: string]: any;
+}
+
+const { color = "1", shape, class: className, ...rest } = Astro.props;
+
+const baseClass = `${TOP_CLASS}-chart-legend-item`;
+const swatchClass = `${TOP_CLASS}-chart-swatch`;
+const colorClass = `${TOP_CLASS}-chart-color-${color}`;
+const shapeClass = shape && shape !== "square" ? `${TOP_CLASS}-chart-swatch-${shape}` : undefined;
+---
+
+<span class:list={[baseClass, className]} {...rest}>
+    <span class:list={[swatchClass, shapeClass, colorClass]} aria-hidden="true"></span>
+    <slot />
+</span>

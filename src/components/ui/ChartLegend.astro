@@ -1,0 +1,22 @@
+---
+import { TOP_CLASS } from "../../config";
+
+interface Props {
+    /** 置中排列 */
+    center?: boolean;
+    /** 垂直排列（適合放在 pie / donut 旁） */
+    vertical?: boolean;
+    class?: string;
+    [key: string]: any;
+}
+
+const { center, vertical, class: className, ...rest } = Astro.props;
+
+const baseClass = `${TOP_CLASS}-chart-legend`;
+const centerClass = center ? `${TOP_CLASS}-chart-legend-center` : undefined;
+const verticalClass = vertical ? `${TOP_CLASS}-chart-legend-vertical` : undefined;
+---
+
+<div class:list={[baseClass, centerClass, verticalClass, className]} {...rest}>
+    <slot />
+</div>

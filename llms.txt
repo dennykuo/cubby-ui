@@ -59,6 +59,7 @@ Semantic color tokens (CSS variables, use in Tailwind or plain CSS):
 - `--color-background` / `--color-foreground`
 - `--color-card` / `--color-card-foreground`
 - `--color-border`, `--color-input`, `--color-ring`
+- `--color-chart-1` … `--color-chart-5` — categorical chart palette (fixed order; validated for color-vision deficiency and 3:1 contrast in both modes)
 
 Dark mode: add `.dark` class on `<html>` or `<body>`.
 
@@ -568,6 +569,34 @@ Syntax highlighting: add `language-xxx` class on `<code>` element to enable thir
 <div class="cu-code-block cu-code-block-light">
   <button class="cu-code-block-copy">Copy</button>
   <pre class="cu-code-block-pre"><code>npm install cubby-ui</code></pre>
+</div>
+```
+
+**Chart** — wrapper styles for charts drawn by an external library (Chart.js, ECharts, …) or inline SVG; no charting JS is shipped
+Classes: `cu-chart` (card), `cu-chart-flat`, `cu-chart-ghost`, `cu-chart-header`, `cu-chart-header-content`, `cu-chart-title`, `cu-chart-description`, `cu-chart-value` (headline number), `cu-chart-actions`, `cu-chart-body`, `cu-chart-body-split` (canvas + legend side by side), `cu-chart-canvas` (relative, h-64), `cu-chart-canvas-sm` (h-48) / `cu-chart-canvas-lg` (h-80) / `cu-chart-canvas-square` (pie / donut), `cu-chart-footer`
+Legend: `cu-chart-legend` (+ `-center` / `-vertical`), `cu-chart-legend-item` (as `<button aria-pressed>` for toggling), `cu-chart-legend-item-inactive`, `cu-chart-legend-value`, `cu-chart-swatch` (+ `-dot` / `-line`)
+Colors: `cu-chart-color-1` … `cu-chart-color-5` set `currentColor` from `--color-chart-1` … `--color-chart-5` (use on swatches and SVG marks with `fill="currentColor"` / `stroke="currentColor"`)
+Tooltip: `cu-chart-tooltip`, `cu-chart-tooltip-label`, `cu-chart-tooltip-item`, `cu-chart-tooltip-value` (unpositioned; set left/top in your library's tooltip callback)
+Inline SVG helpers: `cu-chart-grid` (dashed gridline), `cu-chart-axis-line` (baseline), `cu-chart-axis` (tick labels)
+States (inside `cu-chart-canvas`): `cu-chart-empty` + `cu-chart-empty-title` / `cu-chart-empty-description`; `cu-chart-loading` + `cu-chart-loading-bar` (set `aria-busy="true"` on the canvas)
+Chart.js: `getComputedStyle(document.documentElement).getPropertyValue("--color-chart-1")`, `maintainAspectRatio: false`, `plugins.legend.display: false`; re-apply colors when `.dark` toggles.
+```html
+<div class="cu-chart">
+  <div class="cu-chart-header">
+    <div class="cu-chart-header-content">
+      <h3 class="cu-chart-title">Visitors</h3>
+      <p class="cu-chart-description">January – June 2026</p>
+    </div>
+  </div>
+  <div class="cu-chart-body">
+    <div class="cu-chart-canvas">
+      <canvas id="visitors-chart" role="img" aria-label="Monthly visitors by device"></canvas>
+    </div>
+    <div class="cu-chart-legend cu-chart-legend-center">
+      <span class="cu-chart-legend-item"><span class="cu-chart-swatch cu-chart-color-1"></span>Desktop</span>
+      <span class="cu-chart-legend-item"><span class="cu-chart-swatch cu-chart-color-2"></span>Mobile</span>
+    </div>
+  </div>
 </div>
 ```
 
