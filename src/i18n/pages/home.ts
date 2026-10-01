@@ -2,6 +2,8 @@ import type { Locale } from '../index';
 
 export const homePage: Record<Locale, {
   title: string;
+  /** `<meta name="description">`（純文字） */
+  metaDescription: string;
   builtOn: string;
   heroTitle: string;
   heroDescription: string;
@@ -37,6 +39,7 @@ export const homePage: Record<Locale, {
 }> = {
   en: {
     title: 'Cubby UI — Elegant Tailwind CSS Components',
+    metaDescription: 'Beautifully crafted, framework-agnostic UI components built with pure HTML and Tailwind CSS v4. Semantic cu- classes, built-in dark mode, and minimal vanilla JS. Copy, paste, and ship.',
     builtOn: 'Built on Tailwind CSS v4',
     heroTitle: 'Beautifully crafted<br />UI components',
     heroDescription: 'Framework-agnostic. Pure HTML &amp; Tailwind CSS.<br class="hidden sm:block" />Copy, paste, and ship.',
@@ -84,6 +87,7 @@ export const homePage: Record<Locale, {
   },
   'zh-tw': {
     title: 'Cubby UI — 優雅的 Tailwind CSS 元件',
+    metaDescription: '精心打造的框架無關 UI 元件，以純 HTML 與 Tailwind CSS v4 構建。語意化 cu- class、內建深色模式、極少量原生 JS，複製、貼上即可上線。',
     builtOn: '基於 Tailwind CSS v4',
     heroTitle: '精心打造的<br />UI 元件',
     heroDescription: '框架無關。純 HTML 與 Tailwind CSS。<br class="hidden sm:block" />複製、貼上、上線。',

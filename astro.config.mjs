@@ -5,6 +5,7 @@ import { join, relative, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import expressiveCode from 'astro-expressive-code';
+import sitemap from '@astrojs/sitemap';
 import { buildCubbyUiJs } from './scripts/build-js.mjs';
 
 /**
@@ -110,6 +111,18 @@ function cubbyUiJsBundle() {
 const site = process.env.SITE_URL || undefined;
 const base = process.env.BASE_PATH || '/';
 
+// sitemap 需要絕對網址，只在設定 SITE_URL 時產生（本機未設定時不載入，避免警告）。
+// 排除範例裡的 404 示範頁（examples/dashboard/404 等）；@astrojs/sitemap 只會自動略過站台根層的 404。
+const sitemapIntegration = site
+  ? [sitemap({
+      filter: (page) => !/\/404\/?$/.test(new URL(page).pathname),
+      i18n: {
+        defaultLocale: 'en',
+        locales: { en: 'en', 'zh-tw': 'zh-TW' },
+      },
+    })]
+  : [];
+
 // https://astro.build/config
 export default defineConfig({
   site,
@@ -148,5 +161,5 @@ export default defineConfig({
         shadowColor: 'transparent',
       }
     }
-  })],
+  }), ...sitemapIntegration],
 });

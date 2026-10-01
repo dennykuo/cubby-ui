@@ -15,11 +15,11 @@ Cubby UI 是一個框架無關的 UI 元件庫，風格類似 shadcn/ui，使用
 - `npm run build:js` — 只重新打包 `dist/core/cubby-ui.js`
 - `npm run build:blade` — 將 Astro 元件轉換為 Laravel Blade 匿名元件，輸出至 `dist/laravel/components/cu/`（支援 `--dry-run` 預覽不寫入、`--verbose` 詳細輸出）
 - `npm run build:all` — 一次建置全部（`build` + `build:blade`），也作為 `prepare` script 在 git URL 安裝時自動執行
-- `npm run build:docs` — 建置文檔站點至 `docs/`（自動先執行 `i18n:routes`）。可設 `BASE_PATH`（如 `/cubby-ui`）與 `SITE_URL` 環境變數指定部署子路徑，未設定時為根目錄
+- `npm run build:docs` — 建置文檔站點至 `docs/`（自動先執行 `i18n:routes`）。可設 `BASE_PATH`（如 `/cubby-ui`）與 `SITE_URL`（如 `https://dennykuo.github.io`）環境變數指定部署子路徑與網域，未設定時為根目錄；有 `SITE_URL` 時才產生 sitemap 與 canonical 絕對網址
 - `npm run check:links` — 掃描 `docs/` 所有頁面的 `href` / `src` / `action`，確認站內根路徑連結都帶 base、目標檔案存在（`BASE_PATH` 需與建置時相同；略過 `<template>` 預覽片段與 `<pre>` / `<code>`）
 - `npm run preview` — 預覽建置結果
 - `npm run test:blade` — 對 `dist/laravel/` 下所有 `.blade.php` 做回歸檢查：已知壞 pattern（`,,`、空陣列元素、未轉譯 JSX 屬性）、並萃取 `@class` / `@props` / `@if` / `{{ … }}` 中的 PHP 片段以 `php -l` 驗證（安裝 PHP 時生效，可加 `--skip-php` 略過）
-- `npm run test:e2e` — Playwright 互動元件測試（`tests/e2e/*.spec.ts`），對 `dist/core/cubby-ui.{css,js}` 出貨產物執行，fixture 為 `tests/e2e/fixtures/*.html` 靜態頁；需先 `npm run build`。另含 `docs-smoke.spec.ts`：逐頁載入 `docs/` 產出的元件頁與範例頁，檢查無未捕捉例外、無 console error、重複 `init()` / `refresh()` 安全、同源資源無 4xx / 5xx（`docs/` 不存在時自動略過，CI 會先 `build:docs`；設 `BASE_PATH` 時只在該子路徑下伺服 `docs/`，模擬 GitHub Pages）。無法下載瀏覽器的環境可設 `PLAYWRIGHT_CHROMIUM_EXECUTABLE` 指向既有 Chromium
+- `npm run test:e2e` — Playwright 互動元件測試（`tests/e2e/*.spec.ts`），對 `dist/core/cubby-ui.{css,js}` 出貨產物執行，fixture 為 `tests/e2e/fixtures/*.html` 靜態頁；需先 `npm run build`。另含 `docs-smoke.spec.ts`：逐頁載入 `docs/` 產出的元件頁與範例頁，檢查無未捕捉例外、無 console error、重複 `init()` / `refresh()` 安全、同源資源無 4xx / 5xx；`docs SEO` 組驗證每頁 description 專屬且為純文字、Open Graph / hreflang 標籤，建置時有 `SITE_URL`（首頁有 canonical）才驗證 canonical / sitemap / robots.txt 的絕對網址，否則改驗證不輸出這些（`docs/` 不存在時自動略過，CI 會先 `build:docs`；設 `BASE_PATH` 時只在該子路徑下伺服 `docs/`，模擬 GitHub Pages）。無法下載瀏覽器的環境可設 `PLAYWRIGHT_CHROMIUM_EXECUTABLE` 指向既有 Chromium
 - `npm run test` — 依序執行 `check:sync` → `test:blade` → `test:e2e`
 - `npm run check:sync` — 元件清單跨來源一致性檢查（`component-nav.ts` / 頁面 / i18n / CSS / `components.json` / `llms.txt` / README 元件分類表），並雙向比對 `src/scripts/` 各模組使用的 `data-cu-*` 與 `cubby-ui.d.ts` 的 `DATA_ATTRS`
 - `npm run type-check` — `astro check`（`tsconfig.json` 已排除 `dist/` 與 `docs/`）
@@ -37,13 +37,16 @@ Cubby UI 是一個框架無關的 UI 元件庫，風格類似 shadcn/ui，使用
 
 ### 部署（GitHub Pages）
 
-`.github/workflows/deploy-docs.yml` 在 `main` 的 CI 成功後（`workflow_run`）或手動觸發時，以 `actions/configure-pages` 取得網址與子路徑，帶入 `SITE_URL` / `BASE_PATH` 執行 `build:docs` → `check:links`，再以 `upload-pages-artifact` + `deploy-pages` 發布 `docs/`。專案站網址為 `https://dennykuo.github.io/cubby-ui/`（repo Settings → Pages 的 Source 須設為 GitHub Actions）。CI（`ci.yml`）同樣以 `BASE_PATH=/cubby-ui` 建置文檔站並跑連結檢查與 smoke test，驗證的即是部署設定。
+`.github/workflows/deploy-docs.yml` 在 `main` 的 CI 成功後（`workflow_run`）或手動觸發時，以 `actions/configure-pages` 取得網址與子路徑，帶入 `SITE_URL` / `BASE_PATH` 執行 `build:docs` → `check:links`，再以 `upload-pages-artifact` + `deploy-pages` 發布 `docs/`。專案站網址為 `https://dennykuo.github.io/cubby-ui/`（repo Settings → Pages 的 Source 須設為 GitHub Actions）。CI（`ci.yml`）同樣以 `SITE_URL=https://dennykuo.github.io` + `BASE_PATH=/cubby-ui` 建置文檔站並跑連結檢查與 smoke test，驗證的即是部署設定。
+
+**SEO**：`Layout.astro` 依頁面輸出 meta description、Open Graph（`og:title` / `og:description` / `og:type` / `og:site_name` / `og:locale`（`en_US` / `zh_TW`）+ `og:locale:alternate`）、`twitter:card=summary` 與 hreflang（`en` / `zh-TW` / `x-default` 指向英文版）。設定 `SITE_URL`（`astro.config.mjs` 的 `site`）時另輸出含 base 的絕對網址：`<link rel="canonical">`、`og:url`、hreflang（尾端加斜線，與 GitHub Pages 實際網址及 sitemap 一致，由 `src/utils/seo.ts` 的 `absoluteUrl()` 產生）與 `<link rel="sitemap">`；未設定時不輸出 canonical / `og:url` / sitemap，hreflang 為站內相對路徑。`@astrojs/sitemap` 只在有 `SITE_URL` 時載入，產生 `sitemap-index.xml`（含 en / zh-TW 對應，排除 `examples/**/404` 示範頁）；`src/pages/robots.txt.ts` 以 endpoint 產生 `robots.txt`（有 site 時列出 sitemap 絕對網址；i18n 路由同步只複製 `.astro`，不會產生 `/zh-tw/robots.txt`）。注意 GitHub Pages 專案站的 `robots.txt` 位於子路徑，爬蟲只認網域根目錄的 robots.txt，sitemap 實際上需透過 `<link rel="sitemap">` 或 Search Console 提交。
 
 **站內路徑規則**：`astro.config.mjs` 的 `base` 來自 `BASE_PATH`，所有站內連結必須經過 `src/utils/paths.ts`：
 - 文檔頁連結用 `localizePath(path, locale)`（已含 base）；語言切換用 `getAlternatePath()`（輸入可含 base，輸出含 base）
 - 其他根路徑連結（範例頁、favicon、表單 `action`）用 `withBase("/examples/...")`；非根路徑（`#`、外部 URL）原樣回傳
 - 比對目前頁面時先 `stripBase(Astro.url.pathname)` 再與導航資料（不含 base）比較；`getLocaleFromUrl()` 已內建
 - 不要在 `.astro` 中寫死 `href="/..."`，CI 的 `check:links` 會失敗；靜態資源放 `public/`（目前僅 `favicon.svg`）
+- 每個使用 `Layout` 的頁面都要傳 `description`：元件頁為 `<Layout … description={t.description}>`（翻譯檔頂層 `description`，即頁面副標題；含 `<code>` 等 HTML 時 Layout 以 `toPlainText()` 轉純文字），核心頁用各自翻譯檔的 `description`（首頁為 `home.ts` 的 `metaDescription`）。未傳入時退回 `ui.ts` 的 `siteDescription`，`docs-smoke.spec.ts` 的 `docs SEO` 測試會因此失敗（也會檢查各頁描述不重複）
 
 ### 國際化（i18n）
 
@@ -227,7 +230,8 @@ src/
 │   ├── cubby-ui.d.ts             — TypeScript 型別定義（打包來源）
 │   └── playground.js             — Playground 頁面客戶端邏輯（IIFE，元件 registry + 控制項 + 主題）
 ├── utils/
-│   └── paths.ts                  — withBase() / stripBase()：站內路徑與 Astro base（GitHub Pages 子路徑）轉換
+│   ├── paths.ts                  — withBase() / stripBase()：站內路徑與 Astro base（GitHub Pages 子路徑）轉換
+│   └── seo.ts                    — toPlainText()（翻譯字串 HTML → meta 純文字）、absoluteUrl()（含 base 的絕對網址，補尾端斜線）
 ├── data/
 │   └── component-nav.ts          — 共享導航資料（Sidebar + PrevNext 共用，single source of truth）
 ├── i18n/
@@ -337,10 +341,11 @@ src/
 ├── config.ts                      — 全域配置（TOP_CLASS = 'cu'）
 ├── types.ts                       — 共用 TypeScript 型別（FeedbackVariant 等）
 ├── layouts/
-│   └── Layout.astro               — 主布局（引入 Header + Sidebar，wide prop 移除 max-w-3xl 限制）
+│   └── Layout.astro               — 主布局（引入 Header + Sidebar，wide prop 移除 max-w-3xl 限制；description prop 輸出 meta description / Open Graph，有 site 時輸出 canonical 與絕對網址 hreflang）
 ├── pages/
 │   ├── index.astro                — 首頁
 │   ├── playground.astro           — Playground 互動式元件探索頁（wide layout）
+│   ├── robots.txt.ts              — robots.txt endpoint（有 SITE_URL 時列出含 base 的 sitemap 網址）
 │   ├── zh-tw/                     — 繁中路由（自動產生，已 gitignore）
 │   └── components/                — 元件文檔頁面
 │       ├── accordion.astro
@@ -657,7 +662,7 @@ Header logo 與 sidebar 連結文字齊左：
 1. **CSS**：在 `src/styles/components/` 建立獨立 `.css` 檔案定義 CSS 類別（使用 `cu-` 前綴），並在 `src/styles/components.css` 的 `@layer components` 對應區塊（BASIC / FORMS / DATA DISPLAY / CONTENT / FEEDBACK / OVERLAY / NAVIGATION / LAYOUT / AI）加入 `@import` 語句
 2. **Astro 元件**：在 `src/components/ui/` 建立對應的 `.astro` 元件檔（必須包含 `interface Props` 型別定義，使用 `class:list` 處理 class 組合）
 3. **i18n 翻譯**：在 `src/i18n/pages/components/` 建立翻譯檔（`Record<Locale, {...}>` 格式，包含 en/zh-tw 翻譯）
-4. **文檔頁面**：在 `src/pages/components/` 建立文檔頁面（使用 `ComponentPreview` 展示，含 Preview + Code 兩個 tab；引入翻譯並使用 `getLocaleFromUrl` + `useTranslations`，inline code 使用 `cu-code` class；code 範例使用 `cu-` class 系統，非原始 Tailwind utilities）
+4. **文檔頁面**：在 `src/pages/components/` 建立文檔頁面（使用 `ComponentPreview` 展示，含 Preview + Code 兩個 tab；引入翻譯並使用 `getLocaleFromUrl` + `useTranslations`，`<Layout>` 傳入 `description={t.description}`（翻譯檔頂層 `description` 需為該頁專屬的一句描述，作為 meta description / `og:description`）；inline code 使用 `cu-code` class；code 範例使用 `cu-` class 系統，非原始 Tailwind utilities）
 5. **導航**：在 `src/data/component-nav.ts` 中將元件加入對應的導航陣列（layouts / basic / typography / navigation / dataDisplay / content / forms / feedback / overlay / ai），並把元件名加進 `README.md` 元件分類表的同一分類列（`check:sync` 會檢查）
 6. **components.json**：在根目錄 `components.json` 新增元件規格（`cssClasses`、`dataAttributes`、`aria`、`notes`、`example`）
 7. **llms.txt**：在根目錄 `llms.txt` 對應分類區塊加入元件說明（CSS class 清單 + HTML 範例）
