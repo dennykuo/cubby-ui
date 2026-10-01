@@ -1,9 +1,10 @@
 ---
+import type { HTMLAttributes } from "astro/types";
 import { TOP_CLASS } from "../../config";
 
-interface Props {
+// type 固定為 radio
+interface Props extends Omit<HTMLAttributes<"input">, "type"> {
 	class?: string;
-	[key: string]: any;
 }
 
 const { class: className, ...rest } = Astro.props;

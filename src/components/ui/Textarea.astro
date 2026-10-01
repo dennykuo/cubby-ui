@@ -1,11 +1,11 @@
 ---
+import type { HTMLAttributes } from "astro/types";
 import { TOP_CLASS } from "../../config";
 
-interface Props {
+interface Props extends HTMLAttributes<"textarea"> {
 	variant?: "default" | "error" | "success";
 	auto?: boolean;
 	class?: string;
-	[key: string]: any;
 }
 
 const { variant, auto = false, class: className, ...rest } = Astro.props;

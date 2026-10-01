@@ -521,7 +521,7 @@ src/
 
 所有 UI 元件統一使用 `interface Props` 型別定義和 `class:list` 處理 class 組合。分為三種模式：
 
-1. **Simple**（Label, Input, Textarea, Checkbox, Radio, Range, FormGroup, Card 子元件, Header 子元件, Sidebar 子元件, Alert 子元件, Avatar 子元件, Dialog 子元件, Dropdown 子元件, Breadcrumb 子元件, Table 子元件, Accordion 子元件, Skeleton, Pagination 等）— 定義 `interface Props { class?: string; [key: string]: any; }`，提取 `class` + `...rest`，使用 `class:list={[baseClass, className]}` 和 `<slot />`。
+1. **Simple**（Label, Input, Textarea, Checkbox, Radio, Range, FormGroup, Card 子元件, Header 子元件, Sidebar 子元件, Alert 子元件, Avatar 子元件, Dialog 子元件, Dropdown 子元件, Breadcrumb 子元件, Table 子元件, Accordion 子元件, Skeleton, Pagination 等）— 定義 `interface Props { class?: string; [key: string]: any; }`，提取 `class` + `...rest`，使用 `class:list={[baseClass, className]}` 和 `<slot />`。原生表單元件（Input、Textarea、Select、Checkbox、Radio）改以 `interface Props extends HTMLAttributes<"input">`（`import type { HTMLAttributes } from "astro/types"`）取得 `disabled` / `required` / `placeholder` 等原生屬性型別，不用 `[key: string]: any`；與自訂 prop 衝突的原生屬性以 `Omit` 排除（Input 的 `size`、Checkbox / Radio 的 `type`）。Blade 轉換器只解析 `Astro.props` 解構，不受 `interface` 寫法影響。
 2. **Composite**（SearchInput, Select, Progress）— 包含包裝器 + 內部子元素（如圖示、輸入框、進度條），props 轉發給內部元素。
 3. **Complex**（Button, Toggle, Container, Nav, NavItem, SidebarItem, Badge, Alert, Avatar, PaginationItem）— 有 `variant` / `size` / `active` / `vertical` 等 typed props，使用 `class:list` 組合多個條件 class。
 

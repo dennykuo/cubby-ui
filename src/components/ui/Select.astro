@@ -1,9 +1,10 @@
 ---
+import type { HTMLAttributes } from "astro/types";
 import { TOP_CLASS } from "../../config";
 
-interface Props {
+// class 套用在外層 wrapper，其餘屬性透傳給 <select>
+interface Props extends HTMLAttributes<"select"> {
 	class?: string;
-	[key: string]: any;
 }
 
 const { class: className, ...rest } = Astro.props;
