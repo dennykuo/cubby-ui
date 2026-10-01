@@ -39,17 +39,17 @@ export function setupColorPickers() {
     return [h * 360, s, v];
   }
 
-  document.querySelectorAll("[data-cu-color-picker]").forEach(function (picker) {
+  document.querySelectorAll("[data-cu-color-picker]").forEach(function (/** @type {HTMLElement} */ picker) {
     if (picker._cuInit) return;
     picker._cuInit = true;
 
-    var satPanel = picker.querySelector("[data-cu-color-picker-saturation]");
-    var satPointer = picker.querySelector("[data-cu-color-picker-saturation-pointer]");
+    var satPanel = /** @type {HTMLElement} */ (picker.querySelector("[data-cu-color-picker-saturation]"));
+    var satPointer = /** @type {HTMLElement} */ (picker.querySelector("[data-cu-color-picker-saturation-pointer]"));
     var hueBar = picker.querySelector("[data-cu-color-picker-hue]");
-    var huePointer = picker.querySelector("[data-cu-color-picker-hue-pointer]");
-    var preview = picker.querySelector("[data-cu-color-picker-preview]");
-    var hexInput = picker.querySelector("[data-cu-color-picker-input]");
-    var hiddenInput = picker.querySelector("[data-cu-color-picker-hidden]");
+    var huePointer = /** @type {HTMLElement} */ (picker.querySelector("[data-cu-color-picker-hue-pointer]"));
+    var preview = /** @type {HTMLElement} */ (picker.querySelector("[data-cu-color-picker-preview]"));
+    var hexInput = /** @type {HTMLInputElement} */ (picker.querySelector("[data-cu-color-picker-input]"));
+    var hiddenInput = /** @type {HTMLInputElement} */ (picker.querySelector("[data-cu-color-picker-hidden]"));
     var swatches = picker.querySelectorAll("[data-cu-color-picker-swatch]");
     if (!satPanel || !hueBar) return;
 
@@ -126,7 +126,7 @@ export function setupColorPickers() {
       });
     }
 
-    swatches.forEach(function (swatch) {
+    swatches.forEach(function (/** @type {HTMLElement} */ swatch) {
       swatch.addEventListener("click", function () {
         var color = swatch.dataset.cuColorPickerSwatch;
         if (color && /^#[0-9a-fA-F]{3,6}$/.test(color)) {

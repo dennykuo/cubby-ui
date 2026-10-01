@@ -23,7 +23,7 @@ export function setupNumberInputs() {
       if (container._cuInit) return;
       container._cuInit = true;
 
-      var field = container.querySelector("[data-cu-number-field]");
+      var field = /** @type {HTMLInputElement} */ (container.querySelector("[data-cu-number-field]"));
       var decrement = container.querySelector("[data-cu-number-decrement]");
       var increment = container.querySelector("[data-cu-number-increment]");
       if (!field) return;
@@ -46,7 +46,7 @@ export function setupNumberInputs() {
           var current = Number(field.value) || 0;
           var next = roundToStep(current - getStep(), getStep());
           if (next >= getMin()) {
-            field.value = next;
+            field.value = String(next);
             field.dispatchEvent(new Event("input", { bubbles: true }));
           }
         });
@@ -56,7 +56,7 @@ export function setupNumberInputs() {
           var current = Number(field.value) || 0;
           var next = roundToStep(current + getStep(), getStep());
           if (next <= getMax()) {
-            field.value = next;
+            field.value = String(next);
             field.dispatchEvent(new Event("input", { bubbles: true }));
           }
         });
@@ -65,9 +65,9 @@ export function setupNumberInputs() {
       field.addEventListener("change", function () {
         var raw = field.value.trim();
         if (raw === "" || isNaN(Number(raw))) {
-          field.value = clampValue(0, getMin(), getMax());
+          field.value = String(clampValue(0, getMin(), getMax()));
         } else {
-          field.value = clampValue(roundToStep(Number(raw), getStep()), getMin(), getMax());
+          field.value = String(clampValue(roundToStep(Number(raw), getStep()), getMin(), getMax()));
         }
         field.dispatchEvent(new Event("input", { bubbles: true }));
       });

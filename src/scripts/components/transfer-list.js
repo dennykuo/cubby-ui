@@ -42,8 +42,8 @@ export function setupTransferLists() {
       var rightPanel = container.querySelector(
         '[data-cu-transfer-panel="right"]'
       );
-      var toRight = container.querySelector("[data-cu-transfer-to-right]");
-      var toLeft = container.querySelector("[data-cu-transfer-to-left]");
+      var toRight = /** @type {HTMLButtonElement} */ (container.querySelector("[data-cu-transfer-to-right]"));
+      var toLeft = /** @type {HTMLButtonElement} */ (container.querySelector("[data-cu-transfer-to-left]"));
       if (!leftPanel || !rightPanel) return;
 
       function getChecked(panel) {
@@ -74,9 +74,9 @@ export function setupTransferLists() {
         var side = panel.dataset.cuTransferPanel;
         var all = getAllItems(panel);
         var checked = getChecked(panel);
-        var checkAll = container.querySelector(
+        var checkAll = /** @type {HTMLInputElement} */ (container.querySelector(
           '[data-cu-transfer-check-all="' + side + '"]'
-        );
+        ));
         if (checkAll) {
           checkAll.checked =
             all.length > 0 && checked.length === all.length;
@@ -101,14 +101,14 @@ export function setupTransferLists() {
         });
 
         var side = panel.dataset.cuTransferPanel;
-        var checkAll = container.querySelector(
+        var checkAll = /** @type {HTMLInputElement} */ (container.querySelector(
           '[data-cu-transfer-check-all="' + side + '"]'
-        );
+        ));
         checkAll &&
           checkAll.addEventListener("change", function () {
             var items = getAllItems(panel);
             items.forEach(function (item) {
-              var cb = item.querySelector("[data-cu-transfer-check]");
+              var cb = /** @type {HTMLInputElement} */ (item.querySelector("[data-cu-transfer-check]"));
               if (cb) {
                 cb.checked = checkAll.checked;
                 item.classList.toggle(
@@ -122,9 +122,9 @@ export function setupTransferLists() {
           });
 
         // Search filtering
-        var searchInput = container.querySelector(
+        var searchInput = /** @type {HTMLInputElement} */ (container.querySelector(
           '[data-cu-transfer-search="' + side + '"]'
-        );
+        ));
         searchInput &&
           searchInput.addEventListener("input", function () {
             var query = searchInput.value.toLowerCase();

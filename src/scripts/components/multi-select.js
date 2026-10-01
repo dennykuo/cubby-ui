@@ -37,14 +37,14 @@ export function setupMultiSelects() {
       if (ms._cuInit) return;
       ms._cuInit = true;
 
-      var trigger = ms.querySelector("[data-cu-multi-select-trigger]");
+      var trigger = /** @type {HTMLElement} */ (ms.querySelector("[data-cu-multi-select-trigger]"));
       var content = ms.querySelector("[data-cu-multi-select-content]");
-      var input = ms.querySelector("[data-cu-multi-select-input]");
+      var input = /** @type {HTMLInputElement} */ (ms.querySelector("[data-cu-multi-select-input]"));
       var empty = ms.querySelector("[data-cu-multi-select-empty]");
       var tagsEl = ms.querySelector("[data-cu-multi-select-tags]");
-      var placeholder = ms.querySelector(
+      var placeholder = /** @type {HTMLElement} */ (ms.querySelector(
         "[data-cu-multi-select-placeholder]"
-      );
+      ));
       var selected = new Set();
 
       // Dynamic items query — always returns fresh NodeList
@@ -65,7 +65,7 @@ export function setupMultiSelects() {
         trigger.setAttribute("aria-haspopup", "listbox");
         trigger.setAttribute("aria-expanded", "false");
         // 未指定 type 的 <button> 在 <form> 內預設為 submit，開啟面板會送出表單
-        if (trigger.tagName === "BUTTON" && !trigger.hasAttribute("type")) trigger.type = "button";
+        if (trigger.tagName === "BUTTON" && !trigger.hasAttribute("type")) /** @type {HTMLButtonElement} */ (trigger).type = "button";
       }
       if (content) {
         var list = content.querySelector("[data-cu-multi-select-list]") || content;
@@ -75,7 +75,7 @@ export function setupMultiSelects() {
       syncItemsAria();
 
       // Init from preset active items
-      getItems().forEach(function (item) {
+      getItems().forEach(function (/** @type {HTMLElement} */ item) {
         if (item.classList.contains("cu-multi-select-item-active")) {
           selected.add(item.dataset.cuValue || "");
         }
@@ -94,8 +94,9 @@ export function setupMultiSelects() {
           if (placeholder) placeholder.hidden = true;
           selected.forEach(function (val) {
             // 逐一比對而非組 selector 字串：值含引號、反斜線時 querySelector 會拋錯
+            /** @type {HTMLElement | null} */
             var item = null;
-            getItems().forEach(function (i) {
+            getItems().forEach(function (/** @type {HTMLElement} */ i) {
               if (!item && (i.dataset.cuValue || "") === val) item = i;
             });
             if (!item) return;
@@ -186,7 +187,7 @@ export function setupMultiSelects() {
 
       content &&
         content.addEventListener("click", function (e) {
-          var item = e.target.closest("[data-cu-multi-select-item]");
+          var item = /** @type {HTMLElement} */ (/** @type {Element} */ (e.target).closest("[data-cu-multi-select-item]"));
           if (!item) return;
           e.stopPropagation();
           var val = item.dataset.cuValue || "";

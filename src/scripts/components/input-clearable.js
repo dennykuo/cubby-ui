@@ -17,8 +17,8 @@ export function setupInputClearables() {
     if (el._cuInit) return;
     el._cuInit = true;
 
-    var input = el.querySelector(".cu-input-clearable, input");
-    var btn = el.querySelector("[data-cu-input-clear]");
+    var input = /** @type {HTMLInputElement} */ (el.querySelector(".cu-input-clearable, input"));
+    var btn = /** @type {HTMLElement} */ (el.querySelector("[data-cu-input-clear]"));
     if (!input || !btn) return;
 
     function toggle() {

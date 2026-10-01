@@ -35,9 +35,9 @@ export function setupComboboxes() {
     if (combobox._cuInit) return;
     combobox._cuInit = true;
 
-    var trigger = combobox.querySelector("[data-cu-combobox-trigger]");
+    var trigger = /** @type {HTMLElement} */ (combobox.querySelector("[data-cu-combobox-trigger]"));
     var content = combobox.querySelector("[data-cu-combobox-content]");
-    var input = combobox.querySelector("[data-cu-combobox-input]");
+    var input = /** @type {HTMLInputElement} */ (combobox.querySelector("[data-cu-combobox-input]"));
     var empty = combobox.querySelector("[data-cu-combobox-empty]");
     var valueEl = combobox.querySelector("[data-cu-combobox-value]");
 
@@ -59,7 +59,7 @@ export function setupComboboxes() {
       trigger.setAttribute("aria-haspopup", "listbox");
       trigger.setAttribute("aria-expanded", "false");
       // 未指定 type 的 <button> 在 <form> 內預設為 submit，開啟面板會送出表單
-      if (trigger.tagName === "BUTTON" && !trigger.hasAttribute("type")) trigger.type = "button";
+      if (trigger.tagName === "BUTTON" && !trigger.hasAttribute("type")) /** @type {HTMLButtonElement} */ (trigger).type = "button";
     }
     if (content) {
       var list = content.querySelector("[data-cu-combobox-list]") || content;
@@ -122,7 +122,7 @@ export function setupComboboxes() {
 
     content &&
       content.addEventListener("click", function (e) {
-        var item = e.target.closest("[data-cu-combobox-item]");
+        var item = /** @type {HTMLElement} */ (/** @type {Element} */ (e.target).closest("[data-cu-combobox-item]"));
         if (!item) return;
         if (valueEl) {
           valueEl.textContent = item.textContent;

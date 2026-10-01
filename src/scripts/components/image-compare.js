@@ -15,7 +15,7 @@ import { registry } from "../core/registry.js";
  *   </div>
  */
 export function setupImageCompares() {
-  document.querySelectorAll("[data-cu-image-compare]").forEach(function (el) {
+  document.querySelectorAll("[data-cu-image-compare]").forEach(function (/** @type {HTMLElement} */ el) {
     if (el._cuInit) return;
     el._cuInit = true;
 

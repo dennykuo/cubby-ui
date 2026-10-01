@@ -1,0 +1,30 @@
+{
+  // 互動元件 JS（src/scripts/）的型別檢查設定：`npm run type-check:scripts`（`npm run type-check` 會一併執行）。
+  // 原始碼維持 ES5 風格的 JS，型別以 JSDoc 註記與 src/scripts/globals.d.ts 補充，不輸出任何檔案。
+  // playground.js 是文檔站專用 IIFE、cubby-ui.d.ts 是對外公開型別（原樣複製到 dist/），皆不在範圍內。
+  "compilerOptions": {
+    "target": "es2015",
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    // 對應打包產物實際依賴的執行期 API（例如 String.prototype.padStart），誤用更新的 API 會報錯
+    "lib": ["es2017", "dom", "dom.iterable"],
+    "allowJs": true,
+    "checkJs": true,
+    "noEmit": true,
+    // 未開啟 strict：DOM 查詢結果的 null 檢查（strictNullChecks）與隱含 any 參數（noImplicitAny）
+    // 需要大量註記才能滿足，先以「屬性不存在 / 型別不相容」等可直接抓到 bug 的檢查為主
+    "strict": false,
+    "noImplicitThis": true,
+    "allowUnreachableCode": false,
+    "allowUnusedLabels": false,
+    "skipLibCheck": true,
+    // 不載入 @types/node 等全域型別，避免 setTimeout / process 等 Node 型別混入瀏覽器程式碼
+    "types": []
+  },
+  "include": [
+    "src/scripts/globals.d.ts",
+    "src/scripts/index.js",
+    "src/scripts/core/*.js",
+    "src/scripts/components/*.js"
+  ]
+}

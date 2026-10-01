@@ -4,7 +4,7 @@ export function setupSegmentedControls() {
     if (control._cuInit) return;
     control._cuInit = true;
 
-    var inputs = control.querySelectorAll(".cu-segmented-input");
+    var inputs = /** @type {NodeListOf<HTMLInputElement>} */ (control.querySelectorAll(".cu-segmented-input"));
 
     if (inputs.length) {
       // Radio input mode

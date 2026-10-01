@@ -4,7 +4,7 @@ export function setupPinInputs() {
     if (container._cuInit) return;
     container._cuInit = true;
 
-    var fields = container.querySelectorAll(".cu-pin-input-field");
+    var fields = /** @type {NodeListOf<HTMLInputElement>} */ (container.querySelectorAll(".cu-pin-input-field"));
     var isNumeric = container.getAttribute("data-cu-pin-input-type") === "numeric";
 
     fields.forEach(function (field, index) {

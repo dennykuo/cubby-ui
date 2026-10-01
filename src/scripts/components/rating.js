@@ -32,7 +32,7 @@ export function setupRatings() {
     }
 
     el.addEventListener("mouseover", function (e) {
-      var star = e.target.closest("[data-cu-rating-star]");
+      var star = /** @type {Element} */ (e.target).closest("[data-cu-rating-star]");
       if (!star) return;
       var v = parseInt(star.getAttribute("data-cu-rating-star"), 10);
       updateStars(v);
@@ -44,10 +44,10 @@ export function setupRatings() {
     });
 
     el.addEventListener("click", function (e) {
-      var star = e.target.closest("[data-cu-rating-star]");
+      var star = /** @type {Element} */ (e.target).closest("[data-cu-rating-star]");
       if (!star) return;
       var v = parseInt(star.getAttribute("data-cu-rating-star"), 10);
-      el.setAttribute("data-cu-rating-value", v);
+      el.setAttribute("data-cu-rating-value", String(v));
       updateStars(v);
       el.dispatchEvent(new CustomEvent("cu:rating:change", { detail: { value: v }, bubbles: true }));
     });

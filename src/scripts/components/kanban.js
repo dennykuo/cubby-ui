@@ -15,14 +15,14 @@ import { registry } from "../core/registry.js";
  *   </div>
  */
 export function setupKanbans() {
-  document.querySelectorAll("[data-cu-kanban]").forEach(function (el) {
+  document.querySelectorAll("[data-cu-kanban]").forEach(function (/** @type {HTMLElement} */ el) {
     if (el._cuInit) return;
     el._cuInit = true;
 
     var draggedCard = null;
 
     el.addEventListener("dragstart", function (e) {
-      var card = e.target.closest("[data-cu-kanban-card]");
+      var card = /** @type {Element} */ (e.target).closest("[data-cu-kanban-card]");
       if (!card) return;
       draggedCard = card;
       setTimeout(function () { card.classList.add("cu-kanban-card-dragging"); }, 0);
@@ -32,7 +32,7 @@ export function setupKanbans() {
     el.addEventListener("dragover", function (e) {
       e.preventDefault();
       e.dataTransfer.dropEffect = "move";
-      var body = e.target.closest("[data-cu-kanban-column-body]");
+      var body = /** @type {Element} */ (e.target).closest("[data-cu-kanban-column-body]");
       if (body && !body.classList.contains("cu-kanban-column-body-dragover")) {
         el.querySelectorAll("[data-cu-kanban-column-body]").forEach(function (b) {
           b.classList.remove("cu-kanban-column-body-dragover");
@@ -42,15 +42,15 @@ export function setupKanbans() {
     });
 
     el.addEventListener("dragleave", function (e) {
-      var body = e.target.closest("[data-cu-kanban-column-body]");
-      if (body && !body.contains(e.relatedTarget)) {
+      var body = /** @type {Element} */ (e.target).closest("[data-cu-kanban-column-body]");
+      if (body && !body.contains(/** @type {Node} */ (e.relatedTarget))) {
         body.classList.remove("cu-kanban-column-body-dragover");
       }
     });
 
     el.addEventListener("drop", function (e) {
       e.preventDefault();
-      var body = e.target.closest("[data-cu-kanban-column-body]");
+      var body = /** @type {Element} */ (e.target).closest("[data-cu-kanban-column-body]");
       if (body && draggedCard) {
         body.appendChild(draggedCard);
         body.classList.remove("cu-kanban-column-body-dragover");
@@ -60,7 +60,7 @@ export function setupKanbans() {
           var count = col.querySelector(".cu-kanban-column-count");
           var colBody = col.querySelector("[data-cu-kanban-column-body]");
           if (count && colBody) {
-            count.textContent = colBody.querySelectorAll("[data-cu-kanban-card]").length;
+            count.textContent = String(colBody.querySelectorAll("[data-cu-kanban-card]").length);
           }
         });
 

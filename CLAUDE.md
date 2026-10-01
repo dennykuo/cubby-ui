@@ -22,9 +22,9 @@ Cubby UI 是一個框架無關的 UI 元件庫，風格類似 shadcn/ui，使用
 - `npm run test:e2e` — Playwright 互動元件測試（`tests/e2e/*.spec.ts`），對 `dist/core/cubby-ui.{css,js}` 出貨產物執行，fixture 為 `tests/e2e/fixtures/*.html` 靜態頁；需先 `npm run build`。另含 `docs-smoke.spec.ts`：逐頁載入 `docs/` 產出的元件頁與範例頁，檢查無未捕捉例外、無 console error、重複 `init()` / `refresh()` 安全、同源資源無 4xx / 5xx；`docs SEO` 組驗證每頁 description 專屬且為純文字、Open Graph / hreflang 標籤，建置時有 `SITE_URL`（首頁有 canonical）才驗證 canonical / sitemap / robots.txt 的絕對網址，否則改驗證不輸出這些（`docs/` 不存在時自動略過，CI 會先 `build:docs`；設 `BASE_PATH` 時只在該子路徑下伺服 `docs/`，模擬 GitHub Pages）。無法下載瀏覽器的環境可設 `PLAYWRIGHT_CHROMIUM_EXECUTABLE` 指向既有 Chromium
 - `npm run test` — 依序執行 `check:sync` → `test:blade` → `test:e2e`
 - `npm run check:sync` — 元件清單跨來源一致性檢查（`component-nav.ts` / 頁面 / i18n / CSS / `components.json` / `llms.txt` / README 元件分類表），並雙向比對 `src/scripts/` 各模組使用的 `data-cu-*` 與 `cubby-ui.d.ts` 的 `DATA_ATTRS`
-- `npm run type-check` — `astro check`（`tsconfig.json` 已排除 `dist/` 與 `docs/`）
-
-目前無 lint 命令。
+- `npm run type-check` — `astro check`（`tsconfig.json` 已排除 `dist/` 與 `docs/`）→ `type-check:scripts`
+- `npm run type-check:scripts` — `tsc -p tsconfig.scripts.json`：以 `checkJs` 檢查 `src/scripts/` 的元件庫 JS（`index.js` / `core/` / `components/`；不含文檔站專用的 `playground.js`）。非 strict（未開 `strictNullChecks` / `noImplicitAny`），`lib` 為 `es2017` + DOM，誤用更新的執行期 API 會報錯
+- `npm run lint` — ESLint flat config（`eslint.config.js`），範圍 `src/scripts/`（含 `playground.js`，以 `sourceType: "script"` 檢查）；只啟用 `@eslint/js` recommended 與少數正確性規則，**不含任何排版 / 風格規則，也不使用 Prettier**
 
 ## Architecture
 
@@ -218,6 +218,17 @@ ARIA 無障礙支援：
 
 `package.json` 的 `exports` 欄位中 `"style"` condition 非 Node.js 標準，但 Vite、Parcel 等打包工具支援。標準引入方式為 `import "cubby-ui/css"`。
 
+### 互動 JS 型別檢查與 Lint
+
+`src/scripts/` 的元件庫 JS 由 `tsconfig.scripts.json`（`allowJs` + `checkJs` + `noEmit`）做型別檢查，`npm run type-check` 會在 `astro check` 之後執行；ESLint 由 `eslint.config.js` 設定。CI（`ci.yml`）在型別檢查之後跑 `npm run lint`。
+
+- **型別收斂用 JSDoc**：DOM 查詢結果預設是 `Element`，需要 `.value` / `.style` / `.hidden` 等屬性時以 `/** @type {HTMLInputElement} */ (el.querySelector(...))` 轉型；`forEach` 回呼參數用行內註記 `function (/** @type {HTMLElement} */ el) {`；`e.target` 用 `/** @type {Element} */ (e.target).closest(...)`。不要把 `var` 改成 `let` / `const`，也不要改用 ES2015+ 語法
+- **expando 屬性**：元素上的自訂屬性（`_cuInit`、`_cuTrigger`、`_cuRender` 等）宣告在 `src/scripts/globals.d.ts` 的 global augmentation；新增 expando 時一併登記。**不要**為此修改 `cubby-ui.d.ts`（它是對外公開的型別定義，會原樣複製到 `dist/`）
+- **DOM 屬性給字串**：`input.value`、`textContent`、`setAttribute()` 指定數字時明確 `String(n)`（執行結果相同，型別檢查要求）
+- **`@ts-ignore` / `@ts-expect-error`** 只在確實必要時使用並附理由（目前沒有任何一處）
+- **打包產物**：esbuild 會保留 `/** @type */` 轉型註解（其餘 JSDoc 會移除），因此 `dist/core/cubby-ui.js` 會出現這些註解；`cubby-ui.min.js` 由 terser 移除，執行行為不受影響
+- **ESLint 範圍**：`@eslint/js` recommended + `array-callback-return` / `no-eval` / `no-implied-eval` / `no-promise-executor-return` / `no-self-compare` / `no-template-curly-in-string` / `no-unmodified-loop-condition` / `no-unreachable-loop`；`no-unused-vars` 允許以 `_` 前綴忽略 catch 參數（ES5 不能省略 catch binding）。`playground.js` 以 `sourceType: "script"` 檢查，`CubbyUI` 宣告為全域
+
 ### 目錄結構
 
 ```
@@ -230,7 +241,8 @@ src/
 │   │   ├── document-listeners.js — document 級 delegated click / keydown / contextmenu / scroll
 │   │   └── overlay.js            — Dialog / Drawer / Alert Dialog 共用的 <dialog> 邏輯
 │   ├── components/               — 每元件一個 ESM 模組（tabs.js、dropdown.js、toast.js …，匯出 setupXxx）
-│   ├── cubby-ui.d.ts             — TypeScript 型別定義（打包來源）
+│   ├── cubby-ui.d.ts             — TypeScript 型別定義（打包來源，原樣複製到 dist/，對外公開）
+│   ├── globals.d.ts              — 型別檢查專用的 global augmentation（`_cuInit` 等元素 expando 屬性；不進 dist/）
 │   └── playground.js             — Playground 頁面客戶端邏輯（IIFE，元件 registry + 控制項 + 主題）
 ├── utils/
 │   ├── paths.ts                  — withBase() / stripBase()：站內路徑與 Astro base（GitHub Pages 子路徑）轉換
@@ -670,7 +682,7 @@ Header logo 與 sidebar 連結文字齊左：
 5. **導航**：在 `src/data/component-nav.ts` 中將元件加入對應的導航陣列（layouts / basic / typography / navigation / dataDisplay / content / forms / feedback / overlay / ai），並把元件名加進 `README.md` 元件分類表的同一分類列（`check:sync` 會檢查）
 6. **components.json**：在根目錄 `components.json` 新增元件規格（`cssClasses`、`dataAttributes`、`aria`、`notes`、`example`）
 7. **llms.txt**：在根目錄 `llms.txt` 對應分類區塊加入元件說明（CSS class 清單 + HTML 範例）
-8. **互動元件 JS**（僅有 JS 互動的元件）：在 `src/scripts/components/` 新增模組並匯出 `setupXxx()`（含 JSDoc + HTML 結構範例），需要追蹤陣列時在 `src/scripts/core/registry.js` 加欄位並於 `src/scripts/index.js` 的 `init()` / `destroy()` / `refresh()` 登記；更新 `src/scripts/cubby-ui.d.ts` 的 `DATA_ATTRS` 常數；使用 `data-*` 屬性管理狀態（非框架狀態管理）
+8. **互動元件 JS**（僅有 JS 互動的元件）：在 `src/scripts/components/` 新增模組並匯出 `setupXxx()`（含 JSDoc + HTML 結構範例），需要追蹤陣列時在 `src/scripts/core/registry.js` 加欄位並於 `src/scripts/index.js` 的 `init()` / `destroy()` / `refresh()` 登記；更新 `src/scripts/cubby-ui.d.ts` 的 `DATA_ATTRS` 常數；使用 `data-*` 屬性管理狀態（非框架狀態管理）；`npm run type-check:scripts` 與 `npm run lint` 須通過（型別規範見下方「互動 JS 型別檢查」）
 9. **Dark / Light mode**：在瀏覽器切換 `.dark` class，確認兩種模式下色彩 token、邊框、陰影皆正確；半透明色使用 `color-mix(in srgb, var(--color-*) N%, transparent)` 而非硬編碼 HSL
 10. **CSS 規範驗證**：
     - Disabled 狀態：`disabled:pointer-events-none disabled:opacity-50 disabled:bg-muted disabled:text-muted-foreground`（帶 hover border 的輸入元件額外加 `disabled:hover:border-input`）

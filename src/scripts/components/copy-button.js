@@ -56,8 +56,8 @@ export function setupCopyButtons() {
 function resolveText(btn) {
   var selector = btn.getAttribute("data-cu-copy-target");
   if (selector) {
-    var target = null;
-    try { target = document.querySelector(selector); } catch (err) { target = null; }
+    var target;
+    try { target = document.querySelector(selector); } catch (_err) { target = null; }
     if (!target) return null;
     if ("value" in target && /^(INPUT|TEXTAREA|SELECT)$/.test(target.tagName)) return target.value;
     return (target.textContent || "").trim();
@@ -93,7 +93,7 @@ function writeClipboard(text) {
 /** 後備方案：非安全來源（http）或舊瀏覽器沒有 Clipboard API 時，以隱藏 textarea + execCommand 複製 */
 function legacyCopy(text) {
   if (!document.queryCommandSupported || !document.queryCommandSupported("copy")) return false;
-  var active = document.activeElement;
+  var active = /** @type {HTMLElement | null} */ (document.activeElement);
   var ta = document.createElement("textarea");
   ta.value = text;
   ta.setAttribute("readonly", "");
@@ -101,15 +101,15 @@ function legacyCopy(text) {
   ta.style.cssText = "position:fixed;top:0;left:0;width:1px;height:1px;opacity:0;pointer-events:none;";
   document.body.appendChild(ta);
   ta.select();
-  var ok = false;
-  try { ok = document.execCommand("copy"); } catch (err) { ok = false; }
+  var ok;
+  try { ok = document.execCommand("copy"); } catch (_err) { ok = false; }
   document.body.removeChild(ta);
   if (active && active.focus) active.focus();
   return ok;
 }
 
 function getLiveRegion() {
-  var live = document.querySelector("[data-cu-copy-live]");
+  var live = /** @type {HTMLElement | null} */ (document.querySelector("[data-cu-copy-live]"));
   if (live) return live;
   live = document.createElement("div");
   live.setAttribute("data-cu-copy-live", "");

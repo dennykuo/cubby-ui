@@ -16,11 +16,11 @@ import { registry } from "../core/registry.js";
  * - REQUIRED: `data-cu-dropzone-input` on the `<input type="file">` element.
  */
 export function setupDropzones() {
-  document.querySelectorAll("[data-cu-dropzone]").forEach(function (zone) {
+  document.querySelectorAll("[data-cu-dropzone]").forEach(function (/** @type {HTMLElement} */ zone) {
     if (zone._cuInit) return;
     zone._cuInit = true;
 
-    var input = zone.querySelector("[data-cu-dropzone-input]");
+    var input = /** @type {HTMLInputElement} */ (zone.querySelector("[data-cu-dropzone-input]"));
     if (!input) return;
 
     zone.addEventListener("click", function () {

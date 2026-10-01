@@ -29,8 +29,12 @@ jobs:
       - name: 元件清單同步檢查
         run: npm run check:sync
 
+      # astro check（文檔站）+ tsc -p tsconfig.scripts.json（src/scripts/ 互動元件 JS 的 checkJs）
       - name: 型別檢查
         run: npm run type-check
+
+      - name: Lint（ESLint，互動元件 JS 正確性規則）
+        run: npm run lint
 
       - name: Blade 回歸測試
         run: npm run test:blade

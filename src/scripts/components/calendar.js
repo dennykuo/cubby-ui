@@ -106,7 +106,7 @@ export function initCalendar(calendar, onSelect) {
 
   // 以日期計算移動目標（而非按鈕索引），跨月時切換月份；超出 min / max 時停在邊界
   grid.addEventListener("keydown", function (e) {
-    var focused = document.activeElement;
+    var focused = /** @type {HTMLElement} */ (document.activeElement);
     if (!focused || !grid.contains(focused) || !focused._cuDate) return;
     if (e.key === "Enter" || e.key === " ") { e.preventDefault(); focused.click(); return; }
     var cur = focused._cuDate;

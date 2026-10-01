@@ -30,6 +30,8 @@ npm run build:blade # 生成 Laravel Blade 元件至 dist/laravel/
 npm run build:all   # 一次建置全部（build + build:blade）
 npm run build:docs  # 建置文檔站點至 docs/（BASE_PATH=/cubby-ui 模擬 GitHub Pages 子路徑）
 npm run check:links # 檢查 docs/ 站內連結帶 base 且目標存在（BASE_PATH 需與建置時相同）
+npm run type-check  # astro check + type-check:scripts（src/scripts/ 互動 JS 的 checkJs，tsconfig.scripts.json）
+npm run lint        # ESLint（eslint.config.js）檢查 src/scripts/，只含正確性規則，無排版規則 / Prettier
 npm run preview     # 預覽建置結果
 ```
 
@@ -339,7 +341,7 @@ Toast variants: `default` | `destructive` | `success` | `warning` | `info`
 5. **導航**：在 `src/data/component-nav.ts` 的對應陣列加入 NavItem，並把元件名加進 `README.md` 元件分類表的同一分類列（`check:sync` 會檢查）
 6. **components.json**：更新根目錄 `components.json`，加入新元件規格（cssClasses、dataAttributes、aria、notes、example）
 7. **llms.txt**：更新根目錄 `llms.txt`，在對應分類區塊加入元件說明（class 清單 + HTML 範例）
-8. **互動元件 JS**（有 JS 互動才需要）：在 `src/scripts/components/` 新增模組並匯出 `setupXxx()`（含 JSDoc）；需要追蹤陣列時在 `core/registry.js` 加欄位並於 `index.js` 的 `init()` / `destroy()` / `refresh()` 登記；更新 `src/scripts/cubby-ui.d.ts` 的 `DATA_ATTRS` 常數
+8. **互動元件 JS**（有 JS 互動才需要）：在 `src/scripts/components/` 新增模組並匯出 `setupXxx()`（含 JSDoc）；需要追蹤陣列時在 `core/registry.js` 加欄位並於 `index.js` 的 `init()` / `destroy()` / `refresh()` 登記；更新 `src/scripts/cubby-ui.d.ts` 的 `DATA_ATTRS` 常數；`npm run type-check` 與 `npm run lint` 須通過——DOM 查詢結果以 JSDoc 轉型（`/** @type {HTMLInputElement} */ (el.querySelector(...))`），元素 expando 屬性（`_cuInit` 等）宣告在 `src/scripts/globals.d.ts`，不要為此修改對外公開的 `cubby-ui.d.ts`；維持 ES5 風格（`var` / `function`）
 9. **Dark / Light mode**：切換 `.dark` class，確認兩種模式下色彩、邊框、陰影皆正確
 10. **build 驗證**：執行 `npm run build` 確認 CSS 正確編譯；有 JS 互動的元件另在 `tests/e2e/` 加 fixture 與 spec（`npm run test:e2e`）；`npm run check:sync` 會驗證 `data-cu-*` 屬性已列入 `DATA_ATTRS`
 

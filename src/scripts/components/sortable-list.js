@@ -13,7 +13,7 @@ import { registry } from "../core/registry.js";
  *   </div>
  */
 export function setupSortableLists() {
-  document.querySelectorAll("[data-cu-sortable-list]").forEach(function (el) {
+  document.querySelectorAll("[data-cu-sortable-list]").forEach(function (/** @type {HTMLElement} */ el) {
     if (el._cuInit) return;
     el._cuInit = true;
 
@@ -25,7 +25,7 @@ export function setupSortableLists() {
     }
 
     el.addEventListener("dragstart", function (e) {
-      var item = e.target.closest("[data-cu-sortable-item]");
+      var item = /** @type {Element} */ (e.target).closest("[data-cu-sortable-item]");
       if (!item || item.classList.contains("cu-sortable-item-disabled")) {
         e.preventDefault();
         return;

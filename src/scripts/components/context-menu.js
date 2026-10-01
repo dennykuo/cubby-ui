@@ -2,11 +2,11 @@ import { registry } from "../core/registry.js";
 
 // ── Context Menu ──────────────────────────────────────────────
 export function setupContextMenus() {
-  document.querySelectorAll("[data-cu-context-menu]").forEach(function (container) {
+  document.querySelectorAll("[data-cu-context-menu]").forEach(function (/** @type {HTMLElement} */ container) {
     if (container._cuInit) return;
     container._cuInit = true;
 
-    var content = container.querySelector("[data-cu-context-menu-content]");
+    var content = /** @type {HTMLElement} */ (container.querySelector("[data-cu-context-menu-content]"));
     if (!content) return;
 
     container.addEventListener("contextmenu", function (e) {
