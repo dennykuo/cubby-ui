@@ -42,6 +42,31 @@
       "example": "<div class=\"cu-card\"><div class=\"cu-card-header\"><h3 class=\"cu-card-title\">Title</h3></div><div class=\"cu-card-content\">Content</div></div>"
     },
     {
+      "name": "Copy Button",
+      "category": "basic",
+      "interactive": true,
+      "cssClasses": {
+        "base": "cu-copy-button",
+        "variants": ["cu-copy-button-outline"],
+        "sizes": ["cu-copy-button-sm", "cu-copy-button-lg"],
+        "parts": ["cu-copy-button-icon", "cu-copy-button-check"],
+        "field": ["cu-copy-field", "cu-copy-field-value", "cu-copy-field-muted", "cu-copy-field-multiline"],
+        "states": ["data-cu-copied", "data-cu-copy-failed"]
+      },
+      "dataAttributes": {
+        "copy": "data-cu-copy",
+        "target": "data-cu-copy-target",
+        "label": "data-cu-copy-label",
+        "successText": "data-cu-copy-success-text",
+        "errorText": "data-cu-copy-error-text",
+        "duration": "data-cu-copy-duration",
+        "live": "data-cu-copy-live"
+      },
+      "aria": ["status"],
+      "notes": "One-click copy. Put the text in data-cu-copy=\"...\", or point data-cu-copy-target=\"#selector\" at an element (input / textarea / select copy their value; other elements copy trimmed textContent). Handled by a single document-level delegated click listener, so dynamically added buttons work without re-init (removed by CubbyUI.destroy()). On success the button gets data-cu-copied (cu-copy-button-icon hides, cu-copy-button-check shows) and fires cu:copy-button:copy { text }; on failure (Clipboard API unavailable / denied and execCommand fallback fails) it gets data-cu-copy-failed and fires cu:copy-button:error. An optional [data-cu-copy-label] child swaps its text to data-cu-copy-success-text (default \"Copied!\") / data-cu-copy-error-text (default \"Copy failed\"). State resets after data-cu-copy-duration ms (default 2000). cu-copy-field wraps a read-only value (cu-copy-field-value: span, code or input readonly) with a copy button for IDs / API keys / commands; cu-copy-field-multiline keeps line breaks for snippets. A11y: Icon-only buttons need aria-label. Success / error messages are announced through a shared visually hidden role=\"status\" aria-live=\"polite\" region (data-cu-copy-live), auto-created when absent. SVG icons use aria-hidden=\"true\".",
+      "example": "<button type=\"button\" class=\"cu-copy-button\" data-cu-copy=\"usr_8f2a91\" aria-label=\"Copy user ID\"><svg class=\"cu-copy-button-icon\" aria-hidden=\"true\"><!-- copy icon --></svg><svg class=\"cu-copy-button-check\" aria-hidden=\"true\"><!-- check icon --></svg></button>\n<div class=\"cu-copy-field\"><code id=\"api-key\" class=\"cu-copy-field-value\">sk_live_51H8xQ2</code><button type=\"button\" class=\"cu-copy-button cu-copy-button-sm\" data-cu-copy-target=\"#api-key\" aria-label=\"Copy API key\"><svg class=\"cu-copy-button-icon\" aria-hidden=\"true\"><!-- copy icon --></svg><svg class=\"cu-copy-button-check\" aria-hidden=\"true\"><!-- check icon --></svg></button></div>"
+    },
+    {
       "name": "Separator",
       "category": "basic",
       "interactive": false,
@@ -968,6 +993,28 @@
       },
       "notes": "Code container with optional header (language label) and copy button. Default dark theme; add cu-code-block-light for light variant. Copy button can be absolute (no header) or inline (inside header). Copied state applied via data-cu-copied attribute. Set language-xxx class on <code> element for third-party syntax highlighting (Prism.js / Highlight.js).",
       "example": "<div class=\"cu-code-block\" data-cu-code-block><div class=\"cu-code-block-header\"><span>HTML</span><button class=\"cu-code-block-copy\" data-cu-code-block-copy><span data-cu-code-block-label>Copy</span></button></div><pre class=\"cu-code-block-pre\"><code class=\"language-html\">&lt;div&gt;Hello&lt;/div&gt;</code></pre></div>"
+    },
+    {
+      "name": "Chart",
+      "category": "dataDisplay",
+      "interactive": false,
+      "cssClasses": {
+        "base": "cu-chart",
+        "variants": ["cu-chart-flat", "cu-chart-ghost"],
+        "parts": ["cu-chart-header", "cu-chart-header-content", "cu-chart-title", "cu-chart-description", "cu-chart-value", "cu-chart-actions", "cu-chart-body", "cu-chart-canvas", "cu-chart-footer"],
+        "modifiers": ["cu-chart-body-split"],
+        "canvasSizes": ["cu-chart-canvas-sm", "cu-chart-canvas-lg", "cu-chart-canvas-square"],
+        "legend": ["cu-chart-legend", "cu-chart-legend-center", "cu-chart-legend-vertical", "cu-chart-legend-item", "cu-chart-legend-item-inactive", "cu-chart-legend-value"],
+        "swatch": ["cu-chart-swatch", "cu-chart-swatch-dot", "cu-chart-swatch-line"],
+        "colors": ["cu-chart-color-1", "cu-chart-color-2", "cu-chart-color-3", "cu-chart-color-4", "cu-chart-color-5"],
+        "tooltip": ["cu-chart-tooltip", "cu-chart-tooltip-label", "cu-chart-tooltip-item", "cu-chart-tooltip-value"],
+        "svg": ["cu-chart-grid", "cu-chart-axis", "cu-chart-axis-line"],
+        "states": ["cu-chart-empty", "cu-chart-empty-title", "cu-chart-empty-description", "cu-chart-loading", "cu-chart-loading-bar"]
+      },
+      "tokens": ["--color-chart-1", "--color-chart-2", "--color-chart-3", "--color-chart-4", "--color-chart-5"],
+      "aria": ["img"],
+      "notes": "Wrapper styles for charts drawn by an external library (Chart.js, ECharts, ...) or inline SVG; Cubby UI ships no charting JS. Series colors come from --color-chart-1 ~ --color-chart-5 (fixed order, redefined under .dark); read them with getComputedStyle(document.documentElement).getPropertyValue('--color-chart-1') and re-render when the .dark class toggles. cu-chart-canvas is position:relative with an explicit height (h-64; -sm h-48, -lg h-80, -square for pie/donut) as Chart.js expects with maintainAspectRatio:false. cu-chart-color-N sets currentColor so swatches and SVG marks (fill/stroke=\"currentColor\") share the palette. cu-chart-empty / cu-chart-loading are absolutely positioned inside cu-chart-canvas; cu-chart-loading-bar heights vary automatically via :nth-child. cu-chart-tooltip is unpositioned (set left/top yourself, e.g. in a Chart.js external tooltip handler). A11y: Give the <canvas> / <svg> role=\"img\" and an aria-label summarising the data (or provide a table view). Set aria-busy=\"true\" on cu-chart-canvas while cu-chart-loading is shown. Legend swatches are aria-hidden; toggleable legend items are <button aria-pressed>.",
+      "example": "<div class=\"cu-chart\"><div class=\"cu-chart-header\"><div class=\"cu-chart-header-content\"><h3 class=\"cu-chart-title\">Revenue</h3><p class=\"cu-chart-description\">Jan – Jun 2026</p></div></div><div class=\"cu-chart-body\"><div class=\"cu-chart-canvas\"><canvas id=\"revenue\" role=\"img\" aria-label=\"Monthly revenue\"></canvas></div><div class=\"cu-chart-legend cu-chart-legend-center\"><span class=\"cu-chart-legend-item\"><span class=\"cu-chart-swatch cu-chart-color-1\"></span>Desktop</span><span class=\"cu-chart-legend-item\"><span class=\"cu-chart-swatch cu-chart-color-2\"></span>Mobile</span></div></div></div>"
     },
     {
       "name": "Color Picker",

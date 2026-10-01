@@ -60,7 +60,7 @@ Cubby UI 是一個框架無關的 UI 元件庫，風格類似 shadcn/ui，使用
 - `index.ts` — `Locale` 型別、`getLocaleFromUrl()`、`localizePath()`、`getAlternatePath()`、`useTranslations()`（路徑函式皆處理 base，見「部署」）
 - `ui.ts` — 共用 UI 翻譯（Header、Sidebar、ComponentPreview 的文字）
 - `pages/home.ts`、`usage.ts`、`theming.ts`、`dark-mode.ts`、`playground.ts` — 核心頁面翻譯
-- `pages/components/*.ts` — 95 個元件頁面翻譯（每頁一個檔案）
+- `pages/components/*.ts` — 97 個元件頁面翻譯（每頁一個檔案）
 
 **頁面 i18n 模式**：每個頁面透過 3 行程式碼取得翻譯：
 ```astro
@@ -82,7 +82,7 @@ const t = useTranslations(buttonPage, locale);
 
 元件有兩個層次：
 
-1. **CSS 類別層**（`src/styles/components.css` + `src/styles/components/*.css`）— 在 `@layer components` 中定義，使用 `cu-` 前綴（Cubby）。`components.css` 僅包含 `@layer components {}` 包裝和 `@import` 語句，各元件 CSS 規則拆分至 `components/` 資料夾的獨立檔案。CSS 按領域分十個區塊：`TYPOGRAPHY`（Headings, Kbd, Paragraph, Blockquote, List, Link, Text, HR）→ `BASIC`（Aspect Ratio, Avatar, Badge, Button, Button Group, Card, Separator）→ `FORMS`（Checkbox, Checkbox Group, Color Picker, Date Picker, Floating Label, Input Group, Listbox, Combobox, Password Input, Pin Input, Rating, Tag Input, Toggle Group ~ Transfer List）→ `DATA DISPLAY`（Accordion, Code Block, Collapsible, Data Table, Setting Item, Sortable List, Stat, Table, Timeline, Tree View）→ `CONTENT`（Carousel, Countdown, Diff Viewer, Image Compare, Marquee）→ `FEEDBACK`（Alert, Empty State, Progress, Skeleton, Toast）→ `OVERLAY`（Alert Dialog, Command Palette, Context Menu, Dialog, Drawer, Dropdown, Hover Card, Popover, Tooltip）→ `NAVIGATION`（Breadcrumb, Menubar, Pagination, Segmented Control, Steps, Tabs）→ `LAYOUT`（Container, Filter Bar, Header, Nav, Page Header, Resizable Panels, Scroll Area, Sidebar, Toolbar）→ `AI`（Chat Bubble, Chat Input, Chat Typing）。這是元件的核心，純 HTML 專案可以只用這些 CSS 類別。共用結構透過 `listbox.css` 以逗號選擇器去重（Combobox / Multi Select 共用 7 組 class）。
+1. **CSS 類別層**（`src/styles/components.css` + `src/styles/components/*.css`）— 在 `@layer components` 中定義，使用 `cu-` 前綴（Cubby）。`components.css` 僅包含 `@layer components {}` 包裝和 `@import` 語句，各元件 CSS 規則拆分至 `components/` 資料夾的獨立檔案。CSS 按領域分十個區塊：`TYPOGRAPHY`（Headings, Kbd, Paragraph, Blockquote, List, Link, Text, HR）→ `BASIC`（Aspect Ratio, Avatar, Badge, Button, Button Group, Card, Copy Button, Separator）→ `FORMS`（Checkbox, Checkbox Group, Color Picker, Date Picker, Floating Label, Input Group, Listbox, Combobox, Password Input, Pin Input, Rating, Tag Input, Toggle Group ~ Transfer List）→ `DATA DISPLAY`（Accordion, Chart, Code Block, Collapsible, Data Table, Setting Item, Sortable List, Stat, Table, Timeline, Tree View）→ `CONTENT`（Carousel, Countdown, Diff Viewer, Image Compare, Marquee）→ `FEEDBACK`（Alert, Empty State, Progress, Skeleton, Toast）→ `OVERLAY`（Alert Dialog, Command Palette, Context Menu, Dialog, Drawer, Dropdown, Hover Card, Popover, Tooltip）→ `NAVIGATION`（Breadcrumb, Menubar, Pagination, Segmented Control, Steps, Tabs）→ `LAYOUT`（Container, Filter Bar, Header, Nav, Page Header, Resizable Panels, Scroll Area, Sidebar, Toolbar）→ `AI`（Chat Bubble, Chat Input, Chat Typing）。這是元件的核心，純 HTML 專案可以只用這些 CSS 類別。共用結構透過 `listbox.css` 以逗號選擇器去重（Combobox / Multi Select 共用 7 組 class）。
 2. **Astro 元件層**（`src/components/ui/`）— 包裝 CSS 類別的 `.astro` 檔案，提供 TypeScript Props 型別安全和屬性透傳。
 
 ### CSS 類別命名規則
@@ -153,6 +153,9 @@ const t = useTranslations(buttonPage, locale);
 - Breadcrumb 摺疊省略：`cu-breadcrumb-ellipsis`（可點擊，搭配 Dropdown 展開隱藏項目）
 - Skeleton 模板：Table Skeleton / List Skeleton（組合現有 `cu-skeleton-*` class）
 - Empty State 場景模板：No Permission / Maintenance / Search No Results
+- 圖表色盤：`--color-chart-1` ~ `--color-chart-5`（`theme.css`，`.dark` 另有一組），類別色依固定順序指派，已以亮度帶、色覺辨識差異與對卡片 3:1 對比驗證；`cu-chart-color-N` 設定 `currentColor` 供圖例色塊與 SVG `fill` / `stroke="currentColor"` 共用
+- Chart 只提供包裝樣式（`cu-chart` 卡片、header / body / canvas / legend / tooltip / empty / loading），不內建繪圖 JS；`cu-chart-canvas` 為 `relative` + 明確高度，符合 Chart.js `maintainAspectRatio: false`；文檔頁預覽以內嵌 SVG 示範，Chart.js 整合僅以程式碼呈現
+- Copy Button：`data-cu-copy` / `data-cu-copy-target` 由 document 級 delegated click 處理（`registry.copyClickHandler`，`destroy()` 移除）；狀態屬性 `data-cu-copied` / `data-cu-copy-failed` 以 CSS 切換 `cu-copy-button-icon` / `cu-copy-button-check`；訊息經共用 `[data-cu-copy-live]` aria-live 區域播報；Clipboard API 失敗時退回 `execCommand('copy')`
 
 ### NPM 套件打包
 
@@ -192,7 +195,7 @@ dist/
 
 轉換器腳本位於 `scripts/generate-blade-components.cjs`，搭配 `scripts/blade/parser.cjs`（解析 Astro frontmatter + Props）、`scripts/blade/transformers.cjs`（轉換 template 語法）和 `scripts/blade/generate-ai-docs.cjs`（生成 AI 友善文件）。手動 override 放在 `scripts/blade/overrides/*.blade.php`，會跳過自動轉換直接使用。支援 `--dry-run`（預覽轉換結果，不寫入檔案）和 `--verbose`（印出每個檔案的轉換路徑及完整 Blade 內容）。建置時自動生成 `README.md`（敘述式 Blade 使用文件）和 `components.json`（結構化 metadata），供 AI Agent 在 Laravel 專案中理解和使用元件。
 
-互動元件 JS 原始碼為 ESM 模組：入口 `src/scripts/index.js`（`init` / `destroy` / `refresh` 與自動初始化）、`src/scripts/core/`（`registry.js` 共享追蹤狀態、`utils.js` 通用 helper、`document-listeners.js` document 級 delegated handler、`overlay.js` Dialog / Drawer / Alert Dialog 共用邏輯）、`src/scripts/components/*.js`（每元件一個模組，匯出 `setupXxx()`）。`scripts/build-js.mjs` 以 esbuild 打包成 `dist/core/cubby-ui.js`，並用 banner / footer 包上 UMD wrapper（支援 `require()`、AMD `define()`、`window.CubbyUI`）；文檔站的 `Layout.astro` / `ComponentPreview.astro` 以 `?url` 載入該產物，`astro.config.mjs` 的 `cubbyUiJsBundle` Vite plugin 於 dev / build 前先打包並在 dev 監看 `src/scripts/` 自動重建。包含 38 個元件：Tabs（含 closable / scrollable）、Dropdown、Dialog、Drawer、Alert Dialog、Toast（含 promise API）、Popover、Menubar、Combobox、Multi Select、Number Input、Dropzone、Transfer List、Mobile Nav、Password Input、Segmented Control、Pin Input、Checkbox Group、Code Block、Carousel、Context Menu、Resizable Panels、Command Palette、Date Picker（含 Calendar）、Color Picker、Toggle Group、Rating、Tag Input、Sortable List、Countdown、Image Compare、Speed Dial、Back to Top、Kanban、Tour、Input Clearable、Alert Expandable、Data Table Expandable。Document 級事件監聽器使用 delegated pattern（click / keydown / contextmenu / scroll），避免每個元件實例各自註冊（Context Menu、Date Picker 等透過 tracking array 共用單一 handler，`destroy()` 時統一移除）。Toast 內容使用 DOM API（`textContent` / `createElement`）建立，避免 innerHTML XSS 風險。Toast 自動消失時間預設 5000ms，可透過 `data-cu-toast-duration` 自訂。Toast 堆疊上限預設 5 則，可透過 `data-cu-toast-max` 自訂，超出時自動移除最舊通知。Combobox / Multi Select 搜尋預設即時過濾，可在根元素加 `data-cu-combobox-debounce` / `data-cu-multi-select-debounce`（毫秒）延遲過濾（清空查詢、方向鍵與 Enter 會立即套用待執行的過濾），實際套用的查詢改變時觸發 `cu:combobox:search` / `cu:multiselect:search`（`{ query }`）供串接遠端搜尋；計時器由 `core/utils.js` 的 `createDebouncer()` 管理，`destroy()` / `refresh()` 會取消。
+互動元件 JS 原始碼為 ESM 模組：入口 `src/scripts/index.js`（`init` / `destroy` / `refresh` 與自動初始化）、`src/scripts/core/`（`registry.js` 共享追蹤狀態、`utils.js` 通用 helper、`document-listeners.js` document 級 delegated handler、`overlay.js` Dialog / Drawer / Alert Dialog 共用邏輯）、`src/scripts/components/*.js`（每元件一個模組，匯出 `setupXxx()`）。`scripts/build-js.mjs` 以 esbuild 打包成 `dist/core/cubby-ui.js`，並用 banner / footer 包上 UMD wrapper（支援 `require()`、AMD `define()`、`window.CubbyUI`）；文檔站的 `Layout.astro` / `ComponentPreview.astro` 以 `?url` 載入該產物，`astro.config.mjs` 的 `cubbyUiJsBundle` Vite plugin 於 dev / build 前先打包並在 dev 監看 `src/scripts/` 自動重建。包含 39 個元件：Tabs（含 closable / scrollable）、Dropdown、Dialog、Drawer、Alert Dialog、Toast（含 promise API）、Popover、Menubar、Combobox、Multi Select、Number Input、Dropzone、Transfer List、Mobile Nav、Password Input、Segmented Control、Pin Input、Checkbox Group、Code Block、Copy Button、Carousel、Context Menu、Resizable Panels、Command Palette、Date Picker（含 Calendar）、Color Picker、Toggle Group、Rating、Tag Input、Sortable List、Countdown、Image Compare、Speed Dial、Back to Top、Kanban、Tour、Input Clearable、Alert Expandable、Data Table Expandable。Document 級事件監聽器使用 delegated pattern（click / keydown / contextmenu / scroll），避免每個元件實例各自註冊（Context Menu、Date Picker 等透過 tracking array 共用單一 handler，`destroy()` 時統一移除）。Toast 內容使用 DOM API（`textContent` / `createElement`）建立，避免 innerHTML XSS 風險。Toast 自動消失時間預設 5000ms，可透過 `data-cu-toast-duration` 自訂。Toast 堆疊上限預設 5 則，可透過 `data-cu-toast-max` 自訂，超出時自動移除最舊通知。Combobox / Multi Select 搜尋預設即時過濾，可在根元素加 `data-cu-combobox-debounce` / `data-cu-multi-select-debounce`（毫秒）延遲過濾（清空查詢、方向鍵與 Enter 會立即套用待執行的過濾），實際套用的查詢改變時觸發 `cu:combobox:search` / `cu:multiselect:search`（`{ query }`）供串接遠端搜尋；計時器由 `core/utils.js` 的 `createDebouncer()` 管理，`destroy()` / `refresh()` 會取消。
 
 ARIA 無障礙支援：
 - **Tabs** — `role="tablist/tab/tabpanel"`、`aria-selected`、`aria-controls` / `aria-labelledby` 雙向連結
@@ -243,7 +246,7 @@ src/
 │       ├── theming.ts
 │       ├── dark-mode.ts
 │       ├── playground.ts
-│       └── components/           — 95 個元件頁面翻譯（每元件一個檔案）
+│       └── components/           — 97 個元件頁面翻譯（每元件一個檔案）
 │           ├── button.ts
 │           ├── card.ts
 │           └── ...
@@ -541,9 +544,9 @@ src/
 
 元件分類：
 - **Components > Typography** — Headings, Kbd, Paragraphs, Blockquote, Lists, Links, Text, HR
-- **Components > Basic** — Aspect Ratio, Avatar, Badge, Button, Button Group, Card, Color, Separator
+- **Components > Basic** — Aspect Ratio, Avatar, Badge, Button, Button Group, Card, Copy Button, Color, Separator
 - **Components > Forms** — Checkbox, Checkbox Group, Color Picker, Combobox, Date Picker, Dropzone, File Input, Floating Label, Form Group, Input, Input Group, Label, Multi Select, Number Input, Password Input, Pin Input, Radio, Range, Rating, Search Input, Select, Tag Input, Textarea, Toggle, Toggle Group, Transfer List
-- **Components > Data Display** — Accordion, Code Block, Collapsible, Data Table, Setting Item, Sortable List, Stat Card, Table, Timeline, Tree View
+- **Components > Data Display** — Accordion, Chart, Code Block, Collapsible, Data Table, Setting Item, Sortable List, Stat Card, Table, Timeline, Tree View
 - **Components > Content** — Carousel, Countdown, Diff Viewer, Image Compare, Marquee
 - **Components > Feedback** — Alert, Empty State, Notification, Progress, Skeleton, Spinner, Toast
 - **Components > Overlay** — Alert Dialog, Command Palette, Context Menu, Dialog, Drawer, Dropdown Menu, Hover Card, Popover, Tooltip, Tour

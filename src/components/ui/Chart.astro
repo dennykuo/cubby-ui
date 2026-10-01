@@ -1,0 +1,19 @@
+---
+import { TOP_CLASS } from "../../config";
+
+interface Props {
+    /** default：卡片外框 + 淡陰影；flat：無陰影；ghost：無外框與背景（嵌入其他卡片時使用） */
+    variant?: "default" | "flat" | "ghost";
+    class?: string;
+    [key: string]: any;
+}
+
+const { variant, class: className, ...rest } = Astro.props;
+
+const baseClass = `${TOP_CLASS}-chart`;
+const variantClass = variant && variant !== "default" ? `${TOP_CLASS}-chart-${variant}` : undefined;
+---
+
+<div class:list={[baseClass, variantClass, className]} {...rest}>
+    <slot />
+</div>

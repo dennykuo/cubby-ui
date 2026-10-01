@@ -34,7 +34,7 @@ const COMPOSITES = [
   'ChatBubble', 'PageHeader', 'FilterBar', 'SettingItem',
   'EmptyState', 'Resizable', 'SegmentedControl', 'Sortable',
   'TransferList', 'MultiSelect', 'Combobox', 'Dropzone',
-  'Accordion', 'Alert', 'Avatar', 'Breadcrumb', 'Card', 'Carousel',
+  'Accordion', 'Alert', 'Avatar', 'Breadcrumb', 'Card', 'Carousel', 'Chart',
   'Collapsible', 'Dialog', 'Drawer', 'Dropdown', 'Header', 'Form',
   'Menubar', 'Nav', 'Pagination', 'Popover', 'Sidebar', 'Stat',
   'Steps', 'Table', 'Tabs', 'Timeline', 'Toast', 'Toolbar', 'TreeView', 'Tree',

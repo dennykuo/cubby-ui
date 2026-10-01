@@ -30,6 +30,7 @@ export const registry = {
   docClickHandler: null,
   docKeydownHandler: null,
   cmdPaletteKeyHandler: null,
+  copyClickHandler: null,
   docContextmenuHandler: null,
   docScrollHandler: null,
   contextMenus: [],

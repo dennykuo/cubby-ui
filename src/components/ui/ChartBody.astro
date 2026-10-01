@@ -1,0 +1,19 @@
+---
+import { TOP_CLASS } from "../../config";
+
+interface Props {
+    /** 繪圖區與圖例並排（pie / donut + 垂直圖例），窄螢幕時上下堆疊 */
+    split?: boolean;
+    class?: string;
+    [key: string]: any;
+}
+
+const { split, class: className, ...rest } = Astro.props;
+
+const baseClass = `${TOP_CLASS}-chart-body`;
+const splitClass = split ? `${TOP_CLASS}-chart-body-split` : undefined;
+---
+
+<div class:list={[baseClass, splitClass, className]} {...rest}>
+    <slot />
+</div>
