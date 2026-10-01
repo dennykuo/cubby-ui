@@ -11,6 +11,8 @@
 - Combobox / Multi Select 可選的搜尋 debounce：`data-cu-combobox-debounce` / `data-cu-multi-select-debounce`（毫秒），未設定時維持即時過濾；實際套用的查詢改變時觸發 `cu:combobox:search` / `cu:multiselect:search`（`{ query }`），可串接遠端搜尋
 - Calendar 支援 Home / End 跳至月首 / 月末，方向鍵可跨月移動；Date Picker 選取日期時對 hidden input 觸發 `change`
 - **文檔站 SEO**：每頁專屬 meta description（元件頁取翻譯檔副標題並轉純文字）、Open Graph 與 `twitter:card`、設定 `SITE_URL` 時輸出含 base 的 canonical / `og:url` 與絕對網址 hreflang（含 `x-default`）、sitemap（`@astrojs/sitemap`，排除範例 404 頁）與 `robots.txt`；CI 建置文檔站時帶入 `SITE_URL`
+- **互動 JS 型別檢查**：`tsconfig.scripts.json`（`allowJs` + `checkJs`）檢查 `src/scripts/` 元件庫 JS，`npm run type-check` 於 `astro check` 後執行 `type-check:scripts`；元素 expando 屬性宣告於 `src/scripts/globals.d.ts`（不影響對外的 `cubby-ui.d.ts`）
+- **ESLint**（`npm run lint`，flat config）：範圍 `src/scripts/`，只啟用 `@eslint/js` recommended 與少數正確性規則，不含排版 / 風格規則、不導入 Prettier；CI 於型別檢查後執行
 - E2E 測試：Combobox、Multi Select、Date Picker（含 Calendar）、Combobox / Multi Select debounce、Copy Button，以及文檔站 SEO 測試組
 - **文檔站搜尋**：Header 的搜尋框原本沒有任何功能，改以元件庫自身的 Command Palette 實作（`src/components/DocsSearch.astro`）。項目取自 `component-nav.ts`（入門指南、10 個元件分類、範例頁，與側邊欄同步），可用名稱、路徑代稱或中英文分類名搜尋，Enter 直接導航；支援 ⌘K / Ctrl+K，非 Apple 平台的快捷鍵提示顯示 `Ctrl K`；手機寬度新增圖示按鈕
 - Command Palette 互動測試（`tests/e2e/command-palette.spec.ts`，對出貨產物執行）與文檔站搜尋測試（`docs-smoke.spec.ts`）
@@ -28,6 +30,7 @@
 - `src/pages/examples/dashboard-v5/feedback/`：誤提交進版控的 12 個舊建置快照（`.html`，引用已不存在的 `/_astro/*.css`，部署後會是無樣式頁面），連帶移除 `check:links` 與 docs smoke test 為它設的例外
 
 ### Changed
+- `src/scripts/` 全部模組補上 JSDoc 型別轉型與註記，修正 lint 問題（打包後執行行為不變）
 - Input / Textarea / Select / Checkbox / Radio 的 Astro Props 改為延伸 `HTMLAttributes`，`disabled` / `required` / `placeholder` 等原生屬性有型別提示與檢查，不再接受任意 prop（Blade 輸出不變）
 - Blade 轉換器登記 Chart 複合元件；AI 文件範例支援巢狀子元件
 - **Node.js 20 → 24**：新增 `.nvmrc`（`24`），CI 與 Deploy Docs 改以 `node-version-file: .nvmrc` 讀取；`@types/node` 升至 `^24`
