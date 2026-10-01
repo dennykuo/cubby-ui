@@ -5,6 +5,13 @@
 ## [Unreleased]
 
 ### Added
+- **Chart** 圖表容器（Data Display）：卡片式包裝（標頭、主數值、操作區、繪圖區、頁尾）、圖例（含可切換項目）、tooltip、SVG 格線與軸標籤、空狀態與載入狀態；搭配 Chart.js 等外部圖表庫使用，不內建繪圖 JS
+- 圖表色盤 token `--color-chart-1` ~ `--color-chart-5`（含暗色模式），`cu-chart-color-1` ~ `5` 以 `currentColor` 供圖例與 SVG 共用
+- **Copy Button** 一鍵複製（Basic）：`data-cu-copy` / `data-cu-copy-target`、`data-cu-copied` / `data-cu-copy-failed` 狀態、aria-live 播報、Clipboard API 失敗時退回 `execCommand`、`cu:copy-button:copy` / `cu:copy-button:error` 事件；另含 Copy Field
+- Combobox / Multi Select 可選的搜尋 debounce：`data-cu-combobox-debounce` / `data-cu-multi-select-debounce`（毫秒），未設定時維持即時過濾；實際套用的查詢改變時觸發 `cu:combobox:search` / `cu:multiselect:search`（`{ query }`），可串接遠端搜尋
+- Calendar 支援 Home / End 跳至月首 / 月末，方向鍵可跨月移動；Date Picker 選取日期時對 hidden input 觸發 `change`
+- **文檔站 SEO**：每頁專屬 meta description（元件頁取翻譯檔副標題並轉純文字）、Open Graph 與 `twitter:card`、設定 `SITE_URL` 時輸出含 base 的 canonical / `og:url` 與絕對網址 hreflang（含 `x-default`）、sitemap（`@astrojs/sitemap`，排除範例 404 頁）與 `robots.txt`；CI 建置文檔站時帶入 `SITE_URL`
+- E2E 測試：Combobox、Multi Select、Date Picker（含 Calendar）、Combobox / Multi Select debounce、Copy Button，以及文檔站 SEO 測試組
 - **文檔站搜尋**：Header 的搜尋框原本沒有任何功能，改以元件庫自身的 Command Palette 實作（`src/components/DocsSearch.astro`）。項目取自 `component-nav.ts`（入門指南、10 個元件分類、範例頁，與側邊欄同步），可用名稱、路徑代稱或中英文分類名搜尋，Enter 直接導航；支援 ⌘K / Ctrl+K，非 Apple 平台的快捷鍵提示顯示 `Ctrl K`；手機寬度新增圖示按鈕
 - Command Palette 互動測試（`tests/e2e/command-palette.spec.ts`，對出貨產物執行）與文檔站搜尋測試（`docs-smoke.spec.ts`）
 - **文檔站部署到 GitHub Pages**（`https://dennykuo.github.io/cubby-ui/`）：新增 `.github/workflows/deploy-docs.yml`，於 `main` 的 CI 成功後（`workflow_run`）或手動觸發時，以 `actions/configure-pages` 取得網址與子路徑建置 `docs/`、跑連結檢查，再以 `deploy-pages` 發布
@@ -21,6 +28,8 @@
 - `src/pages/examples/dashboard-v5/feedback/`：誤提交進版控的 12 個舊建置快照（`.html`，引用已不存在的 `/_astro/*.css`，部署後會是無樣式頁面），連帶移除 `check:links` 與 docs smoke test 為它設的例外
 
 ### Changed
+- Input / Textarea / Select / Checkbox / Radio 的 Astro Props 改為延伸 `HTMLAttributes`，`disabled` / `required` / `placeholder` 等原生屬性有型別提示與檢查，不再接受任意 prop（Blade 輸出不變）
+- Blade 轉換器登記 Chart 複合元件；AI 文件範例支援巢狀子元件
 - **Node.js 20 → 24**：新增 `.nvmrc`（`24`），CI 與 Deploy Docs 改以 `node-version-file: .nvmrc` 讀取；`@types/node` 升至 `^24`
 - **GitHub Actions 升級為 Node 24 runtime 的版本**，消除 Node 20 deprecation 警告：`actions/checkout` v4 → v7、`actions/setup-node` v4 → v7、`actions/configure-pages` v5 → v6、`actions/upload-pages-artifact` v3 → v5（內部改用 `upload-artifact` v7）、`actions/deploy-pages` v4 → v5
 - **README 元件分類表**依 `component-nav.ts` 重建：由 8 類補齊為 10 類（新增 Content、AI），元件由 59 個補到 95 個，Avatar、Badge 由 Data Display 改回 Basic，分類順序與文檔站側邊欄一致
@@ -28,6 +37,13 @@
 - 已完成或過時的計畫文件移至 `references/archive/`，各檔開頭加註歸檔狀態與未完成項目去向：`PLAN-3.md`、`UI-UX-REVIEW.md`、`agent-guide/implementation_plan.md`
 
 ### Fixed
+- **Date Picker** 內的月曆被初始化兩次：方向鍵一次移動兩格，且重複呼叫 `init()` / `refresh()` 後選取的日期不再寫回 input；hidden input 的預設值不會讓月曆開在該月、也不會標記選取
+- **Calendar** 跨月鍵盤導航聚焦到錯誤日期；以 Enter 選取後焦點遺失
+- **Combobox / Multi Select** 篩選掉已高亮的項目後，按 Enter 會選到看不見的項目
+- **Combobox / Multi Select / Date Picker** 選取或按 Escape 後焦點遺失（現回到 trigger）；開啟其中一個時不會關閉另一個已開啟的同類浮層；trigger 放在 `<form>` 內點擊會送出表單
+- **Multi Select** 預選項目初始化時不會渲染成標籤；值含引號時渲染標籤會拋錯；以鍵盤移除標籤後焦點遺失；文檔「Preset Values」範例在 trigger `<button>` 內巢狀 `<button>`，HTML 解析後元件無法運作
+- 文檔站所有頁面共用同一個 meta description
+- Dashboard V2 範例頁誤用 React 寫法 `defaultValue` / `className`，欄位沒有預設值、padding 未套用
 - **Command Palette** 關閉時仍顯示：`.cu-command` 的 `display: flex` 寫在基礎 class 上，作者樣式蓋過瀏覽器 `dialog:not([open]) { display: none }`，關閉中的 palette 以 `fixed` 置中疊在頁面上（文檔頁範例因此常駐顯示、Esc 關閉後畫面不變）。`display: flex` 改為只套用於 `.cu-command[open]`
 - Header 的 GitHub 連結原本指向 `https://github.com`，改為本專案 repo
 - Dashboard V2 / V3 範例的導航 active 狀態在建置輸出中永遠不亮（`Astro.url.pathname` 帶尾端斜線，導航資料不帶），比對前改為去掉尾端斜線

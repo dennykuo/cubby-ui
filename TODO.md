@@ -25,14 +25,14 @@
 ### 高優先（幾乎每個 dashboard 都會用到）
 - [x] **Date Picker** — Forms — 日期選擇器（單日、日期範圍），需 JS
 - [x] **Calendar** — Data Display — 月曆檢視（日期格狀排列），需 JS
-- [ ] **Chart** — Data Display — 圖表容器（搭配 Chart.js 等外部庫的包裝樣式）
+- [x] **Chart** — Data Display — 圖表容器（搭配 Chart.js 等外部庫的包裝樣式）
 - [x] **Context Menu** — Overlay — 右鍵選單（表格列操作）
 
 ### 中優先（提升操作效率）
 
 - [x] **Timeline** — Data Display — 時間軸（活動日誌、審計紀錄）
 - [x] **Kbd** — Typography — 鍵盤快捷鍵標示（`⌘` `Shift` `K`）
-- [ ] **Copy Button** — Basic — 一鍵複製（ID、API Key、程式碼片段），需少量 JS
+- [x] **Copy Button** — Basic — 一鍵複製（ID、API Key、程式碼片段），需少量 JS
 
 ### 低優先（特定場景使用）
 
@@ -49,5 +49,15 @@
 - [ ] **JS 型別檢查** — `tsconfig.json` 啟用 `allowJs` + `checkJs`，讓 `src/scripts/` 的 ESM 模組納入 `npm run type-check`（來源：PLAN-3 #1）
 - [ ] **Lint / Format** — 導入 Prettier + `prettier-plugin-tailwindcss`（Tailwind class 自動排序）與 ESLint，並加入 CI（來源：PLAN-3 #2）
 - [ ] **版本發布流程** — 導入 Changesets，自動產生 `CHANGELOG.md` 與版本號（來源：PLAN-3 #5）
-- [ ] **Combobox / Multi Select 搜尋 debounce** — 目前每次 `input` 事件都即時過濾（來源：UI-UX-REVIEW 第七節）
-- [ ] **表單元件 Props 明確型別** — Input / Textarea / Select / Checkbox / Radio 的 `disabled` / `required` / `placeholder` 目前只靠 `[key: string]: any` 透傳，缺少型別提示（來源：UI-UX-REVIEW 第八節）
+- [x] **Combobox / Multi Select 搜尋 debounce** — 目前每次 `input` 事件都即時過濾（來源：UI-UX-REVIEW 第七節）
+- [x] **表單元件 Props 明確型別** — Input / Textarea / Select / Checkbox / Radio 的 `disabled` / `required` / `placeholder` 目前只靠 `[key: string]: any` 透傳，缺少型別提示（來源：UI-UX-REVIEW 第八節）
+
+### 2026-10 整合時發現的後續項目
+
+- [ ] **`dark:` variant 跟隨系統偏好而非 `.dark` class** — `theme.css` 未定義 `@custom-variant dark`，9 個元件 CSS 的 `dark:` 被編譯成 `@media (prefers-color-scheme: dark)`；以 `.dark` 切換的網站，浮層的 `dark:shadow-*` 與網站深淺不同步。修法：`@custom-variant dark (&:where(.dark, .dark *));`
+- [ ] **浮層 trigger 的 `stopPropagation`** — Dropdown、Popover 等 trigger 仍會 `stopPropagation`，開啟另一個浮層時已開啟的不會關閉（Combobox / Multi Select / Date Picker 已修正）
+- [ ] **`destroy()` 後 `init()` 是否重新登記元件** — 元件以 `_cuInit` 判斷是否已初始化，`destroy()` 未清除，推測 destroy 後再 init 不會重新登記到 registry（未實測）
+- [ ] **無障礙缺口**（E2E 中以 `test.fixme` 標記）— Combobox `aria-activedescendant`；Multi Select 移除按鈕的無障礙名稱；Date Picker trigger 的 `aria-haspopup` / `aria-expanded` 與開啟時聚焦；日期按鈕的完整日期名稱與 `aria-selected` / `aria-current`；Command Palette 結果清單沒有 `role` / `aria-activedescendant`
+- [ ] **文件與標記不一致** — llms.txt 的 Multi Select trigger 是 `<div>`（無法鍵盤聚焦）；llms.txt 的 Date Picker 範例缺 `data-cu-calendar` 等屬性，照抄不會初始化；Dashboard V2 範例有 16 處 `<Label htmlFor>`（Astro 輸出成 `htmlFor` 屬性，label 未關聯）
+- [ ] **Code Block** — 複製沒有 aria-live 播報與失敗處理（可改用 Copy Button 的共用邏輯）；`code-block.blade.php` 有既有轉換錯誤（`$codeTheme === '$light'`、殘留 `{filename || language}`）
+- [ ] **`toast.spec.ts` promise 測試偶發失敗** — 高負載時 promise 在斷言前 resolve，抓不到 loading 狀態（單獨重跑穩定）
