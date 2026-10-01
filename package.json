@@ -37,7 +37,9 @@
     "test:e2e": "playwright test",
     "check:sync": "node scripts/check-component-sync.cjs",
     "check:links": "node scripts/check-links.mjs",
-    "type-check": "astro check",
+    "type-check": "astro check && npm run type-check:scripts",
+    "type-check:scripts": "tsc -p tsconfig.scripts.json",
+    "lint": "eslint src/scripts",
     "build:docs": "npm run i18n:routes && astro build",
     "build:all": "npm run build && npm run build:blade",
     "preview": "astro preview",
@@ -72,6 +74,7 @@
   "homepage": "https://github.com/dennykuo/cubby-ui#readme",
   "devDependencies": {
     "@astrojs/check": "^0.9.6",
+    "@eslint/js": "^10.0.1",
     "@playwright/test": "^1.63.0",
     "@tailwindcss/cli": "^4.1.18",
     "@tailwindcss/vite": "^4.1.18",
@@ -79,7 +82,10 @@
     "astro": "^5.1.0",
     "astro-expressive-code": "^0.41.6",
     "esbuild": "^0.28.2",
+    "eslint": "^10.11.0",
+    "globals": "^17.13.0",
     "tailwindcss": "^4.1.18",
-    "terser": "^5.37.0"
+    "terser": "^5.37.0",
+    "typescript": "^5.9.3"
   }
 }
