@@ -286,10 +286,11 @@
         "input": "data-cu-combobox-input",
         "list": "data-cu-combobox-list",
         "item": "data-cu-combobox-item",
-        "empty": "data-cu-combobox-empty"
+        "empty": "data-cu-combobox-empty",
+        "debounce": "data-cu-combobox-debounce"
       },
       "aria": ["listbox", "option"],
-      "notes": "Add hidden attribute to content initially. Active item gets cu-combobox-item-active class. Shares listbox CSS with Multi Select."
+      "notes": "Add hidden attribute to content initially. Active item gets cu-combobox-item-active class. Shares listbox CSS with Multi Select. Search filters on every keystroke by default; optional data-cu-combobox-debounce=\"300\" on the root delays filtering by N ms (clearing the query, arrow keys and Enter apply pending filtering immediately). Fires cu:combobox:change ({ value, item }) on selection and cu:combobox:search ({ query }) when the applied query changes (hook remote search here)."
     },
     {
       "name": "Multi Select",
@@ -309,10 +310,11 @@
         "tags": "data-cu-multi-select-tags",
         "placeholder": "data-cu-multi-select-placeholder",
         "empty": "data-cu-multi-select-empty",
-        "value": "data-cu-value"
+        "value": "data-cu-value",
+        "debounce": "data-cu-multi-select-debounce"
       },
       "aria": ["listbox", "option"],
-      "notes": "Each item needs data-cu-value for tag rendering. Add hidden to content initially."
+      "notes": "Each item needs data-cu-value for tag rendering. Add hidden to content initially. Search filters on every keystroke by default; optional data-cu-multi-select-debounce=\"300\" on the root delays filtering by N ms (clearing the query, arrow keys and Enter apply pending filtering immediately). Fires cu:multiselect:change ({ selected }) on selection and cu:multiselect:search ({ query }) when the applied query changes (hook remote search here)."
     },
     {
       "name": "Dropzone",

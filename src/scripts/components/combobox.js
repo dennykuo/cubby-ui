@@ -1,4 +1,7 @@
 import { registry } from "../core/registry.js";
+import { createDebouncer, readDelay } from "../core/utils.js";
+
+var NAV_KEYS = ["Enter", "ArrowDown", "ArrowUp", "Home", "End"];
 
 /**
  * Combobox — searchable single-select dropdown.
@@ -23,6 +26,9 @@ import { registry } from "../core/registry.js";
  * - `cu-combobox-trigger-placeholder`: class for placeholder styling (removed on selection).
  * - `cu-combobox-item-active`: marks the currently selected item.
  * - `data-cu-combobox-list`: optional wrapper for listbox ARIA role.
+ * - `data-cu-combobox-debounce="300"`: optional, on the root. Delays filtering by N ms after typing
+ *   (default: filter immediately). Clearing the query, arrow keys and Enter apply pending filtering at once.
+ * - Fires `cu:combobox:search` ({ query }) whenever the applied query changes — hook remote search here.
  */
 export function setupComboboxes() {
   document.querySelectorAll("[data-cu-combobox]").forEach(function (combobox) {
@@ -80,15 +86,37 @@ export function setupComboboxes() {
         }
       });
 
-    input &&
-      input.addEventListener("input", function () {
-        var query = input.value.toLowerCase();
-        getItems().forEach(function (item) {
-          var match = (item.textContent || "").toLowerCase().includes(query);
-          item.toggleAttribute("hidden", !match);
-        });
-        syncEmpty();
+    var lastQuery = "";
+    function filterItems() {
+      if (!combobox.isConnected) return;
+      var query = input.value.toLowerCase();
+      getItems().forEach(function (item) {
+        var match = (item.textContent || "").toLowerCase().includes(query);
+        item.toggleAttribute("hidden", !match);
+        // 被過濾掉的項目不可保留鍵盤高亮，否則 Enter 會選到看不見的項目
+        if (!match) item.classList.remove("cu-combobox-item-highlight");
       });
+      syncEmpty();
+      if (input.value !== lastQuery) {
+        lastQuery = input.value;
+        combobox.dispatchEvent(new CustomEvent("cu:combobox:search", {
+          bubbles: true,
+          detail: { query: input.value }
+        }));
+      }
+    }
+    var search = createDebouncer(filterItems);
+
+    if (input) {
+      input.addEventListener("input", function () {
+        // 清空查詢（含關閉 / 選取後的重設）一律立即執行，避免重新開啟時看到過期結果
+        search.run(input.value === "" ? 0 : readDelay(combobox, "data-cu-combobox-debounce"));
+      });
+      // 鍵盤導航 / Enter 前先套用待執行的過濾（document keydown handler 在冒泡階段才處理）
+      input.addEventListener("keydown", function (e) {
+        if (NAV_KEYS.indexOf(e.key) !== -1) search.flush();
+      });
+    }
 
     content &&
       content.addEventListener("click", function (e) {
@@ -116,6 +144,6 @@ export function setupComboboxes() {
         }));
       });
 
-    registry.comboboxes.push({ el: combobox, trigger: trigger, content: content, input: input, getItems: getItems });
+    registry.comboboxes.push({ el: combobox, trigger: trigger, content: content, input: input, getItems: getItems, cancelSearch: search.cancel });
   });
 }

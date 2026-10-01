@@ -192,6 +192,37 @@ const withFormGroupCode = `<div class="cu-form-group" style="width: 300px;">
   <p class="cu-form-description">Select your preferred web framework.</p>
 </div>`.trim();
 
+const debounceCode = `<div class="cu-combobox" id="city-combobox" data-cu-combobox data-cu-combobox-debounce="300" style="width: 220px;">
+  <button class="cu-combobox-trigger" data-cu-combobox-trigger>
+    <span data-cu-combobox-value class="cu-combobox-trigger-placeholder">Select city...</span>
+    <svg class="cu-combobox-trigger-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 15 5 5 5-5"/><path d="m7 9 5-5 5 5"/></svg>
+  </button>
+  <div class="cu-combobox-content" data-cu-combobox-content hidden>
+    <div class="cu-combobox-search">
+      <svg class="cu-combobox-search-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input class="cu-combobox-input" data-cu-combobox-input placeholder="Search cities..." />
+    </div>
+    <div class="cu-combobox-list" data-cu-combobox-list>
+      <div class="cu-combobox-empty" data-cu-combobox-empty hidden>No results found.</div>
+      <div class="cu-combobox-item" data-cu-combobox-item data-cu-value="amsterdam">Amsterdam</div>
+      <div class="cu-combobox-item" data-cu-combobox-item data-cu-value="bangkok">Bangkok</div>
+      <div class="cu-combobox-item" data-cu-combobox-item data-cu-value="barcelona">Barcelona</div>
+      <div class="cu-combobox-item" data-cu-combobox-item data-cu-value="berlin">Berlin</div>
+      <div class="cu-combobox-item" data-cu-combobox-item data-cu-value="taipei">Taipei</div>
+      <div class="cu-combobox-item" data-cu-combobox-item data-cu-value="tokyo">Tokyo</div>
+      <div class="cu-combobox-item" data-cu-combobox-item data-cu-value="toronto">Toronto</div>
+    </div>
+  </div>
+</div>
+
+${SO}
+  // Optional: load results remotely. Fires after the 300ms pause, only when the query changes.
+  document.getElementById("city-combobox").addEventListener("cu:combobox:search", (e) => {
+    console.log("search:", e.detail.query);
+    // fetch("/api/cities?q=" + encodeURIComponent(e.detail.query)) → render data-cu-combobox-item elements
+  });
+${SC}`.trim();
+
 ---
 
 <Layout category={t.category} componentName="Combobox" title={t.title}>
@@ -424,6 +455,36 @@ const withFormGroupCode = `<div class="cu-form-group" style="width: 300px;">
                             <div class="cu-combobox-item" data-cu-combobox-item data-cu-value="london">London</div>
                             <div class="cu-combobox-item" data-cu-combobox-item data-cu-value="paris">Paris</div>
                             <div class="cu-combobox-item" data-cu-combobox-item data-cu-value="berlin">Berlin</div>
+                        </div>
+                    </div>
+                </div>
+            </ComponentPreview>
+        </section>
+
+        <!-- Search Debounce -->
+        <section class="space-y-3">
+            <SectionHeading id="search-debounce" title={t.sections.debounce.title} />
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.debounce.description} />
+            <ComponentPreview code={debounceCode}>
+                <div class="cu-combobox" data-cu-combobox data-cu-combobox-debounce="300" style="width: 220px;">
+                    <button class="cu-combobox-trigger" data-cu-combobox-trigger>
+                        <span data-cu-combobox-value class="cu-combobox-trigger-placeholder">Select city...</span>
+                        <svg class="cu-combobox-trigger-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 15 5 5 5-5"/><path d="m7 9 5-5 5 5"/></svg>
+                    </button>
+                    <div class="cu-combobox-content" data-cu-combobox-content hidden>
+                        <div class="cu-combobox-search">
+                            <svg class="cu-combobox-search-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                            <input class="cu-combobox-input" data-cu-combobox-input placeholder="Search cities..." />
+                        </div>
+                        <div class="cu-combobox-list" data-cu-combobox-list>
+                            <div class="cu-combobox-empty" data-cu-combobox-empty hidden>No results found.</div>
+                            <div class="cu-combobox-item" data-cu-combobox-item data-cu-value="amsterdam">Amsterdam</div>
+                            <div class="cu-combobox-item" data-cu-combobox-item data-cu-value="bangkok">Bangkok</div>
+                            <div class="cu-combobox-item" data-cu-combobox-item data-cu-value="barcelona">Barcelona</div>
+                            <div class="cu-combobox-item" data-cu-combobox-item data-cu-value="berlin">Berlin</div>
+                            <div class="cu-combobox-item" data-cu-combobox-item data-cu-value="taipei">Taipei</div>
+                            <div class="cu-combobox-item" data-cu-combobox-item data-cu-value="tokyo">Tokyo</div>
+                            <div class="cu-combobox-item" data-cu-combobox-item data-cu-value="toronto">Toronto</div>
                         </div>
                     </div>
                 </div>

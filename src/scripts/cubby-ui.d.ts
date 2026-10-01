@@ -83,8 +83,12 @@ export type ToastPosition =
 export interface CubbyUIEvents {
   /** Fired on [data-cu-combobox] when selection changes */
   "cu:combobox:change": CustomEvent<{ value: string; item: HTMLElement }>;
+  /** Fired on [data-cu-combobox] when the applied search query changes (after data-cu-combobox-debounce, if set) */
+  "cu:combobox:search": CustomEvent<{ query: string }>;
   /** Fired on [data-cu-multi-select] when selection changes */
   "cu:multiselect:change": CustomEvent<{ selected: string[] }>;
+  /** Fired on [data-cu-multi-select] when the applied search query changes (after data-cu-multi-select-debounce, if set) */
+  "cu:multiselect:search": CustomEvent<{ query: string }>;
   /** Fired on [data-cu-toggle-group] when selection changes */
   "cu:toggle-group:change": CustomEvent<{ value: string | string[] }>;
   /** Fired on [data-cu-rating] when value changes */
@@ -139,6 +143,7 @@ export declare const DATA_ATTRS: {
   readonly COMBOBOX_LIST: 'data-cu-combobox-list';
   readonly COMBOBOX_ITEM: 'data-cu-combobox-item';
   readonly COMBOBOX_EMPTY: 'data-cu-combobox-empty';
+  readonly COMBOBOX_DEBOUNCE: 'data-cu-combobox-debounce'; // optional, on root: filter delay in ms (default: immediate)
 
   // Multi Select
   readonly MULTI_SELECT: 'data-cu-multi-select';
@@ -150,6 +155,7 @@ export declare const DATA_ATTRS: {
   readonly MULTI_SELECT_TAGS: 'data-cu-multi-select-tags';
   readonly MULTI_SELECT_PLACEHOLDER: 'data-cu-multi-select-placeholder';
   readonly MULTI_SELECT_EMPTY: 'data-cu-multi-select-empty';
+  readonly MULTI_SELECT_DEBOUNCE: 'data-cu-multi-select-debounce'; // optional, on root: filter delay in ms (default: immediate)
   readonly MULTI_SELECT_VALUE: 'data-cu-value'; // also used by Transfer List
   readonly MULTI_SELECT_REMOVE: 'data-cu-remove'; // tag remove button, value = item value
 

@@ -178,6 +178,38 @@ const withFormGroupCode = `<div class="cu-form-group" style="width: 300px;">
   </div>
   <p class="cu-form-description">Choose the technologies used in this project.</p>
 </div>`.trim();
+const debounceCode = `<div class="cu-multi-select" id="language-select" data-cu-multi-select data-cu-multi-select-debounce="300" style="width: 300px;">
+  <button class="cu-multi-select-trigger" data-cu-multi-select-trigger>
+    <div class="cu-multi-select-tags" data-cu-multi-select-tags>
+      <span class="cu-multi-select-placeholder" data-cu-multi-select-placeholder>Select languages...</span>
+    </div>
+    <svg class="cu-multi-select-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 15 5 5 5-5"/><path d="m7 9 5-5 5 5"/></svg>
+  </button>
+  <div class="cu-multi-select-content" data-cu-multi-select-content hidden>
+    <div class="cu-multi-select-search">
+      <svg class="cu-multi-select-search-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input class="cu-multi-select-input" data-cu-multi-select-input placeholder="Search languages..." />
+    </div>
+    <div class="cu-multi-select-list" data-cu-multi-select-list>
+      <div class="cu-multi-select-empty" data-cu-multi-select-empty hidden>No results found.</div>
+      <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="go">Go</div>
+      <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="javascript">JavaScript</div>
+      <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="kotlin">Kotlin</div>
+      <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="python">Python</div>
+      <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="ruby">Ruby</div>
+      <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="rust">Rust</div>
+      <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="typescript">TypeScript</div>
+    </div>
+  </div>
+</div>
+
+${SO}
+  // Optional: load results remotely. Fires after the 300ms pause, only when the query changes.
+  document.getElementById("language-select").addEventListener("cu:multiselect:search", (e) => {
+    console.log("search:", e.detail.query);
+    // fetch("/api/languages?q=" + encodeURIComponent(e.detail.query)) → render data-cu-multi-select-item elements
+  });
+${SC}`.trim();
 ---
 
 <Layout category={t.category} componentName="Multi Select" title={t.title}>
@@ -322,6 +354,38 @@ const withFormGroupCode = `<div class="cu-form-group" style="width: 300px;">
                             <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="charlie">Charlie</div>
                             <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="diana">Diana</div>
                             <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="eve">Eve</div>
+                        </div>
+                    </div>
+                </div>
+            </ComponentPreview>
+        </section>
+
+        <!-- Search Debounce -->
+        <section class="space-y-3">
+            <SectionHeading id="search-debounce" title={t.sections.debounce.title} />
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.debounce.description} />
+            <ComponentPreview code={debounceCode}>
+                <div class="cu-multi-select" data-cu-multi-select data-cu-multi-select-debounce="300" style="width: 300px;">
+                    <button class="cu-multi-select-trigger" data-cu-multi-select-trigger>
+                        <div class="cu-multi-select-tags" data-cu-multi-select-tags>
+                            <span class="cu-multi-select-placeholder" data-cu-multi-select-placeholder>Select languages...</span>
+                        </div>
+                        <svg class="cu-multi-select-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 15 5 5 5-5"/><path d="m7 9 5-5 5 5"/></svg>
+                    </button>
+                    <div class="cu-multi-select-content" data-cu-multi-select-content hidden>
+                        <div class="cu-multi-select-search">
+                            <svg class="cu-multi-select-search-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                            <input class="cu-multi-select-input" data-cu-multi-select-input placeholder="Search languages..." />
+                        </div>
+                        <div class="cu-multi-select-list" data-cu-multi-select-list>
+                            <div class="cu-multi-select-empty" data-cu-multi-select-empty hidden>No results found.</div>
+                            <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="go">Go</div>
+                            <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="javascript">JavaScript</div>
+                            <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="kotlin">Kotlin</div>
+                            <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="python">Python</div>
+                            <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="ruby">Ruby</div>
+                            <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="rust">Rust</div>
+                            <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="typescript">TypeScript</div>
                         </div>
                     </div>
                 </div>

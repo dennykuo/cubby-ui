@@ -11,6 +11,7 @@ export const comboboxPage: Record<Locale, {
     withFormGroup: { title: string; description: string };
     disabled: { title: string; description: string };
     grouped: { title: string; description: string };
+    debounce: { title: string; description: string };
   };
   classDescriptions: Record<string, string>;
 }> = {
@@ -43,6 +44,10 @@ export const comboboxPage: Record<Locale, {
       grouped: {
         title: 'Grouped Options',
         description: 'Use label elements to group related options for better organization.',
+      },
+      debounce: {
+        title: 'Search Debounce',
+        description: 'By default the list filters on every keystroke, which is the most responsive choice for in-page lists. Add <code class="cu-code">data-cu-combobox-debounce="300"</code> to the wrapper to filter only after typing pauses for that many milliseconds — useful for long lists, or when you load results remotely by listening to the <code class="cu-code">cu:combobox:search</code> event (<code class="cu-code">event.detail.query</code>, fired only when the applied query changes). Clearing the query applies immediately, and arrow keys / Enter apply any pending filter first, so a stale result is never selected.',
       },
     },
     classDescriptions: {
@@ -90,6 +95,10 @@ export const comboboxPage: Record<Locale, {
       grouped: {
         title: '分組選項',
         description: '使用標籤元素將相關選項分組，提供更好的組織結構。',
+      },
+      debounce: {
+        title: '搜尋 Debounce',
+        description: '預設每次輸入都會立即過濾，對頁面內的清單反應最快。在外層容器加上 <code class="cu-code">data-cu-combobox-debounce="300"</code>，會在停止輸入指定毫秒數後才過濾，適合長清單，或監聽 <code class="cu-code">cu:combobox:search</code> 事件（<code class="cu-code">event.detail.query</code>，僅在實際套用的查詢改變時觸發）自行串接遠端搜尋。清空查詢會立即生效；方向鍵與 Enter 會先套用待執行的過濾，不會選到過期的結果。',
       },
     },
     classDescriptions: {

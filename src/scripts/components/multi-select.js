@@ -1,4 +1,7 @@
 import { registry } from "../core/registry.js";
+import { createDebouncer, readDelay } from "../core/utils.js";
+
+var NAV_KEYS = ["Enter", "ArrowDown", "ArrowUp", "Home", "End"];
 
 /**
  * Multi Select — searchable multi-selection dropdown with tag display.
@@ -23,6 +26,9 @@ import { registry } from "../core/registry.js";
  * - `data-cu-value`: REQUIRED on each item for tag rendering. Value must be unique.
  * - `cu-multi-select-item-active`: pre-selected items at init time.
  * - Tags are auto-rendered in `data-cu-multi-select-tags` container.
+ * - `data-cu-multi-select-debounce="300"`: optional, on the root. Delays filtering by N ms after typing
+ *   (default: filter immediately). Clearing the query, arrow keys and Enter apply pending filtering at once.
+ * - Fires `cu:multiselect:search` ({ query }) whenever the applied query changes — hook remote search here.
  */
 export function setupMultiSelects() {
   document
@@ -132,16 +138,37 @@ export function setupMultiSelects() {
           }
         });
 
+      var lastQuery = "";
+      function filterItems() {
+        if (!ms.isConnected) return;
+        var query = input.value.toLowerCase();
+        getItems().forEach(function (item) {
+          var match = (item.textContent || "")
+            .toLowerCase()
+            .includes(query);
+          item.toggleAttribute("hidden", !match);
+          // 被過濾掉的項目不可保留鍵盤高亮，否則 Enter 會選到看不見的項目
+          if (!match) item.classList.remove("cu-multi-select-item-highlight");
+        });
+        syncEmpty();
+        if (input.value !== lastQuery) {
+          lastQuery = input.value;
+          ms.dispatchEvent(new CustomEvent("cu:multiselect:search", {
+            bubbles: true,
+            detail: { query: input.value }
+          }));
+        }
+      }
+      var search = createDebouncer(filterItems);
+
       if (input) {
         input.addEventListener("input", function () {
-          var query = input.value.toLowerCase();
-          getItems().forEach(function (item) {
-            var match = (item.textContent || "")
-              .toLowerCase()
-              .includes(query);
-            item.toggleAttribute("hidden", !match);
-          });
-          syncEmpty();
+          // 清空查詢（含關閉時的重設）一律立即執行，避免重新開啟時看到過期結果
+          search.run(input.value === "" ? 0 : readDelay(ms, "data-cu-multi-select-debounce"));
+        });
+        // 鍵盤導航 / Enter 前先套用待執行的過濾（document keydown handler 在冒泡階段才處理）
+        input.addEventListener("keydown", function (e) {
+          if (NAV_KEYS.indexOf(e.key) !== -1) search.flush();
         });
       }
 
@@ -167,6 +194,6 @@ export function setupMultiSelects() {
           }));
         });
 
-      registry.multiSelects.push({ el: ms, trigger: trigger, content: content, input: input, getItems: getItems });
+      registry.multiSelects.push({ el: ms, trigger: trigger, content: content, input: input, getItems: getItems, cancelSearch: search.cancel });
     });
 }

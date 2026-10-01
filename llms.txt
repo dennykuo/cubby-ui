@@ -386,6 +386,7 @@ Sizes: `cu-toggle-sm`, `cu-toggle-lg`
 **Combobox** ⚡ Interactive — searchable select
 Key data attributes: `data-cu-combobox`, `data-cu-combobox-trigger`, `data-cu-combobox-content`, `data-cu-combobox-input`, `data-cu-combobox-item`, `data-cu-combobox-value`, `data-cu-combobox-empty`, `data-cu-combobox-list`
 Active item: add `cu-combobox-item-active` class to pre-selected item.
+Search debounce (optional): `data-cu-combobox-debounce="300"` on the root delays filtering until typing pauses for N ms (default: filter on every keystroke). Clearing the query, arrow keys and Enter apply pending filtering immediately. Events: `cu:combobox:change` (`{ value, item }`), `cu:combobox:search` (`{ query }`, fired when the applied query changes — use it for remote search).
 ```html
 <div class="cu-combobox" data-cu-combobox>
   <button class="cu-combobox-trigger" data-cu-combobox-trigger>
@@ -437,6 +438,7 @@ Data attributes: `data-cu-date-picker`, `data-cu-date-picker-trigger`, `data-cu-
 
 **Multi Select** ⚡ Interactive — multiple selection with tags
 Key data attributes: `data-cu-multi-select`, `data-cu-multi-select-trigger`, `data-cu-multi-select-content`, `data-cu-multi-select-input`, `data-cu-multi-select-item` (with `data-cu-value`), `data-cu-multi-select-tags`, `data-cu-multi-select-placeholder`, `data-cu-multi-select-list`, `data-cu-multi-select-empty`
+Search debounce (optional): `data-cu-multi-select-debounce="300"` on the root delays filtering until typing pauses for N ms (default: filter on every keystroke). Clearing the query, arrow keys and Enter apply pending filtering immediately. Events: `cu:multiselect:change` (`{ selected }`), `cu:multiselect:search` (`{ query }`, fired when the applied query changes — use it for remote search).
 ```html
 <div class="cu-multi-select" data-cu-multi-select>
   <div class="cu-multi-select-trigger" data-cu-multi-select-trigger>
@@ -1408,11 +1410,11 @@ Data attributes: `data-cu-resizable`, `data-cu-resizable-panel`, `data-cu-resiza
 | Dropdown | `data-cu-dropdown` | `data-cu-dropdown-trigger` | `data-cu-dropdown-content` | — | — |
 | Carousel | `data-cu-carousel` | — | — | — | — |
 | Color Picker | `data-cu-color-picker` | — | — | — | `data-cu-color-picker-value`, `data-cu-color-picker-saturation`, `data-cu-color-picker-saturation-pointer`, `data-cu-color-picker-hue`, `data-cu-color-picker-hue-pointer`, `data-cu-color-picker-preview`, `data-cu-color-picker-input`, `data-cu-color-picker-hidden`, `data-cu-color-picker-swatch` |
-| Combobox | `data-cu-combobox` | `data-cu-combobox-trigger` | `data-cu-combobox-content` | — | `data-cu-combobox-input`, `data-cu-combobox-item`, `data-cu-combobox-value`, `data-cu-combobox-list`, `data-cu-combobox-empty` |
+| Combobox | `data-cu-combobox` | `data-cu-combobox-trigger` | `data-cu-combobox-content` | — | `data-cu-combobox-input`, `data-cu-combobox-item`, `data-cu-combobox-value`, `data-cu-combobox-list`, `data-cu-combobox-empty`, `data-cu-combobox-debounce` |
 | Command Palette | `data-cu-command` | — | — | — | `data-cu-command-active` (on active item) |
 | Context Menu | `data-cu-context-menu` | — | `data-cu-context-menu-content` | — | — |
 | Date Picker | `data-cu-date-picker` | `data-cu-date-picker-trigger` | `data-cu-date-picker-content` | — | `data-cu-date-picker-value`, `data-cu-date-picker-input` (hidden) |
-| Multi Select | `data-cu-multi-select` | `data-cu-multi-select-trigger` | `data-cu-multi-select-content` | — | `data-cu-multi-select-input`, `data-cu-multi-select-item`, `data-cu-multi-select-tags`, `data-cu-multi-select-placeholder`, `data-cu-multi-select-list`, `data-cu-multi-select-empty`, `data-cu-value` |
+| Multi Select | `data-cu-multi-select` | `data-cu-multi-select-trigger` | `data-cu-multi-select-content` | — | `data-cu-multi-select-input`, `data-cu-multi-select-item`, `data-cu-multi-select-tags`, `data-cu-multi-select-placeholder`, `data-cu-multi-select-list`, `data-cu-multi-select-empty`, `data-cu-multi-select-debounce`, `data-cu-value` |
 | Number Input | `data-cu-number-input` | `data-cu-number-increment` / `data-cu-number-decrement` | — | — | `data-cu-number-field` (on input) |
 | Password Input | `data-cu-password-input` | — | — | — | `data-cu-password-toggle`, `data-cu-password-icon-show`, `data-cu-password-icon-hide` |
 | Pin Input | `data-cu-pin-input` | — | — | — | `data-cu-pin-input-type` |

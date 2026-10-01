@@ -46,3 +46,40 @@ export function clampValue(value, min, max) {
   if (value > max) return max;
   return value;
 }
+
+// Read a millisecond delay from a data attribute; missing / invalid / <= 0 → 0 (run immediately)
+export function readDelay(el, attr) {
+  var ms = parseInt(el.getAttribute(attr), 10);
+  return ms > 0 ? ms : 0;
+}
+
+// Debounced runner: run(delay) with delay <= 0 calls fn synchronously.
+// flush() runs a pending call now; cancel() drops it.
+export function createDebouncer(fn) {
+  var timer = null;
+  function cancel() {
+    if (timer !== null) {
+      clearTimeout(timer);
+      timer = null;
+    }
+  }
+  return {
+    run: function (delay) {
+      cancel();
+      if (delay > 0) {
+        timer = setTimeout(function () {
+          timer = null;
+          fn();
+        }, delay);
+      } else {
+        fn();
+      }
+    },
+    flush: function () {
+      if (timer === null) return;
+      cancel();
+      fn();
+    },
+    cancel: cancel,
+  };
+}

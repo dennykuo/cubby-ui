@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Combobox / Multi Select debounce fixture</title>
+  <link rel="stylesheet" href="../../../dist/core/cubby-ui.css" />
+</head>
+<body>
+  <!-- 預設：即時過濾 -->
+  <div id="cb-instant" class="cu-combobox" data-cu-combobox>
+    <button class="cu-combobox-trigger" data-cu-combobox-trigger>
+      <span data-cu-combobox-value class="cu-combobox-trigger-placeholder">Select fruit...</span>
+    </button>
+    <div class="cu-combobox-content" data-cu-combobox-content hidden>
+      <input class="cu-combobox-input" data-cu-combobox-input placeholder="Search..." />
+      <ul data-cu-combobox-list>
+        <li class="cu-combobox-item" data-cu-combobox-item>Apple</li>
+        <li class="cu-combobox-item" data-cu-combobox-item>Apricot</li>
+        <li class="cu-combobox-item" data-cu-combobox-item>Banana</li>
+        <li class="cu-combobox-item" data-cu-combobox-item>Blueberry</li>
+        <li class="cu-combobox-item" data-cu-combobox-item>Cherry</li>
+      </ul>
+      <div data-cu-combobox-empty hidden>No results</div>
+    </div>
+  </div>
+
+  <!-- 延遲 300ms 過濾 -->
+  <div id="cb-debounce" class="cu-combobox" data-cu-combobox data-cu-combobox-debounce="300">
+    <button class="cu-combobox-trigger" data-cu-combobox-trigger>
+      <span data-cu-combobox-value class="cu-combobox-trigger-placeholder">Select fruit...</span>
+    </button>
+    <div class="cu-combobox-content" data-cu-combobox-content hidden>
+      <input class="cu-combobox-input" data-cu-combobox-input placeholder="Search..." />
+      <ul data-cu-combobox-list>
+        <li class="cu-combobox-item" data-cu-combobox-item>Apple</li>
+        <li class="cu-combobox-item" data-cu-combobox-item>Apricot</li>
+        <li class="cu-combobox-item" data-cu-combobox-item>Banana</li>
+        <li class="cu-combobox-item" data-cu-combobox-item>Blueberry</li>
+        <li class="cu-combobox-item" data-cu-combobox-item>Cherry</li>
+      </ul>
+      <div data-cu-combobox-empty hidden>No results</div>
+    </div>
+  </div>
+
+  <!-- 預設：即時過濾 -->
+  <div id="ms-instant" class="cu-multi-select" data-cu-multi-select>
+    <div class="cu-multi-select-trigger" data-cu-multi-select-trigger>
+      <div data-cu-multi-select-tags>
+        <span data-cu-multi-select-placeholder>Select fruits...</span>
+      </div>
+    </div>
+    <div class="cu-multi-select-content" data-cu-multi-select-content hidden>
+      <input class="cu-multi-select-input" data-cu-multi-select-input placeholder="Search..." />
+      <ul data-cu-multi-select-list>
+        <li class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="apple">Apple</li>
+        <li class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="apricot">Apricot</li>
+        <li class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="banana">Banana</li>
+        <li class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="blueberry">Blueberry</li>
+        <li class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="cherry">Cherry</li>
+      </ul>
+      <div data-cu-multi-select-empty hidden>No results</div>
+    </div>
+  </div>
+
+  <!-- 延遲 300ms 過濾 -->
+  <div id="ms-debounce" class="cu-multi-select" data-cu-multi-select data-cu-multi-select-debounce="300">
+    <div class="cu-multi-select-trigger" data-cu-multi-select-trigger>
+      <div data-cu-multi-select-tags>
+        <span data-cu-multi-select-placeholder>Select fruits...</span>
+      </div>
+    </div>
+    <div class="cu-multi-select-content" data-cu-multi-select-content hidden>
+      <input class="cu-multi-select-input" data-cu-multi-select-input placeholder="Search..." />
+      <ul data-cu-multi-select-list>
+        <li class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="apple">Apple</li>
+        <li class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="apricot">Apricot</li>
+        <li class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="banana">Banana</li>
+        <li class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="blueberry">Blueberry</li>
+        <li class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="cherry">Cherry</li>
+      </ul>
+      <div data-cu-multi-select-empty hidden>No results</div>
+    </div>
+  </div>
+
+  <button id="outside" class="cu-button cu-button-ghost">Outside</button>
+
+  <script>
+    window.__searches = [];
+    window.__changes = [];
+    ["cu:combobox:search", "cu:multiselect:search"].forEach(function (type) {
+      document.addEventListener(type, function (e) {
+        window.__searches.push(e.target.id + ":" + e.detail.query);
+      });
+    });
+    document.addEventListener("cu:combobox:change", function (e) {
+      window.__changes.push(e.target.id + ":" + e.detail.value);
+    });
+    document.addEventListener("cu:multiselect:change", function (e) {
+      window.__changes.push(e.target.id + ":" + e.detail.selected.join(","));
+    });
+  </script>
+  <script src="../../../dist/core/cubby-ui.js"></script>
+</body>
+</html>
