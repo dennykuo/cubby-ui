@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Combobox fixture</title>
+  <link rel="stylesheet" href="../../../dist/core/cubby-ui.css" />
+  <style>
+    /* 文檔的 Disabled 範例使用 Tailwind utility；出貨 CSS 不含 utility，這裡補上等效樣式 */
+    .opacity-50 { opacity: 0.5; }
+    .pointer-events-none { pointer-events: none; }
+    body { display: flex; gap: 24px; align-items: flex-start; padding: 16px; }
+  </style>
+</head>
+<body>
+  <!-- 文檔 Usage 範例 -->
+  <div id="cb-framework" class="cu-combobox" data-cu-combobox style="width: 200px;">
+    <button class="cu-combobox-trigger" data-cu-combobox-trigger>
+      <span data-cu-combobox-value class="cu-combobox-trigger-placeholder">Select framework...</span>
+      <svg class="cu-combobox-trigger-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 15 5 5 5-5"/><path d="m7 9 5-5 5 5"/></svg>
+    </button>
+    <div class="cu-combobox-content" data-cu-combobox-content hidden>
+      <div class="cu-combobox-search">
+        <svg class="cu-combobox-search-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input class="cu-combobox-input" data-cu-combobox-input placeholder="Search..." />
+      </div>
+      <div class="cu-combobox-list" data-cu-combobox-list>
+        <div class="cu-combobox-empty" data-cu-combobox-empty hidden>No results found.</div>
+        <div class="cu-combobox-item" data-cu-combobox-item data-cu-value="next">Next.js</div>
+        <div class="cu-combobox-item" data-cu-combobox-item data-cu-value="svelte">SvelteKit</div>
+        <div class="cu-combobox-item" data-cu-combobox-item data-cu-value="nuxt">Nuxt.js</div>
+        <div class="cu-combobox-item" data-cu-combobox-item data-cu-value="remix">Remix</div>
+        <div class="cu-combobox-item" data-cu-combobox-item data-cu-value="astro">Astro</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 文檔 Disabled Items 範例（Angular 為停用項目）；Vue 預先選取 -->
+  <div id="cb-disabled" class="cu-combobox" data-cu-combobox style="width: 200px;">
+    <button class="cu-combobox-trigger" data-cu-combobox-trigger>
+      <span data-cu-combobox-value>Vue</span>
+    </button>
+    <div class="cu-combobox-content" data-cu-combobox-content hidden>
+      <div class="cu-combobox-search">
+        <input class="cu-combobox-input" data-cu-combobox-input placeholder="Search..." />
+      </div>
+      <div class="cu-combobox-list" data-cu-combobox-list>
+        <div class="cu-combobox-empty" data-cu-combobox-empty hidden>No results found.</div>
+        <div class="cu-combobox-item" data-cu-combobox-item data-cu-value="react">React</div>
+        <div class="cu-combobox-item cu-combobox-item-active" data-cu-combobox-item data-cu-value="vue">Vue</div>
+        <div class="cu-combobox-item opacity-50 pointer-events-none" data-cu-combobox-item data-cu-value="angular" aria-disabled="true">Angular (Coming soon)</div>
+        <div class="cu-combobox-item" data-cu-combobox-item data-cu-value="svelte">Svelte</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 放在 <form> 內的 Combobox（llms.txt 範例的最小結構，無 data-cu-value） -->
+  <form id="form" action="#" onsubmit="event.preventDefault(); window.__submits = (window.__submits || 0) + 1;">
+    <div id="cb-form" class="cu-combobox" data-cu-combobox style="width: 200px;">
+      <button class="cu-combobox-trigger" data-cu-combobox-trigger>
+        <span data-cu-combobox-value class="cu-combobox-trigger-placeholder">Select...</span>
+      </button>
+      <div class="cu-combobox-content" data-cu-combobox-content hidden>
+        <input class="cu-combobox-input" data-cu-combobox-input placeholder="Search...">
+        <ul data-cu-combobox-list>
+          <li class="cu-combobox-item" data-cu-combobox-item>Option 1</li>
+          <li class="cu-combobox-item" data-cu-combobox-item>Option 2</li>
+        </ul>
+        <div data-cu-combobox-empty hidden>No results</div>
+      </div>
+    </div>
+    <button id="submit" type="submit" class="cu-button cu-button-default">Submit</button>
+  </form>
+
+  <button id="outside" class="cu-button cu-button-ghost">Outside</button>
+
+  <script>
+    window.__events = [];
+    document.addEventListener("cu:combobox:change", function (e) {
+      window.__events.push({ id: e.target.id, value: e.detail.value, item: e.detail.item.textContent.trim() });
+    });
+  </script>
+  <script src="../../../dist/core/cubby-ui.js"></script>
+</body>
+</html>
