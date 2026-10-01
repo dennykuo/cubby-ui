@@ -12,6 +12,10 @@ Cubby UI 是框架無關的 UI 元件庫，風格類似 shadcn/ui，使用純 HT
 
 ## 開發環境
 
+Node.js 版本以根目錄 `.nvmrc` 為準（目前為 24，CI 與部署 workflow 也由此讀取），可用 `nvm use` 切換。
+
+> Node 24 隨附 npm 11，預設不執行相依套件的 install script，`npm install` 結尾會列出被略過的套件（`esbuild`、`sharp`、`@parcel/watcher`）。它們都有平台預編譯檔可用，略過不影響建置與測試，可忽略該警告。
+
 ```bash
 npm install          # 安裝依賴
 npm run dev          # 啟動 Astro 開發伺服器（自動同步 i18n 路由）

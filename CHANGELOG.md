@@ -12,10 +12,15 @@
 - `public/favicon.svg`（原本各頁引用的 `/favicon.svg` 並不存在）
 - `check:sync` 新增 README 元件分類表檢查：每個分類的元件須與 `component-nav.ts` 的 `componentGroups` 完全一致，分類標籤取自 `src/i18n/ui.ts` 的 sidebar 英文標籤
 
+### Security
+- **Deploy Docs** 只在本 repo 的 push 觸發的 CI 成功後部署：`workflow_run` 的 `branches: [main]` 比對的是來源分支名稱，fork 若以名為 `main` 的分支開 PR，其 CI 完成後同樣會觸發部署並 checkout fork 的 commit；`build` job 條件新增 `workflow_run.event == 'push'` 與 `head_repository.full_name == github.repository`
+
 ### Removed
 - `src/pages/examples/dashboard-v5/feedback/`：誤提交進版控的 12 個舊建置快照（`.html`，引用已不存在的 `/_astro/*.css`，部署後會是無樣式頁面），連帶移除 `check:links` 與 docs smoke test 為它設的例外
 
 ### Changed
+- **Node.js 20 → 24**：新增 `.nvmrc`（`24`），CI 與 Deploy Docs 改以 `node-version-file: .nvmrc` 讀取；`@types/node` 升至 `^24`
+- **GitHub Actions 升級為 Node 24 runtime 的版本**，消除 Node 20 deprecation 警告：`actions/checkout` v4 → v7、`actions/setup-node` v4 → v7、`actions/configure-pages` v5 → v6、`actions/upload-pages-artifact` v3 → v5（內部改用 `upload-artifact` v7）、`actions/deploy-pages` v4 → v5
 - **README 元件分類表**依 `component-nav.ts` 重建：由 8 類補齊為 10 類（新增 Content、AI），元件由 59 個補到 95 個，Avatar、Badge 由 Data Display 改回 Basic，分類順序與文檔站側邊欄一致
 - **TODO.md** 勾選 12 個已完成元件項目，並新增「工程與品質」段落，移入已歸檔計畫中尚未完成的 6 項待辦（含已實測重現的 Dialog 點擊內部 padding 誤關閉問題）
 - 已完成或過時的計畫文件移至 `references/archive/`，各檔開頭加註歸檔狀態與未完成項目去向：`PLAN-3.md`、`UI-UX-REVIEW.md`、`agent-guide/implementation_plan.md`

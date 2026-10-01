@@ -21,24 +21,29 @@ concurrency:
 
 jobs:
   build:
-    # workflow_run 會在 CI 失敗時也觸發，只在成功時部署
-    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
+    # workflow_run 在 CI 失敗時也會觸發，只在成功時部署。branches 過濾比對的是來源分支名稱，
+    # fork 的 PR 若分支也叫 main 同樣會觸發，因此再限定為本 repo 的 push 事件，避免發布 fork 程式碼
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      (github.event.workflow_run.conclusion == 'success' &&
+       github.event.workflow_run.event == 'push' &&
+       github.event.workflow_run.head_repository.full_name == github.repository)
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           # workflow_run 預設 checkout 預設分支最新 commit，改為 CI 實際驗證過的那個
           ref: ${{ github.event.workflow_run.head_sha || github.sha }}
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
         with:
-          node-version: 20
+          node-version-file: .nvmrc
           cache: npm
 
       # 取得 Pages 網址：專案站為 https://<owner>.github.io + /<repo>，自訂網域時 base_path 為空
       - name: 設定 GitHub Pages
         id: pages
-        uses: actions/configure-pages@v5
+        uses: actions/configure-pages@v6
 
       # npm ci 觸發 prepare → build:all，文檔站的 cubby-ui.js 與 CSS 由此產生
       - name: 安裝依賴並建置套件
@@ -55,7 +60,7 @@ jobs:
         env:
           BASE_PATH: ${{ steps.pages.outputs.base_path }}
 
-      - uses: actions/upload-pages-artifact@v3
+      - uses: actions/upload-pages-artifact@v5
         with:
           path: docs
 
@@ -68,4 +73,4 @@ jobs:
     steps:
       - name: 部署到 GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
