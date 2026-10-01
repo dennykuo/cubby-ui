@@ -8,6 +8,7 @@ export const multiSelectPage: Record<Locale, {
     usage: { title: string; description: string };
     classes: { title: string; classLabel: string; descriptionLabel: string };
     withSearch: { title: string; description: string };
+    debounce: { title: string; description: string };
     presetValues: { title: string; description: string };
     withFormGroup: { title: string; description: string };
   };
@@ -30,6 +31,10 @@ export const multiSelectPage: Record<Locale, {
       withSearch: {
         title: 'With Search',
         description: 'Add a search input with <code class="cu-code">cu-multi-select-search</code> to filter options.',
+      },
+      debounce: {
+        title: 'Search Debounce',
+        description: 'By default the list filters on every keystroke. Add <code class="cu-code">data-cu-multi-select-debounce="300"</code> to the wrapper to filter only after typing pauses for that many milliseconds — useful for long lists, or when you load results remotely by listening to the <code class="cu-code">cu:multiselect:search</code> event (<code class="cu-code">event.detail.query</code>, fired only when the applied query changes). Clearing the query applies immediately, and arrow keys / Enter apply any pending filter first, so a stale result is never toggled.',
       },
       presetValues: {
         title: 'Preset Values',
@@ -76,6 +81,10 @@ export const multiSelectPage: Record<Locale, {
       withSearch: {
         title: '帶搜尋',
         description: '加入 <code class="cu-code">cu-multi-select-search</code> 搜尋輸入框以過濾選項。',
+      },
+      debounce: {
+        title: '搜尋 Debounce',
+        description: '預設每次輸入都會立即過濾。在外層容器加上 <code class="cu-code">data-cu-multi-select-debounce="300"</code>，會在停止輸入指定毫秒數後才過濾，適合長清單，或監聽 <code class="cu-code">cu:multiselect:search</code> 事件（<code class="cu-code">event.detail.query</code>，僅在實際套用的查詢改變時觸發）自行串接遠端搜尋。清空查詢會立即生效；方向鍵與 Enter 會先套用待執行的過濾，不會切換到過期的結果。',
       },
       presetValues: {
         title: '預設值',

@@ -87,7 +87,9 @@ function init() {
 
 function destroy() {
   registry.dropdowns = [];
+  registry.comboboxes.forEach(function (c) { if (c.cancelSearch) c.cancelSearch(); });
   registry.comboboxes = [];
+  registry.multiSelects.forEach(function (ms) { if (ms.cancelSearch) ms.cancelSearch(); });
   registry.multiSelects = [];
   registry.popovers = [];
   registry.menubars = [];
@@ -134,7 +136,9 @@ function destroy() {
 function refresh() {
   var inBody = function (o) { return document.body.contains(o.el); };
   registry.dropdowns = registry.dropdowns.filter(inBody);
+  registry.comboboxes.forEach(function (c) { if (!inBody(c) && c.cancelSearch) c.cancelSearch(); });
   registry.comboboxes = registry.comboboxes.filter(inBody);
+  registry.multiSelects.forEach(function (ms) { if (!inBody(ms) && ms.cancelSearch) ms.cancelSearch(); });
   registry.multiSelects = registry.multiSelects.filter(inBody);
   registry.popovers = registry.popovers.filter(inBody);
   registry.menubars = registry.menubars.filter(inBody);

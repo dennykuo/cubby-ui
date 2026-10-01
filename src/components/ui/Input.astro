@@ -1,11 +1,12 @@
 ---
+import type { HTMLAttributes } from "astro/types";
 import { TOP_CLASS } from "../../config";
 
-interface Props {
+// 原生 size（字元寬度）由元件尺寸 prop 取代
+interface Props extends Omit<HTMLAttributes<"input">, "size"> {
 	size?: "sm" | "default" | "lg";
 	variant?: "default" | "error" | "success";
 	class?: string;
-	[key: string]: any;
 }
 
 const { size, variant, class: className, ...rest } = Astro.props;
