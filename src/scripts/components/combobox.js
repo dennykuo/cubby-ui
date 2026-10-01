@@ -52,6 +52,8 @@ export function setupComboboxes() {
     if (trigger) {
       trigger.setAttribute("aria-haspopup", "listbox");
       trigger.setAttribute("aria-expanded", "false");
+      // 未指定 type 的 <button> 在 <form> 內預設為 submit，開啟面板會送出表單
+      if (trigger.tagName === "BUTTON" && !trigger.hasAttribute("type")) trigger.type = "button";
     }
     if (content) {
       var list = content.querySelector("[data-cu-combobox-list]") || content;
@@ -68,8 +70,8 @@ export function setupComboboxes() {
     }
 
     trigger &&
-      trigger.addEventListener("click", function (e) {
-        e.stopPropagation();
+      trigger.addEventListener("click", function () {
+        // 不阻止冒泡：讓 document 級 handler 關閉其他已開啟的浮層（自身因 contains 判斷不受影響）
         var isHidden = content && content.hasAttribute("hidden");
         content && content.toggleAttribute("hidden");
         trigger.setAttribute("aria-expanded", String(isHidden));
@@ -105,7 +107,10 @@ export function setupComboboxes() {
         item.classList.add("cu-combobox-item-active");
         item.setAttribute("aria-selected", "true");
         content.setAttribute("hidden", "");
-        if (trigger) trigger.setAttribute("aria-expanded", "false");
+        if (trigger) {
+          trigger.setAttribute("aria-expanded", "false");
+          trigger.focus(); // 焦點原本在已隱藏的搜尋框 / 選項內，移回 trigger 避免遺失
+        }
         if (input) {
           input.value = "";
           input.dispatchEvent(new Event("input"));
