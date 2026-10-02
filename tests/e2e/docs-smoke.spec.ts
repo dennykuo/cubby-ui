@@ -399,3 +399,30 @@ test.describe("docs SEO", () => {
     await expect(page.locator('link[rel="sitemap"]')).toHaveCount(0);
   });
 });
+
+// ── 文檔站深淺切換：Header 圖示（dark:hidden / dark:block）須跟隨 .dark，而非作業系統設定 ──
+test.describe("docs theme toggle", () => {
+  for (const os of ["light", "dark"] as const) {
+    test(`作業系統為 ${os} 時，切換後圖示與 .dark 一致`, async ({ page }) => {
+      await page.emulateMedia({ colorScheme: os });
+      await page.route("**/*", (route) => {
+        route.request().url().startsWith(origin) ? route.continue() : route.abort();
+      });
+      await page.goto(baseURL + "/components/button/", { waitUntil: "load" });
+
+      const html = page.locator("html");
+      const toggle = page.locator("[data-cu-theme-toggle]");
+      const sun = toggle.locator("svg").nth(0); // dark:hidden
+      const moon = toggle.locator("svg").nth(1); // hidden dark:block
+
+      // 未存偏好時依作業系統初始化
+      await expect(html).toHaveClass(os === "dark" ? /\bdark\b/ : /^(?!.*\bdark\b)/);
+      // 切到與作業系統相反的模式，圖示必須跟著 .dark 走
+      await toggle.click();
+      const isDark = os === "light";
+      await expect(html).toHaveClass(isDark ? /\bdark\b/ : /^(?!.*\bdark\b)/);
+      await expect(isDark ? moon : sun).toBeVisible();
+      await expect(isDark ? sun : moon).toBeHidden();
+    });
+  }
+});

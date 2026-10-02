@@ -82,7 +82,12 @@ const customDarkMode = `/* After importing Cubby UI */
   --color-background: hsl(220 20% 7%);
 }`;
 
-const tailwindDarkClasses = `<!-- Tailwind's dark: variant works automatically -->
+const tailwindDarkSetup = `@import "tailwindcss";
+
+/* Make dark: follow the .dark class instead of the OS preference */
+@custom-variant dark (&:where(.dark, .dark *));`;
+
+const tailwindDarkClasses = `<!-- dark: utilities follow the .dark class on <html> -->
 <div class="bg-white dark:bg-slate-900">
   <p class="text-gray-900 dark:text-gray-100">
     This text adapts to the theme.
@@ -252,6 +257,14 @@ ${SC}`;
         <section class="space-y-4">
             <h2 class="text-xl font-semibold tracking-tight">{t.tailwindDark.heading}</h2>
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.tailwindDark.description} />
+            <div class="rounded-xl border border-border bg-muted/20 overflow-hidden">
+                <div class="flex items-center px-4 py-2.5 border-b border-border/40">
+                    <span class="text-[11px] font-medium tracking-wider text-muted-foreground/60">CSS</span>
+                </div>
+                <div class="px-4 py-3">
+                    <Code code={tailwindDarkSetup} lang="css" />
+                </div>
+            </div>
             <div class="rounded-xl border border-border bg-muted/20 overflow-hidden">
                 <div class="flex items-center px-4 py-2.5 border-b border-border/40">
                     <span class="text-[11px] font-medium tracking-wider text-muted-foreground/60">HTML</span>

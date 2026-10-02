@@ -1,3 +1,8 @@
+/* `dark:` variant 跟隨 `.dark` class（與下方 `.dark` 色彩 token 一致）。
+   Tailwind v4 預設以 `prefers-color-scheme` media query 編譯 `dark:`，以 `.dark` 切換深淺時
+   浮層的 `dark:shadow-*` 會與主題不同步（例如系統淺色、網站深色時仍是亮色陰影）。 */
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
   --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif;
 

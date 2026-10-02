@@ -103,7 +103,7 @@ const t = useTranslations(buttonPage, locale);
 
 - 語意色彩：primary, secondary, destructive, success, warning, info, muted, accent
 - 每個色彩有配對的 foreground 色（例如 `--color-primary` / `--color-primary-foreground`）
-- 支援暗色模式（`.dark` class + `color-scheme: dark` 確保原生元素跟隨）
+- 支援暗色模式（`.dark` class + `color-scheme: dark` 確保原生元素跟隨）；`theme.css` 以 `@custom-variant dark (&:where(.dark, .dark *))` 讓 `dark:` 工具類別跟隨 `.dark` class（Tailwind v4 預設依 `prefers-color-scheme`，會與色彩 token 不同步），`tests/e2e/dark-mode.spec.ts` 與 `docs-smoke.spec.ts` 的 `docs theme toggle` 驗證
 - 支援 `prefers-reduced-motion` 全域降低動畫
 - 文檔站工具類別：`.cu-code`（inline code 樣式，定義在 `global.css`）
 - 動畫慣例：微互動 `duration-150`、狀態切換 `duration-200`；所有 `transition-*` 必須搭配明確的 `duration-*`；偏好具體 transition 屬性（`transition-colors`、`transition-shadow`、`transition-opacity`）而非 `transition-all`；Dialog/Drawer/Alert Dialog 使用 CSS `@starting-style` + `transition-behavior: allow-discrete` 實現開關動畫（統一 `0.2s ease`）

@@ -40,6 +40,7 @@
 - 已完成或過時的計畫文件移至 `references/archive/`，各檔開頭加註歸檔狀態與未完成項目去向：`PLAN-3.md`、`UI-UX-REVIEW.md`、`agent-guide/implementation_plan.md`
 
 ### Fixed
+- **`dark:` 工具類別跟隨作業系統而非 `.dark` class**：`theme.css` 未定義 `@custom-variant dark`，Tailwind v4 以 `prefers-color-scheme` 編譯 `dark:`，9 個元件的浮層陰影（`dark:shadow-*`）在使用者選擇與作業系統不同的主題時與網站深淺不同步；文檔站 Header 的深淺切換圖示也因此顯示錯誤。新增 `@custom-variant dark (&:where(.dark, .dark *))`，Dark Mode 文檔補上使用者自訂 `dark:` 的同樣設定
 - **Date Picker** 內的月曆被初始化兩次：方向鍵一次移動兩格，且重複呼叫 `init()` / `refresh()` 後選取的日期不再寫回 input；hidden input 的預設值不會讓月曆開在該月、也不會標記選取
 - **Calendar** 跨月鍵盤導航聚焦到錯誤日期；以 Enter 選取後焦點遺失
 - **Combobox / Multi Select** 篩選掉已高亮的項目後，按 Enter 會選到看不見的項目

@@ -69,7 +69,7 @@ export const darkModeTranslations: Record<Locale, {
     },
     tailwindDark: {
       heading: 'Using Tailwind\'s dark: variant',
-      description: 'Tailwind\'s <code class="cu-code">dark:</code> variant works alongside Cubby UI. Use it for custom styling that needs to change between themes.',
+      description: 'Tailwind\'s <code class="cu-code">dark:</code> variant works alongside Cubby UI for custom styling. Tailwind v4 compiles <code class="cu-code">dark:</code> from the OS <code class="cu-code">prefers-color-scheme</code> by default, so add the <code class="cu-code">@custom-variant</code> line below to your CSS to make it follow the <code class="cu-code">.dark</code> class, as Cubby UI\'s own styles do. Otherwise your utilities and Cubby UI can disagree when the user picks a theme different from their OS.',
     },
     tips: {
       heading: 'Tips',
@@ -112,7 +112,7 @@ export const darkModeTranslations: Record<Locale, {
     },
     tailwindDark: {
       heading: '使用 Tailwind 的 dark: 變體',
-      description: 'Tailwind 的 <code class="cu-code">dark:</code> 變體可與 Cubby UI 並用。用於需要在主題之間切換的自訂樣式。',
+      description: 'Tailwind 的 <code class="cu-code">dark:</code> 變體可與 Cubby UI 並用，撰寫需要隨主題切換的自訂樣式。Tailwind v4 預設依作業系統的 <code class="cu-code">prefers-color-scheme</code> 編譯 <code class="cu-code">dark:</code>，請在你的 CSS 加入下方的 <code class="cu-code">@custom-variant</code>，讓它和 Cubby UI 本身一樣跟隨 <code class="cu-code">.dark</code> class；否則使用者選擇與作業系統不同的主題時，你的樣式會和 Cubby UI 不一致。',
     },
     tips: {
       heading: '提示',

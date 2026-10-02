@@ -54,7 +54,7 @@
 
 ### 2026-10 整合時發現的後續項目
 
-- [ ] **`dark:` variant 跟隨系統偏好而非 `.dark` class** — `theme.css` 未定義 `@custom-variant dark`，9 個元件 CSS 的 `dark:` 被編譯成 `@media (prefers-color-scheme: dark)`；以 `.dark` 切換的網站，浮層的 `dark:shadow-*` 與網站深淺不同步。修法：`@custom-variant dark (&:where(.dark, .dark *));`
+- [x] **`dark:` variant 跟隨系統偏好而非 `.dark` class** — `theme.css` 未定義 `@custom-variant dark`，9 個元件 CSS 的 `dark:` 被編譯成 `@media (prefers-color-scheme: dark)`；以 `.dark` 切換的網站，浮層的 `dark:shadow-*` 與網站深淺不同步。修法：`@custom-variant dark (&:where(.dark, .dark *));`
 - [ ] **浮層 trigger 的 `stopPropagation`** — Dropdown、Popover 等 trigger 仍會 `stopPropagation`，開啟另一個浮層時已開啟的不會關閉（Combobox / Multi Select / Date Picker 已修正）
 - [ ] **`destroy()` 後 `init()` 是否重新登記元件** — 元件以 `_cuInit` 判斷是否已初始化，`destroy()` 未清除，推測 destroy 後再 init 不會重新登記到 registry（未實測）
 - [ ] **無障礙缺口**（E2E 中以 `test.fixme` 標記）— Combobox `aria-activedescendant`；Multi Select 移除按鈕的無障礙名稱；Date Picker trigger 的 `aria-haspopup` / `aria-expanded` 與開啟時聚焦；日期按鈕的完整日期名稱與 `aria-selected` / `aria-current`；Command Palette 結果清單沒有 `role` / `aria-activedescendant`
