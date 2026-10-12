@@ -314,7 +314,7 @@
         "empty": "data-cu-combobox-empty",
         "debounce": "data-cu-combobox-debounce"
       },
-      "aria": ["listbox", "option"],
+      "aria": ["combobox", "listbox", "option"],
       "notes": "Add hidden attribute to content initially. Active item gets cu-combobox-item-active class. Shares listbox CSS with Multi Select. Search filters on every keystroke by default; optional data-cu-combobox-debounce=\"300\" on the root delays filtering by N ms (clearing the query, arrow keys and Enter apply pending filtering immediately). Fires cu:combobox:change ({ value, item }) on selection and cu:combobox:search ({ query }) when the applied query changes (hook remote search here)."
     },
     {
@@ -336,9 +336,10 @@
         "placeholder": "data-cu-multi-select-placeholder",
         "empty": "data-cu-multi-select-empty",
         "value": "data-cu-value",
-        "debounce": "data-cu-multi-select-debounce"
+        "debounce": "data-cu-multi-select-debounce",
+        "removeText": "data-cu-multi-select-remove-text"
       },
-      "aria": ["listbox", "option"],
+      "aria": ["combobox", "listbox", "option"],
       "notes": "Each item needs data-cu-value for tag rendering. Add hidden to content initially. Search filters on every keystroke by default; optional data-cu-multi-select-debounce=\"300\" on the root delays filtering by N ms (clearing the query, arrow keys and Enter apply pending filtering immediately). Fires cu:multiselect:change ({ selected }) on selection and cu:multiselect:search ({ query }) when the applied query changes (hook remote search here)."
     },
     {
@@ -1059,6 +1060,7 @@
         "empty": "data-cu-command-empty",
         "active": "data-cu-command-active"
       },
+      "aria": ["dialog", "combobox", "listbox", "group", "option"],
       "notes": "Uses native <dialog> with showModal(). Opens with Ctrl/Cmd+K globally. Supports keyboard navigation (ArrowUp/Down, Enter). Filters items by text content or data-cu-command-value. Groups auto-hide when all items are filtered out. Active item highlighted via data-cu-command-active attribute. Closes on backdrop click.",
       "example": "<button data-cu-command-trigger=\"cmd\">Open Command</button><dialog id=\"cmd\" class=\"cu-command\" data-cu-command><div class=\"cu-command-input-wrapper\"><svg class=\"cu-command-input-icon\"><!-- search icon --></svg><input class=\"cu-command-input\" data-cu-command-input placeholder=\"Search...\"></div><div class=\"cu-command-list\" data-cu-command-list><div class=\"cu-command-group\" data-cu-command-group><div class=\"cu-command-group-heading\">Actions</div><button class=\"cu-command-item\" data-cu-command-item>New File</button></div></div><div class=\"cu-command-empty\" data-cu-command-empty hidden>No results.</div></dialog>"
     },
@@ -1084,7 +1086,7 @@
       "cssClasses": {
         "calendar": {
           "base": "cu-calendar",
-          "parts": ["cu-calendar-header", "cu-calendar-title", "cu-calendar-nav", "cu-calendar-weekdays", "cu-calendar-weekday", "cu-calendar-grid", "cu-calendar-day"],
+          "parts": ["cu-calendar-header", "cu-calendar-title", "cu-calendar-nav", "cu-calendar-weekdays", "cu-calendar-weekday", "cu-calendar-grid", "cu-calendar-week", "cu-calendar-day"],
           "states": ["cu-calendar-day-today", "cu-calendar-day-selected", "cu-calendar-day-outside", "cu-calendar-day-disabled"]
         },
         "picker": {
@@ -1100,12 +1102,14 @@
         "calendarGrid": "data-cu-calendar-grid",
         "calendarMin": "data-cu-calendar-min",
         "calendarMax": "data-cu-calendar-max",
+        "calendarLocale": "data-cu-calendar-locale",
         "picker": "data-cu-date-picker",
         "pickerTrigger": "data-cu-date-picker-trigger",
         "pickerContent": "data-cu-date-picker-content",
         "pickerValue": "data-cu-date-picker-value",
         "pickerInput": "data-cu-date-picker-input"
       },
+      "aria": ["dialog", "grid", "row", "gridcell"],
       "notes": "Two components: standalone Calendar and Date Picker (input + popover calendar). Calendar renders month grid with keyboard navigation (arrow keys). Date constraints via data-cu-calendar-min / data-cu-calendar-max (YYYY-MM-DD format). Date Picker stores ISO date in hidden input, displays formatted date in trigger.",
       "example": "<div class=\"cu-date-picker\" data-cu-date-picker><button class=\"cu-date-picker-trigger\" data-cu-date-picker-trigger><span data-cu-date-picker-value class=\"cu-date-picker-trigger-placeholder\">Pick a date</span><svg class=\"cu-date-picker-trigger-icon\"><!-- calendar icon --></svg></button><div class=\"cu-date-picker-content\" data-cu-date-picker-content><div class=\"cu-calendar\" data-cu-calendar><div class=\"cu-calendar-header\"><button class=\"cu-calendar-nav\" data-cu-calendar-prev>&#8249;</button><span class=\"cu-calendar-title\" data-cu-calendar-title></span><button class=\"cu-calendar-nav\" data-cu-calendar-next>&#8250;</button></div><div class=\"cu-calendar-weekdays\"><span class=\"cu-calendar-weekday\">Su</span></div><div class=\"cu-calendar-grid\" data-cu-calendar-grid></div></div></div><input type=\"hidden\" data-cu-date-picker-input></div>"
     },

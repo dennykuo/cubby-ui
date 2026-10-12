@@ -391,27 +391,207 @@ test.describe("Date Picker", () => {
     expect(await changes(page)).toHaveLength(1);
   });
 
-  test.fixme("trigger 帶 aria-haspopup / aria-expanded，開啟時焦點移到選取日或今天", async ({ page }) => {
-    // Date Picker 目前沒有任何 ARIA 狀態，開啟後焦點也留在 trigger。WAI-ARIA Date Picker Dialog 範式
-    // 建議 trigger 設 aria-haspopup="dialog" + aria-expanded、開啟時聚焦選取日（無則今天）。
-    // 屬於新增 ARIA 行為（需同步 document 級關閉邏輯），交由維護者決定。
+  test("APG Date Picker Dialog：trigger 帶 aria-haspopup / aria-expanded / aria-controls，面板為以月份命名的 dialog", async ({ page }) => {
     await open(page);
     const dp = picker(page, "dp-basic");
     await expect(dp.trigger).toHaveAttribute("aria-haspopup", "dialog");
     await expect(dp.trigger).toHaveAttribute("aria-expanded", "false");
+    const contentId = await dp.content.getAttribute("id");
+    expect(contentId).toBeTruthy();
+    await expect(dp.trigger).toHaveAttribute("aria-controls", contentId!);
+    await expect(dp.content).toHaveAttribute("role", "dialog");
+    // 非模態：點外部 / Escape 關閉，不困住焦點
+    await expect(dp.content).not.toHaveAttribute("aria-modal");
+
     await dp.trigger.click();
     await expect(dp.trigger).toHaveAttribute("aria-expanded", "true");
-    await expect(dp.cal.focused).toHaveText("18");
+    await expect(dp.content).toHaveAccessibleName("March 2026");
+
+    // 每種關閉方式都同步 aria-expanded：Escape、外部點擊、選取日期、再點 trigger
+    await page.keyboard.press("Escape");
+    await expect(dp.content).toBeHidden();
+    await expect(dp.trigger).toHaveAttribute("aria-expanded", "false");
+    await dp.trigger.click();
+    await page.click("#outside");
+    await expect(dp.content).toBeHidden();
+    await expect(dp.trigger).toHaveAttribute("aria-expanded", "false");
+    await dp.trigger.click();
+    await dp.cal.day(20).click();
+    await expect(dp.content).toBeHidden();
+    await expect(dp.trigger).toHaveAttribute("aria-expanded", "false");
+    await dp.trigger.click();
+    await expect(dp.trigger).toHaveAttribute("aria-expanded", "true");
+    await dp.trigger.click();
+    await expect(dp.content).toBeHidden();
+    await expect(dp.trigger).toHaveAttribute("aria-expanded", "false");
+
+    // 開啟另一個 Date Picker 會關閉這個
+    await dp.trigger.click();
+    await picker(page, "dp-range").trigger.click();
+    await expect(dp.trigger).toHaveAttribute("aria-expanded", "false");
   });
 
-  test.fixme("日期按鈕帶完整日期的無障礙名稱與選取 / 今天狀態", async ({ page }) => {
-    // 日期按鈕目前只有數字文字（螢幕閱讀器只會讀「18」），也沒有 aria-selected / aria-current="date"。
-    // 需決定語系格式（Intl.DateTimeFormat？）與 grid 語意（role="grid" + gridcell），交由維護者決定。
+  test("開啟時焦點移到選取日；沒有選取時為今天，並切回該日所在月份", async ({ page }) => {
+    await open(page);
+    const dp = picker(page, "dp-basic");
+
+    await dp.trigger.click();
+    await expect(dp.cal.focused).toHaveText("18");
+    await expect(dp.cal.focused).toHaveAttribute("aria-current", "date");
+
+    // 瀏覽到其他月份後關閉，再開啟時回到今天所在月份
+    await dp.cal.next.click();
+    await expect(dp.cal.title).toHaveText("April 2026");
+    await page.keyboard.press("Escape");
+    await expect(dp.trigger).toBeFocused();
+    await page.keyboard.press("Enter");
+    await expect(dp.cal.title).toHaveText("March 2026");
+    await expect(dp.cal.focused).toHaveText("18");
+
+    // 鍵盤選取 3/20 後重新開啟：焦點在選取日
+    await page.keyboard.press("ArrowRight");
+    await page.keyboard.press("ArrowRight");
+    await page.keyboard.press("Enter");
+    await expect(dp.input).toHaveValue("2026-03-20");
+    await expect(dp.trigger).toBeFocused();
+    await page.keyboard.press("Enter");
+    await expect(dp.cal.focused).toHaveText("20");
+    await expect(dp.cal.focused).toHaveAttribute("aria-selected", "true");
+  });
+
+  test("開啟時：選取日在其他月份時切到該月；今天不在 min / max 範圍內時聚焦範圍內第一個可選日期", async ({ page }) => {
+    // 預設值 3/15、今天 6/10
+    await open(page, "2026-06-10T10:00:00+08:00");
+    const def = picker(page, "dp-default");
+    await def.trigger.click();
+    await expect(def.cal.title).toHaveText("March 2026");
+    await expect(def.cal.focused).toHaveText("15");
+
+    // 範圍 3/10–4/20，今天 6/10 在範圍之後 → 3/10
+    const range = picker(page, "dp-range");
+    await range.trigger.click();
+    await expect(range.cal.title).toHaveText("March 2026");
+    await expect(range.cal.focused).toHaveText("10");
+    await expect(range.cal.focused).toBeEnabled();
+
+    // 今天 2/1 在範圍之前 → 3/10
+    await open(page, "2026-02-01T10:00:00+08:00");
+    await range.trigger.click();
+    await expect(range.cal.title).toHaveText("March 2026");
+    await expect(range.cal.focused).toHaveText("10");
+  });
+
+  test("APG grid：月曆為以月份命名的 grid，每週一列 row，日期為 gridcell", async ({ page }) => {
     await open(page);
     const cal = calendar(page.locator("#cal"));
+    await expect(cal.grid).toHaveAttribute("role", "grid");
+    await expect(cal.grid).toHaveAccessibleName("March 2026");
+    const rows = cal.grid.locator(':scope > [role="row"]');
+    await expect(rows).toHaveCount(5);
+    for (const row of await rows.all()) {
+      await expect(row.locator(':scope > [role="gridcell"]')).toHaveCount(7);
+    }
+    await expect(cal.grid.locator('[role="gridcell"]')).toHaveCount(35);
+    // 6 週的月份：2026/08（1 號為星期六）
+    await cal.next.click();
+    await cal.next.click();
+    await cal.next.click();
+    await cal.next.click();
+    await cal.next.click();
+    await expect(cal.title).toHaveText("August 2026");
+    await expect(rows).toHaveCount(6);
+    await expect(cal.grid).toHaveAccessibleName("August 2026");
+  });
+
+  test("日期按鈕帶完整日期的無障礙名稱與選取 / 今天狀態", async ({ page }) => {
+    await open(page);
+    const cal = calendar(page.locator("#cal"));
+    await expect(cal.day(18)).toHaveAccessibleName("Wednesday, March 18, 2026");
+    await expect(cal.outsideDay(1)).toHaveAccessibleName("Wednesday, April 1, 2026");
+    // 數字仍是視覺文字
+    await expect(cal.day(18)).toHaveText("18");
+
     await expect(cal.today).toHaveAttribute("aria-current", "date");
+    await expect(cal.grid.locator('[aria-current="date"]')).toHaveCount(1);
+    await expect(cal.grid.locator("[aria-selected]")).toHaveCount(0);
+
     await cal.day(20).click();
     await expect(cal.selected).toHaveAttribute("aria-selected", "true");
-    await expect(cal.selected).toHaveAccessibleName(/2026/);
+    await expect(cal.selected).toHaveAccessibleName("Friday, March 20, 2026");
+    await expect(cal.grid.locator("[aria-selected]")).toHaveCount(1);
+
+    // 選取今天：視覺上只標 selected，語意上仍是今天
+    await cal.day(18).click();
+    await expect(cal.day(18)).toHaveAttribute("aria-selected", "true");
+    await expect(cal.day(18)).toHaveAttribute("aria-current", "date");
+    await expect(cal.grid.locator("[aria-selected]")).toHaveCount(1);
+
+    // Date Picker 內的月曆同樣適用
+    const dp = picker(page, "dp-range");
+    await dp.trigger.click();
+    await expect(dp.cal.day(18)).toHaveAccessibleName("Wednesday, March 18, 2026");
+    await expect(dp.cal.day(18)).toHaveAttribute("aria-current", "date");
+    await expect(dp.cal.day(9)).toBeDisabled();
+    await expect(dp.cal.grid).toHaveAttribute("role", "grid");
+  });
+
+  test("Roving tabindex：月曆只有一個 Tab 停駐點，跟隨焦點移動", async ({ page }) => {
+    await open(page);
+    const cal = calendar(page.locator("#cal"));
+    const stops = cal.grid.locator('[tabindex="0"]');
+    // 沒有選取時為今天
+    await expect(stops).toHaveCount(1);
+    await expect(stops).toHaveText("18");
+    await expect(cal.grid.locator('[tabindex="-1"]')).toHaveCount(34);
+
+    await cal.day(18).focus();
+    await page.keyboard.press("ArrowRight");
+    await expect(cal.focused).toHaveText("19");
+    await expect(stops).toHaveCount(1);
+    await expect(stops).toHaveText("19");
+
+    // Tab 離開月曆，Shift+Tab 回到最後聚焦的日期
+    await page.keyboard.press("Tab");
+    await expect(page.locator("#outside")).toBeFocused();
+    await page.keyboard.press("Shift+Tab");
+    await expect(cal.focused).toHaveText("19");
+
+    // 換月重繪後：選取日優先，其次今天，否則本月第一個可選日期
+    await cal.day(5).click();
+    await expect(stops).toHaveText("5");
+    await cal.next.click();
+    await expect(stops).toHaveCount(1);
+    await expect(stops).toHaveText("1");
+    await expect(stops).not.toHaveClass(/cu-calendar-day-outside/);
+
+    // min / max：停駐點不會落在停用日期
+    const dp = picker(page, "dp-range");
+    await open(page, "2026-02-01T10:00:00+08:00");
+    await dp.trigger.click();
+    await expect(dp.cal.grid.locator('[tabindex="0"]')).toHaveText("10");
+  });
+
+  test("日期名稱語系：取最近祖先的 lang，data-cu-calendar-locale 可覆寫，無效語系退回預設", async ({ page }) => {
+    await open(page);
+    const errors: string[] = [];
+    page.on("pageerror", (err) => errors.push(err.message));
+
+    const zh = calendar(page.locator("#cal-zh"));
+    await expect(zh.day(18)).toHaveAccessibleName("2026年3月18日 星期三");
+
+    const gb = calendar(page.locator("#cal-locale"));
+    await expect(gb.day(18)).toHaveAccessibleName(/^Wednesday,? 18 March 2026$/);
+
+    // 語系在每次重繪時讀取；無效的語系標籤不拋錯，退回瀏覽器預設語系
+    const cal = calendar(page.locator("#cal"));
+    await page.locator("#cal").evaluate((el) => el.setAttribute("data-cu-calendar-locale", "not a locale!"));
+    await cal.next.click();
+    await cal.prev.click();
+    await expect(cal.day(18)).toHaveAccessibleName("Wednesday, March 18, 2026");
+    await page.locator("#cal").evaluate((el) => el.setAttribute("data-cu-calendar-locale", "zh-TW"));
+    await cal.next.click();
+    await cal.prev.click();
+    await expect(cal.day(18)).toHaveAccessibleName("2026年3月18日 星期三");
+    expect(errors).toEqual([]);
   });
 });

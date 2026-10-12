@@ -155,9 +155,9 @@ const presetCode = `<div class="cu-multi-select" data-cu-multi-select style="wid
 </div>`.trim();
 
 const withFormGroupCode = `<div class="cu-form-group" style="width: 300px;">
-  <label class="cu-label">Technologies</label>
+  <label class="cu-label" for="tech-select">Technologies</label>
   <div class="cu-multi-select w-full" data-cu-multi-select>
-    <button class="cu-multi-select-trigger w-full" data-cu-multi-select-trigger>
+    <button id="tech-select" class="cu-multi-select-trigger w-full" data-cu-multi-select-trigger>
       <div class="cu-multi-select-tags" data-cu-multi-select-tags>
         <span class="cu-multi-select-placeholder" data-cu-multi-select-placeholder>Select technologies...</span>
       </div>
@@ -421,9 +421,9 @@ ${SC}`.trim();
             <p class="text-base text-muted-foreground leading-relaxed">{t.sections.withFormGroup.description}</p>
             <ComponentPreview code={withFormGroupCode}>
                 <div class="cu-form-group" style="width: 300px;">
-                    <label class="cu-label">Technologies</label>
+                    <label class="cu-label" for="tech-select">Technologies</label>
                     <div class="cu-multi-select w-full" data-cu-multi-select>
-                        <button class="cu-multi-select-trigger w-full" data-cu-multi-select-trigger>
+                        <button id="tech-select" class="cu-multi-select-trigger w-full" data-cu-multi-select-trigger>
                             <div class="cu-multi-select-tags" data-cu-multi-select-tags>
                                 <span class="cu-multi-select-placeholder" data-cu-multi-select-placeholder>Select technologies...</span>
                             </div>
@@ -443,6 +443,12 @@ ${SC}`.trim();
                     <p class="cu-form-description">Choose the technologies used in this project.</p>
                 </div>
             </ComponentPreview>
+        </section>
+
+        <!-- Accessibility -->
+        <section class="space-y-3">
+            <SectionHeading id="accessibility" title={t.sections.accessibility.title} />
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.accessibility.description} />
         </section>
     </div>
 </Layout>

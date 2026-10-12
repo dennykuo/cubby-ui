@@ -1,5 +1,5 @@
 import { registry } from "../core/registry.js";
-import { createDebouncer, readDelay } from "../core/utils.js";
+import { createDebouncer, readDelay, setupComboboxAria } from "../core/utils.js";
 
 var NAV_KEYS = ["Enter", "ArrowDown", "ArrowUp", "Home", "End"];
 
@@ -26,6 +26,9 @@ var NAV_KEYS = ["Enter", "ArrowDown", "ArrowUp", "Home", "End"];
  * - `cu-combobox-trigger-placeholder`: class for placeholder styling (removed on selection).
  * - `cu-combobox-item-active`: marks the currently selected item.
  * - `data-cu-combobox-list`: optional wrapper for listbox ARIA role.
+ * - ARIA: the search input gets role="combobox" + aria-controls / aria-autocomplete / aria-activedescendant
+ *   (keyboard-highlighted option). Without a search input the trigger becomes role="combobox" and owns
+ *   aria-activedescendant instead — give it an accessible name (aria-label / <label for>).
  * - `data-cu-combobox-debounce="300"`: optional, on the root. Delays filtering by N ms after typing
  *   (default: filter immediately). Clearing the query, arrow keys and Enter apply pending filtering at once.
  * - Fires `cu:combobox:search` ({ query }) whenever the applied query changes — hook remote search here.
@@ -64,6 +67,7 @@ export function setupComboboxes() {
     if (content) {
       var list = content.querySelector("[data-cu-combobox-list]") || content;
       list.setAttribute("role", "listbox");
+      setupComboboxAria(trigger, input, content, list, "cu-combobox-item-highlight", "cu-combobox");
     }
     syncItemsAria();
 

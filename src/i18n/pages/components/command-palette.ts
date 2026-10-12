@@ -11,6 +11,7 @@ export const commandPalettePage: Record<Locale, {
     withShortcuts: { title: string; description: string };
     withIcons: { title: string; description: string };
     emptyState: { title: string; description: string };
+    accessibility: { title: string; description: string };
   };
   classDescriptions: Record<string, string>;
 }> = {
@@ -43,6 +44,10 @@ export const commandPalettePage: Record<Locale, {
       emptyState: {
         title: 'Empty State',
         description: 'Display a friendly message when search results return no matching commands.',
+      },
+      accessibility: {
+        title: 'Accessibility',
+        description: 'Follows the WAI-ARIA combobox and listbox patterns. Focus stays in the search input (<code class="cu-code">role="combobox"</code> with <code class="cu-code">aria-controls</code>, <code class="cu-code">aria-autocomplete="list"</code> and <code class="cu-code">aria-expanded="true"</code>), and <code class="cu-code">aria-activedescendant</code> points at the active item. The list is a <code class="cu-code">role="listbox"</code>, each group a <code class="cu-code">role="group"</code> named by its <code class="cu-code">cu-command-group-heading</code>, and each item a <code class="cu-code">role="option"</code> with <code class="cu-code">aria-selected</code>; missing ids are generated. Items can be links (<code class="cu-code">&lt;a href&gt;</code>): Enter clicks the active item, so it navigates as usual. Describe the search with an <code class="cu-code">aria-label</code> on the dialog or the input.',
       },
     },
     classDescriptions: {
@@ -88,6 +93,10 @@ export const commandPalettePage: Record<Locale, {
       emptyState: {
         title: '空狀態',
         description: '當搜尋結果沒有匹配的指令時，顯示友善的提示訊息。',
+      },
+      accessibility: {
+        title: '無障礙',
+        description: '遵循 WAI-ARIA combobox 與 listbox 模式。焦點留在搜尋框（<code class="cu-code">role="combobox"</code>，帶 <code class="cu-code">aria-controls</code>、<code class="cu-code">aria-autocomplete="list"</code> 與 <code class="cu-code">aria-expanded="true"</code>），以 <code class="cu-code">aria-activedescendant</code> 指向目前選中的項目。清單為 <code class="cu-code">role="listbox"</code>，分組為以 <code class="cu-code">cu-command-group-heading</code> 命名的 <code class="cu-code">role="group"</code>，項目為帶 <code class="cu-code">aria-selected</code> 的 <code class="cu-code">role="option"</code>；缺少的 id 會自動產生。項目可以是連結（<code class="cu-code">&lt;a href&gt;</code>）：Enter 會對選中項目執行 click，照常導航。請在 dialog 或搜尋框加上描述搜尋用途的 <code class="cu-code">aria-label</code>。',
       },
     },
     classDescriptions: {

@@ -1,5 +1,5 @@
 import { registry } from "../core/registry.js";
-import { createDebouncer, readDelay } from "../core/utils.js";
+import { createDebouncer, readDelay, setupComboboxAria } from "../core/utils.js";
 
 var NAV_KEYS = ["Enter", "ArrowDown", "ArrowUp", "Home", "End"];
 
@@ -29,6 +29,10 @@ var NAV_KEYS = ["Enter", "ArrowDown", "ArrowUp", "Home", "End"];
  * - `data-cu-multi-select-debounce="300"`: optional, on the root. Delays filtering by N ms after typing
  *   (default: filter immediately). Clearing the query, arrow keys and Enter apply pending filtering at once.
  * - Fires `cu:multiselect:search` ({ query }) whenever the applied query changes — hook remote search here.
+ * - `data-cu-multi-select-remove-text="Remove {label}"`: optional, on the root. Accessible name template for
+ *   the generated tag remove buttons; `{label}` is replaced with the item text (default "Remove {label}").
+ * - ARIA: same combobox wiring as Combobox (search input, or the trigger when there is none, owns
+ *   aria-activedescendant).
  */
 export function setupMultiSelects() {
   document
@@ -71,6 +75,7 @@ export function setupMultiSelects() {
         var list = content.querySelector("[data-cu-multi-select-list]") || content;
         list.setAttribute("role", "listbox");
         list.setAttribute("aria-multiselectable", "true");
+        setupComboboxAria(trigger, input, content, list, "cu-multi-select-item-highlight", "cu-multi-select");
       }
       syncItemsAria();
 
@@ -107,6 +112,9 @@ export function setupMultiSelects() {
             removeBtn.className = "cu-multi-select-tag-remove";
             removeBtn.setAttribute("data-cu-remove", val);
             removeBtn.textContent = "\u00d7";
+            // 只有「×」時螢幕閱讀器會讀成 "times"；以 data-cu-multi-select-remove-text 模板（{label} 為項目文字）命名
+            var label = (item.textContent || "").replace(/\s+/g, " ").trim();
+            removeBtn.setAttribute("aria-label", (ms.getAttribute("data-cu-multi-select-remove-text") || "Remove {label}").split("{label}").join(label));
             removeBtn.addEventListener("click", function (e) {
               e.stopPropagation();
               var hadFocus = document.activeElement === removeBtn;

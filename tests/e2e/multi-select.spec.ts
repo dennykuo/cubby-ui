@@ -308,10 +308,69 @@ test.describe("Multi Select", () => {
     expect(await events(page)).toHaveLength(1);
   });
 
-  test.fixme("標籤移除按鈕有可辨識的無障礙名稱", async ({ page }) => {
-    // 目前移除按鈕只有「×」文字，螢幕閱讀器會讀成 "times"。
-    // 需要決定預設文案（英文 "Remove React"？）與 i18n 方式（例如 data 屬性自訂），交由維護者決定。
+  test("標籤移除按鈕有可辨識的無障礙名稱，可用 data-cu-multi-select-remove-text 自訂", async ({ page }) => {
+    // 預設英文 "Remove {label}"：只有「×」時螢幕閱讀器會讀成 "times"
     const ms = multiSelect(page, "ms-preset");
-    await expect(ms.removeBtn("bug")).toHaveAccessibleName(/remove.*bug/i);
+    await expect(ms.removeBtn("bug")).toHaveAccessibleName("Remove Bug");
+    await expect(ms.removeBtn("feature")).toHaveAccessibleName("Remove Feature");
+    await ms.trigger.click();
+    await ms.item('12" Display').click();
+    await expect(ms.removeBtn('12" display')).toHaveAccessibleName('Remove 12" Display');
+
+    // 自訂模板：{label} 替換為項目文字
+    const zh = multiSelect(page, "ms-members");
+    await zh.trigger.click();
+    await zh.item("Bob").click();
+    await expect(zh.removeBtn("bob")).toHaveAccessibleName("移除 Bob");
+    // 視覺上仍是「×」
+    await expect(zh.removeBtn("bob")).toHaveText("×");
+  });
+
+  test("APG select-only combobox：沒有搜尋框時 trigger 為 combobox，以 aria-activedescendant 指向高亮項目", async ({ page }) => {
+    const ms = multiSelect(page, "ms-frameworks");
+    const listId = await ms.list.getAttribute("id");
+    expect(listId).toBeTruthy();
+    // role="button" 不支援 aria-activedescendant，trigger 改為 combobox（保留 aria-haspopup / aria-expanded）
+    await expect(ms.trigger).toHaveAttribute("role", "combobox");
+    await expect(ms.trigger).toHaveAttribute("aria-controls", listId!);
+    await expect(ms.trigger).toHaveAttribute("aria-haspopup", "listbox");
+    await expect(ms.trigger).not.toHaveAttribute("aria-activedescendant");
+
+    await ms.trigger.focus();
+    await page.keyboard.press("Enter");
+    await expect(ms.content).toBeVisible();
+    await page.keyboard.press("ArrowDown");
+    await expect(ms.highlighted).toHaveText("React");
+    const react = await ms.highlighted.getAttribute("id");
+    expect(react).toBeTruthy();
+    await expect(ms.trigger).toHaveAttribute("aria-activedescendant", react!);
+    await page.keyboard.press("End");
+    await expect(ms.trigger).toHaveAttribute("aria-activedescendant", (await ms.item("Astro").getAttribute("id"))!);
+    await expect(ms.trigger).toBeFocused();
+
+    // 關閉後清除；重新開啟時保留的高亮再次對應
+    await page.keyboard.press("Escape");
+    await expect(ms.content).toBeHidden();
+    await expect(ms.trigger).not.toHaveAttribute("aria-activedescendant");
+    await page.keyboard.press("Enter");
+    await expect(ms.content).toBeVisible();
+    await expect(ms.trigger).toHaveAttribute("aria-activedescendant", (await ms.item("Astro").getAttribute("id"))!);
+  });
+
+  test("APG combobox：有搜尋框時由搜尋框持有 aria-activedescendant", async ({ page }) => {
+    const ms = multiSelect(page, "ms-members");
+    const listId = await ms.list.getAttribute("id");
+    await expect(ms.input).toHaveAttribute("role", "combobox");
+    await expect(ms.input).toHaveAttribute("aria-controls", listId!);
+    await expect(ms.input).toHaveAttribute("aria-autocomplete", "list");
+    await expect(ms.input).toHaveAttribute("aria-expanded", "true");
+    await expect(ms.trigger).not.toHaveAttribute("role");
+
+    await ms.trigger.click();
+    await page.keyboard.press("ArrowDown");
+    await expect(ms.input).toHaveAttribute("aria-activedescendant", (await ms.item("Alice").getAttribute("id"))!);
+    await expect(ms.trigger).not.toHaveAttribute("aria-activedescendant");
+    await ms.input.fill("ev");
+    await expect(ms.input).not.toHaveAttribute("aria-activedescendant");
   });
 });

@@ -200,14 +200,15 @@ dist/
 ARIA 無障礙支援：
 - **Tabs** — `role="tablist/tab/tabpanel"`、`aria-selected`、`aria-controls` / `aria-labelledby` 雙向連結
 - **Dropdown** — `aria-haspopup="menu"`、`aria-expanded`、`role="menu"` / `role="menuitem"`
-- **Combobox / Multi Select** — `aria-haspopup="listbox"`、`aria-expanded`、`role="listbox"` / `role="option"`、`aria-selected`
+- **Combobox / Multi Select** — `aria-haspopup="listbox"`、`aria-expanded`、`role="listbox"` / `role="option"`、`aria-selected`；APG combobox：搜尋框 `role="combobox"` + `aria-controls` / `aria-autocomplete="list"` / `aria-expanded="true"`，以 `aria-activedescendant` 指向鍵盤高亮項目（option id 自動產生；篩掉或關閉時清除；由 `core/utils.js` 的 `setupComboboxAria()` / `trackActiveDescendant()` 以 MutationObserver 同步高亮 class）；沒有搜尋框時 trigger 改為 `role="combobox"`（select-only combobox，button 角色不支援 `aria-activedescendant`）。Multi Select 標籤移除按鈕 `aria-label` 預設 `Remove {label}`，可用根元素的 `data-cu-multi-select-remove-text` 覆寫
 - **Popover** — `aria-haspopup="dialog"`、`aria-expanded`、`aria-controls`
 - **Dialog / Drawer** — `aria-labelledby` + `aria-describedby` 自動連結標題與描述元素；開啟時聚焦首個可互動元素（尊重 `[autofocus]`），關閉時焦點返回觸發按鈕
 - **Alert Dialog** — `role="alertdialog"` + `aria-labelledby` + `aria-describedby`
 - **Number Input** — `role="spinbutton"` + `aria-valuemin` / `aria-valuemax` / `aria-valuenow`
 - **Mobile Nav** — `role="dialog"` + `aria-modal="true"` + `aria-label`、trigger 使用 `aria-expanded`
-- **Command Palette** — `role="dialog"` 透過 `<dialog>` 元素、內建鍵盤搜尋/篩選（方向鍵與 Tab / Shift+Tab 循環結果、Enter 選取）
-- **Calendar** — 完整鍵盤導航（方向鍵切換日期、Home/End 跳至月首/月末）
+- **Command Palette** — `role="dialog"` 透過 `<dialog>` 元素、內建鍵盤搜尋/篩選（方向鍵與 Tab / Shift+Tab 循環結果、Enter 選取）；APG combobox + listbox：輸入框 `role="combobox"` + `aria-controls` / `aria-autocomplete="list"` / `aria-expanded="true"` / `aria-activedescendant`（選中項目），清單 `role="listbox"`、分組 `role="group"` + `aria-labelledby`（`cu-command-group-heading`）、項目 `role="option"` + `aria-selected`。項目可為 `<a href>`（`DocsSearch.astro`），Enter 仍對選中項目 `click()` 導航
+- **Date Picker** — APG Date Picker Dialog：trigger `aria-haspopup="dialog"` / `aria-expanded` / `aria-controls`，面板為非模態 `role="dialog"`（`aria-labelledby` 月份標題）；開啟時切到並聚焦選取日（無則今天，今天不在 min / max 範圍內時為範圍內第一個可選日期）。`aria-expanded` 在 document 級 Escape / 外部點擊關閉時同步
+- **Calendar** — 完整鍵盤導航（方向鍵切換日期、Home/End 跳至月首/月末）；APG grid：`[data-cu-calendar-grid]` 為 `role="grid"`（`aria-labelledby` 月份標題），每週一個 `cu-calendar-week`（`role="row"`，`col-span-full` + 7 欄，版面與原本相同），日期按鈕為 `role="gridcell"`，roving tabindex 只留一個 Tab 停駐點；日期按鈕 `aria-label` 為 `Intl.DateTimeFormat` 完整日期（語系：`data-cu-calendar-locale`（月曆或任一祖先）→ 最近祖先 `lang`），選取日 `aria-selected="true"`、今天 `aria-current="date"`
 
 公開 API：
 - `CubbyUI.init()` — 初始化所有互動元件（自動在 DOMContentLoaded 執行，可重複呼叫以初始化動態新增的元素）

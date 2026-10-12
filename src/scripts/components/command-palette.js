@@ -1,4 +1,5 @@
 import { registry } from "../core/registry.js";
+import { genId } from "../core/utils.js";
 
 // ── Command Palette ───────────────────────────────────────────
 export function setupCommandPalettes() {
@@ -27,6 +28,33 @@ export function setupCommandPalettes() {
     var list = palette.querySelector("[data-cu-command-list]");
     var empty = /** @type {HTMLElement} */ (palette.querySelector("[data-cu-command-empty]"));
     var items = list ? Array.from(/** @type {NodeListOf<HTMLElement>} */ (list.querySelectorAll("[data-cu-command-item]"))) : [];
+
+    // APG combobox + listbox：焦點留在輸入框，以 aria-activedescendant 指向選中（data-cu-command-active）項目；
+    // 清單在 dialog 開啟期間一直顯示，所以 aria-expanded 固定為 true。
+    // 項目可以是 <a href>（文檔站搜尋）：role="option" 只改語意，Enter 仍對選中項目 click() 導航
+    if (list) {
+      if (!list.id) list.id = genId("cu-command-list");
+      list.setAttribute("role", "listbox");
+      list.querySelectorAll("[data-cu-command-group]").forEach(function (group) {
+        group.setAttribute("role", "group");
+        var heading = group.querySelector(".cu-command-group-heading");
+        if (heading && !group.hasAttribute("aria-label") && !group.hasAttribute("aria-labelledby")) {
+          if (!heading.id) heading.id = genId("cu-command-group-heading");
+          group.setAttribute("aria-labelledby", heading.id);
+        }
+      });
+    }
+    items.forEach(function (item) {
+      if (!item.id) item.id = genId("cu-command-item");
+      item.setAttribute("role", "option");
+      item.setAttribute("aria-selected", item.hasAttribute("data-cu-command-active") ? "true" : "false");
+    });
+    if (input) {
+      input.setAttribute("role", "combobox");
+      input.setAttribute("aria-autocomplete", "list");
+      input.setAttribute("aria-expanded", "true");
+      if (list) input.setAttribute("aria-controls", list.id);
+    }
 
     palette.addEventListener("click", function (e) { if (e.target === palette) palette.close(); });
 
@@ -59,14 +87,19 @@ export function setupCommandPalettes() {
 
         if (empty) empty.hidden = visibleCount > 0;
 
-        clearActive();
-        var firstVisible = list ? list.querySelector("[data-cu-command-item]:not([hidden])") : null;
-        if (firstVisible) firstVisible.setAttribute("data-cu-command-active", "");
+        setActive(list ? /** @type {HTMLElement} */ (list.querySelector("[data-cu-command-item]:not([hidden])")) : null);
       });
     }
 
-    function clearActive() {
-      items.forEach(function (item) { item.removeAttribute("data-cu-command-active"); });
+    // 同一時間只有一個選中項目：同步 data-cu-command-active、aria-selected 與輸入框的 aria-activedescendant
+    function setActive(active) {
+      items.forEach(function (item) {
+        item.toggleAttribute("data-cu-command-active", item === active);
+        item.setAttribute("aria-selected", item === active ? "true" : "false");
+      });
+      if (!input) return;
+      if (active) input.setAttribute("aria-activedescendant", active.id);
+      else input.removeAttribute("aria-activedescendant");
     }
 
     function getVisibleItems() {
@@ -83,11 +116,10 @@ export function setupCommandPalettes() {
         if (visible.length === 0) return;
         var activeIndex = -1;
         visible.forEach(function (item, i) { if (item.hasAttribute("data-cu-command-active")) activeIndex = i; });
-        clearActive();
         var nextIndex;
         if (isNext) { nextIndex = activeIndex < visible.length - 1 ? activeIndex + 1 : 0; }
         else { nextIndex = activeIndex > 0 ? activeIndex - 1 : visible.length - 1; }
-        visible[nextIndex].setAttribute("data-cu-command-active", "");
+        setActive(visible[nextIndex]);
         visible[nextIndex].scrollIntoView({ block: "nearest" });
       }
       if (e.key === "Enter") {
@@ -97,8 +129,8 @@ export function setupCommandPalettes() {
     });
 
     items.forEach(function (item) {
-      item.addEventListener("mouseenter", function () { clearActive(); item.setAttribute("data-cu-command-active", ""); });
-      item.addEventListener("mouseleave", function () { item.removeAttribute("data-cu-command-active"); });
+      item.addEventListener("mouseenter", function () { setActive(item); });
+      item.addEventListener("mouseleave", function () { if (item.hasAttribute("data-cu-command-active")) setActive(null); });
     });
 
     palette.addEventListener("close", function () {

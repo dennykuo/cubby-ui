@@ -280,15 +280,50 @@ test.describe("Combobox", () => {
     expect(await events(page)).toHaveLength(1);
   });
 
-  test.fixme("高亮項目以 aria-activedescendant 告知輔助技術", async ({ page }) => {
-    // 目前鍵盤高亮只靠 .cu-combobox-item-highlight 視覺 class，螢幕閱讀器無從得知目前項目。
-    // 補上需為每個 option 產生 id，並在搜尋框（或 trigger）設定 aria-activedescendant / aria-controls，
-    // 屬於 ARIA 規格擴充，交由維護者決定是否納入。
+  test("APG combobox：搜尋框為 combobox 並連結 listbox，trigger 維持按鈕語意", async ({ page }) => {
+    const cb = combobox(page, "cb-framework");
+    const listId = await cb.list.getAttribute("id");
+    expect(listId).toBeTruthy();
+    await expect(cb.input).toHaveAttribute("role", "combobox");
+    await expect(cb.input).toHaveAttribute("aria-controls", listId!);
+    await expect(cb.input).toHaveAttribute("aria-autocomplete", "list");
+    // 搜尋框只出現在已開啟的面板內，面板中的 listbox 一定是展開的
+    await expect(cb.input).toHaveAttribute("aria-expanded", "true");
+    await expect(cb.trigger).toHaveAttribute("aria-controls", listId!);
+    await expect(cb.trigger).not.toHaveAttribute("role");
+    await expect(cb.input).not.toHaveAttribute("aria-activedescendant");
+
+    // 每個 Combobox 的 listbox id 都不同
+    const ids = await page.locator("[data-cu-combobox-list]").evaluateAll((els) => els.map((el) => el.id));
+    expect(new Set(ids).size).toBe(3);
+  });
+
+  test("高亮項目以 aria-activedescendant 告知輔助技術，篩掉或關閉時清除", async ({ page }) => {
     const cb = combobox(page, "cb-framework");
     await cb.trigger.click();
     await page.keyboard.press("ArrowDown");
-    const id = await cb.highlighted.getAttribute("id");
-    expect(id).toBeTruthy();
-    await expect(cb.input).toHaveAttribute("aria-activedescendant", id!);
+    await expect(cb.highlighted).toHaveText("Next.js");
+    const first = await cb.highlighted.getAttribute("id");
+    expect(first).toBeTruthy();
+    await expect(cb.input).toHaveAttribute("aria-activedescendant", first!);
+
+    await page.keyboard.press("ArrowDown");
+    await expect(cb.highlighted).toHaveText("SvelteKit");
+    const second = await cb.highlighted.getAttribute("id");
+    expect(second).toBeTruthy();
+    expect(second).not.toBe(first);
+    await expect(cb.input).toHaveAttribute("aria-activedescendant", second!);
+    await expect(page.locator(`#${second}`)).toHaveText("SvelteKit");
+
+    // 高亮項目被篩掉：不可指向看不見的項目
+    await cb.input.fill("astro");
+    await expect(cb.input).not.toHaveAttribute("aria-activedescendant");
+    await page.keyboard.press("ArrowDown");
+    await expect(cb.input).toHaveAttribute("aria-activedescendant", (await cb.item("Astro").getAttribute("id"))!);
+
+    // 關閉面板：清除
+    await page.keyboard.press("Escape");
+    await expect(cb.content).toBeHidden();
+    await expect(cb.input).not.toHaveAttribute("aria-activedescendant");
   });
 });

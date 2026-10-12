@@ -17,8 +17,8 @@ declare global {
     _cuTrigger?: HTMLElement | null;
     /** Calendar：目前選取的日期（Date Picker 開啟時由輸入值同步） */
     _cuSelectedDate?: Date | null;
-    /** Calendar：重新繪製月曆（Date Picker 開啟時呼叫） */
-    _cuRender?: () => void;
+    /** Calendar：切到並聚焦初始日期（選取日 → 今天 → 範圍內第一個可選日期；Date Picker 開啟時呼叫） */
+    _cuFocusInitialDate?: () => void;
     /** Calendar：日期按鈕代表的日期（鍵盤導航以日期而非按鈕索引計算） */
     _cuDate?: Date;
     /** Toast：正在執行關閉動畫，避免重複關閉 */

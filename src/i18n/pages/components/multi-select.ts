@@ -11,6 +11,7 @@ export const multiSelectPage: Record<Locale, {
     debounce: { title: string; description: string };
     presetValues: { title: string; description: string };
     withFormGroup: { title: string; description: string };
+    accessibility: { title: string; description: string };
   };
   classDescriptions: Record<string, string>;
 }> = {
@@ -42,7 +43,11 @@ export const multiSelectPage: Record<Locale, {
       },
       withFormGroup: {
         title: 'With Form Group',
-        description: 'Pair the multi select with a Label and FormDescription for use in form layouts.',
+        description: 'Pair the multi select with a Label and FormDescription for use in form layouts. Point the label\'s for attribute at the trigger\'s id so it becomes the trigger\'s accessible name.',
+      },
+      accessibility: {
+        title: 'Accessibility',
+        description: 'Uses the same WAI-ARIA combobox semantics as Combobox, and the listbox has <code class="cu-code">aria-multiselectable="true"</code>. The search input — or, without one, the trigger, which becomes <code class="cu-code">role="combobox"</code> — points <code class="cu-code">aria-activedescendant</code> at the highlighted option. A combobox is not named by its text, so name a trigger without a search input with <code class="cu-code">aria-label</code> or <code class="cu-code">&lt;label for&gt;</code> (see With Form Group). Each generated tag remove button is named "Remove {label}" (for example "Remove React") instead of the visual ×; set <code class="cu-code">data-cu-multi-select-remove-text</code> on the wrapper to translate it, where <code class="cu-code">{label}</code> is replaced with the item text, e.g. <code class="cu-code">data-cu-multi-select-remove-text="移除 {label}"</code>.',
       },
     },
     classDescriptions: {
@@ -92,7 +97,11 @@ export const multiSelectPage: Record<Locale, {
       },
       withFormGroup: {
         title: '搭配表單群組',
-        description: '將 multi select 與 Label 和 FormDescription 搭配，用於表單佈局。',
+        description: '將 multi select 與 Label 和 FormDescription 搭配，用於表單佈局。以 label 的 for 屬性指向 trigger 的 id，label 文字即成為 trigger 的無障礙名稱。',
+      },
+      accessibility: {
+        title: '無障礙',
+        description: '與 Combobox 相同的 WAI-ARIA combobox 語意，listbox 另帶 <code class="cu-code">aria-multiselectable="true"</code>。搜尋框（沒有搜尋框時為 trigger，會改為 <code class="cu-code">role="combobox"</code>）以 <code class="cu-code">aria-activedescendant</code> 指向高亮選項。combobox 不以文字內容命名，沒有搜尋框的 trigger 請以 <code class="cu-code">aria-label</code> 或 <code class="cu-code">&lt;label for&gt;</code> 命名（見「搭配表單群組」）。JS 產生的標籤移除按鈕以「Remove {label}」（例如「Remove React」）命名，取代視覺上的 ×；在外層容器設定 <code class="cu-code">data-cu-multi-select-remove-text</code> 即可翻譯，<code class="cu-code">{label}</code> 會替換為項目文字，例如 <code class="cu-code">data-cu-multi-select-remove-text="移除 {label}"</code>。',
       },
     },
     classDescriptions: {
