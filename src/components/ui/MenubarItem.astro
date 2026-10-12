@@ -10,9 +10,12 @@ interface Props {
 
 const { disabled = false, inset = false, class: className, ...rest } = Astro.props;
 const baseClass = `${TOP_CLASS}-menubar-item`;
+// Menubar 沒有選單項目的方向鍵導覽，項目必須是 <button> 才能以 Tab / Enter 操作
 ---
 
-<div
+<button
+    type="button"
+    disabled={disabled}
     class:list={[
         baseClass,
         disabled && `${TOP_CLASS}-menubar-item-disabled`,
@@ -22,4 +25,4 @@ const baseClass = `${TOP_CLASS}-menubar-item`;
     {...rest}
 >
     <slot />
-</div>
+</button>

@@ -69,7 +69,8 @@
     @apply size-7;
 }
 
-/* Focus */
+/* Focus（互動星等為 <button> 時，以及 radio 模式的 label） */
+.cu-rating-item:focus-visible,
 .cu-rating-input:focus-visible + .cu-rating-label {
     @apply outline-none ring-2 ring-ring/40 ring-offset-2 rounded-sm;
 }

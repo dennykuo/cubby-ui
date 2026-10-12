@@ -47,8 +47,8 @@ export const ratingPage: Record<Locale, {
         description: 'Add <code class="cu-code">cu-rating-readonly</code> to display a non-interactive rating.',
       },
       interactive: {
-        title: 'Interactive (Form)',
-        description: 'Use hidden radio inputs with <code class="cu-code">cu-rating-input</code> for form submission.',
+        title: 'Interactive',
+        description: 'Add <code class="cu-code">data-cu-rating</code> and use <code class="cu-code">&lt;button type="button"&gt;</code> stars with <code class="cu-code">data-cu-rating-star</code>, so they can be reached with Tab and selected with Enter / Space. The value is stored in <code class="cu-code">data-cu-rating-value</code> and a <code class="cu-code">cu:rating:change</code> event fires.',
       },
       disabled: {
         title: 'Disabled',
@@ -98,8 +98,8 @@ export const ratingPage: Record<Locale, {
         description: '加上 <code class="cu-code">cu-rating-readonly</code> 顯示不可互動的評分。',
       },
       interactive: {
-        title: '互動式（表單）',
-        description: '使用隱藏的 radio input 搭配 <code class="cu-code">cu-rating-input</code> 進行表單提交。',
+        title: '互動式',
+        description: '加上 <code class="cu-code">data-cu-rating</code>，星星使用帶 <code class="cu-code">data-cu-rating-star</code> 的 <code class="cu-code">&lt;button type="button"&gt;</code>，即可用 Tab 聚焦、Enter / Space 評分。選取值存放在 <code class="cu-code">data-cu-rating-value</code>，並觸發 <code class="cu-code">cu:rating:change</code> 事件。',
       },
       disabled: {
         title: '停用',

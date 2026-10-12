@@ -9,71 +9,71 @@ const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(toggleGroupPage, locale);
 
 const usageCode = `<div class="cu-toggle-group" data-cu-toggle-group>
-  <button class="cu-toggle-group-item cu-toggle-group-item-active">List</button>
-  <button class="cu-toggle-group-item">Grid</button>
-  <button class="cu-toggle-group-item">Board</button>
+  <button type="button" class="cu-toggle-group-item cu-toggle-group-item-active">List</button>
+  <button type="button" class="cu-toggle-group-item">Grid</button>
+  <button type="button" class="cu-toggle-group-item">Board</button>
 </div>`.trim();
 
 const sizesCode = `<!-- Small -->
 <div class="cu-toggle-group cu-toggle-group-sm" data-cu-toggle-group>
-  <button class="cu-toggle-group-item cu-toggle-group-item-active">S</button>
-  <button class="cu-toggle-group-item">M</button>
-  <button class="cu-toggle-group-item">L</button>
+  <button type="button" class="cu-toggle-group-item cu-toggle-group-item-active">S</button>
+  <button type="button" class="cu-toggle-group-item">M</button>
+  <button type="button" class="cu-toggle-group-item">L</button>
 </div>
 
 <!-- Default -->
 <div class="cu-toggle-group" data-cu-toggle-group>
-  <button class="cu-toggle-group-item cu-toggle-group-item-active">Small</button>
-  <button class="cu-toggle-group-item">Medium</button>
-  <button class="cu-toggle-group-item">Large</button>
+  <button type="button" class="cu-toggle-group-item cu-toggle-group-item-active">Small</button>
+  <button type="button" class="cu-toggle-group-item">Medium</button>
+  <button type="button" class="cu-toggle-group-item">Large</button>
 </div>
 
 <!-- Large -->
 <div class="cu-toggle-group cu-toggle-group-lg" data-cu-toggle-group>
-  <button class="cu-toggle-group-item cu-toggle-group-item-active">Small</button>
-  <button class="cu-toggle-group-item">Medium</button>
-  <button class="cu-toggle-group-item">Large</button>
+  <button type="button" class="cu-toggle-group-item cu-toggle-group-item-active">Small</button>
+  <button type="button" class="cu-toggle-group-item">Medium</button>
+  <button type="button" class="cu-toggle-group-item">Large</button>
 </div>`.trim();
 
 const outlineCode = `<div class="cu-toggle-group cu-toggle-group-outline" data-cu-toggle-group>
-  <button class="cu-toggle-group-item cu-toggle-group-item-active">Left</button>
-  <button class="cu-toggle-group-item">Center</button>
-  <button class="cu-toggle-group-item">Right</button>
+  <button type="button" class="cu-toggle-group-item cu-toggle-group-item-active">Left</button>
+  <button type="button" class="cu-toggle-group-item">Center</button>
+  <button type="button" class="cu-toggle-group-item">Right</button>
 </div>`.trim();
 
 const multipleCode = `<div class="cu-toggle-group cu-toggle-group-multiple" data-cu-toggle-group data-cu-toggle-group-multiple>
-  <button class="cu-toggle-group-item cu-toggle-group-item-active">Bold</button>
-  <button class="cu-toggle-group-item cu-toggle-group-item-active">Italic</button>
-  <button class="cu-toggle-group-item">Underline</button>
-  <button class="cu-toggle-group-item">Strikethrough</button>
+  <button type="button" class="cu-toggle-group-item cu-toggle-group-item-active">Bold</button>
+  <button type="button" class="cu-toggle-group-item cu-toggle-group-item-active">Italic</button>
+  <button type="button" class="cu-toggle-group-item">Underline</button>
+  <button type="button" class="cu-toggle-group-item">Strikethrough</button>
 </div>`.trim();
 
 const blockCode = `<div class="cu-toggle-group cu-toggle-group-block" data-cu-toggle-group>
-  <button class="cu-toggle-group-item cu-toggle-group-item-active">Daily</button>
-  <button class="cu-toggle-group-item">Weekly</button>
-  <button class="cu-toggle-group-item">Monthly</button>
-  <button class="cu-toggle-group-item">Yearly</button>
+  <button type="button" class="cu-toggle-group-item cu-toggle-group-item-active">Daily</button>
+  <button type="button" class="cu-toggle-group-item">Weekly</button>
+  <button type="button" class="cu-toggle-group-item">Monthly</button>
+  <button type="button" class="cu-toggle-group-item">Yearly</button>
 </div>`.trim();
 
 const withIconsCode = `<div class="cu-toggle-group" data-cu-toggle-group>
-  <button class="cu-toggle-group-item cu-toggle-group-item-active">
+  <button type="button" class="cu-toggle-group-item cu-toggle-group-item-active">
     <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1.5"><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/></svg>
     List
   </button>
-  <button class="cu-toggle-group-item">
+  <button type="button" class="cu-toggle-group-item">
     <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1.5"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/></svg>
     Grid
   </button>
-  <button class="cu-toggle-group-item">
+  <button type="button" class="cu-toggle-group-item">
     <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1.5"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg>
     Board
   </button>
 </div>`.trim();
 
 const disabledCode = `<div class="cu-toggle-group" data-cu-toggle-group>
-  <button class="cu-toggle-group-item cu-toggle-group-item-active">Active</button>
-  <button class="cu-toggle-group-item">Normal</button>
-  <button class="cu-toggle-group-item" disabled>Disabled</button>
+  <button type="button" class="cu-toggle-group-item cu-toggle-group-item-active">Active</button>
+  <button type="button" class="cu-toggle-group-item">Normal</button>
+  <button type="button" class="cu-toggle-group-item" disabled>Disabled</button>
 </div>`.trim();
 ---
 
@@ -92,9 +92,9 @@ const disabledCode = `<div class="cu-toggle-group" data-cu-toggle-group>
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
             <ComponentPreview code={usageCode}>
                 <div class="cu-toggle-group" data-cu-toggle-group>
-                    <button class="cu-toggle-group-item cu-toggle-group-item-active">List</button>
-                    <button class="cu-toggle-group-item">Grid</button>
-                    <button class="cu-toggle-group-item">Board</button>
+                    <button type="button" class="cu-toggle-group-item cu-toggle-group-item-active">List</button>
+                    <button type="button" class="cu-toggle-group-item">Grid</button>
+                    <button type="button" class="cu-toggle-group-item">Board</button>
                 </div>
             </ComponentPreview>
         </section>
@@ -127,19 +127,19 @@ const disabledCode = `<div class="cu-toggle-group" data-cu-toggle-group>
             <ComponentPreview code={sizesCode}>
                 <div class="flex flex-col items-start gap-4">
                     <div class="cu-toggle-group cu-toggle-group-sm" data-cu-toggle-group>
-                        <button class="cu-toggle-group-item cu-toggle-group-item-active">S</button>
-                        <button class="cu-toggle-group-item">M</button>
-                        <button class="cu-toggle-group-item">L</button>
+                        <button type="button" class="cu-toggle-group-item cu-toggle-group-item-active">S</button>
+                        <button type="button" class="cu-toggle-group-item">M</button>
+                        <button type="button" class="cu-toggle-group-item">L</button>
                     </div>
                     <div class="cu-toggle-group" data-cu-toggle-group>
-                        <button class="cu-toggle-group-item cu-toggle-group-item-active">Small</button>
-                        <button class="cu-toggle-group-item">Medium</button>
-                        <button class="cu-toggle-group-item">Large</button>
+                        <button type="button" class="cu-toggle-group-item cu-toggle-group-item-active">Small</button>
+                        <button type="button" class="cu-toggle-group-item">Medium</button>
+                        <button type="button" class="cu-toggle-group-item">Large</button>
                     </div>
                     <div class="cu-toggle-group cu-toggle-group-lg" data-cu-toggle-group>
-                        <button class="cu-toggle-group-item cu-toggle-group-item-active">Small</button>
-                        <button class="cu-toggle-group-item">Medium</button>
-                        <button class="cu-toggle-group-item">Large</button>
+                        <button type="button" class="cu-toggle-group-item cu-toggle-group-item-active">Small</button>
+                        <button type="button" class="cu-toggle-group-item">Medium</button>
+                        <button type="button" class="cu-toggle-group-item">Large</button>
                     </div>
                 </div>
             </ComponentPreview>
@@ -150,9 +150,9 @@ const disabledCode = `<div class="cu-toggle-group" data-cu-toggle-group>
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.outline.description} />
             <ComponentPreview code={outlineCode}>
                 <div class="cu-toggle-group cu-toggle-group-outline" data-cu-toggle-group>
-                    <button class="cu-toggle-group-item cu-toggle-group-item-active">Left</button>
-                    <button class="cu-toggle-group-item">Center</button>
-                    <button class="cu-toggle-group-item">Right</button>
+                    <button type="button" class="cu-toggle-group-item cu-toggle-group-item-active">Left</button>
+                    <button type="button" class="cu-toggle-group-item">Center</button>
+                    <button type="button" class="cu-toggle-group-item">Right</button>
                 </div>
             </ComponentPreview>
         </section>
@@ -162,10 +162,10 @@ const disabledCode = `<div class="cu-toggle-group" data-cu-toggle-group>
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.multiple.description} />
             <ComponentPreview code={multipleCode}>
                 <div class="cu-toggle-group cu-toggle-group-multiple" data-cu-toggle-group data-cu-toggle-group-multiple>
-                    <button class="cu-toggle-group-item cu-toggle-group-item-active">Bold</button>
-                    <button class="cu-toggle-group-item cu-toggle-group-item-active">Italic</button>
-                    <button class="cu-toggle-group-item">Underline</button>
-                    <button class="cu-toggle-group-item">Strikethrough</button>
+                    <button type="button" class="cu-toggle-group-item cu-toggle-group-item-active">Bold</button>
+                    <button type="button" class="cu-toggle-group-item cu-toggle-group-item-active">Italic</button>
+                    <button type="button" class="cu-toggle-group-item">Underline</button>
+                    <button type="button" class="cu-toggle-group-item">Strikethrough</button>
                 </div>
             </ComponentPreview>
         </section>
@@ -175,10 +175,10 @@ const disabledCode = `<div class="cu-toggle-group" data-cu-toggle-group>
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.block.description} />
             <ComponentPreview code={blockCode}>
                 <div class="cu-toggle-group cu-toggle-group-block" data-cu-toggle-group>
-                    <button class="cu-toggle-group-item cu-toggle-group-item-active">Daily</button>
-                    <button class="cu-toggle-group-item">Weekly</button>
-                    <button class="cu-toggle-group-item">Monthly</button>
-                    <button class="cu-toggle-group-item">Yearly</button>
+                    <button type="button" class="cu-toggle-group-item cu-toggle-group-item-active">Daily</button>
+                    <button type="button" class="cu-toggle-group-item">Weekly</button>
+                    <button type="button" class="cu-toggle-group-item">Monthly</button>
+                    <button type="button" class="cu-toggle-group-item">Yearly</button>
                 </div>
             </ComponentPreview>
         </section>
@@ -188,15 +188,15 @@ const disabledCode = `<div class="cu-toggle-group" data-cu-toggle-group>
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withIcons.description} />
             <ComponentPreview code={withIconsCode}>
                 <div class="cu-toggle-group" data-cu-toggle-group>
-                    <button class="cu-toggle-group-item cu-toggle-group-item-active">
+                    <button type="button" class="cu-toggle-group-item cu-toggle-group-item-active">
                         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1.5"><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/></svg>
                         List
                     </button>
-                    <button class="cu-toggle-group-item">
+                    <button type="button" class="cu-toggle-group-item">
                         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1.5"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/></svg>
                         Grid
                     </button>
-                    <button class="cu-toggle-group-item">
+                    <button type="button" class="cu-toggle-group-item">
                         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1.5"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg>
                         Board
                     </button>
@@ -209,9 +209,9 @@ const disabledCode = `<div class="cu-toggle-group" data-cu-toggle-group>
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.disabled.description} />
             <ComponentPreview code={disabledCode}>
                 <div class="cu-toggle-group" data-cu-toggle-group>
-                    <button class="cu-toggle-group-item cu-toggle-group-item-active">Active</button>
-                    <button class="cu-toggle-group-item">Normal</button>
-                    <button class="cu-toggle-group-item" disabled>Disabled</button>
+                    <button type="button" class="cu-toggle-group-item cu-toggle-group-item-active">Active</button>
+                    <button type="button" class="cu-toggle-group-item">Normal</button>
+                    <button type="button" class="cu-toggle-group-item" disabled>Disabled</button>
                 </div>
             </ComponentPreview>
         </section>

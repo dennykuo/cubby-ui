@@ -7,8 +7,6 @@ import { tabsPage } from "@/i18n/pages/components/tabs";
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(tabsPage, locale);
-const SO = "<" + "script>";
-const SC = "</" + "script>";
 
 const usageCode = `<div class="cu-tabs" data-cu-tabs>
   <div class="cu-tabs-list">
@@ -21,24 +19,7 @@ const usageCode = `<div class="cu-tabs" data-cu-tabs>
   <div class="cu-tabs-content" data-cu-tabs-content="password" hidden>
     <p class="text-sm text-muted-foreground">Change your password here.</p>
   </div>
-</div>
-
-${SO}
-  document.querySelectorAll("[data-cu-tabs]").forEach((tabs) => {
-    const triggers = tabs.querySelectorAll("[data-cu-tabs-trigger]");
-    const contents = tabs.querySelectorAll("[data-cu-tabs-content]");
-    triggers.forEach((trigger) => {
-      trigger.addEventListener("click", () => {
-        const value = trigger.getAttribute("data-cu-tabs-trigger");
-        triggers.forEach((t) => t.classList.remove("cu-tabs-trigger-active"));
-        trigger.classList.add("cu-tabs-trigger-active");
-        contents.forEach((c) => {
-          c.hidden = c.getAttribute("data-cu-tabs-content") !== value;
-        });
-      });
-    });
-  });
-${SC}`.trim();
+</div>`.trim();
 
 const withContentCode = `<div class="cu-tabs" data-cu-tabs>
   <div class="cu-tabs-list">

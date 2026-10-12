@@ -42,7 +42,7 @@ export const commandPalettePage: Record<Locale, {
       },
       emptyState: {
         title: 'Empty State',
-        description: 'Display a friendly message when search results return no matching commands.',
+        description: 'Display a friendly message when search results return no matching commands. Mark it with <code class="cu-code">data-cu-command-empty</code> and <code class="cu-code">hidden</code>; it is shown automatically when nothing matches (type a query that matches no command).',
       },
     },
     classDescriptions: {
@@ -87,7 +87,7 @@ export const commandPalettePage: Record<Locale, {
       },
       emptyState: {
         title: '空狀態',
-        description: '當搜尋結果沒有匹配的指令時，顯示友善的提示訊息。',
+        description: '當搜尋結果沒有匹配的指令時，顯示友善的提示訊息。為該元素加上 <code class="cu-code">data-cu-command-empty</code> 與 <code class="cu-code">hidden</code>，沒有任何相符項目時會自動顯示（輸入不相符的關鍵字即可看到）。',
       },
     },
     classDescriptions: {

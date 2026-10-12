@@ -21,7 +21,7 @@ export const numberInputPage: Record<Locale, {
     sections: {
       usage: {
         title: 'Usage',
-        description: 'Use <code class="cu-code">data-cu-number-input</code> on the wrapper, <code class="cu-code">data-cu-number-decrement</code> and <code class="cu-code">data-cu-number-increment</code> on the buttons, and <code class="cu-code">data-cu-number-field</code> on the input. The <code class="cu-code">&lt;script&gt;</code> handles stepping, min/max clamping, and event dispatch.',
+        description: 'Use <code class="cu-code">data-cu-number-input</code> on the wrapper, <code class="cu-code">data-cu-number-decrement</code> and <code class="cu-code">data-cu-number-increment</code> on the buttons, and <code class="cu-code">data-cu-number-field</code> on the input. Give the buttons <code class="cu-code">type="button"</code> so they never submit a surrounding form. <code class="cu-code">cubby-ui.js</code> handles stepping, min/max clamping, and event dispatch.',
       },
       classes: {
         title: 'CSS Classes',
@@ -59,7 +59,7 @@ export const numberInputPage: Record<Locale, {
     sections: {
       usage: {
         title: '使用方式',
-        description: '在外層容器使用 <code class="cu-code">data-cu-number-input</code>，按鈕使用 <code class="cu-code">data-cu-number-decrement</code> 和 <code class="cu-code">data-cu-number-increment</code>，輸入框使用 <code class="cu-code">data-cu-number-field</code>。<code class="cu-code">&lt;script&gt;</code> 處理步進、最小/最大值限制及事件派發。',
+        description: '在外層容器使用 <code class="cu-code">data-cu-number-input</code>，按鈕使用 <code class="cu-code">data-cu-number-decrement</code> 和 <code class="cu-code">data-cu-number-increment</code>，輸入框使用 <code class="cu-code">data-cu-number-field</code>。按鈕請加上 <code class="cu-code">type="button"</code>，放在表單內才不會送出表單。<code class="cu-code">cubby-ui.js</code> 處理步進、最小/最大值限制及事件派發。',
       },
       classes: {
         title: 'CSS 類別',

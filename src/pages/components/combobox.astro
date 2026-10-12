@@ -11,7 +11,7 @@ const SO = "<" + "script>";
 const SC = "</" + "script>";
 
 const usageCode = `<div class="cu-combobox" data-cu-combobox style="width: 200px;">
-  <button class="cu-combobox-trigger" data-cu-combobox-trigger>
+  <button type="button" class="cu-combobox-trigger" data-cu-combobox-trigger>
     <span data-cu-combobox-value class="cu-combobox-trigger-placeholder">Select framework...</span>
     <svg class="cu-combobox-trigger-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 15 5 5 5-5"/><path d="m7 9 5-5 5 5"/></svg>
   </button>
@@ -29,70 +29,10 @@ const usageCode = `<div class="cu-combobox" data-cu-combobox style="width: 200px
       <div class="cu-combobox-item" data-cu-combobox-item data-cu-value="astro">Astro</div>
     </div>
   </div>
-</div>
-
-${SO}
-  document.querySelectorAll("[data-cu-combobox]").forEach((combobox) => {
-    const trigger = combobox.querySelector("[data-cu-combobox-trigger]");
-    const content = combobox.querySelector("[data-cu-combobox-content]");
-    const input = combobox.querySelector("[data-cu-combobox-input]");
-    const list = combobox.querySelector("[data-cu-combobox-list]");
-    const items = combobox.querySelectorAll("[data-cu-combobox-item]");
-    const empty = combobox.querySelector("[data-cu-combobox-empty]");
-    const valueEl = combobox.querySelector("[data-cu-combobox-value]");
-    let selected = null;
-
-    trigger?.addEventListener("click", (e) => {
-      e.stopPropagation();
-      const isHidden = content?.hasAttribute("hidden");
-      content?.toggleAttribute("hidden");
-      if (isHidden) input?.focus();
-    });
-
-    input?.addEventListener("input", () => {
-      const query = input.value.toLowerCase();
-      let visible = 0;
-      items.forEach((item) => {
-        const match = item.textContent.toLowerCase().includes(query);
-        item.toggleAttribute("hidden", !match);
-        if (match) visible++;
-      });
-      empty?.toggleAttribute("hidden", visible > 0);
-    });
-
-    items.forEach((item) => {
-      item.addEventListener("click", () => {
-        selected = item.dataset.value;
-        valueEl.textContent = item.textContent;
-        valueEl.classList.remove("cu-combobox-trigger-placeholder");
-        items.forEach((i) => i.classList.remove("cu-combobox-item-active"));
-        item.classList.add("cu-combobox-item-active");
-        content?.setAttribute("hidden", "");
-        input.value = "";
-        input?.dispatchEvent(new Event("input"));
-      });
-    });
-
-    document.addEventListener("click", (e) => {
-      if (!combobox.contains(e.target)) {
-        content?.setAttribute("hidden", "");
-        input.value = "";
-        input?.dispatchEvent(new Event("input"));
-      }
-    });
-
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape") {
-        content?.setAttribute("hidden", "");
-        input.value = "";
-        input?.dispatchEvent(new Event("input"));
-      }
-    });
-  });
-${SC}`.trim();
+</div>`.trim();
 
 const withIconsCode = `<div class="cu-combobox" data-cu-combobox style="width: 220px;">
-  <button class="cu-combobox-trigger" data-cu-combobox-trigger>
+  <button type="button" class="cu-combobox-trigger" data-cu-combobox-trigger>
     <span data-cu-combobox-value class="cu-combobox-trigger-placeholder">Select status...</span>
     <svg class="cu-combobox-trigger-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 15 5 5 5-5"/><path d="m7 9 5-5 5 5"/></svg>
   </button>
@@ -124,7 +64,7 @@ const withIconsCode = `<div class="cu-combobox" data-cu-combobox style="width: 2
 </div>`.trim();
 
 const disabledCode = `<div class="cu-combobox" data-cu-combobox style="width: 200px;">
-  <button class="cu-combobox-trigger" data-cu-combobox-trigger>
+  <button type="button" class="cu-combobox-trigger" data-cu-combobox-trigger>
     <span data-cu-combobox-value class="cu-combobox-trigger-placeholder">Select framework...</span>
     <svg class="cu-combobox-trigger-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 15 5 5 5-5"/><path d="m7 9 5-5 5 5"/></svg>
   </button>
@@ -144,7 +84,7 @@ const disabledCode = `<div class="cu-combobox" data-cu-combobox style="width: 20
 </div>`.trim();
 
 const groupedCode = `<div class="cu-combobox" data-cu-combobox style="width: 220px;">
-  <button class="cu-combobox-trigger" data-cu-combobox-trigger>
+  <button type="button" class="cu-combobox-trigger" data-cu-combobox-trigger>
     <span data-cu-combobox-value class="cu-combobox-trigger-placeholder">Select location...</span>
     <svg class="cu-combobox-trigger-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 15 5 5 5-5"/><path d="m7 9 5-5 5 5"/></svg>
   </button>
@@ -168,9 +108,9 @@ const groupedCode = `<div class="cu-combobox" data-cu-combobox style="width: 220
 </div>`.trim();
 
 const withFormGroupCode = `<div class="cu-form-group" style="width: 300px;">
-  <label class="cu-label">Framework</label>
+  <label class="cu-label" for="framework-trigger">Framework</label>
   <div class="cu-combobox w-full" data-cu-combobox>
-    <button class="cu-combobox-trigger w-full" data-cu-combobox-trigger>
+    <button type="button" id="framework-trigger" class="cu-combobox-trigger w-full" data-cu-combobox-trigger>
       <span data-cu-combobox-value class="cu-combobox-trigger-placeholder">Select framework...</span>
       <svg class="cu-combobox-trigger-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 15 5 5 5-5"/><path d="m7 9 5-5 5 5"/></svg>
     </button>
@@ -193,7 +133,7 @@ const withFormGroupCode = `<div class="cu-form-group" style="width: 300px;">
 </div>`.trim();
 
 const debounceCode = `<div class="cu-combobox" id="city-combobox" data-cu-combobox data-cu-combobox-debounce="300" style="width: 220px;">
-  <button class="cu-combobox-trigger" data-cu-combobox-trigger>
+  <button type="button" class="cu-combobox-trigger" data-cu-combobox-trigger>
     <span data-cu-combobox-value class="cu-combobox-trigger-placeholder">Select city...</span>
     <svg class="cu-combobox-trigger-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 15 5 5 5-5"/><path d="m7 9 5-5 5 5"/></svg>
   </button>
@@ -241,7 +181,7 @@ ${SC}`.trim();
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
             <ComponentPreview code={usageCode}>
                 <div class="cu-combobox" data-cu-combobox style="width: 200px;">
-                    <button class="cu-combobox-trigger" data-cu-combobox-trigger>
+                    <button type="button" class="cu-combobox-trigger" data-cu-combobox-trigger>
                         <span data-cu-combobox-value class="cu-combobox-trigger-placeholder">Select framework...</span>
                         <svg class="cu-combobox-trigger-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 15 5 5 5-5"/><path d="m7 9 5-5 5 5"/></svg>
                     </button>
@@ -338,7 +278,7 @@ ${SC}`.trim();
             <p class="text-base text-muted-foreground leading-relaxed">{t.sections.withIcons.description}</p>
             <ComponentPreview code={withIconsCode}>
                 <div class="cu-combobox" data-cu-combobox style="width: 220px;">
-                    <button class="cu-combobox-trigger" data-cu-combobox-trigger>
+                    <button type="button" class="cu-combobox-trigger" data-cu-combobox-trigger>
                         <span data-cu-combobox-value class="cu-combobox-trigger-placeholder">Select status...</span>
                         <svg class="cu-combobox-trigger-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 15 5 5 5-5"/><path d="m7 9 5-5 5 5"/></svg>
                     </button>
@@ -377,9 +317,9 @@ ${SC}`.trim();
             <p class="text-base text-muted-foreground leading-relaxed">{t.sections.withFormGroup.description}</p>
             <ComponentPreview code={withFormGroupCode}>
                 <div class="cu-form-group" style="width: 300px;">
-                    <label class="cu-label">Framework</label>
+                    <label class="cu-label" for="framework-trigger">Framework</label>
                     <div class="cu-combobox w-full" data-cu-combobox>
-                        <button class="cu-combobox-trigger w-full" data-cu-combobox-trigger>
+                        <button type="button" id="framework-trigger" class="cu-combobox-trigger w-full" data-cu-combobox-trigger>
                             <span data-cu-combobox-value class="cu-combobox-trigger-placeholder">Select framework...</span>
                             <svg class="cu-combobox-trigger-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 15 5 5 5-5"/><path d="m7 9 5-5 5 5"/></svg>
                         </button>
@@ -409,7 +349,7 @@ ${SC}`.trim();
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.disabled.description} />
             <ComponentPreview code={disabledCode}>
                 <div class="cu-combobox" data-cu-combobox style="width: 200px;">
-                    <button class="cu-combobox-trigger" data-cu-combobox-trigger>
+                    <button type="button" class="cu-combobox-trigger" data-cu-combobox-trigger>
                         <span data-cu-combobox-value class="cu-combobox-trigger-placeholder">Select framework...</span>
                         <svg class="cu-combobox-trigger-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 15 5 5 5-5"/><path d="m7 9 5-5 5 5"/></svg>
                     </button>
@@ -436,7 +376,7 @@ ${SC}`.trim();
             <p class="text-base text-muted-foreground leading-relaxed">{t.sections.grouped.description}</p>
             <ComponentPreview code={groupedCode}>
                 <div class="cu-combobox" data-cu-combobox style="width: 220px;">
-                    <button class="cu-combobox-trigger" data-cu-combobox-trigger>
+                    <button type="button" class="cu-combobox-trigger" data-cu-combobox-trigger>
                         <span data-cu-combobox-value class="cu-combobox-trigger-placeholder">Select location...</span>
                         <svg class="cu-combobox-trigger-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 15 5 5 5-5"/><path d="m7 9 5-5 5 5"/></svg>
                     </button>
@@ -467,7 +407,7 @@ ${SC}`.trim();
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.debounce.description} />
             <ComponentPreview code={debounceCode}>
                 <div class="cu-combobox" data-cu-combobox data-cu-combobox-debounce="300" style="width: 220px;">
-                    <button class="cu-combobox-trigger" data-cu-combobox-trigger>
+                    <button type="button" class="cu-combobox-trigger" data-cu-combobox-trigger>
                         <span data-cu-combobox-value class="cu-combobox-trigger-placeholder">Select city...</span>
                         <svg class="cu-combobox-trigger-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 15 5 5 5-5"/><path d="m7 9 5-5 5 5"/></svg>
                     </button>

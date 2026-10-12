@@ -26,7 +26,7 @@ export const tabsPage: Record<Locale, {
     sections: {
       usage: {
         title: 'Usage',
-        description: 'Use <code class="cu-code">data-cu-tabs</code> on the container, <code class="cu-code">data-cu-tabs-trigger</code> on each button with a value, and <code class="cu-code">data-cu-tabs-content</code> on each panel with a matching value. Include the <code class="cu-code">&lt;script&gt;</code> snippet for interactivity.',
+        description: 'Use <code class="cu-code">data-cu-tabs</code> on the container, <code class="cu-code">data-cu-tabs-trigger</code> on each button with a value, and <code class="cu-code">data-cu-tabs-content</code> on each panel with a matching value. <code class="cu-code">cubby-ui.js</code> switches panels and sets the ARIA roles automatically — no extra script needed.',
       },
       classes: {
         title: 'CSS Classes',
@@ -94,7 +94,7 @@ export const tabsPage: Record<Locale, {
     sections: {
       usage: {
         title: '使用方式',
-        description: '在容器上使用 <code class="cu-code">data-cu-tabs</code>，在每個按鈕上使用 <code class="cu-code">data-cu-tabs-trigger</code> 並指定值，在每個面板上使用 <code class="cu-code">data-cu-tabs-content</code> 並匹配對應的值。加入 <code class="cu-code">&lt;script&gt;</code> 程式碼片段以啟用互動功能。',
+        description: '在容器上使用 <code class="cu-code">data-cu-tabs</code>，在每個按鈕上使用 <code class="cu-code">data-cu-tabs-trigger</code> 並指定值，在每個面板上使用 <code class="cu-code">data-cu-tabs-content</code> 並匹配對應的值。<code class="cu-code">cubby-ui.js</code> 會自動切換面板並設定 ARIA 角色，不需要額外撰寫 script。',
       },
       classes: {
         title: 'CSS 類別',

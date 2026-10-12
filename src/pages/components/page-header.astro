@@ -7,8 +7,6 @@ import { pageHeaderPage } from "@/i18n/pages/components/page-header";
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(pageHeaderPage, locale);
-const SO = "<" + "script>";
-const SC = "</" + "script>";
 
 const usageCode = `<header class="cu-page-header">
   <div class="cu-page-header-content">
@@ -134,24 +132,7 @@ const withTabsCode = `<div>
       <p class="text-sm text-muted-foreground">Notification preferences content goes here.</p>
     </div>
   </div>
-</div>
-
-${SO}
-  document.querySelectorAll("[data-cu-tabs]").forEach((tabs) => {
-    const triggers = tabs.querySelectorAll("[data-cu-tabs-trigger]");
-    const contents = tabs.querySelectorAll("[data-cu-tabs-content]");
-    triggers.forEach((trigger) => {
-      trigger.addEventListener("click", () => {
-        const value = trigger.getAttribute("data-cu-tabs-trigger");
-        triggers.forEach((t) => t.classList.remove("cu-tabs-trigger-active"));
-        trigger.classList.add("cu-tabs-trigger-active");
-        contents.forEach((c) => {
-          c.hidden = c.getAttribute("data-cu-tabs-content") !== value;
-        });
-      });
-    });
-  });
-${SC}`.trim();
+</div>`.trim();
 
 const centeredCode = `<header class="cu-page-header cu-page-header-centered">
   <div class="cu-page-header-content">

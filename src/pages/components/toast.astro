@@ -16,46 +16,7 @@ const usageCode = `<button class="cu-button cu-button-outline cu-button-md" data
   Show Toast
 </button>
 
-<div class="cu-toast-container cu-toast-container-bottom-right" data-cu-toast-container></div>
-
-${SO}
-  document.querySelectorAll("[data-cu-toast-trigger]").forEach((trigger) => {
-    trigger.addEventListener("click", () => {
-      const container = document.querySelector("[data-cu-toast-container]");
-      if (!container) return;
-      const title = trigger.getAttribute("data-cu-toast-title") || "";
-      const desc = trigger.getAttribute("data-cu-toast-description") || "";
-      const variant = trigger.getAttribute("data-cu-toast-variant") || "default";
-
-      const toast = document.createElement("div");
-      toast.className = "cu-toast cu-toast-" + variant;
-
-      const body = document.createElement("div");
-      body.className = "cu-toast-body";
-      const titleEl = document.createElement("div");
-      titleEl.className = "cu-toast-title";
-      titleEl.textContent = title;
-      body.appendChild(titleEl);
-      if (desc) {
-        const descEl = document.createElement("div");
-        descEl.className = "cu-toast-description";
-        descEl.textContent = desc;
-        body.appendChild(descEl);
-      }
-      toast.appendChild(body);
-
-      const closeBtn = document.createElement("button");
-      closeBtn.className = "cu-toast-close";
-      closeBtn.setAttribute("data-cu-toast-close", "");
-      closeBtn.textContent = "\\u00d7";
-      toast.appendChild(closeBtn);
-
-      container.appendChild(toast);
-      closeBtn.addEventListener("click", () => toast.remove());
-      setTimeout(() => toast.remove(), 5000);
-    });
-  });
-${SC}`.trim();
+<div class="cu-toast-container cu-toast-container-bottom-right" data-cu-toast-container></div>`.trim();
 
 const variantsCode = `<button class="cu-button cu-button-default cu-button-md" data-cu-toast-trigger
   data-cu-toast-title="Default toast" data-cu-toast-description="This is a default notification." data-cu-toast-variant="default">

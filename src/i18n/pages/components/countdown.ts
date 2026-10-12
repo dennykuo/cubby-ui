@@ -21,7 +21,7 @@ export const countdownPage: Record<Locale, {
     sections: {
       usage: {
         title: 'Usage',
-        description: 'Use <code class="cu-code">cu-countdown</code> with <code class="cu-code">data-cu-countdown</code> and <code class="cu-code">data-cu-countdown-target</code> to set the target date. Each segment uses <code class="cu-code">cu-countdown-segment</code> with a value and label.',
+        description: 'Use <code class="cu-code">cu-countdown</code> with <code class="cu-code">data-cu-countdown</code> and <code class="cu-code">data-cu-countdown-target</code> to set the target date. Each segment uses <code class="cu-code">cu-countdown-segment</code> with a value and label; mark the value elements with <code class="cu-code">data-cu-countdown-days</code> / <code class="cu-code">-hours</code> / <code class="cu-code">-minutes</code> / <code class="cu-code">-seconds</code> so cubby-ui.js can update them every second.',
       },
       classes: {
         title: 'CSS Classes',
@@ -63,7 +63,7 @@ export const countdownPage: Record<Locale, {
     sections: {
       usage: {
         title: '使用方式',
-        description: '使用 <code class="cu-code">cu-countdown</code> 搭配 <code class="cu-code">data-cu-countdown</code> 和 <code class="cu-code">data-cu-countdown-target</code> 設定目標日期。每個區段使用 <code class="cu-code">cu-countdown-segment</code> 搭配數值和標籤。',
+        description: '使用 <code class="cu-code">cu-countdown</code> 搭配 <code class="cu-code">data-cu-countdown</code> 和 <code class="cu-code">data-cu-countdown-target</code> 設定目標日期。每個區段使用 <code class="cu-code">cu-countdown-segment</code> 搭配數值和標籤；數值元素需加上 <code class="cu-code">data-cu-countdown-days</code> / <code class="cu-code">-hours</code> / <code class="cu-code">-minutes</code> / <code class="cu-code">-seconds</code>，cubby-ui.js 才會每秒更新。',
       },
       classes: {
         title: 'CSS 類別',

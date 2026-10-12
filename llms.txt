@@ -1016,7 +1016,7 @@ Toast container is auto-created if missing. Customize with `data-cu-toast-contai
 ```
 Container position variants: `cu-toast-container-top-right`, `cu-toast-container-top-left`, `cu-toast-container-bottom-right`, `cu-toast-container-bottom-left`, `cu-toast-container-top-center`, `cu-toast-container-bottom-center`
 Action classes: `cu-toast-action` (action button container), `cu-toast-action-btn` (action button styling)
-Programmatic API: `CubbyUI.toast.show({ title, description, variant, duration, action })` — show a toast via JS. `CubbyUI.toast.promise(promise, { loading, success, error })` — bind toast states to a Promise lifecycle.
+Programmatic API: `CubbyUI.toast.show({ title, description, variant, duration })` — show a toast via JS (returns the toast element). `CubbyUI.toast.promise(promise, { loading, success, error })` — bind toast states to a Promise lifecycle. `show()` has no action option: for an action button, build the toast markup yourself with `cu-toast-action` / `cu-toast-action-btn`.
 
 ---
 

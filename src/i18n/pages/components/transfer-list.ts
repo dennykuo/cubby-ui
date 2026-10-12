@@ -18,7 +18,7 @@ export const transferListPage: Record<Locale, {
     sections: {
       usage: {
         title: 'Usage',
-        description: 'Use <code class="cu-code">data-cu-transfer-list</code> on the container, <code class="cu-code">data-cu-transfer-panel</code> on each panel, <code class="cu-code">data-cu-transfer-check</code> on item checkboxes, and <code class="cu-code">data-cu-transfer-to-right</code> / <code class="cu-code">data-cu-transfer-to-left</code> on the action buttons. The <code class="cu-code">&lt;script&gt;</code> handles checking, moving, and count updates.',
+        description: 'Use <code class="cu-code">data-cu-transfer-list</code> on the container, <code class="cu-code">data-cu-transfer-panel</code> on each panel, <code class="cu-code">data-cu-transfer-check</code> on item checkboxes, and <code class="cu-code">data-cu-transfer-to-right</code> / <code class="cu-code">data-cu-transfer-to-left</code> on the action buttons. Give the action buttons <code class="cu-code">type="button"</code>. <code class="cu-code">cubby-ui.js</code> handles checking, moving, and count updates.',
       },
       classes: {
         title: 'CSS Classes',
@@ -53,7 +53,7 @@ export const transferListPage: Record<Locale, {
     sections: {
       usage: {
         title: '使用方式',
-        description: '在容器上使用 <code class="cu-code">data-cu-transfer-list</code>，每個面板使用 <code class="cu-code">data-cu-transfer-panel</code>，項目核取方塊使用 <code class="cu-code">data-cu-transfer-check</code>，操作按鈕使用 <code class="cu-code">data-cu-transfer-to-right</code> / <code class="cu-code">data-cu-transfer-to-left</code>。<code class="cu-code">&lt;script&gt;</code> 處理勾選、移動與計數更新。',
+        description: '在容器上使用 <code class="cu-code">data-cu-transfer-list</code>，每個面板使用 <code class="cu-code">data-cu-transfer-panel</code>，項目核取方塊使用 <code class="cu-code">data-cu-transfer-check</code>，操作按鈕使用 <code class="cu-code">data-cu-transfer-to-right</code> / <code class="cu-code">data-cu-transfer-to-left</code>。操作按鈕請加上 <code class="cu-code">type="button"</code>。<code class="cu-code">cubby-ui.js</code> 處理勾選、移動與計數更新。',
       },
       classes: {
         title: 'CSS 類別',

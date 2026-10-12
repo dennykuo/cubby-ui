@@ -20,7 +20,7 @@ export const datePickerPage: Record<Locale, {
     sections: {
       usage: {
         title: 'Usage',
-        description: 'Click the trigger button to open a calendar popover. Use arrow keys to navigate between days, <code class="cu-code">Enter</code> to select, and <code class="cu-code">Escape</code> to close. The selected date is formatted and shown in the trigger, and stored as ISO format in a hidden input.',
+        description: 'Click the trigger button to open a calendar popover. Use arrow keys to navigate between days, <code class="cu-code">Home</code> / <code class="cu-code">End</code> to jump to the first / last day of the month, <code class="cu-code">Enter</code> to select, and <code class="cu-code">Escape</code> to close. The selected date is formatted and shown in the trigger, and stored as ISO format in a hidden input that then dispatches a <code class="cu-code">change</code> event. The calendar needs <code class="cu-code">data-cu-calendar</code>, <code class="cu-code">data-cu-calendar-title</code> and an empty <code class="cu-code">data-cu-calendar-grid</code> (days are rendered by cubby-ui.js).',
       },
       classes: {
         title: 'CSS Classes',
@@ -67,7 +67,7 @@ export const datePickerPage: Record<Locale, {
     sections: {
       usage: {
         title: '使用方式',
-        description: '點擊觸發按鈕開啟日曆彈出視窗。使用方向鍵在日期間導航，<code class="cu-code">Enter</code> 選擇日期，<code class="cu-code">Escape</code> 關閉。選定的日期會格式化顯示在觸發按鈕中，並以 ISO 格式儲存在隱藏的 input 中。',
+        description: '點擊觸發按鈕開啟日曆彈出視窗。使用方向鍵在日期間導航，<code class="cu-code">Home</code> / <code class="cu-code">End</code> 跳至月初 / 月底，<code class="cu-code">Enter</code> 選擇日期，<code class="cu-code">Escape</code> 關閉。選定的日期會格式化顯示在觸發按鈕中，並以 ISO 格式儲存在隱藏的 input 中，隨後對該 input 派發 <code class="cu-code">change</code> 事件。月曆需要 <code class="cu-code">data-cu-calendar</code>、<code class="cu-code">data-cu-calendar-title</code> 與空的 <code class="cu-code">data-cu-calendar-grid</code>（日期由 cubby-ui.js 產生）。',
       },
       classes: {
         title: 'CSS 類別',

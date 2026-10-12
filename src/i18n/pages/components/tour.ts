@@ -20,7 +20,7 @@ export const tourPage: Record<Locale, {
     sections: {
       usage: {
         title: 'Usage',
-        description: 'Add <code class="cu-code">data-cu-tour</code> to a container element and define steps via <code class="cu-code">data-cu-tour-steps</code> as a JSON array. Each step targets an element by selector.',
+        description: 'Add <code class="cu-code">data-cu-tour</code> to a container element and define steps via <code class="cu-code">data-cu-tour-steps</code> as a JSON array. Each step targets an element by selector. There is no trigger attribute: start the tour by dispatching a <code class="cu-code">cu:tour:start</code> event on the tour element (or add <code class="cu-code">data-cu-tour-auto</code>).',
       },
       classes: {
         title: 'CSS Classes',
@@ -29,7 +29,7 @@ export const tourPage: Record<Locale, {
       },
       steps: {
         title: 'Step Format',
-        description: 'Each step object accepts <code class="cu-code">target</code> (CSS selector), <code class="cu-code">title</code>, <code class="cu-code">content</code>, and optional <code class="cu-code">placement</code>. Steps are shown in array order.',
+        description: 'Each step object accepts <code class="cu-code">target</code> (CSS selector), <code class="cu-code">title</code>, <code class="cu-code">description</code>, and optional <code class="cu-code">placement</code>. Steps are shown in array order.',
       },
       placement: {
         title: 'Placement',
@@ -45,7 +45,7 @@ export const tourPage: Record<Locale, {
       'cu-tour-spotlight': 'Highlight cutout around the target element',
       'cu-tour-tooltip': 'Tooltip container for step content',
       'cu-tour-tooltip-title': 'Step title text',
-      'cu-tour-tooltip-content': 'Step description text',
+      'cu-tour-tooltip-description': 'Step description text',
       'cu-tour-tooltip-footer': 'Footer with navigation buttons',
       'cu-tour-btn': 'Base tour button style',
       'cu-tour-btn-primary': 'Primary action button (Next / Finish)',
@@ -60,7 +60,7 @@ export const tourPage: Record<Locale, {
     sections: {
       usage: {
         title: '使用方式',
-        description: '在容器元素上加入 <code class="cu-code">data-cu-tour</code>，並透過 <code class="cu-code">data-cu-tour-steps</code> 以 JSON 陣列定義步驟。每個步驟透過選擇器指向目標元素。',
+        description: '在容器元素上加入 <code class="cu-code">data-cu-tour</code>，並透過 <code class="cu-code">data-cu-tour-steps</code> 以 JSON 陣列定義步驟。每個步驟透過選擇器指向目標元素。沒有觸發用的屬性：對導覽元素派發 <code class="cu-code">cu:tour:start</code> 事件即可開始（或加上 <code class="cu-code">data-cu-tour-auto</code>）。',
       },
       classes: {
         title: 'CSS 類別',
@@ -69,7 +69,7 @@ export const tourPage: Record<Locale, {
       },
       steps: {
         title: '步驟格式',
-        description: '每個步驟物件接受 <code class="cu-code">target</code>（CSS 選擇器）、<code class="cu-code">title</code>、<code class="cu-code">content</code>，以及可選的 <code class="cu-code">placement</code>。步驟按陣列順序顯示。',
+        description: '每個步驟物件接受 <code class="cu-code">target</code>（CSS 選擇器）、<code class="cu-code">title</code>、<code class="cu-code">description</code>，以及可選的 <code class="cu-code">placement</code>。步驟按陣列順序顯示。',
       },
       placement: {
         title: '位置',
@@ -85,7 +85,7 @@ export const tourPage: Record<Locale, {
       'cu-tour-spotlight': '目標元素周圍的高亮切口',
       'cu-tour-tooltip': '步驟內容的工具提示容器',
       'cu-tour-tooltip-title': '步驟標題文字',
-      'cu-tour-tooltip-content': '步驟描述文字',
+      'cu-tour-tooltip-description': '步驟描述文字',
       'cu-tour-tooltip-footer': '含導航按鈕的底部區域',
       'cu-tour-btn': '導覽按鈕基礎樣式',
       'cu-tour-btn-primary': '主要操作按鈕（下一步 / 完成）',

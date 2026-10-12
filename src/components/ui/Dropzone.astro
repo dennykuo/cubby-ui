@@ -15,6 +15,6 @@ const disabledClass = disabled ? `${TOP_CLASS}-dropzone-disabled` : undefined;
 ---
 
 <div class:list={[baseClass, disabledClass, className]} data-cu-dropzone {...rest}>
-	<input type="file" data-cu-dropzone-input hidden multiple={multiple} accept={accept} />
+	<input type="file" class={`${TOP_CLASS}-dropzone-input`} data-cu-dropzone-input multiple={multiple} accept={accept} disabled={disabled} />
 	<slot />
 </div>

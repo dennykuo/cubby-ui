@@ -37,9 +37,9 @@ const simpleCode = `<div class="cu-hover-card">
   </div>
 </div>`.trim();
 
-const userProfileCode = `<div class="cu-hover-card" data-cu-popover>
-  <a href="#" class="text-sm font-medium text-primary hover:underline" data-cu-popover-trigger>@johndoe</a>
-  <div class="cu-hover-card-content" data-cu-popover-content hidden>
+const userProfileCode = `<div class="cu-hover-card">
+  <a href="#" class="text-sm font-medium text-primary hover:underline">@johndoe</a>
+  <div class="cu-hover-card-content">
     <div class="flex gap-4">
       <span class="cu-avatar cu-avatar-md">
         <span class="cu-avatar-fallback">JD</span>
@@ -60,9 +60,9 @@ const userProfileCode = `<div class="cu-hover-card" data-cu-popover>
   </div>
 </div>`.trim();
 
-const productPreviewCode = `<div class="cu-hover-card" data-cu-popover>
-  <a href="#" class="text-sm font-medium text-primary hover:underline" data-cu-popover-trigger>Wireless Headphones</a>
-  <div class="cu-hover-card-content" data-cu-popover-content hidden>
+const productPreviewCode = `<div class="cu-hover-card">
+  <a href="#" class="text-sm font-medium text-primary hover:underline">Wireless Headphones</a>
+  <div class="cu-hover-card-content">
     <div class="space-y-3">
       <div class="h-32 w-full rounded-lg bg-muted flex items-center justify-center text-muted-foreground">
         <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>
@@ -202,9 +202,9 @@ const topCode = `<div class="cu-hover-card">
                 {t.sections.userProfile.description}
             </p>
             <ComponentPreview code={userProfileCode}>
-                <div class="cu-hover-card" data-cu-popover>
-                    <a href="#" class="text-sm font-medium text-primary hover:underline" data-cu-popover-trigger>@johndoe</a>
-                    <div class="cu-hover-card-content" data-cu-popover-content hidden>
+                <div class="cu-hover-card">
+                    <a href="#" class="text-sm font-medium text-primary hover:underline">@johndoe</a>
+                    <div class="cu-hover-card-content">
                         <div class="flex gap-4">
                             <span class="cu-avatar cu-avatar-md">
                                 <span class="cu-avatar-fallback">JD</span>
@@ -234,9 +234,9 @@ const topCode = `<div class="cu-hover-card">
                 {t.sections.productPreview.description}
             </p>
             <ComponentPreview code={productPreviewCode}>
-                <div class="cu-hover-card" data-cu-popover>
-                    <a href="#" class="text-sm font-medium text-primary hover:underline" data-cu-popover-trigger>Wireless Headphones</a>
-                    <div class="cu-hover-card-content" data-cu-popover-content hidden>
+                <div class="cu-hover-card">
+                    <a href="#" class="text-sm font-medium text-primary hover:underline">Wireless Headphones</a>
+                    <div class="cu-hover-card-content">
                         <div class="space-y-3">
                             <div class="h-32 w-full rounded-lg bg-muted flex items-center justify-center text-muted-foreground">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>

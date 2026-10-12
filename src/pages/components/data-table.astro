@@ -16,14 +16,14 @@ const usageCode = `<div class="cu-data-table">
   <div class="cu-data-table-toolbar">
     <div class="cu-input-search">
       <svg xmlns="http://www.w3.org/2000/svg" class="cu-input-search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-      <input class="cu-input-search-field" placeholder="Filter emails…" data-cu-data-table-filter />
+      <input class="cu-input-search-field" placeholder="Filter emails…" data-table-filter />
     </div>
   </div>
   <div class="cu-table-wrapper rounded-lg border border-border">
-    <table class="cu-table" data-cu-data-table>
+    <table class="cu-table">
       <thead class="cu-table-header">
         <tr class="cu-table-row">
-          <th class="cu-table-head cu-data-table-check"><input type="checkbox" class="cu-checkbox" data-cu-data-table-select-all /></th>
+          <th class="cu-table-head cu-data-table-check"><input type="checkbox" class="cu-checkbox" data-table-select-all /></th>
           <th class="cu-table-head cu-data-table-head-sortable" data-sort="status">
             Status ${chevronSvg}
           </th>
@@ -37,31 +37,31 @@ const usageCode = `<div class="cu-data-table">
       </thead>
       <tbody class="cu-table-body">
         <tr class="cu-table-row" data-email="ken99@yahoo.com">
-          <td class="cu-table-cell cu-data-table-check"><input type="checkbox" class="cu-checkbox" data-cu-data-table-select /></td>
+          <td class="cu-table-cell cu-data-table-check"><input type="checkbox" class="cu-checkbox" data-table-select /></td>
           <td class="cu-table-cell"><span class="cu-badge cu-badge-success">Success</span></td>
           <td class="cu-table-cell">ken99@yahoo.com</td>
           <td class="cu-table-cell text-right font-medium">$316.00</td>
         </tr>
         <tr class="cu-table-row" data-email="abe45@gmail.com">
-          <td class="cu-table-cell cu-data-table-check"><input type="checkbox" class="cu-checkbox" data-cu-data-table-select /></td>
+          <td class="cu-table-cell cu-data-table-check"><input type="checkbox" class="cu-checkbox" data-table-select /></td>
           <td class="cu-table-cell"><span class="cu-badge cu-badge-success">Success</span></td>
           <td class="cu-table-cell">abe45@gmail.com</td>
           <td class="cu-table-cell text-right font-medium">$242.00</td>
         </tr>
         <tr class="cu-table-row" data-email="monserrat44@gmail.com">
-          <td class="cu-table-cell cu-data-table-check"><input type="checkbox" class="cu-checkbox" data-cu-data-table-select /></td>
+          <td class="cu-table-cell cu-data-table-check"><input type="checkbox" class="cu-checkbox" data-table-select /></td>
           <td class="cu-table-cell"><span class="cu-badge cu-badge-warning">Pending</span></td>
           <td class="cu-table-cell">monserrat44@gmail.com</td>
           <td class="cu-table-cell text-right font-medium">$837.00</td>
         </tr>
         <tr class="cu-table-row" data-email="silas22@gmail.com">
-          <td class="cu-table-cell cu-data-table-check"><input type="checkbox" class="cu-checkbox" data-cu-data-table-select /></td>
+          <td class="cu-table-cell cu-data-table-check"><input type="checkbox" class="cu-checkbox" data-table-select /></td>
           <td class="cu-table-cell"><span class="cu-badge cu-badge-destructive">Failed</span></td>
           <td class="cu-table-cell">silas22@gmail.com</td>
           <td class="cu-table-cell text-right font-medium">$874.00</td>
         </tr>
         <tr class="cu-table-row" data-email="carmella@hotmail.com">
-          <td class="cu-table-cell cu-data-table-check"><input type="checkbox" class="cu-checkbox" data-cu-data-table-select /></td>
+          <td class="cu-table-cell cu-data-table-check"><input type="checkbox" class="cu-checkbox" data-table-select /></td>
           <td class="cu-table-cell"><span class="cu-badge cu-badge-success">Success</span></td>
           <td class="cu-table-cell">carmella@hotmail.com</td>
           <td class="cu-table-cell text-right font-medium">$721.00</td>
@@ -70,18 +70,18 @@ const usageCode = `<div class="cu-data-table">
     </table>
   </div>
   <div class="cu-data-table-info">
-    <span data-cu-data-table-selected>0 of 5 row(s) selected.</span>
+    <span data-table-selected>0 of 5 row(s) selected.</span>
   </div>
 </div>
 
 ${SO}
   // Select all / individual row selection
-  document.querySelectorAll("[data-cu-data-table-select-all]").forEach((selectAll) => {
+  document.querySelectorAll("[data-table-select-all]").forEach((selectAll) => {
     const table = selectAll.closest("table");
-    const rows = table?.querySelectorAll("[data-cu-data-table-select]") || [];
-    const info = table?.closest(".cu-data-table")?.querySelector("[data-cu-data-table-selected]");
+    const rows = table?.querySelectorAll("[data-table-select]") || [];
+    const info = table?.closest(".cu-data-table")?.querySelector("[data-table-selected]");
     function updateInfo() {
-      const checked = table?.querySelectorAll("[data-cu-data-table-select]:checked").length || 0;
+      const checked = table?.querySelectorAll("[data-table-select]:checked").length || 0;
       if (info) info.textContent = checked + ' of ' + rows.length + ' row(s) selected.';
       rows.forEach((cb) => {
         cb.closest("tr")?.classList.toggle("cu-data-table-row-selected", cb.checked);
@@ -95,7 +95,7 @@ ${SO}
   });
 
   // Filter rows by email
-  document.querySelectorAll("[data-cu-data-table-filter]").forEach((input) => {
+  document.querySelectorAll("[data-table-filter]").forEach((input) => {
     const wrapper = input.closest(".cu-data-table");
     const rows = wrapper?.querySelectorAll("tbody .cu-table-row") || [];
     input.addEventListener("input", () => {
@@ -290,10 +290,10 @@ const withRowActionsCode = `<div class="cu-table-wrapper rounded-lg border borde
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"/><circle cx="12" cy="5" r="1"/><circle cx="12" cy="19" r="1"/></svg>
             </button>
             <div class="cu-dropdown-content" data-cu-dropdown-content hidden>
-              <div class="cu-dropdown-item" data-cu-dropdown-item>Edit</div>
-              <div class="cu-dropdown-item" data-cu-dropdown-item>Duplicate</div>
+              <div class="cu-dropdown-item">Edit</div>
+              <div class="cu-dropdown-item">Duplicate</div>
               <div class="cu-dropdown-separator"></div>
-              <div class="cu-dropdown-item text-destructive" data-cu-dropdown-item>Delete</div>
+              <div class="cu-dropdown-item text-destructive">Delete</div>
             </div>
           </div>
         </td>
@@ -308,10 +308,10 @@ const withRowActionsCode = `<div class="cu-table-wrapper rounded-lg border borde
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"/><circle cx="12" cy="5" r="1"/><circle cx="12" cy="19" r="1"/></svg>
             </button>
             <div class="cu-dropdown-content" data-cu-dropdown-content hidden>
-              <div class="cu-dropdown-item" data-cu-dropdown-item>Edit</div>
-              <div class="cu-dropdown-item" data-cu-dropdown-item>Duplicate</div>
+              <div class="cu-dropdown-item">Edit</div>
+              <div class="cu-dropdown-item">Duplicate</div>
               <div class="cu-dropdown-separator"></div>
-              <div class="cu-dropdown-item text-destructive" data-cu-dropdown-item>Delete</div>
+              <div class="cu-dropdown-item text-destructive">Delete</div>
             </div>
           </div>
         </td>
@@ -326,10 +326,10 @@ const withRowActionsCode = `<div class="cu-table-wrapper rounded-lg border borde
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"/><circle cx="12" cy="5" r="1"/><circle cx="12" cy="19" r="1"/></svg>
             </button>
             <div class="cu-dropdown-content" data-cu-dropdown-content hidden>
-              <div class="cu-dropdown-item" data-cu-dropdown-item>Edit</div>
-              <div class="cu-dropdown-item" data-cu-dropdown-item>Duplicate</div>
+              <div class="cu-dropdown-item">Edit</div>
+              <div class="cu-dropdown-item">Duplicate</div>
               <div class="cu-dropdown-separator"></div>
-              <div class="cu-dropdown-item text-destructive" data-cu-dropdown-item>Delete</div>
+              <div class="cu-dropdown-item text-destructive">Delete</div>
             </div>
           </div>
         </td>
@@ -404,7 +404,7 @@ const loadingCode = `<div class="cu-card">
   </div>
 </div>`.trim();
 
-const expandableRowsCode = `<div class="cu-data-table" data-cu-data-table data-cu-data-table-expandable>
+const expandableRowsCode = `<div class="cu-data-table" data-cu-data-table-expandable>
   <div class="cu-table-wrapper rounded-lg border border-border">
     <table class="cu-table">
       <thead class="cu-table-header">
@@ -485,14 +485,14 @@ const expandableRowsCode = `<div class="cu-data-table" data-cu-data-table data-c
                         <div class="cu-data-table-toolbar">
                             <div class="cu-input-search">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="cu-input-search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-                                <input class="cu-input-search-field" placeholder="Filter emails…" data-cu-data-table-filter />
+                                <input class="cu-input-search-field" placeholder="Filter emails…" data-table-filter />
                             </div>
                         </div>
                         <div class="cu-table-wrapper rounded-lg border border-border">
-                            <table class="cu-table" data-cu-data-table>
+                            <table class="cu-table">
                                 <thead class="cu-table-header">
                                     <tr class="cu-table-row">
-                                        <th class="cu-table-head cu-data-table-check"><input type="checkbox" class="cu-checkbox" data-cu-data-table-select-all /></th>
+                                        <th class="cu-table-head cu-data-table-check"><input type="checkbox" class="cu-checkbox" data-table-select-all /></th>
                                         <th class="cu-table-head cu-data-table-head-sortable" data-sort="status">
                                             Status <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 15 5 5 5-5"/><path d="m7 9 5-5 5 5"/></svg>
                                         </th>
@@ -506,31 +506,31 @@ const expandableRowsCode = `<div class="cu-data-table" data-cu-data-table data-c
                                 </thead>
                                 <tbody class="cu-table-body">
                                     <tr class="cu-table-row" data-email="ken99@yahoo.com">
-                                        <td class="cu-table-cell cu-data-table-check"><input type="checkbox" class="cu-checkbox" data-cu-data-table-select /></td>
+                                        <td class="cu-table-cell cu-data-table-check"><input type="checkbox" class="cu-checkbox" data-table-select /></td>
                                         <td class="cu-table-cell"><span class="cu-badge cu-badge-success">Success</span></td>
                                         <td class="cu-table-cell">ken99@yahoo.com</td>
                                         <td class="cu-table-cell text-right font-medium">$316.00</td>
                                     </tr>
                                     <tr class="cu-table-row" data-email="abe45@gmail.com">
-                                        <td class="cu-table-cell cu-data-table-check"><input type="checkbox" class="cu-checkbox" data-cu-data-table-select /></td>
+                                        <td class="cu-table-cell cu-data-table-check"><input type="checkbox" class="cu-checkbox" data-table-select /></td>
                                         <td class="cu-table-cell"><span class="cu-badge cu-badge-success">Success</span></td>
                                         <td class="cu-table-cell">abe45@gmail.com</td>
                                         <td class="cu-table-cell text-right font-medium">$242.00</td>
                                     </tr>
                                     <tr class="cu-table-row" data-email="monserrat44@gmail.com">
-                                        <td class="cu-table-cell cu-data-table-check"><input type="checkbox" class="cu-checkbox" data-cu-data-table-select /></td>
+                                        <td class="cu-table-cell cu-data-table-check"><input type="checkbox" class="cu-checkbox" data-table-select /></td>
                                         <td class="cu-table-cell"><span class="cu-badge cu-badge-warning">Pending</span></td>
                                         <td class="cu-table-cell">monserrat44@gmail.com</td>
                                         <td class="cu-table-cell text-right font-medium">$837.00</td>
                                     </tr>
                                     <tr class="cu-table-row" data-email="silas22@gmail.com">
-                                        <td class="cu-table-cell cu-data-table-check"><input type="checkbox" class="cu-checkbox" data-cu-data-table-select /></td>
+                                        <td class="cu-table-cell cu-data-table-check"><input type="checkbox" class="cu-checkbox" data-table-select /></td>
                                         <td class="cu-table-cell"><span class="cu-badge cu-badge-destructive">Failed</span></td>
                                         <td class="cu-table-cell">silas22@gmail.com</td>
                                         <td class="cu-table-cell text-right font-medium">$874.00</td>
                                     </tr>
                                     <tr class="cu-table-row" data-email="carmella@hotmail.com">
-                                        <td class="cu-table-cell cu-data-table-check"><input type="checkbox" class="cu-checkbox" data-cu-data-table-select /></td>
+                                        <td class="cu-table-cell cu-data-table-check"><input type="checkbox" class="cu-checkbox" data-table-select /></td>
                                         <td class="cu-table-cell"><span class="cu-badge cu-badge-success">Success</span></td>
                                         <td class="cu-table-cell">carmella@hotmail.com</td>
                                         <td class="cu-table-cell text-right font-medium">$721.00</td>
@@ -539,7 +539,7 @@ const expandableRowsCode = `<div class="cu-data-table" data-cu-data-table data-c
                             </table>
                         </div>
                         <div class="cu-data-table-info">
-                            <span data-cu-data-table-selected>0 of 5 row(s) selected.</span>
+                            <span data-table-selected>0 of 5 row(s) selected.</span>
                         </div>
                     </div>
                 </div>
@@ -736,10 +736,10 @@ const expandableRowsCode = `<div class="cu-data-table" data-cu-data-table data-c
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"/><circle cx="12" cy="5" r="1"/><circle cx="12" cy="19" r="1"/></svg>
                                             </button>
                                             <div class="cu-dropdown-content" data-cu-dropdown-content hidden>
-                                                <div class="cu-dropdown-item" data-cu-dropdown-item>Edit</div>
-                                                <div class="cu-dropdown-item" data-cu-dropdown-item>Duplicate</div>
+                                                <div class="cu-dropdown-item">Edit</div>
+                                                <div class="cu-dropdown-item">Duplicate</div>
                                                 <div class="cu-dropdown-separator"></div>
-                                                <div class="cu-dropdown-item text-destructive" data-cu-dropdown-item>Delete</div>
+                                                <div class="cu-dropdown-item text-destructive">Delete</div>
                                             </div>
                                         </div>
                                     </td>
@@ -754,10 +754,10 @@ const expandableRowsCode = `<div class="cu-data-table" data-cu-data-table data-c
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"/><circle cx="12" cy="5" r="1"/><circle cx="12" cy="19" r="1"/></svg>
                                             </button>
                                             <div class="cu-dropdown-content" data-cu-dropdown-content hidden>
-                                                <div class="cu-dropdown-item" data-cu-dropdown-item>Edit</div>
-                                                <div class="cu-dropdown-item" data-cu-dropdown-item>Duplicate</div>
+                                                <div class="cu-dropdown-item">Edit</div>
+                                                <div class="cu-dropdown-item">Duplicate</div>
                                                 <div class="cu-dropdown-separator"></div>
-                                                <div class="cu-dropdown-item text-destructive" data-cu-dropdown-item>Delete</div>
+                                                <div class="cu-dropdown-item text-destructive">Delete</div>
                                             </div>
                                         </div>
                                     </td>
@@ -772,10 +772,10 @@ const expandableRowsCode = `<div class="cu-data-table" data-cu-data-table data-c
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"/><circle cx="12" cy="5" r="1"/><circle cx="12" cy="19" r="1"/></svg>
                                             </button>
                                             <div class="cu-dropdown-content" data-cu-dropdown-content hidden>
-                                                <div class="cu-dropdown-item" data-cu-dropdown-item>Edit</div>
-                                                <div class="cu-dropdown-item" data-cu-dropdown-item>Duplicate</div>
+                                                <div class="cu-dropdown-item">Edit</div>
+                                                <div class="cu-dropdown-item">Duplicate</div>
                                                 <div class="cu-dropdown-separator"></div>
-                                                <div class="cu-dropdown-item text-destructive" data-cu-dropdown-item>Delete</div>
+                                                <div class="cu-dropdown-item text-destructive">Delete</div>
                                             </div>
                                         </div>
                                     </td>
@@ -972,7 +972,7 @@ const expandableRowsCode = `<div class="cu-data-table" data-cu-data-table data-c
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.expandableRows.description} />
             <ComponentPreview code={expandableRowsCode}>
                 <div class="w-full max-w-3xl">
-                    <div class="cu-data-table" data-cu-data-table data-cu-data-table-expandable>
+                    <div class="cu-data-table" data-cu-data-table-expandable>
                         <div class="cu-table-wrapper rounded-lg border border-border">
                             <table class="cu-table">
                                 <thead class="cu-table-header">
@@ -1040,12 +1040,12 @@ const expandableRowsCode = `<div class="cu-data-table" data-cu-data-table data-c
 <script>
     function setupDataTables() {
         // Select all / individual row selection
-        document.querySelectorAll("[data-cu-data-table-select-all]").forEach((selectAll) => {
+        document.querySelectorAll("[data-table-select-all]").forEach((selectAll) => {
             const table = selectAll.closest("table");
-            const rows = table?.querySelectorAll("[data-cu-data-table-select]") || [];
-            const info = table?.closest(".cu-data-table")?.querySelector("[data-cu-data-table-selected]");
+            const rows = table?.querySelectorAll("[data-table-select]") || [];
+            const info = table?.closest(".cu-data-table")?.querySelector("[data-table-selected]");
             function updateInfo() {
-                const checked = table?.querySelectorAll("[data-cu-data-table-select]:checked").length || 0;
+                const checked = table?.querySelectorAll("[data-table-select]:checked").length || 0;
                 if (info) info.textContent = checked + ' of ' + rows.length + ' row(s) selected.';
                 rows.forEach((cb) => {
                     const input = cb as HTMLInputElement;
@@ -1060,7 +1060,7 @@ const expandableRowsCode = `<div class="cu-data-table" data-cu-data-table data-c
         });
 
         // Filter rows
-        document.querySelectorAll("[data-cu-data-table-filter]").forEach((input) => {
+        document.querySelectorAll("[data-table-filter]").forEach((input) => {
             const wrapper = input.closest(".cu-data-table");
             const rows = wrapper?.querySelectorAll("tbody .cu-table-row") || [];
             input.addEventListener("input", () => {
