@@ -29,34 +29,35 @@ import TabsContent from "@/components/ui/TabsContent.astro";
             </p>
         </div>
 
-        <Tabs defaultValue="profile" class="space-y-6">
+        <Tabs data-cu-tabs class="space-y-6">
             <TabsList
                 class="bg-transparent border-b w-full justify-start rounded-none h-auto p-0 space-x-6"
             >
                 <TabsTrigger
-                    value="profile"
-                    class="rounded-none border-b-2 border-transparent data-[state=active]:border-indigo-600 data-[state=active]:bg-transparent px-0 py-2"
+                    data-cu-tabs-trigger="profile"
+                    active
+                    class="rounded-none border-b-2 border-transparent aria-selected:border-indigo-600 aria-selected:bg-transparent px-0 py-2"
                     >個人資料</TabsTrigger
                 >
                 <TabsTrigger
-                    value="notifications"
-                    class="rounded-none border-b-2 border-transparent data-[state=active]:border-indigo-600 data-[state=active]:bg-transparent px-0 py-2"
+                    data-cu-tabs-trigger="notifications"
+                    class="rounded-none border-b-2 border-transparent aria-selected:border-indigo-600 aria-selected:bg-transparent px-0 py-2"
                     >通知設定</TabsTrigger
                 >
                 <TabsTrigger
-                    value="security"
-                    class="rounded-none border-b-2 border-transparent data-[state=active]:border-indigo-600 data-[state=active]:bg-transparent px-0 py-2"
+                    data-cu-tabs-trigger="security"
+                    class="rounded-none border-b-2 border-transparent aria-selected:border-indigo-600 aria-selected:bg-transparent px-0 py-2"
                     >登入與安全</TabsTrigger
                 >
                 <TabsTrigger
-                    value="billing"
-                    class="rounded-none border-b-2 border-transparent data-[state=active]:border-indigo-600 data-[state=active]:bg-transparent px-0 py-2"
+                    data-cu-tabs-trigger="billing"
+                    class="rounded-none border-b-2 border-transparent aria-selected:border-indigo-600 aria-selected:bg-transparent px-0 py-2"
                     >訂閱方案</TabsTrigger
                 >
             </TabsList>
 
             <!-- Profile Tab -->
-            <TabsContent value="profile" class="space-y-6">
+            <TabsContent data-cu-tabs-content="profile" class="space-y-6">
                 <Card class="bg-white border shadow-sm rounded-xl">
                     <CardHeader>
                         <CardTitle>公開資訊</CardTitle>
@@ -84,17 +85,17 @@ import TabsContent from "@/components/ui/TabsContent.astro";
 
                         <div class="grid gap-4 md:grid-cols-2">
                             <div class="space-y-2">
-                                <Label htmlFor="fullName">顯示名稱</Label>
+                                <Label for="fullName">顯示名稱</Label>
                                 <Input id="fullName" value="Denny Kuo" />
                             </div>
                             <div class="space-y-2">
-                                <Label htmlFor="username">使用者名稱</Label>
+                                <Label for="username">使用者名稱</Label>
                                 <Input id="username" value="dennykuo" />
                             </div>
                         </div>
 
                         <div class="space-y-2">
-                            <Label htmlFor="bio">個人簡介</Label>
+                            <Label for="bio">個人簡介</Label>
                             <Textarea
                                 id="bio"
                                 placeholder="寫一些關於您自己的介紹..."
@@ -109,7 +110,7 @@ import TabsContent from "@/components/ui/TabsContent.astro";
                         </div>
 
                         <div class="space-y-2">
-                            <Label htmlFor="website">個人網站 / Blog</Label>
+                            <Label for="website">個人網站 / Blog</Label>
                             <div class="relative">
                                 <span
                                     class="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground text-sm"
@@ -132,7 +133,7 @@ import TabsContent from "@/components/ui/TabsContent.astro";
             </TabsContent>
 
             <!-- Notifications Tab -->
-            <TabsContent value="notifications" class="space-y-6">
+            <TabsContent data-cu-tabs-content="notifications" class="space-y-6" hidden>
                 <Card class="bg-white border shadow-sm rounded-xl">
                     <CardHeader>
                         <CardTitle>Email 通知</CardTitle>
@@ -190,7 +191,7 @@ import TabsContent from "@/components/ui/TabsContent.astro";
             </TabsContent>
 
             <!-- Security Tab -->
-            <TabsContent value="security" class="space-y-6">
+            <TabsContent data-cu-tabs-content="security" class="space-y-6" hidden>
                 <Card class="bg-white border shadow-sm rounded-xl">
                     <CardHeader>
                         <CardTitle>修改密碼</CardTitle>
@@ -200,15 +201,15 @@ import TabsContent from "@/components/ui/TabsContent.astro";
                     </CardHeader>
                     <CardContent class="space-y-4">
                         <div class="space-y-2">
-                            <Label htmlFor="current_password">目前密碼</Label>
+                            <Label for="current_password">目前密碼</Label>
                             <Input id="current_password" type="password" />
                         </div>
                         <div class="space-y-2">
-                            <Label htmlFor="new_password">新密碼</Label>
+                            <Label for="new_password">新密碼</Label>
                             <Input id="new_password" type="password" />
                         </div>
                         <div class="space-y-2">
-                            <Label htmlFor="confirm_password">確認新密碼</Label>
+                            <Label for="confirm_password">確認新密碼</Label>
                             <Input id="confirm_password" type="password" />
                         </div>
                     </CardContent>
@@ -238,6 +239,19 @@ import TabsContent from "@/components/ui/TabsContent.astro";
                             </div>
                             <Button variant="destructive">刪除帳號</Button>
                         </div>
+                    </CardContent>
+                </Card>
+            </TabsContent>
+
+            <!-- Billing Tab -->
+            <TabsContent data-cu-tabs-content="billing" class="space-y-6" hidden>
+                <Card class="bg-white border shadow-sm rounded-xl">
+                    <CardHeader>
+                        <CardTitle>訂閱方案</CardTitle>
+                        <CardDescription>管理您的方案與付款方式。</CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                        <p class="text-sm text-muted-foreground">目前使用免費方案。</p>
                     </CardContent>
                 </Card>
             </TabsContent>

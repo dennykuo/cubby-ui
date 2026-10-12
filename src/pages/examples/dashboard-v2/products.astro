@@ -320,14 +320,16 @@ const products = [
 
             <div class="p-6 space-y-4">
                 <div class="space-y-2">
-                    <Label htmlFor="image" class="text-slate-700"
+                    <Label for="image" class="text-slate-700"
                         >商品圖片</Label
                     >
-                    <div
-                        class="border-2 border-dashed border-slate-200 rounded-lg p-6 flex flex-col items-center justify-center text-center hover:bg-slate-50 hover:border-indigo-300 transition-colors cursor-pointer group"
+                    <label
+                        for="image"
+                        class="border-2 border-dashed border-slate-200 rounded-lg p-6 flex flex-col items-center justify-center text-center hover:bg-slate-50 hover:border-indigo-300 transition-colors cursor-pointer group has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-indigo-300"
                     >
-                        <div
-                            class="h-10 w-10 text-slate-300 group-hover:text-indigo-500 mb-2"
+                        <input id="image" type="file" accept="image/png,image/jpeg" class="sr-only" />
+                        <span
+                            class="block h-10 w-10 text-slate-300 group-hover:text-indigo-500 mb-2"
                         >
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -351,26 +353,26 @@ const products = [
                                     r="1.5"></circle><polyline
                                     points="21 15 16 10 5 21"></polyline></svg
                             >
-                        </div>
-                        <p
-                            class="text-sm font-medium text-slate-600 group-hover:text-indigo-600"
+                        </span>
+                        <span
+                            class="block text-sm font-medium text-slate-600 group-hover:text-indigo-600"
                         >
                             點擊上傳圖片
-                        </p>
-                        <p class="text-xs text-slate-400 mt-1">
+                        </span>
+                        <span class="block text-xs text-slate-400 mt-1">
                             支援 PNG, JPG (Max 2MB)
-                        </p>
-                    </div>
+                        </span>
+                    </label>
                 </div>
 
                 <div class="space-y-2">
-                    <Label htmlFor="name">商品名稱</Label>
+                    <Label for="name">商品名稱</Label>
                     <Input id="name" placeholder="例如：無線藍芽耳機" />
                 </div>
 
                 <div class="grid grid-cols-2 gap-4">
                     <div class="space-y-2">
-                        <Label htmlFor="category">分類</Label>
+                        <Label for="category">分類</Label>
                         <Select id="category">
                             <option>Electronics</option>
                             <option>Clothing</option>
@@ -378,18 +380,18 @@ const products = [
                         </Select>
                     </div>
                     <div class="space-y-2">
-                        <Label htmlFor="price">價格</Label>
+                        <Label for="price">價格</Label>
                         <Input id="price" placeholder="0.00" />
                     </div>
                 </div>
 
                 <div class="grid grid-cols-2 gap-4">
                     <div class="space-y-2">
-                        <Label htmlFor="stock">庫存數量</Label>
+                        <Label for="stock">庫存數量</Label>
                         <Input id="stock" type="number" placeholder="0" />
                     </div>
                     <div class="space-y-2">
-                        <Label htmlFor="status">狀態</Label>
+                        <Label for="status">狀態</Label>
                         <Select id="status">
                             <option>In Stock</option>
                             <option>Low Stock</option>
@@ -443,7 +445,7 @@ const products = [
 
             <div class="p-6 space-y-4">
                 <div class="space-y-2">
-                    <Label htmlFor="edit_name">商品名稱</Label>
+                    <Label for="edit_name">商品名稱</Label>
                     <Input
                         id="edit_name"
                         value="Premium Leather Backpack"
@@ -451,11 +453,11 @@ const products = [
                 </div>
                 <div class="grid grid-cols-2 gap-4">
                     <div class="space-y-2">
-                        <Label htmlFor="edit_price">價格</Label>
+                        <Label for="edit_price">價格</Label>
                         <Input id="edit_price" value="129.00" />
                     </div>
                     <div class="space-y-2">
-                        <Label htmlFor="edit_stock">庫存數量</Label>
+                        <Label for="edit_stock">庫存數量</Label>
                         <Input
                             id="edit_stock"
                             type="number"
