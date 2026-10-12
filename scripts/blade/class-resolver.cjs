@@ -261,18 +261,34 @@ function propToPhp(name, renamedProps = {}) {
   return `$${name}`;
 }
 
+/** JS 字串字面量（雙引號或單引號，含跳脫字元） */
+const STRING_LITERAL_RE = /("(?:[^"\\]|\\.)*"|'(?:[^'\\]|\\.)*')/;
+
 /**
  * 將 JS 條件表達式轉為 PHP 條件
+ *
+ * 字串字面量內的文字原樣保留（只把雙引號改為 PHP 單引號），
+ * 避免 `codeTheme === "light"` 被轉成 `$codeTheme === '$light'`。
  */
 function conditionToPhp(cond, renamedProps = {}) {
+  // split 帶 capture group：奇數索引為字串字面量，偶數索引為其餘程式碼
   return cond
-    .replace(/\b(\w+)\b/g, (match) => {
-      if (/^(true|false|null|undefined|typeof|instanceof)$/.test(match)) return match;
-      if (/^\d+$/.test(match)) return match;
-      return propToPhp(match, renamedProps);
+    .split(STRING_LITERAL_RE)
+    .map((part, i) => {
+      if (i % 2 === 1) {
+        if (part[0] === "'") return part;
+        const body = part.slice(1, -1).replace(/\\"/g, '"').replace(/'/g, "\\'");
+        return `'${body}'`;
+      }
+      return part
+        .replace(/\b(\w+)\b/g, (match) => {
+          if (/^(true|false|null|undefined|typeof|instanceof)$/.test(match)) return match;
+          if (/^\d+$/.test(match)) return match;
+          return propToPhp(match, renamedProps);
+        })
+        .replace(/\bundefined\b/g, 'null');
     })
-    .replace(/\bundefined\b/g, 'null')
-    .replace(/"/g, "'");
+    .join('');
 }
 
 /**

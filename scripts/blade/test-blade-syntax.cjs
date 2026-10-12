@@ -9,6 +9,8 @@
  *       - `,,`（空陣列元素；PHP 8.3+ Fatal）
  *       - `@class([,`、`, ]`（純空白前後的空元素）
  *       - 未轉譯的 JSX 表達式片段 `=\{.+\}`（屬性值殘留 JS）
+ *       - 單層 `{...}` 內殘留 JS 的 `||` / `??`（如文字位置的 `{filename || language}`）
+ *       - 單引號字串以 `$` 開頭（如 `'$light'`：字串字面量被誤轉成 PHP 變數）
  *
  *   (2) PHP 8.3 parse — 將 `@class([...])`、`@props([...])`、`@if(...)`
  *       等 Blade directive 內的 PHP 片段萃取出來，包進最小 PHP 檔後以 `php -l`
@@ -55,6 +57,18 @@ const BAD_PATTERNS = [
     // 屬性值為 `={...}` 但 `...` 裡含 `||` 或未包 `{{ }}` 的純 JS 表達式
     regex: /=\{[^{}\n]*\|\|[^{}\n]*\}/,
     hint: '殘留未轉譯的 JSX 屬性表達式（如 {prop || undefined}）',
+  },
+  {
+    name: 'unconverted-jsx-logical-expr',
+    // 單層 `{...}`（非 Blade 的 `{{ }}`）內含 JS 的 `||` / `??`，例如文字位置的 {filename || language}
+    regex: /(?:^|[^{])\{[^{}\n]*(?:\|\||\?\?)[^{}\n]*\}/,
+    hint: '殘留未轉譯的 JSX 邏輯表達式（如 {filename || language}）；檢查 transformers 的 transformTextInterpolation',
+  },
+  {
+    name: 'php-var-in-string-literal',
+    // PHP 單引號字串不做變數插值，`'$light'` 只會是字面字串 "$light"
+    regex: /'\$[A-Za-z_]/,
+    hint: "字串字面量被當成變數轉換（如 $codeTheme === '$light'）；檢查 class-resolver 的 conditionToPhp",
   },
 ];
 
@@ -202,7 +216,7 @@ function main() {
       console.error(`    → ${f.hint}`);
     }
   } else {
-    console.log('✓ 無已知壞 pattern（`,,`、空陣列元素、未轉譯 JSX）');
+    console.log("✓ 無已知壞 pattern（`,,`、空陣列元素、未轉譯 JSX、'$ 開頭的字串）");
   }
 
   // (2) PHP lint

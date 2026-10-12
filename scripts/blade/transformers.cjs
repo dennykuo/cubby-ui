@@ -393,7 +393,7 @@ function transformInnerSpread(template) {
  */
 function transformTextInterpolation(template, parsed) {
   // 匹配 >{text}< 中間的 {prop}
-  return template.replace(
+  let result = template.replace(
     />(\s*)\{(\w+)\}(\s*)</g,
     (match, before, name, after) => {
       // 跳過已轉換的
@@ -402,6 +402,25 @@ function transformTextInterpolation(template, parsed) {
       return `>${before}{{ ${phpVar} }}${after}<`;
     }
   );
+
+  // {a || b || "fallback"} → {{ $a ?: $b ?: 'fallback' }}
+  // 用 ?: （Elvis）對應 JS falsy 短路語意（與屬性的 {prop || "fallback"} 一致）；PHP 的 ?: 左結合，鏈式結果與 JS 相同
+  const operand = String.raw`(?:\w+|"[^"\\]*"|'[^'\\]*')`;
+  result = result.replace(
+    new RegExp(String.raw`>(\s*)\{\s*(\w+(?:\s*\|\|\s*${operand})+)\s*\}(\s*)<`, 'g'),
+    (match, before, expr, after) => {
+      const php = expr
+        .split('||')
+        .map((s) => s.trim())
+        .map((s) => (/^\w+$/.test(s)
+          ? propToPhp(s, parsed.renamedProps)
+          : `'${s.slice(1, -1).replace(/'/g, "\\'")}'`))
+        .join(' ?: ');
+      return `>${before}{{ ${php} }}${after}<`;
+    }
+  );
+
+  return result;
 }
 
 /**
