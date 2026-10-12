@@ -64,8 +64,8 @@ export function setupTabs() {
 
     // Closable tabs: handle close button clicks
     tabs.querySelectorAll("[data-cu-tabs-close]").forEach(function (closeBtn) {
-      closeBtn.addEventListener("click", function (e) {
-        e.stopPropagation();
+      // 不阻止冒泡：trigger 的 click handler 會忽略來自關閉按鈕的點擊，document 級 handler 仍能關閉其他浮層
+      closeBtn.addEventListener("click", function () {
         var trigger = closeBtn.closest("[data-cu-tabs-trigger]");
         if (!trigger) return;
         var value = trigger.getAttribute("data-cu-tabs-trigger");

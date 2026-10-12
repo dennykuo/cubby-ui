@@ -108,6 +108,8 @@ export function setupMultiSelects() {
             removeBtn.setAttribute("data-cu-remove", val);
             removeBtn.textContent = "\u00d7";
             removeBtn.addEventListener("click", function (e) {
+              // 這裡必須阻止冒泡：handler 會把按鈕移出 DOM，冒泡到 document 時 contains() 會把它誤判為
+              // 外部點擊而關閉面板；同時避免冒泡到 trigger 而切換面板
               e.stopPropagation();
               var hadFocus = document.activeElement === removeBtn;
               selected.delete(val);
@@ -189,7 +191,6 @@ export function setupMultiSelects() {
         content.addEventListener("click", function (e) {
           var item = /** @type {HTMLElement} */ (/** @type {Element} */ (e.target).closest("[data-cu-multi-select-item]"));
           if (!item) return;
-          e.stopPropagation();
           var val = item.dataset.cuValue || "";
           if (selected.has(val)) {
             selected.delete(val);

@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Mixed overlays fixture</title>
+  <link rel="stylesheet" href="../../../dist/core/cubby-ui.css" />
+</head>
+<body>
+  <!-- 不同類型的浮層並存：開啟任一個時，其他已開啟的要關閉 -->
+  <div style="display: flex; gap: 1rem; align-items: flex-start;">
+    <div id="dd-a" class="cu-dropdown" data-cu-dropdown>
+      <button class="cu-button cu-button-outline" data-cu-dropdown-trigger>Menu A</button>
+      <div class="cu-dropdown-content" data-cu-dropdown-content hidden>
+        <button class="cu-dropdown-item">A1</button>
+      </div>
+    </div>
+
+    <div id="dd-b" class="cu-dropdown" data-cu-dropdown>
+      <button class="cu-button cu-button-outline" data-cu-dropdown-trigger>Menu B</button>
+      <div class="cu-dropdown-content" data-cu-dropdown-content hidden>
+        <button class="cu-dropdown-item">B1</button>
+      </div>
+    </div>
+
+    <div id="pop" class="cu-popover" data-cu-popover>
+      <button class="cu-button cu-button-outline" data-cu-popover-trigger>Popover</button>
+      <div class="cu-popover-content" data-cu-popover-content hidden>Popover content</div>
+    </div>
+
+    <div id="cb" class="cu-combobox" data-cu-combobox style="width: 180px;">
+      <button class="cu-combobox-trigger" data-cu-combobox-trigger>
+        <span data-cu-combobox-value class="cu-combobox-trigger-placeholder">Select...</span>
+      </button>
+      <div class="cu-combobox-content" data-cu-combobox-content hidden>
+        <div class="cu-combobox-list" data-cu-combobox-list>
+          <div class="cu-combobox-item" data-cu-combobox-item data-cu-value="a">Alpha</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cu-tabs" data-cu-tabs style="margin-top: 8rem;">
+    <div class="cu-tabs-list">
+      <span class="cu-tabs-trigger cu-tabs-trigger-active" data-cu-tabs-trigger="one" role="button" tabindex="0">One</span>
+      <span class="cu-tabs-trigger" data-cu-tabs-trigger="two" role="button" tabindex="0">Two
+        <span class="cu-tabs-trigger-close" data-cu-tabs-close role="button" tabindex="0" aria-label="Close tab">&times;</span>
+      </span>
+    </div>
+    <div data-cu-tabs-content="one">Panel one</div>
+    <div data-cu-tabs-content="two" hidden>Panel two</div>
+  </div>
+
+  <script>
+    window.__docClicks = 0;
+    document.addEventListener("click", function () { window.__docClicks++; });
+  </script>
+  <script src="../../../dist/core/cubby-ui.js"></script>
+</body>
+</html>

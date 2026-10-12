@@ -40,8 +40,8 @@ export function setupDropdowns() {
     }
 
     trigger &&
-      trigger.addEventListener("click", function (e) {
-        e.stopPropagation();
+      // 不阻止冒泡：讓 document 級 handler 關閉其他已開啟的浮層（自身因 contains 判斷不受影響）
+      trigger.addEventListener("click", function () {
         if (content) {
           content.toggleAttribute("hidden");
           trigger.setAttribute("aria-expanded", String(!content.hasAttribute("hidden")));
