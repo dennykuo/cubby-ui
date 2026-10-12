@@ -59,6 +59,7 @@ BASE_PATH=/cubby-ui npm run test:e2e
 - 測試對象是 `dist/core/cubby-ui.{css,js}` 出貨產物，不是 Astro 文檔站；先 `npm run build` 再跑
 - fixture 放在 `tests/e2e/fixtures/*.html`，spec 放在 `tests/e2e/*.spec.ts`，透過 `openFixture(page, "name")` 載入
 - 新增互動元件時，至少補一個 fixture 與涵蓋「開啟 / 關閉 / 鍵盤 / ARIA」的 smoke test
+- `examples.spec.ts` 會把 `components.json` 的 `example`、`llms.txt` 的 HTML 範例與文檔頁 Code 範例（`docs/` 的 `data-cu-preview-code`）逐一放進只載入 `dist/` 產物的頁面，檢查照抄即可運作：JS 必要的 `data-cu-*` 屬性與結構、觸發器可鍵盤操作（`<button>` / `<a href>`）、無巢狀互動元素、表單類元件按鈕有 `type="button"`、label 有關聯控制項、範例不自帶重新實作元件的 `<script>`，並實際操作元件確認 cubby-ui.js 有接手。新增互動元件時請在 spec 的 `PART_ROOT` / `ROOT_PARTS` / `PROBES` 補上規則；只能靠修改 JS 解決的已知限制登記在 `KNOWN_JS_LIMITATIONS` 並註明原因
 - 無法下載 Playwright 瀏覽器的環境（離線、受限網路）可用既有 Chromium：
   `PLAYWRIGHT_CHROMIUM_EXECUTABLE=/path/to/chrome npm run test:e2e`
 
