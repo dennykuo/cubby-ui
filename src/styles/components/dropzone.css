@@ -4,6 +4,16 @@
     @apply flex flex-col items-center justify-center gap-2 rounded-lg border-2 border-dashed border-input bg-background px-6 py-10 text-center transition-colors duration-150 cursor-pointer hover:border-muted-foreground/40 hover:bg-muted/30;
 }
 
+/* 原生 file input：視覺隱藏但保留在 Tab 順序中，鍵盤使用者聚焦後按 Space / Enter 開啟檔案選擇器
+   （勿用 hidden 屬性，否則上傳區無法以鍵盤操作）；聚焦時由外框顯示焦點環 */
+.cu-dropzone-input {
+    @apply sr-only;
+}
+
+.cu-dropzone:has(.cu-dropzone-input:focus-visible) {
+    @apply outline-none ring-2 ring-ring/40 ring-offset-2;
+}
+
 .cu-dropzone-active {
     @apply border-primary bg-primary/5 hover:border-primary hover:bg-primary/5;
 }
