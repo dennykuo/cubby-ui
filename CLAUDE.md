@@ -133,7 +133,7 @@ const t = useTranslations(buttonPage, locale);
 - 導航互動元素（Tabs、Pagination、Nav、Breadcrumb、Menubar）使用 `outline-none` 搭配 `focus-visible:ring-1 focus-visible:ring-ring/30`
 - Dialog / Drawer / Alert 的 close 按鈕使用 `focus-visible:ring-1 focus-visible:ring-ring/40`
 - Chat Input send / attach 按鈕屬於主要互動元素，使用模式 A（`ring-2 ring-ring/40 ring-offset-2`）
-- Code Block 刻意使用硬編碼 `zinc-*` 色彩（非設計 token），因為程式碼區塊需要始終維持深色背景以確保語法高亮可讀性，與主題色彩解耦
+- Code Block 刻意使用硬編碼 `zinc-*` 色彩（非設計 token），因為程式碼區塊需要始終維持深色背景以確保語法高亮可讀性，與主題色彩解耦；複製失敗狀態（`data-cu-copy-failed`）同理使用固定色階 `red-400`（light 變體 `red-700`），暗色頁面的 destructive token 在 zinc-950 上對比不足
 - Pin Input 預設 `h-10 w-10`（非標準表單 `h-9`），因為正方形格子需要較大尺寸以確保可讀性與點擊面積
 - Textarea 使用 `py-2`（非標準表單 `py-1`），因為多行輸入需要額外垂直間距以提升閱讀體驗
 - Chat 系列元件（Chat Input、Chat Message、Chat Typing）使用 `rounded-2xl`（非標準浮層 `rounded-xl`），遵循 chat UI 慣例（iMessage/WhatsApp 氣泡感）
@@ -155,7 +155,7 @@ const t = useTranslations(buttonPage, locale);
 - Empty State 場景模板：No Permission / Maintenance / Search No Results
 - 圖表色盤：`--color-chart-1` ~ `--color-chart-5`（`theme.css`，`.dark` 另有一組），類別色依固定順序指派，已以亮度帶、色覺辨識差異與對卡片 3:1 對比驗證；`cu-chart-color-N` 設定 `currentColor` 供圖例色塊與 SVG `fill` / `stroke="currentColor"` 共用
 - Chart 只提供包裝樣式（`cu-chart` 卡片、header / body / canvas / legend / tooltip / empty / loading），不內建繪圖 JS；`cu-chart-canvas` 為 `relative` + 明確高度，符合 Chart.js `maintainAspectRatio: false`；文檔頁預覽以內嵌 SVG 示範，Chart.js 整合僅以程式碼呈現
-- Copy Button：`data-cu-copy` / `data-cu-copy-target` 由 document 級 delegated click 處理（`registry.copyClickHandler`，`destroy()` 移除）；狀態屬性 `data-cu-copied` / `data-cu-copy-failed` 以 CSS 切換 `cu-copy-button-icon` / `cu-copy-button-check`；訊息經共用 `[data-cu-copy-live]` aria-live 區域播報；Clipboard API 失敗時退回 `execCommand('copy')`
+- Copy Button：`data-cu-copy` / `data-cu-copy-target` 由 document 級 delegated click 處理（`registry.copyClickHandler`，`destroy()` 移除）；狀態屬性 `data-cu-copied` / `data-cu-copy-failed` 以 CSS 切換 `cu-copy-button-icon` / `cu-copy-button-check`；訊息經共用 `[data-cu-copy-live]` aria-live 區域播報；Clipboard API 失敗時退回 `execCommand('copy')`。寫入、播報與狀態設定 / 還原抽在 `core/clipboard.js`，Code Block（`data-cu-code-block-copy`）共用同一套：相同狀態屬性與 live region，訊息由根元素的 `data-cu-code-block-success-text` / `data-cu-code-block-error-text` 設定，事件為 `cu:code-block:copy` / `cu:code-block:error`
 
 ### NPM 套件打包
 
@@ -239,7 +239,8 @@ src/
 │   │   ├── registry.js           — 共享追蹤狀態（各元件 tracking array + document 級 handler 參照）
 │   │   ├── utils.js              — genId、navigateItems、roundToStep、clampValue
 │   │   ├── document-listeners.js — document 級 delegated click / keydown / contextmenu / scroll
-│   │   └── overlay.js            — Dialog / Drawer / Alert Dialog 共用的 <dialog> 邏輯
+│   │   ├── overlay.js            — Dialog / Drawer / Alert Dialog 共用的 <dialog> 邏輯
+│   │   └── clipboard.js          — Copy Button / Code Block 共用：寫入剪貼簿（execCommand 後備）、aria-live 播報、複製狀態
 │   ├── components/               — 每元件一個 ESM 模組（tabs.js、dropdown.js、toast.js …，匯出 setupXxx）
 │   ├── cubby-ui.d.ts             — TypeScript 型別定義（打包來源，原樣複製到 dist/，對外公開）
 │   ├── globals.d.ts              — 型別檢查專用的 global augmentation（`_cuInit` 等元素 expando 屬性；不進 dist/）

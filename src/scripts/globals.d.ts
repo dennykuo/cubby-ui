@@ -23,6 +23,10 @@ declare global {
     _cuDate?: Date;
     /** Toast：正在執行關閉動畫，避免重複關閉 */
     _cuDismissing?: boolean;
+    /** Copy Button / Code Block：狀態期間暫存 label 原本的文字，還原時寫回 */
+    _cuCopyLabel?: string | null;
+    /** Copy Button / Code Block：狀態還原計時器 */
+    _cuCopyTimer?: number;
   }
 
   interface Document {

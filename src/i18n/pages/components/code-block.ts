@@ -13,7 +13,10 @@ export const codeBlockPage: Record<Locale, {
     light: { title: string; description: string };
     lightLanguage: { title: string; description: string };
     syntaxHighlighting: { title: string; description: string };
+    copy: { title: string; description: string };
+    attributes: { title: string; attributeLabel: string; descriptionLabel: string };
   };
+  attributeDescriptions: Record<string, string>;
   classDescriptions: Record<string, string>;
 }> = {
   en: {
@@ -54,6 +57,24 @@ export const codeBlockPage: Record<Locale, {
         title: 'Syntax Highlighting',
         description: 'Set the <code class="cu-code">language</code> prop to automatically add a <code class="cu-code">language-xxx</code> class on the <code class="cu-code">&lt;code&gt;</code> element. This enables integration with third-party syntax highlighting libraries like <strong>Prism.js</strong> or <strong>Highlight.js</strong> — simply include their CSS and JS, and syntax colors will apply automatically.',
       },
+      copy: {
+        title: 'Copy Feedback',
+        description: 'The copy button copies the text inside <code class="cu-code">cu-code-block-pre</code> with line breaks intact. When the Clipboard API is missing (for example on plain <code class="cu-code">http://</code>) or rejected, it falls back to <code class="cu-code">document.execCommand("copy")</code>; if that also fails, the button gets <code class="cu-code">data-cu-copy-failed</code> instead of <code class="cu-code">data-cu-copied</code>. The label and a visually hidden <code class="cu-code">role="status"</code> region shared with Copy Button announce the result. Set <code class="cu-code">data-cu-code-block-success-text</code> / <code class="cu-code">data-cu-code-block-error-text</code> on the container to change the messages (defaults: "Copied!" and "Copy failed"). The button dispatches bubbling <code class="cu-code">cu:code-block:copy</code> and <code class="cu-code">cu:code-block:error</code> events.',
+      },
+      attributes: {
+        title: 'Data Attributes',
+        attributeLabel: 'Attribute',
+        descriptionLabel: 'Description',
+      },
+    },
+    attributeDescriptions: {
+      'data-cu-code-block': 'Container; enables the copy button',
+      'data-cu-code-block-copy': 'Copy button',
+      'data-cu-code-block-label': 'Button text that shows the success or error message, then reverts',
+      'data-cu-code-block-success-text': 'On the container: success message, also announced (default "Copied!")',
+      'data-cu-code-block-error-text': 'On the container: error message, also announced (default "Copy failed")',
+      'data-cu-copied': 'State on the button: set for 2 seconds after a successful copy',
+      'data-cu-copy-failed': 'State on the button: set for 2 seconds when copying fails',
     },
     classDescriptions: {
       'cu-code-block': 'Container with dark background and rounded corners',
@@ -101,6 +122,24 @@ export const codeBlockPage: Record<Locale, {
         title: '語法高亮',
         description: '設定 <code class="cu-code">language</code> prop 會自動在 <code class="cu-code">&lt;code&gt;</code> 元素加上 <code class="cu-code">language-xxx</code> class。這讓 <strong>Prism.js</strong> 或 <strong>Highlight.js</strong> 等第三方語法高亮套件能自動上色 — 只需引入它們的 CSS 和 JS 即可。',
       },
+      copy: {
+        title: '複製回饋',
+        description: '複製按鈕會複製 <code class="cu-code">cu-code-block-pre</code> 內的文字並保留換行。Clipboard API 不存在（例如一般 <code class="cu-code">http://</code> 頁面）或被拒絕時，會改用 <code class="cu-code">document.execCommand("copy")</code>；仍失敗則按鈕改為設定 <code class="cu-code">data-cu-copy-failed</code>（而非 <code class="cu-code">data-cu-copied</code>）。結果會顯示在按鈕文字上，並透過與 Copy Button 共用的視覺隱藏 <code class="cu-code">role="status"</code> 區域播報。在容器加上 <code class="cu-code">data-cu-code-block-success-text</code> / <code class="cu-code">data-cu-code-block-error-text</code> 可修改訊息（預設 "Copied!" 與 "Copy failed"）。按鈕會觸發可冒泡的 <code class="cu-code">cu:code-block:copy</code> 與 <code class="cu-code">cu:code-block:error</code> 事件。',
+      },
+      attributes: {
+        title: 'Data 屬性',
+        attributeLabel: '屬性',
+        descriptionLabel: '說明',
+      },
+    },
+    attributeDescriptions: {
+      'data-cu-code-block': '容器；啟用複製按鈕',
+      'data-cu-code-block-copy': '複製按鈕',
+      'data-cu-code-block-label': '按鈕文字，暫時顯示成功或失敗訊息後還原',
+      'data-cu-code-block-success-text': '加在容器：成功訊息，同時用於播報（預設 "Copied!"）',
+      'data-cu-code-block-error-text': '加在容器：失敗訊息，同時用於播報（預設 "Copy failed"）',
+      'data-cu-copied': '按鈕狀態：複製成功後設定 2 秒',
+      'data-cu-copy-failed': '按鈕狀態：複製失敗時設定 2 秒',
     },
     classDescriptions: {
       'cu-code-block': '帶有深色背景和圓角的容器',

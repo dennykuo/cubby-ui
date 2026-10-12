@@ -583,7 +583,8 @@ Note: Input MUST have `placeholder=" "` (space) for the CSS `:placeholder-shown`
 
 **Code Block** — code display with optional header, copy button, and syntax highlighting support
 Classes: `cu-code-block` (container, dark bg), `cu-code-block-light` (light bg variant with subtle border), `cu-code-block-header` (top bar with filename/language + copy btn), `cu-code-block-pre` (scrollable code area), `cu-code-block-copy` (copy button, absolute top-right when no header, inline when inside header)
-Copied state: add `data-cu-copied` attribute to `cu-code-block-copy` to show success styling.
+Copy (JS): `data-cu-code-block` on the container + `data-cu-code-block-copy` on the button copies the `cu-code-block-pre` textContent (line breaks preserved) via the Clipboard API, falling back to `execCommand("copy")`. Optional on the container: `data-cu-code-block-success-text` (default "Copied!"), `data-cu-code-block-error-text` (default "Copy failed"); a `data-cu-code-block-label` child shows the message and is restored after 2000 ms.
+States (on the button): `data-cu-copied` (success), `data-cu-copy-failed` (Clipboard API unavailable / denied and fallback failed). Events: `cu:code-block:copy` (detail.text), `cu:code-block:error` (detail.error), both bubble. A11y: messages are announced via the visually hidden `role="status"` region shared with Copy Button (`data-cu-copy-live`).
 Syntax highlighting: add `language-xxx` class on `<code>` element to enable third-party highlighting (Prism.js / Highlight.js).
 ```html
 <div class="cu-code-block">
@@ -1485,5 +1486,6 @@ Data attributes: `data-cu-resizable`, `data-cu-resizable-panel`, `data-cu-resiza
 | Alert Expandable | `data-cu-alert-expandable` | `data-cu-alert-expand-trigger` | `data-cu-alert-expandable-content` | — | — |
 | Data Table Expandable | `data-cu-data-table-expandable` | `data-cu-expand-row` | — | — | — |
 | Copy Button | — | `data-cu-copy="text"` / `data-cu-copy-target="#id"` | — | — | `data-cu-copy-label`, `data-cu-copy-success-text`, `data-cu-copy-error-text`, `data-cu-copy-duration`, `data-cu-copy-live`; states `data-cu-copied`, `data-cu-copy-failed` |
+| Code Block | `data-cu-code-block` | `data-cu-code-block-copy` | — | — | `data-cu-code-block-label`, `data-cu-code-block-success-text`, `data-cu-code-block-error-text` (on container); states `data-cu-copied`, `data-cu-copy-failed` (on button) |
 | Popover | `data-cu-popover` | `data-cu-popover-trigger` | `data-cu-popover-content` | — | — |
 | Menubar | `data-cu-menubar` | `data-cu-menubar-trigger` | `data-cu-menubar-content` | — | `data-cu-menubar-menu` (per menu wrapper) |

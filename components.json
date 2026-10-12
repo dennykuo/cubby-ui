@@ -984,14 +984,17 @@
         "base": "cu-code-block",
         "variants": ["cu-code-block-light"],
         "parts": ["cu-code-block-header", "cu-code-block-pre", "cu-code-block-copy"],
-        "states": ["data-cu-copied"]
+        "states": ["data-cu-copied", "data-cu-copy-failed"]
       },
       "dataAttributes": {
         "container": "data-cu-code-block",
         "copy": "data-cu-code-block-copy",
-        "label": "data-cu-code-block-label"
+        "label": "data-cu-code-block-label",
+        "successText": "data-cu-code-block-success-text",
+        "errorText": "data-cu-code-block-error-text"
       },
-      "notes": "Code container with optional header (language label) and copy button. Default dark theme; add cu-code-block-light for light variant. Copy button can be absolute (no header) or inline (inside header). Copied state applied via data-cu-copied attribute. Set language-xxx class on <code> element for third-party syntax highlighting (Prism.js / Highlight.js).",
+      "aria": ["status"],
+      "notes": "Code container with optional header (language label) and copy button. Default dark theme; add cu-code-block-light for light variant. Copy button can be absolute (no header) or inline (inside header). Clicking [data-cu-code-block-copy] copies the textContent of .cu-code-block-pre (line breaks and whitespace preserved) using the Clipboard API, falling back to execCommand(\"copy\"). On success the button gets data-cu-copied and fires cu:code-block:copy { text }; on failure it gets data-cu-copy-failed and fires cu:code-block:error { error } (both bubble). The [data-cu-code-block-label] text swaps to data-cu-code-block-success-text (default \"Copied!\") / data-cu-code-block-error-text (default \"Copy failed\"), set on the root, and is restored after 2000 ms. A11y: messages are announced through the visually hidden role=\"status\" aria-live=\"polite\" region shared with Copy Button (data-cu-copy-live), auto-created when absent. Set language-xxx class on <code> element for third-party syntax highlighting (Prism.js / Highlight.js).",
       "example": "<div class=\"cu-code-block\" data-cu-code-block><div class=\"cu-code-block-header\"><span>HTML</span><button class=\"cu-code-block-copy\" data-cu-code-block-copy><span data-cu-code-block-label>Copy</span></button></div><pre class=\"cu-code-block-pre\"><code class=\"language-html\">&lt;div&gt;Hello&lt;/div&gt;</code></pre></div>"
     },
     {

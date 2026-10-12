@@ -45,6 +45,13 @@
     @apply border-none;
 }
 
+/* Copy failed state（Clipboard API 與 execCommand 後備皆失敗）
+   與區塊背景一樣使用固定色階而非 destructive token：暗色頁面的
+   destructive 是深紅，放在 zinc-950 區塊上幾乎不可見。 */
+.cu-code-block-copy[data-cu-copy-failed] {
+    @apply text-red-400 border-red-400/30;
+}
+
 /* Light variant
    ------------------------------------------------------------------ */
 .cu-code-block-light {
@@ -69,4 +76,8 @@
 
 .cu-code-block-light .cu-code-block-header .cu-code-block-copy:hover {
     @apply bg-zinc-200 text-zinc-700;
+}
+
+.cu-code-block-light .cu-code-block-copy[data-cu-copy-failed] {
+    @apply text-red-700 border-red-700/30;
 }
