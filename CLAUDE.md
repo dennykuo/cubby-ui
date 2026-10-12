@@ -22,6 +22,8 @@ Cubby UI 是一個框架無關的 UI 元件庫，風格類似 shadcn/ui，使用
 - `npm run test:e2e` — Playwright 互動元件測試（`tests/e2e/*.spec.ts`），對 `dist/core/cubby-ui.{css,js}` 出貨產物執行，fixture 為 `tests/e2e/fixtures/*.html` 靜態頁；需先 `npm run build`。另含 `docs-smoke.spec.ts`：逐頁載入 `docs/` 產出的元件頁與範例頁，檢查無未捕捉例外、無 console error、重複 `init()` / `refresh()` 安全、同源資源無 4xx / 5xx；`docs SEO` 組驗證每頁 description 專屬且為純文字、Open Graph / hreflang 標籤，建置時有 `SITE_URL`（首頁有 canonical）才驗證 canonical / sitemap / robots.txt 的絕對網址，否則改驗證不輸出這些（`docs/` 不存在時自動略過，CI 會先 `build:docs`；設 `BASE_PATH` 時只在該子路徑下伺服 `docs/`，模擬 GitHub Pages）。無法下載瀏覽器的環境可設 `PLAYWRIGHT_CHROMIUM_EXECUTABLE` 指向既有 Chromium
 - `npm run test` — 依序執行 `check:sync` → `test:blade` → `test:e2e`
 - `npm run check:sync` — 元件清單跨來源一致性檢查（`component-nav.ts` / 頁面 / i18n / CSS / `components.json` / `llms.txt` / README 元件分類表），並雙向比對 `src/scripts/` 各模組使用的 `data-cu-*` 與 `cubby-ui.d.ts` 的 `DATA_ATTRS`
+- `npm run changeset` — 新增 changeset（互動式；也可直接新增 `.changeset/*.md`，格式見 `.changeset/README.md`）。每個使用者可感知的變更都附一個 changeset，**不要直接編輯 `CHANGELOG.md`**
+- `npm run version-packages` — `changeset version`：依 `.changeset/` 決定版本號、寫入 `CHANGELOG.md` 並刪除已消耗的 changeset（發版時執行）
 - `npm run type-check` — `astro check`（`tsconfig.json` 已排除 `dist/` 與 `docs/`）→ `type-check:scripts`
 - `npm run type-check:scripts` — `tsc -p tsconfig.scripts.json`：以 `checkJs` 檢查 `src/scripts/` 的元件庫 JS（`index.js` / `core/` / `components/`；不含文檔站專用的 `playground.js`）。非 strict（未開 `strictNullChecks` / `noImplicitAny`），`lib` 為 `es2017` + DOM，誤用更新的執行期 API 會報錯
 - `npm run lint` — ESLint flat config（`eslint.config.js`），範圍 `src/scripts/`（含 `playground.js`，以 `sourceType: "script"` 檢查）；只啟用 `@eslint/js` recommended 與少數正確性規則，**不含任何排版 / 風格規則，也不使用 Prettier**

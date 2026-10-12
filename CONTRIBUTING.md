@@ -89,6 +89,14 @@ BASE_PATH=/cubby-ui npm run test:e2e
 - **色彩** 避免硬編碼 HSL，半透明用 `color-mix`；中性色 tint 向品牌 hue，不用純 `#fff` / `#000`
 - **焦點環** 導航/觸發器用 `focus-visible:ring-1 ring-ring/30`，控制元件用 `ring-2 ring-ring/40 ring-offset-2`，close 按鈕用 `ring-1 ring-ring/40`
 
+## 版本與 CHANGELOG（Changesets）
+
+`CHANGELOG.md` 與版本號由 [Changesets](https://github.com/changesets/changesets) 產生，**不要直接編輯 `CHANGELOG.md`**。
+
+- 每個使用者可感知的變更（新元件、新屬性 / 事件、行為改變、bug 修正）附一個 changeset，與程式碼放在同一個 commit：`npm run changeset`，或直接新增 `.changeset/<名稱>.md`（格式見 `.changeset/README.md`）。文件、測試、CI 等內部變更不需要
+- 遞增類型（1.0 之前）：新功能與行為改變 `minor`、bug 修正 `patch`；破壞性變更用 `minor` 並在說明開頭標註 **破壞性變更**
+- 發版：在 `develop` 執行 `npm run version-packages`（更新 `package.json` 版本、寫入 `CHANGELOG.md`、刪除已消耗的 changeset）→ commit → 合併到 `main` → 打 tag `v<版本>` 並推送
+
 ## Commit 規範
 
 - 訊息使用繁體中文，格式 `type: 描述`（type 用 `feat` / `fix` / `improve` / `chore` / `refactor`）

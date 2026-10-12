@@ -1,0 +1,21 @@
+---
+"cubby-ui": patch
+---
+
+修正
+
+- **`dark:` 工具類別跟隨作業系統而非 `.dark` class**：`theme.css` 未定義 `@custom-variant dark`，Tailwind v4 以 `prefers-color-scheme` 編譯 `dark:`，9 個元件的浮層陰影（`dark:shadow-*`）在使用者選擇與作業系統不同的主題時與網站深淺不同步；文檔站 Header 的深淺切換圖示也因此顯示錯誤。新增 `@custom-variant dark (&:where(.dark, .dark *))`，Dark Mode 文檔補上使用者自訂 `dark:` 的同樣設定
+- **Date Picker** 內的月曆被初始化兩次：方向鍵一次移動兩格，且重複呼叫 `init()` / `refresh()` 後選取的日期不再寫回 input；hidden input 的預設值不會讓月曆開在該月、也不會標記選取
+- **Calendar** 跨月鍵盤導航聚焦到錯誤日期；以 Enter 選取後焦點遺失
+- **Combobox / Multi Select** 篩選掉已高亮的項目後，按 Enter 會選到看不見的項目
+- **Combobox / Multi Select / Date Picker** 選取或按 Escape 後焦點遺失（現回到 trigger）；開啟其中一個時不會關閉另一個已開啟的同類浮層；trigger 放在 `<form>` 內點擊會送出表單
+- **Multi Select** 預選項目初始化時不會渲染成標籤；值含引號時渲染標籤會拋錯；以鍵盤移除標籤後焦點遺失；文檔「Preset Values」範例在 trigger `<button>` 內巢狀 `<button>`，HTML 解析後元件無法運作
+- 文檔站所有頁面共用同一個 meta description
+- Dashboard V2 範例頁誤用 React 寫法 `defaultValue` / `className`，欄位沒有預設值、padding 未套用
+- **Command Palette** 關閉時仍顯示：`.cu-command` 的 `display: flex` 寫在基礎 class 上，作者樣式蓋過瀏覽器 `dialog:not([open]) { display: none }`，關閉中的 palette 以 `fixed` 置中疊在頁面上（文檔頁範例因此常駐顯示、Esc 關閉後畫面不變）。`display: flex` 改為只套用於 `.cu-command[open]`
+- Header 的 GitHub 連結原本指向 `https://github.com`，改為本專案 repo
+- Dashboard V2 / V3 範例的導航 active 狀態在建置輸出中永遠不亮（`Astro.url.pathname` 帶尾端斜線，導航資料不帶），比對前改為去掉尾端斜線
+- Dashboard V2 範例側邊欄的 4 個項目（數據分析、文件中心、訊息通知、API 金鑰）指向從未建立的頁面，改為 `#` 佔位連結
+- **Dialog** 點擊對話框內部 padding 區或子元素間的空白會誤關閉：`cu-dialog` 的 `p-6` 設在 `<dialog>` 本體上，這些點擊的 `e.target` 也是 dialog。`src/scripts/core/overlay.js` 的 backdrop 判斷改以 `getBoundingClientRect()` 比對點擊座標，只有落在 dialog 邊界框外才關閉；`detail === 0` 的非指標 click（鍵盤、程式化 `click()`，座標為 0,0）不視為 backdrop 點擊。`tests/e2e/dialog.spec.ts` 新增 padding 區與 `detail === 0` 兩個案例
+- **`CubbyUI.destroy()` 後再 `init()` 不會重新登記元件**：同一批元素（未替換 DOM）在 `destroy()` 後再 `init()` 時，元件因 `_cuInit` 直接跳過，不再被 document 級 handler 追蹤（Dropdown 外部點擊、Escape 不會關閉，Back to Top 捲動監聽不會恢復）。`core/registry.js` 新增 `track()` / `restore()`，已初始化的元素改為重新登記而不重複綁定；Back to Top、Image Compare 恢復 destroy 移除的監聽，Countdown 重新計時且已完成的不再觸發 `cu:countdown:complete`
+- **浮層互斥**：Dropdown trigger、Tabs 關閉按鈕與 Multi Select 選項點擊不再 `stopPropagation`，開啟 Dropdown / Popover / Combobox 等任一浮層時，其他已開啟的會關閉
