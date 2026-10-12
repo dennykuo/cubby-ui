@@ -1,4 +1,4 @@
-import { registry } from "../core/registry.js";
+import { track, restore } from "../core/registry.js";
 import { toISODate, formatDate, initCalendar } from "./calendar.js";
 
 // ── Date Picker ───────────────────────────────────────────────
@@ -12,7 +12,7 @@ export function setupDatePickers() {
   });
 
   document.querySelectorAll("[data-cu-date-picker]").forEach(function (picker) {
-    if (picker._cuInit) return;
+    if (picker._cuInit) { restore("datePickers", picker); return; }
     picker._cuInit = true;
 
     var trigger = /** @type {HTMLElement} */ (picker.querySelector("[data-cu-date-picker-trigger]"));
@@ -57,6 +57,6 @@ export function setupDatePickers() {
     });
 
     // 全域關閉(click 外部 / Escape)由 setupDocumentListeners 的 delegated handler 統一處理
-    registry.datePickers.push({ el: picker, trigger: trigger, content: content });
+    track("datePickers", { el: picker, trigger: trigger, content: content });
   });
 }

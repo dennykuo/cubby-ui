@@ -1,4 +1,4 @@
-import { registry } from "../core/registry.js";
+import { track, restore } from "../core/registry.js";
 
 // Speed Dial
 /**
@@ -14,7 +14,7 @@ import { registry } from "../core/registry.js";
  */
 export function setupSpeedDials() {
   document.querySelectorAll("[data-cu-speed-dial]").forEach(function (el) {
-    if (el._cuInit) return;
+    if (el._cuInit) { restore("speedDials", el); return; }
     el._cuInit = true;
 
     var trigger = el.querySelector("[data-cu-speed-dial-trigger]");
@@ -32,6 +32,6 @@ export function setupSpeedDials() {
       }
     });
 
-    registry.speedDials.push({ el: el, trigger: trigger, actions: actions });
+    track("speedDials", { el: el, trigger: trigger, actions: actions });
   });
 }

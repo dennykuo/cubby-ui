@@ -1,4 +1,4 @@
-import { registry } from "../core/registry.js";
+import { track, restore } from "../core/registry.js";
 
 // Data Table Expandable Rows
 /**
@@ -15,7 +15,7 @@ import { registry } from "../core/registry.js";
  */
 export function setupDataTableExpandables() {
   document.querySelectorAll("[data-cu-data-table-expandable]").forEach(function (el) {
-    if (el._cuInit) return;
+    if (el._cuInit) { restore("dataTableExpandables", el); return; }
     el._cuInit = true;
 
     el.querySelectorAll("[data-cu-expand-row]").forEach(function (trigger) {
@@ -38,6 +38,6 @@ export function setupDataTableExpandables() {
       });
     });
 
-    registry.dataTableExpandables.push({ el: el });
+    track("dataTableExpandables", { el: el });
   });
 }

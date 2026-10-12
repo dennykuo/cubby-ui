@@ -682,7 +682,7 @@ Header logo 與 sidebar 連結文字齊左：
 5. **導航**：在 `src/data/component-nav.ts` 中將元件加入對應的導航陣列（layouts / basic / typography / navigation / dataDisplay / content / forms / feedback / overlay / ai），並把元件名加進 `README.md` 元件分類表的同一分類列（`check:sync` 會檢查）
 6. **components.json**：在根目錄 `components.json` 新增元件規格（`cssClasses`、`dataAttributes`、`aria`、`notes`、`example`）
 7. **llms.txt**：在根目錄 `llms.txt` 對應分類區塊加入元件說明（CSS class 清單 + HTML 範例）
-8. **互動元件 JS**（僅有 JS 互動的元件）：在 `src/scripts/components/` 新增模組並匯出 `setupXxx()`（含 JSDoc + HTML 結構範例），需要追蹤陣列時在 `src/scripts/core/registry.js` 加欄位並於 `src/scripts/index.js` 的 `init()` / `destroy()` / `refresh()` 登記；更新 `src/scripts/cubby-ui.d.ts` 的 `DATA_ATTRS` 常數；使用 `data-*` 屬性管理狀態（非框架狀態管理）；`npm run type-check:scripts` 與 `npm run lint` 須通過（型別規範見下方「互動 JS 型別檢查」）
+8. **互動元件 JS**（僅有 JS 互動的元件）：在 `src/scripts/components/` 新增模組並匯出 `setupXxx()`（含 JSDoc + HTML 結構範例），需要追蹤陣列時在 `src/scripts/core/registry.js` 加欄位並於 `src/scripts/index.js` 的 `init()` / `destroy()` / `refresh()` 登記，以 `core/registry.js` 的 `track("清單名", entry)` 登記（不要直接 `registry.X.push`），初始化檢查寫成 `if (el._cuInit) { restore("清單名", el); return; }`，讓同一批元素在 `destroy()` 後再 `init()` 時重新登記；`destroy()` 會停掉的計時器 / window 監聽要在 entry 提供 `resume()`；更新 `src/scripts/cubby-ui.d.ts` 的 `DATA_ATTRS` 常數；使用 `data-*` 屬性管理狀態（非框架狀態管理）；`npm run type-check:scripts` 與 `npm run lint` 須通過（型別規範見下方「互動 JS 型別檢查」）
 9. **Dark / Light mode**：在瀏覽器切換 `.dark` class，確認兩種模式下色彩 token、邊框、陰影皆正確；半透明色使用 `color-mix(in srgb, var(--color-*) N%, transparent)` 而非硬編碼 HSL
 10. **CSS 規範驗證**：
     - Disabled 狀態：`disabled:pointer-events-none disabled:opacity-50 disabled:bg-muted disabled:text-muted-foreground`（帶 hover border 的輸入元件額外加 `disabled:hover:border-input`）

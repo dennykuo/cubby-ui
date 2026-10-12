@@ -1,4 +1,4 @@
-import { registry } from "../core/registry.js";
+import { track, restore } from "../core/registry.js";
 import { createDebouncer, readDelay } from "../core/utils.js";
 
 var NAV_KEYS = ["Enter", "ArrowDown", "ArrowUp", "Home", "End"];
@@ -34,7 +34,7 @@ export function setupMultiSelects() {
   document
     .querySelectorAll("[data-cu-multi-select]")
     .forEach(function (ms) {
-      if (ms._cuInit) return;
+      if (ms._cuInit) { restore("multiSelects", ms); return; }
       ms._cuInit = true;
 
       var trigger = /** @type {HTMLElement} */ (ms.querySelector("[data-cu-multi-select-trigger]"));
@@ -207,6 +207,6 @@ export function setupMultiSelects() {
           }));
         });
 
-      registry.multiSelects.push({ el: ms, trigger: trigger, content: content, input: input, getItems: getItems, cancelSearch: search.cancel });
+      track("multiSelects", { el: ms, trigger: trigger, content: content, input: input, getItems: getItems, cancelSearch: search.cancel });
     });
 }

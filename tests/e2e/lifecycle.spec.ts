@@ -81,3 +81,52 @@ test.describe("CubbyUI 生命週期：init / destroy / refresh", () => {
     await expect(trigger).toHaveAttribute("aria-expanded", "false");
   });
 });
+
+// ── 同一批元素 destroy() → init()（不替換 DOM）：SPA 保留元素時的生命週期 ─────────────
+test.describe("CubbyUI 生命週期：同一批元素 destroy 後再 init", () => {
+  test.beforeEach(async ({ page }) => {
+    await openFixture(page, "lifecycle-reinit");
+  });
+
+  test("元件重新登記到 document 級 handler，且不重複綁定元素事件", async ({ page }) => {
+    const trigger = page.locator("#trigger");
+    const content = page.locator("[data-cu-dropdown-content]");
+    await page.evaluate(() => { CubbyUI.destroy(); CubbyUI.init(); });
+
+    // 不重複綁定：點一下只切換一次（重複綁定時會開了又立刻關上）
+    await trigger.click();
+    await expect(content).toBeVisible();
+    // 重新登記：外部點擊與 Escape 由 document 級 handler 關閉
+    await page.click("#outside");
+    await expect(content).toBeHidden();
+    await trigger.click();
+    await expect(content).toBeVisible();
+    await page.keyboard.press("Escape");
+    await expect(content).toBeHidden();
+
+    // 多次 destroy / init 循環後仍只登記一次
+    await page.evaluate(() => { CubbyUI.destroy(); CubbyUI.init(); CubbyUI.init(); CubbyUI.destroy(); CubbyUI.init(); });
+    await trigger.click();
+    await expect(content).toBeVisible();
+    await page.click("#outside");
+    await expect(content).toBeHidden();
+  });
+
+  test("destroy 停掉的 window 監聽在 init 後恢復（Back to Top）", async ({ page }) => {
+    const btn = page.locator("#back-to-top");
+    await page.evaluate(() => { CubbyUI.destroy(); CubbyUI.init(); });
+    await page.evaluate(() => window.scrollTo(0, 1000));
+    await expect(btn).toHaveAttribute("data-cu-visible", "");
+    await page.evaluate(() => window.scrollTo(0, 0));
+    await expect(btn).not.toHaveAttribute("data-cu-visible", "");
+  });
+
+  test("已完成的 Countdown 在 init 後不重複觸發 complete 事件", async ({ page }) => {
+    await expect(page.locator("#countdown")).toHaveClass(/cu-countdown-complete/);
+    expect(await page.evaluate(() => (window as any).__completes)).toBe(1);
+    await page.evaluate(() => { CubbyUI.destroy(); CubbyUI.init(); });
+    await page.evaluate(() => new Promise((r) => setTimeout(r, 50)));
+    expect(await page.evaluate(() => (window as any).__completes)).toBe(1);
+  });
+});
+

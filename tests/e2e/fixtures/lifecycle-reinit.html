@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Lifecycle re-init fixture</title>
+  <link rel="stylesheet" href="../../../dist/core/cubby-ui.css" />
+  <style>body { min-height: 3000px; }</style>
+</head>
+<body>
+  <!-- 同一批元素在 destroy() 後再 init()（不替換 DOM）的情境 -->
+  <button id="outside" class="cu-button cu-button-ghost">Outside</button>
+
+  <div class="cu-dropdown" data-cu-dropdown>
+    <button id="trigger" class="cu-button cu-button-outline" data-cu-dropdown-trigger>Options</button>
+    <div class="cu-dropdown-content" data-cu-dropdown-content hidden>
+      <button class="cu-dropdown-item">Edit</button>
+      <button class="cu-dropdown-item">Delete</button>
+    </div>
+  </div>
+
+  <div id="countdown" class="cu-countdown" data-cu-countdown data-cu-countdown-target="2000-01-01T00:00:00">
+    <span data-cu-countdown-seconds>--</span>
+  </div>
+
+  <button id="back-to-top" class="cu-back-to-top" data-cu-back-to-top data-cu-back-to-top-threshold="300" aria-label="Back to top">↑</button>
+
+  <script>
+    window.__completes = 0;
+    document.addEventListener("cu:countdown:complete", function () { window.__completes++; });
+  </script>
+  <script src="../../../dist/core/cubby-ui.js"></script>
+</body>
+</html>

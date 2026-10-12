@@ -1,4 +1,4 @@
-import { registry } from "../core/registry.js";
+import { track, restore } from "../core/registry.js";
 import { createDebouncer, readDelay } from "../core/utils.js";
 
 var NAV_KEYS = ["Enter", "ArrowDown", "ArrowUp", "Home", "End"];
@@ -32,7 +32,7 @@ var NAV_KEYS = ["Enter", "ArrowDown", "ArrowUp", "Home", "End"];
  */
 export function setupComboboxes() {
   document.querySelectorAll("[data-cu-combobox]").forEach(function (combobox) {
-    if (combobox._cuInit) return;
+    if (combobox._cuInit) { restore("comboboxes", combobox); return; }
     combobox._cuInit = true;
 
     var trigger = /** @type {HTMLElement} */ (combobox.querySelector("[data-cu-combobox-trigger]"));
@@ -149,6 +149,6 @@ export function setupComboboxes() {
         }));
       });
 
-    registry.comboboxes.push({ el: combobox, trigger: trigger, content: content, input: input, getItems: getItems, cancelSearch: search.cancel });
+    track("comboboxes", { el: combobox, trigger: trigger, content: content, input: input, getItems: getItems, cancelSearch: search.cancel });
   });
 }

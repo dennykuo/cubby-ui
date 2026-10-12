@@ -1,4 +1,4 @@
-import { registry } from "../core/registry.js";
+import { track, restore } from "../core/registry.js";
 
 // Rating
 /**
@@ -12,7 +12,7 @@ import { registry } from "../core/registry.js";
  */
 export function setupRatings() {
   document.querySelectorAll("[data-cu-rating]").forEach(function (el) {
-    if (el._cuInit) return;
+    if (el._cuInit) { restore("ratings", el); return; }
     el._cuInit = true;
     if (el.classList.contains("cu-rating-readonly") || el.classList.contains("cu-rating-disabled")) return;
 
@@ -52,6 +52,6 @@ export function setupRatings() {
       el.dispatchEvent(new CustomEvent("cu:rating:change", { detail: { value: v }, bubbles: true }));
     });
 
-    registry.ratings.push({ el: el });
+    track("ratings", { el: el });
   });
 }

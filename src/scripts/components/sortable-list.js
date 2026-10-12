@@ -1,4 +1,4 @@
-import { registry } from "../core/registry.js";
+import { track, restore } from "../core/registry.js";
 
 // Sortable List
 /**
@@ -14,7 +14,7 @@ import { registry } from "../core/registry.js";
  */
 export function setupSortableLists() {
   document.querySelectorAll("[data-cu-sortable-list]").forEach(function (/** @type {HTMLElement} */ el) {
-    if (el._cuInit) return;
+    if (el._cuInit) { restore("sortableLists", el); return; }
     el._cuInit = true;
 
     var draggedItem = null;
@@ -99,6 +99,6 @@ export function setupSortableLists() {
       }, { offset: Number.NEGATIVE_INFINITY }).element;
     }
 
-    registry.sortableLists.push({ el: el });
+    track("sortableLists", { el: el });
   });
 }

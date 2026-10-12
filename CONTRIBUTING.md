@@ -70,7 +70,7 @@ BASE_PATH=/cubby-ui npm run test:e2e
 4. **文檔頁面** — 在 `src/pages/components/` 建立（用 `ComponentPreview` 展示，範例使用 `cu-` class 系統）；`<Layout>` 必須傳入 `description={t.description}`，翻譯檔頂層 `description`（en / zh-tw）寫成該頁專屬的一句描述（作為 meta description 與 `og:description`，可含 `<code>`，輸出時自動轉純文字）。漏傳會退回站台預設描述，`docs-smoke.spec.ts` 的 SEO 測試會失敗
 5. **導航** — 在 `src/data/component-nav.ts` 對應分組加一筆，並把元件名加進 `README.md` 元件分類表的同一分類列
 6. **manifest** — 更新 `components.json` 與 `llms.txt`
-7. **互動 JS**（如需）— 在 `src/scripts/components/` 新增模組並匯出 `setupXxx()`；需要 tracking array 時在 `src/scripts/core/registry.js` 加欄位並於 `src/scripts/index.js` 的 `init()` / `destroy()` / `refresh()` 登記；更新 `cubby-ui.d.ts`
+7. **互動 JS**（如需）— 在 `src/scripts/components/` 新增模組並匯出 `setupXxx()`；需要 tracking array 時在 `src/scripts/core/registry.js` 加欄位並於 `src/scripts/index.js` 的 `init()` / `destroy()` / `refresh()` 登記，以 `track("清單名", entry)` 登記，初始化檢查寫成 `if (el._cuInit) { restore("清單名", el); return; }`（同一批元素 `destroy()` 後再 `init()` 才會重新登記），`destroy()` 會停掉的計時器 / window 監聽要在 entry 提供 `resume()`；更新 `cubby-ui.d.ts`
 8. **驗證** — `npm run check:sync` 應全綠（含 `DATA_ATTRS` 對照）；有 JS 互動則 `npm run type-check` 與 `npm run lint` 須通過，並補 `tests/e2e/` 測試；確認 dark / light 兩模式
 
 ## 修改既有元件

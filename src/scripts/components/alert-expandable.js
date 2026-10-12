@@ -1,4 +1,4 @@
-import { registry } from "../core/registry.js";
+import { track, restore } from "../core/registry.js";
 
 // Alert Expandable
 /**
@@ -20,7 +20,7 @@ import { registry } from "../core/registry.js";
  */
 export function setupAlertExpandables() {
   document.querySelectorAll("[data-cu-alert-expandable]").forEach(function (el) {
-    if (el._cuInit) return;
+    if (el._cuInit) { restore("alertExpandables", el); return; }
     el._cuInit = true;
 
     var trigger = el.querySelector("[data-cu-alert-expand-trigger]");
@@ -37,6 +37,6 @@ export function setupAlertExpandables() {
       }
     });
 
-    registry.alertExpandables.push({ el: el });
+    track("alertExpandables", { el: el });
   });
 }

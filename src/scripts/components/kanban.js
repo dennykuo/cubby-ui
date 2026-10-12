@@ -1,4 +1,4 @@
-import { registry } from "../core/registry.js";
+import { track, restore } from "../core/registry.js";
 
 // Kanban Board
 /**
@@ -16,7 +16,7 @@ import { registry } from "../core/registry.js";
  */
 export function setupKanbans() {
   document.querySelectorAll("[data-cu-kanban]").forEach(function (/** @type {HTMLElement} */ el) {
-    if (el._cuInit) return;
+    if (el._cuInit) { restore("kanbans", el); return; }
     el._cuInit = true;
 
     var draggedCard = null;
@@ -84,6 +84,6 @@ export function setupKanbans() {
       });
     });
 
-    registry.kanbans.push({ el: el });
+    track("kanbans", { el: el });
   });
 }

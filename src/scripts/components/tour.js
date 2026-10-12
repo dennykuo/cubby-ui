@@ -1,4 +1,4 @@
-import { registry } from "../core/registry.js";
+import { track, restore } from "../core/registry.js";
 
 // Tour / Spotlight
 /**
@@ -15,7 +15,7 @@ import { registry } from "../core/registry.js";
  */
 export function setupTours() {
   document.querySelectorAll("[data-cu-tour]").forEach(function (el) {
-    if (el._cuInit) return;
+    if (el._cuInit) { restore("tours", el); return; }
     el._cuInit = true;
 
     var stepsAttr = el.getAttribute("data-cu-tour-steps");
@@ -150,6 +150,6 @@ export function setupTours() {
     // Allow programmatic start via el.dispatchEvent(new Event("cu:tour:start"))
     el.addEventListener("cu:tour:start", function () { show(0); });
 
-    registry.tours.push({ el: el, close: close });
+    track("tours", { el: el, close: close });
   });
 }

@@ -11,6 +11,8 @@ declare global {
   interface Element {
     /** 元件已初始化旗標，避免重複呼叫 `CubbyUI.init()` 時重複綁定事件 */
     _cuInit?: boolean;
+    /** 元件在 registry 各追蹤清單的登記資料（`core/registry.js` 的 `track()` / `restore()`），destroy() 後再 init() 時用來還原 */
+    _cuEntries?: Record<string, { el: Element; resume?: () => void; [key: string]: any }>;
     /** Resizable Panels 容器已初始化旗標 */
     _cuResizableInit?: boolean;
     /** Dialog / Drawer / Alert Dialog：開啟它的觸發元素，關閉時把焦點還給它 */

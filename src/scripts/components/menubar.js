@@ -1,4 +1,4 @@
-import { registry } from "../core/registry.js";
+import { track, restore } from "../core/registry.js";
 
 /**
  * Menubar — top-level application menu bar with sub-menus.
@@ -25,7 +25,7 @@ import { registry } from "../core/registry.js";
  */
 export function setupMenubars() {
   document.querySelectorAll("[data-cu-menubar]").forEach(function (bar) {
-    if (bar._cuInit) return;
+    if (bar._cuInit) { restore("menubars", bar); return; }
     bar._cuInit = true;
 
     var menus = bar.querySelectorAll("[data-cu-menubar-menu]");
@@ -70,6 +70,6 @@ export function setupMenubars() {
       }
     });
 
-    registry.menubars.push({ el: bar, menus: menus });
+    track("menubars", { el: bar, menus: menus });
   });
 }

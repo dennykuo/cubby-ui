@@ -1,4 +1,4 @@
-import { registry } from "../core/registry.js";
+import { track, restore } from "../core/registry.js";
 
 // Tag Input
 /**
@@ -12,7 +12,7 @@ import { registry } from "../core/registry.js";
  */
 export function setupTagInputs() {
   document.querySelectorAll("[data-cu-tag-input]").forEach(function (el) {
-    if (el._cuInit) return;
+    if (el._cuInit) { restore("tagInputs", el); return; }
     el._cuInit = true;
     var field = /** @type {HTMLInputElement} */ (el.querySelector("[data-cu-tag-input-field]"));
     if (!field) return;
@@ -105,6 +105,6 @@ export function setupTagInputs() {
       }
     });
 
-    registry.tagInputs.push({ el: el });
+    track("tagInputs", { el: el });
   });
 }

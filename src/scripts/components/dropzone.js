@@ -1,4 +1,4 @@
-import { registry } from "../core/registry.js";
+import { track, restore } from "../core/registry.js";
 
 /**
  * Dropzone — drag-and-drop file upload area.
@@ -17,7 +17,7 @@ import { registry } from "../core/registry.js";
  */
 export function setupDropzones() {
   document.querySelectorAll("[data-cu-dropzone]").forEach(function (/** @type {HTMLElement} */ zone) {
-    if (zone._cuInit) return;
+    if (zone._cuInit) { restore("dropzones", zone); return; }
     zone._cuInit = true;
 
     var input = /** @type {HTMLInputElement} */ (zone.querySelector("[data-cu-dropzone-input]"));
@@ -51,6 +51,6 @@ export function setupDropzones() {
       }
     });
 
-    registry.dropzones.push({ el: zone });
+    track("dropzones", { el: zone });
   });
 }

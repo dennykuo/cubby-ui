@@ -1,4 +1,4 @@
-import { registry } from "../core/registry.js";
+import { track, restore } from "../core/registry.js";
 
 // Toggle Group
 /**
@@ -15,7 +15,7 @@ import { registry } from "../core/registry.js";
  */
 export function setupToggleGroups() {
   document.querySelectorAll("[data-cu-toggle-group]").forEach(function (el) {
-    if (el._cuInit) return;
+    if (el._cuInit) { restore("toggleGroups", el); return; }
     el._cuInit = true;
     var isMultiple = el.hasAttribute("data-cu-toggle-group-multiple");
 
@@ -45,6 +45,6 @@ export function setupToggleGroups() {
       }));
     });
 
-    registry.toggleGroups.push({ el: el });
+    track("toggleGroups", { el: el });
   });
 }

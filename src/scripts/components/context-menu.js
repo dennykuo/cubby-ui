@@ -1,9 +1,9 @@
-import { registry } from "../core/registry.js";
+import { track, restore } from "../core/registry.js";
 
 // ── Context Menu ──────────────────────────────────────────────
 export function setupContextMenus() {
   document.querySelectorAll("[data-cu-context-menu]").forEach(function (/** @type {HTMLElement} */ container) {
-    if (container._cuInit) return;
+    if (container._cuInit) { restore("contextMenus", container); return; }
     container._cuInit = true;
 
     var content = /** @type {HTMLElement} */ (container.querySelector("[data-cu-context-menu-content]"));
@@ -30,6 +30,6 @@ export function setupContextMenus() {
 
     // 全域關閉(click/contextmenu/keydown/scroll)由 setupDocumentListeners 的
     // delegated handler 統一處理(遍歷 registry.contextMenus),避免每實例累積 document listener
-    registry.contextMenus.push({ el: container, content: content });
+    track("contextMenus", { el: container, content: content });
   });
 }

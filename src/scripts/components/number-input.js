@@ -1,4 +1,4 @@
-import { registry } from "../core/registry.js";
+import { track, restore } from "../core/registry.js";
 import { roundToStep, clampValue } from "../core/utils.js";
 
 /**
@@ -20,7 +20,7 @@ export function setupNumberInputs() {
   document
     .querySelectorAll("[data-cu-number-input]")
     .forEach(function (container) {
-      if (container._cuInit) return;
+      if (container._cuInit) { restore("numberInputs", container); return; }
       container._cuInit = true;
 
       var field = /** @type {HTMLInputElement} */ (container.querySelector("[data-cu-number-field]"));
@@ -72,6 +72,6 @@ export function setupNumberInputs() {
         field.dispatchEvent(new Event("input", { bubbles: true }));
       });
 
-      registry.numberInputs.push({ el: container });
+      track("numberInputs", { el: container });
     });
 }

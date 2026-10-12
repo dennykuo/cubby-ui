@@ -1,4 +1,4 @@
-import { registry } from "../core/registry.js";
+import { track, restore } from "../core/registry.js";
 import { genId } from "../core/utils.js";
 
 /**
@@ -20,7 +20,7 @@ import { genId } from "../core/utils.js";
  */
 export function setupPopovers() {
   document.querySelectorAll("[data-cu-popover]").forEach(function (popover) {
-    if (popover._cuInit) return;
+    if (popover._cuInit) { restore("popovers", popover); return; }
     popover._cuInit = true;
 
     var trigger = popover.querySelector("[data-cu-popover-trigger]");
@@ -38,6 +38,6 @@ export function setupPopovers() {
       content.toggleAttribute("hidden");
       trigger.setAttribute("aria-expanded", String(!content.hasAttribute("hidden")));
     });
-    registry.popovers.push({ el: popover, trigger: trigger, content: content });
+    track("popovers", { el: popover, trigger: trigger, content: content });
   });
 }

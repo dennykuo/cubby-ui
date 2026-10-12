@@ -1,4 +1,4 @@
-import { registry } from "../core/registry.js";
+import { track, restore } from "../core/registry.js";
 import { genId } from "../core/utils.js";
 
 /**
@@ -21,7 +21,7 @@ import { genId } from "../core/utils.js";
  */
 export function setupTabs() {
   document.querySelectorAll("[data-cu-tabs]").forEach(function (tabs) {
-    if (tabs._cuInit) return;
+    if (tabs._cuInit) { restore("tabs", tabs); return; }
     tabs._cuInit = true;
 
     var triggers = tabs.querySelectorAll("[data-cu-tabs-trigger]");
@@ -87,7 +87,7 @@ export function setupTabs() {
       });
     });
 
-    registry.tabs.push({ el: tabs });
+    track("tabs", { el: tabs });
   });
 
   // Scrollable tabs

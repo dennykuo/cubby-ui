@@ -1,4 +1,4 @@
-import { registry } from "../core/registry.js";
+import { track, restore } from "../core/registry.js";
 
 // Input Clearable
 /**
@@ -14,7 +14,7 @@ import { registry } from "../core/registry.js";
  */
 export function setupInputClearables() {
   document.querySelectorAll("[data-cu-input-clearable]").forEach(function (el) {
-    if (el._cuInit) return;
+    if (el._cuInit) { restore("inputClearables", el); return; }
     el._cuInit = true;
 
     var input = /** @type {HTMLInputElement} */ (el.querySelector(".cu-input-clearable, input"));
@@ -39,6 +39,6 @@ export function setupInputClearables() {
     });
 
     toggle();
-    registry.inputClearables.push({ el: el });
+    track("inputClearables", { el: el });
   });
 }

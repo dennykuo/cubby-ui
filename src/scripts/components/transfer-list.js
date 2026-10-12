@@ -1,4 +1,4 @@
-import { registry } from "../core/registry.js";
+import { track, restore } from "../core/registry.js";
 
 /**
  * Transfer List — move items between two panels using checkboxes.
@@ -33,7 +33,7 @@ export function setupTransferLists() {
   document
     .querySelectorAll("[data-cu-transfer-list]")
     .forEach(function (container) {
-      if (container._cuInit) return;
+      if (container._cuInit) { restore("transferLists", container); return; }
       container._cuInit = true;
 
       var leftPanel = container.querySelector(
@@ -168,6 +168,6 @@ export function setupTransferLists() {
       updateCount(leftPanel);
       updateCount(rightPanel);
 
-      registry.transferLists.push({ el: container });
+      track("transferLists", { el: container });
     });
 }

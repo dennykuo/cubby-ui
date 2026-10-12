@@ -1,4 +1,4 @@
-import { registry } from "../core/registry.js";
+import { track, restore } from "../core/registry.js";
 
 // Image Compare
 /**
@@ -16,7 +16,7 @@ import { registry } from "../core/registry.js";
  */
 export function setupImageCompares() {
   document.querySelectorAll("[data-cu-image-compare]").forEach(function (/** @type {HTMLElement} */ el) {
-    if (el._cuInit) return;
+    if (el._cuInit) { restore("imageCompares", el); return; }
     el._cuInit = true;
 
     var isDragging = false;
@@ -51,17 +51,22 @@ export function setupImageCompares() {
     function onMouseUp() { isDragging = false; }
     function onTouchEnd() { isDragging = false; }
 
-    document.addEventListener("mousemove", onMouseMove);
-    document.addEventListener("touchmove", onTouchMove, { passive: false });
-    document.addEventListener("mouseup", onMouseUp);
-    document.addEventListener("touchend", onTouchEnd);
+    function addDocListeners() {
+      document.addEventListener("mousemove", onMouseMove);
+      document.addEventListener("touchmove", onTouchMove, { passive: false });
+      document.addEventListener("mouseup", onMouseUp);
+      document.addEventListener("touchend", onTouchEnd);
+    }
+    addDocListeners();
 
     setPosition(50);
-    registry.imageCompares.push({ el: el, cleanup: function () {
+    // destroy() 移除 document 拖曳監聽；之後再 init() 時由 resume() 加回（mousedown / touchstart 在元素上，不受影響）
+    track("imageCompares", { el: el, cleanup: function () {
+      isDragging = false;
       document.removeEventListener("mousemove", onMouseMove);
       document.removeEventListener("touchmove", onTouchMove);
       document.removeEventListener("mouseup", onMouseUp);
       document.removeEventListener("touchend", onTouchEnd);
-    } });
+    }, resume: addDocListeners });
   });
 }

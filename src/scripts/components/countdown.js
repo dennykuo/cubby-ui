@@ -1,4 +1,4 @@
-import { registry } from "../core/registry.js";
+import { track, restore } from "../core/registry.js";
 
 // Countdown
 /**
@@ -14,7 +14,7 @@ import { registry } from "../core/registry.js";
  */
 export function setupCountdowns() {
   document.querySelectorAll("[data-cu-countdown]").forEach(function (el) {
-    if (el._cuInit) return;
+    if (el._cuInit) { restore("countdowns", el); return; }
     el._cuInit = true;
 
     var target = el.getAttribute("data-cu-countdown-target");
@@ -42,6 +42,7 @@ export function setupCountdowns() {
       if (secondsEl) secondsEl.textContent = pad(s);
 
       if (diff === 0) {
+        entry.done = true;
         el.classList.add("cu-countdown-complete");
         el.dispatchEvent(new CustomEvent("cu:countdown:complete", { bubbles: true }));
         return;
@@ -49,8 +50,14 @@ export function setupCountdowns() {
       entry.timer = setTimeout(update, 1000);
     }
 
-    var entry = { el: el, timer: 0 };
+    // destroy() 會 clearTimeout；之後再 init() 時由 resume() 重新開始（已完成的不再觸發 complete 事件）
+    var entry = {
+      el: el,
+      timer: 0,
+      done: false,
+      resume: function () { if (!entry.done) entry.timer = setTimeout(update, 0); },
+    };
     entry.timer = setTimeout(update, 0);
-    registry.countdowns.push(entry);
+    track("countdowns", entry);
   });
 }

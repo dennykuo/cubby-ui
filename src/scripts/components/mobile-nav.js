@@ -1,4 +1,4 @@
-import { registry } from "../core/registry.js";
+import { track, restore } from "../core/registry.js";
 
 /**
  * Generic overlay initializer — shared logic for Dialog, Drawer, Alert Dialog.
@@ -58,7 +58,7 @@ export function closeMobileNav(mn) {
  */
 export function setupMobileNav() {
   document.querySelectorAll("[data-cu-mobile-nav-trigger]").forEach(function (trigger) {
-    if (trigger._cuInit) return;
+    if (trigger._cuInit) { restore("mobileNavs", trigger); return; }
     trigger._cuInit = true;
 
     var backdropId = trigger.getAttribute("data-cu-mobile-nav-trigger");
@@ -103,7 +103,7 @@ export function setupMobileNav() {
     var closeBtn = /** @type {HTMLElement} */ (panel.querySelector("[data-cu-mobile-nav-close]"));
 
     var mn = { trigger: trigger, backdrop: backdrop, panel: panel, el: trigger };
-    registry.mobileNavs.push(mn);
+    track("mobileNavs", mn);
 
     trigger.addEventListener("click", function () {
       // Drop the FOUC-guard `hidden` attribute (UA-hidden until CSS loads) so

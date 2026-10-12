@@ -1,4 +1,4 @@
-import { registry } from "../core/registry.js";
+import { track, restore } from "../core/registry.js";
 
 /**
  * Dropdown Menu — click-triggered floating menu panel.
@@ -21,7 +21,7 @@ import { registry } from "../core/registry.js";
  */
 export function setupDropdowns() {
   document.querySelectorAll("[data-cu-dropdown]").forEach(function (dropdown) {
-    if (dropdown._cuInit) return;
+    if (dropdown._cuInit) { restore("dropdowns", dropdown); return; }
     dropdown._cuInit = true;
 
     var trigger = dropdown.querySelector("[data-cu-dropdown-trigger]");
@@ -47,6 +47,6 @@ export function setupDropdowns() {
           trigger.setAttribute("aria-expanded", String(!content.hasAttribute("hidden")));
         }
       });
-    registry.dropdowns.push({ el: dropdown, trigger: trigger, content: content });
+    track("dropdowns", { el: dropdown, trigger: trigger, content: content });
   });
 }

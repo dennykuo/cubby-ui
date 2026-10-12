@@ -1,4 +1,4 @@
-import { registry } from "../core/registry.js";
+import { track, restore } from "../core/registry.js";
 
 // Back to Top
 /**
@@ -9,7 +9,7 @@ import { registry } from "../core/registry.js";
  */
 export function setupBackToTops() {
   document.querySelectorAll("[data-cu-back-to-top]").forEach(function (el) {
-    if (el._cuInit) return;
+    if (el._cuInit) { restore("backToTops", el); return; }
     el._cuInit = true;
 
     var threshold = parseInt(el.getAttribute("data-cu-back-to-top-threshold") || "300", 10);
@@ -29,8 +29,12 @@ export function setupBackToTops() {
       window.scrollTo({ top: 0, behavior: "smooth" });
     });
 
-    registry.backToTops.push({ el: el, cleanup: function () {
+    // destroy() 移除 window scroll 監聽；之後再 init() 時由 resume() 加回（click 監聽在元素上，不受影響）
+    track("backToTops", { el: el, cleanup: function () {
       window.removeEventListener("scroll", onScroll);
+    }, resume: function () {
+      window.addEventListener("scroll", onScroll, { passive: true });
+      onScroll();
     } });
   });
 }
