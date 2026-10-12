@@ -56,15 +56,18 @@ test.describe("Toast", () => {
   });
 
   test("promise API：loading → success", async ({ page }) => {
+    // 由測試控制 resolve 時機：先確認 loading 狀態再 resolve。
+    // 原本用 150ms 計時器自動 resolve，高負載時斷言還沒輪到就已 resolve，偶發抓不到 loading。
     await page.evaluate(() => {
       (window as any).__p = CubbyUI.toast.promise(
-        new Promise((resolve) => setTimeout(() => resolve("ok"), 150)),
+        new Promise((resolve) => { (window as any).__resolve = resolve; }),
         { loading: "Saving…", success: "Saved", error: "Failed" }
       );
     });
     const toast = page.locator(".cu-toast");
     await expect(toast).toHaveCount(1);
     await expect(toast.locator(".cu-toast-title")).toHaveText("Saving…");
+    await page.evaluate(() => (window as any).__resolve("ok"));
     await expect(toast.locator(".cu-toast-title")).toHaveText("Saved");
     await expect(toast).toHaveClass(/cu-toast-success/);
     expect(await page.evaluate(() => (window as any).__p)).toBe("ok");
