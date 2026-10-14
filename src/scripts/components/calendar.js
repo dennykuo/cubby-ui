@@ -1,3 +1,5 @@
+import { genId } from "../core/utils.js";
+
 // ── Date Picker / Calendar helpers ────────────────────────────
 export function toISODate(date) {
   var y = date.getFullYear();
@@ -38,9 +40,40 @@ export function initCalendar(calendar, onSelect) {
   if (minAttr) { var mp = minAttr.split("-"); minDate = new Date(parseInt(mp[0]), parseInt(mp[1]) - 1, parseInt(mp[2])); minDate.setHours(0, 0, 0, 0); }
   if (maxAttr) { var xp = maxAttr.split("-"); maxDate = new Date(parseInt(xp[0]), parseInt(xp[1]) - 1, parseInt(xp[2])); maxDate.setHours(0, 0, 0, 0); }
 
+  // APG grid：月曆是以月份標題命名的 role="grid"，每週一個 role="row"（cu-calendar-week），日期按鈕為 gridcell。
+  // grid 讓螢幕閱讀器把方向鍵交給頁面處理（瀏覽模式下一般按鈕收不到方向鍵）；只有一個 Tab 停駐點（roving tabindex）
+  grid.setAttribute("role", "grid");
+  if (!header.id) header.id = genId("cu-calendar-title");
+  if (!grid.hasAttribute("aria-label") && !grid.hasAttribute("aria-labelledby")) grid.setAttribute("aria-labelledby", header.id);
+
+  // 日期按鈕的無障礙名稱（完整日期，每次重繪時讀取語系）。語系：data-cu-calendar-locale（可放在任一祖先）
+  // → 最近祖先的 lang（含 <html lang>）→ 瀏覽器預設；無效的語系標籤略過
+  var dateFormat;
+  function getDateFormat() {
+    var localeEl = calendar.closest("[data-cu-calendar-locale]");
+    var langEl = calendar.closest("[lang]");
+    var locales = [localeEl && localeEl.getAttribute("data-cu-calendar-locale"), langEl && langEl.getAttribute("lang")];
+    /** @type {Intl.DateTimeFormatOptions} */
+    var options = { weekday: "long", year: "numeric", month: "long", day: "numeric" };
+    for (var i = 0; i < locales.length; i++) {
+      if (!locales[i]) continue;
+      try {
+        return new Intl.DateTimeFormat(locales[i], options);
+      } catch (_e) {
+        // 無效的語系標籤（RangeError）：改用下一個來源
+      }
+    }
+    return new Intl.DateTimeFormat(undefined, options);
+  }
+
+  function inRange(date) {
+    return !(minDate && date < minDate) && !(maxDate && date > maxDate);
+  }
+
   function render() {
     var monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
     header.textContent = monthNames[currentMonth] + " " + currentYear;
+    dateFormat = getDateFormat();
 
     if (prevBtn) {
       if (minDate) { var prevMonth = new Date(currentYear, currentMonth, 0); prevBtn.disabled = prevMonth < minDate; } else { prevBtn.disabled = false; }
@@ -54,11 +87,26 @@ export function initCalendar(calendar, onSelect) {
     var daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
     var daysInPrevMonth = new Date(currentYear, currentMonth, 0).getDate();
 
-    for (var p = firstDay - 1; p >= 0; p--) { grid.appendChild(createDayButton(daysInPrevMonth - p, currentMonth - 1, currentYear, true)); }
-    for (var d = 1; d <= daysInMonth; d++) { grid.appendChild(createDayButton(d, currentMonth, currentYear, false)); }
-    var totalCells = grid.children.length;
+    var cells = [];
+    for (var p = firstDay - 1; p >= 0; p--) { cells.push(createDayButton(daysInPrevMonth - p, currentMonth - 1, currentYear, true)); }
+    for (var d = 1; d <= daysInMonth; d++) { cells.push(createDayButton(d, currentMonth, currentYear, false)); }
+    var totalCells = cells.length;
     var remaining = totalCells <= 35 ? 35 - totalCells : 42 - totalCells;
-    for (var n = 1; n <= remaining; n++) { grid.appendChild(createDayButton(n, currentMonth + 1, currentYear, true)); }
+    for (var n = 1; n <= remaining; n++) { cells.push(createDayButton(n, currentMonth + 1, currentYear, true)); }
+
+    var row;
+    for (var c = 0; c < cells.length; c++) {
+      if (c % 7 === 0) {
+        row = document.createElement("div");
+        row.className = "cu-calendar-week";
+        row.setAttribute("role", "row");
+        grid.appendChild(row);
+      }
+      row.appendChild(cells[c]);
+    }
+    setTabStop(enabled(findDay(selectedDate)) || enabled(findDay(today)) ||
+      grid.querySelector(".cu-calendar-day:not(.cu-calendar-day-outside):not(:disabled)") ||
+      grid.querySelector(".cu-calendar-day:not(:disabled)"));
   }
 
   function createDayButton(day, month, year, isOutside) {
@@ -68,12 +116,17 @@ export function initCalendar(calendar, onSelect) {
     btn.type = "button";
     btn.textContent = day;
     btn._cuDate = date;
+    btn.tabIndex = -1;
+    btn.setAttribute("role", "gridcell");
+    btn.setAttribute("aria-label", dateFormat.format(date));
     var classes = ["cu-calendar-day"];
     var isToday = date.getTime() === today.getTime();
     var isSelected = selectedDate && date.getTime() === selectedDate.getTime();
     if (isOutside) classes.push("cu-calendar-day-outside");
     if (isToday && !isSelected) classes.push("cu-calendar-day-today");
     if (isSelected) classes.push("cu-calendar-day-selected");
+    if (isSelected) btn.setAttribute("aria-selected", "true");
+    if (isToday) btn.setAttribute("aria-current", "date"); // 選取今天時視覺上只標 selected，語意上仍是今天
     var isDisabled = false;
     if (minDate && date < minDate) isDisabled = true;
     if (maxDate && date > maxDate) isDisabled = true;
@@ -97,12 +150,44 @@ export function initCalendar(calendar, onSelect) {
   if (prevBtn) { prevBtn.addEventListener("click", function () { currentMonth--; if (currentMonth < 0) { currentMonth = 11; currentYear--; } render(); }); }
   if (nextBtn) { nextBtn.addEventListener("click", function () { currentMonth++; if (currentMonth > 11) { currentMonth = 0; currentYear++; } render(); }); }
 
-  function focusDate(date) {
+  /** @returns {HTMLButtonElement | null} 目前顯示月份中（不含前後月補位）代表該日期的按鈕 */
+  function findDay(date) {
+    if (!date) return null;
     var buttons = grid.querySelectorAll(".cu-calendar-day:not(.cu-calendar-day-outside)");
     for (var i = 0; i < buttons.length; i++) {
-      if (buttons[i]._cuDate && buttons[i]._cuDate.getTime() === date.getTime()) { buttons[i].focus(); return; }
+      if (buttons[i]._cuDate && buttons[i]._cuDate.getTime() === date.getTime()) return /** @type {HTMLButtonElement} */ (buttons[i]);
     }
+    return null;
   }
+
+  function enabled(btn) {
+    return btn && !btn.disabled ? btn : null;
+  }
+
+  function focusDate(date) {
+    var btn = findDay(date);
+    if (btn) btn.focus();
+  }
+
+  // Roving tabindex：Tab 只停在一個日期（最後取得焦點的日期；重繪後為選取日 → 今天 → 本月第一個可選日期）
+  function setTabStop(stop) {
+    grid.querySelectorAll(".cu-calendar-day").forEach(function (/** @type {HTMLElement} */ b) {
+      b.tabIndex = b === stop ? 0 : -1;
+    });
+  }
+  grid.addEventListener("focusin", function (e) {
+    var target = /** @type {HTMLElement} */ (e.target);
+    if (target._cuDate) setTabStop(target);
+  });
+
+  // APG Date Picker Dialog：開啟時切到並聚焦選取日；沒有選取時為今天，今天不在範圍內時為範圍內第一個可選日期
+  calendar._cuFocusInitialDate = function () {
+    var target = selectedDate && inRange(selectedDate) ? selectedDate : inRange(today) ? today : minDate || maxDate;
+    currentMonth = target.getMonth();
+    currentYear = target.getFullYear();
+    render();
+    focusDate(target);
+  };
 
   // 以日期計算移動目標（而非按鈕索引），跨月時切換月份；超出 min / max 時停在邊界
   grid.addEventListener("keydown", function (e) {
@@ -130,6 +215,5 @@ export function initCalendar(calendar, onSelect) {
     focusDate(target);
   });
 
-  calendar._cuRender = render;
   render();
 }

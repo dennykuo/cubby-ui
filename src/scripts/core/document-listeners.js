@@ -56,7 +56,10 @@ export function setupDocumentListeners() {
       }
     });
     registry.datePickers.forEach(function (dp) {
-      if (dp.content && !dp.el.contains(e.target)) dp.content.style.display = "none";
+      if (dp.content && !dp.el.contains(e.target)) {
+        dp.content.style.display = "none";
+        if (dp.trigger) dp.trigger.setAttribute("aria-expanded", "false");
+      }
     });
     registry.contextMenus.forEach(function (cm) {
       if (cm.content) cm.content.setAttribute("hidden", "");
@@ -120,6 +123,7 @@ export function setupDocumentListeners() {
         if (!dp.content || dp.content.style.display === "none") return;
         var hadFocus = dp.content.contains(document.activeElement);
         dp.content.style.display = "none";
+        if (dp.trigger) dp.trigger.setAttribute("aria-expanded", "false");
         if (hadFocus && dp.trigger) dp.trigger.focus();
       });
       return;

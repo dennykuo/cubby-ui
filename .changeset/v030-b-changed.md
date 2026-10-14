@@ -15,3 +15,6 @@
 - Dropdown trigger 的點擊事件改為正常冒泡（原本 `stopPropagation`）；若 Dropdown 放在本身有 click 監聽的元素內（例如可點擊的卡片或表格列），點擊 trigger 也會觸發外層監聽，需要時請在外層判斷 `e.target.closest("[data-cu-dropdown]")`
 - Copy Button 的剪貼簿寫入、播報與狀態邏輯抽成 `src/scripts/core/clipboard.js`，與 Code Block 共用（Copy Button 行為不變）
 - **Code Block** 複製後還原為按鈕原本的文字，不再固定還原成 "Copy"
+- **Date Picker** 開啟時切回並聚焦選取日（沒有選取時為今天，今天不在 min / max 範圍內時為範圍內第一個可選日期），不再停在上次瀏覽的月份
+- **Calendar** 改用 roving tabindex：整個月曆只有一個 Tab 停駐點，以方向鍵在日期間移動
+- **Combobox / Multi Select** 沒有搜尋框時 trigger 改為 `role="combobox"`（APG select-only combobox），按鈕文字成為「值」而非名稱，需以 `aria-label` 或 `<label for>` 提供無障礙名稱

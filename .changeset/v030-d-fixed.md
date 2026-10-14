@@ -23,3 +23,4 @@
 - **Blade：`date-picker.blade.php`** 把 `{value || placeholder}` 原樣輸出到頁面
 - **Blade 轉換器**：條件式中的字串字面量不再被轉成 PHP 變數；文字位置的 `{a || b}` 轉為 `{{ $a ?: $b }}`
 - **Code Block** 複製成功的狀態色看不清楚：暗色頁面時 success token 在深色區塊上對比只有約 2.9:1；light 變體的成功色被按鈕本身的文字色蓋過；header 內的按鈕在滑鼠停留時（也就是剛點擊後）狀態色被 hover 樣式蓋過。成功 / 失敗狀態改用固定色階（`green-400` / `red-400`，light 變體 `green-800` / `red-700`，對比皆 ≥ 4.5:1），hover 樣式不再套用到狀態中的按鈕
+- **Calendar** 日期按鈕的鍵盤焦點看不見（`outline-none` 且沒有 focus-visible 樣式），改為 `ring-2 ring-ring/40` 焦點環並疊在相鄰日期之上，選取日上也可辨識

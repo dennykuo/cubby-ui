@@ -23,3 +23,6 @@
 - `check:sync` 新增 README 元件分類表檢查：每個分類的元件須與 `component-nav.ts` 的 `componentGroups` 完全一致，分類標籤取自 `src/i18n/ui.ts` 的 sidebar 英文標籤
 - **Code Block** 複製回饋：失敗狀態 `data-cu-copy-failed`、aria-live 播報（與 Copy Button 共用 `[data-cu-copy-live]`）、Clipboard API 不可用或被拒時退回 `execCommand("copy")`；根元素可用 `data-cu-code-block-success-text` / `data-cu-code-block-error-text` 自訂訊息，成功 / 失敗時觸發 `cu:code-block:copy` / `cu:code-block:error`
 - `npm run test:blade` 新增回歸檢查：文字位置殘留的 JSX `||` / `??` 表達式，以及 `'$` 開頭的 PHP 字串（字串字面量被誤轉成變數）
+- Multi Select：`data-cu-multi-select-remove-text`（預設 `Remove {label}`），自訂標籤移除按鈕的無障礙名稱
+- Calendar / Date Picker：`data-cu-calendar-locale` 指定日期按鈕完整日期名稱的語系（預設取最近祖先的 `lang`）；新增 JS 產生的週列 class `cu-calendar-week`
+- **無障礙**：Combobox / Multi Select 的搜尋框依 WAI-ARIA APG combobox 加上 `role` / `aria-controls` / `aria-autocomplete` / `aria-expanded`，並以 `aria-activedescendant` 指向鍵盤高亮項目；Multi Select 標籤移除按鈕有可讀名稱（例如 "Remove React"）；Date Picker trigger 加上 `aria-haspopup="dialog"` / `aria-expanded` / `aria-controls`，面板為以月份命名的非模態 dialog；Calendar 改為 grid / row / gridcell 結構，日期按鈕帶完整日期名稱、`aria-selected` 與 `aria-current="date"`；Command Palette 輸入框為 combobox，清單為 listbox / group / option，`aria-activedescendant` 與 `aria-selected` 跟隨選中項目

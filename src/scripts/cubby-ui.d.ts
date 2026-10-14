@@ -166,6 +166,7 @@ export declare const DATA_ATTRS: {
   readonly MULTI_SELECT_DEBOUNCE: 'data-cu-multi-select-debounce'; // optional, on root: filter delay in ms (default: immediate)
   readonly MULTI_SELECT_VALUE: 'data-cu-value'; // also used by Transfer List
   readonly MULTI_SELECT_REMOVE: 'data-cu-remove'; // tag remove button, value = item value
+  readonly MULTI_SELECT_REMOVE_TEXT: 'data-cu-multi-select-remove-text'; // optional, on root: remove button aria-label template, default "Remove {label}"
 
   // Number Input
   readonly NUMBER_INPUT: 'data-cu-number-input';
@@ -367,6 +368,7 @@ export declare const DATA_ATTRS: {
   readonly CALENDAR_NEXT: 'data-cu-calendar-next';
   readonly CALENDAR_MIN: 'data-cu-calendar-min';
   readonly CALENDAR_MAX: 'data-cu-calendar-max';
+  readonly CALENDAR_LOCALE: 'data-cu-calendar-locale'; // optional, on the calendar or any ancestor: locale of the day buttons' full-date labels (default: nearest lang)
 
   // Date Picker
   readonly DATE_PICKER: 'data-cu-date-picker';

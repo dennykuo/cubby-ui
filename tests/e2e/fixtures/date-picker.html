@@ -92,6 +92,28 @@
 
   <button id="outside" class="cu-button cu-button-ghost">Outside</button>
 
+  <!-- 日期按鈕名稱的語系：取最近祖先的 lang；data-cu-calendar-locale 可覆寫 -->
+  <div lang="zh-TW" style="width: 280px;">
+    <div id="cal-zh" class="cu-calendar" data-cu-calendar>
+      <div class="cu-calendar-header">
+        <button type="button" class="cu-calendar-nav" data-cu-calendar-prev aria-label="Previous month">&#8249;</button>
+        <span class="cu-calendar-title" data-cu-calendar-title></span>
+        <button type="button" class="cu-calendar-nav" data-cu-calendar-next aria-label="Next month">&#8250;</button>
+      </div>
+      <div class="cu-calendar-grid" data-cu-calendar-grid></div>
+    </div>
+  </div>
+  <div lang="zh-TW" style="width: 280px;">
+    <div id="cal-locale" class="cu-calendar" data-cu-calendar data-cu-calendar-locale="en-GB">
+      <div class="cu-calendar-header">
+        <button type="button" class="cu-calendar-nav" data-cu-calendar-prev aria-label="Previous month">&#8249;</button>
+        <span class="cu-calendar-title" data-cu-calendar-title></span>
+        <button type="button" class="cu-calendar-nav" data-cu-calendar-next aria-label="Next month">&#8250;</button>
+      </div>
+      <div class="cu-calendar-grid" data-cu-calendar-grid></div>
+    </div>
+  </div>
+
   <script>
     window.__changes = [];
     document.addEventListener("change", function (e) {

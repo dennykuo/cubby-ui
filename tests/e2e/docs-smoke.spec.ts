@@ -151,6 +151,9 @@ test.describe("docs search", () => {
     await input.fill("date picker");
     await expect(page.locator(visibleItems)).toHaveText(["Date Picker"]);
     await expect(page.locator(visibleItems).first()).toHaveAttribute("data-cu-command-active", "");
+    // 項目是 <a href>：加上 role="option" 後仍以 Enter 導航（下方）；輸入框以 aria-activedescendant 指向它
+    await expect(dialog.getByRole("option", { name: "Date Picker", selected: true })).toBeVisible();
+    await expect(input).toHaveAttribute("aria-activedescendant", (await page.locator(visibleItems).first().getAttribute("id"))!);
     // 只剩含結果的分組
     await expect(dialog.locator("[data-cu-command-group]:visible")).toHaveCount(1);
 

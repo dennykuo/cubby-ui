@@ -1,4 +1,5 @@
 import { track, restore } from "../core/registry.js";
+import { genId } from "../core/utils.js";
 import { toISODate, formatDate, initCalendar } from "./calendar.js";
 
 // ── Date Picker ───────────────────────────────────────────────
@@ -25,6 +26,19 @@ export function setupDatePickers() {
     content.style.display = "none";
     calendar._cuInit = true;
 
+    // APG Date Picker Dialog：trigger 標示彈出 dialog 與開關狀態；面板為非模態 dialog（點外部 / Escape 關閉，不困住焦點），
+    // 以月曆標題（月份）命名
+    if (!content.id) content.id = genId("cu-date-picker-content");
+    trigger.setAttribute("aria-haspopup", "dialog");
+    trigger.setAttribute("aria-expanded", "false");
+    trigger.setAttribute("aria-controls", content.id);
+    if (!content.hasAttribute("role")) content.setAttribute("role", "dialog");
+    var title = calendar.querySelector("[data-cu-calendar-title]");
+    if (title && !content.hasAttribute("aria-label") && !content.hasAttribute("aria-labelledby")) {
+      if (!title.id) title.id = genId("cu-calendar-title");
+      content.setAttribute("aria-labelledby", title.id);
+    }
+
     // 須在 initCalendar 之前解析預設值，月曆才會開在該月份並標記選取
     if (hiddenInput && hiddenInput.value) {
       var parts = hiddenInput.value.split("-");
@@ -46,6 +60,7 @@ export function setupDatePickers() {
         hiddenInput.dispatchEvent(new Event("change", { bubbles: true }));
       }
       content.style.display = "none";
+      trigger.setAttribute("aria-expanded", "false");
       trigger.focus(); // 面板已隱藏，焦點移回 trigger 避免遺失
     });
 
@@ -53,7 +68,8 @@ export function setupDatePickers() {
       // 不阻止冒泡：讓 document 級 handler 關閉其他已開啟的浮層（自身因 contains 判斷不受影響）
       var isHidden = content.style.display === "none";
       content.style.display = isHidden ? "" : "none";
-      if (isHidden && calendar._cuRender) calendar._cuRender();
+      trigger.setAttribute("aria-expanded", String(isHidden));
+      if (isHidden && calendar._cuFocusInitialDate) calendar._cuFocusInitialDate();
     });
 
     // 全域關閉(click 外部 / Escape)由 setupDocumentListeners 的 delegated handler 統一處理

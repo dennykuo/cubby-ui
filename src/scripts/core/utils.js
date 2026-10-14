@@ -37,6 +37,44 @@ export function genId(prefix) {
   return prefix + "-" + Math.random().toString(36).slice(2, 9);
 }
 
+// Mirror the keyboard highlight (highlightClass) of a listbox popup onto owner's aria-activedescendant
+// (APG combobox: DOM focus stays on owner). The highlight changes in several places — document keydown
+// navigation, filtering, closing — so observe class / hidden changes instead of hooking each one.
+// Cleared while the popup (container) is hidden or no visible item is highlighted.
+export function trackActiveDescendant(owner, container, highlightClass, idPrefix) {
+  function sync() {
+    var active = container.hasAttribute("hidden") ? null : container.querySelector("." + highlightClass + ":not([hidden])");
+    if (active) {
+      if (!active.id) active.id = genId(idPrefix);
+      if (owner.getAttribute("aria-activedescendant") !== active.id) owner.setAttribute("aria-activedescendant", active.id);
+    } else if (owner.hasAttribute("aria-activedescendant")) {
+      owner.removeAttribute("aria-activedescendant");
+    }
+  }
+  sync();
+  new MutationObserver(sync).observe(container, { attributes: true, attributeFilter: ["class", "hidden"], subtree: true });
+}
+
+// Combobox / Multi Select ARIA (WAI-ARIA APG combobox pattern). The element keeping DOM focus while the
+// popup is open owns aria-activedescendant: the search input (role="combobox", filters the list →
+// aria-autocomplete="list"; it only exists inside the open popup → aria-expanded="true"), or, without a
+// search input, the trigger itself (APG select-only combobox — role="button" does not support
+// aria-activedescendant, so the trigger becomes role="combobox"; it keeps aria-haspopup / aria-expanded).
+export function setupComboboxAria(trigger, input, content, list, highlightClass, idPrefix) {
+  if (!list.id) list.id = genId(idPrefix + "-listbox");
+  if (trigger) trigger.setAttribute("aria-controls", list.id);
+  if (input) {
+    input.setAttribute("role", "combobox");
+    input.setAttribute("aria-autocomplete", "list");
+    input.setAttribute("aria-expanded", "true");
+    input.setAttribute("aria-controls", list.id);
+  } else if (trigger) {
+    trigger.setAttribute("role", "combobox");
+  }
+  var owner = input || trigger;
+  if (owner) trackActiveDescendant(owner, content, highlightClass, idPrefix + "-option");
+}
+
 // Round to step precision to avoid floating-point drift (e.g. 0.1 + 0.2)
 export function roundToStep(value, step) {
   if (step >= 1) return Math.round(value / step) * step;

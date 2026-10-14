@@ -12,6 +12,7 @@ export const comboboxPage: Record<Locale, {
     disabled: { title: string; description: string };
     grouped: { title: string; description: string };
     debounce: { title: string; description: string };
+    accessibility: { title: string; description: string };
   };
   classDescriptions: Record<string, string>;
 }> = {
@@ -48,6 +49,10 @@ export const comboboxPage: Record<Locale, {
       debounce: {
         title: 'Search Debounce',
         description: 'By default the list filters on every keystroke, which is the most responsive choice for in-page lists. Add <code class="cu-code">data-cu-combobox-debounce="300"</code> to the wrapper to filter only after typing pauses for that many milliseconds — useful for long lists, or when you load results remotely by listening to the <code class="cu-code">cu:combobox:search</code> event (<code class="cu-code">event.detail.query</code>, fired only when the applied query changes). Clearing the query applies immediately, and arrow keys / Enter apply any pending filter first, so a stale result is never selected.',
+      },
+      accessibility: {
+        title: 'Accessibility',
+        description: 'Follows the WAI-ARIA combobox pattern. The search input gets <code class="cu-code">role="combobox"</code>, <code class="cu-code">aria-controls</code> (the listbox), <code class="cu-code">aria-autocomplete="list"</code> and <code class="cu-code">aria-expanded="true"</code>. While you move with the arrow keys, <code class="cu-code">aria-activedescendant</code> points at the highlighted option (option ids are generated automatically), so screen readers announce it while focus stays in the input; it is cleared when the option is filtered out or the panel closes. Without a search input, the trigger itself becomes <code class="cu-code">role="combobox"</code> and owns <code class="cu-code">aria-activedescendant</code>. A combobox is not named by its text, so give that trigger an accessible name with <code class="cu-code">aria-label</code> or <code class="cu-code">&lt;label for&gt;</code>.',
       },
     },
     classDescriptions: {
@@ -99,6 +104,10 @@ export const comboboxPage: Record<Locale, {
       debounce: {
         title: '搜尋 Debounce',
         description: '預設每次輸入都會立即過濾，對頁面內的清單反應最快。在外層容器加上 <code class="cu-code">data-cu-combobox-debounce="300"</code>，會在停止輸入指定毫秒數後才過濾，適合長清單，或監聽 <code class="cu-code">cu:combobox:search</code> 事件（<code class="cu-code">event.detail.query</code>，僅在實際套用的查詢改變時觸發）自行串接遠端搜尋。清空查詢會立即生效；方向鍵與 Enter 會先套用待執行的過濾，不會選到過期的結果。',
+      },
+      accessibility: {
+        title: '無障礙',
+        description: '遵循 WAI-ARIA combobox 模式。搜尋框會加上 <code class="cu-code">role="combobox"</code>、指向 listbox 的 <code class="cu-code">aria-controls</code>、<code class="cu-code">aria-autocomplete="list"</code> 與 <code class="cu-code">aria-expanded="true"</code>。以方向鍵移動時，<code class="cu-code">aria-activedescendant</code> 會指向目前高亮的選項（選項 id 自動產生），焦點留在搜尋框，螢幕閱讀器仍會播報該選項；選項被過濾掉或面板關閉時清除。沒有搜尋框時，trigger 本身改為 <code class="cu-code">role="combobox"</code> 並持有 <code class="cu-code">aria-activedescendant</code>。combobox 不以文字內容命名，請以 <code class="cu-code">aria-label</code> 或 <code class="cu-code">&lt;label for&gt;</code> 為該 trigger 提供無障礙名稱。',
       },
     },
     classDescriptions: {
