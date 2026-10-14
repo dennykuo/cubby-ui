@@ -217,7 +217,7 @@ ARIA 無障礙支援：
 - `CubbyUI.init()` — 初始化所有互動元件（自動在 DOMContentLoaded 執行，可重複呼叫以初始化動態新增的元素）
 - `CubbyUI.destroy()` — 清除內部追蹤陣列並移除 document 級事件監聽器（配合 SPA 路由切換使用；`init()` 會重新註冊）
 - `CubbyUI.refresh()` — 清理已移除元素的過時參照，並重新執行 init()（適用於動態內容更新後）
-- `CubbyUI.toast.show({ title, description?, variant?, duration? })` — 程式化建立 toast 通知，回傳 toast DOM 元素
+- `CubbyUI.toast.show({ title, description?, variant?, duration?, action? })` — 程式化建立 toast 通知，回傳 toast DOM 元素；`action: { label, onClick? }` 渲染 `cu-toast-action-btn`，點擊後呼叫 `onClick(event, toast)` 並關閉 toast（`onClick` 內 `event.preventDefault()` 可保留）
 - `CubbyUI.toast.promise(promise, { loading, success, error })` — 顯示載入中 toast，Promise resolve 時更新為 success，reject 時更新為 error
 
 `package.json` 的 `exports` 欄位中 `"style"` condition 非 Node.js 標準，但 Vite、Parcel 等打包工具支援。標準引入方式為 `import "cubby-ui/css"`。
