@@ -34,8 +34,9 @@ var NAV_KEYS = ["Enter", "ArrowDown", "ArrowUp", "Home", "End"];
  *   the trigger button. Older markup with the tags container inside the trigger is restructured on init (the control
  *   wrapper is created and the placeholder moved into the trigger). Clicking empty space in the control opens the panel.
  * - Removing a tag from the keyboard moves focus to the next tag's remove button, or the trigger after the last one.
- * - The trigger keeps the placeholder text as its accessible name (via `aria-labelledby`) while tags hide it, unless it
- *   already has `aria-label` / `aria-labelledby` / a `<label for>`.
+ * - The trigger keeps the placeholder text as its accessible name while tags hide it, unless it already has
+ *   `aria-label` / `aria-labelledby` / a `<label for>`: `aria-labelledby` → placeholder with a search input (the trigger
+ *   stays a button), `aria-label` = placeholder text without one (select-only combobox, see setupComboboxAria()).
  * - `data-cu-multi-select-debounce="300"`: optional, on the root. Delays filtering by N ms after typing
  *   (default: filter immediately). Clearing the query, arrow keys and Enter apply pending filtering at once.
  * - Fires `cu:multiselect:search` ({ query }) whenever the applied query changes — hook remote search here.
@@ -99,9 +100,11 @@ export function setupMultiSelects() {
       // 未指定 type 的 <button> 在 <form> 內預設為 submit，開啟面板會送出表單
       if (trigger.tagName === "BUTTON" && !trigger.hasAttribute("type"))
         /** @type {HTMLButtonElement} */ (trigger).type = "button";
-      // 選取後 placeholder 隱藏、trigger 只剩圖示：沒有其他命名來源時，以（隱藏的）placeholder 文字命名
+      // 有搜尋框時 trigger 仍是 button、以文字命名，但選取後 placeholder 隱藏、trigger 只剩圖示：沒有其他命名來源時，
+      // 以（隱藏的）placeholder 文字命名。沒有搜尋框時 trigger 為 combobox，由下方 setupComboboxAria() 補 aria-label
       var labels = /** @type {HTMLButtonElement} */ (trigger).labels;
       if (
+        input &&
         placeholder &&
         !trigger.hasAttribute("aria-label") &&
         !trigger.hasAttribute("aria-labelledby") &&
@@ -115,7 +118,15 @@ export function setupMultiSelects() {
       var list = content.querySelector("[data-cu-multi-select-list]") || content;
       list.setAttribute("role", "listbox");
       list.setAttribute("aria-multiselectable", "true");
-      setupComboboxAria(trigger, input, content, list, "cu-multi-select-item-highlight", "cu-multi-select");
+      setupComboboxAria(
+        trigger,
+        input,
+        content,
+        list,
+        "cu-multi-select-item-highlight",
+        "cu-multi-select",
+        placeholder,
+      );
     }
     syncItemsAria();
 

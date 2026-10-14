@@ -54,24 +54,23 @@ export function initCalendar(calendar, onSelect) {
   if (!grid.hasAttribute("aria-label") && !grid.hasAttribute("aria-labelledby"))
     grid.setAttribute("aria-labelledby", header.id);
 
-  // 日期按鈕的無障礙名稱（完整日期，每次重繪時讀取語系）。語系：data-cu-calendar-locale（可放在任一祖先）
-  // → 最近祖先的 lang（含 <html lang>）→ 瀏覽器預設；無效的語系標籤略過
+  // 月份標題與日期按鈕無障礙名稱（完整日期）的語系，每次重繪時讀取：data-cu-calendar-locale（可放在任一祖先）
+  // → 最近祖先的 lang（含 <html lang>）→ en-US（與預設的英文星期列一致）；無效的語系標籤略過
   var dateFormat;
-  function getDateFormat() {
+  function resolveLocale() {
     var localeEl = calendar.closest("[data-cu-calendar-locale]");
     var langEl = calendar.closest("[lang]");
     var locales = [localeEl && localeEl.getAttribute("data-cu-calendar-locale"), langEl && langEl.getAttribute("lang")];
-    /** @type {Intl.DateTimeFormatOptions} */
-    var options = { weekday: "long", year: "numeric", month: "long", day: "numeric" };
     for (var i = 0; i < locales.length; i++) {
       if (!locales[i]) continue;
       try {
-        return new Intl.DateTimeFormat(locales[i], options);
+        new Intl.DateTimeFormat(locales[i]);
+        return locales[i];
       } catch (_e) {
         // 無效的語系標籤（RangeError）：改用下一個來源
       }
     }
-    return new Intl.DateTimeFormat(undefined, options);
+    return "en-US";
   }
 
   function inRange(date) {
@@ -85,22 +84,12 @@ export function initCalendar(calendar, onSelect) {
   }
 
   function render() {
-    var monthNames = [
-      "January",
-      "February",
-      "March",
-      "April",
-      "May",
-      "June",
-      "July",
-      "August",
-      "September",
-      "October",
-      "November",
-      "December",
-    ];
-    header.textContent = monthNames[currentMonth] + " " + currentYear;
-    dateFormat = getDateFormat();
+    var locale = resolveLocale();
+    // en-US 為「March 2026」，zh-TW 為「2026年3月」
+    header.textContent = new Intl.DateTimeFormat(locale, { year: "numeric", month: "long" }).format(
+      new Date(currentYear, currentMonth, 1),
+    );
+    dateFormat = new Intl.DateTimeFormat(locale, { weekday: "long", year: "numeric", month: "long", day: "numeric" });
 
     if (prevBtn) {
       if (minDate) {

@@ -7,6 +7,8 @@ interface Props {
 	value?: string;
 	min?: string;
 	max?: string;
+	/** 星期列文字（週日起 7 個），轉給內部 Calendar */
+	weekdays?: string[];
 	disabled?: boolean;
 	class?: string;
 	[key: string]: any;
@@ -17,6 +19,7 @@ const {
 	value,
 	min,
 	max,
+	weekdays,
 	disabled = false,
 	class: className,
 	...rest
@@ -58,6 +61,6 @@ const {
 	</button>
 	<input type="hidden" data-cu-date-picker-input value={value || ""} />
 	<div class={`${TOP_CLASS}-date-picker-content`} data-cu-date-picker-content>
-		<Calendar min={min} max={max} />
+		<Calendar min={min} max={max} weekdays={weekdays} />
 	</div>
 </div>

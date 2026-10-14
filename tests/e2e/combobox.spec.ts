@@ -295,7 +295,9 @@ test.describe("Combobox", () => {
 
     // 每個 Combobox 的 listbox id 都不同
     const ids = await page.locator("[data-cu-combobox-list]").evaluateAll((els) => els.map((el) => el.id));
-    expect(new Set(ids).size).toBe(3);
+    expect(ids.length).toBeGreaterThan(1);
+    expect(ids.every(Boolean)).toBe(true);
+    expect(new Set(ids).size).toBe(ids.length);
   });
 
   test("高亮項目以 aria-activedescendant 告知輔助技術，篩掉或關閉時清除", async ({ page }) => {
@@ -325,5 +327,56 @@ test.describe("Combobox", () => {
     await page.keyboard.press("Escape");
     await expect(cb.content).toBeHidden();
     await expect(cb.input).not.toHaveAttribute("aria-activedescendant");
+  });
+
+  test("select-only trigger 的無障礙名稱：placeholder 補上 aria-label；已預選值時不拿值當名稱", async ({ page }) => {
+    const select = combobox(page, "cb-select");
+    await expect(select.trigger).toHaveAttribute("role", "combobox");
+    await expect(select.trigger).toHaveAccessibleName("Select status...");
+    // 選取後名稱不變（顯示文字成為值）
+    await select.trigger.click();
+    await select.root.locator("[data-cu-combobox-item]", { hasText: "Closed" }).click();
+    await expect(select.value).toHaveText("Closed");
+    await expect(select.trigger).toHaveAccessibleName("Select status...");
+
+    const preset = combobox(page, "cb-select-preset");
+    await expect(preset.trigger).toHaveAttribute("role", "combobox");
+    await expect(preset.trigger).not.toHaveAttribute("aria-label");
+    // 有搜尋框時 trigger 仍是 button
+    await expect(combobox(page, "cb-framework").trigger).not.toHaveAttribute("aria-label");
+  });
+
+  test("初始化後替換清單項目（遠端搜尋）：新項目自動取得 option 語意、可鍵盤與滑鼠選取，清空時顯示空狀態", async ({
+    page,
+  }) => {
+    const cb = combobox(page, "cb-framework");
+    await cb.trigger.click();
+    await expect(cb.content).toBeVisible();
+    await cb.list.evaluate((list) => {
+      list.querySelectorAll("[data-cu-combobox-item]").forEach((item) => item.remove());
+      ["Qwik", "Solid"].forEach((name) => {
+        const item = document.createElement("div");
+        item.className = "cu-combobox-item";
+        item.setAttribute("data-cu-combobox-item", "");
+        item.dataset.cuValue = name.toLowerCase();
+        item.textContent = name;
+        list.append(item);
+      });
+    });
+    await expect(cb.items).toHaveCount(2);
+    await expect(cb.list.getByRole("option")).toHaveCount(2);
+    await expect(cb.items.first()).toHaveAttribute("aria-selected", "false");
+    await expect(cb.root.locator("[data-cu-combobox-empty]")).toBeHidden();
+
+    await cb.input.focus();
+    await page.keyboard.press("ArrowDown");
+    await expect(cb.input).toHaveAttribute("aria-activedescendant", (await cb.items.first().getAttribute("id"))!);
+    await page.keyboard.press("ArrowDown");
+    await page.keyboard.press("Enter");
+    await expect(cb.value).toHaveText("Solid");
+
+    await cb.trigger.click();
+    await cb.list.evaluate((list) => list.querySelectorAll("[data-cu-combobox-item]").forEach((item) => item.remove()));
+    await expect(cb.root.locator("[data-cu-combobox-empty]")).toBeVisible();
   });
 });

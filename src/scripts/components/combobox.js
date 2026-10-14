@@ -71,9 +71,17 @@ export function setupComboboxes() {
     if (content) {
       var list = content.querySelector("[data-cu-combobox-list]") || content;
       list.setAttribute("role", "listbox");
-      setupComboboxAria(trigger, input, content, list, "cu-combobox-item-highlight", "cu-combobox");
+      // 已預選值時 valueEl 顯示的是值而非 placeholder，不能拿來當名稱
+      var placeholderEl = valueEl && valueEl.classList.contains("cu-combobox-trigger-placeholder") ? valueEl : null;
+      setupComboboxAria(trigger, input, content, list, "cu-combobox-item-highlight", "cu-combobox", placeholderEl);
     }
     syncItemsAria();
+    // 項目可在初始化後替換（例如監聽 cu:combobox:search 串接遠端搜尋）：清單子節點變動時補上 option 語意並更新空狀態
+    if (content)
+      new MutationObserver(function () {
+        syncItemsAria();
+        syncEmpty();
+      }).observe(list, { childList: true });
 
     function syncEmpty() {
       var visible = 0;

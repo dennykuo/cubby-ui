@@ -113,9 +113,11 @@ export function knownDataAttrs(): string[] {
 export function rawScriptProblems(html: string): string[] {
   const problems: string[] = [];
   for (const m of html.matchAll(/<script\b[^>]*>([\s\S]*?)<\/script>/gi)) {
-    // 典型的重新實作：document.querySelectorAll("[data-cu-xxx]").forEach(...)（逐一初始化元件）
+    // 典型的重新實作：document.querySelectorAll("[data-cu-xxx]").forEach(...) 之後綁定 DOM 事件（逐一初始化元件）。
+    // 只查詢、移除或改寫項目（例如遠端搜尋替換 Combobox 項目）不算；cu:* 事件是使用端掛鉤，也不算
     const selector = m[1].match(/querySelectorAll\(\s*["'`](\[data-cu-[a-z0-9-]+[^"'`]*)["'`]\s*\)\s*\.forEach/);
-    if (selector) {
+    const bindsAfter = selector && /addEventListener\(\s*["'`](?!cu:)/.test(m[1].slice(selector.index));
+    if (selector && bindsAfter) {
       problems.push(
         `範例的 <script> 重新查詢 ${selector[1]} 並綁定事件，與自動初始化的 cubby-ui.js 重複（移除這段 script，交給 cubby-ui.js）`,
       );

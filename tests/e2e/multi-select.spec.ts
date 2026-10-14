@@ -268,7 +268,7 @@ test.describe("Multi Select", () => {
     await expect(ms.placeholder).toBeHidden();
     await expect(ms.trigger).toHaveAccessibleName("Select members...");
 
-    const labelled = multiSelect(page, "ms-labelled");
+    const labelled = multiSelect(page, "ms-form-group");
     await expect(labelled.trigger).not.toHaveAttribute("aria-labelledby");
     await expect(labelled.trigger).toHaveAccessibleName("Technologies");
   });
@@ -491,5 +491,22 @@ test.describe("Multi Select", () => {
     await expect(ms.trigger).not.toHaveAttribute("aria-activedescendant");
     await ms.input.fill("ev");
     await expect(ms.input).not.toHaveAttribute("aria-activedescendant");
+  });
+
+  test("select-only trigger 的無障礙名稱：沒有名稱時以 placeholder 補上，不覆寫作者提供的 aria-label / <label>", async ({
+    page,
+  }) => {
+    // 沒有搜尋框、沒有 label：combobox 不以內容命名，改用 placeholder 文字當 aria-label
+    await expect(multiSelect(page, "ms-frameworks").trigger).toHaveAttribute("aria-label", "Select frameworks...");
+    await expect(multiSelect(page, "ms-frameworks").trigger).toHaveAccessibleName("Select frameworks...");
+    // 預選項目時 placeholder 雖然隱藏，文字仍是名稱；顯示的標籤是值
+    await expect(multiSelect(page, "ms-preset").trigger).toHaveAccessibleName("Select tags...");
+    // 作者提供的名稱優先
+    const labelled = multiSelect(page, "ms-labelled");
+    await expect(labelled.trigger).not.toHaveAttribute("aria-label");
+    await expect(labelled.trigger).toHaveAccessibleName("Labels");
+    await expect(multiSelect(page, "ms-aria").trigger).toHaveAccessibleName("Assignees");
+    // 有搜尋框時 trigger 仍是 button，名稱取自文字，不補 aria-label
+    await expect(multiSelect(page, "ms-members").trigger).not.toHaveAttribute("aria-label");
   });
 });

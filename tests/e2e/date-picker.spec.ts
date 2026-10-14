@@ -611,16 +611,20 @@ test.describe("Date Picker", () => {
   // zh-TW 的日期與星期之間是否有空白取決於瀏覽器的 ICU 版本（本機 Chromium 有、CI 安裝的沒有）
   const ZH_TW_MAR_18 = /^2026年3月18日\s?星期三$/;
 
-  test("日期名稱語系：取最近祖先的 lang，data-cu-calendar-locale 可覆寫，無效語系退回預設", async ({ page }) => {
+  test("日期名稱與月份標題語系：取最近祖先的 lang，data-cu-calendar-locale 可覆寫，無效語系略過", async ({ page }) => {
     await open(page);
     const errors: string[] = [];
     page.on("pageerror", (err) => errors.push(err.message));
 
     const zh = calendar(page.locator("#cal-zh"));
     await expect(zh.day(18)).toHaveAccessibleName(ZH_TW_MAR_18);
+    // 月份標題同樣跟著語系（也是 grid / 面板的名稱）
+    await expect(zh.title).toHaveText("2026年3月");
+    await expect(zh.grid).toHaveAccessibleName("2026年3月");
 
     const gb = calendar(page.locator("#cal-locale"));
     await expect(gb.day(18)).toHaveAccessibleName(/^Wednesday,? 18 March 2026$/);
+    await expect(gb.title).toHaveText("March 2026");
 
     // 語系在每次重繪時讀取；無效的語系標籤不拋錯，退回瀏覽器預設語系
     const cal = calendar(page.locator("#cal"));
@@ -628,10 +632,28 @@ test.describe("Date Picker", () => {
     await cal.next.click();
     await cal.prev.click();
     await expect(cal.day(18)).toHaveAccessibleName("Wednesday, March 18, 2026");
+    await expect(cal.title).toHaveText("March 2026");
     await page.locator("#cal").evaluate((el) => el.setAttribute("data-cu-calendar-locale", "zh-TW"));
     await cal.next.click();
     await cal.prev.click();
     await expect(cal.day(18)).toHaveAccessibleName(ZH_TW_MAR_18);
+    await expect(cal.title).toHaveText("2026年3月");
     expect(errors).toEqual([]);
+  });
+
+  test.describe("瀏覽器語系為 zh-TW", () => {
+    test.use({ locale: "zh-TW" });
+
+    test("頁面與月曆都沒有指定語系時退回 en-US，不跟著瀏覽器語系（與預設英文星期列一致）", async ({ page }) => {
+      await open(page);
+      await page.evaluate(() => document.querySelectorAll("[lang]").forEach((el) => el.removeAttribute("lang")));
+      const cal = calendar(page.locator("#cal"));
+      await cal.next.click();
+      await cal.prev.click();
+      await expect(cal.title).toHaveText("March 2026");
+      await expect(cal.day(18)).toHaveAccessibleName("Wednesday, March 18, 2026");
+      // 確認測試環境確實是 zh-TW，否則這個測試無法區分兩種退回方式
+      expect(await page.evaluate(() => new Intl.DateTimeFormat().resolvedOptions().locale)).toMatch(/^zh/);
+    });
   });
 });
