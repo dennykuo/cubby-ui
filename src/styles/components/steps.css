@@ -25,7 +25,11 @@
 }
 
 .cu-steps-separator {
-    @apply mx-2 mt-[15px] h-px flex-1 bg-border;
+    @apply mx-2 mt-[15px] h-px flex-1 bg-border transition-colors duration-200;
+}
+
+.cu-steps-item-completed + .cu-steps-separator {
+    @apply bg-primary;
 }
 
 /* -- states -- */

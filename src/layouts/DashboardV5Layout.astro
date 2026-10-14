@@ -1,6 +1,7 @@
 ---
 import { withBase, stripBase } from "@/utils/paths";
 import "@/styles/global.css";
+import cubbyUiUrl from "../../dist/core/cubby-ui.js?url";
 
 interface Props {
     title: string;
@@ -36,11 +37,15 @@ const navItems = [
         <title>{title}</title>
     </head>
     <body class="min-h-screen font-sans antialiased text-foreground bg-muted/30">
+        <a
+            href="#main-content"
+            class="cu-button cu-button-default cu-button-sm sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[60]"
+        >跳至主要內容</a>
         <div class="flex min-h-screen">
             <!-- Sidebar -->
             <aside class="cu-sidebar hidden lg:flex fixed inset-y-0 left-0 z-40 w-60 border-r border-border">
                 <!-- Logo -->
-                <div class="cu-sidebar-header h-14 border-b pl-6">
+                <div class="cu-sidebar-header h-14 border-b border-border pl-6">
                     <a href={withBase("/examples/dashboard-v5")} class="cu-header-brand">
                         <div class="flex items-center justify-center w-8 h-8 rounded-lg bg-primary text-primary-foreground">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -54,7 +59,7 @@ const navItems = [
                 <!-- Navigation -->
                 <div class="cu-sidebar-content py-6">
                     <p class="cu-sidebar-section-title mb-4">資料管理</p>
-                    <nav class="space-y-1 -ml-3">
+                    <nav class="space-y-1 -ml-3" aria-label="主要導覽">
                         {navItems.map((item) => {
                             const isActive = normalizedPath === item.href ||
                                 (item.href !== "/examples/dashboard-v5" && normalizedPath.startsWith(item.href)) ||
@@ -62,6 +67,7 @@ const navItems = [
                             return (
                                 <a
                                     href={withBase(item.href)}
+                                    aria-current={isActive ? "page" : undefined}
                                     class:list={[
                                         "cu-sidebar-item",
                                         isActive && "cu-sidebar-item-active",
@@ -99,7 +105,7 @@ const navItems = [
                                     )}
                                     <span class="flex-1">{item.label}</span>
                                     {item.count && (
-                                        <span class="cu-badge cu-badge-secondary text-[10px] px-1.5">{item.count.toLocaleString()}</span>
+                                        <span class="cu-badge cu-badge-secondary cu-badge-sm">{item.count.toLocaleString()}</span>
                                     )}
                                 </a>
                             );
@@ -127,42 +133,46 @@ const navItems = [
                 <header class="cu-header">
                     <div class="cu-header-inner">
                         <!-- Mobile menu -->
-                        <button class="cu-button cu-button-ghost cu-button-icon-sm lg:hidden" data-cu-drawer-trigger="mobile-nav">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <button type="button" class="cu-button cu-button-ghost cu-button-icon-sm lg:hidden" data-cu-drawer-trigger="mobile-nav" aria-label="開啟導航選單" aria-controls="mobile-nav">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                                 <line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/>
                             </svg>
                         </button>
 
                         <!-- Breadcrumb -->
-                        <nav class="hidden lg:flex items-center gap-2 text-sm">
-                            <a href={withBase("/examples/dashboard-v5")} class="text-muted-foreground hover:text-foreground transition-colors">首頁</a>
-                            <slot name="breadcrumb">
-                                <span class="text-muted-foreground/50">/</span>
-                                <span class="font-medium">資料管理</span>
-                            </slot>
+                        <nav class="hidden lg:block" aria-label="麵包屑">
+                            <ol class="cu-breadcrumb">
+                                <li class="cu-breadcrumb-item">
+                                    <a href={withBase("/examples/dashboard-v5")} class="cu-breadcrumb-link">首頁</a>
+                                </li>
+                                <slot name="breadcrumb">
+                                    <li class="cu-breadcrumb-separator" aria-hidden="true">/</li>
+                                    <li class="cu-breadcrumb-item"><span class="cu-breadcrumb-current" aria-current="page">資料管理</span></li>
+                                </slot>
+                            </ol>
                         </nav>
 
                         <!-- Right actions -->
                         <div class="cu-header-actions">
                             <!-- Quick search -->
-                            <div class="cu-input-search hidden sm:flex">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="cu-input-search-icon">
+                            <div class="cu-input-search hidden sm:flex" role="search">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="cu-input-search-icon" aria-hidden="true">
                                     <circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>
                                 </svg>
-                                <input type="text" placeholder="搜尋..." class="cu-input-search-field w-48" />
+                                <input type="search" placeholder="搜尋..." aria-label="全站搜尋" class="cu-input-search-field w-48" />
                             </div>
 
                             <!-- Notification -->
-                            <button class="cu-button cu-button-ghost cu-button-icon-sm relative">
-                                <span class="absolute top-1 right-1 w-2 h-2 bg-destructive rounded-full"></span>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <button type="button" class="cu-button cu-button-ghost cu-button-icon-sm relative" aria-label="通知（有未讀）">
+                                <span class="absolute top-1 right-1 w-2 h-2 bg-destructive rounded-full" aria-hidden="true"></span>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                                     <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/>
                                 </svg>
                             </button>
 
                             <!-- Help -->
-                            <button class="cu-button cu-button-ghost cu-button-icon-sm">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <button type="button" class="cu-button cu-button-ghost cu-button-icon-sm" aria-label="說明">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                                     <circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/>
                                 </svg>
                             </button>
@@ -171,15 +181,15 @@ const navItems = [
                 </header>
 
                 <!-- Main Content -->
-                <main class="flex-1 p-4 sm:p-6 lg:p-8">
+                <main id="main-content" class="flex-1 p-4 sm:p-6 lg:p-8" tabindex="-1">
                     <slot />
                 </main>
             </div>
         </div>
 
         <!-- Mobile Nav Drawer -->
-        <dialog class="cu-drawer cu-drawer-left" id="mobile-nav" data-cu-drawer>
-            <div class="cu-drawer-header border-b">
+        <dialog class="cu-drawer cu-drawer-left" id="mobile-nav" data-cu-drawer aria-label="導航選單">
+            <div class="cu-drawer-header border-b border-border">
                 <a href={withBase("/examples/dashboard-v5")} class="cu-header-brand">
                     <div class="flex items-center justify-center w-8 h-8 rounded-lg bg-primary text-primary-foreground">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -188,13 +198,13 @@ const navItems = [
                     </div>
                     <span class="font-semibold">DataHub</span>
                 </a>
-                <button class="cu-drawer-close" data-cu-drawer-close>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+                <button type="button" class="cu-drawer-close" data-cu-drawer-close aria-label="關閉導航選單">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
                 </button>
             </div>
             <div class="p-4">
                 <p class="cu-sidebar-section-title mb-4">資料管理</p>
-                <nav class="space-y-1">
+                <nav class="space-y-1" aria-label="主要導覽">
                     {navItems.map((item) => {
                         const isActive = normalizedPath === item.href ||
                             (item.href !== "/examples/dashboard-v5" && normalizedPath.startsWith(item.href)) ||
@@ -202,6 +212,7 @@ const navItems = [
                         return (
                             <a
                                 href={withBase(item.href)}
+                                aria-current={isActive ? "page" : undefined}
                                 class:list={[
                                     "cu-sidebar-item",
                                     isActive && "cu-sidebar-item-active",
@@ -239,7 +250,7 @@ const navItems = [
                                 )}
                                 <span class="flex-1">{item.label}</span>
                                 {item.count && (
-                                    <span class="cu-badge cu-badge-secondary text-[10px] px-1.5">{item.count.toLocaleString()}</span>
+                                    <span class="cu-badge cu-badge-secondary cu-badge-sm">{item.count.toLocaleString()}</span>
                                 )}
                             </a>
                         );
@@ -258,5 +269,7 @@ const navItems = [
                 </div>
             </div>
         </dialog>
+
+        <script src={cubbyUiUrl} is:inline></script>
     </body>
 </html>
