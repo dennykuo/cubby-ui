@@ -323,7 +323,7 @@
       "interactive": true,
       "cssClasses": {
         "base": "cu-multi-select",
-        "parts": ["cu-multi-select-trigger", "cu-multi-select-content", "cu-multi-select-input", "cu-multi-select-item", "cu-multi-select-item-active", "cu-multi-select-tag", "cu-multi-select-tag-remove"]
+        "parts": ["cu-multi-select-control", "cu-multi-select-tags", "cu-multi-select-placeholder", "cu-multi-select-trigger", "cu-multi-select-content", "cu-multi-select-input", "cu-multi-select-item", "cu-multi-select-item-active", "cu-multi-select-tag", "cu-multi-select-tag-remove"]
       },
       "dataAttributes": {
         "container": "data-cu-multi-select",
@@ -340,7 +340,8 @@
         "removeText": "data-cu-multi-select-remove-text"
       },
       "aria": ["combobox", "listbox", "option"],
-      "notes": "Each item needs data-cu-value for tag rendering. Add hidden to content initially. Search filters on every keystroke by default; optional data-cu-multi-select-debounce=\"300\" on the root delays filtering by N ms (clearing the query, arrow keys and Enter apply pending filtering immediately). Fires cu:multiselect:change ({ selected }) on selection and cu:multiselect:search ({ query }) when the applied query changes (hook remote search here)."
+      "notes": "Each item needs data-cu-value for tag rendering. Add hidden to content initially. Structure: cu-multi-select-control (the box) holds data-cu-multi-select-tags and the trigger <button type=\"button\"> as siblings — tags get their own remove <button type=\"button\">, so never nest the tags inside the trigger (older markup that does is restructured on init); keep the placeholder in the trigger and the tags container empty. Clicking empty space in the control opens the panel. Removing a tag from the keyboard focuses the next tag's remove button, or the trigger after the last. The trigger keeps the placeholder text as its accessible name (aria-labelledby) while tags hide it, unless it has aria-label / aria-labelledby / <label for>. Search filters on every keystroke by default; optional data-cu-multi-select-debounce=\"300\" on the root delays filtering by N ms (clearing the query, arrow keys and Enter apply pending filtering immediately). Fires cu:multiselect:change ({ selected }) on selection and cu:multiselect:search ({ query }) when the applied query changes (hook remote search here).",
+      "example": "<div class=\"cu-multi-select\" data-cu-multi-select><div class=\"cu-multi-select-control\"><div class=\"cu-multi-select-tags\" data-cu-multi-select-tags></div><button type=\"button\" class=\"cu-multi-select-trigger\" data-cu-multi-select-trigger><span class=\"cu-multi-select-placeholder\" data-cu-multi-select-placeholder>Select...</span></button></div><div class=\"cu-multi-select-content\" data-cu-multi-select-content hidden><div class=\"cu-multi-select-list\" data-cu-multi-select-list><div class=\"cu-multi-select-item\" data-cu-multi-select-item data-cu-value=\"a\">Option A</div><div class=\"cu-multi-select-item\" data-cu-multi-select-item data-cu-value=\"b\">Option B</div></div></div></div>"
     },
     {
       "name": "Dropzone",

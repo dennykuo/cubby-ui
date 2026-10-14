@@ -1,11 +1,30 @@
 /* Multi Select (unique parts — shared structure in listbox.css)
    ------------------------------------------------------------------ */
+/* Box drawn around the tags and the trigger. The tags (with their remove <button>s) are a sibling of the
+   trigger <button>, never inside it — interactive content cannot be nested in a button. */
+.cu-multi-select-control {
+    @apply flex min-h-9 w-full items-center gap-1 rounded-lg border border-input bg-background px-3 py-1.5 text-sm transition-colors duration-150 hover:border-muted-foreground/30 cursor-pointer;
+}
+
+.cu-multi-select-control:has(> .cu-multi-select-trigger:focus-visible) {
+    @apply ring-2 ring-ring/40 ring-offset-2;
+}
+
+.cu-multi-select-control:has(> .cu-multi-select-trigger:disabled) {
+    @apply pointer-events-none opacity-50 bg-muted text-muted-foreground hover:border-input;
+}
+
+/* Fills the space after the tags (placeholder + chevron); the focus ring is drawn on the control */
 .cu-multi-select-trigger {
-    @apply flex min-h-9 w-full items-center gap-1 rounded-lg border border-input bg-background px-3 py-1.5 text-sm transition-colors duration-150 hover:border-muted-foreground/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/40 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 disabled:bg-muted disabled:text-muted-foreground disabled:hover:border-input cursor-pointer;
+    @apply flex min-w-6 flex-1 items-center gap-1 self-stretch bg-transparent text-left outline-none cursor-pointer disabled:pointer-events-none;
 }
 
 .cu-multi-select-tags {
-    @apply flex flex-1 flex-wrap items-center gap-1;
+    @apply flex min-w-0 flex-wrap items-center gap-1;
+}
+
+.cu-multi-select-tags:empty {
+    @apply hidden;
 }
 
 .cu-multi-select-tag {
@@ -13,7 +32,7 @@
 }
 
 .cu-multi-select-tag-remove {
-    @apply inline-flex size-3.5 items-center justify-center rounded-sm text-muted-foreground/70 hover:text-foreground cursor-pointer;
+    @apply inline-flex size-3.5 items-center justify-center rounded-sm text-muted-foreground/70 transition-colors duration-150 hover:text-foreground cursor-pointer outline-none focus-visible:ring-1 focus-visible:ring-ring/40 focus-visible:text-foreground;
 }
 
 .cu-multi-select-placeholder {

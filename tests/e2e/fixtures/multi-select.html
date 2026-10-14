@@ -11,12 +11,13 @@
 <body>
   <!-- 文檔 Usage 範例（無搜尋框） -->
   <div id="ms-frameworks" class="cu-multi-select" data-cu-multi-select style="width: 300px;">
-    <button class="cu-multi-select-trigger" data-cu-multi-select-trigger>
-      <div class="cu-multi-select-tags" data-cu-multi-select-tags>
+    <div class="cu-multi-select-control">
+      <div class="cu-multi-select-tags" data-cu-multi-select-tags></div>
+      <button type="button" class="cu-multi-select-trigger" data-cu-multi-select-trigger>
         <span class="cu-multi-select-placeholder" data-cu-multi-select-placeholder>Select frameworks...</span>
-      </div>
-      <svg class="cu-multi-select-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 15 5 5 5-5"/><path d="m7 9 5-5 5 5"/></svg>
-    </button>
+        <svg class="cu-multi-select-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 15 5 5 5-5"/><path d="m7 9 5-5 5 5"/></svg>
+      </button>
+    </div>
     <div class="cu-multi-select-content" data-cu-multi-select-content hidden>
       <div class="cu-multi-select-list" data-cu-multi-select-list>
         <div class="cu-multi-select-empty" data-cu-multi-select-empty hidden>No results found.</div>
@@ -31,12 +32,13 @@
 
   <!-- 文檔 With Search 範例；另以 data-cu-multi-select-remove-text 自訂移除按鈕的無障礙名稱 -->
   <div id="ms-members" class="cu-multi-select" data-cu-multi-select data-cu-multi-select-remove-text="移除 {label}" style="width: 300px;">
-    <button class="cu-multi-select-trigger" data-cu-multi-select-trigger>
-      <div class="cu-multi-select-tags" data-cu-multi-select-tags>
+    <div class="cu-multi-select-control">
+      <div class="cu-multi-select-tags" data-cu-multi-select-tags></div>
+      <button type="button" class="cu-multi-select-trigger" data-cu-multi-select-trigger>
         <span class="cu-multi-select-placeholder" data-cu-multi-select-placeholder>Select members...</span>
-      </div>
-      <svg class="cu-multi-select-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 15 5 5 5-5"/><path d="m7 9 5-5 5 5"/></svg>
-    </button>
+        <svg class="cu-multi-select-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 15 5 5 5-5"/><path d="m7 9 5-5 5 5"/></svg>
+      </button>
+    </div>
     <div class="cu-multi-select-content" data-cu-multi-select-content hidden>
       <div class="cu-multi-select-search">
         <input class="cu-multi-select-input" data-cu-multi-select-input placeholder="Search members..." />
@@ -52,16 +54,15 @@
     </div>
   </div>
 
-  <!-- 預設值：以 cu-multi-select-item-active 標記預選項目，標籤由 JS 產生。
-       （文檔 Preset Values 範例把含 <button> 的靜態標籤寫在 trigger <button> 內，
-       HTML parser 會提前關閉 trigger 與容器，結構無法使用，故這裡不照抄靜態標籤。） -->
+  <!-- 預設值：以 cu-multi-select-item-active 標記預選項目，標籤由 JS 產生（trigger 未寫 type，由 JS 補上） -->
   <form id="form" action="#" onsubmit="event.preventDefault(); window.__submits = (window.__submits || 0) + 1;">
     <div id="ms-preset" class="cu-multi-select" data-cu-multi-select style="width: 300px;">
-      <button class="cu-multi-select-trigger" data-cu-multi-select-trigger>
-        <div class="cu-multi-select-tags" data-cu-multi-select-tags>
+      <div class="cu-multi-select-control">
+        <div class="cu-multi-select-tags" data-cu-multi-select-tags></div>
+        <button class="cu-multi-select-trigger" data-cu-multi-select-trigger>
           <span class="cu-multi-select-placeholder" data-cu-multi-select-placeholder>Select tags...</span>
-        </div>
-      </button>
+        </button>
+      </div>
       <div class="cu-multi-select-content" data-cu-multi-select-content hidden>
         <div class="cu-multi-select-list" data-cu-multi-select-list>
           <div class="cu-multi-select-item cu-multi-select-item-active" data-cu-multi-select-item data-cu-value="bug">Bug</div>
@@ -73,6 +74,43 @@
     </div>
     <button id="submit" type="submit" class="cu-button cu-button-default">Submit</button>
   </form>
+
+  <!-- 舊版結構：標籤容器與 placeholder 在 trigger <button> 內，JS 初始化時轉為 control 結構 -->
+  <div id="ms-legacy" class="cu-multi-select" data-cu-multi-select style="width: 300px;">
+    <button class="cu-multi-select-trigger" data-cu-multi-select-trigger>
+      <div class="cu-multi-select-tags" data-cu-multi-select-tags>
+        <span class="cu-multi-select-placeholder" data-cu-multi-select-placeholder>Select colors...</span>
+      </div>
+      <svg class="cu-multi-select-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 15 5 5 5-5"/><path d="m7 9 5-5 5 5"/></svg>
+    </button>
+    <div class="cu-multi-select-content" data-cu-multi-select-content hidden>
+      <div class="cu-multi-select-list" data-cu-multi-select-list>
+        <div class="cu-multi-select-item cu-multi-select-item-active" data-cu-multi-select-item data-cu-value="red">Red</div>
+        <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="green">Green</div>
+        <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="blue">Blue</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 文檔 With Form Group 範例：以 <label for> 命名 trigger -->
+  <div style="width: 300px;">
+    <label class="cu-label" for="tech-select">Technologies</label>
+    <div id="ms-labelled" class="cu-multi-select w-full" data-cu-multi-select>
+      <div class="cu-multi-select-control">
+        <div class="cu-multi-select-tags" data-cu-multi-select-tags></div>
+        <button id="tech-select" type="button" class="cu-multi-select-trigger" data-cu-multi-select-trigger>
+          <span class="cu-multi-select-placeholder" data-cu-multi-select-placeholder>Select technologies...</span>
+          <svg class="cu-multi-select-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 15 5 5 5-5"/><path d="m7 9 5-5 5 5"/></svg>
+        </button>
+      </div>
+      <div class="cu-multi-select-content" data-cu-multi-select-content hidden>
+        <div class="cu-multi-select-list" data-cu-multi-select-list>
+          <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="react">React</div>
+          <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="node">Node.js</div>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <button id="outside" class="cu-button cu-button-ghost">Outside</button>
 

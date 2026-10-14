@@ -471,21 +471,26 @@ A11y (APG Date Picker Dialog + grid, set by JS): trigger `aria-haspopup="dialog"
 **Multi Select** ⚡ Interactive — multiple selection with tags
 Key data attributes: `data-cu-multi-select`, `data-cu-multi-select-trigger`, `data-cu-multi-select-content`, `data-cu-multi-select-input`, `data-cu-multi-select-item` (with `data-cu-value`), `data-cu-multi-select-tags`, `data-cu-multi-select-placeholder`, `data-cu-multi-select-list`, `data-cu-multi-select-empty`
 Search debounce (optional): `data-cu-multi-select-debounce="300"` on the root delays filtering until typing pauses for N ms (default: filter on every keystroke). Clearing the query, arrow keys and Enter apply pending filtering immediately. Events: `cu:multiselect:change` (`{ selected }`), `cu:multiselect:search` (`{ query }`, fired when the applied query changes — use it for remote search).
-A11y: same combobox ARIA as Combobox (search input, or the trigger when there is none, owns `aria-activedescendant`). Generated tag remove buttons are named "Remove {label}"; localize with `data-cu-multi-select-remove-text="移除 {label}"` on the root (`{label}` = item text).
+Structure: `cu-multi-select-control` (the box) holds the tags container `data-cu-multi-select-tags` and the trigger `<button>` as SIBLINGS — tags carry their own remove `<button type="button">`, so never put the tags inside the trigger (markup from earlier versions that does is restructured on init). The placeholder lives in the trigger; leave the tags container empty (JS renders tags, it collapses while empty). Clicking empty space in the control opens the panel.
+A11y: same combobox ARIA as Combobox (search input, or the trigger when there is none, owns `aria-activedescendant`). Generated tag remove buttons are named "Remove {label}"; localize with `data-cu-multi-select-remove-text="移除 {label}"` on the root (`{label}` = item text). Remove buttons precede the trigger in Tab order; removing one from the keyboard focuses the next tag's remove button, or the trigger after the last. The trigger keeps the placeholder text as its name (`aria-labelledby`) while tags hide it, unless it has `aria-label` / `aria-labelledby` / `<label for>`.
 ```html
 <div class="cu-multi-select" data-cu-multi-select>
-  <div class="cu-multi-select-trigger" data-cu-multi-select-trigger>
-    <div data-cu-multi-select-tags>
-      <span data-cu-multi-select-placeholder>Select options...</span>
-    </div>
+  <div class="cu-multi-select-control">
+    <div class="cu-multi-select-tags" data-cu-multi-select-tags></div>
+    <button type="button" class="cu-multi-select-trigger" data-cu-multi-select-trigger>
+      <span class="cu-multi-select-placeholder" data-cu-multi-select-placeholder>Select options...</span>
+      <svg class="cu-multi-select-icon"><!-- chevrons --></svg>
+    </button>
   </div>
   <div class="cu-multi-select-content" data-cu-multi-select-content hidden>
-    <input class="cu-multi-select-input" data-cu-multi-select-input placeholder="Search...">
-    <ul data-cu-multi-select-list>
-      <li class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="opt1">Option 1</li>
-      <li class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="opt2">Option 2</li>
-    </ul>
-    <div data-cu-multi-select-empty hidden>No results</div>
+    <div class="cu-multi-select-search">
+      <input class="cu-multi-select-input" data-cu-multi-select-input placeholder="Search...">
+    </div>
+    <div class="cu-multi-select-list" data-cu-multi-select-list>
+      <div class="cu-multi-select-empty" data-cu-multi-select-empty hidden>No results</div>
+      <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="opt1">Option 1</div>
+      <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="opt2">Option 2</div>
+    </div>
   </div>
 </div>
 ```

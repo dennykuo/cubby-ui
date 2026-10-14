@@ -7,6 +7,8 @@ function multiSelect(page: Page, id: string) {
   const root = page.locator(`#${id}`);
   return {
     root,
+    control: root.locator(".cu-multi-select-control"),
+    tagsEl: root.locator("[data-cu-multi-select-tags]"),
     trigger: root.locator("[data-cu-multi-select-trigger]"),
     content: root.locator("[data-cu-multi-select-content]"),
     input: root.locator("[data-cu-multi-select-input]"),
@@ -148,27 +150,124 @@ test.describe("Multi Select", () => {
     await expect(ms.content).toBeVisible();
   });
 
-  test("鍵盤刪除：Tab 到標籤的移除按鈕按 Enter，焦點回到 trigger", async ({ page }) => {
+  test("鍵盤刪除：移除按鈕在 trigger 之前的 Tab 順序；移除後焦點移到下一個標籤，最後一個之後為 trigger", async ({ page }) => {
     const ms = multiSelect(page, "ms-frameworks");
     await ms.trigger.click();
     await ms.item("React").click();
+    await ms.item("Vue").click();
     await ms.item("Angular").click();
     await page.keyboard.press("Escape");
     await expect(ms.content).toBeHidden();
 
+    // Tab 順序與視覺順序一致：標籤（移除按鈕）在前、trigger 在後
     await ms.trigger.focus();
-    await page.keyboard.press("Tab");
+    await page.keyboard.press("Shift+Tab");
+    await expect(ms.removeBtn("angular")).toBeFocused();
+    await page.keyboard.press("Shift+Tab");
+    await page.keyboard.press("Shift+Tab");
     await expect(ms.removeBtn("react")).toBeFocused();
+
     await page.keyboard.press("Enter");
-    await expect.poll(ms.tagLabels).toEqual(["Angular"]);
+    await expect.poll(ms.tagLabels).toEqual(["Vue", "Angular"]);
     await expect(ms.content).toBeHidden();
-    await expect(ms.trigger).toBeFocused();
+    await expect(ms.removeBtn("vue")).toBeFocused();
 
     await ms.removeBtn("angular").focus();
     await page.keyboard.press("Space");
+    await expect.poll(ms.tagLabels).toEqual(["Vue"]);
+    await expect(ms.trigger).toBeFocused();
+
+    await page.keyboard.press("Shift+Tab");
+    await expect(ms.removeBtn("vue")).toBeFocused();
+    await page.keyboard.press("Enter");
     await expect(ms.tags).toHaveCount(0);
     await expect(ms.placeholder).toBeVisible();
     await expect(ms.trigger).toBeFocused();
+    expect((await events(page)).map((e: any) => e.selected).slice(-3)).toEqual([["vue", "angular"], ["vue"], []]);
+  });
+
+  test("結構：標籤與移除按鈕在 trigger 之外（不是巢狀互動元素），移除按鈕為 type=\"button\"", async ({ page }) => {
+    const ms = multiSelect(page, "ms-preset");
+    await expect.poll(ms.tagLabels).toEqual(["Bug", "Feature"]);
+    // trigger 內沒有任何互動元素；標籤容器是 trigger 的兄弟、包在 control 內
+    await expect(ms.trigger.locator("button, [tabindex]")).toHaveCount(0);
+    await expect(ms.control.locator(":scope > [data-cu-multi-select-tags] + [data-cu-multi-select-trigger]")).toHaveCount(1);
+    for (const btn of await ms.root.locator(".cu-multi-select-tag-remove").all()) {
+      await expect(btn).toHaveAttribute("type", "button");
+    }
+    // 沒有寫 type 的 trigger 由 JS 補上
+    await expect(ms.trigger).toHaveAttribute("type", "button");
+    // 沒有標籤時標籤容器不佔空間
+    await expect(multiSelect(page, "ms-frameworks").tagsEl).toBeHidden();
+  });
+
+  test("舊版結構（標籤容器在 trigger 內）初始化時轉為 control 結構，外觀與互動相同", async ({ page }) => {
+    const ms = multiSelect(page, "ms-legacy");
+    await expect(ms.control).toHaveCount(1);
+    await expect(ms.trigger.locator("[data-cu-multi-select-tags]")).toHaveCount(0);
+    await expect(ms.control.locator(":scope > [data-cu-multi-select-tags] + [data-cu-multi-select-trigger]")).toHaveCount(1);
+    await expect(ms.trigger.locator("[data-cu-multi-select-placeholder]")).toHaveCount(1);
+    await expect.poll(ms.tagLabels).toEqual(["Red"]);
+    await expect(ms.trigger.locator("button")).toHaveCount(0);
+
+    // 外框由 control 繪製，trigger 本身無邊框
+    const border = (l: typeof ms.control) => l.evaluate((el) => getComputedStyle(el).borderTopWidth);
+    expect(await border(ms.control)).toBe("1px");
+    expect(await border(ms.trigger)).toBe("0px");
+
+    await ms.trigger.click();
+    await ms.item("Blue").click();
+    await expect.poll(ms.tagLabels).toEqual(["Red", "Blue"]);
+    await ms.removeBtn("red").click();
+    await expect.poll(ms.tagLabels).toEqual(["Blue"]);
+  });
+
+  test("點擊 control 的空白處（標籤之間 / padding）開啟面板並聚焦 trigger；點標籤文字也會開啟", async ({ page }) => {
+    const ms = multiSelect(page, "ms-preset");
+    const box = (await ms.control.boundingBox())!;
+    await page.mouse.click(box.x + 3, box.y + box.height / 2); // 左側 padding
+    await expect(ms.content).toBeVisible();
+    await expect(ms.trigger).toBeFocused();
+    await expect(ms.trigger).toHaveAttribute("aria-expanded", "true");
+
+    await page.keyboard.press("Escape");
+    await expect(ms.content).toBeHidden();
+    await ms.tags.first().click({ position: { x: 4, y: 4 } });
+    await expect(ms.content).toBeVisible();
+    // 有搜尋框時焦點移到搜尋框
+    const members = multiSelect(page, "ms-members");
+    const mbox = (await members.control.boundingBox())!;
+    await page.mouse.click(mbox.x + 3, mbox.y + mbox.height / 2);
+    await expect(members.content).toBeVisible();
+    await expect(members.input).toBeFocused();
+  });
+
+  test("trigger 的無障礙名稱：標籤隱藏 placeholder 後仍以其文字命名；<label for> 優先", async ({ page }) => {
+    const ms = multiSelect(page, "ms-members");
+    await expect(ms.trigger).toHaveAccessibleName("Select members...");
+    await ms.trigger.click();
+    await ms.item("Bob").click();
+    await expect(ms.placeholder).toBeHidden();
+    await expect(ms.trigger).toHaveAccessibleName("Select members...");
+
+    const labelled = multiSelect(page, "ms-labelled");
+    await expect(labelled.trigger).not.toHaveAttribute("aria-labelledby");
+    await expect(labelled.trigger).toHaveAccessibleName("Technologies");
+  });
+
+  test("鍵盤焦點可見：trigger focus-visible 時 control 顯示焦點環，移除按鈕也有焦點環", async ({ page }) => {
+    const ms = multiSelect(page, "ms-preset");
+    const ring = (l: typeof ms.control) => l.evaluate((el) => getComputedStyle(el).boxShadow);
+    const before = await ring(ms.control);
+    await ms.removeBtn("feature").focus();
+    await page.keyboard.press("Tab");
+    await expect(ms.trigger).toBeFocused();
+    await expect.poll(() => ring(ms.control)).not.toBe(before);
+
+    await page.keyboard.press("Shift+Tab");
+    await expect(ms.removeBtn("feature")).toBeFocused();
+    expect(await ring(ms.removeBtn("feature"))).not.toBe("none");
+    await expect.poll(() => ring(ms.control)).toBe(before);
   });
 
   test("輸入篩選（不分大小寫）、無結果狀態，篩選後鍵盤只在可見項目間移動", async ({ page }) => {

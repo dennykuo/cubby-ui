@@ -11,12 +11,13 @@ const SO = "<" + "script>";
 const SC = "</" + "script>";
 
 const usageCode = `<div class="cu-multi-select" data-cu-multi-select style="width: 300px;">
-  <button class="cu-multi-select-trigger" data-cu-multi-select-trigger>
-    <div class="cu-multi-select-tags" data-cu-multi-select-tags>
+  <div class="cu-multi-select-control">
+    <div class="cu-multi-select-tags" data-cu-multi-select-tags></div>
+    <button type="button" class="cu-multi-select-trigger" data-cu-multi-select-trigger>
       <span class="cu-multi-select-placeholder" data-cu-multi-select-placeholder>Select frameworks...</span>
-    </div>
-    <svg class="cu-multi-select-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 15 5 5 5-5"/><path d="m7 9 5-5 5 5"/></svg>
-  </button>
+      <svg class="cu-multi-select-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 15 5 5 5-5"/><path d="m7 9 5-5 5 5"/></svg>
+    </button>
+  </div>
   <div class="cu-multi-select-content" data-cu-multi-select-content hidden>
     <div class="cu-multi-select-list" data-cu-multi-select-list>
       <div class="cu-multi-select-empty" data-cu-multi-select-empty hidden>No results found.</div>
@@ -27,99 +28,16 @@ const usageCode = `<div class="cu-multi-select" data-cu-multi-select style="widt
       <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="astro">Astro</div>
     </div>
   </div>
-</div>
-
-${SO}
-  document.querySelectorAll("[data-cu-multi-select]").forEach((ms) => {
-    const trigger = ms.querySelector("[data-cu-multi-select-trigger]");
-    const content = ms.querySelector("[data-cu-multi-select-content]");
-    const input = ms.querySelector("[data-cu-multi-select-input]");
-    const items = ms.querySelectorAll("[data-cu-multi-select-item]");
-    const empty = ms.querySelector("[data-cu-multi-select-empty]");
-    const tagsEl = ms.querySelector("[data-cu-multi-select-tags]");
-    const placeholder = ms.querySelector("[data-cu-multi-select-placeholder]");
-    const selected = new Set();
-
-    function renderTags() {
-      tagsEl.querySelectorAll(".cu-multi-select-tag").forEach((t) => t.remove());
-      if (selected.size === 0) {
-        if (placeholder) placeholder.hidden = false;
-      } else {
-        if (placeholder) placeholder.hidden = true;
-        selected.forEach((val) => {
-          const item = ms.querySelector('[data-cu-value="' + val + '"]');
-          const tag = document.createElement("span");
-          tag.className = "cu-multi-select-tag";
-          tag.innerHTML = item.textContent + '<button class="cu-multi-select-tag-remove" data-cu-remove="' + val + '">&times;</button>';
-          tag.querySelector("[data-cu-remove]").addEventListener("click", (e) => {
-            e.stopPropagation();
-            selected.delete(val);
-            item.classList.remove("cu-multi-select-item-active");
-            renderTags();
-          });
-          tagsEl.appendChild(tag);
-        });
-      }
-    }
-
-    trigger?.addEventListener("click", (e) => {
-      e.stopPropagation();
-      const isHidden = content?.hasAttribute("hidden");
-      content?.toggleAttribute("hidden");
-      if (isHidden && input) input.focus();
-    });
-
-    if (input) {
-      input.addEventListener("input", () => {
-        const query = input.value.toLowerCase();
-        let visible = 0;
-        items.forEach((item) => {
-          const match = item.textContent.toLowerCase().includes(query);
-          item.toggleAttribute("hidden", !match);
-          if (match) visible++;
-        });
-        empty?.toggleAttribute("hidden", visible > 0);
-      });
-    }
-
-    items.forEach((item) => {
-      item.addEventListener("click", (e) => {
-        e.stopPropagation();
-        const val = item.dataset.value;
-        if (selected.has(val)) {
-          selected.delete(val);
-          item.classList.remove("cu-multi-select-item-active");
-        } else {
-          selected.add(val);
-          item.classList.add("cu-multi-select-item-active");
-        }
-        renderTags();
-      });
-    });
-
-    document.addEventListener("click", (e) => {
-      if (!ms.contains(e.target)) {
-        content?.setAttribute("hidden", "");
-        if (input) { input.value = ""; input.dispatchEvent(new Event("input")); }
-      }
-    });
-
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape") {
-        content?.setAttribute("hidden", "");
-        if (input) { input.value = ""; input.dispatchEvent(new Event("input")); }
-      }
-    });
-  });
-${SC}`.trim();
+</div>`.trim();
 
 const withSearchCode = `<div class="cu-multi-select" data-cu-multi-select style="width: 300px;">
-  <button class="cu-multi-select-trigger" data-cu-multi-select-trigger>
-    <div class="cu-multi-select-tags" data-cu-multi-select-tags>
+  <div class="cu-multi-select-control">
+    <div class="cu-multi-select-tags" data-cu-multi-select-tags></div>
+    <button type="button" class="cu-multi-select-trigger" data-cu-multi-select-trigger>
       <span class="cu-multi-select-placeholder" data-cu-multi-select-placeholder>Select members...</span>
-    </div>
-    <svg class="cu-multi-select-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 15 5 5 5-5"/><path d="m7 9 5-5 5 5"/></svg>
-  </button>
+      <svg class="cu-multi-select-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 15 5 5 5-5"/><path d="m7 9 5-5 5 5"/></svg>
+    </button>
+  </div>
   <div class="cu-multi-select-content" data-cu-multi-select-content hidden>
     <div class="cu-multi-select-search">
       <svg class="cu-multi-select-search-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
@@ -137,12 +55,13 @@ const withSearchCode = `<div class="cu-multi-select" data-cu-multi-select style=
 </div>`.trim();
 
 const presetCode = `<div class="cu-multi-select" data-cu-multi-select style="width: 300px;">
-  <button class="cu-multi-select-trigger" data-cu-multi-select-trigger>
-    <div class="cu-multi-select-tags" data-cu-multi-select-tags>
+  <div class="cu-multi-select-control">
+    <div class="cu-multi-select-tags" data-cu-multi-select-tags></div>
+    <button type="button" class="cu-multi-select-trigger" data-cu-multi-select-trigger>
       <span class="cu-multi-select-placeholder" data-cu-multi-select-placeholder>Select tags...</span>
-    </div>
-    <svg class="cu-multi-select-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 15 5 5 5-5"/><path d="m7 9 5-5 5 5"/></svg>
-  </button>
+      <svg class="cu-multi-select-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 15 5 5 5-5"/><path d="m7 9 5-5 5 5"/></svg>
+    </button>
+  </div>
   <div class="cu-multi-select-content" data-cu-multi-select-content hidden>
     <div class="cu-multi-select-list" data-cu-multi-select-list>
       <div class="cu-multi-select-item cu-multi-select-item-active" data-cu-multi-select-item data-cu-value="bug">Bug</div>
@@ -157,12 +76,13 @@ const presetCode = `<div class="cu-multi-select" data-cu-multi-select style="wid
 const withFormGroupCode = `<div class="cu-form-group" style="width: 300px;">
   <label class="cu-label" for="tech-select">Technologies</label>
   <div class="cu-multi-select w-full" data-cu-multi-select>
-    <button id="tech-select" class="cu-multi-select-trigger w-full" data-cu-multi-select-trigger>
-      <div class="cu-multi-select-tags" data-cu-multi-select-tags>
+    <div class="cu-multi-select-control">
+      <div class="cu-multi-select-tags" data-cu-multi-select-tags></div>
+      <button id="tech-select" type="button" class="cu-multi-select-trigger" data-cu-multi-select-trigger>
         <span class="cu-multi-select-placeholder" data-cu-multi-select-placeholder>Select technologies...</span>
-      </div>
-      <svg class="cu-multi-select-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 15 5 5 5-5"/><path d="m7 9 5-5 5 5"/></svg>
-    </button>
+        <svg class="cu-multi-select-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 15 5 5 5-5"/><path d="m7 9 5-5 5 5"/></svg>
+      </button>
+    </div>
     <div class="cu-multi-select-content" data-cu-multi-select-content hidden>
       <div class="cu-multi-select-list" data-cu-multi-select-list>
         <div class="cu-multi-select-empty" data-cu-multi-select-empty hidden>No results found.</div>
@@ -177,12 +97,13 @@ const withFormGroupCode = `<div class="cu-form-group" style="width: 300px;">
   <p class="cu-form-description">Choose the technologies used in this project.</p>
 </div>`.trim();
 const debounceCode = `<div class="cu-multi-select" id="language-select" data-cu-multi-select data-cu-multi-select-debounce="300" style="width: 300px;">
-  <button class="cu-multi-select-trigger" data-cu-multi-select-trigger>
-    <div class="cu-multi-select-tags" data-cu-multi-select-tags>
+  <div class="cu-multi-select-control">
+    <div class="cu-multi-select-tags" data-cu-multi-select-tags></div>
+    <button type="button" class="cu-multi-select-trigger" data-cu-multi-select-trigger>
       <span class="cu-multi-select-placeholder" data-cu-multi-select-placeholder>Select languages...</span>
-    </div>
-    <svg class="cu-multi-select-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 15 5 5 5-5"/><path d="m7 9 5-5 5 5"/></svg>
-  </button>
+      <svg class="cu-multi-select-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 15 5 5 5-5"/><path d="m7 9 5-5 5 5"/></svg>
+    </button>
+  </div>
   <div class="cu-multi-select-content" data-cu-multi-select-content hidden>
     <div class="cu-multi-select-search">
       <svg class="cu-multi-select-search-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
@@ -226,12 +147,13 @@ ${SC}`.trim();
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
             <ComponentPreview code={usageCode}>
                 <div class="cu-multi-select" data-cu-multi-select style="width: 300px;">
-                    <button class="cu-multi-select-trigger" data-cu-multi-select-trigger>
-                        <div class="cu-multi-select-tags" data-cu-multi-select-tags>
+                    <div class="cu-multi-select-control">
+                        <div class="cu-multi-select-tags" data-cu-multi-select-tags></div>
+                        <button type="button" class="cu-multi-select-trigger" data-cu-multi-select-trigger>
                             <span class="cu-multi-select-placeholder" data-cu-multi-select-placeholder>Select frameworks...</span>
-                        </div>
-                        <svg class="cu-multi-select-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 15 5 5 5-5"/><path d="m7 9 5-5 5 5"/></svg>
-                    </button>
+                            <svg class="cu-multi-select-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 15 5 5 5-5"/><path d="m7 9 5-5 5 5"/></svg>
+                        </button>
+                    </div>
                     <div class="cu-multi-select-content" data-cu-multi-select-content hidden>
                         <div class="cu-multi-select-list" data-cu-multi-select-list>
                             <div class="cu-multi-select-empty" data-cu-multi-select-empty hidden>No results found.</div>
@@ -261,6 +183,10 @@ ${SC}`.trim();
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-multi-select</code></td>
                             <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-multi-select']}</td>
+                        </tr>
+                        <tr class="cu-table-row">
+                            <td class="cu-table-cell"><code class="cu-code">cu-multi-select-control</code></td>
+                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-multi-select-control']}</td>
                         </tr>
                         <tr class="cu-table-row">
                             <td class="cu-table-cell"><code class="cu-code">cu-multi-select-trigger</code></td>
@@ -334,12 +260,13 @@ ${SC}`.trim();
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withSearch.description} />
             <ComponentPreview code={withSearchCode}>
                 <div class="cu-multi-select" data-cu-multi-select style="width: 300px;">
-                    <button class="cu-multi-select-trigger" data-cu-multi-select-trigger>
-                        <div class="cu-multi-select-tags" data-cu-multi-select-tags>
+                    <div class="cu-multi-select-control">
+                        <div class="cu-multi-select-tags" data-cu-multi-select-tags></div>
+                        <button type="button" class="cu-multi-select-trigger" data-cu-multi-select-trigger>
                             <span class="cu-multi-select-placeholder" data-cu-multi-select-placeholder>Select members...</span>
-                        </div>
-                        <svg class="cu-multi-select-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 15 5 5 5-5"/><path d="m7 9 5-5 5 5"/></svg>
-                    </button>
+                            <svg class="cu-multi-select-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 15 5 5 5-5"/><path d="m7 9 5-5 5 5"/></svg>
+                        </button>
+                    </div>
                     <div class="cu-multi-select-content" data-cu-multi-select-content hidden>
                         <div class="cu-multi-select-search">
                             <svg class="cu-multi-select-search-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
@@ -364,12 +291,13 @@ ${SC}`.trim();
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.debounce.description} />
             <ComponentPreview code={debounceCode}>
                 <div class="cu-multi-select" data-cu-multi-select data-cu-multi-select-debounce="300" style="width: 300px;">
-                    <button class="cu-multi-select-trigger" data-cu-multi-select-trigger>
-                        <div class="cu-multi-select-tags" data-cu-multi-select-tags>
+                    <div class="cu-multi-select-control">
+                        <div class="cu-multi-select-tags" data-cu-multi-select-tags></div>
+                        <button type="button" class="cu-multi-select-trigger" data-cu-multi-select-trigger>
                             <span class="cu-multi-select-placeholder" data-cu-multi-select-placeholder>Select languages...</span>
-                        </div>
-                        <svg class="cu-multi-select-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 15 5 5 5-5"/><path d="m7 9 5-5 5 5"/></svg>
-                    </button>
+                            <svg class="cu-multi-select-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 15 5 5 5-5"/><path d="m7 9 5-5 5 5"/></svg>
+                        </button>
+                    </div>
                     <div class="cu-multi-select-content" data-cu-multi-select-content hidden>
                         <div class="cu-multi-select-search">
                             <svg class="cu-multi-select-search-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
@@ -396,12 +324,13 @@ ${SC}`.trim();
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.presetValues.description} />
             <ComponentPreview code={presetCode}>
                 <div class="cu-multi-select" data-cu-multi-select style="width: 300px;">
-                    <button class="cu-multi-select-trigger" data-cu-multi-select-trigger>
-                        <div class="cu-multi-select-tags" data-cu-multi-select-tags>
+                    <div class="cu-multi-select-control">
+                        <div class="cu-multi-select-tags" data-cu-multi-select-tags></div>
+                        <button type="button" class="cu-multi-select-trigger" data-cu-multi-select-trigger>
                             <span class="cu-multi-select-placeholder" data-cu-multi-select-placeholder>Select tags...</span>
-                        </div>
-                        <svg class="cu-multi-select-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 15 5 5 5-5"/><path d="m7 9 5-5 5 5"/></svg>
-                    </button>
+                            <svg class="cu-multi-select-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 15 5 5 5-5"/><path d="m7 9 5-5 5 5"/></svg>
+                        </button>
+                    </div>
                     <div class="cu-multi-select-content" data-cu-multi-select-content hidden>
                         <div class="cu-multi-select-list" data-cu-multi-select-list>
                             <div class="cu-multi-select-item cu-multi-select-item-active" data-cu-multi-select-item data-cu-value="bug">Bug</div>
@@ -423,12 +352,13 @@ ${SC}`.trim();
                 <div class="cu-form-group" style="width: 300px;">
                     <label class="cu-label" for="tech-select">Technologies</label>
                     <div class="cu-multi-select w-full" data-cu-multi-select>
-                        <button id="tech-select" class="cu-multi-select-trigger w-full" data-cu-multi-select-trigger>
-                            <div class="cu-multi-select-tags" data-cu-multi-select-tags>
+                        <div class="cu-multi-select-control">
+                            <div class="cu-multi-select-tags" data-cu-multi-select-tags></div>
+                            <button id="tech-select" type="button" class="cu-multi-select-trigger" data-cu-multi-select-trigger>
                                 <span class="cu-multi-select-placeholder" data-cu-multi-select-placeholder>Select technologies...</span>
-                            </div>
-                            <svg class="cu-multi-select-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 15 5 5 5-5"/><path d="m7 9 5-5 5 5"/></svg>
-                        </button>
+                                <svg class="cu-multi-select-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 15 5 5 5-5"/><path d="m7 9 5-5 5 5"/></svg>
+                            </button>
+                        </div>
                         <div class="cu-multi-select-content" data-cu-multi-select-content hidden>
                             <div class="cu-multi-select-list" data-cu-multi-select-list>
                                 <div class="cu-multi-select-empty" data-cu-multi-select-empty hidden>No results found.</div>

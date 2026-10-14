@@ -125,19 +125,23 @@ CubbyUI.refresh()  // 清理已移除元素 + 重新 init（動態內容更新�
 ### Multi Select
 ```html
 <div class="cu-multi-select" data-cu-multi-select>
-  <div class="cu-multi-select-trigger" data-cu-multi-select-trigger>
-    <div data-cu-multi-select-tags>
-      <span data-cu-multi-select-placeholder>Select options...</span>
-    </div>
+  <!-- Tags (with remove buttons) are rendered by JS next to the trigger — never inside the trigger <button> -->
+  <div class="cu-multi-select-control">
+    <div class="cu-multi-select-tags" data-cu-multi-select-tags></div>
+    <button type="button" class="cu-multi-select-trigger" data-cu-multi-select-trigger>
+      <span class="cu-multi-select-placeholder" data-cu-multi-select-placeholder>Select options...</span>
+    </button>
   </div>
   <div class="cu-multi-select-content" data-cu-multi-select-content hidden>
-    <input class="cu-multi-select-input" data-cu-multi-select-input placeholder="Search...">
-    <ul data-cu-multi-select-list>
+    <div class="cu-multi-select-search">
+      <input class="cu-multi-select-input" data-cu-multi-select-input placeholder="Search...">
+    </div>
+    <div class="cu-multi-select-list" data-cu-multi-select-list>
       <!-- data-cu-value required for tag rendering -->
-      <li class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="opt1">Option 1</li>
-      <li class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="opt2">Option 2</li>
-    </ul>
-    <div data-cu-multi-select-empty hidden>No results</div>
+      <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="opt1">Option 1</div>
+      <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="opt2">Option 2</div>
+      <div class="cu-multi-select-empty" data-cu-multi-select-empty hidden>No results</div>
+    </div>
   </div>
 </div>
 ```
