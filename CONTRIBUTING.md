@@ -38,7 +38,7 @@ npm run test         # check:sync → test:blade → test:e2e
 
 PR 推送後 `.github/workflows/ci.yml` 會執行以下檢查，請先在本機確認通過：
 
-- `npm run check:sync` — 元件清單在各來源（`component-nav.ts` / 頁面 / i18n / CSS / `components.json` / `llms.txt` / README 元件分類表）一致；`src/scripts/` 各模組使用的 `data-cu-*` 與 `cubby-ui.d.ts` 的 `DATA_ATTRS` 雙向一致
+- `npm run check:sync` — 元件清單在各來源（`component-nav.ts` / 頁面 / i18n / CSS / `components.json` / `llms.txt` / README 元件分類表）一致；`src/scripts/` 各模組使用的 `data-cu-*`（含 `el.dataset.cuXxx` camelCase 存取）與 `cubby-ui.d.ts` 的 `DATA_ATTRS` 雙向一致
 - `npm run type-check` — 0 errors（`astro check` 與 `src/scripts/` 互動 JS 的 `tsc -p tsconfig.scripts.json`）
 - `npm run lint` — ESLint 0 problems（範圍 `src/scripts/`）
 - `npm run build` 與 `npm run build:blade` — 建置通過

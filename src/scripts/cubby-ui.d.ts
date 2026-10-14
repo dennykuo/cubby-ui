@@ -348,6 +348,8 @@ export declare const DATA_ATTRS: {
   readonly RESIZABLE: 'data-cu-resizable';
   readonly RESIZABLE_PANEL: 'data-cu-resizable-panel';
   readonly RESIZABLE_HANDLE: 'data-cu-resizable-handle';
+  readonly RESIZABLE_MIN_SIZE: 'data-cu-min-size'; // on a panel: minimum size in % of the container
+  readonly RESIZABLE_MAX_SIZE: 'data-cu-max-size'; // on a panel: maximum size in % of the container
 
   // Command Palette
   readonly COMMAND: 'data-cu-command';
@@ -387,6 +389,7 @@ export declare const DATA_ATTRS: {
   readonly COLOR_PICKER_INPUT: 'data-cu-color-picker-input';
   readonly COLOR_PICKER_HIDDEN: 'data-cu-color-picker-hidden';
   readonly COLOR_PICKER_SWATCH: 'data-cu-color-picker-swatch';
+  readonly COLOR_PICKER_VALUE: 'data-cu-color-picker-value'; // on the root: initial hex color (hidden input value wins)
 
   // State attributes (set / removed by the runtime; useful as CSS hooks)
   readonly STATE_OPEN: 'data-cu-open'; // Speed Dial actions panel
