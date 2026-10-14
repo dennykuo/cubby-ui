@@ -129,6 +129,33 @@
       <button id="submit" type="submit" class="cu-button cu-button-default">Submit</button>
     </form>
 
+    <!-- 沒有搜尋框（select-only）時 trigger 的無障礙名稱：作者提供的名稱優先，否則以 placeholder 文字補上 -->
+    <label id="ms-labelled-label" for="ms-labelled-trigger">Labels</label>
+    <div id="ms-labelled" class="cu-multi-select" data-cu-multi-select style="width: 300px">
+      <button id="ms-labelled-trigger" type="button" class="cu-multi-select-trigger" data-cu-multi-select-trigger>
+        <div class="cu-multi-select-tags" data-cu-multi-select-tags>
+          <span class="cu-multi-select-placeholder" data-cu-multi-select-placeholder>Select labels...</span>
+        </div>
+      </button>
+      <div class="cu-multi-select-content" data-cu-multi-select-content hidden>
+        <div class="cu-multi-select-list" data-cu-multi-select-list>
+          <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="a">A</div>
+        </div>
+      </div>
+    </div>
+    <div id="ms-aria" class="cu-multi-select" data-cu-multi-select style="width: 300px">
+      <button type="button" class="cu-multi-select-trigger" data-cu-multi-select-trigger aria-label="Assignees">
+        <div class="cu-multi-select-tags" data-cu-multi-select-tags>
+          <span class="cu-multi-select-placeholder" data-cu-multi-select-placeholder>Select assignees...</span>
+        </div>
+      </button>
+      <div class="cu-multi-select-content" data-cu-multi-select-content hidden>
+        <div class="cu-multi-select-list" data-cu-multi-select-list>
+          <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="a">A</div>
+        </div>
+      </div>
+    </div>
+
     <button id="outside" class="cu-button cu-button-ghost">Outside</button>
 
     <script>

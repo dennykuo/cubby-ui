@@ -122,6 +122,30 @@
       <button id="submit" type="submit" class="cu-button cu-button-default">Submit</button>
     </form>
 
+    <!-- 沒有搜尋框（select-only）時 trigger 的無障礙名稱：placeholder 文字補上；已預選值時不拿值當名稱 -->
+    <div id="cb-select" class="cu-combobox" data-cu-combobox style="width: 200px">
+      <button type="button" class="cu-combobox-trigger" data-cu-combobox-trigger>
+        <span data-cu-combobox-value class="cu-combobox-trigger-placeholder">Select status...</span>
+      </button>
+      <div class="cu-combobox-content" data-cu-combobox-content hidden>
+        <div class="cu-combobox-list" data-cu-combobox-list>
+          <div class="cu-combobox-item" data-cu-combobox-item data-cu-value="open">Open</div>
+          <div class="cu-combobox-item" data-cu-combobox-item data-cu-value="closed">Closed</div>
+        </div>
+      </div>
+    </div>
+    <div id="cb-select-preset" class="cu-combobox" data-cu-combobox style="width: 200px">
+      <button type="button" class="cu-combobox-trigger" data-cu-combobox-trigger>
+        <span data-cu-combobox-value>Open</span>
+      </button>
+      <div class="cu-combobox-content" data-cu-combobox-content hidden>
+        <div class="cu-combobox-list" data-cu-combobox-list>
+          <div class="cu-combobox-item cu-combobox-item-active" data-cu-combobox-item data-cu-value="open">Open</div>
+          <div class="cu-combobox-item" data-cu-combobox-item data-cu-value="closed">Closed</div>
+        </div>
+      </div>
+    </div>
+
     <button id="outside" class="cu-button cu-button-ghost">Outside</button>
 
     <script>

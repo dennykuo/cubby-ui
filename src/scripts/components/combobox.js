@@ -71,7 +71,9 @@ export function setupComboboxes() {
     if (content) {
       var list = content.querySelector("[data-cu-combobox-list]") || content;
       list.setAttribute("role", "listbox");
-      setupComboboxAria(trigger, input, content, list, "cu-combobox-item-highlight", "cu-combobox");
+      // 已預選值時 valueEl 顯示的是值而非 placeholder，不能拿來當名稱
+      var placeholderEl = valueEl && valueEl.classList.contains("cu-combobox-trigger-placeholder") ? valueEl : null;
+      setupComboboxAria(trigger, input, content, list, "cu-combobox-item-highlight", "cu-combobox", placeholderEl);
     }
     syncItemsAria();
 

@@ -295,7 +295,9 @@ test.describe("Combobox", () => {
 
     // 每個 Combobox 的 listbox id 都不同
     const ids = await page.locator("[data-cu-combobox-list]").evaluateAll((els) => els.map((el) => el.id));
-    expect(new Set(ids).size).toBe(3);
+    expect(ids.length).toBeGreaterThan(1);
+    expect(ids.every(Boolean)).toBe(true);
+    expect(new Set(ids).size).toBe(ids.length);
   });
 
   test("高亮項目以 aria-activedescendant 告知輔助技術，篩掉或關閉時清除", async ({ page }) => {
@@ -325,5 +327,22 @@ test.describe("Combobox", () => {
     await page.keyboard.press("Escape");
     await expect(cb.content).toBeHidden();
     await expect(cb.input).not.toHaveAttribute("aria-activedescendant");
+  });
+
+  test("select-only trigger 的無障礙名稱：placeholder 補上 aria-label；已預選值時不拿值當名稱", async ({ page }) => {
+    const select = combobox(page, "cb-select");
+    await expect(select.trigger).toHaveAttribute("role", "combobox");
+    await expect(select.trigger).toHaveAccessibleName("Select status...");
+    // 選取後名稱不變（顯示文字成為值）
+    await select.trigger.click();
+    await select.root.locator("[data-cu-combobox-item]", { hasText: "Closed" }).click();
+    await expect(select.value).toHaveText("Closed");
+    await expect(select.trigger).toHaveAccessibleName("Select status...");
+
+    const preset = combobox(page, "cb-select-preset");
+    await expect(preset.trigger).toHaveAttribute("role", "combobox");
+    await expect(preset.trigger).not.toHaveAttribute("aria-label");
+    // 有搜尋框時 trigger 仍是 button
+    await expect(combobox(page, "cb-framework").trigger).not.toHaveAttribute("aria-label");
   });
 });
