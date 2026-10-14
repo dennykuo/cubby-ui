@@ -97,7 +97,7 @@ export function docsExamples(): Example[] {
 export function knownDataAttrs(): string[] {
   const dts = read("dist/core/cubby-ui.d.ts");
   const block = dts.slice(dts.indexOf("export declare const DATA_ATTRS"));
-  const attrs = new Set([...block.matchAll(/readonly\s+[A-Z0-9_]+:\s*'(data-cu-[a-z0-9-]+)'/g)].map((m) => m[1]));
+  const attrs = new Set([...block.matchAll(/readonly\s+[A-Z0-9_]+:\s*["'](data-cu-[a-z0-9-]+)["']/g)].map((m) => m[1]));
   for (const m of read("dist/core/cubby-ui.js").matchAll(/dataset\.cu([A-Z][A-Za-z0-9]*)/g)) {
     attrs.add("data-cu-" + m[1].replace(/[A-Z]/g, (c, i: number) => (i === 0 ? "" : "-") + c.toLowerCase()));
   }

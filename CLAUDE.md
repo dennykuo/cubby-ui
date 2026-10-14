@@ -26,7 +26,8 @@ Cubby UI 是一個框架無關的 UI 元件庫，風格類似 shadcn/ui，使用
 - `npm run version-packages` — `changeset version`：依 `.changeset/` 決定版本號、寫入 `CHANGELOG.md` 並刪除已消耗的 changeset（發版時執行）
 - `npm run type-check` — `astro check`（`tsconfig.json` 已排除 `dist/` 與 `docs/`）→ `type-check:scripts`
 - `npm run type-check:scripts` — `tsc -p tsconfig.scripts.json`：以 `checkJs` 檢查 `src/scripts/` 的元件庫 JS（`index.js` / `core/` / `components/`；不含文檔站專用的 `playground.js`）。非 strict（未開 `strictNullChecks` / `noImplicitAny`），`lib` 為 `es2017` + DOM，誤用更新的執行期 API 會報錯
-- `npm run lint` — ESLint flat config（`eslint.config.js`），範圍 `src/scripts/`（含 `playground.js`，以 `sourceType: "script"` 檢查）；只啟用 `@eslint/js` recommended 與少數正確性規則，**不含任何排版 / 風格規則，也不使用 Prettier**
+- `npm run lint` — ESLint flat config（`eslint.config.js`），範圍 `src/scripts/`（含 `playground.js`，以 `sourceType: "script"` 檢查）；只啟用 `@eslint/js` recommended 與少數正確性規則，**不含任何排版 / 風格規則**（排版交給 Prettier）
+- `npm run format` / `npm run format:check` — Prettier 格式化 / 檢查（`.prettierrc.json`：`printWidth` 120，`prettier-plugin-astro` + `prettier-plugin-tailwindcss` 依 `src/styles/global.css` 排序 class）；CI 在 lint 之後跑 `format:check`。範圍與例外見「格式化（Prettier）」
 
 ## Architecture
 
@@ -231,6 +232,13 @@ ARIA 無障礙支援：
 - **`@ts-ignore` / `@ts-expect-error`** 只在確實必要時使用並附理由（目前沒有任何一處）
 - **打包產物**：esbuild 會保留 `/** @type */` 轉型註解（其餘 JSDoc 會移除），因此 `dist/core/cubby-ui.js` 會出現這些註解；`cubby-ui.min.js` 由 terser 移除，執行行為不受影響
 - **ESLint 範圍**：`@eslint/js` recommended + `array-callback-return` / `no-eval` / `no-implied-eval` / `no-promise-executor-return` / `no-self-compare` / `no-template-curly-in-string` / `no-unmodified-loop-condition` / `no-unreachable-loop`；`no-unused-vars` 允許以 `_` 前綴忽略 catch 參數（ES5 不能省略 catch binding）。`playground.js` 以 `sourceType: "script"` 檢查，`CubbyUI` 宣告為全域
+
+### 格式化（Prettier）
+
+- 版本鎖定（`prettier` / `prettier-plugin-astro` / `prettier-plugin-tailwindcss` 皆為 exact 版本），升級會改變輸出，需與重新格式化放在同一個 commit
+- `.prettierignore` 排除：`*.md`、`llms.txt`、`.changeset/`（手寫排版）、`references/`、建置產物（`dist/`、`docs/`、`src/pages/zh-tw/`）、`package-lock.json`，以及 **`src/components/ui/`**：Blade 轉換器以 regex 解析這些 `.astro` 的 frontmatter / template，對排版敏感（例如箭頭函式本體被加上括號後，Button 的 size class 會在 Blade 輸出中遺失），改成 AST 解析前不要格式化
+- 以 regex 讀原始碼的腳本不可假設引號風格：Prettier 會把 `ui.ts` / `cubby-ui.d.ts` 的單引號改為雙引號，`check-component-sync.cjs` 與 `tests/e2e/example-sources.ts` 的 regex 皆接受兩種引號
+- 全專案格式化的 commit 登記在 `.git-blame-ignore-revs`；本機執行 `git config blame.ignoreRevsFile .git-blame-ignore-revs` 讓 `git blame` 略過（GitHub 介面會自動套用）
 
 ### 目錄結構
 

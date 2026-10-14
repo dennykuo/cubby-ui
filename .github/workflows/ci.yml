@@ -36,6 +36,9 @@ jobs:
       - name: Lint（ESLint，互動元件 JS 正確性規則）
         run: npm run lint
 
+      - name: 格式檢查（Prettier）
+        run: npm run format:check
+
       - name: Blade 回歸測試
         run: npm run test:blade
 

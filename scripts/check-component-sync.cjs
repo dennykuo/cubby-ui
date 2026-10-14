@@ -120,7 +120,7 @@ const jsAttrs = new Set(jsSources.flatMap((rel) => read(rel).match(ATTR_RE) || [
 const dtsSrc = read("src/scripts/cubby-ui.d.ts");
 const dtsBlock = dtsSrc.slice(dtsSrc.indexOf("export declare const DATA_ATTRS"));
 const dtsAttrs = new Set(
-  [...dtsBlock.matchAll(/readonly\s+[A-Z0-9_]+:\s*'(data-cu-[a-z0-9-]+)'/g)].map((m) => m[1])
+  [...dtsBlock.matchAll(/readonly\s+[A-Z0-9_]+:\s*["'](data-cu-[a-z0-9-]+)["']/g)].map((m) => m[1])
 );
 for (const a of jsAttrs)
   if (!dtsAttrs.has(a)) problems.push(`DATA_ATTRS 缺漏：src/scripts/ 使用 \`${a}\`，cubby-ui.d.ts 未列出`);
@@ -131,11 +131,11 @@ for (const a of dtsAttrs)
 const navSrc = read("src/data/component-nav.ts");
 const uiSrc = read("src/i18n/ui.ts");
 const navGroups = [
-  ...navSrc.matchAll(/\{\s*key:\s*"(\w+)"\s+as const,\s*items:\s*(\w+)\s*\}/g),
+  ...navSrc.matchAll(/\{\s*key:\s*"(\w+)"\s+as const,\s*items:\s*(\w+),?\s*\}/g),
 ].map(([, key, varName]) => {
   const block = navSrc.match(new RegExp(`export const ${varName}: NavItem\\[\\] = \\[([\\s\\S]*?)\\];`));
-  // 第一個 `key: '...'` 為英文標籤（interface 宣告為 `key: string;`，不會被匹配）
-  const label = uiSrc.match(new RegExp(`^\\s+${key}:\\s*'([^']+)'`, "m"));
+  // 第一個 `key: '...'`（Prettier 格式化後為雙引號，兩種都接受）為英文標籤（interface 宣告為 `key: string;`，不會被匹配）
+  const label = uiSrc.match(new RegExp(`^\\s+${key}:\\s*["']([^"']+)["']`, "m"));
   return {
     key,
     label: label ? label[1] : key,
