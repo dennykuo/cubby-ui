@@ -12,7 +12,8 @@
  * 每個元件渲染兩次：
  *   - defaults：不帶任何 prop
  *   - all-props：每個 prop 都給 truthy 值（boolean → true、數字 → 3、其餘 → 'x'），
- *     以走過條件分支
+ *     以走過條件分支。Astro 原始碼 `interface Props` 宣告為陣列（如 ColorPicker 的
+ *     `swatches?: string[]`）的 prop 改傳含兩個元素的陣列，讓 @foreach 等迴圈實際執行
  *
  * 每次渲染都帶 class="smoke-extra" id="smoke-id"，並以 DOMDocument 解析輸出
  * （與瀏覽器相同，重複屬性只保留第一個）確認：
@@ -42,6 +43,8 @@ use Illuminate\View\FileViewFinder;
 
 $componentsPath = realpath($argv[1] ?? '');
 $verbose = in_array('--verbose', $argv, true);
+// 用來查 prop 型別的 Astro 原始碼目錄（Blade 檔首行註解記錄了來源檔名）
+$astroDir = __DIR__ . '/../../src/components/ui';
 
 if ($componentsPath === false || !is_dir($componentsPath . '/cu')) {
     fwrite(STDERR, "找不到元件目錄：" . ($argv[1] ?? '(未指定)') . "\n");
@@ -116,14 +119,47 @@ function parseProps(string $source): array
 }
 
 /**
- * 依預設值型別產生 truthy 的屬性字串
+ * 由 Blade 檔首行的 `Auto-generated from Xxx.astro` 找到 Astro 原始檔，
+ * 回傳 interface Props 中宣告為陣列的 prop（名稱 → 元素型別）
+ *
+ * @return array<string, string>
  */
-function truthyAttributes(array $props): string
+function arrayPropsOf(string $bladeSource, string $astroDir): array
+{
+    if (!preg_match('/Auto-generated from (\w+\.astro)/', $bladeSource, $m)) {
+        return [];
+    }
+    $astroPath = $astroDir . '/' . $m[1];
+    if (!is_file($astroPath)) {
+        return [];
+    }
+    if (!preg_match('/interface Props\s*\{(.*?)\n\}/s', file_get_contents($astroPath), $interface)) {
+        return [];
+    }
+
+    preg_match_all('/^\s*(\w+)\??\s*:\s*(?:(\w+)\[\]|Array<(\w+)>)\s*;/m', $interface[1], $matches, PREG_SET_ORDER);
+    $arrayProps = [];
+    foreach ($matches as $match) {
+        $arrayProps[$match[1]] = ($match[2] ?? '') !== '' ? $match[2] : $match[3];
+    }
+    return $arrayProps;
+}
+
+/**
+ * 依預設值型別產生 truthy 的屬性字串；陣列 prop 傳兩個元素的陣列
+ *
+ * @param array<string, string> $props
+ * @param array<string, string> $arrayProps
+ */
+function truthyAttributes(array $props, array $arrayProps = []): string
 {
     $attrs = [];
     foreach ($props as $name => $default) {
         $attr = strtolower(preg_replace('/([a-z0-9])([A-Z])/', '$1-$2', $name));
-        if ($default === 'true' || $default === 'false') {
+        if (isset($arrayProps[$name])) {
+            $items = $arrayProps[$name] === 'number' ? '[1, 2]' : "['x', 'y']";
+            $attrs[] = ":{$attr}=\"{$items}\"";
+        } elseif ($default === 'true' || $default === 'false') {
             $attrs[] = ":{$attr}=\"true\"";
         } elseif (is_numeric($default)) {
             $attrs[] = ":{$attr}=\"3\"";
@@ -177,9 +213,10 @@ foreach ($bladeFiles as $path) {
     $tag = 'x-cu.' . str_replace('/', '.', $relative);
 
     $variants = ['defaults' => ''];
-    $props = parseProps(file_get_contents($path));
+    $source = file_get_contents($path);
+    $props = parseProps($source);
     if ($props) {
-        $variants['all-props'] = ' ' . truthyAttributes($props);
+        $variants['all-props'] = ' ' . truthyAttributes($props, arrayPropsOf($source, $astroDir));
     }
 
     foreach ($variants as $label => $attributes) {
