@@ -38,7 +38,7 @@ export const toastPage: Record<Locale, {
       },
       withAction: {
         title: 'With Action',
-        description: 'Add an action button inside the toast for quick actions like undo or retry.',
+        description: 'Pass <code class="cu-code">action: { label, onClick }</code> to <code class="cu-code">CubbyUI.toast.show()</code> to add a button for quick actions like undo or retry. The toast closes after <code class="cu-code">onClick</code> runs unless it calls <code class="cu-code">event.preventDefault()</code>.',
       },
       customDuration: {
         title: 'Custom Duration',
@@ -108,7 +108,7 @@ export const toastPage: Record<Locale, {
       },
       withAction: {
         title: '帶操作按鈕',
-        description: '在 toast 中加入操作按鈕，用於快速操作如復原或重試。',
+        description: '在 <code class="cu-code">CubbyUI.toast.show()</code> 傳入 <code class="cu-code">action: { label, onClick }</code> 即可加入操作按鈕，用於復原或重試等快速操作。<code class="cu-code">onClick</code> 執行後 toast 會自動關閉，若在其中呼叫 <code class="cu-code">event.preventDefault()</code> 則保留。',
       },
       customDuration: {
         title: '自訂顯示時間',

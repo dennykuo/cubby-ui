@@ -88,18 +88,16 @@ const withActionCode = `<button class="cu-button cu-button-outline cu-button-md"
 
 ${SO}
   document.getElementById("toast-action-demo").addEventListener("click", function () {
-    var toast = CubbyUI.toast.show({
+    CubbyUI.toast.show({
       title: "Event deleted",
-      description: 'The event "Team Meeting" has been removed.'
+      description: 'The event "Team Meeting" has been removed.',
+      action: {
+        label: "Undo",
+        onClick: function () {
+          // restore the event here; the toast closes after this runs
+        }
+      }
     });
-    var actions = document.createElement("div");
-    actions.className = "cu-toast-action";
-    var undoBtn = document.createElement("button");
-    undoBtn.className = "cu-toast-action-btn";
-    undoBtn.textContent = "Undo";
-    undoBtn.addEventListener("click", function () { toast.remove(); });
-    actions.appendChild(undoBtn);
-    toast.querySelector(".cu-toast-body").appendChild(actions);
   });
 ${SC}`.trim();
 
@@ -340,7 +338,7 @@ const promiseToastCode = `<!-- Promise Toast requires JavaScript -->
         <!-- With Action -->
         <section class="space-y-3">
             <SectionHeading id="with-action" title={t.sections.withAction.title} />
-            <p class="text-base text-muted-foreground leading-relaxed">{t.sections.withAction.description}</p>
+            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withAction.description} />
             <ComponentPreview code={withActionCode} align="start">
                 <button class="cu-button cu-button-outline cu-button-md" id="toast-action-demo">
                     Show Toast with Action
@@ -348,18 +346,16 @@ const promiseToastCode = `<!-- Promise Toast requires JavaScript -->
                 {/* 預覽在 iframe 內渲染，示範腳本必須隨 slot 一起進 iframe（is:inline 避免被 Astro 提升至主頁面） */}
                 <script is:inline>
                     document.getElementById("toast-action-demo").addEventListener("click", function () {
-                        var toast = CubbyUI.toast.show({
+                        CubbyUI.toast.show({
                             title: "Event deleted",
-                            description: 'The event "Team Meeting" has been removed.'
+                            description: 'The event "Team Meeting" has been removed.',
+                            action: {
+                                label: "Undo",
+                                onClick: function () {
+                                    // restore the event here; the toast closes after this runs
+                                }
+                            }
                         });
-                        var actions = document.createElement("div");
-                        actions.className = "cu-toast-action";
-                        var undoBtn = document.createElement("button");
-                        undoBtn.className = "cu-toast-action-btn";
-                        undoBtn.textContent = "Undo";
-                        undoBtn.addEventListener("click", function () { toast.remove(); });
-                        actions.appendChild(undoBtn);
-                        toast.querySelector(".cu-toast-body").appendChild(actions);
                     });
                 </script>
             </ComponentPreview>

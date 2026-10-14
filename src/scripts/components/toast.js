@@ -49,6 +49,17 @@ export function createToastEl(opts) {
     descEl.textContent = desc;
     body.appendChild(descEl);
   }
+  var actionBtn = null;
+  if (opts.action && opts.action.label) {
+    var actionWrap = document.createElement("div");
+    actionWrap.className = "cu-toast-action";
+    actionBtn = document.createElement("button");
+    actionBtn.type = "button";
+    actionBtn.className = "cu-toast-action-btn";
+    actionBtn.textContent = opts.action.label;
+    actionWrap.appendChild(actionBtn);
+    body.appendChild(actionWrap);
+  }
   toast.appendChild(body);
 
   var svgNS = "http://www.w3.org/2000/svg";
@@ -73,10 +84,17 @@ export function createToastEl(opts) {
   closeBtn.appendChild(svg);
   toast.appendChild(closeBtn);
 
-  return { toast: toast, body: body, titleEl: titleEl, closeBtn: closeBtn };
+  return { toast: toast, body: body, titleEl: titleEl, closeBtn: closeBtn, actionBtn: actionBtn };
 }
 
-/** Programmatic toast API */
+/**
+ * Programmatic toast API
+ *
+ * CubbyUI.toast.show({ title, description?, variant?, duration?, action? })
+ * action: { label, onClick?(event, toast) } — renders a .cu-toast-action-btn;
+ * clicking it calls onClick then dismisses the toast unless onClick calls
+ * event.preventDefault().
+ */
 export var toastAPI = {
   show: function (opts) {
     var c = ensureToastContainer();
@@ -100,6 +118,15 @@ export var toastAPI = {
       if (timer) clearTimeout(timer);
       dismissToast(result.toast);
     });
+    // action 點擊後預設關閉 toast；onClick 內呼叫 event.preventDefault() 可保留
+    if (result.actionBtn) {
+      result.actionBtn.addEventListener("click", function (e) {
+        if (typeof opts.action.onClick === "function") opts.action.onClick(e, result.toast);
+        if (e.defaultPrevented) return;
+        if (timer) clearTimeout(timer);
+        dismissToast(result.toast);
+      });
+    }
 
     return result.toast;
   },
