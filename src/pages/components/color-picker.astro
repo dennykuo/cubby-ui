@@ -41,7 +41,15 @@ const popoverCode = `<div class="cu-popover" data-cu-popover>
       <!-- Saturation panel, hue bar, controls... -->
     </div>
   </div>
-</div>`;
+</div>
+
+<script>
+  // Keep the trigger swatch in sync with the picked color
+  document.addEventListener("cu:color-picker:change", (e) => {
+    const swatch = e.target.closest("[data-cu-popover]")?.querySelector("[data-cu-color-picker-popover-swatch]");
+    if (swatch) swatch.style.background = e.detail.value;
+  });
+</script>`;
 
 const defaultSwatches = [
   "#ef4444", "#f97316", "#eab308", "#22c55e", "#06b6d4",
@@ -147,6 +155,14 @@ const swatchesCode = `<div class="cu-color-picker" data-cu-color-picker data-cu-
             </div>
           </div>
         </div>
+        {/* 預覽在 iframe 內渲染，示範腳本必須隨 slot 一起進 iframe（is:inline 避免被 Astro 提升至主頁面） */}
+        <script is:inline>
+          document.addEventListener("cu:color-picker:change", function (e) {
+            var popover = e.target.closest("[data-cu-popover]");
+            var swatch = popover && popover.querySelector("[data-cu-color-picker-popover-swatch]");
+            if (swatch) swatch.style.background = e.detail.value;
+          });
+        </script>
       </ComponentPreview>
     </section>
 
@@ -197,6 +213,12 @@ const swatchesCode = `<div class="cu-color-picker" data-cu-color-picker data-cu-
           </tbody>
         </table>
       </div>
+    </section>
+
+    <!-- Accessibility -->
+    <section class="space-y-3">
+      <SectionHeading id="accessibility" title={t.sections.accessibility.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.accessibility.description} />
     </section>
   </div>
 </Layout>

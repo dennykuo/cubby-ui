@@ -1040,7 +1040,10 @@
         "swatch": "data-cu-color-picker-swatch",
         "value": "data-cu-color-picker-value"
       },
-      "notes": "HSV-based color picker with saturation panel, hue slider, hex input, and optional preset swatches. Supports drag interaction on saturation panel and hue bar. Initial value via data-cu-color-picker-value or hidden input value. Swatch colors set via data-cu-color-picker-swatch attribute.",
+      "aria": [
+        "slider"
+      ],
+      "notes": "HSV-based color picker with saturation panel, hue slider, hex input, and optional preset swatches. Supports drag interaction on saturation panel and hue bar. Initial value via data-cu-color-picker-value or hidden input value. Swatch colors set via data-cu-color-picker-swatch attribute. Keyboard: the saturation panel and hue bar become focusable role=\"slider\" (default names \"Saturation and brightness\" / \"Hue\", override with aria-label). Saturation panel: Left/Right saturation ±1%, Up/Down brightness ±1% (Shift ×10), PageUp/PageDown brightness ±10%, Home/End saturation 0/100%. Hue: Left/Down −1°, Right/Up +1° (Shift ×10), PageUp/PageDown ±10°, Home/End 0°/360°. Fires cu:color-picker:change ({ value: \"#rrggbb\" }, bubbles) whenever the user changes the color (continuously while dragging; not on init).",
       "example": "<div class=\"cu-color-picker\" data-cu-color-picker data-cu-color-picker-value=\"#3b82f6\"><div class=\"cu-color-picker-saturation\" data-cu-color-picker-saturation><div class=\"cu-color-picker-saturation-pointer\" data-cu-color-picker-saturation-pointer></div></div><div class=\"cu-color-picker-hue\" data-cu-color-picker-hue><div class=\"cu-color-picker-hue-pointer\" data-cu-color-picker-hue-pointer></div></div><div class=\"cu-color-picker-controls\"><div class=\"cu-color-picker-preview\" data-cu-color-picker-preview></div><input class=\"cu-color-picker-input\" data-cu-color-picker-input></div></div>"
     },
     {

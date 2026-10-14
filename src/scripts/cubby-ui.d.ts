@@ -91,6 +91,8 @@ export interface CubbyUIEvents {
   "cu:multiselect:search": CustomEvent<{ query: string }>;
   /** Fired on [data-cu-toggle-group] when selection changes */
   "cu:toggle-group:change": CustomEvent<{ value: string | string[] }>;
+  /** Fired on [data-cu-color-picker] whenever the user changes the color (dragging — continuously —, keyboard, hex input, swatches); not on init (bubbles) */
+  "cu:color-picker:change": CustomEvent<{ value: string }>;
   /** Fired on [data-cu-rating] when value changes */
   "cu:rating:change": CustomEvent<{ value: number }>;
   /** Fired on [data-cu-tag-input] when tags change */
