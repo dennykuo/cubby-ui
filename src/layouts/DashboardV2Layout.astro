@@ -84,7 +84,7 @@ const navGroups = [
 ---
 
 <!doctype html>
-<html lang="zh-Hant" class="bg-gray-50/50">
+<html lang="zh-Hant" class="bg-gray-50/50" data-theme-cubbypro>
     <head>
         <meta charset="UTF-8" />
         <meta name="description" content="Dashboard V2 — Cubby UI" />
@@ -97,6 +97,22 @@ const navGroups = [
             rel="stylesheet"
         />
         <title>{title}</title>
+        <style is:global>
+            /* CubbyPro 品牌色：覆寫 primary / ring / chart-1 為 indigo，語意 token 自動跟隨 */
+            html[data-theme-cubbypro] {
+                --color-primary: hsl(243 75% 59%);
+                --color-primary-foreground: hsl(0 0% 100%);
+                --color-ring: hsl(243 75% 59%);
+                --color-chart-1: hsl(243 75% 59%);
+            }
+
+            html.dark[data-theme-cubbypro] {
+                --color-primary: hsl(239 84% 67%);
+                --color-primary-foreground: hsl(0 0% 100%);
+                --color-ring: hsl(243 50% 40%);
+                --color-chart-1: hsl(239 84% 67%);
+            }
+        </style>
     </head>
     <body
         class="min-h-screen font-sans antialiased text-foreground bg-background"
