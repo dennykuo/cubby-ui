@@ -4,15 +4,15 @@ import DashboardV5Layout from "@/layouts/DashboardV5Layout.astro";
 
 <DashboardV5Layout title="活動紀錄 — DataHub">
     <Fragment slot="breadcrumb">
-        <span class="text-muted-foreground/50">/</span>
-        <span class="font-medium">活動紀錄</span>
+        <li class="cu-breadcrumb-separator" aria-hidden="true">/</li>
+        <li class="cu-breadcrumb-item"><span class="cu-breadcrumb-current" aria-current="page">活動紀錄</span></li>
     </Fragment>
 
     <div class="space-y-6">
         <!-- Page Header -->
         <header class="cu-page-header">
             <div class="cu-page-header-content">
-                <h1 class="cu-page-header-title">活動紀錄</h1>
+                <h1 class="cu-page-header-title text-2xl md:text-2xl">活動紀錄</h1>
                 <p class="cu-page-header-description">追蹤系統中所有使用者操作與事件。</p>
             </div>
         </header>
@@ -37,7 +37,7 @@ import DashboardV5Layout from "@/layouts/DashboardV5Layout.astro";
                     </div>
                 </div>
                 <div class="cu-stat-value">2,634</div>
-                <div class="cu-progress mt-3"><div class="cu-progress-bar bg-success" style="width: 92.5%"></div></div>
+                <div class="cu-progress mt-3"><div class="cu-progress-bar cu-progress-bar-success" style="width: 92.5%"></div></div>
             </div>
             <div class="cu-stat">
                 <div class="cu-stat-header">
@@ -47,7 +47,7 @@ import DashboardV5Layout from "@/layouts/DashboardV5Layout.astro";
                     </div>
                 </div>
                 <div class="cu-stat-value">89</div>
-                <div class="cu-progress mt-3"><div class="cu-progress-bar bg-destructive" style="width: 3.1%"></div></div>
+                <div class="cu-progress mt-3"><div class="cu-progress-bar cu-progress-bar-destructive" style="width: 3.1%"></div></div>
             </div>
             <div class="cu-stat">
                 <div class="cu-stat-header">
@@ -57,7 +57,7 @@ import DashboardV5Layout from "@/layouts/DashboardV5Layout.astro";
                     </div>
                 </div>
                 <div class="cu-stat-value">124</div>
-                <div class="cu-progress mt-3"><div class="cu-progress-bar bg-warning" style="width: 4.4%"></div></div>
+                <div class="cu-progress mt-3"><div class="cu-progress-bar cu-progress-bar-warning" style="width: 4.4%"></div></div>
             </div>
         </div>
 
@@ -203,7 +203,7 @@ import DashboardV5Layout from "@/layouts/DashboardV5Layout.astro";
             </div>
 
             <!-- Pagination -->
-            <div class="flex items-center justify-between px-4 py-3 border-t border-border bg-muted/20">
+            <div class="flex items-center justify-between px-4 py-3 border-t border-border">
                 <span class="text-sm text-muted-foreground">顯示 1-8 筆，共 2,847 筆</span>
                 <nav class="cu-pagination">
                     <button class="cu-pagination-prev" disabled>

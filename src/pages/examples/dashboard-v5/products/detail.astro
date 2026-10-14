@@ -5,10 +5,10 @@ import DashboardV5Layout from "@/layouts/DashboardV5Layout.astro";
 
 <DashboardV5Layout title='MacBook Pro 14" — DataHub'>
     <Fragment slot="breadcrumb">
-        <span class="text-muted-foreground/50">/</span>
-        <a href={withBase("/examples/dashboard-v5")} class="text-muted-foreground hover:text-foreground transition-colors duration-150">產品管理</a>
-        <span class="text-muted-foreground/50">/</span>
-        <span class="font-medium">MacBook Pro 14"</span>
+        <li class="cu-breadcrumb-separator" aria-hidden="true">/</li>
+        <li class="cu-breadcrumb-item"><a href={withBase("/examples/dashboard-v5")} class="cu-breadcrumb-link">產品管理</a></li>
+        <li class="cu-breadcrumb-separator" aria-hidden="true">/</li>
+        <li class="cu-breadcrumb-item"><span class="cu-breadcrumb-current" aria-current="page">MacBook Pro 14"</span></li>
     </Fragment>
 
     <div class="space-y-6">
@@ -18,7 +18,7 @@ import DashboardV5Layout from "@/layouts/DashboardV5Layout.astro";
                 <div class="flex items-center gap-4">
                     <div class="w-12 h-12 rounded-lg bg-muted flex items-center justify-center text-2xl shrink-0">💻</div>
                     <div>
-                        <h1 class="cu-page-header-title">MacBook Pro 14"</h1>
+                        <h1 class="cu-page-header-title text-2xl md:text-2xl">MacBook Pro 14"</h1>
                         <p class="cu-page-header-description">PRD-001 · 筆記型電腦</p>
                     </div>
                 </div>
