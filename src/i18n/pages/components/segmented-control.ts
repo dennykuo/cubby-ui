@@ -38,7 +38,7 @@ export const segmentedControlPage: Record<Locale, {
       },
       accessible: {
         title: 'Accessible (Radio Input)',
-        description: 'Use hidden radio inputs with <code class="cu-code">cu-segmented-input</code> for native keyboard navigation and form submission. Add <code class="cu-code">data-cu-segmented</code> on the container for JS-managed active state.',
+        description: 'Use hidden radio inputs with <code class="cu-code">cu-segmented-input</code> for native keyboard navigation and form submission; each radio needs an <code class="cu-code">id</code> and the following <code class="cu-code">&lt;label class="cu-segmented-item"&gt;</code> must point at it with <code class="cu-code">for</code>, otherwise clicking the label does nothing. Add <code class="cu-code">data-cu-segmented</code> on the container for JS-managed active state.',
       },
       withIcons: {
         title: 'With Icons',
@@ -79,7 +79,7 @@ export const segmentedControlPage: Record<Locale, {
       },
       accessible: {
         title: '無障礙（Radio Input）',
-        description: '使用隱藏的 radio input 搭配 <code class="cu-code">cu-segmented-input</code> 以支援原生鍵盤導航和表單提交。在容器上加入 <code class="cu-code">data-cu-segmented</code> 讓 JS 管理啟用狀態。',
+        description: '使用隱藏的 radio input 搭配 <code class="cu-code">cu-segmented-input</code> 以支援原生鍵盤導航和表單提交；每個 radio 需要 <code class="cu-code">id</code>，其後的 <code class="cu-code">&lt;label class="cu-segmented-item"&gt;</code> 必須以 <code class="cu-code">for</code> 指向它，否則點擊 label 不會有作用。在容器上加入 <code class="cu-code">data-cu-segmented</code> 讓 JS 管理啟用狀態。',
       },
       withIcons: {
         title: '搭配圖示',

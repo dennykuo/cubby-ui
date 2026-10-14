@@ -26,3 +26,6 @@
 - Multi Select：`data-cu-multi-select-remove-text`（預設 `Remove {label}`），自訂標籤移除按鈕的無障礙名稱
 - Calendar / Date Picker：`data-cu-calendar-locale` 指定日期按鈕完整日期名稱的語系（預設取最近祖先的 `lang`）；新增 JS 產生的週列 class `cu-calendar-week`
 - **無障礙**：Combobox / Multi Select 的搜尋框依 WAI-ARIA APG combobox 加上 `role` / `aria-controls` / `aria-autocomplete` / `aria-expanded`，並以 `aria-activedescendant` 指向鍵盤高亮項目；Multi Select 標籤移除按鈕有可讀名稱（例如 "Remove React"）；Date Picker trigger 加上 `aria-haspopup="dialog"` / `aria-expanded` / `aria-controls`，面板為以月份命名的非模態 dialog；Calendar 改為 grid / row / gridcell 結構，日期按鈕帶完整日期名稱、`aria-selected` 與 `aria-current="date"`；Command Palette 輸入框為 combobox，清單為 listbox / group / option，`aria-activedescendant` 與 `aria-selected` 跟隨選中項目
+- `cu-dropzone-input`：視覺隱藏但可聚焦的 file input（取代範例中不存在於 dist CSS 的 `sr-only`），Dropzone 可用鍵盤選檔
+- 範例標記自動檢查（`tests/e2e/examples.spec.ts`）：把 `components.json` 的 `example`、`llms.txt` 的 HTML 範例與文檔頁 Code 範例放進只載入 `dist/` 產物的頁面，靜態檢查必要的 `data-cu-*` 屬性與結構、觸發器可鍵盤操作、巢狀互動元素、表單類按鈕的 `type="button"`、label 關聯，並實際操作元件確認照抄即可運作
+- `llms.txt` 新增 Input Clearable、Alert Expandable、Data Table 展開列範例與 15 列互動屬性對照；`components.json` 新增 Combobox、Multi Select、Transfer List 範例

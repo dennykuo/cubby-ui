@@ -21,7 +21,7 @@ export const dropzonePage: Record<Locale, {
     sections: {
       usage: {
         title: 'Usage',
-        description: 'Use <code class="cu-code">data-cu-dropzone</code> on the container and <code class="cu-code">data-cu-dropzone-input</code> on a hidden <code class="cu-code">&lt;input type="file"&gt;</code>. The <code class="cu-code">&lt;script&gt;</code> handles click-to-browse and drag & drop events.',
+        description: 'Use <code class="cu-code">data-cu-dropzone</code> on the container and <code class="cu-code">data-cu-dropzone-input</code> plus <code class="cu-code">cu-dropzone-input</code> on the <code class="cu-code">&lt;input type="file"&gt;</code> (visually hidden but still focusable — avoid the <code class="cu-code">hidden</code> attribute so keyboard users can Tab to it and press Space / Enter). <code class="cu-code">cubby-ui.js</code> handles click-to-browse and drag & drop, and dispatches a <code class="cu-code">change</code> event with the dropped files.',
       },
       classes: {
         title: 'CSS Classes',
@@ -61,7 +61,7 @@ export const dropzonePage: Record<Locale, {
     sections: {
       usage: {
         title: '使用方式',
-        description: '在容器上使用 <code class="cu-code">data-cu-dropzone</code>，在隱藏的 <code class="cu-code">&lt;input type="file"&gt;</code> 上使用 <code class="cu-code">data-cu-dropzone-input</code>。<code class="cu-code">&lt;script&gt;</code> 處理點擊瀏覽與拖放事件。',
+        description: '在容器上使用 <code class="cu-code">data-cu-dropzone</code>，在 <code class="cu-code">&lt;input type="file"&gt;</code> 上使用 <code class="cu-code">data-cu-dropzone-input</code> 與 <code class="cu-code">cu-dropzone-input</code>（視覺隱藏但仍可聚焦；勿用 <code class="cu-code">hidden</code> 屬性，鍵盤使用者才能以 Tab 聚焦後按 Space / Enter 選檔）。<code class="cu-code">cubby-ui.js</code> 處理點擊瀏覽與拖放，並在拖放後對 input 派發 <code class="cu-code">change</code> 事件。',
       },
       classes: {
         title: 'CSS 類別',

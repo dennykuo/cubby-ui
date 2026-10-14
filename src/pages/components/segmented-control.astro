@@ -43,12 +43,12 @@ const blockCode = `<div class="cu-segmented cu-segmented-block" data-cu-segmente
 </div>`.trim();
 
 const accessibleCode = `<div class="cu-segmented" data-cu-segmented>
-  <input type="radio" name="view" value="list" class="cu-segmented-input" checked />
-  <label class="cu-segmented-item">List</label>
-  <input type="radio" name="view" value="grid" class="cu-segmented-input" />
-  <label class="cu-segmented-item">Grid</label>
-  <input type="radio" name="view" value="board" class="cu-segmented-input" />
-  <label class="cu-segmented-item">Board</label>
+  <input type="radio" name="view" value="list" id="view-list" class="cu-segmented-input" checked />
+  <label class="cu-segmented-item" for="view-list">List</label>
+  <input type="radio" name="view" value="grid" id="view-grid" class="cu-segmented-input" />
+  <label class="cu-segmented-item" for="view-grid">Grid</label>
+  <input type="radio" name="view" value="board" id="view-board" class="cu-segmented-input" />
+  <label class="cu-segmented-item" for="view-board">Board</label>
 </div>`.trim();
 
 const withIconsCode = `<div class="cu-segmented" data-cu-segmented>
@@ -162,12 +162,12 @@ const withIconsCode = `<div class="cu-segmented" data-cu-segmented>
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.accessible.description} />
             <ComponentPreview code={accessibleCode}>
                 <div class="cu-segmented" data-cu-segmented>
-                    <input type="radio" name="view-demo" value="list" class="cu-segmented-input" checked />
-                    <label class="cu-segmented-item">List</label>
-                    <input type="radio" name="view-demo" value="grid" class="cu-segmented-input" />
-                    <label class="cu-segmented-item">Grid</label>
-                    <input type="radio" name="view-demo" value="board" class="cu-segmented-input" />
-                    <label class="cu-segmented-item">Board</label>
+                    <input type="radio" name="view-demo" value="list" id="view-demo-list" class="cu-segmented-input" checked />
+                    <label class="cu-segmented-item" for="view-demo-list">List</label>
+                    <input type="radio" name="view-demo" value="grid" id="view-demo-grid" class="cu-segmented-input" />
+                    <label class="cu-segmented-item" for="view-demo-grid">Grid</label>
+                    <input type="radio" name="view-demo" value="board" id="view-demo-board" class="cu-segmented-input" />
+                    <label class="cu-segmented-item" for="view-demo-board">Board</label>
                 </div>
             </ComponentPreview>
         </section>

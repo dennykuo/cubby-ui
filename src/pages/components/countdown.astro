@@ -10,22 +10,22 @@ const t = useTranslations(countdownPage, locale);
 
 const usageCode = `<div class="cu-countdown" data-cu-countdown data-cu-countdown-target="2026-12-31T00:00:00">
   <div class="cu-countdown-segment">
-    <span class="cu-countdown-value">120</span>
+    <span class="cu-countdown-value" data-cu-countdown-days>120</span>
     <span class="cu-countdown-label">Days</span>
   </div>
   <span class="cu-countdown-separator">:</span>
   <div class="cu-countdown-segment">
-    <span class="cu-countdown-value">08</span>
+    <span class="cu-countdown-value" data-cu-countdown-hours>08</span>
     <span class="cu-countdown-label">Hours</span>
   </div>
   <span class="cu-countdown-separator">:</span>
   <div class="cu-countdown-segment">
-    <span class="cu-countdown-value">34</span>
+    <span class="cu-countdown-value" data-cu-countdown-minutes>34</span>
     <span class="cu-countdown-label">Minutes</span>
   </div>
   <span class="cu-countdown-separator">:</span>
   <div class="cu-countdown-segment">
-    <span class="cu-countdown-value">52</span>
+    <span class="cu-countdown-value" data-cu-countdown-seconds>52</span>
     <span class="cu-countdown-label">Seconds</span>
   </div>
 </div>`.trim();

@@ -22,7 +22,7 @@ export const dropdownPage: Record<Locale, {
     sections: {
       usage: {
         title: 'Usage',
-        description: 'Use <code class="cu-code">data-cu-dropdown</code> on the wrapper, <code class="cu-code">data-cu-dropdown-trigger</code> on the button, and <code class="cu-code">data-cu-dropdown-content</code> on the menu. The <code class="cu-code">&lt;script&gt;</code> handles click toggle, outside click, and Escape key.',
+        description: 'Use <code class="cu-code">data-cu-dropdown</code> on the wrapper, <code class="cu-code">data-cu-dropdown-trigger</code> on the button, and <code class="cu-code">data-cu-dropdown-content</code> on the menu. <code class="cu-code">cubby-ui.js</code> handles click toggle, keyboard navigation, outside click, and the Escape key — no extra script needed.',
       },
       classes: {
         title: 'CSS Classes',
@@ -68,7 +68,7 @@ export const dropdownPage: Record<Locale, {
     sections: {
       usage: {
         title: '使用方式',
-        description: '在包裝元素上使用 <code class="cu-code">data-cu-dropdown</code>，在按鈕上使用 <code class="cu-code">data-cu-dropdown-trigger</code>，在選單上使用 <code class="cu-code">data-cu-dropdown-content</code>。<code class="cu-code">&lt;script&gt;</code> 處理點擊切換、外部點擊關閉和 Escape 鍵。',
+        description: '在包裝元素上使用 <code class="cu-code">data-cu-dropdown</code>，在按鈕上使用 <code class="cu-code">data-cu-dropdown-trigger</code>，在選單上使用 <code class="cu-code">data-cu-dropdown-content</code>。<code class="cu-code">cubby-ui.js</code> 會處理點擊切換、鍵盤導覽、外部點擊關閉和 Escape 鍵，不需要額外撰寫 script。',
       },
       classes: {
         title: 'CSS 類別',

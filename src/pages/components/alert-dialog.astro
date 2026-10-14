@@ -7,8 +7,6 @@ import { alertDialogPage } from "@/i18n/pages/components/alert-dialog";
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(alertDialogPage, locale);
-const SO = "<" + "script>";
-const SC = "</" + "script>";
 
 const usageCode = `<button class="cu-button cu-button-outline cu-button-md" data-cu-alert-dialog-trigger="demo-alert-dialog">
   Delete Account
@@ -23,24 +21,7 @@ const usageCode = `<button class="cu-button cu-button-outline cu-button-md" data
     <button class="cu-button cu-button-outline cu-button-md" data-cu-alert-dialog-cancel>Cancel</button>
     <button class="cu-button cu-button-destructive cu-button-md" data-cu-alert-dialog-action>Delete</button>
   </div>
-</dialog>
-
-${SO}
-  document.querySelectorAll("[data-cu-alert-dialog-trigger]").forEach((trigger) => {
-    trigger.addEventListener("click", () => {
-      const id = trigger.getAttribute("data-cu-alert-dialog-trigger");
-      document.getElementById(id)?.showModal();
-    });
-  });
-  document.querySelectorAll("[data-cu-alert-dialog]").forEach((dialog) => {
-    dialog.querySelectorAll("[data-cu-alert-dialog-cancel]").forEach((btn) => {
-      btn.addEventListener("click", () => dialog.close());
-    });
-    dialog.querySelectorAll("[data-cu-alert-dialog-action]").forEach((btn) => {
-      btn.addEventListener("click", () => dialog.close());
-    });
-  });
-${SC}`.trim();
+</dialog>`.trim();
 
 const withIconCode = `<button class="cu-button cu-button-outline cu-button-md" data-cu-alert-dialog-trigger="icon-alert-dialog">
   Deactivate Account

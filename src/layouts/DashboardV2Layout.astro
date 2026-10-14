@@ -1,6 +1,7 @@
 ---
 import { withBase, stripBase } from "@/utils/paths";
 import "@/styles/global.css";
+import cubbyUiUrl from "../../dist/core/cubby-ui.js?url";
 import Sidebar from "@/components/ui/Sidebar.astro";
 import SidebarContent from "@/components/ui/SidebarContent.astro";
 import SidebarFooter from "@/components/ui/SidebarFooter.astro";
@@ -553,5 +554,7 @@ const navGroups = [
                 }
             });
         </script>
+        <!-- 互動元件（設定頁的 Tabs 等 data-cu-* 標記）由 cubby-ui.js 初始化 -->
+        <script src={cubbyUiUrl} is:inline></script>
     </body>
 </html>

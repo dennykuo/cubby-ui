@@ -32,6 +32,8 @@ const calendarHtml = `<div class="cu-calendar" data-cu-calendar>
   <div class="cu-calendar-grid" data-cu-calendar-grid></div>
 </div>`;
 
+const indent = (html: string, spaces: number) => html.split("\n").map((line) => " ".repeat(spaces) + line).join("\n");
+
 const usageCode = `<div class="cu-date-picker" data-cu-date-picker style="width: 240px;">
   <button type="button" class="cu-date-picker-trigger" data-cu-date-picker-trigger>
     ${calendarIcon}
@@ -57,46 +59,7 @@ const usageCode = `<div class="cu-date-picker" data-cu-date-picker style="width:
       <div class="cu-calendar-grid" data-cu-calendar-grid></div>
     </div>
   </div>
-</div>
-
-<script>
-  document.querySelectorAll("[data-cu-date-picker]").forEach((picker) => {
-    const trigger = picker.querySelector("[data-cu-date-picker-trigger]");
-    const content = picker.querySelector("[data-cu-date-picker-content]");
-    const calendar = picker.querySelector("[data-cu-calendar]");
-    const valueEl = picker.querySelector("[data-cu-date-picker-value]");
-    const hiddenInput = picker.querySelector("[data-cu-date-picker-input]");
-    if (!trigger || !content || !calendar) return;
-
-    content.style.display = "none";
-    initCalendar(calendar, (date) => {
-      const y = date.getFullYear();
-      const m = String(date.getMonth() + 1).padStart(2, "0");
-      const d = String(date.getDate()).padStart(2, "0");
-      valueEl.textContent = y + "/" + m + "/" + d;
-      valueEl.classList.remove("cu-date-picker-trigger-placeholder");
-      hiddenInput.value = y + "-" + m + "-" + d;
-      content.style.display = "none";
-    });
-
-    trigger.addEventListener("click", (e) => {
-      e.stopPropagation();
-      const isHidden = content.style.display === "none";
-      content.style.display = isHidden ? "" : "none";
-      if (isHidden && calendar._cuRender) calendar._cuRender();
-    });
-
-    document.addEventListener("click", (e) => {
-      if (!picker.contains(e.target)) content.style.display = "none";
-    });
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape") content.style.display = "none";
-    });
-  });
-
-  // Calendar init (same logic as cubby-ui.js)
-  function initCalendar(cal, onSelect) { /* see cubby-ui.js */ }
-</script>`.trim();
+</div>`.trim();
 
 const defaultValueCode = `<div class="cu-date-picker" data-cu-date-picker style="width: 240px;">
   <button type="button" class="cu-date-picker-trigger" data-cu-date-picker-trigger>
@@ -105,7 +68,7 @@ const defaultValueCode = `<div class="cu-date-picker" data-cu-date-picker style=
   </button>
   <input type="hidden" data-cu-date-picker-input value="2026-03-15" />
   <div class="cu-date-picker-content" data-cu-date-picker-content>
-    <!-- Calendar renders here -->
+${indent(calendarHtml, 4)}
   </div>
 </div>`.trim();
 
@@ -117,9 +80,7 @@ const minMaxCode = `<!-- Only allow dates from 2026-03-10 to 2026-04-20 -->
   </button>
   <input type="hidden" data-cu-date-picker-input />
   <div class="cu-date-picker-content" data-cu-date-picker-content>
-    <div class="cu-calendar" data-cu-calendar data-cu-calendar-min="2026-03-10" data-cu-calendar-max="2026-04-20">
-      <!-- Calendar renders with restricted dates -->
-    </div>
+${indent(calendarHtml.replace("data-cu-calendar>", 'data-cu-calendar data-cu-calendar-min="2026-03-10" data-cu-calendar-max="2026-04-20">'), 4)}
   </div>
 </div>`.trim();
 

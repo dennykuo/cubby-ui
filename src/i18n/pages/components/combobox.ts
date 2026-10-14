@@ -23,7 +23,7 @@ export const comboboxPage: Record<Locale, {
     sections: {
       usage: {
         title: 'Usage',
-        description: 'Use <code class="cu-code">data-cu-combobox</code> on the wrapper, <code class="cu-code">data-cu-combobox-trigger</code> on the button, <code class="cu-code">data-cu-combobox-content</code> on the dropdown, and <code class="cu-code">data-cu-combobox-item</code> on each option. The <code class="cu-code">&lt;script&gt;</code> handles search filtering, selection, outside click, and Escape key.',
+        description: 'Use <code class="cu-code">data-cu-combobox</code> on the wrapper, <code class="cu-code">data-cu-combobox-trigger</code> on the button, <code class="cu-code">data-cu-combobox-content</code> on the dropdown, and <code class="cu-code">data-cu-combobox-item</code> on each option. Use a <code class="cu-code">&lt;button type="button"&gt;</code> as the trigger. <code class="cu-code">cubby-ui.js</code> handles search filtering, selection, keyboard navigation, outside click, and the Escape key — no extra script needed.',
       },
       classes: {
         title: 'CSS Classes',
@@ -78,7 +78,7 @@ export const comboboxPage: Record<Locale, {
     sections: {
       usage: {
         title: '使用方式',
-        description: '在外層容器使用 <code class="cu-code">data-cu-combobox</code>，按鈕使用 <code class="cu-code">data-cu-combobox-trigger</code>，下拉面板使用 <code class="cu-code">data-cu-combobox-content</code>，每個選項使用 <code class="cu-code">data-cu-combobox-item</code>。<code class="cu-code">&lt;script&gt;</code> 處理搜尋過濾、選取、外部點擊及 Escape 鍵。',
+        description: '在外層容器使用 <code class="cu-code">data-cu-combobox</code>，按鈕使用 <code class="cu-code">data-cu-combobox-trigger</code>，下拉面板使用 <code class="cu-code">data-cu-combobox-content</code>，每個選項使用 <code class="cu-code">data-cu-combobox-item</code>。Trigger 請使用 <code class="cu-code">&lt;button type="button"&gt;</code>。<code class="cu-code">cubby-ui.js</code> 會處理搜尋過濾、選取、鍵盤導覽、外部點擊及 Escape 鍵，不需要額外撰寫 script。',
       },
       classes: {
         title: 'CSS 類別',

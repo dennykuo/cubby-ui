@@ -12,10 +12,11 @@
     animation: cu-float-in 0.15s ease;
 }
 
-/* Shared item style for Dropdown & Menubar */
+/* Shared item style for Dropdown & Menubar
+   （項目為 <button> 時可被 Tab 聚焦，focus-visible 套用與 hover 相同的底色，鍵盤焦點才看得見） */
 .cu-dropdown-item,
 .cu-menubar-item {
-    @apply relative flex w-full cursor-pointer items-center rounded-md px-2 py-1.5 text-sm transition-colors duration-150 hover:bg-accent hover:text-accent-foreground outline-none;
+    @apply relative flex w-full cursor-pointer items-center rounded-md px-2 py-1.5 text-sm transition-colors duration-150 hover:bg-accent hover:text-accent-foreground outline-none focus-visible:bg-accent focus-visible:text-accent-foreground;
 }
 
 .cu-dropdown-item-highlight {

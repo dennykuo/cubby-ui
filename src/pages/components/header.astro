@@ -212,12 +212,12 @@ const multiplePanelsCode = `<header class="cu-header">
   <div class="cu-header-mobile-content">
     <div class="space-y-4">
       <div class="space-y-1.5">
-        <label class="cu-label">Category</label>
-        <select class="cu-select"><option>All</option><option>Electronics</option><option>Clothing</option></select>
+        <label class="cu-label" for="filter-category">Category</label>
+        <select id="filter-category" class="cu-select"><option>All</option><option>Electronics</option><option>Clothing</option></select>
       </div>
       <div class="space-y-1.5">
-        <label class="cu-label">Price Range</label>
-        <select class="cu-select"><option>Any</option><option>$0 – $50</option><option>$50 – $100</option></select>
+        <label class="cu-label" for="filter-price">Price Range</label>
+        <select id="filter-price" class="cu-select"><option>Any</option><option>$0 – $50</option><option>$50 – $100</option></select>
       </div>
     </div>
   </div>
@@ -239,7 +239,17 @@ const triggerVisibilityCode = `<!-- Always visible — no breakpoint class -->
           aria-label="Open menu" aria-expanded="false">
     <!-- hamburger icon -->
   </button>
-</div>`.trim();
+</div>
+
+<!-- Both triggers open this backdrop (id) + panel (data-cu-mobile-nav-panel) -->
+<div id="my-nav" class="cu-header-mobile-backdrop" data-cu-mobile-nav hidden></div>
+<nav class="cu-header-mobile-nav" data-cu-mobile-nav-panel="my-nav"
+     role="dialog" aria-modal="true" aria-label="Navigation menu" hidden>
+  <div class="cu-header-mobile-header">
+    <button data-cu-mobile-nav-close class="cu-header-mobile-close" aria-label="Close menu">✕</button>
+  </div>
+  <div class="cu-header-mobile-content"><!-- nav links --></div>
+</nav>`.trim();
 
 ---
 
@@ -589,12 +599,12 @@ const triggerVisibilityCode = `<!-- Always visible — no breakpoint class -->
 						<div class="cu-header-mobile-content">
 							<div class="space-y-4">
 								<div class="space-y-1.5">
-									<label class="cu-label">Category</label>
-									<select class="cu-select"><option>All</option><option>Electronics</option><option>Clothing</option></select>
+									<label class="cu-label" for="filter-category">Category</label>
+									<select id="filter-category" class="cu-select"><option>All</option><option>Electronics</option><option>Clothing</option></select>
 								</div>
 								<div class="space-y-1.5">
-									<label class="cu-label">Price Range</label>
-									<select class="cu-select"><option>Any</option><option>$0 – $50</option><option>$50 – $100</option></select>
+									<label class="cu-label" for="filter-price">Price Range</label>
+									<select id="filter-price" class="cu-select"><option>Any</option><option>$0 – $50</option><option>$50 – $100</option></select>
 								</div>
 							</div>
 						</div>

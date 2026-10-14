@@ -233,10 +233,16 @@ Dot animation: `cu-badge-dot-animated` (pulsing animation on dot indicator)
 Sizes: `cu-input-sm`, `cu-input-lg`
 Validation: `cu-input-error`, `cu-input-success`
 Clearable: `cu-input-clearable` (extra right padding for clear button), `cu-input-clear` (clear button)
-Data attributes: `data-cu-input-clearable` (on container), `data-cu-input-clear` (on clear button)
+Data attributes: `data-cu-input-clearable` (on container), `data-cu-input-clear` (on clear button; shown only while the input has a value)
 ```html
 <input type="text" class="cu-input" placeholder="Placeholder">
 <input type="text" class="cu-input cu-input-error" placeholder="Error state">
+
+<!-- Clearable -->
+<div class="cu-input-icon-wrapper" data-cu-input-clearable>
+  <input type="text" class="cu-input cu-input-clearable" placeholder="Type to search..." aria-label="Search">
+  <button type="button" class="cu-input-clear" data-cu-input-clear aria-label="Clear"><svg aria-hidden="true"><!-- x icon --></svg></button>
+</div>
 ```
 
 **Input Group** — combine input with text/icon addons
@@ -286,9 +292,12 @@ Auto-resize: `cu-textarea-auto` (uses `field-sizing: content`)
 
 **Label**
 Required marker: `cu-label-required` (adds red asterisk after label)
+Always associate the label with its control (`for` = the control's `id`, or wrap the control) so clicking the label focuses the field.
 ```html
-<label class="cu-label">Field Name</label>
-<label class="cu-label cu-label-required">Required Field</label>
+<label for="field-name" class="cu-label">Field Name</label>
+<input id="field-name" class="cu-input">
+<label for="required-field" class="cu-label cu-label-required">Required Field</label>
+<input id="required-field" class="cu-input" required>
 ```
 
 **Select** — custom arrow decoration
@@ -309,24 +318,25 @@ Required marker: `cu-label-required` (adds red asterisk after label)
 </div>
 ```
 
-**Checkbox Group** — group of checkboxes with optional select-all
+**Checkbox Group** ⚡ Interactive — group of checkboxes with optional select-all
 Classes: `cu-checkbox-group` (container), `cu-checkbox-group-label` (group label), `cu-checkbox-group-items` (items container, indented), `cu-checkbox-group-selectall` (select-all wrapper with bottom border)
+Data attributes: `data-cu-checkbox-group` (container), `data-cu-checkbox-group-selectall` (select-all checkbox), `data-cu-checkbox-group-item` (each item checkbox). Select-all toggles every enabled item and shows the indeterminate state when only some are checked.
 ```html
-<div class="cu-checkbox-group">
+<div class="cu-checkbox-group" data-cu-checkbox-group>
   <span class="cu-checkbox-group-label">Interests</span>
   <div class="cu-checkbox-group-selectall">
     <div class="cu-checkbox-wrapper">
-      <input type="checkbox" id="all" class="cu-checkbox">
+      <input type="checkbox" id="all" class="cu-checkbox" data-cu-checkbox-group-selectall>
       <label for="all">Select All</label>
     </div>
   </div>
   <div class="cu-checkbox-group-items">
     <div class="cu-checkbox-wrapper">
-      <input type="checkbox" id="opt1" class="cu-checkbox">
+      <input type="checkbox" id="opt1" class="cu-checkbox" data-cu-checkbox-group-item>
       <label for="opt1">Option 1</label>
     </div>
     <div class="cu-checkbox-wrapper">
-      <input type="checkbox" id="opt2" class="cu-checkbox">
+      <input type="checkbox" id="opt2" class="cu-checkbox" data-cu-checkbox-group-item>
       <label for="opt2">Option 2</label>
     </div>
   </div>
@@ -350,7 +360,7 @@ Data attributes: `data-cu-color-picker`, `data-cu-color-picker-value`, `data-cu-
   </div>
   <input type="hidden" data-cu-color-picker-hidden value="#ff0000">
   <div class="cu-color-picker-swatches">
-    <button class="cu-color-picker-swatch" data-cu-color-picker-swatch="#ef4444" style="background-color: #ef4444;" aria-label="Select #ef4444"></button>
+    <button type="button" class="cu-color-picker-swatch" data-cu-color-picker-swatch="#ef4444" style="background-color: #ef4444;" aria-label="Select #ef4444"></button>
   </div>
 </div>
 ```
@@ -394,31 +404,32 @@ Sizes: `cu-toggle-sm`, `cu-toggle-lg`
 **Form Group** — wraps label + input + description/error
 ```html
 <div class="cu-form-group">
-  <label class="cu-label cu-label-required">Name</label>
-  <input class="cu-input">
-  <p class="cu-form-description">Helper text</p>
-  <p class="cu-form-error">Error message</p>
+  <label for="name" class="cu-label cu-label-required">Name</label>
+  <input id="name" class="cu-input" required aria-describedby="name-help name-error">
+  <p id="name-help" class="cu-form-description">Helper text</p>
+  <p id="name-error" class="cu-form-error">Error message</p>
 </div>
 ```
 
 **Number Input** ⚡ Interactive
-`data-cu-number-input` on container, `data-cu-number-field` on `<input>`, `data-cu-number-decrement` / `data-cu-number-increment` on buttons.
+`data-cu-number-input` on container, `data-cu-number-field` on `<input>`, `data-cu-number-decrement` / `data-cu-number-increment` on buttons. Give the buttons `type="button"` so they never submit a surrounding `<form>`.
 ```html
 <div class="cu-number-input" data-cu-number-input>
-  <button class="cu-button cu-button-outline cu-button-icon-sm" data-cu-number-decrement>−</button>
-  <input type="number" class="cu-input" data-cu-number-field min="0" max="100" step="1" value="0">
-  <button class="cu-button cu-button-outline cu-button-icon-sm" data-cu-number-increment>+</button>
+  <button type="button" class="cu-button cu-button-outline cu-button-icon-sm" data-cu-number-decrement aria-label="Decrease">−</button>
+  <input type="number" class="cu-input" data-cu-number-field min="0" max="100" step="1" value="0" aria-label="Quantity">
+  <button type="button" class="cu-button cu-button-outline cu-button-icon-sm" data-cu-number-increment aria-label="Increase">+</button>
 </div>
 ```
 
 **Combobox** ⚡ Interactive — searchable select
 Key data attributes: `data-cu-combobox`, `data-cu-combobox-trigger`, `data-cu-combobox-content`, `data-cu-combobox-input`, `data-cu-combobox-item`, `data-cu-combobox-value`, `data-cu-combobox-empty`, `data-cu-combobox-list`
 Active item: add `cu-combobox-item-active` class to pre-selected item.
+Trigger: a `<button type="button">` (keyboard focusable; never submits a surrounding `<form>`).
 Search debounce (optional): `data-cu-combobox-debounce="300"` on the root delays filtering until typing pauses for N ms (default: filter on every keystroke). Clearing the query, arrow keys and Enter apply pending filtering immediately. Events: `cu:combobox:change` (`{ value, item }`), `cu:combobox:search` (`{ query }`, fired when the applied query changes — use it for remote search).
 A11y (APG combobox, set by JS): the search input gets `role="combobox"`, `aria-controls` (listbox id), `aria-autocomplete="list"`, `aria-expanded="true"` and `aria-activedescendant` → the keyboard-highlighted option (ids auto-generated; cleared when filtered out or closed). Without a search input the trigger becomes `role="combobox"` (select-only combobox) and owns `aria-activedescendant` — name it with `aria-label` or `<label for>`.
 ```html
 <div class="cu-combobox" data-cu-combobox>
-  <button class="cu-combobox-trigger" data-cu-combobox-trigger>
+  <button type="button" class="cu-combobox-trigger" data-cu-combobox-trigger>
     <span data-cu-combobox-value class="cu-combobox-trigger-placeholder">Select...</span>
   </button>
   <div class="cu-combobox-content" data-cu-combobox-content hidden>
@@ -435,88 +446,118 @@ A11y (APG combobox, set by JS): the search input gets `role="combobox"`, `aria-c
 **Date Picker** ⚡ Interactive — calendar popup for date selection
 Calendar classes: `cu-calendar` (container, popover-styled), `cu-calendar-header` (month/year nav row), `cu-calendar-title` (current month text), `cu-calendar-nav` (prev/next button), `cu-calendar-weekdays` (weekday header grid), `cu-calendar-weekday` (individual weekday), `cu-calendar-grid` (day grid), `cu-calendar-day` (day cell), `cu-calendar-day-today` (today highlight), `cu-calendar-day-selected` (selected day, primary bg), `cu-calendar-day-outside` (prev/next month days, dimmed), `cu-calendar-day-disabled` (non-selectable)
 Picker classes: `cu-date-picker` (wrapper), `cu-date-picker-trigger` (input-like button), `cu-date-picker-trigger-icon` (calendar icon), `cu-date-picker-trigger-placeholder` (placeholder text style), `cu-date-picker-content` (dropdown container)
-Data attributes: `data-cu-date-picker`, `data-cu-date-picker-trigger`, `data-cu-date-picker-value`, `data-cu-date-picker-input` (hidden input), `data-cu-date-picker-content`
+Picker data attributes: `data-cu-date-picker`, `data-cu-date-picker-trigger`, `data-cu-date-picker-value` (formatted date `YYYY/MM/DD`), `data-cu-date-picker-input` (hidden input, ISO `YYYY-MM-DD`), `data-cu-date-picker-content`
+Calendar data attributes (required — JS initializes nothing without them): `data-cu-calendar` (on `.cu-calendar`, also inside a Date Picker), `data-cu-calendar-title`, `data-cu-calendar-grid` (leave empty — day buttons are rendered by JS), `data-cu-calendar-prev` / `data-cu-calendar-next`; optional `data-cu-calendar-min` / `data-cu-calendar-max` (`YYYY-MM-DD`)
+Keyboard: arrow keys move by day / week (crossing months), Home / End jump to the first / last day of the month, Enter / Space select, Escape closes the picker and returns focus to the trigger.
+Value: after each selection the hidden input gets the ISO date and a bubbling `change` event is dispatched on it; a preset `value` opens the calendar on that month. A standalone calendar is the same `.cu-calendar` markup without the picker wrapper.
 A11y (APG Date Picker Dialog + grid, set by JS): trigger `aria-haspopup="dialog"` / `aria-expanded` / `aria-controls`; content is a non-modal `role="dialog"` labelled by the month title; opening focuses the selected date (else today, else the first selectable date in range). The day grid is `role="grid"` (labelled by the title) with one `cu-calendar-week` `role="row"` per week and `role="gridcell"` day buttons with a single Tab stop (roving tabindex). Each day is named with the full date via `Intl.DateTimeFormat` — locale from `data-cu-calendar-locale` (on the calendar or any ancestor), else the nearest `lang`; selected day `aria-selected="true"`, today `aria-current="date"`.
 ```html
 <div class="cu-date-picker" data-cu-date-picker>
   <button type="button" class="cu-date-picker-trigger" data-cu-date-picker-trigger>
-    <svg class="cu-date-picker-trigger-icon"><!-- calendar icon --></svg>
+    <svg class="cu-date-picker-trigger-icon" aria-hidden="true"><!-- calendar icon --></svg>
     <span data-cu-date-picker-value class="cu-date-picker-trigger-placeholder">Pick a date</span>
   </button>
-  <input type="hidden" data-cu-date-picker-input value="">
+  <input type="hidden" name="date" data-cu-date-picker-input value="">
   <div class="cu-date-picker-content" data-cu-date-picker-content>
-    <div class="cu-calendar">
+    <div class="cu-calendar" data-cu-calendar>
       <div class="cu-calendar-header">
-        <button class="cu-calendar-nav">‹</button>
-        <span class="cu-calendar-title">March 2026</span>
-        <button class="cu-calendar-nav">›</button>
+        <button type="button" class="cu-calendar-nav" data-cu-calendar-prev aria-label="Previous month">‹</button>
+        <span class="cu-calendar-title" data-cu-calendar-title></span>
+        <button type="button" class="cu-calendar-nav" data-cu-calendar-next aria-label="Next month">›</button>
       </div>
       <div class="cu-calendar-weekdays">
         <span class="cu-calendar-weekday">Su</span>
-        <!-- ...Mo Tu We Th Fr Sa -->
+        <span class="cu-calendar-weekday">Mo</span>
+        <span class="cu-calendar-weekday">Tu</span>
+        <span class="cu-calendar-weekday">We</span>
+        <span class="cu-calendar-weekday">Th</span>
+        <span class="cu-calendar-weekday">Fr</span>
+        <span class="cu-calendar-weekday">Sa</span>
       </div>
-      <div class="cu-calendar-grid">
-        <button class="cu-calendar-day cu-calendar-day-today">15</button>
-        <button class="cu-calendar-day cu-calendar-day-selected">20</button>
-        <button class="cu-calendar-day cu-calendar-day-outside">1</button>
-        <!-- ...more days -->
-      </div>
+      <div class="cu-calendar-grid" data-cu-calendar-grid></div>
     </div>
   </div>
 </div>
+<script>
+  document.querySelector("[data-cu-date-picker-input]").addEventListener("change", function (e) {
+    console.log("selected", e.target.value); // "2026-03-15"
+  });
+</script>
 ```
 
 **Multi Select** ⚡ Interactive — multiple selection with tags
 Key data attributes: `data-cu-multi-select`, `data-cu-multi-select-trigger`, `data-cu-multi-select-content`, `data-cu-multi-select-input`, `data-cu-multi-select-item` (with `data-cu-value`), `data-cu-multi-select-tags`, `data-cu-multi-select-placeholder`, `data-cu-multi-select-list`, `data-cu-multi-select-empty`
 Search debounce (optional): `data-cu-multi-select-debounce="300"` on the root delays filtering until typing pauses for N ms (default: filter on every keystroke). Clearing the query, arrow keys and Enter apply pending filtering immediately. Events: `cu:multiselect:change` (`{ selected }`), `cu:multiselect:search` (`{ query }`, fired when the applied query changes — use it for remote search).
+Trigger: a `<button type="button">` — a `<div>` trigger cannot be focused or opened with the keyboard. Pre-select items with `cu-multi-select-item-active`; selected tags (with remove buttons) are rendered by JS into `data-cu-multi-select-tags`.
 A11y: same combobox ARIA as Combobox (search input, or the trigger when there is none, owns `aria-activedescendant`). Generated tag remove buttons are named "Remove {label}"; localize with `data-cu-multi-select-remove-text="移除 {label}"` on the root (`{label}` = item text).
 ```html
 <div class="cu-multi-select" data-cu-multi-select>
-  <div class="cu-multi-select-trigger" data-cu-multi-select-trigger>
-    <div data-cu-multi-select-tags>
-      <span data-cu-multi-select-placeholder>Select options...</span>
+  <button type="button" class="cu-multi-select-trigger" data-cu-multi-select-trigger>
+    <div class="cu-multi-select-tags" data-cu-multi-select-tags>
+      <span class="cu-multi-select-placeholder" data-cu-multi-select-placeholder>Select options...</span>
     </div>
-  </div>
+    <svg class="cu-multi-select-icon" aria-hidden="true"><!-- chevrons icon --></svg>
+  </button>
   <div class="cu-multi-select-content" data-cu-multi-select-content hidden>
-    <input class="cu-multi-select-input" data-cu-multi-select-input placeholder="Search...">
+    <input class="cu-multi-select-input" data-cu-multi-select-input placeholder="Search..." aria-label="Search options">
     <ul data-cu-multi-select-list>
       <li class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="opt1">Option 1</li>
       <li class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="opt2">Option 2</li>
     </ul>
-    <div data-cu-multi-select-empty hidden>No results</div>
+    <div class="cu-multi-select-empty" data-cu-multi-select-empty hidden>No results</div>
   </div>
 </div>
 ```
 
 **Dropzone** ⚡ Interactive — drag-and-drop file upload
+Classes: `cu-dropzone`, `cu-dropzone-input` (visually hidden but focusable file input — do not use the `hidden` attribute, keyboard users open the picker by focusing it and pressing Space / Enter), `cu-dropzone-icon`, `cu-dropzone-title`, `cu-dropzone-description`, `cu-dropzone-disabled`
 ```html
 <div class="cu-dropzone" data-cu-dropzone>
-  <input type="file" data-cu-dropzone-input class="sr-only" multiple>
-  <p>Drop files here or click to upload</p>
+  <input type="file" class="cu-dropzone-input" data-cu-dropzone-input multiple aria-label="Upload files">
+  <p class="cu-dropzone-title">Drop files here or click to upload</p>
 </div>
 ```
-Active drag state: `cu-dropzone-active` class is toggled automatically.
+Active drag state: `cu-dropzone-active` class is toggled automatically. Dropped files are assigned to the input and a `change` event is dispatched on it.
 
 **Transfer List** ⚡ Interactive — move items between two lists
+Classes: `cu-transfer-list`, `cu-transfer-list-panel`, `cu-transfer-list-header`, `cu-transfer-list-header-title`, `cu-transfer-list-header-count`, `cu-transfer-list-search`, `cu-transfer-list-search-input`, `cu-transfer-list-content`, `cu-transfer-list-item`, `cu-transfer-list-actions`, `cu-transfer-list-actions-button`
+Each item must be a `.cu-transfer-list-item` inside `.cu-transfer-list-content`, and both panels need a `.cu-transfer-list-content` (moved items are appended there). Action buttons need `type="button"`.
 ```html
 <div class="cu-transfer-list" data-cu-transfer-list>
-  <div data-cu-transfer-panel="left">
-    <input data-cu-transfer-search="left" placeholder="Search...">
-    <input type="checkbox" data-cu-transfer-check-all="left">
-    <span data-cu-transfer-count="left"></span>
-    <ul class="cu-transfer-list-content">
-      <li class="cu-transfer-list-item">
-        <input type="checkbox" data-cu-transfer-check data-cu-value="item1">
+  <div class="cu-transfer-list-panel" data-cu-transfer-panel="left">
+    <div class="cu-transfer-list-header">
+      <input type="checkbox" class="cu-checkbox" data-cu-transfer-check-all="left" aria-label="Select all available">
+      <span class="cu-transfer-list-header-title">Available</span>
+      <span class="cu-transfer-list-header-count" data-cu-transfer-count="left"></span>
+    </div>
+    <div class="cu-transfer-list-search">
+      <input class="cu-transfer-list-search-input" data-cu-transfer-search="left" placeholder="Search..." aria-label="Search available">
+    </div>
+    <div class="cu-transfer-list-content">
+      <label class="cu-transfer-list-item">
+        <input type="checkbox" class="cu-checkbox" data-cu-transfer-check data-cu-value="item1">
         <span>Item 1</span>
-      </li>
-    </ul>
+      </label>
+      <label class="cu-transfer-list-item">
+        <input type="checkbox" class="cu-checkbox" data-cu-transfer-check data-cu-value="item2">
+        <span>Item 2</span>
+      </label>
+    </div>
   </div>
-  <div>
-    <button data-cu-transfer-to-right class="cu-button cu-button-outline">→</button>
-    <button data-cu-transfer-to-left class="cu-button cu-button-outline">←</button>
+  <div class="cu-transfer-list-actions">
+    <button type="button" class="cu-transfer-list-actions-button" data-cu-transfer-to-right aria-label="Move to selected" disabled>→</button>
+    <button type="button" class="cu-transfer-list-actions-button" data-cu-transfer-to-left aria-label="Move to available" disabled>←</button>
   </div>
-  <div data-cu-transfer-panel="right">
-    <!-- same structure as left panel -->
+  <div class="cu-transfer-list-panel" data-cu-transfer-panel="right">
+    <div class="cu-transfer-list-header">
+      <input type="checkbox" class="cu-checkbox" data-cu-transfer-check-all="right" aria-label="Select all selected">
+      <span class="cu-transfer-list-header-title">Selected</span>
+      <span class="cu-transfer-list-header-count" data-cu-transfer-count="right"></span>
+    </div>
+    <div class="cu-transfer-list-search">
+      <input class="cu-transfer-list-search-input" data-cu-transfer-search="right" placeholder="Search..." aria-label="Search selected">
+    </div>
+    <div class="cu-transfer-list-content"></div>
   </div>
 </div>
 ```
@@ -526,24 +567,25 @@ Classes: `cu-toggle-group`, `cu-toggle-group-item`, `cu-toggle-group-item-active
 Data: `data-cu-toggle-group`, `data-cu-toggle-group-multiple`
 ```html
 <div class="cu-toggle-group" data-cu-toggle-group>
-  <button class="cu-toggle-group-item cu-toggle-group-item-active">List</button>
-  <button class="cu-toggle-group-item">Grid</button>
-  <button class="cu-toggle-group-item">Board</button>
+  <button type="button" class="cu-toggle-group-item cu-toggle-group-item-active">List</button>
+  <button type="button" class="cu-toggle-group-item">Grid</button>
+  <button type="button" class="cu-toggle-group-item">Board</button>
 </div>
 
 <!-- Multiple selection -->
 <div class="cu-toggle-group cu-toggle-group-multiple" data-cu-toggle-group data-cu-toggle-group-multiple>
-  <button class="cu-toggle-group-item cu-toggle-group-item-active">Bold</button>
-  <button class="cu-toggle-group-item">Italic</button>
+  <button type="button" class="cu-toggle-group-item cu-toggle-group-item-active">Bold</button>
+  <button type="button" class="cu-toggle-group-item">Italic</button>
 </div>
 ```
 
 **Rating** — star rating for reviews and feedback
 Classes: `cu-rating`, `cu-rating-item`, `cu-rating-item-active`, `cu-rating-item-half`, `cu-rating-readonly`, `cu-rating-disabled`, `cu-rating-sm`, `cu-rating-lg`
 Data: `data-cu-rating`, `data-cu-rating-star="N"`, `data-cu-rating-value="N"`
+Interactive stars must be `<button type="button">` (Tab to a star, Enter / Space to rate); `<span>` stars are for read-only display only. Fires `cu:rating:change` (`{ value }`).
 ```html
 <!-- Readonly display -->
-<div class="cu-rating cu-rating-readonly">
+<div class="cu-rating cu-rating-readonly" role="img" aria-label="2 out of 3 stars">
   <span class="cu-rating-item cu-rating-item-active"><svg>★</svg></span>
   <span class="cu-rating-item cu-rating-item-active"><svg>★</svg></span>
   <span class="cu-rating-item"><svg>★</svg></span>
@@ -551,9 +593,9 @@ Data: `data-cu-rating`, `data-cu-rating-star="N"`, `data-cu-rating-value="N"`
 
 <!-- Interactive -->
 <div class="cu-rating" data-cu-rating data-cu-rating-value="0">
-  <span class="cu-rating-item" data-cu-rating-star="1"><svg>★</svg></span>
-  <span class="cu-rating-item" data-cu-rating-star="2"><svg>★</svg></span>
-  <span class="cu-rating-item" data-cu-rating-star="3"><svg>★</svg></span>
+  <button type="button" class="cu-rating-item" data-cu-rating-star="1" aria-label="1 star"><svg>★</svg></button>
+  <button type="button" class="cu-rating-item" data-cu-rating-star="2" aria-label="2 stars"><svg>★</svg></button>
+  <button type="button" class="cu-rating-item" data-cu-rating-star="3" aria-label="3 stars"><svg>★</svg></button>
 </div>
 ```
 
@@ -564,9 +606,9 @@ Data: `data-cu-tag-input`, `data-cu-tag-input-field`, `data-cu-tag-max="N"`, `da
 <div class="cu-tag-input" data-cu-tag-input>
   <span class="cu-tag-input-tag" data-cu-tag-value="React">
     React
-    <button class="cu-tag-input-tag-remove" type="button">&times;</button>
+    <button class="cu-tag-input-tag-remove" type="button" aria-label="Remove React">&times;</button>
   </span>
-  <input class="cu-tag-input-field" data-cu-tag-input-field placeholder="Add tag..." />
+  <input class="cu-tag-input-field" data-cu-tag-input-field placeholder="Add tag..." aria-label="Add tag" />
 </div>
 ```
 
@@ -574,11 +616,11 @@ Data: `data-cu-tag-input`, `data-cu-tag-input-field`, `data-cu-tag-max="N"`, `da
 Classes: `cu-floating-label`, `cu-floating-label-input`, `cu-floating-label-text`, `cu-floating-label-textarea`, `cu-floating-label-error`, `cu-floating-label-success`
 ```html
 <div class="cu-floating-label">
-  <input class="cu-floating-label-input" placeholder=" " />
-  <label class="cu-floating-label-text">Email</label>
+  <input id="email" type="email" class="cu-floating-label-input" placeholder=" " />
+  <label for="email" class="cu-floating-label-text">Email</label>
 </div>
 ```
-Note: Input MUST have `placeholder=" "` (space) for the CSS `:placeholder-shown` selector to work.
+Note: Input MUST have `placeholder=" "` (space) for the CSS `:placeholder-shown` selector to work. Link label and input with `for` / `id` so clicking the label focuses the field.
 
 ---
 
@@ -723,13 +765,33 @@ Data: `data-cu-sortable-list`, `data-cu-sortable-item`, `data-cu-sortable-handle
 
 **Data Table** — `cu-data-table`, `cu-data-table-check`, `cu-data-table-toolbar`, `cu-data-table-head-sortable`, `cu-data-table-head-sorted-asc/desc`, `cu-data-table-row-selected`, `cu-data-table-striped`, `cu-data-table-info`. Enhanced table with sorting, filtering, row selection. `cu-data-table-check` centers checkbox in narrow column.
 Expandable rows: `cu-data-table-expand-trigger` (row expand/collapse trigger), `cu-data-table-expanded-row` (active parent row state), `cu-data-table-expanded-content` (expanded content area)
-Data attributes: `data-cu-data-table-expandable` (on table container), `data-cu-expand-row` (on expand trigger)
+Data attributes: `data-cu-data-table-expandable` (on table container), `data-cu-expand-row` (on expand trigger; toggles the `<tr>` immediately after the trigger's row)
+Sorting, filtering and row selection are styling only (`cu-data-table-head-sorted-asc/desc`, `cu-data-table-row-selected`) — cubby-ui.js does not sort or select rows; wire them up in your own code.
 ```html
 <div class="cu-data-table cu-data-table-striped">
   <div class="cu-table-wrapper">
     <table class="cu-table">
       <thead><tr><th class="cu-table-head cu-data-table-head-sortable">Name</th></tr></thead>
       <tbody><tr><td class="cu-table-cell">Row</td></tr></tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Expandable rows -->
+<div class="cu-data-table" data-cu-data-table-expandable>
+  <div class="cu-table-wrapper">
+    <table class="cu-table">
+      <tbody>
+        <tr>
+          <td class="cu-table-cell">
+            <button type="button" class="cu-data-table-expand-trigger" data-cu-expand-row aria-expanded="false" aria-label="Show details"><svg aria-hidden="true"><!-- chevron --></svg></button>
+          </td>
+          <td class="cu-table-cell">#1001</td>
+        </tr>
+        <tr hidden>
+          <td colspan="2" class="cu-data-table-expanded-content">Order details…</td>
+        </tr>
+      </tbody>
     </table>
   </div>
 </div>
@@ -763,20 +825,20 @@ Responsive: Add `cu-table-stacked` to wrapper + `data-label` on each `<td>` for 
 
 **Carousel** ⚡ Interactive — horizontal slide carousel with snap scrolling
 Classes: `cu-carousel` (container), `cu-carousel-viewport` (scroll container, snap-x), `cu-carousel-slide` (each slide, snap-start), `cu-carousel-multi-2` / `cu-carousel-multi-3` (show 2 or 3 slides at a time, add on carousel container), `cu-carousel-nav-outside` (place arrows outside viewport, add on carousel container), `cu-carousel-prev` / `cu-carousel-next` (arrow buttons, absolute center-y), `cu-carousel-dots` (dot indicators container), `cu-carousel-dot` (individual dot), `cu-carousel-dot-active` (active dot, primary color)
-Data attributes: `data-cu-carousel`
+Data attributes (all required for JS — without `data-cu-carousel-viewport` / `data-cu-carousel-slide` the carousel is not initialized): `data-cu-carousel` (container), `data-cu-carousel-viewport`, `data-cu-carousel-slide`, `data-cu-carousel-prev`, `data-cu-carousel-next`, `data-cu-carousel-dot`
 ```html
 <div class="cu-carousel" data-cu-carousel>
-  <div class="cu-carousel-viewport">
-    <div class="cu-carousel-slide">Slide 1</div>
-    <div class="cu-carousel-slide">Slide 2</div>
-    <div class="cu-carousel-slide">Slide 3</div>
+  <div class="cu-carousel-viewport" data-cu-carousel-viewport>
+    <div class="cu-carousel-slide" data-cu-carousel-slide>Slide 1</div>
+    <div class="cu-carousel-slide" data-cu-carousel-slide>Slide 2</div>
+    <div class="cu-carousel-slide" data-cu-carousel-slide>Slide 3</div>
   </div>
-  <button class="cu-carousel-prev" aria-label="Previous">‹</button>
-  <button class="cu-carousel-next" aria-label="Next">›</button>
+  <button type="button" class="cu-carousel-prev" data-cu-carousel-prev aria-label="Previous">‹</button>
+  <button type="button" class="cu-carousel-next" data-cu-carousel-next aria-label="Next">›</button>
   <div class="cu-carousel-dots">
-    <button class="cu-carousel-dot cu-carousel-dot-active" aria-label="Slide 1"></button>
-    <button class="cu-carousel-dot" aria-label="Slide 2"></button>
-    <button class="cu-carousel-dot" aria-label="Slide 3"></button>
+    <button type="button" class="cu-carousel-dot cu-carousel-dot-active" data-cu-carousel-dot aria-label="Slide 1"></button>
+    <button type="button" class="cu-carousel-dot" data-cu-carousel-dot aria-label="Slide 2"></button>
+    <button type="button" class="cu-carousel-dot" data-cu-carousel-dot aria-label="Slide 3"></button>
   </div>
 </div>
 ```
@@ -861,11 +923,23 @@ CSS Variable: `--cu-marquee-duration` (default: 30s)
 Variants: `cu-alert-default`, `cu-alert-destructive`, `cu-alert-success`, `cu-alert-warning`, `cu-alert-info`
 Modifier: `cu-alert-accent` (prominent filled emphasis: full border + tinted background)
 Expandable: `cu-alert-expandable-content` (expandable content area), `cu-alert-expand-trigger` (expand toggle button)
-Data attributes: `data-cu-alert-expandable` (on container), `data-cu-alert-expand-trigger` (on toggle button), `data-cu-alert-expandable-content` (on content area)
+Data attributes: `data-cu-alert-expandable` (on container), `data-cu-alert-expand-trigger` (on toggle button), `data-cu-alert-expandable-content` (on content area; the single child `<div>` is what collapses)
 ```html
 <div class="cu-alert cu-alert-success">
   <div class="cu-alert-title">Success</div>
   <div class="cu-alert-description">Operation completed.</div>
+</div>
+
+<!-- Expandable -->
+<div class="cu-alert cu-alert-info" data-cu-alert-expandable>
+  <div>
+    <h5 class="cu-alert-title">Update available</h5>
+    <p class="cu-alert-description">A new version is available.</p>
+    <button type="button" class="cu-alert-expand-trigger" data-cu-alert-expand-trigger aria-expanded="false">Show details</button>
+  </div>
+  <div class="cu-alert-expandable-content" data-cu-alert-expandable-content>
+    <div>Release notes…</div>
+  </div>
 </div>
 ```
 
@@ -946,7 +1020,7 @@ Toast container is auto-created if missing. Customize with `data-cu-toast-contai
 ```
 Container position variants: `cu-toast-container-top-right`, `cu-toast-container-top-left`, `cu-toast-container-bottom-right`, `cu-toast-container-bottom-left`, `cu-toast-container-top-center`, `cu-toast-container-bottom-center`
 Action classes: `cu-toast-action` (action button container), `cu-toast-action-btn` (action button styling)
-Programmatic API: `CubbyUI.toast.show({ title, description, variant, duration, action })` — show a toast via JS. `CubbyUI.toast.promise(promise, { loading, success, error })` — bind toast states to a Promise lifecycle.
+Programmatic API: `CubbyUI.toast.show({ title, description, variant, duration })` — show a toast via JS (returns the toast element). `CubbyUI.toast.promise(promise, { loading, success, error })` — bind toast states to a Promise lifecycle. `show()` has no action option: for an action button, build the toast markup yourself with `cu-toast-action` / `cu-toast-action-btn`.
 
 ---
 
@@ -956,25 +1030,31 @@ Programmatic API: `CubbyUI.toast.show({ title, description, variant, duration, a
 Classes: `cu-command` (dialog container, centered, max-w-lg), `cu-command-input-wrapper` (search bar row with border-bottom), `cu-command-input-icon` (search icon), `cu-command-input` (text input), `cu-command-list` (scrollable results), `cu-command-group` (group container), `cu-command-group-heading` (group label), `cu-command-item` (selectable row), `cu-command-separator` (divider), `cu-command-shortcut` (right-aligned shortcut text), `cu-command-empty` (no results message)
 Active item: `data-cu-command-active` attribute highlights item.
 A11y (APG combobox + listbox, set by JS): input `role="combobox"` + `aria-controls` / `aria-autocomplete="list"` / `aria-expanded="true"` / `aria-activedescendant` (active item); list `role="listbox"`, groups `role="group"` labelled by their `cu-command-group-heading`, items `role="option"` + `aria-selected` (ids auto-generated). Items may be `<a href>`: Enter still clicks (navigates) the active item.
-Data attributes: `data-cu-command`
+Data attributes (required for filtering / keyboard navigation): `data-cu-command` (on `<dialog>`), `data-cu-command-input`, `data-cu-command-list`, `data-cu-command-group`, `data-cu-command-item` (optional `data-cu-command-value` = search text), `data-cu-command-separator`, `data-cu-command-empty` (add `hidden`; shown when nothing matches). Open with `data-cu-command-trigger="<dialog id>"` on a button or Ctrl / Cmd + K. Items are collected once when the palette is initialized (render every item in the markup before cubby-ui.js runs; items added later are not filtered or keyboard-navigable).
 ```html
-<dialog class="cu-command" data-cu-command>
+<button type="button" class="cu-button cu-button-outline" data-cu-command-trigger="command-menu">Search… <kbd class="cu-kbd cu-kbd-sm">⌘K</kbd></button>
+
+<dialog id="command-menu" class="cu-command" data-cu-command aria-label="Command menu">
   <div class="cu-command-input-wrapper">
-    <svg class="cu-command-input-icon"><!-- search icon --></svg>
-    <input class="cu-command-input" placeholder="Type a command or search...">
+    <svg class="cu-command-input-icon" aria-hidden="true"><!-- search icon --></svg>
+    <input class="cu-command-input" data-cu-command-input placeholder="Type a command or search..." aria-label="Search commands">
   </div>
-  <div class="cu-command-list">
-    <div class="cu-command-group">
+  <div class="cu-command-list" data-cu-command-list>
+    <div class="cu-command-group" data-cu-command-group>
       <div class="cu-command-group-heading">Suggestions</div>
-      <button class="cu-command-item">
+      <button type="button" class="cu-command-item" data-cu-command-item>
         Calendar
         <span class="cu-command-shortcut"><kbd class="cu-kbd cu-kbd-sm">⌘K</kbd></span>
       </button>
-      <button class="cu-command-item">Search</button>
+      <button type="button" class="cu-command-item" data-cu-command-item>Search</button>
     </div>
-    <div class="cu-command-separator"></div>
-    <div class="cu-command-empty">No results found.</div>
+    <div class="cu-command-separator" data-cu-command-separator></div>
+    <div class="cu-command-group" data-cu-command-group>
+      <div class="cu-command-group-heading">Settings</div>
+      <button type="button" class="cu-command-item" data-cu-command-item data-cu-command-value="profile account">Profile</button>
+    </div>
   </div>
+  <div class="cu-command-empty" data-cu-command-empty hidden>No results found.</div>
 </dialog>
 ```
 
@@ -998,13 +1078,13 @@ Data attributes: `data-cu-context-menu`, `data-cu-context-menu-content`
 **Dialog** ⚡ Interactive — uses native `<dialog>` element
 Sizes: `cu-dialog-sm`, `cu-dialog-md` (default), `cu-dialog-xl`, `cu-dialog-full`
 Scrollable layout: `cu-dialog-body` (flex column with max-height), `cu-dialog-scroll` (scrollable content area)
-Trigger attribute value must match `<dialog id="...">`.
+Trigger attribute value must match `<dialog id="...">`, and the `<dialog>` itself needs `data-cu-dialog` (otherwise `data-cu-dialog-close` buttons do nothing and the title / description are not linked via `aria-labelledby` / `aria-describedby`).
 ```html
 <!-- Trigger -->
 <button class="cu-button cu-button-default" data-cu-dialog-trigger="my-dialog">Open</button>
 
 <!-- Dialog -->
-<dialog id="my-dialog" class="cu-dialog">
+<dialog id="my-dialog" class="cu-dialog" data-cu-dialog>
   <div class="cu-dialog-header">
     <h2 class="cu-dialog-title">Dialog Title</h2>
     <p class="cu-dialog-description">Description text.</p>
@@ -1018,10 +1098,11 @@ Trigger attribute value must match `<dialog id="...">`.
 
 **Drawer** ⚡ Interactive — side panel, uses native `<dialog>`
 Directions: `cu-drawer-right` (default), `cu-drawer-left`, `cu-drawer-top`, `cu-drawer-bottom`
+The `<dialog>` needs `data-cu-drawer` (otherwise `data-cu-drawer-close` buttons do nothing).
 ```html
 <button data-cu-drawer-trigger="my-drawer" class="cu-button cu-button-default">Open Drawer</button>
 
-<dialog id="my-drawer" class="cu-drawer cu-drawer-right">
+<dialog id="my-drawer" class="cu-drawer cu-drawer-right" data-cu-drawer>
   <div class="cu-drawer-header">
     <h2 class="cu-drawer-title">Drawer Title</h2>
     <button class="cu-button cu-button-ghost cu-button-icon" data-cu-drawer-close aria-label="Close">✕</button>
@@ -1034,11 +1115,11 @@ Directions: `cu-drawer-right` (default), `cu-drawer-left`, `cu-drawer-top`, `cu-
 ```
 
 **Alert Dialog** ⚡ Interactive — blocking confirmation, uses native `<dialog>`
-Closes on cancel or action buttons (NOT on backdrop click).
+Closes on cancel or action buttons (NOT on backdrop click). The `<dialog>` needs `data-cu-alert-dialog` (sets `role="alertdialog"` and wires the cancel / action buttons).
 ```html
 <button data-cu-alert-dialog-trigger="confirm-dialog" class="cu-button cu-button-destructive">Delete</button>
 
-<dialog id="confirm-dialog" class="cu-alert-dialog">
+<dialog id="confirm-dialog" class="cu-alert-dialog" data-cu-alert-dialog>
   <div class="cu-alert-dialog-header">
     <h2 class="cu-alert-dialog-title">Are you sure?</h2>
     <p class="cu-alert-dialog-description">This action cannot be undone.</p>
@@ -1110,15 +1191,24 @@ Sizes: `cu-popover-content-sm` (w-56), `cu-popover-content-lg` (w-96)
 
 **Tour** ⚡ Interactive — guided tour overlay with spotlight highlighting
 Classes: `cu-tour-overlay`, `cu-tour-spotlight`, `cu-tour-tooltip`, `cu-tour-tooltip-title`, `cu-tour-tooltip-description`, `cu-tour-tooltip-footer`, `cu-tour-tooltip-progress`, `cu-tour-tooltip-actions`, `cu-tour-dots`, `cu-tour-dot`, `cu-tour-dot-active`, `cu-tour-target`
-Data: `data-cu-tour`, `data-cu-tour-steps` (JSON array), `data-cu-tour-auto`
+Data: `data-cu-tour`, `data-cu-tour-steps` (JSON array; each step `{ "target": CSS selector, "title", "description", "placement": top|bottom|left|right }` — the text key is `description`), `data-cu-tour-auto` (start on load)
+There is no declarative trigger attribute: start the tour with `data-cu-tour-auto` or by dispatching `cu:tour:start` on the `[data-cu-tour]` element. Fires `cu:tour:complete` when finished.
 ```html
-<div data-cu-tour data-cu-tour-steps='[
+<h2 id="step1">Dashboard</h2>
+<nav id="step2" class="cu-nav"><a class="cu-nav-item" href="#">Reports</a></nav>
+<button type="button" id="start-tour" class="cu-button cu-button-outline">Start tour</button>
+
+<div id="tour" data-cu-tour data-cu-tour-steps='[
   {"target": "#step1", "title": "Welcome", "description": "This is the first step.", "placement": "bottom"},
   {"target": "#step2", "title": "Features", "description": "Explore our features.", "placement": "right"}
 ]'>
 </div>
+<script>
+  document.getElementById("start-tour").addEventListener("click", function () {
+    document.getElementById("tour").dispatchEvent(new Event("cu:tour:start"));
+  });
+</script>
 ```
-Programmatic start: `el.dispatchEvent(new Event("cu:tour:start"))`
 
 ---
 
@@ -1169,14 +1259,23 @@ Active: `cu-pagination-item-active`
 </nav>
 ```
 
-**Segmented Control**
+**Segmented Control** ⚡ Interactive
 Active: `cu-segmented-item-active`
 Sizes: `cu-segmented-sm`; full-width: add `cu-segmented-block`
+Data: `data-cu-segmented` (on the container — JS moves `cu-segmented-item-active` on click). Radio mode: hidden `cu-segmented-input` radios, each followed by a `<label class="cu-segmented-item" for="...">` (the label must point at its radio, otherwise clicking it does nothing).
 ```html
-<div class="cu-segmented">
-  <button class="cu-segmented-item cu-segmented-item-active">Day</button>
-  <button class="cu-segmented-item">Week</button>
-  <button class="cu-segmented-item">Month</button>
+<div class="cu-segmented" data-cu-segmented>
+  <button type="button" class="cu-segmented-item cu-segmented-item-active">Day</button>
+  <button type="button" class="cu-segmented-item">Week</button>
+  <button type="button" class="cu-segmented-item">Month</button>
+</div>
+
+<!-- Radio mode (form value, arrow-key navigation) -->
+<div class="cu-segmented" data-cu-segmented>
+  <input type="radio" name="view" value="list" id="view-list" class="cu-segmented-input" checked>
+  <label for="view-list" class="cu-segmented-item">List</label>
+  <input type="radio" name="view" value="grid" id="view-grid" class="cu-segmented-input">
+  <label for="view-grid" class="cu-segmented-item">Grid</label>
 </div>
 ```
 
@@ -1469,12 +1568,26 @@ Data attributes: `data-cu-resizable`, `data-cu-resizable-panel`, `data-cu-resiza
 |-----------|-----------|---------|---------|-------------|-------|
 | Tabs | `data-cu-tabs` | `data-cu-tabs-trigger="value"` | `data-cu-tabs-content="value"` | `data-cu-tabs-close` | `data-cu-tabs-scrollable` |
 | Dropdown | `data-cu-dropdown` | `data-cu-dropdown-trigger` | `data-cu-dropdown-content` | — | — |
-| Carousel | `data-cu-carousel` | — | — | — | — |
+| Carousel | `data-cu-carousel` | `data-cu-carousel-prev` / `data-cu-carousel-next` / `data-cu-carousel-dot` | `data-cu-carousel-viewport` | — | `data-cu-carousel-slide` (each slide) |
 | Color Picker | `data-cu-color-picker` | — | — | — | `data-cu-color-picker-value`, `data-cu-color-picker-saturation`, `data-cu-color-picker-saturation-pointer`, `data-cu-color-picker-hue`, `data-cu-color-picker-hue-pointer`, `data-cu-color-picker-preview`, `data-cu-color-picker-input`, `data-cu-color-picker-hidden`, `data-cu-color-picker-swatch` |
 | Combobox | `data-cu-combobox` | `data-cu-combobox-trigger` | `data-cu-combobox-content` | — | `data-cu-combobox-input`, `data-cu-combobox-item`, `data-cu-combobox-value`, `data-cu-combobox-list`, `data-cu-combobox-empty`, `data-cu-combobox-debounce` |
-| Command Palette | `data-cu-command` | — | — | — | `data-cu-command-active` (on active item) |
+| Command Palette | `data-cu-command` (on `<dialog id="...">`) | `data-cu-command-trigger="id"` (or Ctrl / Cmd + K) | `data-cu-command-list` | — | `data-cu-command-input`, `data-cu-command-group`, `data-cu-command-item`, `data-cu-command-value`, `data-cu-command-separator`, `data-cu-command-empty`, `data-cu-command-active` (state, on active item) |
 | Context Menu | `data-cu-context-menu` | — | `data-cu-context-menu-content` | — | — |
-| Date Picker | `data-cu-date-picker` | `data-cu-date-picker-trigger` | `data-cu-date-picker-content` | — | `data-cu-date-picker-value`, `data-cu-date-picker-input` (hidden) |
+| Date Picker | `data-cu-date-picker` | `data-cu-date-picker-trigger` | `data-cu-date-picker-content` | — | `data-cu-date-picker-value`, `data-cu-date-picker-input` (hidden, fires `change`), plus the Calendar attributes below on the inner `.cu-calendar` |
+| Calendar | `data-cu-calendar` | `data-cu-calendar-prev` / `data-cu-calendar-next` | `data-cu-calendar-grid` (rendered by JS) | — | `data-cu-calendar-title`, `data-cu-calendar-min`, `data-cu-calendar-max`, `data-cu-calendar-locale` |
+| Checkbox Group | `data-cu-checkbox-group` | `data-cu-checkbox-group-selectall` | — | — | `data-cu-checkbox-group-item` |
+| Segmented Control | `data-cu-segmented` | `.cu-segmented-item` buttons, or `.cu-segmented-input` radios + `<label for>` | — | — | — |
+| Toggle Group | `data-cu-toggle-group` | `.cu-toggle-group-item` buttons | — | — | `data-cu-toggle-group-multiple` |
+| Rating | `data-cu-rating` | `data-cu-rating-star="N"` (on `<button type="button">`) | — | — | `data-cu-rating-value` |
+| Tag Input | `data-cu-tag-input` | — | — | `.cu-tag-input-tag-remove` | `data-cu-tag-input-field`, `data-cu-tag-max`, `data-cu-tag-value` |
+| Sortable List | `data-cu-sortable-list` | — | — | — | `data-cu-sortable-item` (+ `draggable="true"`), `data-cu-sortable-handle` |
+| Kanban | `data-cu-kanban` | — | `data-cu-kanban-column-body` | — | `data-cu-kanban-column`, `data-cu-kanban-card` (+ `draggable="true"`) |
+| Countdown | `data-cu-countdown` | — | — | — | `data-cu-countdown-target`, `data-cu-countdown-days` / `-hours` / `-minutes` / `-seconds` (on the value elements) |
+| Image Compare | `data-cu-image-compare` | — | — | — | — |
+| Speed Dial | `data-cu-speed-dial` | `data-cu-speed-dial-trigger` | `data-cu-speed-dial-actions` | — | `data-cu-open` (state) |
+| Back to Top | `data-cu-back-to-top` (on the button) | — | — | — | `data-cu-back-to-top-threshold`, `data-cu-visible` (state) |
+| Tour | `data-cu-tour` | `cu:tour:start` event | — | — | `data-cu-tour-steps`, `data-cu-tour-auto` |
+| Mobile Nav (Header) | — | `data-cu-mobile-nav-trigger="id"` | `data-cu-mobile-nav-panel="id"` | `data-cu-mobile-nav-close` | `data-cu-mobile-nav` (backdrop `id`), `data-cu-mobile-nav-clone`, `data-cu-mobile-nav-open` (state) |
 | Multi Select | `data-cu-multi-select` | `data-cu-multi-select-trigger` | `data-cu-multi-select-content` | — | `data-cu-multi-select-input`, `data-cu-multi-select-item`, `data-cu-multi-select-tags`, `data-cu-multi-select-placeholder`, `data-cu-multi-select-list`, `data-cu-multi-select-empty`, `data-cu-multi-select-debounce`, `data-cu-multi-select-remove-text`, `data-cu-value` |
 | Number Input | `data-cu-number-input` | `data-cu-number-increment` / `data-cu-number-decrement` | — | — | `data-cu-number-field` (on input) |
 | Password Input | `data-cu-password-input` | — | — | — | `data-cu-password-toggle`, `data-cu-password-icon-show`, `data-cu-password-icon-hide` |

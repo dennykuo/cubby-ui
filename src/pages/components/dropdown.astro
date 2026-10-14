@@ -7,8 +7,6 @@ import { dropdownPage } from "@/i18n/pages/components/dropdown";
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(dropdownPage, locale);
-const SO = "<" + "script>";
-const SC = "</" + "script>";
 
 const usageCode = `<div class="cu-dropdown" data-cu-dropdown>
   <button class="cu-button cu-button-outline cu-button-md" data-cu-dropdown-trigger>
@@ -19,23 +17,7 @@ const usageCode = `<div class="cu-dropdown" data-cu-dropdown>
     <div class="cu-dropdown-item">Settings</div>
     <div class="cu-dropdown-item">Log out</div>
   </div>
-</div>
-
-${SO}
-  document.querySelectorAll("[data-cu-dropdown]").forEach((dropdown) => {
-    const trigger = dropdown.querySelector("[data-cu-dropdown-trigger]");
-    const content = dropdown.querySelector("[data-cu-dropdown-content]");
-    trigger?.addEventListener("click", () => {
-      content?.toggleAttribute("hidden");
-    });
-    document.addEventListener("click", (e) => {
-      if (!dropdown.contains(e.target)) content?.setAttribute("hidden", "");
-    });
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape") content?.setAttribute("hidden", "");
-    });
-  });
-${SC}`.trim();
+</div>`.trim();
 
 const withLabelsCode = `<div class="cu-dropdown" data-cu-dropdown>
   <button class="cu-button cu-button-outline cu-button-md" data-cu-dropdown-trigger>

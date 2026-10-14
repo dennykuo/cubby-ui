@@ -17,28 +17,7 @@ const usageCode = `<div class="cu-context-menu" data-cu-context-menu>
     <div class="cu-dropdown-item">Copy</div>
     <div class="cu-dropdown-item">Paste</div>
   </div>
-</div>
-
-<script>
-  document.querySelectorAll("[data-cu-context-menu]").forEach((container) => {
-    const content = container.querySelector("[data-cu-context-menu-content]");
-    if (!content) return;
-    container.addEventListener("contextmenu", (e) => {
-      e.preventDefault();
-      content.removeAttribute("hidden");
-      let x = e.clientX, y = e.clientY;
-      const rect = content.getBoundingClientRect();
-      if (x + rect.width > innerWidth) x = innerWidth - rect.width - 4;
-      if (y + rect.height > innerHeight) y = innerHeight - rect.height - 4;
-      content.style.left = x + "px";
-      content.style.top = y + "px";
-    });
-    document.addEventListener("click", () => content.setAttribute("hidden", ""));
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape") content.setAttribute("hidden", "");
-    });
-  });
-</script>`.trim();
+</div>`.trim();
 
 const withLabelsCode = `<div class="cu-context-menu" data-cu-context-menu>
   <div class="flex h-36 items-center justify-center rounded-lg border border-dashed border-border text-sm text-muted-foreground">

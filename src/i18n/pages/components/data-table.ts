@@ -25,7 +25,7 @@ export const dataTablePage: Record<Locale, {
     sections: {
       usage: {
         title: 'Usage',
-        description: 'Wrap the table in <code class="cu-code">cu-data-table</code>. Add <code class="cu-code">cu-data-table-toolbar</code> for a search/filter bar above the table, <code class="cu-code">cu-data-table-head-sortable</code> on sortable column headers, and <code class="cu-code">cu-data-table-info</code> for a selection summary below. Row selection uses <code class="cu-code">cu-checkbox</code> with <code class="cu-code">data-cu-data-table-select</code>.',
+        description: 'Wrap the table in <code class="cu-code">cu-data-table</code>. Add <code class="cu-code">cu-data-table-toolbar</code> for a search/filter bar above the table, <code class="cu-code">cu-data-table-head-sortable</code> on sortable column headers, and <code class="cu-code">cu-data-table-info</code> for a selection summary below. Row selection uses <code class="cu-code">cu-checkbox</code> plus <code class="cu-code">cu-data-table-row-selected</code> on the row. Selection and filtering are not built into cubby-ui.js — the script in the example shows one way to wire them up (its <code class="cu-code">data-table-*</code> hooks are your own attributes).',
       },
       classes: {
         title: 'CSS Classes',
@@ -88,7 +88,7 @@ export const dataTablePage: Record<Locale, {
     sections: {
       usage: {
         title: '使用方式',
-        description: '以 <code class="cu-code">cu-data-table</code> 包裹表格。使用 <code class="cu-code">cu-data-table-toolbar</code> 在表格上方加入搜尋 / 篩選列，在可排序欄位標頭加上 <code class="cu-code">cu-data-table-head-sortable</code>，以及使用 <code class="cu-code">cu-data-table-info</code> 在下方顯示選取摘要。列選取使用 <code class="cu-code">cu-checkbox</code> 搭配 <code class="cu-code">data-cu-data-table-select</code>。',
+        description: '以 <code class="cu-code">cu-data-table</code> 包裹表格。使用 <code class="cu-code">cu-data-table-toolbar</code> 在表格上方加入搜尋 / 篩選列，在可排序欄位標頭加上 <code class="cu-code">cu-data-table-head-sortable</code>，以及使用 <code class="cu-code">cu-data-table-info</code> 在下方顯示選取摘要。列選取使用 <code class="cu-code">cu-checkbox</code>，並在選取的列加上 <code class="cu-code">cu-data-table-row-selected</code>。選取與篩選不是 cubby-ui.js 內建功能，範例中的 script 示範一種實作方式（其 <code class="cu-code">data-table-*</code> 屬性為自訂掛鉤）。',
       },
       classes: {
         title: 'CSS 類別',

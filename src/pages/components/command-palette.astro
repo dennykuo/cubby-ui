@@ -182,10 +182,15 @@ const withIconsCode = `<dialog class="cu-command" id="cmd-demo-4" data-cu-comman
 const emptyStateCode = `<dialog class="cu-command" id="cmd-demo-5" data-cu-command>
   <div class="cu-command-input-wrapper">
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="cu-command-input-icon"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-    <input type="text" class="cu-command-input" placeholder="Search commands..." data-cu-command-input value="xyzabc" />
+    <input type="text" class="cu-command-input" placeholder="Search commands..." data-cu-command-input />
   </div>
   <div class="cu-command-list" data-cu-command-list>
-    <div class="cu-command-empty">
+    <div class="cu-command-group" data-cu-command-group>
+      <div class="cu-command-group-heading">Commands</div>
+      <button type="button" class="cu-command-item" data-cu-command-item>New File</button>
+      <button type="button" class="cu-command-item" data-cu-command-item>Open Settings</button>
+    </div>
+    <div class="cu-command-empty" data-cu-command-empty hidden>
       <div class="flex flex-col items-center gap-2 py-6 text-muted-foreground">
         <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
         <p class="text-sm font-medium">No commands found</p>
@@ -413,10 +418,15 @@ const emptyStateCode = `<dialog class="cu-command" id="cmd-demo-5" data-cu-comma
         <dialog class="cu-command" id="cmd-demo-5" data-cu-command>
           <div class="cu-command-input-wrapper">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="cu-command-input-icon"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-            <input type="text" class="cu-command-input" placeholder="Search commands..." data-cu-command-input value="xyzabc" />
+            <input type="text" class="cu-command-input" placeholder="Search commands..." data-cu-command-input />
           </div>
           <div class="cu-command-list" data-cu-command-list>
-            <div class="cu-command-empty">
+            <div class="cu-command-group" data-cu-command-group>
+              <div class="cu-command-group-heading">Commands</div>
+              <button type="button" class="cu-command-item" data-cu-command-item>New File</button>
+              <button type="button" class="cu-command-item" data-cu-command-item>Open Settings</button>
+            </div>
+            <div class="cu-command-empty" data-cu-command-empty hidden>
               <div class="flex flex-col items-center gap-2 py-6 text-muted-foreground">
                 <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
                 <p class="text-sm font-medium">No commands found</p>
