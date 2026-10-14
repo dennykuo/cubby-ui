@@ -35,6 +35,25 @@ test.describe("Toast", () => {
     await expect(toast).toHaveCount(0, { timeout: 3000 });
   });
 
+  test("trigger 的 data-cu-toast-duration=\"0\" 不自動消失", async ({ page }) => {
+    await page.clock.install();
+    await page.reload();
+    await page.click("#trigger");
+    await page.clock.runFor(10_000);
+    await expect(page.locator(".cu-toast:not(.cu-toast-exit)")).toHaveCount(1);
+  });
+
+  test("trigger 未設定 data-cu-toast-duration 時沿用預設 5000ms", async ({ page }) => {
+    await page.clock.install();
+    await page.reload();
+    await page.click("#trigger-default");
+    const live = page.locator(".cu-toast:not(.cu-toast-exit)");
+    await page.clock.runFor(4_900);
+    await expect(live).toHaveCount(1);
+    await page.clock.runFor(200);
+    await expect(live).toHaveCount(0);
+  });
+
   test("堆疊上限：超出 data-cu-toast-max 時移除最舊通知", async ({ page }) => {
     await page.evaluate(() => {
       for (let i = 1; i <= 5; i++) CubbyUI.toast.show({ title: "Toast " + i, duration: 0 });

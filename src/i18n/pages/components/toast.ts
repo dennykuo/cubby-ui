@@ -54,7 +54,7 @@ export const toastPage: Record<Locale, {
       },
       persistent: {
         title: 'Persistent',
-        description: 'Set <code class="cu-code">duration: 0</code> to create toasts that remain until manually dismissed.',
+        description: 'Set <code class="cu-code">duration: 0</code> (or <code class="cu-code">data-cu-toast-duration="0"</code> on a trigger) to create toasts that remain until manually dismissed.',
       },
       stacked: {
         title: 'Stack Limit',
@@ -124,7 +124,7 @@ export const toastPage: Record<Locale, {
       },
       persistent: {
         title: '持續顯示',
-        description: '設定 <code class="cu-code">duration: 0</code>以建立需手動關閉的通知。',
+        description: '設定 <code class="cu-code">duration: 0</code>（或在觸發按鈕上設定 <code class="cu-code">data-cu-toast-duration="0"</code>）以建立需手動關閉的通知。',
       },
       stacked: {
         title: '堆疊上限',

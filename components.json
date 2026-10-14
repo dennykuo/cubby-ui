@@ -567,7 +567,7 @@
         "max": "data-cu-toast-max",
         "close": "data-cu-toast-close"
       },
-      "notes": "Container auto-created at bottom-right if not in DOM. Default duration: 5000ms. Default max stack: 5. data-cu-toast-variant values: default | destructive | success | warning | info. Programmatic API: CubbyUI.toast.show({ title, description, variant, duration }) and CubbyUI.toast.promise(asyncFn, { loading, success, error }) for async operations.",
+      "notes": "Container auto-created at bottom-right if not in DOM. Default duration: 5000ms; duration 0 (data-cu-toast-duration='0' on the trigger, or duration: 0 in CubbyUI.toast.show) disables auto-dismiss. Default max stack: 5. data-cu-toast-variant values: default | destructive | success | warning | info. Programmatic API: CubbyUI.toast.show({ title, description, variant, duration }) and CubbyUI.toast.promise(asyncFn, { loading, success, error }) for async operations.",
       "example": "<button class=\"cu-button cu-button-default\" data-cu-toast-trigger data-cu-toast-title=\"Saved\" data-cu-toast-variant=\"success\">Save</button>"
     },
     {
