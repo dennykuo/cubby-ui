@@ -12,6 +12,8 @@
  * - Helper 函式結果（已由 parser 內聯展開）
  * - Conditional &&: filled && `cu-rating-item-active`
  * - Inline ternary: cond ? 'class' : ''
+ * - Object 語法: { [`cu-xxx-placeholder`]: !value }
+ * - Template literal 內引用靜態 frontmatter const: `${baseClass}-vertical`
  */
 
 const { TOP_CLASS, substituteHelperParam } = require("./parser.cjs");
@@ -34,6 +36,11 @@ function resolveClassItem(item, variables = {}, renamedProps = {}, helpers = {})
   // 1. className（使用者傳入的 class） — 跳過，由 $attributes->class() 自動合併
   if (item === "className" || item === "class") return null;
 
+  // 1b. Object 語法：{ [`cu-xxx`]: cond, "cu-yyy": cond }（回傳多個 item）
+  if (/^\{[\s\S]*\}$/.test(item)) {
+    return resolveClassObject(item, variables, renamedProps);
+  }
+
   // 2. 變數引用（如 baseClass, variantClass, sizeClass）
   if (variables[item]) {
     return resolveVariableExpression(item, variables, renamedProps, helpers);
@@ -54,7 +61,7 @@ function resolveClassItem(item, variables = {}, renamedProps = {}, helpers = {})
   // 5. Template literal with interpolation: `cu-button-${variant}`
   const templateLiteral = item.match(/^`(.+)`$/);
   if (templateLiteral) {
-    return { phpClass: templateLiteralToPhp(templateLiteral[1], renamedProps) };
+    return { phpClass: templateLiteralToPhp(templateLiteral[1], renamedProps, variables) };
   }
 
   // 6. Conditional && class: `word && expr` or `compound_expr && expr`
@@ -108,7 +115,7 @@ function resolveVariableExpression(varName, variables, renamedProps, helpers) {
   // Pattern 2: Template literal with prop — `cu-button-${variant}`
   const templateMatch = raw.match(/^`(.+)`$/);
   if (templateMatch) {
-    return { phpClass: templateLiteralToPhp(templateMatch[1], renamedProps) };
+    return { phpClass: templateLiteralToPhp(templateMatch[1], renamedProps, variables) };
   }
 
   // Pattern 3: Conditional with default skip — size && size !== "default" ? expr : undefined
@@ -118,7 +125,7 @@ function resolveVariableExpression(varName, variables, renamedProps, helpers) {
   if (condDefaultMatch) {
     const [, prop, defaultVal, trueExpr] = condDefaultMatch;
     const phpProp = propToPhp(prop, renamedProps);
-    const resolvedClass = resolveTemplateOrString(trueExpr.trim(), renamedProps);
+    const resolvedClass = resolveTemplateOrString(trueExpr.trim(), renamedProps, variables);
     return {
       phpClass: resolvedClass,
       condition: `${phpProp} && ${phpProp} !== '${defaultVal}'`,
@@ -130,7 +137,7 @@ function resolveVariableExpression(varName, variables, renamedProps, helpers) {
   if (simpleCondMatch) {
     const [, prop, defaultVal, trueExpr] = simpleCondMatch;
     const phpProp = propToPhp(prop, renamedProps);
-    const resolvedClass = resolveTemplateOrString(trueExpr.trim(), renamedProps);
+    const resolvedClass = resolveTemplateOrString(trueExpr.trim(), renamedProps, variables);
     return {
       phpClass: resolvedClass,
       condition: `${phpProp} !== '${defaultVal}'`,
@@ -142,7 +149,7 @@ function resolveVariableExpression(varName, variables, renamedProps, helpers) {
   if (boolMatch) {
     const [, prop, trueExpr] = boolMatch;
     const phpProp = propToPhp(prop, renamedProps);
-    const resolvedClass = resolveTemplateOrString(trueExpr.trim(), renamedProps);
+    const resolvedClass = resolveTemplateOrString(trueExpr.trim(), renamedProps, variables);
     return {
       phpClass: resolvedClass,
       condition: phpProp,
@@ -157,8 +164,8 @@ function resolveVariableExpression(varName, variables, renamedProps, helpers) {
     // 只處理兩邊都是有效 class 的情況（非 undefined）
     if (!FALSY_LITERALS.has(trimFalse)) {
       const phpProp = propToPhp(prop, renamedProps);
-      const trueClass = resolveTemplateOrString(trueExpr.trim(), renamedProps);
-      const falseClass = resolveTemplateOrString(trimFalse, renamedProps);
+      const trueClass = resolveTemplateOrString(trueExpr.trim(), renamedProps, variables);
+      const falseClass = resolveTemplateOrString(trimFalse, renamedProps, variables);
       return {
         phpClass: `${phpProp} ${op} '${val}' ? '${trueClass}' : ${falseClass.includes("'") || falseClass.includes(" . ") ? falseClass : `'${falseClass}'`}`,
       };
@@ -190,10 +197,10 @@ function resolveVariableExpression(varName, variables, renamedProps, helpers) {
 /**
  * 解析 template literal 或字串為 PHP 表達式
  */
-function resolveTemplateOrString(expr, renamedProps) {
+function resolveTemplateOrString(expr, renamedProps, variables) {
   // `cu-button-${variant}`
   const tpl = expr.match(/^`(.+)`$/);
-  if (tpl) return templateLiteralToPhp(tpl[1], renamedProps);
+  if (tpl) return templateLiteralToPhp(tpl[1], renamedProps, variables);
 
   // "cu-card"
   const str = expr.match(/^["']([^"']+)["']$/);
@@ -204,15 +211,65 @@ function resolveTemplateOrString(expr, renamedProps) {
 }
 
 /**
+ * 解析 class:list 的 object 語法為多個條件 class item
+ *   { [`${TOP_CLASS}-x`]: !value, "cu-y": active } → [{ phpClass: 'cu-x', condition: '!$value' }, ...]
+ * @returns {Array<{ phpClass: string, condition: string }>}
+ */
+function resolveClassObject(item, variables, renamedProps) {
+  const body = item.trim().slice(1, -1);
+  const entries = [];
+  let depth = 0;
+  let inTemplate = false;
+  let current = "";
+  for (const ch of body) {
+    if (ch === "`") inTemplate = !inTemplate;
+    else if (!inTemplate && "[({".includes(ch)) depth++;
+    else if (!inTemplate && "])}".includes(ch)) depth--;
+    if (ch === "," && depth === 0 && !inTemplate) {
+      entries.push(current);
+      current = "";
+    } else {
+      current += ch;
+    }
+  }
+  entries.push(current);
+
+  const items = [];
+  for (const entry of entries.map((e) => e.trim()).filter(Boolean)) {
+    const m = entry.match(/^(\[\s*`([^`]+)`\s*\]|["']([^"']+)["']|([\w-]+))\s*:\s*([\s\S]+)$/);
+    if (!m) {
+      throw new Error(`無法解析 class:list object 項目：${entry}`);
+    }
+    const [, , tplKey, strKey, identKey, cond] = m;
+    const phpClass =
+      tplKey !== undefined ? templateLiteralToPhp(tplKey, renamedProps, variables) : (strKey ?? identKey);
+    items.push({ phpClass, condition: conditionToPhp(cond.trim(), renamedProps) });
+  }
+  return items;
+}
+
+/**
+ * 回傳 frontmatter const 的靜態字串值（由 parser 預先計算），非靜態回傳 undefined
+ */
+function staticVariable(variables, name) {
+  const v = variables && variables[name];
+  return v && typeof v.staticValue === "string" ? v.staticValue : undefined;
+}
+
+/**
  * 將 JS template literal 內容轉為 PHP 字串拼接
  * 如：cu-button-${variant} → 'cu-button-' . $variant
+ *     ${baseClass}-vertical → cu-steps-vertical（baseClass 為靜態 const 時直接內聯）
  * @param {string} content - template literal 內容（不含反引號）
  * @param {Record<string, string>} renamedProps
- * @returns {string} PHP 表達式
+ * @param {Record<string, { staticValue?: string | null }>} [variables] - frontmatter const
+ * @returns {string} PHP 表達式（全靜態時回傳不含引號的字串）
  */
-function templateLiteralToPhp(content, renamedProps = {}) {
-  // 先替換 ${TOP_CLASS} 為 cu
-  content = content.replace(/\$\{TOP_CLASS\}/g, TOP_CLASS);
+function templateLiteralToPhp(content, renamedProps = {}, variables = {}) {
+  // 先替換 ${TOP_CLASS} 為 cu，並內聯可靜態求值的 frontmatter const
+  content = content
+    .replace(/\$\{TOP_CLASS\}/g, TOP_CLASS)
+    .replace(/\$\{(\w+)\}/g, (m, name) => staticVariable(variables, name) ?? m);
 
   // 檢查是否有插值
   if (!content.includes("${")) return content;
@@ -336,6 +393,7 @@ function buildBladeClassString(items, useAttributes = true, bag = "$attributes")
 module.exports = {
   resolveClassItem,
   resolveVariableExpression,
+  staticVariable,
   templateLiteralToPhp,
   propToPhp,
   conditionToPhp,
