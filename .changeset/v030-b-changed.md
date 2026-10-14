@@ -21,3 +21,4 @@
 - **MenubarItem** 改輸出 `<button type="button">`（原本是無法鍵盤操作的 `<div>`）；Combobox、Multi Select、Number Input、Toggle Group、Transfer List 的 Astro / Blade 元件按鈕加上 `type="button"`，放在 `<form>` 內不再送出表單
 - **Label** 的 Astro Props 改為延伸原生 `<label>` 屬性，`htmlFor` 這類 React 寫法會在型別檢查時報錯
 - Dropdown / Menubar 項目與 Rating 星等加上 focus-visible 焦點樣式
+- **Calendar / Date Picker 月份標題跟著語系**：原本固定為英文（`March 2026`），現在以 `Intl.DateTimeFormat` 依 `data-cu-calendar-locale` / 最近祖先的 `lang` 格式化（zh-TW 為 `2026年3月`），與日期按鈕的無障礙名稱一致；`lang` 為英文或未指定語系的頁面顯示不變
