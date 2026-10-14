@@ -24,13 +24,6 @@ export function initCalendar(calendar, onSelect) {
 
   var today = new Date();
   today.setHours(0, 0, 0, 0);
-  var currentMonth = today.getMonth();
-  var currentYear = today.getFullYear();
-
-  if (calendar._cuSelectedDate) {
-    currentMonth = calendar._cuSelectedDate.getMonth();
-    currentYear = calendar._cuSelectedDate.getFullYear();
-  }
 
   var selectedDate = calendar._cuSelectedDate || null;
   var minDate = null;
@@ -39,6 +32,12 @@ export function initCalendar(calendar, onSelect) {
   var maxAttr = calendar.getAttribute("data-cu-calendar-max");
   if (minAttr) { var mp = minAttr.split("-"); minDate = new Date(parseInt(mp[0]), parseInt(mp[1]) - 1, parseInt(mp[2])); minDate.setHours(0, 0, 0, 0); }
   if (maxAttr) { var xp = maxAttr.split("-"); maxDate = new Date(parseInt(xp[0]), parseInt(xp[1]) - 1, parseInt(xp[2])); maxDate.setHours(0, 0, 0, 0); }
+
+  // 初始月份與開啟 Date Picker 時相同：範圍內的選取日 → 今天 → 範圍內第一個可選日期，
+  // 避免 min / max 不含今天時開在每一天都停用的月份
+  var initial = initialDate();
+  var currentMonth = initial.getMonth();
+  var currentYear = initial.getFullYear();
 
   // APG grid：月曆是以月份標題命名的 role="grid"，每週一個 role="row"（cu-calendar-week），日期按鈕為 gridcell。
   // grid 讓螢幕閱讀器把方向鍵交給頁面處理（瀏覽模式下一般按鈕收不到方向鍵）；只有一個 Tab 停駐點（roving tabindex）
@@ -68,6 +67,12 @@ export function initCalendar(calendar, onSelect) {
 
   function inRange(date) {
     return !(minDate && date < minDate) && !(maxDate && date > maxDate);
+  }
+
+  /** @returns {Date} 範圍內的選取日 → 今天 → 範圍內第一個可選日期（今天不在 min / max 範圍內時） */
+  function initialDate() {
+    if (selectedDate && inRange(selectedDate)) return selectedDate;
+    return inRange(today) ? today : minDate || maxDate;
   }
 
   function render() {
@@ -182,7 +187,7 @@ export function initCalendar(calendar, onSelect) {
 
   // APG Date Picker Dialog：開啟時切到並聚焦選取日；沒有選取時為今天，今天不在範圍內時為範圍內第一個可選日期
   calendar._cuFocusInitialDate = function () {
-    var target = selectedDate && inRange(selectedDate) ? selectedDate : inRange(today) ? today : minDate || maxDate;
+    var target = initialDate();
     currentMonth = target.getMonth();
     currentYear = target.getFullYear();
     render();

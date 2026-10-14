@@ -114,6 +114,18 @@
     </div>
   </div>
 
+  <!-- 獨立 Calendar + min / max：今天不在範圍內時，初始月份應落在範圍內 -->
+  <div style="width: 280px;">
+    <div id="cal-range" class="cu-calendar" data-cu-calendar data-cu-calendar-min="2026-03-10" data-cu-calendar-max="2026-04-20">
+      <div class="cu-calendar-header">
+        <button type="button" class="cu-calendar-nav" data-cu-calendar-prev aria-label="Previous month">&#8249;</button>
+        <span class="cu-calendar-title" data-cu-calendar-title></span>
+        <button type="button" class="cu-calendar-nav" data-cu-calendar-next aria-label="Next month">&#8250;</button>
+      </div>
+      <div class="cu-calendar-grid" data-cu-calendar-grid></div>
+    </div>
+  </div>
+
   <script>
     window.__changes = [];
     document.addEventListener("change", function (e) {
