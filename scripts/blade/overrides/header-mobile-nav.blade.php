@@ -13,7 +13,7 @@
 
 <div
     id="{{ $id }}"
-    {{ $attributes->class(array_filter(['cu-header-mobile-backdrop', $backdropBp])) }}
+    {{ $attributes->only('class')->class(array_filter(['cu-header-mobile-backdrop', $backdropBp])) }}
     data-cu-mobile-nav
     hidden
 ></div>

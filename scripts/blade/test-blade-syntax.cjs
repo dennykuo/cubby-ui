@@ -10,6 +10,9 @@
  *       - `@class([,`、`, ]`（純空白前後的空元素）
  *       - 未轉譯的 JSX 屬性 `attr={...}`、內容中的 `{expr}` / `{cond && <tag>}`
  *       - 未轉譯的 Astro 元件 / 動態 tag（`<Calendar />`、`<Tag>`）
+ *       - 同一元素有兩個 class 來源（如 `@class([...])` + `{{ $attributes }}`，
+ *         使用者的 class 成為第二個 class 屬性而被瀏覽器忽略），或
+ *         `$attributes` 被完整渲染兩次（非 class 屬性重複）
  *
  *   (2) 未宣告變數 — PHP 片段中引用的 `$var` 必須來自 `@props`、`@php` 指派、
  *       `@foreach ... as`、Blade 內建變數（`$attributes`、`$slot` …），
@@ -142,6 +145,82 @@ function checkBadPatterns(files) {
       }
     }
   }
+  return failures;
+}
+
+// ── 重複 class / attribute bag 檢查 ───────────────────────
+
+/**
+ * 判斷 {{ ... }} 內容對所在元素輸出了什麼
+ * @returns {{ classSource: boolean, bag: boolean }}
+ *   classSource：會輸出 class 屬性；bag：會輸出使用者的非 class 屬性
+ */
+function classifyEcho(code) {
+  const expr = code.trim();
+  if (!/^\$attributes\b/.test(expr)) return { classSource: false, bag: false };
+  if (/->only\(/.test(expr)) {
+    return { classSource: /->class\(|only\(\s*\[?\s*['"]class['"]/.test(expr), bag: false };
+  }
+  if (/->except\(\s*\[?[^)]*['"]class['"]/.test(expr)) {
+    return { classSource: /->class\(/.test(expr), bag: true };
+  }
+  return { classSource: true, bag: true };
+}
+
+/**
+ * 逐一檢查開頭 tag：class 來源（class="…"、@class、$attributes 含 class）超過一個，
+ * 或 $attributes 完整渲染超過一次，皆視為失敗。<x-*> 元件 tag 會自行合併屬性，略過。
+ */
+function checkDuplicateAttributes(files) {
+  const failures = [];
+
+  for (const file of files) {
+    const src = fs.readFileSync(file, 'utf8').replace(BLADE_COMMENT_RE, blank);
+    const tokens = [];
+    // 以 placeholder 取代 Blade 片段（保留換行以維持行號），避免 `->`、`=>` 中的 `>` 截斷 tag
+    const placeholder = (info, text) => {
+      tokens.push(info);
+      return `\u0001${tokens.length - 1}\u0002${text.replace(/[^\n]/g, '')}`;
+    };
+
+    let masked = src.replace(/\{\{([\s\S]*?)\}\}/g, (m, code) => placeholder(classifyEcho(code), m));
+    let out = '';
+    let last = 0;
+    for (const m of masked.matchAll(/@(\w+)\s*\(/g)) {
+      if (m.index < last) continue;
+      const open = m.index + m[0].length - 1;
+      const close = matchParen(masked, open);
+      if (close === -1) continue;
+      const text = masked.slice(m.index, close + 1);
+      out += masked.slice(last, m.index) + placeholder({ classSource: m[1] === 'class', bag: false }, text);
+      last = close + 1;
+    }
+    masked = out + masked.slice(last);
+
+    for (const m of masked.matchAll(/<(\u0001\d+\u0002|[a-zA-Z][\w.:-]*)([^<>]*)>/g)) {
+      if (m[1].startsWith('x-')) continue;
+      const attrs = m[2];
+      let classCount = (attrs.match(/(?:^|[\s"'])class\s*=/g) || []).length;
+      let bagCount = 0;
+      for (const [, idx] of attrs.matchAll(/\u0001(\d+)\u0002/g)) {
+        if (tokens[idx].classSource) classCount++;
+        if (tokens[idx].bag) bagCount++;
+      }
+      if (classCount < 2 && bagCount < 2) continue;
+
+      const line = masked.slice(0, m.index).split('\n').length;
+      failures.push({
+        file: path.relative(ROOT, file),
+        line,
+        pattern: classCount >= 2 ? 'duplicate-class-attr' : 'duplicate-attribute-bag',
+        hint: classCount >= 2
+          ? '同一元素有多個 class 來源，使用者傳入的 class 會被瀏覽器忽略；改用 {{ $attributes->class([...]) }}（分在不同元素時用 only(\'class\') / except(\'class\')）'
+          : '$attributes 在同一元素渲染兩次，非 class 屬性重複；只保留一個 {{ $attributes->class([...]) }}',
+        snippet: src.split(/\r?\n/)[line - 1].trim().slice(0, 160),
+      });
+    }
+  }
+
   return failures;
 }
 
@@ -364,7 +443,7 @@ function main() {
   let exitCode = 0;
 
   // (1) Pattern check
-  const patternFails = checkBadPatterns(files);
+  const patternFails = [...checkBadPatterns(files), ...checkDuplicateAttributes(files)];
   if (patternFails.length > 0) {
     exitCode = 1;
     console.error(`\n✗ 發現 ${patternFails.length} 個壞 pattern：`);
@@ -374,7 +453,7 @@ function main() {
       console.error(`    → ${f.hint}`);
     }
   } else {
-    console.log('✓ 無已知壞 pattern（`,,`、空陣列元素、未轉譯 JSX / Astro 語法）');
+    console.log('✓ 無已知壞 pattern（`,,`、空陣列元素、未轉譯 JSX / Astro 語法、重複 class / 屬性）');
   }
 
   // (2) Undeclared variables

@@ -60,6 +60,9 @@ function transformTemplate(template, parsed, options = {}) {
   // Pass 2: 處理 class:list + {...rest} (root 元素)
   result = transformClassListWithSpread(result, parsed);
 
+  // Pass 2b: 同一元素上 class:list 與 {...rest} 之間隔有其他屬性
+  result = transformClassListWithDistantSpread(result, parsed);
+
   // Pass 3: 處理剩餘的 class:list（無 {...rest} 的情況）
   result = transformClassListOnly(result, parsed);
 
@@ -168,13 +171,43 @@ function transformClassListWithSpread(template, parsed) {
 }
 
 /**
+ * Pass 2b: 同一元素上 class:list 與 {...rest} 不相鄰
+ *
+ *   <div class:list={[...]} data-cu-x role="y" {...rest}>
+ *     → <div data-cu-x role="y" {{ $attributes->class([...]) }}>
+ *
+ * 若分別輸出 @class([...]) 與 {{ $attributes }}，使用者傳入的 class 會成為
+ * 第二個 class 屬性而被瀏覽器忽略。合併後輸出在 {...rest} 的位置，
+ * 維持 Astro 中元件自身屬性在前、使用者屬性在後的順序。
+ */
+function transformClassListWithDistantSpread(template, parsed) {
+  // middle：同一個 tag 內、class:list 與 {...rest} 之間的其他屬性（含單層 {expr}）
+  const pattern = /\s*class:list=\{(\[[\s\S]*?\])\}((?:[^<>{]|\{(?!\.\.\.rest\})(?:[^{}]|\{[^{}]*\})*\})*?)\{\.\.\.rest\}/g;
+
+  return template.replace(pattern, (match, classListContent, middle) => {
+    const items = parseClassListArray(classListContent, parsed);
+    return `${middle}${buildBladeClassString(items, true)}`;
+  });
+}
+
+/**
  * Pass 3: 處理剩餘的 class:list（不帶 {...rest}）
+ *
+ * 含 className 的 class:list 代表使用者的 class 應落在此元素；
+ * 此時 {...rest} 位於其他元素（如 Select 的 <div> 包 <select {...rest}>），
+ * 以 $attributes->only('class') 只合併 class，其餘屬性由 Pass 8 的 except('class') 輸出。
  */
 function transformClassListOnly(template, parsed) {
   const pattern = /class:list=\{(\[[\s\S]*?\])\}/g;
 
   return template.replace(pattern, (match, classListContent) => {
     const items = parseClassListArray(classListContent, parsed);
+    const classAlias = parsed.renamedProps.class || 'className';
+    const receivesUserClass = smartSplit(classListContent.trim().slice(1, -1))
+      .some((item) => item === classAlias);
+    if (receivesUserClass) {
+      return buildBladeClassString(items, true, "$attributes->only('class')");
+    }
     return buildBladeClassString(items, false);
   });
 }
@@ -484,8 +517,9 @@ function transformAttributeExpressions(template, parsed) {
  * 如果 root 元素已處理 $attributes->class()，內部的 {...rest} 用 {{ $attributes->except('class') }}
  */
 function transformInnerSpread(template) {
-  // 如果已有 $attributes->class（代表 root 已處理），剩餘的 {...rest} 用 except
-  if (template.includes('$attributes->class(')) {
+  // 如果已有 $attributes->class / $attributes->only('class')（代表 class 已由其他元素輸出），
+  // 剩餘的 {...rest} 用 except，避免 class 重複或落到錯誤元素
+  if (/\$attributes->(?:only\('class'\)|class\()/.test(template)) {
     return template.replace(/\{\.\.\.rest\}/g, "{{ $attributes->except('class') }}");
   }
   // 否則直接用 $attributes
@@ -532,8 +566,8 @@ function cleanup(template) {
 
   // 修正多行 $attributes->class 的縮排（壓縮的空格問題）
   result = result.replace(
-    /\$attributes->class\(\[\s{2,}/g,
-    '$attributes->class(['
+    /(\$attributes(?:->only\('class'\))?->class)\(\[\s{2,}/g,
+    '$1(['
   );
   // 清除 class 項之間的多餘空格
   result = result.replace(/,\s{2,}'/g, ", '");

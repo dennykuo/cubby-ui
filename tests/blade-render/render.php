@@ -14,6 +14,11 @@
  *   - all-props：每個 prop 都給 truthy 值（boolean → true、數字 → 3、其餘 → 'x'），
  *     以走過條件分支
  *
+ * 每次渲染都帶 class="smoke-extra" id="smoke-id"，並以 DOMDocument 解析輸出
+ * （與瀏覽器相同，重複屬性只保留第一個）確認：
+ *   - 使用者的 class 確實生效（未因同一元素有兩個 class 屬性而被丟棄）
+ *   - 使用者的 id 只出現在一個元素上（$attributes 沒有被渲染到多個元素）
+ *
  * 用法：php tests/blade-render/render.php <dist/laravel/components> [--verbose]
  * 通常經由 `npm run test:blade` 呼叫（scripts/blade/render-smoke.cjs 會先 composer install）。
  */
@@ -129,6 +134,30 @@ function truthyAttributes(array $props): string
     return implode(' ', $attrs);
 }
 
+/**
+ * 以 HTML parser 檢查使用者屬性是否正確落地，回傳問題描述（無問題回傳 null）
+ */
+function checkUserAttributes(string $html): ?string
+{
+    $dom = new DOMDocument;
+    $previous = libxml_use_internal_errors(true);
+    $dom->loadHTML('<!DOCTYPE html><html><body>' . $html . '</body></html>');
+    libxml_clear_errors();
+    libxml_use_internal_errors($previous);
+
+    $xpath = new DOMXPath($dom);
+    $withClass = $xpath->query("//*[contains(concat(' ', normalize-space(@class), ' '), ' smoke-extra ')]")->length;
+    $withId = $xpath->query("//*[@id='smoke-id']")->length;
+
+    if ($withClass === 0) {
+        return '使用者傳入的 class 未生效（同一元素可能有兩個 class 屬性）';
+    }
+    if ($withId !== 1) {
+        return "使用者傳入的 id 出現在 {$withId} 個元素上（預期 1 個）";
+    }
+    return null;
+}
+
 $bladeFiles = [];
 $iterator = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($componentsPath . '/cu'));
 foreach ($iterator as $file) {
@@ -157,8 +186,11 @@ foreach ($bladeFiles as $path) {
         $template = "<{$tag}{$attributes} class=\"smoke-extra\" id=\"smoke-id\">Slot content</{$tag}>";
         $renders++;
         try {
-            Blade::render($template, deleteCachedView: true);
-            if ($verbose) {
+            $html = Blade::render($template, deleteCachedView: true);
+            if ($problem = checkUserAttributes($html)) {
+                $failures++;
+                echo "  ✗ {$relative} [{$label}]: {$problem}\n";
+            } elseif ($verbose) {
                 echo "  ✓ {$relative} [{$label}]\n";
             }
         } catch (Throwable $e) {
