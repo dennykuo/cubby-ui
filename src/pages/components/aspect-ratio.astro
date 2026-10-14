@@ -86,9 +86,7 @@ const mapCode = `<div class="cu-aspect-ratio cu-aspect-ratio-16/9 rounded-xl ove
       <h1 class="text-3xl font-bold tracking-tight">Aspect Ratio</h1>
       <span class="cu-badge cu-badge-secondary">{t.category}</span>
     </div>
-    <p class="text-base text-muted-foreground leading-relaxed">
-      {t.description}
-    </p>
+    <p class="text-base text-muted-foreground leading-relaxed">{t.description}</p>
   </div>
 
   <div class="mt-10 space-y-10">
@@ -108,9 +106,7 @@ const mapCode = `<div class="cu-aspect-ratio cu-aspect-ratio-16/9 rounded-xl ove
     <!-- Ratios -->
     <section class="space-y-3">
       <SectionHeading id="ratios" title={t.sections.ratios.title} />
-      <p class="text-base text-muted-foreground leading-relaxed">
-        {t.sections.ratios.description}
-      </p>
+      <p class="text-base text-muted-foreground leading-relaxed">{t.sections.ratios.description}</p>
       <ComponentPreview code={ratiosCode}>
         <div class="grid grid-cols-3 gap-4 w-full">
           <div>
@@ -174,9 +170,7 @@ const mapCode = `<div class="cu-aspect-ratio cu-aspect-ratio-16/9 rounded-xl ove
     <!-- With Iframe -->
     <section class="space-y-3">
       <SectionHeading id="iframe" title={t.sections.iframe.title} />
-      <p class="text-base text-muted-foreground leading-relaxed">
-        {t.sections.iframe.description}
-      </p>
+      <p class="text-base text-muted-foreground leading-relaxed">{t.sections.iframe.description}</p>
       <ComponentPreview code={mapCode}>
         <div class="w-full max-w-lg">
           <AspectRatio ratio="16/9" class="rounded-xl overflow-hidden border border-border">
@@ -204,7 +198,9 @@ const mapCode = `<div class="cu-aspect-ratio cu-aspect-ratio-16/9 rounded-xl ove
           <tbody class="cu-table-body">
             {Object.entries(t.classDescriptions).map(([cls, desc]) => (
               <tr class="cu-table-row">
-                <td class="cu-table-cell"><code class="cu-code">{cls}</code></td>
+                <td class="cu-table-cell">
+                  <code class="cu-code">{cls}</code>
+                </td>
                 <td class="cu-table-cell text-muted-foreground">{desc}</td>
               </tr>
             ))}

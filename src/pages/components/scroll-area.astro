@@ -137,182 +137,198 @@ const tags = ["v1.0.0", "v1.1.0", "v1.2.0", "v1.3.0", "v1.4.0", "v2.0.0", "v2.1.
 ---
 
 <Layout title="Scroll Area — Cubby UI" category="Layouts" componentName="Scroll Area" description={t.description}>
-    <div class="space-y-3">
-        <div class="flex items-center gap-3">
-          <h1 class="text-3xl font-bold tracking-tight">Scroll Area</h1>
-          <span class="cu-badge cu-badge-secondary">Layouts</span>
-        </div>
-        <p class="text-base text-muted-foreground leading-relaxed">
-            A container with custom-styled scrollbars for consistent cross-browser appearance.
-        </p>
+  <div class="space-y-3">
+    <div class="flex items-center gap-3">
+      <h1 class="text-3xl font-bold tracking-tight">Scroll Area</h1>
+      <span class="cu-badge cu-badge-secondary">Layouts</span>
     </div>
+    <p class="text-base text-muted-foreground leading-relaxed">
+      A container with custom-styled scrollbars for consistent cross-browser appearance.
+    </p>
+  </div>
 
-    <div class="mt-10 space-y-10">
-        <!-- Usage -->
-        <section class="space-y-3">
-            <SectionHeading id="usage" title="Usage" />
-            <p class="text-base text-muted-foreground leading-relaxed">
-                Apply <code class="cu-code">cu-scroll-area</code> to a container with a fixed height.
-                The scrollbar is styled to be thin and subtle.
-            </p>
-            <ComponentPreview code={usageCode}>
-                <ScrollArea class="h-[200px] w-48 rounded-lg border border-border p-4">
-                    <h4 class="mb-4 text-sm font-medium leading-none">Tags</h4>
-                    {tags.map((tag, i) => (
-                        <Fragment>
-                            <div class="text-sm">{tag}</div>
-                            {i < tags.length - 1 && <Separator class="my-2" />}
-                        </Fragment>
-                    ))}
-                </ScrollArea>
-            </ComponentPreview>
-        </section>
+  <div class="mt-10 space-y-10">
+    <!-- Usage -->
+    <section class="space-y-3">
+      <SectionHeading id="usage" title="Usage" />
+      <p class="text-base text-muted-foreground leading-relaxed">
+        Apply <code class="cu-code">cu-scroll-area</code> to a container with a fixed height. The scrollbar is styled to
+        be thin and subtle.
+      </p>
+      <ComponentPreview code={usageCode}>
+        <ScrollArea class="h-[200px] w-48 rounded-lg border border-border p-4">
+          <h4 class="mb-4 text-sm font-medium leading-none">Tags</h4>
+          {tags.map((tag, i) => (
+            <Fragment>
+              <div class="text-sm">{tag}</div>
+              {i < tags.length - 1 && <Separator class="my-2" />}
+            </Fragment>
+          ))}
+        </ScrollArea>
+      </ComponentPreview>
+    </section>
 
-        <!-- Classes Reference -->
-        <section class="space-y-3">
-            <SectionHeading id="classes" title="CSS Classes" />
-            <div class="cu-table-wrapper rounded-lg border border-border">
-                <table class="cu-table">
-                    <thead class="cu-table-header">
-                        <tr class="cu-table-row">
-                            <th class="cu-table-head">Class</th>
-                            <th class="cu-table-head">Description</th>
-                        </tr>
-                    </thead>
-                    <tbody class="cu-table-body">
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-scroll-area</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Custom scrollbar container, vertical scroll</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-scroll-area-horizontal</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Horizontal scroll modifier</td>
-                        </tr>
-                    </tbody>
-                </table>
+    <!-- Classes Reference -->
+    <section class="space-y-3">
+      <SectionHeading id="classes" title="CSS Classes" />
+      <div class="cu-table-wrapper rounded-lg border border-border">
+        <table class="cu-table">
+          <thead class="cu-table-header">
+            <tr class="cu-table-row">
+              <th class="cu-table-head">Class</th>
+              <th class="cu-table-head">Description</th>
+            </tr>
+          </thead>
+          <tbody class="cu-table-body">
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-scroll-area</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">Custom scrollbar container, vertical scroll</td>
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-scroll-area-horizontal</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">Horizontal scroll modifier</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Horizontal -->
+    <section class="space-y-3">
+      <SectionHeading id="horizontal" title="Horizontal" />
+      <p class="text-base text-muted-foreground leading-relaxed">
+        Use <code class="cu-code">cu-scroll-area-horizontal</code> for horizontal scrolling with a fixed width.
+      </p>
+      <ComponentPreview code={horizontalCode}>
+        <ScrollArea horizontal class="w-96 rounded-lg border border-border">
+          <div class="flex gap-4 p-4" style="width: max-content;">
+            {[1, 2, 3, 4, 5].map((n) => (
+              <div class="w-36 shrink-0 rounded-md border border-border p-4">
+                <div class="text-sm font-medium">Item {n}</div>
+                <div class="mt-1 text-xs text-muted-foreground">Description text</div>
+              </div>
+            ))}
+          </div>
+        </ScrollArea>
+      </ComponentPreview>
+    </section>
+
+    <!-- With Tags -->
+    <section class="space-y-3">
+      <SectionHeading id="with-tags" title="With Tags" />
+      <p class="text-base text-muted-foreground leading-relaxed">
+        Combine with badges for a horizontally scrollable tag list.
+      </p>
+      <ComponentPreview code={withTagsCode}>
+        <ScrollArea horizontal class="w-80 rounded-lg border border-border p-3">
+          <div class="flex gap-2" style="width: max-content;">
+            <span class="cu-badge cu-badge-default">React</span>
+            <span class="cu-badge cu-badge-secondary">Vue</span>
+            <span class="cu-badge cu-badge-outline">Angular</span>
+            <span class="cu-badge cu-badge-default">Svelte</span>
+            <span class="cu-badge cu-badge-secondary">Astro</span>
+            <span class="cu-badge cu-badge-outline">Solid</span>
+            <span class="cu-badge cu-badge-default">Qwik</span>
+            <span class="cu-badge cu-badge-secondary">Ember</span>
+            <span class="cu-badge cu-badge-outline">Preact</span>
+          </div>
+        </ScrollArea>
+      </ComponentPreview>
+    </section>
+
+    <!-- Long List -->
+    <section class="space-y-3">
+      <SectionHeading id="long-list" title="Long List" />
+      <p class="text-base text-muted-foreground leading-relaxed">
+        A scroll area containing a long list of items with consistent spacing, ideal for sidebar navigation or settings
+        panels.
+      </p>
+      <ComponentPreview code={longListCode}>
+        <ScrollArea class="h-64 w-[300px] rounded-lg border border-border">
+          <div class="p-4 space-y-1">
+            <h4 class="mb-3 text-sm font-semibold">Inbox</h4>
+            <div class="rounded-md px-3 py-2 text-sm hover:bg-muted/60 cursor-pointer">
+              <div class="font-medium">Meeting Notes</div>
+              <div class="text-xs text-muted-foreground">Action items from today's standup</div>
             </div>
-        </section>
+            <div class="rounded-md px-3 py-2 text-sm hover:bg-muted/60 cursor-pointer bg-muted/40">
+              <div class="font-medium">Design Review</div>
+              <div class="text-xs text-muted-foreground">Feedback on the new dashboard</div>
+            </div>
+            <div class="rounded-md px-3 py-2 text-sm hover:bg-muted/60 cursor-pointer">
+              <div class="font-medium">Sprint Planning</div>
+              <div class="text-xs text-muted-foreground">Next sprint priorities and assignments</div>
+            </div>
+            <div class="rounded-md px-3 py-2 text-sm hover:bg-muted/60 cursor-pointer">
+              <div class="font-medium">Bug Report #234</div>
+              <div class="text-xs text-muted-foreground">Login page not loading on Safari</div>
+            </div>
+            <div class="rounded-md px-3 py-2 text-sm hover:bg-muted/60 cursor-pointer">
+              <div class="font-medium">Feature Request</div>
+              <div class="text-xs text-muted-foreground">Dark mode for mobile app</div>
+            </div>
+            <div class="rounded-md px-3 py-2 text-sm hover:bg-muted/60 cursor-pointer">
+              <div class="font-medium">Deployment Update</div>
+              <div class="text-xs text-muted-foreground">v2.3.1 deployed to production</div>
+            </div>
+            <div class="rounded-md px-3 py-2 text-sm hover:bg-muted/60 cursor-pointer">
+              <div class="font-medium">Code Review</div>
+              <div class="text-xs text-muted-foreground">PR #89 needs your review</div>
+            </div>
+            <div class="rounded-md px-3 py-2 text-sm hover:bg-muted/60 cursor-pointer">
+              <div class="font-medium">Security Alert</div>
+              <div class="text-xs text-muted-foreground">New login from unknown device</div>
+            </div>
+          </div>
+        </ScrollArea>
+      </ComponentPreview>
+    </section>
 
-
-        <!-- Horizontal -->
-        <section class="space-y-3">
-            <SectionHeading id="horizontal" title="Horizontal" />
-            <p class="text-base text-muted-foreground leading-relaxed">
-                Use <code class="cu-code">cu-scroll-area-horizontal</code> for horizontal scrolling with a fixed width.
+    <!-- Nested Scroll Areas -->
+    <section class="space-y-3">
+      <SectionHeading id="nested" title="Nested Scroll Areas" />
+      <p class="text-base text-muted-foreground leading-relaxed">
+        Nest scroll areas for complex layouts where both horizontal and vertical scrolling are needed independently.
+      </p>
+      <ComponentPreview code={nestedCode}>
+        <ScrollArea class="h-64 w-[350px] rounded-lg border border-border">
+          <div class="p-4 space-y-4">
+            <h4 class="text-sm font-semibold">Photo Gallery</h4>
+            <ScrollArea horizontal>
+              <div class="flex gap-3 pb-2">
+                <div class="h-24 w-32 shrink-0 rounded-lg bg-muted flex items-center justify-center text-xs text-muted-foreground">
+                  Photo 1
+                </div>
+                <div class="h-24 w-32 shrink-0 rounded-lg bg-muted flex items-center justify-center text-xs text-muted-foreground">
+                  Photo 2
+                </div>
+                <div class="h-24 w-32 shrink-0 rounded-lg bg-muted flex items-center justify-center text-xs text-muted-foreground">
+                  Photo 3
+                </div>
+                <div class="h-24 w-32 shrink-0 rounded-lg bg-muted flex items-center justify-center text-xs text-muted-foreground">
+                  Photo 4
+                </div>
+                <div class="h-24 w-32 shrink-0 rounded-lg bg-muted flex items-center justify-center text-xs text-muted-foreground">
+                  Photo 5
+                </div>
+              </div>
+            </ScrollArea>
+            <p class="text-sm text-muted-foreground">
+              Scroll horizontally above and vertically here to see more content below.
             </p>
-            <ComponentPreview code={horizontalCode}>
-                <ScrollArea horizontal class="w-96 rounded-lg border border-border">
-                    <div class="flex gap-4 p-4" style="width: max-content;">
-                        {[1, 2, 3, 4, 5].map((n) => (
-                            <div class="w-36 shrink-0 rounded-md border border-border p-4">
-                                <div class="text-sm font-medium">Item {n}</div>
-                                <div class="mt-1 text-xs text-muted-foreground">Description text</div>
-                            </div>
-                        ))}
-                    </div>
-                </ScrollArea>
-            </ComponentPreview>
-        </section>
-
-        <!-- With Tags -->
-        <section class="space-y-3">
-            <SectionHeading id="with-tags" title="With Tags" />
-            <p class="text-base text-muted-foreground leading-relaxed">
-                Combine with badges for a horizontally scrollable tag list.
-            </p>
-            <ComponentPreview code={withTagsCode}>
-                <ScrollArea horizontal class="w-80 rounded-lg border border-border p-3">
-                    <div class="flex gap-2" style="width: max-content;">
-                        <span class="cu-badge cu-badge-default">React</span>
-                        <span class="cu-badge cu-badge-secondary">Vue</span>
-                        <span class="cu-badge cu-badge-outline">Angular</span>
-                        <span class="cu-badge cu-badge-default">Svelte</span>
-                        <span class="cu-badge cu-badge-secondary">Astro</span>
-                        <span class="cu-badge cu-badge-outline">Solid</span>
-                        <span class="cu-badge cu-badge-default">Qwik</span>
-                        <span class="cu-badge cu-badge-secondary">Ember</span>
-                        <span class="cu-badge cu-badge-outline">Preact</span>
-                    </div>
-                </ScrollArea>
-            </ComponentPreview>
-        </section>
-
-        <!-- Long List -->
-        <section class="space-y-3">
-            <SectionHeading id="long-list" title="Long List" />
-            <p class="text-base text-muted-foreground leading-relaxed">
-                A scroll area containing a long list of items with consistent spacing, ideal for sidebar navigation or settings panels.
-            </p>
-            <ComponentPreview code={longListCode}>
-                <ScrollArea class="h-64 w-[300px] rounded-lg border border-border">
-                    <div class="p-4 space-y-1">
-                        <h4 class="mb-3 text-sm font-semibold">Inbox</h4>
-                        <div class="rounded-md px-3 py-2 text-sm hover:bg-muted/60 cursor-pointer">
-                            <div class="font-medium">Meeting Notes</div>
-                            <div class="text-xs text-muted-foreground">Action items from today's standup</div>
-                        </div>
-                        <div class="rounded-md px-3 py-2 text-sm hover:bg-muted/60 cursor-pointer bg-muted/40">
-                            <div class="font-medium">Design Review</div>
-                            <div class="text-xs text-muted-foreground">Feedback on the new dashboard</div>
-                        </div>
-                        <div class="rounded-md px-3 py-2 text-sm hover:bg-muted/60 cursor-pointer">
-                            <div class="font-medium">Sprint Planning</div>
-                            <div class="text-xs text-muted-foreground">Next sprint priorities and assignments</div>
-                        </div>
-                        <div class="rounded-md px-3 py-2 text-sm hover:bg-muted/60 cursor-pointer">
-                            <div class="font-medium">Bug Report #234</div>
-                            <div class="text-xs text-muted-foreground">Login page not loading on Safari</div>
-                        </div>
-                        <div class="rounded-md px-3 py-2 text-sm hover:bg-muted/60 cursor-pointer">
-                            <div class="font-medium">Feature Request</div>
-                            <div class="text-xs text-muted-foreground">Dark mode for mobile app</div>
-                        </div>
-                        <div class="rounded-md px-3 py-2 text-sm hover:bg-muted/60 cursor-pointer">
-                            <div class="font-medium">Deployment Update</div>
-                            <div class="text-xs text-muted-foreground">v2.3.1 deployed to production</div>
-                        </div>
-                        <div class="rounded-md px-3 py-2 text-sm hover:bg-muted/60 cursor-pointer">
-                            <div class="font-medium">Code Review</div>
-                            <div class="text-xs text-muted-foreground">PR #89 needs your review</div>
-                        </div>
-                        <div class="rounded-md px-3 py-2 text-sm hover:bg-muted/60 cursor-pointer">
-                            <div class="font-medium">Security Alert</div>
-                            <div class="text-xs text-muted-foreground">New login from unknown device</div>
-                        </div>
-                    </div>
-                </ScrollArea>
-            </ComponentPreview>
-        </section>
-
-        <!-- Nested Scroll Areas -->
-        <section class="space-y-3">
-            <SectionHeading id="nested" title="Nested Scroll Areas" />
-            <p class="text-base text-muted-foreground leading-relaxed">
-                Nest scroll areas for complex layouts where both horizontal and vertical scrolling are needed independently.
-            </p>
-            <ComponentPreview code={nestedCode}>
-                <ScrollArea class="h-64 w-[350px] rounded-lg border border-border">
-                    <div class="p-4 space-y-4">
-                        <h4 class="text-sm font-semibold">Photo Gallery</h4>
-                        <ScrollArea horizontal>
-                            <div class="flex gap-3 pb-2">
-                                <div class="h-24 w-32 shrink-0 rounded-lg bg-muted flex items-center justify-center text-xs text-muted-foreground">Photo 1</div>
-                                <div class="h-24 w-32 shrink-0 rounded-lg bg-muted flex items-center justify-center text-xs text-muted-foreground">Photo 2</div>
-                                <div class="h-24 w-32 shrink-0 rounded-lg bg-muted flex items-center justify-center text-xs text-muted-foreground">Photo 3</div>
-                                <div class="h-24 w-32 shrink-0 rounded-lg bg-muted flex items-center justify-center text-xs text-muted-foreground">Photo 4</div>
-                                <div class="h-24 w-32 shrink-0 rounded-lg bg-muted flex items-center justify-center text-xs text-muted-foreground">Photo 5</div>
-                            </div>
-                        </ScrollArea>
-                        <p class="text-sm text-muted-foreground">Scroll horizontally above and vertically here to see more content below.</p>
-                        <div class="space-y-2">
-                            <div class="rounded-md border border-border p-3 text-sm">Album: Summer Vacation 2024</div>
-                            <div class="rounded-md border border-border p-3 text-sm">Album: Team Offsite</div>
-                            <div class="rounded-md border border-border p-3 text-sm">Album: Product Launch</div>
-                            <div class="rounded-md border border-border p-3 text-sm">Album: Holiday Party</div>
-                        </div>
-                    </div>
-                </ScrollArea>
-            </ComponentPreview>
-        </section>
-    </div>
+            <div class="space-y-2">
+              <div class="rounded-md border border-border p-3 text-sm">Album: Summer Vacation 2024</div>
+              <div class="rounded-md border border-border p-3 text-sm">Album: Team Offsite</div>
+              <div class="rounded-md border border-border p-3 text-sm">Album: Product Launch</div>
+              <div class="rounded-md border border-border p-3 text-sm">Album: Holiday Party</div>
+            </div>
+          </div>
+        </ScrollArea>
+      </ComponentPreview>
+    </section>
+  </div>
 </Layout>

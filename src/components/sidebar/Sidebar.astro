@@ -6,74 +6,62 @@ import type { Locale } from "@/i18n";
 import { localizePath } from "@/i18n";
 import { withBase } from "@/utils/paths";
 import { uiTranslations } from "@/i18n/ui";
-import {
-	gettingStarted as gsRaw,
-	componentGroups,
-	examplePages as exRaw,
-} from "@/data/component-nav";
+import { gettingStarted as gsRaw, componentGroups, examplePages as exRaw } from "@/data/component-nav";
 
 interface Props {
-	currentPath: string;
-	locale: Locale;
+  currentPath: string;
+  locale: Locale;
 }
 
 const { currentPath, locale } = Astro.props;
 const t = uiTranslations[locale];
 
 const lp = (path: string) => localizePath(path, locale);
-const localize = (items: { name: string; path: string }[]) =>
-	items.map((i) => ({ name: i.name, href: lp(i.path) }));
+const localize = (items: { name: string; path: string }[]) => items.map((i) => ({ name: i.name, href: lp(i.path) }));
 
 const gettingStarted = localize(gsRaw);
 const groups = componentGroups.map((g) => ({
-	key: g.key,
-	items: localize(g.items),
+  key: g.key,
+  items: localize(g.items),
 }));
 const examplePages = exRaw.map((i) => ({ name: i.name, href: withBase(i.path) }));
 
-const isInGroup = (items: { href: string }[]) =>
-	items.some((item) => item.href === currentPath);
+const isInGroup = (items: { href: string }[]) => items.some((item) => item.href === currentPath);
 ---
 
-<aside
-	class="hidden md:block sticky top-14 h-[calc(100vh-3.5rem)] w-56 lg:w-60 shrink-0 overflow-y-auto py-8 pl-6 lg:pl-8 pr-2"
->
-	<nav class="space-y-6">
-		<SidebarSection title={t.gettingStarted}>
-			<div class="space-y-0.5">
-				{
-					gettingStarted.map((item) => (
-						<SidebarLink href={item.href} currentPath={currentPath}>
-							{item.name}
-						</SidebarLink>
-					))
-				}
-			</div>
-		</SidebarSection>
+<aside class="hidden md:block sticky top-14 h-[calc(100vh-3.5rem)] w-56 lg:w-60 shrink-0 overflow-y-auto py-8 pl-6 lg:pl-8 pr-2">
+  <nav class="space-y-6">
+    <SidebarSection title={t.gettingStarted}>
+      <div class="space-y-0.5">
+        {gettingStarted.map((item) => (
+          <SidebarLink href={item.href} currentPath={currentPath}>
+            {item.name}
+          </SidebarLink>
+        ))}
+      </div>
+    </SidebarSection>
 
-		<SidebarSection title={t.components}>
-			<div class="space-y-4">
-				{groups.map((g) => (
-					<SidebarGroup title={t[g.key]} open={isInGroup(g.items)}>
-						{g.items.map((item) => (
-							<SidebarLink href={item.href} currentPath={currentPath}>
-								{item.name}
-							</SidebarLink>
-						))}
-					</SidebarGroup>
-				))}
-			</div>
-		</SidebarSection>
-		<SidebarSection title={t.examples}>
-			<div class="space-y-0.5">
-				{
-					examplePages.map((item) => (
-						<SidebarLink href={item.href} currentPath={currentPath}>
-							{item.name}
-						</SidebarLink>
-					))
-				}
-			</div>
-		</SidebarSection>
-	</nav>
+    <SidebarSection title={t.components}>
+      <div class="space-y-4">
+        {groups.map((g) => (
+          <SidebarGroup title={t[g.key]} open={isInGroup(g.items)}>
+            {g.items.map((item) => (
+              <SidebarLink href={item.href} currentPath={currentPath}>
+                {item.name}
+              </SidebarLink>
+            ))}
+          </SidebarGroup>
+        ))}
+      </div>
+    </SidebarSection>
+    <SidebarSection title={t.examples}>
+      <div class="space-y-0.5">
+        {examplePages.map((item) => (
+          <SidebarLink href={item.href} currentPath={currentPath}>
+            {item.name}
+          </SidebarLink>
+        ))}
+      </div>
+    </SidebarSection>
+  </nav>
 </aside>

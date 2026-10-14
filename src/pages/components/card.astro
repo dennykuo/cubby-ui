@@ -388,40 +388,39 @@ const tableInCardCode = `<div class="cu-card">
     </div>
   </div>
 </div>`.trim();
-
 ---
 
 <Layout title={t.title} category={t.category} componentName="Card" description={t.description}>
-    <div class="space-y-3">
-        <div class="flex items-center gap-3">
-            <h1 class="text-3xl font-bold tracking-tight">Card</h1>
-            <span class="cu-badge cu-badge-secondary">{t.category}</span>
-        </div>
-        <p class="text-base text-muted-foreground leading-relaxed">
-            {t.description}
-        </p>
+  <div class="space-y-3">
+    <div class="flex items-center gap-3">
+      <h1 class="text-3xl font-bold tracking-tight">Card</h1>
+      <span class="cu-badge cu-badge-secondary">{t.category}</span>
     </div>
+    <p class="text-base text-muted-foreground leading-relaxed">{t.description}</p>
+  </div>
 
-    <div class="mt-10 space-y-10">
-        <!-- Usage -->
-        <section class="space-y-3">
-            <SectionHeading id="usage" title={t.sections.usage.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
-            <ComponentPreview code={usageCode}>
-                <Card class="w-[380px]">
-                    <CardHeader>
-                        <CardTitle>Project Settings</CardTitle>
-                        <CardDescription>Manage your project configuration and preferences.</CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                        <p class="text-sm text-muted-foreground">Configure your project name, description, and visibility settings from this panel.</p>
-                    </CardContent>
-                    <CardFooter>
-                        <Button>Save Changes</Button>
-                    </CardFooter>
-                </Card>
-            </ComponentPreview>
-        </section>
+  <div class="mt-10 space-y-10">
+    <!-- Usage -->
+    <section class="space-y-3">
+      <SectionHeading id="usage" title={t.sections.usage.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
+      <ComponentPreview code={usageCode}>
+        <Card class="w-[380px]">
+          <CardHeader>
+            <CardTitle>Project Settings</CardTitle>
+            <CardDescription>Manage your project configuration and preferences.</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <p class="text-sm text-muted-foreground">
+              Configure your project name, description, and visibility settings from this panel.
+            </p>
+          </CardContent>
+          <CardFooter>
+            <Button>Save Changes</Button>
+          </CardFooter>
+        </Card>
+      </ComponentPreview>
+    </section>
 
     <!-- Classes Reference -->
     <section class="space-y-3">
@@ -437,7 +436,9 @@ const tableInCardCode = `<div class="cu-card">
           <tbody class="cu-table-body">
             {Object.entries(t.classDescriptions).map(([cls, desc]) => (
               <tr class="cu-table-row">
-                <td class="cu-table-cell"><code class="cu-code">{cls}</code></td>
+                <td class="cu-table-cell">
+                  <code class="cu-code">{cls}</code>
+                </td>
                 <td class="cu-table-cell text-muted-foreground">{desc}</td>
               </tr>
             ))}
@@ -446,462 +447,628 @@ const tableInCardCode = `<div class="cu-card">
       </div>
     </section>
 
+    <!-- Outlined -->
+    <section class="space-y-3">
+      <SectionHeading id="outlined" title={t.sections.outlined.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.outlined.description} />
+      <ComponentPreview code={outlinedCode}>
+        <div class="grid w-full grid-cols-1 gap-4 sm:grid-cols-2">
+          <Card>
+            <CardHeader>
+              <CardTitle>Default Card</CardTitle>
+              <CardDescription>With default shadow-xs.</CardDescription>
+            </CardHeader>
+          </Card>
+          <Card class="cu-card-outlined">
+            <CardHeader>
+              <CardTitle>Outlined Card</CardTitle>
+              <CardDescription>Flat with no shadow.</CardDescription>
+            </CardHeader>
+          </Card>
+        </div>
+      </ComponentPreview>
+    </section>
 
-        <!-- Outlined -->
-        <section class="space-y-3">
-            <SectionHeading id="outlined" title={t.sections.outlined.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.outlined.description} />
-            <ComponentPreview code={outlinedCode}>
-                <div class="grid w-full grid-cols-1 gap-4 sm:grid-cols-2">
-                    <Card>
-                        <CardHeader>
-                            <CardTitle>Default Card</CardTitle>
-                            <CardDescription>With default shadow-xs.</CardDescription>
-                        </CardHeader>
-                    </Card>
-                    <Card class="cu-card-outlined">
-                        <CardHeader>
-                            <CardTitle>Outlined Card</CardTitle>
-                            <CardDescription>Flat with no shadow.</CardDescription>
-                        </CardHeader>
-                    </Card>
+    <!-- Hover Cards -->
+    <section class="space-y-3">
+      <SectionHeading id="hover-effect" title={t.sections.hoverEffect.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.hoverEffect.description} />
+      <ComponentPreview code={hoverCode}>
+        <div class="grid w-full grid-cols-1 gap-4 sm:grid-cols-3">
+          <Card class="cu-card-hover">
+            <CardHeader>
+              <div class="flex size-10 items-center justify-center rounded-lg bg-primary/8 text-primary">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M12 2 2 7l10 5 10-5-10-5Z" />
+                  <path d="m2 17 10 5 10-5" />
+                  <path d="m2 12 10 5 10-5" />
+                </svg>
+              </div>
+              <CardTitle>Components</CardTitle>
+              <CardDescription>Over 90 production-ready UI components.</CardDescription>
+            </CardHeader>
+          </Card>
+          <Card class="cu-card-hover">
+            <CardHeader>
+              <div class="flex size-10 items-center justify-center rounded-lg bg-primary/8 text-primary">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
+                </svg>
+              </div>
+              <CardTitle>Framework Free</CardTitle>
+              <CardDescription>Works with any stack — no dependencies.</CardDescription>
+            </CardHeader>
+          </Card>
+          <Card class="cu-card-hover">
+            <CardHeader>
+              <div class="flex size-10 items-center justify-center rounded-lg bg-primary/8 text-primary">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <circle cx="12" cy="12" r="10" />
+                  <path d="m8 12 3 3 5-6" />
+                </svg>
+              </div>
+              <CardTitle>Accessible</CardTitle>
+              <CardDescription>Follows WAI-ARIA guidelines by default.</CardDescription>
+            </CardHeader>
+          </Card>
+        </div>
+      </ComponentPreview>
+    </section>
+
+    <!-- Metric Card -->
+    <section class="space-y-3">
+      <SectionHeading id="metric-card" title={t.sections.metricCard.title} />
+      <p class="text-base text-muted-foreground leading-relaxed">{t.sections.metricCard.description}</p>
+      <ComponentPreview code={metricCode}>
+        <div class="flex flex-wrap gap-4 justify-center">
+          <Card class="w-[200px]">
+            <CardHeader>
+              <CardTitle class="text-sm font-medium">Total Revenue</CardTitle>
+              <CardDescription>January - June 2024</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div class="text-3xl font-bold">$2,480</div>
+              <p class="text-xs text-muted-foreground mt-1">+12.5% from last month</p>
+            </CardContent>
+          </Card>
+          <Card class="w-[200px]">
+            <CardHeader>
+              <CardTitle class="text-sm font-medium">Subscriptions</CardTitle>
+              <CardDescription>Active plans</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div class="text-3xl font-bold">+2,350</div>
+              <p class="text-xs text-muted-foreground mt-1">+180.1% from last month</p>
+            </CardContent>
+          </Card>
+        </div>
+      </ComponentPreview>
+    </section>
+
+    <!-- Form Card -->
+    <section class="space-y-3">
+      <SectionHeading id="form-card" title={t.sections.formCard.title} />
+      <p class="text-base text-muted-foreground leading-relaxed">{t.sections.formCard.description}</p>
+      <ComponentPreview code={formCardCode}>
+        <Card class="w-[380px]">
+          <CardHeader>
+            <CardTitle>Create project</CardTitle>
+            <CardDescription>Deploy your new project in one-click.</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <form>
+              <div class="grid w-full items-center gap-4">
+                <div class="cu-form-group">
+                  <label for="card-name" class="cu-label">
+                    Name
+                  </label>
+                  <input id="card-name" placeholder="Name of your project" class="cu-input" />
                 </div>
-            </ComponentPreview>
-        </section>
-
-        <!-- Hover Cards -->
-        <section class="space-y-3">
-            <SectionHeading id="hover-effect" title={t.sections.hoverEffect.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.hoverEffect.description} />
-            <ComponentPreview code={hoverCode}>
-                <div class="grid w-full grid-cols-1 gap-4 sm:grid-cols-3">
-                    <Card class="cu-card-hover">
-                        <CardHeader>
-                            <div class="flex size-10 items-center justify-center rounded-lg bg-primary/8 text-primary">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 2 7l10 5 10-5-10-5Z"/><path d="m2 17 10 5 10-5"/><path d="m2 12 10 5 10-5"/></svg>
-                            </div>
-                            <CardTitle>Components</CardTitle>
-                            <CardDescription>Over 90 production-ready UI components.</CardDescription>
-                        </CardHeader>
-                    </Card>
-                    <Card class="cu-card-hover">
-                        <CardHeader>
-                            <div class="flex size-10 items-center justify-center rounded-lg bg-primary/8 text-primary">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
-                            </div>
-                            <CardTitle>Framework Free</CardTitle>
-                            <CardDescription>Works with any stack — no dependencies.</CardDescription>
-                        </CardHeader>
-                    </Card>
-                    <Card class="cu-card-hover">
-                        <CardHeader>
-                            <div class="flex size-10 items-center justify-center rounded-lg bg-primary/8 text-primary">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m8 12 3 3 5-6"/></svg>
-                            </div>
-                            <CardTitle>Accessible</CardTitle>
-                            <CardDescription>Follows WAI-ARIA guidelines by default.</CardDescription>
-                        </CardHeader>
-                    </Card>
+                <div class="cu-form-group">
+                  <label for="card-framework" class="cu-label">
+                    Framework
+                  </label>
+                  <div class="cu-select-wrapper">
+                    <select id="card-framework" class="cu-select">
+                      <option value="">Select</option>
+                      <option value="next">Next.js</option>
+                      <option value="astro">Astro</option>
+                      <option value="nuxt">Nuxt</option>
+                    </select>
+                  </div>
                 </div>
-            </ComponentPreview>
-        </section>
+              </div>
+            </form>
+          </CardContent>
+          <CardFooter class="flex justify-between">
+            <Button variant="outline">Cancel</Button>
+            <Button>Deploy</Button>
+          </CardFooter>
+        </Card>
+      </ComponentPreview>
+    </section>
 
-        <!-- Metric Card -->
-        <section class="space-y-3">
-            <SectionHeading id="metric-card" title={t.sections.metricCard.title} />
-            <p class="text-base text-muted-foreground leading-relaxed">
-                {t.sections.metricCard.description}
-            </p>
-            <ComponentPreview code={metricCode}>
-                <div class="flex flex-wrap gap-4 justify-center">
-                    <Card class="w-[200px]">
-                        <CardHeader>
-                            <CardTitle class="text-sm font-medium">Total Revenue</CardTitle>
-                            <CardDescription>January - June 2024</CardDescription>
-                        </CardHeader>
-                        <CardContent>
-                            <div class="text-3xl font-bold">$2,480</div>
-                            <p class="text-xs text-muted-foreground mt-1">+12.5% from last month</p>
-                        </CardContent>
-                    </Card>
-                    <Card class="w-[200px]">
-                        <CardHeader>
-                            <CardTitle class="text-sm font-medium">Subscriptions</CardTitle>
-                            <CardDescription>Active plans</CardDescription>
-                        </CardHeader>
-                        <CardContent>
-                            <div class="text-3xl font-bold">+2,350</div>
-                            <p class="text-xs text-muted-foreground mt-1">+180.1% from last month</p>
-                        </CardContent>
-                    </Card>
-                </div>
-            </ComponentPreview>
-        </section>
+    <!-- Notification Card -->
+    <section class="space-y-3">
+      <SectionHeading id="notification-card" title={t.sections.notificationCard.title} />
+      <p class="text-base text-muted-foreground leading-relaxed">{t.sections.notificationCard.description}</p>
+      <ComponentPreview code={notificationCardCode}>
+        <Card class="w-[380px]">
+          <CardHeader>
+            <CardTitle>Notifications</CardTitle>
+            <CardDescription>You have 3 unread messages.</CardDescription>
+          </CardHeader>
+          <CardContent class="grid gap-3">
+            <div class="flex items-center gap-4 rounded-lg border border-border p-3">
+              <span class="flex h-2 w-2 rounded-full bg-primary"></span>
+              <div class="flex-1 space-y-0.5">
+                <p class="text-sm font-medium leading-none">Push Notifications</p>
+                <p class="text-xs text-muted-foreground">Sent to your mobile device.</p>
+              </div>
+              <span class="text-xs text-muted-foreground">2m ago</span>
+            </div>
+            <div class="flex items-center gap-4 rounded-lg border border-border p-3">
+              <span class="flex h-2 w-2 rounded-full bg-primary"></span>
+              <div class="flex-1 space-y-0.5">
+                <p class="text-sm font-medium leading-none">Email Digest</p>
+                <p class="text-xs text-muted-foreground">Sent every Monday morning.</p>
+              </div>
+              <span class="text-xs text-muted-foreground">1h ago</span>
+            </div>
+            <div class="flex items-center gap-4 rounded-lg border border-border p-3">
+              <span class="flex h-2 w-2 rounded-full bg-muted-foreground/30"></span>
+              <div class="flex-1 space-y-0.5">
+                <p class="text-sm font-medium leading-none">SMS Alerts</p>
+                <p class="text-xs text-muted-foreground">Only for critical incidents.</p>
+              </div>
+              <span class="text-xs text-muted-foreground">3d ago</span>
+            </div>
+          </CardContent>
+          <CardFooter>
+            <Button class="w-full">Mark all as read</Button>
+          </CardFooter>
+        </Card>
+      </ComponentPreview>
+    </section>
 
-        <!-- Form Card -->
-        <section class="space-y-3">
-            <SectionHeading id="form-card" title={t.sections.formCard.title} />
-            <p class="text-base text-muted-foreground leading-relaxed">
-                {t.sections.formCard.description}
-            </p>
-            <ComponentPreview code={formCardCode}>
-                <Card class="w-[380px]">
-                    <CardHeader>
-                        <CardTitle>Create project</CardTitle>
-                        <CardDescription>Deploy your new project in one-click.</CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                        <form>
-                            <div class="grid w-full items-center gap-4">
-                                <div class="cu-form-group">
-                                    <label for="card-name" class="cu-label">Name</label>
-                                    <input id="card-name" placeholder="Name of your project" class="cu-input" />
-                                </div>
-                                <div class="cu-form-group">
-                                    <label for="card-framework" class="cu-label">Framework</label>
-                                    <div class="cu-select-wrapper">
-                                        <select id="card-framework" class="cu-select">
-                                            <option value="">Select</option>
-                                            <option value="next">Next.js</option>
-                                            <option value="astro">Astro</option>
-                                            <option value="nuxt">Nuxt</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                    </CardContent>
-                    <CardFooter class="flex justify-between">
-                        <Button variant="outline">Cancel</Button>
-                        <Button>Deploy</Button>
-                    </CardFooter>
-                </Card>
-            </ComponentPreview>
-        </section>
+    <!-- Table in Card -->
+    <section class="space-y-3">
+      <SectionHeading id="table-in-card" title={t.sections.tableInCard.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.tableInCard.description} />
+      <ComponentPreview code={tableInCardCode}>
+        <Card class="w-full max-w-lg">
+          <CardHeader>
+            <CardTitle>Recent Orders</CardTitle>
+            <CardDescription>A list of your recent transactions.</CardDescription>
+          </CardHeader>
+          <CardContent class="cu-card-content-flush">
+            <div class="cu-table-wrapper">
+              <table class="cu-table">
+                <thead class="cu-table-header">
+                  <tr class="cu-table-row">
+                    <th class="cu-table-head">Invoice</th>
+                    <th class="cu-table-head">Status</th>
+                    <th class="cu-table-head text-right">Amount</th>
+                  </tr>
+                </thead>
+                <tbody class="cu-table-body">
+                  <tr class="cu-table-row">
+                    <td class="cu-table-cell font-medium">INV001</td>
+                    <td class="cu-table-cell">
+                      <span class="cu-badge cu-badge-success">Paid</span>
+                    </td>
+                    <td class="cu-table-cell text-right">$250.00</td>
+                  </tr>
+                  <tr class="cu-table-row">
+                    <td class="cu-table-cell font-medium">INV002</td>
+                    <td class="cu-table-cell">
+                      <span class="cu-badge cu-badge-warning">Pending</span>
+                    </td>
+                    <td class="cu-table-cell text-right">$150.00</td>
+                  </tr>
+                  <tr class="cu-table-row">
+                    <td class="cu-table-cell font-medium">INV003</td>
+                    <td class="cu-table-cell">
+                      <span class="cu-badge cu-badge-success">Paid</span>
+                    </td>
+                    <td class="cu-table-cell text-right">$350.00</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </CardContent>
+        </Card>
+      </ComponentPreview>
+    </section>
 
-        <!-- Notification Card -->
-        <section class="space-y-3">
-            <SectionHeading id="notification-card" title={t.sections.notificationCard.title} />
-            <p class="text-base text-muted-foreground leading-relaxed">
-                {t.sections.notificationCard.description}
-            </p>
-            <ComponentPreview code={notificationCardCode}>
-                <Card class="w-[380px]">
-                    <CardHeader>
-                        <CardTitle>Notifications</CardTitle>
-                        <CardDescription>You have 3 unread messages.</CardDescription>
-                    </CardHeader>
-                    <CardContent class="grid gap-3">
-                        <div class="flex items-center gap-4 rounded-lg border border-border p-3">
-                            <span class="flex h-2 w-2 rounded-full bg-primary"></span>
-                            <div class="flex-1 space-y-0.5">
-                                <p class="text-sm font-medium leading-none">Push Notifications</p>
-                                <p class="text-xs text-muted-foreground">Sent to your mobile device.</p>
-                            </div>
-                            <span class="text-xs text-muted-foreground">2m ago</span>
-                        </div>
-                        <div class="flex items-center gap-4 rounded-lg border border-border p-3">
-                            <span class="flex h-2 w-2 rounded-full bg-primary"></span>
-                            <div class="flex-1 space-y-0.5">
-                                <p class="text-sm font-medium leading-none">Email Digest</p>
-                                <p class="text-xs text-muted-foreground">Sent every Monday morning.</p>
-                            </div>
-                            <span class="text-xs text-muted-foreground">1h ago</span>
-                        </div>
-                        <div class="flex items-center gap-4 rounded-lg border border-border p-3">
-                            <span class="flex h-2 w-2 rounded-full bg-muted-foreground/30"></span>
-                            <div class="flex-1 space-y-0.5">
-                                <p class="text-sm font-medium leading-none">SMS Alerts</p>
-                                <p class="text-xs text-muted-foreground">Only for critical incidents.</p>
-                            </div>
-                            <span class="text-xs text-muted-foreground">3d ago</span>
-                        </div>
-                    </CardContent>
-                    <CardFooter>
-                        <Button class="w-full">Mark all as read</Button>
-                    </CardFooter>
-                </Card>
-            </ComponentPreview>
-        </section>
+    <!-- Profile Card -->
+    <section class="space-y-3">
+      <SectionHeading id="profile-card" title={t.sections.profileCard.title} />
+      <p class="text-base text-muted-foreground leading-relaxed">{t.sections.profileCard.description}</p>
+      <ComponentPreview code={profileCardCode}>
+        <Card class="w-[380px]">
+          <CardHeader class="items-center text-center">
+            <span class="cu-avatar cu-avatar-lg">
+              <span class="cu-avatar-fallback">AC</span>
+            </span>
+            <CardTitle class="mt-2">Alex Chen</CardTitle>
+            <CardDescription>Product Designer</CardDescription>
+            <div class="flex gap-2 mt-2">
+              <Badge variant="secondary">Figma</Badge>
+              <Badge variant="secondary">Design Systems</Badge>
+              <Badge variant="secondary">Prototyping</Badge>
+            </div>
+          </CardHeader>
+          <CardContent>
+            <div class="cu-separator cu-separator-horizontal"></div>
+            <div class="mt-4 grid grid-cols-3 gap-4 text-center">
+              <div>
+                <div class="text-lg font-bold">86</div>
+                <div class="text-xs text-muted-foreground">Posts</div>
+              </div>
+              <div>
+                <div class="text-lg font-bold">2.1K</div>
+                <div class="text-xs text-muted-foreground">Followers</div>
+              </div>
+              <div>
+                <div class="text-lg font-bold">248</div>
+                <div class="text-xs text-muted-foreground">Following</div>
+              </div>
+            </div>
+          </CardContent>
+          <CardFooter class="justify-center gap-2">
+            <Button size="sm">Follow</Button>
+            <Button variant="outline" size="sm">
+              Message
+            </Button>
+          </CardFooter>
+        </Card>
+      </ComponentPreview>
+    </section>
 
-        <!-- Table in Card -->
-        <section class="space-y-3">
-            <SectionHeading id="table-in-card" title={t.sections.tableInCard.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.tableInCard.description} />
-            <ComponentPreview code={tableInCardCode}>
-                <Card class="w-full max-w-lg">
-                    <CardHeader>
-                        <CardTitle>Recent Orders</CardTitle>
-                        <CardDescription>A list of your recent transactions.</CardDescription>
-                    </CardHeader>
-                    <CardContent class="cu-card-content-flush">
-                        <div class="cu-table-wrapper">
-                            <table class="cu-table">
-                                <thead class="cu-table-header">
-                                    <tr class="cu-table-row">
-                                        <th class="cu-table-head">Invoice</th>
-                                        <th class="cu-table-head">Status</th>
-                                        <th class="cu-table-head text-right">Amount</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="cu-table-body">
-                                    <tr class="cu-table-row">
-                                        <td class="cu-table-cell font-medium">INV001</td>
-                                        <td class="cu-table-cell"><span class="cu-badge cu-badge-success">Paid</span></td>
-                                        <td class="cu-table-cell text-right">$250.00</td>
-                                    </tr>
-                                    <tr class="cu-table-row">
-                                        <td class="cu-table-cell font-medium">INV002</td>
-                                        <td class="cu-table-cell"><span class="cu-badge cu-badge-warning">Pending</span></td>
-                                        <td class="cu-table-cell text-right">$150.00</td>
-                                    </tr>
-                                    <tr class="cu-table-row">
-                                        <td class="cu-table-cell font-medium">INV003</td>
-                                        <td class="cu-table-cell"><span class="cu-badge cu-badge-success">Paid</span></td>
-                                        <td class="cu-table-cell text-right">$350.00</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </CardContent>
-                </Card>
-            </ComponentPreview>
-        </section>
+    <!-- Pricing Cards -->
+    <section class="space-y-3">
+      <SectionHeading id="pricing-cards" title={t.sections.pricingCards.title} />
+      <p class="text-base text-muted-foreground leading-relaxed">{t.sections.pricingCards.description}</p>
+      <ComponentPreview code={pricingCardCode}>
+        <div class="grid w-full grid-cols-1 gap-4 sm:grid-cols-3">
+          <Card>
+            <CardHeader>
+              <CardTitle class="text-lg">Starter</CardTitle>
+              <CardDescription>For individuals and small projects.</CardDescription>
+              <div class="mt-3">
+                <span class="text-3xl font-bold">$0</span>
+                <span class="text-sm text-muted-foreground">/month</span>
+              </div>
+            </CardHeader>
+            <CardContent class="space-y-2">
+              <div class="flex items-center gap-2 text-sm">
+                <svg
+                  class="size-4 text-success"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="m8 12 3 3 5-6" />
+                </svg>
+                Up to 3 projects
+              </div>
+              <div class="flex items-center gap-2 text-sm">
+                <svg
+                  class="size-4 text-success"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="m8 12 3 3 5-6" />
+                </svg>
+                1 GB storage
+              </div>
+              <div class="flex items-center gap-2 text-sm text-muted-foreground">
+                <svg
+                  class="size-4"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="m8 12 3 3 5-6" />
+                </svg>
+                Community support
+              </div>
+            </CardContent>
+            <CardFooter>
+              <Button variant="outline" class="w-full">
+                Get Started
+              </Button>
+            </CardFooter>
+          </Card>
+          <Card class="border-primary/50 shadow-md">
+            <CardHeader>
+              <div class="flex items-center gap-2">
+                <CardTitle class="text-lg">Pro</CardTitle>
+                <Badge>Popular</Badge>
+              </div>
+              <CardDescription>For growing teams and businesses.</CardDescription>
+              <div class="mt-3">
+                <span class="text-3xl font-bold">$19</span>
+                <span class="text-sm text-muted-foreground">/month</span>
+              </div>
+            </CardHeader>
+            <CardContent class="space-y-2">
+              <div class="flex items-center gap-2 text-sm">
+                <svg
+                  class="size-4 text-success"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="m8 12 3 3 5-6" />
+                </svg>
+                Unlimited projects
+              </div>
+              <div class="flex items-center gap-2 text-sm">
+                <svg
+                  class="size-4 text-success"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="m8 12 3 3 5-6" />
+                </svg>
+                50 GB storage
+              </div>
+              <div class="flex items-center gap-2 text-sm">
+                <svg
+                  class="size-4 text-success"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="m8 12 3 3 5-6" />
+                </svg>
+                Priority support
+              </div>
+            </CardContent>
+            <CardFooter>
+              <Button class="w-full">Upgrade</Button>
+            </CardFooter>
+          </Card>
+          <Card>
+            <CardHeader>
+              <CardTitle class="text-lg">Enterprise</CardTitle>
+              <CardDescription>For large-scale organizations.</CardDescription>
+              <div class="mt-3">
+                <span class="text-3xl font-bold">$49</span>
+                <span class="text-sm text-muted-foreground">/month</span>
+              </div>
+            </CardHeader>
+            <CardContent class="space-y-2">
+              <div class="flex items-center gap-2 text-sm">
+                <svg
+                  class="size-4 text-success"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="m8 12 3 3 5-6" />
+                </svg>
+                Everything in Pro
+              </div>
+              <div class="flex items-center gap-2 text-sm">
+                <svg
+                  class="size-4 text-success"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="m8 12 3 3 5-6" />
+                </svg>
+                Unlimited storage
+              </div>
+              <div class="flex items-center gap-2 text-sm">
+                <svg
+                  class="size-4 text-success"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="m8 12 3 3 5-6" />
+                </svg>
+                Dedicated manager
+              </div>
+            </CardContent>
+            <CardFooter>
+              <Button variant="outline" class="w-full">
+                Contact Sales
+              </Button>
+            </CardFooter>
+          </Card>
+        </div>
+      </ComponentPreview>
+    </section>
 
-        <!-- Profile Card -->
-        <section class="space-y-3">
-            <SectionHeading id="profile-card" title={t.sections.profileCard.title} />
-            <p class="text-base text-muted-foreground leading-relaxed">
-                {t.sections.profileCard.description}
-            </p>
-            <ComponentPreview code={profileCardCode}>
-                <Card class="w-[380px]">
-                    <CardHeader class="items-center text-center">
-                        <span class="cu-avatar cu-avatar-lg">
-                            <span class="cu-avatar-fallback">AC</span>
-                        </span>
-                        <CardTitle class="mt-2">Alex Chen</CardTitle>
-                        <CardDescription>Product Designer</CardDescription>
-                        <div class="flex gap-2 mt-2">
-                            <Badge variant="secondary">Figma</Badge>
-                            <Badge variant="secondary">Design Systems</Badge>
-                            <Badge variant="secondary">Prototyping</Badge>
-                        </div>
-                    </CardHeader>
-                    <CardContent>
-                        <div class="cu-separator cu-separator-horizontal"></div>
-                        <div class="mt-4 grid grid-cols-3 gap-4 text-center">
-                            <div>
-                                <div class="text-lg font-bold">86</div>
-                                <div class="text-xs text-muted-foreground">Posts</div>
-                            </div>
-                            <div>
-                                <div class="text-lg font-bold">2.1K</div>
-                                <div class="text-xs text-muted-foreground">Followers</div>
-                            </div>
-                            <div>
-                                <div class="text-lg font-bold">248</div>
-                                <div class="text-xs text-muted-foreground">Following</div>
-                            </div>
-                        </div>
-                    </CardContent>
-                    <CardFooter class="justify-center gap-2">
-                        <Button size="sm">Follow</Button>
-                        <Button variant="outline" size="sm">Message</Button>
-                    </CardFooter>
-                </Card>
-            </ComponentPreview>
-        </section>
+    <!-- Card with Image -->
+    <section class="space-y-3">
+      <SectionHeading id="with-image" title={t.sections.withImage.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withImage.description} />
+      <ComponentPreview code={withImageCode}>
+        <Card class="w-[380px]">
+          <img
+            class="cu-card-img-top h-48"
+            src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&h=300&fit=crop"
+            alt="Mountain landscape"
+          />
+          <CardHeader>
+            <CardTitle>Mountain Retreat</CardTitle>
+            <CardDescription>Escape to the peaks for a weekend getaway.</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div class="flex items-center gap-2 text-sm text-muted-foreground">
+              <svg
+                class="size-4"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
+                <circle cx="12" cy="10" r="3" />
+              </svg>
+              Swiss Alps, Switzerland
+            </div>
+          </CardContent>
+          <CardFooter class="justify-between">
+            <span class="text-lg font-bold">
+              $299<span class="text-sm font-normal text-muted-foreground">/night</span>
+            </span>
+            <Button size="sm">Book Now</Button>
+          </CardFooter>
+        </Card>
+      </ComponentPreview>
+    </section>
 
-        <!-- Pricing Cards -->
-        <section class="space-y-3">
-            <SectionHeading id="pricing-cards" title={t.sections.pricingCards.title} />
-            <p class="text-base text-muted-foreground leading-relaxed">
-                {t.sections.pricingCards.description}
-            </p>
-            <ComponentPreview code={pricingCardCode}>
-                <div class="grid w-full grid-cols-1 gap-4 sm:grid-cols-3">
-                    <Card>
-                        <CardHeader>
-                            <CardTitle class="text-lg">Starter</CardTitle>
-                            <CardDescription>For individuals and small projects.</CardDescription>
-                            <div class="mt-3">
-                                <span class="text-3xl font-bold">$0</span>
-                                <span class="text-sm text-muted-foreground">/month</span>
-                            </div>
-                        </CardHeader>
-                        <CardContent class="space-y-2">
-                            <div class="flex items-center gap-2 text-sm">
-                                <svg class="size-4 text-success" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m8 12 3 3 5-6"/></svg>
-                                Up to 3 projects
-                            </div>
-                            <div class="flex items-center gap-2 text-sm">
-                                <svg class="size-4 text-success" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m8 12 3 3 5-6"/></svg>
-                                1 GB storage
-                            </div>
-                            <div class="flex items-center gap-2 text-sm text-muted-foreground">
-                                <svg class="size-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m8 12 3 3 5-6"/></svg>
-                                Community support
-                            </div>
-                        </CardContent>
-                        <CardFooter>
-                            <Button variant="outline" class="w-full">Get Started</Button>
-                        </CardFooter>
-                    </Card>
-                    <Card class="border-primary/50 shadow-md">
-                        <CardHeader>
-                            <div class="flex items-center gap-2">
-                                <CardTitle class="text-lg">Pro</CardTitle>
-                                <Badge>Popular</Badge>
-                            </div>
-                            <CardDescription>For growing teams and businesses.</CardDescription>
-                            <div class="mt-3">
-                                <span class="text-3xl font-bold">$19</span>
-                                <span class="text-sm text-muted-foreground">/month</span>
-                            </div>
-                        </CardHeader>
-                        <CardContent class="space-y-2">
-                            <div class="flex items-center gap-2 text-sm">
-                                <svg class="size-4 text-success" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m8 12 3 3 5-6"/></svg>
-                                Unlimited projects
-                            </div>
-                            <div class="flex items-center gap-2 text-sm">
-                                <svg class="size-4 text-success" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m8 12 3 3 5-6"/></svg>
-                                50 GB storage
-                            </div>
-                            <div class="flex items-center gap-2 text-sm">
-                                <svg class="size-4 text-success" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m8 12 3 3 5-6"/></svg>
-                                Priority support
-                            </div>
-                        </CardContent>
-                        <CardFooter>
-                            <Button class="w-full">Upgrade</Button>
-                        </CardFooter>
-                    </Card>
-                    <Card>
-                        <CardHeader>
-                            <CardTitle class="text-lg">Enterprise</CardTitle>
-                            <CardDescription>For large-scale organizations.</CardDescription>
-                            <div class="mt-3">
-                                <span class="text-3xl font-bold">$49</span>
-                                <span class="text-sm text-muted-foreground">/month</span>
-                            </div>
-                        </CardHeader>
-                        <CardContent class="space-y-2">
-                            <div class="flex items-center gap-2 text-sm">
-                                <svg class="size-4 text-success" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m8 12 3 3 5-6"/></svg>
-                                Everything in Pro
-                            </div>
-                            <div class="flex items-center gap-2 text-sm">
-                                <svg class="size-4 text-success" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m8 12 3 3 5-6"/></svg>
-                                Unlimited storage
-                            </div>
-                            <div class="flex items-center gap-2 text-sm">
-                                <svg class="size-4 text-success" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m8 12 3 3 5-6"/></svg>
-                                Dedicated manager
-                            </div>
-                        </CardContent>
-                        <CardFooter>
-                            <Button variant="outline" class="w-full">Contact Sales</Button>
-                        </CardFooter>
-                    </Card>
-                </div>
-            </ComponentPreview>
-        </section>
+    <!-- Horizontal Card -->
+    <section class="space-y-3">
+      <SectionHeading id="horizontal" title={t.sections.horizontal.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.horizontal.description} />
+      <ComponentPreview code={horizontalCardCode}>
+        <Card class="cu-card-horizontal w-full max-w-lg">
+          <img
+            class="cu-card-horizontal-img"
+            src="https://images.unsplash.com/photo-1551963831-b3b1ca40c98e?w=300&h=300&fit=crop"
+            alt="Breakfast"
+          />
+          <div>
+            <CardHeader>
+              <CardTitle>Weekend Brunch</CardTitle>
+              <CardDescription>Start your morning with a delicious spread.</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div class="flex gap-2">
+                <Badge variant="secondary">Breakfast</Badge>
+                <Badge variant="secondary">Popular</Badge>
+              </div>
+            </CardContent>
+            <CardFooter>
+              <Button variant="outline" size="sm">
+                View Recipe
+              </Button>
+            </CardFooter>
+          </div>
+        </Card>
+      </ComponentPreview>
+    </section>
 
-        <!-- Card with Image -->
-        <section class="space-y-3">
-            <SectionHeading id="with-image" title={t.sections.withImage.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withImage.description} />
-            <ComponentPreview code={withImageCode}>
-                <Card class="w-[380px]">
-                    <img class="cu-card-img-top h-48" src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&h=300&fit=crop" alt="Mountain landscape" />
-                    <CardHeader>
-                        <CardTitle>Mountain Retreat</CardTitle>
-                        <CardDescription>Escape to the peaks for a weekend getaway.</CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                        <div class="flex items-center gap-2 text-sm text-muted-foreground">
-                            <svg class="size-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
-                            Swiss Alps, Switzerland
-                        </div>
-                    </CardContent>
-                    <CardFooter class="justify-between">
-                        <span class="text-lg font-bold">$299<span class="text-sm font-normal text-muted-foreground">/night</span></span>
-                        <Button size="sm">Book Now</Button>
-                    </CardFooter>
-                </Card>
-            </ComponentPreview>
-        </section>
-
-        <!-- Horizontal Card -->
-        <section class="space-y-3">
-            <SectionHeading id="horizontal" title={t.sections.horizontal.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.horizontal.description} />
-            <ComponentPreview code={horizontalCardCode}>
-                <Card class="cu-card-horizontal w-full max-w-lg">
-                    <img class="cu-card-horizontal-img" src="https://images.unsplash.com/photo-1551963831-b3b1ca40c98e?w=300&h=300&fit=crop" alt="Breakfast" />
-                    <div>
-                        <CardHeader>
-                            <CardTitle>Weekend Brunch</CardTitle>
-                            <CardDescription>Start your morning with a delicious spread.</CardDescription>
-                        </CardHeader>
-                        <CardContent>
-                            <div class="flex gap-2">
-                                <Badge variant="secondary">Breakfast</Badge>
-                                <Badge variant="secondary">Popular</Badge>
-                            </div>
-                        </CardContent>
-                        <CardFooter>
-                            <Button variant="outline" size="sm">View Recipe</Button>
-                        </CardFooter>
-                    </div>
-                </Card>
-            </ComponentPreview>
-        </section>
-
-        <!-- Selectable Card -->
-        <section class="space-y-3">
-            <SectionHeading id="selectable" title={t.sections.selectable.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.selectable.description} />
-            <ComponentPreview code={selectableCardCode}>
-                <fieldset class="grid w-full grid-cols-1 gap-4 sm:grid-cols-3">
-                    <label class="cu-card cu-card-selectable">
-                        <input type="radio" name="card-plan" value="starter" class="sr-only" checked />
-                        <CardHeader>
-                            <CardTitle class="text-base">Starter</CardTitle>
-                            <CardDescription>For personal projects</CardDescription>
-                        </CardHeader>
-                        <CardContent>
-                            <span class="text-2xl font-bold">$9</span>
-                            <span class="text-sm text-muted-foreground">/month</span>
-                        </CardContent>
-                    </label>
-                    <label class="cu-card cu-card-selectable">
-                        <input type="radio" name="card-plan" value="pro" class="sr-only" />
-                        <CardHeader>
-                            <CardTitle class="text-base">Pro</CardTitle>
-                            <CardDescription>For growing teams</CardDescription>
-                        </CardHeader>
-                        <CardContent>
-                            <span class="text-2xl font-bold">$29</span>
-                            <span class="text-sm text-muted-foreground">/month</span>
-                        </CardContent>
-                    </label>
-                    <label class="cu-card cu-card-selectable">
-                        <input type="radio" name="card-plan" value="enterprise" class="sr-only" />
-                        <CardHeader>
-                            <CardTitle class="text-base">Enterprise</CardTitle>
-                            <CardDescription>For organizations</CardDescription>
-                        </CardHeader>
-                        <CardContent>
-                            <span class="text-2xl font-bold">$99</span>
-                            <span class="text-sm text-muted-foreground">/month</span>
-                        </CardContent>
-                    </label>
-                </fieldset>
-            </ComponentPreview>
-        </section>
-
-    </div>
+    <!-- Selectable Card -->
+    <section class="space-y-3">
+      <SectionHeading id="selectable" title={t.sections.selectable.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.selectable.description} />
+      <ComponentPreview code={selectableCardCode}>
+        <fieldset class="grid w-full grid-cols-1 gap-4 sm:grid-cols-3">
+          <label class="cu-card cu-card-selectable">
+            <input type="radio" name="card-plan" value="starter" class="sr-only" checked />
+            <CardHeader>
+              <CardTitle class="text-base">Starter</CardTitle>
+              <CardDescription>For personal projects</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <span class="text-2xl font-bold">$9</span>
+              <span class="text-sm text-muted-foreground">/month</span>
+            </CardContent>
+          </label>
+          <label class="cu-card cu-card-selectable">
+            <input type="radio" name="card-plan" value="pro" class="sr-only" />
+            <CardHeader>
+              <CardTitle class="text-base">Pro</CardTitle>
+              <CardDescription>For growing teams</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <span class="text-2xl font-bold">$29</span>
+              <span class="text-sm text-muted-foreground">/month</span>
+            </CardContent>
+          </label>
+          <label class="cu-card cu-card-selectable">
+            <input type="radio" name="card-plan" value="enterprise" class="sr-only" />
+            <CardHeader>
+              <CardTitle class="text-base">Enterprise</CardTitle>
+              <CardDescription>For organizations</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <span class="text-2xl font-bold">$99</span>
+              <span class="text-sm text-muted-foreground">/month</span>
+            </CardContent>
+          </label>
+        </fieldset>
+      </ComponentPreview>
+    </section>
+  </div>
 </Layout>

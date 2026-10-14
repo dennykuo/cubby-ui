@@ -2,7 +2,12 @@
 export function navigateItems(items, key, highlightClass) {
   var visible = [];
   items.forEach(function (item) {
-    if (!item.hasAttribute("hidden") && !item.hasAttribute("disabled") && !item.classList.contains("pointer-events-none")) visible.push(item);
+    if (
+      !item.hasAttribute("hidden") &&
+      !item.hasAttribute("disabled") &&
+      !item.classList.contains("pointer-events-none")
+    )
+      visible.push(item);
   });
   if (visible.length === 0) return;
 
@@ -43,16 +48,23 @@ export function genId(prefix) {
 // Cleared while the popup (container) is hidden or no visible item is highlighted.
 export function trackActiveDescendant(owner, container, highlightClass, idPrefix) {
   function sync() {
-    var active = container.hasAttribute("hidden") ? null : container.querySelector("." + highlightClass + ":not([hidden])");
+    var active = container.hasAttribute("hidden")
+      ? null
+      : container.querySelector("." + highlightClass + ":not([hidden])");
     if (active) {
       if (!active.id) active.id = genId(idPrefix);
-      if (owner.getAttribute("aria-activedescendant") !== active.id) owner.setAttribute("aria-activedescendant", active.id);
+      if (owner.getAttribute("aria-activedescendant") !== active.id)
+        owner.setAttribute("aria-activedescendant", active.id);
     } else if (owner.hasAttribute("aria-activedescendant")) {
       owner.removeAttribute("aria-activedescendant");
     }
   }
   sync();
-  new MutationObserver(sync).observe(container, { attributes: true, attributeFilter: ["class", "hidden"], subtree: true });
+  new MutationObserver(sync).observe(container, {
+    attributes: true,
+    attributeFilter: ["class", "hidden"],
+    subtree: true,
+  });
 }
 
 // Combobox / Multi Select ARIA (WAI-ARIA APG combobox pattern). The element keeping DOM focus while the

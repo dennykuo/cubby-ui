@@ -81,164 +81,213 @@ const withArrowCode = `<div class="flex items-center gap-8">
 ---
 
 <Layout title={t.title} category={t.category} componentName="Tooltip" description={t.description}>
-    <div class="space-y-3">
-        <div class="flex items-center gap-3">
-            <h1 class="text-3xl font-bold tracking-tight">Tooltip</h1>
-            <span class="cu-badge cu-badge-secondary">{t.category}</span>
+  <div class="space-y-3">
+    <div class="flex items-center gap-3">
+      <h1 class="text-3xl font-bold tracking-tight">Tooltip</h1>
+      <span class="cu-badge cu-badge-secondary">{t.category}</span>
+    </div>
+    <p class="text-base text-muted-foreground leading-relaxed">{t.description}</p>
+  </div>
+
+  <div class="mt-10 space-y-10">
+    <!-- Usage -->
+    <section class="space-y-3">
+      <SectionHeading id="usage" title={t.sections.usage.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
+      <ComponentPreview code={usageCode}>
+        <span class="cu-tooltip" data-cu-tooltip="This is a tooltip">
+          <button class="cu-button cu-button-outline cu-button-md">Hover me</button>
+        </span>
+      </ComponentPreview>
+    </section>
+
+    <!-- Classes Reference -->
+    <section class="space-y-3">
+      <SectionHeading id="classes" title={t.sections.classes.title} />
+      <div class="cu-table-wrapper rounded-lg border border-border">
+        <table class="cu-table">
+          <thead class="cu-table-header">
+            <tr class="cu-table-row">
+              <th class="cu-table-head">{t.sections.classes.classLabel}</th>
+              <th class="cu-table-head">{t.sections.classes.descriptionLabel}</th>
+            </tr>
+          </thead>
+          <tbody class="cu-table-body">
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-tooltip</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground" set:html={t.classDescriptions["cu-tooltip"]} />
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-tooltip-top</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-tooltip-top"]}</td>
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-tooltip-bottom</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-tooltip-bottom"]}</td>
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-tooltip-left</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-tooltip-left"]}</td>
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-tooltip-right</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-tooltip-right"]}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Positions -->
+    <section class="space-y-3">
+      <SectionHeading id="positions" title={t.sections.positions.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.positions.description} />
+      <ComponentPreview code={positionsCode}>
+        <div class="flex flex-wrap gap-4 items-center justify-center">
+          <span class="cu-tooltip" data-cu-tooltip="Top tooltip">
+            <button class="cu-button cu-button-outline cu-button-md">Top</button>
+          </span>
+          <span class="cu-tooltip cu-tooltip-bottom" data-cu-tooltip="Bottom tooltip">
+            <button class="cu-button cu-button-outline cu-button-md">Bottom</button>
+          </span>
+          <span class="cu-tooltip cu-tooltip-left" data-cu-tooltip="Left tooltip">
+            <button class="cu-button cu-button-outline cu-button-md">Left</button>
+          </span>
+          <span class="cu-tooltip cu-tooltip-right" data-cu-tooltip="Right tooltip">
+            <button class="cu-button cu-button-outline cu-button-md">Right</button>
+          </span>
         </div>
-        <p class="text-base text-muted-foreground leading-relaxed">
-            {t.description}
-        </p>
-    </div>
+      </ComponentPreview>
+    </section>
 
-    <div class="mt-10 space-y-10">
-        <!-- Usage -->
-        <section class="space-y-3">
-            <SectionHeading id="usage" title={t.sections.usage.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
-            <ComponentPreview code={usageCode}>
-                <span class="cu-tooltip" data-cu-tooltip="This is a tooltip">
-                    <button class="cu-button cu-button-outline cu-button-md">Hover me</button>
-                </span>
-            </ComponentPreview>
-        </section>
+    <!-- On Icon Buttons -->
+    <section class="space-y-3">
+      <SectionHeading id="icon-buttons" title={t.sections.iconButtons.title} />
+      <p class="text-base text-muted-foreground leading-relaxed">{t.sections.iconButtons.description}</p>
+      <ComponentPreview code={iconButtonsCode}>
+        <div class="flex items-center gap-1">
+          <span class="cu-tooltip" data-cu-tooltip="Bold">
+            <button class="cu-button cu-button-ghost cu-button-icon">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M6 12h9a4 4 0 0 1 0 8H7a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h7a4 4 0 0 1 0 8" />
+              </svg>
+            </button>
+          </span>
+          <span class="cu-tooltip" data-cu-tooltip="Italic">
+            <button class="cu-button cu-button-ghost cu-button-icon">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <line x1="19" x2="10" y1="4" y2="4" />
+                <line x1="14" x2="5" y1="20" y2="20" />
+                <line x1="15" x2="9" y1="4" y2="20" />
+              </svg>
+            </button>
+          </span>
+          <span class="cu-tooltip" data-cu-tooltip="Underline">
+            <button class="cu-button cu-button-ghost cu-button-icon">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M6 4v6a6 6 0 0 0 12 0V4" />
+                <line x1="4" x2="20" y1="20" y2="20" />
+              </svg>
+            </button>
+          </span>
+        </div>
+      </ComponentPreview>
+    </section>
 
-        <!-- Classes Reference -->
-        <section class="space-y-3">
-            <SectionHeading id="classes" title={t.sections.classes.title} />
-            <div class="cu-table-wrapper rounded-lg border border-border">
-                <table class="cu-table">
-                    <thead class="cu-table-header">
-                        <tr class="cu-table-row">
-                            <th class="cu-table-head">{t.sections.classes.classLabel}</th>
-                            <th class="cu-table-head">{t.sections.classes.descriptionLabel}</th>
-                        </tr>
-                    </thead>
-                    <tbody class="cu-table-body">
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-tooltip</code></td>
-                            <td class="cu-table-cell text-muted-foreground" set:html={t.classDescriptions['cu-tooltip']} />
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-tooltip-top</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-tooltip-top']}</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-tooltip-bottom</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-tooltip-bottom']}</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-tooltip-left</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-tooltip-left']}</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-tooltip-right</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-tooltip-right']}</td>
-                        </tr>
-                    </tbody>
-                </table>
+    <!-- Rich Content -->
+    <section class="space-y-3">
+      <SectionHeading id="rich-content" title={t.sections.richContent.title} />
+      <p class="text-base text-muted-foreground leading-relaxed">{t.sections.richContent.description}</p>
+      <ComponentPreview code={richContentCode}>
+        <div class="flex items-center gap-8">
+          <div class="relative inline-flex group">
+            <button class="cu-button cu-button-outline cu-button-md">Keyboard Shortcut</button>
+            <div
+              class="pointer-events-none absolute bottom-full left-1/2 -translate-x-1/2 mb-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-[opacity,visibility] duration-150 rounded-lg bg-foreground px-3 py-2 text-xs text-background w-max max-w-56"
+              role="tooltip"
+            >
+              <div class="font-medium">Quick Save</div>
+              <div class="opacity-70 mt-0.5">Press ⌘S to save your work</div>
             </div>
-        </section>
+          </div>
+          <div class="relative inline-flex group">
+            <button class="cu-button cu-button-outline cu-button-md">Details</button>
+            <div
+              class="pointer-events-none absolute bottom-full left-1/2 -translate-x-1/2 mb-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-[opacity,visibility] duration-150 rounded-lg bg-foreground px-3 py-2 text-xs text-background w-max max-w-56"
+              role="tooltip"
+            >
+              <div class="font-medium">Upload Limit</div>
+              <div class="opacity-70 mt-0.5">
+                Maximum file size: 10MB
+                <br />
+                Accepted formats: PNG, JPG, SVG
+              </div>
+            </div>
+          </div>
+        </div>
+      </ComponentPreview>
+    </section>
 
-
-        <!-- Positions -->
-        <section class="space-y-3">
-            <SectionHeading id="positions" title={t.sections.positions.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.positions.description} />
-            <ComponentPreview code={positionsCode}>
-                <div class="flex flex-wrap gap-4 items-center justify-center">
-                    <span class="cu-tooltip" data-cu-tooltip="Top tooltip">
-                        <button class="cu-button cu-button-outline cu-button-md">Top</button>
-                    </span>
-                    <span class="cu-tooltip cu-tooltip-bottom" data-cu-tooltip="Bottom tooltip">
-                        <button class="cu-button cu-button-outline cu-button-md">Bottom</button>
-                    </span>
-                    <span class="cu-tooltip cu-tooltip-left" data-cu-tooltip="Left tooltip">
-                        <button class="cu-button cu-button-outline cu-button-md">Left</button>
-                    </span>
-                    <span class="cu-tooltip cu-tooltip-right" data-cu-tooltip="Right tooltip">
-                        <button class="cu-button cu-button-outline cu-button-md">Right</button>
-                    </span>
-                </div>
-            </ComponentPreview>
-        </section>
-
-        <!-- On Icon Buttons -->
-        <section class="space-y-3">
-            <SectionHeading id="icon-buttons" title={t.sections.iconButtons.title} />
-            <p class="text-base text-muted-foreground leading-relaxed">
-                {t.sections.iconButtons.description}
-            </p>
-            <ComponentPreview code={iconButtonsCode}>
-                <div class="flex items-center gap-1">
-                    <span class="cu-tooltip" data-cu-tooltip="Bold">
-                        <button class="cu-button cu-button-ghost cu-button-icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12h9a4 4 0 0 1 0 8H7a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h7a4 4 0 0 1 0 8"/></svg>
-                        </button>
-                    </span>
-                    <span class="cu-tooltip" data-cu-tooltip="Italic">
-                        <button class="cu-button cu-button-ghost cu-button-icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" x2="10" y1="4" y2="4"/><line x1="14" x2="5" y1="20" y2="20"/><line x1="15" x2="9" y1="4" y2="20"/></svg>
-                        </button>
-                    </span>
-                    <span class="cu-tooltip" data-cu-tooltip="Underline">
-                        <button class="cu-button cu-button-ghost cu-button-icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4v6a6 6 0 0 0 12 0V4"/><line x1="4" x2="20" y1="20" y2="20"/></svg>
-                        </button>
-                    </span>
-                </div>
-            </ComponentPreview>
-        </section>
-
-        <!-- Rich Content -->
-        <section class="space-y-3">
-            <SectionHeading id="rich-content" title={t.sections.richContent.title} />
-            <p class="text-base text-muted-foreground leading-relaxed">
-                {t.sections.richContent.description}
-            </p>
-            <ComponentPreview code={richContentCode}>
-                <div class="flex items-center gap-8">
-                    <div class="relative inline-flex group">
-                        <button class="cu-button cu-button-outline cu-button-md">Keyboard Shortcut</button>
-                        <div class="pointer-events-none absolute bottom-full left-1/2 -translate-x-1/2 mb-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-[opacity,visibility] duration-150 rounded-lg bg-foreground px-3 py-2 text-xs text-background w-max max-w-56" role="tooltip">
-                            <div class="font-medium">Quick Save</div>
-                            <div class="opacity-70 mt-0.5">Press ⌘S to save your work</div>
-                        </div>
-                    </div>
-                    <div class="relative inline-flex group">
-                        <button class="cu-button cu-button-outline cu-button-md">Details</button>
-                        <div class="pointer-events-none absolute bottom-full left-1/2 -translate-x-1/2 mb-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-[opacity,visibility] duration-150 rounded-lg bg-foreground px-3 py-2 text-xs text-background w-max max-w-56" role="tooltip">
-                            <div class="font-medium">Upload Limit</div>
-                            <div class="opacity-70 mt-0.5">Maximum file size: 10MB<br/>Accepted formats: PNG, JPG, SVG</div>
-                        </div>
-                    </div>
-                </div>
-            </ComponentPreview>
-        </section>
-
-        <!-- With Arrow -->
-        <section class="space-y-3">
-            <SectionHeading id="with-arrow" title={t.sections.withArrow.title} />
-            <p class="text-base text-muted-foreground leading-relaxed">
-                {t.sections.withArrow.description}
-            </p>
-            <ComponentPreview code={withArrowCode}>
-                <div class="flex items-center gap-8">
-                    <span class="cu-tooltip" data-cu-tooltip="Tooltip with arrow">
-                        <button class="cu-button cu-button-outline cu-button-md">Top</button>
-                    </span>
-                    <span class="cu-tooltip cu-tooltip-bottom" data-cu-tooltip="Tooltip with arrow">
-                        <button class="cu-button cu-button-outline cu-button-md">Bottom</button>
-                    </span>
-                    <span class="cu-tooltip cu-tooltip-left" data-cu-tooltip="Tooltip with arrow">
-                        <button class="cu-button cu-button-outline cu-button-md">Left</button>
-                    </span>
-                    <span class="cu-tooltip cu-tooltip-right" data-cu-tooltip="Tooltip with arrow">
-                        <button class="cu-button cu-button-outline cu-button-md">Right</button>
-                    </span>
-                </div>
-            </ComponentPreview>
-        </section>
-
-    </div>
+    <!-- With Arrow -->
+    <section class="space-y-3">
+      <SectionHeading id="with-arrow" title={t.sections.withArrow.title} />
+      <p class="text-base text-muted-foreground leading-relaxed">{t.sections.withArrow.description}</p>
+      <ComponentPreview code={withArrowCode}>
+        <div class="flex items-center gap-8">
+          <span class="cu-tooltip" data-cu-tooltip="Tooltip with arrow">
+            <button class="cu-button cu-button-outline cu-button-md">Top</button>
+          </span>
+          <span class="cu-tooltip cu-tooltip-bottom" data-cu-tooltip="Tooltip with arrow">
+            <button class="cu-button cu-button-outline cu-button-md">Bottom</button>
+          </span>
+          <span class="cu-tooltip cu-tooltip-left" data-cu-tooltip="Tooltip with arrow">
+            <button class="cu-button cu-button-outline cu-button-md">Left</button>
+          </span>
+          <span class="cu-tooltip cu-tooltip-right" data-cu-tooltip="Tooltip with arrow">
+            <button class="cu-button cu-button-outline cu-button-md">Right</button>
+          </span>
+        </div>
+      </ComponentPreview>
+    </section>
+  </div>
 </Layout>

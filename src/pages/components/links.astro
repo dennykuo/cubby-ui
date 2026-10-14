@@ -48,23 +48,23 @@ const cardLinksCode = `<div class="cu-card cu-card-hover p-5 space-y-3 max-w-sm"
 ---
 
 <Layout title={t.title} category={t.category} componentName="Links" description={t.description}>
-    <div class="space-y-3">
-        <div class="flex items-center gap-3">
-          <h1 class="text-3xl font-bold tracking-tight">Links</h1>
-          <span class="cu-badge cu-badge-secondary">{t.category}</span>
-        </div>
-        <p class="text-base text-muted-foreground leading-relaxed" set:html={t.description} />
+  <div class="space-y-3">
+    <div class="flex items-center gap-3">
+      <h1 class="text-3xl font-bold tracking-tight">Links</h1>
+      <span class="cu-badge cu-badge-secondary">{t.category}</span>
     </div>
+    <p class="text-base text-muted-foreground leading-relaxed" set:html={t.description} />
+  </div>
 
-    <div class="mt-10 space-y-10">
-        <!-- Usage -->
-        <section class="space-y-3">
-            <SectionHeading id="usage" title={t.sections.usage.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
-            <ComponentPreview code={usageCode}>
-                <Link href="#">Click here</Link>
-            </ComponentPreview>
-        </section>
+  <div class="mt-10 space-y-10">
+    <!-- Usage -->
+    <section class="space-y-3">
+      <SectionHeading id="usage" title={t.sections.usage.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
+      <ComponentPreview code={usageCode}>
+        <Link href="#">Click here</Link>
+      </ComponentPreview>
+    </section>
 
     <!-- Classes Reference -->
     <section class="space-y-3">
@@ -79,106 +79,155 @@ const cardLinksCode = `<div class="cu-card cu-card-hover p-5 space-y-3 max-w-sm"
           </thead>
           <tbody class="cu-table-body">
             <tr class="cu-table-row">
-              <td class="cu-table-cell"><code class="cu-code">cu-link</code></td>
-              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-link']}</td>
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-link</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-link"]}</td>
             </tr>
             <tr class="cu-table-row">
-              <td class="cu-table-cell"><code class="cu-code">cu-link-plain</code></td>
-              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-link-plain']}</td>
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-link-plain</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-link-plain"]}</td>
             </tr>
             <tr class="cu-table-row">
-              <td class="cu-table-cell"><code class="cu-code">cu-link-muted</code></td>
-              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-link-muted']}</td>
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-link-muted</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-link-muted"]}</td>
             </tr>
             <tr class="cu-table-row">
-              <td class="cu-table-cell"><code class="cu-code">cu-link-subtle</code></td>
-              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-link-subtle']}</td>
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-link-subtle</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-link-subtle"]}</td>
             </tr>
             <tr class="cu-table-row">
-              <td class="cu-table-cell"><code class="cu-code">cu-link-external</code></td>
-              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-link-external']}</td>
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-link-external</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-link-external"]}</td>
             </tr>
           </tbody>
         </table>
       </div>
     </section>
 
+    <!-- Variants -->
+    <section class="space-y-3">
+      <SectionHeading id="variants" title={t.sections.variants.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.variants.description} />
+      <ComponentPreview code={variantsCode}>
+        <div class="flex flex-wrap items-center gap-6">
+          <Link href="#">Default</Link>
+          <a class="cu-link cu-link-plain" href="#">
+            Plain
+          </a>
+          <a class="cu-link cu-link-muted" href="#">
+            Muted
+          </a>
+          <a class="cu-link cu-link-subtle" href="#">
+            Subtle
+          </a>
+        </div>
+      </ComponentPreview>
+    </section>
 
-        <!-- Variants -->
-        <section class="space-y-3">
-            <SectionHeading id="variants" title={t.sections.variants.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.variants.description} />
-            <ComponentPreview code={variantsCode}>
-                <div class="flex flex-wrap items-center gap-6">
-                    <Link href="#">Default</Link>
-                    <a class="cu-link cu-link-plain" href="#">Plain</a>
-                    <a class="cu-link cu-link-muted" href="#">Muted</a>
-                    <a class="cu-link cu-link-subtle" href="#">Subtle</a>
-                </div>
-            </ComponentPreview>
-        </section>
+    <!-- Inline -->
+    <section class="space-y-3">
+      <SectionHeading id="inline" title={t.sections.inline.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.inline.description} />
+      <ComponentPreview code={inlineCode}>
+        <div class="w-full max-w-lg">
+          <p class="cu-p">
+            You can read the full documentation on the
+            <Link href="#">getting started</Link> page, or check the <Link href="#">API reference</Link>
+            for more details.
+          </p>
+        </div>
+      </ComponentPreview>
+    </section>
 
-        <!-- Inline -->
-        <section class="space-y-3">
-            <SectionHeading id="inline" title={t.sections.inline.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.inline.description} />
-            <ComponentPreview code={inlineCode}>
-                <div class="w-full max-w-lg">
-                    <p class="cu-p">
-                        You can read the full documentation on the
-                        <Link href="#">getting started</Link> page,
-                        or check the <Link href="#">API reference</Link>
-                        for more details.
-                    </p>
-                </div>
-            </ComponentPreview>
-        </section>
+    <!-- External -->
+    <section class="space-y-3">
+      <SectionHeading id="external-link" title={t.sections.externalLink.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.externalLink.description} />
+      <ComponentPreview code={externalCode}>
+        <a class="cu-link cu-link-external" href="#" target="_blank" rel="noopener noreferrer">
+          View on GitHub
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="14"
+            height="14"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M15 3h6v6" />
+            <path d="M10 14 21 3" />
+            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+          </svg>
+        </a>
+      </ComponentPreview>
+    </section>
 
-        <!-- External -->
-        <section class="space-y-3">
-            <SectionHeading id="external-link" title={t.sections.externalLink.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.externalLink.description} />
-            <ComponentPreview code={externalCode}>
-                <a class="cu-link cu-link-external" href="#" target="_blank" rel="noopener noreferrer">
-                    View on GitHub
-                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>
+    <!-- Nav List -->
+    <section class="space-y-3">
+      <SectionHeading id="navigation-list" title={t.sections.navigationList.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.navigationList.description} />
+      <ComponentPreview code={navListCode}>
+        <div class="w-full max-w-xs">
+          <nav>
+            <ul class="cu-list cu-list-none space-y-1">
+              <li>
+                <a class="cu-link cu-link-muted" href="#">
+                  Profile
                 </a>
-            </ComponentPreview>
-        </section>
+              </li>
+              <li>
+                <a class="cu-link cu-link-muted" href="#">
+                  Settings
+                </a>
+              </li>
+              <li>
+                <a class="cu-link cu-link-muted" href="#">
+                  Notifications
+                </a>
+              </li>
+              <li>
+                <a class="cu-link cu-link-muted" href="#">
+                  Help &amp; Support
+                </a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </ComponentPreview>
+    </section>
 
-        <!-- Nav List -->
-        <section class="space-y-3">
-            <SectionHeading id="navigation-list" title={t.sections.navigationList.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.navigationList.description} />
-            <ComponentPreview code={navListCode}>
-                <div class="w-full max-w-xs">
-                    <nav>
-                        <ul class="cu-list cu-list-none space-y-1">
-                            <li><a class="cu-link cu-link-muted" href="#">Profile</a></li>
-                            <li><a class="cu-link cu-link-muted" href="#">Settings</a></li>
-                            <li><a class="cu-link cu-link-muted" href="#">Notifications</a></li>
-                            <li><a class="cu-link cu-link-muted" href="#">Help &amp; Support</a></li>
-                        </ul>
-                    </nav>
-                </div>
-            </ComponentPreview>
-        </section>
-
-        <!-- Card Links -->
-        <section class="space-y-3">
-            <SectionHeading id="card-links" title={t.sections.cardLinks.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.cardLinks.description} />
-            <ComponentPreview code={cardLinksCode}>
-                <div class="cu-card cu-card-hover p-5 space-y-3 max-w-sm">
-                    <h3 class="text-sm font-semibold">Resources</h3>
-                    <div class="flex flex-col gap-1.5">
-                        <a class="cu-link cu-link-subtle text-sm" href="#">Documentation</a>
-                        <a class="cu-link cu-link-subtle text-sm" href="#">Changelog</a>
-                        <a class="cu-link cu-link-subtle text-sm" href="#">Contributing Guide</a>
-                    </div>
-                </div>
-            </ComponentPreview>
-        </section>
-    </div>
-
+    <!-- Card Links -->
+    <section class="space-y-3">
+      <SectionHeading id="card-links" title={t.sections.cardLinks.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.cardLinks.description} />
+      <ComponentPreview code={cardLinksCode}>
+        <div class="cu-card cu-card-hover p-5 space-y-3 max-w-sm">
+          <h3 class="text-sm font-semibold">Resources</h3>
+          <div class="flex flex-col gap-1.5">
+            <a class="cu-link cu-link-subtle text-sm" href="#">
+              Documentation
+            </a>
+            <a class="cu-link cu-link-subtle text-sm" href="#">
+              Changelog
+            </a>
+            <a class="cu-link cu-link-subtle text-sm" href="#">
+              Contributing Guide
+            </a>
+          </div>
+        </div>
+      </ComponentPreview>
+    </section>
+  </div>
 </Layout>

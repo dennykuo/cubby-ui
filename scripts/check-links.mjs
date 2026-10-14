@@ -65,10 +65,7 @@ for (const file of pages) {
   const rel = relative(outDir, file).split(sep).join("/");
 
   // 頁面自身的站內 URL（供解析相對連結）
-  const pageUrl = new URL(
-    `${base}/${rel.replace(/(^|\/)index\.html$/, "$1")}`,
-    "http://site.local"
-  );
+  const pageUrl = new URL(`${base}/${rel.replace(/(^|\/)index\.html$/, "$1")}`, "http://site.local");
 
   const html = stripNonPageMarkup(readFileSync(file, "utf8"));
   for (const [, raw] of html.matchAll(ATTR_RE)) {
@@ -89,10 +86,7 @@ for (const file of pages) {
 }
 
 if (problems.length === 0) {
-  console.log(
-    `✓ 站內連結檢查：${pages.length} 個頁面、${checked} 個連結皆指向存在的檔案` +
-      `（base：${base || "/"}）`
-  );
+  console.log(`✓ 站內連結檢查：${pages.length} 個頁面、${checked} 個連結皆指向存在的檔案` + `（base：${base || "/"}）`);
   process.exit(0);
 }
 

@@ -326,7 +326,9 @@ test.describe("Multi Select", () => {
     await expect(zh.removeBtn("bob")).toHaveText("×");
   });
 
-  test("APG select-only combobox：沒有搜尋框時 trigger 為 combobox，以 aria-activedescendant 指向高亮項目", async ({ page }) => {
+  test("APG select-only combobox：沒有搜尋框時 trigger 為 combobox，以 aria-activedescendant 指向高亮項目", async ({
+    page,
+  }) => {
     const ms = multiSelect(page, "ms-frameworks");
     const listId = await ms.list.getAttribute("id");
     expect(listId).toBeTruthy();

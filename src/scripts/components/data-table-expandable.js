@@ -15,7 +15,10 @@ import { track, restore } from "../core/registry.js";
  */
 export function setupDataTableExpandables() {
   document.querySelectorAll("[data-cu-data-table-expandable]").forEach(function (el) {
-    if (el._cuInit) { restore("dataTableExpandables", el); return; }
+    if (el._cuInit) {
+      restore("dataTableExpandables", el);
+      return;
+    }
     el._cuInit = true;
 
     el.querySelectorAll("[data-cu-expand-row]").forEach(function (trigger) {

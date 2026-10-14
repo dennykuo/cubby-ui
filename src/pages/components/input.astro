@@ -103,225 +103,256 @@ const formGroupCode = `<div class="cu-form-group">
 ---
 
 <Layout category={t.category} componentName="Input" title={t.title} description={t.description}>
-    <div class="space-y-3">
-        <div class="flex items-center gap-3">
-          <h1 class="text-3xl font-bold tracking-tight">Input</h1>
-          <span class="cu-badge cu-badge-secondary">{t.category}</span>
+  <div class="space-y-3">
+    <div class="flex items-center gap-3">
+      <h1 class="text-3xl font-bold tracking-tight">Input</h1>
+      <span class="cu-badge cu-badge-secondary">{t.category}</span>
+    </div>
+    <p class="text-base text-muted-foreground leading-relaxed" set:html={t.description} />
+  </div>
+
+  <div class="mt-10 space-y-10">
+    <!-- Usage -->
+    <section class="space-y-3">
+      <SectionHeading id="usage" title={t.sections.usage.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
+      <ComponentPreview code={usageCode}>
+        <div class="w-full max-w-sm">
+          <Input type="text" placeholder="Enter text..." />
         </div>
-        <p class="text-base text-muted-foreground leading-relaxed" set:html={t.description} />
-    </div>
+      </ComponentPreview>
+    </section>
 
-    <div class="mt-10 space-y-10">
-        <!-- Usage -->
-        <section class="space-y-3">
-            <SectionHeading id="usage" title={t.sections.usage.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
-            <ComponentPreview code={usageCode}>
-                <div class="w-full max-w-sm">
-                    <Input type="text" placeholder="Enter text..." />
-                </div>
-            </ComponentPreview>
-        </section>
+    <!-- Classes Reference -->
+    <section class="space-y-3">
+      <SectionHeading id="classes" title={t.sections.classes.title} />
+      <div class="cu-table-wrapper rounded-lg border border-border">
+        <table class="cu-table">
+          <thead class="cu-table-header">
+            <tr class="cu-table-row">
+              <th class="cu-table-head">{t.sections.classes.classLabel}</th>
+              <th class="cu-table-head">{t.sections.classes.descriptionLabel}</th>
+            </tr>
+          </thead>
+          <tbody class="cu-table-body">
+            {Object.entries(t.classDescriptions).map(([cls, desc]) => (
+              <tr class="cu-table-row">
+                <td class="cu-table-cell">
+                  <code class="cu-code">{cls}</code>
+                </td>
+                <td class="cu-table-cell text-muted-foreground">{desc}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
 
-        <!-- Classes Reference -->
-        <section class="space-y-3">
-          <SectionHeading id="classes" title={t.sections.classes.title} />
-          <div class="cu-table-wrapper rounded-lg border border-border">
-            <table class="cu-table">
-              <thead class="cu-table-header">
-                <tr class="cu-table-row">
-                  <th class="cu-table-head">{t.sections.classes.classLabel}</th>
-                  <th class="cu-table-head">{t.sections.classes.descriptionLabel}</th>
-                </tr>
-              </thead>
-              <tbody class="cu-table-body">
-                {Object.entries(t.classDescriptions).map(([cls, desc]) => (
-                  <tr class="cu-table-row">
-                    <td class="cu-table-cell"><code class="cu-code">{cls}</code></td>
-                    <td class="cu-table-cell text-muted-foreground">{desc}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+    <!-- Sizes -->
+    <section class="space-y-3">
+      <SectionHeading id="sizes" title={t.sections.sizes.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.sizes.description} />
+      <ComponentPreview code={sizesCode}>
+        <div class="w-full max-w-sm space-y-3">
+          <Input size="sm" type="text" placeholder="Small (h-8)" />
+          <Input type="text" placeholder="Default (h-9)" />
+          <Input size="lg" type="text" placeholder="Large (h-10)" />
+        </div>
+      </ComponentPreview>
+    </section>
+
+    <!-- With Label -->
+    <section class="space-y-3">
+      <SectionHeading id="with-label" title={t.sections.withLabel.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withLabel.description} />
+      <ComponentPreview code={withLabelCode}>
+        <div class="w-full max-w-sm">
+          <FormGroup>
+            <Label for="email">Email</Label>
+            <Input type="email" id="email" placeholder="you@example.com" />
+          </FormGroup>
+        </div>
+      </ComponentPreview>
+    </section>
+
+    <!-- Input Types -->
+    <section class="space-y-3">
+      <SectionHeading id="input-types" title={t.sections.inputTypes.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.inputTypes.description} />
+      <ComponentPreview code={typesCode}>
+        <div class="w-full max-w-sm space-y-4">
+          <FormGroup>
+            <Label for="email-input">Email</Label>
+            <Input type="email" id="email-input" placeholder="you@example.com" />
+          </FormGroup>
+          <FormGroup>
+            <Label for="password-input">Password</Label>
+            <Input type="password" id="password-input" placeholder="••••••••" />
+          </FormGroup>
+          <FormGroup>
+            <Label for="number-input">Number</Label>
+            <Input type="number" id="number-input" placeholder="0" />
+          </FormGroup>
+        </div>
+      </ComponentPreview>
+    </section>
+
+    <!-- With Form Group -->
+    <section class="space-y-3">
+      <SectionHeading id="with-form-group" title={t.sections.withFormGroup.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withFormGroup.description} />
+      <ComponentPreview code={formGroupCode}>
+        <div class="w-full max-w-sm space-y-4">
+          <FormGroup>
+            <Label for="username">Username</Label>
+            <Input type="text" id="username" placeholder="johndoe" />
+            <FormDescription>This is your public display name.</FormDescription>
+          </FormGroup>
+          <FormGroup>
+            <Label for="email-err">Email</Label>
+            <Input type="email" id="email-err" placeholder="you@example.com" class="cu-input-error" />
+            <FormError>Please enter a valid email address.</FormError>
+          </FormGroup>
+        </div>
+      </ComponentPreview>
+    </section>
+
+    <!-- With Addon -->
+    <section class="space-y-3">
+      <SectionHeading id="with-addon" title={t.sections.withAddon.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withAddon.description} />
+      <ComponentPreview code={withAddonCode}>
+        <div class="w-full max-w-sm space-y-4">
+          <div class="cu-input-group">
+            <span class="cu-input-addon">https://</span>
+            <input class="cu-input" type="text" placeholder="example.com" />
           </div>
-        </section>
+          <div class="cu-input-group">
+            <input class="cu-input" type="text" placeholder="username" />
+            <span class="cu-input-addon">@gmail.com</span>
+          </div>
+          <div class="cu-input-group">
+            <span class="cu-input-addon">$</span>
+            <input class="cu-input" type="number" placeholder="0.00" />
+            <span class="cu-input-addon">USD</span>
+          </div>
+        </div>
+      </ComponentPreview>
+    </section>
 
+    <!-- With Icon -->
+    <section class="space-y-3">
+      <SectionHeading id="with-icon" title={t.sections.withIcon.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withIcon.description} />
+      <ComponentPreview code={withIconCode}>
+        <div class="w-full max-w-sm">
+          <div class="cu-input-icon-wrapper">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="cu-input-icon"
+            >
+              <rect width="20" height="16" x="2" y="4" rx="2" />
+              <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+            </svg>
+            <input class="cu-input cu-input-has-icon" type="email" placeholder="you@example.com" />
+          </div>
+        </div>
+      </ComponentPreview>
+    </section>
 
-        <!-- Sizes -->
-        <section class="space-y-3">
-            <SectionHeading id="sizes" title={t.sections.sizes.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.sizes.description} />
-            <ComponentPreview code={sizesCode}>
-                <div class="w-full max-w-sm space-y-3">
-                    <Input size="sm" type="text" placeholder="Small (h-8)" />
-                    <Input type="text" placeholder="Default (h-9)" />
-                    <Input size="lg" type="text" placeholder="Large (h-10)" />
-                </div>
-            </ComponentPreview>
-        </section>
+    <!-- Validation -->
+    <section class="space-y-3">
+      <SectionHeading id="validation" title={t.sections.validation.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.validation.description} />
+      <ComponentPreview code={validationCode}>
+        <div class="w-full max-w-sm space-y-4">
+          <FormGroup>
+            <Label for="email-val" class="cu-label-required">
+              Email
+            </Label>
+            <Input type="email" id="email-val" placeholder="you@example.com" class="cu-input-error" />
+            <FormError>Please enter a valid email address.</FormError>
+          </FormGroup>
+          <FormGroup>
+            <Label for="name-val">Name</Label>
+            <Input type="text" id="name-val" value="John Doe" class="cu-input-success" />
+          </FormGroup>
+        </div>
+      </ComponentPreview>
+    </section>
 
-        <!-- With Label -->
-        <section class="space-y-3">
-            <SectionHeading id="with-label" title={t.sections.withLabel.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withLabel.description} />
-            <ComponentPreview code={withLabelCode}>
-                <div class="w-full max-w-sm">
-                    <FormGroup>
-                        <Label for="email">Email</Label>
-                        <Input type="email" id="email" placeholder="you@example.com" />
-                    </FormGroup>
-                </div>
-            </ComponentPreview>
-        </section>
+    <!-- Disabled -->
+    <section class="space-y-3">
+      <SectionHeading id="disabled" title={t.sections.disabled.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.disabled.description} />
+      <ComponentPreview code={disabledCode}>
+        <div class="w-full max-w-sm">
+          <Input type="text" placeholder="Disabled input" disabled />
+        </div>
+      </ComponentPreview>
+    </section>
 
-        <!-- Input Types -->
-        <section class="space-y-3">
-            <SectionHeading id="input-types" title={t.sections.inputTypes.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.inputTypes.description} />
-            <ComponentPreview code={typesCode}>
-                <div class="w-full max-w-sm space-y-4">
-                    <FormGroup>
-                        <Label for="email-input">Email</Label>
-                        <Input type="email" id="email-input" placeholder="you@example.com" />
-                    </FormGroup>
-                    <FormGroup>
-                        <Label for="password-input">Password</Label>
-                        <Input type="password" id="password-input" placeholder="••••••••" />
-                    </FormGroup>
-                    <FormGroup>
-                        <Label for="number-input">Number</Label>
-                        <Input type="number" id="number-input" placeholder="0" />
-                    </FormGroup>
-                </div>
-            </ComponentPreview>
-        </section>
+    <!-- Character Count -->
+    <section class="space-y-3">
+      <SectionHeading id="character-count" title={t.sections.charCount.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.charCount.description} />
+      <ComponentPreview code={charCountCode}>
+        <div class="w-full max-w-sm">
+          <FormGroup>
+            <Label for="bio-demo">Bio</Label>
+            <Input type="text" id="bio-demo" maxlength="80" placeholder="Tell us about yourself..." />
+            <p id="bio-counter" class="text-sm text-muted-foreground text-right">
+              0 / 80
+            </p>
+          </FormGroup>
+        </div>
+      </ComponentPreview>
+    </section>
 
-        <!-- With Form Group -->
-        <section class="space-y-3">
-            <SectionHeading id="with-form-group" title={t.sections.withFormGroup.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withFormGroup.description} />
-            <ComponentPreview code={formGroupCode}>
-                <div class="w-full max-w-sm space-y-4">
-                    <FormGroup>
-                        <Label for="username">Username</Label>
-                        <Input type="text" id="username" placeholder="johndoe" />
-                        <FormDescription>This is your public display name.</FormDescription>
-                    </FormGroup>
-                    <FormGroup>
-                        <Label for="email-err">Email</Label>
-                        <Input type="email" id="email-err" placeholder="you@example.com" class="cu-input-error" />
-                        <FormError>Please enter a valid email address.</FormError>
-                    </FormGroup>
-                </div>
-            </ComponentPreview>
-        </section>
-
-        <!-- With Addon -->
-        <section class="space-y-3">
-            <SectionHeading id="with-addon" title={t.sections.withAddon.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withAddon.description} />
-            <ComponentPreview code={withAddonCode}>
-                <div class="w-full max-w-sm space-y-4">
-                    <div class="cu-input-group">
-                        <span class="cu-input-addon">https://</span>
-                        <input class="cu-input" type="text" placeholder="example.com" />
-                    </div>
-                    <div class="cu-input-group">
-                        <input class="cu-input" type="text" placeholder="username" />
-                        <span class="cu-input-addon">@gmail.com</span>
-                    </div>
-                    <div class="cu-input-group">
-                        <span class="cu-input-addon">$</span>
-                        <input class="cu-input" type="number" placeholder="0.00" />
-                        <span class="cu-input-addon">USD</span>
-                    </div>
-                </div>
-            </ComponentPreview>
-        </section>
-
-        <!-- With Icon -->
-        <section class="space-y-3">
-            <SectionHeading id="with-icon" title={t.sections.withIcon.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withIcon.description} />
-            <ComponentPreview code={withIconCode}>
-                <div class="w-full max-w-sm">
-                    <div class="cu-input-icon-wrapper">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="cu-input-icon"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
-                        <input class="cu-input cu-input-has-icon" type="email" placeholder="you@example.com" />
-                    </div>
-                </div>
-            </ComponentPreview>
-        </section>
-
-        <!-- Validation -->
-        <section class="space-y-3">
-            <SectionHeading id="validation" title={t.sections.validation.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.validation.description} />
-            <ComponentPreview code={validationCode}>
-                <div class="w-full max-w-sm space-y-4">
-                    <FormGroup>
-                        <Label for="email-val" class="cu-label-required">Email</Label>
-                        <Input type="email" id="email-val" placeholder="you@example.com" class="cu-input-error" />
-                        <FormError>Please enter a valid email address.</FormError>
-                    </FormGroup>
-                    <FormGroup>
-                        <Label for="name-val">Name</Label>
-                        <Input type="text" id="name-val" value="John Doe" class="cu-input-success" />
-                    </FormGroup>
-                </div>
-            </ComponentPreview>
-        </section>
-
-        <!-- Disabled -->
-        <section class="space-y-3">
-            <SectionHeading id="disabled" title={t.sections.disabled.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.disabled.description} />
-            <ComponentPreview code={disabledCode}>
-                <div class="w-full max-w-sm">
-                    <Input type="text" placeholder="Disabled input" disabled />
-                </div>
-            </ComponentPreview>
-        </section>
-
-        <!-- Character Count -->
-        <section class="space-y-3">
-            <SectionHeading id="character-count" title={t.sections.charCount.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.charCount.description} />
-            <ComponentPreview code={charCountCode}>
-                <div class="w-full max-w-sm">
-                    <FormGroup>
-                        <Label for="bio-demo">Bio</Label>
-                        <Input type="text" id="bio-demo" maxlength="80" placeholder="Tell us about yourself..." />
-                        <p id="bio-counter" class="text-sm text-muted-foreground text-right">0 / 80</p>
-                    </FormGroup>
-                </div>
-            </ComponentPreview>
-        </section>
-
-        <script>
-            const bioInput = document.getElementById('bio-demo') as HTMLInputElement;
-            const bioCounter = document.getElementById('bio-counter');
-            if (bioInput && bioCounter) {
-                bioInput.addEventListener('input', () => {
-                    bioCounter.textContent = `${bioInput.value.length} / 80`;
-                });
-            }
-        </script>
-
-        <!-- Clearable -->
-        <section class="space-y-3">
-            <SectionHeading id="clearable" title={t.sections.clearable.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.clearable.description} />
-            <ComponentPreview code={clearableCode}>
-                <div class="w-full max-w-sm">
-                    <div class="cu-input-icon-wrapper" data-cu-input-clearable>
-                        <input class="cu-input cu-input-clearable" placeholder="Type to search..." />
-                        <button type="button" class="cu-input-clear" data-cu-input-clear aria-label="Clear">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
-                        </button>
-                    </div>
-                </div>
-            </ComponentPreview>
-        </section>
-    </div>
+    <script>
+      const bioInput = document.getElementById("bio-demo") as HTMLInputElement;
+      const bioCounter = document.getElementById("bio-counter");
+      if (bioInput && bioCounter) {
+        bioInput.addEventListener("input", () => {
+          bioCounter.textContent = `${bioInput.value.length} / 80`;
+        });
+      }
+    </script>
+    <!-- Clearable -->
+    <section class="space-y-3">
+      <SectionHeading id="clearable" title={t.sections.clearable.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.clearable.description} />
+      <ComponentPreview code={clearableCode}>
+        <div class="w-full max-w-sm">
+          <div class="cu-input-icon-wrapper" data-cu-input-clearable>
+            <input class="cu-input cu-input-clearable" placeholder="Type to search..." />
+            <button type="button" class="cu-input-clear" data-cu-input-clear aria-label="Clear">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M18 6 6 18" />
+                <path d="m6 6 12 12" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </ComponentPreview>
+    </section>
+  </div>
 </Layout>

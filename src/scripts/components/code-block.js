@@ -49,8 +49,12 @@ export function setupCodeBlocks() {
 
       var text = pre.textContent || "";
       writeClipboard(text).then(
-        function () { setCopyState(block, btn, true, null, text); },
-        function (err) { setCopyState(block, btn, false, err); }
+        function () {
+          setCopyState(block, btn, true, null, text);
+        },
+        function (err) {
+          setCopyState(block, btn, false, err);
+        },
       );
     });
   });

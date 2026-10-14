@@ -15,13 +15,20 @@ import { track, restore } from "../core/registry.js";
  */
 export function setupTours() {
   document.querySelectorAll("[data-cu-tour]").forEach(function (el) {
-    if (el._cuInit) { restore("tours", el); return; }
+    if (el._cuInit) {
+      restore("tours", el);
+      return;
+    }
     el._cuInit = true;
 
     var stepsAttr = el.getAttribute("data-cu-tour-steps");
     if (!stepsAttr) return;
     var steps;
-    try { steps = JSON.parse(stepsAttr); } catch (_) { return; }
+    try {
+      steps = JSON.parse(stepsAttr);
+    } catch (_) {
+      return;
+    }
     if (!steps.length) return;
 
     var overlay = null;
@@ -54,10 +61,10 @@ export function setupTours() {
 
       var rect = targetEl.getBoundingClientRect();
       var pad = 8;
-      spotlight.style.top = (rect.top + window.scrollY - pad) + "px";
-      spotlight.style.left = (rect.left + window.scrollX - pad) + "px";
-      spotlight.style.width = (rect.width + pad * 2) + "px";
-      spotlight.style.height = (rect.height + pad * 2) + "px";
+      spotlight.style.top = rect.top + window.scrollY - pad + "px";
+      spotlight.style.left = rect.left + window.scrollX - pad + "px";
+      spotlight.style.width = rect.width + pad * 2 + "px";
+      spotlight.style.height = rect.height + pad * 2 + "px";
 
       var placement = step.placement || "bottom";
       while (tooltip.firstChild) tooltip.removeChild(tooltip.firstChild);
@@ -79,7 +86,7 @@ export function setupTours() {
 
       var progress = document.createElement("div");
       progress.className = "cu-tour-tooltip-progress";
-      progress.textContent = (index + 1) + " / " + steps.length;
+      progress.textContent = index + 1 + " / " + steps.length;
       footer.appendChild(progress);
 
       var actions = document.createElement("div");
@@ -89,7 +96,10 @@ export function setupTours() {
         var prevBtn = document.createElement("button");
         prevBtn.className = "cu-button cu-button-ghost cu-button-sm";
         prevBtn.textContent = "Back";
-        prevBtn.addEventListener("click", function () { clearTarget(); show(index - 1); });
+        prevBtn.addEventListener("click", function () {
+          clearTarget();
+          show(index - 1);
+        });
         actions.appendChild(prevBtn);
       }
 
@@ -97,13 +107,18 @@ export function setupTours() {
         var nextBtn = document.createElement("button");
         nextBtn.className = "cu-button cu-button-default cu-button-sm";
         nextBtn.textContent = "Next";
-        nextBtn.addEventListener("click", function () { clearTarget(); show(index + 1); });
+        nextBtn.addEventListener("click", function () {
+          clearTarget();
+          show(index + 1);
+        });
         actions.appendChild(nextBtn);
       } else {
         var doneBtn = document.createElement("button");
         doneBtn.className = "cu-button cu-button-default cu-button-sm";
         doneBtn.textContent = "Done";
-        doneBtn.addEventListener("click", function () { close(); });
+        doneBtn.addEventListener("click", function () {
+          close();
+        });
         actions.appendChild(doneBtn);
       }
 
@@ -113,17 +128,17 @@ export function setupTours() {
       // Position tooltip
       var tRect = tooltip.getBoundingClientRect();
       if (placement === "bottom") {
-        tooltip.style.top = (rect.bottom + window.scrollY + 12) + "px";
-        tooltip.style.left = (rect.left + window.scrollX + rect.width / 2 - tRect.width / 2) + "px";
+        tooltip.style.top = rect.bottom + window.scrollY + 12 + "px";
+        tooltip.style.left = rect.left + window.scrollX + rect.width / 2 - tRect.width / 2 + "px";
       } else if (placement === "top") {
-        tooltip.style.top = (rect.top + window.scrollY - tRect.height - 12) + "px";
-        tooltip.style.left = (rect.left + window.scrollX + rect.width / 2 - tRect.width / 2) + "px";
+        tooltip.style.top = rect.top + window.scrollY - tRect.height - 12 + "px";
+        tooltip.style.left = rect.left + window.scrollX + rect.width / 2 - tRect.width / 2 + "px";
       } else if (placement === "left") {
-        tooltip.style.top = (rect.top + window.scrollY + rect.height / 2 - tRect.height / 2) + "px";
-        tooltip.style.left = (rect.left + window.scrollX - tRect.width - 12) + "px";
+        tooltip.style.top = rect.top + window.scrollY + rect.height / 2 - tRect.height / 2 + "px";
+        tooltip.style.left = rect.left + window.scrollX - tRect.width - 12 + "px";
       } else {
-        tooltip.style.top = (rect.top + window.scrollY + rect.height / 2 - tRect.height / 2) + "px";
-        tooltip.style.left = (rect.right + window.scrollX + 12) + "px";
+        tooltip.style.top = rect.top + window.scrollY + rect.height / 2 - tRect.height / 2 + "px";
+        tooltip.style.left = rect.right + window.scrollX + 12 + "px";
       }
     }
 
@@ -138,7 +153,9 @@ export function setupTours() {
       clearTarget();
       if (overlay && overlay.parentNode) overlay.remove();
       if (tooltip && tooltip.parentNode) tooltip.remove();
-      overlay = null; tooltip = null; spotlight = null;
+      overlay = null;
+      tooltip = null;
+      spotlight = null;
       el.dispatchEvent(new CustomEvent("cu:tour:complete", { bubbles: true }));
     }
 
@@ -148,7 +165,9 @@ export function setupTours() {
     }
 
     // Allow programmatic start via el.dispatchEvent(new Event("cu:tour:start"))
-    el.addEventListener("cu:tour:start", function () { show(0); });
+    el.addEventListener("cu:tour:start", function () {
+      show(0);
+    });
 
     track("tours", { el: el, close: close });
   });

@@ -159,197 +159,239 @@ const clickableCode = `<div class="cu-steps">
 ---
 
 <Layout title={t.title} category={t.category} componentName="Steps" description={t.description}>
-    <div class="space-y-3">
-        <div class="flex items-center gap-3">
-          <h1 class="text-3xl font-bold tracking-tight">Steps</h1>
-          <span class="cu-badge cu-badge-secondary">{t.category}</span>
+  <div class="space-y-3">
+    <div class="flex items-center gap-3">
+      <h1 class="text-3xl font-bold tracking-tight">Steps</h1>
+      <span class="cu-badge cu-badge-secondary">{t.category}</span>
+    </div>
+    <p class="text-base text-muted-foreground leading-relaxed">{t.description}</p>
+  </div>
+
+  <div class="mt-10 space-y-10">
+    <!-- Usage -->
+    <section class="space-y-3">
+      <SectionHeading id="usage" title={t.sections.usage.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
+      <ComponentPreview code={usageCode}>
+        <div class="w-full max-w-lg">
+          <Steps>
+            <StepsItem status="completed">
+              <div class="cu-steps-number">
+                <Fragment set:html={checkIcon} />
+              </div>
+              <div class="cu-steps-content">
+                <div class="cu-steps-title">Account</div>
+              </div>
+            </StepsItem>
+            <StepsSeparator />
+            <StepsItem status="active">
+              <div class="cu-steps-number">2</div>
+              <div class="cu-steps-content">
+                <div class="cu-steps-title">Profile</div>
+              </div>
+            </StepsItem>
+            <StepsSeparator />
+            <StepsItem status="upcoming">
+              <div class="cu-steps-number">3</div>
+              <div class="cu-steps-content">
+                <div class="cu-steps-title">Complete</div>
+              </div>
+            </StepsItem>
+          </Steps>
         </div>
-        <p class="text-base text-muted-foreground leading-relaxed">
-            {t.description}
-        </p>
-    </div>
+      </ComponentPreview>
+    </section>
 
-    <div class="mt-10 space-y-10">
-        <!-- Usage -->
-        <section class="space-y-3">
-            <SectionHeading id="usage" title={t.sections.usage.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
-            <ComponentPreview code={usageCode}>
-                <div class="w-full max-w-lg">
-                    <Steps>
-                        <StepsItem status="completed">
-                            <div class="cu-steps-number"><Fragment set:html={checkIcon} /></div>
-                            <div class="cu-steps-content"><div class="cu-steps-title">Account</div></div>
-                        </StepsItem>
-                        <StepsSeparator />
-                        <StepsItem status="active">
-                            <div class="cu-steps-number">2</div>
-                            <div class="cu-steps-content"><div class="cu-steps-title">Profile</div></div>
-                        </StepsItem>
-                        <StepsSeparator />
-                        <StepsItem status="upcoming">
-                            <div class="cu-steps-number">3</div>
-                            <div class="cu-steps-content"><div class="cu-steps-title">Complete</div></div>
-                        </StepsItem>
-                    </Steps>
-                </div>
-            </ComponentPreview>
-        </section>
+    <!-- Classes Reference -->
+    <section class="space-y-3">
+      <SectionHeading id="classes" title={t.sections.classes.title} />
+      <div class="cu-table-wrapper rounded-lg border border-border">
+        <table class="cu-table">
+          <thead class="cu-table-header">
+            <tr class="cu-table-row">
+              <th class="cu-table-head">{t.sections.classes.classLabel}</th>
+              <th class="cu-table-head">{t.sections.classes.descriptionLabel}</th>
+            </tr>
+          </thead>
+          <tbody class="cu-table-body">
+            {Object.entries(t.classDescriptions).map(([cls, desc]) => (
+              <tr class="cu-table-row">
+                <td class="cu-table-cell">
+                  <code class="cu-code">{cls}</code>
+                </td>
+                <td class="cu-table-cell text-muted-foreground">{desc}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
 
-        <!-- Classes Reference -->
-        <section class="space-y-3">
-            <SectionHeading id="classes" title={t.sections.classes.title} />
-            <div class="cu-table-wrapper rounded-lg border border-border">
-                <table class="cu-table">
-                    <thead class="cu-table-header">
-                        <tr class="cu-table-row">
-                            <th class="cu-table-head">{t.sections.classes.classLabel}</th>
-                            <th class="cu-table-head">{t.sections.classes.descriptionLabel}</th>
-                        </tr>
-                    </thead>
-                    <tbody class="cu-table-body">
-                        {Object.entries(t.classDescriptions).map(([cls, desc]) => (
-                            <tr class="cu-table-row">
-                                <td class="cu-table-cell"><code class="cu-code">{cls}</code></td>
-                                <td class="cu-table-cell text-muted-foreground">{desc}</td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
+    <!-- With Descriptions -->
+    <section class="space-y-3">
+      <SectionHeading id="with-descriptions" title={t.sections.withDescriptions.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withDescriptions.description} />
+      <ComponentPreview code={withDescCode}>
+        <div class="w-full max-w-lg">
+          <Steps>
+            <StepsItem status="completed">
+              <div class="cu-steps-number">
+                <Fragment set:html={checkIcon} />
+              </div>
+              <div class="cu-steps-content">
+                <div class="cu-steps-title">Account</div>
+                <div class="cu-steps-description">Create your account</div>
+              </div>
+            </StepsItem>
+            <StepsSeparator />
+            <StepsItem status="active">
+              <div class="cu-steps-number">2</div>
+              <div class="cu-steps-content">
+                <div class="cu-steps-title">Profile</div>
+                <div class="cu-steps-description">Set up your profile</div>
+              </div>
+            </StepsItem>
+            <StepsSeparator />
+            <StepsItem status="upcoming">
+              <div class="cu-steps-number">3</div>
+              <div class="cu-steps-content">
+                <div class="cu-steps-title">Complete</div>
+                <div class="cu-steps-description">Review and finish</div>
+              </div>
+            </StepsItem>
+          </Steps>
+        </div>
+      </ComponentPreview>
+    </section>
+
+    <!-- Vertical -->
+    <section class="space-y-3">
+      <SectionHeading id="vertical" title={t.sections.vertical.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.vertical.description} />
+      <ComponentPreview code={verticalCode}>
+        <div class="w-full max-w-sm">
+          <Steps vertical>
+            <StepsItem status="completed">
+              <div class="cu-steps-number">
+                <Fragment set:html={checkIcon} />
+              </div>
+              <div class="cu-steps-content">
+                <div class="cu-steps-title">Order placed</div>
+                <div class="cu-steps-description">Your order has been confirmed</div>
+              </div>
+            </StepsItem>
+            <StepsSeparator />
+            <StepsItem status="completed">
+              <div class="cu-steps-number">
+                <Fragment set:html={checkIcon} />
+              </div>
+              <div class="cu-steps-content">
+                <div class="cu-steps-title">Processing</div>
+                <div class="cu-steps-description">Your order is being prepared</div>
+              </div>
+            </StepsItem>
+            <StepsSeparator />
+            <StepsItem status="active">
+              <div class="cu-steps-number">3</div>
+              <div class="cu-steps-content">
+                <div class="cu-steps-title">Shipping</div>
+                <div class="cu-steps-description">On its way to you</div>
+              </div>
+            </StepsItem>
+            <StepsSeparator />
+            <StepsItem status="upcoming">
+              <div class="cu-steps-number">4</div>
+              <div class="cu-steps-content">
+                <div class="cu-steps-title">Delivered</div>
+                <div class="cu-steps-description">Package has arrived</div>
+              </div>
+            </StepsItem>
+          </Steps>
+        </div>
+      </ComponentPreview>
+    </section>
+
+    <!-- Error State -->
+    <section class="space-y-3">
+      <SectionHeading id="error" title={t.sections.error.title} />
+      <p class="text-base text-muted-foreground leading-relaxed">{t.sections.error.description}</p>
+      <ComponentPreview code={errorCode}>
+        <div class="w-full max-w-lg">
+          <Steps>
+            <StepsItem status="completed">
+              <div class="cu-steps-number">
+                <Fragment set:html={checkIcon} />
+              </div>
+              <div class="cu-steps-content">
+                <div class="cu-steps-title">Account</div>
+              </div>
+            </StepsItem>
+            <StepsSeparator />
+            <div class="cu-steps-item cu-steps-item-error">
+              <div class="cu-steps-number">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M18 6 6 18" />
+                  <path d="m6 6 12 12" />
+                </svg>
+              </div>
+              <div class="cu-steps-content">
+                <div class="cu-steps-title">Payment Failed</div>
+              </div>
             </div>
-        </section>
+            <StepsSeparator />
+            <StepsItem status="upcoming">
+              <div class="cu-steps-number">3</div>
+              <div class="cu-steps-content">
+                <div class="cu-steps-title">Confirm</div>
+              </div>
+            </StepsItem>
+          </Steps>
+        </div>
+      </ComponentPreview>
+    </section>
 
-
-        <!-- With Descriptions -->
-        <section class="space-y-3">
-            <SectionHeading id="with-descriptions" title={t.sections.withDescriptions.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withDescriptions.description} />
-            <ComponentPreview code={withDescCode}>
-                <div class="w-full max-w-lg">
-                    <Steps>
-                        <StepsItem status="completed">
-                            <div class="cu-steps-number"><Fragment set:html={checkIcon} /></div>
-                            <div class="cu-steps-content">
-                                <div class="cu-steps-title">Account</div>
-                                <div class="cu-steps-description">Create your account</div>
-                            </div>
-                        </StepsItem>
-                        <StepsSeparator />
-                        <StepsItem status="active">
-                            <div class="cu-steps-number">2</div>
-                            <div class="cu-steps-content">
-                                <div class="cu-steps-title">Profile</div>
-                                <div class="cu-steps-description">Set up your profile</div>
-                            </div>
-                        </StepsItem>
-                        <StepsSeparator />
-                        <StepsItem status="upcoming">
-                            <div class="cu-steps-number">3</div>
-                            <div class="cu-steps-content">
-                                <div class="cu-steps-title">Complete</div>
-                                <div class="cu-steps-description">Review and finish</div>
-                            </div>
-                        </StepsItem>
-                    </Steps>
-                </div>
-            </ComponentPreview>
-        </section>
-
-        <!-- Vertical -->
-        <section class="space-y-3">
-            <SectionHeading id="vertical" title={t.sections.vertical.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.vertical.description} />
-            <ComponentPreview code={verticalCode}>
-                <div class="w-full max-w-sm">
-                    <Steps vertical>
-                        <StepsItem status="completed">
-                            <div class="cu-steps-number"><Fragment set:html={checkIcon} /></div>
-                            <div class="cu-steps-content">
-                                <div class="cu-steps-title">Order placed</div>
-                                <div class="cu-steps-description">Your order has been confirmed</div>
-                            </div>
-                        </StepsItem>
-                        <StepsSeparator />
-                        <StepsItem status="completed">
-                            <div class="cu-steps-number"><Fragment set:html={checkIcon} /></div>
-                            <div class="cu-steps-content">
-                                <div class="cu-steps-title">Processing</div>
-                                <div class="cu-steps-description">Your order is being prepared</div>
-                            </div>
-                        </StepsItem>
-                        <StepsSeparator />
-                        <StepsItem status="active">
-                            <div class="cu-steps-number">3</div>
-                            <div class="cu-steps-content">
-                                <div class="cu-steps-title">Shipping</div>
-                                <div class="cu-steps-description">On its way to you</div>
-                            </div>
-                        </StepsItem>
-                        <StepsSeparator />
-                        <StepsItem status="upcoming">
-                            <div class="cu-steps-number">4</div>
-                            <div class="cu-steps-content">
-                                <div class="cu-steps-title">Delivered</div>
-                                <div class="cu-steps-description">Package has arrived</div>
-                            </div>
-                        </StepsItem>
-                    </Steps>
-                </div>
-            </ComponentPreview>
-        </section>
-
-        <!-- Error State -->
-        <section class="space-y-3">
-            <SectionHeading id="error" title={t.sections.error.title} />
-            <p class="text-base text-muted-foreground leading-relaxed">{t.sections.error.description}</p>
-            <ComponentPreview code={errorCode}>
-                <div class="w-full max-w-lg">
-                    <Steps>
-                        <StepsItem status="completed">
-                            <div class="cu-steps-number"><Fragment set:html={checkIcon} /></div>
-                            <div class="cu-steps-content"><div class="cu-steps-title">Account</div></div>
-                        </StepsItem>
-                        <StepsSeparator />
-                        <div class="cu-steps-item cu-steps-item-error">
-                            <div class="cu-steps-number">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
-                            </div>
-                            <div class="cu-steps-content"><div class="cu-steps-title">Payment Failed</div></div>
-                        </div>
-                        <StepsSeparator />
-                        <StepsItem status="upcoming">
-                            <div class="cu-steps-number">3</div>
-                            <div class="cu-steps-content"><div class="cu-steps-title">Confirm</div></div>
-                        </StepsItem>
-                    </Steps>
-                </div>
-            </ComponentPreview>
-        </section>
-
-        <!-- Clickable Steps -->
-        <section class="space-y-3">
-            <SectionHeading id="clickable" title={t.sections.clickable.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.clickable.description} />
-            <ComponentPreview code={clickableCode}>
-                <div class="w-full max-w-lg">
-                    <Steps>
-                        <button class="cu-steps-item cu-steps-item-completed cursor-pointer group">
-                            <div class="cu-steps-number group-hover:shadow-sm transition-shadow duration-150"><Fragment set:html={checkIcon} /></div>
-                            <div class="cu-steps-content"><div class="cu-steps-title">Details</div></div>
-                        </button>
-                        <StepsSeparator />
-                        <button class="cu-steps-item cursor-pointer group">
-                            <div class="cu-steps-number group-hover:shadow-sm transition-shadow duration-150">2</div>
-                            <div class="cu-steps-content"><div class="cu-steps-title">Address</div></div>
-                        </button>
-                        <StepsSeparator />
-                        <button class="cu-steps-item cu-steps-item-upcoming cursor-pointer group" disabled>
-                            <div class="cu-steps-number">3</div>
-                            <div class="cu-steps-content"><div class="cu-steps-title">Payment</div></div>
-                        </button>
-                    </Steps>
-                </div>
-            </ComponentPreview>
-        </section>
-    </div>
+    <!-- Clickable Steps -->
+    <section class="space-y-3">
+      <SectionHeading id="clickable" title={t.sections.clickable.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.clickable.description} />
+      <ComponentPreview code={clickableCode}>
+        <div class="w-full max-w-lg">
+          <Steps>
+            <button class="cu-steps-item cu-steps-item-completed cursor-pointer group">
+              <div class="cu-steps-number group-hover:shadow-sm transition-shadow duration-150">
+                <Fragment set:html={checkIcon} />
+              </div>
+              <div class="cu-steps-content">
+                <div class="cu-steps-title">Details</div>
+              </div>
+            </button>
+            <StepsSeparator />
+            <button class="cu-steps-item cursor-pointer group">
+              <div class="cu-steps-number group-hover:shadow-sm transition-shadow duration-150">2</div>
+              <div class="cu-steps-content">
+                <div class="cu-steps-title">Address</div>
+              </div>
+            </button>
+            <StepsSeparator />
+            <button class="cu-steps-item cu-steps-item-upcoming cursor-pointer group" disabled>
+              <div class="cu-steps-number">3</div>
+              <div class="cu-steps-content">
+                <div class="cu-steps-title">Payment</div>
+              </div>
+            </button>
+          </Steps>
+        </div>
+      </ComponentPreview>
+    </section>
+  </div>
 </Layout>

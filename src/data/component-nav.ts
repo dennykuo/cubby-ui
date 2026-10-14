@@ -169,6 +169,4 @@ export const componentGroups = [
 ];
 
 /** Flat ordered list of all component pages (for prev/next navigation) */
-export const allComponentPages: NavItem[] = componentGroups.flatMap(
-  (g) => g.items
-);
+export const allComponentPages: NavItem[] = componentGroups.flatMap((g) => g.items);

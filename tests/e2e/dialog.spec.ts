@@ -70,7 +70,13 @@ test.describe("Dialog / Drawer / Alert Dialog", () => {
 
     const detail = await dialog.evaluate((el: HTMLDialogElement) => {
       let d = -1;
-      el.addEventListener("click", (e) => { d = e.detail; }, { once: true });
+      el.addEventListener(
+        "click",
+        (e) => {
+          d = e.detail;
+        },
+        { once: true },
+      );
       el.click();
       return d;
     });

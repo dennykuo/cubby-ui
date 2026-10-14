@@ -6,240 +6,450 @@ import cubbyUiUrl from "../../../../dist/core/cubby-ui.js?url";
 
 <!doctype html>
 <html lang="zh-Hant">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="description" content="Modal Workflow — Cubby UI" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href={withBase("/favicon.svg")} />
-		<link rel="preconnect" href="https://fonts.googleapis.com" />
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-		<link
-			href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
-			rel="stylesheet"
-		/>
-		<title>Modal 工作流 — Cubby UI</title>
-	</head>
-	<body class="min-h-screen bg-muted/30 font-sans">
-		<!-- Header -->
-		<header class="cu-header">
-			<div class="cu-header-inner max-w-5xl">
-				<a class="cu-header-brand" href={withBase("/examples/modal-workflow")}>
-					<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-primary" aria-hidden="true">
-						<path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
-						<polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
-						<line x1="12" y1="22.08" x2="12" y2="12"></line>
-					</svg>
-					<span class="text-base font-semibold tracking-tight">聯絡人管理</span>
-				</a>
-				<div class="cu-header-actions">
-					<a href={withBase("/")} class="cu-button cu-button-ghost cu-button-sm">
-						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>
-						返回文檔
-					</a>
-				</div>
-			</div>
-		</header>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="Modal Workflow — Cubby UI" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href={withBase("/favicon.svg")} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <title>Modal 工作流 — Cubby UI</title>
+  </head>
+  <body class="min-h-screen bg-muted/30 font-sans">
+    <!-- Header -->
+    <header class="cu-header">
+      <div class="cu-header-inner max-w-5xl">
+        <a class="cu-header-brand" href={withBase("/examples/modal-workflow")}>
+          <svg
+            width="22"
+            height="22"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="text-primary"
+            aria-hidden="true"
+          >
+            <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+            <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+            <line x1="12" y1="22.08" x2="12" y2="12"></line>
+          </svg>
+          <span class="text-base font-semibold tracking-tight">聯絡人管理</span>
+        </a>
+        <div class="cu-header-actions">
+          <a href={withBase("/")} class="cu-button cu-button-ghost cu-button-sm">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="m15 18-6-6 6-6" />
+            </svg>
+            返回文檔
+          </a>
+        </div>
+      </div>
+    </header>
 
-		<!-- Main content -->
-		<main class="mx-auto max-w-5xl px-4 py-8 sm:px-6 sm:py-10">
-			<!-- Page header -->
-			<div class="cu-page-header mb-8">
-				<div class="cu-page-header-content">
-					<h1 class="cu-page-header-title text-2xl md:text-2xl">聯絡人</h1>
-					<p class="cu-page-header-description">管理您的聯絡人清單，支援新增、編輯與刪除操作。</p>
-				</div>
-				<div class="cu-page-header-actions">
-					<button type="button" class="cu-button cu-button-default cu-button-md" data-cu-action="add">
-						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
-						新增聯絡人
-					</button>
-				</div>
-			</div>
+    <!-- Main content -->
+    <main class="mx-auto max-w-5xl px-4 py-8 sm:px-6 sm:py-10">
+      <!-- Page header -->
+      <div class="cu-page-header mb-8">
+        <div class="cu-page-header-content">
+          <h1 class="cu-page-header-title text-2xl md:text-2xl">聯絡人</h1>
+          <p class="cu-page-header-description">管理您的聯絡人清單，支援新增、編輯與刪除操作。</p>
+        </div>
+        <div class="cu-page-header-actions">
+          <button type="button" class="cu-button cu-button-default cu-button-md" data-cu-action="add">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M5 12h14" />
+              <path d="M12 5v14" />
+            </svg>
+            新增聯絡人
+          </button>
+        </div>
+      </div>
 
-			<!-- Filter bar -->
-			<div class="cu-filter-bar mb-6">
-				<div class="cu-filter-bar-inner">
-					<div class="cu-filter-bar-search">
-						<div class="cu-input-search" role="search">
-							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="cu-input-search-icon" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-							<input class="cu-input-search-field" type="search" placeholder="搜尋姓名或 Email…" aria-label="搜尋聯絡人" data-cu-contact-search />
-						</div>
-					</div>
-					<div class="cu-filter-bar-filters">
-						<div class="cu-select-wrapper">
-							<select class="cu-select" aria-label="依部門篩選" data-cu-contact-filter>
-								<option value="">所有部門</option>
-								<option value="engineering">工程部</option>
-								<option value="design">設計部</option>
-								<option value="marketing">行銷部</option>
-								<option value="sales">業務部</option>
-							</select>
-							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="cu-select-icon" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg>
-						</div>
-					</div>
-				</div>
-			</div>
+      <!-- Filter bar -->
+      <div class="cu-filter-bar mb-6">
+        <div class="cu-filter-bar-inner">
+          <div class="cu-filter-bar-search">
+            <div class="cu-input-search" role="search">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="cu-input-search-icon"
+                aria-hidden="true"
+              >
+                <circle cx="11" cy="11" r="8" />
+                <path d="m21 21-4.3-4.3" />
+              </svg>
+              <input
+                class="cu-input-search-field"
+                type="search"
+                placeholder="搜尋姓名或 Email…"
+                aria-label="搜尋聯絡人"
+                data-cu-contact-search
+              />
+            </div>
+          </div>
+          <div class="cu-filter-bar-filters">
+            <div class="cu-select-wrapper">
+              <select class="cu-select" aria-label="依部門篩選" data-cu-contact-filter>
+                <option value="">所有部門</option>
+                <option value="engineering">工程部</option>
+                <option value="design">設計部</option>
+                <option value="marketing">行銷部</option>
+                <option value="sales">業務部</option>
+              </select>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="cu-select-icon"
+                aria-hidden="true"
+              >
+                <path d="m6 9 6 6 6-6"></path>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
 
-			<!-- Data table -->
-			<div class="cu-card overflow-hidden">
-				<div class="cu-table-wrapper" role="region" aria-label="聯絡人清單" tabindex="0">
-					<table class="cu-table">
-						<thead class="cu-table-header">
-							<tr class="cu-table-row hover:bg-transparent">
-								<th scope="col" class="cu-table-head">聯絡人</th>
-								<th scope="col" class="cu-table-head hidden sm:table-cell">Email</th>
-								<th scope="col" class="cu-table-head hidden sm:table-cell">部門</th>
-								<th scope="col" class="cu-table-head hidden md:table-cell">職稱</th>
-								<th scope="col" class="cu-table-head text-right"><span class="sr-only">操作</span></th>
-							</tr>
-						</thead>
-						<tbody class="cu-table-body" data-cu-contact-tbody>
-							<!-- Rows rendered by JS -->
-						</tbody>
-					</table>
-				</div>
+      <!-- Data table -->
+      <div class="cu-card overflow-hidden">
+        <div class="cu-table-wrapper" role="region" aria-label="聯絡人清單" tabindex="0">
+          <table class="cu-table">
+            <thead class="cu-table-header">
+              <tr class="cu-table-row hover:bg-transparent">
+                <th scope="col" class="cu-table-head">
+                  聯絡人
+                </th>
+                <th scope="col" class="cu-table-head hidden sm:table-cell">
+                  Email
+                </th>
+                <th scope="col" class="cu-table-head hidden sm:table-cell">
+                  部門
+                </th>
+                <th scope="col" class="cu-table-head hidden md:table-cell">
+                  職稱
+                </th>
+                <th scope="col" class="cu-table-head text-right">
+                  <span class="sr-only">操作</span>
+                </th>
+              </tr>
+            </thead>
+            <tbody class="cu-table-body" data-cu-contact-tbody>
+              <!-- Rows rendered by JS -->
+            </tbody>
+          </table>
+        </div>
 
-				<!-- Empty state -->
-				<div class="cu-empty-state py-12" data-cu-contact-empty hidden>
-					<div class="cu-empty-state-icon" aria-hidden="true">
-						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-					</div>
-					<p class="cu-empty-state-title">沒有符合的聯絡人</p>
-					<p class="cu-empty-state-description">試著調整搜尋關鍵字或部門篩選。</p>
-					<div class="cu-empty-state-action">
-						<button type="button" class="cu-button cu-button-outline cu-button-sm" data-cu-contact-clear>清除篩選</button>
-					</div>
-				</div>
+        <!-- Empty state -->
+        <div class="cu-empty-state py-12" data-cu-contact-empty hidden>
+          <div class="cu-empty-state-icon" aria-hidden="true">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <circle cx="11" cy="11" r="8" />
+              <path d="m21 21-4.3-4.3" />
+            </svg>
+          </div>
+          <p class="cu-empty-state-title">沒有符合的聯絡人</p>
+          <p class="cu-empty-state-description">試著調整搜尋關鍵字或部門篩選。</p>
+          <div class="cu-empty-state-action">
+            <button type="button" class="cu-button cu-button-outline cu-button-sm" data-cu-contact-clear>
+              清除篩選
+            </button>
+          </div>
+        </div>
 
-				<div class="border-t border-border px-4 py-3">
-					<p class="text-sm text-muted-foreground" role="status" aria-atomic="true" data-cu-contact-count>共 6 位聯絡人</p>
-				</div>
-			</div>
-		</main>
+        <div class="border-t border-border px-4 py-3">
+          <p class="text-sm text-muted-foreground" role="status" aria-atomic="true" data-cu-contact-count>
+            共 6 位聯絡人
+          </p>
+        </div>
+      </div>
+    </main>
 
-		<!-- Add/Edit Contact Dialog -->
-		<dialog id="contact-dialog" class="cu-dialog cu-dialog-md" data-cu-dialog>
-			<button type="button" class="cu-dialog-close" data-cu-dialog-close aria-label="關閉">
-				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
-			</button>
-			<div class="cu-dialog-header">
-				<h2 class="cu-dialog-title" data-cu-contact-dialog-title>新增聯絡人</h2>
-				<p class="cu-dialog-description">填寫聯絡人的基本資訊。</p>
-			</div>
-			<form class="mt-4 space-y-4" id="contact-form" novalidate data-cu-contact-form>
-				<input type="hidden" name="id" data-cu-contact-id />
-				<div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
-					<div class="cu-form-group">
-						<label class="cu-label cu-label-required" for="contact-name">姓名</label>
-						<input class="cu-input" id="contact-name" type="text" placeholder="王小明" autocomplete="off" required autofocus aria-describedby="contact-name-error" />
-						<p class="cu-form-error" id="contact-name-error" hidden></p>
-					</div>
-					<div class="cu-form-group">
-						<label class="cu-label cu-label-required" for="contact-email">Email</label>
-						<input class="cu-input" id="contact-email" type="email" placeholder="name@example.com" autocomplete="off" required aria-describedby="contact-email-error" />
-						<p class="cu-form-error" id="contact-email-error" hidden></p>
-					</div>
-				</div>
-				<div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
-					<div class="cu-form-group">
-						<label class="cu-label" for="contact-dept">部門</label>
-						<div class="cu-select-wrapper">
-							<select class="cu-select" id="contact-dept">
-								<option value="engineering">工程部</option>
-								<option value="design">設計部</option>
-								<option value="marketing">行銷部</option>
-								<option value="sales">業務部</option>
-							</select>
-							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="cu-select-icon" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg>
-						</div>
-					</div>
-					<div class="cu-form-group">
-						<label class="cu-label" for="contact-title">職稱</label>
-						<input class="cu-input" id="contact-title" type="text" placeholder="軟體工程師" autocomplete="off" />
-					</div>
-				</div>
-				<div class="cu-form-group">
-					<label class="cu-label" for="contact-phone">電話</label>
-					<input class="cu-input" id="contact-phone" type="tel" placeholder="0912-345-678" autocomplete="off" />
-				</div>
-			</form>
-			<div class="cu-dialog-footer">
-				<button type="button" class="cu-button cu-button-outline cu-button-md" data-cu-dialog-close>取消</button>
-				<button type="submit" form="contact-form" class="cu-button cu-button-default cu-button-md">儲存</button>
-			</div>
-		</dialog>
+    <!-- Add/Edit Contact Dialog -->
+    <dialog id="contact-dialog" class="cu-dialog cu-dialog-md" data-cu-dialog>
+      <button type="button" class="cu-dialog-close" data-cu-dialog-close aria-label="關閉">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <path d="M18 6 6 18" />
+          <path d="m6 6 12 12" />
+        </svg>
+      </button>
+      <div class="cu-dialog-header">
+        <h2 class="cu-dialog-title" data-cu-contact-dialog-title>
+          新增聯絡人
+        </h2>
+        <p class="cu-dialog-description">填寫聯絡人的基本資訊。</p>
+      </div>
+      <form class="mt-4 space-y-4" id="contact-form" novalidate data-cu-contact-form>
+        <input type="hidden" name="id" data-cu-contact-id />
+        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <div class="cu-form-group">
+            <label class="cu-label cu-label-required" for="contact-name">
+              姓名
+            </label>
+            <input
+              class="cu-input"
+              id="contact-name"
+              type="text"
+              placeholder="王小明"
+              autocomplete="off"
+              required
+              autofocus
+              aria-describedby="contact-name-error"
+            />
+            <p class="cu-form-error" id="contact-name-error" hidden></p>
+          </div>
+          <div class="cu-form-group">
+            <label class="cu-label cu-label-required" for="contact-email">
+              Email
+            </label>
+            <input
+              class="cu-input"
+              id="contact-email"
+              type="email"
+              placeholder="name@example.com"
+              autocomplete="off"
+              required
+              aria-describedby="contact-email-error"
+            />
+            <p class="cu-form-error" id="contact-email-error" hidden></p>
+          </div>
+        </div>
+        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <div class="cu-form-group">
+            <label class="cu-label" for="contact-dept">
+              部門
+            </label>
+            <div class="cu-select-wrapper">
+              <select class="cu-select" id="contact-dept">
+                <option value="engineering">工程部</option>
+                <option value="design">設計部</option>
+                <option value="marketing">行銷部</option>
+                <option value="sales">業務部</option>
+              </select>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="cu-select-icon"
+                aria-hidden="true"
+              >
+                <path d="m6 9 6 6 6-6"></path>
+              </svg>
+            </div>
+          </div>
+          <div class="cu-form-group">
+            <label class="cu-label" for="contact-title">
+              職稱
+            </label>
+            <input class="cu-input" id="contact-title" type="text" placeholder="軟體工程師" autocomplete="off" />
+          </div>
+        </div>
+        <div class="cu-form-group">
+          <label class="cu-label" for="contact-phone">
+            電話
+          </label>
+          <input class="cu-input" id="contact-phone" type="tel" placeholder="0912-345-678" autocomplete="off" />
+        </div>
+      </form>
+      <div class="cu-dialog-footer">
+        <button type="button" class="cu-button cu-button-outline cu-button-md" data-cu-dialog-close>
+          取消
+        </button>
+        <button type="submit" form="contact-form" class="cu-button cu-button-default cu-button-md">
+          儲存
+        </button>
+      </div>
+    </dialog>
 
-		<!-- Delete Confirmation Alert Dialog -->
-		<dialog id="delete-confirm" class="cu-alert-dialog cu-alert-dialog-sm" data-cu-alert-dialog>
-			<div class="cu-alert-dialog-header">
-				<h2 class="cu-alert-dialog-title">確認刪除</h2>
-				<p class="cu-alert-dialog-description">您確定要刪除 <strong data-cu-delete-name></strong> 嗎？此操作無法復原。</p>
-			</div>
-			<div class="cu-alert-dialog-footer">
-				<button type="button" class="cu-button cu-button-outline cu-button-md" data-cu-alert-dialog-cancel autofocus>取消</button>
-				<button type="button" class="cu-button cu-button-destructive cu-button-md" data-cu-contact-confirm-delete>刪除</button>
-			</div>
-		</dialog>
+    <!-- Delete Confirmation Alert Dialog -->
+    <dialog id="delete-confirm" class="cu-alert-dialog cu-alert-dialog-sm" data-cu-alert-dialog>
+      <div class="cu-alert-dialog-header">
+        <h2 class="cu-alert-dialog-title">確認刪除</h2>
+        <p class="cu-alert-dialog-description">
+          您確定要刪除 <strong data-cu-delete-name></strong> 嗎？此操作無法復原。
+        </p>
+      </div>
+      <div class="cu-alert-dialog-footer">
+        <button type="button" class="cu-button cu-button-outline cu-button-md" data-cu-alert-dialog-cancel autofocus>
+          取消
+        </button>
+        <button type="button" class="cu-button cu-button-destructive cu-button-md" data-cu-contact-confirm-delete>
+          刪除
+        </button>
+      </div>
+    </dialog>
 
-		<script src={cubbyUiUrl} is:inline></script>
-		<script>
-			type Contact = { id: number; name: string; email: string; dept: string; title: string; phone: string };
+    <script src={cubbyUiUrl} is:inline></script>
+    <script>
+      type Contact = { id: number; name: string; email: string; dept: string; title: string; phone: string };
 
-			const deptMap: Record<string, string> = { engineering: "工程部", design: "設計部", marketing: "行銷部", sales: "業務部" };
-			let nextId = 7;
-			let contacts: Contact[] = [
-				{ id: 1, name: "林子涵", email: "zihan.lin@example.com", dept: "engineering", title: "資深前端工程師", phone: "0912-111-001" },
-				{ id: 2, name: "陳怡君", email: "yijun.chen@example.com", dept: "design", title: "UI/UX 設計師", phone: "0912-111-002" },
-				{ id: 3, name: "張家豪", email: "jiahao.zhang@example.com", dept: "engineering", title: "後端工程師", phone: "0912-111-003" },
-				{ id: 4, name: "王美玲", email: "meiling.wang@example.com", dept: "marketing", title: "行銷專員", phone: "0912-111-004" },
-				{ id: 5, name: "李建志", email: "jianzhi.li@example.com", dept: "sales", title: "業務經理", phone: "0912-111-005" },
-				{ id: 6, name: "黃雅婷", email: "yating.huang@example.com", dept: "design", title: "動態設計師", phone: "0912-111-006" },
-			];
+      const deptMap: Record<string, string> = {
+        engineering: "工程部",
+        design: "設計部",
+        marketing: "行銷部",
+        sales: "業務部",
+      };
+      let nextId = 7;
+      let contacts: Contact[] = [
+        {
+          id: 1,
+          name: "林子涵",
+          email: "zihan.lin@example.com",
+          dept: "engineering",
+          title: "資深前端工程師",
+          phone: "0912-111-001",
+        },
+        {
+          id: 2,
+          name: "陳怡君",
+          email: "yijun.chen@example.com",
+          dept: "design",
+          title: "UI/UX 設計師",
+          phone: "0912-111-002",
+        },
+        {
+          id: 3,
+          name: "張家豪",
+          email: "jiahao.zhang@example.com",
+          dept: "engineering",
+          title: "後端工程師",
+          phone: "0912-111-003",
+        },
+        {
+          id: 4,
+          name: "王美玲",
+          email: "meiling.wang@example.com",
+          dept: "marketing",
+          title: "行銷專員",
+          phone: "0912-111-004",
+        },
+        {
+          id: 5,
+          name: "李建志",
+          email: "jianzhi.li@example.com",
+          dept: "sales",
+          title: "業務經理",
+          phone: "0912-111-005",
+        },
+        {
+          id: 6,
+          name: "黃雅婷",
+          email: "yating.huang@example.com",
+          dept: "design",
+          title: "動態設計師",
+          phone: "0912-111-006",
+        },
+      ];
 
-			const tbody = document.querySelector<HTMLElement>("[data-cu-contact-tbody]")!;
-			const tableWrapper = tbody.closest<HTMLElement>(".cu-table-wrapper")!;
-			const emptyState = document.querySelector<HTMLElement>("[data-cu-contact-empty]")!;
-			const searchInput = document.querySelector<HTMLInputElement>("[data-cu-contact-search]")!;
-			const filterSelect = document.querySelector<HTMLSelectElement>("[data-cu-contact-filter]")!;
-			const countEl = document.querySelector<HTMLElement>("[data-cu-contact-count]")!;
-			const addBtn = document.querySelector<HTMLButtonElement>('[data-cu-action="add"]')!;
-			const contactDialog = document.getElementById("contact-dialog") as HTMLDialogElement;
-			const deleteDialog = document.getElementById("delete-confirm") as HTMLDialogElement;
-			const form = document.getElementById("contact-form") as HTMLFormElement;
-			const idInput = form.querySelector<HTMLInputElement>("[data-cu-contact-id]")!;
-			const field = (id: string) => document.getElementById(id) as HTMLInputElement;
-			const nameEl = field("contact-name");
-			const emailEl = field("contact-email");
+      const tbody = document.querySelector<HTMLElement>("[data-cu-contact-tbody]")!;
+      const tableWrapper = tbody.closest<HTMLElement>(".cu-table-wrapper")!;
+      const emptyState = document.querySelector<HTMLElement>("[data-cu-contact-empty]")!;
+      const searchInput = document.querySelector<HTMLInputElement>("[data-cu-contact-search]")!;
+      const filterSelect = document.querySelector<HTMLSelectElement>("[data-cu-contact-filter]")!;
+      const countEl = document.querySelector<HTMLElement>("[data-cu-contact-count]")!;
+      const addBtn = document.querySelector<HTMLButtonElement>('[data-cu-action="add"]')!;
+      const contactDialog = document.getElementById("contact-dialog") as HTMLDialogElement;
+      const deleteDialog = document.getElementById("delete-confirm") as HTMLDialogElement;
+      const form = document.getElementById("contact-form") as HTMLFormElement;
+      const idInput = form.querySelector<HTMLInputElement>("[data-cu-contact-id]")!;
+      const field = (id: string) => document.getElementById(id) as HTMLInputElement;
+      const nameEl = field("contact-name");
+      const emailEl = field("contact-email");
 
-			let pendingDeleteId: number | null = null;
-			// 列由 renderTable 重繪，按鈕元素會被替換，所以以「之後再查詢」的方式記住焦點目標
-			let returnFocus: (() => HTMLElement | null) | null = null;
+      let pendingDeleteId: number | null = null;
+      // 列由 renderTable 重繪，按鈕元素會被替換，所以以「之後再查詢」的方式記住焦點目標
+      let returnFocus: (() => HTMLElement | null) | null = null;
 
-			const esc = (s: string) =>
-				s.replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]!);
-			const rowButton = (attr: string, id: number | string) =>
-				tbody.querySelector<HTMLElement>(`[${attr}="${id}"]`);
+      const esc = (s: string) =>
+        s.replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]!);
+      const rowButton = (attr: string, id: number | string) => tbody.querySelector<HTMLElement>(`[${attr}="${id}"]`);
 
-			function renderTable() {
-				const search = searchInput.value.trim().toLowerCase();
-				const dept = filterSelect.value;
-				const filtered = contacts.filter(
-					(c) =>
-						(!search || c.name.toLowerCase().includes(search) || c.email.toLowerCase().includes(search)) &&
-						(!dept || c.dept === dept),
-				);
-				const filtering = Boolean(search || dept);
+      function renderTable() {
+        const search = searchInput.value.trim().toLowerCase();
+        const dept = filterSelect.value;
+        const filtered = contacts.filter(
+          (c) =>
+            (!search || c.name.toLowerCase().includes(search) || c.email.toLowerCase().includes(search)) &&
+            (!dept || c.dept === dept),
+        );
+        const filtering = Boolean(search || dept);
 
-				countEl.textContent = filtering
-					? `找到 ${filtered.length} 位聯絡人（共 ${contacts.length} 位）`
-					: `共 ${contacts.length} 位聯絡人`;
-				tableWrapper.hidden = filtered.length === 0;
-				emptyState.hidden = filtered.length > 0;
+        countEl.textContent = filtering
+          ? `找到 ${filtered.length} 位聯絡人（共 ${contacts.length} 位）`
+          : `共 ${contacts.length} 位聯絡人`;
+        tableWrapper.hidden = filtered.length === 0;
+        emptyState.hidden = filtered.length > 0;
 
-				tbody.innerHTML = filtered
-					.map((c) => {
-						const name = esc(c.name);
-						return `<tr class="cu-table-row">
+        tbody.innerHTML = filtered
+          .map((c) => {
+            const name = esc(c.name);
+            return `<tr class="cu-table-row">
 							<td class="cu-table-cell">
 								<div class="flex items-center gap-3">
 									<div class="cu-avatar cu-avatar-sm" aria-hidden="true"><div class="cu-avatar-fallback bg-primary/10 text-primary">${esc(c.name.slice(0, 1))}</div></div>
@@ -263,153 +473,161 @@ import cubbyUiUrl from "../../../../dist/core/cubby-ui.js?url";
 								</div>
 							</td>
 						</tr>`;
-					})
-					.join("");
-			}
+          })
+          .join("");
+      }
 
-			// -- Dialog helpers --
-			function openModal(dialog: HTMLDialogElement, focusTarget: () => HTMLElement | null) {
-				returnFocus = focusTarget;
-				dialog.showModal();
-			}
+      // -- Dialog helpers --
+      function openModal(dialog: HTMLDialogElement, focusTarget: () => HTMLElement | null) {
+        returnFocus = focusTarget;
+        dialog.showModal();
+      }
 
-			function restoreFocus() {
-				const el = returnFocus?.();
-				returnFocus = null;
-				(el?.isConnected ? el : addBtn).focus();
-			}
+      function restoreFocus() {
+        const el = returnFocus?.();
+        returnFocus = null;
+        (el?.isConnected ? el : addBtn).focus();
+      }
 
-			contactDialog.addEventListener("close", restoreFocus);
-			deleteDialog.addEventListener("close", restoreFocus);
+      contactDialog.addEventListener("close", restoreFocus);
+      deleteDialog.addEventListener("close", restoreFocus);
 
-			// -- Form validation --
-			function setError(input: HTMLInputElement, message: string) {
-				const err = document.getElementById(input.id + "-error")!;
-				err.textContent = message;
-				err.hidden = !message;
-				input.classList.toggle("cu-input-error", Boolean(message));
-				if (message) input.setAttribute("aria-invalid", "true");
-				else input.removeAttribute("aria-invalid");
-			}
+      // -- Form validation --
+      function setError(input: HTMLInputElement, message: string) {
+        const err = document.getElementById(input.id + "-error")!;
+        err.textContent = message;
+        err.hidden = !message;
+        input.classList.toggle("cu-input-error", Boolean(message));
+        if (message) input.setAttribute("aria-invalid", "true");
+        else input.removeAttribute("aria-invalid");
+      }
 
-			function fillForm(contact?: Contact) {
-				form.reset();
-				setError(nameEl, "");
-				setError(emailEl, "");
-				idInput.value = contact ? String(contact.id) : "";
-				document.querySelector("[data-cu-contact-dialog-title]")!.textContent = contact ? "編輯聯絡人" : "新增聯絡人";
-				if (!contact) return;
-				nameEl.value = contact.name;
-				emailEl.value = contact.email;
-				(document.getElementById("contact-dept") as HTMLSelectElement).value = contact.dept;
-				field("contact-title").value = contact.title;
-				field("contact-phone").value = contact.phone;
-			}
+      function fillForm(contact?: Contact) {
+        form.reset();
+        setError(nameEl, "");
+        setError(emailEl, "");
+        idInput.value = contact ? String(contact.id) : "";
+        document.querySelector("[data-cu-contact-dialog-title]")!.textContent = contact ? "編輯聯絡人" : "新增聯絡人";
+        if (!contact) return;
+        nameEl.value = contact.name;
+        emailEl.value = contact.email;
+        (document.getElementById("contact-dept") as HTMLSelectElement).value = contact.dept;
+        field("contact-title").value = contact.title;
+        field("contact-phone").value = contact.phone;
+      }
 
-			[nameEl, emailEl].forEach((input) =>
-				input.addEventListener("input", () => {
-					if (input.getAttribute("aria-invalid") === "true") setError(input, "");
-				}),
-			);
+      [nameEl, emailEl].forEach((input) =>
+        input.addEventListener("input", () => {
+          if (input.getAttribute("aria-invalid") === "true") setError(input, "");
+        }),
+      );
 
-			form.addEventListener("submit", (e) => {
-				e.preventDefault();
-				const name = nameEl.value.trim();
-				const email = emailEl.value.trim();
-				setError(nameEl, name ? "" : "請輸入姓名。");
-				setError(
-					emailEl,
-					!email ? "請輸入 Email。" : emailEl.validity.typeMismatch ? "Email 格式不正確，例如 name@example.com。" : "",
-				);
-				const invalid = form.querySelector<HTMLElement>('[aria-invalid="true"]');
-				if (invalid) {
-					invalid.focus();
-					return;
-				}
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const name = nameEl.value.trim();
+        const email = emailEl.value.trim();
+        setError(nameEl, name ? "" : "請輸入姓名。");
+        setError(
+          emailEl,
+          !email ? "請輸入 Email。" : emailEl.validity.typeMismatch ? "Email 格式不正確，例如 name@example.com。" : "",
+        );
+        const invalid = form.querySelector<HTMLElement>('[aria-invalid="true"]');
+        if (invalid) {
+          invalid.focus();
+          return;
+        }
 
-				const data = {
-					name,
-					email,
-					dept: (document.getElementById("contact-dept") as HTMLSelectElement).value,
-					title: field("contact-title").value.trim(),
-					phone: field("contact-phone").value.trim(),
-				};
-				const existing = contacts.find((c) => c.id === Number(idInput.value));
-				let savedId: number;
-				if (existing) {
-					Object.assign(existing, data);
-					savedId = existing.id;
-					window.CubbyUI?.toast.show({ title: "已更新聯絡人", description: `${name} 的資訊已儲存。`, variant: "success" });
-				} else {
-					savedId = nextId++;
-					contacts.push({ id: savedId, ...data });
-					window.CubbyUI?.toast.show({ title: "已新增聯絡人", description: `${name} 已加入聯絡人清單。`, variant: "success" });
-				}
+        const data = {
+          name,
+          email,
+          dept: (document.getElementById("contact-dept") as HTMLSelectElement).value,
+          title: field("contact-title").value.trim(),
+          phone: field("contact-phone").value.trim(),
+        };
+        const existing = contacts.find((c) => c.id === Number(idInput.value));
+        let savedId: number;
+        if (existing) {
+          Object.assign(existing, data);
+          savedId = existing.id;
+          window.CubbyUI?.toast.show({
+            title: "已更新聯絡人",
+            description: `${name} 的資訊已儲存。`,
+            variant: "success",
+          });
+        } else {
+          savedId = nextId++;
+          contacts.push({ id: savedId, ...data });
+          window.CubbyUI?.toast.show({
+            title: "已新增聯絡人",
+            description: `${name} 已加入聯絡人清單。`,
+            variant: "success",
+          });
+        }
 
-				renderTable();
-				// 儲存後焦點落在該聯絡人的編輯按鈕（若被篩選掉則回到新增按鈕）
-				returnFocus = () => rowButton("data-cu-edit-contact", savedId);
-				contactDialog.close();
-			});
+        renderTable();
+        // 儲存後焦點落在該聯絡人的編輯按鈕（若被篩選掉則回到新增按鈕）
+        returnFocus = () => rowButton("data-cu-edit-contact", savedId);
+        contactDialog.close();
+      });
 
-			// -- Events --
-			searchInput.addEventListener("input", renderTable);
-			filterSelect.addEventListener("change", renderTable);
+      // -- Events --
+      searchInput.addEventListener("input", renderTable);
+      filterSelect.addEventListener("change", renderTable);
 
-			document.querySelector("[data-cu-contact-clear]")!.addEventListener("click", () => {
-				searchInput.value = "";
-				filterSelect.value = "";
-				renderTable();
-				searchInput.focus();
-			});
+      document.querySelector("[data-cu-contact-clear]")!.addEventListener("click", () => {
+        searchInput.value = "";
+        filterSelect.value = "";
+        renderTable();
+        searchInput.focus();
+      });
 
-			addBtn.addEventListener("click", () => {
-				fillForm();
-				openModal(contactDialog, () => addBtn);
-			});
+      addBtn.addEventListener("click", () => {
+        fillForm();
+        openModal(contactDialog, () => addBtn);
+      });
 
-			tbody.addEventListener("click", (e) => {
-				const target = e.target as Element;
-				const editBtn = target.closest<HTMLElement>("[data-cu-edit-contact]");
-				if (editBtn) {
-					const id = Number(editBtn.dataset.cuEditContact);
-					const contact = contacts.find((c) => c.id === id);
-					if (!contact) return;
-					fillForm(contact);
-					openModal(contactDialog, () => rowButton("data-cu-edit-contact", id));
-					return;
-				}
+      tbody.addEventListener("click", (e) => {
+        const target = e.target as Element;
+        const editBtn = target.closest<HTMLElement>("[data-cu-edit-contact]");
+        if (editBtn) {
+          const id = Number(editBtn.dataset.cuEditContact);
+          const contact = contacts.find((c) => c.id === id);
+          if (!contact) return;
+          fillForm(contact);
+          openModal(contactDialog, () => rowButton("data-cu-edit-contact", id));
+          return;
+        }
 
-				const deleteBtn = target.closest<HTMLElement>("[data-cu-delete-contact]");
-				if (deleteBtn) {
-					const id = Number(deleteBtn.dataset.cuDeleteContact);
-					const contact = contacts.find((c) => c.id === id);
-					if (!contact) return;
-					pendingDeleteId = id;
-					document.querySelector("[data-cu-delete-name]")!.textContent = contact.name;
-					openModal(deleteDialog, () => rowButton("data-cu-delete-contact", id));
-				}
-			});
+        const deleteBtn = target.closest<HTMLElement>("[data-cu-delete-contact]");
+        if (deleteBtn) {
+          const id = Number(deleteBtn.dataset.cuDeleteContact);
+          const contact = contacts.find((c) => c.id === id);
+          if (!contact) return;
+          pendingDeleteId = id;
+          document.querySelector("[data-cu-delete-name]")!.textContent = contact.name;
+          openModal(deleteDialog, () => rowButton("data-cu-delete-contact", id));
+        }
+      });
 
-			document.querySelector("[data-cu-contact-confirm-delete]")!.addEventListener("click", () => {
-				if (pendingDeleteId === null) return;
-				const id = pendingDeleteId;
-				pendingDeleteId = null;
+      document.querySelector("[data-cu-contact-confirm-delete]")!.addEventListener("click", () => {
+        if (pendingDeleteId === null) return;
+        const id = pendingDeleteId;
+        pendingDeleteId = null;
 
-				// 刪除後焦點移到相鄰列的刪除按鈕，沒有相鄰列時回到新增按鈕
-				const buttons = Array.from(tbody.querySelectorAll<HTMLElement>("[data-cu-delete-contact]"));
-				const index = buttons.findIndex((b) => b.dataset.cuDeleteContact === String(id));
-				const neighborId = (buttons[index + 1] ?? buttons[index - 1])?.dataset.cuDeleteContact;
-				returnFocus = () => (neighborId ? rowButton("data-cu-delete-contact", neighborId) : null);
+        // 刪除後焦點移到相鄰列的刪除按鈕，沒有相鄰列時回到新增按鈕
+        const buttons = Array.from(tbody.querySelectorAll<HTMLElement>("[data-cu-delete-contact]"));
+        const index = buttons.findIndex((b) => b.dataset.cuDeleteContact === String(id));
+        const neighborId = (buttons[index + 1] ?? buttons[index - 1])?.dataset.cuDeleteContact;
+        returnFocus = () => (neighborId ? rowButton("data-cu-delete-contact", neighborId) : null);
 
-				const deleted = contacts.find((c) => c.id === id);
-				contacts = contacts.filter((c) => c.id !== id);
-				renderTable();
-				deleteDialog.close();
-				window.CubbyUI?.toast.show({ title: "已刪除聯絡人", description: `${deleted?.name ?? ""} 已從清單中移除。` });
-			});
+        const deleted = contacts.find((c) => c.id === id);
+        contacts = contacts.filter((c) => c.id !== id);
+        renderTable();
+        deleteDialog.close();
+        window.CubbyUI?.toast.show({ title: "已刪除聯絡人", description: `${deleted?.name ?? ""} 已從清單中移除。` });
+      });
 
-			renderTable();
-		</script>
-	</body>
+      renderTable();
+    </script>
+  </body>
 </html>

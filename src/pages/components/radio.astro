@@ -56,114 +56,119 @@ const disabledCode = `<div class="cu-radio-group">
 ---
 
 <Layout category={t.category} componentName="Radio" title={t.title} description={t.description}>
-    <div class="space-y-3">
-        <div class="flex items-center gap-3">
-          <h1 class="text-3xl font-bold tracking-tight">Radio</h1>
-          <span class="cu-badge cu-badge-secondary">{t.category}</span>
-        </div>
-        <p class="text-base text-muted-foreground leading-relaxed" set:html={t.description} />
+  <div class="space-y-3">
+    <div class="flex items-center gap-3">
+      <h1 class="text-3xl font-bold tracking-tight">Radio</h1>
+      <span class="cu-badge cu-badge-secondary">{t.category}</span>
     </div>
+    <p class="text-base text-muted-foreground leading-relaxed" set:html={t.description} />
+  </div>
 
-    <div class="mt-10 space-y-10">
-        <!-- Usage -->
-        <section class="space-y-3">
-            <SectionHeading id="usage" title={t.sections.usage.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
-            <ComponentPreview code={usageCode}>
-                <Radio name="example" />
-            </ComponentPreview>
-        </section>
+  <div class="mt-10 space-y-10">
+    <!-- Usage -->
+    <section class="space-y-3">
+      <SectionHeading id="usage" title={t.sections.usage.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
+      <ComponentPreview code={usageCode}>
+        <Radio name="example" />
+      </ComponentPreview>
+    </section>
 
-        <!-- Classes Reference -->
-        <section class="space-y-3">
-          <SectionHeading id="classes" title={t.sections.classes.title} />
-          <div class="cu-table-wrapper rounded-lg border border-border">
-            <table class="cu-table">
-              <thead class="cu-table-header">
-                <tr class="cu-table-row">
-                  <th class="cu-table-head">{t.sections.classes.classLabel}</th>
-                  <th class="cu-table-head">{t.sections.classes.descriptionLabel}</th>
-                </tr>
-              </thead>
-              <tbody class="cu-table-body">
-                <tr class="cu-table-row">
-                  <td class="cu-table-cell"><code class="cu-code">cu-radio-group</code></td>
-                  <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-radio-group']}</td>
-                </tr>
-                <tr class="cu-table-row">
-                  <td class="cu-table-cell"><code class="cu-code">cu-radio-wrapper</code></td>
-                  <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-radio-wrapper']}</td>
-                </tr>
-                <tr class="cu-table-row">
-                  <td class="cu-table-cell"><code class="cu-code">cu-radio</code></td>
-                  <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-radio']}</td>
-                </tr>
-              </tbody>
-            </table>
+    <!-- Classes Reference -->
+    <section class="space-y-3">
+      <SectionHeading id="classes" title={t.sections.classes.title} />
+      <div class="cu-table-wrapper rounded-lg border border-border">
+        <table class="cu-table">
+          <thead class="cu-table-header">
+            <tr class="cu-table-row">
+              <th class="cu-table-head">{t.sections.classes.classLabel}</th>
+              <th class="cu-table-head">{t.sections.classes.descriptionLabel}</th>
+            </tr>
+          </thead>
+          <tbody class="cu-table-body">
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-radio-group</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-radio-group"]}</td>
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-radio-wrapper</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-radio-wrapper"]}</td>
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-radio</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-radio"]}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Radio Group -->
+    <section class="space-y-3">
+      <SectionHeading id="radio-group" title={t.sections.radioGroup.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.radioGroup.description} />
+      <ComponentPreview code={groupCode}>
+        <div class="cu-radio-group">
+          <div class="cu-radio-wrapper">
+            <Radio name="plan" id="free" value="free" checked />
+            <Label for="free">Free</Label>
           </div>
-        </section>
+          <div class="cu-radio-wrapper">
+            <Radio name="plan" id="pro" value="pro" />
+            <Label for="pro">Pro</Label>
+          </div>
+          <div class="cu-radio-wrapper">
+            <Radio name="plan" id="enterprise" value="enterprise" />
+            <Label for="enterprise">Enterprise</Label>
+          </div>
+        </div>
+      </ComponentPreview>
+    </section>
 
+    <!-- Default Selected -->
+    <section class="space-y-3">
+      <SectionHeading id="default-selected" title={t.sections.defaultSelected.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.defaultSelected.description} />
+      <ComponentPreview code={defaultCode}>
+        <div class="cu-radio-group">
+          <div class="cu-radio-wrapper">
+            <Radio name="color" id="red" value="red" />
+            <Label for="red">Red</Label>
+          </div>
+          <div class="cu-radio-wrapper">
+            <Radio name="color" id="blue" value="blue" checked />
+            <Label for="blue">Blue</Label>
+          </div>
+          <div class="cu-radio-wrapper">
+            <Radio name="color" id="green" value="green" />
+            <Label for="green">Green</Label>
+          </div>
+        </div>
+      </ComponentPreview>
+    </section>
 
-        <!-- Radio Group -->
-        <section class="space-y-3">
-            <SectionHeading id="radio-group" title={t.sections.radioGroup.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.radioGroup.description} />
-            <ComponentPreview code={groupCode}>
-                <div class="cu-radio-group">
-                    <div class="cu-radio-wrapper">
-                        <Radio name="plan" id="free" value="free" checked />
-                        <Label for="free">Free</Label>
-                    </div>
-                    <div class="cu-radio-wrapper">
-                        <Radio name="plan" id="pro" value="pro" />
-                        <Label for="pro">Pro</Label>
-                    </div>
-                    <div class="cu-radio-wrapper">
-                        <Radio name="plan" id="enterprise" value="enterprise" />
-                        <Label for="enterprise">Enterprise</Label>
-                    </div>
-                </div>
-            </ComponentPreview>
-        </section>
-
-        <!-- Default Selected -->
-        <section class="space-y-3">
-            <SectionHeading id="default-selected" title={t.sections.defaultSelected.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.defaultSelected.description} />
-            <ComponentPreview code={defaultCode}>
-                <div class="cu-radio-group">
-                    <div class="cu-radio-wrapper">
-                        <Radio name="color" id="red" value="red" />
-                        <Label for="red">Red</Label>
-                    </div>
-                    <div class="cu-radio-wrapper">
-                        <Radio name="color" id="blue" value="blue" checked />
-                        <Label for="blue">Blue</Label>
-                    </div>
-                    <div class="cu-radio-wrapper">
-                        <Radio name="color" id="green" value="green" />
-                        <Label for="green">Green</Label>
-                    </div>
-                </div>
-            </ComponentPreview>
-        </section>
-
-        <!-- Disabled -->
-        <section class="space-y-3">
-            <SectionHeading id="disabled" title={t.sections.disabled.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.disabled.description} />
-            <ComponentPreview code={disabledCode}>
-                <div class="cu-radio-group">
-                    <div class="cu-radio-wrapper">
-                        <Radio name="disabled-group" id="opt-a" value="a" disabled />
-                        <Label for="opt-a">Option A</Label>
-                    </div>
-                    <div class="cu-radio-wrapper">
-                        <Radio name="disabled-group" id="opt-b" value="b" disabled checked />
-                        <Label for="opt-b">Option B (checked)</Label>
-                    </div>
-                </div>
-            </ComponentPreview>
-        </section>
-    </div>
+    <!-- Disabled -->
+    <section class="space-y-3">
+      <SectionHeading id="disabled" title={t.sections.disabled.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.disabled.description} />
+      <ComponentPreview code={disabledCode}>
+        <div class="cu-radio-group">
+          <div class="cu-radio-wrapper">
+            <Radio name="disabled-group" id="opt-a" value="a" disabled />
+            <Label for="opt-a">Option A</Label>
+          </div>
+          <div class="cu-radio-wrapper">
+            <Radio name="disabled-group" id="opt-b" value="b" disabled checked />
+            <Label for="opt-b">Option B (checked)</Label>
+          </div>
+        </div>
+      </ComponentPreview>
+    </section>
+  </div>
 </Layout>

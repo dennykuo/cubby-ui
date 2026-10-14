@@ -21,9 +21,7 @@ export function toPlainText(html: string): string {
     .replace(/<[^>]*>/g, "")
     .replace(/&(#x[0-9a-f]+|#\d+|[a-z]+);/gi, (match, entity: string) => {
       if (entity[0] === "#") {
-        const code = entity[1].toLowerCase() === "x"
-          ? parseInt(entity.slice(2), 16)
-          : parseInt(entity.slice(1), 10);
+        const code = entity[1].toLowerCase() === "x" ? parseInt(entity.slice(2), 16) : parseInt(entity.slice(1), 10);
         return Number.isFinite(code) ? String.fromCodePoint(code) : match;
       }
       return NAMED_ENTITIES[entity.toLowerCase()] ?? match;

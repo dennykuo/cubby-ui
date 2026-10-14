@@ -1,55 +1,58 @@
 /* Accordion
    ------------------------------------------------------------------ */
 .cu-accordion {
-    @apply divide-y divide-border;
-    /* Progressive enhancement: Chrome 129+, enables height 0→auto transition */
-    interpolate-size: allow-keywords;
+  @apply divide-y divide-border;
+  /* Progressive enhancement: Chrome 129+, enables height 0→auto transition */
+  interpolate-size: allow-keywords;
 }
 
 .cu-accordion-item {
-    @apply border-0;
+  @apply border-0;
 }
 
 .cu-accordion-trigger {
-    @apply flex items-center justify-between py-4 text-sm font-medium outline-none focus-visible:ring-1 focus-visible:ring-ring/30 transition-colors duration-150 cursor-pointer hover:bg-muted/60 rounded-xl -mx-5 px-5 select-none;
+  @apply -mx-5 flex cursor-pointer items-center justify-between rounded-xl px-5 py-4 text-sm font-medium transition-colors duration-150 outline-none select-none hover:bg-muted/60 focus-visible:ring-1 focus-visible:ring-ring/30;
 }
 
 .cu-accordion-trigger svg {
-    @apply shrink-0 text-muted-foreground transition-transform duration-200;
+  @apply shrink-0 text-muted-foreground transition-transform duration-200;
 }
 
 .cu-accordion-item[open] .cu-accordion-trigger svg {
-    @apply rotate-180;
+  @apply rotate-180;
 }
 
 .cu-accordion-content {
-    @apply overflow-hidden pb-4 pt-2 text-sm text-muted-foreground;
-    height: auto;
-    transition: height 0.25s ease, opacity 0.2s ease, padding 0.25s ease;
+  @apply overflow-hidden pt-2 pb-4 text-sm text-muted-foreground;
+  height: auto;
+  transition:
+    height 0.25s ease,
+    opacity 0.2s ease,
+    padding 0.25s ease;
 }
 
 /* Bordered variant — each item has its own border + rounded corners */
 .cu-accordion-bordered {
-    @apply divide-y-0 space-y-3;
+  @apply space-y-3 divide-y-0;
 }
 
 .cu-accordion-bordered .cu-accordion-item {
-    @apply rounded-xl border border-border overflow-hidden;
+  @apply overflow-hidden rounded-xl border border-border;
 }
 
 .cu-accordion-bordered .cu-accordion-trigger {
-    @apply mx-0 rounded-none;
+  @apply mx-0 rounded-none;
 }
 
 .cu-accordion-bordered .cu-accordion-content {
-    @apply px-5;
+  @apply px-5;
 }
 
 @starting-style {
-    .cu-accordion-item[open] > .cu-accordion-content {
-        height: 0;
-        opacity: 0;
-        padding-top: 0;
-        padding-bottom: 0;
-    }
+  .cu-accordion-item[open] > .cu-accordion-content {
+    height: 0;
+    opacity: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
 }

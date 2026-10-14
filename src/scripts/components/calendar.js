@@ -37,14 +37,23 @@ export function initCalendar(calendar, onSelect) {
   var maxDate = null;
   var minAttr = calendar.getAttribute("data-cu-calendar-min");
   var maxAttr = calendar.getAttribute("data-cu-calendar-max");
-  if (minAttr) { var mp = minAttr.split("-"); minDate = new Date(parseInt(mp[0]), parseInt(mp[1]) - 1, parseInt(mp[2])); minDate.setHours(0, 0, 0, 0); }
-  if (maxAttr) { var xp = maxAttr.split("-"); maxDate = new Date(parseInt(xp[0]), parseInt(xp[1]) - 1, parseInt(xp[2])); maxDate.setHours(0, 0, 0, 0); }
+  if (minAttr) {
+    var mp = minAttr.split("-");
+    minDate = new Date(parseInt(mp[0]), parseInt(mp[1]) - 1, parseInt(mp[2]));
+    minDate.setHours(0, 0, 0, 0);
+  }
+  if (maxAttr) {
+    var xp = maxAttr.split("-");
+    maxDate = new Date(parseInt(xp[0]), parseInt(xp[1]) - 1, parseInt(xp[2]));
+    maxDate.setHours(0, 0, 0, 0);
+  }
 
   // APG grid：月曆是以月份標題命名的 role="grid"，每週一個 role="row"（cu-calendar-week），日期按鈕為 gridcell。
   // grid 讓螢幕閱讀器把方向鍵交給頁面處理（瀏覽模式下一般按鈕收不到方向鍵）；只有一個 Tab 停駐點（roving tabindex）
   grid.setAttribute("role", "grid");
   if (!header.id) header.id = genId("cu-calendar-title");
-  if (!grid.hasAttribute("aria-label") && !grid.hasAttribute("aria-labelledby")) grid.setAttribute("aria-labelledby", header.id);
+  if (!grid.hasAttribute("aria-label") && !grid.hasAttribute("aria-labelledby"))
+    grid.setAttribute("aria-labelledby", header.id);
 
   // 日期按鈕的無障礙名稱（完整日期，每次重繪時讀取語系）。語系：data-cu-calendar-locale（可放在任一祖先）
   // → 最近祖先的 lang（含 <html lang>）→ 瀏覽器預設；無效的語系標籤略過
@@ -71,15 +80,38 @@ export function initCalendar(calendar, onSelect) {
   }
 
   function render() {
-    var monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    var monthNames = [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
+    ];
     header.textContent = monthNames[currentMonth] + " " + currentYear;
     dateFormat = getDateFormat();
 
     if (prevBtn) {
-      if (minDate) { var prevMonth = new Date(currentYear, currentMonth, 0); prevBtn.disabled = prevMonth < minDate; } else { prevBtn.disabled = false; }
+      if (minDate) {
+        var prevMonth = new Date(currentYear, currentMonth, 0);
+        prevBtn.disabled = prevMonth < minDate;
+      } else {
+        prevBtn.disabled = false;
+      }
     }
     if (nextBtn) {
-      if (maxDate) { var nextMonthFirst = new Date(currentYear, currentMonth + 1, 1); nextBtn.disabled = nextMonthFirst > maxDate; } else { nextBtn.disabled = false; }
+      if (maxDate) {
+        var nextMonthFirst = new Date(currentYear, currentMonth + 1, 1);
+        nextBtn.disabled = nextMonthFirst > maxDate;
+      } else {
+        nextBtn.disabled = false;
+      }
     }
 
     grid.innerHTML = "";
@@ -88,11 +120,17 @@ export function initCalendar(calendar, onSelect) {
     var daysInPrevMonth = new Date(currentYear, currentMonth, 0).getDate();
 
     var cells = [];
-    for (var p = firstDay - 1; p >= 0; p--) { cells.push(createDayButton(daysInPrevMonth - p, currentMonth - 1, currentYear, true)); }
-    for (var d = 1; d <= daysInMonth; d++) { cells.push(createDayButton(d, currentMonth, currentYear, false)); }
+    for (var p = firstDay - 1; p >= 0; p--) {
+      cells.push(createDayButton(daysInPrevMonth - p, currentMonth - 1, currentYear, true));
+    }
+    for (var d = 1; d <= daysInMonth; d++) {
+      cells.push(createDayButton(d, currentMonth, currentYear, false));
+    }
     var totalCells = cells.length;
     var remaining = totalCells <= 35 ? 35 - totalCells : 42 - totalCells;
-    for (var n = 1; n <= remaining; n++) { cells.push(createDayButton(n, currentMonth + 1, currentYear, true)); }
+    for (var n = 1; n <= remaining; n++) {
+      cells.push(createDayButton(n, currentMonth + 1, currentYear, true));
+    }
 
     var row;
     for (var c = 0; c < cells.length; c++) {
@@ -104,9 +142,12 @@ export function initCalendar(calendar, onSelect) {
       }
       row.appendChild(cells[c]);
     }
-    setTabStop(enabled(findDay(selectedDate)) || enabled(findDay(today)) ||
-      grid.querySelector(".cu-calendar-day:not(.cu-calendar-day-outside):not(:disabled)") ||
-      grid.querySelector(".cu-calendar-day:not(:disabled)"));
+    setTabStop(
+      enabled(findDay(selectedDate)) ||
+        enabled(findDay(today)) ||
+        grid.querySelector(".cu-calendar-day:not(.cu-calendar-day-outside):not(:disabled)") ||
+        grid.querySelector(".cu-calendar-day:not(:disabled)"),
+    );
   }
 
   function createDayButton(day, month, year, isOutside) {
@@ -130,14 +171,20 @@ export function initCalendar(calendar, onSelect) {
     var isDisabled = false;
     if (minDate && date < minDate) isDisabled = true;
     if (maxDate && date > maxDate) isDisabled = true;
-    if (isDisabled) { classes.push("cu-calendar-day-disabled"); btn.disabled = true; }
+    if (isDisabled) {
+      classes.push("cu-calendar-day-disabled");
+      btn.disabled = true;
+    }
     btn.className = classes.join(" ");
     if (!isDisabled) {
       btn.addEventListener("click", function () {
         var hadFocus = document.activeElement === btn;
         selectedDate = date;
         calendar._cuSelectedDate = date;
-        if (isOutside) { currentMonth = date.getMonth(); currentYear = date.getFullYear(); }
+        if (isOutside) {
+          currentMonth = date.getMonth();
+          currentYear = date.getFullYear();
+        }
         render();
         // render() 會重建所有日期按鈕，把焦點移到新的選取按鈕，鍵盤使用者才能繼續操作
         if (hadFocus) focusDate(date);
@@ -147,15 +194,34 @@ export function initCalendar(calendar, onSelect) {
     return btn;
   }
 
-  if (prevBtn) { prevBtn.addEventListener("click", function () { currentMonth--; if (currentMonth < 0) { currentMonth = 11; currentYear--; } render(); }); }
-  if (nextBtn) { nextBtn.addEventListener("click", function () { currentMonth++; if (currentMonth > 11) { currentMonth = 0; currentYear++; } render(); }); }
+  if (prevBtn) {
+    prevBtn.addEventListener("click", function () {
+      currentMonth--;
+      if (currentMonth < 0) {
+        currentMonth = 11;
+        currentYear--;
+      }
+      render();
+    });
+  }
+  if (nextBtn) {
+    nextBtn.addEventListener("click", function () {
+      currentMonth++;
+      if (currentMonth > 11) {
+        currentMonth = 0;
+        currentYear++;
+      }
+      render();
+    });
+  }
 
   /** @returns {HTMLButtonElement | null} 目前顯示月份中（不含前後月補位）代表該日期的按鈕 */
   function findDay(date) {
     if (!date) return null;
     var buttons = grid.querySelectorAll(".cu-calendar-day:not(.cu-calendar-day-outside)");
     for (var i = 0; i < buttons.length; i++) {
-      if (buttons[i]._cuDate && buttons[i]._cuDate.getTime() === date.getTime()) return /** @type {HTMLButtonElement} */ (buttons[i]);
+      if (buttons[i]._cuDate && buttons[i]._cuDate.getTime() === date.getTime())
+        return /** @type {HTMLButtonElement} */ (buttons[i]);
     }
     return null;
   }
@@ -193,9 +259,15 @@ export function initCalendar(calendar, onSelect) {
   grid.addEventListener("keydown", function (e) {
     var focused = /** @type {HTMLElement} */ (document.activeElement);
     if (!focused || !grid.contains(focused) || !focused._cuDate) return;
-    if (e.key === "Enter" || e.key === " ") { e.preventDefault(); focused.click(); return; }
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      focused.click();
+      return;
+    }
     var cur = focused._cuDate;
-    var y = cur.getFullYear(), m = cur.getMonth(), d = cur.getDate();
+    var y = cur.getFullYear(),
+      m = cur.getMonth(),
+      d = cur.getDate();
     var target;
     if (e.key === "ArrowRight") target = new Date(y, m, d + 1);
     else if (e.key === "ArrowLeft") target = new Date(y, m, d - 1);

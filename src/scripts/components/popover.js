@@ -20,7 +20,10 @@ import { genId } from "../core/utils.js";
  */
 export function setupPopovers() {
   document.querySelectorAll("[data-cu-popover]").forEach(function (popover) {
-    if (popover._cuInit) { restore("popovers", popover); return; }
+    if (popover._cuInit) {
+      restore("popovers", popover);
+      return;
+    }
     popover._cuInit = true;
 
     var trigger = popover.querySelector("[data-cu-popover-trigger]");

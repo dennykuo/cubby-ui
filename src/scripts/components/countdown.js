@@ -14,7 +14,10 @@ import { track, restore } from "../core/registry.js";
  */
 export function setupCountdowns() {
   document.querySelectorAll("[data-cu-countdown]").forEach(function (el) {
-    if (el._cuInit) { restore("countdowns", el); return; }
+    if (el._cuInit) {
+      restore("countdowns", el);
+      return;
+    }
     el._cuInit = true;
 
     var target = el.getAttribute("data-cu-countdown-target");
@@ -26,7 +29,9 @@ export function setupCountdowns() {
     var minutesEl = el.querySelector("[data-cu-countdown-minutes]");
     var secondsEl = el.querySelector("[data-cu-countdown-seconds]");
 
-    function pad(n) { return n < 10 ? "0" + n : "" + n; }
+    function pad(n) {
+      return n < 10 ? "0" + n : "" + n;
+    }
 
     function update() {
       var now = Date.now();
@@ -55,7 +60,9 @@ export function setupCountdowns() {
       el: el,
       timer: 0,
       done: false,
-      resume: function () { if (!entry.done) entry.timer = setTimeout(update, 0); },
+      resume: function () {
+        if (!entry.done) entry.timer = setTimeout(update, 0);
+      },
     };
     entry.timer = setTimeout(update, 0);
     track("countdowns", entry);

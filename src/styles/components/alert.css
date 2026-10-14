@@ -1,74 +1,74 @@
 /* Alert
    ------------------------------------------------------------------ */
 .cu-alert {
-    @apply relative w-full rounded-lg border px-4 py-3 text-sm [&>svg]:absolute [&>svg]:left-4 [&>svg]:top-3.5 [&>svg]:size-4 [&>svg+div:has(.cu-alert-title)]:translate-y-[-3px] [&:has(svg)]:pl-10;
+  @apply relative w-full rounded-lg border px-4 py-3 text-sm [&:has(svg)]:pl-10 [&>svg]:absolute [&>svg]:top-3.5 [&>svg]:left-4 [&>svg]:size-4 [&>svg+div:has(.cu-alert-title)]:translate-y-[-3px];
 }
 
 .cu-alert-default {
-    @apply bg-background text-foreground border-border;
+  @apply border-border bg-background text-foreground;
 }
 
 .cu-alert-destructive {
-    @apply border-destructive/50 bg-destructive/5 text-destructive [&>svg]:text-destructive;
+  @apply border-destructive/50 bg-destructive/5 text-destructive [&>svg]:text-destructive;
 }
 
 .cu-alert-success {
-    @apply border-success/50 bg-success/5 text-success [&>svg]:text-success;
+  @apply border-success/50 bg-success/5 text-success [&>svg]:text-success;
 }
 
 .cu-alert-warning {
-    @apply border-warning/50 bg-warning/5 text-warning [&>svg]:text-warning;
+  @apply border-warning/50 bg-warning/5 text-warning [&>svg]:text-warning;
 }
 
 .cu-alert-info {
-    @apply border-info/50 bg-info/5 text-info [&>svg]:text-info;
+  @apply border-info/50 bg-info/5 text-info [&>svg]:text-info;
 }
 
 /* -- accent (prominent filled emphasis; replaces the old left-side stripe) -- */
 .cu-alert-accent {
-    @apply border-current/40 bg-current/10;
+  @apply border-current/40 bg-current/10;
 }
 
 .cu-alert-title {
-    @apply mb-1 text-sm font-medium leading-none tracking-tight;
+  @apply mb-1 text-sm leading-none font-medium tracking-tight;
 }
 
 .cu-alert-description {
-    @apply text-sm [&_p]:leading-relaxed;
+  @apply text-sm [&_p]:leading-relaxed;
 }
 
 /* -- closable -- */
 .cu-alert-closable {
-    @apply pr-10;
+  @apply pr-10;
 }
 
 .cu-alert-close {
-    @apply absolute right-3 top-3 rounded-sm opacity-70 transition-opacity duration-150 hover:opacity-100 cursor-pointer focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring/40;
+  @apply absolute top-3 right-3 cursor-pointer rounded-sm opacity-70 transition-opacity duration-150 hover:opacity-100 focus-visible:ring-1 focus-visible:ring-ring/40 focus-visible:outline-none;
 }
 
 /* -- expandable -- */
 .cu-alert-expandable-content {
-    display: grid;
-    grid-template-rows: 0fr;
-    transition: grid-template-rows 0.2s ease;
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.2s ease;
 }
 
 .cu-alert-expandable-content[data-cu-expanded] {
-    grid-template-rows: 1fr;
+  grid-template-rows: 1fr;
 }
 
 .cu-alert-expandable-content > div {
-    @apply overflow-hidden;
+  @apply overflow-hidden;
 }
 
 .cu-alert-expand-trigger {
-    @apply mt-2 inline-flex cursor-pointer items-center gap-1 text-xs font-medium opacity-70 transition-opacity duration-150 hover:opacity-100;
+  @apply mt-2 inline-flex cursor-pointer items-center gap-1 text-xs font-medium opacity-70 transition-opacity duration-150 hover:opacity-100;
 }
 
 .cu-alert-expand-trigger svg {
-    @apply size-3 transition-transform duration-200;
+  @apply size-3 transition-transform duration-200;
 }
 
 .cu-alert-expand-trigger[aria-expanded="true"] svg {
-    @apply rotate-180;
+  @apply rotate-180;
 }

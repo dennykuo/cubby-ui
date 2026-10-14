@@ -99,142 +99,149 @@ const completeFormCode = `<div class="cu-card w-[420px]">
 ---
 
 <Layout category={t.category} componentName="Form Group" title={t.title} description={t.description}>
-    <div class="space-y-3">
-        <div class="flex items-center gap-3">
-          <h1 class="text-3xl font-bold tracking-tight">Form Group</h1>
-          <span class="cu-badge cu-badge-secondary">{t.category}</span>
+  <div class="space-y-3">
+    <div class="flex items-center gap-3">
+      <h1 class="text-3xl font-bold tracking-tight">Form Group</h1>
+      <span class="cu-badge cu-badge-secondary">{t.category}</span>
+    </div>
+    <p class="text-base text-muted-foreground leading-relaxed" set:html={t.description} />
+  </div>
+
+  <div class="mt-10 space-y-10">
+    <!-- Usage -->
+    <section class="space-y-3">
+      <SectionHeading id="usage" title={t.sections.usage.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
+      <ComponentPreview code={usageCode}>
+        <div class="w-full max-w-sm">
+          <FormGroup>
+            <Label for="name">Name</Label>
+            <Input type="text" id="name" placeholder="Your name" />
+          </FormGroup>
         </div>
-        <p class="text-base text-muted-foreground leading-relaxed" set:html={t.description} />
-    </div>
+      </ComponentPreview>
+    </section>
 
-    <div class="mt-10 space-y-10">
-        <!-- Usage -->
-        <section class="space-y-3">
-            <SectionHeading id="usage" title={t.sections.usage.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
-            <ComponentPreview code={usageCode}>
-                <div class="w-full max-w-sm">
-                    <FormGroup>
-                        <Label for="name">Name</Label>
-                        <Input type="text" id="name" placeholder="Your name" />
-                    </FormGroup>
-                </div>
-            </ComponentPreview>
-        </section>
+    <!-- Classes Reference -->
+    <section class="space-y-3">
+      <SectionHeading id="classes" title={t.sections.classes.title} />
+      <div class="cu-table-wrapper rounded-lg border border-border">
+        <table class="cu-table">
+          <thead class="cu-table-header">
+            <tr class="cu-table-row">
+              <th class="cu-table-head">{t.sections.classes.classLabel}</th>
+              <th class="cu-table-head">{t.sections.classes.descriptionLabel}</th>
+            </tr>
+          </thead>
+          <tbody class="cu-table-body">
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-form-group</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-form-group"]}</td>
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-form-description</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-form-description"]}</td>
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-form-error</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-form-error"]}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
 
-        <!-- Classes Reference -->
-        <section class="space-y-3">
-            <SectionHeading id="classes" title={t.sections.classes.title} />
-            <div class="cu-table-wrapper rounded-lg border border-border">
-                <table class="cu-table">
-                    <thead class="cu-table-header">
-                        <tr class="cu-table-row">
-                            <th class="cu-table-head">{t.sections.classes.classLabel}</th>
-                            <th class="cu-table-head">{t.sections.classes.descriptionLabel}</th>
-                        </tr>
-                    </thead>
-                    <tbody class="cu-table-body">
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-form-group</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-form-group']}</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-form-description</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-form-description']}</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-form-error</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-form-error']}</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </section>
+    <!-- With Description -->
+    <section class="space-y-3">
+      <SectionHeading id="with-description" title={t.sections.withDescription.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withDescription.description} />
+      <ComponentPreview code={descriptionCode}>
+        <div class="w-full max-w-sm">
+          <FormGroup>
+            <Label for="username">Username</Label>
+            <Input type="text" id="username" placeholder="johndoe" />
+            <FormDescription>This is your public display name.</FormDescription>
+          </FormGroup>
+        </div>
+      </ComponentPreview>
+    </section>
 
+    <!-- With Error -->
+    <section class="space-y-3">
+      <SectionHeading id="with-error" title={t.sections.withError.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withError.description} />
+      <ComponentPreview code={errorCode}>
+        <div class="w-full max-w-sm">
+          <FormGroup>
+            <Label for="email-val">Email</Label>
+            <Input type="email" id="email-val" value="invalid-email" class="border-destructive" />
+            <FormError>Please enter a valid email address.</FormError>
+          </FormGroup>
+        </div>
+      </ComponentPreview>
+    </section>
 
-        <!-- With Description -->
-        <section class="space-y-3">
-            <SectionHeading id="with-description" title={t.sections.withDescription.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withDescription.description} />
-            <ComponentPreview code={descriptionCode}>
-                <div class="w-full max-w-sm">
-                    <FormGroup>
-                        <Label for="username">Username</Label>
-                        <Input type="text" id="username" placeholder="johndoe" />
-                        <FormDescription>This is your public display name.</FormDescription>
-                    </FormGroup>
-                </div>
-            </ComponentPreview>
-        </section>
-
-        <!-- With Error -->
-        <section class="space-y-3">
-            <SectionHeading id="with-error" title={t.sections.withError.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withError.description} />
-            <ComponentPreview code={errorCode}>
-                <div class="w-full max-w-sm">
-                    <FormGroup>
-                        <Label for="email-val">Email</Label>
-                        <Input type="email" id="email-val" value="invalid-email" class="border-destructive" />
-                        <FormError>Please enter a valid email address.</FormError>
-                    </FormGroup>
-                </div>
-            </ComponentPreview>
-        </section>
-
-        <!-- Complete Form -->
-        <section class="space-y-3">
-            <SectionHeading id="complete-form" title={t.sections.completeForm.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.completeForm.description} />
-            <ComponentPreview code={completeFormCode}>
-                <Card class="w-[420px]">
-                    <CardHeader>
-                        <CardTitle>Create Account</CardTitle>
-                        <CardDescription>Fill in the details to create your account.</CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                        <form class="space-y-4">
-                            <FormGroup>
-                                <Label for="full-name">
-                                    Full Name <span class="text-destructive">*</span>
-                                </Label>
-                                <Input type="text" id="full-name" placeholder="John Doe" />
-                            </FormGroup>
-                            <FormGroup>
-                                <Label for="signup-email">
-                                    Email <span class="text-destructive">*</span>
-                                </Label>
-                                <Input type="email" id="signup-email" placeholder="you@example.com" />
-                                <FormDescription>We'll never share your email.</FormDescription>
-                            </FormGroup>
-                            <FormGroup>
-                                <Label for="role-select">Role</Label>
-                                <Select id="role-select">
-                                    <option value="" disabled selected>Select a role...</option>
-                                    <option value="developer">Developer</option>
-                                    <option value="designer">Designer</option>
-                                    <option value="manager">Manager</option>
-                                </Select>
-                            </FormGroup>
-                            <FormGroup>
-                                <Label for="bio">Bio</Label>
-                                <Textarea id="bio" placeholder="Tell us about yourself..." />
-                            </FormGroup>
-                            <div class="cu-checkbox-wrapper">
-                                <Checkbox id="agree-terms" />
-                                <Label for="agree-terms">I agree to the terms of service</Label>
-                            </div>
-                            <Toggle>
-                                <span class="cu-label">Subscribe to updates</span>
-                            </Toggle>
-                        </form>
-                    </CardContent>
-                    <CardFooter class="flex justify-end gap-2">
-                        <Button variant="outline">Cancel</Button>
-                        <Button>Create Account</Button>
-                    </CardFooter>
-                </Card>
-            </ComponentPreview>
-        </section>
-    </div>
+    <!-- Complete Form -->
+    <section class="space-y-3">
+      <SectionHeading id="complete-form" title={t.sections.completeForm.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.completeForm.description} />
+      <ComponentPreview code={completeFormCode}>
+        <Card class="w-[420px]">
+          <CardHeader>
+            <CardTitle>Create Account</CardTitle>
+            <CardDescription>Fill in the details to create your account.</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <form class="space-y-4">
+              <FormGroup>
+                <Label for="full-name">
+                  Full Name <span class="text-destructive">*</span>
+                </Label>
+                <Input type="text" id="full-name" placeholder="John Doe" />
+              </FormGroup>
+              <FormGroup>
+                <Label for="signup-email">
+                  Email <span class="text-destructive">*</span>
+                </Label>
+                <Input type="email" id="signup-email" placeholder="you@example.com" />
+                <FormDescription>We'll never share your email.</FormDescription>
+              </FormGroup>
+              <FormGroup>
+                <Label for="role-select">Role</Label>
+                <Select id="role-select">
+                  <option value="" disabled selected>
+                    Select a role...
+                  </option>
+                  <option value="developer">Developer</option>
+                  <option value="designer">Designer</option>
+                  <option value="manager">Manager</option>
+                </Select>
+              </FormGroup>
+              <FormGroup>
+                <Label for="bio">Bio</Label>
+                <Textarea id="bio" placeholder="Tell us about yourself..." />
+              </FormGroup>
+              <div class="cu-checkbox-wrapper">
+                <Checkbox id="agree-terms" />
+                <Label for="agree-terms">I agree to the terms of service</Label>
+              </div>
+              <Toggle>
+                <span class="cu-label">Subscribe to updates</span>
+              </Toggle>
+            </form>
+          </CardContent>
+          <CardFooter class="flex justify-end gap-2">
+            <Button variant="outline">Cancel</Button>
+            <Button>Create Account</Button>
+          </CardFooter>
+        </Card>
+      </ComponentPreview>
+    </section>
+  </div>
 </Layout>

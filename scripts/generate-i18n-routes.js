@@ -6,13 +6,13 @@
  * 因為頁面使用 @/ 別名匯入，複製後不需調整 import 路徑。
  */
 
-import { readdir, cp, rm, mkdir } from 'node:fs/promises';
-import { join, relative } from 'node:path';
-import { existsSync } from 'node:fs';
+import { readdir, cp, rm, mkdir } from "node:fs/promises";
+import { join, relative } from "node:path";
+import { existsSync } from "node:fs";
 
-const PAGES_DIR = join(import.meta.dirname, '..', 'src', 'pages');
-const TARGET_DIR = join(PAGES_DIR, 'zh-tw');
-const EXCLUDE_DIRS = ['zh-tw', 'examples'];
+const PAGES_DIR = join(import.meta.dirname, "..", "src", "pages");
+const TARGET_DIR = join(PAGES_DIR, "zh-tw");
+const EXCLUDE_DIRS = ["zh-tw", "examples"];
 
 async function collectFiles(dir) {
   const files = [];
@@ -25,8 +25,8 @@ async function collectFiles(dir) {
     // 排除特定目錄
     if (entry.isDirectory()) {
       if (EXCLUDE_DIRS.includes(entry.name)) continue;
-      files.push(...await collectFiles(fullPath));
-    } else if (entry.name.endsWith('.astro')) {
+      files.push(...(await collectFiles(fullPath)));
+    } else if (entry.name.endsWith(".astro")) {
       files.push(relPath);
     }
   }
@@ -46,7 +46,7 @@ async function generate() {
   for (const relPath of files) {
     const src = join(PAGES_DIR, relPath);
     const dest = join(TARGET_DIR, relPath);
-    const destDir = join(dest, '..');
+    const destDir = join(dest, "..");
     await mkdir(destDir, { recursive: true });
     await cp(src, dest);
   }
@@ -55,6 +55,6 @@ async function generate() {
 }
 
 generate().catch((err) => {
-  console.error('[i18n] Failed to generate routes:', err);
+  console.error("[i18n] Failed to generate routes:", err);
   process.exit(1);
 });

@@ -12,7 +12,10 @@ import { track, restore } from "../core/registry.js";
  */
 export function setupTagInputs() {
   document.querySelectorAll("[data-cu-tag-input]").forEach(function (el) {
-    if (el._cuInit) { restore("tagInputs", el); return; }
+    if (el._cuInit) {
+      restore("tagInputs", el);
+      return;
+    }
     el._cuInit = true;
     var field = /** @type {HTMLInputElement} */ (el.querySelector("[data-cu-tag-input-field]"));
     if (!field) return;
@@ -40,11 +43,15 @@ export function setupTagInputs() {
       svg.setAttribute("stroke-linecap", "round");
       svg.setAttribute("stroke-linejoin", "round");
       var line1 = document.createElementNS(svgNs, "line");
-      line1.setAttribute("x1", "18"); line1.setAttribute("y1", "6");
-      line1.setAttribute("x2", "6"); line1.setAttribute("y2", "18");
+      line1.setAttribute("x1", "18");
+      line1.setAttribute("y1", "6");
+      line1.setAttribute("x2", "6");
+      line1.setAttribute("y2", "18");
       var line2 = document.createElementNS(svgNs, "line");
-      line2.setAttribute("x1", "6"); line2.setAttribute("y1", "6");
-      line2.setAttribute("x2", "18"); line2.setAttribute("y2", "18");
+      line2.setAttribute("x1", "6");
+      line2.setAttribute("y1", "6");
+      line2.setAttribute("x2", "18");
+      line2.setAttribute("y2", "18");
       svg.appendChild(line1);
       svg.appendChild(line2);
       removeBtn.appendChild(svg);
@@ -57,7 +64,9 @@ export function setupTagInputs() {
     }
 
     function getTags() {
-      return Array.from(el.querySelectorAll(".cu-tag-input-tag")).map(function (t) { return t.getAttribute("data-cu-tag-value"); });
+      return Array.from(el.querySelectorAll(".cu-tag-input-tag")).map(function (t) {
+        return t.getAttribute("data-cu-tag-value");
+      });
     }
 
     function dispatchChange() {

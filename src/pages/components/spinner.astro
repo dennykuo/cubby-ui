@@ -35,130 +35,152 @@ const buttonLoadingCode = `<button class="cu-button cu-button-default" disabled>
 ---
 
 <Layout title={t.title} category={t.category} componentName="Spinner" description={t.description}>
-    <div class="space-y-3">
-        <div class="flex items-center gap-3">
-            <h1 class="text-3xl font-bold tracking-tight">Spinner</h1>
-            <span class="cu-badge cu-badge-secondary">{t.category}</span>
+  <div class="space-y-3">
+    <div class="flex items-center gap-3">
+      <h1 class="text-3xl font-bold tracking-tight">Spinner</h1>
+      <span class="cu-badge cu-badge-secondary">{t.category}</span>
+    </div>
+    <p class="text-base text-muted-foreground leading-relaxed">{t.description}</p>
+  </div>
+
+  <div class="mt-10 space-y-10">
+    <!-- Usage -->
+    <section class="space-y-3">
+      <SectionHeading id="usage" title={t.sections.usage.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
+      <ComponentPreview code={usageCode}>
+        <Spinner />
+      </ComponentPreview>
+    </section>
+
+    <!-- Classes Reference -->
+    <section class="space-y-3">
+      <SectionHeading id="classes" title={t.sections.classes.title} />
+      <div class="cu-table-wrapper rounded-lg border border-border">
+        <table class="cu-table">
+          <thead class="cu-table-header">
+            <tr class="cu-table-row">
+              <th class="cu-table-head">{t.sections.classes.classLabel}</th>
+              <th class="cu-table-head">{t.sections.classes.descriptionLabel}</th>
+            </tr>
+          </thead>
+          <tbody class="cu-table-body">
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-spinner</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-spinner"]}</td>
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-spinner-sm</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-spinner-sm"]}</td>
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-spinner-md</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-spinner-md"]}</td>
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-spinner-lg</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-spinner-lg"]}</td>
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-spinner-primary</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-spinner-primary"]}</td>
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-spinner-secondary</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-spinner-secondary"]}</td>
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-spinner-destructive</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-spinner-destructive"]}</td>
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-spinner-success</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-spinner-success"]}</td>
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-spinner-warning</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-spinner-warning"]}</td>
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-spinner-info</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-spinner-info"]}</td>
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-spinner-muted</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-spinner-muted"]}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Sizes -->
+    <section class="space-y-3">
+      <SectionHeading id="sizes" title={t.sections.sizes.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.sizes.description} />
+      <ComponentPreview code={sizesCode}>
+        <div class="flex items-center gap-4 justify-center">
+          <Spinner size="sm" />
+          <Spinner size="md" />
+          <Spinner size="lg" />
         </div>
-        <p class="text-base text-muted-foreground leading-relaxed">{t.description}</p>
-    </div>
+      </ComponentPreview>
+    </section>
 
-    <div class="mt-10 space-y-10">
-        <!-- Usage -->
-        <section class="space-y-3">
-            <SectionHeading id="usage" title={t.sections.usage.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
-            <ComponentPreview code={usageCode}>
-                <Spinner />
-            </ComponentPreview>
-        </section>
+    <!-- Colors -->
+    <section class="space-y-3">
+      <SectionHeading id="colors" title={t.sections.colors.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.colors.description} />
+      <ComponentPreview code={colorsCode}>
+        <div class="flex items-center gap-4 justify-center">
+          <Spinner color="primary" />
+          <Spinner color="success" />
+          <Spinner color="warning" />
+          <Spinner color="destructive" />
+          <Spinner color="info" />
+          <Spinner color="muted" />
+        </div>
+      </ComponentPreview>
+    </section>
 
-        <!-- Classes Reference -->
-        <section class="space-y-3">
-            <SectionHeading id="classes" title={t.sections.classes.title} />
-            <div class="cu-table-wrapper rounded-lg border border-border">
-                <table class="cu-table">
-                    <thead class="cu-table-header">
-                        <tr class="cu-table-row">
-                            <th class="cu-table-head">{t.sections.classes.classLabel}</th>
-                            <th class="cu-table-head">{t.sections.classes.descriptionLabel}</th>
-                        </tr>
-                    </thead>
-                    <tbody class="cu-table-body">
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-spinner</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-spinner']}</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-spinner-sm</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-spinner-sm']}</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-spinner-md</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-spinner-md']}</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-spinner-lg</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-spinner-lg']}</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-spinner-primary</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-spinner-primary']}</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-spinner-secondary</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-spinner-secondary']}</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-spinner-destructive</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-spinner-destructive']}</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-spinner-success</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-spinner-success']}</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-spinner-warning</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-spinner-warning']}</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-spinner-info</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-spinner-info']}</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-spinner-muted</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-spinner-muted']}</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </section>
-
-        <!-- Sizes -->
-        <section class="space-y-3">
-            <SectionHeading id="sizes" title={t.sections.sizes.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.sizes.description} />
-            <ComponentPreview code={sizesCode}>
-                <div class="flex items-center gap-4 justify-center">
-                    <Spinner size="sm" />
-                    <Spinner size="md" />
-                    <Spinner size="lg" />
-                </div>
-            </ComponentPreview>
-        </section>
-
-        <!-- Colors -->
-        <section class="space-y-3">
-            <SectionHeading id="colors" title={t.sections.colors.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.colors.description} />
-            <ComponentPreview code={colorsCode}>
-                <div class="flex items-center gap-4 justify-center">
-                    <Spinner color="primary" />
-                    <Spinner color="success" />
-                    <Spinner color="warning" />
-                    <Spinner color="destructive" />
-                    <Spinner color="info" />
-                    <Spinner color="muted" />
-                </div>
-            </ComponentPreview>
-        </section>
-
-        <!-- Button Loading -->
-        <section class="space-y-3">
-            <SectionHeading id="button-loading" title={t.sections.buttonLoading.title} />
-            <p class="text-base text-muted-foreground leading-relaxed">{t.sections.buttonLoading.description}</p>
-            <ComponentPreview code={buttonLoadingCode}>
-                <div class="flex items-center gap-3 justify-center">
-                    <button class="cu-button cu-button-default" disabled>
-                        <Spinner size="sm" class="mr-2" />
-                        Loading...
-                    </button>
-                    <button class="cu-button cu-button-outline" disabled>
-                        <Spinner size="sm" class="mr-2" />
-                        Please wait
-                    </button>
-                </div>
-            </ComponentPreview>
-        </section>
-    </div>
+    <!-- Button Loading -->
+    <section class="space-y-3">
+      <SectionHeading id="button-loading" title={t.sections.buttonLoading.title} />
+      <p class="text-base text-muted-foreground leading-relaxed">{t.sections.buttonLoading.description}</p>
+      <ComponentPreview code={buttonLoadingCode}>
+        <div class="flex items-center gap-3 justify-center">
+          <button class="cu-button cu-button-default" disabled>
+            <Spinner size="sm" class="mr-2" />
+            Loading...
+          </button>
+          <button class="cu-button cu-button-outline" disabled>
+            <Spinner size="sm" class="mr-2" />
+            Please wait
+          </button>
+        </div>
+      </ComponentPreview>
+    </section>
+  </div>
 </Layout>

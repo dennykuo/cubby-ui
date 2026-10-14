@@ -16,7 +16,10 @@ import { track, restore } from "../core/registry.js";
  */
 export function setupImageCompares() {
   document.querySelectorAll("[data-cu-image-compare]").forEach(function (/** @type {HTMLElement} */ el) {
-    if (el._cuInit) { restore("imageCompares", el); return; }
+    if (el._cuInit) {
+      restore("imageCompares", el);
+      return;
+    }
     el._cuInit = true;
 
     var isDragging = false;
@@ -41,15 +44,30 @@ export function setupImageCompares() {
       setPosition(getPercent(e));
       e.preventDefault();
     });
-    el.addEventListener("touchstart", function (e) {
-      isDragging = true;
-      setPosition(getPercent(e));
-    }, { passive: true });
+    el.addEventListener(
+      "touchstart",
+      function (e) {
+        isDragging = true;
+        setPosition(getPercent(e));
+      },
+      { passive: true },
+    );
 
-    function onMouseMove(e) { if (!isDragging) return; setPosition(getPercent(e)); }
-    function onTouchMove(e) { if (!isDragging) return; e.preventDefault(); setPosition(getPercent(e)); }
-    function onMouseUp() { isDragging = false; }
-    function onTouchEnd() { isDragging = false; }
+    function onMouseMove(e) {
+      if (!isDragging) return;
+      setPosition(getPercent(e));
+    }
+    function onTouchMove(e) {
+      if (!isDragging) return;
+      e.preventDefault();
+      setPosition(getPercent(e));
+    }
+    function onMouseUp() {
+      isDragging = false;
+    }
+    function onTouchEnd() {
+      isDragging = false;
+    }
 
     function addDocListeners() {
       document.addEventListener("mousemove", onMouseMove);
@@ -61,12 +79,16 @@ export function setupImageCompares() {
 
     setPosition(50);
     // destroy() 移除 document 拖曳監聽；之後再 init() 時由 resume() 加回（mousedown / touchstart 在元素上，不受影響）
-    track("imageCompares", { el: el, cleanup: function () {
-      isDragging = false;
-      document.removeEventListener("mousemove", onMouseMove);
-      document.removeEventListener("touchmove", onTouchMove);
-      document.removeEventListener("mouseup", onMouseUp);
-      document.removeEventListener("touchend", onTouchEnd);
-    }, resume: addDocListeners });
+    track("imageCompares", {
+      el: el,
+      cleanup: function () {
+        isDragging = false;
+        document.removeEventListener("mousemove", onMouseMove);
+        document.removeEventListener("touchmove", onTouchMove);
+        document.removeEventListener("mouseup", onMouseUp);
+        document.removeEventListener("touchend", onTouchEnd);
+      },
+      resume: addDocListeners,
+    });
   });
 }

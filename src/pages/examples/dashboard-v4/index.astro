@@ -12,364 +12,686 @@ import AvatarFallback from "@/components/ui/AvatarFallback.astro";
 const months = ["1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"];
 
 const trafficSources = [
-    { label: "自然搜尋", value: "35%", color: "cu-chart-color-1", dash: "98.96 283", offset: "0" },
-    { label: "直接訪問", value: "25%", color: "cu-chart-color-2", dash: "70.69 283", offset: "-98.96" },
-    { label: "社群媒體", value: "20%", color: "cu-chart-color-3", dash: "56.55 283", offset: "-169.65" },
-    { label: "推薦連結", value: "15%", color: "cu-chart-color-4", dash: "42.41 283", offset: "-226.2" },
+  { label: "自然搜尋", value: "35%", color: "cu-chart-color-1", dash: "98.96 283", offset: "0" },
+  { label: "直接訪問", value: "25%", color: "cu-chart-color-2", dash: "70.69 283", offset: "-98.96" },
+  { label: "社群媒體", value: "20%", color: "cu-chart-color-3", dash: "56.55 283", offset: "-169.65" },
+  { label: "推薦連結", value: "15%", color: "cu-chart-color-4", dash: "42.41 283", offset: "-226.2" },
 ];
 
 const statusBadge: Record<string, string> = {
-    已完成: "cu-badge-soft-success",
-    處理中: "cu-badge-soft-warning",
-    已取消: "cu-badge-soft-destructive",
+  已完成: "cu-badge-soft-success",
+  處理中: "cu-badge-soft-warning",
+  已取消: "cu-badge-soft-destructive",
 };
 
 const orders = [
-    { id: "#ORD-12847", name: "陳小華", initial: "陳", email: "chen@example.com", product: "專業版方案", status: "已完成", amount: "$1,299.00" },
-    { id: "#ORD-12846", name: "林志明", initial: "林", email: "lin@example.com", product: "企業安全套件", status: "處理中", amount: "$2,499.00" },
-    { id: "#ORD-12845", name: "王美玲", initial: "王", email: "wang@example.com", product: "資料分析模組", status: "已完成", amount: "$899.00" },
-    { id: "#ORD-12844", name: "張大偉", initial: "張", email: "zhang@example.com", product: "自動化工具包", status: "已取消", amount: "$599.00" },
-    { id: "#ORD-12843", name: "李佳穎", initial: "李", email: "lee@example.com", product: "專業版方案", status: "已完成", amount: "$1,299.00" },
+  {
+    id: "#ORD-12847",
+    name: "陳小華",
+    initial: "陳",
+    email: "chen@example.com",
+    product: "專業版方案",
+    status: "已完成",
+    amount: "$1,299.00",
+  },
+  {
+    id: "#ORD-12846",
+    name: "林志明",
+    initial: "林",
+    email: "lin@example.com",
+    product: "企業安全套件",
+    status: "處理中",
+    amount: "$2,499.00",
+  },
+  {
+    id: "#ORD-12845",
+    name: "王美玲",
+    initial: "王",
+    email: "wang@example.com",
+    product: "資料分析模組",
+    status: "已完成",
+    amount: "$899.00",
+  },
+  {
+    id: "#ORD-12844",
+    name: "張大偉",
+    initial: "張",
+    email: "zhang@example.com",
+    product: "自動化工具包",
+    status: "已取消",
+    amount: "$599.00",
+  },
+  {
+    id: "#ORD-12843",
+    name: "李佳穎",
+    initial: "李",
+    email: "lee@example.com",
+    product: "專業版方案",
+    status: "已完成",
+    amount: "$1,299.00",
+  },
 ];
 ---
 
 <DashboardV4Layout title="數據總覽 — Prism">
-    <div class="space-y-6">
-        <!-- Page Header -->
-        <div class="cu-page-header sm:items-end">
-            <div class="cu-page-header-content">
-                <h1 class="cu-page-header-title text-2xl md:text-2xl">數據總覽</h1>
-                <p class="cu-page-header-description mt-1">歡迎回來！以下是您的業務概況。</p>
-            </div>
-            <div class="cu-page-header-actions">
-                <Button variant="outline" class="gap-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
-                    匯出報表
-                </Button>
-                <Button class="gap-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" x2="12" y1="5" y2="19"/><line x1="5" x2="19" y1="12" y2="12"/></svg>
-                    新增數據
-                </Button>
-            </div>
-        </div>
-
-        <!-- Stats Grid -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            <div class="cu-stat cu-stat-hover p-5">
-                <div class="cu-stat-header">
-                    <span class="cu-stat-label">本月營收</span>
-                    <div class="cu-stat-icon-box" aria-hidden="true">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-                    </div>
-                </div>
-                <p class="cu-stat-value tabular-nums">$128,430</p>
-                <p class="cu-stat-description">
-                    <span class="cu-stat-trend cu-stat-trend-up cu-stat-trend-pill">+12.5%</span> 較上月
-                </p>
-            </div>
-
-            <div class="cu-stat cu-stat-hover p-5">
-                <div class="cu-stat-header">
-                    <span class="cu-stat-label">活躍用戶</span>
-                    <div class="cu-stat-icon-box cu-stat-icon-box-info" aria-hidden="true">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-                    </div>
-                </div>
-                <p class="cu-stat-value tabular-nums">8,642</p>
-                <p class="cu-stat-description">
-                    <span class="cu-stat-trend cu-stat-trend-up cu-stat-trend-pill">+8.2%</span> 較上月
-                </p>
-            </div>
-
-            <div class="cu-stat cu-stat-hover p-5">
-                <div class="cu-stat-header">
-                    <span class="cu-stat-label">訂單數量</span>
-                    <div class="cu-stat-icon-box cu-stat-icon-box-success" aria-hidden="true">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7.5 4.27 9 5.15"/><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg>
-                    </div>
-                </div>
-                <p class="cu-stat-value tabular-nums">2,847</p>
-                <p class="cu-stat-description">
-                    <span class="cu-stat-trend cu-stat-trend-up cu-stat-trend-pill">+15.3%</span> 較上月
-                </p>
-            </div>
-
-            <div class="cu-stat cu-stat-hover p-5">
-                <div class="cu-stat-header">
-                    <span class="cu-stat-label">轉換率</span>
-                    <div class="cu-stat-icon-box cu-stat-icon-box-warning" aria-hidden="true">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
-                    </div>
-                </div>
-                <p class="cu-stat-value tabular-nums">3.24%</p>
-                <p class="cu-stat-description">
-                    <span class="cu-stat-trend cu-stat-trend-down cu-stat-trend-pill">-0.8%</span> 較上月
-                </p>
-            </div>
-        </div>
-
-        <!-- Charts Row -->
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            <!-- Main Chart -->
-            <Card class="lg:col-span-2">
-                <CardHeader class="pb-2">
-                    <div class="flex items-center justify-between gap-4">
-                        <div class="space-y-1.5">
-                            <CardTitle class="text-base font-semibold">營收趨勢</CardTitle>
-                            <CardDescription>過去 12 個月的營收變化</CardDescription>
-                        </div>
-                        <div class="cu-segmented cu-segmented-sm" role="group" aria-label="時間範圍" data-v4-range>
-                            <button type="button" class="cu-segmented-item" aria-pressed="false">週</button>
-                            <button type="button" class="cu-segmented-item cu-segmented-item-active" aria-pressed="true">月</button>
-                            <button type="button" class="cu-segmented-item" aria-pressed="false">年</button>
-                        </div>
-                    </div>
-                </CardHeader>
-                <CardContent>
-                    <div class="h-64 mt-4 cu-chart-color-1">
-                        <svg viewBox="0 0 400 160" class="w-full h-full" preserveAspectRatio="none" role="img" aria-labelledby="v4-revenue-title v4-revenue-desc">
-                            <title id="v4-revenue-title">營收趨勢</title>
-                            <desc id="v4-revenue-desc">過去 12 個月營收整體上升，1 月最低，11 月達到高峰。</desc>
-                            <defs>
-                                <linearGradient id="areaGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-                                    <stop offset="0%" stop-color="currentColor" stop-opacity="0.3" />
-                                    <stop offset="100%" stop-color="currentColor" stop-opacity="0.02" />
-                                </linearGradient>
-                            </defs>
-                            <line x1="0" y1="40" x2="400" y2="40" class="cu-chart-grid" vector-effect="non-scaling-stroke" />
-                            <line x1="0" y1="80" x2="400" y2="80" class="cu-chart-grid" vector-effect="non-scaling-stroke" />
-                            <line x1="0" y1="120" x2="400" y2="120" class="cu-chart-grid" vector-effect="non-scaling-stroke" />
-                            <path d="M0,140 L33,120 L66,100 L100,110 L133,80 L166,90 L200,60 L233,70 L266,40 L300,50 L333,30 L366,20 L400,25 L400,160 L0,160 Z" fill="url(#areaGradient)" />
-                            <path d="M0,140 L33,120 L66,100 L100,110 L133,80 L166,90 L200,60 L233,70 L266,40 L300,50 L333,30 L366,20 L400,25" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
-                            <circle cx="266" cy="40" r="4" fill="currentColor" />
-                            <circle cx="333" cy="30" r="4" fill="currentColor" />
-                            <circle cx="400" cy="25" r="4" fill="currentColor" />
-                        </svg>
-                    </div>
-                    <div class="flex justify-between mt-2 text-xs text-muted-foreground" aria-hidden="true">
-                        {months.map((m) => <span>{m}</span>)}
-                    </div>
-                </CardContent>
-            </Card>
-
-            <!-- Donut Chart -->
-            <Card>
-                <CardHeader class="pb-2">
-                    <CardTitle class="text-base font-semibold">流量來源</CardTitle>
-                    <CardDescription>本月訪客分布</CardDescription>
-                </CardHeader>
-                <CardContent>
-                    <div class="flex items-center justify-center py-4">
-                        <svg viewBox="0 0 120 120" class="w-40 h-40" aria-hidden="true">
-                            <circle cx="60" cy="60" r="45" fill="none" class="text-muted" stroke="currentColor" stroke-width="20" />
-                            {trafficSources.map((s) => (
-                                <circle cx="60" cy="60" r="45" fill="none" class={s.color} stroke="currentColor" stroke-width="20" stroke-dasharray={s.dash} stroke-dashoffset={s.offset} transform="rotate(-90 60 60)" />
-                            ))}
-                            <text x="60" y="55" text-anchor="middle" class="font-bold fill-foreground" style="font-size: 16px;">24.8K</text>
-                            <text x="60" y="70" text-anchor="middle" class="fill-muted-foreground" style="font-size: 10px;">總訪客</text>
-                        </svg>
-                        <p class="sr-only">本月總訪客 24.8K</p>
-                    </div>
-                    <ul class="space-y-2 mt-2">
-                        {trafficSources.map((s) => (
-                            <li class="flex items-center justify-between text-sm">
-                                <span class="flex items-center gap-2 text-muted-foreground">
-                                    <span class:list={["cu-chart-swatch cu-chart-swatch-dot", s.color]} aria-hidden="true"></span>
-                                    {s.label}
-                                </span>
-                                <span class="font-medium tabular-nums text-foreground">{s.value}</span>
-                            </li>
-                        ))}
-                    </ul>
-                </CardContent>
-            </Card>
-        </div>
-
-        <!-- Recent Activity & Top Products -->
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <!-- Recent Activity -->
-            <Card>
-                <CardHeader class="pb-2">
-                    <div class="flex items-center justify-between">
-                        <CardTitle class="text-base font-semibold">近期活動</CardTitle>
-                        <a href="#" class="cu-link-plain text-sm">查看全部<span class="sr-only">近期活動</span></a>
-                    </div>
-                </CardHeader>
-                <CardContent>
-                    <ul class="space-y-4">
-                        <li class="flex items-start gap-3">
-                            <div class="w-8 h-8 rounded-full bg-success/10 text-success flex items-center justify-center shrink-0" aria-hidden="true">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-                            </div>
-                            <div class="flex-1 min-w-0">
-                                <p class="text-sm font-medium text-foreground">新訂單完成</p>
-                                <p class="text-xs text-muted-foreground mt-0.5">訂單 #12847 已成功付款</p>
-                            </div>
-                            <span class="text-xs text-muted-foreground shrink-0">2 分鐘前</span>
-                        </li>
-                        <li class="flex items-start gap-3">
-                            <div class="w-8 h-8 rounded-full bg-info/10 text-info flex items-center justify-center shrink-0" aria-hidden="true">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" x2="19" y1="8" y2="14"/><line x1="22" x2="16" y1="11" y2="11"/></svg>
-                            </div>
-                            <div class="flex-1 min-w-0">
-                                <p class="text-sm font-medium text-foreground">新用戶註冊</p>
-                                <p class="text-xs text-muted-foreground mt-0.5">王小美 加入了平台</p>
-                            </div>
-                            <span class="text-xs text-muted-foreground shrink-0">15 分鐘前</span>
-                        </li>
-                        <li class="flex items-start gap-3">
-                            <div class="w-8 h-8 rounded-full bg-primary/10 text-primary flex items-center justify-center shrink-0" aria-hidden="true">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" x2="12" y1="3" y2="15"/></svg>
-                            </div>
-                            <div class="flex-1 min-w-0">
-                                <p class="text-sm font-medium text-foreground">報表已匯出</p>
-                                <p class="text-xs text-muted-foreground mt-0.5">2024 年度報告.xlsx</p>
-                            </div>
-                            <span class="text-xs text-muted-foreground shrink-0">1 小時前</span>
-                        </li>
-                        <li class="flex items-start gap-3">
-                            <div class="w-8 h-8 rounded-full bg-warning/10 text-warning flex items-center justify-center shrink-0" aria-hidden="true">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" x2="12" y1="9" y2="13"/><line x1="12" x2="12.01" y1="17" y2="17"/></svg>
-                            </div>
-                            <div class="flex-1 min-w-0">
-                                <p class="text-sm font-medium text-foreground">庫存警告</p>
-                                <p class="text-xs text-muted-foreground mt-0.5">產品 SKU-2847 庫存不足</p>
-                            </div>
-                            <span class="text-xs text-muted-foreground shrink-0">3 小時前</span>
-                        </li>
-                    </ul>
-                </CardContent>
-            </Card>
-
-            <!-- Top Products -->
-            <Card>
-                <CardHeader class="pb-2">
-                    <div class="flex items-center justify-between">
-                        <CardTitle class="text-base font-semibold">熱銷商品</CardTitle>
-                        <a href="#" class="cu-link-plain text-sm">查看全部<span class="sr-only">熱銷商品</span></a>
-                    </div>
-                </CardHeader>
-                <CardContent>
-                    <ul class="space-y-4">
-                        <li class="flex items-center gap-4">
-                            <div class="w-12 h-12 rounded-lg bg-muted text-muted-foreground flex items-center justify-center shrink-0" aria-hidden="true">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="3" rx="2"/><line x1="8" x2="16" y1="21" y2="21"/><line x1="12" x2="12" y1="17" y2="21"/></svg>
-                            </div>
-                            <div class="flex-1 min-w-0">
-                                <p class="text-sm font-medium text-foreground">專業版方案</p>
-                                <p class="text-xs text-muted-foreground">324 筆銷售</p>
-                            </div>
-                            <div class="text-right tabular-nums">
-                                <p class="text-sm font-semibold text-foreground">$32,400</p>
-                                <p class="text-xs text-success">+12%</p>
-                            </div>
-                        </li>
-                        <li class="flex items-center gap-4">
-                            <div class="w-12 h-12 rounded-lg bg-muted text-muted-foreground flex items-center justify-center shrink-0" aria-hidden="true">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/></svg>
-                            </div>
-                            <div class="flex-1 min-w-0">
-                                <p class="text-sm font-medium text-foreground">企業安全套件</p>
-                                <p class="text-xs text-muted-foreground">156 筆銷售</p>
-                            </div>
-                            <div class="text-right tabular-nums">
-                                <p class="text-sm font-semibold text-foreground">$28,080</p>
-                                <p class="text-xs text-success">+8%</p>
-                            </div>
-                        </li>
-                        <li class="flex items-center gap-4">
-                            <div class="w-12 h-12 rounded-lg bg-muted text-muted-foreground flex items-center justify-center shrink-0" aria-hidden="true">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
-                            </div>
-                            <div class="flex-1 min-w-0">
-                                <p class="text-sm font-medium text-foreground">資料分析模組</p>
-                                <p class="text-xs text-muted-foreground">218 筆銷售</p>
-                            </div>
-                            <div class="text-right tabular-nums">
-                                <p class="text-sm font-semibold text-foreground">$21,800</p>
-                                <p class="text-xs text-success">+24%</p>
-                            </div>
-                        </li>
-                        <li class="flex items-center gap-4">
-                            <div class="w-12 h-12 rounded-lg bg-muted text-muted-foreground flex items-center justify-center shrink-0" aria-hidden="true">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-                            </div>
-                            <div class="flex-1 min-w-0">
-                                <p class="text-sm font-medium text-foreground">自動化工具包</p>
-                                <p class="text-xs text-muted-foreground">189 筆銷售</p>
-                            </div>
-                            <div class="text-right tabular-nums">
-                                <p class="text-sm font-semibold text-foreground">$18,900</p>
-                                <p class="text-xs text-destructive">-3%</p>
-                            </div>
-                        </li>
-                    </ul>
-                </CardContent>
-            </Card>
-        </div>
-
-        <!-- Recent Orders Table -->
-        <Card class="overflow-hidden">
-            <CardHeader>
-                <div class="flex items-center justify-between">
-                    <div class="space-y-1.5">
-                        <CardTitle class="text-base font-semibold">最近訂單</CardTitle>
-                        <CardDescription>本月的交易紀錄</CardDescription>
-                    </div>
-                    <Button variant="outline" size="sm" class="gap-1.5">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
-                        篩選
-                    </Button>
-                </div>
-            </CardHeader>
-            <div class="cu-table-wrapper" role="region" aria-label="最近訂單" tabindex="0">
-                <table class="cu-table">
-                    <thead class="cu-table-header">
-                        <tr class="cu-table-row">
-                            <th scope="col" class="cu-table-head pl-6">訂單編號</th>
-                            <th scope="col" class="cu-table-head">客戶</th>
-                            <th scope="col" class="cu-table-head">產品</th>
-                            <th scope="col" class="cu-table-head">狀態</th>
-                            <th scope="col" class="cu-table-head text-right pr-6">金額</th>
-                        </tr>
-                    </thead>
-                    <tbody class="cu-table-body">
-                        {orders.map((order) => (
-                            <tr class="cu-table-row">
-                                <td class="cu-table-cell pl-6 font-mono text-muted-foreground">{order.id}</td>
-                                <td class="cu-table-cell">
-                                    <div class="flex items-center gap-3">
-                                        <Avatar class="w-8 h-8"><AvatarFallback class="text-xs">{order.initial}</AvatarFallback></Avatar>
-                                        <div>
-                                            <p class="text-sm font-medium text-foreground">{order.name}</p>
-                                            <p class="text-xs text-muted-foreground">{order.email}</p>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td class="cu-table-cell">{order.product}</td>
-                                <td class="cu-table-cell">
-                                    <span class:list={["cu-badge", statusBadge[order.status]]}>{order.status}</span>
-                                </td>
-                                <td class="cu-table-cell text-right pr-6 font-medium tabular-nums">{order.amount}</td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
-            </div>
-        </Card>
+  <div class="space-y-6">
+    <!-- Page Header -->
+    <div class="cu-page-header sm:items-end">
+      <div class="cu-page-header-content">
+        <h1 class="cu-page-header-title text-2xl md:text-2xl">數據總覽</h1>
+        <p class="cu-page-header-description mt-1">歡迎回來！以下是您的業務概況。</p>
+      </div>
+      <div class="cu-page-header-actions">
+        <Button variant="outline" class="gap-2">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+            <polyline points="7 10 12 15 17 10" />
+            <line x1="12" x2="12" y1="15" y2="3" />
+          </svg>
+          匯出報表
+        </Button>
+        <Button class="gap-2">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <line x1="12" x2="12" y1="5" y2="19" />
+            <line x1="5" x2="19" y1="12" y2="12" />
+          </svg>
+          新增數據
+        </Button>
+      </div>
     </div>
+
+    <!-- Stats Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div class="cu-stat cu-stat-hover p-5">
+        <div class="cu-stat-header">
+          <span class="cu-stat-label">本月營收</span>
+          <div class="cu-stat-icon-box" aria-hidden="true">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <line x1="12" y1="1" x2="12" y2="23" />
+              <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+            </svg>
+          </div>
+        </div>
+        <p class="cu-stat-value tabular-nums">$128,430</p>
+        <p class="cu-stat-description">
+          <span class="cu-stat-trend cu-stat-trend-up cu-stat-trend-pill">+12.5%</span> 較上月
+        </p>
+      </div>
+
+      <div class="cu-stat cu-stat-hover p-5">
+        <div class="cu-stat-header">
+          <span class="cu-stat-label">活躍用戶</span>
+          <div class="cu-stat-icon-box cu-stat-icon-box-info" aria-hidden="true">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+              <circle cx="9" cy="7" r="4" />
+              <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+              <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+            </svg>
+          </div>
+        </div>
+        <p class="cu-stat-value tabular-nums">8,642</p>
+        <p class="cu-stat-description">
+          <span class="cu-stat-trend cu-stat-trend-up cu-stat-trend-pill">+8.2%</span> 較上月
+        </p>
+      </div>
+
+      <div class="cu-stat cu-stat-hover p-5">
+        <div class="cu-stat-header">
+          <span class="cu-stat-label">訂單數量</span>
+          <div class="cu-stat-icon-box cu-stat-icon-box-success" aria-hidden="true">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="m7.5 4.27 9 5.15" />
+              <path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z" />
+              <path d="m3.3 7 8.7 5 8.7-5" />
+              <path d="M12 22V12" />
+            </svg>
+          </div>
+        </div>
+        <p class="cu-stat-value tabular-nums">2,847</p>
+        <p class="cu-stat-description">
+          <span class="cu-stat-trend cu-stat-trend-up cu-stat-trend-pill">+15.3%</span> 較上月
+        </p>
+      </div>
+
+      <div class="cu-stat cu-stat-hover p-5">
+        <div class="cu-stat-header">
+          <span class="cu-stat-label">轉換率</span>
+          <div class="cu-stat-icon-box cu-stat-icon-box-warning" aria-hidden="true">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
+            </svg>
+          </div>
+        </div>
+        <p class="cu-stat-value tabular-nums">3.24%</p>
+        <p class="cu-stat-description">
+          <span class="cu-stat-trend cu-stat-trend-down cu-stat-trend-pill">-0.8%</span> 較上月
+        </p>
+      </div>
+    </div>
+
+    <!-- Charts Row -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <!-- Main Chart -->
+      <Card class="lg:col-span-2">
+        <CardHeader class="pb-2">
+          <div class="flex items-center justify-between gap-4">
+            <div class="space-y-1.5">
+              <CardTitle class="text-base font-semibold">營收趨勢</CardTitle>
+              <CardDescription>過去 12 個月的營收變化</CardDescription>
+            </div>
+            <div class="cu-segmented cu-segmented-sm" role="group" aria-label="時間範圍" data-v4-range>
+              <button type="button" class="cu-segmented-item" aria-pressed="false">
+                週
+              </button>
+              <button type="button" class="cu-segmented-item cu-segmented-item-active" aria-pressed="true">
+                月
+              </button>
+              <button type="button" class="cu-segmented-item" aria-pressed="false">
+                年
+              </button>
+            </div>
+          </div>
+        </CardHeader>
+        <CardContent>
+          <div class="h-64 mt-4 cu-chart-color-1">
+            <svg
+              viewBox="0 0 400 160"
+              class="w-full h-full"
+              preserveAspectRatio="none"
+              role="img"
+              aria-labelledby="v4-revenue-title v4-revenue-desc"
+            >
+              <title id="v4-revenue-title">營收趨勢</title>
+              <desc id="v4-revenue-desc">過去 12 個月營收整體上升，1 月最低，11 月達到高峰。</desc>
+              <defs>
+                <linearGradient id="areaGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" stop-color="currentColor" stop-opacity="0.3" />
+                  <stop offset="100%" stop-color="currentColor" stop-opacity="0.02" />
+                </linearGradient>
+              </defs>
+              <line x1="0" y1="40" x2="400" y2="40" class="cu-chart-grid" vector-effect="non-scaling-stroke" />
+              <line x1="0" y1="80" x2="400" y2="80" class="cu-chart-grid" vector-effect="non-scaling-stroke" />
+              <line x1="0" y1="120" x2="400" y2="120" class="cu-chart-grid" vector-effect="non-scaling-stroke" />
+              <path
+                d="M0,140 L33,120 L66,100 L100,110 L133,80 L166,90 L200,60 L233,70 L266,40 L300,50 L333,30 L366,20 L400,25 L400,160 L0,160 Z"
+                fill="url(#areaGradient)"
+              />
+              <path
+                d="M0,140 L33,120 L66,100 L100,110 L133,80 L166,90 L200,60 L233,70 L266,40 L300,50 L333,30 L366,20 L400,25"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <circle cx="266" cy="40" r="4" fill="currentColor" />
+              <circle cx="333" cy="30" r="4" fill="currentColor" />
+              <circle cx="400" cy="25" r="4" fill="currentColor" />
+            </svg>
+          </div>
+          <div class="flex justify-between mt-2 text-xs text-muted-foreground" aria-hidden="true">
+            {months.map((m) => (
+              <span>{m}</span>
+            ))}
+          </div>
+        </CardContent>
+      </Card>
+
+      <!-- Donut Chart -->
+      <Card>
+        <CardHeader class="pb-2">
+          <CardTitle class="text-base font-semibold">流量來源</CardTitle>
+          <CardDescription>本月訪客分布</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div class="flex items-center justify-center py-4">
+            <svg viewBox="0 0 120 120" class="w-40 h-40" aria-hidden="true">
+              <circle cx="60" cy="60" r="45" fill="none" class="text-muted" stroke="currentColor" stroke-width="20" />
+              {trafficSources.map((s) => (
+                <circle
+                  cx="60"
+                  cy="60"
+                  r="45"
+                  fill="none"
+                  class={s.color}
+                  stroke="currentColor"
+                  stroke-width="20"
+                  stroke-dasharray={s.dash}
+                  stroke-dashoffset={s.offset}
+                  transform="rotate(-90 60 60)"
+                />
+              ))}
+              <text x="60" y="55" text-anchor="middle" class="font-bold fill-foreground" style="font-size: 16px;">
+                24.8K
+              </text>
+              <text x="60" y="70" text-anchor="middle" class="fill-muted-foreground" style="font-size: 10px;">
+                總訪客
+              </text>
+            </svg>
+            <p class="sr-only">本月總訪客 24.8K</p>
+          </div>
+          <ul class="space-y-2 mt-2">
+            {trafficSources.map((s) => (
+              <li class="flex items-center justify-between text-sm">
+                <span class="flex items-center gap-2 text-muted-foreground">
+                  <span class:list={["cu-chart-swatch cu-chart-swatch-dot", s.color]} aria-hidden="true"></span>
+                  {s.label}
+                </span>
+                <span class="font-medium tabular-nums text-foreground">{s.value}</span>
+              </li>
+            ))}
+          </ul>
+        </CardContent>
+      </Card>
+    </div>
+
+    <!-- Recent Activity & Top Products -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <!-- Recent Activity -->
+      <Card>
+        <CardHeader class="pb-2">
+          <div class="flex items-center justify-between">
+            <CardTitle class="text-base font-semibold">近期活動</CardTitle>
+            <a href="#" class="cu-link-plain text-sm">
+              查看全部<span class="sr-only">近期活動</span>
+            </a>
+          </div>
+        </CardHeader>
+        <CardContent>
+          <ul class="space-y-4">
+            <li class="flex items-start gap-3">
+              <div
+                class="w-8 h-8 rounded-full bg-success/10 text-success flex items-center justify-center shrink-0"
+                aria-hidden="true"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <polyline points="20 6 9 17 4 12" />
+                </svg>
+              </div>
+              <div class="flex-1 min-w-0">
+                <p class="text-sm font-medium text-foreground">新訂單完成</p>
+                <p class="text-xs text-muted-foreground mt-0.5">訂單 #12847 已成功付款</p>
+              </div>
+              <span class="text-xs text-muted-foreground shrink-0">2 分鐘前</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <div
+                class="w-8 h-8 rounded-full bg-info/10 text-info flex items-center justify-center shrink-0"
+                aria-hidden="true"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                  <circle cx="9" cy="7" r="4" />
+                  <line x1="19" x2="19" y1="8" y2="14" />
+                  <line x1="22" x2="16" y1="11" y2="11" />
+                </svg>
+              </div>
+              <div class="flex-1 min-w-0">
+                <p class="text-sm font-medium text-foreground">新用戶註冊</p>
+                <p class="text-xs text-muted-foreground mt-0.5">王小美 加入了平台</p>
+              </div>
+              <span class="text-xs text-muted-foreground shrink-0">15 分鐘前</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <div
+                class="w-8 h-8 rounded-full bg-primary/10 text-primary flex items-center justify-center shrink-0"
+                aria-hidden="true"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                  <polyline points="17 8 12 3 7 8" />
+                  <line x1="12" x2="12" y1="3" y2="15" />
+                </svg>
+              </div>
+              <div class="flex-1 min-w-0">
+                <p class="text-sm font-medium text-foreground">報表已匯出</p>
+                <p class="text-xs text-muted-foreground mt-0.5">2024 年度報告.xlsx</p>
+              </div>
+              <span class="text-xs text-muted-foreground shrink-0">1 小時前</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <div
+                class="w-8 h-8 rounded-full bg-warning/10 text-warning flex items-center justify-center shrink-0"
+                aria-hidden="true"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />
+                  <line x1="12" x2="12" y1="9" y2="13" />
+                  <line x1="12" x2="12.01" y1="17" y2="17" />
+                </svg>
+              </div>
+              <div class="flex-1 min-w-0">
+                <p class="text-sm font-medium text-foreground">庫存警告</p>
+                <p class="text-xs text-muted-foreground mt-0.5">產品 SKU-2847 庫存不足</p>
+              </div>
+              <span class="text-xs text-muted-foreground shrink-0">3 小時前</span>
+            </li>
+          </ul>
+        </CardContent>
+      </Card>
+
+      <!-- Top Products -->
+      <Card>
+        <CardHeader class="pb-2">
+          <div class="flex items-center justify-between">
+            <CardTitle class="text-base font-semibold">熱銷商品</CardTitle>
+            <a href="#" class="cu-link-plain text-sm">
+              查看全部<span class="sr-only">熱銷商品</span>
+            </a>
+          </div>
+        </CardHeader>
+        <CardContent>
+          <ul class="space-y-4">
+            <li class="flex items-center gap-4">
+              <div
+                class="w-12 h-12 rounded-lg bg-muted text-muted-foreground flex items-center justify-center shrink-0"
+                aria-hidden="true"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <rect width="20" height="14" x="2" y="3" rx="2" />
+                  <line x1="8" x2="16" y1="21" y2="21" />
+                  <line x1="12" x2="12" y1="17" y2="21" />
+                </svg>
+              </div>
+              <div class="flex-1 min-w-0">
+                <p class="text-sm font-medium text-foreground">專業版方案</p>
+                <p class="text-xs text-muted-foreground">324 筆銷售</p>
+              </div>
+              <div class="text-right tabular-nums">
+                <p class="text-sm font-semibold text-foreground">$32,400</p>
+                <p class="text-xs text-success">+12%</p>
+              </div>
+            </li>
+            <li class="flex items-center gap-4">
+              <div
+                class="w-12 h-12 rounded-lg bg-muted text-muted-foreground flex items-center justify-center shrink-0"
+                aria-hidden="true"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10" />
+                </svg>
+              </div>
+              <div class="flex-1 min-w-0">
+                <p class="text-sm font-medium text-foreground">企業安全套件</p>
+                <p class="text-xs text-muted-foreground">156 筆銷售</p>
+              </div>
+              <div class="text-right tabular-nums">
+                <p class="text-sm font-semibold text-foreground">$28,080</p>
+                <p class="text-xs text-success">+8%</p>
+              </div>
+            </li>
+            <li class="flex items-center gap-4">
+              <div
+                class="w-12 h-12 rounded-lg bg-muted text-muted-foreground flex items-center justify-center shrink-0"
+                aria-hidden="true"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
+                </svg>
+              </div>
+              <div class="flex-1 min-w-0">
+                <p class="text-sm font-medium text-foreground">資料分析模組</p>
+                <p class="text-xs text-muted-foreground">218 筆銷售</p>
+              </div>
+              <div class="text-right tabular-nums">
+                <p class="text-sm font-semibold text-foreground">$21,800</p>
+                <p class="text-xs text-success">+24%</p>
+              </div>
+            </li>
+            <li class="flex items-center gap-4">
+              <div
+                class="w-12 h-12 rounded-lg bg-muted text-muted-foreground flex items-center justify-center shrink-0"
+                aria-hidden="true"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <circle cx="12" cy="12" r="10" />
+                  <path d="M12 6v6l4 2" />
+                </svg>
+              </div>
+              <div class="flex-1 min-w-0">
+                <p class="text-sm font-medium text-foreground">自動化工具包</p>
+                <p class="text-xs text-muted-foreground">189 筆銷售</p>
+              </div>
+              <div class="text-right tabular-nums">
+                <p class="text-sm font-semibold text-foreground">$18,900</p>
+                <p class="text-xs text-destructive">-3%</p>
+              </div>
+            </li>
+          </ul>
+        </CardContent>
+      </Card>
+    </div>
+
+    <!-- Recent Orders Table -->
+    <Card class="overflow-hidden">
+      <CardHeader>
+        <div class="flex items-center justify-between">
+          <div class="space-y-1.5">
+            <CardTitle class="text-base font-semibold">最近訂單</CardTitle>
+            <CardDescription>本月的交易紀錄</CardDescription>
+          </div>
+          <Button variant="outline" size="sm" class="gap-1.5">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3" />
+            </svg>
+            篩選
+          </Button>
+        </div>
+      </CardHeader>
+      <div class="cu-table-wrapper" role="region" aria-label="最近訂單" tabindex="0">
+        <table class="cu-table">
+          <thead class="cu-table-header">
+            <tr class="cu-table-row">
+              <th scope="col" class="cu-table-head pl-6">
+                訂單編號
+              </th>
+              <th scope="col" class="cu-table-head">
+                客戶
+              </th>
+              <th scope="col" class="cu-table-head">
+                產品
+              </th>
+              <th scope="col" class="cu-table-head">
+                狀態
+              </th>
+              <th scope="col" class="cu-table-head text-right pr-6">
+                金額
+              </th>
+            </tr>
+          </thead>
+          <tbody class="cu-table-body">
+            {orders.map((order) => (
+              <tr class="cu-table-row">
+                <td class="cu-table-cell pl-6 font-mono text-muted-foreground">{order.id}</td>
+                <td class="cu-table-cell">
+                  <div class="flex items-center gap-3">
+                    <Avatar class="w-8 h-8">
+                      <AvatarFallback class="text-xs">{order.initial}</AvatarFallback>
+                    </Avatar>
+                    <div>
+                      <p class="text-sm font-medium text-foreground">{order.name}</p>
+                      <p class="text-xs text-muted-foreground">{order.email}</p>
+                    </div>
+                  </div>
+                </td>
+                <td class="cu-table-cell">{order.product}</td>
+                <td class="cu-table-cell">
+                  <span class:list={["cu-badge", statusBadge[order.status]]}>{order.status}</span>
+                </td>
+                <td class="cu-table-cell text-right pr-6 font-medium tabular-nums">{order.amount}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </Card>
+  </div>
 </DashboardV4Layout>
 
 <script>
-    document.querySelectorAll<HTMLElement>("[data-v4-range]").forEach((group) => {
-        group.addEventListener("click", (e) => {
-            const btn = (e.target as Element).closest<HTMLButtonElement>(".cu-segmented-item");
-            if (!btn) return;
-            group.querySelectorAll(".cu-segmented-item").forEach((item) => {
-                const active = item === btn;
-                item.classList.toggle("cu-segmented-item-active", active);
-                item.setAttribute("aria-pressed", String(active));
-            });
-        });
+  document.querySelectorAll<HTMLElement>("[data-v4-range]").forEach((group) => {
+    group.addEventListener("click", (e) => {
+      const btn = (e.target as Element).closest<HTMLButtonElement>(".cu-segmented-item");
+      if (!btn) return;
+      group.querySelectorAll(".cu-segmented-item").forEach((item) => {
+        const active = item === btn;
+        item.classList.toggle("cu-segmented-item-active", active);
+        item.setAttribute("aria-pressed", String(active));
+      });
     });
+  });
 </script>

@@ -167,65 +167,67 @@ const completeCode = `<div class="cu-countdown">
 ---
 
 <Layout title={t.title} category={t.category} componentName="Countdown" description={t.description}>
-    <div class="space-y-3">
-        <div class="flex items-center gap-3">
-            <h1 class="text-3xl font-bold tracking-tight">Countdown</h1>
-            <span class="cu-badge cu-badge-secondary">{t.category}</span>
-        </div>
-        <p class="text-base text-muted-foreground leading-relaxed" set:html={t.description} />
+  <div class="space-y-3">
+    <div class="flex items-center gap-3">
+      <h1 class="text-3xl font-bold tracking-tight">Countdown</h1>
+      <span class="cu-badge cu-badge-secondary">{t.category}</span>
     </div>
+    <p class="text-base text-muted-foreground leading-relaxed" set:html={t.description} />
+  </div>
 
-    <div class="mt-10 space-y-10">
-        <section class="space-y-3">
-            <SectionHeading id="usage" title={t.sections.usage.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
-            <ComponentPreview code={usageCode} />
-        </section>
+  <div class="mt-10 space-y-10">
+    <section class="space-y-3">
+      <SectionHeading id="usage" title={t.sections.usage.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
+      <ComponentPreview code={usageCode} />
+    </section>
 
-        <section class="space-y-3">
-            <SectionHeading id="classes" title={t.sections.classes.title} />
-            <div class="cu-table-wrapper rounded-lg border border-border">
-                <table class="cu-table">
-                    <thead class="cu-table-header">
-                        <tr class="cu-table-row">
-                            <th class="cu-table-head">{t.sections.classes.classLabel}</th>
-                            <th class="cu-table-head">{t.sections.classes.descriptionLabel}</th>
-                        </tr>
-                    </thead>
-                    <tbody class="cu-table-body">
-                        {Object.entries(t.classDescriptions).map(([cls, desc]) => (
-                            <tr class="cu-table-row">
-                                <td class="cu-table-cell"><code class="cu-code">{cls}</code></td>
-                                <td class="cu-table-cell text-muted-foreground">{desc}</td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
-            </div>
-        </section>
+    <section class="space-y-3">
+      <SectionHeading id="classes" title={t.sections.classes.title} />
+      <div class="cu-table-wrapper rounded-lg border border-border">
+        <table class="cu-table">
+          <thead class="cu-table-header">
+            <tr class="cu-table-row">
+              <th class="cu-table-head">{t.sections.classes.classLabel}</th>
+              <th class="cu-table-head">{t.sections.classes.descriptionLabel}</th>
+            </tr>
+          </thead>
+          <tbody class="cu-table-body">
+            {Object.entries(t.classDescriptions).map(([cls, desc]) => (
+              <tr class="cu-table-row">
+                <td class="cu-table-cell">
+                  <code class="cu-code">{cls}</code>
+                </td>
+                <td class="cu-table-cell text-muted-foreground">{desc}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
 
-        <section class="space-y-3">
-            <SectionHeading id="sizes" title={t.sections.sizes.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.sizes.description} />
-            <ComponentPreview code={sizesCode} />
-        </section>
+    <section class="space-y-3">
+      <SectionHeading id="sizes" title={t.sections.sizes.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.sizes.description} />
+      <ComponentPreview code={sizesCode} />
+    </section>
 
-        <section class="space-y-3">
-            <SectionHeading id="flush" title={t.sections.flush.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.flush.description} />
-            <ComponentPreview code={flushCode} />
-        </section>
+    <section class="space-y-3">
+      <SectionHeading id="flush" title={t.sections.flush.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.flush.description} />
+      <ComponentPreview code={flushCode} />
+    </section>
 
-        <section class="space-y-3">
-            <SectionHeading id="with-separator" title={t.sections.withSeparator.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withSeparator.description} />
-            <ComponentPreview code={withSeparatorCode} />
-        </section>
+    <section class="space-y-3">
+      <SectionHeading id="with-separator" title={t.sections.withSeparator.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withSeparator.description} />
+      <ComponentPreview code={withSeparatorCode} />
+    </section>
 
-        <section class="space-y-3">
-            <SectionHeading id="complete" title={t.sections.complete.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.complete.description} />
-            <ComponentPreview code={completeCode} />
-        </section>
-    </div>
+    <section class="space-y-3">
+      <SectionHeading id="complete" title={t.sections.complete.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.complete.description} />
+      <ComponentPreview code={completeCode} />
+    </section>
+  </div>
 </Layout>

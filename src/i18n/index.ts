@@ -1,19 +1,19 @@
-import { stripBase, withBase } from '@/utils/paths';
+import { stripBase, withBase } from "@/utils/paths";
 
-export type Locale = 'en' | 'zh-tw';
+export type Locale = "en" | "zh-tw";
 
-export const defaultLocale: Locale = 'en';
-export const locales: Locale[] = ['en', 'zh-tw'];
+export const defaultLocale: Locale = "en";
+export const locales: Locale[] = ["en", "zh-tw"];
 
 /**
  * 從 URL 路徑判斷語言
  */
 export function getLocaleFromUrl(url: URL): Locale {
   const pathname = stripBase(url.pathname);
-  if (pathname.startsWith('/zh-tw/') || pathname === '/zh-tw') {
-    return 'zh-tw';
+  if (pathname.startsWith("/zh-tw/") || pathname === "/zh-tw") {
+    return "zh-tw";
   }
-  return 'en';
+  return "en";
 }
 
 /**
@@ -21,8 +21,8 @@ export function getLocaleFromUrl(url: URL): Locale {
  */
 export function localizePath(path: string, locale: Locale): string {
   // 確保 path 以 / 開頭
-  const normalizedPath = path.startsWith('/') ? path : `/${path}`;
-  if (locale === 'en') {
+  const normalizedPath = path.startsWith("/") ? path : `/${path}`;
+  if (locale === "en") {
     return withBase(normalizedPath);
   }
   return withBase(`/zh-tw${normalizedPath}`);
@@ -38,21 +38,19 @@ export function getAlternatePath(currentPath: string, targetLocale: Locale): str
 
 function alternatePathWithoutBase(currentPath: string, targetLocale: Locale): string {
   // 移除尾端斜線（但保留根路徑）
-  const normalized = currentPath.length > 1 && currentPath.endsWith('/')
-    ? currentPath.slice(0, -1)
-    : currentPath;
+  const normalized = currentPath.length > 1 && currentPath.endsWith("/") ? currentPath.slice(0, -1) : currentPath;
 
-  if (targetLocale === 'en') {
+  if (targetLocale === "en") {
     // 移除 /zh-tw 前綴
-    if (normalized.startsWith('/zh-tw')) {
-      const rest = normalized.slice('/zh-tw'.length);
-      return rest || '/';
+    if (normalized.startsWith("/zh-tw")) {
+      const rest = normalized.slice("/zh-tw".length);
+      return rest || "/";
     }
     return normalized;
   }
 
   // 加上 /zh-tw 前綴
-  if (normalized.startsWith('/zh-tw')) {
+  if (normalized.startsWith("/zh-tw")) {
     return normalized; // 已經是 zh-tw 路徑
   }
   return `/zh-tw${normalized}`;

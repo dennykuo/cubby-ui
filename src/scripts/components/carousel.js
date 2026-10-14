@@ -13,7 +13,9 @@ export function setupCarousels() {
     var slides = /** @type {NodeListOf<HTMLElement>} */ (viewport.querySelectorAll("[data-cu-carousel-slide]"));
     if (!slides.length) return;
 
-    function getSlideWidth() { return slides[0].offsetWidth; }
+    function getSlideWidth() {
+      return slides[0].offsetWidth;
+    }
 
     function getCurrentIndex() {
       return Math.round(viewport.scrollLeft / getSlideWidth());
@@ -53,7 +55,9 @@ export function setupCarousels() {
     }
 
     dots.forEach(function (dot, i) {
-      dot.addEventListener("click", function () { scrollToIndex(i); });
+      dot.addEventListener("click", function () {
+        scrollToIndex(i);
+      });
     });
 
     var prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;

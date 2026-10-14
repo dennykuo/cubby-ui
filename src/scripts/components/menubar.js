@@ -25,7 +25,10 @@ import { track, restore } from "../core/registry.js";
  */
 export function setupMenubars() {
   document.querySelectorAll("[data-cu-menubar]").forEach(function (bar) {
-    if (bar._cuInit) { restore("menubars", bar); return; }
+    if (bar._cuInit) {
+      restore("menubars", bar);
+      return;
+    }
     bar._cuInit = true;
 
     var menus = bar.querySelectorAll("[data-cu-menubar-menu]");
@@ -51,9 +54,7 @@ export function setupMenubars() {
 
         // Hover to switch while one is open
         trigger.addEventListener("mouseenter", function () {
-          var anyOpen = bar.querySelector(
-            "[data-cu-menubar-content]:not([hidden])"
-          );
+          var anyOpen = bar.querySelector("[data-cu-menubar-content]:not([hidden])");
           if (anyOpen && anyOpen !== content) {
             menus.forEach(function (m) {
               var mc = m.querySelector("[data-cu-menubar-content]");

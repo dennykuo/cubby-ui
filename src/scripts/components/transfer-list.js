@@ -30,144 +30,129 @@ import { track, restore } from "../core/registry.js";
  * - `cu-transfer-list-item-checked`: toggled automatically based on checkbox state.
  */
 export function setupTransferLists() {
-  document
-    .querySelectorAll("[data-cu-transfer-list]")
-    .forEach(function (container) {
-      if (container._cuInit) { restore("transferLists", container); return; }
-      container._cuInit = true;
+  document.querySelectorAll("[data-cu-transfer-list]").forEach(function (container) {
+    if (container._cuInit) {
+      restore("transferLists", container);
+      return;
+    }
+    container._cuInit = true;
 
-      var leftPanel = container.querySelector(
-        '[data-cu-transfer-panel="left"]'
+    var leftPanel = container.querySelector('[data-cu-transfer-panel="left"]');
+    var rightPanel = container.querySelector('[data-cu-transfer-panel="right"]');
+    var toRight = /** @type {HTMLButtonElement} */ (container.querySelector("[data-cu-transfer-to-right]"));
+    var toLeft = /** @type {HTMLButtonElement} */ (container.querySelector("[data-cu-transfer-to-left]"));
+    if (!leftPanel || !rightPanel) return;
+
+    function getChecked(panel) {
+      return panel.querySelectorAll("[data-cu-transfer-check]:checked");
+    }
+
+    function getAllItems(panel) {
+      return panel.querySelectorAll(".cu-transfer-list-item");
+    }
+
+    function updateCount(panel) {
+      var side = panel.dataset.cuTransferPanel;
+      var all = getAllItems(panel);
+      var checked = getChecked(panel);
+      var countEl = container.querySelector('[data-cu-transfer-count="' + side + '"]');
+      if (countEl) countEl.textContent = checked.length + "/" + all.length;
+    }
+
+    function updateButtons() {
+      if (toRight) toRight.disabled = getChecked(leftPanel).length === 0;
+      if (toLeft) toLeft.disabled = getChecked(rightPanel).length === 0;
+    }
+
+    function updateCheckAll(panel) {
+      var side = panel.dataset.cuTransferPanel;
+      var all = getAllItems(panel);
+      var checked = getChecked(panel);
+      var checkAll = /** @type {HTMLInputElement} */ (
+        container.querySelector('[data-cu-transfer-check-all="' + side + '"]')
       );
-      var rightPanel = container.querySelector(
-        '[data-cu-transfer-panel="right"]'
-      );
-      var toRight = /** @type {HTMLButtonElement} */ (container.querySelector("[data-cu-transfer-to-right]"));
-      var toLeft = /** @type {HTMLButtonElement} */ (container.querySelector("[data-cu-transfer-to-left]"));
-      if (!leftPanel || !rightPanel) return;
-
-      function getChecked(panel) {
-        return panel.querySelectorAll("[data-cu-transfer-check]:checked");
+      if (checkAll) {
+        checkAll.checked = all.length > 0 && checked.length === all.length;
+        checkAll.indeterminate = checked.length > 0 && checked.length < all.length;
       }
+    }
 
-      function getAllItems(panel) {
-        return panel.querySelectorAll(".cu-transfer-list-item");
-      }
-
-      function updateCount(panel) {
-        var side = panel.dataset.cuTransferPanel;
-        var all = getAllItems(panel);
-        var checked = getChecked(panel);
-        var countEl = container.querySelector(
-          '[data-cu-transfer-count="' + side + '"]'
-        );
-        if (countEl)
-          countEl.textContent = checked.length + "/" + all.length;
-      }
-
-      function updateButtons() {
-        if (toRight) toRight.disabled = getChecked(leftPanel).length === 0;
-        if (toLeft) toLeft.disabled = getChecked(rightPanel).length === 0;
-      }
-
-      function updateCheckAll(panel) {
-        var side = panel.dataset.cuTransferPanel;
-        var all = getAllItems(panel);
-        var checked = getChecked(panel);
-        var checkAll = /** @type {HTMLInputElement} */ (container.querySelector(
-          '[data-cu-transfer-check-all="' + side + '"]'
-        ));
-        if (checkAll) {
-          checkAll.checked =
-            all.length > 0 && checked.length === all.length;
-          checkAll.indeterminate =
-            checked.length > 0 && checked.length < all.length;
+    function bindPanel(panel) {
+      panel.addEventListener("change", function (e) {
+        if (e.target.matches("[data-cu-transfer-check]")) {
+          var item = e.target.closest(".cu-transfer-list-item");
+          item && item.classList.toggle("cu-transfer-list-item-checked", e.target.checked);
+          updateCount(panel);
+          updateButtons();
+          updateCheckAll(panel);
         }
-      }
+      });
 
-      function bindPanel(panel) {
-        panel.addEventListener("change", function (e) {
-          if (e.target.matches("[data-cu-transfer-check]")) {
-            var item = e.target.closest(".cu-transfer-list-item");
-            item &&
-              item.classList.toggle(
-                "cu-transfer-list-item-checked",
-                e.target.checked
-              );
-            updateCount(panel);
-            updateButtons();
-            updateCheckAll(panel);
-          }
-        });
-
-        var side = panel.dataset.cuTransferPanel;
-        var checkAll = /** @type {HTMLInputElement} */ (container.querySelector(
-          '[data-cu-transfer-check-all="' + side + '"]'
-        ));
-        checkAll &&
-          checkAll.addEventListener("change", function () {
-            var items = getAllItems(panel);
-            items.forEach(function (item) {
-              var cb = /** @type {HTMLInputElement} */ (item.querySelector("[data-cu-transfer-check]"));
-              if (cb) {
-                cb.checked = checkAll.checked;
-                item.classList.toggle(
-                  "cu-transfer-list-item-checked",
-                  checkAll.checked
-                );
-              }
-            });
-            updateCount(panel);
-            updateButtons();
+      var side = panel.dataset.cuTransferPanel;
+      var checkAll = /** @type {HTMLInputElement} */ (
+        container.querySelector('[data-cu-transfer-check-all="' + side + '"]')
+      );
+      checkAll &&
+        checkAll.addEventListener("change", function () {
+          var items = getAllItems(panel);
+          items.forEach(function (item) {
+            var cb = /** @type {HTMLInputElement} */ (item.querySelector("[data-cu-transfer-check]"));
+            if (cb) {
+              cb.checked = checkAll.checked;
+              item.classList.toggle("cu-transfer-list-item-checked", checkAll.checked);
+            }
           });
+          updateCount(panel);
+          updateButtons();
+        });
 
-        // Search filtering
-        var searchInput = /** @type {HTMLInputElement} */ (container.querySelector(
-          '[data-cu-transfer-search="' + side + '"]'
-        ));
-        searchInput &&
-          searchInput.addEventListener("input", function () {
-            var query = searchInput.value.toLowerCase();
-            var items = getAllItems(panel);
-            items.forEach(function (item) {
-              var span = item.querySelector("span");
-              var text = (span ? span.textContent : "").toLowerCase();
-              item.toggleAttribute("hidden", !text.includes(query));
-            });
+      // Search filtering
+      var searchInput = /** @type {HTMLInputElement} */ (
+        container.querySelector('[data-cu-transfer-search="' + side + '"]')
+      );
+      searchInput &&
+        searchInput.addEventListener("input", function () {
+          var query = searchInput.value.toLowerCase();
+          var items = getAllItems(panel);
+          items.forEach(function (item) {
+            var span = item.querySelector("span");
+            var text = (span ? span.textContent : "").toLowerCase();
+            item.toggleAttribute("hidden", !text.includes(query));
           });
-      }
-
-      function moveItems(fromPanel, toPanel) {
-        var checked = getChecked(fromPanel);
-        var content = toPanel.querySelector(".cu-transfer-list-content");
-        checked.forEach(function (cb) {
-          var item = cb.closest(".cu-transfer-list-item");
-          cb.checked = false;
-          item && item.classList.remove("cu-transfer-list-item-checked");
-          item && item.removeAttribute("hidden");
-          content && item && content.appendChild(item);
         });
-        updateCount(fromPanel);
-        updateCount(toPanel);
-        updateButtons();
-        updateCheckAll(fromPanel);
-        updateCheckAll(toPanel);
-      }
+    }
 
-      toRight &&
-        toRight.addEventListener("click", function () {
-          moveItems(leftPanel, rightPanel);
-        });
-      toLeft &&
-        toLeft.addEventListener("click", function () {
-          moveItems(rightPanel, leftPanel);
-        });
+    function moveItems(fromPanel, toPanel) {
+      var checked = getChecked(fromPanel);
+      var content = toPanel.querySelector(".cu-transfer-list-content");
+      checked.forEach(function (cb) {
+        var item = cb.closest(".cu-transfer-list-item");
+        cb.checked = false;
+        item && item.classList.remove("cu-transfer-list-item-checked");
+        item && item.removeAttribute("hidden");
+        content && item && content.appendChild(item);
+      });
+      updateCount(fromPanel);
+      updateCount(toPanel);
+      updateButtons();
+      updateCheckAll(fromPanel);
+      updateCheckAll(toPanel);
+    }
 
-      bindPanel(leftPanel);
-      bindPanel(rightPanel);
-      updateCount(leftPanel);
-      updateCount(rightPanel);
+    toRight &&
+      toRight.addEventListener("click", function () {
+        moveItems(leftPanel, rightPanel);
+      });
+    toLeft &&
+      toLeft.addEventListener("click", function () {
+        moveItems(rightPanel, leftPanel);
+      });
 
-      track("transferLists", { el: container });
-    });
+    bindPanel(leftPanel);
+    bindPanel(rightPanel);
+    updateCount(leftPanel);
+    updateCount(rightPanel);
+
+    track("transferLists", { el: container });
+  });
 }

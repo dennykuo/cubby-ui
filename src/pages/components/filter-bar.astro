@@ -122,196 +122,330 @@ const withChipsCode = `<div class="cu-filter-bar">
 ---
 
 <Layout title={t.title} category={t.category} componentName="Filter Bar" description={t.description}>
-    <div class="space-y-3">
-        <div class="flex items-center gap-3">
-            <h1 class="text-3xl font-bold tracking-tight">Filter Bar</h1>
-            <span class="cu-badge cu-badge-secondary">{t.category}</span>
-        </div>
-        <p class="text-base text-muted-foreground leading-relaxed">
-            {t.description}
-        </p>
+  <div class="space-y-3">
+    <div class="flex items-center gap-3">
+      <h1 class="text-3xl font-bold tracking-tight">Filter Bar</h1>
+      <span class="cu-badge cu-badge-secondary">{t.category}</span>
     </div>
+    <p class="text-base text-muted-foreground leading-relaxed">{t.description}</p>
+  </div>
 
-    <div class="mt-10 space-y-10">
-        <!-- Usage -->
-        <section class="space-y-3">
-            <SectionHeading id="usage" title={t.sections.usage.title} />
-            <p class="text-base text-muted-foreground leading-relaxed">
-                {t.sections.usage.description}
-            </p>
-            <ComponentPreview code={usageCode}>
-                <div class="w-full max-w-3xl">
-                    <div class="cu-filter-bar">
-                        <div class="cu-filter-bar-inner">
-                            <div class="cu-filter-bar-search">
-                                <div class="cu-input-search">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="cu-input-search-icon">
-                                        <circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>
-                                    </svg>
-                                    <input type="text" placeholder="Search..." class="cu-input-search-field" />
-                                </div>
-                            </div>
-                            <div class="cu-filter-bar-filters">
-                                <div class="cu-select-wrapper">
-                                    <select class="cu-select">
-                                        <option value="">All Status</option>
-                                        <option value="active">Active</option>
-                                        <option value="inactive">Inactive</option>
-                                    </select>
-                                    <svg class="cu-select-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
-                                </div>
-                                <div class="cu-select-wrapper">
-                                    <select class="cu-select">
-                                        <option value="">All Categories</option>
-                                        <option value="electronics">Electronics</option>
-                                        <option value="clothing">Clothing</option>
-                                    </select>
-                                    <svg class="cu-select-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+  <div class="mt-10 space-y-10">
+    <!-- Usage -->
+    <section class="space-y-3">
+      <SectionHeading id="usage" title={t.sections.usage.title} />
+      <p class="text-base text-muted-foreground leading-relaxed">{t.sections.usage.description}</p>
+      <ComponentPreview code={usageCode}>
+        <div class="w-full max-w-3xl">
+          <div class="cu-filter-bar">
+            <div class="cu-filter-bar-inner">
+              <div class="cu-filter-bar-search">
+                <div class="cu-input-search">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="cu-input-search-icon"
+                  >
+                    <circle cx="11" cy="11" r="8" />
+                    <path d="m21 21-4.3-4.3" />
+                  </svg>
+                  <input type="text" placeholder="Search..." class="cu-input-search-field" />
                 </div>
-            </ComponentPreview>
-        </section>
-
-        <!-- Classes Reference -->
-        <section class="space-y-3">
-            <SectionHeading id="classes" title={t.sections.classes.title} />
-            <div class="cu-table-wrapper rounded-lg border border-border">
-                <table class="cu-table">
-                    <thead class="cu-table-header">
-                        <tr class="cu-table-row">
-                            <th class="cu-table-head">{t.sections.classes.classLabel}</th>
-                            <th class="cu-table-head">{t.sections.classes.descriptionLabel}</th>
-                        </tr>
-                    </thead>
-                    <tbody class="cu-table-body">
-                        {Object.entries(t.classDescriptions).map(([cls, desc]) => (
-                            <tr class="cu-table-row">
-                                <td class="cu-table-cell"><code class="cu-code">{cls}</code></td>
-                                <td class="cu-table-cell text-muted-foreground">{desc}</td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
+              </div>
+              <div class="cu-filter-bar-filters">
+                <div class="cu-select-wrapper">
+                  <select class="cu-select">
+                    <option value="">All Status</option>
+                    <option value="active">Active</option>
+                    <option value="inactive">Inactive</option>
+                  </select>
+                  <svg
+                    class="cu-select-icon"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path d="m6 9 6 6 6-6" />
+                  </svg>
+                </div>
+                <div class="cu-select-wrapper">
+                  <select class="cu-select">
+                    <option value="">All Categories</option>
+                    <option value="electronics">Electronics</option>
+                    <option value="clothing">Clothing</option>
+                  </select>
+                  <svg
+                    class="cu-select-icon"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path d="m6 9 6 6 6-6" />
+                  </svg>
+                </div>
+              </div>
             </div>
-        </section>
+          </div>
+        </div>
+      </ComponentPreview>
+    </section>
 
+    <!-- Classes Reference -->
+    <section class="space-y-3">
+      <SectionHeading id="classes" title={t.sections.classes.title} />
+      <div class="cu-table-wrapper rounded-lg border border-border">
+        <table class="cu-table">
+          <thead class="cu-table-header">
+            <tr class="cu-table-row">
+              <th class="cu-table-head">{t.sections.classes.classLabel}</th>
+              <th class="cu-table-head">{t.sections.classes.descriptionLabel}</th>
+            </tr>
+          </thead>
+          <tbody class="cu-table-body">
+            {Object.entries(t.classDescriptions).map(([cls, desc]) => (
+              <tr class="cu-table-row">
+                <td class="cu-table-cell">
+                  <code class="cu-code">{cls}</code>
+                </td>
+                <td class="cu-table-cell text-muted-foreground">{desc}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
 
-        <!-- Simple Search -->
-        <section class="space-y-3">
-            <SectionHeading id="simple" title={t.sections.simple.title} />
-            <p class="text-base text-muted-foreground leading-relaxed">
-                {t.sections.simple.description}
-            </p>
-            <ComponentPreview code={simpleCode}>
-                <div class="w-full max-w-3xl">
-                    <div class="cu-filter-bar">
-                        <div class="cu-filter-bar-inner">
-                            <div class="cu-filter-bar-search">
-                                <div class="cu-input-search">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="cu-input-search-icon">
-                                        <circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>
-                                    </svg>
-                                    <input type="text" placeholder="Search customers..." class="cu-input-search-field" />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+    <!-- Simple Search -->
+    <section class="space-y-3">
+      <SectionHeading id="simple" title={t.sections.simple.title} />
+      <p class="text-base text-muted-foreground leading-relaxed">{t.sections.simple.description}</p>
+      <ComponentPreview code={simpleCode}>
+        <div class="w-full max-w-3xl">
+          <div class="cu-filter-bar">
+            <div class="cu-filter-bar-inner">
+              <div class="cu-filter-bar-search">
+                <div class="cu-input-search">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="cu-input-search-icon"
+                  >
+                    <circle cx="11" cy="11" r="8" />
+                    <path d="m21 21-4.3-4.3" />
+                  </svg>
+                  <input type="text" placeholder="Search customers..." class="cu-input-search-field" />
                 </div>
-            </ComponentPreview>
-        </section>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ComponentPreview>
+    </section>
 
-        <!-- With Date Range -->
-        <section class="space-y-3">
-            <SectionHeading id="with-date" title={t.sections.withDate.title} />
-            <p class="text-base text-muted-foreground leading-relaxed">
-                {t.sections.withDate.description}
-            </p>
-            <ComponentPreview code={withDateCode}>
-                <div class="w-full max-w-3xl">
-                    <div class="cu-filter-bar">
-                        <div class="cu-filter-bar-inner">
-                            <div class="cu-filter-bar-search">
-                                <div class="cu-input-search">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="cu-input-search-icon">
-                                        <circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>
-                                    </svg>
-                                    <input type="text" placeholder="Search orders..." class="cu-input-search-field" />
-                                </div>
-                            </div>
-                            <div class="cu-filter-bar-filters">
-                                <div class="flex items-center gap-2 px-3 h-9 bg-background border border-input rounded-lg">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-muted-foreground">
-                                        <rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/>
-                                    </svg>
-                                    <span class="text-sm">2026/02/01 - 2026/02/03</span>
-                                </div>
-                                <div class="cu-select-wrapper">
-                                    <select class="cu-select">
-                                        <option value="">All Status</option>
-                                        <option value="pending">Pending</option>
-                                        <option value="completed">Completed</option>
-                                    </select>
-                                    <svg class="cu-select-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+    <!-- With Date Range -->
+    <section class="space-y-3">
+      <SectionHeading id="with-date" title={t.sections.withDate.title} />
+      <p class="text-base text-muted-foreground leading-relaxed">{t.sections.withDate.description}</p>
+      <ComponentPreview code={withDateCode}>
+        <div class="w-full max-w-3xl">
+          <div class="cu-filter-bar">
+            <div class="cu-filter-bar-inner">
+              <div class="cu-filter-bar-search">
+                <div class="cu-input-search">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="cu-input-search-icon"
+                  >
+                    <circle cx="11" cy="11" r="8" />
+                    <path d="m21 21-4.3-4.3" />
+                  </svg>
+                  <input type="text" placeholder="Search orders..." class="cu-input-search-field" />
                 </div>
-            </ComponentPreview>
-        </section>
-
-        <!-- With Active Chips -->
-        <section class="space-y-3">
-            <SectionHeading id="with-chips" title={t.sections.withChips.title} />
-            <p class="text-base text-muted-foreground leading-relaxed">
-                {t.sections.withChips.description}
-            </p>
-            <ComponentPreview code={withChipsCode}>
-                <div class="w-full max-w-3xl">
-                    <div class="cu-filter-bar">
-                        <div class="cu-filter-bar-inner">
-                            <div class="cu-filter-bar-search">
-                                <div class="cu-input-search">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="cu-input-search-icon">
-                                        <circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>
-                                    </svg>
-                                    <input type="text" placeholder="Search..." class="cu-input-search-field" />
-                                </div>
-                            </div>
-                            <div class="cu-filter-bar-filters">
-                                <div class="cu-select-wrapper">
-                                    <select class="cu-select">
-                                        <option value="">All Status</option>
-                                        <option value="active" selected>Active</option>
-                                        <option value="inactive">Inactive</option>
-                                    </select>
-                                    <svg class="cu-select-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="flex flex-wrap items-center gap-2 mt-3">
-                            <span class="cu-badge cu-badge-secondary inline-flex items-center gap-1">
-                                Status: Active
-                                <button class="hover:text-foreground" aria-label="Remove filter">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
-                                </button>
-                            </span>
-                            <span class="cu-badge cu-badge-secondary inline-flex items-center gap-1">
-                                Category: Electronics
-                                <button class="hover:text-foreground" aria-label="Remove filter">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
-                                </button>
-                            </span>
-                            <button class="text-xs text-muted-foreground hover:text-foreground transition-colors duration-150">Clear all</button>
-                            <span class="ml-auto text-sm text-muted-foreground">12 results</span>
-                        </div>
-                    </div>
+              </div>
+              <div class="cu-filter-bar-filters">
+                <div class="flex items-center gap-2 px-3 h-9 bg-background border border-input rounded-lg">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="text-muted-foreground"
+                  >
+                    <rect width="18" height="18" x="3" y="4" rx="2" ry="2" />
+                    <line x1="16" x2="16" y1="2" y2="6" />
+                    <line x1="8" x2="8" y1="2" y2="6" />
+                    <line x1="3" x2="21" y1="10" y2="10" />
+                  </svg>
+                  <span class="text-sm">2026/02/01 - 2026/02/03</span>
                 </div>
-            </ComponentPreview>
-        </section>
+                <div class="cu-select-wrapper">
+                  <select class="cu-select">
+                    <option value="">All Status</option>
+                    <option value="pending">Pending</option>
+                    <option value="completed">Completed</option>
+                  </select>
+                  <svg
+                    class="cu-select-icon"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path d="m6 9 6 6 6-6" />
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ComponentPreview>
+    </section>
 
-    </div>
+    <!-- With Active Chips -->
+    <section class="space-y-3">
+      <SectionHeading id="with-chips" title={t.sections.withChips.title} />
+      <p class="text-base text-muted-foreground leading-relaxed">{t.sections.withChips.description}</p>
+      <ComponentPreview code={withChipsCode}>
+        <div class="w-full max-w-3xl">
+          <div class="cu-filter-bar">
+            <div class="cu-filter-bar-inner">
+              <div class="cu-filter-bar-search">
+                <div class="cu-input-search">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="cu-input-search-icon"
+                  >
+                    <circle cx="11" cy="11" r="8" />
+                    <path d="m21 21-4.3-4.3" />
+                  </svg>
+                  <input type="text" placeholder="Search..." class="cu-input-search-field" />
+                </div>
+              </div>
+              <div class="cu-filter-bar-filters">
+                <div class="cu-select-wrapper">
+                  <select class="cu-select">
+                    <option value="">All Status</option>
+                    <option value="active" selected>
+                      Active
+                    </option>
+                    <option value="inactive">Inactive</option>
+                  </select>
+                  <svg
+                    class="cu-select-icon"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path d="m6 9 6 6 6-6" />
+                  </svg>
+                </div>
+              </div>
+            </div>
+            <div class="flex flex-wrap items-center gap-2 mt-3">
+              <span class="cu-badge cu-badge-secondary inline-flex items-center gap-1">
+                Status: Active
+                <button class="hover:text-foreground" aria-label="Remove filter">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="12"
+                    height="12"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path d="M18 6 6 18" />
+                    <path d="m6 6 12 12" />
+                  </svg>
+                </button>
+              </span>
+              <span class="cu-badge cu-badge-secondary inline-flex items-center gap-1">
+                Category: Electronics
+                <button class="hover:text-foreground" aria-label="Remove filter">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="12"
+                    height="12"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path d="M18 6 6 18" />
+                    <path d="m6 6 12 12" />
+                  </svg>
+                </button>
+              </span>
+              <button class="text-xs text-muted-foreground hover:text-foreground transition-colors duration-150">
+                Clear all
+              </button>
+              <span class="ml-auto text-sm text-muted-foreground">12 results</span>
+            </div>
+          </div>
+        </div>
+      </ComponentPreview>
+    </section>
+  </div>
 </Layout>

@@ -83,161 +83,178 @@ const listSkeletonCode = `<div class="space-y-4">
     </div>
   </div>
 </div>`.trim();
-
 ---
 
 <Layout title={t.title} category={t.category} componentName="Skeleton" description={t.description}>
-    <div class="space-y-3">
-        <div class="flex items-center gap-3">
-            <h1 class="text-3xl font-bold tracking-tight">Skeleton</h1>
-            <span class="cu-badge cu-badge-secondary">{t.category}</span>
+  <div class="space-y-3">
+    <div class="flex items-center gap-3">
+      <h1 class="text-3xl font-bold tracking-tight">Skeleton</h1>
+      <span class="cu-badge cu-badge-secondary">{t.category}</span>
+    </div>
+    <p class="text-base text-muted-foreground leading-relaxed">{t.description}</p>
+  </div>
+
+  <div class="mt-10 space-y-10">
+    <!-- Usage -->
+    <section class="space-y-3">
+      <SectionHeading id="usage" title={t.sections.usage.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
+      <ComponentPreview code={usageCode}>
+        <Skeleton class="h-4 w-[250px]" />
+      </ComponentPreview>
+    </section>
+
+    <!-- Classes Reference -->
+    <section class="space-y-3">
+      <SectionHeading id="classes" title={t.sections.classes.title} />
+      <div class="cu-table-wrapper rounded-lg border border-border">
+        <table class="cu-table">
+          <thead class="cu-table-header">
+            <tr class="cu-table-row">
+              <th class="cu-table-head">{t.sections.classes.classLabel}</th>
+              <th class="cu-table-head">{t.sections.classes.descriptionLabel}</th>
+            </tr>
+          </thead>
+          <tbody class="cu-table-body">
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-skeleton</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-skeleton"]}</td>
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-skeleton-shimmer</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-skeleton-shimmer"]}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Shimmer -->
+    <section class="space-y-3">
+      <SectionHeading id="shimmer" title={t.sections.shimmer.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.shimmer.description} />
+      <ComponentPreview code={shimmerCode}>
+        <div class="space-y-3 w-full max-w-md">
+          <div class="cu-skeleton-shimmer h-5 w-2/5"></div>
+          <div class="cu-skeleton-shimmer h-4 w-full"></div>
+          <div class="cu-skeleton-shimmer h-4 w-full"></div>
+          <div class="cu-skeleton-shimmer h-4 w-4/5"></div>
         </div>
-        <p class="text-base text-muted-foreground leading-relaxed">
-            {t.description}
-        </p>
-    </div>
+      </ComponentPreview>
+    </section>
 
-    <div class="mt-10 space-y-10">
-        <!-- Usage -->
-        <section class="space-y-3">
-            <SectionHeading id="usage" title={t.sections.usage.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
-            <ComponentPreview code={usageCode}>
-                <Skeleton class="h-4 w-[250px]" />
-            </ComponentPreview>
-        </section>
+    <!-- Card Skeleton -->
+    <section class="space-y-3">
+      <SectionHeading id="card-skeleton" title={t.sections.cardSkeleton.title} />
+      <p class="text-base text-muted-foreground leading-relaxed">{t.sections.cardSkeleton.description}</p>
+      <ComponentPreview code={cardSkeletonCode}>
+        <div class="flex items-center space-x-4">
+          <Skeleton class="h-12 w-12 rounded-full" />
+          <div class="space-y-2">
+            <Skeleton class="h-4 w-[250px]" />
+            <Skeleton class="h-4 w-[200px]" />
+          </div>
+        </div>
+      </ComponentPreview>
+    </section>
 
-        <!-- Classes Reference -->
-        <section class="space-y-3">
-            <SectionHeading id="classes" title={t.sections.classes.title} />
-            <div class="cu-table-wrapper rounded-lg border border-border">
-                <table class="cu-table">
-                    <thead class="cu-table-header">
-                        <tr class="cu-table-row">
-                            <th class="cu-table-head">{t.sections.classes.classLabel}</th>
-                            <th class="cu-table-head">{t.sections.classes.descriptionLabel}</th>
-                        </tr>
-                    </thead>
-                    <tbody class="cu-table-body">
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-skeleton</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-skeleton']}</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-skeleton-shimmer</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-skeleton-shimmer']}</td>
-                        </tr>
-                    </tbody>
-                </table>
+    <!-- Table Skeleton -->
+    <section class="space-y-3">
+      <SectionHeading id="table-skeleton" title={t.sections.tableSkeleton.title} />
+      <p class="text-base text-muted-foreground leading-relaxed">{t.sections.tableSkeleton.description}</p>
+      <ComponentPreview code={tableSkeletonCode}>
+        <div class="cu-card">
+          <div class="cu-card-content cu-card-content-flush">
+            <div class="cu-table-wrapper">
+              <table class="cu-table">
+                <thead class="cu-table-header">
+                  <tr class="cu-table-row">
+                    <th class="cu-table-head w-[40%]">
+                      <div class="cu-skeleton cu-skeleton-text w-16"></div>
+                    </th>
+                    <th class="cu-table-head w-[30%]">
+                      <div class="cu-skeleton cu-skeleton-text w-12"></div>
+                    </th>
+                    <th class="cu-table-head w-[30%]">
+                      <div class="cu-skeleton cu-skeleton-text w-14"></div>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody class="cu-table-body">
+                  <tr class="cu-table-row">
+                    <td class="cu-table-cell">
+                      <div class="cu-skeleton cu-skeleton-text w-32"></div>
+                    </td>
+                    <td class="cu-table-cell">
+                      <div class="cu-skeleton cu-skeleton-text w-20"></div>
+                    </td>
+                    <td class="cu-table-cell">
+                      <div class="cu-skeleton cu-skeleton-text w-16"></div>
+                    </td>
+                  </tr>
+                  <tr class="cu-table-row">
+                    <td class="cu-table-cell">
+                      <div class="cu-skeleton cu-skeleton-text w-28"></div>
+                    </td>
+                    <td class="cu-table-cell">
+                      <div class="cu-skeleton cu-skeleton-text w-24"></div>
+                    </td>
+                    <td class="cu-table-cell">
+                      <div class="cu-skeleton cu-skeleton-text w-16"></div>
+                    </td>
+                  </tr>
+                  <tr class="cu-table-row">
+                    <td class="cu-table-cell">
+                      <div class="cu-skeleton cu-skeleton-text w-36"></div>
+                    </td>
+                    <td class="cu-table-cell">
+                      <div class="cu-skeleton cu-skeleton-text w-20"></div>
+                    </td>
+                    <td class="cu-table-cell">
+                      <div class="cu-skeleton cu-skeleton-text w-16"></div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
-        </section>
+          </div>
+        </div>
+      </ComponentPreview>
+    </section>
 
-
-        <!-- Shimmer -->
-        <section class="space-y-3">
-            <SectionHeading id="shimmer" title={t.sections.shimmer.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.shimmer.description} />
-            <ComponentPreview code={shimmerCode}>
-                <div class="space-y-3 w-full max-w-md">
-                    <div class="cu-skeleton-shimmer h-5 w-2/5"></div>
-                    <div class="cu-skeleton-shimmer h-4 w-full"></div>
-                    <div class="cu-skeleton-shimmer h-4 w-full"></div>
-                    <div class="cu-skeleton-shimmer h-4 w-4/5"></div>
-                </div>
-            </ComponentPreview>
-        </section>
-
-        <!-- Card Skeleton -->
-        <section class="space-y-3">
-            <SectionHeading id="card-skeleton" title={t.sections.cardSkeleton.title} />
-            <p class="text-base text-muted-foreground leading-relaxed">
-                {t.sections.cardSkeleton.description}
-            </p>
-            <ComponentPreview code={cardSkeletonCode}>
-                <div class="flex items-center space-x-4">
-                    <Skeleton class="h-12 w-12 rounded-full" />
-                    <div class="space-y-2">
-                        <Skeleton class="h-4 w-[250px]" />
-                        <Skeleton class="h-4 w-[200px]" />
-                    </div>
-                </div>
-            </ComponentPreview>
-        </section>
-
-        <!-- Table Skeleton -->
-        <section class="space-y-3">
-            <SectionHeading id="table-skeleton" title={t.sections.tableSkeleton.title} />
-            <p class="text-base text-muted-foreground leading-relaxed">
-                {t.sections.tableSkeleton.description}
-            </p>
-            <ComponentPreview code={tableSkeletonCode}>
-                <div class="cu-card">
-                    <div class="cu-card-content cu-card-content-flush">
-                        <div class="cu-table-wrapper">
-                            <table class="cu-table">
-                                <thead class="cu-table-header">
-                                    <tr class="cu-table-row">
-                                        <th class="cu-table-head w-[40%]"><div class="cu-skeleton cu-skeleton-text w-16"></div></th>
-                                        <th class="cu-table-head w-[30%]"><div class="cu-skeleton cu-skeleton-text w-12"></div></th>
-                                        <th class="cu-table-head w-[30%]"><div class="cu-skeleton cu-skeleton-text w-14"></div></th>
-                                    </tr>
-                                </thead>
-                                <tbody class="cu-table-body">
-                                    <tr class="cu-table-row">
-                                        <td class="cu-table-cell"><div class="cu-skeleton cu-skeleton-text w-32"></div></td>
-                                        <td class="cu-table-cell"><div class="cu-skeleton cu-skeleton-text w-20"></div></td>
-                                        <td class="cu-table-cell"><div class="cu-skeleton cu-skeleton-text w-16"></div></td>
-                                    </tr>
-                                    <tr class="cu-table-row">
-                                        <td class="cu-table-cell"><div class="cu-skeleton cu-skeleton-text w-28"></div></td>
-                                        <td class="cu-table-cell"><div class="cu-skeleton cu-skeleton-text w-24"></div></td>
-                                        <td class="cu-table-cell"><div class="cu-skeleton cu-skeleton-text w-16"></div></td>
-                                    </tr>
-                                    <tr class="cu-table-row">
-                                        <td class="cu-table-cell"><div class="cu-skeleton cu-skeleton-text w-36"></div></td>
-                                        <td class="cu-table-cell"><div class="cu-skeleton cu-skeleton-text w-20"></div></td>
-                                        <td class="cu-table-cell"><div class="cu-skeleton cu-skeleton-text w-16"></div></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </ComponentPreview>
-        </section>
-
-        <!-- List Skeleton -->
-        <section class="space-y-3">
-            <SectionHeading id="list-skeleton" title={t.sections.listSkeleton.title} />
-            <p class="text-base text-muted-foreground leading-relaxed">
-                {t.sections.listSkeleton.description}
-            </p>
-            <ComponentPreview code={listSkeletonCode}>
-                <div class="space-y-4">
-                    <div class="flex items-center gap-3">
-                        <div class="cu-skeleton cu-skeleton-circle size-10"></div>
-                        <div class="flex-1 space-y-2">
-                            <div class="cu-skeleton cu-skeleton-text w-32"></div>
-                            <div class="cu-skeleton cu-skeleton-text w-48"></div>
-                        </div>
-                    </div>
-                    <div class="flex items-center gap-3">
-                        <div class="cu-skeleton cu-skeleton-circle size-10"></div>
-                        <div class="flex-1 space-y-2">
-                            <div class="cu-skeleton cu-skeleton-text w-28"></div>
-                            <div class="cu-skeleton cu-skeleton-text w-40"></div>
-                        </div>
-                    </div>
-                    <div class="flex items-center gap-3">
-                        <div class="cu-skeleton cu-skeleton-circle size-10"></div>
-                        <div class="flex-1 space-y-2">
-                            <div class="cu-skeleton cu-skeleton-text w-36"></div>
-                            <div class="cu-skeleton cu-skeleton-text w-44"></div>
-                        </div>
-                    </div>
-                </div>
-            </ComponentPreview>
-        </section>
-
-    </div>
+    <!-- List Skeleton -->
+    <section class="space-y-3">
+      <SectionHeading id="list-skeleton" title={t.sections.listSkeleton.title} />
+      <p class="text-base text-muted-foreground leading-relaxed">{t.sections.listSkeleton.description}</p>
+      <ComponentPreview code={listSkeletonCode}>
+        <div class="space-y-4">
+          <div class="flex items-center gap-3">
+            <div class="cu-skeleton cu-skeleton-circle size-10"></div>
+            <div class="flex-1 space-y-2">
+              <div class="cu-skeleton cu-skeleton-text w-32"></div>
+              <div class="cu-skeleton cu-skeleton-text w-48"></div>
+            </div>
+          </div>
+          <div class="flex items-center gap-3">
+            <div class="cu-skeleton cu-skeleton-circle size-10"></div>
+            <div class="flex-1 space-y-2">
+              <div class="cu-skeleton cu-skeleton-text w-28"></div>
+              <div class="cu-skeleton cu-skeleton-text w-40"></div>
+            </div>
+          </div>
+          <div class="flex items-center gap-3">
+            <div class="cu-skeleton cu-skeleton-circle size-10"></div>
+            <div class="flex-1 space-y-2">
+              <div class="cu-skeleton cu-skeleton-text w-36"></div>
+              <div class="cu-skeleton cu-skeleton-text w-44"></div>
+            </div>
+          </div>
+        </div>
+      </ComponentPreview>
+    </section>
+  </div>
 </Layout>

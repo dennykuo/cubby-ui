@@ -3,7 +3,10 @@ import { track, restore } from "../core/registry.js";
 // ── Context Menu ──────────────────────────────────────────────
 export function setupContextMenus() {
   document.querySelectorAll("[data-cu-context-menu]").forEach(function (/** @type {HTMLElement} */ container) {
-    if (container._cuInit) { restore("contextMenus", container); return; }
+    if (container._cuInit) {
+      restore("contextMenus", container);
+      return;
+    }
     container._cuInit = true;
 
     var content = /** @type {HTMLElement} */ (container.querySelector("[data-cu-context-menu-content]"));

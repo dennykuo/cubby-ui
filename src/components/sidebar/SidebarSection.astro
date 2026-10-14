@@ -1,14 +1,12 @@
 ---
 interface Props {
-	title: string;
+  title: string;
 }
 
 const { title } = Astro.props;
 ---
 
 <div>
-	<h4 class="cu-sidebar-section-title">
-		{title}
-	</h4>
-	<slot />
+  <h4 class="cu-sidebar-section-title">{title}</h4>
+  <slot />
 </div>

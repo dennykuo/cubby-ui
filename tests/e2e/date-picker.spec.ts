@@ -119,9 +119,9 @@ test.describe("Date Picker", () => {
     await expect(dp.input).toHaveValue("2026-03-20");
     await expect(dp.trigger).toBeFocused();
     expect(await changes(page)).toEqual([{ id: "dp-basic", value: "2026-03-20" }]);
-    expect(await page.evaluate(() => new FormData(document.getElementById("form") as HTMLFormElement).get("date"))).toBe(
-      "2026-03-20",
-    );
+    expect(
+      await page.evaluate(() => new FormData(document.getElementById("form") as HTMLFormElement).get("date")),
+    ).toBe("2026-03-20");
     // 在 <form> 內點選日期、切換月份都不應送出表單
     expect(await page.evaluate(() => (window as any).__submits)).toBeUndefined();
 
@@ -391,7 +391,9 @@ test.describe("Date Picker", () => {
     expect(await changes(page)).toHaveLength(1);
   });
 
-  test("APG Date Picker Dialog：trigger 帶 aria-haspopup / aria-expanded / aria-controls，面板為以月份命名的 dialog", async ({ page }) => {
+  test("APG Date Picker Dialog：trigger 帶 aria-haspopup / aria-expanded / aria-controls，面板為以月份命名的 dialog", async ({
+    page,
+  }) => {
     await open(page);
     const dp = picker(page, "dp-basic");
     await expect(dp.trigger).toHaveAttribute("aria-haspopup", "dialog");

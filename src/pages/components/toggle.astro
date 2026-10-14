@@ -76,121 +76,132 @@ const disabledCode = `<label class="cu-toggle-wrapper">
 ---
 
 <Layout category={t.category} componentName="Toggle" title={t.title} description={t.description}>
-    <div class="space-y-3">
-        <div class="flex items-center gap-3">
-          <h1 class="text-3xl font-bold tracking-tight">Toggle</h1>
-          <span class="cu-badge cu-badge-secondary">{t.category}</span>
+  <div class="space-y-3">
+    <div class="flex items-center gap-3">
+      <h1 class="text-3xl font-bold tracking-tight">Toggle</h1>
+      <span class="cu-badge cu-badge-secondary">{t.category}</span>
+    </div>
+    <p class="text-base text-muted-foreground leading-relaxed" set:html={t.description} />
+  </div>
+
+  <div class="mt-10 space-y-10">
+    <!-- Usage -->
+    <section class="space-y-3">
+      <SectionHeading id="usage" title={t.sections.usage.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
+      <ComponentPreview code={usageCode}>
+        <Toggle />
+      </ComponentPreview>
+    </section>
+
+    <!-- Classes Reference -->
+    <section class="space-y-3">
+      <SectionHeading id="classes" title={t.sections.classes.title} />
+      <div class="cu-table-wrapper rounded-lg border border-border">
+        <table class="cu-table">
+          <thead class="cu-table-header">
+            <tr class="cu-table-row">
+              <th class="cu-table-head">{t.sections.classes.classLabel}</th>
+              <th class="cu-table-head">{t.sections.classes.descriptionLabel}</th>
+            </tr>
+          </thead>
+          <tbody class="cu-table-body">
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-toggle-wrapper</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-toggle-wrapper"]}</td>
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-toggle-input</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-toggle-input"]}</td>
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-toggle</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-toggle"]}</td>
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-toggle-sm</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-toggle-sm"]}</td>
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-toggle-lg</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-toggle-lg"]}</td>
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-toggle-thumb</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-toggle-thumb"]}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- With Label -->
+    <section class="space-y-3">
+      <SectionHeading id="with-label" title={t.sections.withLabel.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withLabel.description} />
+      <ComponentPreview code={withLabelCode}>
+        <Toggle>
+          <span class="cu-label">Airplane Mode</span>
+        </Toggle>
+      </ComponentPreview>
+    </section>
+
+    <!-- Sizes -->
+    <section class="space-y-3">
+      <SectionHeading id="sizes" title={t.sections.sizes.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.sizes.description} />
+      <ComponentPreview code={sizesCode}>
+        <div class="flex flex-col gap-4">
+          <Toggle size="sm" checked>
+            <span class="cu-label">Small</span>
+          </Toggle>
+          <Toggle checked>
+            <span class="cu-label">Default</span>
+          </Toggle>
+          <Toggle size="lg" checked>
+            <span class="cu-label">Large</span>
+          </Toggle>
         </div>
-        <p class="text-base text-muted-foreground leading-relaxed" set:html={t.description} />
-    </div>
+      </ComponentPreview>
+    </section>
 
-    <div class="mt-10 space-y-10">
-        <!-- Usage -->
-        <section class="space-y-3">
-            <SectionHeading id="usage" title={t.sections.usage.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
-            <ComponentPreview code={usageCode}>
-                <Toggle />
-            </ComponentPreview>
-        </section>
+    <!-- Checked by Default -->
+    <section class="space-y-3">
+      <SectionHeading id="checked-by-default" title={t.sections.checkedByDefault.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.checkedByDefault.description} />
+      <ComponentPreview code={checkedCode}>
+        <Toggle checked>
+          <span class="cu-label">Enabled by default</span>
+        </Toggle>
+      </ComponentPreview>
+    </section>
 
-        <!-- Classes Reference -->
-        <section class="space-y-3">
-          <SectionHeading id="classes" title={t.sections.classes.title} />
-          <div class="cu-table-wrapper rounded-lg border border-border">
-            <table class="cu-table">
-              <thead class="cu-table-header">
-                <tr class="cu-table-row">
-                  <th class="cu-table-head">{t.sections.classes.classLabel}</th>
-                  <th class="cu-table-head">{t.sections.classes.descriptionLabel}</th>
-                </tr>
-              </thead>
-              <tbody class="cu-table-body">
-                <tr class="cu-table-row">
-                  <td class="cu-table-cell"><code class="cu-code">cu-toggle-wrapper</code></td>
-                  <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-toggle-wrapper']}</td>
-                </tr>
-                <tr class="cu-table-row">
-                  <td class="cu-table-cell"><code class="cu-code">cu-toggle-input</code></td>
-                  <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-toggle-input']}</td>
-                </tr>
-                <tr class="cu-table-row">
-                  <td class="cu-table-cell"><code class="cu-code">cu-toggle</code></td>
-                  <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-toggle']}</td>
-                </tr>
-                <tr class="cu-table-row">
-                  <td class="cu-table-cell"><code class="cu-code">cu-toggle-sm</code></td>
-                  <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-toggle-sm']}</td>
-                </tr>
-                <tr class="cu-table-row">
-                  <td class="cu-table-cell"><code class="cu-code">cu-toggle-lg</code></td>
-                  <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-toggle-lg']}</td>
-                </tr>
-                <tr class="cu-table-row">
-                  <td class="cu-table-cell"><code class="cu-code">cu-toggle-thumb</code></td>
-                  <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-toggle-thumb']}</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </section>
-
-
-        <!-- With Label -->
-        <section class="space-y-3">
-            <SectionHeading id="with-label" title={t.sections.withLabel.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withLabel.description} />
-            <ComponentPreview code={withLabelCode}>
-                <Toggle>
-                    <span class="cu-label">Airplane Mode</span>
-                </Toggle>
-            </ComponentPreview>
-        </section>
-
-        <!-- Sizes -->
-        <section class="space-y-3">
-            <SectionHeading id="sizes" title={t.sections.sizes.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.sizes.description} />
-            <ComponentPreview code={sizesCode}>
-                <div class="flex flex-col gap-4">
-                    <Toggle size="sm" checked>
-                        <span class="cu-label">Small</span>
-                    </Toggle>
-                    <Toggle checked>
-                        <span class="cu-label">Default</span>
-                    </Toggle>
-                    <Toggle size="lg" checked>
-                        <span class="cu-label">Large</span>
-                    </Toggle>
-                </div>
-            </ComponentPreview>
-        </section>
-
-        <!-- Checked by Default -->
-        <section class="space-y-3">
-            <SectionHeading id="checked-by-default" title={t.sections.checkedByDefault.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.checkedByDefault.description} />
-            <ComponentPreview code={checkedCode}>
-                <Toggle checked>
-                    <span class="cu-label">Enabled by default</span>
-                </Toggle>
-            </ComponentPreview>
-        </section>
-
-        <!-- Disabled -->
-        <section class="space-y-3">
-            <SectionHeading id="disabled" title={t.sections.disabled.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.disabled.description} />
-            <ComponentPreview code={disabledCode}>
-                <div class="flex flex-col gap-4">
-                    <Toggle disabled>
-                        <span class="cu-label">Disabled off</span>
-                    </Toggle>
-                    <Toggle disabled checked>
-                        <span class="cu-label">Disabled on</span>
-                    </Toggle>
-                </div>
-            </ComponentPreview>
-        </section>
-    </div>
+    <!-- Disabled -->
+    <section class="space-y-3">
+      <SectionHeading id="disabled" title={t.sections.disabled.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.disabled.description} />
+      <ComponentPreview code={disabledCode}>
+        <div class="flex flex-col gap-4">
+          <Toggle disabled>
+            <span class="cu-label">Disabled off</span>
+          </Toggle>
+          <Toggle disabled checked>
+            <span class="cu-label">Disabled on</span>
+          </Toggle>
+        </div>
+      </ComponentPreview>
+    </section>
+  </div>
 </Layout>

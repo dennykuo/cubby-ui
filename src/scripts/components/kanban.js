@@ -16,7 +16,10 @@ import { track, restore } from "../core/registry.js";
  */
 export function setupKanbans() {
   document.querySelectorAll("[data-cu-kanban]").forEach(function (/** @type {HTMLElement} */ el) {
-    if (el._cuInit) { restore("kanbans", el); return; }
+    if (el._cuInit) {
+      restore("kanbans", el);
+      return;
+    }
     el._cuInit = true;
 
     var draggedCard = null;
@@ -25,7 +28,9 @@ export function setupKanbans() {
       var card = /** @type {Element} */ (e.target).closest("[data-cu-kanban-card]");
       if (!card) return;
       draggedCard = card;
-      setTimeout(function () { card.classList.add("cu-kanban-card-dragging"); }, 0);
+      setTimeout(function () {
+        card.classList.add("cu-kanban-card-dragging");
+      }, 0);
       e.dataTransfer.effectAllowed = "move";
     });
 
@@ -64,13 +69,15 @@ export function setupKanbans() {
           }
         });
 
-        el.dispatchEvent(new CustomEvent("cu:kanban:change", {
-          detail: {
-            card: draggedCard,
-            column: body.closest("[data-cu-kanban-column]")
-          },
-          bubbles: true
-        }));
+        el.dispatchEvent(
+          new CustomEvent("cu:kanban:change", {
+            detail: {
+              card: draggedCard,
+              column: body.closest("[data-cu-kanban-column]"),
+            },
+            bubbles: true,
+          }),
+        );
       }
     });
 
