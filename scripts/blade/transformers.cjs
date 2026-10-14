@@ -28,11 +28,14 @@ function transformTemplate(template, parsed) {
   // Pass 1: 處理條件元素渲染 {href ? <a>...</a> : <button>...</button>}
   result = transformConditionalElements(result, parsed);
 
-  // Pass 2: 處理 class:list + {...rest} (root 元素)
-  result = transformClassListWithSpread(result, parsed);
+  // 判斷使用者 class 與 {...rest} 各落在哪個標籤（供 Pass 2 / 3 決定 class 合併位置）
+  const routing = analyzeClassRouting(result, parsed);
+
+  // Pass 2: 處理同一個開頭標籤上的 class:list + {...rest}（中間可夾其他屬性）
+  result = transformClassListWithSpread(result, parsed, routing);
 
   // Pass 3: 處理剩餘的 class:list（無 {...rest} 的情況）
-  result = transformClassListOnly(result, parsed);
+  result = transformClassListOnly(result, parsed, routing);
 
   // Pass 4: 處理 class={expr}（內部元素的靜態 class）
   result = transformClassExpr(result, parsed);
@@ -74,29 +77,140 @@ function transformConditionalElements(template, parsed) {
   });
 }
 
-/**
- * Pass 2: class:list={[...]} + {...rest} → {{ $attributes->class([...]) }}
- *
- * 處理根元素上同時有 class:list 和 {...rest} 的情況
- */
-function transformClassListWithSpread(template, parsed) {
-  // 匹配 class:list={[...]} {...rest}（可能跨多行）
-  const pattern = /class:list=\{(\[[\s\S]*?\])\}\s*\{\.\.\.rest\}/g;
+const CLASS_LIST_PATTERN = /class:list=\{(\[[\s\S]*?\])\}/;
+const REST_SPREAD = '{...rest}';
 
-  return template.replace(pattern, (match, classListContent) => {
-    const items = parseClassListArray(classListContent, parsed);
-    return buildBladeClassString(items, true);
+/**
+ * 找出開頭標籤結尾 `>` 的位置。略過屬性值引號與 JSX `{...}` 表達式內的字元，
+ * 避免把 `=>`、比較運算子裡的 `>` 誤判為標籤結尾。
+ *
+ * @param {string} template
+ * @param {number} start - 標籤 `<` 的位置
+ * @returns {number} `>` 的位置；找不到時回傳 -1
+ */
+function findOpeningTagEnd(template, start) {
+  let depth = 0;
+  let quote = null;
+
+  for (let i = start + 1; i < template.length; i++) {
+    const ch = template[i];
+    if (quote) {
+      if (ch === quote) quote = null;
+    } else if (ch === '"' || ch === "'" || (ch === '`' && depth > 0)) {
+      quote = ch;
+    } else if (ch === '{') {
+      depth++;
+    } else if (ch === '}') {
+      depth--;
+    } else if (ch === '>' && depth === 0) {
+      return i;
+    }
+  }
+
+  return -1;
+}
+
+/**
+ * 逐一處理 template 中的開頭標籤；fn 回傳不同字串時即替換該標籤
+ *
+ * @param {string} template
+ * @param {(tag: string) => string} fn
+ * @returns {string}
+ */
+function mapOpeningTags(template, fn) {
+  const tagStart = /<[A-Za-z]/g;
+  let out = '';
+  let last = 0;
+  let m;
+
+  while ((m = tagStart.exec(template)) !== null) {
+    const end = findOpeningTagEnd(template, m.index);
+    if (end === -1) continue;
+
+    const tag = template.slice(m.index, end + 1);
+    const next = fn(tag);
+    if (next !== tag) {
+      out += template.slice(last, m.index) + next;
+      last = end + 1;
+    }
+    tagStart.lastIndex = end + 1;
+  }
+
+  return out + template.slice(last);
+}
+
+/**
+ * class:list 陣列是否含使用者傳入的 class（`class: className` 解構出的變數）
+ */
+function classListHasUserClass(arrayStr, parsed) {
+  const userClass = parsed.renamedProps.class || 'className';
+  const inner = arrayStr.trim().replace(/^\[/, '').replace(/\]$/, '');
+  return smartSplit(inner).some((item) => item.trim() === userClass);
+}
+
+/**
+ * 分析使用者 class 與 {...rest} 的落點
+ *
+ * - userClassOwned：某個標籤的 class:list 收下使用者 class（Astro 的 className）
+ * - restOnClassedTag：{...rest} 落在「自己已有 class，但不收使用者 class」的標籤上
+ *   （如 Select：wrapper 收 className、內層 <select class="cu-select" {...rest}>）。
+ *   此時 {{ $attributes }} 會讓使用者 class 變成第二個 class 屬性，
+ *   需改由收 className 的標籤 merge，{...rest} 則排除 class。
+ *
+ * @returns {{ userClassOwned: boolean, restOnClassedTag: boolean }}
+ */
+function analyzeClassRouting(template, parsed) {
+  const routing = { userClassOwned: false, restOnClassedTag: false };
+
+  mapOpeningTags(template, (tag) => {
+    const classList = tag.match(CLASS_LIST_PATTERN);
+    const hasUserClass = !!classList && classListHasUserClass(classList[1], parsed);
+    const hasOwnClass = !!classList || /\sclass=/.test(tag);
+
+    if (hasUserClass) routing.userClassOwned = true;
+    if (tag.includes(REST_SPREAD) && hasOwnClass && !hasUserClass) routing.restOnClassedTag = true;
+    return tag;
+  });
+
+  return routing;
+}
+
+/**
+ * Pass 2: 同一個開頭標籤上的 class:list={[...]} + {...rest} → {{ $attributes->class([...]) }}
+ *
+ * 兩者之間可夾其他屬性（如 `<div class:list={[...]} data-cu-dropdown {...rest}>`）。
+ * 合併後的 class 輸出在原 {...rest} 的位置並移除 class:list，
+ * 使用者其他屬性的相對順序與 Astro 輸出一致，且不會再多出第二個 class 屬性。
+ */
+function transformClassListWithSpread(template, parsed, routing) {
+  return mapOpeningTags(template, (tag) => {
+    const classList = tag.match(CLASS_LIST_PATTERN);
+    if (!classList || !tag.includes(REST_SPREAD)) return tag;
+
+    // 使用者 class 由其他標籤收下時，此標籤留給 Pass 3（@class）+ Pass 8（except('class')）
+    if (routing.userClassOwned && !classListHasUserClass(classList[1], parsed)) return tag;
+
+    const merged = buildBladeClassString(parseClassListArray(classList[1], parsed), true);
+    return tag
+      .replace(/\s*class:list=\{\[[\s\S]*?\]\}/, '')
+      .replace(REST_SPREAD, () => merged);
   });
 }
 
 /**
  * Pass 3: 處理剩餘的 class:list（不帶 {...rest}）
+ *
+ * 收 className 的標籤若因 restOnClassedTag 需要承接使用者 class，
+ * 輸出 {{ $attributes->only('class')->class([...]) }}（只合併 class，其餘屬性留給 {...rest}）。
  */
-function transformClassListOnly(template, parsed) {
-  const pattern = /class:list=\{(\[[\s\S]*?\])\}/g;
+function transformClassListOnly(template, parsed, routing) {
+  const pattern = new RegExp(CLASS_LIST_PATTERN.source, 'g');
 
   return template.replace(pattern, (match, classListContent) => {
     const items = parseClassListArray(classListContent, parsed);
+    if (routing.restOnClassedTag && classListHasUserClass(classListContent, parsed)) {
+      return buildBladeClassString(items, true, "$attributes->only('class')");
+    }
     return buildBladeClassString(items, false);
   });
 }
@@ -376,11 +490,11 @@ function transformAttributeExpressions(template, parsed) {
 
 /**
  * Pass 8: 處理內部元素上的 {...rest}
- * 如果 root 元素已處理 $attributes->class()，內部的 {...rest} 用 {{ $attributes->except('class') }}
+ * 如果使用者 class 已由某個標籤的 $attributes->class() 或 $attributes->only('class')->class() 輸出，
+ * 剩餘的 {...rest} 用 {{ $attributes->except('class') }}
  */
 function transformInnerSpread(template) {
-  // 如果已有 $attributes->class（代表 root 已處理），剩餘的 {...rest} 用 except
-  if (template.includes('$attributes->class(')) {
+  if (/\$attributes(?:->only\('class'\))?->class\(/.test(template)) {
     return template.replace(/\{\.\.\.rest\}/g, "{{ $attributes->except('class') }}");
   }
   // 否則直接用 $attributes
@@ -421,8 +535,8 @@ function cleanup(template) {
 
   // 修正多行 $attributes->class 的縮排（壓縮的空格問題）
   result = result.replace(
-    /\$attributes->class\(\[\s{2,}/g,
-    '$attributes->class(['
+    /(\$attributes(?:->only\('class'\))?->class)\(\[\s{2,}/g,
+    '$1(['
   );
   // 清除 class 項之間的多餘空格
   result = result.replace(/,\s{2,}'/g, ", '");

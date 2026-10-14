@@ -280,11 +280,13 @@ function conditionToPhp(cond, renamedProps = {}) {
  *
  * @param {Array<{ phpClass: string, condition?: string }>} items
  * @param {boolean} useAttributes - 是否使用 $attributes->class()（root 元素用）
+ * @param {string} bag - useAttributes 時的 attribute bag 表達式
+ *   （如 "$attributes->only('class')" 只合併使用者 class）
  * @returns {string}
  */
-function buildBladeClassString(items, useAttributes = true) {
+function buildBladeClassString(items, useAttributes = true, bag = '$attributes') {
   if (items.length === 0) {
-    return useAttributes ? '{{ $attributes }}' : '';
+    return useAttributes ? `{{ ${bag} }}` : '';
   }
 
   const entries = items.map((item) => {
@@ -308,7 +310,7 @@ function buildBladeClassString(items, useAttributes = true) {
 
   if (isShort) {
     if (useAttributes) {
-      return `{{ $attributes->class([${joined}]) }}`;
+      return `{{ ${bag}->class([${joined}]) }}`;
     }
     return `@class([${joined}])`;
   }
@@ -316,7 +318,7 @@ function buildBladeClassString(items, useAttributes = true) {
   // 多行格式（entries 的每行已以 `,` 結尾，勿再重複追加）
   const inner = entries.map((e) => `    ${e},`).join('\n');
   if (useAttributes) {
-    return `{{ $attributes->class([\n${inner}\n]) }}`;
+    return `{{ ${bag}->class([\n${inner}\n]) }}`;
   }
   return `@class([\n${inner}\n])`;
 }

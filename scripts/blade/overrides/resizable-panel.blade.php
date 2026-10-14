@@ -10,7 +10,6 @@
     style="flex-grow: {{ $defaultSize }}"
     @if(! is_null($minSize)) data-cu-min-size="{{ $minSize }}" @endif
     @if(! is_null($maxSize)) data-cu-max-size="{{ $maxSize }}" @endif
-    {{ $attributes->except('class') }}
 >
     {{ $slot }}
 </div>
