@@ -1,78 +1,78 @@
 /* Notification */
 .cu-notification {
-    @apply flex gap-3 rounded-lg border border-border bg-card p-4 shadow-sm transition-colors duration-150;
+  @apply flex gap-3 rounded-lg border border-border bg-card p-4 shadow-sm transition-colors duration-150;
 }
 
 .cu-notification-icon {
-    @apply flex size-8 shrink-0 items-center justify-center rounded-full bg-muted text-muted-foreground;
+  @apply flex size-8 shrink-0 items-center justify-center rounded-full bg-muted text-muted-foreground;
 }
 
 .cu-notification-content {
-    @apply flex-1 min-w-0;
+  @apply min-w-0 flex-1;
 }
 
 .cu-notification-title {
-    @apply text-sm font-medium;
+  @apply text-sm font-medium;
 }
 
 .cu-notification-description {
-    @apply mt-0.5 text-sm text-muted-foreground;
+  @apply mt-0.5 text-sm text-muted-foreground;
 }
 
 .cu-notification-time {
-    @apply mt-1 text-xs text-muted-foreground/70;
+  @apply mt-1 text-xs text-muted-foreground/70;
 }
 
 .cu-notification-actions {
-    @apply mt-2 flex items-center gap-2;
+  @apply mt-2 flex items-center gap-2;
 }
 
 .cu-notification-close {
-    @apply shrink-0 self-start rounded-md p-1 text-muted-foreground/50 transition-colors duration-150 cursor-pointer hover:text-foreground hover:bg-muted focus-visible:ring-1 focus-visible:ring-ring/40 focus-visible:outline-none;
+  @apply shrink-0 cursor-pointer self-start rounded-md p-1 text-muted-foreground/50 transition-colors duration-150 hover:bg-muted hover:text-foreground focus-visible:ring-1 focus-visible:ring-ring/40 focus-visible:outline-none;
 }
 
 /* Unread indicator (background tint + leading dot; replaces the old left-side stripe) */
 .cu-notification-unread {
-    @apply bg-primary/5;
+  @apply bg-primary/5;
 }
 .cu-notification-unread .cu-notification-title {
-    @apply font-semibold;
+  @apply font-semibold;
 }
 .cu-notification-unread .cu-notification-title::before {
-    content: "";
-    @apply mr-2 inline-block size-2 shrink-0 rounded-full bg-primary align-middle;
+  content: "";
+  @apply mr-2 inline-block size-2 shrink-0 rounded-full bg-primary align-middle;
 }
 
 /* Variants */
 .cu-notification-info {
-    @apply bg-info/5 border-info/20;
+  @apply border-info/20 bg-info/5;
 }
 .cu-notification-info .cu-notification-icon {
-    @apply bg-info/10 text-info;
+  @apply bg-info/10 text-info;
 }
 
 .cu-notification-success {
-    @apply bg-success/5 border-success/20;
+  @apply border-success/20 bg-success/5;
 }
 .cu-notification-success .cu-notification-icon {
-    @apply bg-success/10 text-success;
+  @apply bg-success/10 text-success;
 }
 
 .cu-notification-warning {
-    @apply bg-warning/5 border-warning/20;
+  @apply border-warning/20 bg-warning/5;
 }
 .cu-notification-warning .cu-notification-icon {
-    @apply bg-warning/10 text-warning;
+  @apply bg-warning/10 text-warning;
 }
 
 .cu-notification-destructive {
-    @apply bg-destructive/5 border-destructive/20;
+  @apply border-destructive/20 bg-destructive/5;
 }
 .cu-notification-destructive .cu-notification-icon {
-    @apply bg-destructive/10 text-destructive;
+  @apply bg-destructive/10 text-destructive;
 }
 
 /* List container */
 .cu-notification-list {
-    @apply flex flex-col gap-2;
+  @apply flex flex-col gap-2;
 }

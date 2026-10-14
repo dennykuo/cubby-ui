@@ -131,195 +131,221 @@ const defaultOpenCode = `<details class="cu-collapsible cu-collapsible-bordered"
 ---
 
 <Layout title={t.title} category={t.category} componentName="Collapsible" description={t.description}>
-    <div class="space-y-3">
-        <div class="flex items-center gap-3">
-            <h1 class="text-3xl font-bold tracking-tight">Collapsible</h1>
-            <span class="cu-badge cu-badge-secondary">{t.category}</span>
+  <div class="space-y-3">
+    <div class="flex items-center gap-3">
+      <h1 class="text-3xl font-bold tracking-tight">Collapsible</h1>
+      <span class="cu-badge cu-badge-secondary">{t.category}</span>
+    </div>
+    <p class="text-base text-muted-foreground leading-relaxed">{t.description}</p>
+  </div>
+
+  <div class="mt-10 space-y-10">
+    <!-- Usage -->
+    <section class="space-y-3">
+      <SectionHeading id="usage" title={t.sections.usage.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
+      <ComponentPreview code={usageCode}>
+        <div class="w-full max-w-lg">
+          <Collapsible>
+            <CollapsibleTrigger>Can I use this in my project?</CollapsibleTrigger>
+            <CollapsibleContent>
+              Yes. Free to use for personal and commercial projects. No attribution required.
+            </CollapsibleContent>
+          </Collapsible>
         </div>
-        <p class="text-base text-muted-foreground leading-relaxed">{t.description}</p>
-    </div>
+      </ComponentPreview>
+    </section>
 
-    <div class="mt-10 space-y-10">
-        <!-- Usage -->
-        <section class="space-y-3">
-            <SectionHeading id="usage" title={t.sections.usage.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
-            <ComponentPreview code={usageCode}>
-                <div class="w-full max-w-lg">
-                    <Collapsible>
-                        <CollapsibleTrigger>Can I use this in my project?</CollapsibleTrigger>
-                        <CollapsibleContent>
-                            Yes. Free to use for personal and commercial projects. No attribution required.
-                        </CollapsibleContent>
-                    </Collapsible>
-                </div>
-            </ComponentPreview>
-        </section>
+    <!-- Classes Reference -->
+    <section class="space-y-3">
+      <SectionHeading id="classes" title={t.sections.classes.title} />
+      <div class="cu-table-wrapper rounded-lg border border-border">
+        <table class="cu-table">
+          <thead class="cu-table-header">
+            <tr class="cu-table-row">
+              <th class="cu-table-head">{t.sections.classes.classLabel}</th>
+              <th class="cu-table-head">{t.sections.classes.descriptionLabel}</th>
+            </tr>
+          </thead>
+          <tbody class="cu-table-body">
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-collapsible</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground" set:html={t.classDescriptions["cu-collapsible"]} />
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-collapsible-trigger</code>
+              </td>
+              <td
+                class="cu-table-cell text-muted-foreground"
+                set:html={t.classDescriptions["cu-collapsible-trigger"]}
+              />
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-collapsible-content</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-collapsible-content"]}</td>
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-collapsible-bordered</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-collapsible-bordered"]}</td>
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-collapsible-group</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-collapsible-group"]}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
 
-        <!-- Classes Reference -->
-        <section class="space-y-3">
-            <SectionHeading id="classes" title={t.sections.classes.title} />
-            <div class="cu-table-wrapper rounded-lg border border-border">
-                <table class="cu-table">
-                    <thead class="cu-table-header">
-                        <tr class="cu-table-row">
-                            <th class="cu-table-head">{t.sections.classes.classLabel}</th>
-                            <th class="cu-table-head">{t.sections.classes.descriptionLabel}</th>
-                        </tr>
-                    </thead>
-                    <tbody class="cu-table-body">
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-collapsible</code></td>
-                            <td class="cu-table-cell text-muted-foreground" set:html={t.classDescriptions['cu-collapsible']} />
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-collapsible-trigger</code></td>
-                            <td class="cu-table-cell text-muted-foreground" set:html={t.classDescriptions['cu-collapsible-trigger']} />
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-collapsible-content</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-collapsible-content']}</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-collapsible-bordered</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-collapsible-bordered']}</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-collapsible-group</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-collapsible-group']}</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </section>
+    <!-- Bordered -->
+    <section class="space-y-3">
+      <SectionHeading id="bordered" title={t.sections.bordered.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.bordered.description} />
+      <ComponentPreview code={borderedCode}>
+        <div class="w-full max-w-lg">
+          <Collapsible class="cu-collapsible-bordered">
+            <CollapsibleTrigger>@peduarte starred 3 repositories</CollapsibleTrigger>
+            <CollapsibleContent class="space-y-2">
+              <div class="rounded-md border border-border px-4 py-2 text-sm">@cubby-ui/primitives</div>
+              <div class="rounded-md border border-border px-4 py-2 text-sm">@cubby-ui/colors</div>
+              <div class="rounded-md border border-border px-4 py-2 text-sm">@cubby-ui/utils</div>
+            </CollapsibleContent>
+          </Collapsible>
+        </div>
+      </ComponentPreview>
+    </section>
 
+    <!-- Group -->
+    <section class="space-y-3">
+      <SectionHeading id="group" title={t.sections.group.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.group.description} />
+      <ComponentPreview code={groupCode}>
+        <div class="w-full max-w-lg">
+          <div class="cu-collapsible-group">
+            <Collapsible>
+              <CollapsibleTrigger>What payment methods do you accept?</CollapsibleTrigger>
+              <CollapsibleContent>
+                We accept all major credit cards (Visa, Mastercard, American Express), PayPal, and bank transfers.
+              </CollapsibleContent>
+            </Collapsible>
+            <Collapsible>
+              <CollapsibleTrigger>How long does shipping take?</CollapsibleTrigger>
+              <CollapsibleContent>
+                Standard shipping takes 5–7 business days. Express shipping is available for 2–3 business days delivery.
+              </CollapsibleContent>
+            </Collapsible>
+            <Collapsible>
+              <CollapsibleTrigger>Can I return my order?</CollapsibleTrigger>
+              <CollapsibleContent>
+                Yes, we offer a 30-day return policy for all unused items in their original packaging.
+              </CollapsibleContent>
+            </Collapsible>
+          </div>
+        </div>
+      </ComponentPreview>
+    </section>
 
-        <!-- Bordered -->
-        <section class="space-y-3">
-            <SectionHeading id="bordered" title={t.sections.bordered.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.bordered.description} />
-            <ComponentPreview code={borderedCode}>
-                <div class="w-full max-w-lg">
-                    <Collapsible class="cu-collapsible-bordered">
-                        <CollapsibleTrigger>@peduarte starred 3 repositories</CollapsibleTrigger>
-                        <CollapsibleContent class="space-y-2">
-                            <div class="rounded-md border border-border px-4 py-2 text-sm">@cubby-ui/primitives</div>
-                            <div class="rounded-md border border-border px-4 py-2 text-sm">@cubby-ui/colors</div>
-                            <div class="rounded-md border border-border px-4 py-2 text-sm">@cubby-ui/utils</div>
-                        </CollapsibleContent>
-                    </Collapsible>
-                </div>
-            </ComponentPreview>
-        </section>
+    <!-- With Icon -->
+    <section class="space-y-3">
+      <SectionHeading id="with-icon" title={t.sections.withIcon.title} />
+      <p class="text-base text-muted-foreground leading-relaxed">{t.sections.withIcon.description}</p>
+      <ComponentPreview code={withIconCode}>
+        <div class="w-full max-w-lg">
+          <Collapsible class="cu-collapsible-bordered">
+            <CollapsibleTrigger>
+              <span class="flex items-center gap-2">
+                <svg
+                  class="size-4 text-info"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <circle cx="12" cy="12" r="10" />
+                  <path d="M12 16v-4" />
+                  <path d="M12 8h.01" />
+                </svg>
+                System Requirements
+              </span>
+            </CollapsibleTrigger>
+            <CollapsibleContent>
+              <ul class="list-disc pl-5 space-y-1 text-muted-foreground">
+                <li>Node.js 18 or later</li>
+                <li>npm 9+ or pnpm 8+</li>
+                <li>Modern browser (Chrome 90+, Firefox 90+, Safari 15+)</li>
+              </ul>
+            </CollapsibleContent>
+          </Collapsible>
+        </div>
+      </ComponentPreview>
+    </section>
 
-        <!-- Group -->
-        <section class="space-y-3">
-            <SectionHeading id="group" title={t.sections.group.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.group.description} />
-            <ComponentPreview code={groupCode}>
-                <div class="w-full max-w-lg">
-                    <div class="cu-collapsible-group">
-                        <Collapsible>
-                            <CollapsibleTrigger>What payment methods do you accept?</CollapsibleTrigger>
-                            <CollapsibleContent>
-                                We accept all major credit cards (Visa, Mastercard, American Express), PayPal, and bank transfers.
-                            </CollapsibleContent>
-                        </Collapsible>
-                        <Collapsible>
-                            <CollapsibleTrigger>How long does shipping take?</CollapsibleTrigger>
-                            <CollapsibleContent>
-                                Standard shipping takes 5–7 business days. Express shipping is available for 2–3 business days delivery.
-                            </CollapsibleContent>
-                        </Collapsible>
-                        <Collapsible>
-                            <CollapsibleTrigger>Can I return my order?</CollapsibleTrigger>
-                            <CollapsibleContent>
-                                Yes, we offer a 30-day return policy for all unused items in their original packaging.
-                            </CollapsibleContent>
-                        </Collapsible>
-                    </div>
-                </div>
-            </ComponentPreview>
-        </section>
+    <!-- Nested -->
+    <section class="space-y-3">
+      <SectionHeading id="nested" title={t.sections.nested.title} />
+      <p class="text-base text-muted-foreground leading-relaxed">{t.sections.nested.description}</p>
+      <ComponentPreview code={nestedCode}>
+        <div class="w-full max-w-lg">
+          <Collapsible class="cu-collapsible-bordered">
+            <CollapsibleTrigger>Project Settings</CollapsibleTrigger>
+            <CollapsibleContent class="space-y-2">
+              <Collapsible class="cu-collapsible-bordered">
+                <CollapsibleTrigger>General</CollapsibleTrigger>
+                <CollapsibleContent class="text-muted-foreground">
+                  Configure project name, description, and visibility settings.
+                </CollapsibleContent>
+              </Collapsible>
+              <Collapsible class="cu-collapsible-bordered">
+                <CollapsibleTrigger>Permissions</CollapsibleTrigger>
+                <CollapsibleContent class="text-muted-foreground">
+                  Manage team member roles and access levels.
+                </CollapsibleContent>
+              </Collapsible>
+            </CollapsibleContent>
+          </Collapsible>
+        </div>
+      </ComponentPreview>
+    </section>
 
-        <!-- With Icon -->
-        <section class="space-y-3">
-            <SectionHeading id="with-icon" title={t.sections.withIcon.title} />
-            <p class="text-base text-muted-foreground leading-relaxed">{t.sections.withIcon.description}</p>
-            <ComponentPreview code={withIconCode}>
-                <div class="w-full max-w-lg">
-                    <Collapsible class="cu-collapsible-bordered">
-                        <CollapsibleTrigger>
-                            <span class="flex items-center gap-2">
-                                <svg class="size-4 text-info" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
-                                System Requirements
-                            </span>
-                        </CollapsibleTrigger>
-                        <CollapsibleContent>
-                            <ul class="list-disc pl-5 space-y-1 text-muted-foreground">
-                                <li>Node.js 18 or later</li>
-                                <li>npm 9+ or pnpm 8+</li>
-                                <li>Modern browser (Chrome 90+, Firefox 90+, Safari 15+)</li>
-                            </ul>
-                        </CollapsibleContent>
-                    </Collapsible>
-                </div>
-            </ComponentPreview>
-        </section>
-
-        <!-- Nested -->
-        <section class="space-y-3">
-            <SectionHeading id="nested" title={t.sections.nested.title} />
-            <p class="text-base text-muted-foreground leading-relaxed">{t.sections.nested.description}</p>
-            <ComponentPreview code={nestedCode}>
-                <div class="w-full max-w-lg">
-                    <Collapsible class="cu-collapsible-bordered">
-                        <CollapsibleTrigger>Project Settings</CollapsibleTrigger>
-                        <CollapsibleContent class="space-y-2">
-                            <Collapsible class="cu-collapsible-bordered">
-                                <CollapsibleTrigger>General</CollapsibleTrigger>
-                                <CollapsibleContent class="text-muted-foreground">
-                                    Configure project name, description, and visibility settings.
-                                </CollapsibleContent>
-                            </Collapsible>
-                            <Collapsible class="cu-collapsible-bordered">
-                                <CollapsibleTrigger>Permissions</CollapsibleTrigger>
-                                <CollapsibleContent class="text-muted-foreground">
-                                    Manage team member roles and access levels.
-                                </CollapsibleContent>
-                            </Collapsible>
-                        </CollapsibleContent>
-                    </Collapsible>
-                </div>
-            </ComponentPreview>
-        </section>
-
-        <!-- Default Open -->
-        <section class="space-y-3">
-            <SectionHeading id="default-open" title={t.sections.defaultOpen.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.defaultOpen.description} />
-            <ComponentPreview code={defaultOpenCode}>
-                <div class="w-full max-w-lg">
-                    <Collapsible class="cu-collapsible-bordered" open>
-                        <CollapsibleTrigger>Release Notes — v2.4.0</CollapsibleTrigger>
-                        <CollapsibleContent class="space-y-2">
-                            <div class="flex items-center gap-2">
-                                <span class="cu-badge cu-badge-success">New</span>
-                                <span class="text-sm">Added dark mode support</span>
-                            </div>
-                            <div class="flex items-center gap-2">
-                                <span class="cu-badge cu-badge-success">New</span>
-                                <span class="text-sm">Collapsible group component</span>
-                            </div>
-                            <div class="flex items-center gap-2">
-                                <span class="cu-badge cu-badge-warning">Fix</span>
-                                <span class="text-sm">Resolved sidebar scroll issue on mobile</span>
-                            </div>
-                        </CollapsibleContent>
-                    </Collapsible>
-                </div>
-            </ComponentPreview>
-        </section>
-
-    </div>
+    <!-- Default Open -->
+    <section class="space-y-3">
+      <SectionHeading id="default-open" title={t.sections.defaultOpen.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.defaultOpen.description} />
+      <ComponentPreview code={defaultOpenCode}>
+        <div class="w-full max-w-lg">
+          <Collapsible class="cu-collapsible-bordered" open>
+            <CollapsibleTrigger>Release Notes — v2.4.0</CollapsibleTrigger>
+            <CollapsibleContent class="space-y-2">
+              <div class="flex items-center gap-2">
+                <span class="cu-badge cu-badge-success">New</span>
+                <span class="text-sm">Added dark mode support</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="cu-badge cu-badge-success">New</span>
+                <span class="text-sm">Collapsible group component</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="cu-badge cu-badge-warning">Fix</span>
+                <span class="text-sm">Resolved sidebar scroll issue on mobile</span>
+              </div>
+            </CollapsibleContent>
+          </Collapsible>
+        </div>
+      </ComponentPreview>
+    </section>
+  </div>
 </Layout>

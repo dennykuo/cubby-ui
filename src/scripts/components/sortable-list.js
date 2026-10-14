@@ -14,7 +14,10 @@ import { track, restore } from "../core/registry.js";
  */
 export function setupSortableLists() {
   document.querySelectorAll("[data-cu-sortable-list]").forEach(function (/** @type {HTMLElement} */ el) {
-    if (el._cuInit) { restore("sortableLists", el); return; }
+    if (el._cuInit) {
+      restore("sortableLists", el);
+      return;
+    }
     el._cuInit = true;
 
     var draggedItem = null;
@@ -71,15 +74,17 @@ export function setupSortableLists() {
         draggedItem = null;
         placeholder = null;
 
-        el.dispatchEvent(new CustomEvent("cu:sortable:change", {
-          detail: {
-            order: getItems().map(function (item, i) {
-              var content = item.querySelector(".cu-sortable-content");
-              return { index: i, text: content ? content.textContent.trim() : "" };
-            })
-          },
-          bubbles: true
-        }));
+        el.dispatchEvent(
+          new CustomEvent("cu:sortable:change", {
+            detail: {
+              order: getItems().map(function (item, i) {
+                var content = item.querySelector(".cu-sortable-content");
+                return { index: i, text: content ? content.textContent.trim() : "" };
+              }),
+            },
+            bubbles: true,
+          }),
+        );
       }
     });
 
@@ -89,14 +94,17 @@ export function setupSortableLists() {
 
     function getDragAfterElement(container, y) {
       var items = Array.from(container.querySelectorAll("[data-cu-sortable-item]:not(.cu-sortable-item-dragging)"));
-      return items.reduce(function (closest, child) {
-        var box = child.getBoundingClientRect();
-        var offset = y - box.top - box.height / 2;
-        if (offset < 0 && offset > closest.offset) {
-          return { offset: offset, element: child };
-        }
-        return closest;
-      }, { offset: Number.NEGATIVE_INFINITY }).element;
+      return items.reduce(
+        function (closest, child) {
+          var box = child.getBoundingClientRect();
+          var offset = y - box.top - box.height / 2;
+          if (offset < 0 && offset > closest.offset) {
+            return { offset: offset, element: child };
+          }
+          return closest;
+        },
+        { offset: Number.NEGATIVE_INFINITY },
+      ).element;
     }
 
     track("sortableLists", { el: el });

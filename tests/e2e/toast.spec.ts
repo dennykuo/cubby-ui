@@ -60,8 +60,10 @@ test.describe("Toast", () => {
     // 原本用 150ms 計時器自動 resolve，高負載時斷言還沒輪到就已 resolve，偶發抓不到 loading。
     await page.evaluate(() => {
       (window as any).__p = CubbyUI.toast.promise(
-        new Promise((resolve) => { (window as any).__resolve = resolve; }),
-        { loading: "Saving…", success: "Saved", error: "Failed" }
+        new Promise((resolve) => {
+          (window as any).__resolve = resolve;
+        }),
+        { loading: "Saving…", success: "Saved", error: "Failed" },
       );
     });
     const toast = page.locator(".cu-toast");
@@ -77,7 +79,10 @@ test.describe("Toast", () => {
     const result = await page.evaluate(() =>
       CubbyUI.toast
         .promise(Promise.reject(new Error("boom")), { loading: "Working", success: "Done", error: "Failed" })
-        .then(() => "resolved", (e: Error) => e.message)
+        .then(
+          () => "resolved",
+          (e: Error) => e.message,
+        ),
     );
     expect(result).toBe("boom");
     const toast = page.locator(".cu-toast");

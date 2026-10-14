@@ -9,7 +9,7 @@ import { buttonPage } from "@/i18n/pages/components/button";
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(buttonPage, locale);
-const buttonGroupHref = localizePath('/components/button-group', locale);
+const buttonGroupHref = localizePath("/components/button-group", locale);
 
 const usageCode = `<button class="cu-button cu-button-default cu-button-md">
   Button
@@ -107,9 +107,7 @@ const groupCode = `<div class="cu-button-group">
       <h1 class="text-3xl font-bold tracking-tight">Button</h1>
       <span class="cu-badge cu-badge-secondary">{t.category}</span>
     </div>
-    <p class="text-base text-muted-foreground leading-relaxed">
-      {t.description}
-    </p>
+    <p class="text-base text-muted-foreground leading-relaxed">{t.description}</p>
   </div>
 
   <div class="mt-10 space-y-10">
@@ -136,7 +134,9 @@ const groupCode = `<div class="cu-button-group">
           <tbody class="cu-table-body">
             {Object.entries(t.classDescriptions).map(([cls, desc]) => (
               <tr class="cu-table-row">
-                <td class="cu-table-cell"><code class="cu-code">{cls}</code></td>
+                <td class="cu-table-cell">
+                  <code class="cu-code">{cls}</code>
+                </td>
                 <td class="cu-table-cell text-muted-foreground">{desc}</td>
               </tr>
             ))}
@@ -145,13 +145,10 @@ const groupCode = `<div class="cu-button-group">
       </div>
     </section>
 
-
     <!-- Variants -->
     <section class="space-y-3">
       <SectionHeading id="variants" title={t.sections.variants.title} />
-      <p class="text-base text-muted-foreground leading-relaxed">
-        {t.sections.variants.description}
-      </p>
+      <p class="text-base text-muted-foreground leading-relaxed">{t.sections.variants.description}</p>
       <ComponentPreview code={variantsCode}>
         <div class="flex flex-wrap gap-3 items-center justify-center">
           <Button>Default</Button>
@@ -189,15 +186,54 @@ const groupCode = `<div class="cu-button-group">
       <ComponentPreview code={withIconCode}>
         <div class="flex flex-wrap gap-3 items-center justify-center">
           <Button>
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <rect width="20" height="16" x="2" y="4" rx="2" />
+              <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+            </svg>
             Login with Email
           </Button>
           <Button variant="outline">
             Continue
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M5 12h14" />
+              <path d="m12 5 7 7-7 7" />
+            </svg>
           </Button>
           <Button variant="outline" size="icon">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M5 12h14" />
+              <path d="M12 5v14" />
+            </svg>
           </Button>
         </div>
       </ComponentPreview>
@@ -206,25 +242,89 @@ const groupCode = `<div class="cu-button-group">
     <!-- Icon Variants -->
     <section class="space-y-3">
       <SectionHeading id="icon-buttons" title={t.sections.iconButtons.title} />
-      <p class="text-base text-muted-foreground leading-relaxed">
-        {t.sections.iconButtons.description}
-      </p>
+      <p class="text-base text-muted-foreground leading-relaxed">{t.sections.iconButtons.description}</p>
       <ComponentPreview code={iconVariantsCode}>
         <div class="flex flex-wrap gap-3 items-center justify-center">
           <Button size="icon">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M5 12h14" />
+              <path d="M12 5v14" />
+            </svg>
           </Button>
           <Button variant="secondary" size="icon">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z" />
+              <circle cx="12" cy="12" r="3" />
+            </svg>
           </Button>
           <Button variant="outline" size="icon">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
+            </svg>
           </Button>
           <Button variant="ghost" size="icon">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <circle cx="12" cy="12" r="1" />
+              <circle cx="19" cy="12" r="1" />
+              <circle cx="5" cy="12" r="1" />
+            </svg>
           </Button>
           <Button variant="destructive" size="icon">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M3 6h18" />
+              <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
+              <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
+            </svg>
           </Button>
         </div>
       </ComponentPreview>
@@ -238,7 +338,9 @@ const groupCode = `<div class="cu-button-group">
         <div class="flex flex-col gap-3 w-full max-w-sm mx-auto">
           <Button class="cu-button-block">Full Width</Button>
           <Button class="cu-button-block-sm">Block on Mobile</Button>
-          <Button variant="outline" class="cu-button-block-sm">Block on Mobile</Button>
+          <Button variant="outline" class="cu-button-block-sm">
+            Block on Mobile
+          </Button>
         </div>
       </ComponentPreview>
     </section>
@@ -250,8 +352,12 @@ const groupCode = `<div class="cu-button-group">
       <ComponentPreview code={disabledCode}>
         <div class="flex flex-wrap gap-3 items-center justify-center">
           <Button disabled>Default</Button>
-          <Button variant="secondary" disabled>Secondary</Button>
-          <Button variant="outline" disabled>Outline</Button>
+          <Button variant="secondary" disabled>
+            Secondary
+          </Button>
+          <Button variant="outline" disabled>
+            Outline
+          </Button>
         </div>
       </ComponentPreview>
     </section>
@@ -280,9 +386,15 @@ const groupCode = `<div class="cu-button-group">
       <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.asLink.description} />
       <ComponentPreview code={asLinkCode}>
         <div class="flex flex-wrap gap-3 items-center justify-center">
-          <a href="#" class="cu-button cu-button-default cu-button-md">As Link</a>
-          <a href="#" class="cu-button cu-button-outline cu-button-md">Outline Link</a>
-          <a href="#" class="cu-button cu-button-ghost cu-button-md">Ghost Link</a>
+          <a href="#" class="cu-button cu-button-default cu-button-md">
+            As Link
+          </a>
+          <a href="#" class="cu-button cu-button-outline cu-button-md">
+            Outline Link
+          </a>
+          <a href="#" class="cu-button cu-button-ghost cu-button-md">
+            Ghost Link
+          </a>
         </div>
       </ComponentPreview>
     </section>
@@ -290,7 +402,10 @@ const groupCode = `<div class="cu-button-group">
     <!-- Button Group -->
     <section class="space-y-3">
       <SectionHeading id="button-group" title={t.sections.buttonGroup.title} />
-      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.buttonGroup.description.replace('{buttonGroupHref}', buttonGroupHref)} />
+      <p
+        class="text-base text-muted-foreground leading-relaxed"
+        set:html={t.sections.buttonGroup.description.replace("{buttonGroupHref}", buttonGroupHref)}
+      />
       <ComponentPreview code={groupCode}>
         <div class="cu-button-group">
           <button class="cu-button cu-button-outline cu-button-md">Left</button>
@@ -299,6 +414,5 @@ const groupCode = `<div class="cu-button-group">
         </div>
       </ComponentPreview>
     </section>
-
   </div>
 </Layout>

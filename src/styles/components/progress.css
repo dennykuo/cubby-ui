@@ -1,141 +1,149 @@
 /* Progress
    ------------------------------------------------------------------ */
 .cu-progress {
-    @apply relative h-2 w-full overflow-hidden rounded-full bg-muted;
+  @apply relative h-2 w-full overflow-hidden rounded-full bg-muted;
 }
 
 .cu-progress-bar {
-    @apply h-full rounded-full bg-primary transition-[width] duration-200;
+  @apply h-full rounded-full bg-primary transition-[width] duration-200;
 }
 
 /* -- sizes -- */
 .cu-progress-sm {
-    @apply h-1;
+  @apply h-1;
 }
 
 .cu-progress-lg {
-    @apply h-4;
+  @apply h-4;
 }
 
 /* -- color variants -- */
 .cu-progress-bar-success {
-    @apply bg-success;
+  @apply bg-success;
 }
 
 .cu-progress-bar-warning {
-    @apply bg-warning;
+  @apply bg-warning;
 }
 
 .cu-progress-bar-destructive {
-    @apply bg-destructive;
+  @apply bg-destructive;
 }
 
 .cu-progress-bar-info {
-    @apply bg-info;
+  @apply bg-info;
 }
 
 /* -- gradient -- */
 .cu-progress-bar-gradient {
-    background: linear-gradient(90deg, var(--color-primary), color-mix(in srgb, var(--color-primary) 70%, var(--color-info)));
+  background: linear-gradient(
+    90deg,
+    var(--color-primary),
+    color-mix(in srgb, var(--color-primary) 70%, var(--color-info))
+  );
 }
 
 /* -- striped -- */
 .cu-progress-bar-striped {
-    background-image: linear-gradient(
-        45deg,
-        rgba(255, 255, 255, 0.15) 25%,
-        transparent 25%,
-        transparent 50%,
-        rgba(255, 255, 255, 0.15) 50%,
-        rgba(255, 255, 255, 0.15) 75%,
-        transparent 75%,
-        transparent
-    );
-    background-size: 1rem 1rem;
+  background-image: linear-gradient(
+    45deg,
+    rgba(255, 255, 255, 0.15) 25%,
+    transparent 25%,
+    transparent 50%,
+    rgba(255, 255, 255, 0.15) 50%,
+    rgba(255, 255, 255, 0.15) 75%,
+    transparent 75%,
+    transparent
+  );
+  background-size: 1rem 1rem;
 }
 
 .cu-progress-bar-striped-animated {
-    animation: cu-progress-stripes 1s linear infinite;
+  animation: cu-progress-stripes 1s linear infinite;
 }
 
 @keyframes cu-progress-stripes {
-    from {
-        background-position: 1rem 0;
-    }
-    to {
-        background-position: 0 0;
-    }
+  from {
+    background-position: 1rem 0;
+  }
+  to {
+    background-position: 0 0;
+  }
 }
 
 /* -- with label -- */
 .cu-progress-wrapper {
-    @apply flex items-center gap-3;
+  @apply flex items-center gap-3;
 }
 
 .cu-progress-wrapper .cu-progress {
-    @apply flex-1;
+  @apply flex-1;
 }
 
 .cu-progress-label {
-    @apply text-sm font-medium text-foreground;
+  @apply text-sm font-medium text-foreground;
 }
 
 .cu-progress-value {
-    @apply text-sm tabular-nums text-muted-foreground;
+  @apply text-sm text-muted-foreground tabular-nums;
 }
 
 /* -- multi-segment -- */
 .cu-progress-multi {
-    @apply flex h-2 w-full overflow-hidden rounded-full bg-muted;
+  @apply flex h-2 w-full overflow-hidden rounded-full bg-muted;
 }
 
 .cu-progress-multi .cu-progress-bar {
-    @apply rounded-none first:rounded-l-full last:rounded-r-full;
+  @apply rounded-none first:rounded-l-full last:rounded-r-full;
 }
 
 /* -- circular progress -- */
 .cu-progress-circular {
-    @apply relative inline-flex items-center justify-center;
+  @apply relative inline-flex items-center justify-center;
 }
 
 .cu-progress-circular svg {
-    @apply -rotate-90;
+  @apply -rotate-90;
 }
 
 .cu-progress-circular-track {
-    stroke: var(--color-muted);
+  stroke: var(--color-muted);
 }
 
 .cu-progress-circular-bar {
-    stroke: var(--color-primary);
-    transition: stroke-dashoffset 0.2s ease;
+  stroke: var(--color-primary);
+  transition: stroke-dashoffset 0.2s ease;
 }
 
 .cu-progress-circular-bar-success {
-    stroke: var(--color-success);
+  stroke: var(--color-success);
 }
 
 .cu-progress-circular-bar-warning {
-    stroke: var(--color-warning);
+  stroke: var(--color-warning);
 }
 
 .cu-progress-circular-bar-destructive {
-    stroke: var(--color-destructive);
+  stroke: var(--color-destructive);
 }
 
 .cu-progress-circular-bar-info {
-    stroke: var(--color-info);
+  stroke: var(--color-info);
 }
 
 .cu-progress-circular-value {
-    @apply absolute text-sm font-semibold tabular-nums;
+  @apply absolute text-sm font-semibold tabular-nums;
 }
 
 .cu-progress-circular-indeterminate svg {
-    animation: cu-circular-spin 1.5s linear infinite;
+  animation: cu-circular-spin 1.5s linear infinite;
 }
 
 @keyframes cu-circular-spin {
-    from { transform: rotate(-90deg); }
-    to { transform: rotate(270deg); }
+  from {
+    transform: rotate(-90deg);
+  }
+  to {
+    transform: rotate(270deg);
+  }
 }

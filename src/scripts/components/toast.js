@@ -3,9 +3,13 @@ export function dismissToast(toast) {
   toast._cuDismissing = true;
   toast.classList.remove("cu-toast-enter");
   toast.classList.add("cu-toast-exit");
-  toast.addEventListener("animationend", function () {
-    toast.remove();
-  }, { once: true });
+  toast.addEventListener(
+    "animationend",
+    function () {
+      toast.remove();
+    },
+    { once: true },
+  );
 }
 
 export function ensureToastContainer() {
@@ -91,10 +95,12 @@ export var toastAPI = {
       }
     }
 
-    var duration = (opts.duration !== undefined) ? opts.duration : 5000;
+    var duration = opts.duration !== undefined ? opts.duration : 5000;
     var timer;
     if (duration > 0) {
-      timer = setTimeout(function () { dismissToast(result.toast); }, duration);
+      timer = setTimeout(function () {
+        dismissToast(result.toast);
+      }, duration);
     }
     result.closeBtn.addEventListener("click", function () {
       if (timer) clearTimeout(timer);
@@ -109,49 +115,55 @@ export var toastAPI = {
     loadingOpts.variant = loadingOpts.variant || "default";
     var el = toastAPI.show(loadingOpts);
 
-    return promise.then(function (result) {
-      var successOpts = typeof opts.success === "function" ? opts.success(result) : opts.success;
-      successOpts = typeof successOpts === "string" ? { title: successOpts } : successOpts;
-      var variant = successOpts.variant || "success";
-      // Update existing toast
-      el.className = "cu-toast cu-toast-" + variant + " cu-toast-enter";
-      var titleEl = el.querySelector(".cu-toast-title");
-      if (titleEl) titleEl.textContent = successOpts.title || "";
-      var descEl = el.querySelector(".cu-toast-description");
-      if (successOpts.description) {
-        if (!descEl) {
-          descEl = document.createElement("div");
-          descEl.className = "cu-toast-description";
-          el.querySelector(".cu-toast-body").appendChild(descEl);
+    return promise
+      .then(function (result) {
+        var successOpts = typeof opts.success === "function" ? opts.success(result) : opts.success;
+        successOpts = typeof successOpts === "string" ? { title: successOpts } : successOpts;
+        var variant = successOpts.variant || "success";
+        // Update existing toast
+        el.className = "cu-toast cu-toast-" + variant + " cu-toast-enter";
+        var titleEl = el.querySelector(".cu-toast-title");
+        if (titleEl) titleEl.textContent = successOpts.title || "";
+        var descEl = el.querySelector(".cu-toast-description");
+        if (successOpts.description) {
+          if (!descEl) {
+            descEl = document.createElement("div");
+            descEl.className = "cu-toast-description";
+            el.querySelector(".cu-toast-body").appendChild(descEl);
+          }
+          descEl.textContent = successOpts.description;
+        } else if (descEl) {
+          descEl.remove();
         }
-        descEl.textContent = successOpts.description;
-      } else if (descEl) {
-        descEl.remove();
-      }
-      setTimeout(function () { dismissToast(el); }, successOpts.duration || 5000);
-      return result;
-    }).catch(function (err) {
-      var errorOpts = typeof opts.error === "function" ? opts.error(err) : opts.error;
-      errorOpts = typeof errorOpts === "string" ? { title: errorOpts } : errorOpts;
-      var variant = errorOpts.variant || "destructive";
-      el.className = "cu-toast cu-toast-" + variant + " cu-toast-enter";
-      var titleEl = el.querySelector(".cu-toast-title");
-      if (titleEl) titleEl.textContent = errorOpts.title || "";
-      var descEl = el.querySelector(".cu-toast-description");
-      if (errorOpts.description) {
-        if (!descEl) {
-          descEl = document.createElement("div");
-          descEl.className = "cu-toast-description";
-          el.querySelector(".cu-toast-body").appendChild(descEl);
+        setTimeout(function () {
+          dismissToast(el);
+        }, successOpts.duration || 5000);
+        return result;
+      })
+      .catch(function (err) {
+        var errorOpts = typeof opts.error === "function" ? opts.error(err) : opts.error;
+        errorOpts = typeof errorOpts === "string" ? { title: errorOpts } : errorOpts;
+        var variant = errorOpts.variant || "destructive";
+        el.className = "cu-toast cu-toast-" + variant + " cu-toast-enter";
+        var titleEl = el.querySelector(".cu-toast-title");
+        if (titleEl) titleEl.textContent = errorOpts.title || "";
+        var descEl = el.querySelector(".cu-toast-description");
+        if (errorOpts.description) {
+          if (!descEl) {
+            descEl = document.createElement("div");
+            descEl.className = "cu-toast-description";
+            el.querySelector(".cu-toast-body").appendChild(descEl);
+          }
+          descEl.textContent = errorOpts.description;
+        } else if (descEl) {
+          descEl.remove();
         }
-        descEl.textContent = errorOpts.description;
-      } else if (descEl) {
-        descEl.remove();
-      }
-      setTimeout(function () { dismissToast(el); }, errorOpts.duration || 5000);
-      throw err;
-    });
-  }
+        setTimeout(function () {
+          dismissToast(el);
+        }, errorOpts.duration || 5000);
+        throw err;
+      });
+  },
 };
 
 /**
@@ -187,18 +199,16 @@ export var toastAPI = {
 export function setupToasts() {
   ensureToastContainer();
 
-  document
-    .querySelectorAll("[data-cu-toast-trigger]")
-    .forEach(function (trigger) {
-      if (trigger._cuInit) return;
-      trigger._cuInit = true;
+  document.querySelectorAll("[data-cu-toast-trigger]").forEach(function (trigger) {
+    if (trigger._cuInit) return;
+    trigger._cuInit = true;
 
-      trigger.addEventListener("click", function () {
-        var title = trigger.getAttribute("data-cu-toast-title") || "";
-        var desc = trigger.getAttribute("data-cu-toast-description") || "";
-        var variant = trigger.getAttribute("data-cu-toast-variant") || "default";
-        var duration = parseInt(trigger.getAttribute("data-cu-toast-duration"), 10) || 5000;
-        toastAPI.show({ title: title, description: desc, variant: variant, duration: duration });
-      });
+    trigger.addEventListener("click", function () {
+      var title = trigger.getAttribute("data-cu-toast-title") || "";
+      var desc = trigger.getAttribute("data-cu-toast-description") || "";
+      var variant = trigger.getAttribute("data-cu-toast-variant") || "default";
+      var duration = parseInt(trigger.getAttribute("data-cu-toast-duration"), 10) || 5000;
+      toastAPI.show({ title: title, description: desc, variant: variant, duration: duration });
     });
+  });
 }

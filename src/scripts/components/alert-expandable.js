@@ -20,7 +20,10 @@ import { track, restore } from "../core/registry.js";
  */
 export function setupAlertExpandables() {
   document.querySelectorAll("[data-cu-alert-expandable]").forEach(function (el) {
-    if (el._cuInit) { restore("alertExpandables", el); return; }
+    if (el._cuInit) {
+      restore("alertExpandables", el);
+      return;
+    }
     el._cuInit = true;
 
     var trigger = el.querySelector("[data-cu-alert-expand-trigger]");

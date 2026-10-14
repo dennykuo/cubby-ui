@@ -19,7 +19,7 @@ const RESET_TIMEOUT = 4000;
 
 /** fixture #multiline 的 <pre> textContent：entity 解碼、保留 Tab / 空行 / 尾端空白 / 結尾換行 */
 const MULTILINE_TEXT =
-  "const html = `<a href=\"/?q=1&r=2\">${name}</a>`;\n" +
+  'const html = `<a href="/?q=1&r=2">${name}</a>`;\n' +
   "\tif (a && b || c) { console.log('它\\'s \"ok\" 🎉'); }\n" +
   "\n" +
   "// trailing   spaces   \n";
@@ -133,9 +133,13 @@ test.describe("Code Block", () => {
     expect(await page.evaluate(() => (window as any).__clip.readText())).toBe(MULTILINE_TEXT);
   });
 
-  test("Clipboard API 不存在且 execCommand 失敗：設定 data-cu-copy-failed、播報錯誤並觸發 error 事件，之後還原", async ({ page }) => {
+  test("Clipboard API 不存在且 execCommand 失敗：設定 data-cu-copy-failed、播報錯誤並觸發 error 事件，之後還原", async ({
+    page,
+  }) => {
     await removeClipboardApi(page);
-    await page.evaluate(() => { document.execCommand = (() => false) as typeof document.execCommand; });
+    await page.evaluate(() => {
+      document.execCommand = (() => false) as typeof document.execCommand;
+    });
 
     const btn = page.locator("#basic-copy");
     const label = btn.locator("[data-cu-code-block-label]");
@@ -153,7 +157,9 @@ test.describe("Code Block", () => {
 
   test("自訂錯誤訊息 data-cu-code-block-error-text", async ({ page }) => {
     await removeClipboardApi(page);
-    await page.evaluate(() => { document.execCommand = (() => false) as typeof document.execCommand; });
+    await page.evaluate(() => {
+      document.execCommand = (() => false) as typeof document.execCommand;
+    });
 
     const btn = page.locator("#custom-copy");
     await btn.click();
@@ -190,7 +196,11 @@ test.describe("Code Block", () => {
   });
 
   test("重複 init() / refresh() 不重複綁定：單次點擊只複製一次", async ({ page }) => {
-    await page.evaluate(() => { CubbyUI.init(); CubbyUI.init(); CubbyUI.refresh(); });
+    await page.evaluate(() => {
+      CubbyUI.init();
+      CubbyUI.init();
+      CubbyUI.refresh();
+    });
     await page.click("#basic-copy");
     await expect(page.locator("#basic-copy")).toHaveAttribute("data-cu-copied", "");
     expect(await events(page)).toEqual([{ type: "copy", id: "basic-copy", text: "npm install cubby-ui" }]);
@@ -201,7 +211,11 @@ test.describe("Code Block", () => {
     const errors: string[] = [];
     page.on("pageerror", (err) => errors.push(err.message));
 
-    await page.evaluate(() => { CubbyUI.destroy(); CubbyUI.init(); CubbyUI.init(); });
+    await page.evaluate(() => {
+      CubbyUI.destroy();
+      CubbyUI.init();
+      CubbyUI.init();
+    });
     const btn = page.locator("#multiline-copy");
     await btn.click();
     await expect(btn).toHaveAttribute("data-cu-copied", "");

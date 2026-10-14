@@ -126,29 +126,29 @@ const dlHorizontalCode = `<dl class="cu-dl cu-dl-horizontal">
 ---
 
 <Layout title={t.title} category={t.category} componentName="Lists" description={t.description}>
-    <div class="space-y-3">
-        <div class="flex items-center gap-3">
-          <h1 class="text-3xl font-bold tracking-tight">Lists</h1>
-          <span class="cu-badge cu-badge-secondary">{t.category}</span>
-        </div>
-        <p class="text-base text-muted-foreground leading-relaxed" set:html={t.description} />
+  <div class="space-y-3">
+    <div class="flex items-center gap-3">
+      <h1 class="text-3xl font-bold tracking-tight">Lists</h1>
+      <span class="cu-badge cu-badge-secondary">{t.category}</span>
     </div>
+    <p class="text-base text-muted-foreground leading-relaxed" set:html={t.description} />
+  </div>
 
-    <div class="mt-10 space-y-10">
-        <!-- Usage -->
-        <section class="space-y-3">
-            <SectionHeading id="usage" title={t.sections.usage.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
-            <ComponentPreview code={unorderedCode}>
-                <div class="w-full max-w-lg">
-                    <List>
-                        <li>Minimal footprint — pure CSS, no runtime dependencies</li>
-                        <li>Framework agnostic — works with any HTML project</li>
-                        <li>Semantic color tokens for consistent theming</li>
-                    </List>
-                </div>
-            </ComponentPreview>
-        </section>
+  <div class="mt-10 space-y-10">
+    <!-- Usage -->
+    <section class="space-y-3">
+      <SectionHeading id="usage" title={t.sections.usage.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
+      <ComponentPreview code={unorderedCode}>
+        <div class="w-full max-w-lg">
+          <List>
+            <li>Minimal footprint — pure CSS, no runtime dependencies</li>
+            <li>Framework agnostic — works with any HTML project</li>
+            <li>Semantic color tokens for consistent theming</li>
+          </List>
+        </div>
+      </ComponentPreview>
+    </section>
 
     <!-- Classes Reference -->
     <section class="space-y-3">
@@ -163,226 +163,315 @@ const dlHorizontalCode = `<dl class="cu-dl cu-dl-horizontal">
           </thead>
           <tbody class="cu-table-body">
             <tr class="cu-table-row">
-              <td class="cu-table-cell"><code class="cu-code">cu-list</code></td>
-              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-list']}</td>
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-list</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-list"]}</td>
             </tr>
             <tr class="cu-table-row">
-              <td class="cu-table-cell"><code class="cu-code">cu-list-disc</code></td>
-              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-list-disc']}</td>
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-list-disc</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-list-disc"]}</td>
             </tr>
             <tr class="cu-table-row">
-              <td class="cu-table-cell"><code class="cu-code">cu-list-decimal</code></td>
-              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-list-decimal']}</td>
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-list-decimal</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-list-decimal"]}</td>
             </tr>
             <tr class="cu-table-row">
-              <td class="cu-table-cell"><code class="cu-code">cu-list-none</code></td>
-              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-list-none']}</td>
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-list-none</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-list-none"]}</td>
             </tr>
             <tr class="cu-table-row">
-              <td class="cu-table-cell"><code class="cu-code">cu-list-bordered</code></td>
-              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-list-bordered']}</td>
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-list-bordered</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-list-bordered"]}</td>
             </tr>
             <tr class="cu-table-row">
-              <td class="cu-table-cell"><code class="cu-code">cu-list-inline</code></td>
-              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-list-inline']}</td>
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-list-inline</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-list-inline"]}</td>
             </tr>
             <tr class="cu-table-row">
-              <td class="cu-table-cell"><code class="cu-code">cu-dl</code></td>
-              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-dl']}</td>
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-dl</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-dl"]}</td>
             </tr>
             <tr class="cu-table-row">
-              <td class="cu-table-cell"><code class="cu-code">cu-dl-item</code></td>
-              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-dl-item']}</td>
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-dl-item</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-dl-item"]}</td>
             </tr>
             <tr class="cu-table-row">
-              <td class="cu-table-cell"><code class="cu-code">cu-dl-term</code></td>
-              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-dl-term']}</td>
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-dl-term</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-dl-term"]}</td>
             </tr>
             <tr class="cu-table-row">
-              <td class="cu-table-cell"><code class="cu-code">cu-dl-detail</code></td>
-              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-dl-detail']}</td>
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-dl-detail</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-dl-detail"]}</td>
             </tr>
             <tr class="cu-table-row">
-              <td class="cu-table-cell"><code class="cu-code">cu-dl-horizontal</code></td>
-              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-dl-horizontal']}</td>
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-dl-horizontal</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-dl-horizontal"]}</td>
             </tr>
           </tbody>
         </table>
       </div>
     </section>
 
+    <!-- Ordered -->
+    <section class="space-y-3">
+      <SectionHeading id="ordered" title={t.sections.ordered.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.ordered.description} />
+      <ComponentPreview code={orderedCode}>
+        <div class="w-full max-w-lg">
+          <List type="decimal">
+            <li>Install the package from npm</li>
+            <li>Import the CSS file into your project</li>
+            <li>Add component classes to your HTML markup</li>
+          </List>
+        </div>
+      </ComponentPreview>
+    </section>
 
-        <!-- Ordered -->
-        <section class="space-y-3">
-            <SectionHeading id="ordered" title={t.sections.ordered.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.ordered.description} />
-            <ComponentPreview code={orderedCode}>
-                <div class="w-full max-w-lg">
-                    <List type="decimal">
-                        <li>Install the package from npm</li>
-                        <li>Import the CSS file into your project</li>
-                        <li>Add component classes to your HTML markup</li>
-                    </List>
-                </div>
-            </ComponentPreview>
-        </section>
+    <!-- Nested -->
+    <section class="space-y-3">
+      <SectionHeading id="nested" title={t.sections.nested.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.nested.description} />
+      <ComponentPreview code={nestedCode}>
+        <div class="w-full max-w-lg">
+          <ul class="cu-list cu-list-disc">
+            <li>
+              Design tokens
+              <ul class="cu-list cu-list-disc">
+                <li>Semantic colors (primary, secondary, destructive)</li>
+                <li>Spacing scale and border radius</li>
+              </ul>
+            </li>
+            <li>
+              Component layers
+              <ul class="cu-list cu-list-disc">
+                <li>CSS class layer — framework agnostic</li>
+                <li>Astro component layer — type-safe wrappers</li>
+              </ul>
+            </li>
+            <li>Accessibility built-in</li>
+          </ul>
+        </div>
+      </ComponentPreview>
+    </section>
 
-        <!-- Nested -->
-        <section class="space-y-3">
-            <SectionHeading id="nested" title={t.sections.nested.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.nested.description} />
-            <ComponentPreview code={nestedCode}>
-                <div class="w-full max-w-lg">
-                    <ul class="cu-list cu-list-disc">
-                        <li>Design tokens
-                            <ul class="cu-list cu-list-disc">
-                                <li>Semantic colors (primary, secondary, destructive)</li>
-                                <li>Spacing scale and border radius</li>
-                            </ul>
-                        </li>
-                        <li>Component layers
-                            <ul class="cu-list cu-list-disc">
-                                <li>CSS class layer — framework agnostic</li>
-                                <li>Astro component layer — type-safe wrappers</li>
-                            </ul>
-                        </li>
-                        <li>Accessibility built-in</li>
-                    </ul>
-                </div>
-            </ComponentPreview>
-        </section>
+    <!-- Icon List -->
+    <section class="space-y-3">
+      <SectionHeading id="icon-list" title={t.sections.iconList.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.iconList.description} />
+      <ComponentPreview code={iconListCode}>
+        <div class="w-full max-w-lg">
+          <List type="none">
+            <li class="flex items-start gap-2">
+              <svg
+                class="size-4 mt-0.5 shrink-0 text-success"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M20 6 9 17l-5-5" />
+              </svg>
+              <span>Fully responsive and mobile-first</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <svg
+                class="size-4 mt-0.5 shrink-0 text-success"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M20 6 9 17l-5-5" />
+              </svg>
+              <span>Dark mode support out of the box</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <svg
+                class="size-4 mt-0.5 shrink-0 text-success"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M20 6 9 17l-5-5" />
+              </svg>
+              <span>Accessible with keyboard navigation</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <svg
+                class="size-4 mt-0.5 shrink-0 text-muted-foreground/40"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <line x1="18" y1="6" x2="6" y2="18" />
+                <line x1="6" y1="6" x2="18" y2="18" />
+              </svg>
+              <span class="text-muted-foreground">No JavaScript framework required</span>
+            </li>
+          </List>
+        </div>
+      </ComponentPreview>
+    </section>
 
-        <!-- Icon List -->
-        <section class="space-y-3">
-            <SectionHeading id="icon-list" title={t.sections.iconList.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.iconList.description} />
-            <ComponentPreview code={iconListCode}>
-                <div class="w-full max-w-lg">
-                    <List type="none">
-                        <li class="flex items-start gap-2">
-                            <svg class="size-4 mt-0.5 shrink-0 text-success" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
-                            <span>Fully responsive and mobile-first</span>
-                        </li>
-                        <li class="flex items-start gap-2">
-                            <svg class="size-4 mt-0.5 shrink-0 text-success" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
-                            <span>Dark mode support out of the box</span>
-                        </li>
-                        <li class="flex items-start gap-2">
-                            <svg class="size-4 mt-0.5 shrink-0 text-success" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
-                            <span>Accessible with keyboard navigation</span>
-                        </li>
-                        <li class="flex items-start gap-2">
-                            <svg class="size-4 mt-0.5 shrink-0 text-muted-foreground/40" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-                            <span class="text-muted-foreground">No JavaScript framework required</span>
-                        </li>
-                    </List>
-                </div>
-            </ComponentPreview>
-        </section>
+    <!-- Bordered -->
+    <section class="space-y-3">
+      <SectionHeading id="bordered" title={t.sections.bordered.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.bordered.description} />
+      <ComponentPreview code={borderedCode}>
+        <div class="w-full max-w-lg">
+          <ul class="cu-list cu-list-bordered">
+            <li class="flex items-center justify-between">
+              <div>
+                <div class="font-medium">Email notifications</div>
+                <div class="text-muted-foreground text-xs">Receive emails for new messages</div>
+              </div>
+              <span class="cu-badge cu-badge-success">Enabled</span>
+            </li>
+            <li class="flex items-center justify-between">
+              <div>
+                <div class="font-medium">Push notifications</div>
+                <div class="text-muted-foreground text-xs">Receive push notifications on mobile</div>
+              </div>
+              <span class="cu-badge cu-badge-outline">Disabled</span>
+            </li>
+            <li class="flex items-center justify-between">
+              <div>
+                <div class="font-medium">SMS notifications</div>
+                <div class="text-muted-foreground text-xs">Receive text messages for alerts</div>
+              </div>
+              <span class="cu-badge cu-badge-success">Enabled</span>
+            </li>
+          </ul>
+        </div>
+      </ComponentPreview>
+    </section>
 
-        <!-- Bordered -->
-        <section class="space-y-3">
-            <SectionHeading id="bordered" title={t.sections.bordered.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.bordered.description} />
-            <ComponentPreview code={borderedCode}>
-                <div class="w-full max-w-lg">
-                    <ul class="cu-list cu-list-bordered">
-                        <li class="flex items-center justify-between">
-                            <div>
-                                <div class="font-medium">Email notifications</div>
-                                <div class="text-muted-foreground text-xs">Receive emails for new messages</div>
-                            </div>
-                            <span class="cu-badge cu-badge-success">Enabled</span>
-                        </li>
-                        <li class="flex items-center justify-between">
-                            <div>
-                                <div class="font-medium">Push notifications</div>
-                                <div class="text-muted-foreground text-xs">Receive push notifications on mobile</div>
-                            </div>
-                            <span class="cu-badge cu-badge-outline">Disabled</span>
-                        </li>
-                        <li class="flex items-center justify-between">
-                            <div>
-                                <div class="font-medium">SMS notifications</div>
-                                <div class="text-muted-foreground text-xs">Receive text messages for alerts</div>
-                            </div>
-                            <span class="cu-badge cu-badge-success">Enabled</span>
-                        </li>
-                    </ul>
-                </div>
-            </ComponentPreview>
-        </section>
+    <!-- Inline -->
+    <section class="space-y-3">
+      <SectionHeading id="inline" title={t.sections.inline.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.inline.description} />
+      <ComponentPreview code={inlineCode}>
+        <div class="w-full max-w-lg">
+          <ul class="cu-list cu-list-inline">
+            <li>
+              <a class="cu-link" href="#">
+                Home
+              </a>
+            </li>
+            <li class="text-muted-foreground/40">·</li>
+            <li>
+              <a class="cu-link" href="#">
+                Features
+              </a>
+            </li>
+            <li class="text-muted-foreground/40">·</li>
+            <li>
+              <a class="cu-link" href="#">
+                Pricing
+              </a>
+            </li>
+            <li class="text-muted-foreground/40">·</li>
+            <li>
+              <a class="cu-link" href="#">
+                About
+              </a>
+            </li>
+          </ul>
+        </div>
+      </ComponentPreview>
+    </section>
 
-        <!-- Inline -->
-        <section class="space-y-3">
-            <SectionHeading id="inline" title={t.sections.inline.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.inline.description} />
-            <ComponentPreview code={inlineCode}>
-                <div class="w-full max-w-lg">
-                    <ul class="cu-list cu-list-inline">
-                        <li><a class="cu-link" href="#">Home</a></li>
-                        <li class="text-muted-foreground/40">·</li>
-                        <li><a class="cu-link" href="#">Features</a></li>
-                        <li class="text-muted-foreground/40">·</li>
-                        <li><a class="cu-link" href="#">Pricing</a></li>
-                        <li class="text-muted-foreground/40">·</li>
-                        <li><a class="cu-link" href="#">About</a></li>
-                    </ul>
-                </div>
-            </ComponentPreview>
-        </section>
+    <!-- Description List -->
+    <section class="space-y-3">
+      <SectionHeading id="description-list" title={t.sections.descriptionList.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.descriptionList.description} />
+      <ComponentPreview code={dlVerticalCode}>
+        <div class="w-full max-w-lg">
+          <dl class="cu-dl">
+            <div class="cu-dl-item">
+              <dt class="cu-dl-term">Name</dt>
+              <dd class="cu-dl-detail">Cubby UI</dd>
+            </div>
+            <div class="cu-dl-item">
+              <dt class="cu-dl-term">Category</dt>
+              <dd class="cu-dl-detail">CSS Component Library</dd>
+            </div>
+            <div class="cu-dl-item">
+              <dt class="cu-dl-term">Description</dt>
+              <dd class="cu-dl-detail">
+                A framework-agnostic UI library built with pure HTML and Tailwind CSS. Designed for copy-paste usage
+                without any runtime dependencies.
+              </dd>
+            </div>
+          </dl>
+        </div>
+      </ComponentPreview>
+    </section>
 
-        <!-- Description List -->
-        <section class="space-y-3">
-            <SectionHeading id="description-list" title={t.sections.descriptionList.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.descriptionList.description} />
-            <ComponentPreview code={dlVerticalCode}>
-                <div class="w-full max-w-lg">
-                    <dl class="cu-dl">
-                        <div class="cu-dl-item">
-                            <dt class="cu-dl-term">Name</dt>
-                            <dd class="cu-dl-detail">Cubby UI</dd>
-                        </div>
-                        <div class="cu-dl-item">
-                            <dt class="cu-dl-term">Category</dt>
-                            <dd class="cu-dl-detail">CSS Component Library</dd>
-                        </div>
-                        <div class="cu-dl-item">
-                            <dt class="cu-dl-term">Description</dt>
-                            <dd class="cu-dl-detail">A framework-agnostic UI library built with pure HTML and Tailwind CSS. Designed for copy-paste usage without any runtime dependencies.</dd>
-                        </div>
-                    </dl>
-                </div>
-            </ComponentPreview>
-        </section>
-
-        <!-- Horizontal Description List -->
-        <section class="space-y-3">
-            <SectionHeading id="horizontal-description-list" title={t.sections.horizontalDescriptionList.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.horizontalDescriptionList.description} />
-            <ComponentPreview code={dlHorizontalCode}>
-                <div class="w-full max-w-lg">
-                    <dl class="cu-dl cu-dl-horizontal">
-                        <div class="cu-dl-item">
-                            <dt class="cu-dl-term">Status</dt>
-                            <dd class="cu-dl-detail">Active</dd>
-                        </div>
-                        <div class="cu-dl-item">
-                            <dt class="cu-dl-term">License</dt>
-                            <dd class="cu-dl-detail">MIT</dd>
-                        </div>
-                        <div class="cu-dl-item">
-                            <dt class="cu-dl-term">Last updated</dt>
-                            <dd class="cu-dl-detail">January 29, 2026</dd>
-                        </div>
-                        <div class="cu-dl-item">
-                            <dt class="cu-dl-term">Dependencies</dt>
-                            <dd class="cu-dl-detail">None — pure CSS, zero JavaScript runtime</dd>
-                        </div>
-                    </dl>
-                </div>
-            </ComponentPreview>
-        </section>
-    </div>
-
+    <!-- Horizontal Description List -->
+    <section class="space-y-3">
+      <SectionHeading id="horizontal-description-list" title={t.sections.horizontalDescriptionList.title} />
+      <p
+        class="text-base text-muted-foreground leading-relaxed"
+        set:html={t.sections.horizontalDescriptionList.description}
+      />
+      <ComponentPreview code={dlHorizontalCode}>
+        <div class="w-full max-w-lg">
+          <dl class="cu-dl cu-dl-horizontal">
+            <div class="cu-dl-item">
+              <dt class="cu-dl-term">Status</dt>
+              <dd class="cu-dl-detail">Active</dd>
+            </div>
+            <div class="cu-dl-item">
+              <dt class="cu-dl-term">License</dt>
+              <dd class="cu-dl-detail">MIT</dd>
+            </div>
+            <div class="cu-dl-item">
+              <dt class="cu-dl-term">Last updated</dt>
+              <dd class="cu-dl-detail">January 29, 2026</dd>
+            </div>
+            <div class="cu-dl-item">
+              <dt class="cu-dl-term">Dependencies</dt>
+              <dd class="cu-dl-detail">None — pure CSS, zero JavaScript runtime</dd>
+            </div>
+          </dl>
+        </div>
+      </ComponentPreview>
+    </section>
+  </div>
 </Layout>

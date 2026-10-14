@@ -47,103 +47,110 @@ const disabledCode = `<div class="cu-input-search">
 ---
 
 <Layout category={t.category} componentName="Search Input" title={t.title} description={t.description}>
-    <div class="space-y-3">
-        <div class="flex items-center gap-3">
-          <h1 class="text-3xl font-bold tracking-tight">Search Input</h1>
-          <span class="cu-badge cu-badge-secondary">{t.category}</span>
+  <div class="space-y-3">
+    <div class="flex items-center gap-3">
+      <h1 class="text-3xl font-bold tracking-tight">Search Input</h1>
+      <span class="cu-badge cu-badge-secondary">{t.category}</span>
+    </div>
+    <p class="text-base text-muted-foreground leading-relaxed" set:html={t.description} />
+  </div>
+
+  <div class="mt-10 space-y-10">
+    <!-- Usage -->
+    <section class="space-y-3">
+      <SectionHeading id="usage" title={t.sections.usage.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
+      <ComponentPreview code={usageCode}>
+        <div class="w-full max-w-sm">
+          <SearchInput placeholder="Search..." />
         </div>
-        <p class="text-base text-muted-foreground leading-relaxed" set:html={t.description} />
-    </div>
+      </ComponentPreview>
+    </section>
 
-    <div class="mt-10 space-y-10">
-        <!-- Usage -->
-        <section class="space-y-3">
-            <SectionHeading id="usage" title={t.sections.usage.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
-            <ComponentPreview code={usageCode}>
-                <div class="w-full max-w-sm">
-                    <SearchInput placeholder="Search..." />
-                </div>
-            </ComponentPreview>
-        </section>
+    <!-- Classes Reference -->
+    <section class="space-y-3">
+      <SectionHeading id="classes" title={t.sections.classes.title} />
+      <div class="cu-table-wrapper rounded-lg border border-border">
+        <table class="cu-table">
+          <thead class="cu-table-header">
+            <tr class="cu-table-row">
+              <th class="cu-table-head">{t.sections.classes.classLabel}</th>
+              <th class="cu-table-head">{t.sections.classes.descriptionLabel}</th>
+            </tr>
+          </thead>
+          <tbody class="cu-table-body">
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-input-search</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-input-search"]}</td>
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-input-search-icon</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-input-search-icon"]}</td>
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-input-search-field</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-input-search-field"]}</td>
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-input-search-clear</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-input-search-clear"]}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
 
-        <!-- Classes Reference -->
-        <section class="space-y-3">
-            <SectionHeading id="classes" title={t.sections.classes.title} />
-            <div class="cu-table-wrapper rounded-lg border border-border">
-                <table class="cu-table">
-                    <thead class="cu-table-header">
-                        <tr class="cu-table-row">
-                            <th class="cu-table-head">{t.sections.classes.classLabel}</th>
-                            <th class="cu-table-head">{t.sections.classes.descriptionLabel}</th>
-                        </tr>
-                    </thead>
-                    <tbody class="cu-table-body">
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-input-search</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-input-search']}</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-input-search-icon</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-input-search-icon']}</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-input-search-field</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-input-search-field']}</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-input-search-clear</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-input-search-clear']}</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </section>
+    <!-- Clearable -->
+    <section class="space-y-3">
+      <SectionHeading id="clearable" title={t.sections.clearable.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.clearable.description} />
+      <ComponentPreview code={clearableCode}>
+        <div class="w-full max-w-sm">
+          <SearchInput placeholder="Search..." clearable />
+        </div>
+      </ComponentPreview>
+    </section>
 
+    <!-- With Placeholder -->
+    <section class="space-y-3">
+      <SectionHeading id="with-placeholder" title={t.sections.withPlaceholder.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withPlaceholder.description} />
+      <ComponentPreview code={placeholderCode}>
+        <div class="w-full max-w-sm">
+          <SearchInput placeholder="Search components..." />
+        </div>
+      </ComponentPreview>
+    </section>
 
-        <!-- Clearable -->
-        <section class="space-y-3">
-            <SectionHeading id="clearable" title={t.sections.clearable.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.clearable.description} />
-            <ComponentPreview code={clearableCode}>
-                <div class="w-full max-w-sm">
-                    <SearchInput placeholder="Search..." clearable />
-                </div>
-            </ComponentPreview>
-        </section>
-
-        <!-- With Placeholder -->
-        <section class="space-y-3">
-            <SectionHeading id="with-placeholder" title={t.sections.withPlaceholder.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withPlaceholder.description} />
-            <ComponentPreview code={placeholderCode}>
-                <div class="w-full max-w-sm">
-                    <SearchInput placeholder="Search components..." />
-                </div>
-            </ComponentPreview>
-        </section>
-
-        <!-- Disabled -->
-        <section class="space-y-3">
-            <SectionHeading id="disabled" title={t.sections.disabled.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.disabled.description} />
-            <ComponentPreview code={disabledCode}>
-                <div class="w-full max-w-sm">
-                    <SearchInput placeholder="Search..." disabled />
-                </div>
-            </ComponentPreview>
-        </section>
-    </div>
+    <!-- Disabled -->
+    <section class="space-y-3">
+      <SectionHeading id="disabled" title={t.sections.disabled.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.disabled.description} />
+      <ComponentPreview code={disabledCode}>
+        <div class="w-full max-w-sm">
+          <SearchInput placeholder="Search..." disabled />
+        </div>
+      </ComponentPreview>
+    </section>
+  </div>
 </Layout>
 
 <script>
-document.querySelectorAll("[data-cu-search-clear]").forEach(function (btn) {
+  document.querySelectorAll("[data-cu-search-clear]").forEach(function (btn) {
     btn.addEventListener("click", function () {
-        var input = btn.closest(".cu-input-search")?.querySelector(".cu-input-search-field") as HTMLInputElement | null;
-        if (input) {
-            input.value = "";
-            input.focus();
-        }
+      var input = btn.closest(".cu-input-search")?.querySelector(".cu-input-search-field") as HTMLInputElement | null;
+      if (input) {
+        input.value = "";
+        input.focus();
+      }
     });
-});
+  });
 </script>

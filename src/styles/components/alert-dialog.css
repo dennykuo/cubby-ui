@@ -1,62 +1,69 @@
 /* Alert Dialog
    ------------------------------------------------------------------ */
 .cu-alert-dialog {
-    @apply fixed inset-0 z-50 m-auto h-fit w-full max-w-lg rounded-xl border border-border bg-background p-6 shadow-lg;
+  @apply fixed inset-0 z-50 m-auto h-fit w-full max-w-lg rounded-xl border border-border bg-background p-6 shadow-lg;
 }
 
 .cu-alert-dialog::backdrop {
-    background: color-mix(in srgb, var(--color-foreground) 50%, transparent);
-    backdrop-filter: blur(4px);
-    transition: opacity 0.2s ease, overlay 0.2s ease allow-discrete, display 0.2s ease allow-discrete;
-    opacity: 1;
+  background: color-mix(in srgb, var(--color-foreground) 50%, transparent);
+  backdrop-filter: blur(4px);
+  transition:
+    opacity 0.2s ease,
+    overlay 0.2s ease allow-discrete,
+    display 0.2s ease allow-discrete;
+  opacity: 1;
 }
 
 /* -- open/close animation -- */
 .cu-alert-dialog {
-    opacity: 1;
-    transform: scale(1);
-    transition: opacity 0.2s ease, transform 0.2s ease, overlay 0.2s ease allow-discrete, display 0.2s ease allow-discrete;
+  opacity: 1;
+  transform: scale(1);
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease,
+    overlay 0.2s ease allow-discrete,
+    display 0.2s ease allow-discrete;
 }
 
 @starting-style {
-    .cu-alert-dialog[open] {
-        opacity: 0;
-        transform: scale(0.95);
-    }
-    .cu-alert-dialog[open]::backdrop {
-        opacity: 0;
-    }
+  .cu-alert-dialog[open] {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  .cu-alert-dialog[open]::backdrop {
+    opacity: 0;
+  }
 }
 
 .cu-alert-dialog-header {
-    @apply flex flex-col space-y-1.5 text-center sm:text-left;
+  @apply flex flex-col space-y-1.5 text-center sm:text-left;
 }
 
 .cu-alert-dialog-title {
-    @apply text-lg font-semibold leading-none tracking-tight;
+  @apply text-lg leading-none font-semibold tracking-tight;
 }
 
 .cu-alert-dialog-description {
-    @apply text-sm text-muted-foreground;
+  @apply text-sm text-muted-foreground;
 }
 
 /* -- size variants -- */
 .cu-alert-dialog-sm {
-    @apply max-w-sm;
+  @apply max-w-sm;
 }
 
 .cu-alert-dialog-md {
-    @apply max-w-md;
+  @apply max-w-md;
 }
 
 .cu-alert-dialog-xl {
-    @apply max-w-xl;
+  @apply max-w-xl;
 }
 
 .cu-alert-dialog-full {
-    @apply max-w-3xl;
+  @apply max-w-3xl;
 }
 
 .cu-alert-dialog-footer {
-    @apply flex flex-col-reverse sm:flex-row sm:justify-end gap-2 mt-6;
+  @apply mt-6 flex flex-col-reverse gap-2 sm:flex-row sm:justify-end;
 }

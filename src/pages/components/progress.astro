@@ -29,7 +29,8 @@ const sizesCode = `<!-- Small -->
   <div class="cu-progress-bar" style="width: 80%"></div>
 </div>`.trim();
 
-const valuesCode = `<div class="cu-progress" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+const valuesCode =
+  `<div class="cu-progress" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
   <div class="cu-progress-bar" style="width: 20%"></div>
 </div>
 
@@ -147,275 +148,350 @@ const colorsCode = `<!-- Success -->
 ---
 
 <Layout title={t.title} category={t.category} componentName="Progress" description={t.description}>
-    <div class="space-y-3">
-        <div class="flex items-center gap-3">
-            <h1 class="text-3xl font-bold tracking-tight">Progress</h1>
-            <span class="cu-badge cu-badge-secondary">{t.category}</span>
+  <div class="space-y-3">
+    <div class="flex items-center gap-3">
+      <h1 class="text-3xl font-bold tracking-tight">Progress</h1>
+      <span class="cu-badge cu-badge-secondary">{t.category}</span>
+    </div>
+    <p class="text-base text-muted-foreground leading-relaxed">{t.description}</p>
+  </div>
+
+  <div class="mt-10 space-y-10">
+    <!-- Usage -->
+    <section class="space-y-3">
+      <SectionHeading id="usage" title={t.sections.usage.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
+      <ComponentPreview code={usageCode}>
+        <div class="w-full max-w-md">
+          <Progress value={60} />
         </div>
-        <p class="text-base text-muted-foreground leading-relaxed">
-            {t.description}
-        </p>
-    </div>
+      </ComponentPreview>
+    </section>
 
-    <div class="mt-10 space-y-10">
-        <!-- Usage -->
-        <section class="space-y-3">
-            <SectionHeading id="usage" title={t.sections.usage.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
-            <ComponentPreview code={usageCode}>
-                <div class="w-full max-w-md">
-                    <Progress value={60} />
-                </div>
-            </ComponentPreview>
-        </section>
+    <!-- Classes Reference -->
+    <section class="space-y-3">
+      <SectionHeading id="classes" title={t.sections.classes.title} />
+      <div class="cu-table-wrapper rounded-lg border border-border">
+        <table class="cu-table">
+          <thead class="cu-table-header">
+            <tr class="cu-table-row">
+              <th class="cu-table-head">{t.sections.classes.classLabel}</th>
+              <th class="cu-table-head">{t.sections.classes.descriptionLabel}</th>
+            </tr>
+          </thead>
+          <tbody class="cu-table-body">
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-progress</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-progress"]}</td>
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-progress-bar</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-progress-bar"]}</td>
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-progress-sm</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-progress-sm"]}</td>
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-progress-lg</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-progress-lg"]}</td>
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-progress-bar-*</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-progress-bar-success"]}</td>
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-progress-wrapper</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-progress-wrapper"]}</td>
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-progress-label</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-progress-label"]}</td>
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-progress-value</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-progress-value"]}</td>
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-progress-multi</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-progress-multi"]}</td>
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-progress-circular</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-progress-circular"]}</td>
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-progress-circular-track</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-progress-circular-track"]}</td>
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-progress-circular-bar</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-progress-circular-bar"]}</td>
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-progress-circular-value</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-progress-circular-value"]}</td>
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-progress-circular-indeterminate</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">
+                {t.classDescriptions["cu-progress-circular-indeterminate"]}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
 
-        <!-- Classes Reference -->
-        <section class="space-y-3">
-            <SectionHeading id="classes" title={t.sections.classes.title} />
-            <div class="cu-table-wrapper rounded-lg border border-border">
-                <table class="cu-table">
-                    <thead class="cu-table-header">
-                        <tr class="cu-table-row">
-                            <th class="cu-table-head">{t.sections.classes.classLabel}</th>
-                            <th class="cu-table-head">{t.sections.classes.descriptionLabel}</th>
-                        </tr>
-                    </thead>
-                    <tbody class="cu-table-body">
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-progress</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-progress']}</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-progress-bar</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-progress-bar']}</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-progress-sm</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-progress-sm']}</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-progress-lg</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-progress-lg']}</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-progress-bar-*</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-progress-bar-success']}</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-progress-wrapper</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-progress-wrapper']}</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-progress-label</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-progress-label']}</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-progress-value</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-progress-value']}</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-progress-multi</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-progress-multi']}</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-progress-circular</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-progress-circular']}</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-progress-circular-track</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-progress-circular-track']}</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-progress-circular-bar</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-progress-circular-bar']}</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-progress-circular-value</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-progress-circular-value']}</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-progress-circular-indeterminate</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-progress-circular-indeterminate']}</td>
-                        </tr>
-                    </tbody>
-                </table>
+    <!-- Sizes -->
+    <section class="space-y-3">
+      <SectionHeading id="sizes" title={t.sections.sizes.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.sizes.description} />
+      <ComponentPreview code={sizesCode}>
+        <div class="w-full max-w-md space-y-4">
+          <div class="cu-progress cu-progress-sm" role="progressbar">
+            <div class="cu-progress-bar" style="width: 40%"></div>
+          </div>
+          <Progress value={60} />
+          <div class="cu-progress cu-progress-lg" role="progressbar">
+            <div class="cu-progress-bar" style="width: 80%"></div>
+          </div>
+        </div>
+      </ComponentPreview>
+    </section>
+
+    <!-- Different Values -->
+    <section class="space-y-3">
+      <SectionHeading id="different-values" title={t.sections.differentValues.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.differentValues.description} />
+      <ComponentPreview code={valuesCode}>
+        <div class="w-full max-w-md space-y-4">
+          <Progress value={20} />
+          <Progress value={50} />
+          <Progress value={80} />
+        </div>
+      </ComponentPreview>
+    </section>
+
+    <!-- Color Variants -->
+    <section class="space-y-3">
+      <SectionHeading id="color-variants" title={t.sections.colorVariants.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.colorVariants.description} />
+      <ComponentPreview code={colorVariantsCode}>
+        <div class="w-full max-w-md space-y-4">
+          <div class="cu-progress" role="progressbar">
+            <div class="cu-progress-bar cu-progress-bar-success" style="width: 75%"></div>
+          </div>
+          <div class="cu-progress" role="progressbar">
+            <div class="cu-progress-bar cu-progress-bar-warning" style="width: 50%"></div>
+          </div>
+          <div class="cu-progress" role="progressbar">
+            <div class="cu-progress-bar cu-progress-bar-destructive" style="width: 30%"></div>
+          </div>
+          <div class="cu-progress" role="progressbar">
+            <div class="cu-progress-bar cu-progress-bar-info" style="width: 65%"></div>
+          </div>
+        </div>
+      </ComponentPreview>
+    </section>
+
+    <!-- With Label -->
+    <section class="space-y-3">
+      <SectionHeading id="with-label" title={t.sections.withLabel.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withLabel.description} />
+      <ComponentPreview code={withLabelCode}>
+        <div class="w-full max-w-md space-y-4">
+          <div class="cu-progress-wrapper">
+            <span class="cu-progress-label">Storage</span>
+            <div class="cu-progress" role="progressbar" aria-valuenow="72" aria-valuemin="0" aria-valuemax="100">
+              <div class="cu-progress-bar" style="width: 72%"></div>
             </div>
-        </section>
+            <span class="cu-progress-value">72%</span>
+          </div>
+          <div class="cu-progress-wrapper">
+            <span class="cu-progress-label">Upload</span>
+            <div class="cu-progress" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100">
+              <div class="cu-progress-bar cu-progress-bar-success" style="width: 45%"></div>
+            </div>
+            <span class="cu-progress-value">45%</span>
+          </div>
+        </div>
+      </ComponentPreview>
+    </section>
 
+    <!-- Striped -->
+    <section class="space-y-3">
+      <SectionHeading id="striped" title={t.sections.striped.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.striped.description} />
+      <ComponentPreview code={stripedCode}>
+        <div class="w-full max-w-md space-y-4">
+          <div class="cu-progress" role="progressbar">
+            <div class="cu-progress-bar cu-progress-bar-striped" style="width: 60%"></div>
+          </div>
+          <div class="cu-progress" role="progressbar">
+            <div
+              class="cu-progress-bar cu-progress-bar-info cu-progress-bar-striped cu-progress-bar-striped-animated"
+              style="width: 45%"
+            ></div>
+          </div>
+        </div>
+      </ComponentPreview>
+    </section>
 
-        <!-- Sizes -->
-        <section class="space-y-3">
-            <SectionHeading id="sizes" title={t.sections.sizes.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.sizes.description} />
-            <ComponentPreview code={sizesCode}>
-                <div class="w-full max-w-md space-y-4">
-                    <div class="cu-progress cu-progress-sm" role="progressbar">
-                        <div class="cu-progress-bar" style="width: 40%"></div>
-                    </div>
-                    <Progress value={60} />
-                    <div class="cu-progress cu-progress-lg" role="progressbar">
-                        <div class="cu-progress-bar" style="width: 80%"></div>
-                    </div>
-                </div>
-            </ComponentPreview>
-        </section>
+    <!-- Custom Colors -->
+    <section class="space-y-3">
+      <SectionHeading id="custom-colors" title={t.sections.customColors.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.customColors.description} />
+      <ComponentPreview code={colorsCode}>
+        <div class="w-full max-w-md space-y-4">
+          <div class="cu-progress" role="progressbar">
+            <div class="cu-progress-bar bg-success" style="width: 75%"></div>
+          </div>
+          <div class="cu-progress" role="progressbar">
+            <div class="cu-progress-bar bg-warning" style="width: 50%"></div>
+          </div>
+          <div class="cu-progress" role="progressbar">
+            <div class="cu-progress-bar bg-destructive" style="width: 30%"></div>
+          </div>
+        </div>
+      </ComponentPreview>
+    </section>
 
-        <!-- Different Values -->
-        <section class="space-y-3">
-            <SectionHeading id="different-values" title={t.sections.differentValues.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.differentValues.description} />
-            <ComponentPreview code={valuesCode}>
-                <div class="w-full max-w-md space-y-4">
-                    <Progress value={20} />
-                    <Progress value={50} />
-                    <Progress value={80} />
-                </div>
-            </ComponentPreview>
-        </section>
+    <!-- Multi-Segment -->
+    <section class="space-y-3">
+      <SectionHeading id="multi-segment" title={t.sections.multiSegment.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.multiSegment.description} />
+      <ComponentPreview code={multiSegmentCode}>
+        <div class="w-full max-w-md space-y-4">
+          <div>
+            <div class="flex justify-between text-sm mb-2">
+              <span class="font-medium">Storage Usage</span>
+              <span class="text-muted-foreground">73.5 GB / 100 GB</span>
+            </div>
+            <div class="cu-progress-multi">
+              <div class="cu-progress-bar cu-progress-bar-info" style="width: 40%"></div>
+              <div class="cu-progress-bar cu-progress-bar-success" style="width: 20%"></div>
+              <div class="cu-progress-bar cu-progress-bar-warning" style="width: 13.5%"></div>
+            </div>
+            <div class="flex gap-4 mt-2 text-xs text-muted-foreground">
+              <span class="flex items-center gap-1.5">
+                <span class="size-2 rounded-full bg-info"></span>Documents (40 GB)
+              </span>
+              <span class="flex items-center gap-1.5">
+                <span class="size-2 rounded-full bg-success"></span>Photos (20 GB)
+              </span>
+              <span class="flex items-center gap-1.5">
+                <span class="size-2 rounded-full bg-warning"></span>Other (13.5 GB)
+              </span>
+            </div>
+          </div>
+        </div>
+      </ComponentPreview>
+    </section>
 
-        <!-- Color Variants -->
-        <section class="space-y-3">
-            <SectionHeading id="color-variants" title={t.sections.colorVariants.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.colorVariants.description} />
-            <ComponentPreview code={colorVariantsCode}>
-                <div class="w-full max-w-md space-y-4">
-                    <div class="cu-progress" role="progressbar">
-                        <div class="cu-progress-bar cu-progress-bar-success" style="width: 75%"></div>
-                    </div>
-                    <div class="cu-progress" role="progressbar">
-                        <div class="cu-progress-bar cu-progress-bar-warning" style="width: 50%"></div>
-                    </div>
-                    <div class="cu-progress" role="progressbar">
-                        <div class="cu-progress-bar cu-progress-bar-destructive" style="width: 30%"></div>
-                    </div>
-                    <div class="cu-progress" role="progressbar">
-                        <div class="cu-progress-bar cu-progress-bar-info" style="width: 65%"></div>
-                    </div>
-                </div>
-            </ComponentPreview>
-        </section>
-
-        <!-- With Label -->
-        <section class="space-y-3">
-            <SectionHeading id="with-label" title={t.sections.withLabel.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withLabel.description} />
-            <ComponentPreview code={withLabelCode}>
-                <div class="w-full max-w-md space-y-4">
-                    <div class="cu-progress-wrapper">
-                        <span class="cu-progress-label">Storage</span>
-                        <div class="cu-progress" role="progressbar" aria-valuenow="72" aria-valuemin="0" aria-valuemax="100">
-                            <div class="cu-progress-bar" style="width: 72%"></div>
-                        </div>
-                        <span class="cu-progress-value">72%</span>
-                    </div>
-                    <div class="cu-progress-wrapper">
-                        <span class="cu-progress-label">Upload</span>
-                        <div class="cu-progress" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100">
-                            <div class="cu-progress-bar cu-progress-bar-success" style="width: 45%"></div>
-                        </div>
-                        <span class="cu-progress-value">45%</span>
-                    </div>
-                </div>
-            </ComponentPreview>
-        </section>
-
-        <!-- Striped -->
-        <section class="space-y-3">
-            <SectionHeading id="striped" title={t.sections.striped.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.striped.description} />
-            <ComponentPreview code={stripedCode}>
-                <div class="w-full max-w-md space-y-4">
-                    <div class="cu-progress" role="progressbar">
-                        <div class="cu-progress-bar cu-progress-bar-striped" style="width: 60%"></div>
-                    </div>
-                    <div class="cu-progress" role="progressbar">
-                        <div class="cu-progress-bar cu-progress-bar-info cu-progress-bar-striped cu-progress-bar-striped-animated" style="width: 45%"></div>
-                    </div>
-                </div>
-            </ComponentPreview>
-        </section>
-
-        <!-- Custom Colors -->
-        <section class="space-y-3">
-            <SectionHeading id="custom-colors" title={t.sections.customColors.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.customColors.description} />
-            <ComponentPreview code={colorsCode}>
-                <div class="w-full max-w-md space-y-4">
-                    <div class="cu-progress" role="progressbar">
-                        <div class="cu-progress-bar bg-success" style="width: 75%"></div>
-                    </div>
-                    <div class="cu-progress" role="progressbar">
-                        <div class="cu-progress-bar bg-warning" style="width: 50%"></div>
-                    </div>
-                    <div class="cu-progress" role="progressbar">
-                        <div class="cu-progress-bar bg-destructive" style="width: 30%"></div>
-                    </div>
-                </div>
-            </ComponentPreview>
-        </section>
-
-        <!-- Multi-Segment -->
-        <section class="space-y-3">
-            <SectionHeading id="multi-segment" title={t.sections.multiSegment.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.multiSegment.description} />
-            <ComponentPreview code={multiSegmentCode}>
-                <div class="w-full max-w-md space-y-4">
-                    <div>
-                        <div class="flex justify-between text-sm mb-2">
-                            <span class="font-medium">Storage Usage</span>
-                            <span class="text-muted-foreground">73.5 GB / 100 GB</span>
-                        </div>
-                        <div class="cu-progress-multi">
-                            <div class="cu-progress-bar cu-progress-bar-info" style="width: 40%"></div>
-                            <div class="cu-progress-bar cu-progress-bar-success" style="width: 20%"></div>
-                            <div class="cu-progress-bar cu-progress-bar-warning" style="width: 13.5%"></div>
-                        </div>
-                        <div class="flex gap-4 mt-2 text-xs text-muted-foreground">
-                            <span class="flex items-center gap-1.5"><span class="size-2 rounded-full bg-info"></span>Documents (40 GB)</span>
-                            <span class="flex items-center gap-1.5"><span class="size-2 rounded-full bg-success"></span>Photos (20 GB)</span>
-                            <span class="flex items-center gap-1.5"><span class="size-2 rounded-full bg-warning"></span>Other (13.5 GB)</span>
-                        </div>
-                    </div>
-                </div>
-            </ComponentPreview>
-        </section>
-
-        <!-- Circular -->
-        <section class="space-y-3">
-            <SectionHeading id="circular" title={t.sections.circular.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.circular.description} />
-            <ComponentPreview code={circularCode}>
-                <div class="flex items-center gap-8">
-                    <div class="cu-progress-circular" style="width:48px;height:48px">
-                        <svg viewBox="0 0 36 36">
-                            <circle class="cu-progress-circular-track" cx="18" cy="18" r="16" fill="none" stroke-width="3"/>
-                            <circle class="cu-progress-circular-bar" cx="18" cy="18" r="16" fill="none" stroke-width="3" stroke-dasharray="100.53" stroke-dashoffset="75.4" stroke-linecap="round"/>
-                        </svg>
-                        <span class="cu-progress-circular-value text-xs">25%</span>
-                    </div>
-                    <div class="cu-progress-circular" style="width:56px;height:56px">
-                        <svg viewBox="0 0 36 36">
-                            <circle class="cu-progress-circular-track" cx="18" cy="18" r="16" fill="none" stroke-width="3"/>
-                            <circle class="cu-progress-circular-bar cu-progress-circular-bar-success" cx="18" cy="18" r="16" fill="none" stroke-width="3" stroke-dasharray="100.53" stroke-dashoffset="25.13" stroke-linecap="round"/>
-                        </svg>
-                        <span class="cu-progress-circular-value">75%</span>
-                    </div>
-                    <div class="cu-progress-circular" style="width:48px;height:48px">
-                        <svg viewBox="0 0 36 36">
-                            <circle class="cu-progress-circular-track" cx="18" cy="18" r="16" fill="none" stroke-width="3"/>
-                            <circle class="cu-progress-circular-bar cu-progress-circular-bar-warning" cx="18" cy="18" r="16" fill="none" stroke-width="3" stroke-dasharray="100.53" stroke-dashoffset="50.27" stroke-linecap="round"/>
-                        </svg>
-                        <span class="cu-progress-circular-value text-xs">50%</span>
-                    </div>
-                    <div class="cu-progress-circular cu-progress-circular-indeterminate" style="width:48px;height:48px">
-                        <svg viewBox="0 0 36 36">
-                            <circle class="cu-progress-circular-track" cx="18" cy="18" r="16" fill="none" stroke-width="3"/>
-                            <circle class="cu-progress-circular-bar cu-progress-circular-bar-info" cx="18" cy="18" r="16" fill="none" stroke-width="3" stroke-dasharray="100.53" stroke-dashoffset="75.4" stroke-linecap="round"/>
-                        </svg>
-                    </div>
-                </div>
-            </ComponentPreview>
-        </section>
-
-    </div>
+    <!-- Circular -->
+    <section class="space-y-3">
+      <SectionHeading id="circular" title={t.sections.circular.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.circular.description} />
+      <ComponentPreview code={circularCode}>
+        <div class="flex items-center gap-8">
+          <div class="cu-progress-circular" style="width:48px;height:48px">
+            <svg viewBox="0 0 36 36">
+              <circle class="cu-progress-circular-track" cx="18" cy="18" r="16" fill="none" stroke-width="3" />
+              <circle
+                class="cu-progress-circular-bar"
+                cx="18"
+                cy="18"
+                r="16"
+                fill="none"
+                stroke-width="3"
+                stroke-dasharray="100.53"
+                stroke-dashoffset="75.4"
+                stroke-linecap="round"
+              />
+            </svg>
+            <span class="cu-progress-circular-value text-xs">25%</span>
+          </div>
+          <div class="cu-progress-circular" style="width:56px;height:56px">
+            <svg viewBox="0 0 36 36">
+              <circle class="cu-progress-circular-track" cx="18" cy="18" r="16" fill="none" stroke-width="3" />
+              <circle
+                class="cu-progress-circular-bar cu-progress-circular-bar-success"
+                cx="18"
+                cy="18"
+                r="16"
+                fill="none"
+                stroke-width="3"
+                stroke-dasharray="100.53"
+                stroke-dashoffset="25.13"
+                stroke-linecap="round"
+              />
+            </svg>
+            <span class="cu-progress-circular-value">75%</span>
+          </div>
+          <div class="cu-progress-circular" style="width:48px;height:48px">
+            <svg viewBox="0 0 36 36">
+              <circle class="cu-progress-circular-track" cx="18" cy="18" r="16" fill="none" stroke-width="3" />
+              <circle
+                class="cu-progress-circular-bar cu-progress-circular-bar-warning"
+                cx="18"
+                cy="18"
+                r="16"
+                fill="none"
+                stroke-width="3"
+                stroke-dasharray="100.53"
+                stroke-dashoffset="50.27"
+                stroke-linecap="round"
+              />
+            </svg>
+            <span class="cu-progress-circular-value text-xs">50%</span>
+          </div>
+          <div class="cu-progress-circular cu-progress-circular-indeterminate" style="width:48px;height:48px">
+            <svg viewBox="0 0 36 36">
+              <circle class="cu-progress-circular-track" cx="18" cy="18" r="16" fill="none" stroke-width="3" />
+              <circle
+                class="cu-progress-circular-bar cu-progress-circular-bar-info"
+                cx="18"
+                cy="18"
+                r="16"
+                fill="none"
+                stroke-width="3"
+                stroke-dasharray="100.53"
+                stroke-dashoffset="75.4"
+                stroke-linecap="round"
+              />
+            </svg>
+          </div>
+        </div>
+      </ComponentPreview>
+    </section>
+  </div>
 </Layout>

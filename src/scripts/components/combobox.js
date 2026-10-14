@@ -35,7 +35,10 @@ var NAV_KEYS = ["Enter", "ArrowDown", "ArrowUp", "Home", "End"];
  */
 export function setupComboboxes() {
   document.querySelectorAll("[data-cu-combobox]").forEach(function (combobox) {
-    if (combobox._cuInit) { restore("comboboxes", combobox); return; }
+    if (combobox._cuInit) {
+      restore("comboboxes", combobox);
+      return;
+    }
     combobox._cuInit = true;
 
     var trigger = /** @type {HTMLElement} */ (combobox.querySelector("[data-cu-combobox-trigger]"));
@@ -62,7 +65,8 @@ export function setupComboboxes() {
       trigger.setAttribute("aria-haspopup", "listbox");
       trigger.setAttribute("aria-expanded", "false");
       // 未指定 type 的 <button> 在 <form> 內預設為 submit，開啟面板會送出表單
-      if (trigger.tagName === "BUTTON" && !trigger.hasAttribute("type")) /** @type {HTMLButtonElement} */ (trigger).type = "button";
+      if (trigger.tagName === "BUTTON" && !trigger.hasAttribute("type"))
+        /** @type {HTMLButtonElement} */ (trigger).type = "button";
     }
     if (content) {
       var list = content.querySelector("[data-cu-combobox-list]") || content;
@@ -105,10 +109,12 @@ export function setupComboboxes() {
       syncEmpty();
       if (input.value !== lastQuery) {
         lastQuery = input.value;
-        combobox.dispatchEvent(new CustomEvent("cu:combobox:search", {
-          bubbles: true,
-          detail: { query: input.value }
-        }));
+        combobox.dispatchEvent(
+          new CustomEvent("cu:combobox:search", {
+            bubbles: true,
+            detail: { query: input.value },
+          }),
+        );
       }
     }
     var search = createDebouncer(filterItems);
@@ -147,12 +153,21 @@ export function setupComboboxes() {
           input.value = "";
           input.dispatchEvent(new Event("input"));
         }
-        combobox.dispatchEvent(new CustomEvent("cu:combobox:change", {
-          bubbles: true,
-          detail: { value: item.dataset.cuValue || item.textContent, item: item }
-        }));
+        combobox.dispatchEvent(
+          new CustomEvent("cu:combobox:change", {
+            bubbles: true,
+            detail: { value: item.dataset.cuValue || item.textContent, item: item },
+          }),
+        );
       });
 
-    track("comboboxes", { el: combobox, trigger: trigger, content: content, input: input, getItems: getItems, cancelSearch: search.cancel });
+    track("comboboxes", {
+      el: combobox,
+      trigger: trigger,
+      content: content,
+      input: input,
+      getItems: getItems,
+      cancelSearch: search.cancel,
+    });
   });
 }

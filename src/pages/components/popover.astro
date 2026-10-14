@@ -127,220 +127,254 @@ const topCode = `<div class="cu-popover" data-cu-popover>
 ---
 
 <Layout title={t.title} category={t.category} componentName="Popover" description={t.description}>
-    <div class="space-y-3">
-        <div class="flex items-center gap-3">
-            <h1 class="text-3xl font-bold tracking-tight">Popover</h1>
-            <span class="cu-badge cu-badge-secondary">{t.category}</span>
-        </div>
-        <p class="text-base text-muted-foreground leading-relaxed">
-            {t.description}
-        </p>
+  <div class="space-y-3">
+    <div class="flex items-center gap-3">
+      <h1 class="text-3xl font-bold tracking-tight">Popover</h1>
+      <span class="cu-badge cu-badge-secondary">{t.category}</span>
     </div>
+    <p class="text-base text-muted-foreground leading-relaxed">{t.description}</p>
+  </div>
 
-    <div class="mt-10 space-y-10">
-        <!-- Usage -->
-        <section class="space-y-3">
-            <SectionHeading id="usage" title={t.sections.usage.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
-            <ComponentPreview code={usageCode}>
-                <div class="cu-popover" data-cu-popover>
-                    <button class="cu-button cu-button-outline cu-button-md" data-cu-popover-trigger>
-                        Open Popover
-                    </button>
-                    <div class="cu-popover-content" data-cu-popover-content>
-                        <div class="space-y-2">
-                            <h4 class="text-sm font-medium leading-none">Dimensions</h4>
-                            <p class="text-sm text-muted-foreground">Set the dimensions for the layer.</p>
-                        </div>
-                        <div class="mt-4 space-y-3">
-                            <div class="cu-form-group">
-                                <label class="cu-label" for="pop-width">Width</label>
-                                <input class="cu-input" id="pop-width" value="100%" />
-                            </div>
-                            <div class="cu-form-group">
-                                <label class="cu-label" for="pop-height">Height</label>
-                                <input class="cu-input" id="pop-height" value="25px" />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </ComponentPreview>
-        </section>
-
-        <!-- Classes Reference -->
-        <section class="space-y-3">
-            <SectionHeading id="classes" title={t.sections.classes.title} />
-            <div class="cu-table-wrapper rounded-lg border border-border">
-                <table class="cu-table">
-                    <thead class="cu-table-header">
-                        <tr class="cu-table-row">
-                            <th class="cu-table-head">{t.sections.classes.classLabel}</th>
-                            <th class="cu-table-head">{t.sections.classes.descriptionLabel}</th>
-                        </tr>
-                    </thead>
-                    <tbody class="cu-table-body">
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-popover</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-popover']}</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-popover-content</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-popover-content']}</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-popover-content-sm</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-popover-content-sm']}</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-popover-content-lg</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-popover-content-lg']}</td>
-                        </tr>
-                    </tbody>
-                </table>
+  <div class="mt-10 space-y-10">
+    <!-- Usage -->
+    <section class="space-y-3">
+      <SectionHeading id="usage" title={t.sections.usage.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
+      <ComponentPreview code={usageCode}>
+        <div class="cu-popover" data-cu-popover>
+          <button class="cu-button cu-button-outline cu-button-md" data-cu-popover-trigger>
+            Open Popover
+          </button>
+          <div class="cu-popover-content" data-cu-popover-content>
+            <div class="space-y-2">
+              <h4 class="text-sm font-medium leading-none">Dimensions</h4>
+              <p class="text-sm text-muted-foreground">Set the dimensions for the layer.</p>
             </div>
-        </section>
+            <div class="mt-4 space-y-3">
+              <div class="cu-form-group">
+                <label class="cu-label" for="pop-width">
+                  Width
+                </label>
+                <input class="cu-input" id="pop-width" value="100%" />
+              </div>
+              <div class="cu-form-group">
+                <label class="cu-label" for="pop-height">
+                  Height
+                </label>
+                <input class="cu-input" id="pop-height" value="25px" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </ComponentPreview>
+    </section>
 
+    <!-- Classes Reference -->
+    <section class="space-y-3">
+      <SectionHeading id="classes" title={t.sections.classes.title} />
+      <div class="cu-table-wrapper rounded-lg border border-border">
+        <table class="cu-table">
+          <thead class="cu-table-header">
+            <tr class="cu-table-row">
+              <th class="cu-table-head">{t.sections.classes.classLabel}</th>
+              <th class="cu-table-head">{t.sections.classes.descriptionLabel}</th>
+            </tr>
+          </thead>
+          <tbody class="cu-table-body">
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-popover</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-popover"]}</td>
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-popover-content</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-popover-content"]}</td>
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-popover-content-sm</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-popover-content-sm"]}</td>
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-popover-content-lg</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-popover-content-lg"]}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
 
-        <!-- Top Position -->
-        <section class="space-y-3">
-            <SectionHeading id="top-position" title={t.sections.topPosition.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.topPosition.description} />
-            <ComponentPreview code={topCode}>
-                <div class="cu-popover" data-cu-popover>
-                    <button class="cu-button cu-button-outline cu-button-md" data-cu-popover-trigger>
-                        Top Popover
-                    </button>
-                    <div class="cu-popover-content bottom-full mb-2" data-cu-popover-content>
-                        <p class="text-sm text-muted-foreground">This popover opens above the trigger.</p>
-                    </div>
+    <!-- Top Position -->
+    <section class="space-y-3">
+      <SectionHeading id="top-position" title={t.sections.topPosition.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.topPosition.description} />
+      <ComponentPreview code={topCode}>
+        <div class="cu-popover" data-cu-popover>
+          <button class="cu-button cu-button-outline cu-button-md" data-cu-popover-trigger>
+            Top Popover
+          </button>
+          <div class="cu-popover-content bottom-full mb-2" data-cu-popover-content>
+            <p class="text-sm text-muted-foreground">This popover opens above the trigger.</p>
+          </div>
+        </div>
+      </ComponentPreview>
+    </section>
+
+    <!-- Sizes -->
+    <section class="space-y-3">
+      <SectionHeading id="sizes" title={t.sections.sizes.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.sizes.description} />
+      <ComponentPreview code={sizesCode}>
+        <div class="flex flex-wrap gap-4 items-start">
+          <div class="cu-popover" data-cu-popover>
+            <button class="cu-button cu-button-outline cu-button-sm" data-cu-popover-trigger>
+              Small
+            </button>
+            <div class="cu-popover-content cu-popover-content-sm" data-cu-popover-content>
+              <p class="text-sm text-muted-foreground">A compact popover panel.</p>
+            </div>
+          </div>
+          <div class="cu-popover" data-cu-popover>
+            <button class="cu-button cu-button-outline cu-button-md" data-cu-popover-trigger>
+              Default
+            </button>
+            <div class="cu-popover-content" data-cu-popover-content>
+              <p class="text-sm text-muted-foreground">Default width popover panel.</p>
+            </div>
+          </div>
+          <div class="cu-popover" data-cu-popover>
+            <button class="cu-button cu-button-outline cu-button-md" data-cu-popover-trigger>
+              Large
+            </button>
+            <div class="cu-popover-content cu-popover-content-lg" data-cu-popover-content>
+              <p class="text-sm text-muted-foreground">A wider popover panel for more content.</p>
+            </div>
+          </div>
+        </div>
+      </ComponentPreview>
+    </section>
+
+    <!-- With Form -->
+    <section class="space-y-3">
+      <SectionHeading id="with-form" title={t.sections.withForm.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withForm.description} />
+      <ComponentPreview code={withFormCode}>
+        <div data-cu-popover class="inline-flex">
+          <button class="cu-button cu-button-outline cu-button-md" data-cu-popover-trigger>
+            Edit Dimensions
+          </button>
+          <div class="cu-popover-content cu-popover-content-sm" data-cu-popover-content hidden>
+            <div class="space-y-4">
+              <div>
+                <h4 class="text-sm font-semibold mb-3">Dimensions</h4>
+                <div class="grid grid-cols-2 gap-3">
+                  <div class="cu-form-group">
+                    <label class="cu-label text-xs" for="pop-w">
+                      Width
+                    </label>
+                    <input id="pop-w" class="cu-input cu-input-sm" value="100%" />
+                  </div>
+                  <div class="cu-form-group">
+                    <label class="cu-label text-xs" for="pop-h">
+                      Height
+                    </label>
+                    <input id="pop-h" class="cu-input cu-input-sm" value="auto" />
+                  </div>
+                  <div class="cu-form-group">
+                    <label class="cu-label text-xs" for="pop-mw">
+                      Max Width
+                    </label>
+                    <input id="pop-mw" class="cu-input cu-input-sm" value="300px" />
+                  </div>
+                  <div class="cu-form-group">
+                    <label class="cu-label text-xs" for="pop-mh">
+                      Max Height
+                    </label>
+                    <input id="pop-mh" class="cu-input cu-input-sm" value="none" />
+                  </div>
                 </div>
-            </ComponentPreview>
-        </section>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ComponentPreview>
+    </section>
 
-        <!-- Sizes -->
-        <section class="space-y-3">
-            <SectionHeading id="sizes" title={t.sections.sizes.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.sizes.description} />
-            <ComponentPreview code={sizesCode}>
-                <div class="flex flex-wrap gap-4 items-start">
-                    <div class="cu-popover" data-cu-popover>
-                        <button class="cu-button cu-button-outline cu-button-sm" data-cu-popover-trigger>
-                            Small
-                        </button>
-                        <div class="cu-popover-content cu-popover-content-sm" data-cu-popover-content>
-                            <p class="text-sm text-muted-foreground">A compact popover panel.</p>
-                        </div>
-                    </div>
-                    <div class="cu-popover" data-cu-popover>
-                        <button class="cu-button cu-button-outline cu-button-md" data-cu-popover-trigger>
-                            Default
-                        </button>
-                        <div class="cu-popover-content" data-cu-popover-content>
-                            <p class="text-sm text-muted-foreground">Default width popover panel.</p>
-                        </div>
-                    </div>
-                    <div class="cu-popover" data-cu-popover>
-                        <button class="cu-button cu-button-outline cu-button-md" data-cu-popover-trigger>
-                            Large
-                        </button>
-                        <div class="cu-popover-content cu-popover-content-lg" data-cu-popover-content>
-                            <p class="text-sm text-muted-foreground">A wider popover panel for more content.</p>
-                        </div>
-                    </div>
-                </div>
-            </ComponentPreview>
-        </section>
-
-        <!-- With Form -->
-        <section class="space-y-3">
-            <SectionHeading id="with-form" title={t.sections.withForm.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withForm.description} />
-            <ComponentPreview code={withFormCode}>
-                <div data-cu-popover class="inline-flex">
-                    <button class="cu-button cu-button-outline cu-button-md" data-cu-popover-trigger>Edit Dimensions</button>
-                    <div class="cu-popover-content cu-popover-content-sm" data-cu-popover-content hidden>
-                        <div class="space-y-4">
-                            <div>
-                                <h4 class="text-sm font-semibold mb-3">Dimensions</h4>
-                                <div class="grid grid-cols-2 gap-3">
-                                    <div class="cu-form-group">
-                                        <label class="cu-label text-xs" for="pop-w">Width</label>
-                                        <input id="pop-w" class="cu-input cu-input-sm" value="100%" />
-                                    </div>
-                                    <div class="cu-form-group">
-                                        <label class="cu-label text-xs" for="pop-h">Height</label>
-                                        <input id="pop-h" class="cu-input cu-input-sm" value="auto" />
-                                    </div>
-                                    <div class="cu-form-group">
-                                        <label class="cu-label text-xs" for="pop-mw">Max Width</label>
-                                        <input id="pop-mw" class="cu-input cu-input-sm" value="300px" />
-                                    </div>
-                                    <div class="cu-form-group">
-                                        <label class="cu-label text-xs" for="pop-mh">Max Height</label>
-                                        <input id="pop-mh" class="cu-input cu-input-sm" value="none" />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </ComponentPreview>
-        </section>
-
-        <!-- With Navigation -->
-        <section class="space-y-3">
-            <SectionHeading id="with-navigation" title={t.sections.withNavigation.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withNavigation.description} />
-            <ComponentPreview code={withNavigationCode}>
-                <div data-cu-popover class="inline-flex">
-                    <button class="cu-button cu-button-outline cu-button-md" data-cu-popover-trigger>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1.5"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
-                        Quick Links
-                    </button>
-                    <div class="cu-popover-content cu-popover-content-lg" data-cu-popover-content hidden>
-                        <div class="grid grid-cols-2 gap-1">
-                            <a href="#" class="rounded-lg p-3 hover:bg-muted/60 transition-colors duration-150">
-                                <div class="text-sm font-medium">Dashboard</div>
-                                <div class="text-xs text-muted-foreground mt-0.5">Overview and analytics</div>
-                            </a>
-                            <a href="#" class="rounded-lg p-3 hover:bg-muted/60 transition-colors duration-150">
-                                <div class="text-sm font-medium">Projects</div>
-                                <div class="text-xs text-muted-foreground mt-0.5">Manage your projects</div>
-                            </a>
-                            <a href="#" class="rounded-lg p-3 hover:bg-muted/60 transition-colors duration-150">
-                                <div class="text-sm font-medium">Team</div>
-                                <div class="text-xs text-muted-foreground mt-0.5">Members and roles</div>
-                            </a>
-                            <a href="#" class="rounded-lg p-3 hover:bg-muted/60 transition-colors duration-150">
-                                <div class="text-sm font-medium">Settings</div>
-                                <div class="text-xs text-muted-foreground mt-0.5">Account preferences</div>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </ComponentPreview>
-        </section>
-
-    </div>
+    <!-- With Navigation -->
+    <section class="space-y-3">
+      <SectionHeading id="with-navigation" title={t.sections.withNavigation.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withNavigation.description} />
+      <ComponentPreview code={withNavigationCode}>
+        <div data-cu-popover class="inline-flex">
+          <button class="cu-button cu-button-outline cu-button-md" data-cu-popover-trigger>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="mr-1.5"
+            >
+              <rect x="3" y="3" width="7" height="7" />
+              <rect x="14" y="3" width="7" height="7" />
+              <rect x="3" y="14" width="7" height="7" />
+              <rect x="14" y="14" width="7" height="7" />
+            </svg>
+            Quick Links
+          </button>
+          <div class="cu-popover-content cu-popover-content-lg" data-cu-popover-content hidden>
+            <div class="grid grid-cols-2 gap-1">
+              <a href="#" class="rounded-lg p-3 hover:bg-muted/60 transition-colors duration-150">
+                <div class="text-sm font-medium">Dashboard</div>
+                <div class="text-xs text-muted-foreground mt-0.5">Overview and analytics</div>
+              </a>
+              <a href="#" class="rounded-lg p-3 hover:bg-muted/60 transition-colors duration-150">
+                <div class="text-sm font-medium">Projects</div>
+                <div class="text-xs text-muted-foreground mt-0.5">Manage your projects</div>
+              </a>
+              <a href="#" class="rounded-lg p-3 hover:bg-muted/60 transition-colors duration-150">
+                <div class="text-sm font-medium">Team</div>
+                <div class="text-xs text-muted-foreground mt-0.5">Members and roles</div>
+              </a>
+              <a href="#" class="rounded-lg p-3 hover:bg-muted/60 transition-colors duration-150">
+                <div class="text-sm font-medium">Settings</div>
+                <div class="text-xs text-muted-foreground mt-0.5">Account preferences</div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </ComponentPreview>
+    </section>
+  </div>
 </Layout>
 
 <script>
-    function setupPopovers() {
-        document.querySelectorAll("[data-cu-popover]").forEach((popover) => {
-            const trigger = popover.querySelector("[data-cu-popover-trigger]");
-            const content = popover.querySelector("[data-cu-popover-content]") as HTMLElement | null;
-            if (!trigger || !content) return;
-            content.style.display = "none";
-            trigger.addEventListener("click", () => {
-                const open = content.style.display !== "none";
-                content.style.display = open ? "none" : "";
-            });
-            document.addEventListener("click", (e) => {
-                if (!popover.contains(e.target as Node)) content.style.display = "none";
-            });
-        });
-    }
+  function setupPopovers() {
+    document.querySelectorAll("[data-cu-popover]").forEach((popover) => {
+      const trigger = popover.querySelector("[data-cu-popover-trigger]");
+      const content = popover.querySelector("[data-cu-popover-content]") as HTMLElement | null;
+      if (!trigger || !content) return;
+      content.style.display = "none";
+      trigger.addEventListener("click", () => {
+        const open = content.style.display !== "none";
+        content.style.display = open ? "none" : "";
+      });
+      document.addEventListener("click", (e) => {
+        if (!popover.contains(e.target as Node)) content.style.display = "none";
+      });
+    });
+  }
 
-    setupPopovers();
-    document.addEventListener("astro:page-load", setupPopovers);
+  setupPopovers();
+  document.addEventListener("astro:page-load", setupPopovers);
 </script>

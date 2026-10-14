@@ -119,195 +119,479 @@ const withDropdownCode = `<div class="cu-toolbar" role="toolbar">
 ---
 
 <Layout title="Toolbar — Cubby UI" category="Layouts" componentName="Toolbar" description={t.description}>
-    <div class="space-y-3">
-        <div class="flex items-center gap-3">
-          <h1 class="text-3xl font-bold tracking-tight">Toolbar</h1>
-          <span class="cu-badge cu-badge-secondary">Layouts</span>
-        </div>
-        <p class="text-base text-muted-foreground leading-relaxed">
-            A container for grouping action buttons with visual separators.
-        </p>
+  <div class="space-y-3">
+    <div class="flex items-center gap-3">
+      <h1 class="text-3xl font-bold tracking-tight">Toolbar</h1>
+      <span class="cu-badge cu-badge-secondary">Layouts</span>
     </div>
+    <p class="text-base text-muted-foreground leading-relaxed">
+      A container for grouping action buttons with visual separators.
+    </p>
+  </div>
 
-    <div class="mt-10 space-y-10">
-        <!-- Usage -->
-        <section class="space-y-3">
-            <SectionHeading id="usage" title="Usage" />
-            <p class="text-base text-muted-foreground leading-relaxed">
-                Use <code class="cu-code">cu-toolbar</code> as the container,
-                <code class="cu-code">cu-toolbar-group</code> for button groups,
-                <code class="cu-code">cu-toolbar-button</code> for individual buttons, and
-                <code class="cu-code">cu-toolbar-separator</code> between groups.
-            </p>
-            <ComponentPreview code={usageCode}>
-                <Toolbar>
-                    <ToolbarGroup>
-                        <ToolbarButton active>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4h8a4 4 0 0 1 4 4 4 4 0 0 1-4 4H6z"/><path d="M6 12h9a4 4 0 0 1 4 4 4 4 0 0 1-4 4H6z"/></svg>
-                        </ToolbarButton>
-                        <ToolbarButton>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" x2="10" y1="4" y2="4"/><line x1="14" x2="5" y1="20" y2="20"/><line x1="15" x2="9" y1="4" y2="20"/></svg>
-                        </ToolbarButton>
-                        <ToolbarButton>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4H9a3 3 0 0 0-2.83 4"/><path d="M14 12a4 4 0 0 1 0 8H6"/></svg>
-                        </ToolbarButton>
-                    </ToolbarGroup>
-                    <ToolbarSeparator />
-                    <ToolbarGroup>
-                        <ToolbarButton>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="21" x2="3" y1="6" y2="6"/><line x1="21" x2="3" y1="12" y2="12"/><line x1="21" x2="3" y1="18" y2="18"/></svg>
-                        </ToolbarButton>
-                        <ToolbarButton>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="21" x2="3" y1="6" y2="6"/><line x1="17" x2="7" y1="12" y2="12"/><line x1="19" x2="5" y1="18" y2="18"/></svg>
-                        </ToolbarButton>
-                        <ToolbarButton>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="21" x2="3" y1="6" y2="6"/><line x1="21" x2="3" y1="12" y2="12"/><line x1="21" x2="3" y1="18" y2="18"/></svg>
-                        </ToolbarButton>
-                    </ToolbarGroup>
-                </Toolbar>
-            </ComponentPreview>
-        </section>
+  <div class="mt-10 space-y-10">
+    <!-- Usage -->
+    <section class="space-y-3">
+      <SectionHeading id="usage" title="Usage" />
+      <p class="text-base text-muted-foreground leading-relaxed">
+        Use <code class="cu-code">cu-toolbar</code> as the container,
+        <code class="cu-code">cu-toolbar-group</code> for button groups,
+        <code class="cu-code">cu-toolbar-button</code> for individual buttons, and
+        <code class="cu-code">cu-toolbar-separator</code> between groups.
+      </p>
+      <ComponentPreview code={usageCode}>
+        <Toolbar>
+          <ToolbarGroup>
+            <ToolbarButton active>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M6 4h8a4 4 0 0 1 4 4 4 4 0 0 1-4 4H6z" />
+                <path d="M6 12h9a4 4 0 0 1 4 4 4 4 0 0 1-4 4H6z" />
+              </svg>
+            </ToolbarButton>
+            <ToolbarButton>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <line x1="19" x2="10" y1="4" y2="4" />
+                <line x1="14" x2="5" y1="20" y2="20" />
+                <line x1="15" x2="9" y1="4" y2="20" />
+              </svg>
+            </ToolbarButton>
+            <ToolbarButton>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M16 4H9a3 3 0 0 0-2.83 4" />
+                <path d="M14 12a4 4 0 0 1 0 8H6" />
+              </svg>
+            </ToolbarButton>
+          </ToolbarGroup>
+          <ToolbarSeparator />
+          <ToolbarGroup>
+            <ToolbarButton>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <line x1="21" x2="3" y1="6" y2="6" />
+                <line x1="21" x2="3" y1="12" y2="12" />
+                <line x1="21" x2="3" y1="18" y2="18" />
+              </svg>
+            </ToolbarButton>
+            <ToolbarButton>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <line x1="21" x2="3" y1="6" y2="6" />
+                <line x1="17" x2="7" y1="12" y2="12" />
+                <line x1="19" x2="5" y1="18" y2="18" />
+              </svg>
+            </ToolbarButton>
+            <ToolbarButton>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <line x1="21" x2="3" y1="6" y2="6" />
+                <line x1="21" x2="3" y1="12" y2="12" />
+                <line x1="21" x2="3" y1="18" y2="18" />
+              </svg>
+            </ToolbarButton>
+          </ToolbarGroup>
+        </Toolbar>
+      </ComponentPreview>
+    </section>
 
-        <!-- Classes Reference -->
-        <section class="space-y-3">
-            <SectionHeading id="classes" title="CSS Classes" />
-            <div class="cu-table-wrapper rounded-lg border border-border">
-                <table class="cu-table">
-                    <thead class="cu-table-header">
-                        <tr class="cu-table-row">
-                            <th class="cu-table-head">Class</th>
-                            <th class="cu-table-head">Description</th>
-                        </tr>
-                    </thead>
-                    <tbody class="cu-table-body">
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-toolbar</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Toolbar container with border and rounded corners</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-toolbar-group</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Button group container</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-toolbar-button</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Toolbar button</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-toolbar-button-active</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Button active state</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-toolbar-separator</code></td>
-                            <td class="cu-table-cell text-muted-foreground">Vertical separator between groups</td>
-                        </tr>
-                    </tbody>
-                </table>
+    <!-- Classes Reference -->
+    <section class="space-y-3">
+      <SectionHeading id="classes" title="CSS Classes" />
+      <div class="cu-table-wrapper rounded-lg border border-border">
+        <table class="cu-table">
+          <thead class="cu-table-header">
+            <tr class="cu-table-row">
+              <th class="cu-table-head">Class</th>
+              <th class="cu-table-head">Description</th>
+            </tr>
+          </thead>
+          <tbody class="cu-table-body">
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-toolbar</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">Toolbar container with border and rounded corners</td>
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-toolbar-group</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">Button group container</td>
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-toolbar-button</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">Toolbar button</td>
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-toolbar-button-active</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">Button active state</td>
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-toolbar-separator</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">Vertical separator between groups</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Text Formatting -->
+    <section class="space-y-3">
+      <SectionHeading id="text-formatting" title="Text Formatting" />
+      <p class="text-base text-muted-foreground leading-relaxed">
+        A text editor toolbar with bold, italic, strikethrough, underline toggles and alignment options. Use{" "}
+        <code class="cu-code">cu-toolbar-button-active</code> for active states.
+      </p>
+      <ComponentPreview code={textFormatCode}>
+        <Toolbar>
+          <ToolbarGroup>
+            <ToolbarButton active>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M6 4h8a4 4 0 0 1 4 4 4 4 0 0 1-4 4H6z" />
+                <path d="M6 12h9a4 4 0 0 1 4 4 4 4 0 0 1-4 4H6z" />
+              </svg>
+            </ToolbarButton>
+            <ToolbarButton>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <line x1="19" x2="10" y1="4" y2="4" />
+                <line x1="14" x2="5" y1="20" y2="20" />
+                <line x1="15" x2="9" y1="4" y2="20" />
+              </svg>
+            </ToolbarButton>
+            <ToolbarButton>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M16 4H9a3 3 0 0 0-2.83 4" />
+                <path d="M14 12a4 4 0 0 1 0 8H6" />
+              </svg>
+            </ToolbarButton>
+            <ToolbarButton>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M4 7V4h16v3" />
+                <path d="M9 20h6" />
+                <path d="M12 4v16" />
+              </svg>
+            </ToolbarButton>
+          </ToolbarGroup>
+          <ToolbarSeparator />
+          <ToolbarGroup>
+            <ToolbarButton active>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <line x1="21" x2="3" y1="6" y2="6" />
+                <line x1="21" x2="3" y1="12" y2="12" />
+                <line x1="21" x2="3" y1="18" y2="18" />
+              </svg>
+            </ToolbarButton>
+            <ToolbarButton>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <line x1="21" x2="3" y1="6" y2="6" />
+                <line x1="17" x2="7" y1="12" y2="12" />
+                <line x1="19" x2="5" y1="18" y2="18" />
+              </svg>
+            </ToolbarButton>
+            <ToolbarButton>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <line x1="21" x2="3" y1="6" y2="6" />
+                <line x1="21" x2="9" y1="12" y2="12" />
+                <line x1="21" x2="7" y1="18" y2="18" />
+              </svg>
+            </ToolbarButton>
+          </ToolbarGroup>
+        </Toolbar>
+      </ComponentPreview>
+    </section>
+
+    <!-- With Separator -->
+    <section class="space-y-3">
+      <SectionHeading id="with-separator" title="With Separator" />
+      <p class="text-base text-muted-foreground leading-relaxed">
+        Use <code class="cu-code">cu-toolbar-separator</code> to visually separate button groups for different action
+        categories.
+      </p>
+      <ComponentPreview code={withSeparatorCode}>
+        <Toolbar>
+          <ToolbarGroup>
+            <ToolbarButton>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+                <polyline points="16 17 21 12 16 7" />
+                <line x1="21" x2="9" y1="12" y2="12" />
+              </svg>
+            </ToolbarButton>
+          </ToolbarGroup>
+          <ToolbarSeparator />
+          <ToolbarGroup>
+            <ToolbarButton>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                <polyline points="7 10 12 15 17 10" />
+                <line x1="12" x2="12" y1="15" y2="3" />
+              </svg>
+            </ToolbarButton>
+            <ToolbarButton>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                <polyline points="17 8 12 3 7 8" />
+                <line x1="12" x2="12" y1="3" y2="15" />
+              </svg>
+            </ToolbarButton>
+          </ToolbarGroup>
+          <ToolbarSeparator />
+          <ToolbarGroup>
+            <ToolbarButton>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <polyline points="3 6 5 6 21 6" />
+                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+              </svg>
+            </ToolbarButton>
+          </ToolbarGroup>
+        </Toolbar>
+      </ComponentPreview>
+    </section>
+
+    <!-- With Dropdown -->
+    <section class="space-y-3">
+      <SectionHeading id="with-dropdown" title={t.sections.withDropdown.title} />
+      <p class="text-base text-muted-foreground leading-relaxed">{t.sections.withDropdown.description}</p>
+      <ComponentPreview code={withDropdownCode}>
+        <Toolbar>
+          <ToolbarGroup>
+            <ToolbarButton>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M6 4h8a4 4 0 0 1 4 4 4 4 0 0 1-4 4H6z" />
+                <path d="M6 12h9a4 4 0 0 1 4 4 4 4 0 0 1-4 4H6z" />
+              </svg>
+            </ToolbarButton>
+            <ToolbarButton>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <line x1="19" x2="10" y1="4" y2="4" />
+                <line x1="14" x2="5" y1="20" y2="20" />
+                <line x1="15" x2="9" y1="4" y2="20" />
+              </svg>
+            </ToolbarButton>
+          </ToolbarGroup>
+          <ToolbarSeparator />
+          <ToolbarGroup>
+            <div class="cu-dropdown" data-cu-dropdown>
+              <button class="cu-toolbar-button" data-cu-dropdown-trigger>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <circle cx="12" cy="12" r="1" />
+                  <circle cx="12" cy="5" r="1" />
+                  <circle cx="12" cy="19" r="1" />
+                </svg>
+              </button>
+              <div class="cu-dropdown-content" data-cu-dropdown-content hidden>
+                <div class="cu-dropdown-item">Cut</div>
+                <div class="cu-dropdown-item">Copy</div>
+                <div class="cu-dropdown-item">Paste</div>
+                <div class="cu-dropdown-separator"></div>
+                <div class="cu-dropdown-item">Select All</div>
+              </div>
             </div>
-        </section>
-
-
-        <!-- Text Formatting -->
-        <section class="space-y-3">
-            <SectionHeading id="text-formatting" title="Text Formatting" />
-            <p class="text-base text-muted-foreground leading-relaxed">
-                A text editor toolbar with bold, italic, strikethrough, underline toggles and alignment options.
-                Use <code class="cu-code">cu-toolbar-button-active</code> for active states.
-            </p>
-            <ComponentPreview code={textFormatCode}>
-                <Toolbar>
-                    <ToolbarGroup>
-                        <ToolbarButton active>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4h8a4 4 0 0 1 4 4 4 4 0 0 1-4 4H6z"/><path d="M6 12h9a4 4 0 0 1 4 4 4 4 0 0 1-4 4H6z"/></svg>
-                        </ToolbarButton>
-                        <ToolbarButton>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" x2="10" y1="4" y2="4"/><line x1="14" x2="5" y1="20" y2="20"/><line x1="15" x2="9" y1="4" y2="20"/></svg>
-                        </ToolbarButton>
-                        <ToolbarButton>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4H9a3 3 0 0 0-2.83 4"/><path d="M14 12a4 4 0 0 1 0 8H6"/></svg>
-                        </ToolbarButton>
-                        <ToolbarButton>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7V4h16v3"/><path d="M9 20h6"/><path d="M12 4v16"/></svg>
-                        </ToolbarButton>
-                    </ToolbarGroup>
-                    <ToolbarSeparator />
-                    <ToolbarGroup>
-                        <ToolbarButton active>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="21" x2="3" y1="6" y2="6"/><line x1="21" x2="3" y1="12" y2="12"/><line x1="21" x2="3" y1="18" y2="18"/></svg>
-                        </ToolbarButton>
-                        <ToolbarButton>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="21" x2="3" y1="6" y2="6"/><line x1="17" x2="7" y1="12" y2="12"/><line x1="19" x2="5" y1="18" y2="18"/></svg>
-                        </ToolbarButton>
-                        <ToolbarButton>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="21" x2="3" y1="6" y2="6"/><line x1="21" x2="9" y1="12" y2="12"/><line x1="21" x2="7" y1="18" y2="18"/></svg>
-                        </ToolbarButton>
-                    </ToolbarGroup>
-                </Toolbar>
-            </ComponentPreview>
-        </section>
-
-        <!-- With Separator -->
-        <section class="space-y-3">
-            <SectionHeading id="with-separator" title="With Separator" />
-            <p class="text-base text-muted-foreground leading-relaxed">
-                Use <code class="cu-code">cu-toolbar-separator</code> to visually separate button groups for different action categories.
-            </p>
-            <ComponentPreview code={withSeparatorCode}>
-                <Toolbar>
-                    <ToolbarGroup>
-                        <ToolbarButton>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/></svg>
-                        </ToolbarButton>
-                    </ToolbarGroup>
-                    <ToolbarSeparator />
-                    <ToolbarGroup>
-                        <ToolbarButton>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
-                        </ToolbarButton>
-                        <ToolbarButton>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" x2="12" y1="3" y2="15"/></svg>
-                        </ToolbarButton>
-                    </ToolbarGroup>
-                    <ToolbarSeparator />
-                    <ToolbarGroup>
-                        <ToolbarButton>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
-                        </ToolbarButton>
-                    </ToolbarGroup>
-                </Toolbar>
-            </ComponentPreview>
-        </section>
-
-        <!-- With Dropdown -->
-        <section class="space-y-3">
-            <SectionHeading id="with-dropdown" title={t.sections.withDropdown.title} />
-            <p class="text-base text-muted-foreground leading-relaxed">{t.sections.withDropdown.description}</p>
-            <ComponentPreview code={withDropdownCode}>
-                <Toolbar>
-                    <ToolbarGroup>
-                        <ToolbarButton>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4h8a4 4 0 0 1 4 4 4 4 0 0 1-4 4H6z"/><path d="M6 12h9a4 4 0 0 1 4 4 4 4 0 0 1-4 4H6z"/></svg>
-                        </ToolbarButton>
-                        <ToolbarButton>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" x2="10" y1="4" y2="4"/><line x1="14" x2="5" y1="20" y2="20"/><line x1="15" x2="9" y1="4" y2="20"/></svg>
-                        </ToolbarButton>
-                    </ToolbarGroup>
-                    <ToolbarSeparator />
-                    <ToolbarGroup>
-                        <div class="cu-dropdown" data-cu-dropdown>
-                            <button class="cu-toolbar-button" data-cu-dropdown-trigger>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"/><circle cx="12" cy="5" r="1"/><circle cx="12" cy="19" r="1"/></svg>
-                            </button>
-                            <div class="cu-dropdown-content" data-cu-dropdown-content hidden>
-                                <div class="cu-dropdown-item">Cut</div>
-                                <div class="cu-dropdown-item">Copy</div>
-                                <div class="cu-dropdown-item">Paste</div>
-                                <div class="cu-dropdown-separator"></div>
-                                <div class="cu-dropdown-item">Select All</div>
-                            </div>
-                        </div>
-                    </ToolbarGroup>
-                </Toolbar>
-            </ComponentPreview>
-        </section>
-    </div>
+          </ToolbarGroup>
+        </Toolbar>
+      </ComponentPreview>
+    </section>
+  </div>
 </Layout>

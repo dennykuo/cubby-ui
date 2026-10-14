@@ -21,7 +21,10 @@ import { track, restore } from "../core/registry.js";
  */
 export function setupDropdowns() {
   document.querySelectorAll("[data-cu-dropdown]").forEach(function (dropdown) {
-    if (dropdown._cuInit) { restore("dropdowns", dropdown); return; }
+    if (dropdown._cuInit) {
+      restore("dropdowns", dropdown);
+      return;
+    }
     dropdown._cuInit = true;
 
     var trigger = dropdown.querySelector("[data-cu-dropdown-trigger]");

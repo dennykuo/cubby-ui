@@ -1,67 +1,146 @@
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <title>Code Block fixture</title>
-  <link rel="stylesheet" href="../../../dist/core/cubby-ui.css" />
-  <script>
-    window.__events = [];
-    document.addEventListener("cu:code-block:copy", function (e) { window.__events.push({ type: "copy", id: e.target.id, text: e.detail.text }); });
-    document.addEventListener("cu:code-block:error", function (e) { window.__events.push({ type: "error", id: e.target.id }); });
-  </script>
-</head>
-<body style="margin: 0; padding: 24px; max-width: 560px; display: grid; gap: 16px; background: var(--color-background); color: var(--color-foreground);">
-  <!-- 無 header：複製按鈕位於右上角 -->
-  <div id="basic" class="cu-code-block" data-cu-code-block>
-    <button id="basic-copy" type="button" class="cu-code-block-copy" data-cu-code-block-copy>
-      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
-      <span data-cu-code-block-label>Copy</span>
-    </button>
-    <pre class="cu-code-block-pre"><code>npm install cubby-ui</code></pre>
-  </div>
-
-  <!-- header + 多行與特殊字元（HTML entity、引號、反引號、${}、Tab、中文、emoji、尾端空白以 &#32; 保留） -->
-  <div id="multiline" class="cu-code-block" data-cu-code-block>
-    <div class="cu-code-block-header">
-      <span>example.js</span>
-      <button id="multiline-copy" type="button" class="cu-code-block-copy" data-cu-code-block-copy>
-        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+  <head>
+    <meta charset="utf-8" />
+    <title>Code Block fixture</title>
+    <link rel="stylesheet" href="../../../dist/core/cubby-ui.css" />
+    <script>
+      window.__events = [];
+      document.addEventListener("cu:code-block:copy", function (e) {
+        window.__events.push({ type: "copy", id: e.target.id, text: e.detail.text });
+      });
+      document.addEventListener("cu:code-block:error", function (e) {
+        window.__events.push({ type: "error", id: e.target.id });
+      });
+    </script>
+  </head>
+  <body
+    style="
+      margin: 0;
+      padding: 24px;
+      max-width: 560px;
+      display: grid;
+      gap: 16px;
+      background: var(--color-background);
+      color: var(--color-foreground);
+    "
+  >
+    <!-- 無 header：複製按鈕位於右上角 -->
+    <div id="basic" class="cu-code-block" data-cu-code-block>
+      <button id="basic-copy" type="button" class="cu-code-block-copy" data-cu-code-block-copy>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="14"
+          height="14"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          aria-hidden="true"
+        >
+          <rect width="14" height="14" x="8" y="8" rx="2" ry="2" />
+          <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" />
+        </svg>
         <span data-cu-code-block-label>Copy</span>
       </button>
+      <pre class="cu-code-block-pre"><code>npm install cubby-ui</code></pre>
     </div>
-    <pre class="cu-code-block-pre"><code class="language-javascript">const html = `&lt;a href="/?q=1&amp;r=2"&gt;${name}&lt;/a&gt;`;
+
+    <!-- header + 多行與特殊字元（HTML entity、引號、反引號、${}、Tab、中文、emoji、尾端空白以 &#32; 保留） -->
+    <div id="multiline" class="cu-code-block" data-cu-code-block>
+      <div class="cu-code-block-header">
+        <span>example.js</span>
+        <button id="multiline-copy" type="button" class="cu-code-block-copy" data-cu-code-block-copy>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="14"
+            height="14"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            aria-hidden="true"
+          >
+            <rect width="14" height="14" x="8" y="8" rx="2" ry="2" />
+            <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" />
+          </svg>
+          <span data-cu-code-block-label>Copy</span>
+        </button>
+      </div>
+      <pre
+        class="cu-code-block-pre"
+      ><code class="language-javascript">const html = `&lt;a href="/?q=1&amp;r=2"&gt;${name}&lt;/a&gt;`;
 	if (a &amp;&amp; b || c) { console.log('它\'s "ok" 🎉'); }
 
 // trailing   spaces&#32;&#32;&#32;
 </code></pre>
-  </div>
-
-  <!-- 自訂訊息（在使用者語系的 label 上顯示 / 播報），light 變體 -->
-  <div id="custom" class="cu-code-block cu-code-block-light" data-cu-code-block data-cu-code-block-success-text="已複製" data-cu-code-block-error-text="複製失敗">
-    <div class="cu-code-block-header">
-      <span>Shell</span>
-      <button id="custom-copy" type="button" class="cu-code-block-copy" data-cu-code-block-copy>
-        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
-        <span data-cu-code-block-label>複製</span>
-      </button>
     </div>
-    <pre class="cu-code-block-pre"><code>pnpm add cubby-ui</code></pre>
-  </div>
 
-  <!-- light 變體、無 header -->
-  <div id="light" class="cu-code-block cu-code-block-light" data-cu-code-block>
-    <button id="light-copy" type="button" class="cu-code-block-copy" data-cu-code-block-copy>
-      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
-      <span data-cu-code-block-label>Copy</span>
+    <!-- 自訂訊息（在使用者語系的 label 上顯示 / 播報），light 變體 -->
+    <div
+      id="custom"
+      class="cu-code-block cu-code-block-light"
+      data-cu-code-block
+      data-cu-code-block-success-text="已複製"
+      data-cu-code-block-error-text="複製失敗"
+    >
+      <div class="cu-code-block-header">
+        <span>Shell</span>
+        <button id="custom-copy" type="button" class="cu-code-block-copy" data-cu-code-block-copy>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="14"
+            height="14"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            aria-hidden="true"
+          >
+            <rect width="14" height="14" x="8" y="8" rx="2" ry="2" />
+            <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" />
+          </svg>
+          <span data-cu-code-block-label>複製</span>
+        </button>
+      </div>
+      <pre class="cu-code-block-pre"><code>pnpm add cubby-ui</code></pre>
+    </div>
+
+    <!-- light 變體、無 header -->
+    <div id="light" class="cu-code-block cu-code-block-light" data-cu-code-block>
+      <button id="light-copy" type="button" class="cu-code-block-copy" data-cu-code-block-copy>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="14"
+          height="14"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          aria-hidden="true"
+        >
+          <rect width="14" height="14" x="8" y="8" rx="2" ry="2" />
+          <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" />
+        </svg>
+        <span data-cu-code-block-label>Copy</span>
+      </button>
+      <pre class="cu-code-block-pre"><code>yarn add cubby-ui</code></pre>
+    </div>
+
+    <!-- 與 Copy Button 共用同一個 aria-live 區域 -->
+    <button
+      id="copy-button"
+      type="button"
+      class="cu-copy-button"
+      data-cu-copy="usr_8f2a91c4"
+      data-cu-copy-success-text="ID copied"
+      aria-label="Copy user ID"
+    >
+      Copy
     </button>
-    <pre class="cu-code-block-pre"><code>yarn add cubby-ui</code></pre>
-  </div>
 
-  <!-- 與 Copy Button 共用同一個 aria-live 區域 -->
-  <button id="copy-button" type="button" class="cu-copy-button" data-cu-copy="usr_8f2a91c4" data-cu-copy-success-text="ID copied" aria-label="Copy user ID">Copy</button>
+    <div id="host"></div>
 
-  <div id="host"></div>
-
-  <script src="../../../dist/core/cubby-ui.js"></script>
-</body>
+    <script src="../../../dist/core/cubby-ui.js"></script>
+  </body>
 </html>

@@ -63,27 +63,25 @@ const withIconCode = `<div class="relative flex items-center py-4">
 ---
 
 <Layout title={t.title} category={t.category} componentName="Separator" description={t.description}>
-    <div class="space-y-3">
-        <div class="flex items-center gap-3">
-            <h1 class="text-3xl font-bold tracking-tight">Separator</h1>
-            <span class="cu-badge cu-badge-secondary">{t.category}</span>
-        </div>
-        <p class="text-base text-muted-foreground leading-relaxed">
-            {t.description}
-        </p>
+  <div class="space-y-3">
+    <div class="flex items-center gap-3">
+      <h1 class="text-3xl font-bold tracking-tight">Separator</h1>
+      <span class="cu-badge cu-badge-secondary">{t.category}</span>
     </div>
+    <p class="text-base text-muted-foreground leading-relaxed">{t.description}</p>
+  </div>
 
-    <div class="mt-10 space-y-10">
-        <!-- Usage -->
-        <section class="space-y-3">
-            <SectionHeading id="usage" title={t.sections.usage.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
-            <ComponentPreview code={usageCode}>
-                <div class="w-full max-w-lg">
-                    <Separator />
-                </div>
-            </ComponentPreview>
-        </section>
+  <div class="mt-10 space-y-10">
+    <!-- Usage -->
+    <section class="space-y-3">
+      <SectionHeading id="usage" title={t.sections.usage.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
+      <ComponentPreview code={usageCode}>
+        <div class="w-full max-w-lg">
+          <Separator />
+        </div>
+      </ComponentPreview>
+    </section>
 
     <!-- Classes Reference -->
     <section class="space-y-3">
@@ -99,7 +97,9 @@ const withIconCode = `<div class="relative flex items-center py-4">
           <tbody class="cu-table-body">
             {Object.entries(t.classDescriptions).map(([cls, desc]) => (
               <tr class="cu-table-row">
-                <td class="cu-table-cell"><code class="cu-code">{cls}</code></td>
+                <td class="cu-table-cell">
+                  <code class="cu-code">{cls}</code>
+                </td>
                 <td class="cu-table-cell text-muted-foreground">{desc}</td>
               </tr>
             ))}
@@ -108,93 +108,166 @@ const withIconCode = `<div class="relative flex items-center py-4">
       </div>
     </section>
 
+    <!-- With Text -->
+    <section class="space-y-3">
+      <SectionHeading id="with-text" title={t.sections.withText.title} />
+      <p class="text-base text-muted-foreground leading-relaxed">{t.sections.withText.description}</p>
+      <ComponentPreview code={withTextCode}>
+        <div class="w-full max-w-lg">
+          <div class="space-y-1">
+            <h4 class="text-sm font-medium leading-none">Cubby UI</h4>
+            <p class="text-sm text-muted-foreground">An open-source UI component library.</p>
+          </div>
+          <Separator class="my-4" />
+          <div class="flex h-5 items-center gap-4 text-sm">
+            <div>Docs</div>
+            <Separator orientation="vertical" />
+            <div>Source</div>
+            <Separator orientation="vertical" />
+            <div>Blog</div>
+          </div>
+        </div>
+      </ComponentPreview>
+    </section>
 
-        <!-- With Text -->
-        <section class="space-y-3">
-            <SectionHeading id="with-text" title={t.sections.withText.title} />
-            <p class="text-base text-muted-foreground leading-relaxed">
-                {t.sections.withText.description}
-            </p>
-            <ComponentPreview code={withTextCode}>
-                <div class="w-full max-w-lg">
-                    <div class="space-y-1">
-                        <h4 class="text-sm font-medium leading-none">Cubby UI</h4>
-                        <p class="text-sm text-muted-foreground">An open-source UI component library.</p>
-                    </div>
-                    <Separator class="my-4" />
-                    <div class="flex h-5 items-center gap-4 text-sm">
-                        <div>Docs</div>
-                        <Separator orientation="vertical" />
-                        <div>Source</div>
-                        <Separator orientation="vertical" />
-                        <div>Blog</div>
-                    </div>
-                </div>
-            </ComponentPreview>
-        </section>
+    <!-- Vertical -->
+    <section class="space-y-3">
+      <SectionHeading id="vertical" title={t.sections.vertical.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.vertical.description} />
+      <ComponentPreview code={verticalCode}>
+        <div class="flex h-5 items-center gap-4 text-sm">
+          <div>Docs</div>
+          <Separator orientation="vertical" />
+          <div>Source</div>
+          <Separator orientation="vertical" />
+          <div>Blog</div>
+        </div>
+      </ComponentPreview>
+    </section>
 
-        <!-- Vertical -->
-        <section class="space-y-3">
-            <SectionHeading id="vertical" title={t.sections.vertical.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.vertical.description} />
-            <ComponentPreview code={verticalCode}>
-                <div class="flex h-5 items-center gap-4 text-sm">
-                    <div>Docs</div>
-                    <Separator orientation="vertical" />
-                    <div>Source</div>
-                    <Separator orientation="vertical" />
-                    <div>Blog</div>
-                </div>
-            </ComponentPreview>
-        </section>
+    <!-- In Toolbar -->
+    <section class="space-y-3">
+      <SectionHeading id="in-toolbar" title={t.sections.inToolbar.title} />
+      <p class="text-base text-muted-foreground leading-relaxed">{t.sections.inToolbar.description}</p>
+      <ComponentPreview code={inToolbarCode}>
+        <div class="flex items-center gap-2 rounded-lg border border-border p-1.5">
+          <button class="cu-button cu-button-ghost cu-button-icon-sm">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M6 4h8a4 4 0 0 1 4 4 4 4 0 0 1-4 4H6z" />
+              <path d="M6 12h9a4 4 0 0 1 4 4 4 4 0 0 1-4 4H6z" />
+            </svg>
+          </button>
+          <button class="cu-button cu-button-ghost cu-button-icon-sm">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <line x1="19" x2="10" y1="4" y2="4" />
+              <line x1="14" x2="5" y1="20" y2="20" />
+              <line x1="15" x2="9" y1="4" y2="20" />
+            </svg>
+          </button>
+          <button class="cu-button cu-button-ghost cu-button-icon-sm">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M6 4v16" />
+              <path d="M13 4v16" />
+              <path d="M22 4v16" />
+            </svg>
+          </button>
+          <Separator orientation="vertical" class="h-6" />
+          <button class="cu-button cu-button-ghost cu-button-icon-sm">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <line x1="21" x2="3" y1="6" y2="6" />
+              <line x1="21" x2="3" y1="12" y2="12" />
+              <line x1="21" x2="3" y1="18" y2="18" />
+            </svg>
+          </button>
+          <button class="cu-button cu-button-ghost cu-button-icon-sm">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <line x1="21" x2="3" y1="6" y2="6" />
+              <line x1="17" x2="3" y1="12" y2="12" />
+              <line x1="13" x2="3" y1="18" y2="18" />
+            </svg>
+          </button>
+        </div>
+      </ComponentPreview>
+    </section>
 
-        <!-- In Toolbar -->
-        <section class="space-y-3">
-            <SectionHeading id="in-toolbar" title={t.sections.inToolbar.title} />
-            <p class="text-base text-muted-foreground leading-relaxed">
-                {t.sections.inToolbar.description}
-            </p>
-            <ComponentPreview code={inToolbarCode}>
-                <div class="flex items-center gap-2 rounded-lg border border-border p-1.5">
-                    <button class="cu-button cu-button-ghost cu-button-icon-sm">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4h8a4 4 0 0 1 4 4 4 4 0 0 1-4 4H6z"/><path d="M6 12h9a4 4 0 0 1 4 4 4 4 0 0 1-4 4H6z"/></svg>
-                    </button>
-                    <button class="cu-button cu-button-ghost cu-button-icon-sm">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" x2="10" y1="4" y2="4"/><line x1="14" x2="5" y1="20" y2="20"/><line x1="15" x2="9" y1="4" y2="20"/></svg>
-                    </button>
-                    <button class="cu-button cu-button-ghost cu-button-icon-sm">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4v16"/><path d="M13 4v16"/><path d="M22 4v16"/></svg>
-                    </button>
-                    <Separator orientation="vertical" class="h-6" />
-                    <button class="cu-button cu-button-ghost cu-button-icon-sm">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="21" x2="3" y1="6" y2="6"/><line x1="21" x2="3" y1="12" y2="12"/><line x1="21" x2="3" y1="18" y2="18"/></svg>
-                    </button>
-                    <button class="cu-button cu-button-ghost cu-button-icon-sm">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="21" x2="3" y1="6" y2="6"/><line x1="17" x2="3" y1="12" y2="12"/><line x1="13" x2="3" y1="18" y2="18"/></svg>
-                    </button>
-                </div>
-            </ComponentPreview>
-        </section>
-
-        <!-- With Icon -->
-        <section class="space-y-3">
-            <SectionHeading id="with-icon" title={t.sections.withIcon.title} />
-            <p class="text-base text-muted-foreground leading-relaxed">
-                {t.sections.withIcon.description}
-            </p>
-            <ComponentPreview code={withIconCode}>
-                <div class="w-full max-w-lg">
-                    <div class="relative flex items-center py-4">
-                        <Separator class="flex-1" />
-                        <span class="mx-4 flex items-center gap-2 text-xs text-muted-foreground">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-                            Featured
-                        </span>
-                        <Separator class="flex-1" />
-                    </div>
-                </div>
-            </ComponentPreview>
-        </section>
-
-    </div>
+    <!-- With Icon -->
+    <section class="space-y-3">
+      <SectionHeading id="with-icon" title={t.sections.withIcon.title} />
+      <p class="text-base text-muted-foreground leading-relaxed">{t.sections.withIcon.description}</p>
+      <ComponentPreview code={withIconCode}>
+        <div class="w-full max-w-lg">
+          <div class="relative flex items-center py-4">
+            <Separator class="flex-1" />
+            <span class="mx-4 flex items-center gap-2 text-xs text-muted-foreground">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+              </svg>
+              Featured
+            </span>
+            <Separator class="flex-1" />
+          </div>
+        </div>
+      </ComponentPreview>
+    </section>
+  </div>
 </Layout>

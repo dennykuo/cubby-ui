@@ -1,10 +1,10 @@
 /* Label
    ------------------------------------------------------------------ */
 .cu-label {
-    @apply text-sm font-medium leading-relaxed peer-disabled:cursor-not-allowed peer-disabled:opacity-70;
+  @apply text-sm leading-relaxed font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70;
 }
 
 .cu-label-required::after {
-    content: " *";
-    @apply text-destructive;
+  content: " *";
+  @apply text-destructive;
 }

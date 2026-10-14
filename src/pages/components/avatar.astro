@@ -111,211 +111,225 @@ const squareCode = `<div class="flex items-center gap-6">
 ---
 
 <Layout title={t.title} category={t.category} componentName="Avatar" description={t.description}>
-    <div class="space-y-3">
-        <div class="flex items-center gap-3">
-            <h1 class="text-3xl font-bold tracking-tight">Avatar</h1>
-            <span class="cu-badge cu-badge-secondary">{t.category}</span>
+  <div class="space-y-3">
+    <div class="flex items-center gap-3">
+      <h1 class="text-3xl font-bold tracking-tight">Avatar</h1>
+      <span class="cu-badge cu-badge-secondary">{t.category}</span>
+    </div>
+    <p class="text-base text-muted-foreground leading-relaxed" set:html={t.description} />
+  </div>
+
+  <div class="mt-10 space-y-10">
+    <!-- Usage -->
+    <section class="space-y-3">
+      <SectionHeading id="usage" title={t.sections.usage.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
+      <ComponentPreview code={usageCode}>
+        <Avatar>
+          <AvatarImage src="https://i.pravatar.cc/80?img=1" alt="Avatar" />
+          <AvatarFallback>CN</AvatarFallback>
+        </Avatar>
+      </ComponentPreview>
+    </section>
+
+    <!-- Classes Reference -->
+    <section class="space-y-3">
+      <SectionHeading id="classes" title={t.sections.classes.title} />
+      <div class="cu-table-wrapper rounded-lg border border-border">
+        <table class="cu-table">
+          <thead class="cu-table-header">
+            <tr class="cu-table-row">
+              <th class="cu-table-head">{t.sections.classes.classLabel}</th>
+              <th class="cu-table-head">{t.sections.classes.descriptionLabel}</th>
+            </tr>
+          </thead>
+          <tbody class="cu-table-body">
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-avatar</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-avatar"]}</td>
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-avatar-sm</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-avatar-sm"]}</td>
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-avatar-md</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-avatar-md"]}</td>
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-avatar-lg</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-avatar-lg"]}</td>
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-avatar-image</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-avatar-image"]}</td>
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-avatar-fallback</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-avatar-fallback"]}</td>
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-avatar-group</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-avatar-group"]}</td>
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-avatar-group-count</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-avatar-group-count"]}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Sizes -->
+    <section class="space-y-3">
+      <SectionHeading id="sizes" title={t.sections.sizes.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.sizes.description} />
+      <ComponentPreview code={sizesCode}>
+        <div class="flex items-center gap-4 justify-center">
+          <Avatar size="sm">
+            <AvatarImage src="https://i.pravatar.cc/80?img=2" alt="Avatar" />
+            <AvatarFallback>SM</AvatarFallback>
+          </Avatar>
+          <Avatar size="md">
+            <AvatarImage src="https://i.pravatar.cc/80?img=3" alt="Avatar" />
+            <AvatarFallback>MD</AvatarFallback>
+          </Avatar>
+          <Avatar size="lg">
+            <AvatarImage src="https://i.pravatar.cc/80?img=4" alt="Avatar" />
+            <AvatarFallback>LG</AvatarFallback>
+          </Avatar>
         </div>
-        <p class="text-base text-muted-foreground leading-relaxed" set:html={t.description} />
-    </div>
+      </ComponentPreview>
+    </section>
 
-    <div class="mt-10 space-y-10">
-        <!-- Usage -->
-        <section class="space-y-3">
-            <SectionHeading id="usage" title={t.sections.usage.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
-            <ComponentPreview code={usageCode}>
-                <Avatar>
-                    <AvatarImage src="https://i.pravatar.cc/80?img=1" alt="Avatar" />
-                    <AvatarFallback>CN</AvatarFallback>
-                </Avatar>
-            </ComponentPreview>
-        </section>
+    <!-- With Fallback -->
+    <section class="space-y-3">
+      <SectionHeading id="with-fallback" title={t.sections.withFallback.title} />
+      <p class="text-base text-muted-foreground leading-relaxed">{t.sections.withFallback.description}</p>
+      <ComponentPreview code={fallbackCode}>
+        <div class="flex items-center gap-4 justify-center">
+          <Avatar>
+            <AvatarFallback>CN</AvatarFallback>
+          </Avatar>
+          <Avatar>
+            <AvatarFallback>AB</AvatarFallback>
+          </Avatar>
+        </div>
+      </ComponentPreview>
+    </section>
 
-        <!-- Classes Reference -->
-        <section class="space-y-3">
-            <SectionHeading id="classes" title={t.sections.classes.title} />
-            <div class="cu-table-wrapper rounded-lg border border-border">
-                <table class="cu-table">
-                    <thead class="cu-table-header">
-                        <tr class="cu-table-row">
-                            <th class="cu-table-head">{t.sections.classes.classLabel}</th>
-                            <th class="cu-table-head">{t.sections.classes.descriptionLabel}</th>
-                        </tr>
-                    </thead>
-                    <tbody class="cu-table-body">
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-avatar</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-avatar']}</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-avatar-sm</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-avatar-sm']}</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-avatar-md</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-avatar-md']}</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-avatar-lg</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-avatar-lg']}</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-avatar-image</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-avatar-image']}</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-avatar-fallback</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-avatar-fallback']}</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-avatar-group</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-avatar-group']}</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-avatar-group-count</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-avatar-group-count']}</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </section>
+    <!-- Avatar Group -->
+    <section class="space-y-3">
+      <SectionHeading id="avatar-group" title={t.sections.avatarGroup.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.avatarGroup.description} />
+      <ComponentPreview code={avatarGroupCode}>
+        <div class="cu-avatar-group">
+          <Avatar>
+            <AvatarImage src="https://i.pravatar.cc/80?img=5" alt="User 1" />
+            <AvatarFallback>U1</AvatarFallback>
+          </Avatar>
+          <Avatar>
+            <AvatarImage src="https://i.pravatar.cc/80?img=6" alt="User 2" />
+            <AvatarFallback>U2</AvatarFallback>
+          </Avatar>
+          <Avatar>
+            <AvatarImage src="https://i.pravatar.cc/80?img=7" alt="User 3" />
+            <AvatarFallback>U3</AvatarFallback>
+          </Avatar>
+          <Avatar>
+            <AvatarFallback class="cu-avatar-group-count">+3</AvatarFallback>
+          </Avatar>
+        </div>
+      </ComponentPreview>
+    </section>
 
+    <!-- With Status Indicator -->
+    <section class="space-y-3">
+      <SectionHeading id="with-status-indicator" title={t.sections.withStatusIndicator.title} />
+      <p class="text-base text-muted-foreground leading-relaxed">{t.sections.withStatusIndicator.description}</p>
+      <ComponentPreview code={statusIndicatorCode}>
+        <div class="flex items-center gap-4 justify-center">
+          <div class="relative inline-block">
+            <Avatar>
+              <AvatarImage src="https://i.pravatar.cc/80?img=8" alt="Online user" />
+              <AvatarFallback>ON</AvatarFallback>
+            </Avatar>
+            <span class="absolute bottom-0 right-0 block h-3 w-3 rounded-full bg-success ring-2 ring-background"></span>
+          </div>
+          <div class="relative inline-block">
+            <Avatar>
+              <AvatarImage src="https://i.pravatar.cc/80?img=9" alt="Offline user" />
+              <AvatarFallback>OF</AvatarFallback>
+            </Avatar>
+            <span class="absolute bottom-0 right-0 block h-3 w-3 rounded-full bg-muted-foreground/50 ring-2 ring-background"></span>
+          </div>
+        </div>
+      </ComponentPreview>
+    </section>
 
-        <!-- Sizes -->
-        <section class="space-y-3">
-            <SectionHeading id="sizes" title={t.sections.sizes.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.sizes.description} />
-            <ComponentPreview code={sizesCode}>
-                <div class="flex items-center gap-4 justify-center">
-                    <Avatar size="sm">
-                        <AvatarImage src="https://i.pravatar.cc/80?img=2" alt="Avatar" />
-                        <AvatarFallback>SM</AvatarFallback>
-                    </Avatar>
-                    <Avatar size="md">
-                        <AvatarImage src="https://i.pravatar.cc/80?img=3" alt="Avatar" />
-                        <AvatarFallback>MD</AvatarFallback>
-                    </Avatar>
-                    <Avatar size="lg">
-                        <AvatarImage src="https://i.pravatar.cc/80?img=4" alt="Avatar" />
-                        <AvatarFallback>LG</AvatarFallback>
-                    </Avatar>
-                </div>
-            </ComponentPreview>
-        </section>
+    <!-- Status -->
+    <section class="space-y-3">
+      <SectionHeading id="status" title={t.sections.status.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.status.description} />
+      <ComponentPreview code={statusCode}>
+        <div class="flex flex-wrap gap-4 items-center justify-center">
+          <span class="cu-avatar cu-avatar-md relative">
+            <img class="cu-avatar-image" src="https://i.pravatar.cc/80?img=10" alt="Avatar" />
+            <span class="cu-avatar-fallback">ON</span>
+            <span class="cu-avatar-status cu-avatar-status-md cu-avatar-status-online"></span>
+          </span>
+          <span class="cu-avatar cu-avatar-md relative">
+            <img class="cu-avatar-image" src="https://i.pravatar.cc/80?img=11" alt="Avatar" />
+            <span class="cu-avatar-fallback">AW</span>
+            <span class="cu-avatar-status cu-avatar-status-md cu-avatar-status-away"></span>
+          </span>
+          <span class="cu-avatar cu-avatar-md relative">
+            <img class="cu-avatar-image" src="https://i.pravatar.cc/80?img=12" alt="Avatar" />
+            <span class="cu-avatar-fallback">BS</span>
+            <span class="cu-avatar-status cu-avatar-status-md cu-avatar-status-busy"></span>
+          </span>
+          <span class="cu-avatar cu-avatar-md relative">
+            <span class="cu-avatar-fallback">OF</span>
+            <span class="cu-avatar-status cu-avatar-status-md cu-avatar-status-offline"></span>
+          </span>
+        </div>
+      </ComponentPreview>
+    </section>
 
-        <!-- With Fallback -->
-        <section class="space-y-3">
-            <SectionHeading id="with-fallback" title={t.sections.withFallback.title} />
-            <p class="text-base text-muted-foreground leading-relaxed">{t.sections.withFallback.description}</p>
-            <ComponentPreview code={fallbackCode}>
-                <div class="flex items-center gap-4 justify-center">
-                    <Avatar>
-                        <AvatarFallback>CN</AvatarFallback>
-                    </Avatar>
-                    <Avatar>
-                        <AvatarFallback>AB</AvatarFallback>
-                    </Avatar>
-                </div>
-            </ComponentPreview>
-        </section>
-
-        <!-- Avatar Group -->
-        <section class="space-y-3">
-            <SectionHeading id="avatar-group" title={t.sections.avatarGroup.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.avatarGroup.description} />
-            <ComponentPreview code={avatarGroupCode}>
-                <div class="cu-avatar-group">
-                    <Avatar>
-                        <AvatarImage src="https://i.pravatar.cc/80?img=5" alt="User 1" />
-                        <AvatarFallback>U1</AvatarFallback>
-                    </Avatar>
-                    <Avatar>
-                        <AvatarImage src="https://i.pravatar.cc/80?img=6" alt="User 2" />
-                        <AvatarFallback>U2</AvatarFallback>
-                    </Avatar>
-                    <Avatar>
-                        <AvatarImage src="https://i.pravatar.cc/80?img=7" alt="User 3" />
-                        <AvatarFallback>U3</AvatarFallback>
-                    </Avatar>
-                    <Avatar>
-                        <AvatarFallback class="cu-avatar-group-count">+3</AvatarFallback>
-                    </Avatar>
-                </div>
-            </ComponentPreview>
-        </section>
-
-        <!-- With Status Indicator -->
-        <section class="space-y-3">
-            <SectionHeading id="with-status-indicator" title={t.sections.withStatusIndicator.title} />
-            <p class="text-base text-muted-foreground leading-relaxed">{t.sections.withStatusIndicator.description}</p>
-            <ComponentPreview code={statusIndicatorCode}>
-                <div class="flex items-center gap-4 justify-center">
-                    <div class="relative inline-block">
-                        <Avatar>
-                            <AvatarImage src="https://i.pravatar.cc/80?img=8" alt="Online user" />
-                            <AvatarFallback>ON</AvatarFallback>
-                        </Avatar>
-                        <span class="absolute bottom-0 right-0 block h-3 w-3 rounded-full bg-success ring-2 ring-background"></span>
-                    </div>
-                    <div class="relative inline-block">
-                        <Avatar>
-                            <AvatarImage src="https://i.pravatar.cc/80?img=9" alt="Offline user" />
-                            <AvatarFallback>OF</AvatarFallback>
-                        </Avatar>
-                        <span class="absolute bottom-0 right-0 block h-3 w-3 rounded-full bg-muted-foreground/50 ring-2 ring-background"></span>
-                    </div>
-                </div>
-            </ComponentPreview>
-        </section>
-
-        <!-- Status -->
-        <section class="space-y-3">
-            <SectionHeading id="status" title={t.sections.status.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.status.description} />
-            <ComponentPreview code={statusCode}>
-                <div class="flex flex-wrap gap-4 items-center justify-center">
-                    <span class="cu-avatar cu-avatar-md relative">
-                        <img class="cu-avatar-image" src="https://i.pravatar.cc/80?img=10" alt="Avatar" />
-                        <span class="cu-avatar-fallback">ON</span>
-                        <span class="cu-avatar-status cu-avatar-status-md cu-avatar-status-online"></span>
-                    </span>
-                    <span class="cu-avatar cu-avatar-md relative">
-                        <img class="cu-avatar-image" src="https://i.pravatar.cc/80?img=11" alt="Avatar" />
-                        <span class="cu-avatar-fallback">AW</span>
-                        <span class="cu-avatar-status cu-avatar-status-md cu-avatar-status-away"></span>
-                    </span>
-                    <span class="cu-avatar cu-avatar-md relative">
-                        <img class="cu-avatar-image" src="https://i.pravatar.cc/80?img=12" alt="Avatar" />
-                        <span class="cu-avatar-fallback">BS</span>
-                        <span class="cu-avatar-status cu-avatar-status-md cu-avatar-status-busy"></span>
-                    </span>
-                    <span class="cu-avatar cu-avatar-md relative">
-                        <span class="cu-avatar-fallback">OF</span>
-                        <span class="cu-avatar-status cu-avatar-status-md cu-avatar-status-offline"></span>
-                    </span>
-                </div>
-            </ComponentPreview>
-        </section>
-
-        <!-- Square Avatar -->
-        <section class="space-y-3">
-            <SectionHeading id="square" title={t.sections.square.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.square.description} />
-            <ComponentPreview code={squareCode}>
-                <div class="flex items-center gap-6">
-                    <span class="cu-avatar cu-avatar-sm cu-avatar-square">
-                        <span class="cu-avatar-fallback">W1</span>
-                    </span>
-                    <span class="cu-avatar cu-avatar-md cu-avatar-square">
-                        <span class="cu-avatar-fallback">W2</span>
-                    </span>
-                    <span class="cu-avatar cu-avatar-lg cu-avatar-square">
-                        <img class="cu-avatar-image" src="https://i.pravatar.cc/96?img=12" alt="Workspace" />
-                    </span>
-                </div>
-            </ComponentPreview>
-        </section>
-
-    </div>
+    <!-- Square Avatar -->
+    <section class="space-y-3">
+      <SectionHeading id="square" title={t.sections.square.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.square.description} />
+      <ComponentPreview code={squareCode}>
+        <div class="flex items-center gap-6">
+          <span class="cu-avatar cu-avatar-sm cu-avatar-square">
+            <span class="cu-avatar-fallback">W1</span>
+          </span>
+          <span class="cu-avatar cu-avatar-md cu-avatar-square">
+            <span class="cu-avatar-fallback">W2</span>
+          </span>
+          <span class="cu-avatar cu-avatar-lg cu-avatar-square">
+            <img class="cu-avatar-image" src="https://i.pravatar.cc/96?img=12" alt="Workspace" />
+          </span>
+        </div>
+      </ComponentPreview>
+    </section>
+  </div>
 </Layout>

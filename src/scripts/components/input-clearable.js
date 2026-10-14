@@ -14,7 +14,10 @@ import { track, restore } from "../core/registry.js";
  */
 export function setupInputClearables() {
   document.querySelectorAll("[data-cu-input-clearable]").forEach(function (el) {
-    if (el._cuInit) { restore("inputClearables", el); return; }
+    if (el._cuInit) {
+      restore("inputClearables", el);
+      return;
+    }
     el._cuInit = true;
 
     var input = /** @type {HTMLInputElement} */ (el.querySelector(".cu-input-clearable, input"));

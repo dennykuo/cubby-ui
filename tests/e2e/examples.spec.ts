@@ -62,7 +62,8 @@ const KNOWN_JS_LIMITATIONS: Array<{ match: RegExp; reason: string }> = [
   },
   {
     match: /未知屬性 data-cu-image-compare-position/,
-    reason: "Image Compare：文檔描述以 data-cu-image-compare-position 設定初始位置，但 image-compare.js 固定 setPosition(50)，需在 JS 讀取該屬性",
+    reason:
+      "Image Compare：文檔描述以 data-cu-image-compare-position 設定初始位置，但 image-compare.js 固定 setPosition(50)，需在 JS 讀取該屬性",
   },
 ];
 
@@ -187,8 +188,18 @@ const ROOT_PARTS: Record<string, string[]> = {
   "[data-cu-tabs]": ["[data-cu-tabs-trigger]", "[data-cu-tabs-content]"],
   "[data-cu-tabs-scrollable]": [".cu-tabs-list"],
   "[data-cu-dropdown]": ["[data-cu-dropdown-trigger]", "[data-cu-dropdown-content]"],
-  "[data-cu-combobox]": ["[data-cu-combobox-trigger]", "[data-cu-combobox-value]", "[data-cu-combobox-content]", "[data-cu-combobox-item]"],
-  "[data-cu-multi-select]": ["[data-cu-multi-select-trigger]", "[data-cu-multi-select-tags]", "[data-cu-multi-select-content]", "[data-cu-multi-select-item]"],
+  "[data-cu-combobox]": [
+    "[data-cu-combobox-trigger]",
+    "[data-cu-combobox-value]",
+    "[data-cu-combobox-content]",
+    "[data-cu-combobox-item]",
+  ],
+  "[data-cu-multi-select]": [
+    "[data-cu-multi-select-trigger]",
+    "[data-cu-multi-select-tags]",
+    "[data-cu-multi-select-content]",
+    "[data-cu-multi-select-item]",
+  ],
   "[data-cu-number-input]": ["[data-cu-number-field]"],
   "[data-cu-dropzone]": ["[data-cu-dropzone-input]"],
   "[data-cu-popover]": ["[data-cu-popover-trigger]", "[data-cu-popover-content]"],
@@ -206,7 +217,9 @@ const ROOT_PARTS: Record<string, string[]> = {
   "[data-cu-rating]:not(.cu-rating-readonly):not(.cu-rating-disabled)": ["[data-cu-rating-star]"],
   "[data-cu-tag-input]": ["[data-cu-tag-input-field]"],
   "[data-cu-sortable-list]": ["[data-cu-sortable-item]"],
-  "[data-cu-countdown]": ["[data-cu-countdown-days], [data-cu-countdown-hours], [data-cu-countdown-minutes], [data-cu-countdown-seconds]"],
+  "[data-cu-countdown]": [
+    "[data-cu-countdown-days], [data-cu-countdown-hours], [data-cu-countdown-minutes], [data-cu-countdown-seconds]",
+  ],
   "[data-cu-speed-dial]": ["[data-cu-speed-dial-trigger]", "[data-cu-speed-dial-actions]"],
   "[data-cu-kanban]": ["[data-cu-kanban-column-body]"],
   "[data-cu-input-clearable]": ["input", "[data-cu-input-clear]"],
@@ -264,7 +277,10 @@ const CLASS_HOOKS: Array<[string, string]> = [
   [".cu-checkbox-group-selectall input[type=checkbox]", "data-cu-checkbox-group-selectall"],
   [".cu-checkbox-group-selectall", "@[data-cu-checkbox-group]"],
   [".cu-checkbox-group-items input[type=checkbox]", "data-cu-checkbox-group-item"],
-  ["[data-cu-countdown] .cu-countdown-value", "data-cu-countdown-days|data-cu-countdown-hours|data-cu-countdown-minutes|data-cu-countdown-seconds"],
+  [
+    "[data-cu-countdown] .cu-countdown-value",
+    "data-cu-countdown-days|data-cu-countdown-hours|data-cu-countdown-minutes|data-cu-countdown-seconds",
+  ],
   ["[data-cu-tag-input] .cu-tag-input-field", "data-cu-tag-input-field"],
   ["[data-cu-number-input] input", "data-cu-number-field"],
   ["[data-cu-dropzone] input[type=file]", "data-cu-dropzone-input"],
@@ -375,9 +391,12 @@ function staticAudit(cfg: AuditConfig): string[] {
   // 1. 巢狀互動元素（DOM 層：<button> 內的 <a href> / 表單控制項 / 可聚焦元素）
   for (const host of all.filter((el) => el.matches("button, a[href], summary"))) {
     const inner = host.querySelector(
-      'button, a[href], input:not([type="hidden"]), select, textarea, summary, [tabindex]:not([tabindex="-1"]), [contenteditable]'
+      'button, a[href], input:not([type="hidden"]), select, textarea, summary, [tabindex]:not([tabindex="-1"]), [contenteditable]',
     );
-    if (inner) problems.push(`巢狀互動元素：${describe(inner)} 位於 ${describe(host)} 內 [${inner.matches("[data-cu-tabs-close]") ? "data-cu-tabs-close" : "nesting"}]`);
+    if (inner)
+      problems.push(
+        `巢狀互動元素：${describe(inner)} 位於 ${describe(host)} 內 [${inner.matches("[data-cu-tabs-close]") ? "data-cu-tabs-close" : "nesting"}]`,
+      );
   }
 
   // 2. 未知的 data-cu-* 屬性
@@ -414,11 +433,13 @@ function staticAudit(cfg: AuditConfig): string[] {
   for (const root of Array.from(frag.querySelectorAll("[data-cu-resizable]"))) {
     const panels = root.querySelectorAll(":scope > [data-cu-resizable-panel]").length;
     const handles = root.querySelectorAll(":scope > [data-cu-resizable-handle]").length;
-    if (panels < 2 || handles < 1) problems.push(`${describe(root)} 需要至少 2 個 panel 與 1 個 handle（目前 ${panels} / ${handles}）`);
+    if (panels < 2 || handles < 1)
+      problems.push(`${describe(root)} 需要至少 2 個 panel 與 1 個 handle（目前 ${panels} / ${handles}）`);
   }
   for (const root of Array.from(frag.querySelectorAll("[data-cu-countdown]"))) {
     const target = root.getAttribute("data-cu-countdown-target") || "";
-    if (!target || isNaN(new Date(target).getTime())) problems.push(`${describe(root)} 的 data-cu-countdown-target 不是有效日期`);
+    if (!target || isNaN(new Date(target).getTime()))
+      problems.push(`${describe(root)} 的 data-cu-countdown-target 不是有效日期`);
   }
 
   // 5. 互動 class 沒有接上 JS 屬性
@@ -492,10 +513,16 @@ function staticAudit(cfg: AuditConfig): string[] {
     if (!target) problems.push(`${describe(btn)} 的複製目標 ${sel} 不存在`);
   }
   for (const tabs of Array.from(frag.querySelectorAll("[data-cu-tabs]"))) {
-    const triggers = Array.from(tabs.querySelectorAll("[data-cu-tabs-trigger]")).map((t) => t.getAttribute("data-cu-tabs-trigger"));
-    const panels = Array.from(tabs.querySelectorAll("[data-cu-tabs-content]")).map((c) => c.getAttribute("data-cu-tabs-content"));
-    for (const v of triggers) if (!panels.includes(v)) problems.push(`Tabs：trigger "${v}" 沒有對應的 data-cu-tabs-content`);
-    for (const v of panels) if (!triggers.includes(v)) problems.push(`Tabs：content "${v}" 沒有對應的 data-cu-tabs-trigger`);
+    const triggers = Array.from(tabs.querySelectorAll("[data-cu-tabs-trigger]")).map((t) =>
+      t.getAttribute("data-cu-tabs-trigger"),
+    );
+    const panels = Array.from(tabs.querySelectorAll("[data-cu-tabs-content]")).map((c) =>
+      c.getAttribute("data-cu-tabs-content"),
+    );
+    for (const v of triggers)
+      if (!panels.includes(v)) problems.push(`Tabs：trigger "${v}" 沒有對應的 data-cu-tabs-content`);
+    for (const v of panels)
+      if (!triggers.includes(v)) problems.push(`Tabs：content "${v}" 沒有對應的 data-cu-tabs-trigger`);
   }
   for (const tour of Array.from(frag.querySelectorAll("[data-cu-tour]"))) {
     let steps: Array<{ target?: string; title?: string }> = [];
@@ -523,7 +550,9 @@ function staticAudit(cfg: AuditConfig): string[] {
     if (forId) {
       if (!byId(forId)) problems.push(`${describe(label)} 的 for="${forId}" 指向不存在的元素`);
     } else if (!label.querySelector("input, select, textarea, button, meter, output, progress")) {
-      problems.push(`<label>${(label.textContent || "").trim().slice(0, 30)}</label> 沒有 for 也沒有包住控制項，點擊不會作用於輸入框`);
+      problems.push(
+        `<label>${(label.textContent || "").trim().slice(0, 30)}</label> 沒有 for 也沒有包住控制項，點擊不會作用於輸入框`,
+      );
     }
   }
   for (const el of all) {
@@ -607,13 +636,16 @@ const PROBES: Array<{ selector: string; run: Probe }> = [
       if (!(await isShown(content))) return "以鍵盤（Enter）啟動 trigger 後面板沒有開啟";
       // 以索引固定目標：點擊後 aria-selected 改變，屬性選擇器會改指向下一個項目
       const items = root.locator("[data-cu-multi-select-item]");
-      const index = await items.evaluateAll((els) => els.findIndex((el) => el.getAttribute("aria-selected") === "false" && !el.hasAttribute("hidden")));
+      const index = await items.evaluateAll((els) =>
+        els.findIndex((el) => el.getAttribute("aria-selected") === "false" && !el.hasAttribute("hidden")),
+      );
       if (index === -1) return;
       const item = items.nth(index);
       const before = await root.locator(".cu-multi-select-tag").count();
       await item.click();
       if ((await item.getAttribute("aria-selected")) !== "true") return "點擊項目後沒有被選取";
-      if ((await root.locator(".cu-multi-select-tag").count()) !== before + 1) return "選取後沒有產生標籤（檢查 data-cu-value 與 data-cu-multi-select-tags）";
+      if ((await root.locator(".cu-multi-select-tag").count()) !== before + 1)
+        return "選取後沒有產生標籤（檢查 data-cu-value 與 data-cu-multi-select-tags）";
     },
   },
   {
@@ -626,7 +658,8 @@ const PROBES: Array<{ selector: string; run: Probe }> = [
       const before = await field.inputValue();
       if ((await inc.count()) && !(await inc.isDisabled())) {
         await inc.click();
-        if ((await field.inputValue()) === before && before !== (await field.getAttribute("max"))) return "點擊 + 後數值沒有改變";
+        if ((await field.inputValue()) === before && before !== (await field.getAttribute("max")))
+          return "點擊 + 後數值沒有改變";
       }
       if ((await dec.count()) && !(await dec.isDisabled())) await dec.click();
     },
@@ -636,14 +669,20 @@ const PROBES: Array<{ selector: string; run: Probe }> = [
     run: async (page, root) => {
       const input = root.locator("[data-cu-dropzone-input]").first();
       if (await input.isDisabled()) return;
-      const clickChooser = page.waitForEvent("filechooser", { timeout: 2000 }).then(() => true, () => false);
+      const clickChooser = page.waitForEvent("filechooser", { timeout: 2000 }).then(
+        () => true,
+        () => false,
+      );
       await root.click({ position: { x: 5, y: 5 } });
       if (!(await clickChooser)) return "點擊上傳區沒有開啟檔案選擇器";
       await input.focus();
       if (!(await input.evaluate((el) => el === document.activeElement))) {
-        return "檔案輸入框無法以鍵盤聚焦（勿用 hidden 屬性 / display:none，改用 class=\"cu-dropzone-input\"）";
+        return '檔案輸入框無法以鍵盤聚焦（勿用 hidden 屬性 / display:none，改用 class="cu-dropzone-input"）';
       }
-      const keyChooser = page.waitForEvent("filechooser", { timeout: 2000 }).then(() => true, () => false);
+      const keyChooser = page.waitForEvent("filechooser", { timeout: 2000 }).then(
+        () => true,
+        () => false,
+      );
       await page.keyboard.press("Space");
       if (!(await keyChooser)) return "聚焦檔案輸入框按 Space 沒有開啟檔案選擇器";
     },
@@ -660,7 +699,8 @@ const PROBES: Array<{ selector: string; run: Probe }> = [
       const toRight = root.locator("[data-cu-transfer-to-right]").first();
       if (await toRight.isDisabled()) return "勾選項目後「移到右側」按鈕仍為 disabled";
       await toRight.click();
-      if ((await right.locator(".cu-transfer-list-item").count()) !== beforeRight + 1) return "點擊移動後項目沒有移到右側（項目需為 .cu-transfer-list-item）";
+      if ((await right.locator(".cu-transfer-list-item").count()) !== beforeRight + 1)
+        return "點擊移動後項目沒有移到右側（項目需為 .cu-transfer-list-item）";
     },
   },
   ...(["dialog", "drawer", "alert-dialog"] as const).map((kind) => ({
@@ -675,9 +715,14 @@ const PROBES: Array<{ selector: string; run: Probe }> = [
       });
       if ((await dialog.count()) === 0 || !reachable) return;
       await pressEnterOn(page, trigger);
-      if (!(await dialog.evaluate((d) => (d as HTMLDialogElement).open))) return "以鍵盤啟動 trigger 後 <dialog> 沒有開啟";
-      if (kind === "alert-dialog" && (await dialog.getAttribute("role")) !== "alertdialog") return '<dialog> 沒有被設定 role="alertdialog"（缺 data-cu-alert-dialog？）';
-      const closeSel = kind === "alert-dialog" ? "[data-cu-alert-dialog-cancel], [data-cu-alert-dialog-action]" : `[data-cu-${kind}-close]`;
+      if (!(await dialog.evaluate((d) => (d as HTMLDialogElement).open)))
+        return "以鍵盤啟動 trigger 後 <dialog> 沒有開啟";
+      if (kind === "alert-dialog" && (await dialog.getAttribute("role")) !== "alertdialog")
+        return '<dialog> 沒有被設定 role="alertdialog"（缺 data-cu-alert-dialog？）';
+      const closeSel =
+        kind === "alert-dialog"
+          ? "[data-cu-alert-dialog-cancel], [data-cu-alert-dialog-action]"
+          : `[data-cu-${kind}-close]`;
       const close = dialog.locator(closeSel).first();
       if ((await close.count()) === 0) return;
       // 以鍵盤啟動關閉鈕：不受開啟動畫期間元素位移影響，也同時驗證可鍵盤操作
@@ -707,7 +752,8 @@ const PROBES: Array<{ selector: string; run: Probe }> = [
     run: async (page, root) => {
       const menu = root.locator("[data-cu-menubar-menu]").first();
       await pressEnterOn(page, menu.locator("[data-cu-menubar-trigger]").first());
-      if (!(await isShown(menu.locator("[data-cu-menubar-content]").first()))) return "以鍵盤（Enter）啟動 trigger 後選單沒有開啟";
+      if (!(await isShown(menu.locator("[data-cu-menubar-content]").first())))
+        return "以鍵盤（Enter）啟動 trigger 後選單沒有開啟";
     },
   },
   {
@@ -755,7 +801,8 @@ const PROBES: Array<{ selector: string; run: Probe }> = [
       if ((await fields.count()) < 2 || (await fields.first().isDisabled())) return;
       await fields.first().focus();
       await page.keyboard.type("1");
-      if (!(await fields.nth(1).evaluate((el) => el === document.activeElement))) return "輸入一個字元後焦點沒有移到下一格";
+      if (!(await fields.nth(1).evaluate((el) => el === document.activeElement)))
+        return "輸入一個字元後焦點沒有移到下一格";
     },
   },
   {
@@ -773,7 +820,9 @@ const PROBES: Array<{ selector: string; run: Probe }> = [
     selector: "[data-cu-copy], [data-cu-copy-target]",
     run: async (_page, btn) => {
       await activate(btn);
-      const handled = await btn.evaluate((el) => el.hasAttribute("data-cu-copied") || el.hasAttribute("data-cu-copy-failed"));
+      const handled = await btn.evaluate(
+        (el) => el.hasAttribute("data-cu-copied") || el.hasAttribute("data-cu-copy-failed"),
+      );
       if (!handled) return "點擊後沒有進入 data-cu-copied / data-cu-copy-failed 狀態";
     },
   },
@@ -781,7 +830,8 @@ const PROBES: Array<{ selector: string; run: Probe }> = [
     selector: "[data-cu-carousel]",
     run: async (_page, root) => {
       const prev = root.locator("[data-cu-carousel-prev]").first();
-      if ((await prev.count()) && !(await prev.isDisabled())) return "初始位置的「上一張」按鈕沒有被 disabled（cubby-ui.js 未接手）";
+      if ((await prev.count()) && !(await prev.isDisabled()))
+        return "初始位置的「上一張」按鈕沒有被 disabled（cubby-ui.js 未接手）";
     },
   },
   {
@@ -817,7 +867,8 @@ const PROBES: Array<{ selector: string; run: Probe }> = [
       await page.keyboard.press("ArrowDown");
       if ((await palette.locator("[data-cu-command-active]").count()) === 0) return "按方向鍵後沒有項目被標記為 active";
       await palette.locator("[data-cu-command-input]").first().fill("zzqqxx-no-match");
-      if ((await palette.locator("[data-cu-command-item]:not([hidden])").count()) !== 0) return "輸入不相符的查詢後項目沒有被過濾";
+      if ((await palette.locator("[data-cu-command-item]:not([hidden])").count()) !== 0)
+        return "輸入不相符的查詢後項目沒有被過濾";
       await page.keyboard.press("Escape");
     },
   },
@@ -827,14 +878,16 @@ const PROBES: Array<{ selector: string; run: Probe }> = [
       const content = root.locator("[data-cu-date-picker-content]").first();
       await pressEnterOn(page, root.locator("[data-cu-date-picker-trigger]").first());
       if (!(await content.isVisible())) return "以鍵盤（Enter）啟動 trigger 後月曆沒有開啟";
-      if ((await root.locator(".cu-calendar-day").count()) < 28) return "月曆沒有產生日期按鈕（缺 data-cu-calendar-grid / data-cu-calendar-title？）";
+      if ((await root.locator(".cu-calendar-day").count()) < 28)
+        return "月曆沒有產生日期按鈕（缺 data-cu-calendar-grid / data-cu-calendar-title？）";
       // 有 min / max 限制時，目前月份可能沒有可選日期（月曆開在今天所在月份），此時只驗證已渲染
       const days = root.locator(".cu-calendar-day:not(.cu-calendar-day-outside):not(:disabled)");
       if ((await days.count()) === 0) return;
       await days.nth(Math.min(9, (await days.count()) - 1)).click();
       if (await content.isVisible()) return "選取日期後月曆沒有關閉";
       const input = root.locator("input[data-cu-date-picker-input]").first();
-      if ((await input.count()) && !/^\d{4}-\d{2}-\d{2}$/.test(await input.inputValue())) return "選取日期後 hidden input 沒有 ISO 日期";
+      if ((await input.count()) && !/^\d{4}-\d{2}-\d{2}$/.test(await input.inputValue()))
+        return "選取日期後 hidden input 沒有 ISO 日期";
     },
   },
   {
@@ -908,7 +961,9 @@ const PROBES: Array<{ selector: string; run: Probe }> = [
   {
     selector: "[data-cu-sortable-list]",
     run: async (_page, root) => {
-      const bad = await root.locator('[data-cu-sortable-item]:not([draggable="true"]):not(.cu-sortable-item-disabled)').count();
+      const bad = await root
+        .locator('[data-cu-sortable-item]:not([draggable="true"]):not(.cu-sortable-item-disabled)')
+        .count();
       if (bad) return `${bad} 個 data-cu-sortable-item 沒有 draggable="true"，無法拖曳`;
     },
   },
@@ -923,7 +978,11 @@ const PROBES: Array<{ selector: string; run: Probe }> = [
     selector: "[data-cu-countdown]",
     run: async (page, root) => {
       await page.waitForTimeout(50);
-      const values = await root.locator("[data-cu-countdown-days], [data-cu-countdown-hours], [data-cu-countdown-minutes], [data-cu-countdown-seconds]").allTextContents();
+      const values = await root
+        .locator(
+          "[data-cu-countdown-days], [data-cu-countdown-hours], [data-cu-countdown-minutes], [data-cu-countdown-seconds]",
+        )
+        .allTextContents();
       if (values.some((v) => !/^\d{2,}$/.test(v.trim()))) return `倒數數值沒有被更新：${values.join(" / ")}`;
     },
   },
@@ -940,7 +999,8 @@ const PROBES: Array<{ selector: string; run: Probe }> = [
       const actions = root.locator("[data-cu-speed-dial-actions]").first();
       const wasOpen = (await actions.getAttribute("data-cu-open")) !== null;
       await pressEnterOn(page, root.locator("[data-cu-speed-dial-trigger]").first());
-      if (((await actions.getAttribute("data-cu-open")) !== null) === wasOpen) return "以鍵盤（Enter）啟動 trigger 後動作選單沒有切換";
+      if (((await actions.getAttribute("data-cu-open")) !== null) === wasOpen)
+        return "以鍵盤（Enter）啟動 trigger 後動作選單沒有切換";
     },
   },
   {
@@ -950,7 +1010,9 @@ const PROBES: Array<{ selector: string; run: Probe }> = [
       if (!steps.length || (await page.locator(steps[0].target).count()) === 0) return;
       await root.evaluate((el) => el.dispatchEvent(new Event("cu:tour:start")));
       if ((await page.locator(".cu-tour-tooltip").count()) === 0) return "觸發 cu:tour:start 後沒有出現導覽提示";
-      await page.evaluate(() => document.querySelectorAll(".cu-tour-overlay, .cu-tour-tooltip").forEach((el) => el.remove()));
+      await page.evaluate(() =>
+        document.querySelectorAll(".cu-tour-overlay, .cu-tour-tooltip").forEach((el) => el.remove()),
+      );
     },
   },
   {
@@ -968,7 +1030,8 @@ const PROBES: Array<{ selector: string; run: Probe }> = [
     run: async (page, root) => {
       const content = root.locator("[data-cu-alert-expandable-content]").first();
       await pressEnterOn(page, root.locator("[data-cu-alert-expand-trigger]").first());
-      if ((await content.getAttribute("data-cu-expanded")) === null) return "以鍵盤（Enter）啟動 trigger 後內容沒有展開";
+      if ((await content.getAttribute("data-cu-expanded")) === null)
+        return "以鍵盤（Enter）啟動 trigger 後內容沒有展開";
     },
   },
   {
@@ -1037,7 +1100,8 @@ async function setupRoutes(page: Page) {
     if (url.origin !== ORIGIN) return route.abort();
     if (url.pathname === "/cubby-ui.css") return route.fulfill({ body: css, contentType: "text/css" });
     if (url.pathname === "/cubby-ui.js") return route.fulfill({ body: js, contentType: "text/javascript" });
-    if (url.pathname === "/example") return route.fulfill({ body: hostDocument(currentHtml.get(page) || ""), contentType: "text/html" });
+    if (url.pathname === "/example")
+      return route.fulfill({ body: hostDocument(currentHtml.get(page) || ""), contentType: "text/html" });
     return route.abort();
   });
 }
@@ -1050,7 +1114,8 @@ async function auditExample(page: Page, html: string): Promise<string[]> {
   page.removeAllListeners("console");
   page.on("pageerror", (err) => consoleErrors.push(`未捕捉例外：${err.message}`));
   page.on("console", (msg) => {
-    if (msg.type() === "error" && !/Failed to load resource|net::ERR_/.test(msg.text())) consoleErrors.push(`console error：${msg.text()}`);
+    if (msg.type() === "error" && !/Failed to load resource|net::ERR_/.test(msg.text()))
+      consoleErrors.push(`console error：${msg.text()}`);
   });
 
   problems.push(...rawNestingProblems(html), ...rawScriptProblems(html));
@@ -1068,7 +1133,7 @@ async function auditExample(page: Page, html: string): Promise<string[]> {
       classHooks: CLASS_HOOKS,
       activatable: ACTIVATABLE,
       formRoots: FORM_ROOTS,
-    }))
+    })),
   );
 
   const main = page.locator("main[data-example-root]");
@@ -1088,7 +1153,8 @@ async function auditExample(page: Page, html: string): Promise<string[]> {
   }
 
   const submits = await page.evaluate(() => (window as any).__submits as string[]);
-  for (const s of new Set(submits)) problems.push(`操作過程中送出了外層 <form>：${s}（表單元件內的按鈕缺少 type="button"）`);
+  for (const s of new Set(submits))
+    problems.push(`操作過程中送出了外層 <form>：${s}（表單元件內的按鈕缺少 type="button"）`);
   problems.push(...consoleErrors);
 
   return [...new Set(problems)].filter((p) => !isKnownLimitation(p));
@@ -1103,10 +1169,17 @@ test.use({ actionTimeout: 3000 });
 /** 文檔頁只檢查用到互動元件的範例（含 data-cu-*，或帶有需要 JS 的互動 class） */
 const HOOK_CLASS_RE = new RegExp(
   "\\b(" +
-    [...new Set(CLASS_HOOKS.map(([sel]) => sel).filter((s) => !s.includes("[data-cu")).flatMap((s) => s.match(/cu-[a-z0-9-]+/g) || []))].join("|") +
-    ")\\b"
+    [
+      ...new Set(
+        CLASS_HOOKS.map(([sel]) => sel)
+          .filter((s) => !s.includes("[data-cu"))
+          .flatMap((s) => s.match(/cu-[a-z0-9-]+/g) || []),
+      ),
+    ].join("|") +
+    ")\\b",
 );
-const usesInteractive = (html: string) => /data-cu-/.test(html) || /<dialog[\s>]/.test(html) || HOOK_CLASS_RE.test(html);
+const usesInteractive = (html: string) =>
+  /data-cu-/.test(html) || /<dialog[\s>]/.test(html) || HOOK_CLASS_RE.test(html);
 
 function groupByComponent(examples: Example[]): Map<string, Example[]> {
   const groups = new Map<string, Example[]>();

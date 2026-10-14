@@ -10,7 +10,9 @@ export function setupCommandPalettes() {
         var palette = /** @type {HTMLDialogElement} */ (document.querySelector("[data-cu-command]"));
         if (!palette) return;
         e.preventDefault();
-        if (palette.open) { palette.close(); } else {
+        if (palette.open) {
+          palette.close();
+        } else {
           palette.showModal();
           var input = /** @type {HTMLInputElement} */ (palette.querySelector("[data-cu-command-input]"));
           if (input) input.focus();
@@ -27,7 +29,9 @@ export function setupCommandPalettes() {
     var input = /** @type {HTMLInputElement} */ (palette.querySelector("[data-cu-command-input]"));
     var list = palette.querySelector("[data-cu-command-list]");
     var empty = /** @type {HTMLElement} */ (palette.querySelector("[data-cu-command-empty]"));
-    var items = list ? Array.from(/** @type {NodeListOf<HTMLElement>} */ (list.querySelectorAll("[data-cu-command-item]"))) : [];
+    var items = list
+      ? Array.from(/** @type {NodeListOf<HTMLElement>} */ (list.querySelectorAll("[data-cu-command-item]")))
+      : [];
 
     // APG combobox + listbox：焦點留在輸入框，以 aria-activedescendant 指向選中（data-cu-command-active）項目；
     // 清單在 dialog 開啟期間一直顯示，所以 aria-expanded 固定為 true。
@@ -56,13 +60,17 @@ export function setupCommandPalettes() {
       if (list) input.setAttribute("aria-controls", list.id);
     }
 
-    palette.addEventListener("click", function (e) { if (e.target === palette) palette.close(); });
+    palette.addEventListener("click", function (e) {
+      if (e.target === palette) palette.close();
+    });
 
     if (input) {
       input.addEventListener("input", function () {
         var query = input.value.toLowerCase().trim();
         var visibleCount = 0;
-        var groups = list ? Array.from(/** @type {NodeListOf<HTMLElement>} */ (list.querySelectorAll("[data-cu-command-group]"))) : [];
+        var groups = list
+          ? Array.from(/** @type {NodeListOf<HTMLElement>} */ (list.querySelectorAll("[data-cu-command-group]")))
+          : [];
 
         items.forEach(function (item) {
           var text = (item.getAttribute("data-cu-command-value") || item.textContent || "").toLowerCase();
@@ -87,7 +95,9 @@ export function setupCommandPalettes() {
 
         if (empty) empty.hidden = visibleCount > 0;
 
-        setActive(list ? /** @type {HTMLElement} */ (list.querySelector("[data-cu-command-item]:not([hidden])")) : null);
+        setActive(
+          list ? /** @type {HTMLElement} */ (list.querySelector("[data-cu-command-item]:not([hidden])")) : null,
+        );
       });
     }
 
@@ -103,7 +113,9 @@ export function setupCommandPalettes() {
     }
 
     function getVisibleItems() {
-      return items.filter(function (item) { return !item.hidden; });
+      return items.filter(function (item) {
+        return !item.hidden;
+      });
     }
 
     palette.addEventListener("keydown", function (e) {
@@ -115,26 +127,43 @@ export function setupCommandPalettes() {
         var visible = getVisibleItems();
         if (visible.length === 0) return;
         var activeIndex = -1;
-        visible.forEach(function (item, i) { if (item.hasAttribute("data-cu-command-active")) activeIndex = i; });
+        visible.forEach(function (item, i) {
+          if (item.hasAttribute("data-cu-command-active")) activeIndex = i;
+        });
         var nextIndex;
-        if (isNext) { nextIndex = activeIndex < visible.length - 1 ? activeIndex + 1 : 0; }
-        else { nextIndex = activeIndex > 0 ? activeIndex - 1 : visible.length - 1; }
+        if (isNext) {
+          nextIndex = activeIndex < visible.length - 1 ? activeIndex + 1 : 0;
+        } else {
+          nextIndex = activeIndex > 0 ? activeIndex - 1 : visible.length - 1;
+        }
         setActive(visible[nextIndex]);
         visible[nextIndex].scrollIntoView({ block: "nearest" });
       }
       if (e.key === "Enter") {
-        var active = list ? /** @type {HTMLElement} */ (list.querySelector("[data-cu-command-item][data-cu-command-active]")) : null;
-        if (active) { e.preventDefault(); active.click(); }
+        var active = list
+          ? /** @type {HTMLElement} */ (list.querySelector("[data-cu-command-item][data-cu-command-active]"))
+          : null;
+        if (active) {
+          e.preventDefault();
+          active.click();
+        }
       }
     });
 
     items.forEach(function (item) {
-      item.addEventListener("mouseenter", function () { setActive(item); });
-      item.addEventListener("mouseleave", function () { if (item.hasAttribute("data-cu-command-active")) setActive(null); });
+      item.addEventListener("mouseenter", function () {
+        setActive(item);
+      });
+      item.addEventListener("mouseleave", function () {
+        if (item.hasAttribute("data-cu-command-active")) setActive(null);
+      });
     });
 
     palette.addEventListener("close", function () {
-      if (input) { input.value = ""; input.dispatchEvent(new Event("input")); }
+      if (input) {
+        input.value = "";
+        input.dispatchEvent(new Event("input"));
+      }
     });
   });
 

@@ -99,9 +99,7 @@ const disabledCode = `<div class="cu-checkbox-group" data-cu-checkbox-group>
       <h1 class="text-3xl font-bold tracking-tight">Checkbox Group</h1>
       <span class="cu-badge cu-badge-secondary">{t.category}</span>
     </div>
-    <p class="text-base text-muted-foreground leading-relaxed">
-      {t.description}
-    </p>
+    <p class="text-base text-muted-foreground leading-relaxed">{t.description}</p>
   </div>
 
   <div class="mt-10 space-y-10">
@@ -162,9 +160,7 @@ const disabledCode = `<div class="cu-checkbox-group" data-cu-checkbox-group>
     <!-- Pre-selected -->
     <section class="space-y-3">
       <SectionHeading id="pre-selected" title={t.sections.preSelected.title} />
-      <p class="text-base text-muted-foreground leading-relaxed">
-        {t.sections.preSelected.description}
-      </p>
+      <p class="text-base text-muted-foreground leading-relaxed">{t.sections.preSelected.description}</p>
       <ComponentPreview code={preselectedCode}>
         <CheckboxGroup>
           <span class="cu-checkbox-group-label">Features</span>
@@ -229,7 +225,9 @@ const disabledCode = `<div class="cu-checkbox-group" data-cu-checkbox-group>
           <tbody class="cu-table-body">
             {Object.entries(t.classDescriptions).map(([cls, desc]) => (
               <tr class="cu-table-row">
-                <td class="cu-table-cell"><code class="cu-code">{cls}</code></td>
+                <td class="cu-table-cell">
+                  <code class="cu-code">{cls}</code>
+                </td>
                 <td class="cu-table-cell text-muted-foreground">{desc}</td>
               </tr>
             ))}

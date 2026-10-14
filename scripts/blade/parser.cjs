@@ -9,7 +9,7 @@
  * TOP_CLASS 固定解析為 "cu"。
  */
 
-const TOP_CLASS = 'cu';
+const TOP_CLASS = "cu";
 
 /**
  * 將 Astro 元件分割為 frontmatter 和 template
@@ -17,13 +17,13 @@ const TOP_CLASS = 'cu';
  * @returns {{ frontmatter: string, template: string }}
  */
 function splitComponent(source) {
-  const parts = source.split('---');
+  const parts = source.split("---");
   if (parts.length < 3) {
-    return { frontmatter: '', template: source.trim() };
+    return { frontmatter: "", template: source.trim() };
   }
   return {
     frontmatter: parts[1].trim(),
-    template: parts.slice(2).join('---').trim(),
+    template: parts.slice(2).join("---").trim(),
   };
 }
 
@@ -43,29 +43,28 @@ function parseProps(frontmatter) {
   const renamedProps = {};
 
   // 找到 Astro.props destructuring（可能跨多行）
-  const propsMatch = frontmatter.match(
-    /const\s*\{([^}]+)\}\s*=\s*Astro\.props/s
-  );
+  const propsMatch = frontmatter.match(/const\s*\{([^}]+)\}\s*=\s*Astro\.props/s);
   if (!propsMatch) return { props, renamedProps };
 
   const body = propsMatch[1];
 
   // 拆分各個 prop（以逗號分隔，但要處理跨行）
-  const items = body.split(',').map((s) => s.trim()).filter(Boolean);
+  const items = body
+    .split(",")
+    .map((s) => s.trim())
+    .filter(Boolean);
 
   for (const item of items) {
     // 跳過 ...rest
-    if (item.startsWith('...')) continue;
+    if (item.startsWith("...")) continue;
 
     // 處理 rename: class: className, readonly: isReadonly
-    const renameMatch = item.match(
-      /^(\w+)\s*:\s*(\w+)(?:\s*=\s*(.+))?$/
-    );
+    const renameMatch = item.match(/^(\w+)\s*:\s*(\w+)(?:\s*=\s*(.+))?$/);
     if (renameMatch) {
       const [, original, alias, defaultVal] = renameMatch;
-      if (original === 'class') {
+      if (original === "class") {
         // class 不加入 props（Blade 的 $attributes->class() 自動處理）
-        renamedProps['class'] = alias;
+        renamedProps["class"] = alias;
       } else {
         renamedProps[original] = alias;
         props[original] = defaultVal ? parseDefaultValue(defaultVal) : null;
@@ -95,8 +94,8 @@ function parseDefaultValue(val) {
   // 數字
   if (/^\d+(\.\d+)?$/.test(val)) return Number(val);
   // boolean
-  if (val === 'true') return true;
-  if (val === 'false') return false;
+  if (val === "true") return true;
+  if (val === "false") return false;
   return val;
 }
 
@@ -106,11 +105,11 @@ function parseDefaultValue(val) {
  * @returns {string}
  */
 function toPhpDefault(val) {
-  if (val === null || val === undefined) return 'null';
-  if (typeof val === 'string') return `'${val.replace(/'/g, "\\'")}'`;
-  if (typeof val === 'number') return String(val);
-  if (typeof val === 'boolean') return val ? 'true' : 'false';
-  return 'null';
+  if (val === null || val === undefined) return "null";
+  if (typeof val === "string") return `'${val.replace(/'/g, "\\'")}'`;
+  if (typeof val === "number") return String(val);
+  if (typeof val === "boolean") return val ? "true" : "false";
+  return "null";
 }
 
 /**
@@ -129,28 +128,29 @@ function toPhpDefault(val) {
 function parseVariables(frontmatter, renamedProps = {}) {
   const vars = {};
 
-  const lines = frontmatter.split('\n');
+  const lines = frontmatter.split("\n");
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i].trim();
 
     // 跳過 import、interface、Astro.props destructuring、helper function
     if (
-      line.startsWith('import ') ||
-      line.startsWith('interface ') ||
-      line.includes('Astro.props') ||
-      line.startsWith('//') ||
-      line === '' ||
-      line === '{' ||
-      line === '}' ||
+      line.startsWith("import ") ||
+      line.startsWith("interface ") ||
+      line.includes("Astro.props") ||
+      line.startsWith("//") ||
+      line === "" ||
+      line === "{" ||
+      line === "}" ||
       /^\[key:/.test(line)
-    ) continue;
+    )
+      continue;
 
     // 匹配 const varName = expression
     const match = line.match(/^const\s+(\w+)\s*=\s*(.+?);\s*$/);
     if (match) {
       const [, name, expr] = match;
       // 跳過 helper function 宣告
-      if (expr.includes('=>')) {
+      if (expr.includes("=>")) {
         // 但保存 helper functions 以供內聯
         continue;
       }
@@ -191,7 +191,7 @@ function parseHelpers(frontmatter) {
  * @returns {string}
  */
 function substituteHelperParam(body, param, arg) {
-  return body.replace(new RegExp(`\\b${param}\\b`, 'g'), arg);
+  return body.replace(new RegExp(`\\b${param}\\b`, "g"), arg);
 }
 
 /**
@@ -221,9 +221,7 @@ function inlineHelper(expr, helpers, renamedProps) {
  */
 function resolveExpression(expr) {
   // 替換 TOP_CLASS
-  let result = expr
-    .replace(/\$\{TOP_CLASS\}/g, TOP_CLASS)
-    .replace(/TOP_CLASS/g, `"${TOP_CLASS}"`);
+  let result = expr.replace(/\$\{TOP_CLASS\}/g, TOP_CLASS).replace(/TOP_CLASS/g, `"${TOP_CLASS}"`);
 
   // 解析 template literal 為字串（如果全是靜態）
   const staticTemplate = result.match(/^`([^$`]+)`$/);
@@ -262,10 +260,7 @@ function parseComponent(source) {
       // 從 resolved 中提取靜態值（去掉引號）
       const staticVal = otherInfo.resolved.match(/^"([^"]+)"$/);
       if (staticVal) {
-        resolved = resolved.replace(
-          new RegExp(`\\$\\{${otherName}\\}`, 'g'),
-          staticVal[1]
-        );
+        resolved = resolved.replace(new RegExp(`\\$\\{${otherName}\\}`, "g"), staticVal[1]);
       }
     }
     if (resolved !== info.raw) {

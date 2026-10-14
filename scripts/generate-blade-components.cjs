@@ -10,34 +10,72 @@
  *   node scripts/generate-blade-components.js [--dry-run] [--verbose]
  */
 
-const fs = require('fs');
-const path = require('path');
-const { parseComponent, toPhpDefault } = require('./blade/parser.cjs');
-const { transformTemplate } = require('./blade/transformers.cjs');
-const { buildComponentTree, generateBladeReadme, generateBladeManifest } = require('./blade/generate-ai-docs.cjs');
+const fs = require("fs");
+const path = require("path");
+const { parseComponent, toPhpDefault } = require("./blade/parser.cjs");
+const { transformTemplate } = require("./blade/transformers.cjs");
+const { buildComponentTree, generateBladeReadme, generateBladeManifest } = require("./blade/generate-ai-docs.cjs");
 
 // ── 設定 ──────────────────────────────────────────────
 
-const SRC_DIR = path.join(__dirname, '..', 'src', 'components', 'ui');
-const OUT_DIR = path.join(__dirname, '..', 'dist', 'laravel', 'components', 'cu');
-const OVERRIDES_DIR = path.join(__dirname, 'blade', 'overrides');
+const SRC_DIR = path.join(__dirname, "..", "src", "components", "ui");
+const OUT_DIR = path.join(__dirname, "..", "dist", "laravel", "components", "cu");
+const OVERRIDES_DIR = path.join(__dirname, "blade", "overrides");
 
 const args = process.argv.slice(2);
-const DRY_RUN = args.includes('--dry-run');
-const VERBOSE = args.includes('--verbose');
+const DRY_RUN = args.includes("--dry-run");
+const VERBOSE = args.includes("--verbose");
 
 // ── 複合元件映射 ────────────────────────────────────────
 
 const COMPOSITES = [
-  'AlertDialog', 'CommandPalette', 'ContextMenu', 'ButtonGroup',
-  'CheckboxGroup', 'ToggleGroup', 'InputGroup', 'HoverCard',
-  'ChatBubble', 'PageHeader', 'FilterBar', 'SettingItem',
-  'EmptyState', 'Resizable', 'SegmentedControl', 'Sortable',
-  'TransferList', 'MultiSelect', 'Combobox', 'Dropzone',
-  'Accordion', 'Alert', 'Avatar', 'Breadcrumb', 'Card', 'Carousel', 'Chart',
-  'Collapsible', 'Dialog', 'Drawer', 'Dropdown', 'Header', 'Form',
-  'Menubar', 'Nav', 'Pagination', 'Popover', 'Sidebar', 'Stat',
-  'Steps', 'Table', 'Tabs', 'Timeline', 'Toast', 'Toolbar', 'TreeView', 'Tree',
+  "AlertDialog",
+  "CommandPalette",
+  "ContextMenu",
+  "ButtonGroup",
+  "CheckboxGroup",
+  "ToggleGroup",
+  "InputGroup",
+  "HoverCard",
+  "ChatBubble",
+  "PageHeader",
+  "FilterBar",
+  "SettingItem",
+  "EmptyState",
+  "Resizable",
+  "SegmentedControl",
+  "Sortable",
+  "TransferList",
+  "MultiSelect",
+  "Combobox",
+  "Dropzone",
+  "Accordion",
+  "Alert",
+  "Avatar",
+  "Breadcrumb",
+  "Card",
+  "Carousel",
+  "Chart",
+  "Collapsible",
+  "Dialog",
+  "Drawer",
+  "Dropdown",
+  "Header",
+  "Form",
+  "Menubar",
+  "Nav",
+  "Pagination",
+  "Popover",
+  "Sidebar",
+  "Stat",
+  "Steps",
+  "Table",
+  "Tabs",
+  "Timeline",
+  "Toast",
+  "Toolbar",
+  "TreeView",
+  "Tree",
 ].sort((a, b) => b.length - a.length);
 
 /**
@@ -67,8 +105,8 @@ function getCompositeMapping(name) {
  */
 function toKebab(str) {
   return str
-    .replace(/([a-z0-9])([A-Z])/g, '$1-$2')
-    .replace(/([A-Z])([A-Z][a-z])/g, '$1-$2')
+    .replace(/([a-z0-9])([A-Z])/g, "$1-$2")
+    .replace(/([A-Z])([A-Z][a-z])/g, "$1-$2")
     .toLowerCase();
 }
 
@@ -84,9 +122,9 @@ function extractPropsFromBlade(bladeContent) {
 
   const entries = match[1].matchAll(/'(\w+)'\s*=>\s*(.+?)(?:,\s*$|\s*$)/gm);
   for (const [, name, val] of entries) {
-    if (val.trim() === 'null') props[name] = null;
-    else if (val.trim() === 'true') props[name] = true;
-    else if (val.trim() === 'false') props[name] = false;
+    if (val.trim() === "null") props[name] = null;
+    else if (val.trim() === "true") props[name] = true;
+    else if (val.trim() === "false") props[name] = false;
     else {
       const strMatch = val.trim().match(/^'(.*)'$/);
       props[name] = strMatch ? strMatch[1] : val.trim();
@@ -98,11 +136,12 @@ function extractPropsFromBlade(bladeContent) {
 // ── 主流程 ────────────────────────────────────────────
 
 function main() {
-  console.log('🔨 Astro → Blade 元件轉換器\n');
+  console.log("🔨 Astro → Blade 元件轉換器\n");
 
   // 掃描 Astro 元件
-  const files = fs.readdirSync(SRC_DIR)
-    .filter((f) => f.endsWith('.astro'))
+  const files = fs
+    .readdirSync(SRC_DIR)
+    .filter((f) => f.endsWith(".astro"))
     .sort();
 
   console.log(`📁 找到 ${files.length} 個 Astro 元件\n`);
@@ -110,13 +149,13 @@ function main() {
   // 載入 overrides
   const overrides = loadOverrides();
   if (overrides.size > 0) {
-    console.log(`📝 找到 ${overrides.size} 個手動 override: ${[...overrides.keys()].join(', ')}\n`);
+    console.log(`📝 找到 ${overrides.size} 個手動 override: ${[...overrides.keys()].join(", ")}\n`);
   }
 
   // 預算複合元件的 parent set（避免 getOutputPath 每次重新掃描）
   const parentDirs = new Set();
   for (const f of files) {
-    const mapping = getCompositeMapping(f.replace('.astro', ''));
+    const mapping = getCompositeMapping(f.replace(".astro", ""));
     if (mapping) parentDirs.add(mapping.dir);
   }
 
@@ -132,7 +171,7 @@ function main() {
   const bladeMetadata = [];
 
   for (const file of files) {
-    const name = file.replace('.astro', '');
+    const name = file.replace(".astro", "");
     stats.total++;
 
     try {
@@ -147,7 +186,7 @@ function main() {
         parsedProps = extractPropsFromBlade(bladeContent);
         stats.override++;
       } else {
-        const source = fs.readFileSync(path.join(SRC_DIR, file), 'utf-8');
+        const source = fs.readFileSync(path.join(SRC_DIR, file), "utf-8");
         const result = convertComponent(source, file);
         bladeContent = result.content;
         parsedProps = result.props;
@@ -174,13 +213,13 @@ function main() {
         console.log(`✅ ${file} → ${path.relative(OUT_DIR, outPath)}`);
         if (VERBOSE) {
           console.log(bladeContent);
-          console.log('---');
+          console.log("---");
         }
       } else {
         // 建立子目錄
         const dir = path.dirname(outPath);
         fs.mkdirSync(dir, { recursive: true });
-        fs.writeFileSync(outPath, bladeContent, 'utf-8');
+        fs.writeFileSync(outPath, bladeContent, "utf-8");
         if (VERBOSE) {
           console.log(`✅ ${file} → ${path.relative(OUT_DIR, outPath)}`);
         }
@@ -195,7 +234,7 @@ function main() {
   }
 
   // 報告
-  console.log('\n── 轉換結果 ──────────────────────');
+  console.log("\n── 轉換結果 ──────────────────────");
   console.log(`  總計: ${stats.total}`);
   console.log(`  自動: ${stats.auto}`);
   console.log(`  Override: ${stats.override}`);
@@ -214,15 +253,15 @@ function main() {
 
   // ── 生成 AI 文件 ────────────────────────────────────
   if (!DRY_RUN) {
-    const ROOT_MANIFEST = path.join(__dirname, '..', 'components.json');
+    const ROOT_MANIFEST = path.join(__dirname, "..", "components.json");
 
     try {
       const componentTree = buildComponentTree(bladeMetadata, ROOT_MANIFEST, OUT_DIR);
       const readme = generateBladeReadme(componentTree);
       const manifest = generateBladeManifest(componentTree);
 
-      fs.writeFileSync(path.join(OUT_DIR, 'README.md'), readme, 'utf-8');
-      fs.writeFileSync(path.join(OUT_DIR, 'components.json'), manifest, 'utf-8');
+      fs.writeFileSync(path.join(OUT_DIR, "README.md"), readme, "utf-8");
+      fs.writeFileSync(path.join(OUT_DIR, "components.json"), manifest, "utf-8");
       console.log(`\n📄 AI 文件已生成: README.md + components.json`);
     } catch (err) {
       console.error(`\n⚠️  AI 文件生成失敗: ${err.message}`);
@@ -230,7 +269,7 @@ function main() {
     }
   }
 
-  console.log(DRY_RUN ? '\n（dry-run 模式，未寫入檔案）' : `\n✅ 輸出至 ${OUT_DIR}`);
+  console.log(DRY_RUN ? "\n（dry-run 模式，未寫入檔案）" : `\n✅ 輸出至 ${OUT_DIR}`);
 }
 
 /**
@@ -243,18 +282,16 @@ function convertComponent(source, fileName) {
   const propsLine = buildPropsDirective(parsed.props);
   const bladeTemplate = transformTemplate(parsed.template, parsed);
 
-  const parts = [
-    `{{-- Auto-generated from ${fileName} — do not edit --}}`,
-  ];
+  const parts = [`{{-- Auto-generated from ${fileName} — do not edit --}}`];
 
   if (propsLine) {
     parts.push(propsLine);
   }
 
-  parts.push('');
+  parts.push("");
   parts.push(bladeTemplate);
 
-  return { content: parts.join('\n'), props: parsed.props };
+  return { content: parts.join("\n"), props: parsed.props };
 }
 
 /**
@@ -265,7 +302,7 @@ function buildPropsDirective(props) {
   if (entries.length === 0) return null;
 
   const items = entries.map(([name, val]) => `    '${name}' => ${toPhpDefault(val)}`);
-  return `@props([\n${items.join(',\n')},\n])`;
+  return `@props([\n${items.join(",\n")},\n])`;
 }
 
 /**
@@ -279,7 +316,7 @@ function getOutputPath(componentName, parentDirs, composite) {
   const kebab = toKebab(componentName);
 
   if (parentDirs.has(kebab)) {
-    return path.join(OUT_DIR, kebab, 'index.blade.php');
+    return path.join(OUT_DIR, kebab, "index.blade.php");
   }
 
   return path.join(OUT_DIR, `${kebab}.blade.php`);
@@ -291,14 +328,14 @@ function getOutputPath(componentName, parentDirs, composite) {
 function validateBlade(content, fileName) {
   const warnings = [];
   const checks = [
-    { pattern: /class:list=/, msg: '殘留 class:list' },
-    { pattern: /Astro\.props/, msg: '殘留 Astro.props' },
-    { pattern: /<slot\s*\/?>/, msg: '殘留 <slot />' },
-    { pattern: /<slot\s+name=/, msg: '殘留 <slot name=>' },
-    { pattern: /\$\{TOP_CLASS\}/, msg: '殘留 ${TOP_CLASS}' },
-    { pattern: /\{\.\.\.rest\}/, msg: '殘留 {...rest}' },
-    { pattern: /\{\.\.\.\(/, msg: '殘留條件 spread {...(cond ? ... : ...)}' },
-    { pattern: /<\/slot>/, msg: '殘留 </slot> 閉合標籤' },
+    { pattern: /class:list=/, msg: "殘留 class:list" },
+    { pattern: /Astro\.props/, msg: "殘留 Astro.props" },
+    { pattern: /<slot\s*\/?>/, msg: "殘留 <slot />" },
+    { pattern: /<slot\s+name=/, msg: "殘留 <slot name=>" },
+    { pattern: /\$\{TOP_CLASS\}/, msg: "殘留 ${TOP_CLASS}" },
+    { pattern: /\{\.\.\.rest\}/, msg: "殘留 {...rest}" },
+    { pattern: /\{\.\.\.\(/, msg: "殘留條件 spread {...(cond ? ... : ...)}" },
+    { pattern: /<\/slot>/, msg: "殘留 </slot> 閉合標籤" },
   ];
 
   for (const { pattern, msg } of checks) {
@@ -318,12 +355,11 @@ function loadOverrides() {
 
   if (!fs.existsSync(OVERRIDES_DIR)) return overrides;
 
-  const files = fs.readdirSync(OVERRIDES_DIR)
-    .filter((f) => f.endsWith('.blade.php'));
+  const files = fs.readdirSync(OVERRIDES_DIR).filter((f) => f.endsWith(".blade.php"));
 
   for (const file of files) {
-    const name = file.replace('.blade.php', '');
-    const content = fs.readFileSync(path.join(OVERRIDES_DIR, file), 'utf-8');
+    const name = file.replace(".blade.php", "");
+    const content = fs.readFileSync(path.join(OVERRIDES_DIR, file), "utf-8");
     overrides.set(name, content);
   }
 

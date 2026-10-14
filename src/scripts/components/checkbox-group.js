@@ -12,14 +12,18 @@ export function setupCheckboxGroups() {
     function updateSelectAll() {
       var total = items.length;
       var checked = 0;
-      items.forEach(function (cb) { if (cb.checked) checked++; });
+      items.forEach(function (cb) {
+        if (cb.checked) checked++;
+      });
       selectAll.checked = checked === total;
       selectAll.indeterminate = checked > 0 && checked < total;
     }
 
     selectAll.addEventListener("change", function () {
       var state = selectAll.checked;
-      items.forEach(function (cb) { if (!cb.disabled) cb.checked = state; });
+      items.forEach(function (cb) {
+        if (!cb.disabled) cb.checked = state;
+      });
     });
 
     items.forEach(function (cb) {

@@ -68,7 +68,8 @@ export function llmsExamples(): Example[] {
 const ENTITIES: Record<string, string> = { quot: '"', amp: "&", lt: "<", gt: ">", apos: "'" };
 function decodeEntities(s: string): string {
   return s.replace(/&(#x[0-9a-f]+|#\d+|quot|amp|lt|gt|apos);/gi, (_m, e: string) => {
-    if (e[0] === "#") return String.fromCodePoint(e[1] === "x" || e[1] === "X" ? parseInt(e.slice(2), 16) : parseInt(e.slice(1), 10));
+    if (e[0] === "#")
+      return String.fromCodePoint(e[1] === "x" || e[1] === "X" ? parseInt(e.slice(2), 16) : parseInt(e.slice(1), 10));
     return ENTITIES[e.toLowerCase()];
   });
 }
@@ -115,7 +116,9 @@ export function rawScriptProblems(html: string): string[] {
     // 典型的重新實作：document.querySelectorAll("[data-cu-xxx]").forEach(...)（逐一初始化元件）
     const selector = m[1].match(/querySelectorAll\(\s*["'`](\[data-cu-[a-z0-9-]+[^"'`]*)["'`]\s*\)\s*\.forEach/);
     if (selector) {
-      problems.push(`範例的 <script> 重新查詢 ${selector[1]} 並綁定事件，與自動初始化的 cubby-ui.js 重複（移除這段 script，交給 cubby-ui.js）`);
+      problems.push(
+        `範例的 <script> 重新查詢 ${selector[1]} 並綁定事件，與自動初始化的 cubby-ui.js 重複（移除這段 script，交給 cubby-ui.js）`,
+      );
     }
   }
   return problems;
@@ -126,9 +129,7 @@ export function rawScriptProblems(html: string): string[] {
  * 會自動提前關閉外層，DOM 上看不到巢狀，但結構已經被拆散，因此必須在解析前檢查。
  */
 export function rawNestingProblems(html: string): string[] {
-  const src = html
-    .replace(/<!--[\s\S]*?-->/g, "")
-    .replace(/<(script|style|textarea)\b[^>]*>[\s\S]*?<\/\1>/gi, "");
+  const src = html.replace(/<!--[\s\S]*?-->/g, "").replace(/<(script|style|textarea)\b[^>]*>[\s\S]*?<\/\1>/gi, "");
   const problems: string[] = [];
   const stack: Array<{ tag: string; interactive: boolean }> = [];
   for (const m of src.matchAll(/<(\/?)([a-zA-Z][a-zA-Z0-9-]*)\b([^>]*)>/g)) {
@@ -136,13 +137,17 @@ export function rawNestingProblems(html: string): string[] {
     if (tag !== "button" && tag !== "a") continue;
     if (m[1] === "/") {
       for (let i = stack.length - 1; i >= 0; i--) {
-        if (stack[i].tag === tag) { stack.splice(i, 1); break; }
+        if (stack[i].tag === tag) {
+          stack.splice(i, 1);
+          break;
+        }
       }
       continue;
     }
     const interactive = tag === "button" || /\shref\s*=/.test(m[3]);
     const outer = [...stack].reverse().find((e) => e.interactive);
-    if (interactive && outer) problems.push(`<${tag}> 寫在 <${outer.tag}> 內（巢狀互動元素，HTML parser 會提前關閉外層）`);
+    if (interactive && outer)
+      problems.push(`<${tag}> 寫在 <${outer.tag}> 內（巢狀互動元素，HTML parser 會提前關閉外層）`);
     stack.push({ tag, interactive });
   }
   return problems;

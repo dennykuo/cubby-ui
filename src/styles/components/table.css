@@ -1,86 +1,86 @@
 /* Table
    ------------------------------------------------------------------ */
 .cu-table-wrapper {
-    @apply w-full overflow-x-auto;
+  @apply w-full overflow-x-auto;
 }
 
 .cu-table {
-    @apply w-full caption-bottom text-sm;
+  @apply w-full caption-bottom text-sm;
 }
 
 .cu-table-header {
-    @apply [&_tr]:border-b;
+  @apply [&_tr]:border-b;
 }
 
 .cu-table-body {
-    @apply [&_tr:last-child]:border-0;
+  @apply [&_tr:last-child]:border-0;
 }
 
 .cu-table-footer {
-    @apply border-t bg-muted/50 font-medium [&>tr]:last:border-b-0;
+  @apply border-t bg-muted/50 font-medium [&>tr]:last:border-b-0;
 }
 
 .cu-table-row {
-    @apply border-b border-border transition-colors duration-150 hover:bg-muted/50;
+  @apply border-b border-border transition-colors duration-150 hover:bg-muted/50;
 }
 
 .cu-table-head {
-    @apply h-10 px-4 text-left align-middle font-medium text-muted-foreground;
+  @apply h-10 px-4 text-left align-middle font-medium text-muted-foreground;
 }
 
 .cu-table-cell {
-    @apply p-4 align-middle;
+  @apply p-4 align-middle;
 }
 
 .cu-table-caption {
-    @apply mt-4 text-sm text-muted-foreground;
+  @apply mt-4 text-sm text-muted-foreground;
 }
 
 /* -- toolbar (above table) -- */
 .cu-table-toolbar {
-    @apply flex items-center justify-between px-4 py-3 border-b border-border bg-muted/30;
+  @apply flex items-center justify-between border-b border-border bg-muted/30 px-4 py-3;
 }
 
 .cu-table-toolbar-select {
-    @apply flex items-center gap-3;
+  @apply flex items-center gap-3;
 }
 
 .cu-table-toolbar-actions {
-    @apply flex items-center gap-2;
+  @apply flex items-center gap-2;
 }
 
 /* -- sticky header -- */
 .cu-table-header-sticky {
-    @apply [&_th]:sticky [&_th]:top-0 [&_th]:z-10 [&_th]:bg-background;
+  @apply [&_th]:sticky [&_th]:top-0 [&_th]:z-10 [&_th]:bg-background;
 }
 
 /* -- row actions -- */
 .cu-table-actions {
-    @apply flex items-center justify-end gap-1;
+  @apply flex items-center justify-end gap-1;
 }
 
 /* -- mobile stacked layout -- */
 .cu-table-stacked {
-    @media (max-width: 640px) {
-        & thead {
-            @apply sr-only;
-        }
-
-        & tbody .cu-table-row {
-            @apply flex flex-col gap-1 border-b border-border py-3;
-        }
-
-        & tbody .cu-table-cell {
-            @apply flex items-center justify-between p-0 px-4 py-0.5 text-sm;
-        }
-
-        & tbody .cu-table-cell::before {
-            content: attr(data-label);
-            @apply font-medium text-muted-foreground mr-4 shrink-0;
-        }
-
-        & tbody .cu-table-cell:first-child {
-            @apply font-medium;
-        }
+  @media (max-width: 640px) {
+    & thead {
+      @apply sr-only;
     }
+
+    & tbody .cu-table-row {
+      @apply flex flex-col gap-1 border-b border-border py-3;
+    }
+
+    & tbody .cu-table-cell {
+      @apply flex items-center justify-between p-0 px-4 py-0.5 text-sm;
+    }
+
+    & tbody .cu-table-cell::before {
+      content: attr(data-label);
+      @apply mr-4 shrink-0 font-medium text-muted-foreground;
+    }
+
+    & tbody .cu-table-cell:first-child {
+      @apply font-medium;
+    }
+  }
 }

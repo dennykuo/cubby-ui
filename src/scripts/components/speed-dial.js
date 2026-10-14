@@ -14,7 +14,10 @@ import { track, restore } from "../core/registry.js";
  */
 export function setupSpeedDials() {
   document.querySelectorAll("[data-cu-speed-dial]").forEach(function (el) {
-    if (el._cuInit) { restore("speedDials", el); return; }
+    if (el._cuInit) {
+      restore("speedDials", el);
+      return;
+    }
     el._cuInit = true;
 
     var trigger = el.querySelector("[data-cu-speed-dial-trigger]");

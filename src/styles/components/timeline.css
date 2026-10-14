@@ -1,144 +1,144 @@
 /* Timeline
    ------------------------------------------------------------------ */
 .cu-timeline {
-    @apply relative space-y-0 pl-11;
+  @apply relative space-y-0 pl-11;
 }
 
 .cu-timeline::before {
-    content: "";
-    @apply absolute left-3 top-3 bottom-3 w-px bg-border;
+  content: "";
+  @apply absolute top-3 bottom-3 left-3 w-px bg-border;
 }
 
 .cu-timeline-item {
-    @apply relative pb-10 last:pb-0;
+  @apply relative pb-10 last:pb-0;
 }
 
 .cu-timeline-dot {
-    @apply absolute -left-8 -translate-x-1/2 top-0.5 flex size-7 items-center justify-center rounded-full border-2 border-border bg-background;
+  @apply absolute top-0.5 -left-8 flex size-7 -translate-x-1/2 items-center justify-center rounded-full border-2 border-border bg-background;
 }
 
 .cu-timeline-dot-icon {
-    @apply size-3.5 text-muted-foreground;
+  @apply size-3.5 text-muted-foreground;
 }
 
 /* -- dot colors (solid background to prevent line bleed-through) -- */
 .cu-timeline-dot-primary {
-    @apply border-primary;
-    background-color: color-mix(in srgb, var(--color-primary) 12%, var(--color-background));
+  @apply border-primary;
+  background-color: color-mix(in srgb, var(--color-primary) 12%, var(--color-background));
 }
 
 .cu-timeline-dot-primary .cu-timeline-dot-icon {
-    @apply text-primary;
+  @apply text-primary;
 }
 
 .cu-timeline-dot-success {
-    @apply border-success;
-    background-color: color-mix(in srgb, var(--color-success) 12%, var(--color-background));
+  @apply border-success;
+  background-color: color-mix(in srgb, var(--color-success) 12%, var(--color-background));
 }
 
 .cu-timeline-dot-success .cu-timeline-dot-icon {
-    @apply text-success;
+  @apply text-success;
 }
 
 .cu-timeline-dot-warning {
-    @apply border-warning;
-    background-color: color-mix(in srgb, var(--color-warning) 12%, var(--color-background));
+  @apply border-warning;
+  background-color: color-mix(in srgb, var(--color-warning) 12%, var(--color-background));
 }
 
 .cu-timeline-dot-warning .cu-timeline-dot-icon {
-    @apply text-warning;
+  @apply text-warning;
 }
 
 .cu-timeline-dot-destructive {
-    @apply border-destructive;
-    background-color: color-mix(in srgb, var(--color-destructive) 12%, var(--color-background));
+  @apply border-destructive;
+  background-color: color-mix(in srgb, var(--color-destructive) 12%, var(--color-background));
 }
 
 .cu-timeline-dot-destructive .cu-timeline-dot-icon {
-    @apply text-destructive;
+  @apply text-destructive;
 }
 
 .cu-timeline-dot-info {
-    @apply border-info;
-    background-color: color-mix(in srgb, var(--color-info) 12%, var(--color-background));
+  @apply border-info;
+  background-color: color-mix(in srgb, var(--color-info) 12%, var(--color-background));
 }
 
 .cu-timeline-dot-info .cu-timeline-dot-icon {
-    @apply text-info;
+  @apply text-info;
 }
 
 .cu-timeline-dot-muted {
-    @apply border-muted-foreground/30;
-    background-color: color-mix(in srgb, var(--color-muted-foreground) 10%, var(--color-background));
+  @apply border-muted-foreground/30;
+  background-color: color-mix(in srgb, var(--color-muted-foreground) 10%, var(--color-background));
 }
 
 .cu-timeline-dot-muted .cu-timeline-dot-icon {
-    @apply text-muted-foreground;
+  @apply text-muted-foreground;
 }
 
 /* -- content -- */
 .cu-timeline-content {
-    @apply space-y-1.5;
+  @apply space-y-1.5;
 }
 
 .cu-timeline-title {
-    @apply text-sm font-semibold;
+  @apply text-sm font-semibold;
 }
 
 .cu-timeline-description {
-    @apply text-sm text-muted-foreground leading-relaxed;
+  @apply text-sm leading-relaxed text-muted-foreground;
 }
 
 .cu-timeline-time {
-    @apply text-xs text-muted-foreground/70;
+  @apply text-xs text-muted-foreground/70;
 }
 
 /* -- horizontal layout -- */
 .cu-timeline-horizontal {
-    @apply flex pl-0 space-y-0;
+  @apply flex space-y-0 pl-0;
 }
 
 .cu-timeline-horizontal::before {
-    @apply left-0 right-0 top-3.5 bottom-auto h-px w-full;
+  @apply top-3.5 right-0 bottom-auto left-0 h-px w-full;
 }
 
 .cu-timeline-horizontal .cu-timeline-item {
-    @apply flex-1 pb-0 pl-0 pt-11 text-center;
+  @apply flex-1 pt-11 pb-0 pl-0 text-center;
 }
 
 .cu-timeline-horizontal .cu-timeline-dot {
-    @apply left-1/2 -translate-x-1/2 top-0;
+  @apply top-0 left-1/2 -translate-x-1/2;
 }
 
 .cu-timeline-horizontal .cu-timeline-content {
-    @apply items-center;
+  @apply items-center;
 }
 
 /* -- alternating layout -- */
 .cu-timeline-alternating {
-    @apply pl-0;
+  @apply pl-0;
 }
 
 .cu-timeline-alternating::before {
-    @apply left-1/2 -translate-x-px;
+  @apply left-1/2 -translate-x-px;
 }
 
 .cu-timeline-alternating .cu-timeline-item {
-    @apply w-1/2;
+  @apply w-1/2;
 }
 
 .cu-timeline-alternating .cu-timeline-item:nth-child(odd) {
-    @apply ml-auto pl-10;
+  @apply ml-auto pl-10;
 }
 
 .cu-timeline-alternating .cu-timeline-item:nth-child(odd) .cu-timeline-dot {
-    @apply left-0 -translate-x-1/2;
+  @apply left-0 -translate-x-1/2;
 }
 
 .cu-timeline-alternating .cu-timeline-item:nth-child(even) {
-    @apply mr-auto pr-10 text-right;
+  @apply mr-auto pr-10 text-right;
 }
 
 .cu-timeline-alternating .cu-timeline-item:nth-child(even) .cu-timeline-dot {
-    @apply left-auto right-0 translate-x-1/2;
+  @apply right-0 left-auto translate-x-1/2;
 }

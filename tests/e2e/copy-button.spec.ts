@@ -74,7 +74,10 @@ test.describe("Copy Button", () => {
     await expect(live).toHaveText("Copied!");
 
     // 重複 init 不會建立第二個區域
-    await page.evaluate(() => { CubbyUI.init(); CubbyUI.refresh(); });
+    await page.evaluate(() => {
+      CubbyUI.init();
+      CubbyUI.refresh();
+    });
     await expect(live).toHaveCount(1);
   });
 
@@ -156,7 +159,10 @@ test.describe("Copy Button", () => {
     await expect(btn).not.toHaveAttribute("data-cu-copied");
     expect(await readClipboard(page)).toBe(SENTINEL);
 
-    await page.evaluate(() => { CubbyUI.init(); CubbyUI.init(); });
+    await page.evaluate(() => {
+      CubbyUI.init();
+      CubbyUI.init();
+    });
     const afterInit = await page.evaluate(() => ({ ...(window as any).__listeners }));
     expect(afterInit.click, "重新 init 後 click listener 數量應與首次 init 相同").toBe(initial.click);
 

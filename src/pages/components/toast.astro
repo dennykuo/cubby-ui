@@ -179,367 +179,489 @@ const promiseToastCode = `<!-- Promise Toast requires JavaScript -->
 ---
 
 <Layout title={t.title} category={t.category} componentName="Toast" description={t.description}>
-    <div class="space-y-3">
-        <div class="flex items-center gap-3">
-            <h1 class="text-3xl font-bold tracking-tight">Toast</h1>
-            <span class="cu-badge cu-badge-secondary">{t.category}</span>
+  <div class="space-y-3">
+    <div class="flex items-center gap-3">
+      <h1 class="text-3xl font-bold tracking-tight">Toast</h1>
+      <span class="cu-badge cu-badge-secondary">{t.category}</span>
+    </div>
+    <p class="text-base text-muted-foreground leading-relaxed">{t.description}</p>
+  </div>
+
+  <div class="mt-10 space-y-10">
+    <!-- Usage -->
+    <section class="space-y-3">
+      <SectionHeading id="usage" title={t.sections.usage.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
+      <ComponentPreview code={usageCode}>
+        <button
+          class="cu-button cu-button-outline cu-button-md"
+          data-cu-toast-trigger
+          data-cu-toast-title="Event has been created"
+          data-cu-toast-description="Sunday, December 03, 2023 at 9:00 AM"
+        >
+          Show Toast
+        </button>
+      </ComponentPreview>
+    </section>
+
+    <!-- Classes Reference -->
+    <section class="space-y-3">
+      <SectionHeading id="classes" title={t.sections.classes.title} />
+      <div class="cu-table-wrapper rounded-lg border border-border">
+        <table class="cu-table">
+          <thead class="cu-table-header">
+            <tr class="cu-table-row">
+              <th class="cu-table-head">{t.sections.classes.classLabel}</th>
+              <th class="cu-table-head">{t.sections.classes.descriptionLabel}</th>
+            </tr>
+          </thead>
+          <tbody class="cu-table-body">
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-toast-container</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-toast-container"]}</td>
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-toast-container-bottom-right</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">
+                {t.classDescriptions["cu-toast-container-bottom-right"]}
+              </td>
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-toast-container-bottom-left</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">
+                {t.classDescriptions["cu-toast-container-bottom-left"]}
+              </td>
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-toast-container-top-right</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-toast-container-top-right"]}</td>
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-toast-container-top-left</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-toast-container-top-left"]}</td>
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-toast-container-top-center</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">
+                {t.classDescriptions["cu-toast-container-top-center"]}
+              </td>
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-toast-container-bottom-center</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">
+                {t.classDescriptions["cu-toast-container-bottom-center"]}
+              </td>
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-toast</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-toast"]}</td>
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-toast-default</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-toast-default"]}</td>
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-toast-destructive</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-toast-destructive"]}</td>
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-toast-success</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-toast-success"]}</td>
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-toast-warning</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-toast-warning"]}</td>
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-toast-info</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-toast-info"]}</td>
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-toast-body</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-toast-body"]}</td>
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-toast-title</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-toast-title"]}</td>
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-toast-description</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-toast-description"]}</td>
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-toast-close</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-toast-close"]}</td>
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-toast-enter</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-toast-enter"]}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Variants -->
+    <section class="space-y-3">
+      <SectionHeading id="variants" title={t.sections.variants.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.variants.description} />
+      <ComponentPreview code={variantsCode}>
+        <div class="flex flex-wrap gap-2">
+          <button
+            class="cu-button cu-button-default cu-button-md"
+            data-cu-toast-trigger
+            data-cu-toast-title="Default toast"
+            data-cu-toast-description="This is a default notification."
+            data-cu-toast-variant="default"
+          >
+            Default
+          </button>
+          <button
+            class="cu-button cu-button-destructive cu-button-md"
+            data-cu-toast-trigger
+            data-cu-toast-title="Error"
+            data-cu-toast-description="Something went wrong."
+            data-cu-toast-variant="destructive"
+          >
+            Destructive
+          </button>
+          <button
+            class="cu-button cu-button-success cu-button-md"
+            data-cu-toast-trigger
+            data-cu-toast-title="Success"
+            data-cu-toast-description="Your changes have been saved."
+            data-cu-toast-variant="success"
+          >
+            Success
+          </button>
+          <button
+            class="cu-button cu-button-warning cu-button-md"
+            data-cu-toast-trigger
+            data-cu-toast-title="Warning"
+            data-cu-toast-description="Please review before continuing."
+            data-cu-toast-variant="warning"
+          >
+            Warning
+          </button>
+          <button
+            class="cu-button cu-button-info cu-button-md"
+            data-cu-toast-trigger
+            data-cu-toast-title="Info"
+            data-cu-toast-description="A new update is available."
+            data-cu-toast-variant="info"
+          >
+            Info
+          </button>
         </div>
-        <p class="text-base text-muted-foreground leading-relaxed">
-            {t.description}
-        </p>
-    </div>
+      </ComponentPreview>
+    </section>
 
-    <div class="mt-10 space-y-10">
-        <!-- Usage -->
-        <section class="space-y-3">
-            <SectionHeading id="usage" title={t.sections.usage.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
-            <ComponentPreview code={usageCode}>
-                <button class="cu-button cu-button-outline cu-button-md" data-cu-toast-trigger
-                    data-cu-toast-title="Event has been created"
-                    data-cu-toast-description="Sunday, December 03, 2023 at 9:00 AM">
-                    Show Toast
-                </button>
-            </ComponentPreview>
-        </section>
+    <!-- With Action -->
+    <section class="space-y-3">
+      <SectionHeading id="with-action" title={t.sections.withAction.title} />
+      <p class="text-base text-muted-foreground leading-relaxed">{t.sections.withAction.description}</p>
+      <ComponentPreview code={withActionCode}>
+        <button class="cu-button cu-button-outline cu-button-md" id="toast-action-demo">
+          Show Toast with Action
+        </button>
+      </ComponentPreview>
+    </section>
 
-        <!-- Classes Reference -->
-        <section class="space-y-3">
-            <SectionHeading id="classes" title={t.sections.classes.title} />
-            <div class="cu-table-wrapper rounded-lg border border-border">
-                <table class="cu-table">
-                    <thead class="cu-table-header">
-                        <tr class="cu-table-row">
-                            <th class="cu-table-head">{t.sections.classes.classLabel}</th>
-                            <th class="cu-table-head">{t.sections.classes.descriptionLabel}</th>
-                        </tr>
-                    </thead>
-                    <tbody class="cu-table-body">
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-toast-container</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-toast-container']}</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-toast-container-bottom-right</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-toast-container-bottom-right']}</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-toast-container-bottom-left</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-toast-container-bottom-left']}</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-toast-container-top-right</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-toast-container-top-right']}</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-toast-container-top-left</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-toast-container-top-left']}</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-toast-container-top-center</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-toast-container-top-center']}</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-toast-container-bottom-center</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-toast-container-bottom-center']}</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-toast</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-toast']}</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-toast-default</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-toast-default']}</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-toast-destructive</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-toast-destructive']}</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-toast-success</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-toast-success']}</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-toast-warning</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-toast-warning']}</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-toast-info</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-toast-info']}</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-toast-body</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-toast-body']}</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-toast-title</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-toast-title']}</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-toast-description</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-toast-description']}</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-toast-close</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-toast-close']}</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-toast-enter</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-toast-enter']}</td>
-                        </tr>
-                    </tbody>
-                </table>
+    <!-- Custom Duration -->
+    <section class="space-y-3">
+      <SectionHeading id="custom-duration" title={t.sections.customDuration.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.customDuration.description} />
+      <ComponentPreview code={customDurationCode}>
+        <div class="flex flex-wrap gap-2">
+          <button
+            class="cu-button cu-button-outline cu-button-md"
+            data-cu-toast-trigger
+            data-cu-toast-title="Quick notice"
+            data-cu-toast-description="This toast disappears in 2 seconds."
+            data-cu-toast-duration="2000"
+          >
+            2s Toast
+          </button>
+          <button
+            class="cu-button cu-button-outline cu-button-md"
+            data-cu-toast-trigger
+            data-cu-toast-title="Persistent notice"
+            data-cu-toast-description="This toast stays for 10 seconds."
+            data-cu-toast-duration="10000"
+          >
+            10s Toast
+          </button>
+        </div>
+      </ComponentPreview>
+    </section>
+
+    <!-- Positions -->
+    <section class="space-y-3">
+      <SectionHeading id="positions" title={t.sections.positions.title} />
+      <p class="text-base text-muted-foreground leading-relaxed">{t.sections.positions.description}</p>
+      <ComponentPreview code={positionsCode}>
+        <div class="relative w-full h-64 border border-border rounded-xl bg-muted/20">
+          <div class="absolute top-3 left-3 text-xs text-muted-foreground">cu-toast-container-top-left</div>
+          <div class="absolute top-3 left-1/2 -translate-x-1/2 text-xs text-muted-foreground">
+            cu-toast-container-top-center
+          </div>
+          <div class="absolute top-3 right-3 text-xs text-muted-foreground">cu-toast-container-top-right</div>
+          <div class="absolute bottom-3 left-3 text-xs text-muted-foreground">cu-toast-container-bottom-left</div>
+          <div class="absolute bottom-3 left-1/2 -translate-x-1/2 text-xs text-muted-foreground">
+            cu-toast-container-bottom-center
+          </div>
+          <div class="absolute bottom-3 right-3 text-xs text-muted-foreground">cu-toast-container-bottom-right</div>
+        </div>
+      </ComponentPreview>
+    </section>
+
+    <!-- With Icon -->
+    <section class="space-y-3">
+      <SectionHeading id="with-icon" title={t.sections.withIcon.title} />
+      <p class="text-base text-muted-foreground leading-relaxed">{t.sections.withIcon.description}</p>
+      <ComponentPreview code={withIconCode}>
+        <div class="flex flex-col gap-3 w-full max-w-sm">
+          <div class="cu-toast cu-toast-success" style="position:relative;pointer-events:auto;">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="shrink-0 text-success mt-0.5"
+            >
+              <path d="m8 12 3 3 5-6" />
+              <circle cx="12" cy="12" r="10" />
+            </svg>
+            <div class="cu-toast-body">
+              <div class="cu-toast-title">Changes saved</div>
+              <div class="cu-toast-description">Your profile has been updated.</div>
             </div>
-        </section>
+          </div>
+          <div class="cu-toast cu-toast-destructive" style="position:relative;pointer-events:auto;">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="shrink-0 text-destructive mt-0.5"
+            >
+              <circle cx="12" cy="12" r="10" />
+              <path d="m15 9-6 6" />
+              <path d="m9 9 6 6" />
+            </svg>
+            <div class="cu-toast-body">
+              <div class="cu-toast-title">Upload failed</div>
+              <div class="cu-toast-description">File size exceeds 10MB limit.</div>
+            </div>
+          </div>
+          <div class="cu-toast cu-toast-warning" style="position:relative;pointer-events:auto;">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="shrink-0 text-warning mt-0.5"
+            >
+              <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z" />
+              <path d="M12 9v4" />
+              <path d="M12 17h.01" />
+            </svg>
+            <div class="cu-toast-body">
+              <div class="cu-toast-title">Session expiring</div>
+              <div class="cu-toast-description">Your session will expire in 5 minutes.</div>
+            </div>
+          </div>
+        </div>
+      </ComponentPreview>
+    </section>
 
+    <!-- Persistent -->
+    <section class="space-y-3">
+      <SectionHeading id="persistent" title={t.sections.persistent.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.persistent.description} />
+      <ComponentPreview code={persistentCode}>
+        <button class="cu-button cu-button-outline cu-button-md" id="toast-persistent-demo">
+          Show Persistent Toast
+        </button>
+      </ComponentPreview>
+    </section>
 
-        <!-- Variants -->
-        <section class="space-y-3">
-            <SectionHeading id="variants" title={t.sections.variants.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.variants.description} />
-            <ComponentPreview code={variantsCode}>
-                <div class="flex flex-wrap gap-2">
-                    <button class="cu-button cu-button-default cu-button-md" data-cu-toast-trigger
-                        data-cu-toast-title="Default toast" data-cu-toast-description="This is a default notification." data-cu-toast-variant="default">
-                        Default
-                    </button>
-                    <button class="cu-button cu-button-destructive cu-button-md" data-cu-toast-trigger
-                        data-cu-toast-title="Error" data-cu-toast-description="Something went wrong." data-cu-toast-variant="destructive">
-                        Destructive
-                    </button>
-                    <button class="cu-button cu-button-success cu-button-md" data-cu-toast-trigger
-                        data-cu-toast-title="Success" data-cu-toast-description="Your changes have been saved." data-cu-toast-variant="success">
-                        Success
-                    </button>
-                    <button class="cu-button cu-button-warning cu-button-md" data-cu-toast-trigger
-                        data-cu-toast-title="Warning" data-cu-toast-description="Please review before continuing." data-cu-toast-variant="warning">
-                        Warning
-                    </button>
-                    <button class="cu-button cu-button-info cu-button-md" data-cu-toast-trigger
-                        data-cu-toast-title="Info" data-cu-toast-description="A new update is available." data-cu-toast-variant="info">
-                        Info
-                    </button>
-                </div>
-            </ComponentPreview>
-        </section>
+    <!-- Stack Limit -->
+    <section class="space-y-3">
+      <SectionHeading id="stack-limit" title={t.sections.stacked.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.stacked.description} />
+      <ComponentPreview code={stackedCode}>
+        <button class="cu-button cu-button-outline cu-button-md" id="toast-stacked-demo">
+          Add Toast
+        </button>
+      </ComponentPreview>
+    </section>
 
-        <!-- With Action -->
-        <section class="space-y-3">
-            <SectionHeading id="with-action" title={t.sections.withAction.title} />
-            <p class="text-base text-muted-foreground leading-relaxed">{t.sections.withAction.description}</p>
-            <ComponentPreview code={withActionCode}>
-                <button class="cu-button cu-button-outline cu-button-md" id="toast-action-demo">
-                    Show Toast with Action
-                </button>
-            </ComponentPreview>
-        </section>
-
-        <!-- Custom Duration -->
-        <section class="space-y-3">
-            <SectionHeading id="custom-duration" title={t.sections.customDuration.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.customDuration.description} />
-            <ComponentPreview code={customDurationCode}>
-                <div class="flex flex-wrap gap-2">
-                    <button class="cu-button cu-button-outline cu-button-md" data-cu-toast-trigger
-                        data-cu-toast-title="Quick notice"
-                        data-cu-toast-description="This toast disappears in 2 seconds."
-                        data-cu-toast-duration="2000">
-                        2s Toast
-                    </button>
-                    <button class="cu-button cu-button-outline cu-button-md" data-cu-toast-trigger
-                        data-cu-toast-title="Persistent notice"
-                        data-cu-toast-description="This toast stays for 10 seconds."
-                        data-cu-toast-duration="10000">
-                        10s Toast
-                    </button>
-                </div>
-            </ComponentPreview>
-        </section>
-
-        <!-- Positions -->
-        <section class="space-y-3">
-            <SectionHeading id="positions" title={t.sections.positions.title} />
-            <p class="text-base text-muted-foreground leading-relaxed">{t.sections.positions.description}</p>
-            <ComponentPreview code={positionsCode}>
-                <div class="relative w-full h-64 border border-border rounded-xl bg-muted/20">
-                    <div class="absolute top-3 left-3 text-xs text-muted-foreground">cu-toast-container-top-left</div>
-                    <div class="absolute top-3 left-1/2 -translate-x-1/2 text-xs text-muted-foreground">cu-toast-container-top-center</div>
-                    <div class="absolute top-3 right-3 text-xs text-muted-foreground">cu-toast-container-top-right</div>
-                    <div class="absolute bottom-3 left-3 text-xs text-muted-foreground">cu-toast-container-bottom-left</div>
-                    <div class="absolute bottom-3 left-1/2 -translate-x-1/2 text-xs text-muted-foreground">cu-toast-container-bottom-center</div>
-                    <div class="absolute bottom-3 right-3 text-xs text-muted-foreground">cu-toast-container-bottom-right</div>
-                </div>
-            </ComponentPreview>
-        </section>
-
-        <!-- With Icon -->
-        <section class="space-y-3">
-            <SectionHeading id="with-icon" title={t.sections.withIcon.title} />
-            <p class="text-base text-muted-foreground leading-relaxed">{t.sections.withIcon.description}</p>
-            <ComponentPreview code={withIconCode}>
-                <div class="flex flex-col gap-3 w-full max-w-sm">
-                    <div class="cu-toast cu-toast-success" style="position:relative;pointer-events:auto;">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="shrink-0 text-success mt-0.5"><path d="m8 12 3 3 5-6"/><circle cx="12" cy="12" r="10"/></svg>
-                        <div class="cu-toast-body">
-                            <div class="cu-toast-title">Changes saved</div>
-                            <div class="cu-toast-description">Your profile has been updated.</div>
-                        </div>
-                    </div>
-                    <div class="cu-toast cu-toast-destructive" style="position:relative;pointer-events:auto;">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="shrink-0 text-destructive mt-0.5"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6"/><path d="m9 9 6 6"/></svg>
-                        <div class="cu-toast-body">
-                            <div class="cu-toast-title">Upload failed</div>
-                            <div class="cu-toast-description">File size exceeds 10MB limit.</div>
-                        </div>
-                    </div>
-                    <div class="cu-toast cu-toast-warning" style="position:relative;pointer-events:auto;">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="shrink-0 text-warning mt-0.5"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>
-                        <div class="cu-toast-body">
-                            <div class="cu-toast-title">Session expiring</div>
-                            <div class="cu-toast-description">Your session will expire in 5 minutes.</div>
-                        </div>
-                    </div>
-                </div>
-            </ComponentPreview>
-        </section>
-
-        <!-- Persistent -->
-        <section class="space-y-3">
-            <SectionHeading id="persistent" title={t.sections.persistent.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.persistent.description} />
-            <ComponentPreview code={persistentCode}>
-                <button class="cu-button cu-button-outline cu-button-md" id="toast-persistent-demo">
-                    Show Persistent Toast
-                </button>
-            </ComponentPreview>
-        </section>
-
-        <!-- Stack Limit -->
-        <section class="space-y-3">
-            <SectionHeading id="stack-limit" title={t.sections.stacked.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.stacked.description} />
-            <ComponentPreview code={stackedCode}>
-                <button class="cu-button cu-button-outline cu-button-md" id="toast-stacked-demo">
-                    Add Toast
-                </button>
-            </ComponentPreview>
-        </section>
-
-        <!-- Promise Toast -->
-        <section class="space-y-3">
-            <SectionHeading id="promise-toast" title={t.sections.promiseToast.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.promiseToast.description} />
-            <ComponentPreview code={promiseToastCode}>
-                <button class="cu-button cu-button-default cu-button-md" id="toast-promise-demo">
-                    Save with Promise Toast
-                </button>
-            </ComponentPreview>
-        </section>
-
-    </div>
+    <!-- Promise Toast -->
+    <section class="space-y-3">
+      <SectionHeading id="promise-toast" title={t.sections.promiseToast.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.promiseToast.description} />
+      <ComponentPreview code={promiseToastCode}>
+        <button class="cu-button cu-button-default cu-button-md" id="toast-promise-demo">
+          Save with Promise Toast
+        </button>
+      </ComponentPreview>
+    </section>
+  </div>
 </Layout>
 
 <script>
-    document.getElementById("toast-action-demo")?.addEventListener("click", () => {
-        const container = document.querySelector("[data-cu-toast-container]");
-        if (!container) return;
+  document.getElementById("toast-action-demo")?.addEventListener("click", () => {
+    const container = document.querySelector("[data-cu-toast-container]");
+    if (!container) return;
 
-        const toast = document.createElement("div");
-        toast.className = "cu-toast cu-toast-default cu-toast-enter";
+    const toast = document.createElement("div");
+    toast.className = "cu-toast cu-toast-default cu-toast-enter";
 
-        const body = document.createElement("div");
-        body.className = "cu-toast-body";
+    const body = document.createElement("div");
+    body.className = "cu-toast-body";
 
-        const titleEl = document.createElement("div");
-        titleEl.className = "cu-toast-title";
-        titleEl.textContent = "Event deleted";
-        body.appendChild(titleEl);
+    const titleEl = document.createElement("div");
+    titleEl.className = "cu-toast-title";
+    titleEl.textContent = "Event deleted";
+    body.appendChild(titleEl);
 
-        const descEl = document.createElement("div");
-        descEl.className = "cu-toast-description";
-        descEl.textContent = 'The event "Team Meeting" has been removed.';
-        body.appendChild(descEl);
+    const descEl = document.createElement("div");
+    descEl.className = "cu-toast-description";
+    descEl.textContent = 'The event "Team Meeting" has been removed.';
+    body.appendChild(descEl);
 
-        toast.appendChild(body);
+    toast.appendChild(body);
 
-        const actions = document.createElement("div");
-        actions.className = "flex flex-col gap-1";
-        const undoBtn = document.createElement("button");
-        undoBtn.className = "cu-button cu-button-outline cu-button-sm text-xs h-7";
-        undoBtn.textContent = "Undo";
-        undoBtn.addEventListener("click", () => toast.remove());
-        actions.appendChild(undoBtn);
-        toast.appendChild(actions);
+    const actions = document.createElement("div");
+    actions.className = "flex flex-col gap-1";
+    const undoBtn = document.createElement("button");
+    undoBtn.className = "cu-button cu-button-outline cu-button-sm text-xs h-7";
+    undoBtn.textContent = "Undo";
+    undoBtn.addEventListener("click", () => toast.remove());
+    actions.appendChild(undoBtn);
+    toast.appendChild(actions);
 
-        const closeBtn = document.createElement("button");
-        closeBtn.className = "cu-toast-close";
-        closeBtn.textContent = "\u00d7";
-        closeBtn.addEventListener("click", () => toast.remove());
-        toast.appendChild(closeBtn);
+    const closeBtn = document.createElement("button");
+    closeBtn.className = "cu-toast-close";
+    closeBtn.textContent = "\u00d7";
+    closeBtn.addEventListener("click", () => toast.remove());
+    toast.appendChild(closeBtn);
 
-        container.appendChild(toast);
-        setTimeout(() => {
-            if (toast.parentNode) toast.remove();
-        }, 5000);
-    });
+    container.appendChild(toast);
+    setTimeout(() => {
+      if (toast.parentNode) toast.remove();
+    }, 5000);
+  });
 
-    document.getElementById("toast-persistent-demo")?.addEventListener("click", () => {
-        const container = document.querySelector("[data-cu-toast-container]");
-        if (!container) return;
+  document.getElementById("toast-persistent-demo")?.addEventListener("click", () => {
+    const container = document.querySelector("[data-cu-toast-container]");
+    if (!container) return;
 
-        const toast = document.createElement("div");
-        toast.className = "cu-toast cu-toast-info cu-toast-enter";
+    const toast = document.createElement("div");
+    toast.className = "cu-toast cu-toast-info cu-toast-enter";
 
-        const body = document.createElement("div");
-        body.className = "cu-toast-body";
-        const titleEl = document.createElement("div");
-        titleEl.className = "cu-toast-title";
-        titleEl.textContent = "System Update";
-        body.appendChild(titleEl);
-        const descEl = document.createElement("div");
-        descEl.className = "cu-toast-description";
-        descEl.textContent = "A new version is available. Please restart to apply.";
-        body.appendChild(descEl);
-        toast.appendChild(body);
+    const body = document.createElement("div");
+    body.className = "cu-toast-body";
+    const titleEl = document.createElement("div");
+    titleEl.className = "cu-toast-title";
+    titleEl.textContent = "System Update";
+    body.appendChild(titleEl);
+    const descEl = document.createElement("div");
+    descEl.className = "cu-toast-description";
+    descEl.textContent = "A new version is available. Please restart to apply.";
+    body.appendChild(descEl);
+    toast.appendChild(body);
 
-        const closeBtn = document.createElement("button");
-        closeBtn.className = "cu-toast-close";
-        closeBtn.textContent = "\u00d7";
-        closeBtn.addEventListener("click", () => toast.remove());
-        toast.appendChild(closeBtn);
+    const closeBtn = document.createElement("button");
+    closeBtn.className = "cu-toast-close";
+    closeBtn.textContent = "\u00d7";
+    closeBtn.addEventListener("click", () => toast.remove());
+    toast.appendChild(closeBtn);
 
-        container.appendChild(toast);
-        // duration: 0 — no auto-dismiss
-    });
+    container.appendChild(toast);
+    // duration: 0 — no auto-dismiss
+  });
 
-    document.getElementById("toast-stacked-demo")?.addEventListener("click", () => {
-        const container = document.querySelector("[data-cu-toast-container]");
-        if (!container) return;
+  document.getElementById("toast-stacked-demo")?.addEventListener("click", () => {
+    const container = document.querySelector("[data-cu-toast-container]");
+    if (!container) return;
 
-        const toast = document.createElement("div");
-        toast.className = "cu-toast cu-toast-default cu-toast-enter";
+    const toast = document.createElement("div");
+    toast.className = "cu-toast cu-toast-default cu-toast-enter";
 
-        const body = document.createElement("div");
-        body.className = "cu-toast-body";
-        const titleEl = document.createElement("div");
-        titleEl.className = "cu-toast-title";
-        titleEl.textContent = "Notification";
-        body.appendChild(titleEl);
-        const descEl = document.createElement("div");
-        descEl.className = "cu-toast-description";
-        descEl.textContent = "This is toast #" + Date.now();
-        body.appendChild(descEl);
-        toast.appendChild(body);
+    const body = document.createElement("div");
+    body.className = "cu-toast-body";
+    const titleEl = document.createElement("div");
+    titleEl.className = "cu-toast-title";
+    titleEl.textContent = "Notification";
+    body.appendChild(titleEl);
+    const descEl = document.createElement("div");
+    descEl.className = "cu-toast-description";
+    descEl.textContent = "This is toast #" + Date.now();
+    body.appendChild(descEl);
+    toast.appendChild(body);
 
-        const closeBtn = document.createElement("button");
-        closeBtn.className = "cu-toast-close";
-        closeBtn.textContent = "\u00d7";
-        closeBtn.addEventListener("click", () => toast.remove());
-        toast.appendChild(closeBtn);
+    const closeBtn = document.createElement("button");
+    closeBtn.className = "cu-toast-close";
+    closeBtn.textContent = "\u00d7";
+    closeBtn.addEventListener("click", () => toast.remove());
+    toast.appendChild(closeBtn);
 
-        container.appendChild(toast);
-        setTimeout(() => {
-            if (toast.parentNode) toast.remove();
-        }, 5000);
-    });
+    container.appendChild(toast);
+    setTimeout(() => {
+      if (toast.parentNode) toast.remove();
+    }, 5000);
+  });
 </script>

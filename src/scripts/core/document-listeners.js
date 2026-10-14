@@ -138,7 +138,10 @@ export function setupDocumentListeners() {
         if (items.length === 0) return;
         if (e.key === "Enter") {
           var active = d.content.querySelector(".cu-dropdown-item-highlight");
-          if (active) { active.click(); e.preventDefault(); }
+          if (active) {
+            active.click();
+            e.preventDefault();
+          }
           return;
         }
         e.preventDefault();
@@ -152,7 +155,10 @@ export function setupDocumentListeners() {
         if (!items || items.length === 0) return;
         if (e.key === "Enter") {
           var active = c.content.querySelector(".cu-combobox-item-highlight:not([hidden])");
-          if (active) { active.click(); e.preventDefault(); }
+          if (active) {
+            active.click();
+            e.preventDefault();
+          }
           return;
         }
         e.preventDefault();
@@ -166,7 +172,10 @@ export function setupDocumentListeners() {
         if (!items || items.length === 0) return;
         if (e.key === "Enter") {
           var active = ms.content.querySelector(".cu-multi-select-item-highlight:not([hidden])");
-          if (active) { active.click(); e.preventDefault(); }
+          if (active) {
+            active.click();
+            e.preventDefault();
+          }
           return;
         }
         e.preventDefault();

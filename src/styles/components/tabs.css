@@ -1,102 +1,102 @@
 /* Tabs
    ------------------------------------------------------------------ */
 .cu-tabs {
-    @apply w-full;
+  @apply w-full;
 }
 
 .cu-tabs-list {
-    @apply inline-flex h-10 items-center justify-start gap-1 rounded-lg bg-muted p-1;
+  @apply inline-flex h-10 items-center justify-start gap-1 rounded-lg bg-muted p-1;
 }
 
 .cu-tabs-trigger {
-    @apply inline-flex items-center justify-center whitespace-nowrap rounded-md px-3 py-1.5 text-sm font-medium text-muted-foreground outline-none focus-visible:ring-1 focus-visible:ring-ring/30 transition-colors duration-150 cursor-pointer hover:text-foreground;
+  @apply inline-flex cursor-pointer items-center justify-center rounded-md px-3 py-1.5 text-sm font-medium whitespace-nowrap text-muted-foreground transition-colors duration-150 outline-none hover:text-foreground focus-visible:ring-1 focus-visible:ring-ring/30;
 }
 
 .cu-tabs-trigger-active {
-    @apply bg-background text-foreground shadow-sm;
+  @apply bg-background text-foreground shadow-sm;
 }
 
 .cu-tabs-content {
-    @apply mt-4;
+  @apply mt-4;
 }
 
 /* -- underline variant -- */
 .cu-tabs-list-underline {
-    @apply inline-flex h-10 items-center justify-start gap-0 rounded-none bg-transparent p-0 border-b border-border;
+  @apply inline-flex h-10 items-center justify-start gap-0 rounded-none border-b border-border bg-transparent p-0;
 }
 
 .cu-tabs-list-underline .cu-tabs-trigger {
-    @apply rounded-none px-4 py-2 border-b-2 border-transparent -mb-px;
+  @apply -mb-px rounded-none border-b-2 border-transparent px-4 py-2;
 }
 
 .cu-tabs-list-underline .cu-tabs-trigger-active {
-    @apply bg-transparent shadow-none border-b-2 border-primary text-foreground;
+  @apply border-b-2 border-primary bg-transparent text-foreground shadow-none;
 }
 
 /* -- pills variant -- */
 .cu-tabs-list-pills {
-    @apply inline-flex h-10 items-center justify-start gap-1 bg-transparent p-0;
+  @apply inline-flex h-10 items-center justify-start gap-1 bg-transparent p-0;
 }
 
 .cu-tabs-list-pills .cu-tabs-trigger {
-    @apply rounded-full;
+  @apply rounded-full;
 }
 
 .cu-tabs-list-pills .cu-tabs-trigger-active {
-    @apply bg-primary text-primary-foreground shadow-none;
+  @apply bg-primary text-primary-foreground shadow-none;
 }
 
 /* -- vertical layout -- */
 .cu-tabs-vertical {
-    @apply flex flex-row gap-4;
+  @apply flex flex-row gap-4;
 }
 
 .cu-tabs-list-vertical {
-    @apply flex flex-col h-auto items-stretch gap-1 rounded-lg bg-muted p-1;
+  @apply flex h-auto flex-col items-stretch gap-1 rounded-lg bg-muted p-1;
 }
 
 .cu-tabs-vertical > .cu-tabs-content {
-    @apply mt-0 flex-1;
+  @apply mt-0 flex-1;
 }
 
 /* -- badge on trigger -- */
 .cu-tabs-trigger-badge {
-    @apply ml-1.5 inline-flex items-center justify-center rounded-full bg-muted-foreground/15 px-1.5 text-[10px] font-semibold leading-none min-w-4 h-4 text-muted-foreground;
+  @apply ml-1.5 inline-flex h-4 min-w-4 items-center justify-center rounded-full bg-muted-foreground/15 px-1.5 text-[10px] leading-none font-semibold text-muted-foreground;
 }
 
 .cu-tabs-trigger-active .cu-tabs-trigger-badge {
-    @apply bg-primary/10 text-primary;
+  @apply bg-primary/10 text-primary;
 }
 
 /* -- closable trigger -- */
 .cu-tabs-trigger-close {
-    @apply ml-1.5 inline-flex size-4 items-center justify-center rounded-sm opacity-50 transition-opacity duration-150 hover:opacity-100 cursor-pointer;
+  @apply ml-1.5 inline-flex size-4 cursor-pointer items-center justify-center rounded-sm opacity-50 transition-opacity duration-150 hover:opacity-100;
 }
 
 /* -- scrollable tab list -- */
 .cu-tabs-list-scrollable {
-    @apply relative;
+  @apply relative;
 }
 
 .cu-tabs-list-scrollable .cu-tabs-list {
-    @apply overflow-x-auto flex-nowrap;
-    scrollbar-width: none;
+  @apply flex-nowrap overflow-x-auto;
+  scrollbar-width: none;
 }
 
 .cu-tabs-list-scrollable .cu-tabs-list::-webkit-scrollbar {
-    display: none;
+  display: none;
 }
 
 .cu-tabs-scroll-btn {
-    @apply absolute top-0 z-10 flex h-full w-8 items-center justify-center cursor-pointer text-muted-foreground transition-opacity duration-150 hover:text-foreground;
-    background: linear-gradient(to right, var(--color-background), transparent);
+  @apply absolute top-0 z-10 flex h-full w-8 cursor-pointer items-center justify-center text-muted-foreground transition-opacity duration-150 hover:text-foreground;
+  background: linear-gradient(to right, var(--color-background), transparent);
 }
 
 .cu-tabs-scroll-btn-end {
-    @apply right-0;
-    background: linear-gradient(to left, var(--color-background), transparent);
+  @apply right-0;
+  background: linear-gradient(to left, var(--color-background), transparent);
 }
 
 .cu-tabs-scroll-btn[hidden] {
-    @apply hidden;
+  @apply hidden;
 }

@@ -23,49 +23,49 @@
  *   node scripts/blade/test-blade-syntax.cjs --skip-php   # 沒裝 php 時跳過
  */
 
-const fs = require('fs');
-const path = require('path');
-const os = require('os');
-const cp = require('child_process');
+const fs = require("fs");
+const path = require("path");
+const os = require("os");
+const cp = require("child_process");
 
-const ROOT = path.join(__dirname, '..', '..');
-const DIST_DIR = path.join(ROOT, 'dist', 'laravel');
+const ROOT = path.join(__dirname, "..", "..");
+const DIST_DIR = path.join(ROOT, "dist", "laravel");
 
 const args = process.argv.slice(2);
-const VERBOSE = args.includes('--verbose');
-const SKIP_PHP = args.includes('--skip-php');
+const VERBOSE = args.includes("--verbose");
+const SKIP_PHP = args.includes("--skip-php");
 
 /** 已知壞 pattern：在 dist/ 裡任何 blade 檔出現即視為失敗 */
 const BAD_PATTERNS = [
   {
-    name: 'double-comma',
+    name: "double-comma",
     regex: /,,/,
     hint: 'PHP 8.3+ 會拋 "Cannot use empty array elements"；檢查 class-resolver 的 @class([...]) 輸出邏輯',
   },
   {
-    name: 'empty-array-leading-comma',
+    name: "empty-array-leading-comma",
     regex: /\[\s*,/,
-    hint: '陣列以 `,` 開頭，PHP 會解析為空元素',
+    hint: "陣列以 `,` 開頭，PHP 會解析為空元素",
   },
   {
-    name: 'empty-array-double-comma-newline',
+    name: "empty-array-double-comma-newline",
     regex: /,\s*,\s*\]/,
-    hint: '陣列尾部出現 `, ,]`，將產生空元素',
+    hint: "陣列尾部出現 `, ,]`，將產生空元素",
   },
   {
-    name: 'unconverted-jsx-attr',
+    name: "unconverted-jsx-attr",
     // 屬性值為 `={...}` 但 `...` 裡含 `||` 或未包 `{{ }}` 的純 JS 表達式
     regex: /=\{[^{}\n]*\|\|[^{}\n]*\}/,
-    hint: '殘留未轉譯的 JSX 屬性表達式（如 {prop || undefined}）',
+    hint: "殘留未轉譯的 JSX 屬性表達式（如 {prop || undefined}）",
   },
   {
-    name: 'unconverted-jsx-logical-expr',
+    name: "unconverted-jsx-logical-expr",
     // 單層 `{...}`（非 Blade 的 `{{ }}`）內含 JS 的 `||` / `??`，例如文字位置的 {filename || language}
     regex: /(?:^|[^{])\{[^{}\n]*(?:\|\||\?\?)[^{}\n]*\}/,
-    hint: '殘留未轉譯的 JSX 邏輯表達式（如 {filename || language}）；檢查 transformers 的 transformTextInterpolation',
+    hint: "殘留未轉譯的 JSX 邏輯表達式（如 {filename || language}）；檢查 transformers 的 transformTextInterpolation",
   },
   {
-    name: 'php-var-in-string-literal',
+    name: "php-var-in-string-literal",
     // PHP 單引號字串不做變數插值，`'$light'` 只會是字面字串 "$light"
     regex: /'\$[A-Za-z_]/,
     hint: "字串字面量被當成變數轉換（如 $codeTheme === '$light'）；檢查 class-resolver 的 conditionToPhp",
@@ -76,7 +76,7 @@ function walk(dir, acc = []) {
   for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
     const p = path.join(dir, entry.name);
     if (entry.isDirectory()) walk(p, acc);
-    else if (entry.isFile() && entry.name.endsWith('.blade.php')) acc.push(p);
+    else if (entry.isFile() && entry.name.endsWith(".blade.php")) acc.push(p);
   }
   return acc;
 }
@@ -84,7 +84,7 @@ function walk(dir, acc = []) {
 function checkBadPatterns(files) {
   const failures = [];
   for (const file of files) {
-    const src = fs.readFileSync(file, 'utf8');
+    const src = fs.readFileSync(file, "utf8");
     const lines = src.split(/\r?\n/);
     for (const pattern of BAD_PATTERNS) {
       for (let i = 0; i < lines.length; i++) {
@@ -115,18 +115,18 @@ const ECHO_DIRECTIVE_RE = /\{\{\s*([\s\S]*?)\s*\}\}/g;
  */
 function extractPhpSnippets(src) {
   const snippets = [];
-  const cleaned = src.replace(BLADE_COMMENT_RE, '');
+  const cleaned = src.replace(BLADE_COMMENT_RE, "");
 
   let m;
   while ((m = ARRAY_DIRECTIVE_RE.exec(cleaned)) !== null) {
     snippets.push({ kind: `@${m[1]}`, code: `$__ = ${m[2]};` });
   }
   while ((m = IF_DIRECTIVE_RE.exec(cleaned)) !== null) {
-    snippets.push({ kind: '@if', code: `if(${m[1]}){}` });
+    snippets.push({ kind: "@if", code: `if(${m[1]}){}` });
   }
   while ((m = ECHO_DIRECTIVE_RE.exec(cleaned)) !== null) {
     const inner = m[1].trim();
-    if (inner) snippets.push({ kind: '{{ }}', code: `$__ = (${inner});` });
+    if (inner) snippets.push({ kind: "{{ }}", code: `$__ = (${inner});` });
   }
   return snippets;
 }
@@ -137,20 +137,22 @@ function extractPhpSnippets(src) {
  * 此時呼叫端會 fallback 到 per-file lint 以精準定位（慢路徑）。
  */
 function runPhpLintBatch(fileSnippets) {
-  const parts = ['<?php'];
+  const parts = ["<?php"];
   for (const { snippets } of fileSnippets) {
     for (const s of snippets) parts.push(s.code);
   }
   if (parts.length === 1) return null;
 
   const tmp = path.join(os.tmpdir(), `blade-lint-batch-${process.pid}-${Date.now()}.php`);
-  fs.writeFileSync(tmp, parts.join('\n') + '\n');
+  fs.writeFileSync(tmp, parts.join("\n") + "\n");
   try {
-    const out = cp.spawnSync('php', ['-l', tmp], { encoding: 'utf8' });
+    const out = cp.spawnSync("php", ["-l", tmp], { encoding: "utf8" });
     if (out.status === 0) return null;
-    return { stdout: (out.stdout || '').trim() };
+    return { stdout: (out.stdout || "").trim() };
   } finally {
-    try { fs.unlinkSync(tmp); } catch {}
+    try {
+      fs.unlinkSync(tmp);
+    } catch {}
   }
 }
 
@@ -159,21 +161,26 @@ function runPhpLintBatch(fileSnippets) {
  */
 function runPhpLintSingle(file, snippets) {
   if (snippets.length === 0) return null;
-  const tmp = path.join(os.tmpdir(), `blade-lint-${process.pid}-${Date.now()}-${Math.random().toString(36).slice(2, 8)}.php`);
-  fs.writeFileSync(tmp, '<?php\n' + snippets.map((s) => s.code).join('\n') + '\n');
+  const tmp = path.join(
+    os.tmpdir(),
+    `blade-lint-${process.pid}-${Date.now()}-${Math.random().toString(36).slice(2, 8)}.php`,
+  );
+  fs.writeFileSync(tmp, "<?php\n" + snippets.map((s) => s.code).join("\n") + "\n");
   try {
-    const out = cp.spawnSync('php', ['-l', tmp], { encoding: 'utf8' });
+    const out = cp.spawnSync("php", ["-l", tmp], { encoding: "utf8" });
     if (out.status === 0) return null;
-    return (out.stdout || '').trim();
+    return (out.stdout || "").trim();
   } finally {
-    try { fs.unlinkSync(tmp); } catch {}
+    try {
+      fs.unlinkSync(tmp);
+    } catch {}
   }
 }
 
 function checkPhpSyntax(files) {
   const fileSnippets = files.map((file) => ({
     file,
-    snippets: extractPhpSnippets(fs.readFileSync(file, 'utf8')),
+    snippets: extractPhpSnippets(fs.readFileSync(file, "utf8")),
   }));
 
   const batchError = runPhpLintBatch(fileSnippets);
@@ -185,7 +192,7 @@ function checkPhpSyntax(files) {
     return [];
   }
 
-  console.warn('  ⚠  批次 php -l 失敗，逐檔定位中…');
+  console.warn("  ⚠  批次 php -l 失敗，逐檔定位中…");
   const failures = [];
   for (const { file, snippets } of fileSnippets) {
     const err = runPhpLintSingle(file, snippets);
@@ -221,11 +228,11 @@ function main() {
 
   // (2) PHP lint
   if (SKIP_PHP) {
-    console.log('⏭  略過 php -l 驗證（--skip-php）');
+    console.log("⏭  略過 php -l 驗證（--skip-php）");
   } else {
-    const hasPhp = cp.spawnSync('php', ['--version'], { encoding: 'utf8' }).status === 0;
+    const hasPhp = cp.spawnSync("php", ["--version"], { encoding: "utf8" }).status === 0;
     if (!hasPhp) {
-      console.warn('⚠  系統未安裝 php，略過語法驗證（可用 --skip-php 隱藏此訊息）');
+      console.warn("⚠  系統未安裝 php，略過語法驗證（可用 --skip-php 隱藏此訊息）");
     } else {
       const phpFails = checkPhpSyntax(files);
       if (phpFails.length > 0) {
@@ -233,10 +240,10 @@ function main() {
         console.error(`\n✗ ${phpFails.length} 個檔案含無效 PHP 片段：`);
         for (const f of phpFails) {
           console.error(`  ${f.file}`);
-          if (f.stdout) console.error(`    ${f.stdout.split('\n').join('\n    ')}`);
+          if (f.stdout) console.error(`    ${f.stdout.split("\n").join("\n    ")}`);
         }
       } else {
-        console.log('✓ 所有 @class / @props / @if / {{ }} 片段通過 php -l');
+        console.log("✓ 所有 @class / @props / @if / {{ }} 片段通過 php -l");
       }
     }
   }

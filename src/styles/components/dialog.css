@@ -1,76 +1,83 @@
 /* Dialog
    ------------------------------------------------------------------ */
 .cu-dialog {
-    @apply fixed inset-0 z-50 m-auto h-fit w-full max-w-lg rounded-xl border border-border bg-background p-6 shadow-lg;
+  @apply fixed inset-0 z-50 m-auto h-fit w-full max-w-lg rounded-xl border border-border bg-background p-6 shadow-lg;
 }
 
 .cu-dialog::backdrop {
-    background: color-mix(in srgb, var(--color-foreground) 50%, transparent);
-    backdrop-filter: blur(4px);
-    transition: opacity 0.2s ease, overlay 0.2s ease allow-discrete, display 0.2s ease allow-discrete;
-    opacity: 1;
+  background: color-mix(in srgb, var(--color-foreground) 50%, transparent);
+  backdrop-filter: blur(4px);
+  transition:
+    opacity 0.2s ease,
+    overlay 0.2s ease allow-discrete,
+    display 0.2s ease allow-discrete;
+  opacity: 1;
 }
 
 /* -- open/close animation -- */
 .cu-dialog {
-    opacity: 1;
-    transform: scale(1);
-    transition: opacity 0.2s ease, transform 0.2s ease, overlay 0.2s ease allow-discrete, display 0.2s ease allow-discrete;
+  opacity: 1;
+  transform: scale(1);
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease,
+    overlay 0.2s ease allow-discrete,
+    display 0.2s ease allow-discrete;
 }
 
 @starting-style {
-    .cu-dialog[open] {
-        opacity: 0;
-        transform: scale(0.95);
-    }
-    .cu-dialog[open]::backdrop {
-        opacity: 0;
-    }
+  .cu-dialog[open] {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  .cu-dialog[open]::backdrop {
+    opacity: 0;
+  }
 }
 
 .cu-dialog-header {
-    @apply flex flex-col space-y-1.5 text-center sm:text-left;
+  @apply flex flex-col space-y-1.5 text-center sm:text-left;
 }
 
 .cu-dialog-title {
-    @apply text-lg font-semibold leading-none tracking-tight;
+  @apply text-lg leading-none font-semibold tracking-tight;
 }
 
 .cu-dialog-description {
-    @apply text-sm text-muted-foreground;
+  @apply text-sm text-muted-foreground;
 }
 
 .cu-dialog-footer {
-    @apply flex flex-col-reverse sm:flex-row sm:justify-end gap-2 mt-6;
+  @apply mt-6 flex flex-col-reverse gap-2 sm:flex-row sm:justify-end;
 }
 
 /* -- size variants -- */
 .cu-dialog-sm {
-    @apply max-w-sm;
+  @apply max-w-sm;
 }
 
 .cu-dialog-md {
-    @apply max-w-md;
+  @apply max-w-md;
 }
 
 .cu-dialog-xl {
-    @apply max-w-xl;
+  @apply max-w-xl;
 }
 
 .cu-dialog-full {
-    @apply max-w-3xl;
+  @apply max-w-3xl;
 }
 
 .cu-dialog-close {
-    @apply absolute right-4 top-4 rounded-sm opacity-70 transition-opacity duration-150 hover:opacity-100 cursor-pointer focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring/40;
+  @apply absolute top-4 right-4 cursor-pointer rounded-sm opacity-70 transition-opacity duration-150 hover:opacity-100 focus-visible:ring-1 focus-visible:ring-ring/40 focus-visible:outline-none;
 }
 
 /* -- scrollable body -- */
 .cu-dialog-body {
-    @apply flex flex-col;
-    max-height: 85vh;
+  @apply flex flex-col;
+  max-height: 85vh;
 }
 
 .cu-dialog-scroll {
-    @apply flex-1 overflow-y-auto py-4;
+  @apply flex-1 overflow-y-auto py-4;
 }

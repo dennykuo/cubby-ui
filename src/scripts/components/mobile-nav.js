@@ -58,7 +58,10 @@ export function closeMobileNav(mn) {
  */
 export function setupMobileNav() {
   document.querySelectorAll("[data-cu-mobile-nav-trigger]").forEach(function (trigger) {
-    if (trigger._cuInit) { restore("mobileNavs", trigger); return; }
+    if (trigger._cuInit) {
+      restore("mobileNavs", trigger);
+      return;
+    }
     trigger._cuInit = true;
 
     var backdropId = trigger.getAttribute("data-cu-mobile-nav-trigger");
