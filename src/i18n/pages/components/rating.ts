@@ -15,6 +15,14 @@ export const ratingPage: Record<
       readonly: { title: string; description: string };
       interactive: { title: string; description: string };
       disabled: { title: string; description: string };
+      accessibility: {
+        title: string;
+        description: string;
+        keyLabel: string;
+        actionLabel: string;
+        keys: { key: string; action: string }[];
+        names: string;
+      };
     };
     classDescriptions: Record<string, string>;
   }
@@ -50,21 +58,42 @@ export const ratingPage: Record<
       },
       readonly: {
         title: "Readonly",
-        description: 'Add <code class="cu-code">cu-rating-readonly</code> to display a non-interactive rating.',
+        description:
+          'Add <code class="cu-code">cu-rating-readonly</code> to display a non-interactive rating. On an interactive rating (<code class="cu-code">data-cu-rating</code>) the stars stop responding, stay focusable and are announced as read-only (<code class="cu-code">aria-readonly="true"</code>).',
       },
       interactive: {
         title: "Interactive",
         description:
-          'Add <code class="cu-code">data-cu-rating</code> and use <code class="cu-code">&lt;button type="button"&gt;</code> stars with <code class="cu-code">data-cu-rating-star</code>, so they can be reached with Tab and selected with Enter / Space. The value is stored in <code class="cu-code">data-cu-rating-value</code> and a <code class="cu-code">cu:rating:change</code> event fires.',
+          'Add <code class="cu-code">data-cu-rating</code> and use <code class="cu-code">&lt;button type="button"&gt;</code> stars with <code class="cu-code">data-cu-rating-star</code>. Click a star, or Tab to the rating and use the arrow keys, <code class="cu-code">Home</code> / <code class="cu-code">End</code>, <code class="cu-code">Space</code> or <code class="cu-code">Enter</code>. The value is stored in <code class="cu-code">data-cu-rating-value</code> (<code class="cu-code">0</code> = none) and a <code class="cu-code">cu:rating:change</code> event (<code class="cu-code">{ value }</code>) fires whenever it changes. Name the rating with <code class="cu-code">aria-label</code> or <code class="cu-code">aria-labelledby</code>.',
       },
       disabled: {
         title: "Disabled",
-        description: 'Add <code class="cu-code">cu-rating-disabled</code> to dim and disable the rating.',
+        description:
+          'Add <code class="cu-code">cu-rating-disabled</code> to dim and disable the rating. On an interactive rating the stars also leave the Tab order and the group gets <code class="cu-code">aria-disabled="true"</code>.',
+      },
+      accessibility: {
+        title: "Accessibility",
+        description:
+          'Interactive ratings follow the WAI-ARIA APG Rating Radio Group example: cubby-ui.js gives the root <code class="cu-code">role="radiogroup"</code> and every star <code class="cu-code">role="radio"</code> with <code class="cu-code">aria-checked</code>, so a screen reader announces something like "3 stars, radio button, checked, 3 of 5". A radio group is used instead of a single <code class="cu-code">role="slider"</code> because every star stays its own click / touch target with its own name — touch screen reader users can swipe to a star and double-tap it, which needs no slider gestures — and a rating is a choice between a few discrete values. Only one star is in the Tab order (the checked star, or the first star when nothing is selected); the arrow keys move between stars and select them at the same time. In right-to-left layouts Arrow Left and Arrow Right are swapped.',
+        keyLabel: "Key",
+        actionLabel: "Action",
+        keys: [
+          {
+            key: "Tab / Shift + Tab",
+            action: "Moves focus into the rating (to the checked star, or the first star) and out of it",
+          },
+          { key: "Arrow Right / Arrow Down", action: "Selects the next star; from the last star wraps to the first" },
+          { key: "Arrow Left / Arrow Up", action: "Selects the previous star; from the first star wraps to the last" },
+          { key: "Home / End", action: "Selects the first / last star" },
+          { key: "Space / Enter", action: "Selects the focused star" },
+        ],
+        names:
+          'The group is named by your <code class="cu-code">aria-label</code> / <code class="cu-code">aria-labelledby</code> (default "Rating") and the stars are named "1 star", "2 stars"… Localize the star names with <code class="cu-code">data-cu-rating-star-text</code> on the root, where <code class="cu-code">{value}</code> is replaced with the star number, or give a single star its own <code class="cu-code">aria-label</code>, which is never overwritten.',
       },
     },
     classDescriptions: {
       "cu-rating": "Container for rating stars",
-      "cu-rating-item": "Individual star element",
+      "cu-rating-item": 'Individual star element (<button type="button"> in interactive ratings)',
       "cu-rating-item-active": "Filled/active star (amber color)",
       "cu-rating-item-half": "Half-filled star with clip-path overlay",
       "cu-rating-input": "Hidden radio input for form submission",
@@ -104,21 +133,39 @@ export const ratingPage: Record<
       },
       readonly: {
         title: "唯讀",
-        description: '加上 <code class="cu-code">cu-rating-readonly</code> 顯示不可互動的評分。',
+        description:
+          '加上 <code class="cu-code">cu-rating-readonly</code> 顯示不可互動的評分。用在互動式評分（<code class="cu-code">data-cu-rating</code>）時，星星不再回應操作，但仍可聚焦，並以唯讀狀態（<code class="cu-code">aria-readonly="true"</code>）播報。',
       },
       interactive: {
         title: "互動式",
         description:
-          '加上 <code class="cu-code">data-cu-rating</code>，星星使用帶 <code class="cu-code">data-cu-rating-star</code> 的 <code class="cu-code">&lt;button type="button"&gt;</code>，即可用 Tab 聚焦、Enter / Space 評分。選取值存放在 <code class="cu-code">data-cu-rating-value</code>，並觸發 <code class="cu-code">cu:rating:change</code> 事件。',
+          '加上 <code class="cu-code">data-cu-rating</code>，星星使用帶 <code class="cu-code">data-cu-rating-star</code> 的 <code class="cu-code">&lt;button type="button"&gt;</code>。可點擊星星，或用 Tab 移到評分後以方向鍵、<code class="cu-code">Home</code> / <code class="cu-code">End</code>、<code class="cu-code">Space</code> 或 <code class="cu-code">Enter</code> 操作。選取值存放在 <code class="cu-code">data-cu-rating-value</code>（<code class="cu-code">0</code> 為未選取），值改變時觸發 <code class="cu-code">cu:rating:change</code> 事件（<code class="cu-code">{ value }</code>）。請以 <code class="cu-code">aria-label</code> 或 <code class="cu-code">aria-labelledby</code> 為評分命名。',
       },
       disabled: {
         title: "停用",
-        description: '加上 <code class="cu-code">cu-rating-disabled</code> 使評分元件變暗並停用。',
+        description:
+          '加上 <code class="cu-code">cu-rating-disabled</code> 使評分元件變暗並停用。用在互動式評分時，星星也會移出 Tab 順序，群組帶 <code class="cu-code">aria-disabled="true"</code>。',
+      },
+      accessibility: {
+        title: "無障礙",
+        description:
+          '互動式評分遵循 WAI-ARIA APG 的 Rating Radio Group 範例：cubby-ui.js 為根元素加上 <code class="cu-code">role="radiogroup"</code>，每顆星為帶 <code class="cu-code">aria-checked</code> 的 <code class="cu-code">role="radio"</code>，螢幕閱讀器會播報類似「3 stars，選項按鈕，已勾選，第 3 個，共 5 個」。採用 radio group 而非單一 <code class="cu-code">role="slider"</code>，是因為每顆星仍是各自的點擊 / 觸控目標並有自己的名稱，觸控螢幕閱讀器使用者可直接滑到某顆星點兩下，不需要 slider 的調整手勢；評分本身也是在少數幾個離散值中擇一。Tab 順序中只有一顆星（選取的星，未選取時為第一顆），方向鍵在星星間移動並同時選取。由右至左排版時左右方向鍵對調。',
+        keyLabel: "按鍵",
+        actionLabel: "動作",
+        keys: [
+          { key: "Tab / Shift + Tab", action: "將焦點移入評分（選取的星，未選取時為第一顆）或移出" },
+          { key: "Arrow Right / Arrow Down", action: "選取下一顆星；在最後一顆時回到第一顆" },
+          { key: "Arrow Left / Arrow Up", action: "選取上一顆星；在第一顆時回到最後一顆" },
+          { key: "Home / End", action: "選取第一顆 / 最後一顆星" },
+          { key: "Space / Enter", action: "選取目前聚焦的星" },
+        ],
+        names:
+          '群組名稱來自你設定的 <code class="cu-code">aria-label</code> / <code class="cu-code">aria-labelledby</code>（預設 "Rating"），星星名稱預設為 "1 star"、"2 stars"…。可在根元素以 <code class="cu-code">data-cu-rating-star-text</code> 在地化星星名稱，其中 <code class="cu-code">{value}</code> 會替換為星等；或為單顆星設定自己的 <code class="cu-code">aria-label</code>，JS 不會覆寫。',
       },
     },
     classDescriptions: {
       "cu-rating": "評分星星的容器",
-      "cu-rating-item": "單個星星元素",
+      "cu-rating-item": '單個星星元素（互動式評分使用 <button type="button">）',
       "cu-rating-item-active": "填滿/啟用的星星（琥珀色）",
       "cu-rating-item-half": "半填滿的星星，使用 clip-path 覆蓋",
       "cu-rating-input": "用於表單提交的隱藏 radio input",

@@ -1535,10 +1535,12 @@
       "dataAttributes": {
         "container": "data-cu-rating",
         "star": "data-cu-rating-star",
-        "value": "data-cu-rating-value"
+        "value": "data-cu-rating-value",
+        "starText": "data-cu-rating-star-text"
       },
-      "notes": "Star rating component. Use cu-rating-readonly (<span> stars) for display-only, data-cu-rating for interactive. Interactive stars must be <button type=\"button\"> with data-cu-rating-star=\"N\" (clicks and Enter / Space set data-cu-rating-value); <span> stars cannot be reached with the keyboard. Half stars via cu-rating-item-half with CSS clip-path. Fires cu:rating:change event.",
-      "example": "<div class=\"cu-rating cu-rating-readonly\" role=\"img\" aria-label=\"2 out of 3 stars\"><span class=\"cu-rating-item cu-rating-item-active\">★</span><span class=\"cu-rating-item cu-rating-item-active\">★</span><span class=\"cu-rating-item\">★</span></div>\n<div class=\"cu-rating\" data-cu-rating data-cu-rating-value=\"0\"><button type=\"button\" class=\"cu-rating-item\" data-cu-rating-star=\"1\" aria-label=\"1 star\">★</button><button type=\"button\" class=\"cu-rating-item\" data-cu-rating-star=\"2\" aria-label=\"2 stars\">★</button><button type=\"button\" class=\"cu-rating-item\" data-cu-rating-star=\"3\" aria-label=\"3 stars\">★</button></div>"
+      "aria": ["radiogroup", "radio"],
+      "notes": "Star rating component. Use cu-rating-readonly (<span> stars, role=\"img\" + aria-label) for display-only, data-cu-rating for interactive. Interactive stars are <button type=\"button\"> with data-cu-rating-star=\"N\" (1-based; the star count is the number of stars); data-cu-rating-value=\"N\" on the root is the selected value (0 = none). JS follows the WAI-ARIA APG rating radio group: the root gets role=\"radiogroup\" (name it with aria-label / aria-labelledby, default \"Rating\"), each star role=\"radio\" + aria-checked and a roving tabindex (one Tab stop). Keys: Arrow Right / Down next star, Arrow Left / Up previous (wrap; mirrored in RTL), Home / End first / last, Space / Enter select. Stars are named \"1 star\" / \"N stars\"; localize with data-cu-rating-star-text=\"{value} 顆星\" on the root, a star's own aria-label wins. cu-rating-readonly keeps one Tab stop and sets aria-readonly, cu-rating-disabled removes the stars from the Tab order and sets aria-disabled. Half stars via cu-rating-item-half with CSS clip-path (display only). Fires cu:rating:change ({ value }) when the value changes.",
+      "example": "<div class=\"cu-rating cu-rating-readonly\" role=\"img\" aria-label=\"2 out of 3 stars\"><span class=\"cu-rating-item cu-rating-item-active\">★</span><span class=\"cu-rating-item cu-rating-item-active\">★</span><span class=\"cu-rating-item\">★</span></div>\n<div class=\"cu-rating\" data-cu-rating data-cu-rating-value=\"0\" aria-label=\"Rate this product\"><button type=\"button\" class=\"cu-rating-item\" data-cu-rating-star=\"1\">★</button><button type=\"button\" class=\"cu-rating-item\" data-cu-rating-star=\"2\">★</button><button type=\"button\" class=\"cu-rating-item\" data-cu-rating-star=\"3\">★</button></div>"
     },
     {
       "name": "Tag Input",

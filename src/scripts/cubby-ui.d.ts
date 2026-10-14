@@ -235,7 +235,7 @@ export declare const DATA_ATTRS: {
   readonly RATING: "data-cu-rating";
   readonly RATING_STAR: "data-cu-rating-star";
   readonly RATING_VALUE: "data-cu-rating-value";
-  readonly RATING_MAX: "data-cu-rating-max";
+  readonly RATING_STAR_TEXT: "data-cu-rating-star-text"; // optional, on root: star aria-label template, default "1 star" / "{value} stars"
 
   // Tag Input
   readonly TAG_INPUT: "data-cu-tag-input";
