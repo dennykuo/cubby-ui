@@ -8,7 +8,7 @@ import { contextMenuPage } from "@/i18n/pages/components/context-menu";
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(contextMenuPage, locale);
 
-const usageCode = `<div class="cu-context-menu" data-cu-context-menu>
+const usageCode = `<div class="cu-context-menu" data-cu-context-menu aria-label="Clipboard actions">
   <div class="flex h-36 items-center justify-center rounded-lg border border-dashed border-border text-sm text-muted-foreground">
     Right-click here
   </div>
@@ -17,28 +17,7 @@ const usageCode = `<div class="cu-context-menu" data-cu-context-menu>
     <div class="cu-dropdown-item">Copy</div>
     <div class="cu-dropdown-item">Paste</div>
   </div>
-</div>
-
-<script>
-  document.querySelectorAll("[data-cu-context-menu]").forEach((container) => {
-    const content = container.querySelector("[data-cu-context-menu-content]");
-    if (!content) return;
-    container.addEventListener("contextmenu", (e) => {
-      e.preventDefault();
-      content.removeAttribute("hidden");
-      let x = e.clientX, y = e.clientY;
-      const rect = content.getBoundingClientRect();
-      if (x + rect.width > innerWidth) x = innerWidth - rect.width - 4;
-      if (y + rect.height > innerHeight) y = innerHeight - rect.height - 4;
-      content.style.left = x + "px";
-      content.style.top = y + "px";
-    });
-    document.addEventListener("click", () => content.setAttribute("hidden", ""));
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape") content.setAttribute("hidden", "");
-    });
-  });
-</script>`.trim();
+</div>`.trim();
 
 const withLabelsCode = `<div class="cu-context-menu" data-cu-context-menu>
   <div class="flex h-36 items-center justify-center rounded-lg border border-dashed border-border text-sm text-muted-foreground">
@@ -176,7 +155,7 @@ const withIconsCode = `<div class="cu-context-menu" data-cu-context-menu>
       <SectionHeading id="usage" title={t.sections.usage.title} />
       <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
       <ComponentPreview code={usageCode}>
-        <div class="cu-context-menu" data-cu-context-menu>
+        <div class="cu-context-menu" data-cu-context-menu aria-label="Clipboard actions">
           <div class="flex h-36 items-center justify-center rounded-lg border border-dashed border-border text-sm text-muted-foreground">
             Right-click here
           </div>
@@ -356,6 +335,12 @@ const withIconsCode = `<div class="cu-context-menu" data-cu-context-menu>
           </tbody>
         </table>
       </div>
+    </section>
+
+    <!-- Accessibility -->
+    <section class="space-y-3">
+      <SectionHeading id="accessibility" title={t.sections.accessibility.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.accessibility.description} />
     </section>
   </div>
 </Layout>

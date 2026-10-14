@@ -11,6 +11,7 @@ export const contextMenuPage: Record<Locale, {
     withIcons: { title: string; description: string };
     withCheckbox: { title: string; description: string };
     withSubmenu: { title: string; description: string };
+    accessibility: { title: string; description: string };
   };
   classDescriptions: Record<string, string>;
 }> = {
@@ -43,6 +44,10 @@ export const contextMenuPage: Record<Locale, {
       withSubmenu: {
         title: 'With Submenu',
         description: 'Nest a submenu inside a context menu item for hierarchical navigation of options.',
+      },
+      accessibility: {
+        title: 'Accessibility',
+        description: 'The container becomes focusable (<code class="cu-code">tabindex="0"</code>) unless it already has a <code class="cu-code">tabindex</code> — set <code class="cu-code">tabindex="-1"</code> when focusable children inside it should receive the shortcut instead. Press <kbd class="cu-kbd">Shift</kbd> + <kbd class="cu-kbd">F10</kbd> or the <kbd class="cu-kbd">ContextMenu</kbd> key to open the menu at the focused element with the first item highlighted. The menu is a <code class="cu-code">role="menu"</code> that takes focus and points <code class="cu-code">aria-activedescendant</code> at the highlighted item; items become <code class="cu-code">role="menuitem"</code> and separators <code class="cu-code">role="separator"</code>. <kbd class="cu-kbd">↑</kbd> / <kbd class="cu-kbd">↓</kbd> move (wrapping, skipping disabled items), <kbd class="cu-kbd">Home</kbd> / <kbd class="cu-kbd">End</kbd> jump, <kbd class="cu-kbd">Enter</kbd> / <kbd class="cu-kbd">Space</kbd> activate, and <kbd class="cu-kbd">Esc</kbd> / <kbd class="cu-kbd">Tab</kbd> close; focus returns to where it was. Give the container an <code class="cu-code">aria-label</code> describing the area.',
       },
     },
     classDescriptions: {
@@ -84,6 +89,10 @@ export const contextMenuPage: Record<Locale, {
       withSubmenu: {
         title: '帶子選單',
         description: '在右鍵選單項目中巢狀子選單，實現選項的層級導航。',
+      },
+      accessibility: {
+        title: '無障礙',
+        description: '容器會變成可聚焦（<code class="cu-code">tabindex="0"</code>），已有 <code class="cu-code">tabindex</code> 時保留 — 若要改由容器內的可聚焦元素接收快捷鍵，請設 <code class="cu-code">tabindex="-1"</code>。按 <kbd class="cu-kbd">Shift</kbd> + <kbd class="cu-kbd">F10</kbd> 或 <kbd class="cu-kbd">ContextMenu</kbd> 鍵會在聚焦元素上開啟選單並高亮第一個項目。選單為取得焦點的 <code class="cu-code">role="menu"</code>，以 <code class="cu-code">aria-activedescendant</code> 指向高亮項目；項目為 <code class="cu-code">role="menuitem"</code>、分隔線為 <code class="cu-code">role="separator"</code>。<kbd class="cu-kbd">↑</kbd> / <kbd class="cu-kbd">↓</kbd> 移動（循環並略過停用項目），<kbd class="cu-kbd">Home</kbd> / <kbd class="cu-kbd">End</kbd> 跳到首尾，<kbd class="cu-kbd">Enter</kbd> / <kbd class="cu-kbd">Space</kbd> 執行，<kbd class="cu-kbd">Esc</kbd> / <kbd class="cu-kbd">Tab</kbd> 關閉；關閉後焦點回到開啟前的位置。請以 <code class="cu-code">aria-label</code> 為容器描述該區域。',
       },
     },
     classDescriptions: {

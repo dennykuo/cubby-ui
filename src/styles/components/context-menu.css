@@ -1,10 +1,10 @@
 /* Context Menu
    ------------------------------------------------------------------ */
 .cu-context-menu {
-    @apply relative;
+    @apply relative rounded-lg outline-none focus-visible:ring-2 focus-visible:ring-ring/40 focus-visible:ring-offset-2;
 }
 
 .cu-context-menu-content {
-    @apply fixed z-50 min-w-[8rem] overflow-hidden rounded-xl border border-border bg-popover p-1 text-popover-foreground shadow-md dark:shadow-lg dark:shadow-black/20;
+    @apply fixed z-50 min-w-[8rem] overflow-hidden rounded-xl border border-border bg-popover p-1 text-popover-foreground shadow-md outline-none dark:shadow-lg dark:shadow-black/20;
     animation: cu-float-in 0.15s ease;
 }

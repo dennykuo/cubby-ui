@@ -985,8 +985,9 @@ Data attributes: `data-cu-command`, `data-cu-command-trigger="id"`, `data-cu-com
 Classes: `cu-context-menu` (wrapper), `cu-context-menu-content` (popup panel, reuses dropdown item styles)
 Menu items use `cu-dropdown-item`, `cu-dropdown-label`, `cu-dropdown-separator` classes.
 Data attributes: `data-cu-context-menu`, `data-cu-context-menu-content`
+Keyboard (set by JS): the container becomes focusable (`tabindex="0"` unless it already has a `tabindex`; `-1` lets focusable children receive the shortcut); Shift+F10 or the ContextMenu key opens the menu at the focused element with the first item highlighted. The menu is `role="menu"` (takes focus, `aria-activedescendant` → highlighted `cu-dropdown-item-highlight`), items `role="menuitem"`, separators `role="separator"`; ↑ / ↓ wrap, Home / End, Enter / Space activate, Esc / Tab close, focus returns. Name the container with `aria-label`.
 ```html
-<div class="cu-context-menu" data-cu-context-menu>
+<div class="cu-context-menu" data-cu-context-menu aria-label="Clipboard actions">
   <div>Right-click this area</div>
   <div class="cu-context-menu-content" data-cu-context-menu-content hidden>
     <button class="cu-dropdown-item">Cut</button>

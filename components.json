@@ -1079,7 +1079,12 @@
         "container": "data-cu-context-menu",
         "content": "data-cu-context-menu-content"
       },
-      "notes": "Right-click triggered context menu. Content is positioned at cursor location. Auto-closes on click, Escape, scroll, or right-click outside. Uses cu-dropdown-item / cu-dropdown-separator for menu items (shared styles). Add hidden attribute to content initially.",
+      "aria": [
+        "menu",
+        "menuitem",
+        "separator"
+      ],
+      "notes": "Right-click triggered context menu. Content is positioned at cursor location. Auto-closes on click, Escape, scroll, or right-click outside. Uses cu-dropdown-item / cu-dropdown-separator for menu items (shared styles). Add hidden attribute to content initially. Keyboard: the container becomes focusable (tabindex=0 unless it already has a tabindex; use -1 to let focusable children receive the shortcut); Shift+F10 or the ContextMenu key opens the menu at the focused element. The menu (role=menu) takes focus and points aria-activedescendant at the highlighted item (cu-dropdown-item-highlight): ArrowUp/Down wrap, Home/End, Enter/Space activate, Escape/Tab close; focus returns to where it was. Name the container with aria-label.",
       "example": "<div class=\"cu-context-menu\" data-cu-context-menu><p>Right-click here</p><div class=\"cu-context-menu-content\" data-cu-context-menu-content hidden><button class=\"cu-dropdown-item\">Cut</button><button class=\"cu-dropdown-item\">Copy</button><div class=\"cu-dropdown-separator\"></div><button class=\"cu-dropdown-item\">Delete</button></div></div>"
     },
     {
