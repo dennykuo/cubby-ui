@@ -5,8 +5,15 @@
  * 按順序執行多個轉換 pass。
  */
 
-const { TOP_CLASS, substituteHelperParam } = require('./parser.cjs');
-const { resolveClassItem, buildBladeClassString, propToPhp, templateLiteralToPhp } = require('./class-resolver.cjs');
+const { TOP_CLASS, substituteHelperParam, createIdentResolver } = require('./parser.cjs');
+const {
+  resolveClassItem,
+  buildBladeClassString,
+  propToPhp,
+  staticVariable,
+  templateLiteralToPhp,
+} = require('./class-resolver.cjs');
+const { jsToPhp } = require('./js-expr.cjs');
 
 /** HTML boolean 屬性（attr={attr} 時輸出為條件存在） */
 const BOOLEAN_ATTRS = new Set([
@@ -16,14 +23,36 @@ const BOOLEAN_ATTRS = new Set([
 ]);
 
 /**
+ * 將 JS 表達式轉為 PHP（識別字依 prop / frontmatter const 解析）
+ * @param {string} expr
+ * @param {import('./parser').ParsedComponent} parsed
+ * @returns {string}
+ */
+function exprToPhp(expr, parsed) {
+  try {
+    return jsToPhp(expr, createIdentResolver(parsed)).code;
+  } catch (err) {
+    throw new Error(`無法轉換表達式 {${expr.trim()}}：${err.message}（可改用 scripts/blade/overrides/）`);
+  }
+}
+
+/**
  * 主轉換函式：將整個 Astro template 轉為 Blade
  *
  * @param {string} template - Astro template HTML
  * @param {import('./parser').ParsedComponent} parsed - 解析後的元件資料
+ * @param {{ componentTag?: (componentName: string) => string }} [options]
+ *   componentTag: 將引入的 Astro 元件檔名（如 Calendar）轉為 Blade 元件 tag（如 x-cu.calendar）
  * @returns {string} Blade template
  */
-function transformTemplate(template, parsed) {
+function transformTemplate(template, parsed, options = {}) {
   let result = template;
+
+  // Pass 0a: 動態 tag <Tag> → <{{ $Tag }}>（Tag 為 frontmatter const）
+  result = transformDynamicTags(result, parsed);
+
+  // Pass 0b: 引入的 Astro 元件 <Calendar min={min} /> → <x-cu.calendar :min="$min" />
+  result = transformComponentTags(result, parsed, options.componentTag);
 
   // Pass 1: 處理條件元素渲染 {href ? <a>...</a> : <button>...</button>}
   result = transformConditionalElements(result, parsed);
@@ -59,18 +88,67 @@ function transformTemplate(template, parsed) {
 }
 
 /**
+ * Pass 0a: 動態 tag
+ * const Tag = type === "decimal" ? "ol" : "ul";  <Tag ...>...</Tag>
+ *   → <{{ $Tag }} ...>...</{{ $Tag }}>（$Tag 由 @php 區塊宣告）
+ */
+function transformDynamicTags(template, parsed) {
+  let result = template;
+  for (const name of Object.keys(parsed.variables)) {
+    if (!/^[A-Z]/.test(name) || parsed.componentImports[name]) continue;
+    result = result
+      .replace(new RegExp(`<${name}(?=[\\s>/])`, 'g'), `<{{ $${name} }}`)
+      .replace(new RegExp(`</${name}>`, 'g'), `</{{ $${name} }}>`);
+  }
+  return result;
+}
+
+/**
+ * Pass 0b: 引入的 Astro 元件 → Blade 元件 tag
+ * <Calendar min={min} max={max} /> → <x-cu.calendar :min="$min" :max="$max" />
+ */
+function transformComponentTags(template, parsed, componentTag) {
+  let result = template;
+  for (const [localName, componentName] of Object.entries(parsed.componentImports)) {
+    if (!componentTag) {
+      throw new Error(`template 引用了元件 <${localName}>，但未提供 componentTag 對應`);
+    }
+    const tag = componentTag(componentName);
+
+    result = result.replace(
+      new RegExp(`<${localName}\\b([^>]*?)(\\/?)>`, 'g'),
+      (match, attrs, selfClose) => {
+        const bladeAttrs = attrs.replace(
+          /([\w-]+)=\{([^{}]+)\}/g,
+          (m, attr, expr) => `:${toKebabAttr(attr)}="${exprToPhp(expr, parsed)}"`
+        );
+        return `<${tag}${bladeAttrs}${selfClose}>`;
+      }
+    );
+    result = result.replace(new RegExp(`</${localName}>`, 'g'), `</${tag}>`);
+  }
+  return result;
+}
+
+/** camelCase prop 名 → Blade 元件屬性的 kebab-case */
+function toKebabAttr(name) {
+  return name.replace(/([a-z0-9])([A-Z])/g, '$1-$2').toLowerCase();
+}
+
+/**
  * Pass 1: 條件元素渲染
  * {href ? (<a ...>...</a>) : (<button ...>...</button>)}
+ * {direction === "up" ? (<svg>...</svg>) : (<svg>...</svg>)}
  */
 function transformConditionalElements(template, parsed) {
-  // 匹配 {prop ? (\n<tag1>...\n) : (\n<tag2>...\n)}
-  const pattern = /\{(\w+)\s*\?\s*\(\s*\n?([\s\S]*?)\)\s*:\s*\(\s*\n?([\s\S]*?)\)\s*\}/g;
+  // 匹配 {cond ? (\n<tag1>...\n) : (\n<tag2>...\n)}；cond 可為 prop 或簡單比較表達式
+  const pattern = /\{([^{}()<>?]+?)\s*\?\s*\(\s*\n?([\s\S]*?)\)\s*:\s*\(\s*\n?([\s\S]*?)\)\s*\}/g;
 
-  return template.replace(pattern, (match, prop, trueBlock, falseBlock) => {
-    const phpProp = propToPhp(prop, parsed.renamedProps);
+  return template.replace(pattern, (match, cond, trueBlock, falseBlock) => {
+    const phpCond = exprToPhp(cond, parsed);
     const trimTrue = trueBlock.trim();
     const trimFalse = falseBlock.trim();
-    return `@if(${phpProp})\n${trimTrue}\n@else\n${trimFalse}\n@endif`;
+    return `@if(${phpCond})\n${trimTrue}\n@else\n${trimFalse}\n@endif`;
   });
 }
 
@@ -125,7 +203,9 @@ function parseClassListArray(arrayStr, parsed) {
       parsed.helpers
     );
 
-    if (resolved) {
+    if (Array.isArray(resolved)) {
+      items.push(...resolved);
+    } else if (resolved) {
       items.push(resolved);
     }
   }
@@ -139,6 +219,7 @@ function parseClassListArray(arrayStr, parsed) {
 function smartSplit(str) {
   const items = [];
   let depth = 0;  // 追蹤 template literal
+  let bracketDepth = 0;  // 追蹤 {} [] ()（object 語法、函式呼叫內的逗號不拆分）
   let ternaryDepth = 0;
   let current = '';
 
@@ -147,6 +228,14 @@ function smartSplit(str) {
 
     if (ch === '`') {
       depth = depth === 0 ? 1 : 0;
+      current += ch;
+    } else if (depth === 0 && '{[('.includes(ch)) {
+      bracketDepth++;
+      current += ch;
+    } else if (depth === 0 && '}])'.includes(ch)) {
+      bracketDepth--;
+      current += ch;
+    } else if (bracketDepth > 0) {
       current += ch;
     } else if (ch === '?' && depth === 0) {
       ternaryDepth++;
@@ -178,7 +267,9 @@ function transformClassExpr(template, parsed) {
   let result = template.replace(
     /class=\{`([^`]+)`\}/g,
     (match, content) => {
-      const resolved = content.replace(/\$\{TOP_CLASS\}/g, TOP_CLASS);
+      const resolved = content
+        .replace(/\$\{TOP_CLASS\}/g, TOP_CLASS)
+        .replace(/\$\{(\w+)\}/g, (m, name) => staticVariable(parsed.variables, name) ?? m);
       if (resolved.includes('${')) {
         // 有動態部分
         return `class="{{ ${templateLiteralToPhp(resolved, parsed.renamedProps)} }}"`;
@@ -204,10 +295,10 @@ function transformClassExpr(template, parsed) {
     (match, varName) => {
       const v = parsed.variables[varName];
       if (v) {
-        // 解析靜態值
-        const staticMatch = v.raw.match(/^`([^$`]+)`$/) || v.raw.match(/^["']([^"']+)["']$/);
-        if (staticMatch) {
-          return `class="${staticMatch[1].replace(/\$\{TOP_CLASS\}/g, TOP_CLASS)}"`;
+        // 解析靜態值（含 `${TOP_CLASS}-xxx` 這類可靜態求值的 const）
+        const staticValue = staticVariable(parsed.variables, varName);
+        if (staticValue !== undefined) {
+          return `class="${staticValue}"`;
         }
         // 如果是 helper 呼叫結果（如 Toggle 的 getSizeClass）
         const callMatch = v.raw.match(/^(\w+)\((\w+)\)$/);
@@ -308,6 +399,13 @@ function transformConditionalBlocks(template, parsed) {
     return `@if(${phpProp})\n${markup.trim()}\n@endif`;
   });
 
+  // 無括號版本（獨佔一行）：{cond && <tag ...>...</tag>} / {cond && <tag ... />}
+  const bare = /^([ \t]*)\{([^{}()<>]+?)\s*&&\s*(<([\w-]+)\b[\s\S]*?<\/\4>|<[\w-]+\b[^>]*\/>)\s*\}[ \t]*$/gm;
+  result = result.replace(bare, (match, indent, cond, markup) => {
+    const phpCond = exprToPhp(cond, parsed);
+    return `${indent}@if(${phpCond})\n${indent}    ${markup.trim()}\n${indent}@endif`;
+  });
+
   return result;
 }
 
@@ -323,7 +421,8 @@ function transformAttributeExpressions(template, parsed) {
     (match, attr, content) => {
       const resolved = content
         .replace(/\$\{TOP_CLASS\}/g, TOP_CLASS)
-        .replace(/\$\{(\w+)\}/g, (m, name) => `{{ ${propToPhp(name, parsed.renamedProps)} }}`);
+        .replace(/\$\{(\w+)\}/g, (m, name) =>
+          staticVariable(parsed.variables, name) ?? `{{ ${propToPhp(name, parsed.renamedProps)} }}`);
       return `${attr}="${resolved}"`;
     }
   );
@@ -371,6 +470,12 @@ function transformAttributeExpressions(template, parsed) {
     }
   );
 
+  // 其餘表達式：aria-pressed={active ? "true" : "false"} → aria-pressed="{{ $active ? 'true' : 'false' }}"
+  result = result.replace(
+    /(\w[\w-]*)=\{(?!\.\.\.)([^{}]+)\}/g,
+    (match, attr, expr) => `${attr}="{{ ${exprToPhp(expr, parsed)} }}"`
+  );
+
   return result;
 }
 
@@ -393,7 +498,7 @@ function transformInnerSpread(template) {
  */
 function transformTextInterpolation(template, parsed) {
   // 匹配 >{text}< 中間的 {prop}
-  return template.replace(
+  const result = template.replace(
     />(\s*)\{(\w+)\}(\s*)</g,
     (match, before, name, after) => {
       // 跳過已轉換的
@@ -401,6 +506,12 @@ function transformTextInterpolation(template, parsed) {
       const phpVar = propToPhp(name, parsed.renamedProps);
       return `>${before}{{ ${phpVar} }}${after}<`;
     }
+  );
+
+  // 其餘表達式：>{filename || language}< → >{{ $filename ?: $language }}<
+  return result.replace(
+    />(\s*)\{(?![{.])([^{}<>]+)\}(\s*)</g,
+    (match, before, expr, after) => `>${before}{{ ${exprToPhp(expr, parsed)} }}${after}<`
   );
 }
 

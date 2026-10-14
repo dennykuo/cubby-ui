@@ -12,7 +12,7 @@
 
 const fs = require('fs');
 const path = require('path');
-const { parseComponent, toPhpDefault } = require('./blade/parser.cjs');
+const { parseComponent, toPhpDefault, buildPhpAssignments } = require('./blade/parser.cjs');
 const { transformTemplate } = require('./blade/transformers.cjs');
 const { buildComponentTree, generateBladeReadme, generateBladeManifest } = require('./blade/generate-ai-docs.cjs');
 
@@ -60,6 +60,18 @@ function getCompositeMapping(name) {
   }
 
   return null;
+}
+
+/**
+ * Astro 元件檔名 → Blade 元件 tag（如 Calendar → x-cu.calendar、CardHeader → x-cu.card.header）
+ * @param {string} componentName
+ * @returns {string}
+ */
+function toComponentTag(componentName) {
+  const mapping = getCompositeMapping(componentName);
+  return mapping
+    ? `x-cu.${mapping.dir}.${mapping.file}`
+    : `x-cu.${toKebab(componentName)}`;
 }
 
 /**
@@ -241,7 +253,9 @@ function convertComponent(source, fileName) {
   const parsed = parseComponent(source);
 
   const propsLine = buildPropsDirective(parsed.props);
-  const bladeTemplate = transformTemplate(parsed.template, parsed);
+  const bladeTemplate = transformTemplate(parsed.template, parsed, { componentTag: toComponentTag });
+  // template 仍引用的 frontmatter const（無法靜態內聯者）以 @php 宣告
+  const phpBlock = buildPhpAssignments(parsed, bladeTemplate);
 
   const parts = [
     `{{-- Auto-generated from ${fileName} — do not edit --}}`,
@@ -249,6 +263,11 @@ function convertComponent(source, fileName) {
 
   if (propsLine) {
     parts.push(propsLine);
+  }
+
+  if (phpBlock) {
+    if (propsLine) parts.push('');
+    parts.push(phpBlock);
   }
 
   parts.push('');

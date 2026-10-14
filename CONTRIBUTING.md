@@ -25,7 +25,7 @@ npm run build:docs   # 建置文檔站
 npm run type-check   # astro check 型別檢查
 npm run check:sync   # 元件清單跨來源同步檢查 + data-cu-* 與 DATA_ATTRS 對照
 npm run check:links  # 文檔站站內連結檢查（需先 build:docs；BASE_PATH 與建置時相同）
-npm run test:blade   # Blade 語法回歸測試
+npm run test:blade   # Blade 回歸測試（殘留 JSX / 未宣告變數 / php -l / illuminate/view 渲染）
 npm run test:e2e     # Playwright 互動元件測試（需先 npm run build）
 npm run test         # check:sync → test:blade → test:e2e
 ```
@@ -39,7 +39,7 @@ PR 推送後 `.github/workflows/ci.yml` 會執行以下檢查，請先在本機�
 - `npm run check:sync` — 元件清單在各來源（`component-nav.ts` / 頁面 / i18n / CSS / `components.json` / `llms.txt` / README 元件分類表）一致；`src/scripts/` 各模組使用的 `data-cu-*` 與 `cubby-ui.d.ts` 的 `DATA_ATTRS` 雙向一致
 - `npm run type-check` — 0 errors
 - `npm run build` 與 `npm run build:blade` — 建置通過
-- `npm run test:blade` — Blade 回歸通過
+- `npm run test:blade` — Blade 回歸通過（CI 加 `--require-render`：以 `illuminate/view` 渲染每個元件，需 PHP 8.2+ 與 Composer；本機未安裝時自動略過 render 步驟）
 - `npm run check:links` — 文檔站所有站內連結帶 base 且目標存在（CI 以 `BASE_PATH=/cubby-ui` 建置文檔站，與 GitHub Pages 部署設定相同）
 - `npm run test:e2e` — Playwright 互動元件測試通過（CI 會先 `npx playwright install --with-deps chromium` 與 `npm run build:docs`，讓 `docs-smoke.spec.ts` 逐頁驗證文檔站；設 `BASE_PATH` 時在子路徑下伺服，同源資源 404 即失敗）
 
