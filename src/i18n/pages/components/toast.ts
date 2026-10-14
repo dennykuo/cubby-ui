@@ -62,7 +62,7 @@ export const toastPage: Record<
       persistent: {
         title: "Persistent",
         description:
-          'Set <code class="cu-code">duration: 0</code> (or <code class="cu-code">data-cu-toast-duration="0"</code> on the container) to create toasts that remain until manually dismissed.',
+          'Pass <code class="cu-code">duration: 0</code> to <code class="cu-code">CubbyUI.toast.show()</code> to create toasts that remain until manually dismissed.',
       },
       stacked: {
         title: "Stack Limit",
@@ -138,7 +138,7 @@ export const toastPage: Record<
       persistent: {
         title: "持續顯示",
         description:
-          '設定 <code class="cu-code">duration: 0</code>（或在容器上設定 <code class="cu-code">data-cu-toast-duration="0"</code>）以建立需手動關閉的通知。',
+          '在 <code class="cu-code">CubbyUI.toast.show()</code> 傳入 <code class="cu-code">duration: 0</code>，以建立需手動關閉的通知。',
       },
       stacked: {
         title: "堆疊上限",

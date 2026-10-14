@@ -148,11 +148,8 @@ const customDurationCode = `<button class="cu-button cu-button-outline cu-button
   10s Toast
 </button>`.trim();
 
-const persistentCode = `<div class="cu-toast-container" data-cu-toast-container data-cu-toast-duration="0">
-  <!-- Toasts with duration="0" will not auto-dismiss -->
-</div>
-
-<button class="cu-button" onclick="CubbyUI.toast({ title: 'System Update', description: 'A new version is available. Please restart to apply.', variant: 'info', duration: 0 })">
+const persistentCode = `<!-- duration: 0 keeps the toast until it is dismissed manually -->
+<button type="button" class="cu-button cu-button-outline cu-button-md" onclick="CubbyUI.toast.show({ title: 'System Update', description: 'A new version is available. Please restart to apply.', variant: 'info', duration: 0 })">
   Show Persistent Toast
 </button>`.trim();
 
@@ -160,7 +157,7 @@ const stackedCode = `<div class="cu-toast-container" data-cu-toast-container dat
   <!-- Maximum 3 toasts visible at once. Oldest removed when exceeded. -->
 </div>
 
-<button class="cu-button" onclick="CubbyUI.toast({ title: 'Notification', description: 'This is toast #' + Date.now() })">
+<button type="button" class="cu-button cu-button-outline cu-button-md" onclick="CubbyUI.toast.show({ title: 'Notification', description: 'This is toast #' + Date.now() })">
   Add Toast
 </button>`.trim();
 
