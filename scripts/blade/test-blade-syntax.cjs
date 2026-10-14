@@ -11,6 +11,11 @@
  *       - 未轉譯的 JSX 表達式片段 `=\{.+\}`（屬性值殘留 JS）
  *       - 單層 `{...}` 內殘留 JS 的 `||` / `??`（如文字位置的 `{filename || language}`）
  *       - 單引號字串以 `$` 開頭（如 `'$light'`：字串字面量被誤轉成 PHP 變數）
+ *       - 同一個開頭標籤重複輸出屬性：
+ *         · `@class(` / 靜態 `class="…"` 搭配裸 `{{ $attributes }}`
+ *           → 使用者的 class 變成第二個 class 屬性，瀏覽器只採用第一個
+ *         · `$attributes->class(` 搭配 `$attributes->except('class')`
+ *           → 使用者的非 class 屬性（id、data-* …）輸出兩次
  *
  *   (2) PHP 8.3 parse — 將 `@class([...])`、`@props([...])`、`@if(...)`
  *       等 Blade directive 內的 PHP 片段萃取出來，包進最小 PHP 檔後以 `php -l`
@@ -97,6 +102,156 @@ function checkBadPatterns(files) {
             snippet: lines[i].trim().slice(0, 160),
           });
         }
+      }
+    }
+  }
+  return failures;
+}
+
+/** 將區塊內容換成空白（保留換行），讓後續掃描的行號不變 */
+function blankOut(match) {
+  return match.replace(/[^\n]/g, " ");
+}
+
+/**
+ * 找出 Blade 開頭標籤結尾 `>` 的位置。略過 `{{ }}` / `{!! !!}` echo、
+ * `@directive(...)` 參數與屬性引號內的字元（`->`、`=>`、比較運算子都含 `>`）。
+ *
+ * @returns {number} `>` 的位置；找不到時回傳 -1
+ */
+function findBladeTagEnd(src, start) {
+  let i = start + 1;
+  while (i < src.length) {
+    if (src.startsWith("{{", i) || src.startsWith("{!!", i)) {
+      const close = src.startsWith("{!!", i) ? "!!}" : "}}";
+      const end = src.indexOf(close, i + 2);
+      if (end === -1) return -1;
+      i = end + close.length;
+      continue;
+    }
+
+    const ch = src[i];
+    if (ch === "@") {
+      const directive = /^@\w+\(/.exec(src.slice(i, i + 64));
+      if (directive) {
+        i = skipBalancedParens(src, i + directive[0].length - 1);
+        if (i === -1) return -1;
+        continue;
+      }
+    } else if (ch === '"' || ch === "'") {
+      let j = i + 1;
+      while (j < src.length && src[j] !== ch) {
+        if (src.startsWith("{{", j)) {
+          const end = src.indexOf("}}", j + 2);
+          if (end === -1) return -1;
+          j = end + 2;
+        } else {
+          j++;
+        }
+      }
+      i = j + 1;
+      continue;
+    } else if (ch === ">") {
+      return i;
+    }
+    i++;
+  }
+  return -1;
+}
+
+/** 從 `(` 的位置跳到對應 `)` 之後；略過 PHP 字串內的括號 */
+function skipBalancedParens(src, open) {
+  let depth = 0;
+  let quote = null;
+  for (let i = open; i < src.length; i++) {
+    const ch = src[i];
+    if (quote) {
+      if (ch === "\\") i++;
+      else if (ch === quote) quote = null;
+    } else if (ch === '"' || ch === "'") {
+      quote = ch;
+    } else if (ch === "(") {
+      depth++;
+    } else if (ch === ")") {
+      depth--;
+      if (depth === 0) return i + 1;
+    }
+  }
+  return -1;
+}
+
+/**
+ * 列出 blade 檔中所有 HTML 開頭標籤（含行號）
+ * @returns {Array<{ tag: string, line: number }>}
+ */
+function extractOpeningTags(src) {
+  const cleaned = src.replace(BLADE_COMMENT_RE, blankOut).replace(/@php\b[\s\S]*?@endphp/g, blankOut);
+
+  const tags = [];
+  const tagStart = /<[A-Za-z]/g;
+  let m;
+  while ((m = tagStart.exec(cleaned)) !== null) {
+    const end = findBladeTagEnd(cleaned, m.index);
+    if (end === -1) continue;
+    tags.push({
+      tag: cleaned.slice(m.index, end + 1),
+      line: cleaned.slice(0, m.index).split("\n").length,
+    });
+    tagStart.lastIndex = end + 1;
+  }
+  return tags;
+}
+
+const ATTRIBUTES_ECHO_RE = /\{\{\s*\$attributes\b([\s\S]*?)\}\}/g;
+
+/**
+ * 統計單一開頭標籤會輸出幾次 class 屬性、幾次使用者的其他屬性
+ *
+ *   - 靜態 `class="…"` / `@class(...)`：各算一次 class
+ *   - `{{ $attributes }}`：使用者 class + 其他屬性
+ *   - `{{ $attributes->class([...]) }}`：合併後 class + 其他屬性
+ *   - `{{ $attributes->only('class')->class([...]) }}`：只有 class
+ *   - `{{ $attributes->except('class') }}`：只有其他屬性
+ */
+function countAttributeOutputs(tag) {
+  const withoutEchoes = tag.replace(ATTRIBUTES_ECHO_RE, "").replace(/\{\{[\s\S]*?\}\}/g, "");
+  let classOutputs =
+    (withoutEchoes.match(/\sclass=["']/g) || []).length + (withoutEchoes.match(/@class\(/g) || []).length;
+  let restOutputs = 0;
+
+  for (const [, chain] of tag.matchAll(ATTRIBUTES_ECHO_RE)) {
+    const onlyClass = /^\s*->only\(\s*\[?\s*'class'\s*\]?\s*\)/.test(chain);
+    const exceptClass = /->except\(\s*\[?\s*'class'\s*\]?\s*\)/.test(chain);
+    if (!exceptClass) classOutputs++;
+    if (!onlyClass) restOutputs++;
+  }
+
+  return { classOutputs, restOutputs };
+}
+
+function checkDuplicateAttributes(files) {
+  const failures = [];
+  for (const file of files) {
+    for (const { tag, line } of extractOpeningTags(fs.readFileSync(file, "utf8"))) {
+      const { classOutputs, restOutputs } = countAttributeOutputs(tag);
+      const snippet = tag.replace(/\s+/g, " ").slice(0, 160);
+      if (classOutputs > 1) {
+        failures.push({
+          file: path.relative(ROOT, file),
+          line,
+          pattern: "duplicate-class-attr",
+          hint: "同一標籤輸出多個 class 屬性，瀏覽器只採用第一個、使用者的 class 會遺失；根元素改用 {{ $attributes->class([...]) }}（勿再搭配裸 {{ $attributes }}）",
+          snippet,
+        });
+      }
+      if (restOutputs > 1) {
+        failures.push({
+          file: path.relative(ROOT, file),
+          line,
+          pattern: "duplicate-attributes",
+          hint: "同一標籤輸出兩次 attribute bag（如 $attributes->class() + $attributes->except('class')），使用者的 id / data-* 等屬性會重複",
+          snippet,
+        });
       }
     }
   }
@@ -213,7 +368,7 @@ function main() {
   let exitCode = 0;
 
   // (1) Pattern check
-  const patternFails = checkBadPatterns(files);
+  const patternFails = [...checkBadPatterns(files), ...checkDuplicateAttributes(files)];
   if (patternFails.length > 0) {
     exitCode = 1;
     console.error(`\n✗ 發現 ${patternFails.length} 個壞 pattern：`);
@@ -223,7 +378,7 @@ function main() {
       console.error(`    → ${f.hint}`);
     }
   } else {
-    console.log("✓ 無已知壞 pattern（`,,`、空陣列元素、未轉譯 JSX、'$ 開頭的字串）");
+    console.log("✓ 無已知壞 pattern（`,,`、空陣列元素、未轉譯 JSX、'$ 開頭的字串、同標籤重複 class / attribute bag）");
   }
 
   // (2) PHP lint
