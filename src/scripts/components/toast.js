@@ -185,7 +185,7 @@ export var toastAPI = {
  * ```
  *
  * Variants: default | destructive | success | warning | info
- * Duration: milliseconds before auto-dismiss (default: 5000)
+ * Duration: milliseconds before auto-dismiss (default: 5000); "0" keeps the toast until it is dismissed manually
  *
  * Optional explicit container (auto-created at bottom-right if not present):
  * ```html
@@ -211,7 +211,9 @@ export function setupToasts() {
       var title = trigger.getAttribute("data-cu-toast-title") || "";
       var desc = trigger.getAttribute("data-cu-toast-description") || "";
       var variant = trigger.getAttribute("data-cu-toast-variant") || "default";
-      var duration = parseInt(trigger.getAttribute("data-cu-toast-duration"), 10) || 5000;
+      // 0 代表不自動消失，只有缺少或非數字時才用預設值
+      var parsedDuration = parseInt(trigger.getAttribute("data-cu-toast-duration"), 10);
+      var duration = isNaN(parsedDuration) ? 5000 : parsedDuration;
       toastAPI.show({ title: title, description: desc, variant: variant, duration: duration });
     });
   });

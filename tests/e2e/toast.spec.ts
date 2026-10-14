@@ -105,3 +105,41 @@ test.describe("Toast", () => {
     await expect(toast).toHaveClass(/cu-toast-destructive/);
   });
 });
+
+test.describe("Toast trigger duration", () => {
+  // 以假時鐘控制 setTimeout，不需真的等 5 秒
+  test.beforeEach(async ({ page }) => {
+    await page.clock.install({ time: new Date("2026-01-01T00:00:00Z") });
+    await openFixture(page, "toast");
+    await page.clock.pauseAt(new Date("2026-01-01T00:00:01Z"));
+  });
+
+  test('data-cu-toast-duration="0" 不會自動消失', async ({ page }) => {
+    await page.click("#trigger");
+    const toast = page.locator(".cu-toast");
+    await expect(toast).toHaveCount(1);
+    await page.clock.runFor(60_000);
+    await expect(toast).toHaveCount(1);
+    await expect(toast).not.toHaveClass(/cu-toast-exit/);
+  });
+
+  test("未設定 duration 時預設 5000ms 後消失", async ({ page }) => {
+    await page.evaluate(() => {
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.id = "trigger-default";
+      btn.textContent = "Show";
+      btn.setAttribute("data-cu-toast-trigger", "");
+      btn.setAttribute("data-cu-toast-title", "Default duration");
+      document.body.appendChild(btn);
+      CubbyUI.init();
+    });
+    await page.click("#trigger-default");
+    const toast = page.locator(".cu-toast");
+    await expect(toast).toHaveCount(1);
+    await page.clock.runFor(4_999);
+    await expect(toast).not.toHaveClass(/cu-toast-exit/);
+    await page.clock.runFor(1);
+    await expect(toast).toHaveCount(0);
+  });
+});
