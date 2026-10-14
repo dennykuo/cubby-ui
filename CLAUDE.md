@@ -24,7 +24,7 @@ Cubby UI 是一個框架無關的 UI 元件庫，風格類似 shadcn/ui，使用
 - `npm run check:sync` — 元件清單跨來源一致性檢查（`component-nav.ts` / 頁面 / i18n / CSS / `components.json` / `llms.txt` / README 元件分類表），並雙向比對 `src/scripts/` 各模組使用的 `data-cu-*` 與 `cubby-ui.d.ts` 的 `DATA_ATTRS`
 - `npm run changeset` — 新增 changeset（互動式；也可直接新增 `.changeset/*.md`，格式見 `.changeset/README.md`）。每個使用者可感知的變更都附一個 changeset，**不要直接編輯 `CHANGELOG.md`**
 - `npm run version-packages` — `changeset version`：依 `.changeset/` 決定版本號、寫入 `CHANGELOG.md` 並刪除已消耗的 changeset（發版時執行）
-- `npm run type-check` — `astro check`（`tsconfig.json` 已排除 `dist/` 與 `docs/`）→ `type-check:scripts`
+- `npm run type-check` — `astro check`（`tsconfig.json` 已排除 `dist/`、`docs/` 與 render smoke test 的 Composer 依賴 `tests/blade-render/vendor/`）→ `type-check:scripts`
 - `npm run type-check:scripts` — `tsc -p tsconfig.scripts.json`：以 `checkJs` 檢查 `src/scripts/` 的元件庫 JS（`index.js` / `core/` / `components/`；不含文檔站專用的 `playground.js`）。非 strict（未開 `strictNullChecks` / `noImplicitAny`），`lib` 為 `es2017` + DOM，誤用更新的執行期 API 會報錯
 - `npm run lint` — ESLint flat config（`eslint.config.js`），範圍 `src/scripts/`（含 `playground.js`，以 `sourceType: "script"` 檢查）；只啟用 `@eslint/js` recommended 與少數正確性規則，**不含任何排版 / 風格規則**（排版交給 Prettier）
 - `npm run format` / `npm run format:check` — Prettier 格式化 / 檢查（`.prettierrc.json`：`printWidth` 120，`prettier-plugin-astro` + `prettier-plugin-tailwindcss` 依 `src/styles/global.css` 排序 class）；CI 在 lint 之後跑 `format:check`。範圍與例外見「格式化（Prettier）」
