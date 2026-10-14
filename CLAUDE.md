@@ -606,6 +606,7 @@ src/
 - `cu-header-mobile-backdrop` — 遮罩層（`fixed inset-0 z-50`、`bg-foreground/30`；關閉為 `display:none`，開啟 `opacity` 過渡 360ms，採 `@starting-style` + `transition-behavior: allow-discrete`）
 - `cu-header-mobile-nav` — 右側滑入面板（`fixed right-0 z-[60] w-72`；關閉為 `display:none`、開啟 `translate-x` 過渡 360ms，採 `@starting-style` + `allow-discrete`，與 Drawer 一致）
 - `cu-header-mobile-{nav|backdrop}-{sm|md|lg|xl}` — 桌機斷點移除修飾類別（`{bp}:hidden`，含 `[data-cu-mobile-nav-open]` 變體以蓋過開啟狀態）；應與 `HeaderMobileToggle` 的 `breakpoint` 一致（皆預設 `md`）。面板/遮罩預設帶 `hidden` 屬性防 FOUC（CSS 載入前由 UA stylesheet 隱藏），JS 於開啟時移除以還原 a11y 語意
+- `cu-header-mobile-toggle-{sm|md|lg|xl}` — 漢堡觸發按鈕的桌機斷點隱藏（`{bp}:hidden`）；dist CSS 不含 Tailwind 工具類別，範例與 `HeaderMobileToggle` 不可用 `md:hidden`，改用這組 class，斷點與 `cu-header-nav-{bp}`、面板 / 遮罩一致
 - `cu-header-mobile-header` — 面板頂部（`h-14`、`justify-end`）
 - `cu-header-mobile-content` — 面板可捲動內容區（`overflow-y-auto p-4`）
 - `cu-header-mobile-close` — 關閉按鈕（`size-9`、`focus-visible:ring-1 ring-ring/40`）

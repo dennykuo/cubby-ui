@@ -131,7 +131,7 @@ const mobileNavCode = `<header class="cu-header">
     </div>
     <div class="cu-header-actions">
       <button data-cu-mobile-nav-trigger="main-nav"
-              class="cu-button cu-button-ghost cu-button-icon-sm md:hidden"
+              class="cu-button cu-button-ghost cu-button-icon-sm cu-header-mobile-toggle-md"
               aria-label="Open menu" aria-expanded="false">
         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
       </button>
@@ -139,7 +139,7 @@ const mobileNavCode = `<header class="cu-header">
   </div>
 </header>
 
-<!-- Backdrop (hidden until opened; md:hidden removes it on desktop) -->
+<!-- Backdrop (hidden until opened; -md removes it on desktop) -->
 <div id="main-nav" class="cu-header-mobile-backdrop cu-header-mobile-backdrop-md" data-cu-mobile-nav hidden></div>
 <!-- Slide-in panel -->
 <nav id="main-nav-panel" class="cu-header-mobile-nav cu-header-mobile-nav-md"
@@ -235,7 +235,7 @@ const triggerVisibilityCode = `<!-- Always visible — no breakpoint class -->
 <!-- Hidden above sm — visible on mobile only -->
 <div class="cu-header-actions">
   <button data-cu-mobile-nav-trigger="my-nav"
-          class="cu-button cu-button-ghost cu-button-icon-sm sm:hidden"
+          class="cu-button cu-button-ghost cu-button-icon-sm cu-header-mobile-toggle-sm"
           aria-label="Open menu" aria-expanded="false">
     <!-- hamburger icon -->
   </button>
@@ -529,8 +529,8 @@ const triggerVisibilityCode = `<!-- Always visible — no breakpoint class -->
 									<span class="text-base font-semibold tracking-tight">App</span>
 								</div>
 								<div class="cu-header-actions">
-									<span class="text-xs text-muted-foreground"><code class="cu-code">sm:hidden</code> — {t.sections.triggerVisibility.hiddenAboveSm}</span>
-									<button class="cu-button cu-button-ghost cu-button-icon-sm shrink-0 sm:hidden" aria-label="Open menu">
+									<span class="text-xs text-muted-foreground"><code class="cu-code">cu-header-mobile-toggle-sm</code> — {t.sections.triggerVisibility.hiddenAboveSm}</span>
+									<button class="cu-button cu-button-ghost cu-button-icon-sm shrink-0 cu-header-mobile-toggle-sm" aria-label="Open menu">
 										<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
 									</button>
 								</div>

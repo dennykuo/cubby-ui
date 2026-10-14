@@ -29,3 +29,4 @@
 - `cu-dropzone-input`：視覺隱藏但可聚焦的 file input（取代範例中不存在於 dist CSS 的 `sr-only`），Dropzone 可用鍵盤選檔
 - 範例標記自動檢查（`tests/e2e/examples.spec.ts`）：把 `components.json` 的 `example`、`llms.txt` 的 HTML 範例與文檔頁 Code 範例放進只載入 `dist/` 產物的頁面，靜態檢查必要的 `data-cu-*` 屬性與結構、觸發器可鍵盤操作、巢狀互動元素、表單類按鈕的 `type="button"`、label 關聯，並實際操作元件確認照抄即可運作
 - `llms.txt` 新增 Input Clearable、Alert Expandable、Data Table 展開列範例與 15 列互動屬性對照；`components.json` 新增 Combobox、Multi Select、Transfer List 範例
+- Header：`cu-header-mobile-toggle-{sm|md|lg|xl}`，漢堡觸發按鈕在該斷點以上隱藏，與 `cu-header-nav-{bp}`、`cu-header-mobile-{nav|backdrop}-{bp}` 搭配

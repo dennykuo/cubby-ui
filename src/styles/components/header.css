@@ -95,6 +95,14 @@
 .cu-header-mobile-nav-xl[data-cu-mobile-nav-open],
 .cu-header-mobile-backdrop-xl[data-cu-mobile-nav-open] { @apply xl:hidden; }
 
+/* 漢堡按鈕的桌機斷點隱藏：dist CSS 不含 Tailwind 工具類別（md:hidden 等），
+   純 HTML 使用者以這組 class 讓觸發按鈕與 cu-header-nav-{bp} / 面板的斷點一致。
+   header.css 在 button.css 之後載入，同特異度下蓋過 cu-button 的 inline-flex。 */
+.cu-header-mobile-toggle-sm { @apply sm:hidden; }
+.cu-header-mobile-toggle-md { @apply md:hidden; }
+.cu-header-mobile-toggle-lg { @apply lg:hidden; }
+.cu-header-mobile-toggle-xl { @apply xl:hidden; }
+
 .cu-header-mobile-header {
     @apply flex h-14 shrink-0 items-center justify-end px-4;
 }

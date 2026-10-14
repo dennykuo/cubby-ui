@@ -51,10 +51,10 @@ export const headerPage: Record<Locale, {
       },
       triggerVisibility: {
         title: 'Trigger Visibility',
-        description: 'Control when the hamburger button is visible by adding a responsive <code class="cu-code">{breakpoint}:hidden</code> class. Omit the hidden class entirely for an always-visible trigger — useful for app-style layouts where the sidebar is toggled at all screen sizes.',
+        description: 'Control when the hamburger button is visible by adding <code class="cu-code">cu-header-mobile-toggle-{breakpoint}</code>, which hides it at and above that breakpoint (plain CSS, no Tailwind utilities needed). Omit the hidden class entirely for an always-visible trigger — useful for app-style layouts where the sidebar is toggled at all screen sizes.',
         alwaysVisible: 'Always visible — no breakpoint class',
         hiddenAboveSm: 'Hidden above sm — visible on mobile only',
-        breakpointList: 'Available breakpoint classes: <code class="cu-code">sm:hidden</code> (≥640px), <code class="cu-code">md:hidden</code> (≥768px), <code class="cu-code">lg:hidden</code> (≥1024px), <code class="cu-code">xl:hidden</code> (≥1280px). Pair with the matching <code class="cu-code">cu-header-nav-{breakpoint}</code> to keep the trigger and nav in sync.',
+        breakpointList: 'Available breakpoint classes: <code class="cu-code">cu-header-mobile-toggle-sm</code> (≥640px), <code class="cu-code">cu-header-mobile-toggle-md</code> (≥768px), <code class="cu-code">cu-header-mobile-toggle-lg</code> (≥1024px), <code class="cu-code">cu-header-mobile-toggle-xl</code> (≥1280px). Pair with the matching <code class="cu-code">cu-header-nav-{breakpoint}</code> and <code class="cu-code">cu-header-mobile-{nav|backdrop}-{breakpoint}</code> to keep the trigger, nav and panel in sync.',
       },
       multiplePanels: {
         title: 'Multiple Panels',
@@ -81,6 +81,7 @@ export const headerPage: Record<Locale, {
       'cu-header-mobile-header': 'Mobile nav panel header with brand and close button',
       'cu-header-mobile-content': 'Scrollable content area inside mobile nav panel',
       'cu-header-mobile-close': 'Close button inside mobile nav panel header',
+      'cu-header-mobile-toggle-md': 'Hide the hamburger trigger from md up (display:none) without Tailwind utilities; match cu-header-nav-md and the panel breakpoint. Variants: sm / md / lg / xl',
     },
   },
   'zh-tw': {
@@ -118,10 +119,10 @@ export const headerPage: Record<Locale, {
       },
       triggerVisibility: {
         title: '觸發按鈕可見性',
-        description: '透過添加響應式 <code class="cu-code">{breakpoint}:hidden</code> class 來控制漢堡按鈕的顯示時機。完全省略 hidden class 可讓按鈕永遠可見 — 適用於側邊欄需要在所有螢幕尺寸下切換的應用程式佈局。',
+        description: '透過添加 <code class="cu-code">cu-header-mobile-toggle-{breakpoint}</code> 控制漢堡按鈕的顯示時機，在該斷點以上隱藏（純 CSS，不需要 Tailwind 工具類別）。完全省略 hidden class 可讓按鈕永遠可見 — 適用於側邊欄需要在所有螢幕尺寸下切換的應用程式佈局。',
         alwaysVisible: '永遠可見 — 不加斷點 class',
         hiddenAboveSm: 'sm 以上隱藏 — 僅行動端可見',
-        breakpointList: '可用的斷點 class：<code class="cu-code">sm:hidden</code>（≥640px）、<code class="cu-code">md:hidden</code>（≥768px）、<code class="cu-code">lg:hidden</code>（≥1024px）、<code class="cu-code">xl:hidden</code>（≥1280px）。搭配對應的 <code class="cu-code">cu-header-nav-{breakpoint}</code> 使觸發按鈕與導航列保持同步。',
+        breakpointList: '可用的斷點 class：<code class="cu-code">cu-header-mobile-toggle-sm</code>（≥640px）、<code class="cu-code">cu-header-mobile-toggle-md</code>（≥768px）、<code class="cu-code">cu-header-mobile-toggle-lg</code>（≥1024px）、<code class="cu-code">cu-header-mobile-toggle-xl</code>（≥1280px）。搭配對應的 <code class="cu-code">cu-header-nav-{breakpoint}</code> 與 <code class="cu-code">cu-header-mobile-{nav|backdrop}-{breakpoint}</code>，使觸發按鈕、導航列與面板保持同步。',
       },
       multiplePanels: {
         title: '多組面板',
@@ -148,6 +149,7 @@ export const headerPage: Record<Locale, {
       'cu-header-mobile-header': '行動導航面板頂部列，含品牌和關閉按鈕',
       'cu-header-mobile-content': '行動導航面板內的可捲動內容區域',
       'cu-header-mobile-close': '行動導航面板頂部列內的關閉按鈕',
+      'cu-header-mobile-toggle-md': '從 md 斷點起隱藏漢堡觸發按鈕（display:none），不需要 Tailwind 工具類別；需與 cu-header-nav-md 及面板斷點一致。變體：sm / md / lg / xl',
     },
   },
 };

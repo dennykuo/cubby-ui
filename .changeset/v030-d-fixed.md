@@ -29,3 +29,4 @@
 - Countdown 文檔範例缺數值屬性，數字永遠不會更新；Hover Card 範例的 popover 屬性與純 CSS 懸停衝突
 - Dashboard V2 設定頁的 Tabs 使用 React 寫法（`defaultValue` / `data-[state=active]`）無法切換，16 處 `htmlFor` 未生效；改用 `data-cu-tabs` 並補上「訂閱方案」分頁內容
 - `llms.txt` 誤記 `toast.show()` 支援 `action` 參數，以及 Command Palette 動態新增項目可用 `refresh()` 套用（實際上項目只在初始化時收集）
+- **Header** 漢堡按鈕在桌機也會顯示：`HeaderMobileToggle`（含 Blade 版）與 Header 範例以 Tailwind 的 `md:hidden` 隱藏觸發按鈕，但預編譯的 `cubby-ui.css` 不含工具類別，只用 dist CSS 的專案在桌機同時看到導航列與漢堡按鈕。改用新的 `cu-header-mobile-toggle-{bp}`
