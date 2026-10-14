@@ -169,7 +169,7 @@ CubbyUI.refresh()  // 清理已移除元素 + 重新 init（動態內容更新�
 <!-- trigger value = dialog id -->
 <button class="cu-button cu-button-default" data-cu-dialog-trigger="my-dialog">Open Dialog</button>
 
-<dialog id="my-dialog" class="cu-dialog cu-dialog-md">
+<dialog id="my-dialog" class="cu-dialog cu-dialog-md" data-cu-dialog>
   <div class="cu-dialog-header">
     <h2 class="cu-dialog-title">Dialog Title</h2>
     <p class="cu-dialog-description">Description text.</p>
@@ -187,7 +187,7 @@ Dialog sizes: `cu-dialog-sm` / `cu-dialog-md` / `cu-dialog-xl` / `cu-dialog-full
 <button class="cu-button cu-button-default" data-cu-drawer-trigger="my-drawer">Open Drawer</button>
 
 <!-- Direction: cu-drawer-right (default) | cu-drawer-left | cu-drawer-top | cu-drawer-bottom -->
-<dialog id="my-drawer" class="cu-drawer cu-drawer-right">
+<dialog id="my-drawer" class="cu-drawer cu-drawer-right" data-cu-drawer>
   <div class="cu-drawer-header">
     <h2 class="cu-drawer-title">Drawer Title</h2>
     <button class="cu-button cu-button-ghost cu-button-icon" data-cu-drawer-close aria-label="Close">✕</button>
@@ -204,7 +204,7 @@ Dialog sizes: `cu-dialog-sm` / `cu-dialog-md` / `cu-dialog-xl` / `cu-dialog-full
 <button class="cu-button cu-button-destructive" data-cu-alert-dialog-trigger="confirm-dialog">Delete</button>
 
 <!-- Does NOT close on backdrop click -->
-<dialog id="confirm-dialog" class="cu-alert-dialog">
+<dialog id="confirm-dialog" class="cu-alert-dialog" data-cu-alert-dialog>
   <div class="cu-alert-dialog-header">
     <h2 class="cu-alert-dialog-title">Are you sure?</h2>
     <p class="cu-alert-dialog-description">This action cannot be undone.</p>
@@ -325,10 +325,10 @@ Toast variants: `default` | `destructive` | `success` | `warning` | `info`
 
 1. **Separator 缺少方向類別**：`cu-separator` 必須搭配 `cu-separator-horizontal` 或 `cu-separator-vertical`，否則沒有尺寸
 2. **包裝器元件缺少外層 wrapper**：Checkbox、Radio、Toggle、Select、Search Input、File Input 都需要對應的 `cu-*-wrapper` 外層
-3. **Dialog/Drawer 的 trigger 值**：`data-cu-dialog-trigger` 的值必須與 `<dialog id="...">` 相符
+3. **Dialog/Drawer 的 trigger 值與標記屬性**：`data-cu-dialog-trigger` 的值必須與 `<dialog id="...">` 相符，且 `<dialog>` 本身要帶 `data-cu-dialog` / `data-cu-drawer` / `data-cu-alert-dialog`，否則仍能開啟，但關閉按鈕、backdrop 點擊與焦點返回都不會生效
 4. **Tabs 的 hidden 屬性**：預設啟用的 tab 內容不加 `hidden`，其餘都要加
 5. **Combobox/Dropdown content 的 hidden**：需要在 HTML 上加 `hidden` 屬性作為初始狀態
-6. **Multi Select item 的 data-cu-value**：缺少此屬性會導致 tag 無法正確渲染
+6. **Multi Select item 的 data-cu-value**：缺少此屬性會導致 tag 無法正確渲染；標籤容器 `data-cu-multi-select-tags` 要放在 trigger `<button>` 之外（與 trigger 並列在 `cu-multi-select-control` 內），標籤的移除按鈕不可巢狀在按鈕內
 7. **Container 需要 size class**：`cu-container` 需要搭配 `cu-container-xl` 等尺寸類別
 8. **CSS-only 元件不需要 JS**：Accordion、Collapsible（`<details>`）、Hover Card、Tooltip 完全靠 CSS，不需要任何 JS
 

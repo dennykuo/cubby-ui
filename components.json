@@ -614,8 +614,8 @@
         "action": "data-cu-alert-dialog-action"
       },
       "aria": ["alertdialog"],
-      "notes": "Uses native <dialog>. Does NOT close on backdrop click (intentional for blocking confirmation). trigger value must match <dialog id>.",
-      "example": "<button data-cu-alert-dialog-trigger=\"confirm\">Delete</button><dialog id=\"confirm\" class=\"cu-alert-dialog\"><div class=\"cu-alert-dialog-header\"><h2 class=\"cu-alert-dialog-title\">Confirm</h2></div><div class=\"cu-alert-dialog-footer\"><button data-cu-alert-dialog-cancel>Cancel</button><button data-cu-alert-dialog-action>Confirm</button></div></dialog>"
+      "notes": "Uses native <dialog>. Does NOT close on backdrop click (intentional for blocking confirmation). trigger value must match <dialog id>. data-cu-alert-dialog on the <dialog> is required for the cancel / action buttons, role=alertdialog, ARIA links and focus return.",
+      "example": "<button data-cu-alert-dialog-trigger=\"confirm\">Delete</button><dialog id=\"confirm\" class=\"cu-alert-dialog\" data-cu-alert-dialog><div class=\"cu-alert-dialog-header\"><h2 class=\"cu-alert-dialog-title\">Confirm</h2></div><div class=\"cu-alert-dialog-footer\"><button data-cu-alert-dialog-cancel>Cancel</button><button data-cu-alert-dialog-action>Confirm</button></div></dialog>"
     },
     {
       "name": "Dialog",
@@ -632,8 +632,8 @@
         "close": "data-cu-dialog-close"
       },
       "aria": ["dialog"],
-      "notes": "Uses native <dialog>. Closes on backdrop click. trigger value must match <dialog id>. Default size: cu-dialog-md.",
-      "example": "<button data-cu-dialog-trigger=\"dlg\">Open</button><dialog id=\"dlg\" class=\"cu-dialog\"><div class=\"cu-dialog-header\"><h2 class=\"cu-dialog-title\">Title</h2></div><div class=\"cu-dialog-footer\"><button data-cu-dialog-close>Close</button></dialog>"
+      "notes": "Uses native <dialog>. Closes on backdrop click. trigger value must match <dialog id>. Default size: cu-dialog-md. data-cu-dialog on the <dialog> is required for close buttons, backdrop click, ARIA links and focus return.",
+      "example": "<button data-cu-dialog-trigger=\"dlg\">Open</button><dialog id=\"dlg\" class=\"cu-dialog\" data-cu-dialog><div class=\"cu-dialog-header\"><h2 class=\"cu-dialog-title\">Title</h2></div><div class=\"cu-dialog-footer\"><button data-cu-dialog-close>Close</button></div></dialog>"
     },
     {
       "name": "Drawer",
@@ -650,8 +650,8 @@
         "close": "data-cu-drawer-close"
       },
       "aria": ["dialog"],
-      "notes": "Uses native <dialog>. Default direction: cu-drawer-right. trigger value must match <dialog id>.",
-      "example": "<button data-cu-drawer-trigger=\"drawer\">Open</button><dialog id=\"drawer\" class=\"cu-drawer cu-drawer-right\"><div class=\"cu-drawer-header\"><h2 class=\"cu-drawer-title\">Title</h2><button data-cu-drawer-close>✕</button></div><div class=\"cu-drawer-content\">Content</div></dialog>"
+      "notes": "Uses native <dialog>. Default direction: cu-drawer-right. trigger value must match <dialog id>. data-cu-drawer on the <dialog> is required for close buttons, backdrop click, ARIA links and focus return.",
+      "example": "<button data-cu-drawer-trigger=\"drawer\">Open</button><dialog id=\"drawer\" class=\"cu-drawer cu-drawer-right\" data-cu-drawer><div class=\"cu-drawer-header\"><h2 class=\"cu-drawer-title\">Title</h2><button data-cu-drawer-close>✕</button></div><div class=\"cu-drawer-content\">Content</div></dialog>"
     },
     {
       "name": "Dropdown Menu",

@@ -1009,13 +1009,13 @@ Keyboard (set by JS): the container becomes focusable (`tabindex="0"` unless it 
 **Dialog** ⚡ Interactive — uses native `<dialog>` element
 Sizes: `cu-dialog-sm`, `cu-dialog-md` (default), `cu-dialog-xl`, `cu-dialog-full`
 Scrollable layout: `cu-dialog-body` (flex column with max-height), `cu-dialog-scroll` (scrollable content area)
-Trigger attribute value must match `<dialog id="...">`.
+Trigger attribute value must match `<dialog id="...">`; `data-cu-dialog` on the `<dialog>` is required (close buttons, backdrop click, ARIA links, focus return).
 ```html
 <!-- Trigger -->
 <button class="cu-button cu-button-default" data-cu-dialog-trigger="my-dialog">Open</button>
 
 <!-- Dialog -->
-<dialog id="my-dialog" class="cu-dialog">
+<dialog id="my-dialog" class="cu-dialog" data-cu-dialog>
   <div class="cu-dialog-header">
     <h2 class="cu-dialog-title">Dialog Title</h2>
     <p class="cu-dialog-description">Description text.</p>
@@ -1032,7 +1032,7 @@ Directions: `cu-drawer-right` (default), `cu-drawer-left`, `cu-drawer-top`, `cu-
 ```html
 <button data-cu-drawer-trigger="my-drawer" class="cu-button cu-button-default">Open Drawer</button>
 
-<dialog id="my-drawer" class="cu-drawer cu-drawer-right">
+<dialog id="my-drawer" class="cu-drawer cu-drawer-right" data-cu-drawer>
   <div class="cu-drawer-header">
     <h2 class="cu-drawer-title">Drawer Title</h2>
     <button class="cu-button cu-button-ghost cu-button-icon" data-cu-drawer-close aria-label="Close">✕</button>
@@ -1049,7 +1049,7 @@ Closes on cancel or action buttons (NOT on backdrop click).
 ```html
 <button data-cu-alert-dialog-trigger="confirm-dialog" class="cu-button cu-button-destructive">Delete</button>
 
-<dialog id="confirm-dialog" class="cu-alert-dialog">
+<dialog id="confirm-dialog" class="cu-alert-dialog" data-cu-alert-dialog>
   <div class="cu-alert-dialog-header">
     <h2 class="cu-alert-dialog-title">Are you sure?</h2>
     <p class="cu-alert-dialog-description">This action cannot be undone.</p>

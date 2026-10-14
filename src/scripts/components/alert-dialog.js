@@ -6,7 +6,7 @@ import { setupOverlay } from "../core/overlay.js";
  * HTML structure:
  * ```html
  * <button data-cu-alert-dialog-trigger="confirm-id">Delete</button>
- * <dialog id="confirm-id" class="cu-alert-dialog">
+ * <dialog id="confirm-id" class="cu-alert-dialog" data-cu-alert-dialog>
  *   <div class="cu-alert-dialog-header">
  *     <h2 class="cu-alert-dialog-title">Are you sure?</h2>
  *     <p class="cu-alert-dialog-description">This cannot be undone.</p>
@@ -20,6 +20,8 @@ import { setupOverlay } from "../core/overlay.js";
  * IMPORTANT: Does NOT close on backdrop click (by design, prevents accidental dismissal).
  * Only data-cu-alert-dialog-cancel and data-cu-alert-dialog-action close the dialog.
  * ARIA role="alertdialog" is set automatically.
+ * `data-cu-alert-dialog` on the <dialog> is required: without it the trigger still opens it, but the cancel / action
+ * buttons, role="alertdialog", the aria-labelledby / aria-describedby links and focus return are not wired up.
  */
 export function setupAlertDialogs() {
   setupOverlay({

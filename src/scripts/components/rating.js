@@ -5,10 +5,17 @@ import { track, restore } from "../core/registry.js";
  * Rating — interactive star rating.
  *
  * HTML structure:
- *   <div class="cu-rating" data-cu-rating data-cu-rating-value="0" data-cu-rating-max="5">
- *     <span class="cu-rating-item" data-cu-rating-star="1">★</span>
+ *   <div class="cu-rating" data-cu-rating data-cu-rating-value="0">
+ *     <span class="cu-rating-item" data-cu-rating-star="1"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span>
+ *     <span class="cu-rating-item" data-cu-rating-star="2"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span>
  *     ...
  *   </div>
+ * - Each star is a `cu-rating-item` with `data-cu-rating-star="N"` (1-based) wrapping the star `<svg>`
+ *   (`cu-rating-item-half` styles target the svg). The star count is the number of `[data-cu-rating-star]`
+ *   elements; `data-cu-rating-max` is not read.
+ * - `cu-rating-readonly` / `cu-rating-disabled` on the root skip the interaction; display-only ratings can omit
+ *   `data-cu-rating` and the star attributes entirely.
+ * - Fires `cu:rating:change` ({ value }) on click.
  */
 export function setupRatings() {
   document.querySelectorAll("[data-cu-rating]").forEach(function (el) {
