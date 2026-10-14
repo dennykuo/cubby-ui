@@ -324,9 +324,9 @@ const navTabs = [
         <div class="fixed inset-0 z-40 bg-black/50 hidden md:hidden" data-cu-dashboard-v3-overlay></div>
 
         <script>
-            const toggle = document.querySelector("[data-cu-dashboard-v3-toggle]");
-            const sidebar = document.querySelector("aside[aria-label]");
-            const overlay = document.querySelector("[data-cu-dashboard-v3-overlay]");
+            const toggle = document.querySelector<HTMLButtonElement>("[data-cu-dashboard-v3-toggle]");
+            const sidebar = document.querySelector<HTMLElement>("aside[aria-label]");
+            const overlay = document.querySelector<HTMLElement>("[data-cu-dashboard-v3-overlay]");
 
             function openMenu() {
                 sidebar?.classList.remove("hidden");
