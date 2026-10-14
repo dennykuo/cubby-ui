@@ -582,8 +582,9 @@ Data: `data-cu-toggle-group`, `data-cu-toggle-group-multiple`
 
 **Rating** — star rating for reviews and feedback
 Classes: `cu-rating`, `cu-rating-item`, `cu-rating-item-active`, `cu-rating-item-half`, `cu-rating-readonly`, `cu-rating-disabled`, `cu-rating-sm`, `cu-rating-lg`
-Data: `data-cu-rating`, `data-cu-rating-star="N"`, `data-cu-rating-value="N"`
-Interactive stars must be `<button type="button">` (Tab to a star, Enter / Space to rate); `<span>` stars are for read-only display only. Fires `cu:rating:change` (`{ value }`).
+Data: `data-cu-rating`, `data-cu-rating-star="N"` (1-based, star count = number of stars), `data-cu-rating-value="N"` (0 = none), `data-cu-rating-star-text="{value} 顆星"` (optional)
+Interactive stars must be `<button type="button">`; `<span>` stars are for read-only display only (`role="img"` + `aria-label` on the root). Fires `cu:rating:change` (`{ value }`) when the value changes.
+A11y: WAI-ARIA APG rating radio group. JS sets `role="radiogroup"` on the root (name it with `aria-label` / `aria-labelledby`; default "Rating") and `role="radio"` + `aria-checked` on each star, with a roving tabindex (one Tab stop: the checked star, or the first star). Keys: Arrow Right / Down = next star, Arrow Left / Up = previous (wrap; mirrored in RTL), Home / End = first / last, Space / Enter = select. Stars are named "1 star" / "N stars"; localize with `data-cu-rating-star-text` on the root (`{value}` = star number), a star's own `aria-label` wins. `cu-rating-readonly` keeps one Tab stop + `aria-readonly`, `cu-rating-disabled` leaves the Tab order + `aria-disabled`.
 ```html
 <!-- Readonly display -->
 <div class="cu-rating cu-rating-readonly" role="img" aria-label="2 out of 3 stars">
@@ -593,10 +594,17 @@ Interactive stars must be `<button type="button">` (Tab to a star, Enter / Space
 </div>
 
 <!-- Interactive -->
-<div class="cu-rating" data-cu-rating data-cu-rating-value="0">
-  <button type="button" class="cu-rating-item" data-cu-rating-star="1" aria-label="1 star"><svg>★</svg></button>
-  <button type="button" class="cu-rating-item" data-cu-rating-star="2" aria-label="2 stars"><svg>★</svg></button>
-  <button type="button" class="cu-rating-item" data-cu-rating-star="3" aria-label="3 stars"><svg>★</svg></button>
+<div class="cu-rating" data-cu-rating data-cu-rating-value="0" aria-label="Rate this product">
+  <button type="button" class="cu-rating-item" data-cu-rating-star="1"><svg>★</svg></button>
+  <button type="button" class="cu-rating-item" data-cu-rating-star="2"><svg>★</svg></button>
+  <button type="button" class="cu-rating-item" data-cu-rating-star="3"><svg>★</svg></button>
+</div>
+
+<!-- Localized star names -->
+<div class="cu-rating" data-cu-rating data-cu-rating-value="0" aria-label="商品評分" data-cu-rating-star-text="{value} 顆星">
+  <button type="button" class="cu-rating-item" data-cu-rating-star="1"><svg>★</svg></button>
+  <button type="button" class="cu-rating-item" data-cu-rating-star="2"><svg>★</svg></button>
+  <button type="button" class="cu-rating-item" data-cu-rating-star="3"><svg>★</svg></button>
 </div>
 ```
 
@@ -1583,7 +1591,7 @@ Data attributes: `data-cu-resizable`, `data-cu-resizable-panel`, `data-cu-resiza
 | Checkbox Group | `data-cu-checkbox-group` | `data-cu-checkbox-group-selectall` | — | — | `data-cu-checkbox-group-item` |
 | Segmented Control | `data-cu-segmented` | `.cu-segmented-item` buttons, or `.cu-segmented-input` radios + `<label for>` | — | — | — |
 | Toggle Group | `data-cu-toggle-group` | `.cu-toggle-group-item` buttons | — | — | `data-cu-toggle-group-multiple` |
-| Rating | `data-cu-rating` | `data-cu-rating-star="N"` (on `<button type="button">`) | — | — | `data-cu-rating-value` |
+| Rating | `data-cu-rating` | `data-cu-rating-star="N"` (on `<button type="button">`) | — | — | `data-cu-rating-value`, `data-cu-rating-star-text` |
 | Tag Input | `data-cu-tag-input` | — | — | `.cu-tag-input-tag-remove` | `data-cu-tag-input-field`, `data-cu-tag-max`, `data-cu-tag-value` |
 | Sortable List | `data-cu-sortable-list` | — | — | — | `data-cu-sortable-item` (+ `draggable="true"`), `data-cu-sortable-handle` |
 | Kanban | `data-cu-kanban` | — | `data-cu-kanban-column-body` | — | `data-cu-kanban-column`, `data-cu-kanban-card` (+ `draggable="true"`) |
