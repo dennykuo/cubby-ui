@@ -1027,8 +1027,9 @@ Toast container is auto-created if missing. Customize with `data-cu-toast-contai
 ```
 Container position variants: `cu-toast-container-top-right`, `cu-toast-container-top-left`, `cu-toast-container-bottom-right`, `cu-toast-container-bottom-left`, `cu-toast-container-top-center`, `cu-toast-container-bottom-center`
 Action classes: `cu-toast-action` (action button container), `cu-toast-action-btn` (action button styling)
+Duration: `data-cu-toast-duration` on the trigger (ms, default 5000; `"0"` keeps the toast until dismissed).
 A11y: toasts use `role="status"` (`role="alert"` for destructive). Generated close buttons are named "Close"; localize with `data-cu-toast-close-text="關閉通知"` on the container.
-Programmatic API: `CubbyUI.toast.show({ title, description, variant, duration })` — show a toast via JS (returns the toast element). `CubbyUI.toast.promise(promise, { loading, success, error })` — bind toast states to a Promise lifecycle. `show()` has no action option: for an action button, build the toast markup yourself with `cu-toast-action` / `cu-toast-action-btn`.
+Programmatic API: `CubbyUI.toast.show({ title, description, variant, duration, action })` — show a toast via JS (returns the toast element). `action: { label, onClick(event, toast) }` renders a `cu-toast-action-btn`; the toast closes after `onClick` unless it calls `event.preventDefault()`. `CubbyUI.toast.promise(promise, { loading, success, error })` — bind toast states to a Promise lifecycle.
 
 ---
 

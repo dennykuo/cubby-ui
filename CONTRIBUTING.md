@@ -28,7 +28,7 @@ npm run lint         # ESLint 檢查 src/scripts/（只含正確性規則，無�
 npm run format       # Prettier 格式化（format:check 只檢查，CI 會執行）
 npm run check:sync   # 元件清單跨來源同步檢查 + data-cu-* 與 DATA_ATTRS 對照
 npm run check:links  # 文檔站站內連結檢查（需先 build:docs；BASE_PATH 與建置時相同）
-npm run test:blade   # Blade 語法回歸測試
+npm run test:blade   # Blade 回歸測試（殘留 JSX / 未宣告變數 / php -l / illuminate/view 渲染）
 npm run test:e2e     # Playwright 互動元件測試（需先 npm run build）
 npm run test         # check:sync → test:blade → test:e2e
 ```
@@ -44,7 +44,7 @@ PR 推送後 `.github/workflows/ci.yml` 會執行以下檢查，請先在本機�
 - `npm run lint` — ESLint 0 problems（範圍 `src/scripts/`）
 - `npm run format:check` — Prettier 格式一致（提交前先 `npm run format`；`src/components/ui/`、Markdown、`llms.txt` 不格式化，原因見 `.prettierignore`）
 - `npm run build` 與 `npm run build:blade` — 建置通過
-- `npm run test:blade` — Blade 回歸通過
+- `npm run test:blade` — Blade 回歸通過（CI 加 `--require-render`：以 `illuminate/view` 渲染每個元件，需 PHP 8.2+ 與 Composer；本機未安裝時自動略過 render 步驟）
 - `npm run check:links` — 文檔站所有站內連結帶 base 且目標存在（CI 以 `SITE_URL=https://dennykuo.github.io` + `BASE_PATH=/cubby-ui` 建置文檔站，與 GitHub Pages 部署設定相同；有 `SITE_URL` 才會產生 sitemap 與 canonical）
 - `npm run test:e2e` — Playwright 互動元件測試通過（CI 會先 `npx playwright install --with-deps chromium` 與 `npm run build:docs`，讓 `docs-smoke.spec.ts` 逐頁驗證文檔站；設 `BASE_PATH` 時在子路徑下伺服，同源資源 404 即失敗）
 

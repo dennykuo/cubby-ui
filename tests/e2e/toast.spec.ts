@@ -50,6 +50,25 @@ test.describe("Toast", () => {
     await expect(toast).toHaveCount(0, { timeout: 3000 });
   });
 
+  test('trigger 的 data-cu-toast-duration="0" 不自動消失', async ({ page }) => {
+    await page.clock.install();
+    await page.reload();
+    await page.click("#trigger");
+    await page.clock.runFor(10_000);
+    await expect(page.locator(".cu-toast:not(.cu-toast-exit)")).toHaveCount(1);
+  });
+
+  test("trigger 未設定 data-cu-toast-duration 時沿用預設 5000ms", async ({ page }) => {
+    await page.clock.install();
+    await page.reload();
+    await page.click("#trigger-default");
+    const live = page.locator(".cu-toast:not(.cu-toast-exit)");
+    await page.clock.runFor(4_900);
+    await expect(live).toHaveCount(1);
+    await page.clock.runFor(200);
+    await expect(live).toHaveCount(0);
+  });
+
   test("堆疊上限：超出 data-cu-toast-max 時移除最舊通知", async ({ page }) => {
     await page.evaluate(() => {
       for (let i = 1; i <= 5; i++) CubbyUI.toast.show({ title: "Toast " + i, duration: 0 });
@@ -67,6 +86,53 @@ test.describe("Toast", () => {
     const toast = page.locator(".cu-toast");
     await expect(toast.locator(".cu-toast-title")).toHaveText(payload);
     await expect(toast.locator("img")).toHaveCount(0);
+    expect(await page.evaluate(() => (window as any).__xss)).toBeUndefined();
+  });
+
+  test("action：渲染按鈕，點擊呼叫 onClick 並關閉 toast", async ({ page }) => {
+    await page.evaluate(() => {
+      (window as any).__calls = [];
+      CubbyUI.toast.show({
+        title: "Event deleted",
+        duration: 0,
+        action: {
+          label: "Undo",
+          onClick: (e: MouseEvent, toast: HTMLElement) =>
+            (window as any).__calls.push([e.type, toast.classList.contains("cu-toast")]),
+        },
+      });
+    });
+    const toast = page.locator(".cu-toast");
+    const btn = toast.locator(".cu-toast-body .cu-toast-action .cu-toast-action-btn");
+    await expect(btn).toHaveText("Undo");
+    await expect(btn).toHaveAttribute("type", "button");
+    await btn.click();
+    expect(await page.evaluate(() => (window as any).__calls)).toEqual([["click", true]]);
+    await expect(toast).toHaveCount(0);
+  });
+
+  test("action：onClick 呼叫 preventDefault 時保留 toast", async ({ page }) => {
+    await page.evaluate(() =>
+      CubbyUI.toast.show({
+        title: "Keep",
+        duration: 0,
+        action: { label: "Retry", onClick: (e: MouseEvent) => e.preventDefault() },
+      }),
+    );
+    await page.locator(".cu-toast-action-btn").click();
+    await expect(page.locator(".cu-toast:not(.cu-toast-exit)")).toHaveCount(1);
+  });
+
+  test("action：label 以純文字呈現；未提供 action 時不渲染", async ({ page }) => {
+    const payload = '<img src=x onerror="window.__xss = 1">';
+    await page.evaluate((p) => {
+      CubbyUI.toast.show({ title: "A", duration: 0, action: { label: p } });
+      CubbyUI.toast.show({ title: "B", duration: 0 });
+    }, payload);
+    const toasts = page.locator(".cu-toast");
+    await expect(toasts.nth(0).locator(".cu-toast-action-btn")).toHaveText(payload);
+    await expect(toasts.nth(0).locator("img")).toHaveCount(0);
+    await expect(toasts.nth(1).locator(".cu-toast-action")).toHaveCount(0);
     expect(await page.evaluate(() => (window as any).__xss)).toBeUndefined();
   });
 

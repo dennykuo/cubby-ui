@@ -39,8 +39,10 @@ jobs:
       - name: 格式檢查（Prettier）
         run: npm run format:check
 
+      # 含 illuminate/view render smoke test（runner 內建 PHP + Composer）；
+      # --require-render 讓 PHP / Composer 不可用時直接失敗，而非靜默略過
       - name: Blade 回歸測試
-        run: npm run test:blade
+        run: npm run test:blade -- --require-render
 
       - name: 安裝 Playwright Chromium
         run: npx playwright install --with-deps chromium
