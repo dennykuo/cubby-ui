@@ -33,19 +33,56 @@
 export function setupColorPickers() {
   function hsvToRgb(h, s, v) {
     h = h / 360;
-    var i = Math.floor(h * 6), f = h * 6 - i;
-    var p = v * (1 - s), q = v * (1 - f * s), t = v * (1 - (1 - f) * s);
+    var i = Math.floor(h * 6),
+      f = h * 6 - i;
+    var p = v * (1 - s),
+      q = v * (1 - f * s),
+      t = v * (1 - (1 - f) * s);
     var r, g, b;
     switch (i % 6) {
-      case 0: r = v; g = t; b = p; break; case 1: r = q; g = v; b = p; break;
-      case 2: r = p; g = v; b = t; break; case 3: r = p; g = q; b = v; break;
-      case 4: r = t; g = p; b = v; break; case 5: r = v; g = p; b = q; break;
+      case 0:
+        r = v;
+        g = t;
+        b = p;
+        break;
+      case 1:
+        r = q;
+        g = v;
+        b = p;
+        break;
+      case 2:
+        r = p;
+        g = v;
+        b = t;
+        break;
+      case 3:
+        r = p;
+        g = q;
+        b = v;
+        break;
+      case 4:
+        r = t;
+        g = p;
+        b = v;
+        break;
+      case 5:
+        r = v;
+        g = p;
+        b = q;
+        break;
     }
     return [Math.round(r * 255), Math.round(g * 255), Math.round(b * 255)];
   }
 
   function rgbToHex(r, g, b) {
-    return "#" + [r, g, b].map(function (c) { return c.toString(16).padStart(2, "0"); }).join("");
+    return (
+      "#" +
+      [r, g, b]
+        .map(function (c) {
+          return c.toString(16).padStart(2, "0");
+        })
+        .join("")
+    );
   }
 
   function hexToRgb(hex) {
@@ -55,15 +92,29 @@ export function setupColorPickers() {
   }
 
   function rgbToHsv(r, g, b) {
-    r /= 255; g /= 255; b /= 255;
-    var max = Math.max(r, g, b), min = Math.min(r, g, b);
-    var h, s, v = max, d = max - min;
+    r /= 255;
+    g /= 255;
+    b /= 255;
+    var max = Math.max(r, g, b),
+      min = Math.min(r, g, b);
+    var h,
+      s,
+      v = max,
+      d = max - min;
     s = max === 0 ? 0 : d / max;
-    if (max === min) { h = 0; } else {
+    if (max === min) {
+      h = 0;
+    } else {
       switch (max) {
-        case r: h = (g - b) / d + (g < b ? 6 : 0); break;
-        case g: h = (b - r) / d + 2; break;
-        case b: h = (r - g) / d + 4; break;
+        case r:
+          h = (g - b) / d + (g < b ? 6 : 0);
+          break;
+        case g:
+          h = (b - r) / d + 2;
+          break;
+        case b:
+          h = (r - g) / d + 4;
+          break;
       }
       h /= 6;
     }
@@ -89,7 +140,9 @@ export function setupColorPickers() {
     if (/^#[0-9a-fA-F]{3,6}$/.test(initValue)) {
       var rgb = hexToRgb(initValue);
       var hsv = rgbToHsv(rgb[0], rgb[1], rgb[2]);
-      state.h = hsv[0]; state.s = hsv[1]; state.v = hsv[2];
+      state.h = hsv[0];
+      state.s = hsv[1];
+      state.v = hsv[2];
     }
 
     // 鍵盤操作：飽和度面板（二維：aria-valuenow 為飽和度，aria-valuetext 同時描述亮度）與色相條皆為 APG slider
@@ -110,8 +163,11 @@ export function setupColorPickers() {
       var hex = rgbToHex(rgb[0], rgb[1], rgb[2]);
       var pureRgb = hsvToRgb(state.h, 1, 1);
       satPanel.style.backgroundColor = rgbToHex(pureRgb[0], pureRgb[1], pureRgb[2]);
-      if (satPointer) { satPointer.style.left = (state.s * 100) + "%"; satPointer.style.top = ((1 - state.v) * 100) + "%"; }
-      if (huePointer) huePointer.style.left = (state.h / 360 * 100) + "%";
+      if (satPointer) {
+        satPointer.style.left = state.s * 100 + "%";
+        satPointer.style.top = (1 - state.v) * 100 + "%";
+      }
+      if (huePointer) huePointer.style.left = (state.h / 360) * 100 + "%";
       if (preview) preview.style.backgroundColor = hex;
       if (hexInput && document.activeElement !== hexInput) hexInput.value = hex;
       if (hiddenInput) hiddenInput.value = hex;
@@ -163,7 +219,7 @@ export function setupColorPickers() {
 
     var onHueDrag = makeDragHandler(hueBar, function (clientX) {
       var rect = hueBar.getBoundingClientRect();
-      state.h = Math.max(0, Math.min(360, (clientX - rect.left) / rect.width * 360));
+      state.h = Math.max(0, Math.min(360, ((clientX - rect.left) / rect.width) * 360));
       update(true);
     });
     hueBar.addEventListener("mousedown", onHueDrag);
@@ -210,7 +266,9 @@ export function setupColorPickers() {
         if (/^#[0-9a-fA-F]{6}$/.test(val)) {
           var rgb = hexToRgb(val);
           var hsv = rgbToHsv(rgb[0], rgb[1], rgb[2]);
-          state.h = hsv[0]; state.s = hsv[1]; state.v = hsv[2];
+          state.h = hsv[0];
+          state.s = hsv[1];
+          state.v = hsv[2];
           update(true);
         }
       });
@@ -222,7 +280,9 @@ export function setupColorPickers() {
         if (color && /^#[0-9a-fA-F]{3,6}$/.test(color)) {
           var rgb = hexToRgb(color);
           var hsv = rgbToHsv(rgb[0], rgb[1], rgb[2]);
-          state.h = hsv[0]; state.s = hsv[1]; state.v = hsv[2];
+          state.h = hsv[0];
+          state.s = hsv[1];
+          state.v = hsv[2];
           update(true);
         }
       });

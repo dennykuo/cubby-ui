@@ -1,52 +1,64 @@
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <title>Context Menu fixture</title>
-  <link rel="stylesheet" href="../../../dist/core/cubby-ui.css" />
-  <style>
-    body { padding: 16px; }
-    .area { display: flex; height: 120px; width: 320px; align-items: center; justify-content: center; border: 1px dashed #ccc; margin-bottom: 16px; }
-  </style>
-</head>
-<body>
-  <button id="before" class="cu-button cu-button-ghost">Before</button>
+  <head>
+    <meta charset="utf-8" />
+    <title>Context Menu fixture</title>
+    <link rel="stylesheet" href="../../../dist/core/cubby-ui.css" />
+    <style>
+      body {
+        padding: 16px;
+      }
+      .area {
+        display: flex;
+        height: 120px;
+        width: 320px;
+        align-items: center;
+        justify-content: center;
+        border: 1px dashed #ccc;
+        margin-bottom: 16px;
+      }
+    </style>
+  </head>
+  <body>
+    <button id="before" class="cu-button cu-button-ghost">Before</button>
 
-  <!-- 文檔 Usage 範例：項目為 <div>，容器沒有 tabindex -->
-  <div id="cm-docs" class="cu-context-menu" data-cu-context-menu>
-    <div class="area">Right-click here</div>
-    <div class="cu-context-menu-content" data-cu-context-menu-content hidden>
-      <div class="cu-dropdown-item" onclick="window.__clicked.push('cut')">Cut</div>
-      <div class="cu-dropdown-item" onclick="window.__clicked.push('copy')">Copy</div>
-      <div class="cu-dropdown-item" onclick="window.__clicked.push('paste')">Paste</div>
+    <!-- 文檔 Usage 範例：項目為 <div>，容器沒有 tabindex -->
+    <div id="cm-docs" class="cu-context-menu" data-cu-context-menu>
+      <div class="area">Right-click here</div>
+      <div class="cu-context-menu-content" data-cu-context-menu-content hidden>
+        <div class="cu-dropdown-item" onclick="window.__clicked.push('cut')">Cut</div>
+        <div class="cu-dropdown-item" onclick="window.__clicked.push('copy')">Copy</div>
+        <div class="cu-dropdown-item" onclick="window.__clicked.push('paste')">Paste</div>
+      </div>
     </div>
-  </div>
 
-  <!-- <button> 項目、停用項目與分隔線 -->
-  <div id="cm-buttons" class="cu-context-menu" data-cu-context-menu aria-label="File actions">
-    <div class="area">Right-click for actions</div>
-    <div class="cu-context-menu-content" data-cu-context-menu-content hidden>
-      <div class="cu-dropdown-label">File</div>
-      <button class="cu-dropdown-item" onclick="window.__clicked.push('rename')">Rename</button>
-      <button class="cu-dropdown-item" disabled onclick="window.__clicked.push('archive')">Archive</button>
-      <div class="cu-dropdown-separator"></div>
-      <button class="cu-dropdown-item" onclick="window.__clicked.push('delete')">Delete</button>
+    <!-- <button> 項目、停用項目與分隔線 -->
+    <div id="cm-buttons" class="cu-context-menu" data-cu-context-menu aria-label="File actions">
+      <div class="area">Right-click for actions</div>
+      <div class="cu-context-menu-content" data-cu-context-menu-content hidden>
+        <div class="cu-dropdown-label">File</div>
+        <button class="cu-dropdown-item" onclick="window.__clicked.push('rename')">Rename</button>
+        <button class="cu-dropdown-item" disabled onclick="window.__clicked.push('archive')">Archive</button>
+        <div class="cu-dropdown-separator"></div>
+        <button class="cu-dropdown-item" onclick="window.__clicked.push('delete')">Delete</button>
+      </div>
     </div>
-  </div>
 
-  <!-- 容器以 tabindex="-1" 退出 Tab 順序，由內部可聚焦元素接收快捷鍵 -->
-  <div id="cm-optout" class="cu-context-menu" data-cu-context-menu tabindex="-1">
-    <button id="row" class="cu-button cu-button-outline">report.pdf</button>
-    <div class="cu-context-menu-content" data-cu-context-menu-content hidden>
-      <button class="cu-dropdown-item" onclick="window.__clicked.push('open')">Open</button>
-      <button class="cu-dropdown-item" onclick="window.__clicked.push('share')">Share</button>
+    <!-- 容器以 tabindex="-1" 退出 Tab 順序，由內部可聚焦元素接收快捷鍵 -->
+    <div id="cm-optout" class="cu-context-menu" data-cu-context-menu tabindex="-1">
+      <button id="row" class="cu-button cu-button-outline">report.pdf</button>
+      <div class="cu-context-menu-content" data-cu-context-menu-content hidden>
+        <button class="cu-dropdown-item" onclick="window.__clicked.push('open')">Open</button>
+        <button class="cu-dropdown-item" onclick="window.__clicked.push('share')">Share</button>
+      </div>
     </div>
-  </div>
 
-  <button id="outside" class="cu-button cu-button-ghost">Outside</button>
-  <div style="height: 2000px"></div>
+    <button id="outside" class="cu-button cu-button-ghost">Outside</button>
+    <div style="height: 2000px"></div>
 
-  <script>window.__clicked = [];</script>
-  <script src="../../../dist/core/cubby-ui.js"></script>
-</body>
+    <script>
+      window.__clicked = [];
+    </script>
+    <script src="../../../dist/core/cubby-ui.js"></script>
+  </body>
 </html>

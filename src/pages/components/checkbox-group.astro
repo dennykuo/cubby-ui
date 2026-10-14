@@ -13,7 +13,7 @@ const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(checkboxGroupPage, locale);
 
 const usageCode = `<div class="cu-checkbox-group" data-cu-checkbox-group>
-  <label class="cu-checkbox-group-label">Notifications</label>
+  <span class="cu-checkbox-group-label">Notifications</span>
   <div class="cu-checkbox-group-items">
     <div class="cu-checkbox-wrapper">
       <input type="checkbox" class="cu-checkbox" id="cg-email" data-cu-checkbox-group-item />
@@ -31,7 +31,7 @@ const usageCode = `<div class="cu-checkbox-group" data-cu-checkbox-group>
 </div>`.trim();
 
 const selectAllCode = `<div class="cu-checkbox-group" data-cu-checkbox-group>
-  <label class="cu-checkbox-group-label">Permissions</label>
+  <span class="cu-checkbox-group-label">Permissions</span>
   <div class="cu-checkbox-wrapper cu-checkbox-group-selectall">
     <input type="checkbox" class="cu-checkbox" id="cg-all" data-cu-checkbox-group-selectall />
     <label class="cu-label" for="cg-all">Select all</label>
@@ -53,7 +53,7 @@ const selectAllCode = `<div class="cu-checkbox-group" data-cu-checkbox-group>
 </div>`.trim();
 
 const preselectedCode = `<div class="cu-checkbox-group" data-cu-checkbox-group>
-  <label class="cu-checkbox-group-label">Features</label>
+  <span class="cu-checkbox-group-label">Features</span>
   <div class="cu-checkbox-wrapper cu-checkbox-group-selectall">
     <input type="checkbox" class="cu-checkbox" id="cg-feat-all" data-cu-checkbox-group-selectall />
     <label class="cu-label" for="cg-feat-all">Select all</label>
@@ -75,7 +75,7 @@ const preselectedCode = `<div class="cu-checkbox-group" data-cu-checkbox-group>
 </div>`.trim();
 
 const disabledCode = `<div class="cu-checkbox-group" data-cu-checkbox-group>
-  <label class="cu-checkbox-group-label">Options</label>
+  <span class="cu-checkbox-group-label">Options</span>
   <div class="cu-checkbox-wrapper cu-checkbox-group-selectall">
     <input type="checkbox" class="cu-checkbox" id="cg-dis-all" data-cu-checkbox-group-selectall disabled />
     <label class="cu-label" for="cg-dis-all">Select all</label>
@@ -99,9 +99,7 @@ const disabledCode = `<div class="cu-checkbox-group" data-cu-checkbox-group>
       <h1 class="text-3xl font-bold tracking-tight">Checkbox Group</h1>
       <span class="cu-badge cu-badge-secondary">{t.category}</span>
     </div>
-    <p class="text-base text-muted-foreground leading-relaxed">
-      {t.description}
-    </p>
+    <p class="text-base text-muted-foreground leading-relaxed">{t.description}</p>
   </div>
 
   <div class="mt-10 space-y-10">
@@ -111,7 +109,7 @@ const disabledCode = `<div class="cu-checkbox-group" data-cu-checkbox-group>
       <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
       <ComponentPreview code={usageCode}>
         <CheckboxGroup>
-          <label class="cu-checkbox-group-label">Notifications</label>
+          <span class="cu-checkbox-group-label">Notifications</span>
           <div class="cu-checkbox-group-items">
             <div class="cu-checkbox-wrapper">
               <Checkbox id="cg-email" data-cu-checkbox-group-item />
@@ -136,7 +134,7 @@ const disabledCode = `<div class="cu-checkbox-group" data-cu-checkbox-group>
       <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.selectAll.description} />
       <ComponentPreview code={selectAllCode}>
         <CheckboxGroup>
-          <label class="cu-checkbox-group-label">Permissions</label>
+          <span class="cu-checkbox-group-label">Permissions</span>
           <div class="cu-checkbox-wrapper cu-checkbox-group-selectall">
             <Checkbox id="cg-all" data-cu-checkbox-group-selectall />
             <Label for="cg-all">Select all</Label>
@@ -162,12 +160,10 @@ const disabledCode = `<div class="cu-checkbox-group" data-cu-checkbox-group>
     <!-- Pre-selected -->
     <section class="space-y-3">
       <SectionHeading id="pre-selected" title={t.sections.preSelected.title} />
-      <p class="text-base text-muted-foreground leading-relaxed">
-        {t.sections.preSelected.description}
-      </p>
+      <p class="text-base text-muted-foreground leading-relaxed">{t.sections.preSelected.description}</p>
       <ComponentPreview code={preselectedCode}>
         <CheckboxGroup>
-          <label class="cu-checkbox-group-label">Features</label>
+          <span class="cu-checkbox-group-label">Features</span>
           <div class="cu-checkbox-wrapper cu-checkbox-group-selectall">
             <Checkbox id="cg-feat-all" data-cu-checkbox-group-selectall />
             <Label for="cg-feat-all">Select all</Label>
@@ -196,7 +192,7 @@ const disabledCode = `<div class="cu-checkbox-group" data-cu-checkbox-group>
       <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.disabled.description} />
       <ComponentPreview code={disabledCode}>
         <CheckboxGroup>
-          <label class="cu-checkbox-group-label">Options</label>
+          <span class="cu-checkbox-group-label">Options</span>
           <div class="cu-checkbox-wrapper cu-checkbox-group-selectall">
             <Checkbox id="cg-dis-all" data-cu-checkbox-group-selectall disabled />
             <Label for="cg-dis-all">Select all</Label>
@@ -229,7 +225,9 @@ const disabledCode = `<div class="cu-checkbox-group" data-cu-checkbox-group>
           <tbody class="cu-table-body">
             {Object.entries(t.classDescriptions).map(([cls, desc]) => (
               <tr class="cu-table-row">
-                <td class="cu-table-cell"><code class="cu-code">{cls}</code></td>
+                <td class="cu-table-cell">
+                  <code class="cu-code">{cls}</code>
+                </td>
                 <td class="cu-table-cell text-muted-foreground">{desc}</td>
               </tr>
             ))}

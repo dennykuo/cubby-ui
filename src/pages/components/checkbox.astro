@@ -118,204 +118,215 @@ const groupCode = `<fieldset>
 ---
 
 <Layout category={t.category} componentName="Checkbox" title={t.title} description={t.description}>
-    <div class="space-y-3">
-        <div class="flex items-center gap-3">
-          <h1 class="text-3xl font-bold tracking-tight">Checkbox</h1>
-          <span class="cu-badge cu-badge-secondary">{t.category}</span>
+  <div class="space-y-3">
+    <div class="flex items-center gap-3">
+      <h1 class="text-3xl font-bold tracking-tight">Checkbox</h1>
+      <span class="cu-badge cu-badge-secondary">{t.category}</span>
+    </div>
+    <p class="text-base text-muted-foreground leading-relaxed" set:html={t.description} />
+  </div>
+
+  <div class="mt-10 space-y-10">
+    <!-- Usage -->
+    <section class="space-y-3">
+      <SectionHeading id="usage" title={t.sections.usage.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
+      <ComponentPreview code={usageCode}>
+        <Checkbox />
+      </ComponentPreview>
+    </section>
+
+    <!-- Classes Reference -->
+    <section class="space-y-3">
+      <SectionHeading id="classes" title={t.sections.classes.title} />
+      <div class="cu-table-wrapper rounded-lg border border-border">
+        <table class="cu-table">
+          <thead class="cu-table-header">
+            <tr class="cu-table-row">
+              <th class="cu-table-head">{t.sections.classes.classLabel}</th>
+              <th class="cu-table-head">{t.sections.classes.descriptionLabel}</th>
+            </tr>
+          </thead>
+          <tbody class="cu-table-body">
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-checkbox-wrapper</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-checkbox-wrapper"]}</td>
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-checkbox</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-checkbox"]}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- With Label -->
+    <section class="space-y-3">
+      <SectionHeading id="with-label" title={t.sections.withLabel.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withLabel.description} />
+      <ComponentPreview code={withLabelCode}>
+        <div class="cu-checkbox-wrapper">
+          <Checkbox id="terms" />
+          <Label for="terms">Accept terms and conditions</Label>
         </div>
-        <p class="text-base text-muted-foreground leading-relaxed" set:html={t.description} />
-    </div>
+      </ComponentPreview>
+    </section>
 
-    <div class="mt-10 space-y-10">
-        <!-- Usage -->
-        <section class="space-y-3">
-            <SectionHeading id="usage" title={t.sections.usage.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
-            <ComponentPreview code={usageCode}>
-                <Checkbox />
-            </ComponentPreview>
-        </section>
+    <!-- Checked by Default -->
+    <section class="space-y-3">
+      <SectionHeading id="checked-by-default" title={t.sections.checkedByDefault.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.checkedByDefault.description} />
+      <ComponentPreview code={checkedCode}>
+        <div class="cu-checkbox-wrapper">
+          <Checkbox id="newsletter" checked />
+          <Label for="newsletter">Subscribe to newsletter</Label>
+        </div>
+      </ComponentPreview>
+    </section>
 
-        <!-- Classes Reference -->
-        <section class="space-y-3">
-          <SectionHeading id="classes" title={t.sections.classes.title} />
-          <div class="cu-table-wrapper rounded-lg border border-border">
-            <table class="cu-table">
-              <thead class="cu-table-header">
-                <tr class="cu-table-row">
-                  <th class="cu-table-head">{t.sections.classes.classLabel}</th>
-                  <th class="cu-table-head">{t.sections.classes.descriptionLabel}</th>
-                </tr>
-              </thead>
-              <tbody class="cu-table-body">
-                <tr class="cu-table-row">
-                  <td class="cu-table-cell"><code class="cu-code">cu-checkbox-wrapper</code></td>
-                  <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-checkbox-wrapper']}</td>
-                </tr>
-                <tr class="cu-table-row">
-                  <td class="cu-table-cell"><code class="cu-code">cu-checkbox</code></td>
-                  <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-checkbox']}</td>
-                </tr>
-              </tbody>
-            </table>
+    <!-- Disabled -->
+    <section class="space-y-3">
+      <SectionHeading id="disabled" title={t.sections.disabled.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.disabled.description} />
+      <ComponentPreview code={disabledCode}>
+        <div class="space-y-2">
+          <div class="cu-checkbox-wrapper">
+            <Checkbox id="disabled-cb" disabled />
+            <Label for="disabled-cb">Disabled option</Label>
           </div>
-        </section>
+          <div class="cu-checkbox-wrapper">
+            <Checkbox id="disabled-checked" disabled checked />
+            <Label for="disabled-checked">Disabled checked</Label>
+          </div>
+        </div>
+      </ComponentPreview>
+    </section>
 
+    <!-- Checkbox Group -->
+    <section class="space-y-3">
+      <SectionHeading id="checkbox-group" title={t.sections.checkboxGroup.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.checkboxGroup.description} />
+      <ComponentPreview code={groupCode}>
+        <fieldset>
+          <legend class="cu-label mb-2">Notifications</legend>
+          <div class="flex flex-col gap-2">
+            <div class="cu-checkbox-wrapper">
+              <Checkbox id="email-notif" checked />
+              <Label for="email-notif">Email notifications</Label>
+            </div>
+            <div class="cu-checkbox-wrapper">
+              <Checkbox id="sms-notif" />
+              <Label for="sms-notif">SMS notifications</Label>
+            </div>
+            <div class="cu-checkbox-wrapper">
+              <Checkbox id="push-notif" checked />
+              <Label for="push-notif">Push notifications</Label>
+            </div>
+          </div>
+        </fieldset>
+      </ComponentPreview>
+    </section>
 
-        <!-- With Label -->
-        <section class="space-y-3">
-            <SectionHeading id="with-label" title={t.sections.withLabel.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withLabel.description} />
-            <ComponentPreview code={withLabelCode}>
-                <div class="cu-checkbox-wrapper">
-                    <Checkbox id="terms" />
-                    <Label for="terms">Accept terms and conditions</Label>
-                </div>
-            </ComponentPreview>
-        </section>
+    <!-- With Description -->
+    <section class="space-y-3">
+      <SectionHeading id="with-description" title={t.sections.withDescription.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withDescription.description} />
+      <ComponentPreview code={withDescCode}>
+        <div class="space-y-2">
+          <div class="cu-checkbox-wrapper items-start">
+            <Checkbox id="marketing-demo" class="mt-0.5" />
+            <div>
+              <Label for="marketing-demo">Marketing emails</Label>
+              <p class="text-sm text-muted-foreground">Receive emails about new products, features, and updates.</p>
+            </div>
+          </div>
+          <div class="cu-checkbox-wrapper items-start">
+            <Checkbox id="security-demo" class="mt-0.5" checked />
+            <div>
+              <Label for="security-demo">Security alerts</Label>
+              <p class="text-sm text-muted-foreground">Get notified about unusual account activity.</p>
+            </div>
+          </div>
+        </div>
+      </ComponentPreview>
+    </section>
 
-        <!-- Checked by Default -->
-        <section class="space-y-3">
-            <SectionHeading id="checked-by-default" title={t.sections.checkedByDefault.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.checkedByDefault.description} />
-            <ComponentPreview code={checkedCode}>
-                <div class="cu-checkbox-wrapper">
-                    <Checkbox id="newsletter" checked />
-                    <Label for="newsletter">Subscribe to newsletter</Label>
-                </div>
-            </ComponentPreview>
-        </section>
+    <!-- Indeterminate -->
+    <section class="space-y-3">
+      <SectionHeading id="indeterminate" title={t.sections.indeterminate.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.indeterminate.description} />
+      <ComponentPreview code={indeterminateCode}>
+        <div>
+          <div class="cu-checkbox-wrapper">
+            <Checkbox id="select-all-demo" />
+            <Label for="select-all-demo" class="font-medium">
+              Select all
+            </Label>
+          </div>
+          <div class="ml-6 flex flex-col gap-2">
+            <div class="cu-checkbox-wrapper">
+              <Checkbox id="item-demo-1" checked />
+              <Label for="item-demo-1">Item 1</Label>
+            </div>
+            <div class="cu-checkbox-wrapper">
+              <Checkbox id="item-demo-2" />
+              <Label for="item-demo-2">Item 2</Label>
+            </div>
+            <div class="cu-checkbox-wrapper">
+              <Checkbox id="item-demo-3" checked />
+              <Label for="item-demo-3">Item 3</Label>
+            </div>
+          </div>
+        </div>
+        {/* 預覽在 iframe 內渲染，示範腳本必須隨 slot 一起進 iframe（is:inline 避免被 Astro 提升至主頁面） */}
+        <script is:inline>
+          var selectAllDemo = document.getElementById("select-all-demo");
+          var itemDemos = document.querySelectorAll("#item-demo-1, #item-demo-2, #item-demo-3");
+          function updateSelectAllDemo() {
+            var checked = Array.prototype.filter.call(itemDemos, function (i) {
+              return i.checked;
+            }).length;
+            selectAllDemo.checked = checked === itemDemos.length;
+            selectAllDemo.indeterminate = checked > 0 && checked < itemDemos.length;
+          }
+          itemDemos.forEach(function (i) {
+            i.addEventListener("change", updateSelectAllDemo);
+          });
+          selectAllDemo.addEventListener("change", function () {
+            itemDemos.forEach(function (i) {
+              i.checked = selectAllDemo.checked;
+            });
+          });
+          updateSelectAllDemo();
+        </script>
+      </ComponentPreview>
+    </section>
 
-        <!-- Disabled -->
-        <section class="space-y-3">
-            <SectionHeading id="disabled" title={t.sections.disabled.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.disabled.description} />
-            <ComponentPreview code={disabledCode}>
-                <div class="space-y-2">
-                    <div class="cu-checkbox-wrapper">
-                        <Checkbox id="disabled-cb" disabled />
-                        <Label for="disabled-cb">Disabled option</Label>
-                    </div>
-                    <div class="cu-checkbox-wrapper">
-                        <Checkbox id="disabled-checked" disabled checked />
-                        <Label for="disabled-checked">Disabled checked</Label>
-                    </div>
-                </div>
-            </ComponentPreview>
-        </section>
-
-        <!-- Checkbox Group -->
-        <section class="space-y-3">
-            <SectionHeading id="checkbox-group" title={t.sections.checkboxGroup.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.checkboxGroup.description} />
-            <ComponentPreview code={groupCode}>
-                <fieldset>
-                    <legend class="cu-label mb-2">Notifications</legend>
-                    <div class="flex flex-col gap-2">
-                        <div class="cu-checkbox-wrapper">
-                            <Checkbox id="email-notif" checked />
-                            <Label for="email-notif">Email notifications</Label>
-                        </div>
-                        <div class="cu-checkbox-wrapper">
-                            <Checkbox id="sms-notif" />
-                            <Label for="sms-notif">SMS notifications</Label>
-                        </div>
-                        <div class="cu-checkbox-wrapper">
-                            <Checkbox id="push-notif" checked />
-                            <Label for="push-notif">Push notifications</Label>
-                        </div>
-                    </div>
-                </fieldset>
-            </ComponentPreview>
-        </section>
-
-        <!-- With Description -->
-        <section class="space-y-3">
-            <SectionHeading id="with-description" title={t.sections.withDescription.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withDescription.description} />
-            <ComponentPreview code={withDescCode}>
-                <div class="space-y-2">
-                    <div class="cu-checkbox-wrapper items-start">
-                        <Checkbox id="marketing-demo" class="mt-0.5" />
-                        <div>
-                            <Label for="marketing-demo">Marketing emails</Label>
-                            <p class="text-sm text-muted-foreground">Receive emails about new products, features, and updates.</p>
-                        </div>
-                    </div>
-                    <div class="cu-checkbox-wrapper items-start">
-                        <Checkbox id="security-demo" class="mt-0.5" checked />
-                        <div>
-                            <Label for="security-demo">Security alerts</Label>
-                            <p class="text-sm text-muted-foreground">Get notified about unusual account activity.</p>
-                        </div>
-                    </div>
-                </div>
-            </ComponentPreview>
-        </section>
-
-        <!-- Indeterminate -->
-        <section class="space-y-3">
-            <SectionHeading id="indeterminate" title={t.sections.indeterminate.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.indeterminate.description} />
-            <ComponentPreview code={indeterminateCode}>
-                <div>
-                    <div class="cu-checkbox-wrapper">
-                        <Checkbox id="select-all-demo" />
-                        <Label for="select-all-demo" class="font-medium">Select all</Label>
-                    </div>
-                    <div class="ml-6 flex flex-col gap-2">
-                        <div class="cu-checkbox-wrapper">
-                            <Checkbox id="item-demo-1" checked />
-                            <Label for="item-demo-1">Item 1</Label>
-                        </div>
-                        <div class="cu-checkbox-wrapper">
-                            <Checkbox id="item-demo-2" />
-                            <Label for="item-demo-2">Item 2</Label>
-                        </div>
-                        <div class="cu-checkbox-wrapper">
-                            <Checkbox id="item-demo-3" checked />
-                            <Label for="item-demo-3">Item 3</Label>
-                        </div>
-                    </div>
-                </div>
-                {/* 預覽在 iframe 內渲染，示範腳本必須隨 slot 一起進 iframe（is:inline 避免被 Astro 提升至主頁面） */}
-                <script is:inline>
-                    var selectAllDemo = document.getElementById('select-all-demo');
-                    var itemDemos = document.querySelectorAll('#item-demo-1, #item-demo-2, #item-demo-3');
-                    function updateSelectAllDemo() {
-                        var checked = Array.prototype.filter.call(itemDemos, function (i) { return i.checked; }).length;
-                        selectAllDemo.checked = checked === itemDemos.length;
-                        selectAllDemo.indeterminate = checked > 0 && checked < itemDemos.length;
-                    }
-                    itemDemos.forEach(function (i) { i.addEventListener('change', updateSelectAllDemo); });
-                    selectAllDemo.addEventListener('change', function () {
-                        itemDemos.forEach(function (i) { i.checked = selectAllDemo.checked; });
-                    });
-                    updateSelectAllDemo();
-                </script>
-            </ComponentPreview>
-        </section>
-
-        <!-- Inline Layout -->
-        <section class="space-y-3">
-            <SectionHeading id="inline-layout" title={t.sections.inline.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.inline.description} />
-            <ComponentPreview code={inlineCode}>
-                <div class="flex flex-wrap gap-4">
-                    <div class="cu-checkbox-wrapper">
-                        <Checkbox id="opt-a-demo" />
-                        <Label for="opt-a-demo">Option A</Label>
-                    </div>
-                    <div class="cu-checkbox-wrapper">
-                        <Checkbox id="opt-b-demo" checked />
-                        <Label for="opt-b-demo">Option B</Label>
-                    </div>
-                    <div class="cu-checkbox-wrapper">
-                        <Checkbox id="opt-c-demo" />
-                        <Label for="opt-c-demo">Option C</Label>
-                    </div>
-                </div>
-            </ComponentPreview>
-        </section>
-    </div>
+    <!-- Inline Layout -->
+    <section class="space-y-3">
+      <SectionHeading id="inline-layout" title={t.sections.inline.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.inline.description} />
+      <ComponentPreview code={inlineCode}>
+        <div class="flex flex-wrap gap-4">
+          <div class="cu-checkbox-wrapper">
+            <Checkbox id="opt-a-demo" />
+            <Label for="opt-a-demo">Option A</Label>
+          </div>
+          <div class="cu-checkbox-wrapper">
+            <Checkbox id="opt-b-demo" checked />
+            <Label for="opt-b-demo">Option B</Label>
+          </div>
+          <div class="cu-checkbox-wrapper">
+            <Checkbox id="opt-c-demo" />
+            <Label for="opt-c-demo">Option C</Label>
+          </div>
+        </div>
+      </ComponentPreview>
+    </section>
+  </div>
 </Layout>

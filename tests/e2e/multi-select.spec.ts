@@ -150,7 +150,9 @@ test.describe("Multi Select", () => {
     await expect(ms.content).toBeVisible();
   });
 
-  test("鍵盤刪除：移除按鈕在 trigger 之前的 Tab 順序；移除後焦點移到下一個標籤，最後一個之後為 trigger", async ({ page }) => {
+  test("鍵盤刪除：移除按鈕在 trigger 之前的 Tab 順序；移除後焦點移到下一個標籤，最後一個之後為 trigger", async ({
+    page,
+  }) => {
     const ms = multiSelect(page, "ms-frameworks");
     await ms.trigger.click();
     await ms.item("React").click();
@@ -186,12 +188,14 @@ test.describe("Multi Select", () => {
     expect((await events(page)).map((e: any) => e.selected).slice(-3)).toEqual([["vue", "angular"], ["vue"], []]);
   });
 
-  test("結構：標籤與移除按鈕在 trigger 之外（不是巢狀互動元素），移除按鈕為 type=\"button\"", async ({ page }) => {
+  test('結構：標籤與移除按鈕在 trigger 之外（不是巢狀互動元素），移除按鈕為 type="button"', async ({ page }) => {
     const ms = multiSelect(page, "ms-preset");
     await expect.poll(ms.tagLabels).toEqual(["Bug", "Feature"]);
     // trigger 內沒有任何互動元素；標籤容器是 trigger 的兄弟、包在 control 內
     await expect(ms.trigger.locator("button, [tabindex]")).toHaveCount(0);
-    await expect(ms.control.locator(":scope > [data-cu-multi-select-tags] + [data-cu-multi-select-trigger]")).toHaveCount(1);
+    await expect(
+      ms.control.locator(":scope > [data-cu-multi-select-tags] + [data-cu-multi-select-trigger]"),
+    ).toHaveCount(1);
     for (const btn of await ms.root.locator(".cu-multi-select-tag-remove").all()) {
       await expect(btn).toHaveAttribute("type", "button");
     }
@@ -205,7 +209,9 @@ test.describe("Multi Select", () => {
     const ms = multiSelect(page, "ms-legacy");
     await expect(ms.control).toHaveCount(1);
     await expect(ms.trigger.locator("[data-cu-multi-select-tags]")).toHaveCount(0);
-    await expect(ms.control.locator(":scope > [data-cu-multi-select-tags] + [data-cu-multi-select-trigger]")).toHaveCount(1);
+    await expect(
+      ms.control.locator(":scope > [data-cu-multi-select-tags] + [data-cu-multi-select-trigger]"),
+    ).toHaveCount(1);
     await expect(ms.trigger.locator("[data-cu-multi-select-placeholder]")).toHaveCount(1);
     await expect.poll(ms.tagLabels).toEqual(["Red"]);
     await expect(ms.trigger.locator("button")).toHaveCount(0);
@@ -437,7 +443,9 @@ test.describe("Multi Select", () => {
     await expect(zh.removeBtn("bob")).toHaveText("×");
   });
 
-  test("APG select-only combobox：沒有搜尋框時 trigger 為 combobox，以 aria-activedescendant 指向高亮項目", async ({ page }) => {
+  test("APG select-only combobox：沒有搜尋框時 trigger 為 combobox，以 aria-activedescendant 指向高亮項目", async ({
+    page,
+  }) => {
     const ms = multiSelect(page, "ms-frameworks");
     const listId = await ms.list.getAttribute("id");
     expect(listId).toBeTruthy();

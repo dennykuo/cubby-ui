@@ -36,7 +36,11 @@ function legacyCopy(text) {
   document.body.appendChild(ta);
   ta.select();
   var ok;
-  try { ok = document.execCommand("copy"); } catch (_err) { ok = false; }
+  try {
+    ok = document.execCommand("copy");
+  } catch (_err) {
+    ok = false;
+  }
   document.body.removeChild(ta);
   if (active && active.focus) active.focus();
   return ok;
@@ -55,7 +59,8 @@ export function getLiveRegion() {
   live.setAttribute("aria-live", "polite");
   live.setAttribute("aria-atomic", "true");
   // 視覺隱藏（不依賴 CSS 檔）
-  live.style.cssText = "position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;";
+  live.style.cssText =
+    "position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;";
   document.body.appendChild(live);
   return live;
 }
@@ -64,7 +69,9 @@ function announce(message) {
   var live = getLiveRegion();
   // 先清空再寫入，連續複製相同訊息時也能重新播報
   live.textContent = "";
-  setTimeout(function () { live.textContent = message; }, 50);
+  setTimeout(function () {
+    live.textContent = message;
+  }, 50);
 }
 
 /**

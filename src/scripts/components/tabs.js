@@ -27,7 +27,10 @@ import { genId } from "../core/utils.js";
  */
 export function setupTabs() {
   document.querySelectorAll("[data-cu-tabs]").forEach(function (tabs) {
-    if (tabs._cuInit) { restore("tabs", tabs); return; }
+    if (tabs._cuInit) {
+      restore("tabs", tabs);
+      return;
+    }
     tabs._cuInit = true;
 
     var triggers = /** @type {NodeListOf<HTMLElement>} */ (tabs.querySelectorAll("[data-cu-tabs-trigger]"));
@@ -131,12 +134,14 @@ export function setupTabs() {
       if (btnEnd) btnEnd.hidden = list.scrollLeft + list.clientWidth >= list.scrollWidth - 1;
     }
 
-    if (btnStart) btnStart.addEventListener("click", function () {
-      list.scrollBy({ left: -200, behavior: "smooth" });
-    });
-    if (btnEnd) btnEnd.addEventListener("click", function () {
-      list.scrollBy({ left: 200, behavior: "smooth" });
-    });
+    if (btnStart)
+      btnStart.addEventListener("click", function () {
+        list.scrollBy({ left: -200, behavior: "smooth" });
+      });
+    if (btnEnd)
+      btnEnd.addEventListener("click", function () {
+        list.scrollBy({ left: 200, behavior: "smooth" });
+      });
 
     list.addEventListener("scroll", updateArrows);
     if (typeof ResizeObserver !== "undefined") {

@@ -1,0 +1,18 @@
+# 建置產物與自動產生的檔案（.gitignore 中的路徑 Prettier 3 也會略過，這裡明列重要的幾項）
+dist/
+docs/
+src/pages/zh-tw/
+package-lock.json
+
+# 文件類：Markdown 與 llms.txt 維持手寫排版（表格、長行與中英混排不重排）
+*.md
+llms.txt
+.changeset/
+
+# 參考資料與歸檔計畫
+references/
+
+# Blade 轉換器以 regex 解析 src/components/ui/*.astro 的 frontmatter 與 template，
+# 對排版敏感（例如 Prettier 為箭頭函式本體加上括號後，Button 的 size class 會在 Blade 輸出中遺失）。
+# 轉換器改為 AST 解析之前不要格式化這個目錄。
+src/components/ui/

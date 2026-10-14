@@ -70,9 +70,7 @@ const withLabelCode = `<div class="cu-form-group">
       <h1 class="text-3xl font-bold tracking-tight">Input Group</h1>
       <span class="cu-badge cu-badge-secondary">{t.category}</span>
     </div>
-    <p class="text-base text-muted-foreground leading-relaxed">
-      {t.description}
-    </p>
+    <p class="text-base text-muted-foreground leading-relaxed">{t.description}</p>
   </div>
 
   <div class="mt-10 space-y-10">
@@ -126,7 +124,19 @@ const withLabelCode = `<div class="cu-form-group">
         <div class="w-full max-w-sm">
           <InputGroup>
             <InputGroupText>
-              <svg xmlns="http://www.w3.org/2000/svg" class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="size-4"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+                <circle cx="12" cy="7" r="4" />
+              </svg>
             </InputGroupText>
             <Input type="text" placeholder="Username" />
           </InputGroup>
@@ -151,14 +161,24 @@ const withLabelCode = `<div class="cu-form-group">
     <!-- Combined -->
     <section class="space-y-3">
       <SectionHeading id="combined" title={t.sections.combined.title} />
-      <p class="text-base text-muted-foreground leading-relaxed">
-        {t.sections.combined.description}
-      </p>
+      <p class="text-base text-muted-foreground leading-relaxed">{t.sections.combined.description}</p>
       <ComponentPreview code={combinedCode}>
         <div class="w-full max-w-sm">
           <InputGroup>
             <InputGroupText>
-              <svg xmlns="http://www.w3.org/2000/svg" class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="size-4"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <rect width="20" height="16" x="2" y="4" rx="2" />
+                <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+              </svg>
             </InputGroupText>
             <Input type="email" placeholder="you@example.com" />
             <Button variant="default">Subscribe</Button>
@@ -212,7 +232,9 @@ const withLabelCode = `<div class="cu-form-group">
           <tbody class="cu-table-body">
             {Object.entries(t.classDescriptions).map(([cls, desc]) => (
               <tr class="cu-table-row">
-                <td class="cu-table-cell"><code class="cu-code">{cls}</code></td>
+                <td class="cu-table-cell">
+                  <code class="cu-code">{cls}</code>
+                </td>
                 <td class="cu-table-cell text-muted-foreground">{desc}</td>
               </tr>
             ))}

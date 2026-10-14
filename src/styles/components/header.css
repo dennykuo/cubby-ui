@@ -1,35 +1,43 @@
 /* Header
    ------------------------------------------------------------------ */
 .cu-header {
-    @apply sticky top-0 z-50 w-full border-b border-border bg-background/80 backdrop-blur-xl;
+  @apply sticky top-0 z-50 w-full border-b border-border bg-background/80 backdrop-blur-xl;
 }
 
 .cu-header-inner {
-    @apply mx-auto flex h-14 items-center justify-between gap-6 px-4 sm:px-6 lg:px-8;
+  @apply mx-auto flex h-14 items-center justify-between gap-6 px-4 sm:px-6 lg:px-8;
 }
 
 .cu-header-brand {
-    @apply flex items-center gap-2.5;
+  @apply flex items-center gap-2.5;
 }
 
 .cu-header-nav {
-    @apply flex items-center gap-1 px-5;
+  @apply flex items-center gap-1 px-5;
 }
-.cu-header-nav-sm { @apply hidden sm:flex; }
-.cu-header-nav-md { @apply hidden md:flex; }
-.cu-header-nav-lg { @apply hidden lg:flex; }
-.cu-header-nav-xl { @apply hidden xl:flex; }
+.cu-header-nav-sm {
+  @apply hidden sm:flex;
+}
+.cu-header-nav-md {
+  @apply hidden md:flex;
+}
+.cu-header-nav-lg {
+  @apply hidden lg:flex;
+}
+.cu-header-nav-xl {
+  @apply hidden xl:flex;
+}
 
 .cu-header-nav-start {
-    @apply mr-auto;
+  @apply mr-auto;
 }
 
 .cu-header-nav-end {
-    @apply ml-auto;
+  @apply ml-auto;
 }
 
 .cu-header-actions {
-    @apply flex items-center gap-2;
+  @apply flex items-center gap-2;
 }
 
 /* Mobile Navigation
@@ -39,39 +47,43 @@
    Enter/exit animation is preserved via @starting-style + allow-discrete
    (same pattern as Drawer; `overlay` is omitted as these are not top-layer). */
 .cu-header-mobile-backdrop {
-    @apply fixed inset-0 z-50 bg-foreground/30;
-    display: none;
-    opacity: 0;
-    transition: opacity 360ms ease, display 360ms ease allow-discrete;
+  @apply fixed inset-0 z-50 bg-foreground/30;
+  display: none;
+  opacity: 0;
+  transition:
+    opacity 360ms ease,
+    display 360ms ease allow-discrete;
 }
 
 .cu-header-mobile-backdrop[data-cu-mobile-nav-open] {
-    display: block;
-    opacity: 1;
+  display: block;
+  opacity: 1;
 }
 
 @starting-style {
-    .cu-header-mobile-backdrop[data-cu-mobile-nav-open] {
-        opacity: 0;
-    }
+  .cu-header-mobile-backdrop[data-cu-mobile-nav-open] {
+    opacity: 0;
+  }
 }
 
 .cu-header-mobile-nav {
-    @apply fixed inset-y-0 right-0 z-[60] w-72 flex-col border-l border-border bg-background;
-    display: none;
-    transform: translateX(100%);
-    transition: transform 360ms ease-out, display 360ms ease-out allow-discrete;
+  @apply fixed inset-y-0 right-0 z-[60] w-72 flex-col border-l border-border bg-background;
+  display: none;
+  transform: translateX(100%);
+  transition:
+    transform 360ms ease-out,
+    display 360ms ease-out allow-discrete;
 }
 
 .cu-header-mobile-nav[data-cu-mobile-nav-open] {
-    display: flex;
-    transform: translateX(0);
+  display: flex;
+  transform: translateX(0);
 }
 
 @starting-style {
-    .cu-header-mobile-nav[data-cu-mobile-nav-open] {
-        transform: translateX(100%);
-    }
+  .cu-header-mobile-nav[data-cu-mobile-nav-open] {
+    transform: translateX(100%);
+  }
 }
 
 /* Breakpoint removal — fully hidden (display:none) at/above the toggle's
@@ -81,28 +93,52 @@
 .cu-header-mobile-nav-sm,
 .cu-header-mobile-backdrop-sm,
 .cu-header-mobile-nav-sm[data-cu-mobile-nav-open],
-.cu-header-mobile-backdrop-sm[data-cu-mobile-nav-open] { @apply sm:hidden; }
+.cu-header-mobile-backdrop-sm[data-cu-mobile-nav-open] {
+  @apply sm:hidden;
+}
 .cu-header-mobile-nav-md,
 .cu-header-mobile-backdrop-md,
 .cu-header-mobile-nav-md[data-cu-mobile-nav-open],
-.cu-header-mobile-backdrop-md[data-cu-mobile-nav-open] { @apply md:hidden; }
+.cu-header-mobile-backdrop-md[data-cu-mobile-nav-open] {
+  @apply md:hidden;
+}
 .cu-header-mobile-nav-lg,
 .cu-header-mobile-backdrop-lg,
 .cu-header-mobile-nav-lg[data-cu-mobile-nav-open],
-.cu-header-mobile-backdrop-lg[data-cu-mobile-nav-open] { @apply lg:hidden; }
+.cu-header-mobile-backdrop-lg[data-cu-mobile-nav-open] {
+  @apply lg:hidden;
+}
 .cu-header-mobile-nav-xl,
 .cu-header-mobile-backdrop-xl,
 .cu-header-mobile-nav-xl[data-cu-mobile-nav-open],
-.cu-header-mobile-backdrop-xl[data-cu-mobile-nav-open] { @apply xl:hidden; }
+.cu-header-mobile-backdrop-xl[data-cu-mobile-nav-open] {
+  @apply xl:hidden;
+}
+
+/* 漢堡按鈕的桌機斷點隱藏：dist CSS 不含 Tailwind 工具類別（md:hidden 等），
+   純 HTML 使用者以這組 class 讓觸發按鈕與 cu-header-nav-{bp} / 面板的斷點一致。
+   header.css 在 button.css 之後載入，同特異度下蓋過 cu-button 的 inline-flex。 */
+.cu-header-mobile-toggle-sm {
+  @apply sm:hidden;
+}
+.cu-header-mobile-toggle-md {
+  @apply md:hidden;
+}
+.cu-header-mobile-toggle-lg {
+  @apply lg:hidden;
+}
+.cu-header-mobile-toggle-xl {
+  @apply xl:hidden;
+}
 
 .cu-header-mobile-header {
-    @apply flex h-14 shrink-0 items-center justify-end px-4;
+  @apply flex h-14 shrink-0 items-center justify-end px-4;
 }
 
 .cu-header-mobile-content {
-    @apply flex-1 overflow-y-auto p-4;
+  @apply flex-1 overflow-y-auto p-4;
 }
 
 .cu-header-mobile-close {
-    @apply inline-flex size-9 items-center justify-center rounded-lg text-muted-foreground transition-colors duration-150 hover:bg-muted/60 hover:text-foreground outline-none focus-visible:ring-1 focus-visible:ring-ring/40;
+  @apply inline-flex size-9 items-center justify-center rounded-lg text-muted-foreground transition-colors duration-150 outline-none hover:bg-muted/60 hover:text-foreground focus-visible:ring-1 focus-visible:ring-ring/40;
 }

@@ -138,7 +138,8 @@ async function fetchUsers() {
 }</code></pre>
 </div>`.trim();
 
-const copyCode = `<div class="cu-code-block" data-cu-code-block data-cu-code-block-success-text="Command copied" data-cu-code-block-error-text="Press Ctrl+C to copy">
+const copyCode =
+  `<div class="cu-code-block" data-cu-code-block data-cu-code-block-success-text="Command copied" data-cu-code-block-error-text="Press Ctrl+C to copy">
   <div class="cu-code-block-header">
     <span>Shell</span>
     <button type="button" class="cu-code-block-copy" data-cu-code-block-copy>
@@ -290,7 +291,9 @@ async function fetchUsers() {
             language="Shell"
             data-cu-code-block-success-text="Command copied"
             data-cu-code-block-error-text="Press Ctrl+C to copy"
-          >npm install cubby-ui</CodeBlock>
+          >
+            npm install cubby-ui
+          </CodeBlock>
         </div>
       </ComponentPreview>
     </section>
@@ -309,7 +312,9 @@ async function fetchUsers() {
           <tbody class="cu-table-body">
             {Object.entries(t.attributeDescriptions).map(([attr, desc]) => (
               <tr class="cu-table-row">
-                <td class="cu-table-cell"><code class="cu-code">{attr}</code></td>
+                <td class="cu-table-cell">
+                  <code class="cu-code">{attr}</code>
+                </td>
                 <td class="cu-table-cell text-muted-foreground">{desc}</td>
               </tr>
             ))}
@@ -332,7 +337,9 @@ async function fetchUsers() {
           <tbody class="cu-table-body">
             {Object.entries(t.classDescriptions).map(([cls, desc]) => (
               <tr class="cu-table-row">
-                <td class="cu-table-cell"><code class="cu-code">{cls}</code></td>
+                <td class="cu-table-cell">
+                  <code class="cu-code">{cls}</code>
+                </td>
                 <td class="cu-table-cell text-muted-foreground">{desc}</td>
               </tr>
             ))}

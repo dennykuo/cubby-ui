@@ -1,116 +1,131 @@
-import type { Locale } from '../../index';
+import type { Locale } from "../../index";
 
-export const commandPalettePage: Record<Locale, {
-  title: string;
-  description: string;
-  category: string;
-  sections: {
-    usage: { title: string; description: string };
-    classes: { title: string; classLabel: string; descriptionLabel: string };
-    withGroups: { title: string; description: string };
-    withShortcuts: { title: string; description: string };
-    withIcons: { title: string; description: string };
-    emptyState: { title: string; description: string };
-    accessibility: { title: string; description: string };
-  };
-  classDescriptions: Record<string, string>;
-}> = {
+export const commandPalettePage: Record<
+  Locale,
+  {
+    title: string;
+    description: string;
+    category: string;
+    sections: {
+      usage: { title: string; description: string };
+      classes: { title: string; classLabel: string; descriptionLabel: string };
+      withGroups: { title: string; description: string };
+      withShortcuts: { title: string; description: string };
+      withIcons: { title: string; description: string };
+      emptyState: { title: string; description: string };
+      accessibility: { title: string; description: string };
+    };
+    classDescriptions: Record<string, string>;
+  }
+> = {
   en: {
-    title: 'Command Palette — Cubby UI',
-    description: 'A global search and command panel triggered by <kbd class="cu-kbd">⌘</kbd><kbd class="cu-kbd">K</kbd> or a button. Features real-time filtering, keyboard navigation, and grouped results.',
-    category: 'Overlay',
+    title: "Command Palette — Cubby UI",
+    description:
+      'A global search and command panel triggered by <kbd class="cu-kbd">⌘</kbd><kbd class="cu-kbd">K</kbd> or a button. Features real-time filtering, keyboard navigation, and grouped results.',
+    category: "Overlay",
     sections: {
       usage: {
-        title: 'Usage',
-        description: 'The command palette uses a <code class="cu-code">&lt;dialog&gt;</code> element with <code class="cu-code">data-cu-command</code>. Open it with <code class="cu-code">data-cu-command-trigger</code> buttons or the global <kbd class="cu-kbd">⌘</kbd><kbd class="cu-kbd">K</kbd> shortcut. Items are filtered in real-time as you type. Items are looked up on demand, so items added to or removed from <code class="cu-code">data-cu-command-list</code> later (for example remote search results) are filtered, navigable and announced right away; <code class="cu-code">CubbyUI.refresh()</code> also re-syncs them.',
+        title: "Usage",
+        description:
+          'The command palette uses a <code class="cu-code">&lt;dialog&gt;</code> element with <code class="cu-code">data-cu-command</code>. Open it with <code class="cu-code">data-cu-command-trigger</code> buttons or the global <kbd class="cu-kbd">⌘</kbd><kbd class="cu-kbd">K</kbd> shortcut. Items are filtered in real-time as you type. Items are looked up on demand, so items added to or removed from <code class="cu-code">data-cu-command-list</code> later (for example remote search results) are filtered, navigable and announced right away; <code class="cu-code">CubbyUI.refresh()</code> also re-syncs them.',
       },
       classes: {
-        title: 'CSS Classes',
-        classLabel: 'Class',
-        descriptionLabel: 'Description',
+        title: "CSS Classes",
+        classLabel: "Class",
+        descriptionLabel: "Description",
       },
       withGroups: {
-        title: 'With Groups',
-        description: 'Use <code class="cu-code">cu-command-group</code> with <code class="cu-code">cu-command-group-heading</code> to organize items into sections. Add <code class="cu-code">cu-command-separator</code> between groups for visual separation. Groups are automatically hidden when all their items are filtered out.',
+        title: "With Groups",
+        description:
+          'Use <code class="cu-code">cu-command-group</code> with <code class="cu-code">cu-command-group-heading</code> to organize items into sections. Add <code class="cu-code">cu-command-separator</code> between groups for visual separation. Groups are automatically hidden when all their items are filtered out.',
       },
       withShortcuts: {
-        title: 'With Keyboard Shortcuts',
-        description: 'Use <code class="cu-code">cu-command-shortcut</code> with <code class="cu-code">cu-kbd</code> elements to display keyboard shortcut hints on the right side of each item.',
+        title: "With Keyboard Shortcuts",
+        description:
+          'Use <code class="cu-code">cu-command-shortcut</code> with <code class="cu-code">cu-kbd</code> elements to display keyboard shortcut hints on the right side of each item.',
       },
       withIcons: {
-        title: 'With Icons',
-        description: 'Add leading icons to command items for faster visual scanning and recognition.',
+        title: "With Icons",
+        description: "Add leading icons to command items for faster visual scanning and recognition.",
       },
       emptyState: {
-        title: 'Empty State',
-        description: 'Display a friendly message when search results return no matching commands.',
+        title: "Empty State",
+        description:
+          'Display a friendly message when search results return no matching commands. Mark it with <code class="cu-code">data-cu-command-empty</code> and <code class="cu-code">hidden</code>; it is shown automatically when nothing matches (type a query that matches no command).',
       },
       accessibility: {
-        title: 'Accessibility',
-        description: 'Follows the WAI-ARIA combobox and listbox patterns. Focus stays in the search input (<code class="cu-code">role="combobox"</code> with <code class="cu-code">aria-controls</code>, <code class="cu-code">aria-autocomplete="list"</code> and <code class="cu-code">aria-expanded="true"</code>), and <code class="cu-code">aria-activedescendant</code> points at the active item. The list is a <code class="cu-code">role="listbox"</code>, each group a <code class="cu-code">role="group"</code> named by its <code class="cu-code">cu-command-group-heading</code>, and each item a <code class="cu-code">role="option"</code> with <code class="cu-code">aria-selected</code>; missing ids are generated. Items can be links (<code class="cu-code">&lt;a href&gt;</code>): Enter clicks the active item, so it navigates as usual. Describe the search with an <code class="cu-code">aria-label</code> on the dialog or the input.',
+        title: "Accessibility",
+        description:
+          'Follows the WAI-ARIA combobox and listbox patterns. Focus stays in the search input (<code class="cu-code">role="combobox"</code> with <code class="cu-code">aria-controls</code>, <code class="cu-code">aria-autocomplete="list"</code> and <code class="cu-code">aria-expanded="true"</code>), and <code class="cu-code">aria-activedescendant</code> points at the active item. The list is a <code class="cu-code">role="listbox"</code>, each group a <code class="cu-code">role="group"</code> named by its <code class="cu-code">cu-command-group-heading</code>, and each item a <code class="cu-code">role="option"</code> with <code class="cu-code">aria-selected</code>; missing ids are generated. Items can be links (<code class="cu-code">&lt;a href&gt;</code>): Enter clicks the active item, so it navigates as usual. Describe the search with an <code class="cu-code">aria-label</code> on the dialog or the input.',
       },
     },
     classDescriptions: {
-      'cu-command': 'Dialog container (centered modal with backdrop)',
-      'cu-command-input-wrapper': 'Search input area with icon and bottom border',
-      'cu-command-input-icon': 'Search icon in the input area',
-      'cu-command-input': 'Text input for searching/filtering',
-      'cu-command-list': 'Scrollable results list container',
-      'cu-command-group': 'Group wrapper for categorizing items',
-      'cu-command-group-heading': 'Group heading label',
-      'cu-command-item': 'Selectable command item with hover/active state',
-      'cu-command-separator': 'Horizontal divider between groups',
-      'cu-command-shortcut': 'Right-aligned shortcut hint container',
-      'cu-command-empty': 'Empty state message when no items match',
+      "cu-command": "Dialog container (centered modal with backdrop)",
+      "cu-command-input-wrapper": "Search input area with icon and bottom border",
+      "cu-command-input-icon": "Search icon in the input area",
+      "cu-command-input": "Text input for searching/filtering",
+      "cu-command-list": "Scrollable results list container",
+      "cu-command-group": "Group wrapper for categorizing items",
+      "cu-command-group-heading": "Group heading label",
+      "cu-command-item": "Selectable command item with hover/active state",
+      "cu-command-separator": "Horizontal divider between groups",
+      "cu-command-shortcut": "Right-aligned shortcut hint container",
+      "cu-command-empty": "Empty state message when no items match",
     },
   },
-  'zh-tw': {
-    title: 'Command Palette — Cubby UI',
-    description: '透過 <kbd class="cu-kbd">⌘</kbd><kbd class="cu-kbd">K</kbd> 或按鈕觸發的全域搜尋與指令面板。支援即時篩選、鍵盤導航和分組結果。',
-    category: '浮層',
+  "zh-tw": {
+    title: "Command Palette — Cubby UI",
+    description:
+      '透過 <kbd class="cu-kbd">⌘</kbd><kbd class="cu-kbd">K</kbd> 或按鈕觸發的全域搜尋與指令面板。支援即時篩選、鍵盤導航和分組結果。',
+    category: "浮層",
     sections: {
       usage: {
-        title: '使用方式',
-        description: 'Command Palette 使用 <code class="cu-code">&lt;dialog&gt;</code> 元素搭配 <code class="cu-code">data-cu-command</code>。透過 <code class="cu-code">data-cu-command-trigger</code> 按鈕或全域快捷鍵 <kbd class="cu-kbd">⌘</kbd><kbd class="cu-kbd">K</kbd> 開啟。輸入時會即時篩選項目。項目在需要時才查詢，之後加入或移出 <code class="cu-code">data-cu-command-list</code> 的項目（例如遠端搜尋結果）會立即納入篩選、鍵盤導航與無障礙語意；<code class="cu-code">CubbyUI.refresh()</code> 也會重新同步。',
+        title: "使用方式",
+        description:
+          'Command Palette 使用 <code class="cu-code">&lt;dialog&gt;</code> 元素搭配 <code class="cu-code">data-cu-command</code>。透過 <code class="cu-code">data-cu-command-trigger</code> 按鈕或全域快捷鍵 <kbd class="cu-kbd">⌘</kbd><kbd class="cu-kbd">K</kbd> 開啟。輸入時會即時篩選項目。項目在需要時才查詢，之後加入或移出 <code class="cu-code">data-cu-command-list</code> 的項目（例如遠端搜尋結果）會立即納入篩選、鍵盤導航與無障礙語意；<code class="cu-code">CubbyUI.refresh()</code> 也會重新同步。',
       },
       classes: {
-        title: 'CSS 類別',
-        classLabel: '類別',
-        descriptionLabel: '說明',
+        title: "CSS 類別",
+        classLabel: "類別",
+        descriptionLabel: "說明",
       },
       withGroups: {
-        title: '分組',
-        description: '使用 <code class="cu-code">cu-command-group</code> 搭配 <code class="cu-code">cu-command-group-heading</code> 將項目組織為分類區塊。在群組之間加入 <code class="cu-code">cu-command-separator</code> 作為視覺分隔。當群組中所有項目都被篩選掉時，群組會自動隱藏。',
+        title: "分組",
+        description:
+          '使用 <code class="cu-code">cu-command-group</code> 搭配 <code class="cu-code">cu-command-group-heading</code> 將項目組織為分類區塊。在群組之間加入 <code class="cu-code">cu-command-separator</code> 作為視覺分隔。當群組中所有項目都被篩選掉時，群組會自動隱藏。',
       },
       withShortcuts: {
-        title: '鍵盤快捷鍵',
-        description: '使用 <code class="cu-code">cu-command-shortcut</code> 搭配 <code class="cu-code">cu-kbd</code> 元素，在每個項目右側顯示鍵盤快捷鍵提示。',
+        title: "鍵盤快捷鍵",
+        description:
+          '使用 <code class="cu-code">cu-command-shortcut</code> 搭配 <code class="cu-code">cu-kbd</code> 元素，在每個項目右側顯示鍵盤快捷鍵提示。',
       },
       withIcons: {
-        title: '搭配圖示',
-        description: '為指令項目加入前導圖示，加速視覺掃描和辨識。',
+        title: "搭配圖示",
+        description: "為指令項目加入前導圖示，加速視覺掃描和辨識。",
       },
       emptyState: {
-        title: '空狀態',
-        description: '當搜尋結果沒有匹配的指令時，顯示友善的提示訊息。',
+        title: "空狀態",
+        description:
+          '當搜尋結果沒有匹配的指令時，顯示友善的提示訊息。為該元素加上 <code class="cu-code">data-cu-command-empty</code> 與 <code class="cu-code">hidden</code>，沒有任何相符項目時會自動顯示（輸入不相符的關鍵字即可看到）。',
       },
       accessibility: {
-        title: '無障礙',
-        description: '遵循 WAI-ARIA combobox 與 listbox 模式。焦點留在搜尋框（<code class="cu-code">role="combobox"</code>，帶 <code class="cu-code">aria-controls</code>、<code class="cu-code">aria-autocomplete="list"</code> 與 <code class="cu-code">aria-expanded="true"</code>），以 <code class="cu-code">aria-activedescendant</code> 指向目前選中的項目。清單為 <code class="cu-code">role="listbox"</code>，分組為以 <code class="cu-code">cu-command-group-heading</code> 命名的 <code class="cu-code">role="group"</code>，項目為帶 <code class="cu-code">aria-selected</code> 的 <code class="cu-code">role="option"</code>；缺少的 id 會自動產生。項目可以是連結（<code class="cu-code">&lt;a href&gt;</code>）：Enter 會對選中項目執行 click，照常導航。請在 dialog 或搜尋框加上描述搜尋用途的 <code class="cu-code">aria-label</code>。',
+        title: "無障礙",
+        description:
+          '遵循 WAI-ARIA combobox 與 listbox 模式。焦點留在搜尋框（<code class="cu-code">role="combobox"</code>，帶 <code class="cu-code">aria-controls</code>、<code class="cu-code">aria-autocomplete="list"</code> 與 <code class="cu-code">aria-expanded="true"</code>），以 <code class="cu-code">aria-activedescendant</code> 指向目前選中的項目。清單為 <code class="cu-code">role="listbox"</code>，分組為以 <code class="cu-code">cu-command-group-heading</code> 命名的 <code class="cu-code">role="group"</code>，項目為帶 <code class="cu-code">aria-selected</code> 的 <code class="cu-code">role="option"</code>；缺少的 id 會自動產生。項目可以是連結（<code class="cu-code">&lt;a href&gt;</code>）：Enter 會對選中項目執行 click，照常導航。請在 dialog 或搜尋框加上描述搜尋用途的 <code class="cu-code">aria-label</code>。',
       },
     },
     classDescriptions: {
-      'cu-command': 'Dialog 容器（置中 modal 搭配背景遮罩）',
-      'cu-command-input-wrapper': '搜尋輸入區域，含圖示與底部邊框',
-      'cu-command-input-icon': '輸入區域的搜尋圖示',
-      'cu-command-input': '搜尋/篩選用文字輸入框',
-      'cu-command-list': '可捲動的結果列表容器',
-      'cu-command-group': '項目分類群組包裝器',
-      'cu-command-group-heading': '群組標題標籤',
-      'cu-command-item': '可選取的指令項目，含 hover/active 狀態',
-      'cu-command-separator': '群組之間的水平分隔線',
-      'cu-command-shortcut': '右對齊的快捷鍵提示容器',
-      'cu-command-empty': '無匹配項目時的空狀態訊息',
+      "cu-command": "Dialog 容器（置中 modal 搭配背景遮罩）",
+      "cu-command-input-wrapper": "搜尋輸入區域，含圖示與底部邊框",
+      "cu-command-input-icon": "輸入區域的搜尋圖示",
+      "cu-command-input": "搜尋/篩選用文字輸入框",
+      "cu-command-list": "可捲動的結果列表容器",
+      "cu-command-group": "項目分類群組包裝器",
+      "cu-command-group-heading": "群組標題標籤",
+      "cu-command-item": "可選取的指令項目，含 hover/active 狀態",
+      "cu-command-separator": "群組之間的水平分隔線",
+      "cu-command-shortcut": "右對齊的快捷鍵提示容器",
+      "cu-command-empty": "無匹配項目時的空狀態訊息",
     },
   },
 };

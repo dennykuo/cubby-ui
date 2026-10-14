@@ -1,117 +1,117 @@
 /* Stat Card
    ------------------------------------------------------------------ */
 .cu-stat {
-    @apply relative overflow-hidden rounded-xl border border-border/60 bg-card p-6 text-card-foreground shadow-xs transition-shadow duration-200;
+  @apply relative overflow-hidden rounded-xl border border-border/60 bg-card p-6 text-card-foreground shadow-xs transition-shadow duration-200;
 }
 
 .cu-stat-flat {
-    @apply shadow-none;
+  @apply shadow-none;
 }
 
 .cu-stat-ghost {
-    @apply border-transparent shadow-none;
+  @apply border-transparent shadow-none;
 }
 
 .cu-stat-sharp {
-    @apply rounded-none;
+  @apply rounded-none;
 }
 
 .cu-stat-hover {
-    @apply hover:shadow-sm hover:border-border/80;
+  @apply hover:border-border/80 hover:shadow-sm;
 }
 
 .cu-stat-header {
-    @apply flex items-center justify-between;
+  @apply flex items-center justify-between;
 }
 
 .cu-stat-label {
-    @apply text-sm font-medium text-muted-foreground;
+  @apply text-sm font-medium text-muted-foreground;
 }
 
 .cu-stat-icon {
-    @apply size-4 text-muted-foreground;
+  @apply size-4 text-muted-foreground;
 }
 
 .cu-stat-icon-box {
-    @apply flex size-10 items-center justify-center rounded-lg bg-primary/8 text-primary;
+  @apply flex size-10 items-center justify-center rounded-lg bg-primary/8 text-primary;
 }
 
 .cu-stat-icon-box svg {
-    @apply size-5;
+  @apply size-5;
 }
 
 .cu-stat-icon-box-secondary {
-    @apply bg-secondary/8 text-secondary;
+  @apply bg-secondary/8 text-secondary;
 }
 
 .cu-stat-icon-box-success {
-    @apply bg-success/8 text-success;
+  @apply bg-success/8 text-success;
 }
 
 .cu-stat-icon-box-warning {
-    @apply bg-warning/8 text-warning;
+  @apply bg-warning/8 text-warning;
 }
 
 .cu-stat-icon-box-destructive {
-    @apply bg-destructive/8 text-destructive;
+  @apply bg-destructive/8 text-destructive;
 }
 
 .cu-stat-icon-box-info {
-    @apply bg-info/8 text-info;
+  @apply bg-info/8 text-info;
 }
 
 .cu-stat-value {
-    @apply mt-2 text-2xl font-bold tracking-tight;
+  @apply mt-2 text-2xl font-bold tracking-tight;
 }
 
 .cu-stat-description {
-    @apply mt-1 text-sm text-muted-foreground;
+  @apply mt-1 text-sm text-muted-foreground;
 }
 
 .cu-stat-trend {
-    @apply inline-flex items-center gap-0.5 rounded-full text-xs font-medium;
+  @apply inline-flex items-center gap-0.5 rounded-full text-xs font-medium;
 }
 
 .cu-stat-trend-up {
-    @apply text-success;
+  @apply text-success;
 }
 
 .cu-stat-trend-down {
-    @apply text-destructive;
+  @apply text-destructive;
 }
 
 .cu-stat-trend-pill {
-    @apply px-2 py-0.5;
+  @apply px-2 py-0.5;
 }
 
 .cu-stat-trend-pill.cu-stat-trend-up {
-    @apply bg-success/10;
+  @apply bg-success/10;
 }
 
 .cu-stat-trend-pill.cu-stat-trend-down {
-    @apply bg-destructive/8;
+  @apply bg-destructive/8;
 }
 
 .cu-stat-footer {
-    @apply mt-4 border-t border-border/60 pt-4;
+  @apply mt-4 border-t border-border/60 pt-4;
 }
 
 .cu-stat-accent {
-    @apply rounded-none before:absolute before:left-0 before:top-0 before:h-full before:w-1 before:bg-primary;
+  @apply rounded-none before:absolute before:top-0 before:left-0 before:h-full before:w-1 before:bg-primary;
 }
 
 .cu-stat-accent-success {
-    @apply before:bg-success;
+  @apply before:bg-success;
 }
 
 .cu-stat-accent-warning {
-    @apply before:bg-warning;
+  @apply before:bg-warning;
 }
 
 .cu-stat-accent-destructive {
-    @apply before:bg-destructive;
+  @apply before:bg-destructive;
 }
 
 .cu-stat-accent-info {
-    @apply before:bg-info;
+  @apply before:bg-info;
 }

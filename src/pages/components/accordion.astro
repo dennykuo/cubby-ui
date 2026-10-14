@@ -201,257 +201,304 @@ const richContentCode = `<div class="cu-accordion">
 ---
 
 <Layout title={t.title} category={t.category} componentName="Accordion" description={t.description}>
-    <div class="space-y-3">
-        <div class="flex items-center gap-3">
-            <h1 class="text-3xl font-bold tracking-tight">Accordion</h1>
-            <span class="cu-badge cu-badge-secondary">{t.category}</span>
+  <div class="space-y-3">
+    <div class="flex items-center gap-3">
+      <h1 class="text-3xl font-bold tracking-tight">Accordion</h1>
+      <span class="cu-badge cu-badge-secondary">{t.category}</span>
+    </div>
+    <p class="text-base text-muted-foreground leading-relaxed" set:html={t.description} />
+  </div>
+
+  <div class="mt-10 space-y-10">
+    <!-- Usage -->
+    <section class="space-y-3">
+      <SectionHeading id="usage" title={t.sections.usage.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
+      <ComponentPreview code={usageCode}>
+        <div class="w-full max-w-lg">
+          <Accordion>
+            <AccordionItem>
+              <AccordionTrigger>Is it accessible?</AccordionTrigger>
+              <AccordionContent>
+                Yes. It adheres to the WAI-ARIA design pattern using native HTML details/summary elements.
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
         </div>
-        <p class="text-base text-muted-foreground leading-relaxed" set:html={t.description} />
-    </div>
+      </ComponentPreview>
+    </section>
 
-    <div class="mt-10 space-y-10">
-        <!-- Usage -->
-        <section class="space-y-3">
-            <SectionHeading id="usage" title={t.sections.usage.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
-            <ComponentPreview code={usageCode}>
-                <div class="w-full max-w-lg">
-                    <Accordion>
-                        <AccordionItem>
-                            <AccordionTrigger>Is it accessible?</AccordionTrigger>
-                            <AccordionContent>
-                                Yes. It adheres to the WAI-ARIA design pattern using native HTML details/summary elements.
-                            </AccordionContent>
-                        </AccordionItem>
-                    </Accordion>
+    <!-- Classes Reference -->
+    <section class="space-y-3">
+      <SectionHeading id="classes" title={t.sections.classes.title} />
+      <div class="cu-table-wrapper rounded-lg border border-border">
+        <table class="cu-table">
+          <thead class="cu-table-header">
+            <tr class="cu-table-row">
+              <th class="cu-table-head">{t.sections.classes.classLabel}</th>
+              <th class="cu-table-head">{t.sections.classes.descriptionLabel}</th>
+            </tr>
+          </thead>
+          <tbody class="cu-table-body">
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-accordion</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground" set:html={t.classDescriptions["cu-accordion"]} />
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-accordion-item</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground" set:html={t.classDescriptions["cu-accordion-item"]} />
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-accordion-trigger</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground" set:html={t.classDescriptions["cu-accordion-trigger"]} />
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-accordion-content</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-accordion-content"]}</td>
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-accordion-bordered</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-accordion-bordered"]}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Multiple Items -->
+    <section class="space-y-3">
+      <SectionHeading id="multiple-items" title={t.sections.multipleItems.title} />
+      <p class="text-base text-muted-foreground leading-relaxed">{t.sections.multipleItems.description}</p>
+      <ComponentPreview code={multipleCode}>
+        <div class="w-full max-w-lg">
+          <Accordion>
+            <AccordionItem>
+              <AccordionTrigger>Is it accessible?</AccordionTrigger>
+              <AccordionContent>Yes. It uses native HTML details/summary elements for accessibility.</AccordionContent>
+            </AccordionItem>
+            <AccordionItem>
+              <AccordionTrigger>Is it styled?</AccordionTrigger>
+              <AccordionContent>
+                Yes. It comes with default styles that match the other components' aesthetic.
+              </AccordionContent>
+            </AccordionItem>
+            <AccordionItem>
+              <AccordionTrigger>Is it animated?</AccordionTrigger>
+              <AccordionContent>
+                The chevron icon rotates when the item is expanded. The component uses CSS transitions.
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
+        </div>
+      </ComponentPreview>
+    </section>
+
+    <!-- Default Open -->
+    <section class="space-y-3">
+      <SectionHeading id="default-open" title={t.sections.defaultOpen.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.defaultOpen.description} />
+      <ComponentPreview code={defaultOpenCode}>
+        <div class="w-full max-w-lg">
+          <Accordion>
+            <AccordionItem open>
+              <AccordionTrigger>What is Cubby UI?</AccordionTrigger>
+              <AccordionContent>
+                Cubby UI is a framework-agnostic component library built with pure HTML and Tailwind CSS. Components are
+                designed to be copy-pasted directly into your project.
+              </AccordionContent>
+            </AccordionItem>
+            <AccordionItem>
+              <AccordionTrigger>Do I need React or Vue?</AccordionTrigger>
+              <AccordionContent>
+                No. Cubby UI works with any stack — vanilla HTML, Astro, PHP, Laravel Blade, or any templating language.
+              </AccordionContent>
+            </AccordionItem>
+            <AccordionItem>
+              <AccordionTrigger>Is it free to use?</AccordionTrigger>
+              <AccordionContent>Yes. Free for personal and commercial use. No attribution required.</AccordionContent>
+            </AccordionItem>
+          </Accordion>
+        </div>
+      </ComponentPreview>
+    </section>
+
+    <!-- With Icons -->
+    <section class="space-y-3">
+      <SectionHeading id="with-icons" title={t.sections.withIcons.title} />
+      <p class="text-base text-muted-foreground leading-relaxed">{t.sections.withIcons.description}</p>
+      <ComponentPreview code={withIconsCode}>
+        <div class="w-full max-w-lg">
+          <Accordion>
+            <AccordionItem>
+              <AccordionTrigger>
+                <span class="flex items-center gap-2">
+                  <svg
+                    class="size-4 text-primary"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <rect width="20" height="14" x="2" y="5" rx="2" />
+                    <line x1="2" y1="10" x2="22" y2="10" />
+                  </svg>
+                  Payment Methods
+                </span>
+              </AccordionTrigger>
+              <AccordionContent>
+                We accept Visa, Mastercard, American Express, and PayPal. All transactions are securely processed with
+                256-bit encryption.
+              </AccordionContent>
+            </AccordionItem>
+            <AccordionItem>
+              <AccordionTrigger>
+                <span class="flex items-center gap-2">
+                  <svg
+                    class="size-4 text-primary"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path d="m7.5 4.27 9 5.15" />
+                    <path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z" />
+                    <path d="m3.3 7 8.7 5 8.7-5" />
+                    <path d="M12 22V12" />
+                  </svg>
+                  Shipping & Delivery
+                </span>
+              </AccordionTrigger>
+              <AccordionContent>
+                Standard shipping takes 5–7 business days. Express delivery available for 2–3 day shipping at checkout.
+              </AccordionContent>
+            </AccordionItem>
+            <AccordionItem>
+              <AccordionTrigger>
+                <span class="flex items-center gap-2">
+                  <svg
+                    class="size-4 text-primary"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+                    <path d="M3 3v5h5" />
+                  </svg>
+                  Returns & Refunds
+                </span>
+              </AccordionTrigger>
+              <AccordionContent>
+                We offer a 30-day return policy. Items must be unused and in original packaging. Refunds are processed
+                within 5–10 business days.
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
+        </div>
+      </ComponentPreview>
+    </section>
+
+    <!-- Bordered -->
+    <section class="space-y-3">
+      <SectionHeading id="bordered" title={t.sections.bordered.title} />
+      <p class="text-base text-muted-foreground leading-relaxed">{t.sections.bordered.description}</p>
+      <ComponentPreview code={borderedCode}>
+        <div class="w-full max-w-lg">
+          <Accordion class="cu-accordion-bordered">
+            <AccordionItem>
+              <AccordionTrigger>Getting Started</AccordionTrigger>
+              <AccordionContent>
+                Install the package, import the CSS file, and start using the component classes in your HTML. No build
+                step required.
+              </AccordionContent>
+            </AccordionItem>
+            <AccordionItem>
+              <AccordionTrigger>Customization</AccordionTrigger>
+              <AccordionContent>
+                Override CSS variables in your theme to customize colors, spacing, and typography. All components
+                inherit from the design token system.
+              </AccordionContent>
+            </AccordionItem>
+            <AccordionItem>
+              <AccordionTrigger>Browser Support</AccordionTrigger>
+              <AccordionContent>
+                Supports all modern browsers — Chrome 90+, Firefox 90+, Safari 15+, and Edge 90+.
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
+        </div>
+      </ComponentPreview>
+    </section>
+
+    <!-- Rich Content -->
+    <section class="space-y-3">
+      <SectionHeading id="rich-content" title={t.sections.richContent.title} />
+      <p class="text-base text-muted-foreground leading-relaxed">{t.sections.richContent.description}</p>
+      <ComponentPreview code={richContentCode}>
+        <div class="w-full max-w-lg">
+          <Accordion>
+            <AccordionItem>
+              <AccordionTrigger>
+                <span class="flex items-center gap-2">
+                  <span class="cu-badge cu-badge-success">v2.4</span>
+                  Latest Release
+                </span>
+              </AccordionTrigger>
+              <AccordionContent class="space-y-2">
+                <div class="flex items-center gap-2">
+                  <span class="cu-badge cu-badge-success">New</span>
+                  <span>Dark mode support across all components</span>
                 </div>
-            </ComponentPreview>
-        </section>
-
-        <!-- Classes Reference -->
-        <section class="space-y-3">
-            <SectionHeading id="classes" title={t.sections.classes.title} />
-            <div class="cu-table-wrapper rounded-lg border border-border">
-                <table class="cu-table">
-                    <thead class="cu-table-header">
-                        <tr class="cu-table-row">
-                            <th class="cu-table-head">{t.sections.classes.classLabel}</th>
-                            <th class="cu-table-head">{t.sections.classes.descriptionLabel}</th>
-                        </tr>
-                    </thead>
-                    <tbody class="cu-table-body">
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-accordion</code></td>
-                            <td class="cu-table-cell text-muted-foreground" set:html={t.classDescriptions['cu-accordion']} />
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-accordion-item</code></td>
-                            <td class="cu-table-cell text-muted-foreground" set:html={t.classDescriptions['cu-accordion-item']} />
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-accordion-trigger</code></td>
-                            <td class="cu-table-cell text-muted-foreground" set:html={t.classDescriptions['cu-accordion-trigger']} />
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-accordion-content</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-accordion-content']}</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-accordion-bordered</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-accordion-bordered']}</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </section>
-
-
-        <!-- Multiple Items -->
-        <section class="space-y-3">
-            <SectionHeading id="multiple-items" title={t.sections.multipleItems.title} />
-            <p class="text-base text-muted-foreground leading-relaxed">{t.sections.multipleItems.description}</p>
-            <ComponentPreview code={multipleCode}>
-                <div class="w-full max-w-lg">
-                    <Accordion>
-                        <AccordionItem>
-                            <AccordionTrigger>Is it accessible?</AccordionTrigger>
-                            <AccordionContent>
-                                Yes. It uses native HTML details/summary elements for accessibility.
-                            </AccordionContent>
-                        </AccordionItem>
-                        <AccordionItem>
-                            <AccordionTrigger>Is it styled?</AccordionTrigger>
-                            <AccordionContent>
-                                Yes. It comes with default styles that match the other components' aesthetic.
-                            </AccordionContent>
-                        </AccordionItem>
-                        <AccordionItem>
-                            <AccordionTrigger>Is it animated?</AccordionTrigger>
-                            <AccordionContent>
-                                The chevron icon rotates when the item is expanded. The component uses CSS transitions.
-                            </AccordionContent>
-                        </AccordionItem>
-                    </Accordion>
+                <div class="flex items-center gap-2">
+                  <span class="cu-badge cu-badge-success">New</span>
+                  <span>Transfer List and Dropzone components</span>
                 </div>
-            </ComponentPreview>
-        </section>
-
-        <!-- Default Open -->
-        <section class="space-y-3">
-            <SectionHeading id="default-open" title={t.sections.defaultOpen.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.defaultOpen.description} />
-            <ComponentPreview code={defaultOpenCode}>
-                <div class="w-full max-w-lg">
-                    <Accordion>
-                        <AccordionItem open>
-                            <AccordionTrigger>What is Cubby UI?</AccordionTrigger>
-                            <AccordionContent>
-                                Cubby UI is a framework-agnostic component library built with pure HTML and Tailwind CSS. Components are designed to be copy-pasted directly into your project.
-                            </AccordionContent>
-                        </AccordionItem>
-                        <AccordionItem>
-                            <AccordionTrigger>Do I need React or Vue?</AccordionTrigger>
-                            <AccordionContent>
-                                No. Cubby UI works with any stack — vanilla HTML, Astro, PHP, Laravel Blade, or any templating language.
-                            </AccordionContent>
-                        </AccordionItem>
-                        <AccordionItem>
-                            <AccordionTrigger>Is it free to use?</AccordionTrigger>
-                            <AccordionContent>
-                                Yes. Free for personal and commercial use. No attribution required.
-                            </AccordionContent>
-                        </AccordionItem>
-                    </Accordion>
+                <div class="flex items-center gap-2">
+                  <span class="cu-badge cu-badge-warning">Fix</span>
+                  <span>Sidebar scroll issue on mobile viewports</span>
                 </div>
-            </ComponentPreview>
-        </section>
-
-        <!-- With Icons -->
-        <section class="space-y-3">
-            <SectionHeading id="with-icons" title={t.sections.withIcons.title} />
-            <p class="text-base text-muted-foreground leading-relaxed">{t.sections.withIcons.description}</p>
-            <ComponentPreview code={withIconsCode}>
-                <div class="w-full max-w-lg">
-                    <Accordion>
-                        <AccordionItem>
-                            <AccordionTrigger>
-                                <span class="flex items-center gap-2">
-                                    <svg class="size-4 text-primary" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
-                                    Payment Methods
-                                </span>
-                            </AccordionTrigger>
-                            <AccordionContent>
-                                We accept Visa, Mastercard, American Express, and PayPal. All transactions are securely processed with 256-bit encryption.
-                            </AccordionContent>
-                        </AccordionItem>
-                        <AccordionItem>
-                            <AccordionTrigger>
-                                <span class="flex items-center gap-2">
-                                    <svg class="size-4 text-primary" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7.5 4.27 9 5.15"/><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg>
-                                    Shipping & Delivery
-                                </span>
-                            </AccordionTrigger>
-                            <AccordionContent>
-                                Standard shipping takes 5–7 business days. Express delivery available for 2–3 day shipping at checkout.
-                            </AccordionContent>
-                        </AccordionItem>
-                        <AccordionItem>
-                            <AccordionTrigger>
-                                <span class="flex items-center gap-2">
-                                    <svg class="size-4 text-primary" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
-                                    Returns & Refunds
-                                </span>
-                            </AccordionTrigger>
-                            <AccordionContent>
-                                We offer a 30-day return policy. Items must be unused and in original packaging. Refunds are processed within 5–10 business days.
-                            </AccordionContent>
-                        </AccordionItem>
-                    </Accordion>
+              </AccordionContent>
+            </AccordionItem>
+            <AccordionItem>
+              <AccordionTrigger>
+                <span class="flex items-center gap-2">
+                  <span class="cu-badge cu-badge-secondary">v2.3</span>
+                  Previous Release
+                </span>
+              </AccordionTrigger>
+              <AccordionContent class="space-y-2">
+                <div class="flex items-center gap-2">
+                  <span class="cu-badge cu-badge-success">New</span>
+                  <span>Stat Card and Steps components</span>
                 </div>
-            </ComponentPreview>
-        </section>
-
-        <!-- Bordered -->
-        <section class="space-y-3">
-            <SectionHeading id="bordered" title={t.sections.bordered.title} />
-            <p class="text-base text-muted-foreground leading-relaxed">{t.sections.bordered.description}</p>
-            <ComponentPreview code={borderedCode}>
-                <div class="w-full max-w-lg">
-                    <Accordion class="cu-accordion-bordered">
-                        <AccordionItem>
-                            <AccordionTrigger>Getting Started</AccordionTrigger>
-                            <AccordionContent>
-                                Install the package, import the CSS file, and start using the component classes in your HTML. No build step required.
-                            </AccordionContent>
-                        </AccordionItem>
-                        <AccordionItem>
-                            <AccordionTrigger>Customization</AccordionTrigger>
-                            <AccordionContent>
-                                Override CSS variables in your theme to customize colors, spacing, and typography. All components inherit from the design token system.
-                            </AccordionContent>
-                        </AccordionItem>
-                        <AccordionItem>
-                            <AccordionTrigger>Browser Support</AccordionTrigger>
-                            <AccordionContent>
-                                Supports all modern browsers — Chrome 90+, Firefox 90+, Safari 15+, and Edge 90+.
-                            </AccordionContent>
-                        </AccordionItem>
-                    </Accordion>
+                <div class="flex items-center gap-2">
+                  <span class="cu-badge cu-badge-info">Improve</span>
+                  <span>Accordion animation performance</span>
                 </div>
-            </ComponentPreview>
-        </section>
-
-        <!-- Rich Content -->
-        <section class="space-y-3">
-            <SectionHeading id="rich-content" title={t.sections.richContent.title} />
-            <p class="text-base text-muted-foreground leading-relaxed">{t.sections.richContent.description}</p>
-            <ComponentPreview code={richContentCode}>
-                <div class="w-full max-w-lg">
-                    <Accordion>
-                        <AccordionItem>
-                            <AccordionTrigger>
-                                <span class="flex items-center gap-2">
-                                    <span class="cu-badge cu-badge-success">v2.4</span>
-                                    Latest Release
-                                </span>
-                            </AccordionTrigger>
-                            <AccordionContent class="space-y-2">
-                                <div class="flex items-center gap-2">
-                                    <span class="cu-badge cu-badge-success">New</span>
-                                    <span>Dark mode support across all components</span>
-                                </div>
-                                <div class="flex items-center gap-2">
-                                    <span class="cu-badge cu-badge-success">New</span>
-                                    <span>Transfer List and Dropzone components</span>
-                                </div>
-                                <div class="flex items-center gap-2">
-                                    <span class="cu-badge cu-badge-warning">Fix</span>
-                                    <span>Sidebar scroll issue on mobile viewports</span>
-                                </div>
-                            </AccordionContent>
-                        </AccordionItem>
-                        <AccordionItem>
-                            <AccordionTrigger>
-                                <span class="flex items-center gap-2">
-                                    <span class="cu-badge cu-badge-secondary">v2.3</span>
-                                    Previous Release
-                                </span>
-                            </AccordionTrigger>
-                            <AccordionContent class="space-y-2">
-                                <div class="flex items-center gap-2">
-                                    <span class="cu-badge cu-badge-success">New</span>
-                                    <span>Stat Card and Steps components</span>
-                                </div>
-                                <div class="flex items-center gap-2">
-                                    <span class="cu-badge cu-badge-info">Improve</span>
-                                    <span>Accordion animation performance</span>
-                                </div>
-                            </AccordionContent>
-                        </AccordionItem>
-                    </Accordion>
-                </div>
-            </ComponentPreview>
-        </section>
-
-    </div>
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
+        </div>
+      </ComponentPreview>
+    </section>
+  </div>
 </Layout>

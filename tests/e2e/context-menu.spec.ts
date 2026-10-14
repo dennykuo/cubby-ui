@@ -36,7 +36,10 @@ test.describe("Context Menu", () => {
     await expect(docs.content).toHaveAttribute("role", "menu");
     await expect(docs.content).toHaveAttribute("tabindex", "-1");
     for (const item of await docs.items.all()) await expect(item).toHaveAttribute("role", "menuitem");
-    await expect(menu(page, "cm-buttons").content.locator(".cu-dropdown-separator")).toHaveAttribute("role", "separator");
+    await expect(menu(page, "cm-buttons").content.locator(".cu-dropdown-separator")).toHaveAttribute(
+      "role",
+      "separator",
+    );
     // 作者指定的 tabindex 保留
     await expect(page.locator("#cm-optout")).toHaveAttribute("tabindex", "-1");
 

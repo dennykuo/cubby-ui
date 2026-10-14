@@ -348,413 +348,685 @@ const hoverCode = `<div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
 ---
 
 <Layout title={t.title} category={t.category} componentName="Stat Card" description={t.description}>
-    <div class="space-y-3">
-        <div class="flex items-center gap-3">
-            <h1 class="text-3xl font-bold tracking-tight">Stat Card</h1>
-            <span class="cu-badge cu-badge-secondary">{t.category}</span>
+  <div class="space-y-3">
+    <div class="flex items-center gap-3">
+      <h1 class="text-3xl font-bold tracking-tight">Stat Card</h1>
+      <span class="cu-badge cu-badge-secondary">{t.category}</span>
+    </div>
+    <p class="text-base text-muted-foreground leading-relaxed">{t.description}</p>
+  </div>
+
+  <div class="mt-10 space-y-10">
+    <!-- Usage -->
+    <section class="space-y-3">
+      <SectionHeading id="usage" title={t.sections.usage.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
+      <ComponentPreview code={usageCode}>
+        <div class="w-full max-w-xs">
+          <Stat>
+            <StatHeader>
+              <StatLabel>Monthly Revenue</StatLabel>
+              <svg
+                class="cu-stat-icon"
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <line x1="12" y1="1" x2="12" y2="23" />
+                <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+              </svg>
+            </StatHeader>
+            <StatValue>$24,580</StatValue>
+            <StatDescription>
+              <StatTrend direction="up">+12.3%</StatTrend> vs last month
+            </StatDescription>
+          </Stat>
         </div>
-        <p class="text-base text-muted-foreground leading-relaxed">{t.description}</p>
-    </div>
+      </ComponentPreview>
+    </section>
 
-    <div class="mt-10 space-y-10">
-        <!-- Usage -->
-        <section class="space-y-3">
-            <SectionHeading id="usage" title={t.sections.usage.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
-            <ComponentPreview code={usageCode}>
-                <div class="w-full max-w-xs">
-                    <Stat>
-                        <StatHeader>
-                            <StatLabel>Monthly Revenue</StatLabel>
-                            <svg class="cu-stat-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-                        </StatHeader>
-                        <StatValue>$24,580</StatValue>
-                        <StatDescription>
-                            <StatTrend direction="up">+12.3%</StatTrend> vs last month
-                        </StatDescription>
-                    </Stat>
-                </div>
-            </ComponentPreview>
-        </section>
+    <!-- Classes Reference -->
+    <section class="space-y-3">
+      <SectionHeading id="classes" title={t.sections.classes.title} />
+      <div class="cu-table-wrapper rounded-lg border border-border">
+        <table class="cu-table">
+          <thead class="cu-table-header">
+            <tr class="cu-table-row">
+              <th class="cu-table-head">{t.sections.classes.classLabel}</th>
+              <th class="cu-table-head">{t.sections.classes.descriptionLabel}</th>
+            </tr>
+          </thead>
+          <tbody class="cu-table-body">
+            {Object.entries(t.classDescriptions).map(([cls, desc]) => (
+              <tr class="cu-table-row">
+                <td class="cu-table-cell">
+                  <code class="cu-code">{cls}</code>
+                </td>
+                <td class="cu-table-cell text-muted-foreground">{desc}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
 
-        <!-- Classes Reference -->
-        <section class="space-y-3">
-            <SectionHeading id="classes" title={t.sections.classes.title} />
-            <div class="cu-table-wrapper rounded-lg border border-border">
-                <table class="cu-table">
-                    <thead class="cu-table-header">
-                        <tr class="cu-table-row">
-                            <th class="cu-table-head">{t.sections.classes.classLabel}</th>
-                            <th class="cu-table-head">{t.sections.classes.descriptionLabel}</th>
-                        </tr>
-                    </thead>
-                    <tbody class="cu-table-body">
-                        {Object.entries(t.classDescriptions).map(([cls, desc]) => (
-                            <tr class="cu-table-row">
-                                <td class="cu-table-cell"><code class="cu-code">{cls}</code></td>
-                                <td class="cu-table-cell text-muted-foreground">{desc}</td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
+    <!-- Dashboard Grid -->
+    <section class="space-y-3">
+      <SectionHeading id="dashboard-grid" title={t.sections.dashboardGrid.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.dashboardGrid.description} />
+      <ComponentPreview code={gridCode}>
+        <div class="grid w-full grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <Stat>
+            <StatHeader>
+              <StatLabel>Total Revenue</StatLabel>
+              <svg
+                class="cu-stat-icon"
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <line x1="12" y1="1" x2="12" y2="23" />
+                <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+              </svg>
+            </StatHeader>
+            <StatValue>$52,489</StatValue>
+            <StatDescription>
+              <StatTrend direction="up">+14.2%</StatTrend> vs last quarter
+            </StatDescription>
+          </Stat>
+          <Stat>
+            <StatHeader>
+              <StatLabel>New Customers</StatLabel>
+              <svg
+                class="cu-stat-icon"
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                <circle cx="9" cy="7" r="4" />
+                <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+                <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+              </svg>
+            </StatHeader>
+            <StatValue>1,284</StatValue>
+            <StatDescription>
+              <StatTrend direction="up">+8.1%</StatTrend> vs last quarter
+            </StatDescription>
+          </Stat>
+          <Stat>
+            <StatHeader>
+              <StatLabel>Orders</StatLabel>
+              <svg
+                class="cu-stat-icon"
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <rect width="20" height="14" x="2" y="5" rx="2" />
+                <line x1="2" y1="10" x2="22" y2="10" />
+              </svg>
+            </StatHeader>
+            <StatValue>3,672</StatValue>
+            <StatDescription>
+              <StatTrend direction="up">+5.4%</StatTrend> vs last quarter
+            </StatDescription>
+          </Stat>
+          <Stat>
+            <StatHeader>
+              <StatLabel>Active Users</StatLabel>
+              <svg
+                class="cu-stat-icon"
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+              </svg>
+            </StatHeader>
+            <StatValue>892</StatValue>
+            <StatDescription>
+              <StatTrend direction="down">-2.3%</StatTrend> vs last week
+            </StatDescription>
+          </Stat>
+        </div>
+      </ComponentPreview>
+    </section>
+
+    <!-- Icon Box -->
+    <section class="space-y-3">
+      <SectionHeading id="icon-box" title={t.sections.iconBox.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.iconBox.description} />
+      <ComponentPreview code={iconBoxCode}>
+        <div class="grid w-full grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <Stat>
+            <StatHeader>
+              <div class="cu-stat-icon-box">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <line x1="12" y1="1" x2="12" y2="23" />
+                  <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+                </svg>
+              </div>
+            </StatHeader>
+            <StatValue>$18,240</StatValue>
+            <StatDescription>
+              <StatTrend direction="up">+9.7%</StatTrend> net profit this month
+            </StatDescription>
+          </Stat>
+          <Stat>
+            <StatHeader>
+              <div class="cu-stat-icon-box cu-stat-icon-box-success">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                  <circle cx="9" cy="7" r="4" />
+                  <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+                  <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                </svg>
+              </div>
+            </StatHeader>
+            <StatValue>4,812</StatValue>
+            <StatDescription>
+              <StatTrend direction="up">+23.5%</StatTrend> total subscribers
+            </StatDescription>
+          </Stat>
+          <Stat>
+            <StatHeader>
+              <div class="cu-stat-icon-box cu-stat-icon-box-warning">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <rect width="20" height="14" x="2" y="5" rx="2" />
+                  <line x1="2" y1="10" x2="22" y2="10" />
+                </svg>
+              </div>
+            </StatHeader>
+            <StatValue>$67.40</StatValue>
+            <StatDescription>
+              <StatTrend direction="down">-4.2%</StatTrend> avg. order value
+            </StatDescription>
+          </Stat>
+          <Stat>
+            <StatHeader>
+              <div class="cu-stat-icon-box cu-stat-icon-box-destructive">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+                </svg>
+              </div>
+            </StatHeader>
+            <StatValue>12</StatValue>
+            <StatDescription>
+              <StatTrend direction="down">+3</StatTrend> open incidents
+            </StatDescription>
+          </Stat>
+        </div>
+      </ComponentPreview>
+    </section>
+
+    <!-- Trend Pill -->
+    <section class="space-y-3">
+      <SectionHeading id="trend-pill" title={t.sections.trendPill.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.trendPill.description} />
+      <ComponentPreview code={trendPillCode}>
+        <div class="flex w-full max-w-lg gap-4">
+          <Stat class="flex-1">
+            <StatHeader>
+              <StatLabel>MRR</StatLabel>
+            </StatHeader>
+            <StatValue>$8,720</StatValue>
+            <StatDescription>
+              <StatTrend direction="up" class="cu-stat-trend-pill">
+                +6.8%
+              </StatTrend>{" "}
+              vs last month
+            </StatDescription>
+          </Stat>
+          <Stat class="flex-1">
+            <StatHeader>
+              <StatLabel>Churn Rate</StatLabel>
+            </StatHeader>
+            <StatValue>3.1%</StatValue>
+            <StatDescription>
+              <StatTrend direction="down" class="cu-stat-trend-pill">
+                +0.4%
+              </StatTrend>{" "}
+              vs last month
+            </StatDescription>
+          </Stat>
+        </div>
+      </ComponentPreview>
+    </section>
+
+    <!-- Accent Border -->
+    <section class="space-y-3">
+      <SectionHeading id="accent-border" title={t.sections.accentBorder.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.accentBorder.description} />
+      <ComponentPreview code={accentCode}>
+        <div class="grid w-full grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <Stat class="cu-stat-accent">
+            <span class="cu-stat-label">Total Users</span>
+            <StatValue>12,430</StatValue>
+            <StatDescription>
+              <StatTrend direction="up">+3.8%</StatTrend> vs last week
+            </StatDescription>
+          </Stat>
+          <Stat class="cu-stat-accent cu-stat-accent-success">
+            <span class="cu-stat-label">Conversion Rate</span>
+            <StatValue>4.16%</StatValue>
+            <StatDescription>
+              <StatTrend direction="up">+0.32%</StatTrend> vs last week
+            </StatDescription>
+          </Stat>
+          <Stat class="cu-stat-accent cu-stat-accent-warning">
+            <span class="cu-stat-label">Avg. Response</span>
+            <StatValue>1.4s</StatValue>
+            <StatDescription>
+              <StatTrend direction="down">+0.2s</StatTrend> vs last week
+            </StatDescription>
+          </Stat>
+        </div>
+      </ComponentPreview>
+    </section>
+
+    <!-- Flat -->
+    <section class="space-y-3">
+      <SectionHeading id="flat" title={t.sections.flat.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.flat.description} />
+      <ComponentPreview code={flatCode}>
+        <div class="grid w-full grid-cols-1 gap-4 sm:grid-cols-3">
+          <Stat class="cu-stat-flat">
+            <StatHeader>
+              <StatLabel>Impressions</StatLabel>
+              <svg
+                class="cu-stat-icon"
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z" />
+                <circle cx="12" cy="12" r="3" />
+              </svg>
+            </StatHeader>
+            <StatValue>284K</StatValue>
+            <StatDescription>
+              <StatTrend direction="up">+18.2%</StatTrend> vs last period
+            </StatDescription>
+          </Stat>
+          <Stat class="cu-stat-flat">
+            <StatHeader>
+              <StatLabel>Click Rate</StatLabel>
+              <svg
+                class="cu-stat-icon"
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M15 15l-2 5L9 9l11 4-5 2z" />
+                <path d="M22 22L13 13" />
+              </svg>
+            </StatHeader>
+            <StatValue>3.42%</StatValue>
+            <StatDescription>
+              <StatTrend direction="up">+0.28%</StatTrend> vs last period
+            </StatDescription>
+          </Stat>
+          <Stat class="cu-stat-flat">
+            <StatHeader>
+              <StatLabel>Cost per Click</StatLabel>
+              <svg
+                class="cu-stat-icon"
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <line x1="12" y1="1" x2="12" y2="23" />
+                <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+              </svg>
+            </StatHeader>
+            <StatValue>$0.42</StatValue>
+            <StatDescription>
+              <StatTrend direction="up">-$0.06</StatTrend> improved
+            </StatDescription>
+          </Stat>
+        </div>
+      </ComponentPreview>
+    </section>
+
+    <!-- Ghost -->
+    <section class="space-y-3">
+      <SectionHeading id="ghost" title={t.sections.ghost.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.ghost.description} />
+      <ComponentPreview code={ghostCode}>
+        <div class="grid w-full grid-cols-1 gap-4 sm:grid-cols-3">
+          <Stat class="cu-stat-ghost">
+            <StatHeader>
+              <StatLabel>Total Views</StatLabel>
+            </StatHeader>
+            <StatValue>46.2K</StatValue>
+            <StatDescription>
+              <StatTrend direction="up">+11.3%</StatTrend> this week
+            </StatDescription>
+          </Stat>
+          <Stat class="cu-stat-ghost">
+            <StatHeader>
+              <StatLabel>Engagement</StatLabel>
+            </StatHeader>
+            <StatValue>68.7%</StatValue>
+            <StatDescription>
+              <StatTrend direction="up">+2.4%</StatTrend> this week
+            </StatDescription>
+          </Stat>
+          <Stat class="cu-stat-ghost">
+            <StatHeader>
+              <StatLabel>Avg. Duration</StatLabel>
+            </StatHeader>
+            <StatValue>3m 18s</StatValue>
+            <StatDescription>
+              <StatTrend direction="down">-12s</StatTrend> this week
+            </StatDescription>
+          </Stat>
+        </div>
+      </ComponentPreview>
+    </section>
+
+    <!-- Sharp -->
+    <section class="space-y-3">
+      <SectionHeading id="sharp" title={t.sections.sharp.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.sharp.description} />
+      <ComponentPreview code={sharpCode}>
+        <div class="grid w-full grid-cols-1 gap-4 sm:grid-cols-3">
+          <Stat class="cu-stat-sharp">
+            <StatHeader>
+              <StatLabel>CPU Usage</StatLabel>
+              <svg
+                class="cu-stat-icon"
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <rect x="4" y="4" width="16" height="16" rx="2" />
+                <rect x="9" y="9" width="6" height="6" />
+                <path d="M15 2v2" />
+                <path d="M15 20v2" />
+                <path d="M2 15h2" />
+                <path d="M2 9h2" />
+                <path d="M20 15h2" />
+                <path d="M20 9h2" />
+                <path d="M9 2v2" />
+                <path d="M9 20v2" />
+              </svg>
+            </StatHeader>
+            <StatValue>42%</StatValue>
+            <StatDescription>
+              <StatTrend direction="up">-8%</StatTrend> vs yesterday
+            </StatDescription>
+          </Stat>
+          <Stat class="cu-stat-sharp">
+            <StatHeader>
+              <StatLabel>Memory</StatLabel>
+              <svg
+                class="cu-stat-icon"
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M6 19v-3" />
+                <path d="M10 19v-3" />
+                <path d="M14 19v-3" />
+                <path d="M18 19v-3" />
+                <path d="M8 11V9" />
+                <path d="M16 11V9" />
+                <path d="M12 11V9" />
+                <path d="M2 15h20" />
+                <path d="M2 7a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v1.1a2 2 0 0 0 0 3.837V17a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-5.1z" />
+              </svg>
+            </StatHeader>
+            <StatValue>6.2 GB</StatValue>
+            <StatDescription>
+              <StatTrend direction="down">+0.4 GB</StatTrend> vs yesterday
+            </StatDescription>
+          </Stat>
+          <Stat class="cu-stat-sharp">
+            <StatHeader>
+              <StatLabel>Uptime</StatLabel>
+              <svg
+                class="cu-stat-icon"
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <circle cx="12" cy="12" r="10" />
+                <polyline points="12 6 12 12 16 14" />
+              </svg>
+            </StatHeader>
+            <StatValue>99.98%</StatValue>
+            <StatDescription>
+              <StatTrend direction="up">+0.02%</StatTrend> this month
+            </StatDescription>
+          </Stat>
+        </div>
+      </ComponentPreview>
+    </section>
+
+    <!-- With Progress -->
+    <section class="space-y-3">
+      <SectionHeading id="with-progress" title={t.sections.withProgress.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withProgress.description} />
+      <ComponentPreview code={withProgressCode}>
+        <div class="grid w-full grid-cols-1 gap-4 sm:grid-cols-2">
+          <Stat>
+            <StatHeader>
+              <StatLabel>Storage Used</StatLabel>
+              <span class="text-xs text-muted-foreground">75%</span>
+            </StatHeader>
+            <StatValue>7.5 GB</StatValue>
+            <div class="cu-stat-footer">
+              <div class="cu-progress h-1.5">
+                <div class="cu-progress-bar" style="width: 75%"></div>
+              </div>
+              <p class="mt-2 text-xs text-muted-foreground">10 GB total capacity</p>
             </div>
-        </section>
+          </Stat>
+          <Stat>
+            <StatHeader>
+              <StatLabel>Quarterly Goal</StatLabel>
+              <span class="text-xs text-muted-foreground">62%</span>
+            </StatHeader>
+            <StatValue>$31,000</StatValue>
+            <div class="cu-stat-footer">
+              <div class="cu-progress h-1.5">
+                <div class="cu-progress-bar" style="width: 62%"></div>
+              </div>
+              <p class="mt-2 text-xs text-muted-foreground">$50,000 target</p>
+            </div>
+          </Stat>
+        </div>
+      </ComponentPreview>
+    </section>
 
-        <!-- Dashboard Grid -->
-        <section class="space-y-3">
-            <SectionHeading id="dashboard-grid" title={t.sections.dashboardGrid.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.dashboardGrid.description} />
-            <ComponentPreview code={gridCode}>
-                <div class="grid w-full grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-                    <Stat>
-                        <StatHeader>
-                            <StatLabel>Total Revenue</StatLabel>
-                            <svg class="cu-stat-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-                        </StatHeader>
-                        <StatValue>$52,489</StatValue>
-                        <StatDescription>
-                            <StatTrend direction="up">+14.2%</StatTrend> vs last quarter
-                        </StatDescription>
-                    </Stat>
-                    <Stat>
-                        <StatHeader>
-                            <StatLabel>New Customers</StatLabel>
-                            <svg class="cu-stat-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-                        </StatHeader>
-                        <StatValue>1,284</StatValue>
-                        <StatDescription>
-                            <StatTrend direction="up">+8.1%</StatTrend> vs last quarter
-                        </StatDescription>
-                    </Stat>
-                    <Stat>
-                        <StatHeader>
-                            <StatLabel>Orders</StatLabel>
-                            <svg class="cu-stat-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
-                        </StatHeader>
-                        <StatValue>3,672</StatValue>
-                        <StatDescription>
-                            <StatTrend direction="up">+5.4%</StatTrend> vs last quarter
-                        </StatDescription>
-                    </Stat>
-                    <Stat>
-                        <StatHeader>
-                            <StatLabel>Active Users</StatLabel>
-                            <svg class="cu-stat-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-                        </StatHeader>
-                        <StatValue>892</StatValue>
-                        <StatDescription>
-                            <StatTrend direction="down">-2.3%</StatTrend> vs last week
-                        </StatDescription>
-                    </Stat>
-                </div>
-            </ComponentPreview>
-        </section>
-
-        <!-- Icon Box -->
-        <section class="space-y-3">
-            <SectionHeading id="icon-box" title={t.sections.iconBox.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.iconBox.description} />
-            <ComponentPreview code={iconBoxCode}>
-                <div class="grid w-full grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-                    <Stat>
-                        <StatHeader>
-                            <div class="cu-stat-icon-box">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-                            </div>
-                        </StatHeader>
-                        <StatValue>$18,240</StatValue>
-                        <StatDescription>
-                            <StatTrend direction="up">+9.7%</StatTrend> net profit this month
-                        </StatDescription>
-                    </Stat>
-                    <Stat>
-                        <StatHeader>
-                            <div class="cu-stat-icon-box cu-stat-icon-box-success">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-                            </div>
-                        </StatHeader>
-                        <StatValue>4,812</StatValue>
-                        <StatDescription>
-                            <StatTrend direction="up">+23.5%</StatTrend> total subscribers
-                        </StatDescription>
-                    </Stat>
-                    <Stat>
-                        <StatHeader>
-                            <div class="cu-stat-icon-box cu-stat-icon-box-warning">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
-                            </div>
-                        </StatHeader>
-                        <StatValue>$67.40</StatValue>
-                        <StatDescription>
-                            <StatTrend direction="down">-4.2%</StatTrend> avg. order value
-                        </StatDescription>
-                    </Stat>
-                    <Stat>
-                        <StatHeader>
-                            <div class="cu-stat-icon-box cu-stat-icon-box-destructive">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-                            </div>
-                        </StatHeader>
-                        <StatValue>12</StatValue>
-                        <StatDescription>
-                            <StatTrend direction="down">+3</StatTrend> open incidents
-                        </StatDescription>
-                    </Stat>
-                </div>
-            </ComponentPreview>
-        </section>
-
-        <!-- Trend Pill -->
-        <section class="space-y-3">
-            <SectionHeading id="trend-pill" title={t.sections.trendPill.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.trendPill.description} />
-            <ComponentPreview code={trendPillCode}>
-                <div class="flex w-full max-w-lg gap-4">
-                    <Stat class="flex-1">
-                        <StatHeader>
-                            <StatLabel>MRR</StatLabel>
-                        </StatHeader>
-                        <StatValue>$8,720</StatValue>
-                        <StatDescription>
-                            <StatTrend direction="up" class="cu-stat-trend-pill">+6.8%</StatTrend> vs last month
-                        </StatDescription>
-                    </Stat>
-                    <Stat class="flex-1">
-                        <StatHeader>
-                            <StatLabel>Churn Rate</StatLabel>
-                        </StatHeader>
-                        <StatValue>3.1%</StatValue>
-                        <StatDescription>
-                            <StatTrend direction="down" class="cu-stat-trend-pill">+0.4%</StatTrend> vs last month
-                        </StatDescription>
-                    </Stat>
-                </div>
-            </ComponentPreview>
-        </section>
-
-        <!-- Accent Border -->
-        <section class="space-y-3">
-            <SectionHeading id="accent-border" title={t.sections.accentBorder.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.accentBorder.description} />
-            <ComponentPreview code={accentCode}>
-                <div class="grid w-full grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                    <Stat class="cu-stat-accent">
-                        <span class="cu-stat-label">Total Users</span>
-                        <StatValue>12,430</StatValue>
-                        <StatDescription>
-                            <StatTrend direction="up">+3.8%</StatTrend> vs last week
-                        </StatDescription>
-                    </Stat>
-                    <Stat class="cu-stat-accent cu-stat-accent-success">
-                        <span class="cu-stat-label">Conversion Rate</span>
-                        <StatValue>4.16%</StatValue>
-                        <StatDescription>
-                            <StatTrend direction="up">+0.32%</StatTrend> vs last week
-                        </StatDescription>
-                    </Stat>
-                    <Stat class="cu-stat-accent cu-stat-accent-warning">
-                        <span class="cu-stat-label">Avg. Response</span>
-                        <StatValue>1.4s</StatValue>
-                        <StatDescription>
-                            <StatTrend direction="down">+0.2s</StatTrend> vs last week
-                        </StatDescription>
-                    </Stat>
-                </div>
-            </ComponentPreview>
-        </section>
-
-        <!-- Flat -->
-        <section class="space-y-3">
-            <SectionHeading id="flat" title={t.sections.flat.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.flat.description} />
-            <ComponentPreview code={flatCode}>
-                <div class="grid w-full grid-cols-1 gap-4 sm:grid-cols-3">
-                    <Stat class="cu-stat-flat">
-                        <StatHeader>
-                            <StatLabel>Impressions</StatLabel>
-                            <svg class="cu-stat-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
-                        </StatHeader>
-                        <StatValue>284K</StatValue>
-                        <StatDescription>
-                            <StatTrend direction="up">+18.2%</StatTrend> vs last period
-                        </StatDescription>
-                    </Stat>
-                    <Stat class="cu-stat-flat">
-                        <StatHeader>
-                            <StatLabel>Click Rate</StatLabel>
-                            <svg class="cu-stat-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 15l-2 5L9 9l11 4-5 2z"/><path d="M22 22L13 13"/></svg>
-                        </StatHeader>
-                        <StatValue>3.42%</StatValue>
-                        <StatDescription>
-                            <StatTrend direction="up">+0.28%</StatTrend> vs last period
-                        </StatDescription>
-                    </Stat>
-                    <Stat class="cu-stat-flat">
-                        <StatHeader>
-                            <StatLabel>Cost per Click</StatLabel>
-                            <svg class="cu-stat-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-                        </StatHeader>
-                        <StatValue>$0.42</StatValue>
-                        <StatDescription>
-                            <StatTrend direction="up">-$0.06</StatTrend> improved
-                        </StatDescription>
-                    </Stat>
-                </div>
-            </ComponentPreview>
-        </section>
-
-        <!-- Ghost -->
-        <section class="space-y-3">
-            <SectionHeading id="ghost" title={t.sections.ghost.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.ghost.description} />
-            <ComponentPreview code={ghostCode}>
-                <div class="grid w-full grid-cols-1 gap-4 sm:grid-cols-3">
-                    <Stat class="cu-stat-ghost">
-                        <StatHeader>
-                            <StatLabel>Total Views</StatLabel>
-                        </StatHeader>
-                        <StatValue>46.2K</StatValue>
-                        <StatDescription>
-                            <StatTrend direction="up">+11.3%</StatTrend> this week
-                        </StatDescription>
-                    </Stat>
-                    <Stat class="cu-stat-ghost">
-                        <StatHeader>
-                            <StatLabel>Engagement</StatLabel>
-                        </StatHeader>
-                        <StatValue>68.7%</StatValue>
-                        <StatDescription>
-                            <StatTrend direction="up">+2.4%</StatTrend> this week
-                        </StatDescription>
-                    </Stat>
-                    <Stat class="cu-stat-ghost">
-                        <StatHeader>
-                            <StatLabel>Avg. Duration</StatLabel>
-                        </StatHeader>
-                        <StatValue>3m 18s</StatValue>
-                        <StatDescription>
-                            <StatTrend direction="down">-12s</StatTrend> this week
-                        </StatDescription>
-                    </Stat>
-                </div>
-            </ComponentPreview>
-        </section>
-
-        <!-- Sharp -->
-        <section class="space-y-3">
-            <SectionHeading id="sharp" title={t.sections.sharp.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.sharp.description} />
-            <ComponentPreview code={sharpCode}>
-                <div class="grid w-full grid-cols-1 gap-4 sm:grid-cols-3">
-                    <Stat class="cu-stat-sharp">
-                        <StatHeader>
-                            <StatLabel>CPU Usage</StatLabel>
-                            <svg class="cu-stat-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M15 2v2"/><path d="M15 20v2"/><path d="M2 15h2"/><path d="M2 9h2"/><path d="M20 15h2"/><path d="M20 9h2"/><path d="M9 2v2"/><path d="M9 20v2"/></svg>
-                        </StatHeader>
-                        <StatValue>42%</StatValue>
-                        <StatDescription>
-                            <StatTrend direction="up">-8%</StatTrend> vs yesterday
-                        </StatDescription>
-                    </Stat>
-                    <Stat class="cu-stat-sharp">
-                        <StatHeader>
-                            <StatLabel>Memory</StatLabel>
-                            <svg class="cu-stat-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 19v-3"/><path d="M10 19v-3"/><path d="M14 19v-3"/><path d="M18 19v-3"/><path d="M8 11V9"/><path d="M16 11V9"/><path d="M12 11V9"/><path d="M2 15h20"/><path d="M2 7a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v1.1a2 2 0 0 0 0 3.837V17a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-5.1z"/></svg>
-                        </StatHeader>
-                        <StatValue>6.2 GB</StatValue>
-                        <StatDescription>
-                            <StatTrend direction="down">+0.4 GB</StatTrend> vs yesterday
-                        </StatDescription>
-                    </Stat>
-                    <Stat class="cu-stat-sharp">
-                        <StatHeader>
-                            <StatLabel>Uptime</StatLabel>
-                            <svg class="cu-stat-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                        </StatHeader>
-                        <StatValue>99.98%</StatValue>
-                        <StatDescription>
-                            <StatTrend direction="up">+0.02%</StatTrend> this month
-                        </StatDescription>
-                    </Stat>
-                </div>
-            </ComponentPreview>
-        </section>
-
-        <!-- With Progress -->
-        <section class="space-y-3">
-            <SectionHeading id="with-progress" title={t.sections.withProgress.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withProgress.description} />
-            <ComponentPreview code={withProgressCode}>
-                <div class="grid w-full grid-cols-1 gap-4 sm:grid-cols-2">
-                    <Stat>
-                        <StatHeader>
-                            <StatLabel>Storage Used</StatLabel>
-                            <span class="text-xs text-muted-foreground">75%</span>
-                        </StatHeader>
-                        <StatValue>7.5 GB</StatValue>
-                        <div class="cu-stat-footer">
-                            <div class="cu-progress h-1.5">
-                                <div class="cu-progress-bar" style="width: 75%"></div>
-                            </div>
-                            <p class="mt-2 text-xs text-muted-foreground">10 GB total capacity</p>
-                        </div>
-                    </Stat>
-                    <Stat>
-                        <StatHeader>
-                            <StatLabel>Quarterly Goal</StatLabel>
-                            <span class="text-xs text-muted-foreground">62%</span>
-                        </StatHeader>
-                        <StatValue>$31,000</StatValue>
-                        <div class="cu-stat-footer">
-                            <div class="cu-progress h-1.5">
-                                <div class="cu-progress-bar" style="width: 62%"></div>
-                            </div>
-                            <p class="mt-2 text-xs text-muted-foreground">$50,000 target</p>
-                        </div>
-                    </Stat>
-                </div>
-            </ComponentPreview>
-        </section>
-
-        <!-- Hover Effect -->
-        <section class="space-y-3">
-            <SectionHeading id="hover-effect" title={t.sections.hoverEffect.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.hoverEffect.description} />
-            <ComponentPreview code={hoverCode}>
-                <div class="grid w-full grid-cols-1 gap-4 sm:grid-cols-3">
-                    <Stat class="cu-stat-hover">
-                        <StatHeader>
-                            <StatLabel>Page Views</StatLabel>
-                            <svg class="cu-stat-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
-                        </StatHeader>
-                        <StatValue>142.3K</StatValue>
-                        <StatDescription>
-                            <StatTrend direction="up">+22%</StatTrend> vs last period
-                        </StatDescription>
-                    </Stat>
-                    <Stat class="cu-stat-hover">
-                        <StatHeader>
-                            <StatLabel>Bounce Rate</StatLabel>
-                            <svg class="cu-stat-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg>
-                        </StatHeader>
-                        <StatValue>38.2%</StatValue>
-                        <StatDescription>
-                            <StatTrend direction="up">-3.1%</StatTrend> improved
-                        </StatDescription>
-                    </Stat>
-                    <Stat class="cu-stat-hover">
-                        <StatHeader>
-                            <StatLabel>Avg. Session</StatLabel>
-                            <svg class="cu-stat-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                        </StatHeader>
-                        <StatValue>4m 32s</StatValue>
-                        <StatDescription>
-                            <StatTrend direction="up">+18s</StatTrend> vs last period
-                        </StatDescription>
-                    </Stat>
-                </div>
-            </ComponentPreview>
-        </section>
-
-    </div>
+    <!-- Hover Effect -->
+    <section class="space-y-3">
+      <SectionHeading id="hover-effect" title={t.sections.hoverEffect.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.hoverEffect.description} />
+      <ComponentPreview code={hoverCode}>
+        <div class="grid w-full grid-cols-1 gap-4 sm:grid-cols-3">
+          <Stat class="cu-stat-hover">
+            <StatHeader>
+              <StatLabel>Page Views</StatLabel>
+              <svg
+                class="cu-stat-icon"
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z" />
+                <circle cx="12" cy="12" r="3" />
+              </svg>
+            </StatHeader>
+            <StatValue>142.3K</StatValue>
+            <StatDescription>
+              <StatTrend direction="up">+22%</StatTrend> vs last period
+            </StatDescription>
+          </Stat>
+          <Stat class="cu-stat-hover">
+            <StatHeader>
+              <StatLabel>Bounce Rate</StatLabel>
+              <svg
+                class="cu-stat-icon"
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M21.21 15.89A10 10 0 1 1 8 2.83" />
+                <path d="M22 12A10 10 0 0 0 12 2v10z" />
+              </svg>
+            </StatHeader>
+            <StatValue>38.2%</StatValue>
+            <StatDescription>
+              <StatTrend direction="up">-3.1%</StatTrend> improved
+            </StatDescription>
+          </Stat>
+          <Stat class="cu-stat-hover">
+            <StatHeader>
+              <StatLabel>Avg. Session</StatLabel>
+              <svg
+                class="cu-stat-icon"
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <circle cx="12" cy="12" r="10" />
+                <polyline points="12 6 12 12 16 14" />
+              </svg>
+            </StatHeader>
+            <StatValue>4m 32s</StatValue>
+            <StatDescription>
+              <StatTrend direction="up">+18s</StatTrend> vs last period
+            </StatDescription>
+          </Stat>
+        </div>
+      </ComponentPreview>
+    </section>
+  </div>
 </Layout>

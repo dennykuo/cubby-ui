@@ -74,11 +74,11 @@ const presetCode = `<div class="cu-multi-select" data-cu-multi-select style="wid
 </div>`.trim();
 
 const withFormGroupCode = `<div class="cu-form-group" style="width: 300px;">
-  <label class="cu-label" for="tech-select">Technologies</label>
+  <label class="cu-label" for="technologies-trigger">Technologies</label>
   <div class="cu-multi-select w-full" data-cu-multi-select>
     <div class="cu-multi-select-control">
       <div class="cu-multi-select-tags" data-cu-multi-select-tags></div>
-      <button id="tech-select" type="button" class="cu-multi-select-trigger" data-cu-multi-select-trigger>
+      <button id="technologies-trigger" type="button" class="cu-multi-select-trigger" data-cu-multi-select-trigger>
         <span class="cu-multi-select-placeholder" data-cu-multi-select-placeholder>Select technologies...</span>
         <svg class="cu-multi-select-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 15 5 5 5-5"/><path d="m7 9 5-5 5 5"/></svg>
       </button>
@@ -96,7 +96,8 @@ const withFormGroupCode = `<div class="cu-form-group" style="width: 300px;">
   </div>
   <p class="cu-form-description">Choose the technologies used in this project.</p>
 </div>`.trim();
-const debounceCode = `<div class="cu-multi-select" id="language-select" data-cu-multi-select data-cu-multi-select-debounce="300" style="width: 300px;">
+const debounceCode =
+  `<div class="cu-multi-select" id="language-select" data-cu-multi-select data-cu-multi-select-debounce="300" style="width: 300px;">
   <div class="cu-multi-select-control">
     <div class="cu-multi-select-tags" data-cu-multi-select-tags></div>
     <button type="button" class="cu-multi-select-trigger" data-cu-multi-select-trigger>
@@ -132,253 +133,471 @@ ${SC}`.trim();
 ---
 
 <Layout category={t.category} componentName="Multi Select" title={t.title} description={t.description}>
-    <div class="space-y-3">
-        <div class="flex items-center gap-3">
-          <h1 class="text-3xl font-bold tracking-tight">Multi Select</h1>
-          <span class="cu-badge cu-badge-secondary">{t.category}</span>
-        </div>
-        <p class="text-base text-muted-foreground leading-relaxed" set:html={t.description} />
+  <div class="space-y-3">
+    <div class="flex items-center gap-3">
+      <h1 class="text-3xl font-bold tracking-tight">Multi Select</h1>
+      <span class="cu-badge cu-badge-secondary">{t.category}</span>
     </div>
+    <p class="text-base text-muted-foreground leading-relaxed" set:html={t.description} />
+  </div>
 
-    <div class="mt-10 space-y-10">
-        <!-- Usage -->
-        <section class="space-y-3">
-            <SectionHeading id="usage" title={t.sections.usage.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
-            <ComponentPreview code={usageCode}>
-                <div class="cu-multi-select" data-cu-multi-select style="width: 300px;">
-                    <div class="cu-multi-select-control">
-                        <div class="cu-multi-select-tags" data-cu-multi-select-tags></div>
-                        <button type="button" class="cu-multi-select-trigger" data-cu-multi-select-trigger>
-                            <span class="cu-multi-select-placeholder" data-cu-multi-select-placeholder>Select frameworks...</span>
-                            <svg class="cu-multi-select-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 15 5 5 5-5"/><path d="m7 9 5-5 5 5"/></svg>
-                        </button>
-                    </div>
-                    <div class="cu-multi-select-content" data-cu-multi-select-content hidden>
-                        <div class="cu-multi-select-list" data-cu-multi-select-list>
-                            <div class="cu-multi-select-empty" data-cu-multi-select-empty hidden>No results found.</div>
-                            <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="react">React</div>
-                            <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="vue">Vue</div>
-                            <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="angular">Angular</div>
-                            <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="svelte">Svelte</div>
-                            <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="astro">Astro</div>
-                        </div>
-                    </div>
-                </div>
-            </ComponentPreview>
-        </section>
-
-        <!-- Classes Reference -->
-        <section class="space-y-3">
-            <SectionHeading id="classes" title={t.sections.classes.title} />
-            <div class="cu-table-wrapper rounded-lg border border-border">
-                <table class="cu-table">
-                    <thead class="cu-table-header">
-                        <tr class="cu-table-row">
-                            <th class="cu-table-head">{t.sections.classes.classLabel}</th>
-                            <th class="cu-table-head">{t.sections.classes.descriptionLabel}</th>
-                        </tr>
-                    </thead>
-                    <tbody class="cu-table-body">
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-multi-select</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-multi-select']}</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-multi-select-control</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-multi-select-control']}</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-multi-select-trigger</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-multi-select-trigger']}</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-multi-select-tags</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-multi-select-tags']}</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-multi-select-tag</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-multi-select-tag']}</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-multi-select-tag-remove</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-multi-select-tag-remove']}</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-multi-select-placeholder</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-multi-select-placeholder']}</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-multi-select-icon</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-multi-select-icon']}</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-multi-select-content</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-multi-select-content']}</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-multi-select-search</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-multi-select-search']}</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-multi-select-search-icon</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-multi-select-search-icon']}</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-multi-select-input</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-multi-select-input']}</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-multi-select-list</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-multi-select-list']}</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-multi-select-empty</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-multi-select-empty']}</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-multi-select-item</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-multi-select-item']}</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-multi-select-item-active</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-multi-select-item-active']}</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-multi-select-item-check</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-multi-select-item-check']}</td>
-                        </tr>
-                    </tbody>
-                </table>
+  <div class="mt-10 space-y-10">
+    <!-- Usage -->
+    <section class="space-y-3">
+      <SectionHeading id="usage" title={t.sections.usage.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
+      <ComponentPreview code={usageCode}>
+        <div class="cu-multi-select" data-cu-multi-select style="width: 300px;">
+          <div class="cu-multi-select-control">
+            <div class="cu-multi-select-tags" data-cu-multi-select-tags></div>
+            <button type="button" class="cu-multi-select-trigger" data-cu-multi-select-trigger>
+              <span class="cu-multi-select-placeholder" data-cu-multi-select-placeholder>
+                Select frameworks...
+              </span>
+              <svg
+                class="cu-multi-select-icon"
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="m7 15 5 5 5-5" />
+                <path d="m7 9 5-5 5 5" />
+              </svg>
+            </button>
+          </div>
+          <div class="cu-multi-select-content" data-cu-multi-select-content hidden>
+            <div class="cu-multi-select-list" data-cu-multi-select-list>
+              <div class="cu-multi-select-empty" data-cu-multi-select-empty hidden>
+                No results found.
+              </div>
+              <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="react">
+                React
+              </div>
+              <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="vue">
+                Vue
+              </div>
+              <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="angular">
+                Angular
+              </div>
+              <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="svelte">
+                Svelte
+              </div>
+              <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="astro">
+                Astro
+              </div>
             </div>
-        </section>
+          </div>
+        </div>
+      </ComponentPreview>
+    </section>
 
+    <!-- Classes Reference -->
+    <section class="space-y-3">
+      <SectionHeading id="classes" title={t.sections.classes.title} />
+      <div class="cu-table-wrapper rounded-lg border border-border">
+        <table class="cu-table">
+          <thead class="cu-table-header">
+            <tr class="cu-table-row">
+              <th class="cu-table-head">{t.sections.classes.classLabel}</th>
+              <th class="cu-table-head">{t.sections.classes.descriptionLabel}</th>
+            </tr>
+          </thead>
+          <tbody class="cu-table-body">
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-multi-select</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-multi-select"]}</td>
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-multi-select-control</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-multi-select-control"]}</td>
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-multi-select-trigger</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-multi-select-trigger"]}</td>
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-multi-select-tags</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-multi-select-tags"]}</td>
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-multi-select-tag</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-multi-select-tag"]}</td>
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-multi-select-tag-remove</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-multi-select-tag-remove"]}</td>
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-multi-select-placeholder</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-multi-select-placeholder"]}</td>
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-multi-select-icon</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-multi-select-icon"]}</td>
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-multi-select-content</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-multi-select-content"]}</td>
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-multi-select-search</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-multi-select-search"]}</td>
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-multi-select-search-icon</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-multi-select-search-icon"]}</td>
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-multi-select-input</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-multi-select-input"]}</td>
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-multi-select-list</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-multi-select-list"]}</td>
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-multi-select-empty</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-multi-select-empty"]}</td>
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-multi-select-item</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-multi-select-item"]}</td>
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-multi-select-item-active</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-multi-select-item-active"]}</td>
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-multi-select-item-check</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-multi-select-item-check"]}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
 
-        <!-- With Search -->
-        <section class="space-y-3">
-            <SectionHeading id="with-search" title={t.sections.withSearch.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withSearch.description} />
-            <ComponentPreview code={withSearchCode}>
-                <div class="cu-multi-select" data-cu-multi-select style="width: 300px;">
-                    <div class="cu-multi-select-control">
-                        <div class="cu-multi-select-tags" data-cu-multi-select-tags></div>
-                        <button type="button" class="cu-multi-select-trigger" data-cu-multi-select-trigger>
-                            <span class="cu-multi-select-placeholder" data-cu-multi-select-placeholder>Select members...</span>
-                            <svg class="cu-multi-select-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 15 5 5 5-5"/><path d="m7 9 5-5 5 5"/></svg>
-                        </button>
-                    </div>
-                    <div class="cu-multi-select-content" data-cu-multi-select-content hidden>
-                        <div class="cu-multi-select-search">
-                            <svg class="cu-multi-select-search-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-                            <input class="cu-multi-select-input" data-cu-multi-select-input placeholder="Search members..." />
-                        </div>
-                        <div class="cu-multi-select-list" data-cu-multi-select-list>
-                            <div class="cu-multi-select-empty" data-cu-multi-select-empty hidden>No results found.</div>
-                            <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="alice">Alice</div>
-                            <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="bob">Bob</div>
-                            <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="charlie">Charlie</div>
-                            <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="diana">Diana</div>
-                            <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="eve">Eve</div>
-                        </div>
-                    </div>
+    <!-- With Search -->
+    <section class="space-y-3">
+      <SectionHeading id="with-search" title={t.sections.withSearch.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withSearch.description} />
+      <ComponentPreview code={withSearchCode}>
+        <div class="cu-multi-select" data-cu-multi-select style="width: 300px;">
+          <div class="cu-multi-select-control">
+            <div class="cu-multi-select-tags" data-cu-multi-select-tags></div>
+            <button type="button" class="cu-multi-select-trigger" data-cu-multi-select-trigger>
+              <span class="cu-multi-select-placeholder" data-cu-multi-select-placeholder>
+                Select members...
+              </span>
+              <svg
+                class="cu-multi-select-icon"
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="m7 15 5 5 5-5" />
+                <path d="m7 9 5-5 5 5" />
+              </svg>
+            </button>
+          </div>
+          <div class="cu-multi-select-content" data-cu-multi-select-content hidden>
+            <div class="cu-multi-select-search">
+              <svg
+                class="cu-multi-select-search-icon"
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <circle cx="11" cy="11" r="8" />
+                <line x1="21" y1="21" x2="16.65" y2="16.65" />
+              </svg>
+              <input class="cu-multi-select-input" data-cu-multi-select-input placeholder="Search members..." />
+            </div>
+            <div class="cu-multi-select-list" data-cu-multi-select-list>
+              <div class="cu-multi-select-empty" data-cu-multi-select-empty hidden>
+                No results found.
+              </div>
+              <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="alice">
+                Alice
+              </div>
+              <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="bob">
+                Bob
+              </div>
+              <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="charlie">
+                Charlie
+              </div>
+              <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="diana">
+                Diana
+              </div>
+              <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="eve">
+                Eve
+              </div>
+            </div>
+          </div>
+        </div>
+      </ComponentPreview>
+    </section>
+
+    <!-- Search Debounce -->
+    <section class="space-y-3">
+      <SectionHeading id="search-debounce" title={t.sections.debounce.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.debounce.description} />
+      <ComponentPreview code={debounceCode}>
+        <div class="cu-multi-select" data-cu-multi-select data-cu-multi-select-debounce="300" style="width: 300px;">
+          <div class="cu-multi-select-control">
+            <div class="cu-multi-select-tags" data-cu-multi-select-tags></div>
+            <button type="button" class="cu-multi-select-trigger" data-cu-multi-select-trigger>
+              <span class="cu-multi-select-placeholder" data-cu-multi-select-placeholder>
+                Select languages...
+              </span>
+              <svg
+                class="cu-multi-select-icon"
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="m7 15 5 5 5-5" />
+                <path d="m7 9 5-5 5 5" />
+              </svg>
+            </button>
+          </div>
+          <div class="cu-multi-select-content" data-cu-multi-select-content hidden>
+            <div class="cu-multi-select-search">
+              <svg
+                class="cu-multi-select-search-icon"
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <circle cx="11" cy="11" r="8" />
+                <line x1="21" y1="21" x2="16.65" y2="16.65" />
+              </svg>
+              <input class="cu-multi-select-input" data-cu-multi-select-input placeholder="Search languages..." />
+            </div>
+            <div class="cu-multi-select-list" data-cu-multi-select-list>
+              <div class="cu-multi-select-empty" data-cu-multi-select-empty hidden>
+                No results found.
+              </div>
+              <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="go">
+                Go
+              </div>
+              <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="javascript">
+                JavaScript
+              </div>
+              <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="kotlin">
+                Kotlin
+              </div>
+              <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="python">
+                Python
+              </div>
+              <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="ruby">
+                Ruby
+              </div>
+              <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="rust">
+                Rust
+              </div>
+              <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="typescript">
+                TypeScript
+              </div>
+            </div>
+          </div>
+        </div>
+      </ComponentPreview>
+    </section>
+
+    <!-- Preset Values -->
+    <section class="space-y-3">
+      <SectionHeading id="preset-values" title={t.sections.presetValues.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.presetValues.description} />
+      <ComponentPreview code={presetCode}>
+        <div class="cu-multi-select" data-cu-multi-select style="width: 300px;">
+          <div class="cu-multi-select-control">
+            <div class="cu-multi-select-tags" data-cu-multi-select-tags></div>
+            <button type="button" class="cu-multi-select-trigger" data-cu-multi-select-trigger>
+              <span class="cu-multi-select-placeholder" data-cu-multi-select-placeholder>
+                Select tags...
+              </span>
+              <svg
+                class="cu-multi-select-icon"
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="m7 15 5 5 5-5" />
+                <path d="m7 9 5-5 5 5" />
+              </svg>
+            </button>
+          </div>
+          <div class="cu-multi-select-content" data-cu-multi-select-content hidden>
+            <div class="cu-multi-select-list" data-cu-multi-select-list>
+              <div
+                class="cu-multi-select-item cu-multi-select-item-active"
+                data-cu-multi-select-item
+                data-cu-value="bug"
+              >
+                Bug
+              </div>
+              <div
+                class="cu-multi-select-item cu-multi-select-item-active"
+                data-cu-multi-select-item
+                data-cu-value="feature"
+              >
+                Feature
+              </div>
+              <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="docs">
+                Documentation
+              </div>
+              <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="enhancement">
+                Enhancement
+              </div>
+              <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="help">
+                Help Wanted
+              </div>
+            </div>
+          </div>
+        </div>
+      </ComponentPreview>
+    </section>
+
+    <!-- With Form Group -->
+    <section class="space-y-3">
+      <SectionHeading id="with-form-group" title={t.sections.withFormGroup.title} />
+      <p class="text-base text-muted-foreground leading-relaxed">{t.sections.withFormGroup.description}</p>
+      <ComponentPreview code={withFormGroupCode}>
+        <div class="cu-form-group" style="width: 300px;">
+          <label class="cu-label" for="technologies-trigger">
+            Technologies
+          </label>
+          <div class="cu-multi-select w-full" data-cu-multi-select>
+            <div class="cu-multi-select-control">
+              <div class="cu-multi-select-tags" data-cu-multi-select-tags></div>
+              <button
+                id="technologies-trigger"
+                type="button"
+                class="cu-multi-select-trigger"
+                data-cu-multi-select-trigger
+              >
+                <span class="cu-multi-select-placeholder" data-cu-multi-select-placeholder>
+                  Select technologies...
+                </span>
+                <svg
+                  class="cu-multi-select-icon"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="m7 15 5 5 5-5" />
+                  <path d="m7 9 5-5 5 5" />
+                </svg>
+              </button>
+            </div>
+            <div class="cu-multi-select-content" data-cu-multi-select-content hidden>
+              <div class="cu-multi-select-list" data-cu-multi-select-list>
+                <div class="cu-multi-select-empty" data-cu-multi-select-empty hidden>
+                  No results found.
                 </div>
-            </ComponentPreview>
-        </section>
-
-        <!-- Search Debounce -->
-        <section class="space-y-3">
-            <SectionHeading id="search-debounce" title={t.sections.debounce.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.debounce.description} />
-            <ComponentPreview code={debounceCode}>
-                <div class="cu-multi-select" data-cu-multi-select data-cu-multi-select-debounce="300" style="width: 300px;">
-                    <div class="cu-multi-select-control">
-                        <div class="cu-multi-select-tags" data-cu-multi-select-tags></div>
-                        <button type="button" class="cu-multi-select-trigger" data-cu-multi-select-trigger>
-                            <span class="cu-multi-select-placeholder" data-cu-multi-select-placeholder>Select languages...</span>
-                            <svg class="cu-multi-select-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 15 5 5 5-5"/><path d="m7 9 5-5 5 5"/></svg>
-                        </button>
-                    </div>
-                    <div class="cu-multi-select-content" data-cu-multi-select-content hidden>
-                        <div class="cu-multi-select-search">
-                            <svg class="cu-multi-select-search-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-                            <input class="cu-multi-select-input" data-cu-multi-select-input placeholder="Search languages..." />
-                        </div>
-                        <div class="cu-multi-select-list" data-cu-multi-select-list>
-                            <div class="cu-multi-select-empty" data-cu-multi-select-empty hidden>No results found.</div>
-                            <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="go">Go</div>
-                            <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="javascript">JavaScript</div>
-                            <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="kotlin">Kotlin</div>
-                            <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="python">Python</div>
-                            <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="ruby">Ruby</div>
-                            <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="rust">Rust</div>
-                            <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="typescript">TypeScript</div>
-                        </div>
-                    </div>
+                <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="react">
+                  React
                 </div>
-            </ComponentPreview>
-        </section>
-
-        <!-- Preset Values -->
-        <section class="space-y-3">
-            <SectionHeading id="preset-values" title={t.sections.presetValues.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.presetValues.description} />
-            <ComponentPreview code={presetCode}>
-                <div class="cu-multi-select" data-cu-multi-select style="width: 300px;">
-                    <div class="cu-multi-select-control">
-                        <div class="cu-multi-select-tags" data-cu-multi-select-tags></div>
-                        <button type="button" class="cu-multi-select-trigger" data-cu-multi-select-trigger>
-                            <span class="cu-multi-select-placeholder" data-cu-multi-select-placeholder>Select tags...</span>
-                            <svg class="cu-multi-select-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 15 5 5 5-5"/><path d="m7 9 5-5 5 5"/></svg>
-                        </button>
-                    </div>
-                    <div class="cu-multi-select-content" data-cu-multi-select-content hidden>
-                        <div class="cu-multi-select-list" data-cu-multi-select-list>
-                            <div class="cu-multi-select-item cu-multi-select-item-active" data-cu-multi-select-item data-cu-value="bug">Bug</div>
-                            <div class="cu-multi-select-item cu-multi-select-item-active" data-cu-multi-select-item data-cu-value="feature">Feature</div>
-                            <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="docs">Documentation</div>
-                            <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="enhancement">Enhancement</div>
-                            <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="help">Help Wanted</div>
-                        </div>
-                    </div>
+                <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="typescript">
+                  TypeScript
                 </div>
-            </ComponentPreview>
-        </section>
-
-        <!-- With Form Group -->
-        <section class="space-y-3">
-            <SectionHeading id="with-form-group" title={t.sections.withFormGroup.title} />
-            <p class="text-base text-muted-foreground leading-relaxed">{t.sections.withFormGroup.description}</p>
-            <ComponentPreview code={withFormGroupCode}>
-                <div class="cu-form-group" style="width: 300px;">
-                    <label class="cu-label" for="tech-select">Technologies</label>
-                    <div class="cu-multi-select w-full" data-cu-multi-select>
-                        <div class="cu-multi-select-control">
-                            <div class="cu-multi-select-tags" data-cu-multi-select-tags></div>
-                            <button id="tech-select" type="button" class="cu-multi-select-trigger" data-cu-multi-select-trigger>
-                                <span class="cu-multi-select-placeholder" data-cu-multi-select-placeholder>Select technologies...</span>
-                                <svg class="cu-multi-select-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 15 5 5 5-5"/><path d="m7 9 5-5 5 5"/></svg>
-                            </button>
-                        </div>
-                        <div class="cu-multi-select-content" data-cu-multi-select-content hidden>
-                            <div class="cu-multi-select-list" data-cu-multi-select-list>
-                                <div class="cu-multi-select-empty" data-cu-multi-select-empty hidden>No results found.</div>
-                                <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="react">React</div>
-                                <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="typescript">TypeScript</div>
-                                <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="tailwind">Tailwind CSS</div>
-                                <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="node">Node.js</div>
-                                <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="postgres">PostgreSQL</div>
-                            </div>
-                        </div>
-                    </div>
-                    <p class="cu-form-description">Choose the technologies used in this project.</p>
+                <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="tailwind">
+                  Tailwind CSS
                 </div>
-            </ComponentPreview>
-        </section>
+                <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="node">
+                  Node.js
+                </div>
+                <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="postgres">
+                  PostgreSQL
+                </div>
+              </div>
+            </div>
+          </div>
+          <p class="cu-form-description">Choose the technologies used in this project.</p>
+        </div>
+      </ComponentPreview>
+    </section>
 
-        <!-- Accessibility -->
-        <section class="space-y-3">
-            <SectionHeading id="accessibility" title={t.sections.accessibility.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.accessibility.description} />
-        </section>
-    </div>
+    <!-- Accessibility -->
+    <section class="space-y-3">
+      <SectionHeading id="accessibility" title={t.sections.accessibility.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.accessibility.description} />
+    </section>
+  </div>
 </Layout>

@@ -47,7 +47,11 @@ function collectPages(dir: string, prefix = ""): string[] {
 
 /** 只跑英文頁；zh-tw 是同一份頁面的複製，互動 JS 行為相同 */
 const pages = existsSync(DOCS)
-  ? collectPages(DOCS).filter((p) => !p.startsWith("/zh-tw/") && (p.startsWith("/components/") || p.startsWith("/examples/") || p === "/playground/"))
+  ? collectPages(DOCS).filter(
+      (p) =>
+        !p.startsWith("/zh-tw/") &&
+        (p.startsWith("/components/") || p.startsWith("/examples/") || p === "/playground/"),
+    )
   : [];
 
 let server: Server;
@@ -59,13 +63,25 @@ test.beforeAll(async () => {
   server = createServer((req, res) => {
     let urlPath = decodeURIComponent((req.url || "/").split("?")[0]);
     if (BASE) {
-      if (urlPath !== BASE && !urlPath.startsWith(`${BASE}/`)) { res.writeHead(404); res.end(); return; }
+      if (urlPath !== BASE && !urlPath.startsWith(`${BASE}/`)) {
+        res.writeHead(404);
+        res.end();
+        return;
+      }
       urlPath = urlPath.slice(BASE.length) || "/";
     }
     let filePath = normalize(join(DOCS, urlPath));
-    if (!filePath.startsWith(DOCS)) { res.writeHead(403); res.end(); return; }
+    if (!filePath.startsWith(DOCS)) {
+      res.writeHead(403);
+      res.end();
+      return;
+    }
     if (existsSync(filePath) && statSync(filePath).isDirectory()) filePath = join(filePath, "index.html");
-    if (!existsSync(filePath)) { res.writeHead(404); res.end(); return; }
+    if (!existsSync(filePath)) {
+      res.writeHead(404);
+      res.end();
+      return;
+    }
     res.writeHead(200, { "Content-Type": MIME[extname(filePath)] || "application/octet-stream" });
     res.end(readFileSync(filePath));
   });
@@ -153,7 +169,10 @@ test.describe("docs search", () => {
     await expect(page.locator(visibleItems).first()).toHaveAttribute("data-cu-command-active", "");
     // 項目是 <a href>：加上 role="option" 後仍以 Enter 導航（下方）；輸入框以 aria-activedescendant 指向它
     await expect(dialog.getByRole("option", { name: "Date Picker", selected: true })).toBeVisible();
-    await expect(input).toHaveAttribute("aria-activedescendant", (await page.locator(visibleItems).first().getAttribute("id"))!);
+    await expect(input).toHaveAttribute(
+      "aria-activedescendant",
+      (await page.locator(visibleItems).first().getAttribute("id"))!,
+    );
     // 只剩含結果的分組
     await expect(dialog.locator("[data-cu-command-group]:visible")).toHaveCount(1);
 
@@ -265,8 +284,13 @@ test.describe("docs SEO", () => {
   const NAMED: Record<string, string> = { amp: "&", lt: "<", gt: ">", quot: '"', apos: "'" };
   /** 讀取 meta description 並還原一層屬性跳脫（Astro 會把 `&`、`"` 轉成 `&#38;`、`&#34;`） */
   const metaDescription = (html: string) =>
-    attr(html, /<meta name="description" content="([^"]*)"/)?.replace(/&(#\d+|#x[0-9a-f]+|[a-z]+);/gi, (m, e: string) =>
-      e[0] !== "#" ? NAMED[e] ?? m : String.fromCodePoint(e[1] === "x" ? parseInt(e.slice(2), 16) : Number(e.slice(1))));
+    attr(html, /<meta name="description" content="([^"]*)"/)?.replace(
+      /&(#\d+|#x[0-9a-f]+|[a-z]+);/gi,
+      (m, e: string) =>
+        e[0] !== "#"
+          ? (NAMED[e] ?? m)
+          : String.fromCodePoint(e[1] === "x" ? parseInt(e.slice(2), 16) : Number(e.slice(1))),
+    );
   const canonicalOf = (html: string) => attr(html, /<link rel="canonical" href="([^"]*)"/);
 
   /** 建置時是否設定 site：由首頁是否輸出 canonical 判斷（與 SITE_URL 環境變數無關，測試可單獨執行） */
@@ -284,7 +308,10 @@ test.describe("docs SEO", () => {
   const goto = (page: import("@playwright/test").Page, path: string) =>
     page.goto(baseURL + path, { waitUntil: "domcontentloaded" });
   const content = (page: import("@playwright/test").Page, selector: string) =>
-    page.locator(selector).first().getAttribute(selector.startsWith("link") ? "href" : "content");
+    page
+      .locator(selector)
+      .first()
+      .getAttribute(selector.startsWith("link") ? "href" : "content");
 
   test("每頁有專屬、非預設的純文字 description", () => {
     expect(layoutPages.length).toBeGreaterThan(100);
@@ -295,7 +322,9 @@ test.describe("docs SEO", () => {
       expect(desc, `${path} 缺少 description`).toBeTruthy();
       expect(defaults.has(desc!), `${path} 使用站台預設 description（未傳入 description prop）`).toBe(false);
       // 翻譯字串中的 <code> / <kbd> / <br /> / &lt; 等須轉為純文字（原文的 `<details>` 這類文字可保留）
-      expect(desc, `${path} description 含 HTML`).not.toMatch(/<\/?(code|kbd|br|a|span)\b|class=|&(lt|gt|amp|quot|nbsp|#\d+);/);
+      expect(desc, `${path} description 含 HTML`).not.toMatch(
+        /<\/?(code|kbd|br|a|span)\b|class=|&(lt|gt|amp|quot|nbsp|#\d+);/,
+      );
       expect(seen.get(desc!), `${path} 與 ${seen.get(desc!)} description 重複`).toBeUndefined();
       seen.set(desc!, path);
       if (path.startsWith("/zh-tw/")) expect(desc, `${path} 繁中頁描述應為中文`).toMatch(/[\u4e00-\u9fff]/);
@@ -319,8 +348,9 @@ test.describe("docs SEO", () => {
       for (const lang of ["en", "zh-TW", "x-default"]) {
         await expect(page.locator(`link[rel="alternate"][hreflang="${lang}"]`)).toHaveCount(1);
       }
-      expect(await content(page, 'link[rel="alternate"][hreflang="x-default"]'))
-        .toBe(await content(page, 'link[rel="alternate"][hreflang="en"]'));
+      expect(await content(page, 'link[rel="alternate"][hreflang="x-default"]')).toBe(
+        await content(page, 'link[rel="alternate"][hreflang="en"]'),
+      );
     }
 
     // 不同頁面、不同語系的 description 各不相同
@@ -377,9 +407,18 @@ test.describe("docs SEO", () => {
     expect(locs).toContain(siteRoot);
     expect(locs).toContain(`${siteRoot}components/button/`);
     expect(locs).toContain(`${siteRoot}zh-tw/components/button/`);
-    expect(locs.every((loc) => loc.startsWith(siteRoot)), "所有網址都應含 base").toBe(true);
-    expect(locs.filter((loc) => /\/404\/$/.test(loc)), "404 示範頁不應收錄").toEqual([]);
-    expect(locs.filter((loc) => !loc.endsWith("/")), "只收錄頁面（不含 robots.txt 等端點）").toEqual([]);
+    expect(
+      locs.every((loc) => loc.startsWith(siteRoot)),
+      "所有網址都應含 base",
+    ).toBe(true);
+    expect(
+      locs.filter((loc) => /\/404\/$/.test(loc)),
+      "404 示範頁不應收錄",
+    ).toEqual([]);
+    expect(
+      locs.filter((loc) => !loc.endsWith("/")),
+      "只收錄頁面（不含 robots.txt 等端點）",
+    ).toEqual([]);
     expect(xml).toContain(`hreflang="zh-TW" href="${siteRoot}zh-tw/components/button/"`);
   });
 
@@ -426,6 +465,71 @@ test.describe("docs theme toggle", () => {
       await expect(html).toHaveClass(isDark ? /\bdark\b/ : /^(?!.*\bdark\b)/);
       await expect(isDark ? moon : sun).toBeVisible();
       await expect(isDark ? sun : moon).toBeHidden();
+    });
+  }
+});
+
+// ── 範例頁的 <dialog>：含 Cubby 關閉按鈕時必須帶對應的根屬性，否則可開啟但關閉按鈕無效 ──
+test.describe("docs example dialogs", () => {
+  const examplePages = pages.filter((p) => p.startsWith("/examples/"));
+
+  test("含 data-cu-*-close / cancel / action 的 <dialog> 都帶 data-cu-dialog / drawer / alert-dialog", async ({
+    page,
+  }) => {
+    await page.route("**/*", (route) => {
+      route.request().url().startsWith(origin) ? route.continue() : route.abort();
+    });
+    const problems: string[] = [];
+    for (const path of examplePages) {
+      await page.goto(baseURL + path, { waitUntil: "load" });
+      const found = await page.evaluate(() => {
+        const rules: Array<[string, string]> = [
+          ["[data-cu-dialog-close]", "data-cu-dialog"],
+          ["[data-cu-drawer-close]", "data-cu-drawer"],
+          ["[data-cu-alert-dialog-cancel], [data-cu-alert-dialog-action]", "data-cu-alert-dialog"],
+        ];
+        const out: string[] = [];
+        document.querySelectorAll("dialog").forEach((d) => {
+          for (const [closeSel, rootAttr] of rules) {
+            if (d.querySelector(closeSel) && !d.hasAttribute(rootAttr))
+              out.push(`<dialog id="${d.id}"> 含 ${closeSel} 但缺少 ${rootAttr}`);
+          }
+        });
+        return out;
+      });
+      problems.push(...found.map((f) => `${path}: ${f}`));
+    }
+    expect(problems).toEqual([]);
+  });
+
+  for (const { path, opener, dialog, close } of [
+    {
+      path: "/examples/dashboard-v5/",
+      opener: '[data-cu-dialog-trigger="product-dialog"]',
+      dialog: "#product-dialog",
+      close: "[data-cu-dialog-close]",
+    },
+    {
+      path: "/examples/modal-workflow/",
+      opener: '[data-cu-action="add"]',
+      dialog: "#contact-dialog",
+      close: "[data-cu-dialog-close]",
+    },
+  ]) {
+    test(`${path}：開啟 ${dialog} 後關閉按鈕可關閉，焦點回到開啟按鈕`, async ({ page }) => {
+      test.skip(!examplePages.includes(path), `${path} 未建置`);
+      await page.route("**/*", (route) => {
+        route.request().url().startsWith(origin) ? route.continue() : route.abort();
+      });
+      await page.goto(baseURL + path, { waitUntil: "load" });
+      const trigger = page.locator(opener).first();
+      const dlg = page.locator(dialog);
+      await trigger.scrollIntoViewIfNeeded();
+      await trigger.click();
+      await expect(dlg).toBeVisible();
+      await dlg.locator(close).first().click();
+      await expect(dlg).toBeHidden();
+      await expect(trigger).toBeFocused();
     });
   }
 });

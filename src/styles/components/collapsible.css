@@ -1,71 +1,74 @@
 /* Collapsible
    ------------------------------------------------------------------ */
 .cu-collapsible {
-    @apply w-full;
-    /* Progressive enhancement: Chrome 129+, enables height 0→auto transition */
-    interpolate-size: allow-keywords;
+  @apply w-full;
+  /* Progressive enhancement: Chrome 129+, enables height 0→auto transition */
+  interpolate-size: allow-keywords;
 }
 
 .cu-collapsible-trigger {
-    @apply flex w-full items-center justify-between gap-2 rounded-xl py-3 px-4 -mx-4 text-sm font-medium outline-none cursor-pointer select-none transition-colors duration-150 hover:bg-muted/60 focus-visible:ring-1 focus-visible:ring-ring/30;
+  @apply -mx-4 flex w-full cursor-pointer items-center justify-between gap-2 rounded-xl px-4 py-3 text-sm font-medium transition-colors duration-150 outline-none select-none hover:bg-muted/60 focus-visible:ring-1 focus-visible:ring-ring/30;
 }
 
 .cu-collapsible-trigger svg {
-    @apply shrink-0 text-muted-foreground transition-transform duration-200;
+  @apply shrink-0 text-muted-foreground transition-transform duration-200;
 }
 
 .cu-collapsible[open] > .cu-collapsible-trigger svg {
-    @apply rotate-180;
+  @apply rotate-180;
 }
 
 .cu-collapsible-trigger[aria-disabled="true"],
 .cu-collapsible-trigger:disabled {
-    @apply pointer-events-none opacity-50;
+  @apply pointer-events-none opacity-50;
 }
 
 .cu-collapsible-content {
-    @apply overflow-hidden pb-4 pt-2 text-sm text-muted-foreground;
-    height: auto;
-    transition: height 0.25s ease, opacity 0.2s ease, padding 0.25s ease;
+  @apply overflow-hidden pt-2 pb-4 text-sm text-muted-foreground;
+  height: auto;
+  transition:
+    height 0.25s ease,
+    opacity 0.2s ease,
+    padding 0.25s ease;
 }
 
 @starting-style {
-    .cu-collapsible[open] > .cu-collapsible-content {
-        height: 0;
-        opacity: 0;
-        padding-top: 0;
-        padding-bottom: 0;
-    }
+  .cu-collapsible[open] > .cu-collapsible-content {
+    height: 0;
+    opacity: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
 }
 
 /* Bordered variant
    ------------------------------------------------------------------ */
 .cu-collapsible-bordered {
-    @apply rounded-xl border border-border px-4 py-1 transition-colors duration-150;
+  @apply rounded-xl border border-border px-4 py-1 transition-colors duration-150;
 }
 
 .cu-collapsible-bordered .cu-collapsible-trigger {
-    @apply mx-0 px-0 rounded-none hover:bg-transparent hover:text-foreground;
+  @apply mx-0 rounded-none px-0 hover:bg-transparent hover:text-foreground;
 }
 
 .cu-collapsible-bordered[open] {
-    @apply bg-card shadow-sm;
+  @apply bg-card shadow-sm;
 }
 
 /* Group: stacked collapsibles with dividers
    ------------------------------------------------------------------ */
 .cu-collapsible-group {
-    @apply divide-y divide-border rounded-xl border border-border overflow-hidden;
+  @apply divide-y divide-border overflow-hidden rounded-xl border border-border;
 }
 
 .cu-collapsible-group .cu-collapsible {
-    @apply px-4 py-1;
+  @apply px-4 py-1;
 }
 
 .cu-collapsible-group .cu-collapsible-trigger {
-    @apply mx-0 px-0 rounded-none hover:bg-transparent hover:text-foreground;
+  @apply mx-0 rounded-none px-0 hover:bg-transparent hover:text-foreground;
 }
 
 .cu-collapsible-group .cu-collapsible[open] {
-    @apply bg-muted/30;
+  @apply bg-muted/30;
 }

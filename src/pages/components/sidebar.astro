@@ -125,268 +125,424 @@ const withIconsCode = `<aside class="cu-sidebar">
 ---
 
 <Layout title="Sidebar — Cubby UI" category="Layouts" componentName="Sidebar" description={t.description}>
-	<div class="space-y-3">
-		<div class="flex items-center gap-3">
-		  <h1 class="text-3xl font-bold tracking-tight">Sidebar</h1>
-		  <span class="cu-badge cu-badge-secondary">Layouts</span>
-		</div>
-		<p class="text-base text-muted-foreground leading-relaxed">
-			A vertical navigation panel composed of header, content, footer, sections, and items.
-		</p>
-	</div>
+  <div class="space-y-3">
+    <div class="flex items-center gap-3">
+      <h1 class="text-3xl font-bold tracking-tight">Sidebar</h1>
+      <span class="cu-badge cu-badge-secondary">Layouts</span>
+    </div>
+    <p class="text-base text-muted-foreground leading-relaxed">
+      A vertical navigation panel composed of header, content, footer, sections, and items.
+    </p>
+  </div>
 
-	<div class="mt-10 space-y-10">
-		<!-- Usage -->
-		<section class="space-y-3">
-			<SectionHeading id="usage" title="Usage" />
-			<p class="text-base text-muted-foreground leading-relaxed">
-				A sidebar is built with
-				<code class="cu-code">cu-sidebar</code> as the container and
-				<code class="cu-code">cu-sidebar-item</code> for each navigation link.
-				Wrap items in
-				<code class="cu-code">cu-sidebar-content</code> for a scrollable area.
-			</p>
-			<ComponentPreview code={usageCode}>
-				<div class="h-[240px] w-56 rounded-lg border border-border overflow-hidden">
-					<aside class="cu-sidebar h-full">
-						<div class="cu-sidebar-content">
-							<a class="cu-sidebar-item" href="#">Home</a>
-							<a class="cu-sidebar-item" href="#">Projects</a>
-							<a class="cu-sidebar-item" href="#">Settings</a>
-						</div>
-					</aside>
-				</div>
-			</ComponentPreview>
-		</section>
+  <div class="mt-10 space-y-10">
+    <!-- Usage -->
+    <section class="space-y-3">
+      <SectionHeading id="usage" title="Usage" />
+      <p class="text-base text-muted-foreground leading-relaxed">
+        A sidebar is built with
+        <code class="cu-code">cu-sidebar</code> as the container and
+        <code class="cu-code">cu-sidebar-item</code> for each navigation link. Wrap items in
+        <code class="cu-code">cu-sidebar-content</code> for a scrollable area.
+      </p>
+      <ComponentPreview code={usageCode}>
+        <div class="h-[240px] w-56 rounded-lg border border-border overflow-hidden">
+          <aside class="cu-sidebar h-full">
+            <div class="cu-sidebar-content">
+              <a class="cu-sidebar-item" href="#">
+                Home
+              </a>
+              <a class="cu-sidebar-item" href="#">
+                Projects
+              </a>
+              <a class="cu-sidebar-item" href="#">
+                Settings
+              </a>
+            </div>
+          </aside>
+        </div>
+      </ComponentPreview>
+    </section>
 
-		<!-- Classes Reference -->
-		<section class="space-y-3">
-			<SectionHeading id="classes" title="CSS Classes" />
-			<div class="cu-table-wrapper rounded-lg border border-border">
-				<table class="cu-table">
-					<thead class="cu-table-header">
-						<tr class="cu-table-row">
-							<th class="cu-table-head">Class</th>
-							<th class="cu-table-head">Description</th>
-						</tr>
-					</thead>
-					<tbody class="cu-table-body">
-						<tr class="cu-table-row">
-							<td class="cu-table-cell"><code class="cu-code">cu-sidebar</code></td>
-							<td class="cu-table-cell text-muted-foreground">Sidebar container, fixed width 14rem</td>
-						</tr>
-						<tr class="cu-table-row">
-							<td class="cu-table-cell"><code class="cu-code">cu-sidebar-header</code></td>
-							<td class="cu-table-cell text-muted-foreground">Sidebar header area</td>
-						</tr>
-						<tr class="cu-table-row">
-							<td class="cu-table-cell"><code class="cu-code">cu-sidebar-content</code></td>
-							<td class="cu-table-cell text-muted-foreground">Scrollable content area</td>
-						</tr>
-						<tr class="cu-table-row">
-							<td class="cu-table-cell"><code class="cu-code">cu-sidebar-footer</code></td>
-							<td class="cu-table-cell text-muted-foreground">Sidebar footer area</td>
-						</tr>
-						<tr class="cu-table-row">
-							<td class="cu-table-cell"><code class="cu-code">cu-sidebar-section</code></td>
-							<td class="cu-table-cell text-muted-foreground">First-level section block</td>
-						</tr>
-						<tr class="cu-table-row">
-							<td class="cu-table-cell"><code class="cu-code">cu-sidebar-section-title</code></td>
-							<td class="cu-table-cell text-muted-foreground">First-level section title, uppercase with wide letter-spacing</td>
-						</tr>
-						<tr class="cu-table-row">
-							<td class="cu-table-cell"><code class="cu-code">cu-sidebar-group</code></td>
-							<td class="cu-table-cell text-muted-foreground">Second-level group block</td>
-						</tr>
-						<tr class="cu-table-row">
-							<td class="cu-table-cell"><code class="cu-code">cu-sidebar-group-title</code></td>
-							<td class="cu-table-cell text-muted-foreground">Second-level group title with decorative line</td>
-						</tr>
-						<tr class="cu-table-row">
-							<td class="cu-table-cell"><code class="cu-code">cu-sidebar-item</code></td>
-							<td class="cu-table-cell text-muted-foreground">Navigation item link</td>
-						</tr>
-						<tr class="cu-table-row">
-							<td class="cu-table-cell"><code class="cu-code">cu-sidebar-item-active</code></td>
-							<td class="cu-table-cell text-muted-foreground">Active state with primary background and text</td>
-						</tr>
-						<tr class="cu-table-row">
-							<td class="cu-table-cell"><code class="cu-code">cu-sidebar-separator</code></td>
-							<td class="cu-table-cell text-muted-foreground">Horizontal separator</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-		</section>
+    <!-- Classes Reference -->
+    <section class="space-y-3">
+      <SectionHeading id="classes" title="CSS Classes" />
+      <div class="cu-table-wrapper rounded-lg border border-border">
+        <table class="cu-table">
+          <thead class="cu-table-header">
+            <tr class="cu-table-row">
+              <th class="cu-table-head">Class</th>
+              <th class="cu-table-head">Description</th>
+            </tr>
+          </thead>
+          <tbody class="cu-table-body">
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-sidebar</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">Sidebar container, fixed width 14rem</td>
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-sidebar-header</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">Sidebar header area</td>
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-sidebar-content</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">Scrollable content area</td>
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-sidebar-footer</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">Sidebar footer area</td>
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-sidebar-section</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">First-level section block</td>
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-sidebar-section-title</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">
+                First-level section title, uppercase with wide letter-spacing
+              </td>
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-sidebar-group</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">Second-level group block</td>
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-sidebar-group-title</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">Second-level group title with decorative line</td>
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-sidebar-item</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">Navigation item link</td>
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-sidebar-item-active</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">Active state with primary background and text</td>
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-sidebar-separator</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">Horizontal separator</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
 
+    <!-- With Header & Footer -->
+    <section class="space-y-3">
+      <SectionHeading id="with-header-footer" title="With Header & Footer" />
+      <p class="text-base text-muted-foreground leading-relaxed">
+        Use
+        <code class="cu-code">cu-sidebar-header</code> for branding and
+        <code class="cu-code">cu-sidebar-footer</code> for user info or actions. Both are optional.
+      </p>
+      <ComponentPreview code={headerFooterCode}>
+        <div class="h-[320px] w-56 rounded-lg border border-border overflow-hidden">
+          <aside class="cu-sidebar h-full">
+            <div class="cu-sidebar-header">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                <polyline points="9 22 9 12 15 12 15 22" />
+              </svg>
+              <span class="font-semibold text-sm">My App</span>
+            </div>
+            <div class="cu-sidebar-content">
+              <a class="cu-sidebar-item" href="#">
+                Dashboard
+              </a>
+              <a class="cu-sidebar-item" href="#">
+                Analytics
+              </a>
+              <a class="cu-sidebar-item" href="#">
+                Reports
+              </a>
+            </div>
+            <div class="cu-sidebar-footer">
+              <div class="flex items-center gap-2">
+                <div class="size-7 rounded-full bg-primary/10 flex items-center justify-center text-xs font-medium text-primary">
+                  J
+                </div>
+                <span class="text-sm">John Doe</span>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </ComponentPreview>
+    </section>
 
-		<!-- With Header & Footer -->
-		<section class="space-y-3">
-			<SectionHeading id="with-header-footer" title="With Header & Footer" />
-			<p class="text-base text-muted-foreground leading-relaxed">
-				Use
-				<code class="cu-code">cu-sidebar-header</code> for branding and
-				<code class="cu-code">cu-sidebar-footer</code> for user info or actions.
-				Both are optional.
-			</p>
-			<ComponentPreview code={headerFooterCode}>
-				<div class="h-[320px] w-56 rounded-lg border border-border overflow-hidden">
-					<aside class="cu-sidebar h-full">
-						<div class="cu-sidebar-header">
-							<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-							<span class="font-semibold text-sm">My App</span>
-						</div>
-						<div class="cu-sidebar-content">
-							<a class="cu-sidebar-item" href="#">Dashboard</a>
-							<a class="cu-sidebar-item" href="#">Analytics</a>
-							<a class="cu-sidebar-item" href="#">Reports</a>
-						</div>
-						<div class="cu-sidebar-footer">
-							<div class="flex items-center gap-2">
-								<div class="size-7 rounded-full bg-primary/10 flex items-center justify-center text-xs font-medium text-primary">J</div>
-								<span class="text-sm">John Doe</span>
-							</div>
-						</div>
-					</aside>
-				</div>
-			</ComponentPreview>
-		</section>
+    <!-- With Sections -->
+    <section class="space-y-3">
+      <SectionHeading id="with-sections" title="With Sections" />
+      <p class="text-base text-muted-foreground leading-relaxed">
+        Use
+        <code class="cu-code">cu-sidebar-section</code> and
+        <code class="cu-code">cu-sidebar-section-title</code> for first-level headings. Nest
+        <code class="cu-code">cu-sidebar-group</code> and
+        <code class="cu-code">cu-sidebar-group-title</code> inside a section for second-level sub-headings with a
+        decorative line.
+      </p>
+      <ComponentPreview code={sectionsCode}>
+        <div class="h-[420px] w-56 rounded-lg border border-border overflow-hidden">
+          <aside class="cu-sidebar h-full">
+            <div class="cu-sidebar-content">
+              <div class="cu-sidebar-section">
+                <h4 class="cu-sidebar-section-title">Platform</h4>
+                <div class="cu-sidebar-group">
+                  <h5 class="cu-sidebar-group-title">General</h5>
+                  <a class="cu-sidebar-item cu-sidebar-item-active" href="#">
+                    Dashboard
+                  </a>
+                  <a class="cu-sidebar-item" href="#">
+                    Projects
+                  </a>
+                  <a class="cu-sidebar-item" href="#">
+                    Tasks
+                  </a>
+                </div>
+                <div class="cu-sidebar-group">
+                  <h5 class="cu-sidebar-group-title">Analytics</h5>
+                  <a class="cu-sidebar-item" href="#">
+                    Overview
+                  </a>
+                  <a class="cu-sidebar-item" href="#">
+                    Reports
+                  </a>
+                </div>
+              </div>
+              <div class="cu-sidebar-section">
+                <h4 class="cu-sidebar-section-title">Account</h4>
+                <a class="cu-sidebar-item" href="#">
+                  Profile
+                </a>
+                <a class="cu-sidebar-item" href="#">
+                  Settings
+                </a>
+                <a class="cu-sidebar-item" href="#">
+                  Billing
+                </a>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </ComponentPreview>
+    </section>
 
-		<!-- With Sections -->
-		<section class="space-y-3">
-			<SectionHeading id="with-sections" title="With Sections" />
-			<p class="text-base text-muted-foreground leading-relaxed">
-				Use
-				<code class="cu-code">cu-sidebar-section</code> and
-				<code class="cu-code">cu-sidebar-section-title</code> for first-level headings.
-				Nest
-				<code class="cu-code">cu-sidebar-group</code> and
-				<code class="cu-code">cu-sidebar-group-title</code> inside a section for second-level sub-headings with a decorative line.
-			</p>
-			<ComponentPreview code={sectionsCode}>
-				<div class="h-[420px] w-56 rounded-lg border border-border overflow-hidden">
-					<aside class="cu-sidebar h-full">
-						<div class="cu-sidebar-content">
-							<div class="cu-sidebar-section">
-								<h4 class="cu-sidebar-section-title">Platform</h4>
-								<div class="cu-sidebar-group">
-									<h5 class="cu-sidebar-group-title">General</h5>
-									<a class="cu-sidebar-item cu-sidebar-item-active" href="#">Dashboard</a>
-									<a class="cu-sidebar-item" href="#">Projects</a>
-									<a class="cu-sidebar-item" href="#">Tasks</a>
-								</div>
-								<div class="cu-sidebar-group">
-									<h5 class="cu-sidebar-group-title">Analytics</h5>
-									<a class="cu-sidebar-item" href="#">Overview</a>
-									<a class="cu-sidebar-item" href="#">Reports</a>
-								</div>
-							</div>
-							<div class="cu-sidebar-section">
-								<h4 class="cu-sidebar-section-title">Account</h4>
-								<a class="cu-sidebar-item" href="#">Profile</a>
-								<a class="cu-sidebar-item" href="#">Settings</a>
-								<a class="cu-sidebar-item" href="#">Billing</a>
-							</div>
-						</div>
-					</aside>
-				</div>
-			</ComponentPreview>
-		</section>
+    <!-- Sticky Sidebar -->
+    <section class="space-y-3">
+      <SectionHeading id="sticky-sidebar" title="Sticky Sidebar" />
+      <p class="text-base text-muted-foreground leading-relaxed">
+        To keep the sidebar fixed while the main content scrolls, apply
+        <code class="cu-code">sticky</code> positioning with a<code class="cu-code">top</code> offset matching your
+        header height and a corresponding
+        <code class="cu-code">height</code> of the remaining viewport. Add <code class="cu-code">shrink-0</code> to
+        prevent flex from compressing the sidebar.
+        <code class="cu-code">cu-sidebar-content</code> already includes
+        <code class="cu-code">overflow-y-auto</code>, so a scrollbar appears automatically when navigation items exceed
+        the available height.
+      </p>
+      <ComponentPreview code={stickyCode}>
+        <div class="h-[320px] w-full rounded-lg border border-border overflow-hidden">
+          <div class="cu-header">
+            <div class="flex h-14 items-center px-4">
+              <span class="text-sm font-semibold">My App</span>
+            </div>
+          </div>
+          <div class="flex h-[calc(100%-3.5rem)]">
+            <aside class="cu-sidebar shrink-0 h-full">
+              <div class="cu-sidebar-content">
+                <a class="cu-sidebar-item cu-sidebar-item-active" href="#">
+                  Dashboard
+                </a>
+                <a class="cu-sidebar-item" href="#">
+                  Users
+                </a>
+                <a class="cu-sidebar-item" href="#">
+                  Settings
+                </a>
+              </div>
+            </aside>
+            <main class="flex-1 min-w-0 border-l border-border p-6">
+              <p class="text-sm text-muted-foreground">
+                Main content scrolls independently while the sidebar stays fixed.
+              </p>
+            </main>
+          </div>
+        </div>
+      </ComponentPreview>
+    </section>
 
-		<!-- Sticky Sidebar -->
-		<section class="space-y-3">
-			<SectionHeading id="sticky-sidebar" title="Sticky Sidebar" />
-			<p class="text-base text-muted-foreground leading-relaxed">
-				To keep the sidebar fixed while the main content scrolls, apply
-				<code class="cu-code">sticky</code> positioning with a
-				<code class="cu-code">top</code> offset matching your header height and a corresponding
-				<code class="cu-code">height</code> of the remaining viewport.
-				Add <code class="cu-code">shrink-0</code> to prevent flex from compressing the sidebar.
-				<code class="cu-code">cu-sidebar-content</code> already includes
-				<code class="cu-code">overflow-y-auto</code>, so a scrollbar appears automatically when navigation items exceed the available height.
-			</p>
-			<ComponentPreview code={stickyCode}>
-				<div class="h-[320px] w-full rounded-lg border border-border overflow-hidden">
-					<div class="cu-header">
-						<div class="flex h-14 items-center px-4">
-							<span class="text-sm font-semibold">My App</span>
-						</div>
-					</div>
-					<div class="flex h-[calc(100%-3.5rem)]">
-						<aside class="cu-sidebar shrink-0 h-full">
-							<div class="cu-sidebar-content">
-								<a class="cu-sidebar-item cu-sidebar-item-active" href="#">Dashboard</a>
-								<a class="cu-sidebar-item" href="#">Users</a>
-								<a class="cu-sidebar-item" href="#">Settings</a>
-							</div>
-						</aside>
-						<main class="flex-1 min-w-0 border-l border-border p-6">
-							<p class="text-sm text-muted-foreground">Main content scrolls independently while the sidebar stays fixed.</p>
-						</main>
-					</div>
-				</div>
-			</ComponentPreview>
-		</section>
-
-		<!-- With Icons -->
-		<section class="space-y-3">
-			<SectionHeading id="with-icons" title="With Icons" />
-			<p class="text-base text-muted-foreground leading-relaxed">
-				Items support inline SVG icons. The
-				<code class="cu-code">cu-sidebar-item</code> class includes
-				<code class="cu-code">gap-2</code> for icon spacing.
-			</p>
-			<ComponentPreview code={withIconsCode}>
-				<div class="h-[480px] w-56 rounded-lg border border-border overflow-hidden">
-					<aside class="cu-sidebar h-full">
-						<div class="cu-sidebar-header">
-							<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg>
-							<span class="font-semibold text-sm">Workspace</span>
-						</div>
-						<div class="cu-sidebar-content">
-							<div class="cu-sidebar-section">
-								<h4 class="cu-sidebar-section-title">Menu</h4>
-								<div class="cu-sidebar-group">
-									<h5 class="cu-sidebar-group-title">Main</h5>
-									<a class="cu-sidebar-item cu-sidebar-item-active" href="#">
-										<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-										Home
-									</a>
-									<a class="cu-sidebar-item" href="#">
-										<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/><rect width="20" height="14" x="2" y="6" rx="2"/></svg>
-										Projects
-									</a>
-									<a class="cu-sidebar-item" href="#">
-										<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
-										Team
-									</a>
-								</div>
-								<div class="cu-sidebar-group">
-									<h5 class="cu-sidebar-group-title">Other</h5>
-									<a class="cu-sidebar-item" href="#">
-										<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
-										Settings
-									</a>
-									<a class="cu-sidebar-item" href="#">
-										<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>
-										Help
-									</a>
-								</div>
-							</div>
-						</div>
-						<div class="cu-sidebar-footer">
-							<div class="flex items-center gap-2">
-								<div class="size-7 rounded-full bg-primary/10 flex items-center justify-center text-xs font-medium text-primary">A</div>
-								<div class="flex flex-col">
-									<span class="text-sm font-medium leading-none">Alice</span>
-									<span class="text-xs text-muted-foreground mt-0.5">alice@example.com</span>
-								</div>
-							</div>
-						</div>
-					</aside>
-				</div>
-			</ComponentPreview>
-		</section>
-	</div>
+    <!-- With Icons -->
+    <section class="space-y-3">
+      <SectionHeading id="with-icons" title="With Icons" />
+      <p class="text-base text-muted-foreground leading-relaxed">
+        Items support inline SVG icons. The
+        <code class="cu-code">cu-sidebar-item</code> class includes
+        <code class="cu-code">gap-2</code> for icon spacing.
+      </p>
+      <ComponentPreview code={withIconsCode}>
+        <div class="h-[480px] w-56 rounded-lg border border-border overflow-hidden">
+          <aside class="cu-sidebar h-full">
+            <div class="cu-sidebar-header">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <rect width="7" height="9" x="3" y="3" rx="1" />
+                <rect width="7" height="5" x="14" y="3" rx="1" />
+                <rect width="7" height="9" x="14" y="12" rx="1" />
+                <rect width="7" height="5" x="3" y="16" rx="1" />
+              </svg>
+              <span class="font-semibold text-sm">Workspace</span>
+            </div>
+            <div class="cu-sidebar-content">
+              <div class="cu-sidebar-section">
+                <h4 class="cu-sidebar-section-title">Menu</h4>
+                <div class="cu-sidebar-group">
+                  <h5 class="cu-sidebar-group-title">Main</h5>
+                  <a class="cu-sidebar-item cu-sidebar-item-active" href="#">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                      <polyline points="9 22 9 12 15 12 15 22" />
+                    </svg>
+                    Home
+                  </a>
+                  <a class="cu-sidebar-item" href="#">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <path d="M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
+                      <rect width="20" height="14" x="2" y="6" rx="2" />
+                    </svg>
+                    Projects
+                  </a>
+                  <a class="cu-sidebar-item" href="#">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                      <circle cx="9" cy="7" r="4" />
+                    </svg>
+                    Team
+                  </a>
+                </div>
+                <div class="cu-sidebar-group">
+                  <h5 class="cu-sidebar-group-title">Other</h5>
+                  <a class="cu-sidebar-item" href="#">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z" />
+                      <circle cx="12" cy="12" r="3" />
+                    </svg>
+                    Settings
+                  </a>
+                  <a class="cu-sidebar-item" href="#">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <circle cx="12" cy="12" r="10" />
+                      <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
+                      <path d="M12 17h.01" />
+                    </svg>
+                    Help
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="cu-sidebar-footer">
+              <div class="flex items-center gap-2">
+                <div class="size-7 rounded-full bg-primary/10 flex items-center justify-center text-xs font-medium text-primary">
+                  A
+                </div>
+                <div class="flex flex-col">
+                  <span class="text-sm font-medium leading-none">Alice</span>
+                  <span class="text-xs text-muted-foreground mt-0.5">alice@example.com</span>
+                </div>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </ComponentPreview>
+    </section>
+  </div>
 </Layout>

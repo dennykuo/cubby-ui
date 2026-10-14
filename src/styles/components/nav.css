@@ -1,21 +1,21 @@
 /* Nav
    ------------------------------------------------------------------ */
 .cu-nav {
-    @apply flex items-center gap-1;
+  @apply flex items-center gap-1;
 }
 
 .cu-nav-item {
-    @apply inline-flex items-center gap-2 rounded-lg px-3 py-1.5 text-sm text-muted-foreground outline-none focus-visible:ring-1 focus-visible:ring-ring/30 transition-colors duration-150 hover:bg-muted/60 hover:text-foreground cursor-pointer;
+  @apply inline-flex cursor-pointer items-center gap-2 rounded-lg px-3 py-1.5 text-sm text-muted-foreground transition-colors duration-150 outline-none hover:bg-muted/60 hover:text-foreground focus-visible:ring-1 focus-visible:ring-ring/30;
 }
 
 .cu-nav-item-active {
-    @apply bg-primary/8 font-medium text-primary;
+  @apply bg-primary/8 font-medium text-primary;
 }
 
 .cu-nav-item-disabled {
-    @apply pointer-events-none opacity-50 text-muted-foreground;
+  @apply pointer-events-none text-muted-foreground opacity-50;
 }
 
 .cu-nav-vertical {
-    @apply flex-col items-stretch gap-0.5;
+  @apply flex-col items-stretch gap-0.5;
 }

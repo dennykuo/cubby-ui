@@ -1,83 +1,90 @@
 /* Drawer
    ------------------------------------------------------------------ */
 .cu-drawer {
-    @apply fixed z-50 bg-background shadow-lg border-border;
-    max-width: 100%;
-    max-height: 100%;
+  @apply fixed z-50 border-border bg-background shadow-lg;
+  max-width: 100%;
+  max-height: 100%;
 }
 
 .cu-drawer::backdrop {
-    background: color-mix(in srgb, var(--color-foreground) 50%, transparent);
-    backdrop-filter: blur(4px);
-    transition: opacity 0.2s ease, overlay 0.2s ease allow-discrete, display 0.2s ease allow-discrete;
-    opacity: 1;
+  background: color-mix(in srgb, var(--color-foreground) 50%, transparent);
+  backdrop-filter: blur(4px);
+  transition:
+    opacity 0.2s ease,
+    overlay 0.2s ease allow-discrete,
+    display 0.2s ease allow-discrete;
+  opacity: 1;
 }
 
 /* -- open/close animation -- */
 .cu-drawer {
-    opacity: 1;
-    transition: opacity 0.2s ease, transform 0.2s ease, overlay 0.2s ease allow-discrete, display 0.2s ease allow-discrete;
+  opacity: 1;
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease,
+    overlay 0.2s ease allow-discrete,
+    display 0.2s ease allow-discrete;
 }
 
 @starting-style {
-    .cu-drawer[open] {
-        opacity: 0;
-    }
-    .cu-drawer[open]::backdrop {
-        opacity: 0;
-    }
-    .cu-drawer-right[open] {
-        transform: translateX(100%);
-    }
-    .cu-drawer-left[open] {
-        transform: translateX(-100%);
-    }
-    .cu-drawer-top[open] {
-        transform: translateY(-100%);
-    }
-    .cu-drawer-bottom[open] {
-        transform: translateY(100%);
-    }
+  .cu-drawer[open] {
+    opacity: 0;
+  }
+  .cu-drawer[open]::backdrop {
+    opacity: 0;
+  }
+  .cu-drawer-right[open] {
+    transform: translateX(100%);
+  }
+  .cu-drawer-left[open] {
+    transform: translateX(-100%);
+  }
+  .cu-drawer-top[open] {
+    transform: translateY(-100%);
+  }
+  .cu-drawer-bottom[open] {
+    transform: translateY(100%);
+  }
 }
 
 /* -- sides -- */
 .cu-drawer-right {
-    @apply inset-y-0 right-0 h-full w-80 border-l m-0;
+  @apply inset-y-0 right-0 m-0 h-full w-80 border-l;
 }
 
 .cu-drawer-left {
-    @apply inset-y-0 left-0 h-full w-80 border-r m-0;
+  @apply inset-y-0 left-0 m-0 h-full w-80 border-r;
 }
 
 .cu-drawer-top {
-    @apply inset-x-0 top-0 w-full border-b m-0;
+  @apply inset-x-0 top-0 m-0 w-full border-b;
 }
 
 .cu-drawer-bottom {
-    @apply inset-x-0 bottom-0 w-full border-t m-0;
+  @apply inset-x-0 bottom-0 m-0 w-full border-t;
 }
 
 /* -- sub-components -- */
 .cu-drawer-header {
-    @apply flex flex-col space-y-1.5 p-6;
+  @apply flex flex-col space-y-1.5 p-6;
 }
 
 .cu-drawer-title {
-    @apply text-lg font-semibold leading-none tracking-tight;
+  @apply text-lg leading-none font-semibold tracking-tight;
 }
 
 .cu-drawer-description {
-    @apply text-sm text-muted-foreground;
+  @apply text-sm text-muted-foreground;
 }
 
 .cu-drawer-content {
-    @apply flex-1 overflow-y-auto p-6 pt-0;
+  @apply flex-1 overflow-y-auto p-6 pt-0;
 }
 
 .cu-drawer-footer {
-    @apply flex flex-col-reverse sm:flex-row sm:justify-end gap-2 px-6 pb-6 mt-6;
+  @apply mt-6 flex flex-col-reverse gap-2 px-6 pb-6 sm:flex-row sm:justify-end;
 }
 
 .cu-drawer-close {
-    @apply absolute right-4 top-4 rounded-sm opacity-70 transition-opacity duration-150 hover:opacity-100 cursor-pointer focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring/40;
+  @apply absolute top-4 right-4 cursor-pointer rounded-sm opacity-70 transition-opacity duration-150 hover:opacity-100 focus-visible:ring-1 focus-visible:ring-ring/40 focus-visible:outline-none;
 }

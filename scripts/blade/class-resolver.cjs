@@ -14,10 +14,10 @@
  * - Inline ternary: cond ? 'class' : ''
  */
 
-const { TOP_CLASS, substituteHelperParam } = require('./parser.cjs');
+const { TOP_CLASS, substituteHelperParam } = require("./parser.cjs");
 
 /** falsy 字面量集合（用於判斷 ternary false 分支是否為「無值」） */
-const FALSY_LITERALS = new Set(['undefined', 'null', '""', "''"]);
+const FALSY_LITERALS = new Set(["undefined", "null", '""', "''"]);
 
 /**
  * 將 class:list 陣列中的單個項目轉為 PHP 表達式
@@ -32,7 +32,7 @@ const FALSY_LITERALS = new Set(['undefined', 'null', '""', "''"]);
  */
 function resolveClassItem(item, variables = {}, renamedProps = {}, helpers = {}) {
   // 1. className（使用者傳入的 class） — 跳過，由 $attributes->class() 自動合併
-  if (item === 'className' || item === 'class') return null;
+  if (item === "className" || item === "class") return null;
 
   // 2. 變數引用（如 baseClass, variantClass, sizeClass）
   if (variables[item]) {
@@ -113,7 +113,7 @@ function resolveVariableExpression(varName, variables, renamedProps, helpers) {
 
   // Pattern 3: Conditional with default skip — size && size !== "default" ? expr : undefined
   const condDefaultMatch = raw.match(
-    /^(\w+)\s*&&\s*\1\s*!==?\s*["'](\w+)["']\s*\?\s*(.+?)\s*:\s*(?:undefined|null|""|'')$/
+    /^(\w+)\s*&&\s*\1\s*!==?\s*["'](\w+)["']\s*\?\s*(.+?)\s*:\s*(?:undefined|null|""|'')$/,
   );
   if (condDefaultMatch) {
     const [, prop, defaultVal, trueExpr] = condDefaultMatch;
@@ -126,9 +126,7 @@ function resolveVariableExpression(varName, variables, renamedProps, helpers) {
   }
 
   // Pattern 3b: 簡化版 — prop !== "default" ? expr : undefined
-  const simpleCondMatch = raw.match(
-    /^(\w+)\s*!==?\s*["'](\w+)["']\s*\?\s*(.+?)\s*:\s*(?:undefined|null|""|'')$/
-  );
+  const simpleCondMatch = raw.match(/^(\w+)\s*!==?\s*["'](\w+)["']\s*\?\s*(.+?)\s*:\s*(?:undefined|null|""|'')$/);
   if (simpleCondMatch) {
     const [, prop, defaultVal, trueExpr] = simpleCondMatch;
     const phpProp = propToPhp(prop, renamedProps);
@@ -140,9 +138,7 @@ function resolveVariableExpression(varName, variables, renamedProps, helpers) {
   }
 
   // Pattern 4: Boolean conditional — disabled ? `cu-xxx` : undefined
-  const boolMatch = raw.match(
-    /^(\w+)\s*\?\s*(.+?)\s*:\s*(?:undefined|null|""|'')$/
-  );
+  const boolMatch = raw.match(/^(\w+)\s*\?\s*(.+?)\s*:\s*(?:undefined|null|""|'')$/);
   if (boolMatch) {
     const [, prop, trueExpr] = boolMatch;
     const phpProp = propToPhp(prop, renamedProps);
@@ -154,9 +150,7 @@ function resolveVariableExpression(varName, variables, renamedProps, helpers) {
   }
 
   // Pattern 4b: Full ternary — prop === "x" ? `class-a` : `class-b`（兩邊都有值）
-  const fullTernary = raw.match(
-    /^(\w+)\s*(===?|!==?)\s*["']([^"']+)["']\s*\?\s*(.+?)\s*:\s*(.+?)$/
-  );
+  const fullTernary = raw.match(/^(\w+)\s*(===?|!==?)\s*["']([^"']+)["']\s*\?\s*(.+?)\s*:\s*(.+?)$/);
   if (fullTernary) {
     const [, prop, op, val, trueExpr, falseExpr] = fullTernary;
     const trimFalse = falseExpr.trim();
@@ -166,7 +160,7 @@ function resolveVariableExpression(varName, variables, renamedProps, helpers) {
       const trueClass = resolveTemplateOrString(trueExpr.trim(), renamedProps);
       const falseClass = resolveTemplateOrString(trimFalse, renamedProps);
       return {
-        phpClass: `${phpProp} ${op} '${val}' ? '${trueClass}' : ${falseClass.includes("'") || falseClass.includes(' . ') ? falseClass : `'${falseClass}'`}`,
+        phpClass: `${phpProp} ${op} '${val}' ? '${trueClass}' : ${falseClass.includes("'") || falseClass.includes(" . ") ? falseClass : `'${falseClass}'`}`,
       };
     }
   }
@@ -206,7 +200,7 @@ function resolveTemplateOrString(expr, renamedProps) {
   if (str) return str[1];
 
   // ${TOP_CLASS}-xxx 已被替換
-  return expr.replace(/"/g, '');
+  return expr.replace(/"/g, "");
 }
 
 /**
@@ -221,7 +215,7 @@ function templateLiteralToPhp(content, renamedProps = {}) {
   content = content.replace(/\$\{TOP_CLASS\}/g, TOP_CLASS);
 
   // 檢查是否有插值
-  if (!content.includes('${')) return content;
+  if (!content.includes("${")) return content;
 
   // 拆分為靜態部分和插值部分
   const parts = [];
@@ -241,7 +235,7 @@ function templateLiteralToPhp(content, renamedProps = {}) {
     parts.push(`'${content.slice(lastIndex)}'`);
   }
 
-  return parts.join(' . ');
+  return parts.join(" . ");
 }
 
 /**
@@ -254,7 +248,7 @@ function propToPhp(name, renamedProps = {}) {
   // 反向查找：如果 renamedProps 有 { readonly: "isReadonly" }，
   // 且 name 是 "isReadonly"，PHP 變數應該是 $readonly
   for (const [original, alias] of Object.entries(renamedProps)) {
-    if (alias === name && original !== 'class') {
+    if (alias === name && original !== "class") {
       return `$${original}`;
     }
   }
@@ -286,9 +280,9 @@ function conditionToPhp(cond, renamedProps = {}) {
           if (/^\d+$/.test(match)) return match;
           return propToPhp(match, renamedProps);
         })
-        .replace(/\bundefined\b/g, 'null');
+        .replace(/\bundefined\b/g, "null");
     })
-    .join('');
+    .join("");
 }
 
 /**
@@ -300,26 +294,26 @@ function conditionToPhp(cond, renamedProps = {}) {
  */
 function buildBladeClassString(items, useAttributes = true) {
   if (items.length === 0) {
-    return useAttributes ? '{{ $attributes }}' : '';
+    return useAttributes ? "{{ $attributes }}" : "";
   }
 
   const entries = items.map((item) => {
     if (item.condition) {
       // 條件 class
-      const classExpr = item.phpClass.includes(' . ')
-        ? item.phpClass  // 動態拼接
+      const classExpr = item.phpClass.includes(" . ")
+        ? item.phpClass // 動態拼接
         : `'${item.phpClass}'`;
       return `${classExpr} => ${item.condition}`;
     }
     // 靜態 class
-    if (item.phpClass.includes(' . ') || item.phpClass.includes('?') || item.phpClass.includes('$')) {
+    if (item.phpClass.includes(" . ") || item.phpClass.includes("?") || item.phpClass.includes("$")) {
       return item.phpClass;
     }
     return `'${item.phpClass}'`;
   });
 
   // 單行 or 多行判斷
-  const joined = entries.join(', ');
+  const joined = entries.join(", ");
   const isShort = joined.length < 80 && entries.length <= 3;
 
   if (isShort) {
@@ -330,7 +324,7 @@ function buildBladeClassString(items, useAttributes = true) {
   }
 
   // 多行格式（entries 的每行已以 `,` 結尾，勿再重複追加）
-  const inner = entries.map((e) => `    ${e},`).join('\n');
+  const inner = entries.map((e) => `    ${e},`).join("\n");
   if (useAttributes) {
     return `{{ $attributes->class([\n${inner}\n]) }}`;
   }

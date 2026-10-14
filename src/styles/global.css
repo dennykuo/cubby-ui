@@ -3,7 +3,7 @@
 @import "./components.css";
 
 body {
-  @apply bg-background text-foreground tracking-[0.0175em] antialiased;
+  @apply bg-background tracking-[0.0175em] text-foreground antialiased;
 }
 
 .dark {
@@ -12,15 +12,15 @@ body {
 }
 
 .cu-code {
-  @apply rounded bg-muted px-1.5 py-0.5 text-[13px] font-mono text-foreground cursor-pointer transition-colors duration-150 hover:bg-muted/80;
+  @apply cursor-pointer rounded bg-muted px-1.5 py-0.5 font-mono text-[13px] text-foreground transition-colors duration-150 hover:bg-muted/80;
 }
 
 .cu-preview-device-btn {
-  @apply inline-flex size-7 items-center justify-center rounded-md text-muted-foreground/50 transition-colors duration-150 hover:text-foreground cursor-pointer;
+  @apply inline-flex size-7 cursor-pointer items-center justify-center rounded-md text-muted-foreground/50 transition-colors duration-150 hover:text-foreground;
 }
 
 .cu-preview-device-btn-active {
-  @apply text-foreground bg-muted/60;
+  @apply bg-muted/60 text-foreground;
 }
 
 /* Mobile navigation drawer */

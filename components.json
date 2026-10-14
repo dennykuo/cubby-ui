@@ -11,9 +11,21 @@
       "interactive": false,
       "cssClasses": {
         "base": "cu-button",
-        "variants": ["cu-button-default", "cu-button-destructive", "cu-button-outline", "cu-button-ghost", "cu-button-link"],
+        "variants": [
+          "cu-button-default",
+          "cu-button-destructive",
+          "cu-button-outline",
+          "cu-button-ghost",
+          "cu-button-link"
+        ],
         "sizes": ["cu-button-sm", "cu-button-lg"],
-        "modifiers": ["cu-button-icon", "cu-button-icon-sm", "cu-button-icon-xs", "cu-button-block", "cu-button-block-sm"]
+        "modifiers": [
+          "cu-button-icon",
+          "cu-button-icon-sm",
+          "cu-button-icon-xs",
+          "cu-button-block",
+          "cu-button-block-sm"
+        ]
       },
       "notes": "Always combine base + one variant class. Icon buttons: combine cu-button + cu-button-ghost + cu-button-icon. Add hover shadow for solid variants.",
       "example": "<button class=\"cu-button cu-button-default\">Button</button>"
@@ -34,7 +46,15 @@
       "interactive": false,
       "cssClasses": {
         "base": "cu-card",
-        "parts": ["cu-card-header", "cu-card-title", "cu-card-description", "cu-card-content", "cu-card-footer", "cu-card-horizontal-img", "cu-card-img-top"],
+        "parts": [
+          "cu-card-header",
+          "cu-card-title",
+          "cu-card-description",
+          "cu-card-content",
+          "cu-card-footer",
+          "cu-card-horizontal-img",
+          "cu-card-img-top"
+        ],
         "variants": ["cu-card-horizontal"],
         "modifiers": ["cu-card-hover", "cu-card-elevated", "cu-card-content-flush", "cu-card-selectable"]
       },
@@ -190,7 +210,7 @@
         "modifiers": ["cu-label-required"]
       },
       "notes": "cu-label-required adds a red asterisk via CSS ::after.",
-      "example": "<label class=\"cu-label cu-label-required\">Name</label>"
+      "example": "<label for=\"name\" class=\"cu-label cu-label-required\">Name</label><input id=\"name\" class=\"cu-input\">"
     },
     {
       "name": "Select",
@@ -276,7 +296,7 @@
         "base": "cu-form-group",
         "parts": ["cu-form-description", "cu-form-error"]
       },
-      "example": "<div class=\"cu-form-group\"><label class=\"cu-label\">Name</label><input class=\"cu-input\"><p class=\"cu-form-description\">Helper</p></div>"
+      "example": "<div class=\"cu-form-group\"><label for=\"project-name\" class=\"cu-label\">Name</label><input id=\"project-name\" class=\"cu-input\" aria-describedby=\"project-name-help\"><p id=\"project-name-help\" class=\"cu-form-description\">Helper</p></div>"
     },
     {
       "name": "Number Input",
@@ -292,8 +312,8 @@
         "increment": "data-cu-number-increment"
       },
       "aria": ["spinbutton"],
-      "notes": "Use native <input type=\"number\"> with min/max/step. Buttons use data-cu-number-decrement / data-cu-number-increment.",
-      "example": "<div class=\"cu-number-input\" data-cu-number-input><button class=\"cu-button cu-button-outline cu-button-icon-sm\" data-cu-number-decrement>−</button><input type=\"number\" class=\"cu-input\" data-cu-number-field min=\"0\" max=\"100\" value=\"0\"><button class=\"cu-button cu-button-outline cu-button-icon-sm\" data-cu-number-increment>+</button></div>"
+      "notes": "Use native <input type=\"number\"> with min/max/step. Buttons use data-cu-number-decrement / data-cu-number-increment. Give the buttons type=\"button\" so they do not submit a surrounding <form>.",
+      "example": "<div class=\"cu-number-input\" data-cu-number-input><button type=\"button\" class=\"cu-button cu-button-outline cu-button-icon-sm\" data-cu-number-decrement aria-label=\"Decrease\">−</button><input type=\"number\" class=\"cu-input\" data-cu-number-field min=\"0\" max=\"100\" value=\"0\" aria-label=\"Quantity\"><button type=\"button\" class=\"cu-button cu-button-outline cu-button-icon-sm\" data-cu-number-increment aria-label=\"Increase\">+</button></div>"
     },
     {
       "name": "Combobox",
@@ -301,7 +321,14 @@
       "interactive": true,
       "cssClasses": {
         "base": "cu-combobox",
-        "parts": ["cu-combobox-trigger", "cu-combobox-trigger-placeholder", "cu-combobox-content", "cu-combobox-input", "cu-combobox-item", "cu-combobox-item-active"]
+        "parts": [
+          "cu-combobox-trigger",
+          "cu-combobox-trigger-placeholder",
+          "cu-combobox-content",
+          "cu-combobox-input",
+          "cu-combobox-item",
+          "cu-combobox-item-active"
+        ]
       },
       "dataAttributes": {
         "container": "data-cu-combobox",
@@ -315,7 +342,8 @@
         "debounce": "data-cu-combobox-debounce"
       },
       "aria": ["combobox", "listbox", "option"],
-      "notes": "Add hidden attribute to content initially. Active item gets cu-combobox-item-active class. Shares listbox CSS with Multi Select. Search filters on every keystroke by default; optional data-cu-combobox-debounce=\"300\" on the root delays filtering by N ms (clearing the query, arrow keys and Enter apply pending filtering immediately). Fires cu:combobox:change ({ value, item }) on selection and cu:combobox:search ({ query }) when the applied query changes (hook remote search here)."
+      "notes": "Add hidden attribute to content initially. Active item gets cu-combobox-item-active class. Shares listbox CSS with Multi Select. Search filters on every keystroke by default; optional data-cu-combobox-debounce=\"300\" on the root delays filtering by N ms (clearing the query, arrow keys and Enter apply pending filtering immediately). Fires cu:combobox:change ({ value, item }) on selection and cu:combobox:search ({ query }) when the applied query changes (hook remote search here). The trigger must be a <button type=\"button\"> (keyboard focusable, never submits a surrounding form).",
+      "example": "<div class=\"cu-combobox\" data-cu-combobox><button type=\"button\" class=\"cu-combobox-trigger\" data-cu-combobox-trigger><span data-cu-combobox-value class=\"cu-combobox-trigger-placeholder\">Select framework...</span><svg class=\"cu-combobox-trigger-icon\" aria-hidden=\"true\"><!-- chevrons icon --></svg></button><div class=\"cu-combobox-content\" data-cu-combobox-content hidden><div class=\"cu-combobox-search\"><input class=\"cu-combobox-input\" data-cu-combobox-input placeholder=\"Search...\" aria-label=\"Search frameworks\"></div><div class=\"cu-combobox-list\" data-cu-combobox-list><div class=\"cu-combobox-empty\" data-cu-combobox-empty hidden>No results found.</div><div class=\"cu-combobox-item\" data-cu-combobox-item data-cu-value=\"astro\">Astro</div><div class=\"cu-combobox-item\" data-cu-combobox-item data-cu-value=\"svelte\">Svelte</div><div class=\"cu-combobox-item\" data-cu-combobox-item data-cu-value=\"vue\">Vue</div></div></div></div>"
     },
     {
       "name": "Multi Select",
@@ -323,7 +351,18 @@
       "interactive": true,
       "cssClasses": {
         "base": "cu-multi-select",
-        "parts": ["cu-multi-select-control", "cu-multi-select-tags", "cu-multi-select-placeholder", "cu-multi-select-trigger", "cu-multi-select-content", "cu-multi-select-input", "cu-multi-select-item", "cu-multi-select-item-active", "cu-multi-select-tag", "cu-multi-select-tag-remove"]
+        "parts": [
+          "cu-multi-select-control",
+          "cu-multi-select-tags",
+          "cu-multi-select-placeholder",
+          "cu-multi-select-trigger",
+          "cu-multi-select-content",
+          "cu-multi-select-input",
+          "cu-multi-select-item",
+          "cu-multi-select-item-active",
+          "cu-multi-select-tag",
+          "cu-multi-select-tag-remove"
+        ]
       },
       "dataAttributes": {
         "container": "data-cu-multi-select",
@@ -340,8 +379,8 @@
         "removeText": "data-cu-multi-select-remove-text"
       },
       "aria": ["combobox", "listbox", "option"],
-      "notes": "Each item needs data-cu-value for tag rendering. Add hidden to content initially. Structure: cu-multi-select-control (the box) holds data-cu-multi-select-tags and the trigger <button type=\"button\"> as siblings — tags get their own remove <button type=\"button\">, so never nest the tags inside the trigger (older markup that does is restructured on init); keep the placeholder in the trigger and the tags container empty. Clicking empty space in the control opens the panel. Removing a tag from the keyboard focuses the next tag's remove button, or the trigger after the last. The trigger keeps the placeholder text as its accessible name (aria-labelledby) while tags hide it, unless it has aria-label / aria-labelledby / <label for>. Search filters on every keystroke by default; optional data-cu-multi-select-debounce=\"300\" on the root delays filtering by N ms (clearing the query, arrow keys and Enter apply pending filtering immediately). Fires cu:multiselect:change ({ selected }) on selection and cu:multiselect:search ({ query }) when the applied query changes (hook remote search here).",
-      "example": "<div class=\"cu-multi-select\" data-cu-multi-select><div class=\"cu-multi-select-control\"><div class=\"cu-multi-select-tags\" data-cu-multi-select-tags></div><button type=\"button\" class=\"cu-multi-select-trigger\" data-cu-multi-select-trigger><span class=\"cu-multi-select-placeholder\" data-cu-multi-select-placeholder>Select...</span></button></div><div class=\"cu-multi-select-content\" data-cu-multi-select-content hidden><div class=\"cu-multi-select-list\" data-cu-multi-select-list><div class=\"cu-multi-select-item\" data-cu-multi-select-item data-cu-value=\"a\">Option A</div><div class=\"cu-multi-select-item\" data-cu-multi-select-item data-cu-value=\"b\">Option B</div></div></div></div>"
+      "notes": "Each item needs data-cu-value for tag rendering. Add hidden to content initially. Search filters on every keystroke by default; optional data-cu-multi-select-debounce=\"300\" on the root delays filtering by N ms (clearing the query, arrow keys and Enter apply pending filtering immediately). Fires cu:multiselect:change ({ selected }) on selection and cu:multiselect:search ({ query }) when the applied query changes (hook remote search here). The trigger must be a <button type=\"button\"> (a <div> trigger cannot be focused or opened with the keyboard). Structure: cu-multi-select-control (the box) holds data-cu-multi-select-tags and the trigger as siblings — tags get their own remove <button type=\"button\">, so never nest the tags inside the trigger (older markup that does is restructured on init); keep the placeholder in the trigger and the tags container empty. Clicking empty space in the control opens the panel. Removing a tag from the keyboard focuses the next tag's remove button, or the trigger after the last. The trigger keeps the placeholder text as its accessible name (aria-labelledby) while tags hide it, unless it has aria-label / aria-labelledby / <label for>. Pre-select items with cu-multi-select-item-active; tags are rendered by JS. Each tag's remove button is named from data-cu-multi-select-remove-text on the root (default \"Remove {label}\").",
+      "example": "<div class=\"cu-multi-select\" data-cu-multi-select><div class=\"cu-multi-select-control\"><div class=\"cu-multi-select-tags\" data-cu-multi-select-tags></div><button type=\"button\" class=\"cu-multi-select-trigger\" data-cu-multi-select-trigger><span class=\"cu-multi-select-placeholder\" data-cu-multi-select-placeholder>Select frameworks...</span><svg class=\"cu-multi-select-icon\" aria-hidden=\"true\"><!-- chevrons icon --></svg></button></div><div class=\"cu-multi-select-content\" data-cu-multi-select-content hidden><div class=\"cu-multi-select-search\"><input class=\"cu-multi-select-input\" data-cu-multi-select-input placeholder=\"Search...\" aria-label=\"Search frameworks\"></div><div class=\"cu-multi-select-list\" data-cu-multi-select-list><div class=\"cu-multi-select-empty\" data-cu-multi-select-empty hidden>No results found.</div><div class=\"cu-multi-select-item\" data-cu-multi-select-item data-cu-value=\"react\">React</div><div class=\"cu-multi-select-item cu-multi-select-item-active\" data-cu-multi-select-item data-cu-value=\"vue\">Vue</div><div class=\"cu-multi-select-item\" data-cu-multi-select-item data-cu-value=\"svelte\">Svelte</div></div></div></div>"
     },
     {
       "name": "Dropzone",
@@ -349,14 +388,15 @@
       "interactive": true,
       "cssClasses": {
         "base": "cu-dropzone",
-        "states": ["cu-dropzone-active"]
+        "parts": ["cu-dropzone-input", "cu-dropzone-icon", "cu-dropzone-title", "cu-dropzone-description"],
+        "states": ["cu-dropzone-active", "cu-dropzone-disabled"]
       },
       "dataAttributes": {
         "container": "data-cu-dropzone",
         "input": "data-cu-dropzone-input"
       },
-      "notes": "cu-dropzone-active class auto-toggled on drag. Click on zone triggers file input.",
-      "example": "<div class=\"cu-dropzone\" data-cu-dropzone><input type=\"file\" data-cu-dropzone-input class=\"sr-only\"><p>Drop files here</p></div>"
+      "notes": "cu-dropzone-active class auto-toggled on drag. Click on zone triggers file input; dropped files are assigned to the input and a change event is dispatched. Give the file input class cu-dropzone-input (visually hidden but focusable, so keyboard users can Tab to it and press Space / Enter) — do not use the hidden attribute.",
+      "example": "<div class=\"cu-dropzone\" data-cu-dropzone><input type=\"file\" class=\"cu-dropzone-input\" data-cu-dropzone-input aria-label=\"Upload files\"><p class=\"cu-dropzone-title\">Drop files here</p></div>"
     },
     {
       "name": "Transfer List",
@@ -377,7 +417,8 @@
         "search": "data-cu-transfer-search",
         "value": "data-cu-value"
       },
-      "notes": "data-cu-transfer-panel values: 'left' or 'right'. data-cu-transfer-check-all, count, search use 'left'/'right' values matching panel."
+      "notes": "data-cu-transfer-panel values: 'left' or 'right'. data-cu-transfer-check-all, count, search use 'left'/'right' values matching panel. Each item is a .cu-transfer-list-item (wrap the checkbox in <label>) inside .cu-transfer-list-content; both panels need a .cu-transfer-list-content so moved items have somewhere to go. Action buttons need type=\"button\".",
+      "example": "<div class=\"cu-transfer-list\" data-cu-transfer-list><div class=\"cu-transfer-list-panel\" data-cu-transfer-panel=\"left\"><div class=\"cu-transfer-list-header\"><input type=\"checkbox\" class=\"cu-checkbox\" data-cu-transfer-check-all=\"left\" aria-label=\"Select all available\"><span class=\"cu-transfer-list-header-title\">Available</span><span class=\"cu-transfer-list-header-count\" data-cu-transfer-count=\"left\"></span></div><div class=\"cu-transfer-list-search\"><input class=\"cu-transfer-list-search-input\" data-cu-transfer-search=\"left\" placeholder=\"Search...\" aria-label=\"Search available\"></div><div class=\"cu-transfer-list-content\"><label class=\"cu-transfer-list-item\"><input type=\"checkbox\" class=\"cu-checkbox\" data-cu-transfer-check data-cu-value=\"react\"><span>React</span></label><label class=\"cu-transfer-list-item\"><input type=\"checkbox\" class=\"cu-checkbox\" data-cu-transfer-check data-cu-value=\"vue\"><span>Vue</span></label></div></div><div class=\"cu-transfer-list-actions\"><button type=\"button\" class=\"cu-transfer-list-actions-button\" data-cu-transfer-to-right aria-label=\"Move to selected\" disabled>→</button><button type=\"button\" class=\"cu-transfer-list-actions-button\" data-cu-transfer-to-left aria-label=\"Move to available\" disabled>←</button></div><div class=\"cu-transfer-list-panel\" data-cu-transfer-panel=\"right\"><div class=\"cu-transfer-list-header\"><input type=\"checkbox\" class=\"cu-checkbox\" data-cu-transfer-check-all=\"right\" aria-label=\"Select all selected\"><span class=\"cu-transfer-list-header-title\">Selected</span><span class=\"cu-transfer-list-header-count\" data-cu-transfer-count=\"right\"></span></div><div class=\"cu-transfer-list-search\"><input class=\"cu-transfer-list-search-input\" data-cu-transfer-search=\"right\" placeholder=\"Search...\" aria-label=\"Search selected\"></div><div class=\"cu-transfer-list-content\"></div></div></div>"
     },
     {
       "name": "Accordion",
@@ -400,7 +441,13 @@
         "parts": ["cu-avatar-image", "cu-avatar-fallback"],
         "sizes": ["cu-avatar-sm", "cu-avatar-lg", "cu-avatar-xl"],
         "modifiers": ["cu-avatar-ring", "cu-avatar-square"],
-        "status": ["cu-avatar-status", "cu-avatar-status-online", "cu-avatar-status-offline", "cu-avatar-status-busy", "cu-avatar-status-away"]
+        "status": [
+          "cu-avatar-status",
+          "cu-avatar-status-online",
+          "cu-avatar-status-offline",
+          "cu-avatar-status-busy",
+          "cu-avatar-status-away"
+        ]
       },
       "notes": "Fallback shows when image fails to load. Status indicator: add cu-avatar-status + one status variant.",
       "example": "<div class=\"cu-avatar\"><img class=\"cu-avatar-image\" src=\"photo.jpg\" alt=\"User\"><span class=\"cu-avatar-fallback\">AB</span></div>"
@@ -411,7 +458,15 @@
       "interactive": false,
       "cssClasses": {
         "base": "cu-badge",
-        "variants": ["cu-badge-default", "cu-badge-secondary", "cu-badge-destructive", "cu-badge-outline", "cu-badge-success", "cu-badge-warning", "cu-badge-info"],
+        "variants": [
+          "cu-badge-default",
+          "cu-badge-secondary",
+          "cu-badge-destructive",
+          "cu-badge-outline",
+          "cu-badge-success",
+          "cu-badge-warning",
+          "cu-badge-info"
+        ],
         "sizes": ["cu-badge-sm", "cu-badge-lg"],
         "modifiers": ["cu-badge-dot-animated"]
       },
@@ -434,7 +489,15 @@
       "interactive": false,
       "cssClasses": {
         "base": "cu-data-table",
-        "parts": ["cu-data-table-check", "cu-data-table-toolbar", "cu-data-table-head-sortable", "cu-data-table-info", "cu-data-table-expand-trigger", "cu-data-table-expanded-row", "cu-data-table-expanded-content"],
+        "parts": [
+          "cu-data-table-check",
+          "cu-data-table-toolbar",
+          "cu-data-table-head-sortable",
+          "cu-data-table-info",
+          "cu-data-table-expand-trigger",
+          "cu-data-table-expanded-row",
+          "cu-data-table-expanded-content"
+        ],
         "states": ["cu-data-table-head-sorted-asc", "cu-data-table-head-sorted-desc", "cu-data-table-row-selected"],
         "modifiers": ["cu-data-table-striped"]
       },
@@ -451,7 +514,13 @@
       "interactive": false,
       "cssClasses": {
         "base": "cu-setting-item",
-        "parts": ["cu-setting-item-content", "cu-setting-item-label", "cu-setting-item-description", "cu-setting-item-action", "cu-setting-item-icon"]
+        "parts": [
+          "cu-setting-item-content",
+          "cu-setting-item-label",
+          "cu-setting-item-description",
+          "cu-setting-item-action",
+          "cu-setting-item-icon"
+        ]
       },
       "example": "<div class=\"cu-setting-item\"><div class=\"cu-setting-item-content\"><div class=\"cu-setting-item-label\">Setting</div><div class=\"cu-setting-item-description\">Description</div></div><div class=\"cu-setting-item-action\"><!-- control --></div></div>"
     },
@@ -485,8 +554,22 @@
       "interactive": false,
       "cssClasses": {
         "base": "cu-timeline",
-        "parts": ["cu-timeline-item", "cu-timeline-dot", "cu-timeline-dot-icon", "cu-timeline-content", "cu-timeline-title", "cu-timeline-description", "cu-timeline-time"],
-        "dotColors": ["cu-timeline-dot-primary", "cu-timeline-dot-success", "cu-timeline-dot-warning", "cu-timeline-dot-destructive", "cu-timeline-dot-info"],
+        "parts": [
+          "cu-timeline-item",
+          "cu-timeline-dot",
+          "cu-timeline-dot-icon",
+          "cu-timeline-content",
+          "cu-timeline-title",
+          "cu-timeline-description",
+          "cu-timeline-time"
+        ],
+        "dotColors": [
+          "cu-timeline-dot-primary",
+          "cu-timeline-dot-success",
+          "cu-timeline-dot-warning",
+          "cu-timeline-dot-destructive",
+          "cu-timeline-dot-info"
+        ],
         "modifiers": ["cu-timeline-horizontal", "cu-timeline-alternating"]
       },
       "astroComponents": ["Timeline", "TimelineItem", "TimelineDot", "TimelineContent", "TimelineTime"],
@@ -511,7 +594,13 @@
       "interactive": false,
       "cssClasses": {
         "base": "cu-alert",
-        "variants": ["cu-alert-default", "cu-alert-destructive", "cu-alert-success", "cu-alert-warning", "cu-alert-info"],
+        "variants": [
+          "cu-alert-default",
+          "cu-alert-destructive",
+          "cu-alert-success",
+          "cu-alert-warning",
+          "cu-alert-info"
+        ],
         "parts": ["cu-alert-title", "cu-alert-description", "cu-alert-expandable-content", "cu-alert-expand-trigger"],
         "modifiers": ["cu-alert-accent"]
       },
@@ -540,12 +629,22 @@
       "cssClasses": {
         "base": "cu-progress",
         "bar": "cu-progress-bar",
-        "modifiers": ["cu-progress-bar-striped", "cu-progress-bar-striped-animated", "cu-progress-bar-gradient", "cu-progress-multi"],
+        "modifiers": [
+          "cu-progress-bar-striped",
+          "cu-progress-bar-striped-animated",
+          "cu-progress-bar-gradient",
+          "cu-progress-multi"
+        ],
         "circular": {
           "base": "cu-progress-circular",
           "parts": ["cu-progress-circular-track", "cu-progress-circular-bar", "cu-progress-circular-value"],
           "modifiers": ["cu-progress-circular-indeterminate"],
-          "colors": ["cu-progress-circular-bar-success", "cu-progress-circular-bar-warning", "cu-progress-circular-bar-destructive", "cu-progress-circular-bar-info"]
+          "colors": [
+            "cu-progress-circular-bar-success",
+            "cu-progress-circular-bar-warning",
+            "cu-progress-circular-bar-destructive",
+            "cu-progress-circular-bar-info"
+          ]
         }
       },
       "notes": "Set width via inline style or Tailwind on cu-progress-bar.",
@@ -570,7 +669,15 @@
       "cssClasses": {
         "base": "cu-spinner",
         "sizes": ["cu-spinner-sm", "cu-spinner-md", "cu-spinner-lg"],
-        "colors": ["cu-spinner-primary", "cu-spinner-secondary", "cu-spinner-destructive", "cu-spinner-success", "cu-spinner-warning", "cu-spinner-info", "cu-spinner-muted"]
+        "colors": [
+          "cu-spinner-primary",
+          "cu-spinner-secondary",
+          "cu-spinner-destructive",
+          "cu-spinner-success",
+          "cu-spinner-warning",
+          "cu-spinner-info",
+          "cu-spinner-muted"
+        ]
       },
       "notes": "Default size determined by font-size context. cu-spinner-lg uses thicker border (border-[3px]). Color classes set text-color which drives border-current.",
       "example": "<div class=\"cu-spinner cu-spinner-md cu-spinner-primary\"></div>"
@@ -581,10 +688,30 @@
       "interactive": true,
       "cssClasses": {
         "base": "cu-toast",
-        "variants": ["cu-toast-default", "cu-toast-destructive", "cu-toast-success", "cu-toast-warning", "cu-toast-info"],
-        "parts": ["cu-toast-body", "cu-toast-title", "cu-toast-description", "cu-toast-close", "cu-toast-action", "cu-toast-action-btn"],
+        "variants": [
+          "cu-toast-default",
+          "cu-toast-destructive",
+          "cu-toast-success",
+          "cu-toast-warning",
+          "cu-toast-info"
+        ],
+        "parts": [
+          "cu-toast-body",
+          "cu-toast-title",
+          "cu-toast-description",
+          "cu-toast-close",
+          "cu-toast-action",
+          "cu-toast-action-btn"
+        ],
         "container": "cu-toast-container",
-        "containerPositions": ["cu-toast-container-bottom-right", "cu-toast-container-bottom-left", "cu-toast-container-top-right", "cu-toast-container-top-left", "cu-toast-container-top-center", "cu-toast-container-bottom-center"]
+        "containerPositions": [
+          "cu-toast-container-bottom-right",
+          "cu-toast-container-bottom-left",
+          "cu-toast-container-top-right",
+          "cu-toast-container-top-left",
+          "cu-toast-container-top-center",
+          "cu-toast-container-bottom-center"
+        ]
       },
       "dataAttributes": {
         "trigger": "data-cu-toast-trigger",
@@ -594,9 +721,10 @@
         "duration": "data-cu-toast-duration",
         "container": "data-cu-toast-container",
         "max": "data-cu-toast-max",
-        "close": "data-cu-toast-close"
+        "close": "data-cu-toast-close",
+        "closeText": "data-cu-toast-close-text"
       },
-      "notes": "Container auto-created at bottom-right if not in DOM. Default duration: 5000ms. Default max stack: 5. data-cu-toast-variant values: default | destructive | success | warning | info. Programmatic API: CubbyUI.toast.show({ title, description, variant, duration }) and CubbyUI.toast.promise(asyncFn, { loading, success, error }) for async operations.",
+      "notes": "Container auto-created at bottom-right if not in DOM. Default duration: 5000ms. Default max stack: 5. data-cu-toast-variant values: default | destructive | success | warning | info. Programmatic API: CubbyUI.toast.show({ title, description, variant, duration }) and CubbyUI.toast.promise(asyncFn, { loading, success, error }) for async operations. Generated close buttons are named \"Close\"; localize with data-cu-toast-close-text on the container (e.g. \"關閉通知\").",
       "example": "<button class=\"cu-button cu-button-default\" data-cu-toast-trigger data-cu-toast-title=\"Saved\" data-cu-toast-variant=\"success\">Save</button>"
     },
     {
@@ -605,7 +733,12 @@
       "interactive": true,
       "cssClasses": {
         "base": "cu-alert-dialog",
-        "parts": ["cu-alert-dialog-header", "cu-alert-dialog-title", "cu-alert-dialog-description", "cu-alert-dialog-footer"]
+        "parts": [
+          "cu-alert-dialog-header",
+          "cu-alert-dialog-title",
+          "cu-alert-dialog-description",
+          "cu-alert-dialog-footer"
+        ]
       },
       "dataAttributes": {
         "trigger": "data-cu-alert-dialog-trigger",
@@ -614,8 +747,8 @@
         "action": "data-cu-alert-dialog-action"
       },
       "aria": ["alertdialog"],
-      "notes": "Uses native <dialog>. Does NOT close on backdrop click (intentional for blocking confirmation). trigger value must match <dialog id>. data-cu-alert-dialog on the <dialog> is required for the cancel / action buttons, role=alertdialog, ARIA links and focus return.",
-      "example": "<button data-cu-alert-dialog-trigger=\"confirm\">Delete</button><dialog id=\"confirm\" class=\"cu-alert-dialog\" data-cu-alert-dialog><div class=\"cu-alert-dialog-header\"><h2 class=\"cu-alert-dialog-title\">Confirm</h2></div><div class=\"cu-alert-dialog-footer\"><button data-cu-alert-dialog-cancel>Cancel</button><button data-cu-alert-dialog-action>Confirm</button></div></dialog>"
+      "notes": "Uses native <dialog>. Does NOT close on backdrop click (intentional for blocking confirmation). trigger value must match <dialog id>. The <dialog> must have data-cu-alert-dialog, otherwise cancel / action buttons do nothing and role=alertdialog is not set.",
+      "example": "<button type=\"button\" data-cu-alert-dialog-trigger=\"confirm\">Delete</button><dialog id=\"confirm\" class=\"cu-alert-dialog\" data-cu-alert-dialog><div class=\"cu-alert-dialog-header\"><h2 class=\"cu-alert-dialog-title\">Confirm</h2><p class=\"cu-alert-dialog-description\">This cannot be undone.</p></div><div class=\"cu-alert-dialog-footer\"><button type=\"button\" data-cu-alert-dialog-cancel>Cancel</button><button type=\"button\" data-cu-alert-dialog-action>Confirm</button></div></dialog>"
     },
     {
       "name": "Dialog",
@@ -623,7 +756,15 @@
       "interactive": true,
       "cssClasses": {
         "base": "cu-dialog",
-        "parts": ["cu-dialog-header", "cu-dialog-title", "cu-dialog-description", "cu-dialog-footer", "cu-dialog-close", "cu-dialog-body", "cu-dialog-scroll"],
+        "parts": [
+          "cu-dialog-header",
+          "cu-dialog-title",
+          "cu-dialog-description",
+          "cu-dialog-footer",
+          "cu-dialog-close",
+          "cu-dialog-body",
+          "cu-dialog-scroll"
+        ],
         "sizes": ["cu-dialog-sm", "cu-dialog-md", "cu-dialog-xl", "cu-dialog-full"]
       },
       "dataAttributes": {
@@ -632,8 +773,8 @@
         "close": "data-cu-dialog-close"
       },
       "aria": ["dialog"],
-      "notes": "Uses native <dialog>. Closes on backdrop click. trigger value must match <dialog id>. Default size: cu-dialog-md. data-cu-dialog on the <dialog> is required for close buttons, backdrop click, ARIA links and focus return.",
-      "example": "<button data-cu-dialog-trigger=\"dlg\">Open</button><dialog id=\"dlg\" class=\"cu-dialog\" data-cu-dialog><div class=\"cu-dialog-header\"><h2 class=\"cu-dialog-title\">Title</h2></div><div class=\"cu-dialog-footer\"><button data-cu-dialog-close>Close</button></div></dialog>"
+      "notes": "Uses native <dialog>. Closes on backdrop click. trigger value must match <dialog id>. Default size: cu-dialog-md. The <dialog> must have data-cu-dialog, otherwise data-cu-dialog-close buttons do nothing and aria-labelledby is not linked.",
+      "example": "<button type=\"button\" data-cu-dialog-trigger=\"dlg\">Open</button><dialog id=\"dlg\" class=\"cu-dialog\" data-cu-dialog><div class=\"cu-dialog-header\"><h2 class=\"cu-dialog-title\">Title</h2><p class=\"cu-dialog-description\">Description</p></div><div class=\"cu-dialog-footer\"><button type=\"button\" data-cu-dialog-close>Close</button></div></dialog>"
     },
     {
       "name": "Drawer",
@@ -641,7 +782,14 @@
       "interactive": true,
       "cssClasses": {
         "base": "cu-drawer",
-        "parts": ["cu-drawer-header", "cu-drawer-title", "cu-drawer-description", "cu-drawer-content", "cu-drawer-footer", "cu-drawer-close"],
+        "parts": [
+          "cu-drawer-header",
+          "cu-drawer-title",
+          "cu-drawer-description",
+          "cu-drawer-content",
+          "cu-drawer-footer",
+          "cu-drawer-close"
+        ],
         "directions": ["cu-drawer-right", "cu-drawer-left", "cu-drawer-top", "cu-drawer-bottom"]
       },
       "dataAttributes": {
@@ -650,8 +798,8 @@
         "close": "data-cu-drawer-close"
       },
       "aria": ["dialog"],
-      "notes": "Uses native <dialog>. Default direction: cu-drawer-right. trigger value must match <dialog id>. data-cu-drawer on the <dialog> is required for close buttons, backdrop click, ARIA links and focus return.",
-      "example": "<button data-cu-drawer-trigger=\"drawer\">Open</button><dialog id=\"drawer\" class=\"cu-drawer cu-drawer-right\" data-cu-drawer><div class=\"cu-drawer-header\"><h2 class=\"cu-drawer-title\">Title</h2><button data-cu-drawer-close>✕</button></div><div class=\"cu-drawer-content\">Content</div></dialog>"
+      "notes": "Uses native <dialog>. Default direction: cu-drawer-right. trigger value must match <dialog id>. The <dialog> must have data-cu-drawer, otherwise data-cu-drawer-close buttons do nothing.",
+      "example": "<button type=\"button\" data-cu-drawer-trigger=\"drawer\">Open</button><dialog id=\"drawer\" class=\"cu-drawer cu-drawer-right\" data-cu-drawer><div class=\"cu-drawer-header\"><h2 class=\"cu-drawer-title\">Title</h2><button type=\"button\" data-cu-drawer-close aria-label=\"Close\">✕</button></div><div class=\"cu-drawer-content\">Content</div></dialog>"
     },
     {
       "name": "Dropdown Menu",
@@ -716,7 +864,13 @@
       "interactive": false,
       "cssClasses": {
         "base": "cu-breadcrumb",
-        "parts": ["cu-breadcrumb-item", "cu-breadcrumb-link", "cu-breadcrumb-separator", "cu-breadcrumb-current", "cu-breadcrumb-ellipsis"]
+        "parts": [
+          "cu-breadcrumb-item",
+          "cu-breadcrumb-link",
+          "cu-breadcrumb-separator",
+          "cu-breadcrumb-current",
+          "cu-breadcrumb-ellipsis"
+        ]
       },
       "example": "<nav class=\"cu-breadcrumb\"><ol><li class=\"cu-breadcrumb-item\"><a class=\"cu-breadcrumb-link\" href=\"/\">Home</a></li><li class=\"cu-breadcrumb-separator\">/</li><li class=\"cu-breadcrumb-item\"><span class=\"cu-breadcrumb-current\">Page</span></li></ol></nav>"
     },
@@ -726,7 +880,15 @@
       "interactive": true,
       "cssClasses": {
         "base": "cu-menubar",
-        "parts": ["cu-menubar-menu", "cu-menubar-trigger", "cu-menubar-content", "cu-menubar-item", "cu-menubar-separator", "cu-menubar-label", "cu-menubar-shortcut"]
+        "parts": [
+          "cu-menubar-menu",
+          "cu-menubar-trigger",
+          "cu-menubar-content",
+          "cu-menubar-item",
+          "cu-menubar-separator",
+          "cu-menubar-label",
+          "cu-menubar-shortcut"
+        ]
       },
       "dataAttributes": {
         "container": "data-cu-menubar",
@@ -772,10 +934,18 @@
       "interactive": false,
       "cssClasses": {
         "base": "cu-steps",
-        "parts": ["cu-steps-item", "cu-steps-separator", "cu-steps-number", "cu-steps-content", "cu-steps-title", "cu-steps-description"],
+        "parts": [
+          "cu-steps-item",
+          "cu-steps-separator",
+          "cu-steps-number",
+          "cu-steps-content",
+          "cu-steps-title",
+          "cu-steps-description"
+        ],
         "states": ["cu-steps-item-active", "cu-steps-item-completed", "cu-steps-item-upcoming", "cu-steps-item-error"],
         "modifiers": ["cu-steps-vertical"]
       },
+      "notes": "A cu-steps-separator directly after a cu-steps-item-completed item is colored bg-primary automatically (sibling selector), so no inline style is needed to mark progress.",
       "example": "<div class=\"cu-steps\"><div class=\"cu-steps-item cu-steps-item-completed\">1</div><div class=\"cu-steps-separator\"></div><div class=\"cu-steps-item cu-steps-item-active\">2</div></div>"
     },
     {
@@ -784,7 +954,16 @@
       "interactive": true,
       "cssClasses": {
         "base": "cu-tabs",
-        "parts": ["cu-tabs-list", "cu-tabs-trigger", "cu-tabs-content", "cu-tabs-trigger-badge", "cu-tabs-trigger-close", "cu-tabs-list-scrollable", "cu-tabs-scroll-btn", "cu-tabs-scroll-btn-end"],
+        "parts": [
+          "cu-tabs-list",
+          "cu-tabs-trigger",
+          "cu-tabs-content",
+          "cu-tabs-trigger-badge",
+          "cu-tabs-trigger-close",
+          "cu-tabs-list-scrollable",
+          "cu-tabs-scroll-btn",
+          "cu-tabs-scroll-btn-end"
+        ],
         "states": ["cu-tabs-trigger-active"],
         "variants": ["cu-tabs-list-pills"]
       },
@@ -807,7 +986,14 @@
       "interactive": false,
       "cssClasses": {
         "base": "cu-container",
-        "sizes": ["cu-container-sm", "cu-container-md", "cu-container-lg", "cu-container-xl", "cu-container-2xl", "cu-container-prose"]
+        "sizes": [
+          "cu-container-sm",
+          "cu-container-md",
+          "cu-container-lg",
+          "cu-container-xl",
+          "cu-container-2xl",
+          "cu-container-prose"
+        ]
       },
       "notes": "Base class only sets mx-auto + padding. Always combine with a size class.",
       "example": "<div class=\"cu-container cu-container-xl\">Content</div>"
@@ -828,16 +1014,52 @@
       "interactive": true,
       "cssClasses": {
         "base": "cu-header",
-        "parts": ["cu-header-inner", "cu-header-brand", "cu-header-nav", "cu-header-nav-start", "cu-header-nav-end", "cu-header-actions", "cu-header-mobile-nav", "cu-header-mobile-backdrop", "cu-header-mobile-header", "cu-header-mobile-content", "cu-header-mobile-close"],
-        "modifiers": ["cu-header-nav-sm", "cu-header-nav-md", "cu-header-nav-lg", "cu-header-nav-xl", "cu-header-mobile-nav-sm", "cu-header-mobile-nav-md", "cu-header-mobile-nav-lg", "cu-header-mobile-nav-xl", "cu-header-mobile-backdrop-sm", "cu-header-mobile-backdrop-md", "cu-header-mobile-backdrop-lg", "cu-header-mobile-backdrop-xl"]
+        "parts": [
+          "cu-header-inner",
+          "cu-header-brand",
+          "cu-header-nav",
+          "cu-header-nav-start",
+          "cu-header-nav-end",
+          "cu-header-actions",
+          "cu-header-mobile-nav",
+          "cu-header-mobile-backdrop",
+          "cu-header-mobile-header",
+          "cu-header-mobile-content",
+          "cu-header-mobile-close"
+        ],
+        "modifiers": [
+          "cu-header-nav-sm",
+          "cu-header-nav-md",
+          "cu-header-nav-lg",
+          "cu-header-nav-xl",
+          "cu-header-mobile-nav-sm",
+          "cu-header-mobile-nav-md",
+          "cu-header-mobile-nav-lg",
+          "cu-header-mobile-nav-xl",
+          "cu-header-mobile-backdrop-sm",
+          "cu-header-mobile-backdrop-md",
+          "cu-header-mobile-backdrop-lg",
+          "cu-header-mobile-backdrop-xl",
+          "cu-header-mobile-toggle-sm",
+          "cu-header-mobile-toggle-md",
+          "cu-header-mobile-toggle-lg",
+          "cu-header-mobile-toggle-xl"
+        ]
       },
-      "dataAttributes": ["data-cu-mobile-nav-trigger", "data-cu-mobile-nav", "data-cu-mobile-nav-panel", "data-cu-mobile-nav-close", "data-cu-mobile-nav-open", "data-cu-mobile-nav-clone"],
+      "dataAttributes": [
+        "data-cu-mobile-nav-trigger",
+        "data-cu-mobile-nav",
+        "data-cu-mobile-nav-panel",
+        "data-cu-mobile-nav-close",
+        "data-cu-mobile-nav-open",
+        "data-cu-mobile-nav-clone"
+      ],
       "aria": {
         "trigger": "aria-expanded, aria-label",
         "panel": "role=dialog, aria-modal=true, aria-label"
       },
       "notes": "cu-header-nav is always visible by default; add cu-header-nav-{sm|md|lg|xl} to hide below a breakpoint. cu-header-nav-start: nav aligned left (after brand). cu-header-nav-end: nav aligned right (before actions). Header is sticky by default. Mobile nav: slide-in panel from the right with backdrop, auto-clones desktop nav when data-cu-mobile-nav-clone is set. The panel/backdrop are display:none when closed (fully removed from the a11y tree, animated open via @starting-style) and carry the hidden attribute by default to prevent FOUC before CSS loads (JS removes it on open). Add cu-header-mobile-nav-{bp} + cu-header-mobile-backdrop-{bp} (matching the trigger's breakpoint) to fully remove them on desktop. Supports Escape key, backdrop click, scroll lock, focus management.",
-      "example": "<header class=\"cu-header\"><div class=\"cu-header-inner\"><div class=\"cu-header-brand\">Logo</div><div class=\"cu-header-nav cu-header-nav-md\"><nav class=\"cu-nav\"><a class=\"cu-nav-item\" href=\"#\">Home</a></nav></div><div class=\"cu-header-actions\"><!-- buttons --><button data-cu-mobile-nav-trigger=\"main-nav\" class=\"cu-button cu-button-ghost cu-button-icon-sm md:hidden\" aria-label=\"Open menu\" aria-expanded=\"false\">☰</button></div></div></header><div id=\"main-nav\" class=\"cu-header-mobile-backdrop cu-header-mobile-backdrop-md\" data-cu-mobile-nav hidden></div><nav id=\"main-nav-panel\" class=\"cu-header-mobile-nav cu-header-mobile-nav-md\" data-cu-mobile-nav-panel=\"main-nav\" data-cu-mobile-nav-clone role=\"dialog\" aria-modal=\"true\" aria-label=\"Navigation menu\" hidden><div class=\"cu-header-mobile-header\"><span>Brand</span><button data-cu-mobile-nav-close class=\"cu-header-mobile-close\" aria-label=\"Close menu\">✕</button></div><div class=\"cu-header-mobile-content\"></div></nav>"
+      "example": "<header class=\"cu-header\"><div class=\"cu-header-inner\"><div class=\"cu-header-brand\">Logo</div><div class=\"cu-header-nav cu-header-nav-md\"><nav class=\"cu-nav\"><a class=\"cu-nav-item\" href=\"#\">Home</a></nav></div><div class=\"cu-header-actions\"><!-- buttons --><button data-cu-mobile-nav-trigger=\"main-nav\" class=\"cu-button cu-button-ghost cu-button-icon-sm cu-header-mobile-toggle-md\" aria-label=\"Open menu\" aria-expanded=\"false\">☰</button></div></div></header><div id=\"main-nav\" class=\"cu-header-mobile-backdrop cu-header-mobile-backdrop-md\" data-cu-mobile-nav hidden></div><nav id=\"main-nav-panel\" class=\"cu-header-mobile-nav cu-header-mobile-nav-md\" data-cu-mobile-nav-panel=\"main-nav\" data-cu-mobile-nav-clone role=\"dialog\" aria-modal=\"true\" aria-label=\"Navigation menu\" hidden><div class=\"cu-header-mobile-header\"><span>Brand</span><button data-cu-mobile-nav-close class=\"cu-header-mobile-close\" aria-label=\"Close menu\">✕</button></div><div class=\"cu-header-mobile-content\"></div></nav>"
     },
     {
       "name": "Nav",
@@ -857,7 +1079,12 @@
       "interactive": false,
       "cssClasses": {
         "base": "cu-page-header",
-        "parts": ["cu-page-header-content", "cu-page-header-title", "cu-page-header-description", "cu-page-header-actions"],
+        "parts": [
+          "cu-page-header-content",
+          "cu-page-header-title",
+          "cu-page-header-description",
+          "cu-page-header-actions"
+        ],
         "variants": ["cu-page-header-bordered", "cu-page-header-centered"]
       },
       "example": "<div class=\"cu-page-header\"><div class=\"cu-page-header-content\"><h1 class=\"cu-page-header-title\">Title</h1><p class=\"cu-page-header-description\">Desc</p></div><div class=\"cu-page-header-actions\"><button class=\"cu-button cu-button-default\">Action</button></div></div>"
@@ -879,7 +1106,17 @@
       "interactive": false,
       "cssClasses": {
         "base": "cu-sidebar",
-        "parts": ["cu-sidebar-header", "cu-sidebar-content", "cu-sidebar-footer", "cu-sidebar-section", "cu-sidebar-section-title", "cu-sidebar-group", "cu-sidebar-group-title", "cu-sidebar-item", "cu-sidebar-separator"],
+        "parts": [
+          "cu-sidebar-header",
+          "cu-sidebar-content",
+          "cu-sidebar-footer",
+          "cu-sidebar-section",
+          "cu-sidebar-section-title",
+          "cu-sidebar-group",
+          "cu-sidebar-group-title",
+          "cu-sidebar-item",
+          "cu-sidebar-separator"
+        ],
         "states": ["cu-sidebar-item-active"]
       },
       "notes": "Two-level hierarchy: cu-sidebar-section (top label, uppercase) > cu-sidebar-group (sub-group, bold) > cu-sidebar-item (link).",
@@ -902,7 +1139,15 @@
       "cssClasses": {
         "base": "cu-chat-bubble",
         "variants": ["cu-chat-bubble-user", "cu-chat-bubble-assistant"],
-        "parts": ["cu-chat-bubble-avatar", "cu-chat-bubble-content", "cu-chat-bubble-name", "cu-chat-bubble-message", "cu-chat-bubble-timestamp", "cu-chat-bubble-actions", "cu-chat-bubble-action"],
+        "parts": [
+          "cu-chat-bubble-avatar",
+          "cu-chat-bubble-content",
+          "cu-chat-bubble-name",
+          "cu-chat-bubble-message",
+          "cu-chat-bubble-timestamp",
+          "cu-chat-bubble-actions",
+          "cu-chat-bubble-action"
+        ],
         "modifiers": ["cu-chat-bubble-message-prose"]
       },
       "notes": "Use cu-chat-bubble-user for right-aligned user messages (primary bg) and cu-chat-bubble-assistant for left-aligned AI messages (muted bg). Actions are always visible.",
@@ -936,7 +1181,17 @@
       "interactive": false,
       "cssClasses": {
         "base": "cu-aspect-ratio",
-        "ratios": ["cu-aspect-ratio-16/9", "cu-aspect-ratio-4/3", "cu-aspect-ratio-1/1", "cu-aspect-ratio-21/9", "cu-aspect-ratio-3/2", "cu-aspect-ratio-2/3", "cu-aspect-ratio-9/16", "cu-aspect-ratio-3/4", "cu-aspect-ratio-5/4"]
+        "ratios": [
+          "cu-aspect-ratio-16/9",
+          "cu-aspect-ratio-4/3",
+          "cu-aspect-ratio-1/1",
+          "cu-aspect-ratio-21/9",
+          "cu-aspect-ratio-3/2",
+          "cu-aspect-ratio-2/3",
+          "cu-aspect-ratio-9/16",
+          "cu-aspect-ratio-3/4",
+          "cu-aspect-ratio-5/4"
+        ]
       },
       "notes": "Children are absolutely positioned to fill the container. Always combine base + one ratio class. Child elements get object-cover by default.",
       "example": "<div class=\"cu-aspect-ratio cu-aspect-ratio-16/9\"><img src=\"photo.jpg\" alt=\"Photo\"></div>"
@@ -947,7 +1202,14 @@
       "interactive": true,
       "cssClasses": {
         "base": "cu-carousel",
-        "parts": ["cu-carousel-viewport", "cu-carousel-slide", "cu-carousel-prev", "cu-carousel-next", "cu-carousel-dots", "cu-carousel-dot"],
+        "parts": [
+          "cu-carousel-viewport",
+          "cu-carousel-slide",
+          "cu-carousel-prev",
+          "cu-carousel-next",
+          "cu-carousel-dots",
+          "cu-carousel-dot"
+        ],
         "states": ["cu-carousel-dot-active"],
         "modifiers": ["cu-carousel-multi-2", "cu-carousel-multi-3", "cu-carousel-nav-outside"]
       },
@@ -976,7 +1238,7 @@
         "item": "data-cu-checkbox-group-item"
       },
       "notes": "Select-all checkbox automatically toggles all items. Supports indeterminate state when some items are checked. cu-checkbox-group-selectall adds bottom border separator.",
-      "example": "<div class=\"cu-checkbox-group\" data-cu-checkbox-group><div class=\"cu-checkbox-group-label\">Options</div><div class=\"cu-checkbox-group-selectall\"><div class=\"cu-checkbox-wrapper\"><input type=\"checkbox\" class=\"cu-checkbox\" data-cu-checkbox-group-selectall><label>Select all</label></div></div><div class=\"cu-checkbox-group-items\"><div class=\"cu-checkbox-wrapper\"><input type=\"checkbox\" class=\"cu-checkbox\" data-cu-checkbox-group-item><label>Option A</label></div></div></div>"
+      "example": "<div class=\"cu-checkbox-group\" data-cu-checkbox-group><div class=\"cu-checkbox-group-label\">Options</div><div class=\"cu-checkbox-group-selectall\"><div class=\"cu-checkbox-wrapper\"><input type=\"checkbox\" id=\"opt-all\" class=\"cu-checkbox\" data-cu-checkbox-group-selectall><label for=\"opt-all\">Select all</label></div></div><div class=\"cu-checkbox-group-items\"><div class=\"cu-checkbox-wrapper\"><input type=\"checkbox\" id=\"opt-a\" class=\"cu-checkbox\" data-cu-checkbox-group-item><label for=\"opt-a\">Option A</label></div><div class=\"cu-checkbox-wrapper\"><input type=\"checkbox\" id=\"opt-b\" class=\"cu-checkbox\" data-cu-checkbox-group-item><label for=\"opt-b\">Option B</label></div></div></div>"
     },
     {
       "name": "Code Block",
@@ -1006,15 +1268,38 @@
       "cssClasses": {
         "base": "cu-chart",
         "variants": ["cu-chart-flat", "cu-chart-ghost"],
-        "parts": ["cu-chart-header", "cu-chart-header-content", "cu-chart-title", "cu-chart-description", "cu-chart-value", "cu-chart-actions", "cu-chart-body", "cu-chart-canvas", "cu-chart-footer"],
+        "parts": [
+          "cu-chart-header",
+          "cu-chart-header-content",
+          "cu-chart-title",
+          "cu-chart-description",
+          "cu-chart-value",
+          "cu-chart-actions",
+          "cu-chart-body",
+          "cu-chart-canvas",
+          "cu-chart-footer"
+        ],
         "modifiers": ["cu-chart-body-split"],
         "canvasSizes": ["cu-chart-canvas-sm", "cu-chart-canvas-lg", "cu-chart-canvas-square"],
-        "legend": ["cu-chart-legend", "cu-chart-legend-center", "cu-chart-legend-vertical", "cu-chart-legend-item", "cu-chart-legend-item-inactive", "cu-chart-legend-value"],
+        "legend": [
+          "cu-chart-legend",
+          "cu-chart-legend-center",
+          "cu-chart-legend-vertical",
+          "cu-chart-legend-item",
+          "cu-chart-legend-item-inactive",
+          "cu-chart-legend-value"
+        ],
         "swatch": ["cu-chart-swatch", "cu-chart-swatch-dot", "cu-chart-swatch-line"],
         "colors": ["cu-chart-color-1", "cu-chart-color-2", "cu-chart-color-3", "cu-chart-color-4", "cu-chart-color-5"],
         "tooltip": ["cu-chart-tooltip", "cu-chart-tooltip-label", "cu-chart-tooltip-item", "cu-chart-tooltip-value"],
         "svg": ["cu-chart-grid", "cu-chart-axis", "cu-chart-axis-line"],
-        "states": ["cu-chart-empty", "cu-chart-empty-title", "cu-chart-empty-description", "cu-chart-loading", "cu-chart-loading-bar"]
+        "states": [
+          "cu-chart-empty",
+          "cu-chart-empty-title",
+          "cu-chart-empty-description",
+          "cu-chart-loading",
+          "cu-chart-loading-bar"
+        ]
       },
       "tokens": ["--color-chart-1", "--color-chart-2", "--color-chart-3", "--color-chart-4", "--color-chart-5"],
       "aria": ["img"],
@@ -1027,7 +1312,17 @@
       "interactive": true,
       "cssClasses": {
         "base": "cu-color-picker",
-        "parts": ["cu-color-picker-saturation", "cu-color-picker-saturation-pointer", "cu-color-picker-hue", "cu-color-picker-hue-pointer", "cu-color-picker-controls", "cu-color-picker-preview", "cu-color-picker-input", "cu-color-picker-swatches", "cu-color-picker-swatch"]
+        "parts": [
+          "cu-color-picker-saturation",
+          "cu-color-picker-saturation-pointer",
+          "cu-color-picker-hue",
+          "cu-color-picker-hue-pointer",
+          "cu-color-picker-controls",
+          "cu-color-picker-preview",
+          "cu-color-picker-input",
+          "cu-color-picker-swatches",
+          "cu-color-picker-swatch"
+        ]
       },
       "dataAttributes": {
         "container": "data-cu-color-picker",
@@ -1041,9 +1336,7 @@
         "swatch": "data-cu-color-picker-swatch",
         "value": "data-cu-color-picker-value"
       },
-      "aria": [
-        "slider"
-      ],
+      "aria": ["slider"],
       "notes": "HSV-based color picker with saturation panel, hue slider, hex input, and optional preset swatches. Supports drag interaction on saturation panel and hue bar. Initial value via data-cu-color-picker-value or hidden input value. Swatch colors set via data-cu-color-picker-swatch attribute. Keyboard: the saturation panel and hue bar become focusable role=\"slider\" (default names \"Saturation and brightness\" / \"Hue\", override with aria-label). Saturation panel: Left/Right saturation ±1%, Up/Down brightness ±1% (Shift ×10), PageUp/PageDown brightness ±10%, Home/End saturation 0/100%. Hue: Left/Down −1°, Right/Up +1° (Shift ×10), PageUp/PageDown ±10°, Home/End 0°/360°. Fires cu:color-picker:change ({ value: \"#rrggbb\" }, bubbles) whenever the user changes the color (continuously while dragging; not on init).",
       "example": "<div class=\"cu-color-picker\" data-cu-color-picker data-cu-color-picker-value=\"#3b82f6\"><div class=\"cu-color-picker-saturation\" data-cu-color-picker-saturation><div class=\"cu-color-picker-saturation-pointer\" data-cu-color-picker-saturation-pointer></div></div><div class=\"cu-color-picker-hue\" data-cu-color-picker-hue><div class=\"cu-color-picker-hue-pointer\" data-cu-color-picker-hue-pointer></div></div><div class=\"cu-color-picker-controls\"><div class=\"cu-color-picker-preview\" data-cu-color-picker-preview></div><input class=\"cu-color-picker-input\" data-cu-color-picker-input></div></div>"
     },
@@ -1053,7 +1346,18 @@
       "interactive": true,
       "cssClasses": {
         "base": "cu-command",
-        "parts": ["cu-command-input-wrapper", "cu-command-input-icon", "cu-command-input", "cu-command-list", "cu-command-group", "cu-command-group-heading", "cu-command-item", "cu-command-separator", "cu-command-shortcut", "cu-command-empty"]
+        "parts": [
+          "cu-command-input-wrapper",
+          "cu-command-input-icon",
+          "cu-command-input",
+          "cu-command-list",
+          "cu-command-group",
+          "cu-command-group-heading",
+          "cu-command-item",
+          "cu-command-separator",
+          "cu-command-shortcut",
+          "cu-command-empty"
+        ]
       },
       "dataAttributes": {
         "container": "data-cu-command",
@@ -1083,11 +1387,7 @@
         "container": "data-cu-context-menu",
         "content": "data-cu-context-menu-content"
       },
-      "aria": [
-        "menu",
-        "menuitem",
-        "separator"
-      ],
+      "aria": ["menu", "menuitem", "separator"],
       "notes": "Right-click triggered context menu. Content is positioned at cursor location. Auto-closes on click, Escape, scroll, or right-click outside. Uses cu-dropdown-item / cu-dropdown-separator for menu items (shared styles). Add hidden attribute to content initially. Keyboard: the container becomes focusable (tabindex=0 unless it already has a tabindex; use -1 to let focusable children receive the shortcut); Shift+F10 or the ContextMenu key opens the menu at the focused element. The menu (role=menu) takes focus and points aria-activedescendant at the highlighted item (cu-dropdown-item-highlight): ArrowUp/Down wrap, Home/End, Enter/Space activate, Escape/Tab close; focus returns to where it was. Name the container with aria-label.",
       "example": "<div class=\"cu-context-menu\" data-cu-context-menu><p>Right-click here</p><div class=\"cu-context-menu-content\" data-cu-context-menu-content hidden><button class=\"cu-dropdown-item\">Cut</button><button class=\"cu-dropdown-item\">Copy</button><div class=\"cu-dropdown-separator\"></div><button class=\"cu-dropdown-item\">Delete</button></div></div>"
     },
@@ -1098,12 +1398,31 @@
       "cssClasses": {
         "calendar": {
           "base": "cu-calendar",
-          "parts": ["cu-calendar-header", "cu-calendar-title", "cu-calendar-nav", "cu-calendar-weekdays", "cu-calendar-weekday", "cu-calendar-grid", "cu-calendar-week", "cu-calendar-day"],
-          "states": ["cu-calendar-day-today", "cu-calendar-day-selected", "cu-calendar-day-outside", "cu-calendar-day-disabled"]
+          "parts": [
+            "cu-calendar-header",
+            "cu-calendar-title",
+            "cu-calendar-nav",
+            "cu-calendar-weekdays",
+            "cu-calendar-weekday",
+            "cu-calendar-grid",
+            "cu-calendar-week",
+            "cu-calendar-day"
+          ],
+          "states": [
+            "cu-calendar-day-today",
+            "cu-calendar-day-selected",
+            "cu-calendar-day-outside",
+            "cu-calendar-day-disabled"
+          ]
         },
         "picker": {
           "base": "cu-date-picker",
-          "parts": ["cu-date-picker-trigger", "cu-date-picker-trigger-icon", "cu-date-picker-trigger-placeholder", "cu-date-picker-content"]
+          "parts": [
+            "cu-date-picker-trigger",
+            "cu-date-picker-trigger-icon",
+            "cu-date-picker-trigger-placeholder",
+            "cu-date-picker-content"
+          ]
         }
       },
       "dataAttributes": {
@@ -1122,8 +1441,8 @@
         "pickerInput": "data-cu-date-picker-input"
       },
       "aria": ["dialog", "grid", "row", "gridcell"],
-      "notes": "Two components: standalone Calendar and Date Picker (input + popover calendar). Calendar renders month grid with keyboard navigation (arrow keys). Date constraints via data-cu-calendar-min / data-cu-calendar-max (YYYY-MM-DD format). Date Picker stores ISO date in hidden input, displays formatted date in trigger.",
-      "example": "<div class=\"cu-date-picker\" data-cu-date-picker><button class=\"cu-date-picker-trigger\" data-cu-date-picker-trigger><span data-cu-date-picker-value class=\"cu-date-picker-trigger-placeholder\">Pick a date</span><svg class=\"cu-date-picker-trigger-icon\"><!-- calendar icon --></svg></button><div class=\"cu-date-picker-content\" data-cu-date-picker-content><div class=\"cu-calendar\" data-cu-calendar><div class=\"cu-calendar-header\"><button class=\"cu-calendar-nav\" data-cu-calendar-prev>&#8249;</button><span class=\"cu-calendar-title\" data-cu-calendar-title></span><button class=\"cu-calendar-nav\" data-cu-calendar-next>&#8250;</button></div><div class=\"cu-calendar-weekdays\"><span class=\"cu-calendar-weekday\">Su</span></div><div class=\"cu-calendar-grid\" data-cu-calendar-grid></div></div></div><input type=\"hidden\" data-cu-date-picker-input></div>"
+      "notes": "Two components: standalone Calendar ([data-cu-calendar]) and Date Picker (trigger + popover calendar). The calendar needs data-cu-calendar-title and data-cu-calendar-grid (day buttons are rendered by JS — leave the grid empty) plus optional data-cu-calendar-prev / data-cu-calendar-next; inside a Date Picker the calendar must also carry data-cu-calendar. Keyboard: arrow keys move by day / week (crossing months), Home / End jump to the first / last day of the month, Enter / Space select. Date constraints via data-cu-calendar-min / data-cu-calendar-max (YYYY-MM-DD). Date Picker shows the formatted date (YYYY/MM/DD) in data-cu-date-picker-value and stores the ISO date (YYYY-MM-DD) in the hidden input[data-cu-date-picker-input], dispatching a bubbling change event on it after each selection; a preset value on that input opens the calendar on that month. Use type=\"button\" on the trigger and nav buttons so they do not submit a surrounding <form>. Day buttons get full-date accessible names (locale from data-cu-calendar-locale or the nearest lang) and a single Tab stop (roving tabindex); opening the Date Picker focuses the selected date, else today.",
+      "example": "<div class=\"cu-date-picker\" data-cu-date-picker><button type=\"button\" class=\"cu-date-picker-trigger\" data-cu-date-picker-trigger><svg class=\"cu-date-picker-trigger-icon\" aria-hidden=\"true\"><!-- calendar icon --></svg><span data-cu-date-picker-value class=\"cu-date-picker-trigger-placeholder\">Pick a date</span></button><input type=\"hidden\" name=\"date\" data-cu-date-picker-input><div class=\"cu-date-picker-content\" data-cu-date-picker-content><div class=\"cu-calendar\" data-cu-calendar><div class=\"cu-calendar-header\"><button type=\"button\" class=\"cu-calendar-nav\" data-cu-calendar-prev aria-label=\"Previous month\">&#8249;</button><span class=\"cu-calendar-title\" data-cu-calendar-title></span><button type=\"button\" class=\"cu-calendar-nav\" data-cu-calendar-next aria-label=\"Next month\">&#8250;</button></div><div class=\"cu-calendar-weekdays\"><span class=\"cu-calendar-weekday\">Su</span><span class=\"cu-calendar-weekday\">Mo</span><span class=\"cu-calendar-weekday\">Tu</span><span class=\"cu-calendar-weekday\">We</span><span class=\"cu-calendar-weekday\">Th</span><span class=\"cu-calendar-weekday\">Fr</span><span class=\"cu-calendar-weekday\">Sa</span></div><div class=\"cu-calendar-grid\" data-cu-calendar-grid></div></div></div></div>"
     },
     {
       "name": "Input Group",
@@ -1207,7 +1526,7 @@
         "multiple": "data-cu-toggle-group-multiple"
       },
       "notes": "Switchable button group. Single selection by default; add data-cu-toggle-group-multiple for multi-select. Outline variant for bordered style. Fires cu:toggle-group:change event.",
-      "example": "<div class=\"cu-toggle-group\" data-cu-toggle-group><button class=\"cu-toggle-group-item cu-toggle-group-item-active\">A</button><button class=\"cu-toggle-group-item\">B</button></div>"
+      "example": "<div class=\"cu-toggle-group\" data-cu-toggle-group><button type=\"button\" class=\"cu-toggle-group-item cu-toggle-group-item-active\">A</button><button type=\"button\" class=\"cu-toggle-group-item\">B</button></div>"
     },
     {
       "name": "Rating",
@@ -1224,8 +1543,8 @@
         "star": "data-cu-rating-star",
         "value": "data-cu-rating-value"
       },
-      "notes": "Star rating component. Use cu-rating-readonly for display-only, data-cu-rating for interactive. Half stars via cu-rating-item-half with CSS clip-path. Fires cu:rating:change event.",
-      "example": "<div class=\"cu-rating cu-rating-readonly\"><span class=\"cu-rating-item cu-rating-item-active\">★</span><span class=\"cu-rating-item cu-rating-item-active\">★</span><span class=\"cu-rating-item\">★</span></div>"
+      "notes": "Star rating component. Use cu-rating-readonly (<span> stars) for display-only, data-cu-rating for interactive. Interactive stars must be <button type=\"button\"> with data-cu-rating-star=\"N\" (clicks and Enter / Space set data-cu-rating-value); <span> stars cannot be reached with the keyboard. Half stars via cu-rating-item-half with CSS clip-path. Fires cu:rating:change event.",
+      "example": "<div class=\"cu-rating cu-rating-readonly\" role=\"img\" aria-label=\"2 out of 3 stars\"><span class=\"cu-rating-item cu-rating-item-active\">★</span><span class=\"cu-rating-item cu-rating-item-active\">★</span><span class=\"cu-rating-item\">★</span></div>\n<div class=\"cu-rating\" data-cu-rating data-cu-rating-value=\"0\"><button type=\"button\" class=\"cu-rating-item\" data-cu-rating-star=\"1\" aria-label=\"1 star\">★</button><button type=\"button\" class=\"cu-rating-item\" data-cu-rating-star=\"2\" aria-label=\"2 stars\">★</button><button type=\"button\" class=\"cu-rating-item\" data-cu-rating-star=\"3\" aria-label=\"3 stars\">★</button></div>"
     },
     {
       "name": "Tag Input",
@@ -1244,7 +1563,7 @@
         "tagValue": "data-cu-tag-value"
       },
       "notes": "Tag/chip input with Enter to add and Backspace to remove. Prevents duplicate tags. Max tags limit via data-cu-tag-max. Fires cu:tag-input:change event.",
-      "example": "<div class=\"cu-tag-input\" data-cu-tag-input><span class=\"cu-tag-input-tag\" data-cu-tag-value=\"Tag\">Tag<button class=\"cu-tag-input-tag-remove\">&times;</button></span><input class=\"cu-tag-input-field\" data-cu-tag-input-field placeholder=\"Add tag...\"/></div>"
+      "example": "<div class=\"cu-tag-input\" data-cu-tag-input><span class=\"cu-tag-input-tag\" data-cu-tag-value=\"Tag\">Tag<button type=\"button\" class=\"cu-tag-input-tag-remove\" aria-label=\"Remove Tag\">&times;</button></span><input class=\"cu-tag-input-field\" data-cu-tag-input-field placeholder=\"Add tag...\" aria-label=\"Add tag\"/></div>"
     },
     {
       "name": "Marquee",
@@ -1303,16 +1622,21 @@
       "interactive": true,
       "cssClasses": {
         "base": "cu-image-compare",
-        "parts": ["cu-image-compare-before", "cu-image-compare-after", "cu-image-compare-handle", "cu-image-compare-handle-line", "cu-image-compare-handle-grip", "cu-image-compare-label"],
+        "parts": [
+          "cu-image-compare-before",
+          "cu-image-compare-after",
+          "cu-image-compare-handle",
+          "cu-image-compare-handle-line",
+          "cu-image-compare-handle-grip",
+          "cu-image-compare-label"
+        ],
         "modifiers": ["cu-image-compare-vertical", "cu-image-compare-label-before", "cu-image-compare-label-after"]
       },
       "dataAttributes": {
         "container": "data-cu-image-compare",
         "position": "data-cu-image-compare-position"
       },
-      "aria": [
-        "slider"
-      ],
+      "aria": ["slider"],
       "notes": "Before/after image comparison slider. Drag handle to reveal. Position controlled via --cu-compare-position CSS variable; initial position via data-cu-image-compare-position (0-100, default 50, clamped). Supports touch events. The handle becomes role=\"slider\" (tabindex=0, aria-valuenow 0-100, aria-valuetext \"N%\", aria-orientation): Arrow keys ±1, Page Up/Down ±10, Home/End → 0/100 (vertical: Down/Right increase). Name it with aria-label on the handle (default \"Image comparison\").",
       "example": "<div class=\"cu-image-compare\" data-cu-image-compare><img class=\"cu-image-compare-after\" src=\"after.jpg\"/><img class=\"cu-image-compare-before\" src=\"before.jpg\"/><div class=\"cu-image-compare-handle\"><div class=\"cu-image-compare-handle-line\"></div><div class=\"cu-image-compare-handle-grip\">⇔</div></div></div>"
     },
@@ -1325,8 +1649,8 @@
         "parts": ["cu-floating-label-input", "cu-floating-label-text", "cu-floating-label-textarea"],
         "modifiers": ["cu-floating-label-error", "cu-floating-label-success"]
       },
-      "notes": "Material Design-style floating label. Input MUST have placeholder=\" \" (space) for CSS :placeholder-shown to work. Label must come after input in DOM.",
-      "example": "<div class=\"cu-floating-label\"><input class=\"cu-floating-label-input\" placeholder=\" \"/><label class=\"cu-floating-label-text\">Email</label></div>"
+      "notes": "Material Design-style floating label. Input MUST have placeholder=\" \" (space) for CSS :placeholder-shown to work. Label must come after input in DOM. Link them with id / for so clicking the label focuses the input.",
+      "example": "<div class=\"cu-floating-label\"><input id=\"email\" type=\"email\" class=\"cu-floating-label-input\" placeholder=\" \"/><label for=\"email\" class=\"cu-floating-label-text\">Email</label></div>"
     },
     {
       "name": "Notification",
@@ -1334,8 +1658,21 @@
       "interactive": false,
       "cssClasses": {
         "base": "cu-notification",
-        "parts": ["cu-notification-icon", "cu-notification-content", "cu-notification-title", "cu-notification-description", "cu-notification-time", "cu-notification-actions", "cu-notification-close"],
-        "variants": ["cu-notification-info", "cu-notification-success", "cu-notification-warning", "cu-notification-destructive"],
+        "parts": [
+          "cu-notification-icon",
+          "cu-notification-content",
+          "cu-notification-title",
+          "cu-notification-description",
+          "cu-notification-time",
+          "cu-notification-actions",
+          "cu-notification-close"
+        ],
+        "variants": [
+          "cu-notification-info",
+          "cu-notification-success",
+          "cu-notification-warning",
+          "cu-notification-destructive"
+        ],
         "modifiers": ["cu-notification-unread", "cu-notification-list"]
       },
       "notes": "Static notification cards for activity feeds and notification panels. For floating alerts, use Toast instead. Unread state via cu-notification-unread.",
@@ -1347,8 +1684,19 @@
       "interactive": true,
       "cssClasses": {
         "base": "cu-speed-dial",
-        "parts": ["cu-speed-dial-trigger", "cu-speed-dial-actions", "cu-speed-dial-action", "cu-speed-dial-action-btn", "cu-speed-dial-action-label"],
-        "variants": ["cu-speed-dial-bottom-right", "cu-speed-dial-bottom-left", "cu-speed-dial-top-right", "cu-speed-dial-top-left"],
+        "parts": [
+          "cu-speed-dial-trigger",
+          "cu-speed-dial-actions",
+          "cu-speed-dial-action",
+          "cu-speed-dial-action-btn",
+          "cu-speed-dial-action-label"
+        ],
+        "variants": [
+          "cu-speed-dial-bottom-right",
+          "cu-speed-dial-bottom-left",
+          "cu-speed-dial-top-right",
+          "cu-speed-dial-top-left"
+        ],
         "modifiers": ["cu-speed-dial-sm", "cu-speed-dial-horizontal"]
       },
       "dataAttributes": {
@@ -1382,7 +1730,17 @@
       "interactive": false,
       "cssClasses": {
         "base": "cu-diff-viewer",
-        "parts": ["cu-diff-viewer-header", "cu-diff-viewer-filename", "cu-diff-viewer-line", "cu-diff-viewer-line-number", "cu-diff-viewer-line-content", "cu-diff-viewer-hunk", "cu-diff-viewer-side", "cu-diff-viewer-side-header", "cu-diff-viewer-expand"],
+        "parts": [
+          "cu-diff-viewer-header",
+          "cu-diff-viewer-filename",
+          "cu-diff-viewer-line",
+          "cu-diff-viewer-line-number",
+          "cu-diff-viewer-line-content",
+          "cu-diff-viewer-hunk",
+          "cu-diff-viewer-side",
+          "cu-diff-viewer-side-header",
+          "cu-diff-viewer-expand"
+        ],
         "variants": ["cu-diff-viewer-line-added", "cu-diff-viewer-line-removed", "cu-diff-viewer-line-unchanged"],
         "modifiers": ["cu-diff-viewer-side-by-side", "cu-diff-viewer-word-added", "cu-diff-viewer-word-removed"]
       },
@@ -1395,8 +1753,27 @@
       "interactive": true,
       "cssClasses": {
         "base": "cu-kanban",
-        "parts": ["cu-kanban-column", "cu-kanban-column-header", "cu-kanban-column-title", "cu-kanban-column-count", "cu-kanban-column-body", "cu-kanban-card", "cu-kanban-card-title", "cu-kanban-card-description", "cu-kanban-card-footer", "cu-kanban-card-tag", "cu-kanban-add", "cu-kanban-placeholder"],
-        "variants": ["cu-kanban-card-tag-primary", "cu-kanban-card-tag-success", "cu-kanban-card-tag-warning", "cu-kanban-card-tag-destructive", "cu-kanban-card-tag-info"],
+        "parts": [
+          "cu-kanban-column",
+          "cu-kanban-column-header",
+          "cu-kanban-column-title",
+          "cu-kanban-column-count",
+          "cu-kanban-column-body",
+          "cu-kanban-card",
+          "cu-kanban-card-title",
+          "cu-kanban-card-description",
+          "cu-kanban-card-footer",
+          "cu-kanban-card-tag",
+          "cu-kanban-add",
+          "cu-kanban-placeholder"
+        ],
+        "variants": [
+          "cu-kanban-card-tag-primary",
+          "cu-kanban-card-tag-success",
+          "cu-kanban-card-tag-warning",
+          "cu-kanban-card-tag-destructive",
+          "cu-kanban-card-tag-info"
+        ],
         "modifiers": ["cu-kanban-compact", "cu-kanban-card-dragging", "cu-kanban-column-body-dragover"]
       },
       "dataAttributes": {
@@ -1414,8 +1791,26 @@
       "interactive": true,
       "cssClasses": {
         "base": "cu-tour-overlay",
-        "parts": ["cu-tour-spotlight", "cu-tour-tooltip", "cu-tour-tooltip-title", "cu-tour-tooltip-description", "cu-tour-tooltip-footer", "cu-tour-tooltip-progress", "cu-tour-tooltip-actions", "cu-tour-tooltip-arrow", "cu-tour-dots", "cu-tour-dot"],
-        "modifiers": ["cu-tour-dot-active", "cu-tour-target", "cu-tour-tooltip-arrow-top", "cu-tour-tooltip-arrow-bottom", "cu-tour-tooltip-arrow-left", "cu-tour-tooltip-arrow-right"]
+        "parts": [
+          "cu-tour-spotlight",
+          "cu-tour-tooltip",
+          "cu-tour-tooltip-title",
+          "cu-tour-tooltip-description",
+          "cu-tour-tooltip-footer",
+          "cu-tour-tooltip-progress",
+          "cu-tour-tooltip-actions",
+          "cu-tour-tooltip-arrow",
+          "cu-tour-dots",
+          "cu-tour-dot"
+        ],
+        "modifiers": [
+          "cu-tour-dot-active",
+          "cu-tour-target",
+          "cu-tour-tooltip-arrow-top",
+          "cu-tour-tooltip-arrow-bottom",
+          "cu-tour-tooltip-arrow-left",
+          "cu-tour-tooltip-arrow-right"
+        ]
       },
       "dataAttributes": {
         "container": "data-cu-tour",
@@ -1423,7 +1818,7 @@
         "auto": "data-cu-tour-auto"
       },
       "notes": "Guided tour overlay. Steps defined as JSON array in data-cu-tour-steps. Each step: { target, title, description, placement }. Auto-start via data-cu-tour-auto or programmatic via cu:tour:start event. Fires cu:tour:complete when done.",
-      "example": "<div data-cu-tour data-cu-tour-steps='[{\"target\":\"#btn\",\"title\":\"Click here\",\"description\":\"This button does something.\"}]'></div>"
+      "example": "<button type=\"button\" id=\"tour-start\" class=\"cu-button cu-button-outline\">Start tour</button><div data-cu-tour data-cu-tour-steps='[{\"target\":\"#tour-start\",\"title\":\"Click here\",\"description\":\"This button starts the tour.\"}]'></div><script>document.getElementById(\"tour-start\").addEventListener(\"click\", function () { document.querySelector(\"[data-cu-tour]\").dispatchEvent(new Event(\"cu:tour:start\")); });</script>"
     }
   ]
 }

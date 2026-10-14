@@ -119,9 +119,9 @@ test.describe("Date Picker", () => {
     await expect(dp.input).toHaveValue("2026-03-20");
     await expect(dp.trigger).toBeFocused();
     expect(await changes(page)).toEqual([{ id: "dp-basic", value: "2026-03-20" }]);
-    expect(await page.evaluate(() => new FormData(document.getElementById("form") as HTMLFormElement).get("date"))).toBe(
-      "2026-03-20",
-    );
+    expect(
+      await page.evaluate(() => new FormData(document.getElementById("form") as HTMLFormElement).get("date")),
+    ).toBe("2026-03-20");
     // 在 <form> 內點選日期、切換月份都不應送出表單
     expect(await page.evaluate(() => (window as any).__submits)).toBeUndefined();
 
@@ -391,7 +391,9 @@ test.describe("Date Picker", () => {
     expect(await changes(page)).toHaveLength(1);
   });
 
-  test("APG Date Picker Dialog：trigger 帶 aria-haspopup / aria-expanded / aria-controls，面板為以月份命名的 dialog", async ({ page }) => {
+  test("APG Date Picker Dialog：trigger 帶 aria-haspopup / aria-expanded / aria-controls，面板為以月份命名的 dialog", async ({
+    page,
+  }) => {
     await open(page);
     const dp = picker(page, "dp-basic");
     await expect(dp.trigger).toHaveAttribute("aria-haspopup", "dialog");
@@ -606,13 +608,16 @@ test.describe("Date Picker", () => {
     expect(await ring()).not.toBe("none");
   });
 
+  // zh-TW 的日期與星期之間是否有空白取決於瀏覽器的 ICU 版本（本機 Chromium 有、CI 安裝的沒有）
+  const ZH_TW_MAR_18 = /^2026年3月18日\s?星期三$/;
+
   test("日期名稱語系：取最近祖先的 lang，data-cu-calendar-locale 可覆寫，無效語系退回預設", async ({ page }) => {
     await open(page);
     const errors: string[] = [];
     page.on("pageerror", (err) => errors.push(err.message));
 
     const zh = calendar(page.locator("#cal-zh"));
-    await expect(zh.day(18)).toHaveAccessibleName("2026年3月18日 星期三");
+    await expect(zh.day(18)).toHaveAccessibleName(ZH_TW_MAR_18);
 
     const gb = calendar(page.locator("#cal-locale"));
     await expect(gb.day(18)).toHaveAccessibleName(/^Wednesday,? 18 March 2026$/);
@@ -626,7 +631,7 @@ test.describe("Date Picker", () => {
     await page.locator("#cal").evaluate((el) => el.setAttribute("data-cu-calendar-locale", "zh-TW"));
     await cal.next.click();
     await cal.prev.click();
-    await expect(cal.day(18)).toHaveAccessibleName("2026年3月18日 星期三");
+    await expect(cal.day(18)).toHaveAccessibleName(ZH_TW_MAR_18);
     expect(errors).toEqual([]);
   });
 });

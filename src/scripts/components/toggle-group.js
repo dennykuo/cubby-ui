@@ -15,7 +15,10 @@ import { track, restore } from "../core/registry.js";
  */
 export function setupToggleGroups() {
   document.querySelectorAll("[data-cu-toggle-group]").forEach(function (el) {
-    if (el._cuInit) { restore("toggleGroups", el); return; }
+    if (el._cuInit) {
+      restore("toggleGroups", el);
+      return;
+    }
     el._cuInit = true;
     var isMultiple = el.hasAttribute("data-cu-toggle-group-multiple");
 
@@ -35,14 +38,18 @@ export function setupToggleGroups() {
         item.setAttribute("aria-pressed", "true");
       }
 
-      el.dispatchEvent(new CustomEvent("cu:toggle-group:change", {
-        detail: {
-          value: isMultiple
-            ? Array.from(el.querySelectorAll(".cu-toggle-group-item-active")).map(function (b) { return b.textContent.trim(); })
-            : item.textContent.trim()
-        },
-        bubbles: true
-      }));
+      el.dispatchEvent(
+        new CustomEvent("cu:toggle-group:change", {
+          detail: {
+            value: isMultiple
+              ? Array.from(el.querySelectorAll(".cu-toggle-group-item-active")).map(function (b) {
+                  return b.textContent.trim();
+                })
+              : item.textContent.trim(),
+          },
+          bubbles: true,
+        }),
+      );
     });
 
     track("toggleGroups", { el: el });

@@ -89,9 +89,13 @@ function init() {
 
 function destroy() {
   registry.dropdowns = [];
-  registry.comboboxes.forEach(function (c) { if (c.cancelSearch) c.cancelSearch(); });
+  registry.comboboxes.forEach(function (c) {
+    if (c.cancelSearch) c.cancelSearch();
+  });
   registry.comboboxes = [];
-  registry.multiSelects.forEach(function (ms) { if (ms.cancelSearch) ms.cancelSearch(); });
+  registry.multiSelects.forEach(function (ms) {
+    if (ms.cancelSearch) ms.cancelSearch();
+  });
   registry.multiSelects = [];
   registry.popovers = [];
   registry.menubars = [];
@@ -104,15 +108,23 @@ function destroy() {
   registry.sortableLists = [];
   registry.toggleGroups = [];
   registry.ratings = [];
-  registry.countdowns.forEach(function (c) { clearTimeout(c.timer); });
+  registry.countdowns.forEach(function (c) {
+    clearTimeout(c.timer);
+  });
   registry.countdowns = [];
-  registry.imageCompares.forEach(function (c) { if (c.cleanup) c.cleanup(); });
+  registry.imageCompares.forEach(function (c) {
+    if (c.cleanup) c.cleanup();
+  });
   registry.imageCompares = [];
   registry.speedDials = [];
-  registry.backToTops.forEach(function (b) { if (b.cleanup) b.cleanup(); });
+  registry.backToTops.forEach(function (b) {
+    if (b.cleanup) b.cleanup();
+  });
   registry.backToTops = [];
   registry.kanbans = [];
-  registry.tours.forEach(function (t) { if (t.close) t.close(); });
+  registry.tours.forEach(function (t) {
+    if (t.close) t.close();
+  });
   registry.tours = [];
   registry.inputClearables = [];
   registry.alertExpandables = [];
@@ -138,11 +150,17 @@ function destroy() {
 }
 
 function refresh() {
-  var inBody = function (o) { return document.body.contains(o.el); };
+  var inBody = function (o) {
+    return document.body.contains(o.el);
+  };
   registry.dropdowns = registry.dropdowns.filter(inBody);
-  registry.comboboxes.forEach(function (c) { if (!inBody(c) && c.cancelSearch) c.cancelSearch(); });
+  registry.comboboxes.forEach(function (c) {
+    if (!inBody(c) && c.cancelSearch) c.cancelSearch();
+  });
   registry.comboboxes = registry.comboboxes.filter(inBody);
-  registry.multiSelects.forEach(function (ms) { if (!inBody(ms) && ms.cancelSearch) ms.cancelSearch(); });
+  registry.multiSelects.forEach(function (ms) {
+    if (!inBody(ms) && ms.cancelSearch) ms.cancelSearch();
+  });
   registry.multiSelects = registry.multiSelects.filter(inBody);
   registry.popovers = registry.popovers.filter(inBody);
   registry.menubars = registry.menubars.filter(inBody);
@@ -157,12 +175,18 @@ function refresh() {
   registry.ratings = registry.ratings.filter(inBody);
   registry.contextMenus = registry.contextMenus.filter(inBody);
   registry.datePickers = registry.datePickers.filter(inBody);
-  registry.countdowns.forEach(function (c) { if (!inBody(c)) clearTimeout(c.timer); });
+  registry.countdowns.forEach(function (c) {
+    if (!inBody(c)) clearTimeout(c.timer);
+  });
   registry.countdowns = registry.countdowns.filter(inBody);
-  registry.imageCompares.forEach(function (c) { if (!inBody(c) && c.cleanup) c.cleanup(); });
+  registry.imageCompares.forEach(function (c) {
+    if (!inBody(c) && c.cleanup) c.cleanup();
+  });
   registry.imageCompares = registry.imageCompares.filter(inBody);
   registry.speedDials = registry.speedDials.filter(inBody);
-  registry.backToTops.forEach(function (b) { if (!inBody(b) && b.cleanup) b.cleanup(); });
+  registry.backToTops.forEach(function (b) {
+    if (!inBody(b) && b.cleanup) b.cleanup();
+  });
   registry.backToTops = registry.backToTops.filter(inBody);
   registry.kanbans = registry.kanbans.filter(inBody);
   registry.tours = registry.tours.filter(inBody);

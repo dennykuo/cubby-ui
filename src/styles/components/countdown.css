@@ -1,58 +1,58 @@
 /* Countdown */
 .cu-countdown {
-    @apply inline-flex items-center gap-3;
+  @apply inline-flex items-center gap-3;
 }
 
 .cu-countdown-segment {
-    @apply flex flex-col items-center;
+  @apply flex flex-col items-center;
 }
 
 .cu-countdown-value {
-    @apply flex items-center justify-center rounded-lg bg-card border border-border text-2xl font-bold tabular-nums min-w-[3rem] h-12 px-2 shadow-sm;
+  @apply flex h-12 min-w-[3rem] items-center justify-center rounded-lg border border-border bg-card px-2 text-2xl font-bold tabular-nums shadow-sm;
 }
 
 .cu-countdown-label {
-    @apply mt-1 text-xs font-medium text-muted-foreground uppercase tracking-wider;
+  @apply mt-1 text-xs font-medium tracking-wider text-muted-foreground uppercase;
 }
 
 /* Separator between segments */
 .cu-countdown-separator {
-    @apply text-xl font-bold text-muted-foreground self-start mt-2.5;
+  @apply mt-2.5 self-start text-xl font-bold text-muted-foreground;
 }
 
 /* Size: small */
 .cu-countdown-sm .cu-countdown-value {
-    @apply text-lg min-w-[2.25rem] h-9 rounded-md;
+  @apply h-9 min-w-[2.25rem] rounded-md text-lg;
 }
 .cu-countdown-sm .cu-countdown-label {
-    @apply text-[10px];
+  @apply text-[10px];
 }
 .cu-countdown-sm .cu-countdown-separator {
-    @apply text-base mt-1.5;
+  @apply mt-1.5 text-base;
 }
 
 /* Size: large */
 .cu-countdown-lg .cu-countdown-value {
-    @apply text-4xl min-w-[4.5rem] h-16 rounded-xl;
+  @apply h-16 min-w-[4.5rem] rounded-xl text-4xl;
 }
 .cu-countdown-lg .cu-countdown-label {
-    @apply text-sm mt-1.5;
+  @apply mt-1.5 text-sm;
 }
 .cu-countdown-lg .cu-countdown-separator {
-    @apply text-2xl mt-4;
+  @apply mt-4 text-2xl;
 }
 
 /* Flip animation variant */
 .cu-countdown-flip .cu-countdown-value {
-    @apply relative overflow-hidden;
+  @apply relative overflow-hidden;
 }
 
 /* Flush (no card) variant */
 .cu-countdown-flush .cu-countdown-value {
-    @apply bg-transparent border-0 shadow-none;
+  @apply border-0 bg-transparent shadow-none;
 }
 
 /* Completed state */
 .cu-countdown-complete .cu-countdown-value {
-    @apply text-success;
+  @apply text-success;
 }

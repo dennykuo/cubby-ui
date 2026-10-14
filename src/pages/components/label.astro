@@ -81,140 +81,185 @@ const withTooltipCode = `<div class="space-y-4 w-[300px]">
 ---
 
 <Layout category={t.category} componentName="Label" title={t.title} description={t.description}>
-    <div class="space-y-3">
-        <div class="flex items-center gap-3">
-          <h1 class="text-3xl font-bold tracking-tight">Label</h1>
-          <span class="cu-badge cu-badge-secondary">{t.category}</span>
+  <div class="space-y-3">
+    <div class="flex items-center gap-3">
+      <h1 class="text-3xl font-bold tracking-tight">Label</h1>
+      <span class="cu-badge cu-badge-secondary">{t.category}</span>
+    </div>
+    <p class="text-base text-muted-foreground leading-relaxed" set:html={t.description} />
+  </div>
+
+  <div class="mt-10 space-y-10">
+    <!-- Usage -->
+    <section class="space-y-3">
+      <SectionHeading id="usage" title={t.sections.usage.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
+      <ComponentPreview code={usageCode}>
+        <Label>Email</Label>
+      </ComponentPreview>
+    </section>
+
+    <!-- Classes Reference -->
+    <section class="space-y-3">
+      <SectionHeading id="classes" title={t.sections.classes.title} />
+      <div class="cu-table-wrapper rounded-lg border border-border">
+        <table class="cu-table">
+          <thead class="cu-table-header">
+            <tr class="cu-table-row">
+              <th class="cu-table-head">{t.sections.classes.classLabel}</th>
+              <th class="cu-table-head">{t.sections.classes.descriptionLabel}</th>
+            </tr>
+          </thead>
+          <tbody class="cu-table-body">
+            {Object.entries(t.classDescriptions).map(([cls, desc]) => (
+              <tr class="cu-table-row">
+                <td class="cu-table-cell">
+                  <code class="cu-code">{cls}</code>
+                </td>
+                <td class="cu-table-cell text-muted-foreground">{desc}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- With Input -->
+    <section class="space-y-3">
+      <SectionHeading id="with-input" title={t.sections.withInput.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withInput.description} />
+      <ComponentPreview code={withInputCode}>
+        <div class="w-full max-w-sm">
+          <FormGroup>
+            <Label for="email-field">Email</Label>
+            <Input type="email" id="email-field" placeholder="you@example.com" />
+          </FormGroup>
         </div>
-        <p class="text-base text-muted-foreground leading-relaxed" set:html={t.description} />
-    </div>
+      </ComponentPreview>
+    </section>
 
-    <div class="mt-10 space-y-10">
-        <!-- Usage -->
-        <section class="space-y-3">
-            <SectionHeading id="usage" title={t.sections.usage.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
-            <ComponentPreview code={usageCode}>
-                <Label>Email</Label>
-            </ComponentPreview>
-        </section>
+    <!-- Required Indicator -->
+    <section class="space-y-3">
+      <SectionHeading id="required-indicator" title={t.sections.requiredIndicator.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.requiredIndicator.description} />
+      <ComponentPreview code={requiredCode}>
+        <div class="w-full max-w-sm space-y-4">
+          <FormGroup>
+            <Label for="name-field" class="cu-label-required">
+              Name
+            </Label>
+            <Input type="text" id="name-field" placeholder="Your name" required />
+          </FormGroup>
+          <FormGroup>
+            <Label for="email-req">
+              Email <span class="text-destructive">*</span>
+            </Label>
+            <Input type="email" id="email-req" placeholder="you@example.com" required />
+          </FormGroup>
+        </div>
+      </ComponentPreview>
+    </section>
 
-        <!-- Classes Reference -->
-        <section class="space-y-3">
-          <SectionHeading id="classes" title={t.sections.classes.title} />
-          <div class="cu-table-wrapper rounded-lg border border-border">
-            <table class="cu-table">
-              <thead class="cu-table-header">
-                <tr class="cu-table-row">
-                  <th class="cu-table-head">{t.sections.classes.classLabel}</th>
-                  <th class="cu-table-head">{t.sections.classes.descriptionLabel}</th>
-                </tr>
-              </thead>
-              <tbody class="cu-table-body">
-                {Object.entries(t.classDescriptions).map(([cls, desc]) => (
-                  <tr class="cu-table-row">
-                    <td class="cu-table-cell"><code class="cu-code">{cls}</code></td>
-                    <td class="cu-table-cell text-muted-foreground">{desc}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </section>
+    <!-- Optional Label -->
+    <section class="space-y-3">
+      <SectionHeading id="optional" title={t.sections.optional.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.optional.description} />
+      <ComponentPreview code={optionalCode}>
+        <div class="space-y-4 w-[300px]">
+          <FormGroup>
+            <Label for="opt-name" class="cu-label-required">
+              Full Name
+            </Label>
+            <Input id="opt-name" placeholder="Jane Doe" />
+          </FormGroup>
+          <FormGroup>
+            <Label for="opt-email">
+              Email <span class="text-xs font-normal text-muted-foreground">(optional)</span>
+            </Label>
+            <Input id="opt-email" placeholder="jane@example.com" />
+          </FormGroup>
+          <FormGroup>
+            <Label for="opt-phone">
+              Phone <span class="text-xs font-normal text-muted-foreground">(optional)</span>
+            </Label>
+            <Input id="opt-phone" placeholder="+1 (555) 000-0000" />
+          </FormGroup>
+        </div>
+      </ComponentPreview>
+    </section>
 
-
-        <!-- With Input -->
-        <section class="space-y-3">
-            <SectionHeading id="with-input" title={t.sections.withInput.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withInput.description} />
-            <ComponentPreview code={withInputCode}>
-                <div class="w-full max-w-sm">
-                    <FormGroup>
-                        <Label for="email-field">Email</Label>
-                        <Input type="email" id="email-field" placeholder="you@example.com" />
-                    </FormGroup>
+    <!-- With Tooltip -->
+    <section class="space-y-3">
+      <SectionHeading id="with-tooltip" title={t.sections.withTooltip.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withTooltip.description} />
+      <ComponentPreview code={withTooltipCode}>
+        <div class="space-y-4 w-[300px]">
+          <FormGroup>
+            <div class="flex items-center gap-1.5">
+              <Label for="tip-api">API Key</Label>
+              <div class="cu-tooltip">
+                <button
+                  type="button"
+                  class="text-muted-foreground hover:text-foreground transition-colors duration-150"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="14"
+                    height="14"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <circle cx="12" cy="12" r="10" />
+                    <path d="M12 16v-4" />
+                    <path d="M12 8h.01" />
+                  </svg>
+                </button>
+                <div class="cu-tooltip-content" role="tooltip">
+                  Find your API key in Settings → API
                 </div>
-            </ComponentPreview>
-        </section>
-
-        <!-- Required Indicator -->
-        <section class="space-y-3">
-            <SectionHeading id="required-indicator" title={t.sections.requiredIndicator.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.requiredIndicator.description} />
-            <ComponentPreview code={requiredCode}>
-                <div class="w-full max-w-sm space-y-4">
-                    <FormGroup>
-                        <Label for="name-field" class="cu-label-required">Name</Label>
-                        <Input type="text" id="name-field" placeholder="Your name" required />
-                    </FormGroup>
-                    <FormGroup>
-                        <Label for="email-req">
-                            Email <span class="text-destructive">*</span>
-                        </Label>
-                        <Input type="email" id="email-req" placeholder="you@example.com" required />
-                    </FormGroup>
+              </div>
+            </div>
+            <Input id="tip-api" placeholder="sk-..." />
+          </FormGroup>
+          <FormGroup>
+            <div class="flex items-center gap-1.5">
+              <Label for="tip-webhook" class="cu-label-required">
+                Webhook URL
+              </Label>
+              <div class="cu-tooltip">
+                <button
+                  type="button"
+                  class="text-muted-foreground hover:text-foreground transition-colors duration-150"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="14"
+                    height="14"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <circle cx="12" cy="12" r="10" />
+                    <path d="M12 16v-4" />
+                    <path d="M12 8h.01" />
+                  </svg>
+                </button>
+                <div class="cu-tooltip-content" role="tooltip">
+                  We'll send event notifications to this URL
                 </div>
-            </ComponentPreview>
-        </section>
-
-        <!-- Optional Label -->
-        <section class="space-y-3">
-            <SectionHeading id="optional" title={t.sections.optional.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.optional.description} />
-            <ComponentPreview code={optionalCode}>
-                <div class="space-y-4 w-[300px]">
-                    <FormGroup>
-                        <Label for="opt-name" class="cu-label-required">Full Name</Label>
-                        <Input id="opt-name" placeholder="Jane Doe" />
-                    </FormGroup>
-                    <FormGroup>
-                        <Label for="opt-email">
-                            Email <span class="text-xs font-normal text-muted-foreground">(optional)</span>
-                        </Label>
-                        <Input id="opt-email" placeholder="jane@example.com" />
-                    </FormGroup>
-                    <FormGroup>
-                        <Label for="opt-phone">
-                            Phone <span class="text-xs font-normal text-muted-foreground">(optional)</span>
-                        </Label>
-                        <Input id="opt-phone" placeholder="+1 (555) 000-0000" />
-                    </FormGroup>
-                </div>
-            </ComponentPreview>
-        </section>
-
-        <!-- With Tooltip -->
-        <section class="space-y-3">
-            <SectionHeading id="with-tooltip" title={t.sections.withTooltip.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withTooltip.description} />
-            <ComponentPreview code={withTooltipCode}>
-                <div class="space-y-4 w-[300px]">
-                    <FormGroup>
-                        <div class="flex items-center gap-1.5">
-                            <Label for="tip-api">API Key</Label>
-                            <div class="cu-tooltip">
-                                <button type="button" class="text-muted-foreground hover:text-foreground transition-colors duration-150">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
-                                </button>
-                                <div class="cu-tooltip-content" role="tooltip">Find your API key in Settings → API</div>
-                            </div>
-                        </div>
-                        <Input id="tip-api" placeholder="sk-..." />
-                    </FormGroup>
-                    <FormGroup>
-                        <div class="flex items-center gap-1.5">
-                            <Label for="tip-webhook" class="cu-label-required">Webhook URL</Label>
-                            <div class="cu-tooltip">
-                                <button type="button" class="text-muted-foreground hover:text-foreground transition-colors duration-150">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
-                                </button>
-                                <div class="cu-tooltip-content" role="tooltip">We'll send event notifications to this URL</div>
-                            </div>
-                        </div>
-                        <Input id="tip-webhook" placeholder="https://..." />
-                    </FormGroup>
-                </div>
-            </ComponentPreview>
-        </section>
-    </div>
+              </div>
+            </div>
+            <Input id="tip-webhook" placeholder="https://..." />
+          </FormGroup>
+        </div>
+      </ComponentPreview>
+    </section>
+  </div>
 </Layout>

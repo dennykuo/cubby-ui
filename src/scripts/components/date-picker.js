@@ -13,7 +13,10 @@ export function setupDatePickers() {
   });
 
   document.querySelectorAll("[data-cu-date-picker]").forEach(function (picker) {
-    if (picker._cuInit) { restore("datePickers", picker); return; }
+    if (picker._cuInit) {
+      restore("datePickers", picker);
+      return;
+    }
     picker._cuInit = true;
 
     var trigger = /** @type {HTMLElement} */ (picker.querySelector("[data-cu-date-picker-trigger]"));
@@ -45,7 +48,10 @@ export function setupDatePickers() {
       if (parts.length === 3) {
         var initDate = new Date(parseInt(parts[0]), parseInt(parts[1]) - 1, parseInt(parts[2]));
         if (!isNaN(initDate.getTime())) {
-          if (valueEl) { valueEl.textContent = formatDate(initDate); valueEl.classList.remove("cu-date-picker-trigger-placeholder"); }
+          if (valueEl) {
+            valueEl.textContent = formatDate(initDate);
+            valueEl.classList.remove("cu-date-picker-trigger-placeholder");
+          }
           calendar._cuSelectedDate = initDate;
         }
       }
@@ -53,7 +59,10 @@ export function setupDatePickers() {
 
     initCalendar(calendar, function (date) {
       var formatted = formatDate(date);
-      if (valueEl) { valueEl.textContent = formatted; valueEl.classList.remove("cu-date-picker-trigger-placeholder"); }
+      if (valueEl) {
+        valueEl.textContent = formatted;
+        valueEl.classList.remove("cu-date-picker-trigger-placeholder");
+      }
       if (hiddenInput) {
         hiddenInput.value = toISODate(date);
         // 程式設定 value 不會觸發事件，手動通知表單 / 使用者程式碼

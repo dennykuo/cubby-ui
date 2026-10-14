@@ -34,7 +34,9 @@ export function setupCommandPalettes() {
         var palette = /** @type {HTMLDialogElement} */ (document.querySelector("[data-cu-command]"));
         if (!palette) return;
         e.preventDefault();
-        if (palette.open) { palette.close(); } else {
+        if (palette.open) {
+          palette.close();
+        } else {
           palette.showModal();
           var input = /** @type {HTMLInputElement} */ (palette.querySelector("[data-cu-command-input]"));
           if (input) input.focus();
@@ -46,7 +48,10 @@ export function setupCommandPalettes() {
 
   document.querySelectorAll("[data-cu-command]").forEach(function (/** @type {HTMLDialogElement} */ palette) {
     // 已初始化：重新同步動態加入的項目（CubbyUI.refresh() / init() 會走到這裡）
-    if (palette._cuInit) { if (palette._cuCommandSync) palette._cuCommandSync(); return; }
+    if (palette._cuInit) {
+      if (palette._cuCommandSync) palette._cuCommandSync();
+      return;
+    }
     palette._cuInit = true;
 
     var input = /** @type {HTMLInputElement} */ (palette.querySelector("[data-cu-command-input]"));
@@ -94,7 +99,9 @@ export function setupCommandPalettes() {
     }
     syncAria();
 
-    palette.addEventListener("click", function (e) { if (e.target === palette) palette.close(); });
+    palette.addEventListener("click", function (e) {
+      if (e.target === palette) palette.close();
+    });
 
     // 依目前查詢篩選項目、隱藏空分組與相鄰的分隔線、切換無結果提示。
     // 查詢改變時（resetActive）選中第一個可見項目；清單內容變動時保留仍可見的選中項目
@@ -128,7 +135,9 @@ export function setupCommandPalettes() {
     }
 
     if (input) {
-      input.addEventListener("input", function () { applyFilter(true); });
+      input.addEventListener("input", function () {
+        applyFilter(true);
+      });
     }
 
     // 同一時間只有一個選中項目：同步 data-cu-command-active、aria-selected 與輸入框的 aria-activedescendant
@@ -144,7 +153,9 @@ export function setupCommandPalettes() {
     }
 
     function getVisibleItems() {
-      return getItems().filter(function (item) { return !item.hidden; });
+      return getItems().filter(function (item) {
+        return !item.hidden;
+      });
     }
 
     palette.addEventListener("keydown", function (e) {
@@ -157,14 +168,22 @@ export function setupCommandPalettes() {
         if (visible.length === 0) return;
         var activeIndex = visible.indexOf(/** @type {HTMLElement} */ (activeItem));
         var nextIndex;
-        if (isNext) { nextIndex = activeIndex < visible.length - 1 ? activeIndex + 1 : 0; }
-        else { nextIndex = activeIndex > 0 ? activeIndex - 1 : visible.length - 1; }
+        if (isNext) {
+          nextIndex = activeIndex < visible.length - 1 ? activeIndex + 1 : 0;
+        } else {
+          nextIndex = activeIndex > 0 ? activeIndex - 1 : visible.length - 1;
+        }
         setActive(visible[nextIndex]);
         visible[nextIndex].scrollIntoView({ block: "nearest" });
       }
       if (e.key === "Enter") {
-        var active = list ? /** @type {HTMLElement} */ (list.querySelector("[data-cu-command-item][data-cu-command-active]")) : null;
-        if (active) { e.preventDefault(); active.click(); }
+        var active = list
+          ? /** @type {HTMLElement} */ (list.querySelector("[data-cu-command-item][data-cu-command-active]"))
+          : null;
+        if (active) {
+          e.preventDefault();
+          active.click();
+        }
       }
     });
 
@@ -190,7 +209,10 @@ export function setupCommandPalettes() {
     if (list) new MutationObserver(sync).observe(list, { childList: true, subtree: true });
 
     palette.addEventListener("close", function () {
-      if (input) { input.value = ""; input.dispatchEvent(new Event("input")); }
+      if (input) {
+        input.value = "";
+        input.dispatchEvent(new Event("input"));
+      }
     });
   });
 

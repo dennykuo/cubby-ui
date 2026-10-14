@@ -7,8 +7,6 @@ import { transferListPage } from "@/i18n/pages/components/transfer-list";
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(transferListPage, locale);
-const SO = "<" + "script>";
-const SC = "</" + "script>";
 
 const usageCode = `<div class="cu-transfer-list" data-cu-transfer-list>
   <!-- Left Panel -->
@@ -40,10 +38,10 @@ const usageCode = `<div class="cu-transfer-list" data-cu-transfer-list>
 
   <!-- Actions -->
   <div class="cu-transfer-list-actions">
-    <button class="cu-transfer-list-actions-button" data-cu-transfer-to-right disabled>
+    <button type="button" class="cu-transfer-list-actions-button" data-cu-transfer-to-right disabled>
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
     </button>
-    <button class="cu-transfer-list-actions-button" data-cu-transfer-to-left disabled>
+    <button type="button" class="cu-transfer-list-actions-button" data-cu-transfer-to-left disabled>
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
     </button>
   </div>
@@ -57,99 +55,7 @@ const usageCode = `<div class="cu-transfer-list" data-cu-transfer-list>
     </div>
     <div class="cu-transfer-list-content" style="height: 200px;"></div>
   </div>
-</div>
-
-${SO}
-  document.querySelectorAll("[data-cu-transfer-list]").forEach((container) => {
-    const leftPanel = container.querySelector('[data-cu-transfer-panel="left"]');
-    const rightPanel = container.querySelector('[data-cu-transfer-panel="right"]');
-    const toRight = container.querySelector("[data-cu-transfer-to-right]");
-    const toLeft = container.querySelector("[data-cu-transfer-to-left]");
-
-    function getChecked(panel) {
-      return panel.querySelectorAll("[data-cu-transfer-check]:checked");
-    }
-
-    function getAllItems(panel) {
-      return panel.querySelectorAll(".cu-transfer-list-item");
-    }
-
-    function updateCount(panel) {
-      const side = panel.dataset.cuTransferPanel;
-      const all = getAllItems(panel);
-      const checked = getChecked(panel);
-      const countEl = container.querySelector('[data-cu-transfer-count="' + side + '"]');
-      if (countEl) countEl.textContent = checked.length + '/' + all.length;
-    }
-
-    function updateButtons() {
-      toRight.disabled = getChecked(leftPanel).length === 0;
-      toLeft.disabled = getChecked(rightPanel).length === 0;
-    }
-
-    function updateCheckAll(panel) {
-      const side = panel.dataset.cuTransferPanel;
-      const all = getAllItems(panel);
-      const checked = getChecked(panel);
-      const checkAll = container.querySelector('[data-cu-transfer-check-all="' + side + '"]');
-      if (checkAll) {
-        checkAll.checked = all.length > 0 && checked.length === all.length;
-        checkAll.indeterminate = checked.length > 0 && checked.length < all.length;
-      }
-    }
-
-    function bindPanel(panel) {
-      panel.addEventListener("change", (e) => {
-        if (e.target.matches("[data-cu-transfer-check]")) {
-          const item = e.target.closest(".cu-transfer-list-item");
-          item?.classList.toggle("cu-transfer-list-item-checked", e.target.checked);
-          updateCount(panel);
-          updateButtons();
-          updateCheckAll(panel);
-        }
-      });
-
-      const side = panel.dataset.cuTransferPanel;
-      const checkAll = container.querySelector('[data-cu-transfer-check-all="' + side + '"]');
-      checkAll?.addEventListener("change", () => {
-        const items = getAllItems(panel);
-        items.forEach((item) => {
-          const cb = item.querySelector("[data-cu-transfer-check]");
-          if (cb) {
-            cb.checked = checkAll.checked;
-            item.classList.toggle("cu-transfer-list-item-checked", checkAll.checked);
-          }
-        });
-        updateCount(panel);
-        updateButtons();
-      });
-    }
-
-    function moveItems(fromPanel, toPanel) {
-      const checked = getChecked(fromPanel);
-      const content = toPanel.querySelector(".cu-transfer-list-content");
-      checked.forEach((cb) => {
-        const item = cb.closest(".cu-transfer-list-item");
-        cb.checked = false;
-        item?.classList.remove("cu-transfer-list-item-checked");
-        content?.appendChild(item);
-      });
-      updateCount(fromPanel);
-      updateCount(toPanel);
-      updateButtons();
-      updateCheckAll(fromPanel);
-      updateCheckAll(toPanel);
-    }
-
-    toRight?.addEventListener("click", () => moveItems(leftPanel, rightPanel));
-    toLeft?.addEventListener("click", () => moveItems(rightPanel, leftPanel));
-
-    bindPanel(leftPanel);
-    bindPanel(rightPanel);
-    updateCount(leftPanel);
-    updateCount(rightPanel);
-  });
-${SC}`.trim();
+</div>`.trim();
 
 const withSearchCode = `<div class="cu-transfer-list" data-cu-transfer-list id="transfer-search">
   <!-- Left Panel -->
@@ -193,10 +99,10 @@ const withSearchCode = `<div class="cu-transfer-list" data-cu-transfer-list id="
 
   <!-- Actions -->
   <div class="cu-transfer-list-actions">
-    <button class="cu-transfer-list-actions-button" data-cu-transfer-to-right disabled>
+    <button type="button" class="cu-transfer-list-actions-button" data-cu-transfer-to-right disabled>
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
     </button>
-    <button class="cu-transfer-list-actions-button" data-cu-transfer-to-left disabled>
+    <button type="button" class="cu-transfer-list-actions-button" data-cu-transfer-to-left disabled>
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
     </button>
   </div>
@@ -218,205 +124,324 @@ const withSearchCode = `<div class="cu-transfer-list" data-cu-transfer-list id="
 ---
 
 <Layout category={t.category} componentName="Transfer List" title={t.title} description={t.description}>
-    <div class="space-y-3">
-        <div class="flex items-center gap-3">
-          <h1 class="text-3xl font-bold tracking-tight">Transfer List</h1>
-          <span class="cu-badge cu-badge-secondary">{t.category}</span>
-        </div>
-        <p class="text-base text-muted-foreground leading-relaxed" set:html={t.description} />
+  <div class="space-y-3">
+    <div class="flex items-center gap-3">
+      <h1 class="text-3xl font-bold tracking-tight">Transfer List</h1>
+      <span class="cu-badge cu-badge-secondary">{t.category}</span>
     </div>
+    <p class="text-base text-muted-foreground leading-relaxed" set:html={t.description} />
+  </div>
 
-    <div class="mt-10 space-y-10">
-        <!-- Usage -->
-        <section class="space-y-3">
-            <SectionHeading id="usage" title={t.sections.usage.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
-            <ComponentPreview code={usageCode}>
-                <div class="cu-transfer-list" data-cu-transfer-list>
-                    <div class="cu-transfer-list-panel" data-cu-transfer-panel="left" style="width: 220px;">
-                        <div class="cu-transfer-list-header">
-                            <input type="checkbox" class="cu-checkbox" data-cu-transfer-check-all="left" />
-                            <span class="cu-transfer-list-header-title">Available</span>
-                            <span class="cu-transfer-list-header-count" data-cu-transfer-count="left">0/4</span>
-                        </div>
-                        <div class="cu-transfer-list-content" style="height: 200px;">
-                            <label class="cu-transfer-list-item">
-                                <input type="checkbox" class="cu-checkbox" data-cu-transfer-check />
-                                <span>HTML</span>
-                            </label>
-                            <label class="cu-transfer-list-item">
-                                <input type="checkbox" class="cu-checkbox" data-cu-transfer-check />
-                                <span>CSS</span>
-                            </label>
-                            <label class="cu-transfer-list-item">
-                                <input type="checkbox" class="cu-checkbox" data-cu-transfer-check />
-                                <span>JavaScript</span>
-                            </label>
-                            <label class="cu-transfer-list-item">
-                                <input type="checkbox" class="cu-checkbox" data-cu-transfer-check />
-                                <span>TypeScript</span>
-                            </label>
-                        </div>
-                    </div>
-
-                    <div class="cu-transfer-list-actions">
-                        <button class="cu-transfer-list-actions-button" data-cu-transfer-to-right disabled>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
-                        </button>
-                        <button class="cu-transfer-list-actions-button" data-cu-transfer-to-left disabled>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
-                        </button>
-                    </div>
-
-                    <div class="cu-transfer-list-panel" data-cu-transfer-panel="right" style="width: 220px;">
-                        <div class="cu-transfer-list-header">
-                            <input type="checkbox" class="cu-checkbox" data-cu-transfer-check-all="right" />
-                            <span class="cu-transfer-list-header-title">Selected</span>
-                            <span class="cu-transfer-list-header-count" data-cu-transfer-count="right">0/0</span>
-                        </div>
-                        <div class="cu-transfer-list-content" style="height: 200px;"></div>
-                    </div>
-                </div>
-            </ComponentPreview>
-        </section>
-
-        <!-- Classes Reference -->
-        <section class="space-y-3">
-            <SectionHeading id="classes" title={t.sections.classes.title} />
-            <div class="cu-table-wrapper rounded-lg border border-border">
-                <table class="cu-table">
-                    <thead class="cu-table-header">
-                        <tr class="cu-table-row">
-                            <th class="cu-table-head">{t.sections.classes.classLabel}</th>
-                            <th class="cu-table-head">{t.sections.classes.descriptionLabel}</th>
-                        </tr>
-                    </thead>
-                    <tbody class="cu-table-body">
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-transfer-list</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-transfer-list']}</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-transfer-list-panel</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-transfer-list-panel']}</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-transfer-list-header</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-transfer-list-header']}</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-transfer-list-header-title</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-transfer-list-header-title']}</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-transfer-list-header-count</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-transfer-list-header-count']}</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-transfer-list-search</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-transfer-list-search']}</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-transfer-list-search-icon</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-transfer-list-search-icon']}</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-transfer-list-search-input</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-transfer-list-search-input']}</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-transfer-list-content</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-transfer-list-content']}</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-transfer-list-item</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-transfer-list-item']}</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-transfer-list-item-checked</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-transfer-list-item-checked']}</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-transfer-list-actions</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-transfer-list-actions']}</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-transfer-list-actions-button</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-transfer-list-actions-button']}</td>
-                        </tr>
-                    </tbody>
-                </table>
+  <div class="mt-10 space-y-10">
+    <!-- Usage -->
+    <section class="space-y-3">
+      <SectionHeading id="usage" title={t.sections.usage.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
+      <ComponentPreview code={usageCode}>
+        <div class="cu-transfer-list" data-cu-transfer-list>
+          <div class="cu-transfer-list-panel" data-cu-transfer-panel="left" style="width: 220px;">
+            <div class="cu-transfer-list-header">
+              <input type="checkbox" class="cu-checkbox" data-cu-transfer-check-all="left" />
+              <span class="cu-transfer-list-header-title">Available</span>
+              <span class="cu-transfer-list-header-count" data-cu-transfer-count="left">
+                0/4
+              </span>
             </div>
-        </section>
+            <div class="cu-transfer-list-content" style="height: 200px;">
+              <label class="cu-transfer-list-item">
+                <input type="checkbox" class="cu-checkbox" data-cu-transfer-check />
+                <span>HTML</span>
+              </label>
+              <label class="cu-transfer-list-item">
+                <input type="checkbox" class="cu-checkbox" data-cu-transfer-check />
+                <span>CSS</span>
+              </label>
+              <label class="cu-transfer-list-item">
+                <input type="checkbox" class="cu-checkbox" data-cu-transfer-check />
+                <span>JavaScript</span>
+              </label>
+              <label class="cu-transfer-list-item">
+                <input type="checkbox" class="cu-checkbox" data-cu-transfer-check />
+                <span>TypeScript</span>
+              </label>
+            </div>
+          </div>
 
+          <div class="cu-transfer-list-actions">
+            <button type="button" class="cu-transfer-list-actions-button" data-cu-transfer-to-right disabled>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <polyline points="9 18 15 12 9 6" />
+              </svg>
+            </button>
+            <button type="button" class="cu-transfer-list-actions-button" data-cu-transfer-to-left disabled>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <polyline points="15 18 9 12 15 6" />
+              </svg>
+            </button>
+          </div>
 
-        <!-- With Search -->
-        <section class="space-y-3">
-            <SectionHeading id="with-search" title={t.sections.withSearch.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withSearch.description} />
-            <ComponentPreview code={withSearchCode}>
-                <div class="cu-transfer-list" data-cu-transfer-list id="transfer-search">
-                    <div class="cu-transfer-list-panel" data-cu-transfer-panel="left" style="width: 240px;">
-                        <div class="cu-transfer-list-header">
-                            <input type="checkbox" class="cu-checkbox" data-cu-transfer-check-all="left" />
-                            <span class="cu-transfer-list-header-title">Available</span>
-                            <span class="cu-transfer-list-header-count" data-cu-transfer-count="left">0/6</span>
-                        </div>
-                        <div class="cu-transfer-list-search">
-                            <svg class="cu-transfer-list-search-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-                            <input class="cu-transfer-list-search-input" data-cu-transfer-search="left" placeholder="Search..." />
-                        </div>
-                        <div class="cu-transfer-list-content" style="height: 200px;">
-                            <label class="cu-transfer-list-item">
-                                <input type="checkbox" class="cu-checkbox" data-cu-transfer-check />
-                                <span>React</span>
-                            </label>
-                            <label class="cu-transfer-list-item">
-                                <input type="checkbox" class="cu-checkbox" data-cu-transfer-check />
-                                <span>Vue</span>
-                            </label>
-                            <label class="cu-transfer-list-item">
-                                <input type="checkbox" class="cu-checkbox" data-cu-transfer-check />
-                                <span>Svelte</span>
-                            </label>
-                            <label class="cu-transfer-list-item">
-                                <input type="checkbox" class="cu-checkbox" data-cu-transfer-check />
-                                <span>Angular</span>
-                            </label>
-                            <label class="cu-transfer-list-item">
-                                <input type="checkbox" class="cu-checkbox" data-cu-transfer-check />
-                                <span>Solid</span>
-                            </label>
-                            <label class="cu-transfer-list-item">
-                                <input type="checkbox" class="cu-checkbox" data-cu-transfer-check />
-                                <span>Preact</span>
-                            </label>
-                        </div>
-                    </div>
+          <div class="cu-transfer-list-panel" data-cu-transfer-panel="right" style="width: 220px;">
+            <div class="cu-transfer-list-header">
+              <input type="checkbox" class="cu-checkbox" data-cu-transfer-check-all="right" />
+              <span class="cu-transfer-list-header-title">Selected</span>
+              <span class="cu-transfer-list-header-count" data-cu-transfer-count="right">
+                0/0
+              </span>
+            </div>
+            <div class="cu-transfer-list-content" style="height: 200px;"></div>
+          </div>
+        </div>
+      </ComponentPreview>
+    </section>
 
-                    <div class="cu-transfer-list-actions">
-                        <button class="cu-transfer-list-actions-button" data-cu-transfer-to-right disabled>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
-                        </button>
-                        <button class="cu-transfer-list-actions-button" data-cu-transfer-to-left disabled>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
-                        </button>
-                    </div>
+    <!-- Classes Reference -->
+    <section class="space-y-3">
+      <SectionHeading id="classes" title={t.sections.classes.title} />
+      <div class="cu-table-wrapper rounded-lg border border-border">
+        <table class="cu-table">
+          <thead class="cu-table-header">
+            <tr class="cu-table-row">
+              <th class="cu-table-head">{t.sections.classes.classLabel}</th>
+              <th class="cu-table-head">{t.sections.classes.descriptionLabel}</th>
+            </tr>
+          </thead>
+          <tbody class="cu-table-body">
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-transfer-list</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-transfer-list"]}</td>
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-transfer-list-panel</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-transfer-list-panel"]}</td>
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-transfer-list-header</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-transfer-list-header"]}</td>
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-transfer-list-header-title</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">
+                {t.classDescriptions["cu-transfer-list-header-title"]}
+              </td>
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-transfer-list-header-count</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">
+                {t.classDescriptions["cu-transfer-list-header-count"]}
+              </td>
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-transfer-list-search</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-transfer-list-search"]}</td>
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-transfer-list-search-icon</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-transfer-list-search-icon"]}</td>
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-transfer-list-search-input</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">
+                {t.classDescriptions["cu-transfer-list-search-input"]}
+              </td>
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-transfer-list-content</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-transfer-list-content"]}</td>
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-transfer-list-item</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-transfer-list-item"]}</td>
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-transfer-list-item-checked</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">
+                {t.classDescriptions["cu-transfer-list-item-checked"]}
+              </td>
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-transfer-list-actions</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-transfer-list-actions"]}</td>
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-transfer-list-actions-button</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">
+                {t.classDescriptions["cu-transfer-list-actions-button"]}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
 
-                    <div class="cu-transfer-list-panel" data-cu-transfer-panel="right" style="width: 240px;">
-                        <div class="cu-transfer-list-header">
-                            <input type="checkbox" class="cu-checkbox" data-cu-transfer-check-all="right" />
-                            <span class="cu-transfer-list-header-title">Selected</span>
-                            <span class="cu-transfer-list-header-count" data-cu-transfer-count="right">0/0</span>
-                        </div>
-                        <div class="cu-transfer-list-search">
-                            <svg class="cu-transfer-list-search-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-                            <input class="cu-transfer-list-search-input" data-cu-transfer-search="right" placeholder="Search..." />
-                        </div>
-                        <div class="cu-transfer-list-content" style="height: 200px;"></div>
-                    </div>
-                </div>
-            </ComponentPreview>
-        </section>
-    </div>
+    <!-- With Search -->
+    <section class="space-y-3">
+      <SectionHeading id="with-search" title={t.sections.withSearch.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withSearch.description} />
+      <ComponentPreview code={withSearchCode}>
+        <div class="cu-transfer-list" data-cu-transfer-list id="transfer-search">
+          <div class="cu-transfer-list-panel" data-cu-transfer-panel="left" style="width: 240px;">
+            <div class="cu-transfer-list-header">
+              <input type="checkbox" class="cu-checkbox" data-cu-transfer-check-all="left" />
+              <span class="cu-transfer-list-header-title">Available</span>
+              <span class="cu-transfer-list-header-count" data-cu-transfer-count="left">
+                0/6
+              </span>
+            </div>
+            <div class="cu-transfer-list-search">
+              <svg
+                class="cu-transfer-list-search-icon"
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <circle cx="11" cy="11" r="8" />
+                <line x1="21" y1="21" x2="16.65" y2="16.65" />
+              </svg>
+              <input class="cu-transfer-list-search-input" data-cu-transfer-search="left" placeholder="Search..." />
+            </div>
+            <div class="cu-transfer-list-content" style="height: 200px;">
+              <label class="cu-transfer-list-item">
+                <input type="checkbox" class="cu-checkbox" data-cu-transfer-check />
+                <span>React</span>
+              </label>
+              <label class="cu-transfer-list-item">
+                <input type="checkbox" class="cu-checkbox" data-cu-transfer-check />
+                <span>Vue</span>
+              </label>
+              <label class="cu-transfer-list-item">
+                <input type="checkbox" class="cu-checkbox" data-cu-transfer-check />
+                <span>Svelte</span>
+              </label>
+              <label class="cu-transfer-list-item">
+                <input type="checkbox" class="cu-checkbox" data-cu-transfer-check />
+                <span>Angular</span>
+              </label>
+              <label class="cu-transfer-list-item">
+                <input type="checkbox" class="cu-checkbox" data-cu-transfer-check />
+                <span>Solid</span>
+              </label>
+              <label class="cu-transfer-list-item">
+                <input type="checkbox" class="cu-checkbox" data-cu-transfer-check />
+                <span>Preact</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="cu-transfer-list-actions">
+            <button type="button" class="cu-transfer-list-actions-button" data-cu-transfer-to-right disabled>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <polyline points="9 18 15 12 9 6" />
+              </svg>
+            </button>
+            <button type="button" class="cu-transfer-list-actions-button" data-cu-transfer-to-left disabled>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <polyline points="15 18 9 12 15 6" />
+              </svg>
+            </button>
+          </div>
+
+          <div class="cu-transfer-list-panel" data-cu-transfer-panel="right" style="width: 240px;">
+            <div class="cu-transfer-list-header">
+              <input type="checkbox" class="cu-checkbox" data-cu-transfer-check-all="right" />
+              <span class="cu-transfer-list-header-title">Selected</span>
+              <span class="cu-transfer-list-header-count" data-cu-transfer-count="right">
+                0/0
+              </span>
+            </div>
+            <div class="cu-transfer-list-search">
+              <svg
+                class="cu-transfer-list-search-icon"
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <circle cx="11" cy="11" r="8" />
+                <line x1="21" y1="21" x2="16.65" y2="16.65" />
+              </svg>
+              <input class="cu-transfer-list-search-input" data-cu-transfer-search="right" placeholder="Search..." />
+            </div>
+            <div class="cu-transfer-list-content" style="height: 200px;"></div>
+          </div>
+        </div>
+      </ComponentPreview>
+    </section>
+  </div>
 </Layout>

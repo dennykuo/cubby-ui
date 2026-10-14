@@ -4,8 +4,12 @@ export function setupResizables() {
     if (container._cuResizableInit) return;
     container._cuResizableInit = true;
 
-    var panels = Array.from(/** @type {NodeListOf<HTMLElement>} */ (container.querySelectorAll(":scope > [data-cu-resizable-panel]")));
-    var handles = Array.from(/** @type {NodeListOf<HTMLElement>} */ (container.querySelectorAll(":scope > [data-cu-resizable-handle]")));
+    var panels = Array.from(
+      /** @type {NodeListOf<HTMLElement>} */ (container.querySelectorAll(":scope > [data-cu-resizable-panel]")),
+    );
+    var handles = Array.from(
+      /** @type {NodeListOf<HTMLElement>} */ (container.querySelectorAll(":scope > [data-cu-resizable-handle]")),
+    );
     var isVertical = container.classList.contains("cu-resizable-vertical");
 
     if (panels.length < 2 || handles.length < 1) return;
@@ -20,8 +24,14 @@ export function setupResizables() {
     function applyConstraints(panel, value, total) {
       var minSize = parseFloat(panel.dataset.cuMinSize);
       var maxSize = parseFloat(panel.dataset.cuMaxSize);
-      if (!isNaN(minSize)) { var minGrow = (minSize / 100) * total; if (value < minGrow) value = minGrow; }
-      if (!isNaN(maxSize)) { var maxGrow = (maxSize / 100) * total; if (value > maxGrow) value = maxGrow; }
+      if (!isNaN(minSize)) {
+        var minGrow = (minSize / 100) * total;
+        if (value < minGrow) value = minGrow;
+      }
+      if (!isNaN(maxSize)) {
+        var maxGrow = (maxSize / 100) * total;
+        if (value > maxGrow) value = maxGrow;
+      }
       if (value < 0) value = 0;
       return value;
     }
@@ -34,7 +44,9 @@ export function setupResizables() {
       var containerRect = container.getBoundingClientRect();
       var containerSize = isVertical ? containerRect.height : containerRect.width;
       var totalHandleSize = 0;
-      handles.forEach(function (h) { totalHandleSize += isVertical ? h.offsetHeight : h.offsetWidth; });
+      handles.forEach(function (h) {
+        totalHandleSize += isVertical ? h.offsetHeight : h.offsetWidth;
+      });
       var availableSize = containerSize - totalHandleSize;
       if (availableSize <= 0) return;
 
@@ -43,7 +55,9 @@ export function setupResizables() {
       var nextGrow = parseFloat(nextPanel.style.flexGrow) || defaultSize;
       var totalGrow = prevGrow + nextGrow;
       var allGrow = 0;
-      panels.forEach(function (p) { allGrow += parseFloat(p.style.flexGrow) || defaultSize; });
+      panels.forEach(function (p) {
+        allGrow += parseFloat(p.style.flexGrow) || defaultSize;
+      });
 
       handle.setAttribute("data-cu-resizing", "");
       document.body.style.cursor = isVertical ? "row-resize" : "col-resize";
@@ -62,8 +76,12 @@ export function setupResizables() {
         nextPanel.style.flexGrow = String(newNextGrow);
       }
 
-      function onMouseMove(e) { onMove(e.clientX, e.clientY); }
-      function onTouchMove(e) { if (e.touches.length === 1) onMove(e.touches[0].clientX, e.touches[0].clientY); }
+      function onMouseMove(e) {
+        onMove(e.clientX, e.clientY);
+      }
+      function onTouchMove(e) {
+        if (e.touches.length === 1) onMove(e.touches[0].clientX, e.touches[0].clientY);
+      }
       function onEnd() {
         handle.removeAttribute("data-cu-resizing");
         document.body.style.cursor = "";
@@ -82,12 +100,19 @@ export function setupResizables() {
     }
 
     handles.forEach(function (handle, i) {
-      handle.addEventListener("mousedown", function (e) { e.preventDefault(); startResize(e.clientX, e.clientY, handle, i); });
-      handle.addEventListener("touchstart", function (e) {
-        if (e.touches.length !== 1) return;
+      handle.addEventListener("mousedown", function (e) {
         e.preventDefault();
-        startResize(e.touches[0].clientX, e.touches[0].clientY, handle, i);
-      }, { passive: false });
+        startResize(e.clientX, e.clientY, handle, i);
+      });
+      handle.addEventListener(
+        "touchstart",
+        function (e) {
+          if (e.touches.length !== 1) return;
+          e.preventDefault();
+          startResize(e.touches[0].clientX, e.touches[0].clientY, handle, i);
+        },
+        { passive: false },
+      );
 
       handle.addEventListener("keydown", function (e) {
         var step = 5;

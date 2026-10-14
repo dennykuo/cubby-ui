@@ -22,25 +22,25 @@ const withContentCode = `<p class="cu-p">
 ---
 
 <Layout title={t.title} category={t.category} componentName="HR" description={t.description}>
-    <div class="space-y-3">
-        <div class="flex items-center gap-3">
-          <h1 class="text-3xl font-bold tracking-tight">HR</h1>
-          <span class="cu-badge cu-badge-secondary">{t.category}</span>
-        </div>
-        <p class="text-base text-muted-foreground leading-relaxed" set:html={t.description} />
+  <div class="space-y-3">
+    <div class="flex items-center gap-3">
+      <h1 class="text-3xl font-bold tracking-tight">HR</h1>
+      <span class="cu-badge cu-badge-secondary">{t.category}</span>
     </div>
+    <p class="text-base text-muted-foreground leading-relaxed" set:html={t.description} />
+  </div>
 
-    <div class="mt-10 space-y-10">
-        <!-- Usage -->
-        <section class="space-y-3">
-            <SectionHeading id="usage" title={t.sections.usage.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
-            <ComponentPreview code={usageCode}>
-                <div class="w-full max-w-lg">
-                    <Hr />
-                </div>
-            </ComponentPreview>
-        </section>
+  <div class="mt-10 space-y-10">
+    <!-- Usage -->
+    <section class="space-y-3">
+      <SectionHeading id="usage" title={t.sections.usage.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
+      <ComponentPreview code={usageCode}>
+        <div class="w-full max-w-lg">
+          <Hr />
+        </div>
+      </ComponentPreview>
+    </section>
 
     <!-- Classes Reference -->
     <section class="space-y-3">
@@ -55,31 +55,27 @@ const withContentCode = `<p class="cu-p">
           </thead>
           <tbody class="cu-table-body">
             <tr class="cu-table-row">
-              <td class="cu-table-cell"><code class="cu-code">cu-hr</code></td>
-              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-hr']}</td>
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-hr</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-hr"]}</td>
             </tr>
           </tbody>
         </table>
       </div>
     </section>
 
-
-        <!-- With Content -->
-        <section class="space-y-3">
-            <SectionHeading id="with-content" title={t.sections.withContent.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withContent.description} />
-            <ComponentPreview code={withContentCode}>
-                <div class="w-full max-w-lg">
-                    <p class="cu-p">
-                        The first section of content ends here, followed by a thematic break.
-                    </p>
-                    <Hr class="my-6" />
-                    <p class="cu-p">
-                        The second section of content begins after the horizontal rule.
-                    </p>
-                </div>
-            </ComponentPreview>
-        </section>
-    </div>
-
+    <!-- With Content -->
+    <section class="space-y-3">
+      <SectionHeading id="with-content" title={t.sections.withContent.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withContent.description} />
+      <ComponentPreview code={withContentCode}>
+        <div class="w-full max-w-lg">
+          <p class="cu-p">The first section of content ends here, followed by a thematic break.</p>
+          <Hr class="my-6" />
+          <p class="cu-p">The second section of content begins after the horizontal rule.</p>
+        </div>
+      </ComponentPreview>
+    </section>
+  </div>
 </Layout>

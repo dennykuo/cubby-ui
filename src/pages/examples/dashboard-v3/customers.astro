@@ -1,110 +1,110 @@
 ---
-import DashboardV3Layout from '@/layouts/DashboardV3Layout.astro';
-import Card from '@/components/ui/Card.astro';
-import CardHeader from '@/components/ui/CardHeader.astro';
-import CardTitle from '@/components/ui/CardTitle.astro';
-import CardDescription from '@/components/ui/CardDescription.astro';
-import CardContent from '@/components/ui/CardContent.astro';
-import Button from '@/components/ui/Button.astro';
-import Badge from '@/components/ui/Badge.astro';
-import Avatar from '@/components/ui/Avatar.astro';
-import AvatarFallback from '@/components/ui/AvatarFallback.astro';
-import Input from '@/components/ui/Input.astro';
-import Stat from '@/components/ui/Stat.astro';
-import StatHeader from '@/components/ui/StatHeader.astro';
-import StatLabel from '@/components/ui/StatLabel.astro';
-import StatValue from '@/components/ui/StatValue.astro';
-import StatDescription from '@/components/ui/StatDescription.astro';
-import StatTrend from '@/components/ui/StatTrend.astro';
-import Table from '@/components/ui/Table.astro';
-import TableHeader from '@/components/ui/TableHeader.astro';
-import TableBody from '@/components/ui/TableBody.astro';
-import TableRow from '@/components/ui/TableRow.astro';
-import TableHead from '@/components/ui/TableHead.astro';
-import TableCell from '@/components/ui/TableCell.astro';
-import Separator from '@/components/ui/Separator.astro';
+import DashboardV3Layout from "@/layouts/DashboardV3Layout.astro";
+import Card from "@/components/ui/Card.astro";
+import CardHeader from "@/components/ui/CardHeader.astro";
+import CardTitle from "@/components/ui/CardTitle.astro";
+import CardDescription from "@/components/ui/CardDescription.astro";
+import CardContent from "@/components/ui/CardContent.astro";
+import Button from "@/components/ui/Button.astro";
+import Badge from "@/components/ui/Badge.astro";
+import Avatar from "@/components/ui/Avatar.astro";
+import AvatarFallback from "@/components/ui/AvatarFallback.astro";
+import Input from "@/components/ui/Input.astro";
+import Stat from "@/components/ui/Stat.astro";
+import StatHeader from "@/components/ui/StatHeader.astro";
+import StatLabel from "@/components/ui/StatLabel.astro";
+import StatValue from "@/components/ui/StatValue.astro";
+import StatDescription from "@/components/ui/StatDescription.astro";
+import StatTrend from "@/components/ui/StatTrend.astro";
+import Table from "@/components/ui/Table.astro";
+import TableHeader from "@/components/ui/TableHeader.astro";
+import TableBody from "@/components/ui/TableBody.astro";
+import TableRow from "@/components/ui/TableRow.astro";
+import TableHead from "@/components/ui/TableHead.astro";
+import TableCell from "@/components/ui/TableCell.astro";
+import Separator from "@/components/ui/Separator.astro";
 
 const customers = [
   {
-    name: 'Sarah Chen',
-    email: 'sarah.chen@techcorp.com',
-    initials: 'SC',
-    plan: 'Enterprise',
-    mrr: '$499',
-    status: 'Active',
-    statusVariant: 'soft-success' as const,
-    joined: 'Jan 15, 2025'
+    name: "Sarah Chen",
+    email: "sarah.chen@techcorp.com",
+    initials: "SC",
+    plan: "Enterprise",
+    mrr: "$499",
+    status: "Active",
+    statusVariant: "soft-success" as const,
+    joined: "Jan 15, 2025",
   },
   {
-    name: 'Michael Rodriguez',
-    email: 'michael.r@startup.io',
-    initials: 'MR',
-    plan: 'Pro',
-    mrr: '$99',
-    status: 'Active',
-    statusVariant: 'soft-success' as const,
-    joined: 'Feb 3, 2025'
+    name: "Michael Rodriguez",
+    email: "michael.r@startup.io",
+    initials: "MR",
+    plan: "Pro",
+    mrr: "$99",
+    status: "Active",
+    statusVariant: "soft-success" as const,
+    joined: "Feb 3, 2025",
   },
   {
-    name: 'Emily Watson',
-    email: 'emily.watson@designstudio.com',
-    initials: 'EW',
-    plan: 'Pro',
-    mrr: '$99',
-    status: 'Trial',
-    statusVariant: 'soft-warning' as const,
-    joined: 'Feb 1, 2025'
+    name: "Emily Watson",
+    email: "emily.watson@designstudio.com",
+    initials: "EW",
+    plan: "Pro",
+    mrr: "$99",
+    status: "Trial",
+    statusVariant: "soft-warning" as const,
+    joined: "Feb 1, 2025",
   },
   {
-    name: 'James Park',
-    email: 'james@innovate.co',
-    initials: 'JP',
-    plan: 'Starter',
-    mrr: '$29',
-    status: 'Active',
-    statusVariant: 'soft-success' as const,
-    joined: 'Jan 28, 2025'
+    name: "James Park",
+    email: "james@innovate.co",
+    initials: "JP",
+    plan: "Starter",
+    mrr: "$29",
+    status: "Active",
+    statusVariant: "soft-success" as const,
+    joined: "Jan 28, 2025",
   },
   {
-    name: 'Olivia Martinez',
-    email: 'olivia.m@agency.net',
-    initials: 'OM',
-    plan: 'Enterprise',
-    mrr: '$499',
-    status: 'Active',
-    statusVariant: 'soft-success' as const,
-    joined: 'Dec 10, 2024'
+    name: "Olivia Martinez",
+    email: "olivia.m@agency.net",
+    initials: "OM",
+    plan: "Enterprise",
+    mrr: "$499",
+    status: "Active",
+    statusVariant: "soft-success" as const,
+    joined: "Dec 10, 2024",
   },
   {
-    name: 'Daniel Foster',
-    email: 'dan.foster@consulting.com',
-    initials: 'DF',
-    plan: 'Pro',
-    mrr: '$99',
-    status: 'Churned',
-    statusVariant: 'soft-destructive' as const,
-    joined: 'Nov 5, 2024'
+    name: "Daniel Foster",
+    email: "dan.foster@consulting.com",
+    initials: "DF",
+    plan: "Pro",
+    mrr: "$99",
+    status: "Churned",
+    statusVariant: "soft-destructive" as const,
+    joined: "Nov 5, 2024",
   },
   {
-    name: 'Sophia Johnson',
-    email: 'sophia.j@techventures.io',
-    initials: 'SJ',
-    plan: 'Starter',
-    mrr: '$29',
-    status: 'Trial',
-    statusVariant: 'soft-warning' as const,
-    joined: 'Feb 2, 2025'
+    name: "Sophia Johnson",
+    email: "sophia.j@techventures.io",
+    initials: "SJ",
+    plan: "Starter",
+    mrr: "$29",
+    status: "Trial",
+    statusVariant: "soft-warning" as const,
+    joined: "Feb 2, 2025",
   },
   {
-    name: 'Alexander Kim',
-    email: 'alex.kim@innovations.com',
-    initials: 'AK',
-    plan: 'Pro',
-    mrr: '$99',
-    status: 'Active',
-    statusVariant: 'soft-success' as const,
-    joined: 'Jan 20, 2025'
-  }
+    name: "Alexander Kim",
+    email: "alex.kim@innovations.com",
+    initials: "AK",
+    plan: "Pro",
+    mrr: "$99",
+    status: "Active",
+    statusVariant: "soft-success" as const,
+    joined: "Jan 20, 2025",
+  },
 ];
 ---
 
@@ -117,9 +117,20 @@ const customers = [
         <p class="text-muted-foreground mt-1">Manage your customer base</p>
       </div>
       <Button variant="default">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2">
-          <path d="M5 12h14"/>
-          <path d="M12 5v14"/>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="mr-2"
+        >
+          <path d="M5 12h14" />
+          <path d="M12 5v14" />
         </svg>
         Add Customer
       </Button>
@@ -178,10 +189,18 @@ const customers = [
         <Input type="text" placeholder="Search customers..." />
       </div>
       <div class="flex items-center gap-2">
-        <Button variant="default" size="sm">All</Button>
-        <Button variant="outline" size="sm">Active</Button>
-        <Button variant="outline" size="sm">Trial</Button>
-        <Button variant="outline" size="sm">Churned</Button>
+        <Button variant="default" size="sm">
+          All
+        </Button>
+        <Button variant="outline" size="sm">
+          Active
+        </Button>
+        <Button variant="outline" size="sm">
+          Trial
+        </Button>
+        <Button variant="outline" size="sm">
+          Churned
+        </Button>
       </div>
     </div>
 
@@ -237,12 +256,14 @@ const customers = [
 
     <!-- Pagination -->
     <div class="flex items-center justify-between">
-      <p class="text-sm text-muted-foreground">
-        Showing 1-8 of 847 customers
-      </p>
+      <p class="text-sm text-muted-foreground">Showing 1-8 of 847 customers</p>
       <div class="flex items-center gap-2">
-        <Button variant="outline" size="sm">Previous</Button>
-        <Button variant="outline" size="sm">Next</Button>
+        <Button variant="outline" size="sm">
+          Previous
+        </Button>
+        <Button variant="outline" size="sm">
+          Next
+        </Button>
       </div>
     </div>
   </div>

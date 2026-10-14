@@ -1,101 +1,106 @@
 /* Badge
    ------------------------------------------------------------------ */
 .cu-badge {
-    @apply inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold transition-colors duration-150;
+  @apply inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold transition-colors duration-150;
 }
 
 .cu-badge-default {
-    @apply bg-primary text-primary-foreground hover:bg-primary/80;
+  @apply bg-primary text-primary-foreground hover:bg-primary/80;
 }
 
 .cu-badge-secondary {
-    @apply bg-secondary text-secondary-foreground hover:bg-secondary/70;
+  @apply bg-secondary text-secondary-foreground hover:bg-secondary/70;
 }
 
 .cu-badge-outline {
-    @apply border border-border text-foreground;
+  @apply border border-border text-foreground;
 }
 
 .cu-badge-destructive {
-    @apply bg-destructive text-destructive-foreground hover:bg-destructive/80;
+  @apply bg-destructive text-destructive-foreground hover:bg-destructive/80;
 }
 
 .cu-badge-success {
-    @apply bg-success text-success-foreground hover:bg-success/80;
+  @apply bg-success text-success-foreground hover:bg-success/80;
 }
 
 .cu-badge-warning {
-    @apply bg-warning text-warning-foreground hover:bg-warning/80;
+  @apply bg-warning text-warning-foreground hover:bg-warning/80;
 }
 
 .cu-badge-info {
-    @apply bg-info text-info-foreground hover:bg-info/80;
+  @apply bg-info text-info-foreground hover:bg-info/80;
 }
 
 /* -- soft variants (tinted bg, colored text — for data tables & dense UIs) -- */
 .cu-badge-soft-default {
-    @apply bg-primary/10 text-primary;
+  @apply bg-primary/10 text-primary;
 }
 
 .cu-badge-soft-secondary {
-    @apply bg-secondary/10 text-secondary-foreground;
+  @apply bg-secondary/10 text-secondary-foreground;
 }
 
 .cu-badge-soft-destructive {
-    @apply bg-destructive/10 text-destructive;
+  @apply bg-destructive/10 text-destructive;
 }
 
 .cu-badge-soft-success {
-    @apply bg-success/10 text-success;
+  @apply bg-success/10 text-success;
 }
 
 .cu-badge-soft-warning {
-    @apply bg-warning/10 text-warning;
+  @apply bg-warning/10 text-warning;
 }
 
 .cu-badge-soft-info {
-    @apply bg-info/10 text-info;
+  @apply bg-info/10 text-info;
 }
 
 /* -- sizes -- */
 .cu-badge-sm {
-    @apply px-1.5 py-px text-[10px];
+  @apply px-1.5 py-px text-[10px];
 }
 
 .cu-badge-lg {
-    @apply px-3 py-1 text-sm;
+  @apply px-3 py-1 text-sm;
 }
 
 /* -- dot indicator -- */
 .cu-badge-dot {
-    @apply gap-1.5;
+  @apply gap-1.5;
 }
 
 .cu-badge-dot::before {
-    content: "";
-    @apply block size-1.5 shrink-0 rounded-full bg-current;
+  content: "";
+  @apply block size-1.5 shrink-0 rounded-full bg-current;
 }
 
 /* -- removable (with close button) -- */
 .cu-badge-removable {
-    @apply gap-1 pr-1;
+  @apply gap-1 pr-1;
 }
 
 .cu-badge-remove {
-    @apply inline-flex size-3.5 items-center justify-center rounded-full opacity-60 transition-opacity duration-150 hover:opacity-100 cursor-pointer;
+  @apply inline-flex size-3.5 cursor-pointer items-center justify-center rounded-full opacity-60 transition-opacity duration-150 hover:opacity-100;
 }
 
 /* -- count badge -- */
 .cu-badge-count {
-    @apply inline-flex items-center justify-center rounded-full px-1.5 text-[10px] font-semibold leading-none min-w-5 h-5;
+  @apply inline-flex h-5 min-w-5 items-center justify-center rounded-full px-1.5 text-[10px] leading-none font-semibold;
 }
 
 /* -- animated dot (pulse) -- */
 .cu-badge-dot-animated::before {
-    animation: cu-badge-pulse 1.5s ease-in-out infinite;
+  animation: cu-badge-pulse 1.5s ease-in-out infinite;
 }
 
 @keyframes cu-badge-pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.4; }
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.4;
+  }
 }

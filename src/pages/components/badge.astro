@@ -94,239 +94,326 @@ const onAvatarCode = `<div class="flex items-center gap-8">
 ---
 
 <Layout title={t.title} category={t.category} componentName="Badge" description={t.description}>
-    <div class="space-y-3">
-        <div class="flex items-center gap-3">
-            <h1 class="text-3xl font-bold tracking-tight">Badge</h1>
-            <span class="cu-badge cu-badge-secondary">{t.category}</span>
+  <div class="space-y-3">
+    <div class="flex items-center gap-3">
+      <h1 class="text-3xl font-bold tracking-tight">Badge</h1>
+      <span class="cu-badge cu-badge-secondary">{t.category}</span>
+    </div>
+    <p class="text-base text-muted-foreground leading-relaxed">{t.description}</p>
+  </div>
+
+  <div class="mt-10 space-y-10">
+    <!-- Usage -->
+    <section class="space-y-3">
+      <SectionHeading id="usage" title={t.sections.usage.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
+      <ComponentPreview code={usageCode}>
+        <Badge>Badge</Badge>
+      </ComponentPreview>
+    </section>
+
+    <!-- Classes Reference -->
+    <section class="space-y-3">
+      <SectionHeading id="classes" title={t.sections.classes.title} />
+      <div class="cu-table-wrapper rounded-lg border border-border">
+        <table class="cu-table">
+          <thead class="cu-table-header">
+            <tr class="cu-table-row">
+              <th class="cu-table-head">{t.sections.classes.classLabel}</th>
+              <th class="cu-table-head">{t.sections.classes.descriptionLabel}</th>
+            </tr>
+          </thead>
+          <tbody class="cu-table-body">
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-badge</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-badge"]}</td>
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-badge-default</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-badge-default"]}</td>
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-badge-secondary</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-badge-secondary"]}</td>
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-badge-outline</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-badge-outline"]}</td>
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-badge-destructive</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-badge-destructive"]}</td>
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-badge-success</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-badge-success"]}</td>
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-badge-warning</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-badge-warning"]}</td>
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-badge-info</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-badge-info"]}</td>
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-badge-soft-*</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-badge-soft-*"]}</td>
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-badge-dot</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-badge-dot"]}</td>
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-badge-removable</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-badge-removable"]}</td>
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-badge-remove</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-badge-remove"]}</td>
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-badge-count</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-badge-count"]}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Variants -->
+    <section class="space-y-3">
+      <SectionHeading id="variants" title={t.sections.variants.title} />
+      <p class="text-base text-muted-foreground leading-relaxed">{t.sections.variants.description}</p>
+      <ComponentPreview code={variantsCode}>
+        <div class="flex flex-wrap gap-2 items-center justify-center">
+          <Badge>Default</Badge>
+          <Badge variant="secondary">Secondary</Badge>
+          <Badge variant="outline">Outline</Badge>
+          <Badge variant="destructive">Destructive</Badge>
+          <Badge variant="success">Success</Badge>
+          <Badge variant="warning">Warning</Badge>
+          <Badge variant="info">Info</Badge>
         </div>
-        <p class="text-base text-muted-foreground leading-relaxed">{t.description}</p>
-    </div>
+      </ComponentPreview>
+    </section>
 
-    <div class="mt-10 space-y-10">
-        <!-- Usage -->
-        <section class="space-y-3">
-            <SectionHeading id="usage" title={t.sections.usage.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
-            <ComponentPreview code={usageCode}>
-                <Badge>Badge</Badge>
-            </ComponentPreview>
-        </section>
+    <!-- Soft Variants -->
+    <section class="space-y-3">
+      <SectionHeading id="soft-variants" title={t.sections.softVariants.title} />
+      <p class="text-base text-muted-foreground leading-relaxed">{t.sections.softVariants.description}</p>
+      <ComponentPreview code={softVariantsCode}>
+        <div class="flex flex-wrap gap-2 items-center justify-center">
+          <span class="cu-badge cu-badge-soft-default">Default</span>
+          <span class="cu-badge cu-badge-soft-secondary">Secondary</span>
+          <span class="cu-badge cu-badge-soft-destructive">Destructive</span>
+          <span class="cu-badge cu-badge-soft-success">Success</span>
+          <span class="cu-badge cu-badge-soft-warning">Warning</span>
+          <span class="cu-badge cu-badge-soft-info">Info</span>
+        </div>
+      </ComponentPreview>
+    </section>
 
-        <!-- Classes Reference -->
-        <section class="space-y-3">
-            <SectionHeading id="classes" title={t.sections.classes.title} />
-            <div class="cu-table-wrapper rounded-lg border border-border">
-                <table class="cu-table">
-                    <thead class="cu-table-header">
-                        <tr class="cu-table-row">
-                            <th class="cu-table-head">{t.sections.classes.classLabel}</th>
-                            <th class="cu-table-head">{t.sections.classes.descriptionLabel}</th>
-                        </tr>
-                    </thead>
-                    <tbody class="cu-table-body">
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-badge</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-badge']}</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-badge-default</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-badge-default']}</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-badge-secondary</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-badge-secondary']}</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-badge-outline</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-badge-outline']}</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-badge-destructive</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-badge-destructive']}</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-badge-success</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-badge-success']}</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-badge-warning</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-badge-warning']}</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-badge-info</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-badge-info']}</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-badge-soft-*</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-badge-soft-*']}</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-badge-dot</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-badge-dot']}</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-badge-removable</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-badge-removable']}</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-badge-remove</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-badge-remove']}</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-badge-count</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-badge-count']}</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </section>
+    <!-- With Icon -->
+    <section class="space-y-3">
+      <SectionHeading id="with-icon" title={t.sections.withIcon.title} />
+      <p class="text-base text-muted-foreground leading-relaxed">{t.sections.withIcon.description}</p>
+      <ComponentPreview code={withIconCode}>
+        <Badge>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="12"
+            height="12"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="mr-1"
+          >
+            <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+          </svg>
+          Badge
+        </Badge>
+      </ComponentPreview>
+    </section>
 
+    <!-- With Dot -->
+    <section class="space-y-3">
+      <SectionHeading id="with-dot" title={t.sections.withDot.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withDot.description} />
+      <ComponentPreview code={withDotCode}>
+        <div class="flex flex-wrap gap-2 items-center justify-center">
+          <span class="cu-badge cu-badge-dot cu-badge-default">Active</span>
+          <span class="cu-badge cu-badge-dot cu-badge-success">Online</span>
+          <span class="cu-badge cu-badge-dot cu-badge-warning">Idle</span>
+          <span class="cu-badge cu-badge-dot cu-badge-destructive">Error</span>
+          <span class="cu-badge cu-badge-dot cu-badge-outline">Draft</span>
+        </div>
+      </ComponentPreview>
+    </section>
 
-        <!-- Variants -->
-        <section class="space-y-3">
-            <SectionHeading id="variants" title={t.sections.variants.title} />
-            <p class="text-base text-muted-foreground leading-relaxed">{t.sections.variants.description}</p>
-            <ComponentPreview code={variantsCode}>
-                <div class="flex flex-wrap gap-2 items-center justify-center">
-                    <Badge>Default</Badge>
-                    <Badge variant="secondary">Secondary</Badge>
-                    <Badge variant="outline">Outline</Badge>
-                    <Badge variant="destructive">Destructive</Badge>
-                    <Badge variant="success">Success</Badge>
-                    <Badge variant="warning">Warning</Badge>
-                    <Badge variant="info">Info</Badge>
-                </div>
-            </ComponentPreview>
-        </section>
+    <!-- Dismissible -->
+    <section class="space-y-3">
+      <SectionHeading id="dismissible" title={t.sections.dismissible.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.dismissible.description} />
+      <ComponentPreview code={dismissibleCode}>
+        <div class="flex flex-wrap gap-2 items-center justify-center">
+          <span class="cu-badge cu-badge-removable cu-badge-default">
+            React
+            <button class="cu-badge-remove" onclick="this.parentElement.remove()">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="10"
+                height="10"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M18 6 6 18" />
+                <path d="m6 6 12 12" />
+              </svg>
+            </button>
+          </span>
+          <span class="cu-badge cu-badge-removable cu-badge-secondary">
+            Vue
+            <button class="cu-badge-remove" onclick="this.parentElement.remove()">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="10"
+                height="10"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M18 6 6 18" />
+                <path d="m6 6 12 12" />
+              </svg>
+            </button>
+          </span>
+          <span class="cu-badge cu-badge-removable cu-badge-outline">
+            Angular
+            <button class="cu-badge-remove" onclick="this.parentElement.remove()">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="10"
+                height="10"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M18 6 6 18" />
+                <path d="m6 6 12 12" />
+              </svg>
+            </button>
+          </span>
+        </div>
+      </ComponentPreview>
+    </section>
 
-        <!-- Soft Variants -->
-        <section class="space-y-3">
-            <SectionHeading id="soft-variants" title={t.sections.softVariants.title} />
-            <p class="text-base text-muted-foreground leading-relaxed">{t.sections.softVariants.description}</p>
-            <ComponentPreview code={softVariantsCode}>
-                <div class="flex flex-wrap gap-2 items-center justify-center">
-                    <span class="cu-badge cu-badge-soft-default">Default</span>
-                    <span class="cu-badge cu-badge-soft-secondary">Secondary</span>
-                    <span class="cu-badge cu-badge-soft-destructive">Destructive</span>
-                    <span class="cu-badge cu-badge-soft-success">Success</span>
-                    <span class="cu-badge cu-badge-soft-warning">Warning</span>
-                    <span class="cu-badge cu-badge-soft-info">Info</span>
-                </div>
-            </ComponentPreview>
-        </section>
+    <!-- Count -->
+    <section class="space-y-3">
+      <SectionHeading id="count" title={t.sections.count.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.count.description} />
+      <ComponentPreview code={countCode}>
+        <div class="flex flex-wrap gap-2 items-center justify-center">
+          <span class="cu-badge cu-badge-count cu-badge-default">3</span>
+          <span class="cu-badge cu-badge-count cu-badge-destructive">12</span>
+          <span class="cu-badge cu-badge-count cu-badge-success">99+</span>
+          <span class="cu-badge cu-badge-count cu-badge-soft-default">5</span>
+        </div>
+      </ComponentPreview>
+    </section>
 
-        <!-- With Icon -->
-        <section class="space-y-3">
-            <SectionHeading id="with-icon" title={t.sections.withIcon.title} />
-            <p class="text-base text-muted-foreground leading-relaxed">{t.sections.withIcon.description}</p>
-            <ComponentPreview code={withIconCode}>
-                <Badge>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-                    Badge
-                </Badge>
-            </ComponentPreview>
-        </section>
+    <!-- Animated Dot -->
+    <section class="space-y-3">
+      <SectionHeading id="animated-dot" title={t.sections.animatedDot.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.animatedDot.description} />
+      <ComponentPreview code={animatedDotCode}>
+        <div class="flex flex-wrap gap-4">
+          <span class="cu-badge cu-badge-success cu-badge-dot cu-badge-dot-animated">Live</span>
+          <span class="cu-badge cu-badge-destructive cu-badge-dot cu-badge-dot-animated">Recording</span>
+          <span class="cu-badge cu-badge-info cu-badge-dot cu-badge-dot-animated">Syncing</span>
+          <span class="cu-badge cu-badge-warning cu-badge-dot cu-badge-dot-animated">Pending</span>
+        </div>
+      </ComponentPreview>
+    </section>
 
-        <!-- With Dot -->
-        <section class="space-y-3">
-            <SectionHeading id="with-dot" title={t.sections.withDot.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withDot.description} />
-            <ComponentPreview code={withDotCode}>
-                <div class="flex flex-wrap gap-2 items-center justify-center">
-                    <span class="cu-badge cu-badge-dot cu-badge-default">Active</span>
-                    <span class="cu-badge cu-badge-dot cu-badge-success">Online</span>
-                    <span class="cu-badge cu-badge-dot cu-badge-warning">Idle</span>
-                    <span class="cu-badge cu-badge-dot cu-badge-destructive">Error</span>
-                    <span class="cu-badge cu-badge-dot cu-badge-outline">Draft</span>
-                </div>
-            </ComponentPreview>
-        </section>
-
-        <!-- Dismissible -->
-        <section class="space-y-3">
-            <SectionHeading id="dismissible" title={t.sections.dismissible.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.dismissible.description} />
-            <ComponentPreview code={dismissibleCode}>
-                <div class="flex flex-wrap gap-2 items-center justify-center">
-                    <span class="cu-badge cu-badge-removable cu-badge-default">
-                        React
-                        <button class="cu-badge-remove" onclick="this.parentElement.remove()">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
-                        </button>
-                    </span>
-                    <span class="cu-badge cu-badge-removable cu-badge-secondary">
-                        Vue
-                        <button class="cu-badge-remove" onclick="this.parentElement.remove()">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
-                        </button>
-                    </span>
-                    <span class="cu-badge cu-badge-removable cu-badge-outline">
-                        Angular
-                        <button class="cu-badge-remove" onclick="this.parentElement.remove()">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
-                        </button>
-                    </span>
-                </div>
-            </ComponentPreview>
-        </section>
-
-        <!-- Count -->
-        <section class="space-y-3">
-            <SectionHeading id="count" title={t.sections.count.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.count.description} />
-            <ComponentPreview code={countCode}>
-                <div class="flex flex-wrap gap-2 items-center justify-center">
-                    <span class="cu-badge cu-badge-count cu-badge-default">3</span>
-                    <span class="cu-badge cu-badge-count cu-badge-destructive">12</span>
-                    <span class="cu-badge cu-badge-count cu-badge-success">99+</span>
-                    <span class="cu-badge cu-badge-count cu-badge-soft-default">5</span>
-                </div>
-            </ComponentPreview>
-        </section>
-
-        <!-- Animated Dot -->
-        <section class="space-y-3">
-            <SectionHeading id="animated-dot" title={t.sections.animatedDot.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.animatedDot.description} />
-            <ComponentPreview code={animatedDotCode}>
-                <div class="flex flex-wrap gap-4">
-                    <span class="cu-badge cu-badge-success cu-badge-dot cu-badge-dot-animated">Live</span>
-                    <span class="cu-badge cu-badge-destructive cu-badge-dot cu-badge-dot-animated">Recording</span>
-                    <span class="cu-badge cu-badge-info cu-badge-dot cu-badge-dot-animated">Syncing</span>
-                    <span class="cu-badge cu-badge-warning cu-badge-dot cu-badge-dot-animated">Pending</span>
-                </div>
-            </ComponentPreview>
-        </section>
-
-        <!-- Badge on Avatar -->
-        <section class="space-y-3">
-            <SectionHeading id="on-avatar" title={t.sections.onAvatar.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.onAvatar.description} />
-            <ComponentPreview code={onAvatarCode}>
-                <div class="flex items-center gap-8">
-                    <div class="relative inline-block">
-                        <span class="cu-avatar cu-avatar-md">
-                            <span class="cu-avatar-fallback">JD</span>
-                        </span>
-                        <span class="cu-badge cu-badge-count cu-badge-destructive absolute -top-1 -right-1">3</span>
-                    </div>
-                    <div class="relative inline-block">
-                        <span class="cu-avatar cu-avatar-md">
-                            <img class="cu-avatar-image" src="https://i.pravatar.cc/80?img=5" alt="User" />
-                        </span>
-                        <span class="cu-badge cu-badge-count cu-badge-success absolute -top-1 -right-1">
-                            <svg class="size-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m8 12 3 3 5-6"/></svg>
-                        </span>
-                    </div>
-                    <div class="relative inline-block">
-                        <span class="cu-avatar cu-avatar-lg">
-                            <span class="cu-avatar-fallback">AB</span>
-                        </span>
-                        <span class="cu-badge cu-badge-count cu-badge-destructive absolute -top-1 -right-1">99+</span>
-                    </div>
-                </div>
-            </ComponentPreview>
-        </section>
-
-    </div>
+    <!-- Badge on Avatar -->
+    <section class="space-y-3">
+      <SectionHeading id="on-avatar" title={t.sections.onAvatar.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.onAvatar.description} />
+      <ComponentPreview code={onAvatarCode}>
+        <div class="flex items-center gap-8">
+          <div class="relative inline-block">
+            <span class="cu-avatar cu-avatar-md">
+              <span class="cu-avatar-fallback">JD</span>
+            </span>
+            <span class="cu-badge cu-badge-count cu-badge-destructive absolute -top-1 -right-1">3</span>
+          </div>
+          <div class="relative inline-block">
+            <span class="cu-avatar cu-avatar-md">
+              <img class="cu-avatar-image" src="https://i.pravatar.cc/80?img=5" alt="User" />
+            </span>
+            <span class="cu-badge cu-badge-count cu-badge-success absolute -top-1 -right-1">
+              <svg
+                class="size-3"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="3"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="m8 12 3 3 5-6" />
+              </svg>
+            </span>
+          </div>
+          <div class="relative inline-block">
+            <span class="cu-avatar cu-avatar-lg">
+              <span class="cu-avatar-fallback">AB</span>
+            </span>
+            <span class="cu-badge cu-badge-count cu-badge-destructive absolute -top-1 -right-1">99+</span>
+          </div>
+        </div>
+      </ComponentPreview>
+    </section>
+  </div>
 </Layout>

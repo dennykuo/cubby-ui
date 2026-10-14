@@ -17,61 +17,68 @@ import { roundToStep, clampValue } from "../core/utils.js";
  * - ARIA: adds role="spinbutton" + aria-valuemin/max/now automatically.
  */
 export function setupNumberInputs() {
-  document
-    .querySelectorAll("[data-cu-number-input]")
-    .forEach(function (container) {
-      if (container._cuInit) { restore("numberInputs", container); return; }
-      container._cuInit = true;
+  document.querySelectorAll("[data-cu-number-input]").forEach(function (container) {
+    if (container._cuInit) {
+      restore("numberInputs", container);
+      return;
+    }
+    container._cuInit = true;
 
-      var field = /** @type {HTMLInputElement} */ (container.querySelector("[data-cu-number-field]"));
-      var decrement = container.querySelector("[data-cu-number-decrement]");
-      var increment = container.querySelector("[data-cu-number-increment]");
-      if (!field) return;
+    var field = /** @type {HTMLInputElement} */ (container.querySelector("[data-cu-number-field]"));
+    var decrement = container.querySelector("[data-cu-number-decrement]");
+    var increment = container.querySelector("[data-cu-number-increment]");
+    if (!field) return;
 
-      var getStep = function () { return Number(field.step) || 1; };
-      var getMin = function () { return field.min !== "" ? Number(field.min) : -Infinity; };
-      var getMax = function () { return field.max !== "" ? Number(field.max) : Infinity; };
+    var getStep = function () {
+      return Number(field.step) || 1;
+    };
+    var getMin = function () {
+      return field.min !== "" ? Number(field.min) : -Infinity;
+    };
+    var getMax = function () {
+      return field.max !== "" ? Number(field.max) : Infinity;
+    };
 
-      // ARIA: spinbutton semantics
-      field.setAttribute("role", "spinbutton");
-      if (field.min !== "") field.setAttribute("aria-valuemin", field.min);
-      if (field.max !== "") field.setAttribute("aria-valuemax", field.max);
+    // ARIA: spinbutton semantics
+    field.setAttribute("role", "spinbutton");
+    if (field.min !== "") field.setAttribute("aria-valuemin", field.min);
+    if (field.max !== "") field.setAttribute("aria-valuemax", field.max);
+    field.setAttribute("aria-valuenow", field.value);
+    field.addEventListener("input", function () {
       field.setAttribute("aria-valuenow", field.value);
-      field.addEventListener("input", function () {
-        field.setAttribute("aria-valuenow", field.value);
-      });
-
-      decrement &&
-        decrement.addEventListener("click", function () {
-          var current = Number(field.value) || 0;
-          var next = roundToStep(current - getStep(), getStep());
-          if (next >= getMin()) {
-            field.value = String(next);
-            field.dispatchEvent(new Event("input", { bubbles: true }));
-          }
-        });
-
-      increment &&
-        increment.addEventListener("click", function () {
-          var current = Number(field.value) || 0;
-          var next = roundToStep(current + getStep(), getStep());
-          if (next <= getMax()) {
-            field.value = String(next);
-            field.dispatchEvent(new Event("input", { bubbles: true }));
-          }
-        });
-
-      // Sanitize manual input on blur: filter non-numeric, clamp to min/max, round to step
-      field.addEventListener("change", function () {
-        var raw = field.value.trim();
-        if (raw === "" || isNaN(Number(raw))) {
-          field.value = String(clampValue(0, getMin(), getMax()));
-        } else {
-          field.value = String(clampValue(roundToStep(Number(raw), getStep()), getMin(), getMax()));
-        }
-        field.dispatchEvent(new Event("input", { bubbles: true }));
-      });
-
-      track("numberInputs", { el: container });
     });
+
+    decrement &&
+      decrement.addEventListener("click", function () {
+        var current = Number(field.value) || 0;
+        var next = roundToStep(current - getStep(), getStep());
+        if (next >= getMin()) {
+          field.value = String(next);
+          field.dispatchEvent(new Event("input", { bubbles: true }));
+        }
+      });
+
+    increment &&
+      increment.addEventListener("click", function () {
+        var current = Number(field.value) || 0;
+        var next = roundToStep(current + getStep(), getStep());
+        if (next <= getMax()) {
+          field.value = String(next);
+          field.dispatchEvent(new Event("input", { bubbles: true }));
+        }
+      });
+
+    // Sanitize manual input on blur: filter non-numeric, clamp to min/max, round to step
+    field.addEventListener("change", function () {
+      var raw = field.value.trim();
+      if (raw === "" || isNaN(Number(raw))) {
+        field.value = String(clampValue(0, getMin(), getMax()));
+      } else {
+        field.value = String(clampValue(roundToStep(Number(raw), getStep()), getMin(), getMax()));
+      }
+      field.dispatchEvent(new Event("input", { bubbles: true }));
+    });
+
+    track("numberInputs", { el: container });
+  });
 }

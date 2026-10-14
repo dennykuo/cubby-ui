@@ -54,7 +54,9 @@ test.describe("Tabs", () => {
     await expect.poll(() => page.evaluate(() => (window as any).__closed)).toEqual(["b"]);
   });
 
-  test("可關閉的 tab：關閉圖示不是巢狀互動元素（舊版 role=\"button\" / tabindex 會被移除），trigger 帶 aria-keyshortcuts", async ({ page }) => {
+  test('可關閉的 tab：關閉圖示不是巢狀互動元素（舊版 role="button" / tabindex 會被移除），trigger 帶 aria-keyshortcuts', async ({
+    page,
+  }) => {
     for (const id of ["closable", "files"]) {
       const closes = page.locator(`#${id} [data-cu-tabs-close]`);
       for (const close of await closes.all()) {

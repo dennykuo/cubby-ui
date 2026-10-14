@@ -1,110 +1,110 @@
 /* Toast
    ------------------------------------------------------------------ */
 .cu-toast-container {
-    @apply fixed z-50 flex flex-col gap-2 pointer-events-none;
+  @apply pointer-events-none fixed z-50 flex flex-col gap-2;
 }
 
 .cu-toast-container-bottom-right {
-    @apply bottom-4 right-4;
+  @apply right-4 bottom-4;
 }
 
 .cu-toast-container-bottom-left {
-    @apply bottom-4 left-4;
+  @apply bottom-4 left-4;
 }
 
 .cu-toast-container-top-right {
-    @apply top-4 right-4;
+  @apply top-4 right-4;
 }
 
 .cu-toast-container-top-left {
-    @apply top-4 left-4;
+  @apply top-4 left-4;
 }
 
 .cu-toast-container-top-center {
-    @apply top-4 left-1/2 -translate-x-1/2 items-center;
+  @apply top-4 left-1/2 -translate-x-1/2 items-center;
 }
 
 .cu-toast-container-bottom-center {
-    @apply bottom-4 left-1/2 -translate-x-1/2 items-center;
+  @apply bottom-4 left-1/2 -translate-x-1/2 items-center;
 }
 
 .cu-toast {
-    @apply pointer-events-auto relative flex w-80 items-start gap-3 rounded-xl border border-border bg-background p-4 shadow-lg transition-[opacity,transform] duration-200;
+  @apply pointer-events-auto relative flex w-80 items-start gap-3 rounded-xl border border-border bg-background p-4 shadow-lg transition-[opacity,transform] duration-200;
 }
 
 .cu-toast-default {
-    @apply bg-background text-foreground;
+  @apply bg-background text-foreground;
 }
 
 .cu-toast-destructive {
-    @apply border-destructive/50 bg-destructive/5 text-destructive;
+  @apply border-destructive/50 bg-destructive/5 text-destructive;
 }
 
 .cu-toast-success {
-    @apply border-success/50 bg-success/5 text-success;
+  @apply border-success/50 bg-success/5 text-success;
 }
 
 .cu-toast-warning {
-    @apply border-warning/50 bg-warning/5 text-warning;
+  @apply border-warning/50 bg-warning/5 text-warning;
 }
 
 .cu-toast-info {
-    @apply border-info/50 bg-info/5 text-info;
+  @apply border-info/50 bg-info/5 text-info;
 }
 
 .cu-toast-body {
-    @apply flex-1 space-y-1;
+  @apply flex-1 space-y-1;
 }
 
 .cu-toast-title {
-    @apply text-sm font-semibold leading-none tracking-tight;
+  @apply text-sm leading-none font-semibold tracking-tight;
 }
 
 .cu-toast-description {
-    @apply text-sm text-muted-foreground;
+  @apply text-sm text-muted-foreground;
 }
 
 .cu-toast-close {
-    @apply shrink-0 rounded-sm opacity-70 transition-opacity duration-150 hover:opacity-100 cursor-pointer;
+  @apply shrink-0 cursor-pointer rounded-sm opacity-70 transition-opacity duration-150 hover:opacity-100;
 }
 
 /* -- entrance animation -- */
 .cu-toast-enter {
-    animation: cu-toast-in 0.2s ease-out;
+  animation: cu-toast-in 0.2s ease-out;
 }
 
 @keyframes cu-toast-in {
-    from {
-        opacity: 0;
-        transform: translateY(8px) scale(0.90);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-    }
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 
 /* -- exit animation -- */
 .cu-toast-exit {
-    animation: cu-toast-out 0.15s ease-in forwards;
+  animation: cu-toast-out 0.15s ease-in forwards;
 }
 
 @keyframes cu-toast-out {
-    from {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-    }
-    to {
-        opacity: 0;
-        transform: translateY(8px) scale(0.90);
-    }
+  from {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(8px) scale(0.9);
+  }
 }
 
 /* -- toast action buttons -- */
 .cu-toast-action {
-    @apply mt-2 flex gap-2;
+  @apply mt-2 flex gap-2;
 }
 
 .cu-toast-action-btn {
-    @apply inline-flex h-7 items-center justify-center rounded-md border border-border bg-transparent px-3 text-xs font-medium transition-colors duration-150 hover:bg-accent cursor-pointer;
+  @apply inline-flex h-7 cursor-pointer items-center justify-center rounded-md border border-border bg-transparent px-3 text-xs font-medium transition-colors duration-150 hover:bg-accent;
 }

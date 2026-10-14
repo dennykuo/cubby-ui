@@ -133,175 +133,199 @@ const collapsedCode = `<nav aria-label="Breadcrumb">
 ---
 
 <Layout title={t.title} category={t.category} componentName="Breadcrumb" description={t.description}>
-    <div class="space-y-3">
-        <div class="flex items-center gap-3">
-          <h1 class="text-3xl font-bold tracking-tight">Breadcrumb</h1>
-          <span class="cu-badge cu-badge-secondary">{t.category}</span>
-        </div>
-        <p class="text-base text-muted-foreground leading-relaxed">
-            {t.description}
-        </p>
+  <div class="space-y-3">
+    <div class="flex items-center gap-3">
+      <h1 class="text-3xl font-bold tracking-tight">Breadcrumb</h1>
+      <span class="cu-badge cu-badge-secondary">{t.category}</span>
     </div>
+    <p class="text-base text-muted-foreground leading-relaxed">{t.description}</p>
+  </div>
 
-    <div class="mt-10 space-y-10">
-        <!-- Usage -->
-        <section class="space-y-3">
-            <SectionHeading id="usage" title={t.sections.usage.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
-            <ComponentPreview code={usageCode}>
-                <Breadcrumb>
-                    <BreadcrumbItem>
-                        <BreadcrumbLink href="#">Home</BreadcrumbLink>
-                    </BreadcrumbItem>
-                    <BreadcrumbSeparator />
-                    <BreadcrumbItem>
-                        <BreadcrumbLink href="#">Components</BreadcrumbLink>
-                    </BreadcrumbItem>
-                    <BreadcrumbSeparator />
-                    <BreadcrumbCurrent>Breadcrumb</BreadcrumbCurrent>
-                </Breadcrumb>
-            </ComponentPreview>
-        </section>
+  <div class="mt-10 space-y-10">
+    <!-- Usage -->
+    <section class="space-y-3">
+      <SectionHeading id="usage" title={t.sections.usage.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
+      <ComponentPreview code={usageCode}>
+        <Breadcrumb>
+          <BreadcrumbItem>
+            <BreadcrumbLink href="#">Home</BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbLink href="#">Components</BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbCurrent>Breadcrumb</BreadcrumbCurrent>
+        </Breadcrumb>
+      </ComponentPreview>
+    </section>
 
-        <!-- Classes Reference -->
-        <section class="space-y-3">
-            <SectionHeading id="classes" title={t.sections.classes.title} />
-            <div class="cu-table-wrapper rounded-lg border border-border">
-                <table class="cu-table">
-                    <thead class="cu-table-header">
-                        <tr class="cu-table-row">
-                            <th class="cu-table-head">{t.sections.classes.classLabel}</th>
-                            <th class="cu-table-head">{t.sections.classes.descriptionLabel}</th>
-                        </tr>
-                    </thead>
-                    <tbody class="cu-table-body">
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-breadcrumb</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-breadcrumb']}</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-breadcrumb-item</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-breadcrumb-item']}</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-breadcrumb-link</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-breadcrumb-link']}</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-breadcrumb-separator</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-breadcrumb-separator']}</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-breadcrumb-current</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-breadcrumb-current']}</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-breadcrumb-ellipsis</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-breadcrumb-ellipsis']}</td>
-                        </tr>
-                    </tbody>
-                </table>
+    <!-- Classes Reference -->
+    <section class="space-y-3">
+      <SectionHeading id="classes" title={t.sections.classes.title} />
+      <div class="cu-table-wrapper rounded-lg border border-border">
+        <table class="cu-table">
+          <thead class="cu-table-header">
+            <tr class="cu-table-row">
+              <th class="cu-table-head">{t.sections.classes.classLabel}</th>
+              <th class="cu-table-head">{t.sections.classes.descriptionLabel}</th>
+            </tr>
+          </thead>
+          <tbody class="cu-table-body">
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-breadcrumb</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-breadcrumb"]}</td>
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-breadcrumb-item</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-breadcrumb-item"]}</td>
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-breadcrumb-link</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-breadcrumb-link"]}</td>
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-breadcrumb-separator</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-breadcrumb-separator"]}</td>
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-breadcrumb-current</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-breadcrumb-current"]}</td>
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-breadcrumb-ellipsis</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-breadcrumb-ellipsis"]}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- With Icon -->
+    <section class="space-y-3">
+      <SectionHeading id="with-icon" title={t.sections.withIcon.title} />
+      <p class="text-base text-muted-foreground leading-relaxed">{t.sections.withIcon.description}</p>
+      <ComponentPreview code={withIconCode}>
+        <Breadcrumb>
+          <BreadcrumbItem>
+            <BreadcrumbLink href="#">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                <polyline points="9 22 9 12 15 12 15 22" />
+              </svg>
+            </BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbLink href="#">Components</BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbCurrent>Breadcrumb</BreadcrumbCurrent>
+        </Breadcrumb>
+      </ComponentPreview>
+    </section>
+
+    <!-- Custom Separator -->
+    <section class="space-y-3">
+      <SectionHeading id="custom-separator" title={t.sections.customSeparator.title} />
+      <p class="text-base text-muted-foreground leading-relaxed">{t.sections.customSeparator.description}</p>
+      <ComponentPreview code={customSeparatorCode}>
+        <Breadcrumb>
+          <BreadcrumbItem>
+            <BreadcrumbLink href="#">Home</BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator>/</BreadcrumbSeparator>
+          <BreadcrumbItem>
+            <BreadcrumbLink href="#">Components</BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator>/</BreadcrumbSeparator>
+          <BreadcrumbCurrent>Breadcrumb</BreadcrumbCurrent>
+        </Breadcrumb>
+      </ComponentPreview>
+    </section>
+
+    <!-- With Ellipsis -->
+    <section class="space-y-3">
+      <SectionHeading id="with-ellipsis" title={t.sections.withEllipsis.title} />
+      <p class="text-base text-muted-foreground leading-relaxed">{t.sections.withEllipsis.description}</p>
+      <ComponentPreview code={ellipsisCode}>
+        <Breadcrumb>
+          <BreadcrumbItem>
+            <BreadcrumbLink href="#">Home</BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <span class="text-muted-foreground">...</span>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbLink href="#">Components</BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbCurrent>Breadcrumb</BreadcrumbCurrent>
+        </Breadcrumb>
+      </ComponentPreview>
+    </section>
+
+    <!-- Collapsed with Dropdown -->
+    <section class="space-y-3">
+      <SectionHeading id="collapsed" title={t.sections.collapsed.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.collapsed.description} />
+      <ComponentPreview code={collapsedCode}>
+        <Breadcrumb>
+          <BreadcrumbItem>
+            <BreadcrumbLink href="#">Home</BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <div data-cu-dropdown class="inline-flex">
+              <button class="cu-breadcrumb-ellipsis" data-cu-dropdown-trigger>
+                ...
+              </button>
+              <div class="cu-dropdown-content" data-cu-dropdown-content hidden>
+                <a class="cu-dropdown-item" href="#">
+                  Documentation
+                </a>
+                <a class="cu-dropdown-item" href="#">
+                  Components
+                </a>
+                <a class="cu-dropdown-item" href="#">
+                  Guides
+                </a>
+              </div>
             </div>
-        </section>
-
-
-        <!-- With Icon -->
-        <section class="space-y-3">
-            <SectionHeading id="with-icon" title={t.sections.withIcon.title} />
-            <p class="text-base text-muted-foreground leading-relaxed">
-                {t.sections.withIcon.description}
-            </p>
-            <ComponentPreview code={withIconCode}>
-                <Breadcrumb>
-                    <BreadcrumbItem>
-                        <BreadcrumbLink href="#">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-                        </BreadcrumbLink>
-                    </BreadcrumbItem>
-                    <BreadcrumbSeparator />
-                    <BreadcrumbItem>
-                        <BreadcrumbLink href="#">Components</BreadcrumbLink>
-                    </BreadcrumbItem>
-                    <BreadcrumbSeparator />
-                    <BreadcrumbCurrent>Breadcrumb</BreadcrumbCurrent>
-                </Breadcrumb>
-            </ComponentPreview>
-        </section>
-
-        <!-- Custom Separator -->
-        <section class="space-y-3">
-            <SectionHeading id="custom-separator" title={t.sections.customSeparator.title} />
-            <p class="text-base text-muted-foreground leading-relaxed">
-                {t.sections.customSeparator.description}
-            </p>
-            <ComponentPreview code={customSeparatorCode}>
-                <Breadcrumb>
-                    <BreadcrumbItem>
-                        <BreadcrumbLink href="#">Home</BreadcrumbLink>
-                    </BreadcrumbItem>
-                    <BreadcrumbSeparator>/</BreadcrumbSeparator>
-                    <BreadcrumbItem>
-                        <BreadcrumbLink href="#">Components</BreadcrumbLink>
-                    </BreadcrumbItem>
-                    <BreadcrumbSeparator>/</BreadcrumbSeparator>
-                    <BreadcrumbCurrent>Breadcrumb</BreadcrumbCurrent>
-                </Breadcrumb>
-            </ComponentPreview>
-        </section>
-
-        <!-- With Ellipsis -->
-        <section class="space-y-3">
-            <SectionHeading id="with-ellipsis" title={t.sections.withEllipsis.title} />
-            <p class="text-base text-muted-foreground leading-relaxed">
-                {t.sections.withEllipsis.description}
-            </p>
-            <ComponentPreview code={ellipsisCode}>
-                <Breadcrumb>
-                    <BreadcrumbItem>
-                        <BreadcrumbLink href="#">Home</BreadcrumbLink>
-                    </BreadcrumbItem>
-                    <BreadcrumbSeparator />
-                    <BreadcrumbItem>
-                        <span class="text-muted-foreground">...</span>
-                    </BreadcrumbItem>
-                    <BreadcrumbSeparator />
-                    <BreadcrumbItem>
-                        <BreadcrumbLink href="#">Components</BreadcrumbLink>
-                    </BreadcrumbItem>
-                    <BreadcrumbSeparator />
-                    <BreadcrumbCurrent>Breadcrumb</BreadcrumbCurrent>
-                </Breadcrumb>
-            </ComponentPreview>
-        </section>
-
-        <!-- Collapsed with Dropdown -->
-        <section class="space-y-3">
-            <SectionHeading id="collapsed" title={t.sections.collapsed.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.collapsed.description} />
-            <ComponentPreview code={collapsedCode}>
-                <Breadcrumb>
-                    <BreadcrumbItem>
-                        <BreadcrumbLink href="#">Home</BreadcrumbLink>
-                    </BreadcrumbItem>
-                    <BreadcrumbSeparator />
-                    <BreadcrumbItem>
-                        <div data-cu-dropdown class="inline-flex">
-                            <button class="cu-breadcrumb-ellipsis" data-cu-dropdown-trigger>...</button>
-                            <div class="cu-dropdown-content" data-cu-dropdown-content hidden>
-                                <a class="cu-dropdown-item" href="#">Documentation</a>
-                                <a class="cu-dropdown-item" href="#">Components</a>
-                                <a class="cu-dropdown-item" href="#">Guides</a>
-                            </div>
-                        </div>
-                    </BreadcrumbItem>
-                    <BreadcrumbSeparator />
-                    <BreadcrumbItem>
-                        <BreadcrumbLink href="#">Navigation</BreadcrumbLink>
-                    </BreadcrumbItem>
-                    <BreadcrumbSeparator />
-                    <BreadcrumbCurrent>Breadcrumb</BreadcrumbCurrent>
-                </Breadcrumb>
-            </ComponentPreview>
-        </section>
-    </div>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbLink href="#">Navigation</BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbCurrent>Breadcrumb</BreadcrumbCurrent>
+        </Breadcrumb>
+      </ComponentPreview>
+    </section>
+  </div>
 </Layout>

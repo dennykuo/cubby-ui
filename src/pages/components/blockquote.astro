@@ -26,28 +26,28 @@ const withCitationCode = `<figure>
 ---
 
 <Layout title={t.title} category={t.category} componentName="Blockquote" description={t.description}>
-    <div class="space-y-3">
-        <div class="flex items-center gap-3">
-          <h1 class="text-3xl font-bold tracking-tight">Blockquote</h1>
-          <span class="cu-badge cu-badge-secondary">{t.category}</span>
-        </div>
-        <p class="text-base text-muted-foreground leading-relaxed" set:html={t.description} />
+  <div class="space-y-3">
+    <div class="flex items-center gap-3">
+      <h1 class="text-3xl font-bold tracking-tight">Blockquote</h1>
+      <span class="cu-badge cu-badge-secondary">{t.category}</span>
     </div>
+    <p class="text-base text-muted-foreground leading-relaxed" set:html={t.description} />
+  </div>
 
-    <div class="mt-10 space-y-10">
-        <!-- Usage -->
-        <section class="space-y-3">
-            <SectionHeading id="usage" title={t.sections.usage.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
-            <ComponentPreview code={usageCode}>
-                <div class="w-full max-w-lg">
-                    <Blockquote>
-                        "After all," he said, "everyone enjoys a good joke, so it's only fair that
-                        they should pay for the privilege."
-                    </Blockquote>
-                </div>
-            </ComponentPreview>
-        </section>
+  <div class="mt-10 space-y-10">
+    <!-- Usage -->
+    <section class="space-y-3">
+      <SectionHeading id="usage" title={t.sections.usage.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
+      <ComponentPreview code={usageCode}>
+        <div class="w-full max-w-lg">
+          <Blockquote>
+            "After all," he said, "everyone enjoys a good joke, so it's only fair that they should pay for the
+            privilege."
+          </Blockquote>
+        </div>
+      </ComponentPreview>
+    </section>
 
     <!-- Classes Reference -->
     <section class="space-y-3">
@@ -62,32 +62,28 @@ const withCitationCode = `<figure>
           </thead>
           <tbody class="cu-table-body">
             <tr class="cu-table-row">
-              <td class="cu-table-cell"><code class="cu-code">cu-blockquote</code></td>
-              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-blockquote']}</td>
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-blockquote</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-blockquote"]}</td>
             </tr>
           </tbody>
         </table>
       </div>
     </section>
 
-
-        <!-- With Citation -->
-        <section class="space-y-3">
-            <SectionHeading id="with-citation" title={t.sections.withCitation.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withCitation.description} />
-            <ComponentPreview code={withCitationCode}>
-                <div class="w-full max-w-lg">
-                    <figure>
-                        <Blockquote>
-                            "The only way to do great work is to love what you do."
-                        </Blockquote>
-                        <figcaption class="mt-2 pl-6 text-sm text-muted-foreground">
-                            — Steve Jobs
-                        </figcaption>
-                    </figure>
-                </div>
-            </ComponentPreview>
-        </section>
-    </div>
-
+    <!-- With Citation -->
+    <section class="space-y-3">
+      <SectionHeading id="with-citation" title={t.sections.withCitation.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withCitation.description} />
+      <ComponentPreview code={withCitationCode}>
+        <div class="w-full max-w-lg">
+          <figure>
+            <Blockquote>"The only way to do great work is to love what you do."</Blockquote>
+            <figcaption class="mt-2 pl-6 text-sm text-muted-foreground">— Steve Jobs</figcaption>
+          </figure>
+        </div>
+      </ComponentPreview>
+    </section>
+  </div>
 </Layout>

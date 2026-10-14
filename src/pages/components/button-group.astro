@@ -99,9 +99,7 @@ const verticalCode = `<div class="cu-button-group cu-button-group-vertical" role
       <h1 class="text-3xl font-bold tracking-tight">Button Group</h1>
       <span class="cu-badge cu-badge-secondary">{t.category}</span>
     </div>
-    <p class="text-base text-muted-foreground leading-relaxed">
-      {t.description}
-    </p>
+    <p class="text-base text-muted-foreground leading-relaxed">{t.description}</p>
   </div>
 
   <div class="mt-10 space-y-10">
@@ -132,7 +130,9 @@ const verticalCode = `<div class="cu-button-group cu-button-group-vertical" role
           <tbody class="cu-table-body">
             {Object.entries(t.classDescriptions).map(([cls, desc]) => (
               <tr class="cu-table-row">
-                <td class="cu-table-cell"><code class="cu-code">{cls}</code></td>
+                <td class="cu-table-cell">
+                  <code class="cu-code">{cls}</code>
+                </td>
                 <td class="cu-table-cell text-muted-foreground">{desc}</td>
               </tr>
             ))}
@@ -141,13 +141,10 @@ const verticalCode = `<div class="cu-button-group cu-button-group-vertical" role
       </div>
     </section>
 
-
     <!-- Variants -->
     <section class="space-y-3">
       <SectionHeading id="variants" title={t.sections.variants.title} />
-      <p class="text-base text-muted-foreground leading-relaxed">
-        {t.sections.variants.description}
-      </p>
+      <p class="text-base text-muted-foreground leading-relaxed">{t.sections.variants.description}</p>
       <ComponentPreview code={variantsCode}>
         <div class="flex flex-wrap gap-4 items-center justify-center">
           <ButtonGroup>
@@ -172,21 +169,58 @@ const verticalCode = `<div class="cu-button-group cu-button-group-vertical" role
     <!-- With Icons -->
     <section class="space-y-3">
       <SectionHeading id="with-icons" title={t.sections.withIcons.title} />
-      <p class="text-base text-muted-foreground leading-relaxed">
-        {t.sections.withIcons.description}
-      </p>
+      <p class="text-base text-muted-foreground leading-relaxed">{t.sections.withIcons.description}</p>
       <ComponentPreview code={withIconsCode}>
         <ButtonGroup>
           <Button variant="outline">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+              <circle cx="12" cy="7" r="4" />
+            </svg>
             Profile
           </Button>
           <Button variant="outline">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z" />
+              <circle cx="12" cy="12" r="3" />
+            </svg>
             Settings
           </Button>
           <Button variant="outline">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+              <polyline points="22,6 12,13 2,6" />
+            </svg>
             Messages
           </Button>
         </ButtonGroup>
@@ -200,13 +234,53 @@ const verticalCode = `<div class="cu-button-group cu-button-group-vertical" role
       <ComponentPreview code={iconOnlyCode}>
         <ButtonGroup>
           <Button variant="outline" size="icon">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
+              <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
+            </svg>
           </Button>
           <Button variant="outline" size="icon">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+              <polyline points="7 10 12 15 17 10" />
+              <line x1="12" y1="15" x2="12" y2="3" />
+            </svg>
           </Button>
           <Button variant="outline" size="icon">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <polyline points="3 6 5 6 21 6" />
+              <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+            </svg>
           </Button>
         </ButtonGroup>
       </ComponentPreview>
@@ -215,15 +289,19 @@ const verticalCode = `<div class="cu-button-group cu-button-group-vertical" role
     <!-- Sizes -->
     <section class="space-y-3">
       <SectionHeading id="sizes" title={t.sections.sizes.title} />
-      <p class="text-base text-muted-foreground leading-relaxed">
-        {t.sections.sizes.description}
-      </p>
+      <p class="text-base text-muted-foreground leading-relaxed">{t.sections.sizes.description}</p>
       <ComponentPreview code={sizesCode}>
         <div class="flex flex-wrap gap-4 items-center justify-center">
           <ButtonGroup>
-            <Button variant="outline" size="sm">Profile</Button>
-            <Button variant="outline" size="sm">Settings</Button>
-            <Button variant="outline" size="sm">Messages</Button>
+            <Button variant="outline" size="sm">
+              Profile
+            </Button>
+            <Button variant="outline" size="sm">
+              Settings
+            </Button>
+            <Button variant="outline" size="sm">
+              Messages
+            </Button>
           </ButtonGroup>
           <ButtonGroup>
             <Button variant="outline">Profile</Button>
@@ -231,9 +309,15 @@ const verticalCode = `<div class="cu-button-group cu-button-group-vertical" role
             <Button variant="outline">Messages</Button>
           </ButtonGroup>
           <ButtonGroup>
-            <Button variant="outline" size="lg">Profile</Button>
-            <Button variant="outline" size="lg">Settings</Button>
-            <Button variant="outline" size="lg">Messages</Button>
+            <Button variant="outline" size="lg">
+              Profile
+            </Button>
+            <Button variant="outline" size="lg">
+              Settings
+            </Button>
+            <Button variant="outline" size="lg">
+              Messages
+            </Button>
           </ButtonGroup>
         </div>
       </ComponentPreview>
@@ -251,6 +335,5 @@ const verticalCode = `<div class="cu-button-group cu-button-group-vertical" role
         </ButtonGroup>
       </ComponentPreview>
     </section>
-
   </div>
 </Layout>

@@ -86,16 +86,26 @@ test.describe("JSDoc HTML 範例", () => {
     await expect(details).toBeHidden();
   });
 
-  test("rating：點擊星星更新 data-cu-rating-value 並派發 cu:rating:change", async ({ page }) => {
+  test('rating：星星為 <button type="button">，點擊與 Enter 更新 data-cu-rating-value 並派發 cu:rating:change', async ({
+    page,
+  }) => {
     await mount(page, "rating");
     const root = page.locator("[data-cu-rating]");
     const value = page.evaluate(
-      () => new Promise((r) => document.addEventListener("cu:rating:change", (e: any) => r(e.detail.value), { once: true })),
+      () =>
+        new Promise((r) =>
+          document.addEventListener("cu:rating:change", (e: any) => r(e.detail.value), { once: true }),
+        ),
     );
     await page.locator('[data-cu-rating-star="2"]').click();
     expect(await value).toBe(2);
     await expect(root).toHaveAttribute("data-cu-rating-value", "2");
     await expect(page.locator(".cu-rating-item-active")).toHaveCount(2);
     await expect(page.locator(".cu-rating-item svg")).toHaveCount(2);
+    // 星星為 <button type="button">：可用鍵盤評分
+    await expect(page.locator("[data-cu-rating-star]").first()).toHaveJSProperty("type", "button");
+    await page.locator('[data-cu-rating-star="1"]').focus();
+    await page.keyboard.press("Enter");
+    await expect(root).toHaveAttribute("data-cu-rating-value", "1");
   });
 });

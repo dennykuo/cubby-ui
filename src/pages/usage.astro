@@ -108,356 +108,446 @@ const darkModeCode = `<html class="dark">
 ---
 
 <Layout title={t.title} description={t.description}>
-    <div class="space-y-3">
-        <h1 class="text-3xl font-bold tracking-tight">{t.heading}</h1>
-        <p class="text-base text-muted-foreground leading-relaxed">
-            {t.description}
+  <div class="space-y-3">
+    <h1 class="text-3xl font-bold tracking-tight">{t.heading}</h1>
+    <p class="text-base text-muted-foreground leading-relaxed">{t.description}</p>
+  </div>
+
+  <div class="mt-10 space-y-12">
+    <!-- Installation -->
+    <section class="space-y-6">
+      <h2 class="text-xl font-semibold tracking-tight">{t.installation.heading}</h2>
+
+      <!-- CDN -->
+      <div class="space-y-3">
+        <div class="flex items-center gap-2">
+          <h3 class="text-base font-medium">{t.cdn.heading}</h3>
+          <span class="cu-badge cu-badge-success text-[10px]">{t.cdn.recommended}</span>
+        </div>
+        <p class="text-sm text-muted-foreground">{t.cdn.description}</p>
+
+        <!-- Step 1: CSS -->
+        <div class="space-y-2">
+          <div class="flex items-center gap-2">
+            <span class="flex size-5 items-center justify-center rounded-full bg-primary text-[11px] font-semibold text-primary-foreground">
+              1
+            </span>
+            <span class="text-sm font-medium" set:html={t.cdn.step1Label} />
+          </div>
+          <div class="rounded-xl border border-border bg-muted/20 overflow-hidden">
+            <div class="flex items-center px-4 py-2.5 border-b border-border/40">
+              <span class="text-[11px] font-medium tracking-wider text-muted-foreground/60">HTML</span>
+            </div>
+            <div class="px-4 py-3">
+              <Code code={cdnCssCode} lang="html" />
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 2: JS -->
+        <div class="space-y-2">
+          <div class="flex items-center gap-2">
+            <span class="flex size-5 items-center justify-center rounded-full bg-primary text-[11px] font-semibold text-primary-foreground">
+              2
+            </span>
+            <span class="text-sm font-medium" set:html={t.cdn.step2Label} />
+            <span class="cu-badge cu-badge-secondary text-[10px]">{t.cdn.step2Optional}</span>
+          </div>
+          <p class="text-xs text-muted-foreground pl-7">{t.cdn.step2Note}</p>
+          <div class="rounded-xl border border-border bg-muted/20 overflow-hidden">
+            <div class="flex items-center px-4 py-2.5 border-b border-border/40">
+              <span class="text-[11px] font-medium tracking-wider text-muted-foreground/60">HTML</span>
+            </div>
+            <div class="px-4 py-3">
+              <Code code={cdnJsCode} lang="html" />
+            </div>
+          </div>
+        </div>
+
+        <!-- jsDelivr alternative -->
+        <p class="text-xs text-muted-foreground pt-1">
+          {t.cdn.jsdelivrNote}{" "}
+          <a
+            href="https://www.jsdelivr.com/"
+            target="_blank"
+            rel="noreferrer"
+            class="text-primary hover:underline underline-offset-4"
+          >
+            jsDelivr
+          </a>
+          :
         </p>
-    </div>
+        <div class="rounded-xl border border-border bg-muted/20 overflow-hidden">
+          <div class="flex items-center px-4 py-2.5 border-b border-border/40">
+            <span class="text-[11px] font-medium tracking-wider text-muted-foreground/60">HTML</span>
+          </div>
+          <div class="px-4 py-3">
+            <Code code={cdnJsdelivrCode} lang="html" />
+          </div>
+        </div>
+      </div>
 
-    <div class="mt-10 space-y-12">
-        <!-- Installation -->
-        <section class="space-y-6">
-            <h2 class="text-xl font-semibold tracking-tight">{t.installation.heading}</h2>
+      <!-- NPM -->
+      <div class="space-y-3">
+        <h3 class="text-base font-medium">{t.npm.heading}</h3>
+        <p class="text-sm text-muted-foreground">{t.npm.description}</p>
+        <div class="rounded-xl border border-border bg-muted/20 overflow-hidden">
+          <div class="flex items-center px-4 py-2.5 border-b border-border/40">
+            <span class="text-[11px] font-medium tracking-wider text-muted-foreground/60">Bash</span>
+          </div>
+          <div class="px-4 py-3">
+            <Code code={npmInstallCode} lang="bash" frame="none" />
+          </div>
+        </div>
+        <div class="rounded-xl border border-border bg-muted/20 overflow-hidden">
+          <div class="flex items-center px-4 py-2.5 border-b border-border/40">
+            <span class="text-[11px] font-medium tracking-wider text-muted-foreground/60">main.js</span>
+          </div>
+          <div class="px-4 py-3">
+            <Code code={npmUsageCode} lang="javascript" />
+          </div>
+        </div>
+      </div>
 
-            <!-- CDN -->
-            <div class="space-y-3">
-                <div class="flex items-center gap-2">
-                    <h3 class="text-base font-medium">{t.cdn.heading}</h3>
-                    <span class="cu-badge cu-badge-success text-[10px]">{t.cdn.recommended}</span>
-                </div>
-                <p class="text-sm text-muted-foreground">
-                    {t.cdn.description}
-                </p>
-
-                <!-- Step 1: CSS -->
-                <div class="space-y-2">
-                    <div class="flex items-center gap-2">
-                        <span class="flex size-5 items-center justify-center rounded-full bg-primary text-[11px] font-semibold text-primary-foreground">1</span>
-                        <span class="text-sm font-medium" set:html={t.cdn.step1Label} />
-                    </div>
-                    <div class="rounded-xl border border-border bg-muted/20 overflow-hidden">
-                        <div class="flex items-center px-4 py-2.5 border-b border-border/40">
-                            <span class="text-[11px] font-medium tracking-wider text-muted-foreground/60">HTML</span>
-                        </div>
-                        <div class="px-4 py-3">
-                            <Code code={cdnCssCode} lang="html" />
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Step 2: JS -->
-                <div class="space-y-2">
-                    <div class="flex items-center gap-2">
-                        <span class="flex size-5 items-center justify-center rounded-full bg-primary text-[11px] font-semibold text-primary-foreground">2</span>
-                        <span class="text-sm font-medium" set:html={t.cdn.step2Label} />
-                        <span class="cu-badge cu-badge-secondary text-[10px]">{t.cdn.step2Optional}</span>
-                    </div>
-                    <p class="text-xs text-muted-foreground pl-7">
-                        {t.cdn.step2Note}
-                    </p>
-                    <div class="rounded-xl border border-border bg-muted/20 overflow-hidden">
-                        <div class="flex items-center px-4 py-2.5 border-b border-border/40">
-                            <span class="text-[11px] font-medium tracking-wider text-muted-foreground/60">HTML</span>
-                        </div>
-                        <div class="px-4 py-3">
-                            <Code code={cdnJsCode} lang="html" />
-                        </div>
-                    </div>
-                </div>
-
-                <!-- jsDelivr alternative -->
-                <p class="text-xs text-muted-foreground pt-1">
-                    {t.cdn.jsdelivrNote} <a href="https://www.jsdelivr.com/" target="_blank" rel="noreferrer" class="text-primary hover:underline underline-offset-4">jsDelivr</a>:
-                </p>
-                <div class="rounded-xl border border-border bg-muted/20 overflow-hidden">
-                    <div class="flex items-center px-4 py-2.5 border-b border-border/40">
-                        <span class="text-[11px] font-medium tracking-wider text-muted-foreground/60">HTML</span>
-                    </div>
-                    <div class="px-4 py-3">
-                        <Code code={cdnJsdelivrCode} lang="html" />
-                    </div>
-                </div>
+      <!-- Manual -->
+      <div class="space-y-3">
+        <h3 class="text-base font-medium">{t.manual.heading}</h3>
+        <p class="text-sm text-muted-foreground">
+          {t.manual.description}{" "}
+          <a
+            href="https://tailwindcss.com"
+            target="_blank"
+            rel="noreferrer"
+            class="text-primary hover:underline underline-offset-4"
+          >
+            {t.manual.requires}
+          </a>
+          .
+        </p>
+        <p class="text-sm text-muted-foreground" set:html={t.manual.copyFiles} />
+        <div class="space-y-2">
+          <div class="flex items-start gap-3 rounded-lg border border-border p-3.5">
+            <div class="flex size-8 items-center justify-center rounded-lg bg-muted shrink-0 mt-0.5">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="text-muted-foreground"
+              >
+                <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z" />
+                <path d="M14 2v4a2 2 0 0 0 2 2h4" />
+              </svg>
             </div>
-
-            <!-- NPM -->
-            <div class="space-y-3">
-                <h3 class="text-base font-medium">{t.npm.heading}</h3>
-                <p class="text-sm text-muted-foreground">
-                    {t.npm.description}
-                </p>
-                <div class="rounded-xl border border-border bg-muted/20 overflow-hidden">
-                    <div class="flex items-center px-4 py-2.5 border-b border-border/40">
-                        <span class="text-[11px] font-medium tracking-wider text-muted-foreground/60">Bash</span>
-                    </div>
-                    <div class="px-4 py-3">
-                        <Code code={npmInstallCode} lang="bash" frame="none" />
-                    </div>
-                </div>
-                <div class="rounded-xl border border-border bg-muted/20 overflow-hidden">
-                    <div class="flex items-center px-4 py-2.5 border-b border-border/40">
-                        <span class="text-[11px] font-medium tracking-wider text-muted-foreground/60">main.js</span>
-                    </div>
-                    <div class="px-4 py-3">
-                        <Code code={npmUsageCode} lang="javascript" />
-                    </div>
-                </div>
+            <div>
+              <p class="text-sm font-medium">
+                <code class="cu-code">theme.css</code>
+              </p>
+              <p class="text-xs text-muted-foreground mt-0.5">{t.manual.themeFile}</p>
             </div>
-
-            <!-- Manual -->
-            <div class="space-y-3">
-                <h3 class="text-base font-medium">{t.manual.heading}</h3>
-                <p class="text-sm text-muted-foreground">
-                    {t.manual.description} <a href="https://tailwindcss.com" target="_blank" rel="noreferrer" class="text-primary hover:underline underline-offset-4">{t.manual.requires}</a>.
-                </p>
-                <p class="text-sm text-muted-foreground" set:html={t.manual.copyFiles} />
-                <div class="space-y-2">
-                    <div class="flex items-start gap-3 rounded-lg border border-border p-3.5">
-                        <div class="flex size-8 items-center justify-center rounded-lg bg-muted shrink-0 mt-0.5">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-muted-foreground"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/></svg>
-                        </div>
-                        <div>
-                            <p class="text-sm font-medium"><code class="cu-code">theme.css</code></p>
-                            <p class="text-xs text-muted-foreground mt-0.5">{t.manual.themeFile}</p>
-                        </div>
-                    </div>
-                    <div class="flex items-start gap-3 rounded-lg border border-border p-3.5">
-                        <div class="flex size-8 items-center justify-center rounded-lg bg-muted shrink-0 mt-0.5">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-muted-foreground"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/></svg>
-                        </div>
-                        <div>
-                            <p class="text-sm font-medium"><code class="cu-code">components.css</code> + <code class="cu-code">components/</code></p>
-                            <p class="text-xs text-muted-foreground mt-0.5">{t.manual.componentsFile}</p>
-                        </div>
-                    </div>
-                    <div class="flex items-start gap-3 rounded-lg border border-border p-3.5">
-                        <div class="flex size-8 items-center justify-center rounded-lg bg-muted shrink-0 mt-0.5">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-muted-foreground"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/></svg>
-                        </div>
-                        <div>
-                            <p class="text-sm font-medium"><code class="cu-code">scripts/cubby-ui.js</code> <span class="cu-badge cu-badge-secondary text-[10px] ml-1.5">{t.cdn.step2Optional}</span></p>
-                            <p class="text-xs text-muted-foreground mt-0.5">{t.manual.jsFile}</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="rounded-xl border border-border bg-muted/20 overflow-hidden">
-                    <div class="flex items-center px-4 py-2.5 border-b border-border/40">
-                        <span class="text-[11px] font-medium tracking-wider text-muted-foreground/60">main.css</span>
-                    </div>
-                    <div class="px-4 py-3">
-                        <Code code={manualCssImportCode} lang="css" />
-                    </div>
-                </div>
-                <div class="rounded-xl border border-border bg-muted/20 overflow-hidden">
-                    <div class="flex items-center px-4 py-2.5 border-b border-border/40">
-                        <span class="text-[11px] font-medium tracking-wider text-muted-foreground/60">index.html</span>
-                    </div>
-                    <div class="px-4 py-3">
-                        <Code code={manualHtmlCode} lang="html" />
-                    </div>
-                </div>
+          </div>
+          <div class="flex items-start gap-3 rounded-lg border border-border p-3.5">
+            <div class="flex size-8 items-center justify-center rounded-lg bg-muted shrink-0 mt-0.5">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="text-muted-foreground"
+              >
+                <path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z" />
+              </svg>
             </div>
-        </section>
-
-        <!-- Divider -->
-        <div class="cu-separator"></div>
-
-        <!-- Class Naming -->
-        <section class="space-y-4">
-            <h2 class="text-lg font-semibold tracking-tight">{t.classNaming.heading}</h2>
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.classNaming.description} />
-            <div class="rounded-xl border border-border bg-muted/20 overflow-hidden">
-                <div class="flex items-center px-4 py-2.5 border-b border-border/40">
-                    <span class="text-[11px] font-medium tracking-wider text-muted-foreground/60">Pattern</span>
-                </div>
-                <div class="px-4 py-3">
-                    <Code code={classNamingCode} lang="css" />
-                </div>
+            <div>
+              <p class="text-sm font-medium">
+                <code class="cu-code">components.css</code> + <code class="cu-code">components/</code>
+              </p>
+              <p class="text-xs text-muted-foreground mt-0.5">{t.manual.componentsFile}</p>
             </div>
-        </section>
+          </div>
+          <div class="flex items-start gap-3 rounded-lg border border-border p-3.5">
+            <div class="flex size-8 items-center justify-center rounded-lg bg-muted shrink-0 mt-0.5">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="text-muted-foreground"
+              >
+                <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z" />
+                <path d="M14 2v4a2 2 0 0 0 2 2h4" />
+              </svg>
+            </div>
+            <div>
+              <p class="text-sm font-medium">
+                <code class="cu-code">scripts/cubby-ui.js</code>{" "}
+                <span class="cu-badge cu-badge-secondary text-[10px] ml-1.5">{t.cdn.step2Optional}</span>
+              </p>
+              <p class="text-xs text-muted-foreground mt-0.5">{t.manual.jsFile}</p>
+            </div>
+          </div>
+        </div>
+        <div class="rounded-xl border border-border bg-muted/20 overflow-hidden">
+          <div class="flex items-center px-4 py-2.5 border-b border-border/40">
+            <span class="text-[11px] font-medium tracking-wider text-muted-foreground/60">main.css</span>
+          </div>
+          <div class="px-4 py-3">
+            <Code code={manualCssImportCode} lang="css" />
+          </div>
+        </div>
+        <div class="rounded-xl border border-border bg-muted/20 overflow-hidden">
+          <div class="flex items-center px-4 py-2.5 border-b border-border/40">
+            <span class="text-[11px] font-medium tracking-wider text-muted-foreground/60">index.html</span>
+          </div>
+          <div class="px-4 py-3">
+            <Code code={manualHtmlCode} lang="html" />
+          </div>
+        </div>
+      </div>
+    </section>
 
-        <!-- CSS-only Examples -->
-        <section class="space-y-4">
-            <h2 class="text-lg font-semibold tracking-tight">{t.cssOnly.heading}</h2>
-            <p class="text-base text-muted-foreground leading-relaxed">
-                {t.cssOnly.description}
-            </p>
-            <div class="space-y-3">
-                <div class="rounded-xl border border-border overflow-hidden">
-                    <div class="p-8 flex items-center justify-center gap-3 bg-background/50 relative">
-                        <div class="absolute inset-0 -z-10 bg-white dark:bg-slate-950 bg-[radial-gradient(#f1f5f9_1px,transparent_1px)] dark:bg-[radial-gradient(#1e293b_1px,transparent_1px)] [background-size:16px_16px]"></div>
-                        <button class="cu-button cu-button-default cu-button-md">Default</button>
-                        <button class="cu-button cu-button-outline cu-button-md">Outline</button>
-                        <button class="cu-button cu-button-destructive cu-button-md">Destructive</button>
-                    </div>
-                    <div class="border-t border-border/40 bg-muted/30">
-                        <div class="flex items-center px-4 py-2.5 border-b border-border/20">
-                            <span class="text-[11px] font-medium tracking-wider text-muted-foreground/60">Button</span>
-                        </div>
-                        <div class="px-4 py-3">
-                            <Code code={buttonExample} lang="html" />
-                        </div>
-                    </div>
-                </div>
-                <div class="rounded-xl border border-border overflow-hidden">
-                    <div class="p-8 flex items-center justify-center bg-background/50 relative">
-                        <div class="absolute inset-0 -z-10 bg-white dark:bg-slate-950 bg-[radial-gradient(#f1f5f9_1px,transparent_1px)] dark:bg-[radial-gradient(#1e293b_1px,transparent_1px)] [background-size:16px_16px]"></div>
-                        <div class="cu-card max-w-sm w-full">
-                            <div class="cu-card-header">
-                                <h3 class="cu-card-title">Card Title</h3>
-                                <p class="cu-card-description">Card description here.</p>
-                            </div>
-                            <div class="cu-card-content">
-                                <p>Card content goes here.</p>
-                            </div>
-                            <div class="cu-card-footer">
-                                <button class="cu-button cu-button-default cu-button-md">Action</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="border-t border-border/40 bg-muted/30">
-                        <div class="flex items-center px-4 py-2.5 border-b border-border/20">
-                            <span class="text-[11px] font-medium tracking-wider text-muted-foreground/60">Card</span>
-                        </div>
-                        <div class="px-4 py-3">
-                            <Code code={cardExample} lang="html" />
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+    <!-- Divider -->
+    <div class="cu-separator"></div>
 
-        <!-- Interactive Components -->
-        <section class="space-y-4">
-            <h2 class="text-lg font-semibold tracking-tight">{t.interactive.heading}</h2>
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.interactive.description} />
-            <div class="rounded-lg border border-border overflow-hidden">
-                <div class="cu-table-wrapper">
-                    <table class="cu-table">
-                        <thead class="cu-table-header">
-                            <tr class="cu-table-row">
-                                <th class="cu-table-head">{t.interactive.tableComponent}</th>
-                                <th class="cu-table-head">{t.interactive.tableDataAttr}</th>
-                            </tr>
-                        </thead>
-                        <tbody class="cu-table-body">
-                            <tr class="cu-table-row">
-                                <td class="cu-table-cell font-medium">Tabs</td>
-                                <td class="cu-table-cell text-muted-foreground"><code class="cu-code">data-cu-tabs</code></td>
-                            </tr>
-                            <tr class="cu-table-row">
-                                <td class="cu-table-cell font-medium">Dropdown</td>
-                                <td class="cu-table-cell text-muted-foreground"><code class="cu-code">data-cu-dropdown</code></td>
-                            </tr>
-                            <tr class="cu-table-row">
-                                <td class="cu-table-cell font-medium">Dialog</td>
-                                <td class="cu-table-cell text-muted-foreground"><code class="cu-code">data-cu-dialog</code></td>
-                            </tr>
-                            <tr class="cu-table-row">
-                                <td class="cu-table-cell font-medium">Drawer</td>
-                                <td class="cu-table-cell text-muted-foreground"><code class="cu-code">data-cu-drawer</code></td>
-                            </tr>
-                            <tr class="cu-table-row">
-                                <td class="cu-table-cell font-medium">Alert Dialog</td>
-                                <td class="cu-table-cell text-muted-foreground"><code class="cu-code">data-cu-alert-dialog</code></td>
-                            </tr>
-                            <tr class="cu-table-row">
-                                <td class="cu-table-cell font-medium">Toast</td>
-                                <td class="cu-table-cell text-muted-foreground"><code class="cu-code">data-cu-toast-trigger</code></td>
-                            </tr>
-                            <tr class="cu-table-row">
-                                <td class="cu-table-cell font-medium">Popover</td>
-                                <td class="cu-table-cell text-muted-foreground"><code class="cu-code">data-cu-popover</code></td>
-                            </tr>
-                            <tr class="cu-table-row">
-                                <td class="cu-table-cell font-medium">Menubar</td>
-                                <td class="cu-table-cell text-muted-foreground"><code class="cu-code">data-cu-menubar</code></td>
-                            </tr>
-                            <tr class="cu-table-row">
-                                <td class="cu-table-cell font-medium">Combobox</td>
-                                <td class="cu-table-cell text-muted-foreground"><code class="cu-code">data-cu-combobox</code></td>
-                            </tr>
-                            <tr class="cu-table-row">
-                                <td class="cu-table-cell font-medium">Multi Select</td>
-                                <td class="cu-table-cell text-muted-foreground"><code class="cu-code">data-cu-multi-select</code></td>
-                            </tr>
-                            <tr class="cu-table-row">
-                                <td class="cu-table-cell font-medium">Number Input</td>
-                                <td class="cu-table-cell text-muted-foreground"><code class="cu-code">data-cu-number-input</code></td>
-                            </tr>
-                            <tr class="cu-table-row">
-                                <td class="cu-table-cell font-medium">Dropzone</td>
-                                <td class="cu-table-cell text-muted-foreground"><code class="cu-code">data-cu-dropzone</code></td>
-                            </tr>
-                            <tr class="cu-table-row">
-                                <td class="cu-table-cell font-medium">Transfer List</td>
-                                <td class="cu-table-cell text-muted-foreground"><code class="cu-code">data-cu-transfer-list</code></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            <div class="rounded-xl border border-border overflow-hidden">
-                <div class="p-8 flex items-center justify-center bg-background/50 relative">
-                    <div class="absolute inset-0 -z-10 bg-white dark:bg-slate-950 bg-[radial-gradient(#f1f5f9_1px,transparent_1px)] dark:bg-[radial-gradient(#1e293b_1px,transparent_1px)] [background-size:16px_16px]"></div>
-                    <div class="mx-auto">
-                    <div class="cu-tabs" data-cu-tabs>
-                        <div class="cu-tabs-list justify-center">
-                            <button class="cu-tabs-trigger cu-tabs-trigger-active" data-cu-tabs-trigger="tab1">Tab 1</button>
-                            <button class="cu-tabs-trigger" data-cu-tabs-trigger="tab2">Tab 2</button>
-                        </div>
-                        <div class="cu-tabs-content" data-cu-tabs-content="tab1">
-                            Content for tab 1
-                        </div>
-                        <div class="cu-tabs-content" data-cu-tabs-content="tab2" hidden>
-                            Content for tab 2
-                        </div>
-                    </div>
-                    </div>
-                </div>
-                <div class="border-t border-border/40 bg-muted/30">
-                    <div class="flex items-center px-4 py-2.5 border-b border-border/20">
-                        <span class="text-[11px] font-medium tracking-wider text-muted-foreground/60">Tabs example</span>
-                    </div>
-                    <div class="px-4 py-3">
-                        <Code code={tabsExample} lang="html" />
-                    </div>
-                </div>
-            </div>
-        </section>
+    <!-- Class Naming -->
+    <section class="space-y-4">
+      <h2 class="text-lg font-semibold tracking-tight">{t.classNaming.heading}</h2>
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.classNaming.description} />
+      <div class="rounded-xl border border-border bg-muted/20 overflow-hidden">
+        <div class="flex items-center px-4 py-2.5 border-b border-border/40">
+          <span class="text-[11px] font-medium tracking-wider text-muted-foreground/60">Pattern</span>
+        </div>
+        <div class="px-4 py-3">
+          <Code code={classNamingCode} lang="css" />
+        </div>
+      </div>
+    </section>
 
-        <!-- Dark Mode -->
-        <section class="space-y-4">
-            <h2 class="text-lg font-semibold tracking-tight">{t.darkMode.heading}</h2>
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.darkMode.description} />
-            <div class="rounded-xl border border-border bg-muted/20 overflow-hidden">
-                <div class="flex items-center px-4 py-2.5 border-b border-border/40">
-                    <span class="text-[11px] font-medium tracking-wider text-muted-foreground/60">HTML</span>
-                </div>
-                <div class="px-4 py-3">
-                    <Code code={darkModeCode} lang="html" />
-                </div>
+    <!-- CSS-only Examples -->
+    <section class="space-y-4">
+      <h2 class="text-lg font-semibold tracking-tight">{t.cssOnly.heading}</h2>
+      <p class="text-base text-muted-foreground leading-relaxed">{t.cssOnly.description}</p>
+      <div class="space-y-3">
+        <div class="rounded-xl border border-border overflow-hidden">
+          <div class="p-8 flex items-center justify-center gap-3 bg-background/50 relative">
+            <div class="absolute inset-0 -z-10 bg-white dark:bg-slate-950 bg-[radial-gradient(#f1f5f9_1px,transparent_1px)] dark:bg-[radial-gradient(#1e293b_1px,transparent_1px)] [background-size:16px_16px]"></div>
+            <button class="cu-button cu-button-default cu-button-md">Default</button>
+            <button class="cu-button cu-button-outline cu-button-md">Outline</button>
+            <button class="cu-button cu-button-destructive cu-button-md">Destructive</button>
+          </div>
+          <div class="border-t border-border/40 bg-muted/30">
+            <div class="flex items-center px-4 py-2.5 border-b border-border/20">
+              <span class="text-[11px] font-medium tracking-wider text-muted-foreground/60">Button</span>
             </div>
-        </section>
-    </div>
+            <div class="px-4 py-3">
+              <Code code={buttonExample} lang="html" />
+            </div>
+          </div>
+        </div>
+        <div class="rounded-xl border border-border overflow-hidden">
+          <div class="p-8 flex items-center justify-center bg-background/50 relative">
+            <div class="absolute inset-0 -z-10 bg-white dark:bg-slate-950 bg-[radial-gradient(#f1f5f9_1px,transparent_1px)] dark:bg-[radial-gradient(#1e293b_1px,transparent_1px)] [background-size:16px_16px]"></div>
+            <div class="cu-card max-w-sm w-full">
+              <div class="cu-card-header">
+                <h3 class="cu-card-title">Card Title</h3>
+                <p class="cu-card-description">Card description here.</p>
+              </div>
+              <div class="cu-card-content">
+                <p>Card content goes here.</p>
+              </div>
+              <div class="cu-card-footer">
+                <button class="cu-button cu-button-default cu-button-md">Action</button>
+              </div>
+            </div>
+          </div>
+          <div class="border-t border-border/40 bg-muted/30">
+            <div class="flex items-center px-4 py-2.5 border-b border-border/20">
+              <span class="text-[11px] font-medium tracking-wider text-muted-foreground/60">Card</span>
+            </div>
+            <div class="px-4 py-3">
+              <Code code={cardExample} lang="html" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Interactive Components -->
+    <section class="space-y-4">
+      <h2 class="text-lg font-semibold tracking-tight">{t.interactive.heading}</h2>
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.interactive.description} />
+      <div class="rounded-lg border border-border overflow-hidden">
+        <div class="cu-table-wrapper">
+          <table class="cu-table">
+            <thead class="cu-table-header">
+              <tr class="cu-table-row">
+                <th class="cu-table-head">{t.interactive.tableComponent}</th>
+                <th class="cu-table-head">{t.interactive.tableDataAttr}</th>
+              </tr>
+            </thead>
+            <tbody class="cu-table-body">
+              <tr class="cu-table-row">
+                <td class="cu-table-cell font-medium">Tabs</td>
+                <td class="cu-table-cell text-muted-foreground">
+                  <code class="cu-code">data-cu-tabs</code>
+                </td>
+              </tr>
+              <tr class="cu-table-row">
+                <td class="cu-table-cell font-medium">Dropdown</td>
+                <td class="cu-table-cell text-muted-foreground">
+                  <code class="cu-code">data-cu-dropdown</code>
+                </td>
+              </tr>
+              <tr class="cu-table-row">
+                <td class="cu-table-cell font-medium">Dialog</td>
+                <td class="cu-table-cell text-muted-foreground">
+                  <code class="cu-code">data-cu-dialog</code>
+                </td>
+              </tr>
+              <tr class="cu-table-row">
+                <td class="cu-table-cell font-medium">Drawer</td>
+                <td class="cu-table-cell text-muted-foreground">
+                  <code class="cu-code">data-cu-drawer</code>
+                </td>
+              </tr>
+              <tr class="cu-table-row">
+                <td class="cu-table-cell font-medium">Alert Dialog</td>
+                <td class="cu-table-cell text-muted-foreground">
+                  <code class="cu-code">data-cu-alert-dialog</code>
+                </td>
+              </tr>
+              <tr class="cu-table-row">
+                <td class="cu-table-cell font-medium">Toast</td>
+                <td class="cu-table-cell text-muted-foreground">
+                  <code class="cu-code">data-cu-toast-trigger</code>
+                </td>
+              </tr>
+              <tr class="cu-table-row">
+                <td class="cu-table-cell font-medium">Popover</td>
+                <td class="cu-table-cell text-muted-foreground">
+                  <code class="cu-code">data-cu-popover</code>
+                </td>
+              </tr>
+              <tr class="cu-table-row">
+                <td class="cu-table-cell font-medium">Menubar</td>
+                <td class="cu-table-cell text-muted-foreground">
+                  <code class="cu-code">data-cu-menubar</code>
+                </td>
+              </tr>
+              <tr class="cu-table-row">
+                <td class="cu-table-cell font-medium">Combobox</td>
+                <td class="cu-table-cell text-muted-foreground">
+                  <code class="cu-code">data-cu-combobox</code>
+                </td>
+              </tr>
+              <tr class="cu-table-row">
+                <td class="cu-table-cell font-medium">Multi Select</td>
+                <td class="cu-table-cell text-muted-foreground">
+                  <code class="cu-code">data-cu-multi-select</code>
+                </td>
+              </tr>
+              <tr class="cu-table-row">
+                <td class="cu-table-cell font-medium">Number Input</td>
+                <td class="cu-table-cell text-muted-foreground">
+                  <code class="cu-code">data-cu-number-input</code>
+                </td>
+              </tr>
+              <tr class="cu-table-row">
+                <td class="cu-table-cell font-medium">Dropzone</td>
+                <td class="cu-table-cell text-muted-foreground">
+                  <code class="cu-code">data-cu-dropzone</code>
+                </td>
+              </tr>
+              <tr class="cu-table-row">
+                <td class="cu-table-cell font-medium">Transfer List</td>
+                <td class="cu-table-cell text-muted-foreground">
+                  <code class="cu-code">data-cu-transfer-list</code>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="rounded-xl border border-border overflow-hidden">
+        <div class="p-8 flex items-center justify-center bg-background/50 relative">
+          <div class="absolute inset-0 -z-10 bg-white dark:bg-slate-950 bg-[radial-gradient(#f1f5f9_1px,transparent_1px)] dark:bg-[radial-gradient(#1e293b_1px,transparent_1px)] [background-size:16px_16px]"></div>
+          <div class="mx-auto">
+            <div class="cu-tabs" data-cu-tabs>
+              <div class="cu-tabs-list justify-center">
+                <button class="cu-tabs-trigger cu-tabs-trigger-active" data-cu-tabs-trigger="tab1">
+                  Tab 1
+                </button>
+                <button class="cu-tabs-trigger" data-cu-tabs-trigger="tab2">
+                  Tab 2
+                </button>
+              </div>
+              <div class="cu-tabs-content" data-cu-tabs-content="tab1">
+                Content for tab 1
+              </div>
+              <div class="cu-tabs-content" data-cu-tabs-content="tab2" hidden>
+                Content for tab 2
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="border-t border-border/40 bg-muted/30">
+          <div class="flex items-center px-4 py-2.5 border-b border-border/20">
+            <span class="text-[11px] font-medium tracking-wider text-muted-foreground/60">Tabs example</span>
+          </div>
+          <div class="px-4 py-3">
+            <Code code={tabsExample} lang="html" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Dark Mode -->
+    <section class="space-y-4">
+      <h2 class="text-lg font-semibold tracking-tight">{t.darkMode.heading}</h2>
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.darkMode.description} />
+      <div class="rounded-xl border border-border bg-muted/20 overflow-hidden">
+        <div class="flex items-center px-4 py-2.5 border-b border-border/40">
+          <span class="text-[11px] font-medium tracking-wider text-muted-foreground/60">HTML</span>
+        </div>
+        <div class="px-4 py-3">
+          <Code code={darkModeCode} lang="html" />
+        </div>
+      </div>
+    </section>
+  </div>
 </Layout>
 
 <script>
-    function setupUsageTabs() {
-        document.querySelectorAll("[data-cu-tabs]").forEach((tabs) => {
-            const triggers = tabs.querySelectorAll("[data-cu-tabs-trigger]");
-            const contents = tabs.querySelectorAll("[data-cu-tabs-content]");
-            triggers.forEach((trigger) => {
-                trigger.addEventListener("click", () => {
-                    const value = trigger.getAttribute("data-cu-tabs-trigger");
-                    triggers.forEach((t) => t.classList.toggle("cu-tabs-trigger-active", t === trigger));
-                    contents.forEach((c) => {
-                        (c as HTMLElement).hidden = c.getAttribute("data-cu-tabs-content") !== value;
-                    });
-                });
-            });
+  function setupUsageTabs() {
+    document.querySelectorAll("[data-cu-tabs]").forEach((tabs) => {
+      const triggers = tabs.querySelectorAll("[data-cu-tabs-trigger]");
+      const contents = tabs.querySelectorAll("[data-cu-tabs-content]");
+      triggers.forEach((trigger) => {
+        trigger.addEventListener("click", () => {
+          const value = trigger.getAttribute("data-cu-tabs-trigger");
+          triggers.forEach((t) => t.classList.toggle("cu-tabs-trigger-active", t === trigger));
+          contents.forEach((c) => {
+            (c as HTMLElement).hidden = c.getAttribute("data-cu-tabs-content") !== value;
+          });
         });
-    }
-    setupUsageTabs();
-    document.addEventListener("astro:page-load", setupUsageTabs);
+      });
+    });
+  }
+  setupUsageTabs();
+  document.addEventListener("astro:page-load", setupUsageTabs);
 </script>

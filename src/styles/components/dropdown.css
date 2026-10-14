@@ -1,51 +1,52 @@
 /* Dropdown Menu
    ------------------------------------------------------------------ */
 .cu-dropdown {
-    @apply relative inline-block;
+  @apply relative inline-block;
 }
 
 .cu-dropdown-content {
-    @apply absolute z-50 mt-1 min-w-[8rem] overflow-hidden rounded-xl border border-border bg-popover p-1 text-popover-foreground shadow-md dark:shadow-lg dark:shadow-black/20;
+  @apply absolute z-50 mt-1 min-w-[8rem] overflow-hidden rounded-xl border border-border bg-popover p-1 text-popover-foreground shadow-md dark:shadow-lg dark:shadow-black/20;
 }
 
 .cu-dropdown-content:not([hidden]) {
-    animation: cu-float-in 0.15s ease;
+  animation: cu-float-in 0.15s ease;
 }
 
-/* Shared item style for Dropdown & Menubar */
+/* Shared item style for Dropdown & Menubar
+   （項目為 <button> 時可被 Tab 聚焦，focus-visible 套用與 hover 相同的底色，鍵盤焦點才看得見） */
 .cu-dropdown-item,
 .cu-menubar-item {
-    @apply relative flex w-full cursor-pointer items-center rounded-md px-2 py-1.5 text-sm transition-colors duration-150 hover:bg-accent hover:text-accent-foreground outline-none;
+  @apply relative flex w-full cursor-pointer items-center rounded-md px-2 py-1.5 text-sm transition-colors duration-150 outline-none hover:bg-accent hover:text-accent-foreground focus-visible:bg-accent focus-visible:text-accent-foreground;
 }
 
 .cu-dropdown-item-highlight {
-    @apply bg-accent text-accent-foreground;
+  @apply bg-accent text-accent-foreground;
 }
 
 .cu-dropdown-label {
-    @apply px-2 py-1.5 text-sm font-semibold;
+  @apply px-2 py-1.5 text-sm font-semibold;
 }
 
 .cu-dropdown-separator {
-    @apply -mx-1 my-1 h-px bg-border;
+  @apply -mx-1 my-1 h-px bg-border;
 }
 
 .cu-dropdown-shortcut {
-    @apply ml-auto text-xs tracking-widest text-muted-foreground;
+  @apply ml-auto text-xs tracking-widest text-muted-foreground;
 }
 
 .cu-dropdown-content-wide {
-    @apply min-w-[12rem];
+  @apply min-w-[12rem];
 }
 
 .cu-dropdown-item-danger {
-    @apply text-destructive hover:bg-destructive/10 hover:text-destructive;
+  @apply text-destructive hover:bg-destructive/10 hover:text-destructive;
 }
 
 /* Shared float-in animation for dropdown / popover / menubar */
 @keyframes cu-float-in {
-    from {
-        opacity: 0;
-        transform: scale(0.95);
-    }
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
 }

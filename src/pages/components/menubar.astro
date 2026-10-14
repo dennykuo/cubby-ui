@@ -16,116 +16,72 @@ import { menubarPage } from "@/i18n/pages/components/menubar";
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(menubarPage, locale);
-const SO = "<" + "script>";
-const SC = "</" + "script>";
 
 const usageCode = `<div class="cu-menubar" data-cu-menubar>
   <div class="cu-menubar-menu" data-cu-menubar-menu>
     <button class="cu-menubar-trigger" data-cu-menubar-trigger aria-expanded="false">File</button>
     <div class="cu-menubar-content" data-cu-menubar-content hidden>
-      <div class="cu-menubar-item">
+      <button type="button" class="cu-menubar-item">
         New Tab <span class="cu-menubar-shortcut">⌘T</span>
-      </div>
-      <div class="cu-menubar-item">
+      </button>
+      <button type="button" class="cu-menubar-item">
         New Window <span class="cu-menubar-shortcut">⌘N</span>
-      </div>
+      </button>
       <div class="cu-menubar-separator"></div>
-      <div class="cu-menubar-item">
+      <button type="button" class="cu-menubar-item">
         Print… <span class="cu-menubar-shortcut">⌘P</span>
-      </div>
+      </button>
     </div>
   </div>
   <div class="cu-menubar-menu" data-cu-menubar-menu>
     <button class="cu-menubar-trigger" data-cu-menubar-trigger aria-expanded="false">Edit</button>
     <div class="cu-menubar-content" data-cu-menubar-content hidden>
-      <div class="cu-menubar-item">
+      <button type="button" class="cu-menubar-item">
         Undo <span class="cu-menubar-shortcut">⌘Z</span>
-      </div>
-      <div class="cu-menubar-item">
+      </button>
+      <button type="button" class="cu-menubar-item">
         Redo <span class="cu-menubar-shortcut">⇧⌘Z</span>
-      </div>
+      </button>
       <div class="cu-menubar-separator"></div>
-      <div class="cu-menubar-item">
+      <button type="button" class="cu-menubar-item">
         Cut <span class="cu-menubar-shortcut">⌘X</span>
-      </div>
-      <div class="cu-menubar-item">
+      </button>
+      <button type="button" class="cu-menubar-item">
         Copy <span class="cu-menubar-shortcut">⌘C</span>
-      </div>
-      <div class="cu-menubar-item">
+      </button>
+      <button type="button" class="cu-menubar-item">
         Paste <span class="cu-menubar-shortcut">⌘V</span>
-      </div>
+      </button>
     </div>
   </div>
   <div class="cu-menubar-menu" data-cu-menubar-menu>
     <button class="cu-menubar-trigger" data-cu-menubar-trigger aria-expanded="false">View</button>
     <div class="cu-menubar-content" data-cu-menubar-content hidden>
-      <div class="cu-menubar-item">Zoom In</div>
-      <div class="cu-menubar-item">Zoom Out</div>
+      <button type="button" class="cu-menubar-item">Zoom In</button>
+      <button type="button" class="cu-menubar-item">Zoom Out</button>
       <div class="cu-menubar-separator"></div>
-      <div class="cu-menubar-item">Toggle Fullscreen</div>
+      <button type="button" class="cu-menubar-item">Toggle Fullscreen</button>
     </div>
   </div>
-</div>
-
-${SO}
-  document.querySelectorAll("[data-cu-menubar]").forEach((bar) => {
-    const menus = bar.querySelectorAll("[data-cu-menubar-menu]");
-    menus.forEach((menu) => {
-      const trigger = menu.querySelector("[data-cu-menubar-trigger]");
-      const content = menu.querySelector("[data-cu-menubar-content]");
-      trigger?.addEventListener("click", () => {
-        const open = !content?.hasAttribute("hidden");
-        // close all menus in this bar
-        menus.forEach((m) => {
-          m.querySelector("[data-cu-menubar-content]")?.setAttribute("hidden", "");
-          m.querySelector("[data-cu-menubar-trigger]")?.setAttribute("aria-expanded", "false");
-        });
-        if (!open) {
-          content?.removeAttribute("hidden");
-          trigger.setAttribute("aria-expanded", "true");
-        }
-      });
-      // hover to switch while one is open
-      trigger?.addEventListener("mouseenter", () => {
-        const anyOpen = bar.querySelector("[data-cu-menubar-content]:not([hidden])");
-        if (anyOpen && anyOpen !== content) {
-          menus.forEach((m) => {
-            m.querySelector("[data-cu-menubar-content]")?.setAttribute("hidden", "");
-            m.querySelector("[data-cu-menubar-trigger]")?.setAttribute("aria-expanded", "false");
-          });
-          content?.removeAttribute("hidden");
-          trigger.setAttribute("aria-expanded", "true");
-        }
-      });
-    });
-    document.addEventListener("click", (e) => {
-      if (!bar.contains(e.target)) {
-        menus.forEach((m) => {
-          m.querySelector("[data-cu-menubar-content]")?.setAttribute("hidden", "");
-          m.querySelector("[data-cu-menubar-trigger]")?.setAttribute("aria-expanded", "false");
-        });
-      }
-    });
-  });
-${SC}`.trim();
+</div>`.trim();
 
 const withIconsCode = `<div class="cu-menubar" data-cu-menubar>
   <div class="cu-menubar-menu" data-cu-menubar-menu>
     <button class="cu-menubar-trigger" data-cu-menubar-trigger aria-expanded="false">File</button>
     <div class="cu-menubar-content" data-cu-menubar-content hidden>
-      <div class="cu-menubar-item">
+      <button type="button" class="cu-menubar-item">
         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/></svg>
         New File <span class="cu-menubar-shortcut">⌘N</span>
-      </div>
-      <div class="cu-menubar-item">
+      </button>
+      <button type="button" class="cu-menubar-item">
         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2"><path d="M4 22h14a2 2 0 0 0 2-2V7l-5-5H6a2 2 0 0 0-2 2v4"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="m3 15 2 2 4-4"/></svg>
         Save <span class="cu-menubar-shortcut">⌘S</span>
-      </div>
+      </button>
       <div class="cu-menubar-separator"></div>
-      <div class="cu-menubar-item">
+      <button type="button" class="cu-menubar-item">
         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" x2="12" y1="3" y2="15"/></svg>
         Export
-      </div>
+      </button>
     </div>
   </div>
 </div>`.trim();
@@ -134,159 +90,77 @@ const withShortcutsCode = `<div class="cu-menubar" data-cu-menubar>
   <div class="cu-menubar-menu" data-cu-menubar-menu>
     <button class="cu-menubar-trigger" data-cu-menubar-trigger aria-expanded="false">File</button>
     <div class="cu-menubar-content" data-cu-menubar-content hidden>
-      <div class="cu-menubar-item">
+      <button type="button" class="cu-menubar-item">
         New File <span class="cu-menubar-shortcut">⌘N</span>
-      </div>
-      <div class="cu-menubar-item">
+      </button>
+      <button type="button" class="cu-menubar-item">
         Open... <span class="cu-menubar-shortcut">⌘O</span>
-      </div>
-      <div class="cu-menubar-item">
+      </button>
+      <button type="button" class="cu-menubar-item">
         Save <span class="cu-menubar-shortcut">⌘S</span>
-      </div>
-      <div class="cu-menubar-item">
+      </button>
+      <button type="button" class="cu-menubar-item">
         Save As... <span class="cu-menubar-shortcut">⇧⌘S</span>
-      </div>
+      </button>
       <div class="cu-menubar-separator"></div>
-      <div class="cu-menubar-item">
+      <button type="button" class="cu-menubar-item">
         Close Tab <span class="cu-menubar-shortcut">⌘W</span>
-      </div>
+      </button>
     </div>
   </div>
   <div class="cu-menubar-menu" data-cu-menubar-menu>
     <button class="cu-menubar-trigger" data-cu-menubar-trigger aria-expanded="false">Edit</button>
     <div class="cu-menubar-content" data-cu-menubar-content hidden>
-      <div class="cu-menubar-item">
+      <button type="button" class="cu-menubar-item">
         Undo <span class="cu-menubar-shortcut">⌘Z</span>
-      </div>
-      <div class="cu-menubar-item">
+      </button>
+      <button type="button" class="cu-menubar-item">
         Redo <span class="cu-menubar-shortcut">⇧⌘Z</span>
-      </div>
+      </button>
       <div class="cu-menubar-separator"></div>
-      <div class="cu-menubar-item">
+      <button type="button" class="cu-menubar-item">
         Cut <span class="cu-menubar-shortcut">⌘X</span>
-      </div>
-      <div class="cu-menubar-item">
+      </button>
+      <button type="button" class="cu-menubar-item">
         Copy <span class="cu-menubar-shortcut">⌘C</span>
-      </div>
-      <div class="cu-menubar-item">
+      </button>
+      <button type="button" class="cu-menubar-item">
         Paste <span class="cu-menubar-shortcut">⌘V</span>
-      </div>
+      </button>
     </div>
   </div>
-</div>
-
-${SO}
-  document.querySelectorAll("[data-cu-menubar]").forEach((bar) => {
-    const menus = bar.querySelectorAll("[data-cu-menubar-menu]");
-    menus.forEach((menu) => {
-      const trigger = menu.querySelector("[data-cu-menubar-trigger]");
-      const content = menu.querySelector("[data-cu-menubar-content]");
-      trigger?.addEventListener("click", () => {
-        const open = !content?.hasAttribute("hidden");
-        // close all menus in this bar
-        menus.forEach((m) => {
-          m.querySelector("[data-cu-menubar-content]")?.setAttribute("hidden", "");
-          m.querySelector("[data-cu-menubar-trigger]")?.setAttribute("aria-expanded", "false");
-        });
-        if (!open) {
-          content?.removeAttribute("hidden");
-          trigger.setAttribute("aria-expanded", "true");
-        }
-      });
-      // hover to switch while one is open
-      trigger?.addEventListener("mouseenter", () => {
-        const anyOpen = bar.querySelector("[data-cu-menubar-content]:not([hidden])");
-        if (anyOpen && anyOpen !== content) {
-          menus.forEach((m) => {
-            m.querySelector("[data-cu-menubar-content]")?.setAttribute("hidden", "");
-            m.querySelector("[data-cu-menubar-trigger]")?.setAttribute("aria-expanded", "false");
-          });
-          content?.removeAttribute("hidden");
-          trigger.setAttribute("aria-expanded", "true");
-        }
-      });
-    });
-    document.addEventListener("click", (e) => {
-      if (!bar.contains(e.target)) {
-        menus.forEach((m) => {
-          m.querySelector("[data-cu-menubar-content]")?.setAttribute("hidden", "");
-          m.querySelector("[data-cu-menubar-trigger]")?.setAttribute("aria-expanded", "false");
-        });
-      }
-    });
-  });
-${SC}`.trim();
+</div>`.trim();
 
 const withCheckboxRadioCode = `<div class="cu-menubar" data-cu-menubar>
   <div class="cu-menubar-menu" data-cu-menubar-menu>
     <button class="cu-menubar-trigger" data-cu-menubar-trigger aria-expanded="false">View</button>
     <div class="cu-menubar-content" data-cu-menubar-content hidden>
       <div class="cu-menubar-label">Panels</div>
-      <div class="cu-menubar-item">
+      <button type="button" class="cu-menubar-item">
         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2"><path d="m8 12 3 3 5-6"/></svg>
         Sidebar
-      </div>
-      <div class="cu-menubar-item">
+      </button>
+      <button type="button" class="cu-menubar-item">
         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2"><path d="m8 12 3 3 5-6"/></svg>
         Terminal
-      </div>
-      <div class="cu-menubar-item">
+      </button>
+      <button type="button" class="cu-menubar-item">
         <span class="mr-2 w-3.5"></span>
         Output
-      </div>
+      </button>
       <div class="cu-menubar-separator"></div>
       <div class="cu-menubar-label">Layout</div>
-      <div class="cu-menubar-item">
+      <button type="button" class="cu-menubar-item">
         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2"><circle cx="12" cy="12" r="5" fill="currentColor"/></svg>
         Horizontal
-      </div>
-      <div class="cu-menubar-item">
+      </button>
+      <button type="button" class="cu-menubar-item">
         <span class="mr-2 w-3.5"></span>
         Vertical
-      </div>
+      </button>
     </div>
   </div>
-</div>
-
-${SO}
-  document.querySelectorAll("[data-cu-menubar]").forEach((bar) => {
-    const menus = bar.querySelectorAll("[data-cu-menubar-menu]");
-    menus.forEach((menu) => {
-      const trigger = menu.querySelector("[data-cu-menubar-trigger]");
-      const content = menu.querySelector("[data-cu-menubar-content]");
-      trigger?.addEventListener("click", () => {
-        const open = !content?.hasAttribute("hidden");
-        menus.forEach((m) => {
-          m.querySelector("[data-cu-menubar-content]")?.setAttribute("hidden", "");
-          m.querySelector("[data-cu-menubar-trigger]")?.setAttribute("aria-expanded", "false");
-        });
-        if (!open) {
-          content?.removeAttribute("hidden");
-          trigger.setAttribute("aria-expanded", "true");
-        }
-      });
-      trigger?.addEventListener("mouseenter", () => {
-        const anyOpen = bar.querySelector("[data-cu-menubar-content]:not([hidden])");
-        if (anyOpen && anyOpen !== content) {
-          menus.forEach((m) => {
-            m.querySelector("[data-cu-menubar-content]")?.setAttribute("hidden", "");
-            m.querySelector("[data-cu-menubar-trigger]")?.setAttribute("aria-expanded", "false");
-          });
-          content?.removeAttribute("hidden");
-          trigger.setAttribute("aria-expanded", "true");
-        }
-      });
-    });
-    document.addEventListener("click", (e) => {
-      if (!bar.contains(e.target)) {
-        menus.forEach((m) => {
-          m.querySelector("[data-cu-menubar-content]")?.setAttribute("hidden", "");
-          m.querySelector("[data-cu-menubar-trigger]")?.setAttribute("aria-expanded", "false");
-        });
-      }
-    });
-  });
-${SC}`.trim();
+</div>`.trim();
 
 const withLabelsCode = `<div class="cu-menubar" data-cu-menubar>
   <div class="cu-menubar-menu" data-cu-menubar-menu>
@@ -294,294 +168,426 @@ const withLabelsCode = `<div class="cu-menubar" data-cu-menubar>
     <div class="cu-menubar-content" data-cu-menubar-content hidden>
       <div class="cu-menubar-label">My Account</div>
       <div class="cu-menubar-separator"></div>
-      <div class="cu-menubar-item cu-menubar-item-inset">Profile</div>
-      <div class="cu-menubar-item cu-menubar-item-inset">Billing</div>
-      <div class="cu-menubar-item cu-menubar-item-inset">Settings</div>
+      <button type="button" class="cu-menubar-item cu-menubar-item-inset">Profile</button>
+      <button type="button" class="cu-menubar-item cu-menubar-item-inset">Billing</button>
+      <button type="button" class="cu-menubar-item cu-menubar-item-inset">Settings</button>
       <div class="cu-menubar-separator"></div>
-      <div class="cu-menubar-item cu-menubar-item-inset cu-menubar-item-disabled">API (coming soon)</div>
+      <button type="button" class="cu-menubar-item cu-menubar-item-inset cu-menubar-item-disabled" disabled>API (coming soon)</button>
     </div>
   </div>
 </div>`.trim();
 ---
 
 <Layout title={t.title} category={t.category} componentName="Menubar" description={t.description}>
-    <div class="space-y-3">
-        <div class="flex items-center gap-3">
-          <h1 class="text-3xl font-bold tracking-tight">Menubar</h1>
-          <span class="cu-badge cu-badge-secondary">{t.category}</span>
-        </div>
-        <p class="text-base text-muted-foreground leading-relaxed">
-            {t.description}
-        </p>
+  <div class="space-y-3">
+    <div class="flex items-center gap-3">
+      <h1 class="text-3xl font-bold tracking-tight">Menubar</h1>
+      <span class="cu-badge cu-badge-secondary">{t.category}</span>
     </div>
+    <p class="text-base text-muted-foreground leading-relaxed">{t.description}</p>
+  </div>
 
-    <div class="mt-10 space-y-10">
-        <!-- Usage -->
-        <section class="space-y-3">
-            <SectionHeading id="usage" title={t.sections.usage.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
-            <ComponentPreview code={usageCode}>
-                <Menubar>
-                    <MenubarMenu>
-                        <MenubarTrigger>File</MenubarTrigger>
-                        <MenubarContent>
-                            <MenubarItem>New Tab <MenubarShortcut>⌘T</MenubarShortcut></MenubarItem>
-                            <MenubarItem>New Window <MenubarShortcut>⌘N</MenubarShortcut></MenubarItem>
-                            <MenubarSeparator />
-                            <MenubarItem>Print… <MenubarShortcut>⌘P</MenubarShortcut></MenubarItem>
-                        </MenubarContent>
-                    </MenubarMenu>
-                    <MenubarMenu>
-                        <MenubarTrigger>Edit</MenubarTrigger>
-                        <MenubarContent>
-                            <MenubarItem>Undo <MenubarShortcut>⌘Z</MenubarShortcut></MenubarItem>
-                            <MenubarItem>Redo <MenubarShortcut>⇧⌘Z</MenubarShortcut></MenubarItem>
-                            <MenubarSeparator />
-                            <MenubarItem>Cut <MenubarShortcut>⌘X</MenubarShortcut></MenubarItem>
-                            <MenubarItem>Copy <MenubarShortcut>⌘C</MenubarShortcut></MenubarItem>
-                            <MenubarItem>Paste <MenubarShortcut>⌘V</MenubarShortcut></MenubarItem>
-                        </MenubarContent>
-                    </MenubarMenu>
-                    <MenubarMenu>
-                        <MenubarTrigger>View</MenubarTrigger>
-                        <MenubarContent>
-                            <MenubarItem>Zoom In</MenubarItem>
-                            <MenubarItem>Zoom Out</MenubarItem>
-                            <MenubarSeparator />
-                            <MenubarItem>Toggle Fullscreen</MenubarItem>
-                        </MenubarContent>
-                    </MenubarMenu>
-                </Menubar>
-            </ComponentPreview>
-        </section>
+  <div class="mt-10 space-y-10">
+    <!-- Usage -->
+    <section class="space-y-3">
+      <SectionHeading id="usage" title={t.sections.usage.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
+      <ComponentPreview code={usageCode}>
+        <Menubar>
+          <MenubarMenu>
+            <MenubarTrigger>File</MenubarTrigger>
+            <MenubarContent>
+              <MenubarItem>
+                New Tab <MenubarShortcut>⌘T</MenubarShortcut>
+              </MenubarItem>
+              <MenubarItem>
+                New Window <MenubarShortcut>⌘N</MenubarShortcut>
+              </MenubarItem>
+              <MenubarSeparator />
+              <MenubarItem>
+                Print… <MenubarShortcut>⌘P</MenubarShortcut>
+              </MenubarItem>
+            </MenubarContent>
+          </MenubarMenu>
+          <MenubarMenu>
+            <MenubarTrigger>Edit</MenubarTrigger>
+            <MenubarContent>
+              <MenubarItem>
+                Undo <MenubarShortcut>⌘Z</MenubarShortcut>
+              </MenubarItem>
+              <MenubarItem>
+                Redo <MenubarShortcut>⇧⌘Z</MenubarShortcut>
+              </MenubarItem>
+              <MenubarSeparator />
+              <MenubarItem>
+                Cut <MenubarShortcut>⌘X</MenubarShortcut>
+              </MenubarItem>
+              <MenubarItem>
+                Copy <MenubarShortcut>⌘C</MenubarShortcut>
+              </MenubarItem>
+              <MenubarItem>
+                Paste <MenubarShortcut>⌘V</MenubarShortcut>
+              </MenubarItem>
+            </MenubarContent>
+          </MenubarMenu>
+          <MenubarMenu>
+            <MenubarTrigger>View</MenubarTrigger>
+            <MenubarContent>
+              <MenubarItem>Zoom In</MenubarItem>
+              <MenubarItem>Zoom Out</MenubarItem>
+              <MenubarSeparator />
+              <MenubarItem>Toggle Fullscreen</MenubarItem>
+            </MenubarContent>
+          </MenubarMenu>
+        </Menubar>
+      </ComponentPreview>
+    </section>
 
-        <!-- Classes Reference -->
-        <section class="space-y-3">
-            <SectionHeading id="classes" title={t.sections.classes.title} />
-            <div class="cu-table-wrapper rounded-lg border border-border">
-                <table class="cu-table">
-                    <thead class="cu-table-header">
-                        <tr class="cu-table-row">
-                            <th class="cu-table-head">{t.sections.classes.classLabel}</th>
-                            <th class="cu-table-head">{t.sections.classes.descriptionLabel}</th>
-                        </tr>
-                    </thead>
-                    <tbody class="cu-table-body">
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-menubar</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-menubar']}</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-menubar-menu</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-menubar-menu']}</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-menubar-trigger</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-menubar-trigger']}</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-menubar-content</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-menubar-content']}</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-menubar-item</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-menubar-item']}</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-menubar-item-disabled</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-menubar-item-disabled']}</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-menubar-item-inset</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-menubar-item-inset']}</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-menubar-label</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-menubar-label']}</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-menubar-separator</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-menubar-separator']}</td>
-                        </tr>
-                        <tr class="cu-table-row">
-                            <td class="cu-table-cell"><code class="cu-code">cu-menubar-shortcut</code></td>
-                            <td class="cu-table-cell text-muted-foreground">{t.classDescriptions['cu-menubar-shortcut']}</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </section>
+    <!-- Classes Reference -->
+    <section class="space-y-3">
+      <SectionHeading id="classes" title={t.sections.classes.title} />
+      <div class="cu-table-wrapper rounded-lg border border-border">
+        <table class="cu-table">
+          <thead class="cu-table-header">
+            <tr class="cu-table-row">
+              <th class="cu-table-head">{t.sections.classes.classLabel}</th>
+              <th class="cu-table-head">{t.sections.classes.descriptionLabel}</th>
+            </tr>
+          </thead>
+          <tbody class="cu-table-body">
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-menubar</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-menubar"]}</td>
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-menubar-menu</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-menubar-menu"]}</td>
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-menubar-trigger</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-menubar-trigger"]}</td>
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-menubar-content</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-menubar-content"]}</td>
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-menubar-item</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-menubar-item"]}</td>
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-menubar-item-disabled</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-menubar-item-disabled"]}</td>
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-menubar-item-inset</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-menubar-item-inset"]}</td>
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-menubar-label</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-menubar-label"]}</td>
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-menubar-separator</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-menubar-separator"]}</td>
+            </tr>
+            <tr class="cu-table-row">
+              <td class="cu-table-cell">
+                <code class="cu-code">cu-menubar-shortcut</code>
+              </td>
+              <td class="cu-table-cell text-muted-foreground">{t.classDescriptions["cu-menubar-shortcut"]}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
 
+    <!-- With Labels -->
+    <section class="space-y-3">
+      <SectionHeading id="with-labels-disabled-items" title={t.sections.withLabels.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withLabels.description} />
+      <ComponentPreview code={withLabelsCode}>
+        <Menubar>
+          <MenubarMenu>
+            <MenubarTrigger>Account</MenubarTrigger>
+            <MenubarContent>
+              <div class="cu-menubar-label">My Account</div>
+              <MenubarSeparator />
+              <MenubarItem inset>Profile</MenubarItem>
+              <MenubarItem inset>Billing</MenubarItem>
+              <MenubarItem inset>Settings</MenubarItem>
+              <MenubarSeparator />
+              <MenubarItem inset disabled>
+                API (coming soon)
+              </MenubarItem>
+            </MenubarContent>
+          </MenubarMenu>
+        </Menubar>
+      </ComponentPreview>
+    </section>
 
-        <!-- With Labels -->
-        <section class="space-y-3">
-            <SectionHeading id="with-labels-disabled-items" title={t.sections.withLabels.title} />
-            <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withLabels.description} />
-            <ComponentPreview code={withLabelsCode}>
-                <Menubar>
-                    <MenubarMenu>
-                        <MenubarTrigger>Account</MenubarTrigger>
-                        <MenubarContent>
-                            <div class="cu-menubar-label">My Account</div>
-                            <MenubarSeparator />
-                            <MenubarItem inset>Profile</MenubarItem>
-                            <MenubarItem inset>Billing</MenubarItem>
-                            <MenubarItem inset>Settings</MenubarItem>
-                            <MenubarSeparator />
-                            <MenubarItem inset disabled>API (coming soon)</MenubarItem>
-                        </MenubarContent>
-                    </MenubarMenu>
-                </Menubar>
-            </ComponentPreview>
-        </section>
+    <!-- With Icons -->
+    <section class="space-y-3">
+      <SectionHeading id="with-icons" title={t.sections.withIcons.title} />
+      <p class="text-base text-muted-foreground leading-relaxed">{t.sections.withIcons.description}</p>
+      <ComponentPreview code={withIconsCode}>
+        <Menubar>
+          <MenubarMenu>
+            <MenubarTrigger>File</MenubarTrigger>
+            <MenubarContent>
+              <MenubarItem>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="mr-2"
+                >
+                  <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z" />
+                  <path d="M14 2v4a2 2 0 0 0 2 2h4" />
+                </svg>
+                New File <MenubarShortcut>⌘N</MenubarShortcut>
+              </MenubarItem>
+              <MenubarItem>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="mr-2"
+                >
+                  <path d="M4 22h14a2 2 0 0 0 2-2V7l-5-5H6a2 2 0 0 0-2 2v4" />
+                  <path d="M14 2v4a2 2 0 0 0 2 2h4" />
+                  <path d="m3 15 2 2 4-4" />
+                </svg>
+                Save <MenubarShortcut>⌘S</MenubarShortcut>
+              </MenubarItem>
+              <MenubarSeparator />
+              <MenubarItem>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="mr-2"
+                >
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                  <polyline points="17 8 12 3 7 8" />
+                  <line x1="12" x2="12" y1="3" y2="15" />
+                </svg>
+                Export
+              </MenubarItem>
+            </MenubarContent>
+          </MenubarMenu>
+        </Menubar>
+      </ComponentPreview>
+    </section>
 
-        <!-- With Icons -->
-        <section class="space-y-3">
-            <SectionHeading id="with-icons" title={t.sections.withIcons.title} />
-            <p class="text-base text-muted-foreground leading-relaxed">
-                {t.sections.withIcons.description}
-            </p>
-            <ComponentPreview code={withIconsCode}>
-                <Menubar>
-                    <MenubarMenu>
-                        <MenubarTrigger>File</MenubarTrigger>
-                        <MenubarContent>
-                            <MenubarItem>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/></svg>
-                                New File <MenubarShortcut>⌘N</MenubarShortcut>
-                            </MenubarItem>
-                            <MenubarItem>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2"><path d="M4 22h14a2 2 0 0 0 2-2V7l-5-5H6a2 2 0 0 0-2 2v4"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="m3 15 2 2 4-4"/></svg>
-                                Save <MenubarShortcut>⌘S</MenubarShortcut>
-                            </MenubarItem>
-                            <MenubarSeparator />
-                            <MenubarItem>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" x2="12" y1="3" y2="15"/></svg>
-                                Export
-                            </MenubarItem>
-                        </MenubarContent>
-                    </MenubarMenu>
-                </Menubar>
-            </ComponentPreview>
-        </section>
+    <!-- With Shortcuts -->
+    <section class="space-y-3">
+      <SectionHeading id="with-shortcuts" title={t.sections.withShortcuts.title} />
+      <p class="text-base text-muted-foreground leading-relaxed">{t.sections.withShortcuts.description}</p>
+      <ComponentPreview code={withShortcutsCode}>
+        <Menubar>
+          <MenubarMenu>
+            <MenubarTrigger>File</MenubarTrigger>
+            <MenubarContent>
+              <MenubarItem>
+                New File <MenubarShortcut>⌘N</MenubarShortcut>
+              </MenubarItem>
+              <MenubarItem>
+                Open... <MenubarShortcut>⌘O</MenubarShortcut>
+              </MenubarItem>
+              <MenubarItem>
+                Save <MenubarShortcut>⌘S</MenubarShortcut>
+              </MenubarItem>
+              <MenubarItem>
+                Save As... <MenubarShortcut>⇧⌘S</MenubarShortcut>
+              </MenubarItem>
+              <MenubarSeparator />
+              <MenubarItem>
+                Close Tab <MenubarShortcut>⌘W</MenubarShortcut>
+              </MenubarItem>
+            </MenubarContent>
+          </MenubarMenu>
+          <MenubarMenu>
+            <MenubarTrigger>Edit</MenubarTrigger>
+            <MenubarContent>
+              <MenubarItem>
+                Undo <MenubarShortcut>⌘Z</MenubarShortcut>
+              </MenubarItem>
+              <MenubarItem>
+                Redo <MenubarShortcut>⇧⌘Z</MenubarShortcut>
+              </MenubarItem>
+              <MenubarSeparator />
+              <MenubarItem>
+                Cut <MenubarShortcut>⌘X</MenubarShortcut>
+              </MenubarItem>
+              <MenubarItem>
+                Copy <MenubarShortcut>⌘C</MenubarShortcut>
+              </MenubarItem>
+              <MenubarItem>
+                Paste <MenubarShortcut>⌘V</MenubarShortcut>
+              </MenubarItem>
+            </MenubarContent>
+          </MenubarMenu>
+        </Menubar>
+      </ComponentPreview>
+    </section>
 
-        <!-- With Shortcuts -->
-        <section class="space-y-3">
-            <SectionHeading id="with-shortcuts" title={t.sections.withShortcuts.title} />
-            <p class="text-base text-muted-foreground leading-relaxed">
-                {t.sections.withShortcuts.description}
-            </p>
-            <ComponentPreview code={withShortcutsCode}>
-                <Menubar>
-                    <MenubarMenu>
-                        <MenubarTrigger>File</MenubarTrigger>
-                        <MenubarContent>
-                            <MenubarItem>New File <MenubarShortcut>⌘N</MenubarShortcut></MenubarItem>
-                            <MenubarItem>Open... <MenubarShortcut>⌘O</MenubarShortcut></MenubarItem>
-                            <MenubarItem>Save <MenubarShortcut>⌘S</MenubarShortcut></MenubarItem>
-                            <MenubarItem>Save As... <MenubarShortcut>⇧⌘S</MenubarShortcut></MenubarItem>
-                            <MenubarSeparator />
-                            <MenubarItem>Close Tab <MenubarShortcut>⌘W</MenubarShortcut></MenubarItem>
-                        </MenubarContent>
-                    </MenubarMenu>
-                    <MenubarMenu>
-                        <MenubarTrigger>Edit</MenubarTrigger>
-                        <MenubarContent>
-                            <MenubarItem>Undo <MenubarShortcut>⌘Z</MenubarShortcut></MenubarItem>
-                            <MenubarItem>Redo <MenubarShortcut>⇧⌘Z</MenubarShortcut></MenubarItem>
-                            <MenubarSeparator />
-                            <MenubarItem>Cut <MenubarShortcut>⌘X</MenubarShortcut></MenubarItem>
-                            <MenubarItem>Copy <MenubarShortcut>⌘C</MenubarShortcut></MenubarItem>
-                            <MenubarItem>Paste <MenubarShortcut>⌘V</MenubarShortcut></MenubarItem>
-                        </MenubarContent>
-                    </MenubarMenu>
-                </Menubar>
-            </ComponentPreview>
-        </section>
-
-        <!-- With Checkbox & Radio -->
-        <section class="space-y-3">
-            <SectionHeading id="with-checkbox-radio" title={t.sections.withCheckboxRadio.title} />
-            <p class="text-base text-muted-foreground leading-relaxed">
-                {t.sections.withCheckboxRadio.description}
-            </p>
-            <ComponentPreview code={withCheckboxRadioCode}>
-                <Menubar>
-                    <MenubarMenu>
-                        <MenubarTrigger>View</MenubarTrigger>
-                        <MenubarContent>
-                            <MenubarLabel>Panels</MenubarLabel>
-                            <MenubarItem>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2"><path d="m8 12 3 3 5-6"/></svg>
-                                Sidebar
-                            </MenubarItem>
-                            <MenubarItem>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2"><path d="m8 12 3 3 5-6"/></svg>
-                                Terminal
-                            </MenubarItem>
-                            <MenubarItem>
-                                <span class="mr-2 w-3.5"></span>
-                                Output
-                            </MenubarItem>
-                            <MenubarSeparator />
-                            <MenubarLabel>Layout</MenubarLabel>
-                            <MenubarItem>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2"><circle cx="12" cy="12" r="5" fill="currentColor"/></svg>
-                                Horizontal
-                            </MenubarItem>
-                            <MenubarItem>
-                                <span class="mr-2 w-3.5"></span>
-                                Vertical
-                            </MenubarItem>
-                        </MenubarContent>
-                    </MenubarMenu>
-                </Menubar>
-            </ComponentPreview>
-        </section>
-    </div>
+    <!-- With Checkbox & Radio -->
+    <section class="space-y-3">
+      <SectionHeading id="with-checkbox-radio" title={t.sections.withCheckboxRadio.title} />
+      <p class="text-base text-muted-foreground leading-relaxed">{t.sections.withCheckboxRadio.description}</p>
+      <ComponentPreview code={withCheckboxRadioCode}>
+        <Menubar>
+          <MenubarMenu>
+            <MenubarTrigger>View</MenubarTrigger>
+            <MenubarContent>
+              <MenubarLabel>Panels</MenubarLabel>
+              <MenubarItem>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="mr-2"
+                >
+                  <path d="m8 12 3 3 5-6" />
+                </svg>
+                Sidebar
+              </MenubarItem>
+              <MenubarItem>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="mr-2"
+                >
+                  <path d="m8 12 3 3 5-6" />
+                </svg>
+                Terminal
+              </MenubarItem>
+              <MenubarItem>
+                <span class="mr-2 w-3.5"></span>
+                Output
+              </MenubarItem>
+              <MenubarSeparator />
+              <MenubarLabel>Layout</MenubarLabel>
+              <MenubarItem>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="mr-2"
+                >
+                  <circle cx="12" cy="12" r="5" fill="currentColor" />
+                </svg>
+                Horizontal
+              </MenubarItem>
+              <MenubarItem>
+                <span class="mr-2 w-3.5"></span>
+                Vertical
+              </MenubarItem>
+            </MenubarContent>
+          </MenubarMenu>
+        </Menubar>
+      </ComponentPreview>
+    </section>
+  </div>
 </Layout>
 
 <script>
-    function setupMenubars() {
-        document.querySelectorAll("[data-cu-menubar]").forEach((bar) => {
-            const menus = bar.querySelectorAll("[data-cu-menubar-menu]");
-            menus.forEach((menu) => {
-                const trigger = menu.querySelector("[data-cu-menubar-trigger]");
-                const content = menu.querySelector("[data-cu-menubar-content]");
-                trigger?.addEventListener("click", () => {
-                    const open = !content?.hasAttribute("hidden");
-                    menus.forEach((m) => {
-                        m.querySelector("[data-cu-menubar-content]")?.setAttribute("hidden", "");
-                        m.querySelector("[data-cu-menubar-trigger]")?.setAttribute("aria-expanded", "false");
-                    });
-                    if (!open) {
-                        content?.removeAttribute("hidden");
-                        trigger.setAttribute("aria-expanded", "true");
-                    }
-                });
-                trigger?.addEventListener("mouseenter", () => {
-                    const anyOpen = bar.querySelector("[data-cu-menubar-content]:not([hidden])");
-                    if (anyOpen && anyOpen !== content) {
-                        menus.forEach((m) => {
-                            m.querySelector("[data-cu-menubar-content]")?.setAttribute("hidden", "");
-                            m.querySelector("[data-cu-menubar-trigger]")?.setAttribute("aria-expanded", "false");
-                        });
-                        content?.removeAttribute("hidden");
-                        trigger.setAttribute("aria-expanded", "true");
-                    }
-                });
-            });
-            document.addEventListener("click", (e) => {
-                if (!bar.contains(e.target as Node)) {
-                    menus.forEach((m) => {
-                        m.querySelector("[data-cu-menubar-content]")?.setAttribute("hidden", "");
-                        m.querySelector("[data-cu-menubar-trigger]")?.setAttribute("aria-expanded", "false");
-                    });
-                }
-            });
+  function setupMenubars() {
+    document.querySelectorAll("[data-cu-menubar]").forEach((bar) => {
+      const menus = bar.querySelectorAll("[data-cu-menubar-menu]");
+      menus.forEach((menu) => {
+        const trigger = menu.querySelector("[data-cu-menubar-trigger]");
+        const content = menu.querySelector("[data-cu-menubar-content]");
+        trigger?.addEventListener("click", () => {
+          const open = !content?.hasAttribute("hidden");
+          menus.forEach((m) => {
+            m.querySelector("[data-cu-menubar-content]")?.setAttribute("hidden", "");
+            m.querySelector("[data-cu-menubar-trigger]")?.setAttribute("aria-expanded", "false");
+          });
+          if (!open) {
+            content?.removeAttribute("hidden");
+            trigger.setAttribute("aria-expanded", "true");
+          }
         });
-    }
+        trigger?.addEventListener("mouseenter", () => {
+          const anyOpen = bar.querySelector("[data-cu-menubar-content]:not([hidden])");
+          if (anyOpen && anyOpen !== content) {
+            menus.forEach((m) => {
+              m.querySelector("[data-cu-menubar-content]")?.setAttribute("hidden", "");
+              m.querySelector("[data-cu-menubar-trigger]")?.setAttribute("aria-expanded", "false");
+            });
+            content?.removeAttribute("hidden");
+            trigger.setAttribute("aria-expanded", "true");
+          }
+        });
+      });
+      document.addEventListener("click", (e) => {
+        if (!bar.contains(e.target as Node)) {
+          menus.forEach((m) => {
+            m.querySelector("[data-cu-menubar-content]")?.setAttribute("hidden", "");
+            m.querySelector("[data-cu-menubar-trigger]")?.setAttribute("aria-expanded", "false");
+          });
+        }
+      });
+    });
+  }
 
-    setupMenubars();
-    document.addEventListener("astro:page-load", setupMenubars);
+  setupMenubars();
+  document.addEventListener("astro:page-load", setupMenubars);
 </script>

@@ -19,14 +19,15 @@ Cubby UI 是一個框架無關的 UI 元件庫，風格類似 shadcn/ui，使用
 - `npm run check:links` — 掃描 `docs/` 所有頁面的 `href` / `src` / `action`，確認站內根路徑連結都帶 base、目標檔案存在（`BASE_PATH` 需與建置時相同；略過 `<template>` 預覽片段與 `<pre>` / `<code>`）
 - `npm run preview` — 預覽建置結果
 - `npm run test:blade` — 對 `dist/laravel/` 下所有 `.blade.php` 做回歸檢查：已知壞 pattern（`,,`、空陣列元素、未轉譯 JSX 屬性 / `{a || b}` 邏輯表達式、`'$light'` 這類 `'$` 開頭的字串）、並萃取 `@class` / `@props` / `@if` / `{{ … }}` 中的 PHP 片段以 `php -l` 驗證（安裝 PHP 時生效，可加 `--skip-php` 略過）
-- `npm run test:e2e` — Playwright 互動元件測試（`tests/e2e/*.spec.ts`），對 `dist/core/cubby-ui.{css,js}` 出貨產物執行，fixture 為 `tests/e2e/fixtures/*.html` 靜態頁；需先 `npm run build`。另含 `docs-smoke.spec.ts`：逐頁載入 `docs/` 產出的元件頁與範例頁，檢查無未捕捉例外、無 console error、重複 `init()` / `refresh()` 安全、同源資源無 4xx / 5xx；`docs SEO` 組驗證每頁 description 專屬且為純文字、Open Graph / hreflang 標籤，建置時有 `SITE_URL`（首頁有 canonical）才驗證 canonical / sitemap / robots.txt 的絕對網址，否則改驗證不輸出這些（`docs/` 不存在時自動略過，CI 會先 `build:docs`；設 `BASE_PATH` 時只在該子路徑下伺服 `docs/`，模擬 GitHub Pages）。無法下載瀏覽器的環境可設 `PLAYWRIGHT_CHROMIUM_EXECUTABLE` 指向既有 Chromium
+- `npm run test:e2e` — Playwright 互動元件測試（`tests/e2e/*.spec.ts`），對 `dist/core/cubby-ui.{css,js}` 出貨產物執行，fixture 為 `tests/e2e/fixtures/*.html` 靜態頁；需先 `npm run build`。另含 `docs-smoke.spec.ts`：逐頁載入 `docs/` 產出的元件頁與範例頁，檢查無未捕捉例外、無 console error、重複 `init()` / `refresh()` 安全、同源資源無 4xx / 5xx；`docs SEO` 組驗證每頁 description 專屬且為純文字、Open Graph / hreflang 標籤，建置時有 `SITE_URL`（首頁有 canonical）才驗證 canonical / sitemap / robots.txt 的絕對網址，否則改驗證不輸出這些（`docs/` 不存在時自動略過，CI 會先 `build:docs`；設 `BASE_PATH` 時只在該子路徑下伺服 `docs/`，模擬 GitHub Pages）。無法下載瀏覽器的環境可設 `PLAYWRIGHT_CHROMIUM_EXECUTABLE` 指向既有 Chromium。`examples.spec.ts`（範例來源由 `example-sources.ts` 萃取）把 `components.json` 的 `example`、`llms.txt` 的 HTML 範例與文檔頁 Code 範例逐一放進只載入 `dist/` 產物的頁面，靜態檢查 `data-cu-*` 屬性與結構、觸發器可鍵盤操作、無巢狀互動元素、表單類按鈕有 `type="button"`、label 有關聯，並實際操作元件；新增互動元件時在 spec 的 `PART_ROOT` / `ROOT_PARTS` / `PROBES` 補規則（只能改 JS 解決的已知限制登記於 `KNOWN_JS_LIMITATIONS`）
 - `npm run test` — 依序執行 `check:sync` → `test:blade` → `test:e2e`
 - `npm run check:sync` — 元件清單跨來源一致性檢查（`component-nav.ts` / 頁面 / i18n / CSS / `components.json` / `llms.txt` / README 元件分類表），並雙向比對 `src/scripts/` 各模組使用的 `data-cu-*`（含 `el.dataset.cuXxx` camelCase 存取）與 `cubby-ui.d.ts` 的 `DATA_ATTRS`
 - `npm run changeset` — 新增 changeset（互動式；也可直接新增 `.changeset/*.md`，格式見 `.changeset/README.md`）。每個使用者可感知的變更都附一個 changeset，**不要直接編輯 `CHANGELOG.md`**
 - `npm run version-packages` — `changeset version`：依 `.changeset/` 決定版本號、寫入 `CHANGELOG.md` 並刪除已消耗的 changeset（發版時執行）
 - `npm run type-check` — `astro check`（`tsconfig.json` 已排除 `dist/` 與 `docs/`）→ `type-check:scripts`
 - `npm run type-check:scripts` — `tsc -p tsconfig.scripts.json`：以 `checkJs` 檢查 `src/scripts/` 的元件庫 JS（`index.js` / `core/` / `components/`；不含文檔站專用的 `playground.js`）。非 strict（未開 `strictNullChecks` / `noImplicitAny`），`lib` 為 `es2017` + DOM，誤用更新的執行期 API 會報錯
-- `npm run lint` — ESLint flat config（`eslint.config.js`），範圍 `src/scripts/`（含 `playground.js`，以 `sourceType: "script"` 檢查）；只啟用 `@eslint/js` recommended 與少數正確性規則，**不含任何排版 / 風格規則，也不使用 Prettier**
+- `npm run lint` — ESLint flat config（`eslint.config.js`），範圍 `src/scripts/`（含 `playground.js`，以 `sourceType: "script"` 檢查）；只啟用 `@eslint/js` recommended 與少數正確性規則，**不含任何排版 / 風格規則**（排版交給 Prettier）
+- `npm run format` / `npm run format:check` — Prettier 格式化 / 檢查（`.prettierrc.json`：`printWidth` 120，`prettier-plugin-astro` + `prettier-plugin-tailwindcss` 依 `src/styles/global.css` 排序 class）；CI 在 lint 之後跑 `format:check`。範圍與例外見「格式化（Prettier）」
 
 ## Architecture
 
@@ -234,6 +235,13 @@ ARIA 無障礙支援：
 - **`@ts-ignore` / `@ts-expect-error`** 只在確實必要時使用並附理由（目前沒有任何一處）
 - **打包產物**：esbuild 會保留 `/** @type */` 轉型註解（其餘 JSDoc 會移除），因此 `dist/core/cubby-ui.js` 會出現這些註解；`cubby-ui.min.js` 由 terser 移除，執行行為不受影響
 - **ESLint 範圍**：`@eslint/js` recommended + `array-callback-return` / `no-eval` / `no-implied-eval` / `no-promise-executor-return` / `no-self-compare` / `no-template-curly-in-string` / `no-unmodified-loop-condition` / `no-unreachable-loop`；`no-unused-vars` 允許以 `_` 前綴忽略 catch 參數（ES5 不能省略 catch binding）。`playground.js` 以 `sourceType: "script"` 檢查，`CubbyUI` 宣告為全域
+
+### 格式化（Prettier）
+
+- 版本鎖定（`prettier` / `prettier-plugin-astro` / `prettier-plugin-tailwindcss` 皆為 exact 版本），升級會改變輸出，需與重新格式化放在同一個 commit
+- `.prettierignore` 排除：`*.md`、`llms.txt`、`.changeset/`（手寫排版）、`references/`、建置產物（`dist/`、`docs/`、`src/pages/zh-tw/`）、`package-lock.json`，以及 **`src/components/ui/`**：Blade 轉換器以 regex 解析這些 `.astro` 的 frontmatter / template，對排版敏感（例如箭頭函式本體被加上括號後，Button 的 size class 會在 Blade 輸出中遺失），改成 AST 解析前不要格式化
+- 以 regex 讀原始碼的腳本不可假設引號風格：Prettier 會把 `ui.ts` / `cubby-ui.d.ts` 的單引號改為雙引號，`check-component-sync.cjs` 與 `tests/e2e/example-sources.ts` 的 regex 皆接受兩種引號
+- 全專案格式化的 commit 登記在 `.git-blame-ignore-revs`；本機執行 `git config blame.ignoreRevsFile .git-blame-ignore-revs` 讓 `git blame` 略過（GitHub 介面會自動套用）
 
 ### 目錄結構
 
@@ -549,7 +557,7 @@ src/
 
 所有 UI 元件統一使用 `interface Props` 型別定義和 `class:list` 處理 class 組合。分為三種模式：
 
-1. **Simple**（Label, Input, Textarea, Checkbox, Radio, Range, FormGroup, Card 子元件, Header 子元件, Sidebar 子元件, Alert 子元件, Avatar 子元件, Dialog 子元件, Dropdown 子元件, Breadcrumb 子元件, Table 子元件, Accordion 子元件, Skeleton, Pagination 等）— 定義 `interface Props { class?: string; [key: string]: any; }`，提取 `class` + `...rest`，使用 `class:list={[baseClass, className]}` 和 `<slot />`。原生表單元件（Input、Textarea、Select、Checkbox、Radio）改以 `interface Props extends HTMLAttributes<"input">`（`import type { HTMLAttributes } from "astro/types"`）取得 `disabled` / `required` / `placeholder` 等原生屬性型別，不用 `[key: string]: any`；與自訂 prop 衝突的原生屬性以 `Omit` 排除（Input 的 `size`、Checkbox / Radio 的 `type`）。Blade 轉換器只解析 `Astro.props` 解構，不受 `interface` 寫法影響。
+1. **Simple**（Label, Input, Textarea, Checkbox, Radio, Range, FormGroup, Card 子元件, Header 子元件, Sidebar 子元件, Alert 子元件, Avatar 子元件, Dialog 子元件, Dropdown 子元件, Breadcrumb 子元件, Table 子元件, Accordion 子元件, Skeleton, Pagination 等）— 定義 `interface Props { class?: string; [key: string]: any; }`，提取 `class` + `...rest`，使用 `class:list={[baseClass, className]}` 和 `<slot />`。原生表單元件（Input、Textarea、Select、Checkbox、Radio、Label）改以 `interface Props extends HTMLAttributes<"input">`（`import type { HTMLAttributes } from "astro/types"`）取得 `disabled` / `required` / `placeholder` 等原生屬性型別，不用 `[key: string]: any`；與自訂 prop 衝突的原生屬性以 `Omit` 排除（Input 的 `size`、Checkbox / Radio 的 `type`）。Blade 轉換器只解析 `Astro.props` 解構，不受 `interface` 寫法影響。
 2. **Composite**（SearchInput, Select, Progress）— 包含包裝器 + 內部子元素（如圖示、輸入框、進度條），props 轉發給內部元素。
 3. **Complex**（Button, Toggle, Container, Nav, NavItem, SidebarItem, Badge, Alert, Avatar, PaginationItem）— 有 `variant` / `size` / `active` / `vertical` 等 typed props，使用 `class:list` 組合多個條件 class。
 
@@ -609,6 +617,7 @@ src/
 - `cu-header-mobile-backdrop` — 遮罩層（`fixed inset-0 z-50`、`bg-foreground/30`；關閉為 `display:none`，開啟 `opacity` 過渡 360ms，採 `@starting-style` + `transition-behavior: allow-discrete`）
 - `cu-header-mobile-nav` — 右側滑入面板（`fixed right-0 z-[60] w-72`；關閉為 `display:none`、開啟 `translate-x` 過渡 360ms，採 `@starting-style` + `allow-discrete`，與 Drawer 一致）
 - `cu-header-mobile-{nav|backdrop}-{sm|md|lg|xl}` — 桌機斷點移除修飾類別（`{bp}:hidden`，含 `[data-cu-mobile-nav-open]` 變體以蓋過開啟狀態）；應與 `HeaderMobileToggle` 的 `breakpoint` 一致（皆預設 `md`）。面板/遮罩預設帶 `hidden` 屬性防 FOUC（CSS 載入前由 UA stylesheet 隱藏），JS 於開啟時移除以還原 a11y 語意
+- `cu-header-mobile-toggle-{sm|md|lg|xl}` — 漢堡觸發按鈕的桌機斷點隱藏（`{bp}:hidden`）；dist CSS 不含 Tailwind 工具類別，範例與 `HeaderMobileToggle` 不可用 `md:hidden`，改用這組 class，斷點與 `cu-header-nav-{bp}`、面板 / 遮罩一致
 - `cu-header-mobile-header` — 面板頂部（`h-14`、`justify-end`）
 - `cu-header-mobile-content` — 面板可捲動內容區（`overflow-y-auto p-4`）
 - `cu-header-mobile-close` — 關閉按鈕（`size-9`、`focus-visible:ring-1 ring-ring/40`）

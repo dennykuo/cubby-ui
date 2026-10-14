@@ -48,7 +48,10 @@ export function closeContextMenu(cm) {
  */
 export function setupContextMenus() {
   document.querySelectorAll("[data-cu-context-menu]").forEach(function (/** @type {HTMLElement} */ container) {
-    if (container._cuInit) { restore("contextMenus", container); return; }
+    if (container._cuInit) {
+      restore("contextMenus", container);
+      return;
+    }
     container._cuInit = true;
 
     var content = /** @type {HTMLElement} */ (container.querySelector("[data-cu-context-menu-content]"));
@@ -87,7 +90,8 @@ export function setupContextMenus() {
         if (cm.el !== container) closeContextMenu(cm);
       });
       // 已開啟時再次右鍵只重新定位，保留最初的返回焦點
-      if (!content.contains(document.activeElement)) entry.returnFocus = /** @type {HTMLElement} */ (document.activeElement);
+      if (!content.contains(document.activeElement))
+        entry.returnFocus = /** @type {HTMLElement} */ (document.activeElement);
       content.removeAttribute("hidden");
       var rect = content.getBoundingClientRect();
       var vw = window.innerWidth;
@@ -124,7 +128,10 @@ export function setupContextMenus() {
       open(anchor.left + anchor.width / 2, anchor.top + anchor.height / 2, true);
     });
     container.addEventListener("keyup", function (e) {
-      if (e.key === "ContextMenu" || e.key === "F10") setTimeout(function () { suppressNative = false; }, 0);
+      if (e.key === "ContextMenu" || e.key === "F10")
+        setTimeout(function () {
+          suppressNative = false;
+        }, 0);
     });
 
     content.addEventListener("keydown", function (e) {

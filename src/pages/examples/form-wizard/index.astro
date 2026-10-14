@@ -1,594 +1,893 @@
 ---
 import { withBase } from "@/utils/paths";
 import "@/styles/global.css";
+import cubbyUiUrl from "../../../../dist/core/cubby-ui.js?url";
+
+const steps = [
+  { title: "帳號資訊", description: "建立您的登入帳號" },
+  { title: "個人檔案", description: "填寫基本資料" },
+  { title: "偏好設定", description: "自訂您的體驗" },
+  { title: "確認送出", description: "檢視並提交" },
+];
+
+const notificationPrefs = [
+  { key: "email", label: "Email 通知", description: "接收系統更新與活動通知。", checked: true },
+  { key: "product", label: "產品更新", description: "新功能與改進通知。", checked: true },
+  { key: "marketing", label: "行銷訊息", description: "促銷活動與優惠資訊。", checked: false },
+];
 ---
 
 <!doctype html>
 <html lang="zh-Hant">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="description" content="Form Wizard — Cubby UI" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href={withBase("/favicon.svg")} />
-		<link rel="preconnect" href="https://fonts.googleapis.com" />
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-		<link
-			href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
-			rel="stylesheet"
-		/>
-		<title>表單精靈 — Cubby UI</title>
-	</head>
-	<body class="min-h-screen bg-muted/30 font-sans">
-		<!-- Header -->
-		<header class="cu-header border-b border-border">
-			<div class="cu-header-inner mx-auto max-w-4xl">
-				<a class="cu-header-brand" href={withBase("/examples/form-wizard")}>
-					<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-primary">
-						<path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
-						<polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
-						<line x1="12" y1="22.08" x2="12" y2="12"></line>
-					</svg>
-					<span class="text-base font-semibold tracking-tight">開設帳戶</span>
-				</a>
-				<div class="cu-header-actions">
-					<a href={withBase("/")} class="cu-button cu-button-ghost cu-button-sm">
-						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
-						返回文檔
-					</a>
-				</div>
-			</div>
-		</header>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="Form Wizard — Cubby UI" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href={withBase("/favicon.svg")} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <title>表單精靈 — Cubby UI</title>
+  </head>
+  <body class="min-h-screen bg-muted/30 font-sans">
+    <!-- Header -->
+    <header class="cu-header">
+      <div class="cu-header-inner mx-auto max-w-4xl">
+        <a class="cu-header-brand" href={withBase("/examples/form-wizard")}>
+          <svg
+            width="22"
+            height="22"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="text-primary"
+            aria-hidden="true"
+          >
+            <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+            <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+            <line x1="12" y1="22.08" x2="12" y2="12"></line>
+          </svg>
+          <span class="text-base font-semibold tracking-tight">開設帳戶</span>
+        </a>
+        <div class="cu-header-actions">
+          <a href={withBase("/")} class="cu-button cu-button-ghost cu-button-sm">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="m15 18-6-6 6-6" />
+            </svg>
+            返回文檔
+          </a>
+        </div>
+      </div>
+    </header>
 
-		<!-- Main content -->
-		<main class="mx-auto max-w-3xl px-4 py-10 sm:px-6 sm:py-16">
-			<!-- Steps indicator -->
-			<div class="cu-steps mb-10" data-cu-wizard-steps>
-				<div class="cu-steps-item cu-steps-item-active" data-cu-wizard-step-indicator="0">
-					<div class="cu-steps-number">1</div>
-					<div class="cu-steps-content">
-						<div class="cu-steps-title">帳號資訊</div>
-						<div class="cu-steps-description hidden sm:block">建立您的登入帳號</div>
-					</div>
-				</div>
-				<div class="cu-steps-separator"></div>
-				<div class="cu-steps-item cu-steps-item-upcoming" data-cu-wizard-step-indicator="1">
-					<div class="cu-steps-number">2</div>
-					<div class="cu-steps-content">
-						<div class="cu-steps-title">個人檔案</div>
-						<div class="cu-steps-description hidden sm:block">填寫基本資料</div>
-					</div>
-				</div>
-				<div class="cu-steps-separator"></div>
-				<div class="cu-steps-item cu-steps-item-upcoming" data-cu-wizard-step-indicator="2">
-					<div class="cu-steps-number">3</div>
-					<div class="cu-steps-content">
-						<div class="cu-steps-title">偏好設定</div>
-						<div class="cu-steps-description hidden sm:block">自訂您的體驗</div>
-					</div>
-				</div>
-				<div class="cu-steps-separator"></div>
-				<div class="cu-steps-item cu-steps-item-upcoming" data-cu-wizard-step-indicator="3">
-					<div class="cu-steps-number">4</div>
-					<div class="cu-steps-content">
-						<div class="cu-steps-title">確認送出</div>
-						<div class="cu-steps-description hidden sm:block">檢視並提交</div>
-					</div>
-				</div>
-			</div>
+    <!-- Main content -->
+    <main class="mx-auto max-w-3xl px-4 py-10 sm:px-6 sm:py-16">
+      <!-- Steps indicator -->
+      <ol class="cu-steps mb-10" aria-label="申請進度" data-cu-wizard-steps>
+        {steps.map((step, i) => (
+          <>
+            {i > 0 && <li class="cu-steps-separator" aria-hidden="true"></li>}
+            <li
+              class:list={["cu-steps-item", i === 0 ? "cu-steps-item-active" : "cu-steps-item-upcoming"]}
+              data-cu-wizard-step-indicator={i}
+              aria-current={i === 0 ? "step" : undefined}
+            >
+              <div class="cu-steps-number" aria-hidden="true">
+                {i + 1}
+              </div>
+              <div class="cu-steps-content hidden sm:flex">
+                <div class="cu-steps-title">
+                  {step.title}
+                  <span class="sr-only" data-cu-wizard-step-status></span>
+                </div>
+                <div class="cu-steps-description">{step.description}</div>
+              </div>
+              <span class="sr-only sm:hidden">
+                {step.title}
+                <span data-cu-wizard-step-status></span>
+              </span>
+            </li>
+          </>
+        ))}
+      </ol>
 
-			<!-- Step panels -->
-			<div class="cu-card">
-				<!-- Step 1: Account Info -->
-				<div data-cu-wizard-panel="0">
-					<div class="cu-card-header">
-						<h2 class="cu-card-title">帳號資訊</h2>
-						<p class="cu-card-description">建立您的登入帳號，這些資訊將用於系統驗證。</p>
-					</div>
-					<div class="cu-card-content">
-						<form class="space-y-5" data-cu-wizard-form="0">
-							<div class="cu-form-group">
-								<label class="cu-label cu-label-required" for="wiz-email">Email</label>
-								<input class="cu-input" id="wiz-email" type="email" placeholder="name@example.com" required />
-								<p class="cu-form-description">此 Email 將作為您的登入帳號。</p>
-							</div>
-							<div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
-								<div class="cu-form-group">
-									<label class="cu-label cu-label-required" for="wiz-password">密碼</label>
-									<input class="cu-input" id="wiz-password" type="password" placeholder="至少 8 個字元" required minlength="8" />
-								</div>
-								<div class="cu-form-group">
-									<label class="cu-label cu-label-required" for="wiz-password-confirm">確認密碼</label>
-									<input class="cu-input" id="wiz-password-confirm" type="password" placeholder="再次輸入密碼" required minlength="8" />
-								</div>
-							</div>
-							<div class="cu-form-group">
-								<label class="cu-label cu-label-required" for="wiz-username">使用者名稱</label>
-								<input class="cu-input" id="wiz-username" type="text" placeholder="您的唯一識別名稱" required />
-								<p class="cu-form-description">僅允許英文字母、數字和底線。</p>
-							</div>
-						</form>
-					</div>
-					<div class="cu-card-footer justify-end">
-						<button type="button" class="cu-button cu-button-default cu-button-md" data-cu-wizard-next>
-							下一步
-							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
-						</button>
-					</div>
-				</div>
+      <!-- Step panels -->
+      <div class="cu-card">
+        <!-- Step 1: Account Info -->
+        <div data-cu-wizard-panel="0">
+          <div class="cu-card-header">
+            <h2 class="cu-card-title outline-none" tabindex="-1" data-cu-wizard-heading>
+              <span class="block text-xs font-normal text-muted-foreground mb-1.5">步驟 1 / 4</span>帳號資訊
+            </h2>
+            <p class="cu-card-description">建立您的登入帳號，這些資訊將用於系統驗證。</p>
+          </div>
+          <div class="cu-card-content">
+            <form class="space-y-5" id="wiz-form-0" data-cu-wizard-form="0" novalidate>
+              <div class="cu-form-group">
+                <label class="cu-label cu-label-required" for="wiz-email">
+                  Email
+                </label>
+                <input
+                  class="cu-input"
+                  id="wiz-email"
+                  type="email"
+                  placeholder="name@example.com"
+                  autocomplete="email"
+                  required
+                  aria-describedby="wiz-email-desc wiz-email-error"
+                />
+                <p class="cu-form-description" id="wiz-email-desc">
+                  此 Email 將作為您的登入帳號。
+                </p>
+                <p class="cu-form-error" id="wiz-email-error" hidden></p>
+              </div>
+              <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                <div class="cu-form-group">
+                  <label class="cu-label cu-label-required" for="wiz-password">
+                    密碼
+                  </label>
+                  <input
+                    class="cu-input"
+                    id="wiz-password"
+                    type="password"
+                    placeholder="至少 8 個字元"
+                    autocomplete="new-password"
+                    required
+                    minlength="8"
+                    aria-describedby="wiz-password-error"
+                  />
+                  <p class="cu-form-error" id="wiz-password-error" hidden></p>
+                </div>
+                <div class="cu-form-group">
+                  <label class="cu-label cu-label-required" for="wiz-password-confirm">
+                    確認密碼
+                  </label>
+                  <input
+                    class="cu-input"
+                    id="wiz-password-confirm"
+                    type="password"
+                    placeholder="再次輸入密碼"
+                    autocomplete="new-password"
+                    required
+                    minlength="8"
+                    aria-describedby="wiz-password-confirm-error"
+                  />
+                  <p class="cu-form-error" id="wiz-password-confirm-error" hidden></p>
+                </div>
+              </div>
+              <div class="cu-form-group">
+                <label class="cu-label cu-label-required" for="wiz-username">
+                  使用者名稱
+                </label>
+                <input
+                  class="cu-input"
+                  id="wiz-username"
+                  type="text"
+                  placeholder="您的唯一識別名稱"
+                  autocomplete="username"
+                  required
+                  aria-describedby="wiz-username-desc wiz-username-error"
+                />
+                <p class="cu-form-description" id="wiz-username-desc">
+                  僅允許英文字母、數字和底線。
+                </p>
+                <p class="cu-form-error" id="wiz-username-error" hidden></p>
+              </div>
+            </form>
+          </div>
+          <div class="cu-card-footer justify-end">
+            <button
+              type="submit"
+              form="wiz-form-0"
+              class="cu-button cu-button-default cu-button-md"
+              data-cu-wizard-next
+            >
+              <span data-cu-wizard-next-label>下一步</span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <path d="m9 18 6-6-6-6" />
+              </svg>
+            </button>
+          </div>
+        </div>
 
-				<!-- Step 2: Profile -->
-				<div data-cu-wizard-panel="1" hidden>
-					<div class="cu-card-header">
-						<h2 class="cu-card-title">個人檔案</h2>
-						<p class="cu-card-description">填寫您的基本資料，讓我們更了解您。</p>
-					</div>
-					<div class="cu-card-content">
-						<form class="space-y-5" data-cu-wizard-form="1">
-							<div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
-								<div class="cu-form-group">
-									<label class="cu-label cu-label-required" for="wiz-first-name">名字</label>
-									<input class="cu-input" id="wiz-first-name" type="text" placeholder="小明" required />
-								</div>
-								<div class="cu-form-group">
-									<label class="cu-label cu-label-required" for="wiz-last-name">姓氏</label>
-									<input class="cu-input" id="wiz-last-name" type="text" placeholder="張" required />
-								</div>
-							</div>
-							<div class="cu-form-group">
-								<label class="cu-label" for="wiz-phone">電話號碼</label>
-								<input class="cu-input" id="wiz-phone" type="tel" placeholder="0912-345-678" />
-							</div>
-							<div class="cu-form-group">
-								<label class="cu-label" for="wiz-company">公司名稱</label>
-								<input class="cu-input" id="wiz-company" type="text" placeholder="您的公司（選填）" />
-							</div>
-							<div class="cu-form-group">
-								<label class="cu-label" for="wiz-bio">自我介紹</label>
-								<textarea class="cu-textarea" id="wiz-bio" rows="3" placeholder="簡短介紹您自己…"></textarea>
-								<p class="cu-form-description">最多 200 字。</p>
-							</div>
-						</form>
-					</div>
-					<div class="cu-card-footer justify-between">
-						<button type="button" class="cu-button cu-button-outline cu-button-md" data-cu-wizard-prev>
-							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
-							上一步
-						</button>
-						<button type="button" class="cu-button cu-button-default cu-button-md" data-cu-wizard-next>
-							下一步
-							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
-						</button>
-					</div>
-				</div>
+        <!-- Step 2: Profile -->
+        <div data-cu-wizard-panel="1" hidden>
+          <div class="cu-card-header">
+            <h2 class="cu-card-title outline-none" tabindex="-1" data-cu-wizard-heading>
+              <span class="block text-xs font-normal text-muted-foreground mb-1.5">步驟 2 / 4</span>個人檔案
+            </h2>
+            <p class="cu-card-description">填寫您的基本資料，讓我們更了解您。</p>
+          </div>
+          <div class="cu-card-content">
+            <form class="space-y-5" id="wiz-form-1" data-cu-wizard-form="1" novalidate>
+              <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                <div class="cu-form-group">
+                  <label class="cu-label cu-label-required" for="wiz-last-name">
+                    姓氏
+                  </label>
+                  <input
+                    class="cu-input"
+                    id="wiz-last-name"
+                    type="text"
+                    placeholder="張"
+                    autocomplete="family-name"
+                    required
+                    aria-describedby="wiz-last-name-error"
+                  />
+                  <p class="cu-form-error" id="wiz-last-name-error" hidden></p>
+                </div>
+                <div class="cu-form-group">
+                  <label class="cu-label cu-label-required" for="wiz-first-name">
+                    名字
+                  </label>
+                  <input
+                    class="cu-input"
+                    id="wiz-first-name"
+                    type="text"
+                    placeholder="小明"
+                    autocomplete="given-name"
+                    required
+                    aria-describedby="wiz-first-name-error"
+                  />
+                  <p class="cu-form-error" id="wiz-first-name-error" hidden></p>
+                </div>
+              </div>
+              <div class="cu-form-group">
+                <label class="cu-label" for="wiz-phone">
+                  電話號碼
+                </label>
+                <input class="cu-input" id="wiz-phone" type="tel" placeholder="0912-345-678" autocomplete="tel" />
+              </div>
+              <div class="cu-form-group">
+                <label class="cu-label" for="wiz-company">
+                  公司名稱
+                </label>
+                <input
+                  class="cu-input"
+                  id="wiz-company"
+                  type="text"
+                  placeholder="您的公司（選填）"
+                  autocomplete="organization"
+                />
+              </div>
+              <div class="cu-form-group">
+                <label class="cu-label" for="wiz-bio">
+                  自我介紹
+                </label>
+                <textarea
+                  class="cu-textarea"
+                  id="wiz-bio"
+                  rows="3"
+                  maxlength="200"
+                  placeholder="簡短介紹您自己…"
+                  aria-describedby="wiz-bio-desc"
+                ></textarea>
+                <p class="cu-form-description" id="wiz-bio-desc">
+                  最多 200 字。
+                </p>
+              </div>
+            </form>
+          </div>
+          <div class="cu-card-footer justify-between">
+            <button type="button" class="cu-button cu-button-outline cu-button-md" data-cu-wizard-prev>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <path d="m15 18-6-6 6-6" />
+              </svg>
+              上一步
+            </button>
+            <button
+              type="submit"
+              form="wiz-form-1"
+              class="cu-button cu-button-default cu-button-md"
+              data-cu-wizard-next
+            >
+              <span data-cu-wizard-next-label>下一步</span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <path d="m9 18 6-6-6-6" />
+              </svg>
+            </button>
+          </div>
+        </div>
 
-				<!-- Step 3: Preferences -->
-				<div data-cu-wizard-panel="2" hidden>
-					<div class="cu-card-header">
-						<h2 class="cu-card-title">偏好設定</h2>
-						<p class="cu-card-description">自訂您的使用體驗與通知偏好。</p>
-					</div>
-					<div class="cu-card-content">
-						<div class="space-y-6" data-cu-wizard-form="2">
-							<!-- Role selection -->
-							<div class="cu-form-group">
-								<label class="cu-label cu-label-required" for="wiz-role">角色</label>
-								<div class="cu-select-wrapper">
-									<select class="cu-select" id="wiz-role" required>
-										<option value="" disabled selected>選擇您的角色</option>
-										<option value="developer">開發者</option>
-										<option value="designer">設計師</option>
-										<option value="pm">產品經理</option>
-										<option value="marketing">行銷人員</option>
-										<option value="other">其他</option>
-									</select>
-									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="cu-select-icon"><path d="m6 9 6 6 6-6"></path></svg>
-								</div>
-							</div>
+        <!-- Step 3: Preferences -->
+        <div data-cu-wizard-panel="2" hidden>
+          <div class="cu-card-header">
+            <h2 class="cu-card-title outline-none" tabindex="-1" data-cu-wizard-heading>
+              <span class="block text-xs font-normal text-muted-foreground mb-1.5">步驟 3 / 4</span>偏好設定
+            </h2>
+            <p class="cu-card-description">自訂您的使用體驗與通知偏好。</p>
+          </div>
+          <div class="cu-card-content">
+            <form class="space-y-6" id="wiz-form-2" data-cu-wizard-form="2" novalidate>
+              <!-- Role selection -->
+              <div class="cu-form-group">
+                <label class="cu-label cu-label-required" for="wiz-role">
+                  角色
+                </label>
+                <div class="cu-select-wrapper">
+                  <select class="cu-select" id="wiz-role" required aria-describedby="wiz-role-error">
+                    <option value="" disabled selected>
+                      選擇您的角色
+                    </option>
+                    <option value="developer">開發者</option>
+                    <option value="designer">設計師</option>
+                    <option value="pm">產品經理</option>
+                    <option value="marketing">行銷人員</option>
+                    <option value="other">其他</option>
+                  </select>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="cu-select-icon"
+                    aria-hidden="true"
+                  >
+                    <path d="m6 9 6 6 6-6"></path>
+                  </svg>
+                </div>
+                <p class="cu-form-error" id="wiz-role-error" hidden></p>
+              </div>
 
-							<!-- Notification preferences -->
-							<div class="space-y-4">
-								<label class="cu-label">通知偏好</label>
-								<div class="space-y-3">
-									<div class="flex items-center justify-between rounded-lg border border-border p-4">
-										<div>
-											<p class="text-sm font-medium">Email 通知</p>
-											<p class="text-sm text-muted-foreground mt-0.5">接收系統更新與活動通知。</p>
-										</div>
-										<label class="cu-toggle-wrapper">
-											<input type="checkbox" class="cu-toggle-input" checked data-cu-wizard-pref="email" />
-											<span class="cu-toggle"><span class="cu-toggle-thumb"></span></span>
-										</label>
-									</div>
-									<div class="flex items-center justify-between rounded-lg border border-border p-4">
-										<div>
-											<p class="text-sm font-medium">產品更新</p>
-											<p class="text-sm text-muted-foreground mt-0.5">新功能與改進通知。</p>
-										</div>
-										<label class="cu-toggle-wrapper">
-											<input type="checkbox" class="cu-toggle-input" checked data-cu-wizard-pref="product" />
-											<span class="cu-toggle"><span class="cu-toggle-thumb"></span></span>
-										</label>
-									</div>
-									<div class="flex items-center justify-between rounded-lg border border-border p-4">
-										<div>
-											<p class="text-sm font-medium">行銷訊息</p>
-											<p class="text-sm text-muted-foreground mt-0.5">促銷活動與優惠資訊。</p>
-										</div>
-										<label class="cu-toggle-wrapper">
-											<input type="checkbox" class="cu-toggle-input" data-cu-wizard-pref="marketing" />
-											<span class="cu-toggle"><span class="cu-toggle-thumb"></span></span>
-										</label>
-									</div>
-								</div>
-							</div>
+              <!-- Notification preferences -->
+              <fieldset class="space-y-3">
+                <legend class="cu-label mb-3">通知偏好</legend>
+                <div class="rounded-lg border border-border divide-y divide-border">
+                  {notificationPrefs.map((pref) => (
+                    <label class="cu-setting-item cursor-pointer">
+                      <span class="cu-setting-item-content">
+                        <span class="cu-setting-item-label block">{pref.label}</span>
+                        <span class="cu-setting-item-description block" id={`wiz-pref-${pref.key}-desc`}>
+                          {pref.description}
+                        </span>
+                      </span>
+                      <span class="cu-setting-item-action cu-toggle-wrapper">
+                        <input
+                          type="checkbox"
+                          role="switch"
+                          class="cu-toggle-input"
+                          checked={pref.checked}
+                          data-cu-wizard-pref={pref.key}
+                          aria-describedby={`wiz-pref-${pref.key}-desc`}
+                        />
+                        <span class="cu-toggle">
+                          <span class="cu-toggle-thumb"></span>
+                        </span>
+                      </span>
+                    </label>
+                  ))}
+                </div>
+              </fieldset>
 
-							<!-- Terms -->
-							<label class="cu-checkbox-wrapper">
-								<input type="checkbox" class="cu-checkbox" id="wiz-terms" required data-cu-wizard-terms />
-								<span class="text-sm">我已閱讀並同意<a href="#" class="cu-link">服務條款</a>與<a href="#" class="cu-link">隱私政策</a></span>
-							</label>
-						</div>
-					</div>
-					<div class="cu-card-footer justify-between">
-						<button type="button" class="cu-button cu-button-outline cu-button-md" data-cu-wizard-prev>
-							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
-							上一步
-						</button>
-						<button type="button" class="cu-button cu-button-default cu-button-md" data-cu-wizard-next>
-							下一步
-							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
-						</button>
-					</div>
-				</div>
+              <!-- Terms -->
+              <div class="space-y-1.5">
+                <label class="cu-checkbox-wrapper">
+                  <input
+                    type="checkbox"
+                    class="cu-checkbox"
+                    id="wiz-terms"
+                    required
+                    aria-describedby="wiz-terms-links wiz-terms-error"
+                    data-cu-wizard-terms
+                  />
+                  <span class="text-sm">我已閱讀並同意服務條款與隱私政策</span>
+                </label>
+                <p class="pl-6 text-xs text-muted-foreground" id="wiz-terms-links">
+                  閱讀{" "}
+                  <a href="#" class="cu-link">
+                    服務條款
+                  </a>{" "}
+                  與{" "}
+                  <a href="#" class="cu-link">
+                    隱私政策
+                  </a>
+                </p>
+                <p class="cu-form-error pl-6" id="wiz-terms-error" hidden></p>
+              </div>
+            </form>
+          </div>
+          <div class="cu-card-footer justify-between">
+            <button type="button" class="cu-button cu-button-outline cu-button-md" data-cu-wizard-prev>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <path d="m15 18-6-6 6-6" />
+              </svg>
+              上一步
+            </button>
+            <button
+              type="submit"
+              form="wiz-form-2"
+              class="cu-button cu-button-default cu-button-md"
+              data-cu-wizard-next
+            >
+              <span data-cu-wizard-next-label>下一步</span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <path d="m9 18 6-6-6-6" />
+              </svg>
+            </button>
+          </div>
+        </div>
 
-				<!-- Step 4: Review & Submit -->
-				<div data-cu-wizard-panel="3" hidden>
-					<div class="cu-card-header">
-						<h2 class="cu-card-title">確認送出</h2>
-						<p class="cu-card-description">請檢視以下資訊，確認無誤後送出。</p>
-					</div>
-					<div class="cu-card-content">
-						<div class="space-y-6">
-							<!-- Account summary -->
-							<div class="rounded-lg border border-border p-4 space-y-3">
-								<div class="flex items-center justify-between">
-									<h3 class="text-sm font-semibold">帳號資訊</h3>
-									<button type="button" class="text-xs text-primary hover:underline cursor-pointer" data-cu-wizard-goto="0">編輯</button>
-								</div>
-								<div class="grid grid-cols-1 gap-2 sm:grid-cols-2 text-sm">
-									<div>
-										<span class="text-muted-foreground">Email：</span>
-										<span data-cu-wizard-summary="email">—</span>
-									</div>
-									<div>
-										<span class="text-muted-foreground">使用者名稱：</span>
-										<span data-cu-wizard-summary="username">—</span>
-									</div>
-								</div>
-							</div>
+        <!-- Step 4: Review & Submit -->
+        <div data-cu-wizard-panel="3" hidden>
+          <div class="cu-card-header">
+            <h2 class="cu-card-title outline-none" tabindex="-1" data-cu-wizard-heading>
+              <span class="block text-xs font-normal text-muted-foreground mb-1.5">步驟 4 / 4</span>確認送出
+            </h2>
+            <p class="cu-card-description">請檢視以下資訊，確認無誤後送出。</p>
+          </div>
+          <div class="cu-card-content">
+            <div class="space-y-4">
+              <section class="rounded-lg bg-muted/40 p-4 space-y-3" aria-labelledby="wiz-review-account">
+                <div class="flex items-center justify-between">
+                  <h3 class="text-sm font-semibold" id="wiz-review-account">
+                    帳號資訊
+                  </h3>
+                  <button
+                    type="button"
+                    class="cu-button cu-button-ghost cu-button-xs"
+                    data-cu-wizard-goto="0"
+                    aria-label="編輯帳號資訊"
+                  >
+                    編輯
+                  </button>
+                </div>
+                <dl class="grid grid-cols-1 gap-3 sm:grid-cols-2 text-sm">
+                  <div>
+                    <dt class="text-xs text-muted-foreground">Email</dt>
+                    <dd class="mt-0.5 font-medium break-all" data-cu-wizard-summary="email">
+                      —
+                    </dd>
+                  </div>
+                  <div>
+                    <dt class="text-xs text-muted-foreground">使用者名稱</dt>
+                    <dd class="mt-0.5 font-medium break-all" data-cu-wizard-summary="username">
+                      —
+                    </dd>
+                  </div>
+                </dl>
+              </section>
 
-							<!-- Profile summary -->
-							<div class="rounded-lg border border-border p-4 space-y-3">
-								<div class="flex items-center justify-between">
-									<h3 class="text-sm font-semibold">個人檔案</h3>
-									<button type="button" class="text-xs text-primary hover:underline cursor-pointer" data-cu-wizard-goto="1">編輯</button>
-								</div>
-								<div class="grid grid-cols-1 gap-2 sm:grid-cols-2 text-sm">
-									<div>
-										<span class="text-muted-foreground">姓名：</span>
-										<span data-cu-wizard-summary="name">—</span>
-									</div>
-									<div>
-										<span class="text-muted-foreground">電話：</span>
-										<span data-cu-wizard-summary="phone">—</span>
-									</div>
-									<div>
-										<span class="text-muted-foreground">公司：</span>
-										<span data-cu-wizard-summary="company">—</span>
-									</div>
-								</div>
-							</div>
+              <section class="rounded-lg bg-muted/40 p-4 space-y-3" aria-labelledby="wiz-review-profile">
+                <div class="flex items-center justify-between">
+                  <h3 class="text-sm font-semibold" id="wiz-review-profile">
+                    個人檔案
+                  </h3>
+                  <button
+                    type="button"
+                    class="cu-button cu-button-ghost cu-button-xs"
+                    data-cu-wizard-goto="1"
+                    aria-label="編輯個人檔案"
+                  >
+                    編輯
+                  </button>
+                </div>
+                <dl class="grid grid-cols-1 gap-3 sm:grid-cols-2 text-sm">
+                  <div>
+                    <dt class="text-xs text-muted-foreground">姓名</dt>
+                    <dd class="mt-0.5 font-medium" data-cu-wizard-summary="name">
+                      —
+                    </dd>
+                  </div>
+                  <div>
+                    <dt class="text-xs text-muted-foreground">電話</dt>
+                    <dd class="mt-0.5 font-medium" data-cu-wizard-summary="phone">
+                      —
+                    </dd>
+                  </div>
+                  <div>
+                    <dt class="text-xs text-muted-foreground">公司</dt>
+                    <dd class="mt-0.5 font-medium" data-cu-wizard-summary="company">
+                      —
+                    </dd>
+                  </div>
+                </dl>
+              </section>
 
-							<!-- Preferences summary -->
-							<div class="rounded-lg border border-border p-4 space-y-3">
-								<div class="flex items-center justify-between">
-									<h3 class="text-sm font-semibold">偏好設定</h3>
-									<button type="button" class="text-xs text-primary hover:underline cursor-pointer" data-cu-wizard-goto="2">編輯</button>
-								</div>
-								<div class="grid grid-cols-1 gap-2 sm:grid-cols-2 text-sm">
-									<div>
-										<span class="text-muted-foreground">角色：</span>
-										<span data-cu-wizard-summary="role">—</span>
-									</div>
-									<div>
-										<span class="text-muted-foreground">通知：</span>
-										<span data-cu-wizard-summary="notifications">—</span>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="cu-card-footer justify-between">
-						<button type="button" class="cu-button cu-button-outline cu-button-md" data-cu-wizard-prev>
-							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
-							上一步
-						</button>
-						<button type="button" class="cu-button cu-button-default cu-button-md" data-cu-wizard-submit>
-							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
-							送出申請
-						</button>
-					</div>
-				</div>
+              <section class="rounded-lg bg-muted/40 p-4 space-y-3" aria-labelledby="wiz-review-prefs">
+                <div class="flex items-center justify-between">
+                  <h3 class="text-sm font-semibold" id="wiz-review-prefs">
+                    偏好設定
+                  </h3>
+                  <button
+                    type="button"
+                    class="cu-button cu-button-ghost cu-button-xs"
+                    data-cu-wizard-goto="2"
+                    aria-label="編輯偏好設定"
+                  >
+                    編輯
+                  </button>
+                </div>
+                <dl class="grid grid-cols-1 gap-3 sm:grid-cols-2 text-sm">
+                  <div>
+                    <dt class="text-xs text-muted-foreground">角色</dt>
+                    <dd class="mt-0.5 font-medium" data-cu-wizard-summary="role">
+                      —
+                    </dd>
+                  </div>
+                  <div>
+                    <dt class="text-xs text-muted-foreground">通知</dt>
+                    <dd class="mt-0.5 font-medium" data-cu-wizard-summary="notifications">
+                      —
+                    </dd>
+                  </div>
+                </dl>
+              </section>
+            </div>
+          </div>
+          <div class="cu-card-footer justify-between">
+            <button type="button" class="cu-button cu-button-outline cu-button-md" data-cu-wizard-prev>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <path d="m15 18-6-6 6-6" />
+              </svg>
+              上一步
+            </button>
+            <button type="button" class="cu-button cu-button-default cu-button-md" data-cu-wizard-submit>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+                data-cu-wizard-submit-icon
+              >
+                <path d="M20 6 9 17l-5-5" />
+              </svg>
+              <span class="cu-spinner cu-spinner-sm" aria-hidden="true" hidden data-cu-wizard-submit-spinner></span>
+              <span data-cu-wizard-submit-label>送出申請</span>
+            </button>
+          </div>
+        </div>
 
-				<!-- Success state (hidden by default) -->
-				<div data-cu-wizard-success hidden>
-					<div class="cu-card-content py-16">
-						<div class="flex flex-col items-center text-center space-y-4">
-							<div class="flex size-16 items-center justify-center rounded-full bg-success/10 text-success">
-								<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
-							</div>
-							<h2 class="text-xl font-semibold tracking-tight">帳號建立成功！</h2>
-							<p class="text-muted-foreground max-w-sm">我們已將驗證信寄至您的信箱，請點擊信中連結完成帳號啟用。</p>
-							<div class="flex gap-3 pt-4">
-								<a href={withBase("/examples/dashboard")} class="cu-button cu-button-default cu-button-md">前往儀表板</a>
-								<button type="button" class="cu-button cu-button-outline cu-button-md" data-cu-wizard-reset>重新開始</button>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</main>
+        <!-- Success state (hidden by default) -->
+        <div data-cu-wizard-success hidden>
+          <div class="cu-card-content">
+            <div class="cu-empty-state py-16">
+              <div class="cu-empty-state-icon size-16 bg-success/10 text-success [&_svg]:size-8" aria-hidden="true">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="32"
+                  height="32"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M20 6 9 17l-5-5" />
+                </svg>
+              </div>
+              <h2 class="cu-empty-state-title outline-none" tabindex="-1" data-cu-wizard-success-title>
+                帳號建立成功！
+              </h2>
+              <p class="cu-empty-state-description">我們已將驗證信寄至您的信箱，請點擊信中連結完成帳號啟用。</p>
+              <div class="cu-empty-state-action flex flex-col-reverse gap-3 pt-2 sm:flex-row">
+                <button type="button" class="cu-button cu-button-outline cu-button-md" data-cu-wizard-reset>
+                  重新開始
+                </button>
+                <a href={withBase("/examples/dashboard")} class="cu-button cu-button-default cu-button-md">
+                  前往儀表板
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
-		<!-- Toast container -->
-		<div class="cu-toast-container cu-toast-container-bottom-right" data-cu-toast-container></div>
+      <p class="sr-only" role="status" data-cu-wizard-live></p>
+    </main>
 
-		<script>
-			(function () {
-				var currentStep = 0;
-				var totalSteps = 4;
-				var panels = document.querySelectorAll("[data-cu-wizard-panel]") as NodeListOf<HTMLElement>;
-				var indicators = document.querySelectorAll("[data-cu-wizard-step-indicator]");
-				var separators = document.querySelectorAll(".cu-steps-separator") as NodeListOf<HTMLElement>;
-				var checkSvg = '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>';
+    <script src={cubbyUiUrl} is:inline></script>
+    <script>
+      type Field = HTMLInputElement | HTMLSelectElement;
 
-				function updateSteps() {
-					indicators.forEach(function (ind: Element, i: number) {
-						var num = ind.querySelector(".cu-steps-number")!;
-						ind.classList.remove("cu-steps-item-completed", "cu-steps-item-active", "cu-steps-item-upcoming");
-						if (i < currentStep) {
-							ind.classList.add("cu-steps-item-completed");
-							num.innerHTML = checkSvg;
-						} else if (i === currentStep) {
-							ind.classList.add("cu-steps-item-active");
-							num.textContent = String(i + 1);
-						} else {
-							ind.classList.add("cu-steps-item-upcoming");
-							num.textContent = String(i + 1);
-						}
-					});
-					// Update separator colors
-					separators.forEach(function (sep: HTMLElement, i: number) {
-						if (i < currentStep) {
-							sep.style.backgroundColor = "var(--color-primary)";
-						} else {
-							sep.style.backgroundColor = "";
-						}
-					});
-				}
+      const TOTAL_STEPS = 4;
+      const REVIEW_STEP = TOTAL_STEPS - 1;
+      let currentStep = 0;
+      let returnToReview = false;
+      let submitting = false;
 
-				function showPanel(step: number) {
-					panels.forEach(function (p: HTMLElement) {
-						p.hidden = parseInt(p.getAttribute("data-cu-wizard-panel")!) !== step;
-					});
-					// Populate summary on step 4
-					if (step === 3) populateSummary();
-				}
+      const panels = document.querySelectorAll<HTMLElement>("[data-cu-wizard-panel]");
+      const indicators = document.querySelectorAll<HTMLElement>("[data-cu-wizard-step-indicator]");
+      const stepsEl = document.querySelector<HTMLElement>("[data-cu-wizard-steps]")!;
+      const successEl = document.querySelector<HTMLElement>("[data-cu-wizard-success]")!;
+      const live = document.querySelector<HTMLElement>("[data-cu-wizard-live]")!;
+      const submitBtn = document.querySelector<HTMLButtonElement>("[data-cu-wizard-submit]")!;
+      const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+      const checkSvg =
+        '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>';
 
-				function validateStep(step: number) {
-					if (step === 0) {
-						var email = document.getElementById("wiz-email") as HTMLInputElement;
-						var pw = document.getElementById("wiz-password") as HTMLInputElement;
-						var pwc = document.getElementById("wiz-password-confirm") as HTMLInputElement;
-						var user = document.getElementById("wiz-username") as HTMLInputElement;
-						// Check required fields
-						if (!email.value || !pw.value || !pwc.value || !user.value) {
-							showValidationError("請填寫所有必填欄位。");
-							markInvalidFields([email, pw, pwc, user]);
-							return false;
-						}
-						if (!email.checkValidity()) {
-							showValidationError("請輸入有效的 Email 地址。");
-							markInvalidFields([email]);
-							return false;
-						}
-						if (pw.value.length < 8) {
-							showValidationError("密碼至少需要 8 個字元。");
-							markInvalidFields([pw]);
-							return false;
-						}
-						if (pw.value !== pwc.value) {
-							showValidationError("兩次輸入的密碼不一致。");
-							markInvalidFields([pw, pwc]);
-							return false;
-						}
-						clearValidation([email, pw, pwc, user]);
-					} else if (step === 1) {
-						var fn = document.getElementById("wiz-first-name") as HTMLInputElement;
-						var ln = document.getElementById("wiz-last-name") as HTMLInputElement;
-						if (!fn.value || !ln.value) {
-							showValidationError("請填寫姓名欄位。");
-							markInvalidFields([fn, ln]);
-							return false;
-						}
-						clearValidation([fn, ln]);
-					} else if (step === 2) {
-						var role = document.getElementById("wiz-role") as HTMLSelectElement;
-						var terms = document.querySelector("[data-cu-wizard-terms]") as HTMLInputElement;
-						if (!role.value) {
-							showValidationError("請選擇您的角色。");
-							return false;
-						}
-						if (!terms.checked) {
-							showValidationError("請同意服務條款與隱私政策。");
-							return false;
-						}
-					}
-					return true;
-				}
+      const byId = <T extends HTMLElement = HTMLInputElement>(id: string) => document.getElementById(id) as T;
 
-				function markInvalidFields(fields: HTMLInputElement[]) {
-					fields.forEach(function (f: HTMLInputElement) {
-						if (!f.value) f.classList.add("cu-input-error");
-					});
-				}
+      function updateSteps() {
+        indicators.forEach((ind, i) => {
+          const num = ind.querySelector(".cu-steps-number")!;
+          const completed = i < currentStep;
+          ind.classList.toggle("cu-steps-item-completed", completed);
+          ind.classList.toggle("cu-steps-item-active", i === currentStep);
+          ind.classList.toggle("cu-steps-item-upcoming", i > currentStep);
+          if (i === currentStep) ind.setAttribute("aria-current", "step");
+          else ind.removeAttribute("aria-current");
+          if (completed) num.innerHTML = checkSvg;
+          else num.textContent = String(i + 1);
+          ind.querySelectorAll("[data-cu-wizard-step-status]").forEach((s) => {
+            s.textContent = completed ? "（已完成）" : "";
+          });
+        });
+      }
 
-				function clearValidation(fields: HTMLInputElement[]) {
-					fields.forEach(function (f: HTMLInputElement) {
-						f.classList.remove("cu-input-error");
-					});
-				}
+      function goToStep(step: number) {
+        currentStep = step;
+        updateSteps();
+        panels.forEach((p) => {
+          p.hidden = Number(p.dataset.cuWizardPanel) !== step;
+        });
+        if (step === REVIEW_STEP) {
+          returnToReview = false;
+          populateSummary();
+        }
+        document.querySelectorAll("[data-cu-wizard-next-label]").forEach((label) => {
+          label.textContent = returnToReview ? "儲存並返回確認" : "下一步";
+        });
+        window.scrollTo({ top: 0, behavior: reduceMotion.matches ? "auto" : "smooth" });
+        panels[step].querySelector<HTMLElement>("[data-cu-wizard-heading]")?.focus({ preventScroll: true });
+      }
 
-				function showValidationError(msg: string) {
-					showToast(msg, "", "destructive");
-				}
+      // -- Inline validation --
+      function setError(field: Field, message: string) {
+        const err = document.getElementById(field.id + "-error");
+        if (err) {
+          err.textContent = message;
+          err.hidden = false;
+        }
+        field.setAttribute("aria-invalid", "true");
+        if (field instanceof HTMLSelectElement) field.classList.add("cu-input-error");
+        else if (field.type !== "checkbox") field.classList.add("cu-input-error");
+      }
 
-				function showToast(title: string, desc: string, variant: string) {
-					var c = document.querySelector("[data-cu-toast-container]");
-					if (!c) return;
-					var toast = document.createElement("div");
-					toast.className = "cu-toast cu-toast-" + (variant || "default") + " cu-toast-enter";
-					toast.setAttribute("role", variant === "destructive" ? "alert" : "status");
-					toast.setAttribute("aria-live", variant === "destructive" ? "assertive" : "polite");
+      function clearError(field: Field) {
+        const err = document.getElementById(field.id + "-error");
+        if (err) {
+          err.textContent = "";
+          err.hidden = true;
+        }
+        field.removeAttribute("aria-invalid");
+        field.classList.remove("cu-input-error");
+      }
 
-					var body = document.createElement("div");
-					body.className = "cu-toast-body";
-					var titleEl = document.createElement("div");
-					titleEl.className = "cu-toast-title";
-					titleEl.textContent = title;
-					body.appendChild(titleEl);
-					if (desc) {
-						var descEl = document.createElement("div");
-						descEl.className = "cu-toast-description";
-						descEl.textContent = desc;
-						body.appendChild(descEl);
-					}
-					toast.appendChild(body);
+      function check(field: Field, message: string | false, invalid: Field[]) {
+        if (message) {
+          setError(field, message);
+          invalid.push(field);
+        } else {
+          clearError(field);
+        }
+      }
 
-					var closeBtn = document.createElement("button");
-					closeBtn.className = "cu-toast-close";
-					closeBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>';
-					toast.appendChild(closeBtn);
+      function validateStep(step: number) {
+        const invalid: Field[] = [];
+        if (step === 0) {
+          const email = byId("wiz-email");
+          const pw = byId("wiz-password");
+          const pwc = byId("wiz-password-confirm");
+          const user = byId("wiz-username");
+          check(
+            email,
+            !email.value
+              ? "請輸入 Email。"
+              : !email.validity.valid
+                ? "Email 格式不正確，例如 name@example.com。"
+                : false,
+            invalid,
+          );
+          check(pw, !pw.value ? "請輸入密碼。" : pw.value.length < 8 ? "密碼至少需要 8 個字元。" : false, invalid);
+          check(
+            pwc,
+            !pwc.value ? "請再次輸入密碼。" : pwc.value !== pw.value ? "兩次輸入的密碼不一致。" : false,
+            invalid,
+          );
+          check(
+            user,
+            !user.value ? "請輸入使用者名稱。" : !/^\w+$/.test(user.value) ? "僅允許英文字母、數字和底線。" : false,
+            invalid,
+          );
+        } else if (step === 1) {
+          const ln = byId("wiz-last-name");
+          const fn = byId("wiz-first-name");
+          check(ln, !ln.value.trim() ? "請輸入姓氏。" : false, invalid);
+          check(fn, !fn.value.trim() ? "請輸入名字。" : false, invalid);
+        } else if (step === 2) {
+          const role = byId<HTMLSelectElement>("wiz-role");
+          const terms = byId("wiz-terms");
+          check(role, !role.value ? "請選擇您的角色。" : false, invalid);
+          check(terms, !terms.checked ? "請同意服務條款與隱私政策才能繼續。" : false, invalid);
+        }
+        if (invalid.length) {
+          invalid[0].focus();
+          return false;
+        }
+        return true;
+      }
 
-					c.appendChild(toast);
-					closeBtn.addEventListener("click", function () {
-						toast.classList.add("cu-toast-exit");
-						toast.addEventListener("animationend", function () { toast.remove(); });
-					});
-					setTimeout(function () {
-						if (toast.parentNode) {
-							toast.classList.add("cu-toast-exit");
-							toast.addEventListener("animationend", function () { toast.remove(); });
-						}
-					}, 4000);
-				}
+      document.querySelectorAll<HTMLFormElement>("[data-cu-wizard-form]").forEach((form) => {
+        // 修正後即時清除錯誤
+        const clearOnEdit = (e: Event) => {
+          const field = e.target as Field;
+          if (field.getAttribute("aria-invalid") === "true") clearError(field);
+        };
+        form.addEventListener("input", clearOnEdit);
+        form.addEventListener("change", clearOnEdit);
+        // 下一步為 submit 按鈕，Enter 鍵也會觸發
+        form.addEventListener("submit", (e) => {
+          e.preventDefault();
+          if (!validateStep(currentStep)) return;
+          goToStep(returnToReview ? REVIEW_STEP : currentStep + 1);
+        });
+      });
 
-				function populateSummary() {
-					var s = function (key: string) { return document.querySelector('[data-cu-wizard-summary="' + key + '"]'); };
-					var email = document.getElementById("wiz-email") as HTMLInputElement;
-					var user = document.getElementById("wiz-username") as HTMLInputElement;
-					var fn = document.getElementById("wiz-first-name") as HTMLInputElement;
-					var ln = document.getElementById("wiz-last-name") as HTMLInputElement;
-					var phone = document.getElementById("wiz-phone") as HTMLInputElement;
-					var company = document.getElementById("wiz-company") as HTMLInputElement;
-					var role = document.getElementById("wiz-role") as HTMLSelectElement;
+      function populateSummary() {
+        const summary = (key: string) => document.querySelector(`[data-cu-wizard-summary="${key}"]`)!;
+        const value = (id: string) => byId(id).value.trim();
+        const roleSelect = byId<HTMLSelectElement>("wiz-role");
 
-					s("email")!.textContent = email.value || "—";
-					s("username")!.textContent = user.value || "—";
-					s("name")!.textContent = (ln.value || "") + (fn.value || "");
-					s("phone")!.textContent = phone.value || "未填寫";
-					s("company")!.textContent = company.value || "未填寫";
+        summary("email").textContent = value("wiz-email") || "—";
+        summary("username").textContent = value("wiz-username") || "—";
+        summary("name").textContent = value("wiz-last-name") + value("wiz-first-name") || "—";
+        summary("phone").textContent = value("wiz-phone") || "未填寫";
+        summary("company").textContent = value("wiz-company") || "未填寫";
+        summary("role").textContent = roleSelect.selectedOptions[0]?.value ? roleSelect.selectedOptions[0].text : "—";
 
-					var roleMap: Record<string, string> = { developer: "開發者", designer: "設計師", pm: "產品經理", marketing: "行銷人員", other: "其他" };
-					s("role")!.textContent = roleMap[role.value] || "—";
+        const enabled = Array.from(document.querySelectorAll<HTMLInputElement>("[data-cu-wizard-pref]"))
+          .filter((input) => input.checked)
+          .map((input) => input.closest("label")!.querySelector(".cu-setting-item-label")!.textContent!.trim());
+        summary("notifications").textContent = enabled.length ? enabled.join("、") : "全部關閉";
+      }
 
-					var notifs: string[] = [];
-					if ((document.querySelector('[data-cu-wizard-pref="email"]') as HTMLInputElement).checked) notifs.push("Email");
-					if ((document.querySelector('[data-cu-wizard-pref="product"]') as HTMLInputElement).checked) notifs.push("產品更新");
-					if ((document.querySelector('[data-cu-wizard-pref="marketing"]') as HTMLInputElement).checked) notifs.push("行銷");
-					s("notifications")!.textContent = notifs.length ? notifs.join("、") : "全部關閉";
-				}
+      document.querySelectorAll("[data-cu-wizard-prev]").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          if (currentStep > 0) goToStep(currentStep - 1);
+        });
+      });
 
-				function goToStep(step: number) {
-					currentStep = step;
-					updateSteps();
-					showPanel(step);
-					window.scrollTo({ top: 0, behavior: "smooth" });
-				}
+      // 從確認頁編輯時，記住要回到確認頁
+      document.querySelectorAll<HTMLElement>("[data-cu-wizard-goto]").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          returnToReview = true;
+          goToStep(Number(btn.dataset.cuWizardGoto));
+        });
+      });
 
-				// Next button
-				document.querySelectorAll("[data-cu-wizard-next]").forEach(function (btn) {
-					btn.addEventListener("click", function () {
-						if (validateStep(currentStep) && currentStep < totalSteps - 1) {
-							goToStep(currentStep + 1);
-						}
-					});
-				});
+      function setSubmitting(state: boolean) {
+        submitting = state;
+        submitBtn.classList.toggle("cu-button-loading", state);
+        if (state) submitBtn.setAttribute("aria-disabled", "true");
+        else submitBtn.removeAttribute("aria-disabled");
+        submitBtn.querySelector<HTMLElement>("[data-cu-wizard-submit-icon]")!.toggleAttribute("hidden", state);
+        submitBtn.querySelector<HTMLElement>("[data-cu-wizard-submit-spinner]")!.hidden = !state;
+        submitBtn.querySelector("[data-cu-wizard-submit-label]")!.textContent = state ? "送出中…" : "送出申請";
+      }
 
-				// Previous button
-				document.querySelectorAll("[data-cu-wizard-prev]").forEach(function (btn) {
-					btn.addEventListener("click", function () {
-						if (currentStep > 0) goToStep(currentStep - 1);
-					});
-				});
+      submitBtn.addEventListener("click", () => {
+        if (submitting) return;
+        setSubmitting(true);
+        live.textContent = "送出中，請稍候…";
+        setTimeout(() => {
+          panels.forEach((p) => (p.hidden = true));
+          stepsEl.hidden = true;
+          successEl.hidden = false;
+          live.textContent = "";
+          successEl.querySelector<HTMLElement>("[data-cu-wizard-success-title]")!.focus();
+          window.CubbyUI?.toast.show({
+            title: "驗證信已寄出",
+            description: "請至信箱點擊連結完成帳號啟用。",
+            variant: "success",
+          });
+        }, 1500);
+      });
 
-				// Go-to buttons (edit from summary)
-				document.querySelectorAll("[data-cu-wizard-goto]").forEach(function (btn) {
-					btn.addEventListener("click", function () {
-						var step = parseInt(btn.getAttribute("data-cu-wizard-goto")!);
-						goToStep(step);
-					});
-				});
+      document.querySelector("[data-cu-wizard-reset]")?.addEventListener("click", () => {
+        document.querySelectorAll<HTMLFormElement>("[data-cu-wizard-form]").forEach((form) => {
+          form.reset();
+          form.querySelectorAll<Field>("input, select").forEach(clearError);
+        });
+        setSubmitting(false);
+        returnToReview = false;
+        stepsEl.hidden = false;
+        successEl.hidden = true;
+        goToStep(0);
+      });
 
-				// Submit
-				var submitBtn = document.querySelector("[data-cu-wizard-submit]") as HTMLButtonElement | null;
-				if (submitBtn) {
-					submitBtn.addEventListener("click", function () {
-						// Simulate submission
-						submitBtn!.disabled = true;
-						submitBtn!.innerHTML = '<svg class="animate-spin" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg> 送出中…';
-						setTimeout(function () {
-							// Hide all panels and steps
-							panels.forEach(function (p: HTMLElement) { p.hidden = true; });
-							(document.querySelector("[data-cu-wizard-steps]") as HTMLElement).style.display = "none";
-							(document.querySelector("[data-cu-wizard-success]") as HTMLElement).hidden = false;
-							showToast("帳號建立成功", "驗證信已寄出，請至信箱確認。", "success");
-						}, 1500);
-					});
-				}
-
-				// Reset
-				var resetBtn = document.querySelector("[data-cu-wizard-reset]");
-				if (resetBtn) {
-					resetBtn.addEventListener("click", function () {
-						// Reset all forms
-						document.querySelectorAll("[data-cu-wizard-form] input, [data-cu-wizard-form] textarea, [data-cu-wizard-form] select").forEach(function (f) {
-							if (f instanceof HTMLInputElement && f.type === "checkbox") f.checked = f.hasAttribute("checked");
-							else if (f instanceof HTMLSelectElement) f.selectedIndex = 0;
-							else (f as HTMLInputElement).value = "";
-						});
-						(document.querySelector("[data-cu-wizard-terms]") as HTMLInputElement).checked = false;
-						(document.querySelector("[data-cu-wizard-steps]") as HTMLElement).style.display = "";
-						(document.querySelector("[data-cu-wizard-success]") as HTMLElement).hidden = true;
-						var sb = document.querySelector("[data-cu-wizard-submit]") as HTMLButtonElement;
-						sb.disabled = false;
-						sb.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> 送出申請';
-						goToStep(0);
-					});
-				}
-
-				// Init
-				updateSteps();
-			})();
-		</script>
-	</body>
+      updateSteps();
+    </script>
+  </body>
 </html>

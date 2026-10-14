@@ -258,9 +258,7 @@ const nextSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" 
     <!-- Card Carousel -->
     <section class="space-y-3">
       <SectionHeading id="cards" title={t.sections.cards.title} />
-      <p class="text-base text-muted-foreground leading-relaxed">
-        {t.sections.cards.description}
-      </p>
+      <p class="text-base text-muted-foreground leading-relaxed">{t.sections.cards.description}</p>
       <ComponentPreview code={cardCode}>
         <div class="w-full max-w-xl">
           <Carousel class="cu-carousel-nav-outside">
@@ -430,7 +428,9 @@ const nextSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" 
           <tbody class="cu-table-body">
             {Object.entries(t.classDescriptions).map(([cls, desc]) => (
               <tr class="cu-table-row">
-                <td class="cu-table-cell"><code class="cu-code">{cls}</code></td>
+                <td class="cu-table-cell">
+                  <code class="cu-code">{cls}</code>
+                </td>
                 <td class="cu-table-cell text-muted-foreground">{desc}</td>
               </tr>
             ))}

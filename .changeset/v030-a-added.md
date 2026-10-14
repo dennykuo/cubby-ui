@@ -11,7 +11,7 @@
 - Calendar 支援 Home / End 跳至月首 / 月末，方向鍵可跨月移動；Date Picker 選取日期時對 hidden input 觸發 `change`
 - **文檔站 SEO**：每頁專屬 meta description（元件頁取翻譯檔副標題並轉純文字）、Open Graph 與 `twitter:card`、設定 `SITE_URL` 時輸出含 base 的 canonical / `og:url` 與絕對網址 hreflang（含 `x-default`）、sitemap（`@astrojs/sitemap`，排除範例 404 頁）與 `robots.txt`；CI 建置文檔站時帶入 `SITE_URL`
 - **互動 JS 型別檢查**：`tsconfig.scripts.json`（`allowJs` + `checkJs`）檢查 `src/scripts/` 元件庫 JS，`npm run type-check` 於 `astro check` 後執行 `type-check:scripts`；元素 expando 屬性宣告於 `src/scripts/globals.d.ts`（不影響對外的 `cubby-ui.d.ts`）
-- **ESLint**（`npm run lint`，flat config）：範圍 `src/scripts/`，只啟用 `@eslint/js` recommended 與少數正確性規則，不含排版 / 風格規則、不導入 Prettier；CI 於型別檢查後執行
+- **ESLint**（`npm run lint`，flat config）：範圍 `src/scripts/`，只啟用 `@eslint/js` recommended 與少數正確性規則，不含排版 / 風格規則（排版由 Prettier 處理）；CI 於型別檢查後執行
 - E2E 測試：Combobox、Multi Select、Date Picker（含 Calendar）、Combobox / Multi Select debounce、Copy Button，以及文檔站 SEO 測試組
 - **文檔站搜尋**：Header 的搜尋框原本沒有任何功能，改以元件庫自身的 Command Palette 實作（`src/components/DocsSearch.astro`）。項目取自 `component-nav.ts`（入門指南、10 個元件分類、範例頁，與側邊欄同步），可用名稱、路徑代稱或中英文分類名搜尋，Enter 直接導航；支援 ⌘K / Ctrl+K，非 Apple 平台的快捷鍵提示顯示 `Ctrl K`；手機寬度新增圖示按鈕
 - Command Palette 互動測試（`tests/e2e/command-palette.spec.ts`，對出貨產物執行）與文檔站搜尋測試（`docs-smoke.spec.ts`）
@@ -26,3 +26,8 @@
 - Multi Select：`data-cu-multi-select-remove-text`（預設 `Remove {label}`），自訂標籤移除按鈕的無障礙名稱
 - Calendar / Date Picker：`data-cu-calendar-locale` 指定日期按鈕完整日期名稱的語系（預設取最近祖先的 `lang`）；新增 JS 產生的週列 class `cu-calendar-week`
 - **無障礙**：Combobox / Multi Select 的搜尋框依 WAI-ARIA APG combobox 加上 `role` / `aria-controls` / `aria-autocomplete` / `aria-expanded`，並以 `aria-activedescendant` 指向鍵盤高亮項目；Multi Select 標籤移除按鈕有可讀名稱（例如 "Remove React"）；Date Picker trigger 加上 `aria-haspopup="dialog"` / `aria-expanded` / `aria-controls`，面板為以月份命名的非模態 dialog；Calendar 改為 grid / row / gridcell 結構，日期按鈕帶完整日期名稱、`aria-selected` 與 `aria-current="date"`；Command Palette 輸入框為 combobox，清單為 listbox / group / option，`aria-activedescendant` 與 `aria-selected` 跟隨選中項目
+- `cu-dropzone-input`：視覺隱藏但可聚焦的 file input（取代範例中不存在於 dist CSS 的 `sr-only`），Dropzone 可用鍵盤選檔
+- 範例標記自動檢查（`tests/e2e/examples.spec.ts`）：把 `components.json` 的 `example`、`llms.txt` 的 HTML 範例與文檔頁 Code 範例放進只載入 `dist/` 產物的頁面，靜態檢查必要的 `data-cu-*` 屬性與結構、觸發器可鍵盤操作、巢狀互動元素、表單類按鈕的 `type="button"`、label 關聯，並實際操作元件確認照抄即可運作
+- `llms.txt` 新增 Input Clearable、Alert Expandable、Data Table 展開列範例與 15 列互動屬性對照；`components.json` 新增 Combobox、Multi Select、Transfer List 範例
+- Header：`cu-header-mobile-toggle-{sm|md|lg|xl}`，漢堡觸發按鈕在該斷點以上隱藏，與 `cu-header-nav-{bp}`、`cu-header-mobile-{nav|backdrop}-{bp}` 搭配
+- **Prettier**（`npm run format` / `format:check`，exact 版本並搭配 `prettier-plugin-astro`、`prettier-plugin-tailwindcss`）：全專案一次格式化，CI 於 lint 後檢查；`src/components/ui/`（Blade 轉換器以 regex 解析，對排版敏感）、Markdown 與 `llms.txt` 不格式化；格式化 commit 登記在 `.git-blame-ignore-revs`。格式化前後 `cubby-ui.min.css` / `cubby-ui.min.js` 與 Blade 輸出完全相同

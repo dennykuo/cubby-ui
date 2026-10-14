@@ -9,7 +9,7 @@ interface Props {
 
 const { target, label = "Open menu", breakpoint = "md", class: className, ...rest } = Astro.props;
 
-const breakpointClass = breakpoint === "always" ? "" : `${breakpoint}:hidden`;
+const breakpointClass = breakpoint === "always" ? "" : `cu-header-mobile-toggle-${breakpoint}`;
 ---
 
 <button

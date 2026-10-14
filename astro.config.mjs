@@ -1,20 +1,20 @@
-import { defineConfig } from 'astro/config';
-import tailwindcss from '@tailwindcss/vite';
-import { cpSync, mkdirSync, rmSync, existsSync, readdirSync } from 'node:fs';
-import { join, relative, dirname } from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { defineConfig } from "astro/config";
+import tailwindcss from "@tailwindcss/vite";
+import { cpSync, mkdirSync, rmSync, existsSync, readdirSync } from "node:fs";
+import { join, relative, dirname } from "node:path";
+import { fileURLToPath } from "node:url";
 
-import expressiveCode from 'astro-expressive-code';
-import sitemap from '@astrojs/sitemap';
-import { buildCubbyUiJs } from './scripts/build-js.mjs';
+import expressiveCode from "astro-expressive-code";
+import sitemap from "@astrojs/sitemap";
+import { buildCubbyUiJs } from "./scripts/build-js.mjs";
 
 /**
  * Vite plugin: dev 模式下 watch src/pages/ 變動，自動同步至 zh-tw/
  */
 function i18nHotSync() {
-  const pagesDir = fileURLToPath(new URL('./src/pages/', import.meta.url));
-  const targetDir = join(pagesDir, 'zh-tw');
-  const excludeDirs = ['zh-tw', 'examples'];
+  const pagesDir = fileURLToPath(new URL("./src/pages/", import.meta.url));
+  const targetDir = join(pagesDir, "zh-tw");
+  const excludeDirs = ["zh-tw", "examples"];
 
   function collectFiles(dir) {
     const files = [];
@@ -23,7 +23,7 @@ function i18nHotSync() {
       if (entry.isDirectory()) {
         if (excludeDirs.includes(entry.name)) continue;
         files.push(...collectFiles(fullPath));
-      } else if (entry.name.endsWith('.astro')) {
+      } else if (entry.name.endsWith(".astro")) {
         files.push(relative(pagesDir, fullPath));
       }
     }
@@ -43,8 +43,8 @@ function i18nHotSync() {
 
   function syncOne(filePath) {
     const relPath = relative(pagesDir, filePath);
-    if (relPath.startsWith('zh-tw') || relPath.startsWith('examples')) return;
-    if (!relPath.endsWith('.astro')) return;
+    if (relPath.startsWith("zh-tw") || relPath.startsWith("examples")) return;
+    if (!relPath.endsWith(".astro")) return;
     const dest = join(targetDir, relPath);
     mkdirSync(dirname(dest), { recursive: true });
     cpSync(filePath, dest);
@@ -54,16 +54,16 @@ function i18nHotSync() {
   syncAll();
 
   return {
-    name: 'i18n-hot-sync',
-    apply: 'serve',
+    name: "i18n-hot-sync",
+    apply: "serve",
     configureServer(server) {
-      server.watcher.on('change', (filePath) => {
+      server.watcher.on("change", (filePath) => {
         if (filePath.startsWith(pagesDir) && !filePath.startsWith(targetDir)) {
           syncOne(filePath);
         }
       });
 
-      server.watcher.on('add', (filePath) => {
+      server.watcher.on("add", (filePath) => {
         if (filePath.startsWith(pagesDir) && !filePath.startsWith(targetDir)) {
           syncOne(filePath);
         }
@@ -78,12 +78,12 @@ function i18nHotSync() {
  * window.CubbyUI 全域），因此必須在模組解析前就緒；dev 模式監看 src/scripts/ 變動自動重建。
  */
 function cubbyUiJsBundle() {
-  const scriptsDir = fileURLToPath(new URL('./src/scripts/', import.meta.url));
+  const scriptsDir = fileURLToPath(new URL("./src/scripts/", import.meta.url));
   const isLibSource = (filePath) =>
-    filePath.startsWith(scriptsDir) && filePath.endsWith('.js') && !filePath.endsWith('playground.js');
+    filePath.startsWith(scriptsDir) && filePath.endsWith(".js") && !filePath.endsWith("playground.js");
 
   return {
-    name: 'cubby-ui-js-bundle',
+    name: "cubby-ui-js-bundle",
     configResolved() {
       buildCubbyUiJs();
     },
@@ -93,14 +93,14 @@ function cubbyUiJsBundle() {
         if (!isLibSource(filePath)) return;
         try {
           buildCubbyUiJs();
-          server.ws.send({ type: 'full-reload' });
+          server.ws.send({ type: "full-reload" });
         } catch (err) {
           server.config.logger.error(`[cubby-ui-js-bundle] ${err.message}`);
         }
       };
-      server.watcher.on('change', rebuild);
-      server.watcher.on('add', rebuild);
-      server.watcher.on('unlink', rebuild);
+      server.watcher.on("change", rebuild);
+      server.watcher.on("add", rebuild);
+      server.watcher.on("unlink", rebuild);
     },
   };
 }
@@ -109,57 +109,62 @@ function cubbyUiJsBundle() {
 // SITE_URL（如 https://dennykuo.github.io）與 BASE_PATH（如 /cubby-ui）；
 // 本機 dev / build / E2E 未設定時維持根目錄。站內連結一律經 src/utils/paths.ts 的 withBase()。
 const site = process.env.SITE_URL || undefined;
-const base = process.env.BASE_PATH || '/';
+const base = process.env.BASE_PATH || "/";
 
 // sitemap 需要絕對網址，只在設定 SITE_URL 時產生（本機未設定時不載入，避免警告）。
 // 排除範例裡的 404 示範頁（examples/dashboard/404 等）；@astrojs/sitemap 只會自動略過站台根層的 404。
 const sitemapIntegration = site
-  ? [sitemap({
-      filter: (page) => !/\/404\/?$/.test(new URL(page).pathname),
-      i18n: {
-        defaultLocale: 'en',
-        locales: { en: 'en', 'zh-tw': 'zh-TW' },
-      },
-    })]
+  ? [
+      sitemap({
+        filter: (page) => !/\/404\/?$/.test(new URL(page).pathname),
+        i18n: {
+          defaultLocale: "en",
+          locales: { en: "en", "zh-tw": "zh-TW" },
+        },
+      }),
+    ]
   : [];
 
 // https://astro.build/config
 export default defineConfig({
   site,
   base,
-  outDir: 'docs',
+  outDir: "docs",
   vite: {
     plugins: [tailwindcss(), cubbyUiJsBundle(), i18nHotSync()],
     server: {
       headers: {
-        'Cache-Control': 'no-store',
+        "Cache-Control": "no-store",
       },
     },
   },
 
   i18n: {
-    defaultLocale: 'en',
-    locales: ['en', 'zh-tw'],
+    defaultLocale: "en",
+    locales: ["en", "zh-tw"],
     routing: {
       prefixDefaultLocale: false,
       redirectToDefaultLocale: false,
     },
   },
 
-  integrations: [expressiveCode({
-    themes: ['min-light', 'min-dark'],
-    frames: {
-      showCopyToClipboardButton: false,
-    },
-    styleOverrides: {
-      codeBackground: 'transparent',
-      borderColor: 'transparent',
-      codeFontSize: '13px',
-      codePaddingBlock: '0',
-      codePaddingInline: '0',
+  integrations: [
+    expressiveCode({
+      themes: ["min-light", "min-dark"],
       frames: {
-        shadowColor: 'transparent',
-      }
-    }
-  }), ...sitemapIntegration],
+        showCopyToClipboardButton: false,
+      },
+      styleOverrides: {
+        codeBackground: "transparent",
+        borderColor: "transparent",
+        codeFontSize: "13px",
+        codePaddingBlock: "0",
+        codePaddingInline: "0",
+        frames: {
+          shadowColor: "transparent",
+        },
+      },
+    }),
+    ...sitemapIntegration,
+  ],
 });

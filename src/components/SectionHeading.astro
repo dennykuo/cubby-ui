@@ -10,11 +10,13 @@ interface Props {
 }
 const { id, title } = Astro.props;
 ---
+
 <h2 id={id} class="text-lg font-semibold tracking-tight relative group">
   <a
     href={`#${id}`}
     class="absolute -left-5 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors duration-150"
-    >#</a
   >
+    #
+  </a>
   {title ?? <slot />}
 </h2>

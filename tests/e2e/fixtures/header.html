@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Header fixture</title>
+    <link rel="stylesheet" href="../../../dist/core/cubby-ui.css" />
+  </head>
+  <body>
+    <!-- 只載入 dist CSS（不含 Tailwind 工具類別），驗證純 HTML 使用者照抄範例的行為 -->
+    <header class="cu-header">
+      <div class="cu-header-inner">
+        <div class="cu-header-brand">Logo</div>
+        <div id="nav-md" class="cu-header-nav cu-header-nav-md">
+          <nav class="cu-nav"><a class="cu-nav-item cu-nav-item-active" href="#">Home</a></nav>
+        </div>
+        <div class="cu-header-actions">
+          <button
+            id="toggle-sm"
+            type="button"
+            data-cu-mobile-nav-trigger="nav-sm-backdrop"
+            class="cu-button cu-button-ghost cu-button-icon-sm cu-header-mobile-toggle-sm"
+            aria-label="Open menu"
+            aria-expanded="false"
+          >
+            ☰
+          </button>
+          <button
+            id="toggle-md"
+            type="button"
+            data-cu-mobile-nav-trigger="main-nav"
+            class="cu-button cu-button-ghost cu-button-icon-sm cu-header-mobile-toggle-md"
+            aria-label="Open menu"
+            aria-expanded="false"
+          >
+            ☰
+          </button>
+          <button
+            id="toggle-lg"
+            type="button"
+            data-cu-mobile-nav-trigger="nav-lg-backdrop"
+            class="cu-button cu-button-ghost cu-button-icon-sm cu-header-mobile-toggle-lg"
+            aria-label="Open menu"
+            aria-expanded="false"
+          >
+            ☰
+          </button>
+          <button
+            id="toggle-xl"
+            type="button"
+            data-cu-mobile-nav-trigger="nav-xl-backdrop"
+            class="cu-button cu-button-ghost cu-button-icon-sm cu-header-mobile-toggle-xl"
+            aria-label="Open menu"
+            aria-expanded="false"
+          >
+            ☰
+          </button>
+          <button
+            id="toggle-always"
+            type="button"
+            data-cu-mobile-nav-trigger="nav-always-backdrop"
+            class="cu-button cu-button-ghost cu-button-icon-sm"
+            aria-label="Open menu"
+            aria-expanded="false"
+          >
+            ☰
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <div id="main-nav" class="cu-header-mobile-backdrop cu-header-mobile-backdrop-md" data-cu-mobile-nav hidden></div>
+    <nav
+      id="main-nav-panel"
+      class="cu-header-mobile-nav cu-header-mobile-nav-md"
+      data-cu-mobile-nav-panel="main-nav"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Navigation menu"
+      hidden
+    >
+      <div class="cu-header-mobile-header">
+        <button type="button" data-cu-mobile-nav-close class="cu-header-mobile-close" aria-label="Close menu">×</button>
+      </div>
+      <div class="cu-header-mobile-content"><a class="cu-nav-item" href="#">Home</a></div>
+    </nav>
+
+    <script src="../../../dist/core/cubby-ui.js"></script>
+  </body>
+</html>

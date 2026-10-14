@@ -1,1 +1,1 @@
-export const TOP_CLASS = 'cu';
+export const TOP_CLASS = "cu";

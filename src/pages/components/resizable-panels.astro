@@ -90,9 +90,7 @@ const nestedCode = `<div class="cu-resizable" data-cu-resizable style="height: 4
       <h1 class="text-3xl font-bold tracking-tight">Resizable Panels</h1>
       <span class="cu-badge cu-badge-secondary">{t.category}</span>
     </div>
-    <p class="text-base text-muted-foreground leading-relaxed">
-      {t.description}
-    </p>
+    <p class="text-base text-muted-foreground leading-relaxed">{t.description}</p>
   </div>
 
   <div class="mt-10 space-y-10">
@@ -218,7 +216,9 @@ const nestedCode = `<div class="cu-resizable" data-cu-resizable style="height: 4
           <tbody class="cu-table-body">
             {Object.entries(t.classDescriptions).map(([cls, desc]) => (
               <tr class="cu-table-row">
-                <td class="cu-table-cell"><code class="cu-code">{cls}</code></td>
+                <td class="cu-table-cell">
+                  <code class="cu-code">{cls}</code>
+                </td>
                 <td class="cu-table-cell text-muted-foreground">{desc}</td>
               </tr>
             ))}
@@ -241,7 +241,9 @@ const nestedCode = `<div class="cu-resizable" data-cu-resizable style="height: 4
           <tbody class="cu-table-body">
             {Object.entries(t.dataAttributeDescriptions).map(([attr, desc]) => (
               <tr class="cu-table-row">
-                <td class="cu-table-cell"><code class="cu-code">{attr}</code></td>
+                <td class="cu-table-cell">
+                  <code class="cu-code">{attr}</code>
+                </td>
                 <td class="cu-table-cell text-muted-foreground" set:html={desc} />
               </tr>
             ))}

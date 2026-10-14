@@ -62,7 +62,11 @@ function resolveText(btn) {
   var selector = btn.getAttribute("data-cu-copy-target");
   if (selector) {
     var target;
-    try { target = document.querySelector(selector); } catch (_err) { target = null; }
+    try {
+      target = document.querySelector(selector);
+    } catch (_err) {
+      target = null;
+    }
     if (!target) return null;
     if ("value" in target && /^(INPUT|TEXTAREA|SELECT)$/.test(target.tagName)) return target.value;
     return (target.textContent || "").trim();
@@ -77,8 +81,12 @@ function copyFromButton(btn) {
     return;
   }
   writeClipboard(text).then(
-    function () { setState(btn, true, null, text); },
-    function (err) { setState(btn, false, err); }
+    function () {
+      setState(btn, true, null, text);
+    },
+    function (err) {
+      setState(btn, false, err);
+    },
   );
 }
 

@@ -3,58 +3,58 @@
 /* Box drawn around the tags and the trigger. The tags (with their remove <button>s) are a sibling of the
    trigger <button>, never inside it — interactive content cannot be nested in a button. */
 .cu-multi-select-control {
-    @apply flex min-h-9 w-full items-center gap-1 rounded-lg border border-input bg-background px-3 py-1.5 text-sm transition-colors duration-150 hover:border-muted-foreground/30 cursor-pointer;
+  @apply flex min-h-9 w-full cursor-pointer items-center gap-1 rounded-lg border border-input bg-background px-3 py-1.5 text-sm transition-colors duration-150 hover:border-muted-foreground/30;
 }
 
 .cu-multi-select-control:has(> .cu-multi-select-trigger:focus-visible) {
-    @apply ring-2 ring-ring/40 ring-offset-2;
+  @apply ring-2 ring-ring/40 ring-offset-2;
 }
 
 .cu-multi-select-control:has(> .cu-multi-select-trigger:disabled) {
-    @apply pointer-events-none opacity-50 bg-muted text-muted-foreground hover:border-input;
+  @apply pointer-events-none bg-muted text-muted-foreground opacity-50 hover:border-input;
 }
 
 /* Fills the space after the tags (placeholder + chevron); the focus ring is drawn on the control */
 .cu-multi-select-trigger {
-    @apply flex min-w-6 flex-1 items-center gap-1 self-stretch bg-transparent text-left outline-none cursor-pointer disabled:pointer-events-none;
+  @apply flex min-w-6 flex-1 cursor-pointer items-center gap-1 self-stretch bg-transparent text-left outline-none disabled:pointer-events-none;
 }
 
 .cu-multi-select-tags {
-    @apply flex min-w-0 flex-wrap items-center gap-1;
+  @apply flex min-w-0 flex-wrap items-center gap-1;
 }
 
 .cu-multi-select-tags:empty {
-    @apply hidden;
+  @apply hidden;
 }
 
 .cu-multi-select-tag {
-    @apply inline-flex items-center gap-1 rounded-md bg-secondary px-2 py-0.5 text-xs font-medium text-secondary-foreground;
+  @apply inline-flex items-center gap-1 rounded-md bg-secondary px-2 py-0.5 text-xs font-medium text-secondary-foreground;
 }
 
 .cu-multi-select-tag-remove {
-    @apply inline-flex size-3.5 items-center justify-center rounded-sm text-muted-foreground/70 transition-colors duration-150 hover:text-foreground cursor-pointer outline-none focus-visible:ring-1 focus-visible:ring-ring/40 focus-visible:text-foreground;
+  @apply inline-flex size-3.5 cursor-pointer items-center justify-center rounded-sm text-muted-foreground/70 transition-colors duration-150 outline-none hover:text-foreground focus-visible:text-foreground focus-visible:ring-1 focus-visible:ring-ring/40;
 }
 
 .cu-multi-select-placeholder {
-    @apply text-muted-foreground;
+  @apply text-muted-foreground;
 }
 
 .cu-multi-select-icon {
-    @apply ml-auto size-4 shrink-0 text-muted-foreground/60;
+  @apply ml-auto size-4 shrink-0 text-muted-foreground/60;
 }
 
 .cu-multi-select-item {
-    @apply relative flex w-full cursor-pointer items-center rounded-md px-2 py-1.5 pl-8 text-sm transition-colors duration-150 hover:bg-accent hover:text-accent-foreground outline-none;
+  @apply relative flex w-full cursor-pointer items-center rounded-md px-2 py-1.5 pl-8 text-sm transition-colors duration-150 outline-none hover:bg-accent hover:text-accent-foreground;
 }
 
 .cu-multi-select-item-active {
-    @apply bg-accent/50;
+  @apply bg-accent/50;
 }
 
 .cu-multi-select-item-highlight {
-    @apply bg-accent text-accent-foreground;
+  @apply bg-accent text-accent-foreground;
 }
 
 .cu-multi-select-item-check {
-    @apply absolute left-2 size-4 text-primary;
+  @apply absolute left-2 size-4 text-primary;
 }
