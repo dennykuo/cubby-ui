@@ -75,7 +75,10 @@ export function setupMultiSelects() {
       }
       // placeholder 屬於 trigger（標籤容器由 JS 全權管理，渲染時會清空）
       if (trigger && placeholder && !trigger.contains(placeholder)) trigger.insertBefore(placeholder, trigger.firstChild);
-      var control = trigger && tagsEl && trigger.parentElement && trigger.parentElement.contains(tagsEl) ? trigger.parentElement : null;
+      // 外框 = trigger 與標籤容器共同的父元素；若它也包住面板（沒有 control、直接放在根元素下）則不轉送點擊，
+      // 否則點選項目也會被當成點擊 trigger 而關閉面板
+      var parent = trigger && trigger.parentElement;
+      var control = parent && tagsEl && parent.contains(tagsEl) && !(content && parent.contains(content)) ? parent : null;
 
       // Dynamic items query — always returns fresh NodeList
       function getItems() {

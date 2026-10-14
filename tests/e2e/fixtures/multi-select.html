@@ -92,6 +92,20 @@
     </div>
   </div>
 
+  <!-- 標籤容器與 trigger 直接並列在根元素下（沒有 control 外框）：點擊面板內的項目不可被轉送為 trigger 點擊 -->
+  <div id="ms-nowrap" class="cu-multi-select" data-cu-multi-select style="width: 300px;">
+    <div class="cu-multi-select-tags" data-cu-multi-select-tags></div>
+    <button type="button" class="cu-multi-select-trigger" data-cu-multi-select-trigger>
+      <span class="cu-multi-select-placeholder" data-cu-multi-select-placeholder>Select sizes...</span>
+    </button>
+    <div class="cu-multi-select-content" data-cu-multi-select-content hidden>
+      <div class="cu-multi-select-list" data-cu-multi-select-list>
+        <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="s">Small</div>
+        <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="l">Large</div>
+      </div>
+    </div>
+  </div>
+
   <!-- 文檔 With Form Group 範例：以 <label for> 命名 trigger -->
   <div style="width: 300px;">
     <label class="cu-label" for="tech-select">Technologies</label>

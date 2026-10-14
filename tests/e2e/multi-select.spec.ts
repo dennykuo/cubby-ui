@@ -242,6 +242,18 @@ test.describe("Multi Select", () => {
     await expect(members.input).toBeFocused();
   });
 
+  test("沒有 control 外框時（標籤容器與 trigger 直接在根元素下），點選項目不會被當成點擊 trigger", async ({ page }) => {
+    const ms = multiSelect(page, "ms-nowrap");
+    await ms.trigger.click();
+    await ms.item("Small").click();
+    await ms.item("Large").click();
+    await expect(ms.content).toBeVisible();
+    await expect.poll(ms.tagLabels).toEqual(["Small", "Large"]);
+    await ms.removeBtn("s").click();
+    await expect.poll(ms.tagLabels).toEqual(["Large"]);
+    await expect(ms.content).toBeVisible();
+  });
+
   test("trigger 的無障礙名稱：標籤隱藏 placeholder 後仍以其文字命名；<label for> 優先", async ({ page }) => {
     const ms = multiSelect(page, "ms-members");
     await expect(ms.trigger).toHaveAccessibleName("Select members...");
