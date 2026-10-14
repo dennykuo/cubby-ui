@@ -13,7 +13,57 @@ const {
   staticVariable,
   templateLiteralToPhp,
 } = require("./class-resolver.cjs");
-const { jsToPhp } = require("./js-expr.cjs");
+const { jsToPhp, phpString } = require("./js-expr.cjs");
+
+/** HTML void 元素：可以（也只能）自閉合 */
+const VOID_ELEMENTS = new Set([
+  "area",
+  "base",
+  "br",
+  "col",
+  "embed",
+  "hr",
+  "img",
+  "input",
+  "link",
+  "meta",
+  "source",
+  "track",
+  "wbr",
+]);
+
+/** SVG 元素：位於 <svg> 內屬於 foreign content，自閉合合法（以小寫比對；fe* 濾鏡元素另以前綴判斷） */
+const SVG_ELEMENTS = new Set([
+  "svg",
+  "g",
+  "defs",
+  "symbol",
+  "use",
+  "path",
+  "circle",
+  "ellipse",
+  "line",
+  "polyline",
+  "polygon",
+  "rect",
+  "text",
+  "tspan",
+  "image",
+  "stop",
+  "lineargradient",
+  "radialgradient",
+  "pattern",
+  "mask",
+  "clippath",
+  "marker",
+  "filter",
+  "animate",
+  "animatetransform",
+  "set",
+  "desc",
+  "metadata",
+  "foreignobject",
+]);
 
 /** HTML boolean 屬性（attr={attr} 時輸出為條件存在） */
 const BOOLEAN_ATTRS = new Set([
@@ -93,7 +143,13 @@ function transformTemplate(template, parsed, options = {}) {
   // Pass 9: 處理文字插值 {varName}
   result = transformTextInterpolation(result, parsed);
 
-  // Pass 9b: 動態 tag <Tag> → <{{ $Tag }}>（Tag 為 frontmatter const）
+  // Pass 9b: 元件自身的 style 併入 $attributes（避免與使用者的 style 成為兩個 style 屬性）
+  result = mergeStyleIntoAttributes(result);
+
+  // Pass 9c: 非 void 元素的自閉合標籤展開為 <tag ...></tag>
+  result = expandSelfClosingTags(result);
+
+  // Pass 9d: 動態 tag <Tag> → <{{ $Tag }}>（Tag 為 frontmatter const）
   // 須在 class / spread 處理之後：Pass 2 以 <[A-Za-z] 辨識開頭標籤，提早轉換會讓 class:list 與 {...rest} 無法合併
   result = transformDynamicTags(result, parsed);
 
@@ -104,7 +160,7 @@ function transformTemplate(template, parsed, options = {}) {
 }
 
 /**
- * Pass 9b: 動態 tag
+ * Pass 9d: 動態 tag
  * const Tag = type === "decimal" ? "ol" : "ul";  <Tag ...>...</Tag>
  *   → <{{ $Tag }} ...>...</{{ $Tag }}>（$Tag 由 @php 區塊宣告）
  */
@@ -616,6 +672,70 @@ function transformTextInterpolation(template, parsed) {
   );
 
   return result;
+}
+
+/**
+ * Pass 9b: 元件自身的 style 併入 $attributes
+ *
+ *   <div style="--cu-marquee-duration: {{ $duration }};" {{ $attributes->class([...]) }}>
+ *     → <div {{ $attributes->class([...])->merge(['style' => '--cu-marquee-duration: ' . $duration . ';']) }}>
+ *
+ * 分開輸出時，使用者傳入 style 會讓同一元素出現兩個 style 屬性，瀏覽器只採用第一個。
+ * $attributes->merge() 會把元件的 style 放在前、使用者的 style 接在後，同名屬性由使用者覆蓋。
+ * 只處理帶有會輸出使用者 style 的 attribute bag（非 only(...)）的標籤。
+ */
+function mergeStyleIntoAttributes(template) {
+  return mapOpeningTags(template, (tag) => {
+    const style = tag.match(/\s+style="([^"]*)"/);
+    if (!style) return tag;
+
+    const bags = [...tag.matchAll(/\{\{\s*(\$attributes\b[\s\S]*?)\s*\}\}/g)].filter(
+      ([, expr]) => !/^\$attributes->only\(/.test(expr),
+    );
+    if (bags.length !== 1) return tag;
+
+    const [bagEcho, bagExpr] = bags[0];
+    const value = style[1].trim().endsWith(";") ? style[1].trim() : `${style[1].trim()};`;
+    const merged = `{{ ${bagExpr}->merge(['style' => ${bladeStringToPhp(value)}]) }}`;
+    return tag.replace(style[0], "").replace(bagEcho, () => merged);
+  });
+}
+
+/**
+ * 含 {{ expr }} 的屬性值 → PHP 字串拼接（如 `a: {{ $x }};` → `'a: ' . $x . ';'`）
+ */
+function bladeStringToPhp(value) {
+  const parts = [];
+  let last = 0;
+  for (const m of value.matchAll(/\{\{\s*([\s\S]*?)\s*\}\}/g)) {
+    if (m.index > last) parts.push(phpString(value.slice(last, m.index)));
+    parts.push(/^\$\w+$/.test(m[1]) ? m[1] : `(${m[1]})`);
+    last = m.index + m[0].length;
+  }
+  if (last < value.length) parts.push(phpString(value.slice(last)));
+  return parts.length > 0 ? parts.join(" . ") : "''";
+}
+
+/**
+ * Pass 9c: 非 void 元素的自閉合標籤展開
+ *
+ *   <span role="status" ... />  →  <span role="status" ...></span>
+ *
+ * Astro 編譯時會自動展開，Blade 則原樣輸出；HTML 解析器會忽略非 void 元素的 `/>`，
+ * 標籤因此不會關閉，後面的兄弟元素被包進去（如 Spinner 的 animate-spin 連帶旋轉後續內容）。
+ * void 元素、SVG 元素與 <x-*> 元件 tag 維持自閉合。
+ */
+function expandSelfClosingTags(template) {
+  return mapOpeningTags(template, (tag) => {
+    const m = tag.match(/^<([a-z][\w-]*)\b[\s\S]*\/>$/);
+    if (!m) return tag;
+
+    const name = m[1].toLowerCase();
+    if (VOID_ELEMENTS.has(name) || SVG_ELEMENTS.has(name) || name.startsWith("fe") || name.startsWith("x-")) {
+      return tag;
+    }
+    return tag.replace(/\/>$/, `></${m[1]}>`);
+  });
 }
 
 /**

@@ -5,9 +5,8 @@
 ])
 
 <div
-    {{ $attributes->class(['cu-resizable-panel']) }}
+    {{ $attributes->class(['cu-resizable-panel'])->merge(['style' => 'flex-grow: ' . $defaultSize . ';']) }}
     data-cu-resizable-panel
-    style="flex-grow: {{ $defaultSize }}"
     @if(! is_null($minSize)) data-cu-min-size="{{ $minSize }}" @endif
     @if(! is_null($maxSize)) data-cu-max-size="{{ $maxSize }}" @endif
 >

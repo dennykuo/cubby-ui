@@ -17,6 +17,9 @@
  *           → 使用者的 class 變成第二個 class 屬性，瀏覽器只採用第一個
  *         · `$attributes->class(` 搭配 `$attributes->except('class')`
  *           → 使用者的非 class 屬性（id、data-* …）輸出兩次
+ *         · 靜態 `style="…"` 搭配會帶出使用者 style 的 `$attributes`
+ *           → 元件或使用者其中一方的 style 被忽略（應改用 ->merge(['style' => …])）
+ *       - 非 void 元素自閉合（如 `<span … />`）：HTML 會忽略 `/>`，後續兄弟元素被包進去
  *
  *   (2) 未宣告變數 — PHP 片段中引用的 `$var` 必須來自 `@props`、`@php` 指派、
  *       `@foreach ... as`、Blade 內建變數（`$attributes`、`$slot` …），
@@ -370,35 +373,40 @@ function extractOpeningTags(src) {
 const ATTRIBUTES_ECHO_RE = /\{\{\s*\$attributes\b([\s\S]*?)\}\}/g;
 
 /**
- * 統計單一開頭標籤會輸出幾次 class 屬性、幾次使用者的其他屬性
+ * 統計單一開頭標籤會輸出幾次 class 屬性、幾次使用者的其他屬性、幾次 style 屬性
  *
  *   - 靜態 `class="…"` / `@class(...)`：各算一次 class
- *   - `{{ $attributes }}`：使用者 class + 其他屬性
- *   - `{{ $attributes->class([...]) }}`：合併後 class + 其他屬性
+ *   - 靜態 `style="…"`：算一次 style
+ *   - `{{ $attributes }}`：使用者 class + 其他屬性（含 style）
+ *   - `{{ $attributes->class([...]) }}`：合併後 class + 其他屬性（含 style）
  *   - `{{ $attributes->only('class')->class([...]) }}`：只有 class
- *   - `{{ $attributes->except('class') }}`：只有其他屬性
+ *   - `{{ $attributes->except('class') }}`：只有其他屬性（含 style）
+ *   - `->merge(['style' => …])`：元件與使用者的 style 合併為一個，仍算一次
  */
 function countAttributeOutputs(tag) {
   const withoutEchoes = tag.replace(ATTRIBUTES_ECHO_RE, "").replace(/\{\{[\s\S]*?\}\}/g, "");
   let classOutputs =
     (withoutEchoes.match(/\sclass=["']/g) || []).length + (withoutEchoes.match(/@class\(/g) || []).length;
+  let styleOutputs = (withoutEchoes.match(/\sstyle=["']/g) || []).length;
   let restOutputs = 0;
 
   for (const [, chain] of tag.matchAll(ATTRIBUTES_ECHO_RE)) {
     const onlyClass = /^\s*->only\(\s*\[?\s*'class'\s*\]?\s*\)/.test(chain);
     const exceptClass = /->except\(\s*\[?\s*'class'\s*\]?\s*\)/.test(chain);
+    const exceptStyle = /->except\(\s*\[[^\]]*'style'/.test(chain);
     if (!exceptClass) classOutputs++;
     if (!onlyClass) restOutputs++;
+    if (!onlyClass && !exceptStyle) styleOutputs++;
   }
 
-  return { classOutputs, restOutputs };
+  return { classOutputs, restOutputs, styleOutputs };
 }
 
 function checkDuplicateAttributes(files) {
   const failures = [];
   for (const file of files) {
     for (const { tag, line } of extractOpeningTags(fs.readFileSync(file, "utf8"))) {
-      const { classOutputs, restOutputs } = countAttributeOutputs(tag);
+      const { classOutputs, restOutputs, styleOutputs } = countAttributeOutputs(tag);
       const snippet = tag.replace(/\s+/g, " ").slice(0, 160);
       if (classOutputs > 1) {
         failures.push({
@@ -418,6 +426,51 @@ function checkDuplicateAttributes(files) {
           snippet,
         });
       }
+      if (styleOutputs > 1) {
+        failures.push({
+          file: path.relative(ROOT, file),
+          line,
+          pattern: "duplicate-style-attr",
+          hint: "同一標籤輸出靜態 style 與帶使用者 style 的 $attributes，瀏覽器只採用第一個 style；改用 $attributes->merge(['style' => …])",
+          snippet,
+        });
+      }
+    }
+  }
+  return failures;
+}
+
+/** void 元素：可自閉合（與 transformers.cjs 的清單獨立維護，作為交叉檢查） */
+const VOID_ELEMENTS = new Set("area base br col embed hr img input link meta source track wbr".split(" "));
+
+/** SVG 元素（小寫）：位於 <svg> 內為 foreign content，自閉合合法；fe* 濾鏡元素以前綴判斷 */
+const SVG_ELEMENTS = new Set(
+  (
+    "svg g defs symbol use path circle ellipse line polyline polygon rect text tspan image stop " +
+    "lineargradient radialgradient pattern mask clippath marker filter animate animatetransform set desc " +
+    "metadata foreignobject"
+  ).split(" "),
+);
+
+/**
+ * 非 void 的 HTML 元素自閉合（`<span … />`）：HTML 解析器忽略 `/>`，標籤不會關閉，
+ * 後面的兄弟元素被包進去。void 元素、SVG 元素、<x-*> 元件 tag 除外。
+ */
+function checkSelfClosingTags(files) {
+  const failures = [];
+  for (const file of files) {
+    for (const { tag, line } of extractOpeningTags(fs.readFileSync(file, "utf8"))) {
+      const m = tag.match(/^<([a-z][\w-]*)\b[\s\S]*\/>$/);
+      if (!m) continue;
+      const name = m[1].toLowerCase();
+      if (VOID_ELEMENTS.has(name) || SVG_ELEMENTS.has(name) || name.startsWith("fe") || name.startsWith("x-")) continue;
+      failures.push({
+        file: path.relative(ROOT, file),
+        line,
+        pattern: "self-closing-non-void",
+        hint: `<${m[1]} /> 不是 void 元素，HTML 會忽略 /> 而不關閉標籤；應輸出 <${m[1]} …></${m[1]}>（transformers.cjs 的 expandSelfClosingTags）`,
+        snippet: tag.replace(/\s+/g, " ").slice(0, 160),
+      });
     }
   }
   return failures;
@@ -541,7 +594,7 @@ function main() {
   let exitCode = 0;
 
   // (1) Pattern check
-  const patternFails = [...checkBadPatterns(files), ...checkDuplicateAttributes(files)];
+  const patternFails = [...checkBadPatterns(files), ...checkDuplicateAttributes(files), ...checkSelfClosingTags(files)];
   if (patternFails.length > 0) {
     exitCode = 1;
     console.error(`\n✗ 發現 ${patternFails.length} 個壞 pattern：`);
@@ -552,7 +605,7 @@ function main() {
     }
   } else {
     console.log(
-      "✓ 無已知壞 pattern（`,,`、空陣列元素、未轉譯 JSX / Astro 語法、'$ 開頭的字串、同標籤重複 class / attribute bag）",
+      "✓ 無已知壞 pattern（`,,`、空陣列元素、未轉譯 JSX / Astro 語法、'$ 開頭的字串、同標籤重複 class / style / attribute bag、非 void 自閉合）",
     );
   }
 
