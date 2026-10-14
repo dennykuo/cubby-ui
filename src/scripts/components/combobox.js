@@ -76,6 +76,12 @@ export function setupComboboxes() {
       setupComboboxAria(trigger, input, content, list, "cu-combobox-item-highlight", "cu-combobox", placeholderEl);
     }
     syncItemsAria();
+    // 項目可在初始化後替換（例如監聽 cu:combobox:search 串接遠端搜尋）：清單子節點變動時補上 option 語意並更新空狀態
+    if (content)
+      new MutationObserver(function () {
+        syncItemsAria();
+        syncEmpty();
+      }).observe(list, { childList: true });
 
     function syncEmpty() {
       var visible = 0;

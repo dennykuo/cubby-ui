@@ -14,6 +14,7 @@ export const comboboxPage: Record<
       disabled: { title: string; description: string };
       grouped: { title: string; description: string };
       debounce: { title: string; description: string };
+      remoteSearch: { title: string; description: string };
       accessibility: { title: string; description: string };
     };
     classDescriptions: Record<string, string>;
@@ -56,6 +57,11 @@ export const comboboxPage: Record<
         title: "Search Debounce",
         description:
           'By default the list filters on every keystroke, which is the most responsive choice for in-page lists. Add <code class="cu-code">data-cu-combobox-debounce="300"</code> to the wrapper to filter only after typing pauses for that many milliseconds — useful for long lists, or when you load results remotely by listening to the <code class="cu-code">cu:combobox:search</code> event (<code class="cu-code">event.detail.query</code>, fired only when the applied query changes). Clearing the query applies immediately, and arrow keys / Enter apply any pending filter first, so a stale result is never selected.',
+      },
+      remoteSearch: {
+        title: "Remote Search",
+        description:
+          'Listen to <code class="cu-code">cu:combobox:search</code> and replace the <code class="cu-code">data-cu-combobox-item</code> elements with the results; pair it with <code class="cu-code">data-cu-combobox-debounce</code> so a request goes out only after typing pauses. New items get option semantics and the empty state updates automatically, and keyboard navigation and selection work on them as usual. Remove only the items (keep <code class="cu-code">data-cu-combobox-empty</code> in the list), and drop responses that arrive after a newer query. This preview fakes the server with a 400ms delay; swap <code class="cu-code">searchCities()</code> for a real <code class="cu-code">fetch()</code>.',
       },
       accessibility: {
         title: "Accessibility",
@@ -115,6 +121,11 @@ export const comboboxPage: Record<
         title: "搜尋 Debounce",
         description:
           '預設每次輸入都會立即過濾，對頁面內的清單反應最快。在外層容器加上 <code class="cu-code">data-cu-combobox-debounce="300"</code>，會在停止輸入指定毫秒數後才過濾，適合長清單，或監聽 <code class="cu-code">cu:combobox:search</code> 事件（<code class="cu-code">event.detail.query</code>，僅在實際套用的查詢改變時觸發）自行串接遠端搜尋。清空查詢會立即生效；方向鍵與 Enter 會先套用待執行的過濾，不會選到過期的結果。',
+      },
+      remoteSearch: {
+        title: "遠端搜尋",
+        description:
+          '監聽 <code class="cu-code">cu:combobox:search</code>，以搜尋結果取代清單中的 <code class="cu-code">data-cu-combobox-item</code>；搭配 <code class="cu-code">data-cu-combobox-debounce</code>，停止輸入後才送出請求。新項目會自動取得 option 語意、空狀態也會隨之更新，鍵盤導航與選取照常運作。只移除項目（保留清單中的 <code class="cu-code">data-cu-combobox-empty</code>），並丟棄比最新查詢晚到的回應。這個預覽以延遲 400ms 模擬伺服器，實際使用時把 <code class="cu-code">searchCities()</code> 換成 <code class="cu-code">fetch()</code>。',
       },
       accessibility: {
         title: "無障礙",

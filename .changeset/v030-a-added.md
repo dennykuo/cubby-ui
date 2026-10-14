@@ -31,3 +31,4 @@
 - `llms.txt` 新增 Input Clearable、Alert Expandable、Data Table 展開列範例與 15 列互動屬性對照；`components.json` 新增 Combobox、Multi Select、Transfer List 範例
 - Header：`cu-header-mobile-toggle-{sm|md|lg|xl}`，漢堡觸發按鈕在該斷點以上隱藏，與 `cu-header-nav-{bp}`、`cu-header-mobile-{nav|backdrop}-{bp}` 搭配
 - **Prettier**（`npm run format` / `format:check`，exact 版本並搭配 `prettier-plugin-astro`、`prettier-plugin-tailwindcss`）：全專案一次格式化，CI 於 lint 後檢查；`src/components/ui/`（Blade 轉換器以 regex 解析，對排版敏感）、Markdown 與 `llms.txt` 不格式化；格式化 commit 登記在 `.git-blame-ignore-revs`。格式化前後 `cubby-ui.min.css` / `cubby-ui.min.js` 與 Blade 輸出完全相同
+- Combobox 文檔新增「Remote Search」範例：監聽 `cu:combobox:search` 以搜尋結果取代清單項目（搭配 debounce、丟棄過期回應）

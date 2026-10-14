@@ -345,4 +345,38 @@ test.describe("Combobox", () => {
     // 有搜尋框時 trigger 仍是 button
     await expect(combobox(page, "cb-framework").trigger).not.toHaveAttribute("aria-label");
   });
+
+  test("初始化後替換清單項目（遠端搜尋）：新項目自動取得 option 語意、可鍵盤與滑鼠選取，清空時顯示空狀態", async ({
+    page,
+  }) => {
+    const cb = combobox(page, "cb-framework");
+    await cb.trigger.click();
+    await expect(cb.content).toBeVisible();
+    await cb.list.evaluate((list) => {
+      list.querySelectorAll("[data-cu-combobox-item]").forEach((item) => item.remove());
+      ["Qwik", "Solid"].forEach((name) => {
+        const item = document.createElement("div");
+        item.className = "cu-combobox-item";
+        item.setAttribute("data-cu-combobox-item", "");
+        item.dataset.cuValue = name.toLowerCase();
+        item.textContent = name;
+        list.append(item);
+      });
+    });
+    await expect(cb.items).toHaveCount(2);
+    await expect(cb.list.getByRole("option")).toHaveCount(2);
+    await expect(cb.items.first()).toHaveAttribute("aria-selected", "false");
+    await expect(cb.root.locator("[data-cu-combobox-empty]")).toBeHidden();
+
+    await cb.input.focus();
+    await page.keyboard.press("ArrowDown");
+    await expect(cb.input).toHaveAttribute("aria-activedescendant", (await cb.items.first().getAttribute("id"))!);
+    await page.keyboard.press("ArrowDown");
+    await page.keyboard.press("Enter");
+    await expect(cb.value).toHaveText("Solid");
+
+    await cb.trigger.click();
+    await cb.list.evaluate((list) => list.querySelectorAll("[data-cu-combobox-item]").forEach((item) => item.remove()));
+    await expect(cb.root.locator("[data-cu-combobox-empty]")).toBeVisible();
+  });
 });

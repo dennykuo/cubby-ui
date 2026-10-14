@@ -163,6 +163,63 @@ ${SO}
     // fetch("/api/cities?q=" + encodeURIComponent(e.detail.query)) → render data-cu-combobox-item elements
   });
 ${SC}`.trim();
+
+const remoteSearchCode =
+  `<div class="cu-combobox" id="remote-city" data-cu-combobox data-cu-combobox-debounce="300" style="width: 220px;">
+  <button type="button" class="cu-combobox-trigger" data-cu-combobox-trigger>
+    <span data-cu-combobox-value class="cu-combobox-trigger-placeholder">Select city...</span>
+    <svg class="cu-combobox-trigger-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 15 5 5 5-5"/><path d="m7 9 5-5 5 5"/></svg>
+  </button>
+  <div class="cu-combobox-content" data-cu-combobox-content hidden>
+    <div class="cu-combobox-search">
+      <svg class="cu-combobox-search-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input class="cu-combobox-input" data-cu-combobox-input placeholder="Search 34 cities..." aria-label="Search cities" />
+    </div>
+    <div class="cu-combobox-list" data-cu-combobox-list>
+      <div class="cu-combobox-empty" data-cu-combobox-empty hidden>No results found.</div>
+      <div class="cu-combobox-item" data-cu-combobox-item data-cu-value="amsterdam">Amsterdam</div>
+      <div class="cu-combobox-item" data-cu-combobox-item data-cu-value="bangkok">Bangkok</div>
+      <div class="cu-combobox-item" data-cu-combobox-item data-cu-value="barcelona">Barcelona</div>
+      <div class="cu-combobox-item" data-cu-combobox-item data-cu-value="berlin">Berlin</div>
+      <div class="cu-combobox-item" data-cu-combobox-item data-cu-value="buenos-aires">Buenos Aires</div>
+    </div>
+  </div>
+</div>
+
+${SO}
+  (() => {
+    // Stand-in for your API — replace with:
+    // fetch("/api/cities?q=" + encodeURIComponent(query)).then((res) => res.json())
+    const CITIES = ["Amsterdam", "Bangkok", "Barcelona", "Berlin", "Buenos Aires", "Cairo", "Cape Town", "Chicago", "Istanbul", "Kaohsiung", "Lisbon", "London", "Madrid", "Melbourne", "Mexico City", "Montreal", "Mumbai", "Nairobi", "New York", "Osaka", "Paris", "Prague", "Rome", "Seoul", "Singapore", "Stockholm", "Sydney", "Taichung", "Tainan", "Taipei", "Tokyo", "Toronto", "Vancouver", "Vienna"];
+    const searchCities = (query) =>
+      new Promise((resolve) =>
+        setTimeout(() => resolve(CITIES.filter((city) => city.toLowerCase().includes(query.toLowerCase())).slice(0, 8)), 400),
+      );
+
+    const combobox = document.getElementById("remote-city");
+    const list = combobox.querySelector("[data-cu-combobox-list]");
+    let latest = 0;
+
+    combobox.addEventListener("cu:combobox:search", async (e) => {
+      const request = ++latest;
+      list.setAttribute("aria-busy", "true");
+      const cities = await searchCities(e.detail.query);
+      if (request !== latest) return; // a newer query is already in flight
+      list.removeAttribute("aria-busy");
+
+      // Replace only the items; keep the empty-state element in the list
+      list.querySelectorAll("[data-cu-combobox-item]").forEach((item) => item.remove());
+      for (const city of cities) {
+        const item = document.createElement("div");
+        item.className = "cu-combobox-item";
+        item.setAttribute("data-cu-combobox-item", "");
+        item.dataset.cuValue = city.toLowerCase().replace(/ /g, "-");
+        item.textContent = city;
+        list.append(item);
+      }
+    });
+  })();
+${SC}`.trim();
 ---
 
 <Layout category={t.category} componentName="Combobox" title={t.title} description={t.description}>
@@ -764,6 +821,160 @@ ${SC}`.trim();
             </div>
           </div>
         </div>
+      </ComponentPreview>
+    </section>
+
+    <!-- Remote Search -->
+    <section class="space-y-3">
+      <SectionHeading id="remote-search" title={t.sections.remoteSearch.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.remoteSearch.description} />
+      <ComponentPreview code={remoteSearchCode}>
+        <div
+          class="cu-combobox"
+          id="remote-city"
+          data-cu-combobox
+          data-cu-combobox-debounce="300"
+          style="width: 220px;"
+        >
+          <button type="button" class="cu-combobox-trigger" data-cu-combobox-trigger>
+            <span data-cu-combobox-value class="cu-combobox-trigger-placeholder">
+              Select city...
+            </span>
+            <svg
+              class="cu-combobox-trigger-icon"
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="m7 15 5 5 5-5" />
+              <path d="m7 9 5-5 5 5" />
+            </svg>
+          </button>
+          <div class="cu-combobox-content" data-cu-combobox-content hidden>
+            <div class="cu-combobox-search">
+              <svg
+                class="cu-combobox-search-icon"
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <circle cx="11" cy="11" r="8" />
+                <line x1="21" y1="21" x2="16.65" y2="16.65" />
+              </svg>
+              <input
+                class="cu-combobox-input"
+                data-cu-combobox-input
+                placeholder="Search 34 cities..."
+                aria-label="Search cities"
+              />
+            </div>
+            <div class="cu-combobox-list" data-cu-combobox-list>
+              <div class="cu-combobox-empty" data-cu-combobox-empty hidden>
+                No results found.
+              </div>
+              <div class="cu-combobox-item" data-cu-combobox-item data-cu-value="amsterdam">
+                Amsterdam
+              </div>
+              <div class="cu-combobox-item" data-cu-combobox-item data-cu-value="bangkok">
+                Bangkok
+              </div>
+              <div class="cu-combobox-item" data-cu-combobox-item data-cu-value="barcelona">
+                Barcelona
+              </div>
+              <div class="cu-combobox-item" data-cu-combobox-item data-cu-value="berlin">
+                Berlin
+              </div>
+              <div class="cu-combobox-item" data-cu-combobox-item data-cu-value="buenos-aires">
+                Buenos Aires
+              </div>
+            </div>
+          </div>
+        </div>
+        {/* 預覽在 iframe 內渲染，示範腳本必須隨 slot 一起進 iframe（is:inline 避免被 Astro 提升至主頁面） */}
+        <script is:inline>
+          (() => {
+            // Stand-in for your API — replace with:
+            // fetch("/api/cities?q=" + encodeURIComponent(query)).then((res) => res.json())
+            const CITIES = [
+              "Amsterdam",
+              "Bangkok",
+              "Barcelona",
+              "Berlin",
+              "Buenos Aires",
+              "Cairo",
+              "Cape Town",
+              "Chicago",
+              "Istanbul",
+              "Kaohsiung",
+              "Lisbon",
+              "London",
+              "Madrid",
+              "Melbourne",
+              "Mexico City",
+              "Montreal",
+              "Mumbai",
+              "Nairobi",
+              "New York",
+              "Osaka",
+              "Paris",
+              "Prague",
+              "Rome",
+              "Seoul",
+              "Singapore",
+              "Stockholm",
+              "Sydney",
+              "Taichung",
+              "Tainan",
+              "Taipei",
+              "Tokyo",
+              "Toronto",
+              "Vancouver",
+              "Vienna",
+            ];
+            const searchCities = (query) =>
+              new Promise((resolve) =>
+                setTimeout(
+                  () => resolve(CITIES.filter((city) => city.toLowerCase().includes(query.toLowerCase())).slice(0, 8)),
+                  400,
+                ),
+              );
+
+            const combobox = document.getElementById("remote-city");
+            const list = combobox.querySelector("[data-cu-combobox-list]");
+            let latest = 0;
+
+            combobox.addEventListener("cu:combobox:search", async (e) => {
+              const request = ++latest;
+              list.setAttribute("aria-busy", "true");
+              const cities = await searchCities(e.detail.query);
+              if (request !== latest) return; // a newer query is already in flight
+              list.removeAttribute("aria-busy");
+
+              // Replace only the items; keep the empty-state element in the list
+              list.querySelectorAll("[data-cu-combobox-item]").forEach((item) => item.remove());
+              for (const city of cities) {
+                const item = document.createElement("div");
+                item.className = "cu-combobox-item";
+                item.setAttribute("data-cu-combobox-item", "");
+                item.dataset.cuValue = city.toLowerCase().replace(/ /g, "-");
+                item.textContent = city;
+                list.append(item);
+              }
+            });
+          })();
+        </script>
       </ComponentPreview>
     </section>
 
