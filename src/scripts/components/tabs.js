@@ -18,13 +18,19 @@ import { genId } from "../core/utils.js";
  * - Active tab: add `cu-tabs-trigger-active` to trigger; do NOT add `hidden` to its panel.
  * - All other panels: add `hidden` attribute.
  * - Pills variant: add `cu-tabs-list-pills` to the list element.
+ * - Closable: put `<span class="cu-tabs-trigger-close" data-cu-tabs-close aria-hidden="true">×</span>` inside the trigger.
+ *   A tab's content is presentational to assistive tech, so the close icon is a mouse-only target (JS forces
+ *   aria-hidden and drops role / tabindex from older markup); from the keyboard, Delete (or Backspace) closes the
+ *   focused closable tab (APG Tabs), announced via `aria-keyshortcuts="Delete"`. Closing moves focus — and, if the
+ *   closed tab was active, selection — to the following tab (the previous one when it was last).
+ *   Fires `cu:tabs:close` ({ value }).
  */
 export function setupTabs() {
   document.querySelectorAll("[data-cu-tabs]").forEach(function (tabs) {
     if (tabs._cuInit) { restore("tabs", tabs); return; }
     tabs._cuInit = true;
 
-    var triggers = tabs.querySelectorAll("[data-cu-tabs-trigger]");
+    var triggers = /** @type {NodeListOf<HTMLElement>} */ (tabs.querySelectorAll("[data-cu-tabs-trigger]"));
     var contents = /** @type {NodeListOf<HTMLElement>} */ (tabs.querySelectorAll("[data-cu-tabs-content]"));
 
     // ARIA: set tablist role on list container
@@ -47,6 +53,21 @@ export function setupTabs() {
         }
       });
 
+      // 關閉圖示在 role="tab" 內（子元素對輔助技術為 presentational），不能是可聚焦的按鈕：
+      // 改為純滑鼠目標，鍵盤以 Delete / Backspace 關閉
+      var closeIcon = trigger.querySelector("[data-cu-tabs-close]");
+      if (closeIcon) {
+        closeIcon.removeAttribute("role");
+        closeIcon.removeAttribute("tabindex");
+        closeIcon.setAttribute("aria-hidden", "true");
+        trigger.setAttribute("aria-keyshortcuts", "Delete");
+        trigger.addEventListener("keydown", function (e) {
+          if (e.key !== "Delete" && e.key !== "Backspace") return;
+          e.preventDefault();
+          closeTab(trigger);
+        });
+      }
+
       trigger.addEventListener("click", function (e) {
         // Ignore clicks on the close button
         if (/** @type {Element} */ (e.target).closest("[data-cu-tabs-close]")) return;
@@ -62,28 +83,33 @@ export function setupTabs() {
       });
     });
 
+    // 移除 tab 與對應 panel；焦點（原本在被關閉的 tab 上時）與選取（關閉的是啟用中的 tab 時）
+    // 移到後一個 tab，沒有則前一個
+    function closeTab(trigger) {
+      var value = trigger.getAttribute("data-cu-tabs-trigger");
+      var wasActive = trigger.classList.contains("cu-tabs-trigger-active");
+      var hadFocus = trigger.contains(document.activeElement);
+      var current = /** @type {HTMLElement[]} */ (Array.from(tabs.querySelectorAll("[data-cu-tabs-trigger]")));
+      var index = current.indexOf(trigger);
+      var next = current[index + 1] || current[index - 1] || null;
+
+      trigger.remove();
+      contents.forEach(function (c) {
+        if (c.getAttribute("data-cu-tabs-content") === value) c.remove();
+      });
+
+      if (next && wasActive) next.click();
+      if (next && hadFocus) next.focus();
+
+      tabs.dispatchEvent(new CustomEvent("cu:tabs:close", { detail: { value: value } }));
+    }
+
     // Closable tabs: handle close button clicks
     tabs.querySelectorAll("[data-cu-tabs-close]").forEach(function (closeBtn) {
       // 不阻止冒泡：trigger 的 click handler 會忽略來自關閉按鈕的點擊，document 級 handler 仍能關閉其他浮層
       closeBtn.addEventListener("click", function () {
         var trigger = closeBtn.closest("[data-cu-tabs-trigger]");
-        if (!trigger) return;
-        var value = trigger.getAttribute("data-cu-tabs-trigger");
-        var wasActive = trigger.classList.contains("cu-tabs-trigger-active");
-
-        // Remove trigger and corresponding content
-        trigger.remove();
-        contents.forEach(function (c) {
-          if (c.getAttribute("data-cu-tabs-content") === value) c.remove();
-        });
-
-        // If closed tab was active, activate first remaining trigger
-        if (wasActive) {
-          var remaining = /** @type {NodeListOf<HTMLElement>} */ (tabs.querySelectorAll("[data-cu-tabs-trigger]"));
-          if (remaining.length > 0) remaining[0].click();
-        }
-
-        tabs.dispatchEvent(new CustomEvent("cu:tabs:close", { detail: { value: value } }));
+        if (trigger) closeTab(trigger);
       });
     });
 

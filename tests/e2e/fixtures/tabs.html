@@ -15,6 +15,7 @@
     <div class="cu-tabs-content" data-cu-tabs-content="tab2" hidden>Panel 2</div>
   </div>
 
+  <!-- 舊版標記：關閉圖示為 role="button" tabindex="0"（巢狀互動元素），JS 會改為純滑鼠目標 -->
   <div id="closable" class="cu-tabs" data-cu-tabs>
     <div class="cu-tabs-list">
       <button class="cu-tabs-trigger" data-cu-tabs-trigger="a">
@@ -28,10 +29,26 @@
     <div class="cu-tabs-content" data-cu-tabs-content="b">Panel B</div>
   </div>
 
+  <!-- 文檔 Closable 範例：關閉圖示 aria-hidden，鍵盤以 Delete 關閉 -->
+  <div id="files" class="cu-tabs" data-cu-tabs>
+    <div class="cu-tabs-list">
+      <button class="cu-tabs-trigger" data-cu-tabs-trigger="index">index.ts <span class="cu-tabs-trigger-close" data-cu-tabs-close aria-hidden="true">×</span></button>
+      <button class="cu-tabs-trigger cu-tabs-trigger-active" data-cu-tabs-trigger="styles">styles.css <span class="cu-tabs-trigger-close" data-cu-tabs-close aria-hidden="true">×</span></button>
+      <button class="cu-tabs-trigger" data-cu-tabs-trigger="app">app.tsx <span class="cu-tabs-trigger-close" data-cu-tabs-close aria-hidden="true">×</span></button>
+      <button class="cu-tabs-trigger" data-cu-tabs-trigger="readme">README.md</button>
+    </div>
+    <div class="cu-tabs-content" data-cu-tabs-content="index" hidden>Content of index.ts</div>
+    <div class="cu-tabs-content" data-cu-tabs-content="styles">Content of styles.css</div>
+    <div class="cu-tabs-content" data-cu-tabs-content="app" hidden>Content of app.tsx</div>
+    <div class="cu-tabs-content" data-cu-tabs-content="readme" hidden>Content of README.md</div>
+  </div>
+
   <script>
     window.__closed = [];
-    document.getElementById("closable").addEventListener("cu:tabs:close", function (e) {
-      window.__closed.push(e.detail.value);
+    ["closable", "files"].forEach(function (id) {
+      document.getElementById(id).addEventListener("cu:tabs:close", function (e) {
+        window.__closed.push(e.detail.value);
+      });
     });
   </script>
   <script src="../../../dist/core/cubby-ui.js"></script>

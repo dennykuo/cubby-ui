@@ -797,7 +797,7 @@
         "scrollEnd": "data-cu-tabs-scroll-end"
       },
       "aria": ["tablist", "tab", "tabpanel"],
-      "notes": "trigger and content values must match. Default active tab: add cu-tabs-trigger-active to trigger and DO NOT add hidden to its content. Add hidden to all inactive content panels.",
+      "notes": "trigger and content values must match. Default active tab: add cu-tabs-trigger-active to trigger and DO NOT add hidden to its content. Add hidden to all inactive content panels. Closable: put <span class=\"cu-tabs-trigger-close\" data-cu-tabs-close aria-hidden=\"true\">×</span> inside the trigger — a mouse-only target, never a nested button (JS forces aria-hidden and removes role / tabindex). Keyboard: Delete (or Backspace) on a focused closable tab closes it (aria-keyshortcuts=\"Delete\"); focus and, if it was active, selection move to the following tab (previous when last). Fires cu:tabs:close ({ value }).",
       "example": "<div class=\"cu-tabs\" data-cu-tabs><div class=\"cu-tabs-list\"><button class=\"cu-tabs-trigger cu-tabs-trigger-active\" data-cu-tabs-trigger=\"t1\">Tab 1</button><button class=\"cu-tabs-trigger\" data-cu-tabs-trigger=\"t2\">Tab 2</button></div><div class=\"cu-tabs-content\" data-cu-tabs-content=\"t1\">Panel 1</div><div class=\"cu-tabs-content\" data-cu-tabs-content=\"t2\" hidden>Panel 2</div></div>"
     },
     {

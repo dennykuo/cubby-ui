@@ -63,7 +63,7 @@ export const tabsPage: Record<Locale, {
       },
       closable: {
         title: 'Closable',
-        description: 'Add a close button with <code class="cu-code">data-cu-tabs-close</code> inside a tab trigger. Clicking it removes the tab and its content panel.',
+        description: 'Add a close icon with <code class="cu-code">data-cu-tabs-close</code> and <code class="cu-code">aria-hidden="true"</code> inside a tab trigger. Clicking it removes the tab and its content panel. A tab\'s content is presentational to assistive technology, so the icon is a mouse target rather than a nested button (any <code class="cu-code">role</code> / <code class="cu-code">tabindex</code> on it is removed); from the keyboard, press <kbd class="cu-kbd">Delete</kbd> (or <kbd class="cu-kbd">Backspace</kbd>) on a focused closable tab, which is announced through <code class="cu-code">aria-keyshortcuts="Delete"</code>. Focus — and the selection, when the closed tab was active — moves to the following tab, or the previous one when it was last. Listen for <code class="cu-code">cu:tabs:close</code> (<code class="cu-code">event.detail.value</code>) to react.',
       },
       scrollable: {
         title: 'Scrollable',
@@ -81,7 +81,7 @@ export const tabsPage: Record<Locale, {
       'cu-tabs-list-vertical': 'Vertical tab list (stacked buttons)',
       'cu-tabs-list-pills': 'Pills variant — transparent bg, pill-shaped triggers',
       'cu-tabs-trigger-badge': 'Count badge inside tab trigger',
-      'cu-tabs-trigger-close': 'Close button inside tab trigger',
+      'cu-tabs-trigger-close': 'Close icon inside a tab trigger (mouse target, aria-hidden; Delete closes from the keyboard)',
       'cu-tabs-list-scrollable': 'Scrollable wrapper for tab list',
       'cu-tabs-scroll-btn': 'Scroll navigation button',
       'cu-tabs-scroll-btn-end': 'Right/end scroll button',
@@ -131,7 +131,7 @@ export const tabsPage: Record<Locale, {
       },
       closable: {
         title: '可關閉',
-        description: '在 tab trigger 中加入帶有 <code class="cu-code">data-cu-tabs-close</code> 的關閉按鈕。點擊後會移除該 tab 及其內容面板。',
+        description: '在 tab trigger 中加入帶有 <code class="cu-code">data-cu-tabs-close</code> 與 <code class="cu-code">aria-hidden="true"</code> 的關閉圖示。點擊後會移除該 tab 及其內容面板。tab 的內容對輔助技術而言是 presentational，因此圖示是滑鼠操作目標而非巢狀按鈕（其上的 <code class="cu-code">role</code> / <code class="cu-code">tabindex</code> 會被移除）；鍵盤使用者在聚焦的可關閉 tab 上按 <kbd class="cu-kbd">Delete</kbd>（或 <kbd class="cu-kbd">Backspace</kbd>）即可關閉，並透過 <code class="cu-code">aria-keyshortcuts="Delete"</code> 告知。關閉後焦點（以及關閉的是啟用中的 tab 時的選取）移到後一個 tab，沒有則移到前一個。可監聽 <code class="cu-code">cu:tabs:close</code>（<code class="cu-code">event.detail.value</code>）處理後續。',
       },
       scrollable: {
         title: '可捲動',
@@ -149,7 +149,7 @@ export const tabsPage: Record<Locale, {
       'cu-tabs-list-vertical': '垂直分頁列表（堆疊按鈕）',
       'cu-tabs-list-pills': '膠囊變體 — 透明背景、膠囊形觸發器',
       'cu-tabs-trigger-badge': 'Tab trigger 中的計數徽章',
-      'cu-tabs-trigger-close': 'Tab trigger 中的關閉按鈕',
+      'cu-tabs-trigger-close': 'Tab trigger 中的關閉圖示（滑鼠目標、aria-hidden；鍵盤以 Delete 關閉）',
       'cu-tabs-list-scrollable': 'Tab list 的可捲動包裝器',
       'cu-tabs-scroll-btn': '捲動導航按鈕',
       'cu-tabs-scroll-btn-end': '右側/末端捲動按鈕',

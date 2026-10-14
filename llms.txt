@@ -1133,9 +1133,9 @@ Programmatic start: `el.dispatchEvent(new Event("cu:tour:start"))`
 **Tabs** ⚡ Interactive — show/hide panels
 Active trigger: `cu-tabs-trigger-active`
 List variants: `cu-tabs-list-pills` (pill-shaped tab bar), `cu-tabs-list-underline` (underline-only, transparent background), `cu-tabs-list-vertical` (vertical column list — use with `cu-tabs-vertical` on the root container for side-by-side layout)
-Tab extras: `cu-tabs-trigger-badge` (badge inside tab trigger), `cu-tabs-trigger-close` (close button inside tab trigger)
+Tab extras: `cu-tabs-trigger-badge` (badge inside tab trigger), `cu-tabs-trigger-close` (close icon inside tab trigger — `<span class="cu-tabs-trigger-close" data-cu-tabs-close aria-hidden="true">×</span>`, a mouse target, never a nested button; Delete / Backspace on the focused tab closes it, `aria-keyshortcuts="Delete"` is set by JS; focus / selection move to the following tab, or the previous one; fires `cu:tabs:close`)
 Scrollable: `cu-tabs-list-scrollable` (scrollable wrapper), `cu-tabs-scroll-btn` (scroll left button), `cu-tabs-scroll-btn-end` (scroll right button)
-Data attributes: `data-cu-tabs-close` (on close button), `data-cu-tabs-scrollable` (on scrollable wrapper)
+Data attributes: `data-cu-tabs-close` (on the close icon), `data-cu-tabs-scrollable` (on scrollable wrapper)
 ```html
 <div class="cu-tabs" data-cu-tabs>
   <div class="cu-tabs-list">
