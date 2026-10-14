@@ -823,9 +823,10 @@ Classes: `cu-diff-viewer`, `cu-diff-viewer-header`, `cu-diff-viewer-filename`, `
 
 **Image Compare** — before/after image comparison slider
 Classes: `cu-image-compare`, `cu-image-compare-before`, `cu-image-compare-after`, `cu-image-compare-handle`, `cu-image-compare-handle-line`, `cu-image-compare-handle-grip`, `cu-image-compare-label`, `cu-image-compare-vertical`
-Data: `data-cu-image-compare`
+Data: `data-cu-image-compare`, `data-cu-image-compare-position="N"` (initial position 0–100, default 50)
+Keyboard (set by JS): the handle becomes `role="slider"` (`tabindex="0"`, `aria-valuenow` 0–100, `aria-valuetext="N%"`, `aria-orientation`); Arrow keys ±1, Page Up / Page Down ±10, Home / End → 0 / 100 (vertical: Down / Right increase). Name it with `aria-label` on the handle (default "Image comparison").
 ```html
-<div class="cu-image-compare" data-cu-image-compare>
+<div class="cu-image-compare" data-cu-image-compare data-cu-image-compare-position="50">
   <img class="cu-image-compare-after" src="after.jpg" alt="After" />
   <img class="cu-image-compare-before" src="before.jpg" alt="Before" />
   <div class="cu-image-compare-handle">

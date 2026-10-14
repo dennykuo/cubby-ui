@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Image Compare fixture</title>
+  <link rel="stylesheet" href="../../../dist/core/cubby-ui.css" />
+  <style>
+    body { padding: 16px; }
+    .cu-image-compare { width: 400px; margin-bottom: 16px; }
+    .pane { width: 100%; height: 200px; }
+  </style>
+</head>
+<body>
+  <!-- 未設定位置：預設 50 -->
+  <div id="ic-default" class="cu-image-compare" data-cu-image-compare>
+    <div class="cu-image-compare-after"><div class="pane" style="background:#667eea"></div></div>
+    <div class="cu-image-compare-before"><div class="pane" style="background:#f5576c"></div></div>
+    <div class="cu-image-compare-handle">
+      <div class="cu-image-compare-handle-line"></div>
+      <div class="cu-image-compare-handle-grip">⇔</div>
+    </div>
+  </div>
+
+  <!-- 文檔 Initial Position 範例；把手自訂 aria-label -->
+  <div id="ic-25" class="cu-image-compare" data-cu-image-compare data-cu-image-compare-position="25">
+    <div class="cu-image-compare-after"><div class="pane" style="background:#667eea"></div></div>
+    <div class="cu-image-compare-before"><div class="pane" style="background:#f5576c"></div></div>
+    <div class="cu-image-compare-handle" aria-label="Before / after">
+      <div class="cu-image-compare-handle-line"></div>
+      <div class="cu-image-compare-handle-grip">⇔</div>
+    </div>
+  </div>
+
+  <!-- 超出範圍與無效值 -->
+  <div id="ic-over" class="cu-image-compare" data-cu-image-compare data-cu-image-compare-position="150">
+    <div class="cu-image-compare-handle"></div>
+  </div>
+  <div id="ic-invalid" class="cu-image-compare" data-cu-image-compare data-cu-image-compare-position="abc">
+    <div class="cu-image-compare-handle"></div>
+  </div>
+
+  <!-- 垂直模式 -->
+  <div id="ic-vertical" class="cu-image-compare cu-image-compare-vertical" data-cu-image-compare data-cu-image-compare-position="40">
+    <div class="cu-image-compare-after"><div class="pane" style="background:#667eea"></div></div>
+    <div class="cu-image-compare-before"><div class="pane" style="background:#f5576c"></div></div>
+    <div class="cu-image-compare-handle">
+      <div class="cu-image-compare-handle-line"></div>
+      <div class="cu-image-compare-handle-grip">⇕</div>
+    </div>
+  </div>
+
+  <div style="height: 2000px"></div>
+  <script src="../../../dist/core/cubby-ui.js"></script>
+</body>
+</html>

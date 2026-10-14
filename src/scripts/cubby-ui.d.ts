@@ -264,6 +264,7 @@ export declare const DATA_ATTRS: {
 
   // Image Compare
   readonly IMAGE_COMPARE: 'data-cu-image-compare';
+  readonly IMAGE_COMPARE_POSITION: 'data-cu-image-compare-position'; // initial handle position in % (0–100, default 50)
 
   // Speed Dial
   readonly SPEED_DIAL: 'data-cu-speed-dial';

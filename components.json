@@ -1298,9 +1298,13 @@
         "modifiers": ["cu-image-compare-vertical", "cu-image-compare-label-before", "cu-image-compare-label-after"]
       },
       "dataAttributes": {
-        "container": "data-cu-image-compare"
+        "container": "data-cu-image-compare",
+        "position": "data-cu-image-compare-position"
       },
-      "notes": "Before/after image comparison slider. Drag handle to reveal. Position controlled via --cu-compare-position CSS variable. Supports touch events.",
+      "aria": [
+        "slider"
+      ],
+      "notes": "Before/after image comparison slider. Drag handle to reveal. Position controlled via --cu-compare-position CSS variable; initial position via data-cu-image-compare-position (0-100, default 50, clamped). Supports touch events. The handle becomes role=\"slider\" (tabindex=0, aria-valuenow 0-100, aria-valuetext \"N%\", aria-orientation): Arrow keys ±1, Page Up/Down ±10, Home/End → 0/100 (vertical: Down/Right increase). Name it with aria-label on the handle (default \"Image comparison\").",
       "example": "<div class=\"cu-image-compare\" data-cu-image-compare><img class=\"cu-image-compare-after\" src=\"after.jpg\"/><img class=\"cu-image-compare-before\" src=\"before.jpg\"/><div class=\"cu-image-compare-handle\"><div class=\"cu-image-compare-handle-line\"></div><div class=\"cu-image-compare-handle-grip\">⇔</div></div></div>"
     },
     {
