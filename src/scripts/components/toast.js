@@ -53,6 +53,17 @@ export function createToastEl(opts, closeText) {
     descEl.textContent = desc;
     body.appendChild(descEl);
   }
+  var actionBtn = null;
+  if (opts.action && opts.action.label) {
+    var actionWrap = document.createElement("div");
+    actionWrap.className = "cu-toast-action";
+    actionBtn = document.createElement("button");
+    actionBtn.type = "button";
+    actionBtn.className = "cu-toast-action-btn";
+    actionBtn.textContent = opts.action.label;
+    actionWrap.appendChild(actionBtn);
+    body.appendChild(actionWrap);
+  }
   toast.appendChild(body);
 
   var svgNS = "http://www.w3.org/2000/svg";
@@ -80,10 +91,17 @@ export function createToastEl(opts, closeText) {
   closeBtn.appendChild(svg);
   toast.appendChild(closeBtn);
 
-  return { toast: toast, body: body, titleEl: titleEl, closeBtn: closeBtn };
+  return { toast: toast, body: body, titleEl: titleEl, closeBtn: closeBtn, actionBtn: actionBtn };
 }
 
-/** Programmatic toast API */
+/**
+ * Programmatic toast API
+ *
+ * CubbyUI.toast.show({ title, description?, variant?, duration?, action? })
+ * action: { label, onClick?(event, toast) } — renders a .cu-toast-action-btn;
+ * clicking it calls onClick then dismisses the toast unless onClick calls
+ * event.preventDefault().
+ */
 export var toastAPI = {
   show: function (opts) {
     var c = ensureToastContainer();
@@ -109,6 +127,15 @@ export var toastAPI = {
       if (timer) clearTimeout(timer);
       dismissToast(result.toast);
     });
+    // action 點擊後預設關閉 toast；onClick 內呼叫 event.preventDefault() 可保留
+    if (result.actionBtn) {
+      result.actionBtn.addEventListener("click", function (e) {
+        if (typeof opts.action.onClick === "function") opts.action.onClick(e, result.toast);
+        if (e.defaultPrevented) return;
+        if (timer) clearTimeout(timer);
+        dismissToast(result.toast);
+      });
+    }
 
     return result.toast;
   },
@@ -185,7 +212,7 @@ export var toastAPI = {
  * ```
  *
  * Variants: default | destructive | success | warning | info
- * Duration: milliseconds before auto-dismiss (default: 5000); "0" keeps the toast until it is dismissed manually
+ * Duration: milliseconds before auto-dismiss (default: 5000; 0 = stay until closed)
  *
  * Optional explicit container (auto-created at bottom-right if not present):
  * ```html
@@ -211,9 +238,9 @@ export function setupToasts() {
       var title = trigger.getAttribute("data-cu-toast-title") || "";
       var desc = trigger.getAttribute("data-cu-toast-description") || "";
       var variant = trigger.getAttribute("data-cu-toast-variant") || "default";
-      // 0 代表不自動消失，只有缺少或非數字時才用預設值
-      var parsedDuration = parseInt(trigger.getAttribute("data-cu-toast-duration"), 10);
-      var duration = isNaN(parsedDuration) ? 5000 : parsedDuration;
+      // 0 代表不自動消失，只有缺少或無法解析時才回退預設值（不可用 ||，會吃掉 0）
+      var duration = parseInt(trigger.getAttribute("data-cu-toast-duration"), 10);
+      if (isNaN(duration)) duration = 5000;
       toastAPI.show({ title: title, description: desc, variant: variant, duration: duration });
     });
   });

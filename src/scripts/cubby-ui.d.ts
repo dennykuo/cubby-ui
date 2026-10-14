@@ -11,11 +11,24 @@
  * For dynamically added elements, call CubbyUI.refresh().
  */
 
+export interface ToastAction {
+  /** Button text (rendered as plain text). */
+  label: string;
+  /**
+   * Called on click with the event and the toast element. The toast is dismissed
+   * afterwards unless the handler calls `event.preventDefault()`.
+   */
+  onClick?: (event: MouseEvent, toast: HTMLElement) => void;
+}
+
 export interface ToastOptions {
   title: string;
   description?: string;
   variant?: ToastVariant;
+  /** Milliseconds before auto-dismiss (default 5000); 0 keeps the toast until closed. */
   duration?: number;
+  /** Optional action button rendered inside the toast body. */
+  action?: ToastAction;
 }
 
 export interface ToastPromiseOptions<T = unknown> {

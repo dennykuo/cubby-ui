@@ -9,7 +9,22 @@
  * TOP_CLASS 固定解析為 "cu"。
  */
 
+const { jsToPhp, UnsupportedExpressionError } = require("./js-expr.cjs");
+
 const TOP_CLASS = "cu";
+
+/** Blade 元件作用域內的保留變數，frontmatter const 不可與之同名 */
+const RESERVED_BLADE_VARS = new Set([
+  "attributes",
+  "slot",
+  "component",
+  "componentName",
+  "loop",
+  "errors",
+  "app",
+  "__env",
+  "__data",
+]);
 
 /**
  * 將 Astro 元件分割為 frontmatter 和 template
@@ -233,6 +248,129 @@ function resolveExpression(expr) {
 }
 
 /**
+ * 解析 frontmatter 中引入的其他 Astro 元件
+ *   import Calendar from "./Calendar.astro";  →  { Calendar: "Calendar" }
+ * @param {string} frontmatter
+ * @returns {Record<string, string>} 本地名稱 → 元件檔名（不含副檔名）
+ */
+function parseComponentImports(frontmatter) {
+  const imports = {};
+  const pattern = /^import\s+(\w+)\s+from\s+["']\.\/(\w+)\.astro["'];?\s*$/gm;
+  let m;
+  while ((m = pattern.exec(frontmatter)) !== null) {
+    imports[m[1]] = m[2];
+  }
+  return imports;
+}
+
+/**
+ * 建立識別字解析器，供 jsToPhp() 將 frontmatter / template 表達式轉為 PHP
+ *
+ * - TOP_CLASS → 靜態值 "cu"
+ * - prop（含 renamed alias，如 isReadonly → $readonly）→ $prop
+ * - frontmatter const：可靜態求值者（如 `${TOP_CLASS}-carousel`）直接內聯，
+ *   其餘輸出為 $name，由 buildPhpAssignments() 在 @php 區塊中宣告
+ * - 其他識別字（如 .map() 迴圈變數）→ 拋出 UnsupportedExpressionError
+ *
+ * @param {ParsedComponent} parsed
+ * @param {Set<string>} [usedVars] - 收集被引用的動態 const 名稱
+ */
+function createIdentResolver(parsed, usedVars) {
+  return (name) => {
+    if (name === "TOP_CLASS") return { value: TOP_CLASS };
+
+    for (const [original, alias] of Object.entries(parsed.renamedProps)) {
+      if (alias === name && original !== "class") return { php: `$${original}` };
+    }
+    if (Object.prototype.hasOwnProperty.call(parsed.props, name)) return { php: `$${name}` };
+
+    if (parsed.variables[name]) {
+      const staticValue = staticVariableValue(parsed, name);
+      if (staticValue !== undefined) return { value: staticValue };
+      if (usedVars) usedVars.add(name);
+      return { php: `$${name}` };
+    }
+
+    throw new UnsupportedExpressionError(`未知的識別字 "${name}"（非 prop 亦非 frontmatter const）`);
+  };
+}
+
+/**
+ * 回傳 frontmatter const 的靜態字串值；非靜態（依賴 prop 等）回傳 undefined
+ * @param {ParsedComponent} parsed
+ * @param {string} name
+ * @param {Set<string>} [visiting] - 循環引用保護
+ * @returns {string | undefined}
+ */
+function staticVariableValue(parsed, name, visiting = new Set()) {
+  const v = parsed.variables[name];
+  if (!v || visiting.has(name)) return undefined;
+  if (v.staticValue !== undefined) return v.staticValue ?? undefined;
+
+  visiting.add(name);
+  let value;
+  try {
+    const resolveIdent = (ident) => {
+      if (ident === "TOP_CLASS") return { value: TOP_CLASS };
+      const inner = staticVariableValue(parsed, ident, visiting);
+      if (inner === undefined) throw new UnsupportedExpressionError(ident);
+      return { value: inner };
+    };
+    value = jsToPhp(v.raw, resolveIdent).staticValue;
+  } catch {
+    value = undefined;
+  }
+  visiting.delete(name);
+
+  // 快取結果：字串 = 靜態值，null = 非靜態
+  v.staticValue = value === undefined ? null : value;
+  return value;
+}
+
+/**
+ * 掃描 Blade template 中引用到的動態 frontmatter const，產生 @php 指派區塊
+ * （含其相依的其他 const，依 frontmatter 宣告順序輸出）
+ *
+ * @param {ParsedComponent} parsed
+ * @param {string} bladeTemplate
+ * @returns {string | null}
+ */
+function buildPhpAssignments(parsed, bladeTemplate) {
+  const used = new Set();
+  for (const [, name] of bladeTemplate.matchAll(/\$([A-Za-z_]\w*)/g)) {
+    if (parsed.variables[name] && !Object.prototype.hasOwnProperty.call(parsed.props, name)) {
+      used.add(name);
+    }
+  }
+  if (used.size === 0) return null;
+
+  // 遞迴收集相依 const（translate 時 resolver 會把引用到的動態 const 加入 used）
+  const assignments = new Map();
+  const pending = [...used];
+  while (pending.length > 0) {
+    const name = pending.pop();
+    if (assignments.has(name)) continue;
+    if (RESERVED_BLADE_VARS.has(name)) {
+      throw new Error(`frontmatter const "${name}" 與 Blade 保留變數同名，請改名或使用 override`);
+    }
+    const deps = new Set();
+    let code;
+    try {
+      code = jsToPhp(parsed.variables[name].raw, createIdentResolver(parsed, deps)).code;
+    } catch (err) {
+      throw new Error(`無法將 const ${name} = ${parsed.variables[name].raw} 轉為 PHP：${err.message}`);
+    }
+    assignments.set(name, code);
+    for (const dep of deps) pending.push(dep);
+  }
+
+  const lines = Object.keys(parsed.variables)
+    .filter((name) => assignments.has(name))
+    .map((name) => `    $${name} = ${assignments.get(name)};`);
+  return `@php\n${lines.join("\n")}\n@endphp`;
+}
+
+/**
  * 完整解析一個 Astro 元件
  * @param {string} source - Astro 原始碼
  * @returns {ParsedComponent}
@@ -242,6 +380,7 @@ function parseComponent(source) {
   const { props, renamedProps } = parseProps(frontmatter);
   const variables = parseVariables(frontmatter, renamedProps);
   const helpers = parseHelpers(frontmatter);
+  const componentImports = parseComponentImports(frontmatter);
 
   // 解析使用了 helper 的變數
   for (const [name, info] of Object.entries(variables)) {
@@ -269,14 +408,22 @@ function parseComponent(source) {
     }
   }
 
-  return {
+  const parsed = {
     frontmatter,
     template,
     props,
     renamedProps,
     variables,
     helpers,
+    componentImports,
   };
+
+  // 預先計算每個 const 的靜態值（variables[name].staticValue：字串 or null）
+  for (const name of Object.keys(variables)) {
+    staticVariableValue(parsed, name);
+  }
+
+  return parsed;
 }
 
 module.exports = {
@@ -284,4 +431,7 @@ module.exports = {
   toPhpDefault,
   substituteHelperParam,
   parseComponent,
+  createIdentResolver,
+  staticVariableValue,
+  buildPhpAssignments,
 };
