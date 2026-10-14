@@ -152,6 +152,97 @@ test.describe("Command Palette", () => {
     expect(await page.evaluate(() => (window as any).__ran)).toBe("preferences");
   });
 
+  test("動態項目：初始化後新增的項目立即有 ARIA，可篩選、鍵盤導航、滑鼠選中與執行", async ({ page }) => {
+    const palette = page.locator("#cmd");
+    const input = palette.locator("[data-cu-command-input]");
+    const active = palette.locator("[data-cu-command-item][data-cu-command-active]");
+    await page.locator("#trigger").click();
+
+    await page.evaluate(() => {
+      const group = document.querySelector("#cmd [data-cu-command-group]")!;
+      const item = document.createElement("div");
+      item.className = "cu-command-item";
+      item.setAttribute("data-cu-command-item", "");
+      item.setAttribute("data-cu-command-value", "save file");
+      item.textContent = "Save File";
+      item.addEventListener("click", () => ((window as any).__ran = "save file"));
+      group.appendChild(item);
+    });
+    const added = palette.locator("[data-cu-command-item]", { hasText: "Save File" });
+    await expect(added).toHaveAttribute("role", "option");
+    await expect(added).toHaveAttribute("aria-selected", "false");
+    expect(await added.getAttribute("id")).toBeTruthy();
+
+    await input.fill("file");
+    await expect(palette.locator("[data-cu-command-item]:visible")).toHaveText(["New File", "Open File", "Save File"]);
+    await input.press("ArrowUp"); // 由第一項反向循環到最後一項（新項目）
+    await expect(active).toHaveText("Save File");
+    await expect(input).toHaveAttribute("aria-activedescendant", (await added.getAttribute("id"))!);
+    await input.press("Enter");
+    expect(await page.evaluate(() => (window as any).__ran)).toBe("save file");
+
+    await input.fill("");
+    await added.hover();
+    await expect(active).toHaveText("Save File");
+  });
+
+  test("動態項目：查詢中加入的項目依查詢篩選並更新無結果提示；選中項目被移除時改選第一個可見項目", async ({ page }) => {
+    const palette = page.locator("#cmd");
+    const input = palette.locator("[data-cu-command-input]");
+    const empty = palette.locator("[data-cu-command-empty]");
+    const active = palette.locator("[data-cu-command-item][data-cu-command-active]");
+    await page.locator("#trigger").click();
+
+    await input.fill("deploy");
+    await expect(empty).toBeVisible();
+    // 模擬遠端搜尋：查詢期間陸續加入結果
+    await page.evaluate(() => {
+      const list = document.querySelector("#cmd [data-cu-command-list]")!;
+      const group = document.createElement("div");
+      group.className = "cu-command-group";
+      group.setAttribute("data-cu-command-group", "");
+      group.innerHTML =
+        '<div class="cu-command-group-heading">Remote</div>' +
+        '<div class="cu-command-item" data-cu-command-item>Deploy to staging</div>' +
+        '<div class="cu-command-item" data-cu-command-item>Rollback</div>';
+      list.insertBefore(group, list.querySelector("[data-cu-command-empty]"));
+    });
+    await expect(palette.locator("[data-cu-command-item]:visible")).toHaveText(["Deploy to staging"]);
+    await expect(empty).toBeHidden();
+    await expect(page.getByRole("group", { name: "Remote" })).toBeVisible();
+
+    await input.fill("file");
+    await expect(active).toHaveText("New File");
+    await page.evaluate(() => document.querySelector("#cmd [data-cu-command-active]")!.remove());
+    await expect(active).toHaveText("Open File");
+    await expect(input).toHaveAttribute("aria-activedescendant", (await active.getAttribute("id"))!);
+  });
+
+  test("CubbyUI.refresh() 重新收集項目：既有元素之後才加上 data-cu-command-item 也會納入", async ({ page }) => {
+    const palette = page.locator("#cmd");
+    const input = palette.locator("[data-cu-command-input]");
+    await page.evaluate(() => {
+      const el = document.createElement("div");
+      el.id = "late";
+      el.className = "cu-command-item";
+      el.textContent = "Toggle Theme";
+      document.querySelector("#cmd [data-cu-command-group]")!.appendChild(el);
+    });
+    await expect(page.locator("#late")).not.toHaveAttribute("role", "option");
+
+    await page.evaluate(() => {
+      document.getElementById("late")!.setAttribute("data-cu-command-item", "");
+      (window as any).CubbyUI.refresh();
+    });
+    await expect(page.locator("#late")).toHaveAttribute("role", "option");
+
+    await page.locator("#trigger").click();
+    await input.fill("theme");
+    await expect(palette.locator("[data-cu-command-item]:visible")).toHaveText(["Toggle Theme"]);
+    await input.fill("file");
+    await expect(page.locator("#late")).toBeHidden();
+  });
+
   test("點擊 backdrop 關閉", async ({ page }) => {
     const palette = page.locator("#cmd");
     await page.locator("#trigger").click();

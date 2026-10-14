@@ -956,24 +956,26 @@ Programmatic API: `CubbyUI.toast.show({ title, description, variant, duration, a
 Classes: `cu-command` (dialog container, centered, max-w-lg), `cu-command-input-wrapper` (search bar row with border-bottom), `cu-command-input-icon` (search icon), `cu-command-input` (text input), `cu-command-list` (scrollable results), `cu-command-group` (group container), `cu-command-group-heading` (group label), `cu-command-item` (selectable row), `cu-command-separator` (divider), `cu-command-shortcut` (right-aligned shortcut text), `cu-command-empty` (no results message)
 Active item: `data-cu-command-active` attribute highlights item.
 A11y (APG combobox + listbox, set by JS): input `role="combobox"` + `aria-controls` / `aria-autocomplete="list"` / `aria-expanded="true"` / `aria-activedescendant` (active item); list `role="listbox"`, groups `role="group"` labelled by their `cu-command-group-heading`, items `role="option"` + `aria-selected` (ids auto-generated). Items may be `<a href>`: Enter still clicks (navigates) the active item.
-Data attributes: `data-cu-command`
+Dynamic items: items are queried on demand — items added to / removed from `data-cu-command-list` after init (e.g. remote search results) are filtered, navigable and get ARIA immediately; `CubbyUI.refresh()` re-syncs them too.
+Data attributes: `data-cu-command`, `data-cu-command-trigger="id"`, `data-cu-command-input`, `data-cu-command-list`, `data-cu-command-group`, `data-cu-command-item`, `data-cu-command-value` (filter text), `data-cu-command-separator`, `data-cu-command-empty`
 ```html
-<dialog class="cu-command" data-cu-command>
+<button class="cu-button cu-button-outline" data-cu-command-trigger="cmd">Open</button>
+<dialog id="cmd" class="cu-command" data-cu-command>
   <div class="cu-command-input-wrapper">
     <svg class="cu-command-input-icon"><!-- search icon --></svg>
-    <input class="cu-command-input" placeholder="Type a command or search...">
+    <input class="cu-command-input" data-cu-command-input placeholder="Type a command or search...">
   </div>
-  <div class="cu-command-list">
-    <div class="cu-command-group">
+  <div class="cu-command-list" data-cu-command-list>
+    <div class="cu-command-group" data-cu-command-group>
       <div class="cu-command-group-heading">Suggestions</div>
-      <button class="cu-command-item">
+      <button class="cu-command-item" data-cu-command-item>
         Calendar
         <span class="cu-command-shortcut"><kbd class="cu-kbd cu-kbd-sm">⌘K</kbd></span>
       </button>
-      <button class="cu-command-item">Search</button>
+      <button class="cu-command-item" data-cu-command-item>Search</button>
     </div>
-    <div class="cu-command-separator"></div>
-    <div class="cu-command-empty">No results found.</div>
+    <div class="cu-command-separator" data-cu-command-separator></div>
+    <div class="cu-command-empty" data-cu-command-empty hidden>No results found.</div>
   </div>
 </dialog>
 ```

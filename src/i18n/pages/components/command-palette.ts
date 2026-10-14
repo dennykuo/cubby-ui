@@ -22,7 +22,7 @@ export const commandPalettePage: Record<Locale, {
     sections: {
       usage: {
         title: 'Usage',
-        description: 'The command palette uses a <code class="cu-code">&lt;dialog&gt;</code> element with <code class="cu-code">data-cu-command</code>. Open it with <code class="cu-code">data-cu-command-trigger</code> buttons or the global <kbd class="cu-kbd">⌘</kbd><kbd class="cu-kbd">K</kbd> shortcut. Items are filtered in real-time as you type.',
+        description: 'The command palette uses a <code class="cu-code">&lt;dialog&gt;</code> element with <code class="cu-code">data-cu-command</code>. Open it with <code class="cu-code">data-cu-command-trigger</code> buttons or the global <kbd class="cu-kbd">⌘</kbd><kbd class="cu-kbd">K</kbd> shortcut. Items are filtered in real-time as you type. Items are looked up on demand, so items added to or removed from <code class="cu-code">data-cu-command-list</code> later (for example remote search results) are filtered, navigable and announced right away; <code class="cu-code">CubbyUI.refresh()</code> also re-syncs them.',
       },
       classes: {
         title: 'CSS Classes',
@@ -71,7 +71,7 @@ export const commandPalettePage: Record<Locale, {
     sections: {
       usage: {
         title: '使用方式',
-        description: 'Command Palette 使用 <code class="cu-code">&lt;dialog&gt;</code> 元素搭配 <code class="cu-code">data-cu-command</code>。透過 <code class="cu-code">data-cu-command-trigger</code> 按鈕或全域快捷鍵 <kbd class="cu-kbd">⌘</kbd><kbd class="cu-kbd">K</kbd> 開啟。輸入時會即時篩選項目。',
+        description: 'Command Palette 使用 <code class="cu-code">&lt;dialog&gt;</code> 元素搭配 <code class="cu-code">data-cu-command</code>。透過 <code class="cu-code">data-cu-command-trigger</code> 按鈕或全域快捷鍵 <kbd class="cu-kbd">⌘</kbd><kbd class="cu-kbd">K</kbd> 開啟。輸入時會即時篩選項目。項目在需要時才查詢，之後加入或移出 <code class="cu-code">data-cu-command-list</code> 的項目（例如遠端搜尋結果）會立即納入篩選、鍵盤導航與無障礙語意；<code class="cu-code">CubbyUI.refresh()</code> 也會重新同步。',
       },
       classes: {
         title: 'CSS 類別',

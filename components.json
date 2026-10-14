@@ -1064,7 +1064,7 @@
         "active": "data-cu-command-active"
       },
       "aria": ["dialog", "combobox", "listbox", "group", "option"],
-      "notes": "Uses native <dialog> with showModal(). Opens with Ctrl/Cmd+K globally. Supports keyboard navigation (ArrowUp/Down, Enter). Filters items by text content or data-cu-command-value. Groups auto-hide when all items are filtered out. Active item highlighted via data-cu-command-active attribute. Closes on backdrop click.",
+      "notes": "Uses native <dialog> with showModal(). Opens with Ctrl/Cmd+K globally. Supports keyboard navigation (ArrowUp/Down, Enter). Filters items by text content or data-cu-command-value. Groups auto-hide when all items are filtered out. Active item highlighted via data-cu-command-active attribute. Closes on backdrop click. Items are queried on demand: items added to / removed from data-cu-command-list after init (e.g. remote results) are filtered, navigable and get their ARIA immediately; CubbyUI.refresh() re-syncs them too.",
       "example": "<button data-cu-command-trigger=\"cmd\">Open Command</button><dialog id=\"cmd\" class=\"cu-command\" data-cu-command><div class=\"cu-command-input-wrapper\"><svg class=\"cu-command-input-icon\"><!-- search icon --></svg><input class=\"cu-command-input\" data-cu-command-input placeholder=\"Search...\"></div><div class=\"cu-command-list\" data-cu-command-list><div class=\"cu-command-group\" data-cu-command-group><div class=\"cu-command-group-heading\">Actions</div><button class=\"cu-command-item\" data-cu-command-item>New File</button></div></div><div class=\"cu-command-empty\" data-cu-command-empty hidden>No results.</div></dialog>"
     },
     {
