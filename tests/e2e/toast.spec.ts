@@ -28,6 +28,21 @@ test.describe("Toast", () => {
     await expect(toast).toHaveCount(0);
   });
 
+  test("close 按鈕有可讀名稱，預設 Close，可由容器 data-cu-toast-close-text 覆寫", async ({ page }) => {
+    await page.click("#trigger");
+    const closeBtn = page.locator(".cu-toast .cu-toast-close").first();
+    await expect(closeBtn).toHaveAttribute("aria-label", "Close");
+    await expect(closeBtn).toHaveAttribute("type", "button");
+    await expect(closeBtn.locator("svg")).toHaveAttribute("aria-hidden", "true");
+    await expect(page.getByRole("button", { name: "Close" })).toHaveCount(1);
+
+    await page.evaluate(() => {
+      document.querySelector("[data-cu-toast-container]")!.setAttribute("data-cu-toast-close-text", "關閉通知");
+      CubbyUI.toast.show({ title: "Localized", duration: 0 });
+    });
+    await expect(page.getByRole("button", { name: "關閉通知" })).toHaveCount(1);
+  });
+
   test("duration 到期自動消失", async ({ page }) => {
     await page.evaluate(() => CubbyUI.toast.show({ title: "Auto", duration: 200 }));
     const toast = page.locator(".cu-toast");

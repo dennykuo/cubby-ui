@@ -1020,6 +1020,7 @@ Toast container is auto-created if missing. Customize with `data-cu-toast-contai
 ```
 Container position variants: `cu-toast-container-top-right`, `cu-toast-container-top-left`, `cu-toast-container-bottom-right`, `cu-toast-container-bottom-left`, `cu-toast-container-top-center`, `cu-toast-container-bottom-center`
 Action classes: `cu-toast-action` (action button container), `cu-toast-action-btn` (action button styling)
+A11y: toasts use `role="status"` (`role="alert"` for destructive). Generated close buttons are named "Close"; localize with `data-cu-toast-close-text="關閉通知"` on the container.
 Programmatic API: `CubbyUI.toast.show({ title, description, variant, duration })` — show a toast via JS (returns the toast element). `CubbyUI.toast.promise(promise, { loading, success, error })` — bind toast states to a Promise lifecycle. `show()` has no action option: for an action button, build the toast markup yourself with `cu-toast-action` / `cu-toast-action-btn`.
 
 ---
@@ -1600,7 +1601,7 @@ Data attributes: `data-cu-resizable`, `data-cu-resizable-panel`, `data-cu-resiza
 | Dialog | — | `data-cu-dialog-trigger="id"` | `data-cu-dialog` (on `<dialog id="...">`) | `data-cu-dialog-close` | — |
 | Drawer | — | `data-cu-drawer-trigger="id"` | `data-cu-drawer` (on `<dialog id="...">`) | `data-cu-drawer-close` | — |
 | Alert Dialog | — | `data-cu-alert-dialog-trigger="id"` | `data-cu-alert-dialog` (on `<dialog id="...">`) | `data-cu-alert-dialog-cancel`, `data-cu-alert-dialog-action` | — |
-| Toast | — | `data-cu-toast-trigger` | `data-cu-toast-container` | `data-cu-toast-close` | `data-cu-toast-title`, `data-cu-toast-description`, `data-cu-toast-variant`, `data-cu-toast-duration`, `data-cu-toast-max`. JS API: `CubbyUI.toast.show()`, `CubbyUI.toast.promise()` |
+| Toast | — | `data-cu-toast-trigger` | `data-cu-toast-container` | `data-cu-toast-close` | `data-cu-toast-title`, `data-cu-toast-description`, `data-cu-toast-variant`, `data-cu-toast-duration`, `data-cu-toast-max`, `data-cu-toast-close-text`. JS API: `CubbyUI.toast.show()`, `CubbyUI.toast.promise()` |
 | Input Clearable | `data-cu-input-clearable` | — | — | `data-cu-input-clear` | — |
 | Alert Expandable | `data-cu-alert-expandable` | `data-cu-alert-expand-trigger` | `data-cu-alert-expandable-content` | — | — |
 | Data Table Expandable | `data-cu-data-table-expandable` | `data-cu-expand-row` | — | — | — |

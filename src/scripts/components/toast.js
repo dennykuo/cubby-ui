@@ -26,7 +26,7 @@ export function ensureToastContainer() {
   return container;
 }
 
-export function createToastEl(opts) {
+export function createToastEl(opts, closeText) {
   var title = opts.title || "";
   var desc = opts.description || "";
   var variant = opts.variant || "default";
@@ -57,9 +57,12 @@ export function createToastEl(opts) {
 
   var svgNS = "http://www.w3.org/2000/svg";
   var closeBtn = document.createElement("button");
+  closeBtn.type = "button";
   closeBtn.className = "cu-toast-close";
   closeBtn.setAttribute("data-cu-toast-close", "");
+  closeBtn.setAttribute("aria-label", closeText || "Close");
   var svg = document.createElementNS(svgNS, "svg");
+  svg.setAttribute("aria-hidden", "true");
   svg.setAttribute("width", "14");
   svg.setAttribute("height", "14");
   svg.setAttribute("viewBox", "0 0 24 24");
@@ -84,7 +87,7 @@ export function createToastEl(opts) {
 export var toastAPI = {
   show: function (opts) {
     var c = ensureToastContainer();
-    var result = createToastEl(opts);
+    var result = createToastEl(opts, c.getAttribute("data-cu-toast-close-text"));
     c.appendChild(result.toast);
 
     var maxToasts = parseInt(c.getAttribute("data-cu-toast-max"), 10) || 5;
@@ -193,6 +196,7 @@ export var toastAPI = {
  * ```
  * Container positions: bottom-right | bottom-left | top-right | top-left | top-center | bottom-center
  * Max stack: data-cu-toast-max (default 5) — oldest toast auto-dismissed when exceeded.
+ * Close button name: data-cu-toast-close-text (default "Close"), e.g. data-cu-toast-close-text="關閉通知".
  *
  * Toast content is built with DOM API (no innerHTML) to prevent XSS.
  */

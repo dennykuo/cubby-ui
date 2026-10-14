@@ -197,6 +197,7 @@ export declare const DATA_ATTRS: {
   readonly TOAST_CONTAINER: "data-cu-toast-container";
   readonly TOAST_MAX: "data-cu-toast-max";
   readonly TOAST_CLOSE: "data-cu-toast-close";
+  readonly TOAST_CLOSE_TEXT: "data-cu-toast-close-text"; // optional, on container: close button aria-label, default "Close"
 
   // Popover
   readonly POPOVER: "data-cu-popover";
