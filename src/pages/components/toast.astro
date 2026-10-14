@@ -87,44 +87,19 @@ const withActionCode = `<button class="cu-button cu-button-outline cu-button-md"
 </button>
 
 ${SO}
-  document.getElementById("toast-action-demo")?.addEventListener("click", () => {
-    const container = document.querySelector("[data-cu-toast-container]");
-    if (!container) return;
-
-    const toast = document.createElement("div");
-    toast.className = "cu-toast cu-toast-default cu-toast-enter";
-
-    const body = document.createElement("div");
-    body.className = "cu-toast-body";
-    const titleEl = document.createElement("div");
-    titleEl.className = "cu-toast-title";
-    titleEl.textContent = "Event deleted";
-    body.appendChild(titleEl);
-    const descEl = document.createElement("div");
-    descEl.className = "cu-toast-description";
-    descEl.textContent = 'The event "Team Meeting" has been removed.';
-    body.appendChild(descEl);
-    toast.appendChild(body);
-
-    const actions = document.createElement("div");
-    actions.className = "flex flex-col gap-1";
-    const undoBtn = document.createElement("button");
-    undoBtn.className = "cu-button cu-button-outline cu-button-sm text-xs h-7";
+  document.getElementById("toast-action-demo").addEventListener("click", function () {
+    var toast = CubbyUI.toast.show({
+      title: "Event deleted",
+      description: 'The event "Team Meeting" has been removed.'
+    });
+    var actions = document.createElement("div");
+    actions.className = "cu-toast-action";
+    var undoBtn = document.createElement("button");
+    undoBtn.className = "cu-toast-action-btn";
     undoBtn.textContent = "Undo";
-    undoBtn.addEventListener("click", () => toast.remove());
+    undoBtn.addEventListener("click", function () { toast.remove(); });
     actions.appendChild(undoBtn);
-    toast.appendChild(actions);
-
-    const closeBtn = document.createElement("button");
-    closeBtn.className = "cu-toast-close";
-    closeBtn.textContent = "\\u00d7";
-    closeBtn.addEventListener("click", () => toast.remove());
-    toast.appendChild(closeBtn);
-
-    container.appendChild(toast);
-    setTimeout(() => {
-      if (toast.parentNode) toast.remove();
-    }, 5000);
+    toast.querySelector(".cu-toast-body").appendChild(actions);
   });
 ${SC}`.trim();
 
@@ -187,9 +162,9 @@ const customDurationCode = `<button class="cu-button cu-button-outline cu-button
   10s Toast
 </button>`.trim();
 
-const persistentCode = `<div class="cu-toast-container cu-toast-container-bottom-right" data-cu-toast-container data-cu-toast-duration="0">
-  <!-- Toasts with duration="0" will not auto-dismiss -->
-</div>
+const persistentCode = `<div class="cu-toast-container cu-toast-container-bottom-right" data-cu-toast-container></div>
+
+<!-- duration: 0 disables auto-dismiss; the toast stays until closed -->
 
 <button class="cu-button" onclick="CubbyUI.toast.show({ title: 'System Update', description: 'A new version is available. Please restart to apply.', variant: 'info', duration: 0 })">
   Show Persistent Toast
@@ -366,10 +341,27 @@ const promiseToastCode = `<!-- Promise Toast requires JavaScript -->
         <section class="space-y-3">
             <SectionHeading id="with-action" title={t.sections.withAction.title} />
             <p class="text-base text-muted-foreground leading-relaxed">{t.sections.withAction.description}</p>
-            <ComponentPreview code={withActionCode}>
+            <ComponentPreview code={withActionCode} align="start">
                 <button class="cu-button cu-button-outline cu-button-md" id="toast-action-demo">
                     Show Toast with Action
                 </button>
+                {/* 預覽在 iframe 內渲染，示範腳本必須隨 slot 一起進 iframe（is:inline 避免被 Astro 提升至主頁面） */}
+                <script is:inline>
+                    document.getElementById("toast-action-demo").addEventListener("click", function () {
+                        var toast = CubbyUI.toast.show({
+                            title: "Event deleted",
+                            description: 'The event "Team Meeting" has been removed.'
+                        });
+                        var actions = document.createElement("div");
+                        actions.className = "cu-toast-action";
+                        var undoBtn = document.createElement("button");
+                        undoBtn.className = "cu-toast-action-btn";
+                        undoBtn.textContent = "Undo";
+                        undoBtn.addEventListener("click", function () { toast.remove(); });
+                        actions.appendChild(undoBtn);
+                        toast.querySelector(".cu-toast-body").appendChild(actions);
+                    });
+                </script>
             </ComponentPreview>
         </section>
 
@@ -470,8 +462,16 @@ const promiseToastCode = `<!-- Promise Toast requires JavaScript -->
         <section class="space-y-3">
             <SectionHeading id="promise-toast" title={t.sections.promiseToast.title} />
             <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.promiseToast.description} />
-            <ComponentPreview code={promiseToastCode}>
-                <button class="cu-button cu-button-default cu-button-md" id="toast-promise-demo">
+            <ComponentPreview code={promiseToastCode} align="start">
+                <button class="cu-button cu-button-default cu-button-md"
+                    onclick="CubbyUI.toast.promise(
+                        new Promise(function(resolve) { setTimeout(resolve, 2000); }),
+                        {
+                            loading: 'Saving changes...',
+                            success: 'Changes saved successfully!',
+                            error: 'Failed to save changes.'
+                        }
+                    )">
                     Save with Promise Toast
                 </button>
             </ComponentPreview>
@@ -480,47 +480,3 @@ const promiseToastCode = `<!-- Promise Toast requires JavaScript -->
     </div>
 </Layout>
 
-<script>
-    document.getElementById("toast-action-demo")?.addEventListener("click", () => {
-        const container = document.querySelector("[data-cu-toast-container]");
-        if (!container) return;
-
-        const toast = document.createElement("div");
-        toast.className = "cu-toast cu-toast-default cu-toast-enter";
-
-        const body = document.createElement("div");
-        body.className = "cu-toast-body";
-
-        const titleEl = document.createElement("div");
-        titleEl.className = "cu-toast-title";
-        titleEl.textContent = "Event deleted";
-        body.appendChild(titleEl);
-
-        const descEl = document.createElement("div");
-        descEl.className = "cu-toast-description";
-        descEl.textContent = 'The event "Team Meeting" has been removed.';
-        body.appendChild(descEl);
-
-        toast.appendChild(body);
-
-        const actions = document.createElement("div");
-        actions.className = "flex flex-col gap-1";
-        const undoBtn = document.createElement("button");
-        undoBtn.className = "cu-button cu-button-outline cu-button-sm text-xs h-7";
-        undoBtn.textContent = "Undo";
-        undoBtn.addEventListener("click", () => toast.remove());
-        actions.appendChild(undoBtn);
-        toast.appendChild(actions);
-
-        const closeBtn = document.createElement("button");
-        closeBtn.className = "cu-toast-close";
-        closeBtn.textContent = "\u00d7";
-        closeBtn.addEventListener("click", () => toast.remove());
-        toast.appendChild(closeBtn);
-
-        container.appendChild(toast);
-        setTimeout(() => {
-            if (toast.parentNode) toast.remove();
-        }, 5000);
-    });
-</script>
