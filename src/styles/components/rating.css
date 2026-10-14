@@ -12,6 +12,12 @@
     transform 150ms;
 }
 
+/* 互動星等使用 <button type="button">：自行清除 UA 按鈕樣式（不依賴 preflight），外觀與 <span> 星等一致 */
+button.cu-rating-item {
+  @apply m-0 appearance-none border-0 bg-transparent p-0;
+  font: inherit;
+}
+
 .cu-rating-item-active {
   color: var(--cu-rating-color);
 }
@@ -71,7 +77,7 @@
   @apply size-7;
 }
 
-/* Focus（互動星等為 <button> 時，以及 radio 模式的 label） */
+/* Focus（互動星等：JS 設為 role="radio" 的 roving tabindex 星星，以及 radio 模式的 label） */
 .cu-rating-item:focus-visible,
 .cu-rating-input:focus-visible + .cu-rating-label {
   @apply rounded-sm ring-2 ring-ring/40 ring-offset-2 outline-none;
