@@ -13,3 +13,5 @@
 - **TODO.md** 勾選 12 個已完成元件項目，並新增「工程與品質」段落，移入已歸檔計畫中尚未完成的 6 項待辦（含已實測重現的 Dialog 點擊內部 padding 誤關閉問題）
 - 已完成或過時的計畫文件移至 `references/archive/`，各檔開頭加註歸檔狀態與未完成項目去向：`PLAN-3.md`、`UI-UX-REVIEW.md`、`agent-guide/implementation_plan.md`
 - Dropdown trigger 的點擊事件改為正常冒泡（原本 `stopPropagation`）；若 Dropdown 放在本身有 click 監聽的元素內（例如可點擊的卡片或表格列），點擊 trigger 也會觸發外層監聽，需要時請在外層判斷 `e.target.closest("[data-cu-dropdown]")`
+- Copy Button 的剪貼簿寫入、播報與狀態邏輯抽成 `src/scripts/core/clipboard.js`，與 Code Block 共用（Copy Button 行為不變）
+- **Code Block** 複製後還原為按鈕原本的文字，不再固定還原成 "Copy"

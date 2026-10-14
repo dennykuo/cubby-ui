@@ -21,3 +21,5 @@
 - 文檔站 smoke test 支援 `BASE_PATH`（只在子路徑下伺服 `docs/`），並新增同源資源 4xx / 5xx 檢查；CI 改以 `BASE_PATH=/cubby-ui` 建置文檔站，驗證的即是部署設定
 - `public/favicon.svg`（原本各頁引用的 `/favicon.svg` 並不存在）
 - `check:sync` 新增 README 元件分類表檢查：每個分類的元件須與 `component-nav.ts` 的 `componentGroups` 完全一致，分類標籤取自 `src/i18n/ui.ts` 的 sidebar 英文標籤
+- **Code Block** 複製回饋：失敗狀態 `data-cu-copy-failed`、aria-live 播報（與 Copy Button 共用 `[data-cu-copy-live]`）、Clipboard API 不可用或被拒時退回 `execCommand("copy")`；根元素可用 `data-cu-code-block-success-text` / `data-cu-code-block-error-text` 自訂訊息，成功 / 失敗時觸發 `cu:code-block:copy` / `cu:code-block:error`
+- `npm run test:blade` 新增回歸檢查：文字位置殘留的 JSX `||` / `??` 表達式，以及 `'$` 開頭的 PHP 字串（字串字面量被誤轉成變數）

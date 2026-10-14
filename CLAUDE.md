@@ -18,7 +18,7 @@ Cubby UI 是一個框架無關的 UI 元件庫，風格類似 shadcn/ui，使用
 - `npm run build:docs` — 建置文檔站點至 `docs/`（自動先執行 `i18n:routes`）。可設 `BASE_PATH`（如 `/cubby-ui`）與 `SITE_URL`（如 `https://dennykuo.github.io`）環境變數指定部署子路徑與網域，未設定時為根目錄；有 `SITE_URL` 時才產生 sitemap 與 canonical 絕對網址
 - `npm run check:links` — 掃描 `docs/` 所有頁面的 `href` / `src` / `action`，確認站內根路徑連結都帶 base、目標檔案存在（`BASE_PATH` 需與建置時相同；略過 `<template>` 預覽片段與 `<pre>` / `<code>`）
 - `npm run preview` — 預覽建置結果
-- `npm run test:blade` — 對 `dist/laravel/` 下所有 `.blade.php` 做回歸檢查：已知壞 pattern（`,,`、空陣列元素、未轉譯 JSX 屬性）、並萃取 `@class` / `@props` / `@if` / `{{ … }}` 中的 PHP 片段以 `php -l` 驗證（安裝 PHP 時生效，可加 `--skip-php` 略過）
+- `npm run test:blade` — 對 `dist/laravel/` 下所有 `.blade.php` 做回歸檢查：已知壞 pattern（`,,`、空陣列元素、未轉譯 JSX 屬性 / `{a || b}` 邏輯表達式、`'$light'` 這類 `'$` 開頭的字串）、並萃取 `@class` / `@props` / `@if` / `{{ … }}` 中的 PHP 片段以 `php -l` 驗證（安裝 PHP 時生效，可加 `--skip-php` 略過）
 - `npm run test:e2e` — Playwright 互動元件測試（`tests/e2e/*.spec.ts`），對 `dist/core/cubby-ui.{css,js}` 出貨產物執行，fixture 為 `tests/e2e/fixtures/*.html` 靜態頁；需先 `npm run build`。另含 `docs-smoke.spec.ts`：逐頁載入 `docs/` 產出的元件頁與範例頁，檢查無未捕捉例外、無 console error、重複 `init()` / `refresh()` 安全、同源資源無 4xx / 5xx；`docs SEO` 組驗證每頁 description 專屬且為純文字、Open Graph / hreflang 標籤，建置時有 `SITE_URL`（首頁有 canonical）才驗證 canonical / sitemap / robots.txt 的絕對網址，否則改驗證不輸出這些（`docs/` 不存在時自動略過，CI 會先 `build:docs`；設 `BASE_PATH` 時只在該子路徑下伺服 `docs/`，模擬 GitHub Pages）。無法下載瀏覽器的環境可設 `PLAYWRIGHT_CHROMIUM_EXECUTABLE` 指向既有 Chromium
 - `npm run test` — 依序執行 `check:sync` → `test:blade` → `test:e2e`
 - `npm run check:sync` — 元件清單跨來源一致性檢查（`component-nav.ts` / 頁面 / i18n / CSS / `components.json` / `llms.txt` / README 元件分類表），並雙向比對 `src/scripts/` 各模組使用的 `data-cu-*` 與 `cubby-ui.d.ts` 的 `DATA_ATTRS`
@@ -135,7 +135,7 @@ const t = useTranslations(buttonPage, locale);
 - 導航互動元素（Tabs、Pagination、Nav、Breadcrumb、Menubar）使用 `outline-none` 搭配 `focus-visible:ring-1 focus-visible:ring-ring/30`
 - Dialog / Drawer / Alert 的 close 按鈕使用 `focus-visible:ring-1 focus-visible:ring-ring/40`
 - Chat Input send / attach 按鈕屬於主要互動元素，使用模式 A（`ring-2 ring-ring/40 ring-offset-2`）
-- Code Block 刻意使用硬編碼 `zinc-*` 色彩（非設計 token），因為程式碼區塊需要始終維持深色背景以確保語法高亮可讀性，與主題色彩解耦
+- Code Block 刻意使用硬編碼 `zinc-*` 色彩（非設計 token），因為程式碼區塊需要始終維持深色背景以確保語法高亮可讀性，與主題色彩解耦；複製狀態同理使用固定色階：成功（`data-cu-copied`）`green-400`、失敗（`data-cu-copy-failed`）`red-400`（light 變體 `green-800` / `red-700`），暗色頁面的 success / destructive token 在 zinc 深色區塊上對比不足；按鈕的 hover 樣式以 `:not([data-cu-copied], [data-cu-copy-failed])` 排除狀態中的按鈕，點擊後滑鼠停在按鈕上時狀態色才不會被蓋過
 - Pin Input 預設 `h-10 w-10`（非標準表單 `h-9`），因為正方形格子需要較大尺寸以確保可讀性與點擊面積
 - Textarea 使用 `py-2`（非標準表單 `py-1`），因為多行輸入需要額外垂直間距以提升閱讀體驗
 - Chat 系列元件（Chat Input、Chat Message、Chat Typing）使用 `rounded-2xl`（非標準浮層 `rounded-xl`），遵循 chat UI 慣例（iMessage/WhatsApp 氣泡感）
@@ -157,7 +157,7 @@ const t = useTranslations(buttonPage, locale);
 - Empty State 場景模板：No Permission / Maintenance / Search No Results
 - 圖表色盤：`--color-chart-1` ~ `--color-chart-5`（`theme.css`，`.dark` 另有一組），類別色依固定順序指派，已以亮度帶、色覺辨識差異與對卡片 3:1 對比驗證；`cu-chart-color-N` 設定 `currentColor` 供圖例色塊與 SVG `fill` / `stroke="currentColor"` 共用
 - Chart 只提供包裝樣式（`cu-chart` 卡片、header / body / canvas / legend / tooltip / empty / loading），不內建繪圖 JS；`cu-chart-canvas` 為 `relative` + 明確高度，符合 Chart.js `maintainAspectRatio: false`；文檔頁預覽以內嵌 SVG 示範，Chart.js 整合僅以程式碼呈現
-- Copy Button：`data-cu-copy` / `data-cu-copy-target` 由 document 級 delegated click 處理（`registry.copyClickHandler`，`destroy()` 移除）；狀態屬性 `data-cu-copied` / `data-cu-copy-failed` 以 CSS 切換 `cu-copy-button-icon` / `cu-copy-button-check`；訊息經共用 `[data-cu-copy-live]` aria-live 區域播報；Clipboard API 失敗時退回 `execCommand('copy')`
+- Copy Button：`data-cu-copy` / `data-cu-copy-target` 由 document 級 delegated click 處理（`registry.copyClickHandler`，`destroy()` 移除）；狀態屬性 `data-cu-copied` / `data-cu-copy-failed` 以 CSS 切換 `cu-copy-button-icon` / `cu-copy-button-check`；訊息經共用 `[data-cu-copy-live]` aria-live 區域播報；Clipboard API 失敗時退回 `execCommand('copy')`。寫入、播報與狀態設定 / 還原抽在 `core/clipboard.js`，Code Block（`data-cu-code-block-copy`）共用同一套：相同狀態屬性與 live region，訊息由根元素的 `data-cu-code-block-success-text` / `data-cu-code-block-error-text` 設定，事件為 `cu:code-block:copy` / `cu:code-block:error`
 
 ### NPM 套件打包
 
@@ -197,7 +197,7 @@ dist/
 
 轉換器腳本位於 `scripts/generate-blade-components.cjs`，搭配 `scripts/blade/parser.cjs`（解析 Astro frontmatter + Props）、`scripts/blade/transformers.cjs`（轉換 template 語法）和 `scripts/blade/generate-ai-docs.cjs`（生成 AI 友善文件）。手動 override 放在 `scripts/blade/overrides/*.blade.php`，會跳過自動轉換直接使用。支援 `--dry-run`（預覽轉換結果，不寫入檔案）和 `--verbose`（印出每個檔案的轉換路徑及完整 Blade 內容）。建置時自動生成 `README.md`（敘述式 Blade 使用文件）和 `components.json`（結構化 metadata），供 AI Agent 在 Laravel 專案中理解和使用元件。
 
-互動元件 JS 原始碼為 ESM 模組：入口 `src/scripts/index.js`（`init` / `destroy` / `refresh` 與自動初始化）、`src/scripts/core/`（`registry.js` 共享追蹤狀態、`utils.js` 通用 helper、`document-listeners.js` document 級 delegated handler、`overlay.js` Dialog / Drawer / Alert Dialog 共用邏輯）、`src/scripts/components/*.js`（每元件一個模組，匯出 `setupXxx()`）。`scripts/build-js.mjs` 以 esbuild 打包成 `dist/core/cubby-ui.js`，並用 banner / footer 包上 UMD wrapper（支援 `require()`、AMD `define()`、`window.CubbyUI`）；文檔站的 `Layout.astro` / `ComponentPreview.astro` 以 `?url` 載入該產物，`astro.config.mjs` 的 `cubbyUiJsBundle` Vite plugin 於 dev / build 前先打包並在 dev 監看 `src/scripts/` 自動重建。包含 39 個元件：Tabs（含 closable / scrollable）、Dropdown、Dialog、Drawer、Alert Dialog、Toast（含 promise API）、Popover、Menubar、Combobox、Multi Select、Number Input、Dropzone、Transfer List、Mobile Nav、Password Input、Segmented Control、Pin Input、Checkbox Group、Code Block、Copy Button、Carousel、Context Menu、Resizable Panels、Command Palette、Date Picker（含 Calendar）、Color Picker、Toggle Group、Rating、Tag Input、Sortable List、Countdown、Image Compare、Speed Dial、Back to Top、Kanban、Tour、Input Clearable、Alert Expandable、Data Table Expandable。Document 級事件監聽器使用 delegated pattern（click / keydown / contextmenu / scroll），避免每個元件實例各自註冊（Context Menu、Date Picker 等透過 tracking array 共用單一 handler，`destroy()` 時統一移除）。Toast 內容使用 DOM API（`textContent` / `createElement`）建立，避免 innerHTML XSS 風險。Toast 自動消失時間預設 5000ms，可透過 `data-cu-toast-duration` 自訂。Toast 堆疊上限預設 5 則，可透過 `data-cu-toast-max` 自訂，超出時自動移除最舊通知。Combobox / Multi Select 搜尋預設即時過濾，可在根元素加 `data-cu-combobox-debounce` / `data-cu-multi-select-debounce`（毫秒）延遲過濾（清空查詢、方向鍵與 Enter 會立即套用待執行的過濾），實際套用的查詢改變時觸發 `cu:combobox:search` / `cu:multiselect:search`（`{ query }`）供串接遠端搜尋；計時器由 `core/utils.js` 的 `createDebouncer()` 管理，`destroy()` / `refresh()` 會取消。
+互動元件 JS 原始碼為 ESM 模組：入口 `src/scripts/index.js`（`init` / `destroy` / `refresh` 與自動初始化）、`src/scripts/core/`（`registry.js` 共享追蹤狀態、`utils.js` 通用 helper、`document-listeners.js` document 級 delegated handler、`overlay.js` Dialog / Drawer / Alert Dialog 共用邏輯、`clipboard.js` Copy Button / Code Block 共用的剪貼簿寫入與複製狀態）、`src/scripts/components/*.js`（每元件一個模組，匯出 `setupXxx()`）。`scripts/build-js.mjs` 以 esbuild 打包成 `dist/core/cubby-ui.js`，並用 banner / footer 包上 UMD wrapper（支援 `require()`、AMD `define()`、`window.CubbyUI`）；文檔站的 `Layout.astro` / `ComponentPreview.astro` 以 `?url` 載入該產物，`astro.config.mjs` 的 `cubbyUiJsBundle` Vite plugin 於 dev / build 前先打包並在 dev 監看 `src/scripts/` 自動重建。包含 39 個元件：Tabs（含 closable / scrollable）、Dropdown、Dialog、Drawer、Alert Dialog、Toast（含 promise API）、Popover、Menubar、Combobox、Multi Select、Number Input、Dropzone、Transfer List、Mobile Nav、Password Input、Segmented Control、Pin Input、Checkbox Group、Code Block、Copy Button、Carousel、Context Menu、Resizable Panels、Command Palette、Date Picker（含 Calendar）、Color Picker、Toggle Group、Rating、Tag Input、Sortable List、Countdown、Image Compare、Speed Dial、Back to Top、Kanban、Tour、Input Clearable、Alert Expandable、Data Table Expandable。Document 級事件監聽器使用 delegated pattern（click / keydown / contextmenu / scroll），避免每個元件實例各自註冊（Context Menu、Date Picker 等透過 tracking array 共用單一 handler，`destroy()` 時統一移除）。Toast 內容使用 DOM API（`textContent` / `createElement`）建立，避免 innerHTML XSS 風險。Toast 自動消失時間預設 5000ms，可透過 `data-cu-toast-duration` 自訂。Toast 堆疊上限預設 5 則，可透過 `data-cu-toast-max` 自訂，超出時自動移除最舊通知。Combobox / Multi Select 搜尋預設即時過濾，可在根元素加 `data-cu-combobox-debounce` / `data-cu-multi-select-debounce`（毫秒）延遲過濾（清空查詢、方向鍵與 Enter 會立即套用待執行的過濾），實際套用的查詢改變時觸發 `cu:combobox:search` / `cu:multiselect:search`（`{ query }`）供串接遠端搜尋；計時器由 `core/utils.js` 的 `createDebouncer()` 管理，`destroy()` / `refresh()` 會取消。
 
 ARIA 無障礙支援：
 - **Tabs** — `role="tablist/tab/tabpanel"`、`aria-selected`、`aria-controls` / `aria-labelledby` 雙向連結
@@ -241,7 +241,8 @@ src/
 │   │   ├── registry.js           — 共享追蹤狀態（各元件 tracking array + document 級 handler 參照）
 │   │   ├── utils.js              — genId、navigateItems、roundToStep、clampValue
 │   │   ├── document-listeners.js — document 級 delegated click / keydown / contextmenu / scroll
-│   │   └── overlay.js            — Dialog / Drawer / Alert Dialog 共用的 <dialog> 邏輯
+│   │   ├── overlay.js            — Dialog / Drawer / Alert Dialog 共用的 <dialog> 邏輯
+│   │   └── clipboard.js          — Copy Button / Code Block 共用：寫入剪貼簿（execCommand 後備）、aria-live 播報、複製狀態
 │   ├── components/               — 每元件一個 ESM 模組（tabs.js、dropdown.js、toast.js …，匯出 setupXxx）
 │   ├── cubby-ui.d.ts             — TypeScript 型別定義（打包來源，原樣複製到 dist/，對外公開）
 │   ├── globals.d.ts              — 型別檢查專用的 global augmentation（`_cuInit` 等元素 expando 屬性；不進 dist/）

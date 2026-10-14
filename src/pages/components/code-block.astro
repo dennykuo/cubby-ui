@@ -137,6 +137,17 @@ async function fetchUsers() {
   return data.users.filter(u => u.active);
 }</code></pre>
 </div>`.trim();
+
+const copyCode = `<div class="cu-code-block" data-cu-code-block data-cu-code-block-success-text="Command copied" data-cu-code-block-error-text="Press Ctrl+C to copy">
+  <div class="cu-code-block-header">
+    <span>Shell</span>
+    <button type="button" class="cu-code-block-copy" data-cu-code-block-copy>
+      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+      <span data-cu-code-block-label>Copy</span>
+    </button>
+  </div>
+  <pre class="cu-code-block-pre"><code class="language-shell">npm install cubby-ui</code></pre>
+</div>`.trim();
 ---
 
 <Layout title={t.title} category={t.category} componentName="Code Block" description={t.description}>
@@ -267,6 +278,44 @@ async function fetchUsers() {
 }`}</CodeBlock>
         </div>
       </ComponentPreview>
+    </section>
+
+    <!-- Copy Feedback -->
+    <section class="space-y-3">
+      <SectionHeading id="copy" title={t.sections.copy.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.copy.description} />
+      <ComponentPreview code={copyCode}>
+        <div class="w-full max-w-lg">
+          <CodeBlock
+            language="Shell"
+            data-cu-code-block-success-text="Command copied"
+            data-cu-code-block-error-text="Press Ctrl+C to copy"
+          >npm install cubby-ui</CodeBlock>
+        </div>
+      </ComponentPreview>
+    </section>
+
+    <!-- Data Attributes -->
+    <section class="space-y-3">
+      <SectionHeading id="attributes" title={t.sections.attributes.title} />
+      <div class="cu-table-wrapper rounded-lg border border-border">
+        <table class="cu-table">
+          <thead class="cu-table-header">
+            <tr class="cu-table-row">
+              <th class="cu-table-head">{t.sections.attributes.attributeLabel}</th>
+              <th class="cu-table-head">{t.sections.attributes.descriptionLabel}</th>
+            </tr>
+          </thead>
+          <tbody class="cu-table-body">
+            {Object.entries(t.attributeDescriptions).map(([attr, desc]) => (
+              <tr class="cu-table-row">
+                <td class="cu-table-cell"><code class="cu-code">{attr}</code></td>
+                <td class="cu-table-cell text-muted-foreground">{desc}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </section>
 
     <!-- Classes Reference -->

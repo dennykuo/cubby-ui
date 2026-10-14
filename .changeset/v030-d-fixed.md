@@ -19,3 +19,7 @@
 - **Dialog** 點擊對話框內部 padding 區或子元素間的空白會誤關閉：`cu-dialog` 的 `p-6` 設在 `<dialog>` 本體上，這些點擊的 `e.target` 也是 dialog。`src/scripts/core/overlay.js` 的 backdrop 判斷改以 `getBoundingClientRect()` 比對點擊座標，只有落在 dialog 邊界框外才關閉；`detail === 0` 的非指標 click（鍵盤、程式化 `click()`，座標為 0,0）不視為 backdrop 點擊。`tests/e2e/dialog.spec.ts` 新增 padding 區與 `detail === 0` 兩個案例
 - **`CubbyUI.destroy()` 後再 `init()` 不會重新登記元件**：同一批元素（未替換 DOM）在 `destroy()` 後再 `init()` 時，元件因 `_cuInit` 直接跳過，不再被 document 級 handler 追蹤（Dropdown 外部點擊、Escape 不會關閉，Back to Top 捲動監聽不會恢復）。`core/registry.js` 新增 `track()` / `restore()`，已初始化的元素改為重新登記而不重複綁定；Back to Top、Image Compare 恢復 destroy 移除的監聽，Countdown 重新計時且已完成的不再觸發 `cu:countdown:complete`
 - **浮層互斥**：Dropdown trigger、Tabs 關閉按鈕與 Multi Select 選項點擊不再 `stopPropagation`，開啟 Dropdown / Popover / Combobox 等任一浮層時，其他已開啟的會關閉
+- **Blade：`code-block.blade.php` 無法渲染**：輸出含 `$codeTheme === '$light'`、殘留的 `{filename || language}` 與未定義變數 `$codeTheme`（Laravel 渲染即拋 `ViewException`）。改用手寫 override（`scripts/blade/overrides/code-block.blade.php`），並以 `$attributes->class()` 正確合併使用者傳入的 class
+- **Blade：`date-picker.blade.php`** 把 `{value || placeholder}` 原樣輸出到頁面
+- **Blade 轉換器**：條件式中的字串字面量不再被轉成 PHP 變數；文字位置的 `{a || b}` 轉為 `{{ $a ?: $b }}`
+- **Code Block** 複製成功的狀態色看不清楚：暗色頁面時 success token 在深色區塊上對比只有約 2.9:1；light 變體的成功色被按鈕本身的文字色蓋過；header 內的按鈕在滑鼠停留時（也就是剛點擊後）狀態色被 hover 樣式蓋過。成功 / 失敗狀態改用固定色階（`green-400` / `red-400`，light 變體 `green-800` / `red-700`，對比皆 ≥ 4.5:1），hover 樣式不再套用到狀態中的按鈕

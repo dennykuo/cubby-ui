@@ -23,7 +23,8 @@
     @apply absolute top-2.5 right-2.5 flex items-center gap-1.5 rounded-lg border border-zinc-700 bg-zinc-800 px-2.5 py-1.5 text-xs text-zinc-400 cursor-pointer transition-colors duration-150;
 }
 
-.cu-code-block-copy:hover {
+/* hover 樣式不套用在複製狀態上：點擊後滑鼠仍停在按鈕，否則狀態色會被蓋過 */
+.cu-code-block-copy:not([data-cu-copied], [data-cu-copy-failed]):hover {
     @apply border-zinc-600 bg-zinc-700 text-zinc-200;
 }
 
@@ -32,17 +33,19 @@
     @apply static border-none bg-transparent p-0 rounded-md px-1.5 py-0.5;
 }
 
-.cu-code-block-header .cu-code-block-copy:hover {
+.cu-code-block-header .cu-code-block-copy:not([data-cu-copied], [data-cu-copy-failed]):hover {
     @apply bg-zinc-800 text-zinc-200;
 }
 
-/* Copied state */
+/* Copied / copy failed state
+   與區塊背景一樣使用固定色階而非 success / destructive token：暗色頁面的
+   token 較深，放在 zinc 深色區塊上對比不足（success 約 2.9:1）。 */
 .cu-code-block-copy[data-cu-copied] {
-    @apply text-success border-success/30;
+    @apply text-green-400 border-green-400/30;
 }
 
-.cu-code-block-header .cu-code-block-copy[data-cu-copied] {
-    @apply border-none;
+.cu-code-block-copy[data-cu-copy-failed] {
+    @apply text-red-400 border-red-400/30;
 }
 
 /* Light variant
@@ -59,7 +62,7 @@
     @apply border-zinc-300 bg-zinc-100 text-zinc-500;
 }
 
-.cu-code-block-light .cu-code-block-copy:hover {
+.cu-code-block-light .cu-code-block-copy:not([data-cu-copied], [data-cu-copy-failed]):hover {
     @apply border-zinc-400 bg-zinc-200 text-zinc-700;
 }
 
@@ -67,6 +70,14 @@
     @apply border-none bg-transparent;
 }
 
-.cu-code-block-light .cu-code-block-header .cu-code-block-copy:hover {
+.cu-code-block-light .cu-code-block-header .cu-code-block-copy:not([data-cu-copied], [data-cu-copy-failed]):hover {
     @apply bg-zinc-200 text-zinc-700;
+}
+
+.cu-code-block-light .cu-code-block-copy[data-cu-copied] {
+    @apply text-green-800 border-green-800/30;
+}
+
+.cu-code-block-light .cu-code-block-copy[data-cu-copy-failed] {
+    @apply text-red-700 border-red-700/30;
 }

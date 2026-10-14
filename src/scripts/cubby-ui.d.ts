@@ -109,6 +109,10 @@ export interface CubbyUIEvents {
   "cu:copy-button:copy": CustomEvent<{ text: string }>;
   /** Fired on a [data-cu-copy] / [data-cu-copy-target] button when copying fails (bubbles) */
   "cu:copy-button:error": CustomEvent<{ error: unknown }>;
+  /** Fired on a Code Block's [data-cu-code-block-copy] button after the code is written to the clipboard (bubbles) */
+  "cu:code-block:copy": CustomEvent<{ text: string }>;
+  /** Fired on a Code Block's [data-cu-code-block-copy] button when copying fails (bubbles) */
+  "cu:code-block:error": CustomEvent<{ error: unknown }>;
 }
 
 // ---------------------------------------------------------------------------
@@ -315,6 +319,8 @@ export declare const DATA_ATTRS: {
   readonly CODE_BLOCK: 'data-cu-code-block';
   readonly CODE_BLOCK_COPY: 'data-cu-code-block-copy';
   readonly CODE_BLOCK_LABEL: 'data-cu-code-block-label';
+  readonly CODE_BLOCK_SUCCESS_TEXT: 'data-cu-code-block-success-text'; // optional, on root: default "Copied!" (also announced via aria-live)
+  readonly CODE_BLOCK_ERROR_TEXT: 'data-cu-code-block-error-text'; // optional, on root: default "Copy failed"
 
   // Copy Button (document-level delegated click; dynamically added buttons work without re-init)
   readonly COPY: 'data-cu-copy'; // text to copy (value), or empty marker when using COPY_TARGET
@@ -323,7 +329,7 @@ export declare const DATA_ATTRS: {
   readonly COPY_SUCCESS_TEXT: 'data-cu-copy-success-text'; // default "Copied!" (also announced via aria-live)
   readonly COPY_ERROR_TEXT: 'data-cu-copy-error-text'; // default "Copy failed"
   readonly COPY_DURATION: 'data-cu-copy-duration'; // ms before state resets, default 2000
-  readonly COPY_LIVE: 'data-cu-copy-live'; // shared aria-live region (auto-created when absent)
+  readonly COPY_LIVE: 'data-cu-copy-live'; // shared aria-live region (auto-created when absent; also used by Code Block)
 
   // Carousel
   readonly CAROUSEL: 'data-cu-carousel';
@@ -385,7 +391,7 @@ export declare const DATA_ATTRS: {
   readonly STATE_EXPANDED: 'data-cu-expanded'; // Alert Expandable content
   readonly STATE_VISIBLE: 'data-cu-visible'; // Back to Top button
   readonly STATE_COPIED: 'data-cu-copied'; // Code Block / Copy Button after a successful copy
-  readonly STATE_COPY_FAILED: 'data-cu-copy-failed'; // Copy Button when copying fails
+  readonly STATE_COPY_FAILED: 'data-cu-copy-failed'; // Code Block / Copy Button when copying fails
   readonly STATE_RESIZING: 'data-cu-resizing'; // Resizable handle while dragging
   readonly STATE_COMMAND_ACTIVE: 'data-cu-command-active'; // Command Palette highlighted item
 };
