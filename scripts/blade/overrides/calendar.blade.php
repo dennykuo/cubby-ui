@@ -1,6 +1,7 @@
 @props([
     'min' => null,
     'max' => null,
+    'weekdays' => null,
 ])
 
 <div
@@ -19,7 +20,8 @@
         </button>
     </div>
     <div class="cu-calendar-weekdays">
-        @foreach(['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'] as $day)
+        {{-- 星期列文字（週日起 7 個），未傳入時為英文；月份標題與日期名稱由 JS 依 lang / data-cu-calendar-locale 產生 --}}
+        @foreach($weekdays ?? ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'] as $day)
             <span class="cu-calendar-weekday">{{ $day }}</span>
         @endforeach
     </div>

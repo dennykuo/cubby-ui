@@ -11,7 +11,7 @@ const SO = "<" + "script>";
 const SC = "</" + "script>";
 
 const usageCode = `<div class="cu-multi-select" data-cu-multi-select style="width: 300px;">
-  <button type="button" class="cu-multi-select-trigger" data-cu-multi-select-trigger>
+  <button type="button" class="cu-multi-select-trigger" data-cu-multi-select-trigger aria-label="Frameworks">
     <div class="cu-multi-select-tags" data-cu-multi-select-tags>
       <span class="cu-multi-select-placeholder" data-cu-multi-select-placeholder>Select frameworks...</span>
     </div>
@@ -53,7 +53,7 @@ const withSearchCode = `<div class="cu-multi-select" data-cu-multi-select style=
 </div>`.trim();
 
 const presetCode = `<div class="cu-multi-select" data-cu-multi-select style="width: 300px;">
-  <button type="button" class="cu-multi-select-trigger" data-cu-multi-select-trigger>
+  <button type="button" class="cu-multi-select-trigger" data-cu-multi-select-trigger aria-label="Tags">
     <div class="cu-multi-select-tags" data-cu-multi-select-tags>
       <span class="cu-multi-select-placeholder" data-cu-multi-select-placeholder>Select tags...</span>
     </div>
@@ -143,7 +143,7 @@ ${SC}`.trim();
       <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
       <ComponentPreview code={usageCode}>
         <div class="cu-multi-select" data-cu-multi-select style="width: 300px;">
-          <button type="button" class="cu-multi-select-trigger" data-cu-multi-select-trigger>
+          <button type="button" class="cu-multi-select-trigger" data-cu-multi-select-trigger aria-label="Frameworks">
             <div class="cu-multi-select-tags" data-cu-multi-select-tags>
               <span class="cu-multi-select-placeholder" data-cu-multi-select-placeholder>
                 Select frameworks...
@@ -460,7 +460,7 @@ ${SC}`.trim();
       <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.presetValues.description} />
       <ComponentPreview code={presetCode}>
         <div class="cu-multi-select" data-cu-multi-select style="width: 300px;">
-          <button type="button" class="cu-multi-select-trigger" data-cu-multi-select-trigger>
+          <button type="button" class="cu-multi-select-trigger" data-cu-multi-select-trigger aria-label="Tags">
             <div class="cu-multi-select-tags" data-cu-multi-select-tags>
               <span class="cu-multi-select-placeholder" data-cu-multi-select-placeholder>
                 Select tags...

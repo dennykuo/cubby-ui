@@ -17,7 +17,9 @@
 - **Code Block** 複製後還原為按鈕原本的文字，不再固定還原成 "Copy"
 - **Date Picker** 開啟時切回並聚焦選取日（沒有選取時為今天，今天不在 min / max 範圍內時為範圍內第一個可選日期），不再停在上次瀏覽的月份
 - **Calendar** 改用 roving tabindex：整個月曆只有一個 Tab 停駐點，以方向鍵在日期間移動
-- **Combobox / Multi Select** 沒有搜尋框時 trigger 改為 `role="combobox"`（APG select-only combobox），按鈕文字成為「值」而非名稱，需以 `aria-label` 或 `<label for>` 提供無障礙名稱
+- **Combobox / Multi Select** 沒有搜尋框時 trigger 改為 `role="combobox"`（APG select-only combobox），按鈕文字成為「值」而非名稱，建議以 `aria-label` 或 `<label for>` 提供無障礙名稱；兩者都沒有時，JS 以 placeholder 文字補上 `aria-label`（Combobox 已預選值時不補），既有標記升級後不會失去名稱
 - **MenubarItem** 改輸出 `<button type="button">`（原本是無法鍵盤操作的 `<div>`）；Combobox、Multi Select、Number Input、Toggle Group、Transfer List 的 Astro / Blade 元件按鈕加上 `type="button"`，放在 `<form>` 內不再送出表單
 - **Label** 的 Astro Props 改為延伸原生 `<label>` 屬性，`htmlFor` 這類 React 寫法會在型別檢查時報錯
 - Dropdown / Menubar 項目與 Rating 星等加上 focus-visible 焦點樣式
+- **Calendar / Date Picker 月份標題跟著語系**：原本固定為英文（`March 2026`），現在以 `Intl.DateTimeFormat` 依 `data-cu-calendar-locale` / 最近祖先的 `lang` 格式化（zh-TW 為 `2026年3月`），與日期按鈕的無障礙名稱一致；`lang` 為英文或未指定語系的頁面顯示不變
+- **Combobox** 初始化後替換的清單項目（例如遠端搜尋結果）會自動補上 `role="option"` / `aria-selected` 並更新空狀態，原本要重新開啟面板才補上語意、空狀態也不會更新

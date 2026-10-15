@@ -67,12 +67,23 @@ export function trackActiveDescendant(owner, container, highlightClass, idPrefix
   });
 }
 
+// Whether the author already named el (aria-label / aria-labelledby / an associated or wrapping <label> / title)
+function hasAccessibleName(el) {
+  if ((el.getAttribute("aria-label") || "").trim() || el.hasAttribute("aria-labelledby") || el.hasAttribute("title"))
+    return true;
+  var labels = /** @type {HTMLButtonElement} */ (el).labels;
+  return !!(labels && labels.length);
+}
+
 // Combobox / Multi Select ARIA (WAI-ARIA APG combobox pattern). The element keeping DOM focus while the
 // popup is open owns aria-activedescendant: the search input (role="combobox", filters the list →
 // aria-autocomplete="list"; it only exists inside the open popup → aria-expanded="true"), or, without a
 // search input, the trigger itself (APG select-only combobox — role="button" does not support
 // aria-activedescendant, so the trigger becomes role="combobox"; it keeps aria-haspopup / aria-expanded).
-export function setupComboboxAria(trigger, input, content, list, highlightClass, idPrefix) {
+// A combobox is not named from its content (the trigger text becomes its value), so when the author gave the
+// trigger no name (aria-label / aria-labelledby / <label>), placeholderEl's text is used as aria-label —
+// the name the trigger had as a plain button.
+export function setupComboboxAria(trigger, input, content, list, highlightClass, idPrefix, placeholderEl) {
   if (!list.id) list.id = genId(idPrefix + "-listbox");
   if (trigger) trigger.setAttribute("aria-controls", list.id);
   if (input) {
@@ -82,6 +93,8 @@ export function setupComboboxAria(trigger, input, content, list, highlightClass,
     input.setAttribute("aria-controls", list.id);
   } else if (trigger) {
     trigger.setAttribute("role", "combobox");
+    var fallbackName = placeholderEl ? (placeholderEl.textContent || "").replace(/\s+/g, " ").trim() : "";
+    if (fallbackName && !hasAccessibleName(trigger)) trigger.setAttribute("aria-label", fallbackName);
   }
   var owner = input || trigger;
   if (owner) trackActiveDescendant(owner, content, highlightClass, idPrefix + "-option");

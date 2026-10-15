@@ -75,7 +75,15 @@ export function setupMultiSelects() {
       var list = content.querySelector("[data-cu-multi-select-list]") || content;
       list.setAttribute("role", "listbox");
       list.setAttribute("aria-multiselectable", "true");
-      setupComboboxAria(trigger, input, content, list, "cu-multi-select-item-highlight", "cu-multi-select");
+      setupComboboxAria(
+        trigger,
+        input,
+        content,
+        list,
+        "cu-multi-select-item-highlight",
+        "cu-multi-select",
+        placeholder,
+      );
     }
     syncItemsAria();
 
