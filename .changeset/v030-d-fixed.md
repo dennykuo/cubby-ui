@@ -28,5 +28,4 @@
 - **文檔頁 15 個範例自帶重新實作元件的 `<script>`**（Dropdown、Combobox、Multi Select、Tabs、Popover、Menubar、Date Picker 等），與自動初始化的 cubby-ui.js 重複綁定，點擊 trigger 會開了又關
 - Countdown 文檔範例缺數值屬性，數字永遠不會更新；Hover Card 範例的 popover 屬性與純 CSS 懸停衝突
 - Dashboard V2 設定頁的 Tabs 使用 React 寫法（`defaultValue` / `data-[state=active]`）無法切換，16 處 `htmlFor` 未生效；改用 `data-cu-tabs` 並補上「訂閱方案」分頁內容
-- `llms.txt` 誤記 `toast.show()` 支援 `action` 參數（Command Palette 的動態項目改為由元件本身支援，見 `command-palette-dynamic-items` 一項）
 - **Header** 漢堡按鈕在桌機也會顯示：`HeaderMobileToggle`（含 Blade 版）與 Header 範例以 Tailwind 的 `md:hidden` 隱藏觸發按鈕，但預編譯的 `cubby-ui.css` 不含工具類別，只用 dist CSS 的專案在桌機同時看到導航列與漢堡按鈕。改用新的 `cu-header-mobile-toggle-{bp}`
