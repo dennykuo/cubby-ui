@@ -13,7 +13,7 @@ const {
   staticVariable,
   templateLiteralToPhp,
 } = require("./class-resolver.cjs");
-const { jsToPhp, phpString } = require("./js-expr.cjs");
+const { jsToPhp, phpString, UnsupportedExpressionError } = require("./js-expr.cjs");
 
 /** HTML void 元素：可以（也只能）自閉合 */
 const VOID_ELEMENTS = new Set([
@@ -380,6 +380,10 @@ function parseClassListArray(arrayStr, parsed) {
       items.push(...resolved);
     } else if (resolved) {
       items.push(resolved);
+    } else if (trimmed !== "className" && trimmed !== "class") {
+      // 靜默略過會讓該 class 在 Blade 輸出中消失（如 variant 的條件 class），改為轉換失敗
+      const raw = parsed.variables[trimmed] ? ` = ${parsed.variables[trimmed].raw.trim()}` : "";
+      throw new UnsupportedExpressionError(`無法轉換的 class:list 項目：${trimmed}${raw}`);
     }
   }
 
