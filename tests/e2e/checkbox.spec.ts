@@ -46,11 +46,13 @@ test.describe("Checkbox", () => {
   });
 
   test(":indeterminate 顯示橫線", async ({ page }) => {
-    const mixed = await mark(page, "mixed");
-    expect(mixed.scale).toBe(VISIBLE);
-    expect(mixed.mask).toContain("M6 12h12");
-    const bg = await page.locator("#mixed").evaluate((el) => getComputedStyle(el).backgroundColor);
+    // indeterminate 由 fixture 的 script 設定；若瀏覽器在那之前已算過一次樣式，
+    // 勾勾的 scale 與背景色會跑 150ms transition，因此等到過渡結束再比對
+    await expect.poll(async () => (await mark(page, "mixed")).scale).toBe(VISIBLE);
+    expect((await mark(page, "mixed")).mask).toContain("M6 12h12");
     const checkedBg = await page.locator("#checked").evaluate((el) => getComputedStyle(el).backgroundColor);
-    expect(bg).toBe(checkedBg);
+    await expect
+      .poll(() => page.locator("#mixed").evaluate((el) => getComputedStyle(el).backgroundColor))
+      .toBe(checkedBg);
   });
 });
