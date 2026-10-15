@@ -24,6 +24,11 @@ import { genId } from "../core/utils.js";
  *   focused closable tab (APG Tabs), announced via `aria-keyshortcuts="Delete"`. Closing moves focus — and, if the
  *   closed tab was active, selection — to the following tab (the previous one when it was last).
  *   Fires `cu:tabs:close` ({ value }).
+ * - Keyboard (APG Tabs, automatic activation): only the selected tab is in the Tab order (roving tabindex);
+ *   Arrow keys move focus and select the next / previous tab (wrapping; Left / Right are swapped in RTL),
+ *   Home / End jump to the first / last tab. Disabled tabs (`disabled` / `aria-disabled="true"`) are skipped.
+ *   A list laid out as a column (e.g. `cu-tabs-list-vertical`, also when it switches at a breakpoint) uses
+ *   Up / Down instead, and `aria-orientation` follows the current layout.
  */
 export function setupTabs() {
   document.querySelectorAll("[data-cu-tabs]").forEach(function (tabs) {
@@ -37,8 +42,46 @@ export function setupTabs() {
     var contents = /** @type {NodeListOf<HTMLElement>} */ (tabs.querySelectorAll("[data-cu-tabs-content]"));
 
     // ARIA: set tablist role on list container
-    var tabList = tabs.querySelector(".cu-tabs-list");
+    var tabList = /** @type {HTMLElement} */ (tabs.querySelector(".cu-tabs-list"));
     if (tabList && !tabList.getAttribute("role")) tabList.setAttribute("role", "tablist");
+
+    // 只取屬於這個 tabs 的 trigger（排除巢狀 tabs），即時查詢以涵蓋已關閉的 tab
+    function ownTriggers() {
+      return /** @type {HTMLElement[]} */ (Array.from(tabs.querySelectorAll("[data-cu-tabs-trigger]"))).filter(
+        function (t) {
+          return t.closest("[data-cu-tabs]") === tabs;
+        },
+      );
+    }
+
+    function isDisabled(t) {
+      return /** @type {HTMLButtonElement} */ (t).disabled || t.getAttribute("aria-disabled") === "true";
+    }
+
+    // roving tabindex：只有選取中的 tab（沒有時為第一個可用 tab）是 Tab 停駐點
+    function syncTabindex() {
+      var all = ownTriggers();
+      var active = all.filter(function (t) {
+        return t.classList.contains("cu-tabs-trigger-active") && !isDisabled(t);
+      })[0];
+      if (!active) {
+        active = all.filter(function (t) {
+          return !isDisabled(t);
+        })[0];
+      }
+      all.forEach(function (t) {
+        t.setAttribute("tabindex", t === active ? "0" : "-1");
+      });
+    }
+
+    // 版面方向依清單實際的 flex-direction 判斷（cu-tabs-list-vertical 可能在斷點切換）
+    function isVertical() {
+      return !!tabList && getComputedStyle(tabList).flexDirection.indexOf("column") === 0;
+    }
+
+    function syncOrientation() {
+      if (tabList) tabList.setAttribute("aria-orientation", isVertical() ? "vertical" : "horizontal");
+    }
 
     triggers.forEach(function (trigger) {
       var value = trigger.getAttribute("data-cu-tabs-trigger");
@@ -83,7 +126,38 @@ export function setupTabs() {
         contents.forEach(function (c) {
           c.hidden = c.getAttribute("data-cu-tabs-content") !== value;
         });
+        syncTabindex();
       });
+    });
+
+    syncTabindex();
+    syncOrientation();
+
+    // 方向鍵 / Home / End：移動焦點並選取（APG 自動啟用）
+    (tabList || tabs).addEventListener("keydown", function (/** @type {KeyboardEvent} */ e) {
+      var current = /** @type {Element} */ (e.target).closest("[data-cu-tabs-trigger]");
+      if (!current || current.closest("[data-cu-tabs]") !== tabs) return;
+      var vertical = isVertical();
+      syncOrientation();
+      var rtl = !vertical && !!tabList && getComputedStyle(tabList).direction === "rtl";
+      var nextKey = vertical ? "ArrowDown" : rtl ? "ArrowLeft" : "ArrowRight";
+      var prevKey = vertical ? "ArrowUp" : rtl ? "ArrowRight" : "ArrowLeft";
+      if (e.key !== nextKey && e.key !== prevKey && e.key !== "Home" && e.key !== "End") return;
+
+      var items = ownTriggers().filter(function (t) {
+        return !isDisabled(t);
+      });
+      if (!items.length) return;
+      var index = items.indexOf(/** @type {HTMLElement} */ (current));
+      var target;
+      if (e.key === "Home") target = items[0];
+      else if (e.key === "End") target = items[items.length - 1];
+      else if (e.key === nextKey) target = items[(index + 1) % items.length];
+      else target = items[(index - 1 + items.length) % items.length];
+
+      e.preventDefault();
+      target.focus();
+      if (!target.classList.contains("cu-tabs-trigger-active")) target.click();
     });
 
     // 移除 tab 與對應 panel；焦點（原本在被關閉的 tab 上時）與選取（關閉的是啟用中的 tab 時）
@@ -103,6 +177,7 @@ export function setupTabs() {
 
       if (next && wasActive) next.click();
       if (next && hadFocus) next.focus();
+      syncTabindex();
 
       tabs.dispatchEvent(new CustomEvent("cu:tabs:close", { detail: { value: value } }));
     }

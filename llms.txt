@@ -311,6 +311,7 @@ Always associate the label with its control (`for` = the control's `id`, or wrap
 ```
 
 **Checkbox** — custom SVG checkmark
+The checkmark is drawn with a mask in `--color-primary-foreground`, so it follows the theme (a light brand `--color-primary` paired with a dark foreground gets a dark check). Setting `input.indeterminate = true` shows a dash.
 ```html
 <div class="cu-checkbox-wrapper">
   <input type="checkbox" id="cb1" class="cu-checkbox">
@@ -1239,6 +1240,7 @@ List variants: `cu-tabs-list-pills` (pill-shaped tab bar), `cu-tabs-list-underli
 Tab extras: `cu-tabs-trigger-badge` (badge inside tab trigger), `cu-tabs-trigger-close` (close icon inside tab trigger — `<span class="cu-tabs-trigger-close" data-cu-tabs-close aria-hidden="true">×</span>`, a mouse target, never a nested button; Delete / Backspace on the focused tab closes it, `aria-keyshortcuts="Delete"` is set by JS; focus / selection move to the following tab, or the previous one; fires `cu:tabs:close`)
 Scrollable: `cu-tabs-list-scrollable` (scrollable wrapper), `cu-tabs-scroll-btn` (scroll left button), `cu-tabs-scroll-btn-end` (scroll right button)
 Data attributes: `data-cu-tabs-close` (on the close icon), `data-cu-tabs-scrollable` (on scrollable wrapper)
+Keyboard (APG Tabs, automatic activation, set by JS): only the selected tab is in the Tab order (roving `tabindex`); Arrow keys move focus and select the next / previous tab (wrapping; Left / Right swapped in RTL), Home / End jump to the first / last; `disabled` / `aria-disabled="true"` tabs are skipped. A list laid out as a column (`cu-tabs-list-vertical`, including when it switches at a breakpoint) uses Up / Down, and `aria-orientation` follows the current layout.
 ```html
 <div class="cu-tabs" data-cu-tabs>
   <div class="cu-tabs-list">

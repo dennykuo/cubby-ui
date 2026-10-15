@@ -55,6 +55,27 @@
       <div class="cu-tabs-content" data-cu-tabs-content="readme" hidden>Content of README.md</div>
     </div>
 
+    <!-- 垂直排列 + 停用的 tab：方向鍵改用上 / 下，跳過停用項目 -->
+    <div id="vertical" class="cu-tabs cu-tabs-vertical" data-cu-tabs>
+      <div class="cu-tabs-list cu-tabs-list-vertical">
+        <button class="cu-tabs-trigger cu-tabs-trigger-active" data-cu-tabs-trigger="v1">V1</button>
+        <button class="cu-tabs-trigger" data-cu-tabs-trigger="v2" disabled>V2</button>
+        <button class="cu-tabs-trigger" data-cu-tabs-trigger="v3">V3</button>
+      </div>
+      <div class="cu-tabs-content" data-cu-tabs-content="v1">Panel V1</div>
+      <div class="cu-tabs-content" data-cu-tabs-content="v2" hidden>Panel V2</div>
+      <div class="cu-tabs-content" data-cu-tabs-content="v3" hidden>Panel V3</div>
+    </div>
+
+    <div id="rtl" class="cu-tabs" dir="rtl" data-cu-tabs>
+      <div class="cu-tabs-list">
+        <button class="cu-tabs-trigger cu-tabs-trigger-active" data-cu-tabs-trigger="r1">R1</button>
+        <button class="cu-tabs-trigger" data-cu-tabs-trigger="r2">R2</button>
+      </div>
+      <div class="cu-tabs-content" data-cu-tabs-content="r1">Panel R1</div>
+      <div class="cu-tabs-content" data-cu-tabs-content="r2" hidden>Panel R2</div>
+    </div>
+
     <script>
       window.__closed = [];
       ["closable", "files"].forEach(function (id) {

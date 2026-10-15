@@ -129,4 +129,80 @@ test.describe("Tabs", () => {
     await expect(files.locator('[data-cu-tabs-content="styles"]')).toBeVisible();
     expect(await page.evaluate(() => (window as any).__closed)).toEqual(["app"]);
   });
+
+  test("roving tabindex：只有選取中的 tab 是 Tab 停駐點，點擊後跟著移動", async ({ page }) => {
+    const tabs = page.locator("#basic");
+    const t1 = tabs.locator('[data-cu-tabs-trigger="tab1"]');
+    const t2 = tabs.locator('[data-cu-tabs-trigger="tab2"]');
+    await expect(t1).toHaveAttribute("tabindex", "0");
+    await expect(t2).toHaveAttribute("tabindex", "-1");
+    await t2.click();
+    await expect(t1).toHaveAttribute("tabindex", "-1");
+    await expect(t2).toHaveAttribute("tabindex", "0");
+  });
+
+  test("方向鍵移動焦點並選取（頭尾循環），Home / End 跳到第一個 / 最後一個", async ({ page }) => {
+    const tabs = page.locator("#files");
+    await expect(tabs.locator(".cu-tabs-list")).toHaveAttribute("aria-orientation", "horizontal");
+    const tab = (v: string) => tabs.locator(`[data-cu-tabs-trigger="${v}"]`);
+    const expectSelected = async (v: string) => {
+      await expect(tab(v)).toBeFocused();
+      await expect(tab(v)).toHaveAttribute("aria-selected", "true");
+      await expect(tab(v)).toHaveAttribute("tabindex", "0");
+      await expect(tabs.locator(`[data-cu-tabs-content="${v}"]`)).toBeVisible();
+    };
+    await tab("styles").focus();
+    await page.keyboard.press("ArrowRight");
+    await expectSelected("app");
+    await page.keyboard.press("ArrowRight");
+    await expectSelected("readme");
+    await page.keyboard.press("ArrowRight");
+    await expectSelected("index");
+    await page.keyboard.press("ArrowLeft");
+    await expectSelected("readme");
+    await page.keyboard.press("Home");
+    await expectSelected("index");
+    await page.keyboard.press("End");
+    await expectSelected("readme");
+    // 上 / 下不屬於水平 tablist，不攔截
+    await page.keyboard.press("ArrowDown");
+    await expectSelected("readme");
+  });
+
+  test("垂直排列改用上 / 下，並跳過停用的 tab", async ({ page }) => {
+    const tabs = page.locator("#vertical");
+    await expect(tabs.locator(".cu-tabs-list")).toHaveAttribute("aria-orientation", "vertical");
+    const v1 = tabs.locator('[data-cu-tabs-trigger="v1"]');
+    const v3 = tabs.locator('[data-cu-tabs-trigger="v3"]');
+    await v1.focus();
+    await page.keyboard.press("ArrowRight");
+    await expect(v1).toBeFocused();
+    await page.keyboard.press("ArrowDown");
+    await expect(v3).toBeFocused();
+    await expect(v3).toHaveAttribute("aria-selected", "true");
+    await page.keyboard.press("ArrowDown");
+    await expect(v1).toBeFocused();
+    await page.keyboard.press("ArrowUp");
+    await expect(v3).toBeFocused();
+  });
+
+  test("RTL 時左右方向對調", async ({ page }) => {
+    const tabs = page.locator("#rtl");
+    const r1 = tabs.locator('[data-cu-tabs-trigger="r1"]');
+    const r2 = tabs.locator('[data-cu-tabs-trigger="r2"]');
+    await r1.focus();
+    await page.keyboard.press("ArrowLeft");
+    await expect(r2).toBeFocused();
+    await expect(r2).toHaveAttribute("aria-selected", "true");
+    await page.keyboard.press("ArrowRight");
+    await expect(r1).toBeFocused();
+  });
+
+  test("關閉 tab 後 roving tabindex 仍只有一個停駐點", async ({ page }) => {
+    const tabs = page.locator("#files");
+    await tabs.locator('[data-cu-tabs-trigger="styles"]').focus();
+    await page.keyboard.press("Delete");
+    await expect(tabs.locator('[data-cu-tabs-trigger][tabindex="0"]')).toHaveCount(1);
+    await expect(tabs.locator('[data-cu-tabs-trigger="app"]')).toHaveAttribute("tabindex", "0");
+  });
 });
