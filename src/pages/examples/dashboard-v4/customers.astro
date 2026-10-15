@@ -1,166 +1,223 @@
 ---
 import DashboardV4Layout from "@/layouts/DashboardV4Layout.astro";
 import Card from "@/components/ui/Card.astro";
-import CardHeader from "@/components/ui/CardHeader.astro";
-import CardTitle from "@/components/ui/CardTitle.astro";
-import CardDescription from "@/components/ui/CardDescription.astro";
 import CardContent from "@/components/ui/CardContent.astro";
 import Button from "@/components/ui/Button.astro";
 import Badge from "@/components/ui/Badge.astro";
 import Avatar from "@/components/ui/Avatar.astro";
 import AvatarFallback from "@/components/ui/AvatarFallback.astro";
-import Input from "@/components/ui/Input.astro";
+
+type Status = "active" | "trial" | "churned";
+
+const statusMeta: Record<Status, { label: string; variant: "soft-success" | "soft-warning" | "soft-destructive" }> = {
+  active: { label: "活躍", variant: "soft-success" },
+  trial: { label: "試用中", variant: "soft-warning" },
+  churned: { label: "已流失", variant: "soft-destructive" },
+};
+
+const filters: { value: "all" | Status; label: string }[] = [
+  { value: "all", label: "全部" },
+  { value: "active", label: "活躍" },
+  { value: "trial", label: "試用" },
+  { value: "churned", label: "已流失" },
+];
+
+const customers: { name: string; email: string; plan: string; mrr: string; status: Status; joined: string }[] = [
+  {
+    name: "陳柏翰",
+    email: "chen.bohan@example.com",
+    plan: "企業版",
+    mrr: "$499",
+    status: "active",
+    joined: "2025/08/15",
+  },
+  {
+    name: "林雅婷",
+    email: "lin.yating@example.com",
+    plan: "專業版",
+    mrr: "$99",
+    status: "active",
+    joined: "2025/10/22",
+  },
+  {
+    name: "王俊傑",
+    email: "wang.junjie@example.com",
+    plan: "基本版",
+    mrr: "$29",
+    status: "trial",
+    joined: "2026/01/08",
+  },
+  {
+    name: "張家豪",
+    email: "zhang.jiahao@example.com",
+    plan: "專業版",
+    mrr: "$99",
+    status: "churned",
+    joined: "2024/12/01",
+  },
+  {
+    name: "李佳穎",
+    email: "lee.jiaying@example.com",
+    plan: "企業版",
+    mrr: "$499",
+    status: "active",
+    joined: "2025/05/18",
+  },
+  {
+    name: "黃宗翰",
+    email: "huang.zonghan@example.com",
+    plan: "專業版",
+    mrr: "$99",
+    status: "active",
+    joined: "2025/11/30",
+  },
+  { name: "吳欣怡", email: "wu.xinyi@example.com", plan: "基本版", mrr: "$29", status: "trial", joined: "2026/01/28" },
+  {
+    name: "許志明",
+    email: "xu.zhiming@example.com",
+    plan: "企業版",
+    mrr: "$499",
+    status: "active",
+    joined: "2025/03/12",
+  },
+];
 ---
 
 <DashboardV4Layout title="客戶管理 — Prism">
   <div class="space-y-6">
     <!-- Page Header -->
-    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-      <div>
-        <h1 class="text-2xl font-bold tracking-tight text-slate-900">客戶管理</h1>
-        <p class="text-slate-500 mt-1">管理並追蹤您的客戶資料。</p>
+    <div class="cu-page-header sm:items-end">
+      <div class="cu-page-header-content">
+        <h1 class="cu-page-header-title text-2xl md:text-2xl">客戶管理</h1>
+        <p class="cu-page-header-description mt-1">管理並追蹤您的客戶資料。</p>
       </div>
-      <Button class="bg-violet-600 hover:bg-violet-700 text-white gap-2 border-0">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="16"
-          height="16"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        >
-          <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
-          <circle cx="9" cy="7" r="4" />
-          <line x1="19" x2="19" y1="8" y2="14" />
-          <line x1="22" x2="16" y1="11" y2="11" />
-        </svg>
-        新增客戶
-      </Button>
+      <div class="cu-page-header-actions">
+        <Button type="button" class="gap-2">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+            <circle cx="9" cy="7" r="4" />
+            <line x1="19" x2="19" y1="8" y2="14" />
+            <line x1="22" x2="16" y1="11" y2="11" />
+          </svg>
+          新增客戶
+        </Button>
+      </div>
     </div>
 
     <!-- Stats Row -->
     <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
-      <Card class="bg-white border-slate-200/80 shadow-sm">
-        <CardContent class="p-4">
-          <div class="flex items-center gap-3">
-            <div class="w-10 h-10 rounded-lg bg-violet-100 flex items-center justify-center">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                class="text-violet-600"
-              >
-                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
-                <circle cx="9" cy="7" r="4" />
-                <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
-                <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-              </svg>
-            </div>
-            <div>
-              <p class="text-2xl font-bold text-slate-900">3,847</p>
-              <p class="text-xs text-slate-500">總客戶數</p>
-            </div>
+      <div class="cu-stat cu-stat-hover p-5">
+        <div class="cu-stat-header">
+          <span class="cu-stat-label">總客戶數</span>
+          <div class="cu-stat-icon-box" aria-hidden="true">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+              <circle cx="9" cy="7" r="4" />
+              <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+              <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+            </svg>
           </div>
-        </CardContent>
-      </Card>
-      <Card class="bg-white border-slate-200/80 shadow-sm">
-        <CardContent class="p-4">
-          <div class="flex items-center gap-3">
-            <div class="w-10 h-10 rounded-lg bg-emerald-100 flex items-center justify-center">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                class="text-emerald-600"
-              >
-                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
-                <circle cx="9" cy="7" r="4" />
-                <line x1="19" x2="19" y1="8" y2="14" />
-                <line x1="22" x2="16" y1="11" y2="11" />
-              </svg>
-            </div>
-            <div>
-              <p class="text-2xl font-bold text-slate-900">284</p>
-              <p class="text-xs text-slate-500">本月新增</p>
-            </div>
+        </div>
+        <p class="cu-stat-value tabular-nums">3,847</p>
+      </div>
+
+      <div class="cu-stat cu-stat-hover p-5">
+        <div class="cu-stat-header">
+          <span class="cu-stat-label">本月新增</span>
+          <div class="cu-stat-icon-box cu-stat-icon-box-success" aria-hidden="true">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+              <circle cx="9" cy="7" r="4" />
+              <line x1="19" x2="19" y1="8" y2="14" />
+              <line x1="22" x2="16" y1="11" y2="11" />
+            </svg>
           </div>
-        </CardContent>
-      </Card>
-      <Card class="bg-white border-slate-200/80 shadow-sm">
-        <CardContent class="p-4">
-          <div class="flex items-center gap-3">
-            <div class="w-10 h-10 rounded-lg bg-blue-100 flex items-center justify-center">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                class="text-blue-600"
-              >
-                <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
-              </svg>
-            </div>
-            <div>
-              <p class="text-2xl font-bold text-slate-900">2.8%</p>
-              <p class="text-xs text-slate-500">流失率</p>
-            </div>
+        </div>
+        <p class="cu-stat-value tabular-nums">284</p>
+      </div>
+
+      <div class="cu-stat cu-stat-hover p-5">
+        <div class="cu-stat-header">
+          <span class="cu-stat-label">流失率</span>
+          <div class="cu-stat-icon-box cu-stat-icon-box-info" aria-hidden="true">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
+            </svg>
           </div>
-        </CardContent>
-      </Card>
-      <Card class="bg-white border-slate-200/80 shadow-sm">
-        <CardContent class="p-4">
-          <div class="flex items-center gap-3">
-            <div class="w-10 h-10 rounded-lg bg-amber-100 flex items-center justify-center">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                class="text-amber-600"
-              >
-                <line x1="12" y1="1" x2="12" y2="23" />
-                <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
-              </svg>
-            </div>
-            <div>
-              <p class="text-2xl font-bold text-slate-900">$1,248</p>
-              <p class="text-xs text-slate-500">平均 LTV</p>
-            </div>
+        </div>
+        <p class="cu-stat-value tabular-nums">2.8%</p>
+      </div>
+
+      <div class="cu-stat cu-stat-hover p-5">
+        <div class="cu-stat-header">
+          <span class="cu-stat-label">平均 LTV</span>
+          <div class="cu-stat-icon-box cu-stat-icon-box-warning" aria-hidden="true">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <line x1="12" y1="1" x2="12" y2="23" />
+              <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+            </svg>
           </div>
-        </CardContent>
-      </Card>
+        </div>
+        <p class="cu-stat-value tabular-nums">$1,248</p>
+      </div>
     </div>
 
     <!-- Search & Filter -->
-    <Card class="bg-white border-slate-200/80 shadow-sm">
+    <Card>
       <CardContent class="p-4">
-        <div class="flex flex-col sm:flex-row gap-4">
-          <div class="relative flex-1">
+        <div class="flex flex-col sm:flex-row sm:items-center gap-4">
+          <div class="cu-input-search flex-1" role="search">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="16"
@@ -171,411 +228,226 @@ import Input from "@/components/ui/Input.astro";
               stroke-width="2"
               stroke-linecap="round"
               stroke-linejoin="round"
-              class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
+              class="cu-input-search-icon"
+              aria-hidden="true"
             >
               <circle cx="11" cy="11" r="8"></circle>
               <path d="m21 21-4.3-4.3"></path>
             </svg>
             <input
-              type="text"
+              type="search"
               placeholder="搜尋客戶名稱、電子郵件..."
-              class="w-full h-10 pl-10 pr-4 text-sm bg-slate-50 border border-slate-200 rounded-lg placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-violet-500/20 focus:border-violet-400 transition-all"
+              aria-label="搜尋客戶"
+              aria-controls="v4-customers-table"
+              class="cu-input-search-field h-10"
+              data-v4-customer-search
             />
           </div>
-          <div class="flex items-center gap-2">
-            <button class="px-4 py-2 text-sm font-medium text-white bg-violet-600 rounded-lg">全部</button>
-            <button class="px-4 py-2 text-sm font-medium text-slate-600 bg-white border border-slate-200 rounded-lg hover:bg-slate-50 transition-colors">
-              活躍
-            </button>
-            <button class="px-4 py-2 text-sm font-medium text-slate-600 bg-white border border-slate-200 rounded-lg hover:bg-slate-50 transition-colors">
-              試用
-            </button>
-            <button class="px-4 py-2 text-sm font-medium text-slate-600 bg-white border border-slate-200 rounded-lg hover:bg-slate-50 transition-colors">
-              已流失
-            </button>
+          <div
+            class="cu-segmented self-start sm:self-auto"
+            role="group"
+            aria-label="依狀態篩選"
+            data-v4-customer-filter
+          >
+            {filters.map((f, i) => (
+              <button
+                type="button"
+                class:list={["cu-segmented-item", i === 0 && "cu-segmented-item-active"]}
+                aria-pressed={i === 0 ? "true" : "false"}
+                aria-controls="v4-customers-table"
+                data-value={f.value}
+              >
+                {f.label}
+              </button>
+            ))}
           </div>
         </div>
       </CardContent>
     </Card>
 
     <!-- Customers Table -->
-    <Card class="bg-white border-slate-200/80 shadow-sm overflow-hidden">
-      <div class="overflow-x-auto">
-        <table class="w-full">
-          <thead class="bg-slate-50 border-b border-slate-200/60">
-            <tr>
-              <th class="px-6 py-3 text-left text-xs font-semibold text-slate-500 uppercase tracking-wider">客戶</th>
-              <th class="px-6 py-3 text-left text-xs font-semibold text-slate-500 uppercase tracking-wider">方案</th>
-              <th class="px-6 py-3 text-left text-xs font-semibold text-slate-500 uppercase tracking-wider">MRR</th>
-              <th class="px-6 py-3 text-left text-xs font-semibold text-slate-500 uppercase tracking-wider">狀態</th>
-              <th class="px-6 py-3 text-left text-xs font-semibold text-slate-500 uppercase tracking-wider">
+    <Card class="overflow-hidden">
+      <div class="cu-table-wrapper" role="region" aria-label="客戶列表" tabindex="0">
+        <table class="cu-table" id="v4-customers-table">
+          <thead class="cu-table-header">
+            <tr class="cu-table-row hover:bg-transparent">
+              <th scope="col" class="cu-table-head pl-6">
+                客戶
+              </th>
+              <th scope="col" class="cu-table-head">
+                方案
+              </th>
+              <th scope="col" class="cu-table-head text-right">
+                MRR
+              </th>
+              <th scope="col" class="cu-table-head">
+                狀態
+              </th>
+              <th scope="col" class="cu-table-head">
                 加入日期
               </th>
-              <th class="px-6 py-3 text-right text-xs font-semibold text-slate-500 uppercase tracking-wider">操作</th>
+              <th scope="col" class="cu-table-head text-right pr-6">
+                <span class="sr-only">操作</span>
+              </th>
             </tr>
           </thead>
-          <tbody class="divide-y divide-slate-100">
-            <tr class="hover:bg-slate-50/50 transition-colors">
-              <td class="px-6 py-4">
-                <div class="flex items-center gap-3">
-                  <Avatar class="w-10 h-10">
-                    <AvatarFallback class="bg-violet-100 text-violet-700">陳</AvatarFallback>
-                  </Avatar>
-                  <div>
-                    <p class="text-sm font-medium text-slate-900">陳柏翰</p>
-                    <p class="text-xs text-slate-500">chen.bohan@example.com</p>
+          <tbody class="cu-table-body">
+            {customers.map((c) => (
+              <tr
+                class="cu-table-row"
+                data-v4-customer-row
+                data-status={c.status}
+                data-search={`${c.name} ${c.email}`.toLowerCase()}
+              >
+                <td class="cu-table-cell pl-6">
+                  <div class="flex items-center gap-3">
+                    <Avatar class="w-10 h-10">
+                      <AvatarFallback class="bg-primary/10 text-primary font-medium">{c.name.charAt(0)}</AvatarFallback>
+                    </Avatar>
+                    <div class="min-w-0">
+                      <p class="text-sm font-medium text-foreground">{c.name}</p>
+                      <p class="text-xs text-muted-foreground">{c.email}</p>
+                    </div>
                   </div>
-                </div>
-              </td>
-              <td class="px-6 py-4">
-                <Badge class="bg-violet-50 text-violet-700 border-violet-200">企業版</Badge>
-              </td>
-              <td class="px-6 py-4 text-sm font-medium text-slate-900">$499</td>
-              <td class="px-6 py-4">
-                <Badge class="bg-emerald-50 text-emerald-700 border-emerald-200">活躍</Badge>
-              </td>
-              <td class="px-6 py-4 text-sm text-slate-500">2025/08/15</td>
-              <td class="px-6 py-4 text-right">
-                <button class="p-2 text-slate-400 hover:text-slate-600 hover:bg-slate-100 rounded-lg transition-colors">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
+                </td>
+                <td class="cu-table-cell">
+                  <Badge variant="outline">{c.plan}</Badge>
+                </td>
+                <td class="cu-table-cell text-right font-medium tabular-nums text-foreground">{c.mrr}</td>
+                <td class="cu-table-cell">
+                  <Badge variant={statusMeta[c.status].variant}>{statusMeta[c.status].label}</Badge>
+                </td>
+                <td class="cu-table-cell tabular-nums text-muted-foreground">{c.joined}</td>
+                <td class="cu-table-cell text-right pr-6">
+                  <button
+                    type="button"
+                    class="cu-button cu-button-ghost cu-button-icon-sm"
+                    aria-label={`${c.name} 的更多操作`}
                   >
-                    <circle cx="12" cy="12" r="1" />
-                    <circle cx="19" cy="12" r="1" />
-                    <circle cx="5" cy="12" r="1" />
-                  </svg>
-                </button>
-              </td>
-            </tr>
-            <tr class="hover:bg-slate-50/50 transition-colors">
-              <td class="px-6 py-4">
-                <div class="flex items-center gap-3">
-                  <Avatar class="w-10 h-10">
-                    <AvatarFallback class="bg-blue-100 text-blue-700">林</AvatarFallback>
-                  </Avatar>
-                  <div>
-                    <p class="text-sm font-medium text-slate-900">林雅婷</p>
-                    <p class="text-xs text-slate-500">lin.yating@example.com</p>
-                  </div>
-                </div>
-              </td>
-              <td class="px-6 py-4">
-                <Badge class="bg-blue-50 text-blue-700 border-blue-200">專業版</Badge>
-              </td>
-              <td class="px-6 py-4 text-sm font-medium text-slate-900">$99</td>
-              <td class="px-6 py-4">
-                <Badge class="bg-emerald-50 text-emerald-700 border-emerald-200">活躍</Badge>
-              </td>
-              <td class="px-6 py-4 text-sm text-slate-500">2025/10/22</td>
-              <td class="px-6 py-4 text-right">
-                <button class="p-2 text-slate-400 hover:text-slate-600 hover:bg-slate-100 rounded-lg transition-colors">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  >
-                    <circle cx="12" cy="12" r="1" />
-                    <circle cx="19" cy="12" r="1" />
-                    <circle cx="5" cy="12" r="1" />
-                  </svg>
-                </button>
-              </td>
-            </tr>
-            <tr class="hover:bg-slate-50/50 transition-colors">
-              <td class="px-6 py-4">
-                <div class="flex items-center gap-3">
-                  <Avatar class="w-10 h-10">
-                    <AvatarFallback class="bg-emerald-100 text-emerald-700">王</AvatarFallback>
-                  </Avatar>
-                  <div>
-                    <p class="text-sm font-medium text-slate-900">王俊傑</p>
-                    <p class="text-xs text-slate-500">wang.junjie@example.com</p>
-                  </div>
-                </div>
-              </td>
-              <td class="px-6 py-4">
-                <Badge class="bg-slate-100 text-slate-700 border-slate-200">基本版</Badge>
-              </td>
-              <td class="px-6 py-4 text-sm font-medium text-slate-900">$29</td>
-              <td class="px-6 py-4">
-                <Badge class="bg-amber-50 text-amber-700 border-amber-200">試用中</Badge>
-              </td>
-              <td class="px-6 py-4 text-sm text-slate-500">2026/01/08</td>
-              <td class="px-6 py-4 text-right">
-                <button class="p-2 text-slate-400 hover:text-slate-600 hover:bg-slate-100 rounded-lg transition-colors">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  >
-                    <circle cx="12" cy="12" r="1" />
-                    <circle cx="19" cy="12" r="1" />
-                    <circle cx="5" cy="12" r="1" />
-                  </svg>
-                </button>
-              </td>
-            </tr>
-            <tr class="hover:bg-slate-50/50 transition-colors">
-              <td class="px-6 py-4">
-                <div class="flex items-center gap-3">
-                  <Avatar class="w-10 h-10">
-                    <AvatarFallback class="bg-rose-100 text-rose-700">張</AvatarFallback>
-                  </Avatar>
-                  <div>
-                    <p class="text-sm font-medium text-slate-900">張家豪</p>
-                    <p class="text-xs text-slate-500">zhang.jiahao@example.com</p>
-                  </div>
-                </div>
-              </td>
-              <td class="px-6 py-4">
-                <Badge class="bg-blue-50 text-blue-700 border-blue-200">專業版</Badge>
-              </td>
-              <td class="px-6 py-4 text-sm font-medium text-slate-900">$99</td>
-              <td class="px-6 py-4">
-                <Badge class="bg-rose-50 text-rose-700 border-rose-200">已流失</Badge>
-              </td>
-              <td class="px-6 py-4 text-sm text-slate-500">2024/12/01</td>
-              <td class="px-6 py-4 text-right">
-                <button class="p-2 text-slate-400 hover:text-slate-600 hover:bg-slate-100 rounded-lg transition-colors">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  >
-                    <circle cx="12" cy="12" r="1" />
-                    <circle cx="19" cy="12" r="1" />
-                    <circle cx="5" cy="12" r="1" />
-                  </svg>
-                </button>
-              </td>
-            </tr>
-            <tr class="hover:bg-slate-50/50 transition-colors">
-              <td class="px-6 py-4">
-                <div class="flex items-center gap-3">
-                  <Avatar class="w-10 h-10">
-                    <AvatarFallback class="bg-amber-100 text-amber-700">李</AvatarFallback>
-                  </Avatar>
-                  <div>
-                    <p class="text-sm font-medium text-slate-900">李佳穎</p>
-                    <p class="text-xs text-slate-500">lee.jiaying@example.com</p>
-                  </div>
-                </div>
-              </td>
-              <td class="px-6 py-4">
-                <Badge class="bg-violet-50 text-violet-700 border-violet-200">企業版</Badge>
-              </td>
-              <td class="px-6 py-4 text-sm font-medium text-slate-900">$499</td>
-              <td class="px-6 py-4">
-                <Badge class="bg-emerald-50 text-emerald-700 border-emerald-200">活躍</Badge>
-              </td>
-              <td class="px-6 py-4 text-sm text-slate-500">2025/05/18</td>
-              <td class="px-6 py-4 text-right">
-                <button class="p-2 text-slate-400 hover:text-slate-600 hover:bg-slate-100 rounded-lg transition-colors">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  >
-                    <circle cx="12" cy="12" r="1" />
-                    <circle cx="19" cy="12" r="1" />
-                    <circle cx="5" cy="12" r="1" />
-                  </svg>
-                </button>
-              </td>
-            </tr>
-            <tr class="hover:bg-slate-50/50 transition-colors">
-              <td class="px-6 py-4">
-                <div class="flex items-center gap-3">
-                  <Avatar class="w-10 h-10">
-                    <AvatarFallback class="bg-purple-100 text-purple-700">黃</AvatarFallback>
-                  </Avatar>
-                  <div>
-                    <p class="text-sm font-medium text-slate-900">黃宗翰</p>
-                    <p class="text-xs text-slate-500">huang.zonghan@example.com</p>
-                  </div>
-                </div>
-              </td>
-              <td class="px-6 py-4">
-                <Badge class="bg-blue-50 text-blue-700 border-blue-200">專業版</Badge>
-              </td>
-              <td class="px-6 py-4 text-sm font-medium text-slate-900">$99</td>
-              <td class="px-6 py-4">
-                <Badge class="bg-emerald-50 text-emerald-700 border-emerald-200">活躍</Badge>
-              </td>
-              <td class="px-6 py-4 text-sm text-slate-500">2025/11/30</td>
-              <td class="px-6 py-4 text-right">
-                <button class="p-2 text-slate-400 hover:text-slate-600 hover:bg-slate-100 rounded-lg transition-colors">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  >
-                    <circle cx="12" cy="12" r="1" />
-                    <circle cx="19" cy="12" r="1" />
-                    <circle cx="5" cy="12" r="1" />
-                  </svg>
-                </button>
-              </td>
-            </tr>
-            <tr class="hover:bg-slate-50/50 transition-colors">
-              <td class="px-6 py-4">
-                <div class="flex items-center gap-3">
-                  <Avatar class="w-10 h-10">
-                    <AvatarFallback class="bg-teal-100 text-teal-700">吳</AvatarFallback>
-                  </Avatar>
-                  <div>
-                    <p class="text-sm font-medium text-slate-900">吳欣怡</p>
-                    <p class="text-xs text-slate-500">wu.xinyi@example.com</p>
-                  </div>
-                </div>
-              </td>
-              <td class="px-6 py-4">
-                <Badge class="bg-slate-100 text-slate-700 border-slate-200">基本版</Badge>
-              </td>
-              <td class="px-6 py-4 text-sm font-medium text-slate-900">$29</td>
-              <td class="px-6 py-4">
-                <Badge class="bg-amber-50 text-amber-700 border-amber-200">試用中</Badge>
-              </td>
-              <td class="px-6 py-4 text-sm text-slate-500">2026/01/28</td>
-              <td class="px-6 py-4 text-right">
-                <button class="p-2 text-slate-400 hover:text-slate-600 hover:bg-slate-100 rounded-lg transition-colors">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  >
-                    <circle cx="12" cy="12" r="1" />
-                    <circle cx="19" cy="12" r="1" />
-                    <circle cx="5" cy="12" r="1" />
-                  </svg>
-                </button>
-              </td>
-            </tr>
-            <tr class="hover:bg-slate-50/50 transition-colors">
-              <td class="px-6 py-4">
-                <div class="flex items-center gap-3">
-                  <Avatar class="w-10 h-10">
-                    <AvatarFallback class="bg-indigo-100 text-indigo-700">許</AvatarFallback>
-                  </Avatar>
-                  <div>
-                    <p class="text-sm font-medium text-slate-900">許志明</p>
-                    <p class="text-xs text-slate-500">xu.zhiming@example.com</p>
-                  </div>
-                </div>
-              </td>
-              <td class="px-6 py-4">
-                <Badge class="bg-violet-50 text-violet-700 border-violet-200">企業版</Badge>
-              </td>
-              <td class="px-6 py-4 text-sm font-medium text-slate-900">$499</td>
-              <td class="px-6 py-4">
-                <Badge class="bg-emerald-50 text-emerald-700 border-emerald-200">活躍</Badge>
-              </td>
-              <td class="px-6 py-4 text-sm text-slate-500">2025/03/12</td>
-              <td class="px-6 py-4 text-right">
-                <button class="p-2 text-slate-400 hover:text-slate-600 hover:bg-slate-100 rounded-lg transition-colors">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  >
-                    <circle cx="12" cy="12" r="1" />
-                    <circle cx="19" cy="12" r="1" />
-                    <circle cx="5" cy="12" r="1" />
-                  </svg>
-                </button>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                    >
+                      <circle cx="12" cy="12" r="1" />
+                      <circle cx="19" cy="12" r="1" />
+                      <circle cx="5" cy="12" r="1" />
+                    </svg>
+                  </button>
+                </td>
+              </tr>
+            ))}
+            <tr class="cu-table-row hover:bg-transparent" data-v4-customer-empty hidden>
+              <td colspan="6" class="cu-table-cell py-12 text-center text-sm text-muted-foreground">
+                找不到符合條件的客戶
               </td>
             </tr>
           </tbody>
         </table>
       </div>
+
       <!-- Pagination -->
-      <div class="flex items-center justify-between px-6 py-4 border-t border-slate-100">
-        <p class="text-sm text-slate-500">顯示 1-8 筆，共 3,847 筆</p>
-        <div class="flex items-center gap-2">
-          <Button variant="outline" size="sm" class="gap-1">
+      <div class="flex flex-col sm:flex-row items-center justify-between gap-3 px-6 py-4 border-t border-border">
+        <p class="text-sm text-muted-foreground" aria-live="polite" data-v4-customer-summary>
+          顯示 1-8 筆，共 3,847 筆
+        </p>
+        <nav class="cu-pagination" aria-label="客戶列表分頁">
+          <button type="button" class="cu-pagination-prev" aria-label="上一頁" disabled>
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              width="14"
-              height="14"
+              width="16"
+              height="16"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
               stroke-width="2"
               stroke-linecap="round"
               stroke-linejoin="round"
+              aria-hidden="true"
             >
               <path d="m15 18-6-6 6-6" />
             </svg>
-            上一頁
-          </Button>
-          <Button variant="outline" size="sm" class="gap-1">
-            下一頁
+          </button>
+          <a href="#" class="cu-pagination-item cu-pagination-item-active" aria-current="page" aria-label="第 1 頁">
+            1
+          </a>
+          <a href="#" class="cu-pagination-item" aria-label="第 2 頁">
+            2
+          </a>
+          <a href="#" class="cu-pagination-item" aria-label="第 3 頁">
+            3
+          </a>
+          <span class="cu-pagination-ellipsis" aria-hidden="true">
+            …
+          </span>
+          <a href="#" class="cu-pagination-item" aria-label="第 481 頁">
+            481
+          </a>
+          <button type="button" class="cu-pagination-next" aria-label="下一頁">
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              width="14"
-              height="14"
+              width="16"
+              height="16"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
               stroke-width="2"
               stroke-linecap="round"
               stroke-linejoin="round"
+              aria-hidden="true"
             >
               <path d="m9 18 6-6-6-6" />
             </svg>
-          </Button>
-        </div>
+          </button>
+        </nav>
       </div>
     </Card>
   </div>
 </DashboardV4Layout>
+
+<script>
+  const search = document.querySelector<HTMLInputElement>("[data-v4-customer-search]");
+  const filterGroup = document.querySelector<HTMLElement>("[data-v4-customer-filter]");
+  const rows = document.querySelectorAll<HTMLTableRowElement>("[data-v4-customer-row]");
+  const emptyRow = document.querySelector<HTMLTableRowElement>("[data-v4-customer-empty]");
+  const summary = document.querySelector<HTMLElement>("[data-v4-customer-summary]");
+  const defaultSummary = summary?.textContent?.trim() ?? "";
+  let status = "all";
+
+  function applyFilter() {
+    const query = (search?.value ?? "").trim().toLowerCase();
+    let visible = 0;
+    rows.forEach((row) => {
+      const matchStatus = status === "all" || row.dataset.status === status;
+      const matchQuery = !query || (row.dataset.search ?? "").includes(query);
+      const show = matchStatus && matchQuery;
+      row.hidden = !show;
+      if (show) visible++;
+    });
+    if (emptyRow) emptyRow.hidden = visible > 0;
+    if (summary) {
+      // 示範資料只有本頁 8 筆：未篩選時維持原本的總數說明
+      summary.textContent = status === "all" && !query ? defaultSummary : `本頁符合條件的客戶：${visible} 筆`;
+    }
+  }
+
+  search?.addEventListener("input", applyFilter);
+  filterGroup?.addEventListener("click", (e) => {
+    const btn = (e.target as Element).closest<HTMLButtonElement>(".cu-segmented-item");
+    if (!btn) return;
+    status = btn.dataset.value ?? "all";
+    filterGroup.querySelectorAll(".cu-segmented-item").forEach((item) => {
+      const active = item === btn;
+      item.classList.toggle("cu-segmented-item-active", active);
+      item.setAttribute("aria-pressed", String(active));
+    });
+    applyFilter();
+  });
+</script>

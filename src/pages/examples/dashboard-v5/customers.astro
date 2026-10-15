@@ -102,7 +102,7 @@ const statusConfig = {
         <p class="cu-page-header-description">管理您的客戶聯絡資訊與消費紀錄。</p>
       </div>
       <div class="cu-page-header-actions">
-        <button class="cu-button cu-button-outline">
+        <button type="button" class="cu-button cu-button-outline cu-button-md">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="16"
@@ -113,6 +113,7 @@ const statusConfig = {
             stroke-width="2"
             stroke-linecap="round"
             stroke-linejoin="round"
+            aria-hidden="true"
           >
             <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
             <polyline points="17 8 12 3 7 8" />
@@ -120,7 +121,7 @@ const statusConfig = {
           </svg>
           匯入客戶
         </button>
-        <button class="cu-button cu-button-default">
+        <button type="button" class="cu-button cu-button-default cu-button-md">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="16"
@@ -131,6 +132,7 @@ const statusConfig = {
             stroke-width="2"
             stroke-linecap="round"
             stroke-linejoin="round"
+            aria-hidden="true"
           >
             <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
             <circle cx="9" cy="7" r="4" />
@@ -158,6 +160,7 @@ const statusConfig = {
               stroke-width="2"
               stroke-linecap="round"
               stroke-linejoin="round"
+              aria-hidden="true"
             >
               <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
               <circle cx="9" cy="7" r="4" />
@@ -166,7 +169,7 @@ const statusConfig = {
             </svg>
           </div>
         </div>
-        <div class="cu-stat-value">1,847</div>
+        <div class="cu-stat-value tabular-nums">1,847</div>
       </div>
       <div class="cu-stat">
         <div class="cu-stat-header">
@@ -182,12 +185,13 @@ const statusConfig = {
               stroke-width="2"
               stroke-linecap="round"
               stroke-linejoin="round"
+              aria-hidden="true"
             >
               <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
             </svg>
           </div>
         </div>
-        <div class="cu-stat-value text-warning">128</div>
+        <div class="cu-stat-value tabular-nums">128</div>
       </div>
       <div class="cu-stat">
         <div class="cu-stat-header">
@@ -203,6 +207,7 @@ const statusConfig = {
               stroke-width="2"
               stroke-linecap="round"
               stroke-linejoin="round"
+              aria-hidden="true"
             >
               <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
               <circle cx="9" cy="7" r="4" />
@@ -211,7 +216,7 @@ const statusConfig = {
             </svg>
           </div>
         </div>
-        <div class="cu-stat-value text-info">86</div>
+        <div class="cu-stat-value tabular-nums">86</div>
       </div>
       <div class="cu-stat">
         <div class="cu-stat-header">
@@ -227,13 +232,14 @@ const statusConfig = {
               stroke-width="2"
               stroke-linecap="round"
               stroke-linejoin="round"
+              aria-hidden="true"
             >
               <line x1="12" y1="1" x2="12" y2="23" />
               <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
             </svg>
           </div>
         </div>
-        <div class="cu-stat-value">$12,480</div>
+        <div class="cu-stat-value tabular-nums">$12,480</div>
       </div>
     </div>
 
@@ -241,7 +247,7 @@ const statusConfig = {
     <div class="cu-filter-bar">
       <div class="cu-filter-bar-inner">
         <div class="cu-filter-bar-search">
-          <div class="cu-input-search">
+          <div class="cu-input-search" role="search">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="16"
@@ -253,16 +259,22 @@ const statusConfig = {
               stroke-linecap="round"
               stroke-linejoin="round"
               class="cu-input-search-icon"
+              aria-hidden="true"
             >
               <circle cx="11" cy="11" r="8" />
               <path d="m21 21-4.3-4.3" />
             </svg>
-            <input type="text" placeholder="搜尋客戶名稱、Email、電話..." class="cu-input-search-field" />
+            <input
+              type="search"
+              placeholder="搜尋客戶名稱、Email、電話..."
+              aria-label="搜尋客戶"
+              class="cu-input-search-field"
+            />
           </div>
         </div>
         <div class="cu-filter-bar-filters">
           <div class="cu-select-wrapper">
-            <select class="cu-select">
+            <select class="cu-select" aria-label="客戶狀態篩選">
               <option value="">客戶狀態</option>
               <option value="vip">VIP</option>
               <option value="active">活躍</option>
@@ -280,12 +292,13 @@ const statusConfig = {
               stroke-width="2"
               stroke-linecap="round"
               stroke-linejoin="round"
+              aria-hidden="true"
             >
               <path d="m6 9 6 6 6-6" />
             </svg>
           </div>
           <div class="cu-select-wrapper">
-            <select class="cu-select">
+            <select class="cu-select" aria-label="消費金額篩選">
               <option value="">消費金額</option>
               <option value="high">$100,000 以上</option>
               <option value="medium">$10,000 - $100,000</option>
@@ -302,6 +315,7 @@ const statusConfig = {
               stroke-width="2"
               stroke-linecap="round"
               stroke-linejoin="round"
+              aria-hidden="true"
             >
               <path d="m6 9 6 6 6-6" />
             </svg>
@@ -312,20 +326,34 @@ const statusConfig = {
 
     <!-- Customers Table -->
     <div class="cu-card overflow-hidden">
-      <div class="cu-table-wrapper">
+      <div class="cu-table-wrapper" role="region" aria-label="客戶列表" tabindex="0">
         <table class="cu-table">
           <thead class="cu-table-header">
             <tr class="cu-table-row hover:bg-transparent">
-              <th class="cu-table-head w-12">
-                <input type="checkbox" class="cu-checkbox" />
+              <th scope="col" class="cu-table-head w-12">
+                <input type="checkbox" class="cu-checkbox" aria-label="全選客戶" />
               </th>
-              <th class="cu-table-head">客戶</th>
-              <th class="cu-table-head">電話</th>
-              <th class="cu-table-head text-center">訂單數</th>
-              <th class="cu-table-head text-right">累計消費</th>
-              <th class="cu-table-head text-center">狀態</th>
-              <th class="cu-table-head">加入日期</th>
-              <th class="cu-table-head text-right">操作</th>
+              <th scope="col" class="cu-table-head">
+                客戶
+              </th>
+              <th scope="col" class="cu-table-head">
+                電話
+              </th>
+              <th scope="col" class="cu-table-head text-center">
+                訂單數
+              </th>
+              <th scope="col" class="cu-table-head text-right">
+                累計消費
+              </th>
+              <th scope="col" class="cu-table-head text-center">
+                狀態
+              </th>
+              <th scope="col" class="cu-table-head">
+                加入日期
+              </th>
+              <th scope="col" class="cu-table-head text-right">
+                操作
+              </th>
             </tr>
           </thead>
           <tbody class="cu-table-body">
@@ -334,11 +362,14 @@ const statusConfig = {
               return (
                 <tr class="cu-table-row">
                   <td class="cu-table-cell">
-                    <input type="checkbox" class="cu-checkbox" />
+                    <input type="checkbox" class="cu-checkbox" aria-label={`選取 ${customer.name}`} />
                   </td>
                   <td class="cu-table-cell">
                     <div class="flex items-center gap-3">
-                      <div class:list={["cu-avatar", customer.status === "vip" ? "bg-warning/10" : ""]}>
+                      <div
+                        class:list={["cu-avatar", customer.status === "vip" ? "bg-warning/10" : ""]}
+                        aria-hidden="true"
+                      >
                         <div
                           class:list={[
                             "cu-avatar-fallback",
@@ -359,6 +390,7 @@ const statusConfig = {
                               viewBox="0 0 24 24"
                               fill="currentColor"
                               class="text-warning"
+                              aria-hidden="true"
                             >
                               <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
                             </svg>
@@ -369,10 +401,10 @@ const statusConfig = {
                     </div>
                   </td>
                   <td class="cu-table-cell">
-                    <span class="text-sm text-muted-foreground">{customer.phone}</span>
+                    <span class="text-sm text-muted-foreground tabular-nums">{customer.phone}</span>
                   </td>
                   <td class="cu-table-cell text-center">
-                    <span class="text-sm font-medium">{customer.orders}</span>
+                    <span class="text-sm font-medium tabular-nums">{customer.orders}</span>
                   </td>
                   <td class="cu-table-cell text-right">
                     <span class="text-sm font-semibold tabular-nums">${customer.spent.toLocaleString()}</span>
@@ -381,11 +413,16 @@ const statusConfig = {
                     <span class={status.class}>{status.label}</span>
                   </td>
                   <td class="cu-table-cell">
-                    <span class="text-sm text-muted-foreground">{customer.joinDate}</span>
+                    <span class="text-sm text-muted-foreground tabular-nums">{customer.joinDate}</span>
                   </td>
                   <td class="cu-table-cell text-right">
                     <div class="cu-table-actions">
-                      <button class="cu-button cu-button-ghost cu-button-icon-xs" title="檢視">
+                      <button
+                        type="button"
+                        class="cu-button cu-button-ghost cu-button-icon-xs"
+                        aria-label={`檢視 ${customer.name}`}
+                        title="檢視"
+                      >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           width="16"
@@ -396,12 +433,18 @@ const statusConfig = {
                           stroke-width="2"
                           stroke-linecap="round"
                           stroke-linejoin="round"
+                          aria-hidden="true"
                         >
                           <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z" />
                           <circle cx="12" cy="12" r="3" />
                         </svg>
                       </button>
-                      <button class="cu-button cu-button-ghost cu-button-icon-xs" title="編輯">
+                      <button
+                        type="button"
+                        class="cu-button cu-button-ghost cu-button-icon-xs"
+                        aria-label={`編輯 ${customer.name}`}
+                        title="編輯"
+                      >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           width="16"
@@ -412,12 +455,18 @@ const statusConfig = {
                           stroke-width="2"
                           stroke-linecap="round"
                           stroke-linejoin="round"
+                          aria-hidden="true"
                         >
                           <path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z" />
                           <path d="m15 5 4 4" />
                         </svg>
                       </button>
-                      <button class="cu-button cu-button-ghost cu-button-icon-xs" title="發送郵件">
+                      <button
+                        type="button"
+                        class="cu-button cu-button-ghost cu-button-icon-xs"
+                        aria-label={`發送郵件給 ${customer.name}`}
+                        title="發送郵件"
+                      >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           width="16"
@@ -428,13 +477,16 @@ const statusConfig = {
                           stroke-width="2"
                           stroke-linecap="round"
                           stroke-linejoin="round"
+                          aria-hidden="true"
                         >
                           <rect width="20" height="16" x="2" y="4" rx="2" />
                           <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
                         </svg>
                       </button>
                       <button
+                        type="button"
                         class="cu-button cu-button-ghost cu-button-icon-xs hover:text-destructive hover:bg-destructive/10"
+                        aria-label={`刪除 ${customer.name}`}
                         title="刪除"
                       >
                         <svg
@@ -447,6 +499,7 @@ const statusConfig = {
                           stroke-width="2"
                           stroke-linecap="round"
                           stroke-linejoin="round"
+                          aria-hidden="true"
                         >
                           <path d="M3 6h18" />
                           <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
@@ -465,8 +518,8 @@ const statusConfig = {
       <!-- Pagination -->
       <div class="flex items-center justify-between px-4 py-3 border-t border-border">
         <span class="text-sm text-muted-foreground">顯示 1-8 筆，共 1,847 筆</span>
-        <nav class="cu-pagination">
-          <button class="cu-pagination-prev" disabled>
+        <nav class="cu-pagination" aria-label="分頁">
+          <button type="button" class="cu-pagination-prev" aria-label="上一頁" disabled>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="16"
@@ -477,16 +530,27 @@ const statusConfig = {
               stroke-width="2"
               stroke-linecap="round"
               stroke-linejoin="round"
+              aria-hidden="true"
             >
               <path d="m15 18-6-6 6-6" />
             </svg>
           </button>
-          <button class="cu-pagination-item cu-pagination-item-active">1</button>
-          <button class="cu-pagination-item">2</button>
-          <button class="cu-pagination-item">3</button>
-          <span class="cu-pagination-ellipsis">...</span>
-          <button class="cu-pagination-item">231</button>
-          <button class="cu-pagination-next">
+          <button type="button" class="cu-pagination-item cu-pagination-item-active" aria-current="page">
+            1
+          </button>
+          <button type="button" class="cu-pagination-item">
+            2
+          </button>
+          <button type="button" class="cu-pagination-item">
+            3
+          </button>
+          <span class="cu-pagination-ellipsis" aria-hidden="true">
+            ...
+          </span>
+          <button type="button" class="cu-pagination-item">
+            231
+          </button>
+          <button type="button" class="cu-pagination-next" aria-label="下一頁">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="16"
@@ -497,6 +561,7 @@ const statusConfig = {
               stroke-width="2"
               stroke-linecap="round"
               stroke-linejoin="round"
+              aria-hidden="true"
             >
               <path d="m9 18 6-6-6-6" />
             </svg>

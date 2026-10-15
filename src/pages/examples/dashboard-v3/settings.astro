@@ -1,4 +1,5 @@
 ---
+import cubbyUiUrl from "../../../../dist/core/cubby-ui.js?url";
 import DashboardV3Layout from "@/layouts/DashboardV3Layout.astro";
 import Card from "@/components/ui/Card.astro";
 import CardHeader from "@/components/ui/CardHeader.astro";
@@ -15,54 +16,66 @@ import Label from "@/components/ui/Label.astro";
 import Toggle from "@/components/ui/Toggle.astro";
 import Separator from "@/components/ui/Separator.astro";
 import Textarea from "@/components/ui/Textarea.astro";
+
+const sections = [
+  { value: "profile", label: "Profile" },
+  { value: "team", label: "Team" },
+  { value: "billing", label: "Billing" },
+  { value: "integrations", label: "Integrations" },
+  { value: "api-keys", label: "API Keys" },
+];
+
+const teamMembers = [
+  { name: "Jane Doe", email: "jane@nexus.ai", initials: "JD", role: "Admin" },
+  { name: "Mike Smith", email: "mike@nexus.ai", initials: "MS", role: "Editor" },
+  { name: "Sarah Johnson", email: "sarah@nexus.ai", initials: "SJ", role: "Editor" },
+  { name: "Tom Chen", email: "tom@nexus.ai", initials: "TC", role: "Viewer" },
+];
+
+const integrations = [
+  { id: "slack", name: "Slack", description: "Team communication", initial: "S", connected: true },
+  { id: "github", name: "GitHub", description: "Code repository", initial: "G", connected: true },
+  { id: "figma", name: "Figma", description: "Design collaboration", initial: "F", connected: false },
+];
+
+const apiKeys = [
+  { name: "Production Key", key: "sk-...a1b2", created: "Jan 15, 2026", lastUsed: "2 hours ago" },
+  { name: "Development Key", key: "sk-...c3d4", created: "Jan 10, 2026", lastUsed: "1 day ago" },
+  { name: "Testing Key", key: "sk-...e5f6", created: "Jan 5, 2026", lastUsed: "3 days ago" },
+];
 ---
 
 <DashboardV3Layout title="Settings — Nexus">
-  <div class="max-w-7xl mx-auto">
-    <div class="mb-8">
-      <h1 class="text-3xl font-bold text-foreground">Settings</h1>
-      <p class="mt-2 text-muted-foreground">Manage your account settings and preferences</p>
-    </div>
+  <div class="max-w-7xl mx-auto space-y-8">
+    <header class="cu-page-header">
+      <div class="cu-page-header-content">
+        <h1 class="cu-page-header-title text-2xl md:text-2xl">Settings</h1>
+        <p class="cu-page-header-description">Manage your account settings and preferences</p>
+      </div>
+    </header>
 
-    <div class="grid lg:grid-cols-[224px_1fr] gap-8">
+    <!-- 垂直 Tabs：data-cu-tabs 由 cubby-ui.js 處理 role / aria-selected / aria-controls 與面板切換 -->
+    <div data-cu-tabs class="grid lg:grid-cols-[224px_1fr] gap-8">
       <!-- Left Navigation -->
-      <nav class="space-y-1">
-        <button
-          data-settings-tab="profile"
-          class="settings-tab-btn w-full text-left px-4 py-2.5 rounded-lg transition-colors duration-200 border-l-2 border-teal-600 bg-teal-50 text-teal-600 font-medium"
-        >
-          Profile
-        </button>
-        <button
-          data-settings-tab="team"
-          class="settings-tab-btn w-full text-left px-4 py-2.5 rounded-lg transition-colors duration-200 border-l-2 border-transparent text-muted-foreground hover:bg-muted/60"
-        >
-          Team
-        </button>
-        <button
-          data-settings-tab="billing"
-          class="settings-tab-btn w-full text-left px-4 py-2.5 rounded-lg transition-colors duration-200 border-l-2 border-transparent text-muted-foreground hover:bg-muted/60"
-        >
-          Billing
-        </button>
-        <button
-          data-settings-tab="integrations"
-          class="settings-tab-btn w-full text-left px-4 py-2.5 rounded-lg transition-colors duration-200 border-l-2 border-transparent text-muted-foreground hover:bg-muted/60"
-        >
-          Integrations
-        </button>
-        <button
-          data-settings-tab="api-keys"
-          class="settings-tab-btn w-full text-left px-4 py-2.5 rounded-lg transition-colors duration-200 border-l-2 border-transparent text-muted-foreground hover:bg-muted/60"
-        >
-          API Keys
-        </button>
-      </nav>
+      <div
+        class="cu-tabs-list cu-tabs-list-vertical flex-row overflow-x-auto lg:flex-col lg:self-start"
+        aria-label="Settings sections"
+      >
+        {sections.map((section, index) => (
+          <button
+            type="button"
+            class:list={["cu-tabs-trigger justify-start", index === 0 && "cu-tabs-trigger-active"]}
+            data-cu-tabs-trigger={section.value}
+          >
+            {section.label}
+          </button>
+        ))}
+      </div>
 
       <!-- Right Content Area -->
       <div class="min-w-0">
         <!-- Profile Panel -->
-        <div data-settings-panel="profile" class="settings-panel">
+        <div class="cu-tabs-content mt-0" data-cu-tabs-content="profile">
           <Card>
             <CardHeader>
               <CardTitle>Profile Settings</CardTitle>
@@ -75,146 +88,128 @@ import Textarea from "@/components/ui/Textarea.astro";
                   <Avatar class="h-20 w-20 text-xl">
                     <AvatarFallback>JD</AvatarFallback>
                   </Avatar>
-                  <Button variant="secondary" size="sm">
-                    Change Photo
-                  </Button>
+                  <div class="space-y-1">
+                    <Button type="button" variant="secondary" size="sm">
+                      Change Photo
+                    </Button>
+                    <p class="text-xs text-muted-foreground">JPG, PNG or GIF. Max 2 MB.</p>
+                  </div>
                 </div>
 
                 <Separator />
 
                 <!-- Form Fields -->
                 <div class="space-y-4">
-                  <div>
+                  <div class="cu-form-group">
                     <Label for="full-name">Full Name</Label>
-                    <Input id="full-name" value="Jane Doe" class="mt-1.5" />
+                    <Input id="full-name" value="Jane Doe" autocomplete="name" />
                   </div>
 
-                  <div>
+                  <div class="cu-form-group">
                     <Label for="email">Email</Label>
-                    <Input id="email" type="email" value="jane@nexus.ai" class="mt-1.5" />
+                    <Input id="email" type="email" value="jane@nexus.ai" autocomplete="email" />
                   </div>
 
-                  <div>
+                  <div class="cu-form-group">
                     <Label for="role">Role</Label>
-                    <Input id="role" value="Admin" disabled class="mt-1.5" />
+                    <Input id="role" value="Admin" disabled aria-describedby="role-description" />
+                    <p id="role-description" class="cu-form-description">
+                      Only workspace owners can change roles.
+                    </p>
                   </div>
 
-                  <div>
+                  <div class="cu-form-group">
                     <Label for="bio">Bio</Label>
-                    <Textarea id="bio" rows={4} class="mt-1.5" placeholder="Tell us about yourself..." />
+                    <Textarea id="bio" rows={4} placeholder="Tell us about yourself..." />
                   </div>
                 </div>
               </div>
             </CardContent>
             <CardFooter class="flex justify-end gap-3">
-              <Button variant="ghost">Cancel</Button>
-              <Button>Save Changes</Button>
+              <Button type="button" variant="ghost">
+                Cancel
+              </Button>
+              <Button type="button">Save Changes</Button>
             </CardFooter>
           </Card>
         </div>
 
         <!-- Team Panel -->
-        <div data-settings-panel="team" class="settings-panel hidden">
+        <div class="cu-tabs-content mt-0" data-cu-tabs-content="team" hidden>
           <Card>
             <CardHeader>
               <CardTitle>Team Members</CardTitle>
               <CardDescription>Manage your team and member permissions</CardDescription>
             </CardHeader>
             <CardContent>
-              <div class="space-y-4">
-                <!-- Team Member Cards -->
-                <div class="flex items-center justify-between p-4 border border-border rounded-lg">
-                  <div class="flex items-center gap-4">
-                    <Avatar>
-                      <AvatarFallback>JD</AvatarFallback>
-                    </Avatar>
-                    <div>
-                      <div class="font-medium">Jane Doe</div>
-                      <div class="text-sm text-muted-foreground">jane@nexus.ai</div>
-                    </div>
-                  </div>
-                  <div class="flex items-center gap-3">
-                    <Badge variant="secondary">Admin</Badge>
-                    <Button variant="ghost" size="sm" class="text-destructive">
-                      Remove
-                    </Button>
-                  </div>
-                </div>
+              <div class="space-y-6">
+                <ul class="space-y-3" aria-label="Team members">
+                  {teamMembers.map((member) => (
+                    <li class="flex flex-col gap-3 p-4 border border-border rounded-lg sm:flex-row sm:items-center sm:justify-between">
+                      <div class="flex items-center gap-4 min-w-0">
+                        <Avatar aria-hidden="true">
+                          <AvatarFallback>{member.initials}</AvatarFallback>
+                        </Avatar>
+                        <div class="min-w-0">
+                          <div class="font-medium">{member.name}</div>
+                          <div class="text-sm text-muted-foreground truncate">{member.email}</div>
+                        </div>
+                      </div>
+                      <div class="flex items-center gap-3">
+                        <Badge variant="outline">{member.role}</Badge>
+                        <Button
+                          type="button"
+                          variant="ghost"
+                          size="sm"
+                          class="text-destructive hover:bg-destructive/10 hover:text-destructive"
+                          aria-label={`Remove ${member.name}`}
+                        >
+                          Remove
+                        </Button>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
 
-                <div class="flex items-center justify-between p-4 border border-border rounded-lg">
-                  <div class="flex items-center gap-4">
-                    <Avatar>
-                      <AvatarFallback>MS</AvatarFallback>
-                    </Avatar>
-                    <div>
-                      <div class="font-medium">Mike Smith</div>
-                      <div class="text-sm text-muted-foreground">mike@nexus.ai</div>
-                    </div>
-                  </div>
-                  <div class="flex items-center gap-3">
-                    <Badge variant="secondary">Editor</Badge>
-                    <Button variant="ghost" size="sm" class="text-destructive">
-                      Remove
-                    </Button>
-                  </div>
-                </div>
-
-                <div class="flex items-center justify-between p-4 border border-border rounded-lg">
-                  <div class="flex items-center gap-4">
-                    <Avatar>
-                      <AvatarFallback>SJ</AvatarFallback>
-                    </Avatar>
-                    <div>
-                      <div class="font-medium">Sarah Johnson</div>
-                      <div class="text-sm text-muted-foreground">sarah@nexus.ai</div>
-                    </div>
-                  </div>
-                  <div class="flex items-center gap-3">
-                    <Badge variant="secondary">Editor</Badge>
-                    <Button variant="ghost" size="sm" class="text-destructive">
-                      Remove
-                    </Button>
-                  </div>
-                </div>
-
-                <div class="flex items-center justify-between p-4 border border-border rounded-lg">
-                  <div class="flex items-center gap-4">
-                    <Avatar>
-                      <AvatarFallback>TC</AvatarFallback>
-                    </Avatar>
-                    <div>
-                      <div class="font-medium">Tom Chen</div>
-                      <div class="text-sm text-muted-foreground">tom@nexus.ai</div>
-                    </div>
-                  </div>
-                  <div class="flex items-center gap-3">
-                    <Badge variant="secondary">Viewer</Badge>
-                    <Button variant="ghost" size="sm" class="text-destructive">
-                      Remove
-                    </Button>
-                  </div>
-                </div>
-
-                <Separator class="my-6" />
+                <Separator />
 
                 <!-- Invite Member Form -->
                 <div>
                   <h3 class="font-semibold mb-4">Invite New Member</h3>
                   <div class="grid gap-4 sm:grid-cols-2">
-                    <div>
+                    <div class="cu-form-group">
                       <Label for="invite-email">Email Address</Label>
-                      <Input id="invite-email" type="email" placeholder="email@example.com" class="mt-1.5" />
+                      <Input id="invite-email" type="email" placeholder="email@example.com" />
                     </div>
-                    <div>
+                    <div class="cu-form-group">
                       <Label for="invite-role">Role</Label>
-                      <select id="invite-role" class="cu-select mt-1.5">
-                        <option>Viewer</option>
-                        <option>Editor</option>
-                        <option>Admin</option>
-                      </select>
+                      <div class="cu-select-wrapper">
+                        <select id="invite-role" class="cu-select">
+                          <option>Viewer</option>
+                          <option>Editor</option>
+                          <option>Admin</option>
+                        </select>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="16"
+                          height="16"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          class="cu-select-icon"
+                          aria-hidden="true"
+                        >
+                          <path d="m6 9 6 6 6-6" />
+                        </svg>
+                      </div>
                     </div>
                   </div>
-                  <Button class="mt-4">Send Invite</Button>
+                  <Button type="button" class="mt-4">
+                    Send Invite
+                  </Button>
                 </div>
               </div>
             </CardContent>
@@ -222,7 +217,7 @@ import Textarea from "@/components/ui/Textarea.astro";
         </div>
 
         <!-- Billing Panel -->
-        <div data-settings-panel="billing" class="settings-panel hidden">
+        <div class="cu-tabs-content mt-0" data-cu-tabs-content="billing" hidden>
           <div class="space-y-6">
             <!-- Current Plan -->
             <Card>
@@ -235,30 +230,37 @@ import Textarea from "@/components/ui/Textarea.astro";
                   <div class="flex items-center justify-between">
                     <div>
                       <div class="font-semibold text-lg">Pro Plan</div>
-                      <div class="text-muted-foreground">$49/month</div>
+                      <div class="text-muted-foreground tabular-nums">$49/month</div>
                     </div>
-                    <Badge variant="success">Active</Badge>
+                    <Badge variant="soft-success">Active</Badge>
                   </div>
 
                   <Separator />
 
                   <div>
                     <div class="flex items-center justify-between mb-2">
-                      <span class="text-sm font-medium">Usage</span>
-                      <span class="text-sm text-muted-foreground">75% of limit</span>
+                      <span id="usage-label" class="text-sm font-medium">
+                        Usage
+                      </span>
+                      <span class="text-sm text-muted-foreground tabular-nums">75% of limit</span>
                     </div>
-                    <div class="h-2 bg-muted rounded-full overflow-hidden">
-                      <div class="h-full bg-primary rounded-full" style="width: 75%"></div>
+                    <div
+                      class="cu-progress"
+                      role="progressbar"
+                      aria-labelledby="usage-label"
+                      aria-valuemin="0"
+                      aria-valuemax="100"
+                      aria-valuenow="75"
+                    >
+                      <div class="cu-progress-bar" style="width: 75%"></div>
                     </div>
                   </div>
 
-                  <div class="pt-2">
-                    <div class="text-sm text-muted-foreground">Next billing date: March 1, 2026</div>
-                  </div>
+                  <p class="pt-2 text-sm text-muted-foreground">Next billing date: March 1, 2026</p>
                 </div>
               </CardContent>
               <CardFooter>
-                <Button>Upgrade Plan</Button>
+                <Button type="button">Upgrade Plan</Button>
               </CardFooter>
             </Card>
 
@@ -269,17 +271,23 @@ import Textarea from "@/components/ui/Textarea.astro";
                 <CardDescription>Your current payment method on file</CardDescription>
               </CardHeader>
               <CardContent>
-                <div class="flex items-center justify-between p-4 border border-border rounded-lg">
+                <div class="flex flex-col gap-4 p-4 border border-border rounded-lg sm:flex-row sm:items-center sm:justify-between">
                   <div class="flex items-center gap-4">
-                    <div class="w-12 h-8 bg-gradient-to-br from-blue-600 to-blue-400 rounded flex items-center justify-center text-white text-xs font-bold">
+                    <div
+                      class="w-12 h-8 rounded-md border border-border bg-muted flex items-center justify-center text-xs font-bold tracking-wide text-foreground"
+                      aria-hidden="true"
+                    >
                       VISA
                     </div>
                     <div>
-                      <div class="font-medium">•••• •••• •••• 4242</div>
+                      <div class="font-medium tabular-nums">
+                        <span class="sr-only">Visa ending in 4242</span>
+                        <span aria-hidden="true">•••• •••• •••• 4242</span>
+                      </div>
                       <div class="text-sm text-muted-foreground">Expires 12/26</div>
                     </div>
                   </div>
-                  <Button variant="outline" size="sm">
+                  <Button type="button" variant="outline" size="sm">
                     Update Payment
                   </Button>
                 </div>
@@ -289,142 +297,109 @@ import Textarea from "@/components/ui/Textarea.astro";
         </div>
 
         <!-- Integrations Panel -->
-        <div data-settings-panel="integrations" class="settings-panel hidden">
+        <div class="cu-tabs-content mt-0" data-cu-tabs-content="integrations" hidden>
           <Card>
             <CardHeader>
               <CardTitle>Integrations</CardTitle>
               <CardDescription>Connect your favorite tools and services</CardDescription>
             </CardHeader>
             <CardContent>
-              <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                <!-- Slack -->
-                <div class="border border-border rounded-lg p-4">
-                  <div class="flex items-start justify-between mb-3">
-                    <div class="w-10 h-10 bg-gradient-to-br from-purple-500 to-pink-500 rounded-lg flex items-center justify-center text-white font-bold">
-                      S
+              <ul class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                {integrations.map((integration) => (
+                  <li class="border border-border rounded-lg p-4">
+                    <div class="flex items-start justify-between mb-3">
+                      <div
+                        class="w-10 h-10 rounded-lg bg-primary/8 text-primary flex items-center justify-center font-bold"
+                        aria-hidden="true"
+                      >
+                        {integration.initial}
+                      </div>
+                      <Badge variant={integration.connected ? "soft-success" : "soft-secondary"}>
+                        {integration.connected ? "Connected" : "Not Connected"}
+                      </Badge>
                     </div>
-                    <Badge variant="success">Connected</Badge>
-                  </div>
-                  <div class="mb-3">
-                    <h3 class="font-semibold">Slack</h3>
-                    <p class="text-sm text-muted-foreground">Team communication</p>
-                  </div>
-                  <Toggle checked />
-                </div>
-
-                <!-- GitHub -->
-                <div class="border border-border rounded-lg p-4">
-                  <div class="flex items-start justify-between mb-3">
-                    <div class="w-10 h-10 bg-gradient-to-br from-gray-800 to-gray-600 rounded-lg flex items-center justify-center text-white font-bold">
-                      G
+                    <div class="mb-3">
+                      <h3 class="font-semibold">{integration.name}</h3>
+                      <p class="text-sm text-muted-foreground">{integration.description}</p>
                     </div>
-                    <Badge variant="success">Connected</Badge>
-                  </div>
-                  <div class="mb-3">
-                    <h3 class="font-semibold">GitHub</h3>
-                    <p class="text-sm text-muted-foreground">Code repository</p>
-                  </div>
-                  <Toggle checked />
-                </div>
-
-                <!-- Figma -->
-                <div class="border border-border rounded-lg p-4">
-                  <div class="flex items-start justify-between mb-3">
-                    <div class="w-10 h-10 bg-gradient-to-br from-orange-500 to-red-500 rounded-lg flex items-center justify-center text-white font-bold">
-                      F
-                    </div>
-                    <Badge variant="secondary">Not Connected</Badge>
-                  </div>
-                  <div class="mb-3">
-                    <h3 class="font-semibold">Figma</h3>
-                    <p class="text-sm text-muted-foreground">Design collaboration</p>
-                  </div>
-                  <Toggle />
-                </div>
-              </div>
+                    <Toggle id={`integration-${integration.id}`} checked={integration.connected}>
+                      <span class="sr-only">Enable {integration.name} integration</span>
+                    </Toggle>
+                  </li>
+                ))}
+              </ul>
             </CardContent>
           </Card>
         </div>
 
         <!-- API Keys Panel -->
-        <div data-settings-panel="api-keys" class="settings-panel hidden">
+        <div class="cu-tabs-content mt-0" data-cu-tabs-content="api-keys" hidden>
           <Card>
             <CardHeader>
-              <div class="flex items-center justify-between">
-                <div>
+              <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                <div class="space-y-1.5">
                   <CardTitle>API Keys</CardTitle>
                   <CardDescription>Manage your API keys for integration</CardDescription>
                 </div>
-                <Button size="sm">Create New Key</Button>
+                <Button type="button" size="sm">
+                  Create New Key
+                </Button>
               </div>
             </CardHeader>
             <CardContent>
-              <div class="border border-border rounded-lg overflow-hidden">
-                <table class="w-full">
-                  <thead class="bg-muted/50">
-                    <tr>
-                      <th class="text-left px-4 py-3 text-sm font-medium">Name</th>
-                      <th class="text-left px-4 py-3 text-sm font-medium">Key</th>
-                      <th class="text-left px-4 py-3 text-sm font-medium">Created</th>
-                      <th class="text-left px-4 py-3 text-sm font-medium">Last Used</th>
-                      <th class="text-right px-4 py-3 text-sm font-medium">Actions</th>
+              <div
+                class="cu-table-wrapper border border-border rounded-lg"
+                role="region"
+                aria-label="API keys"
+                tabindex="0"
+              >
+                <table class="cu-table">
+                  <thead class="cu-table-header bg-muted/50">
+                    <tr class="cu-table-row hover:bg-transparent">
+                      <th scope="col" class="cu-table-head">
+                        Name
+                      </th>
+                      <th scope="col" class="cu-table-head">
+                        Key
+                      </th>
+                      <th scope="col" class="cu-table-head">
+                        Created
+                      </th>
+                      <th scope="col" class="cu-table-head">
+                        Last Used
+                      </th>
+                      <th scope="col" class="cu-table-head text-right">
+                        Actions
+                      </th>
                     </tr>
                   </thead>
-                  <tbody class="divide-y divide-border">
-                    <tr>
-                      <td class="px-4 py-3 font-medium">Production Key</td>
-                      <td class="px-4 py-3">
-                        <code class="text-sm bg-muted px-2 py-1 rounded">sk-...a1b2</code>
-                      </td>
-                      <td class="px-4 py-3 text-sm text-muted-foreground">Jan 15, 2026</td>
-                      <td class="px-4 py-3 text-sm text-muted-foreground">2 hours ago</td>
-                      <td class="px-4 py-3 text-right">
-                        <div class="flex items-center justify-end gap-2">
-                          <Button variant="ghost" size="sm">
-                            Regenerate
-                          </Button>
-                          <Button variant="ghost" size="sm" class="text-destructive">
-                            Delete
-                          </Button>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td class="px-4 py-3 font-medium">Development Key</td>
-                      <td class="px-4 py-3">
-                        <code class="text-sm bg-muted px-2 py-1 rounded">sk-...c3d4</code>
-                      </td>
-                      <td class="px-4 py-3 text-sm text-muted-foreground">Jan 10, 2026</td>
-                      <td class="px-4 py-3 text-sm text-muted-foreground">1 day ago</td>
-                      <td class="px-4 py-3 text-right">
-                        <div class="flex items-center justify-end gap-2">
-                          <Button variant="ghost" size="sm">
-                            Regenerate
-                          </Button>
-                          <Button variant="ghost" size="sm" class="text-destructive">
-                            Delete
-                          </Button>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td class="px-4 py-3 font-medium">Testing Key</td>
-                      <td class="px-4 py-3">
-                        <code class="text-sm bg-muted px-2 py-1 rounded">sk-...e5f6</code>
-                      </td>
-                      <td class="px-4 py-3 text-sm text-muted-foreground">Jan 5, 2026</td>
-                      <td class="px-4 py-3 text-sm text-muted-foreground">3 days ago</td>
-                      <td class="px-4 py-3 text-right">
-                        <div class="flex items-center justify-end gap-2">
-                          <Button variant="ghost" size="sm">
-                            Regenerate
-                          </Button>
-                          <Button variant="ghost" size="sm" class="text-destructive">
-                            Delete
-                          </Button>
-                        </div>
-                      </td>
-                    </tr>
+                  <tbody class="cu-table-body">
+                    {apiKeys.map((apiKey) => (
+                      <tr class="cu-table-row">
+                        <td class="cu-table-cell font-medium whitespace-nowrap">{apiKey.name}</td>
+                        <td class="cu-table-cell">
+                          <code class="font-mono text-xs bg-muted px-2 py-1 rounded">{apiKey.key}</code>
+                        </td>
+                        <td class="cu-table-cell text-muted-foreground whitespace-nowrap">{apiKey.created}</td>
+                        <td class="cu-table-cell text-muted-foreground whitespace-nowrap">{apiKey.lastUsed}</td>
+                        <td class="cu-table-cell">
+                          <div class="cu-table-actions">
+                            <Button type="button" variant="ghost" size="sm" aria-label={`Regenerate ${apiKey.name}`}>
+                              Regenerate
+                            </Button>
+                            <Button
+                              type="button"
+                              variant="ghost"
+                              size="sm"
+                              class="text-destructive hover:bg-destructive/10 hover:text-destructive"
+                              aria-label={`Delete ${apiKey.name}`}
+                            >
+                              Delete
+                            </Button>
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
                   </tbody>
                 </table>
               </div>
@@ -434,33 +409,6 @@ import Textarea from "@/components/ui/Textarea.astro";
       </div>
     </div>
   </div>
+
+  <script src={cubbyUiUrl} is:inline></script>
 </DashboardV3Layout>
-
-<script>
-  // Tab switching functionality
-  const tabButtons = document.querySelectorAll(".settings-tab-btn");
-  const panels = document.querySelectorAll(".settings-panel");
-
-  tabButtons.forEach((button) => {
-    button.addEventListener("click", () => {
-      const targetTab = button.getAttribute("data-settings-tab");
-
-      // Update button states
-      tabButtons.forEach((btn) => {
-        const isActive = btn.getAttribute("data-settings-tab") === targetTab;
-        btn.classList.toggle("border-teal-600", isActive);
-        btn.classList.toggle("bg-teal-50", isActive);
-        btn.classList.toggle("text-teal-600", isActive);
-        btn.classList.toggle("font-medium", isActive);
-        btn.classList.toggle("border-transparent", !isActive);
-        btn.classList.toggle("text-muted-foreground", !isActive);
-      });
-
-      // Update panel visibility
-      panels.forEach((panel) => {
-        const panelTab = panel.getAttribute("data-settings-panel");
-        panel.classList.toggle("hidden", panelTab !== targetTab);
-      });
-    });
-  });
-</script>

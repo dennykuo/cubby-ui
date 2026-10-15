@@ -22,39 +22,51 @@ import DashboardV5Layout from "@/layouts/DashboardV5Layout.astro";
         <div class="flex flex-col sm:flex-row gap-6">
           <!-- Avatar -->
           <div class="flex flex-col items-center gap-3">
-            <div class="cu-avatar w-24 h-24">
+            <div class="cu-avatar w-24 h-24" aria-hidden="true">
               <div class="cu-avatar-fallback text-2xl font-medium">林</div>
             </div>
-            <button class="cu-button cu-button-outline cu-button-sm">變更頭像</button>
+            <button type="button" class="cu-button cu-button-outline cu-button-sm">
+              變更頭像
+            </button>
           </div>
 
           <!-- Form -->
           <div class="flex-1 space-y-4">
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div class="space-y-2">
-                <label class="cu-label">姓名</label>
-                <input type="text" value="林小明" class="cu-input" />
+                <label class="cu-label" for="profile-name">
+                  姓名
+                </label>
+                <input id="profile-name" type="text" value="林小明" class="cu-input" />
               </div>
               <div class="space-y-2">
-                <label class="cu-label">電子郵件</label>
-                <input type="email" value="lin.xiaoming@example.com" class="cu-input" />
+                <label class="cu-label" for="profile-email">
+                  電子郵件
+                </label>
+                <input id="profile-email" type="email" value="lin.xiaoming@example.com" class="cu-input" />
               </div>
             </div>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div class="space-y-2">
-                <label class="cu-label">電話</label>
-                <input type="tel" value="0912-345-678" class="cu-input" />
+                <label class="cu-label" for="profile-phone">
+                  電話
+                </label>
+                <input id="profile-phone" type="tel" value="0912-345-678" class="cu-input" />
               </div>
               <div class="space-y-2">
-                <label class="cu-label">角色</label>
-                <input type="text" value="管理員" disabled class="cu-input" />
+                <label class="cu-label" for="profile-role">
+                  角色
+                </label>
+                <input id="profile-role" type="text" value="管理員" disabled class="cu-input" />
               </div>
             </div>
           </div>
         </div>
 
         <div class="flex justify-end mt-6 pt-6 border-t border-border">
-          <button class="cu-button cu-button-default">儲存變更</button>
+          <button type="button" class="cu-button cu-button-default cu-button-md">
+            儲存變更
+          </button>
         </div>
       </div>
     </div>
@@ -69,49 +81,96 @@ import DashboardV5Layout from "@/layouts/DashboardV5Layout.astro";
         <div class="divide-y divide-border">
           <div class="cu-setting-item">
             <div class="cu-setting-item-content">
-              <p class="cu-setting-item-label">新訂單通知</p>
-              <p class="cu-setting-item-description">收到新訂單時發送通知</p>
+              <p class="cu-setting-item-label" id="notify-orders-label">
+                新訂單通知
+              </p>
+              <p class="cu-setting-item-description" id="notify-orders-desc">
+                收到新訂單時發送通知
+              </p>
             </div>
             <div class="cu-setting-item-action">
               <label class="cu-toggle-wrapper">
-                <input type="checkbox" class="peer sr-only" checked />
-                <span class="cu-toggle"></span>
+                <input
+                  type="checkbox"
+                  class="cu-toggle-input"
+                  aria-labelledby="notify-orders-label"
+                  aria-describedby="notify-orders-desc"
+                  checked
+                />
+                <span class="cu-toggle">
+                  <span class="cu-toggle-thumb"></span>
+                </span>
               </label>
             </div>
           </div>
           <div class="cu-setting-item">
             <div class="cu-setting-item-content">
-              <p class="cu-setting-item-label">庫存警告</p>
-              <p class="cu-setting-item-description">產品庫存不足時發送警告</p>
+              <p class="cu-setting-item-label" id="notify-stock-label">
+                庫存警告
+              </p>
+              <p class="cu-setting-item-description" id="notify-stock-desc">
+                產品庫存不足時發送警告
+              </p>
             </div>
             <div class="cu-setting-item-action">
               <label class="cu-toggle-wrapper">
-                <input type="checkbox" class="peer sr-only" checked />
-                <span class="cu-toggle"></span>
+                <input
+                  type="checkbox"
+                  class="cu-toggle-input"
+                  aria-labelledby="notify-stock-label"
+                  aria-describedby="notify-stock-desc"
+                  checked
+                />
+                <span class="cu-toggle">
+                  <span class="cu-toggle-thumb"></span>
+                </span>
               </label>
             </div>
           </div>
           <div class="cu-setting-item">
             <div class="cu-setting-item-content">
-              <p class="cu-setting-item-label">每週報表</p>
-              <p class="cu-setting-item-description">每週發送業務摘要報告</p>
+              <p class="cu-setting-item-label" id="notify-weekly-label">
+                每週報表
+              </p>
+              <p class="cu-setting-item-description" id="notify-weekly-desc">
+                每週發送業務摘要報告
+              </p>
             </div>
             <div class="cu-setting-item-action">
               <label class="cu-toggle-wrapper">
-                <input type="checkbox" class="peer sr-only" />
-                <span class="cu-toggle"></span>
+                <input
+                  type="checkbox"
+                  class="cu-toggle-input"
+                  aria-labelledby="notify-weekly-label"
+                  aria-describedby="notify-weekly-desc"
+                />
+                <span class="cu-toggle">
+                  <span class="cu-toggle-thumb"></span>
+                </span>
               </label>
             </div>
           </div>
           <div class="cu-setting-item">
             <div class="cu-setting-item-content">
-              <p class="cu-setting-item-label">系統更新</p>
-              <p class="cu-setting-item-description">接收系統更新與維護通知</p>
+              <p class="cu-setting-item-label" id="notify-system-label">
+                系統更新
+              </p>
+              <p class="cu-setting-item-description" id="notify-system-desc">
+                接收系統更新與維護通知
+              </p>
             </div>
             <div class="cu-setting-item-action">
               <label class="cu-toggle-wrapper">
-                <input type="checkbox" class="peer sr-only" checked />
-                <span class="cu-toggle"></span>
+                <input
+                  type="checkbox"
+                  class="cu-toggle-input"
+                  aria-labelledby="notify-system-label"
+                  aria-describedby="notify-system-desc"
+                  checked
+                />
+                <span class="cu-toggle">
+                  <span class="cu-toggle-thumb"></span>
+                </span>
               </label>
             </div>
           </div>
@@ -137,6 +196,7 @@ import DashboardV5Layout from "@/layouts/DashboardV5Layout.astro";
             stroke-width="2"
             stroke-linecap="round"
             stroke-linejoin="round"
+            aria-hidden="true"
           >
             <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
             <polyline points="22 4 12 14.01 9 11.01" />
@@ -157,6 +217,7 @@ import DashboardV5Layout from "@/layouts/DashboardV5Layout.astro";
             stroke-width="2"
             stroke-linecap="round"
             stroke-linejoin="round"
+            aria-hidden="true"
           >
             <circle cx="12" cy="12" r="10" />
             <path d="m15 9-6 6" />
@@ -178,6 +239,7 @@ import DashboardV5Layout from "@/layouts/DashboardV5Layout.astro";
             stroke-width="2"
             stroke-linecap="round"
             stroke-linejoin="round"
+            aria-hidden="true"
           >
             <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3" />
             <path d="M12 9v4" />
@@ -199,6 +261,7 @@ import DashboardV5Layout from "@/layouts/DashboardV5Layout.astro";
             stroke-width="2"
             stroke-linecap="round"
             stroke-linejoin="round"
+            aria-hidden="true"
           >
             <circle cx="12" cy="12" r="10" />
             <path d="M12 16v-4" />
@@ -222,7 +285,7 @@ import DashboardV5Layout from "@/layouts/DashboardV5Layout.astro";
         <div class="space-y-4">
           <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between p-4 bg-muted/50 rounded-lg gap-4">
             <div class="flex items-center gap-3">
-              <div class="w-10 h-10 rounded-lg bg-background border border-border flex items-center justify-center">
+              <div class="cu-setting-item-icon border border-border bg-background">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="20"
@@ -233,7 +296,7 @@ import DashboardV5Layout from "@/layouts/DashboardV5Layout.astro";
                   stroke-width="2"
                   stroke-linecap="round"
                   stroke-linejoin="round"
-                  class="text-muted-foreground"
+                  aria-hidden="true"
                 >
                   <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
                   <polyline points="7 10 12 15 17 10" />
@@ -245,12 +308,14 @@ import DashboardV5Layout from "@/layouts/DashboardV5Layout.astro";
                 <p class="text-xs text-muted-foreground">下載所有資料為 CSV 或 Excel 格式</p>
               </div>
             </div>
-            <button class="cu-button cu-button-outline cu-button-sm shrink-0">匯出</button>
+            <button type="button" class="cu-button cu-button-outline cu-button-sm shrink-0">
+              匯出
+            </button>
           </div>
 
           <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between p-4 bg-muted/50 rounded-lg gap-4">
             <div class="flex items-center gap-3">
-              <div class="w-10 h-10 rounded-lg bg-background border border-border flex items-center justify-center">
+              <div class="cu-setting-item-icon border border-border bg-background">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="20"
@@ -261,7 +326,7 @@ import DashboardV5Layout from "@/layouts/DashboardV5Layout.astro";
                   stroke-width="2"
                   stroke-linecap="round"
                   stroke-linejoin="round"
-                  class="text-muted-foreground"
+                  aria-hidden="true"
                 >
                   <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
                   <polyline points="17 8 12 3 7 8" />
@@ -273,12 +338,14 @@ import DashboardV5Layout from "@/layouts/DashboardV5Layout.astro";
                 <p class="text-xs text-muted-foreground">從 CSV 或 Excel 匯入資料</p>
               </div>
             </div>
-            <button class="cu-button cu-button-outline cu-button-sm shrink-0">匯入</button>
+            <button type="button" class="cu-button cu-button-outline cu-button-sm shrink-0">
+              匯入
+            </button>
           </div>
 
           <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between p-4 bg-muted/50 rounded-lg gap-4">
             <div class="flex items-center gap-3">
-              <div class="w-10 h-10 rounded-lg bg-background border border-border flex items-center justify-center">
+              <div class="cu-setting-item-icon border border-border bg-background">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="20"
@@ -289,7 +356,7 @@ import DashboardV5Layout from "@/layouts/DashboardV5Layout.astro";
                   stroke-width="2"
                   stroke-linecap="round"
                   stroke-linejoin="round"
-                  class="text-muted-foreground"
+                  aria-hidden="true"
                 >
                   <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z" />
                   <polyline points="17 21 17 13 7 13 7 21" />
@@ -303,7 +370,9 @@ import DashboardV5Layout from "@/layouts/DashboardV5Layout.astro";
             </div>
             <div class="flex items-center gap-2">
               <span class="cu-badge cu-badge-soft-success">已啟用</span>
-              <button class="cu-button cu-button-outline cu-button-sm shrink-0">設定</button>
+              <button type="button" class="cu-button cu-button-outline cu-button-sm shrink-0" aria-label="自動備份設定">
+                設定
+              </button>
             </div>
           </div>
         </div>
@@ -320,11 +389,13 @@ import DashboardV5Layout from "@/layouts/DashboardV5Layout.astro";
         <div class="space-y-4">
           <div class="flex items-center justify-between">
             <div>
-              <p class="text-sm font-medium">預設每頁筆數</p>
+              <label class="text-sm font-medium" for="page-size">
+                預設每頁筆數
+              </label>
               <p class="text-sm text-muted-foreground mt-0.5">列表預設顯示的資料筆數</p>
             </div>
             <div class="cu-select-wrapper">
-              <select class="cu-select">
+              <select class="cu-select" id="page-size">
                 <option value="10">10 筆</option>
                 <option value="25" selected>
                   25 筆
@@ -343,6 +414,7 @@ import DashboardV5Layout from "@/layouts/DashboardV5Layout.astro";
                 stroke-width="2"
                 stroke-linecap="round"
                 stroke-linejoin="round"
+                aria-hidden="true"
               >
                 <path d="m6 9 6 6 6-6" />
               </svg>
@@ -353,11 +425,13 @@ import DashboardV5Layout from "@/layouts/DashboardV5Layout.astro";
 
           <div class="flex items-center justify-between">
             <div>
-              <p class="text-sm font-medium">日期格式</p>
+              <label class="text-sm font-medium" for="date-format">
+                日期格式
+              </label>
               <p class="text-sm text-muted-foreground mt-0.5">顯示日期的格式</p>
             </div>
             <div class="cu-select-wrapper">
-              <select class="cu-select">
+              <select class="cu-select" id="date-format">
                 <option value="yyyy/mm/dd" selected>
                   YYYY/MM/DD
                 </option>
@@ -375,6 +449,7 @@ import DashboardV5Layout from "@/layouts/DashboardV5Layout.astro";
                 stroke-width="2"
                 stroke-linecap="round"
                 stroke-linejoin="round"
+                aria-hidden="true"
               >
                 <path d="m6 9 6 6 6-6" />
               </svg>
@@ -385,12 +460,23 @@ import DashboardV5Layout from "@/layouts/DashboardV5Layout.astro";
 
           <div class="flex items-center justify-between">
             <div>
-              <p class="text-sm font-medium">緊湊模式</p>
-              <p class="text-sm text-muted-foreground mt-0.5">減少表格行距以顯示更多資料</p>
+              <p class="text-sm font-medium" id="compact-mode-label">
+                緊湊模式
+              </p>
+              <p class="text-sm text-muted-foreground mt-0.5" id="compact-mode-desc">
+                減少表格行距以顯示更多資料
+              </p>
             </div>
             <label class="cu-toggle-wrapper">
-              <input type="checkbox" class="peer sr-only" />
-              <span class="cu-toggle"></span>
+              <input
+                type="checkbox"
+                class="cu-toggle-input"
+                aria-labelledby="compact-mode-label"
+                aria-describedby="compact-mode-desc"
+              />
+              <span class="cu-toggle">
+                <span class="cu-toggle-thumb"></span>
+              </span>
             </label>
           </div>
         </div>
@@ -410,7 +496,10 @@ import DashboardV5Layout from "@/layouts/DashboardV5Layout.astro";
               <p class="text-sm font-medium">清除所有資料</p>
               <p class="text-xs text-muted-foreground mt-0.5">刪除所有產品、訂單、客戶資料</p>
             </div>
-            <button class="cu-button cu-button-outline cu-button-sm shrink-0 border-destructive/50 text-destructive hover:bg-destructive/10">
+            <button
+              type="button"
+              class="cu-button cu-button-outline cu-button-sm shrink-0 border-destructive/50 text-destructive hover:bg-destructive/10"
+            >
               清除資料
             </button>
           </div>
@@ -420,7 +509,9 @@ import DashboardV5Layout from "@/layouts/DashboardV5Layout.astro";
               <p class="text-sm font-medium">刪除帳號</p>
               <p class="text-xs text-muted-foreground mt-0.5">永久刪除您的帳號與所有資料</p>
             </div>
-            <button class="cu-button cu-button-destructive cu-button-sm shrink-0">刪除帳號</button>
+            <button type="button" class="cu-button cu-button-destructive cu-button-sm shrink-0">
+              刪除帳號
+            </button>
           </div>
         </div>
       </div>

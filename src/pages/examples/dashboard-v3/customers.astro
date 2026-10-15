@@ -5,24 +5,15 @@ import CardHeader from "@/components/ui/CardHeader.astro";
 import CardTitle from "@/components/ui/CardTitle.astro";
 import CardDescription from "@/components/ui/CardDescription.astro";
 import CardContent from "@/components/ui/CardContent.astro";
-import Button from "@/components/ui/Button.astro";
 import Badge from "@/components/ui/Badge.astro";
 import Avatar from "@/components/ui/Avatar.astro";
 import AvatarFallback from "@/components/ui/AvatarFallback.astro";
-import Input from "@/components/ui/Input.astro";
 import Stat from "@/components/ui/Stat.astro";
 import StatHeader from "@/components/ui/StatHeader.astro";
 import StatLabel from "@/components/ui/StatLabel.astro";
 import StatValue from "@/components/ui/StatValue.astro";
 import StatDescription from "@/components/ui/StatDescription.astro";
 import StatTrend from "@/components/ui/StatTrend.astro";
-import Table from "@/components/ui/Table.astro";
-import TableHeader from "@/components/ui/TableHeader.astro";
-import TableBody from "@/components/ui/TableBody.astro";
-import TableRow from "@/components/ui/TableRow.astro";
-import TableHead from "@/components/ui/TableHead.astro";
-import TableCell from "@/components/ui/TableCell.astro";
-import Separator from "@/components/ui/Separator.astro";
 
 const customers = [
   {
@@ -106,45 +97,49 @@ const customers = [
     joined: "Jan 20, 2025",
   },
 ];
+
+const statusFilters = ["All", "Active", "Trial", "Churned"];
 ---
 
 <DashboardV3Layout title="Customers — Nexus">
   <div class="max-w-7xl mx-auto space-y-8">
     <!-- Page Header -->
-    <div class="flex items-center justify-between">
-      <div>
-        <h1 class="text-3xl font-bold tracking-tight">Customers</h1>
-        <p class="text-muted-foreground mt-1">Manage your customer base</p>
+    <header class="cu-page-header">
+      <div class="cu-page-header-content">
+        <h1 class="cu-page-header-title text-2xl md:text-2xl">Customers</h1>
+        <p class="cu-page-header-description">Manage your customer base</p>
       </div>
-      <Button variant="default">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="16"
-          height="16"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          class="mr-2"
-        >
-          <path d="M5 12h14" />
-          <path d="M12 5v14" />
-        </svg>
-        Add Customer
-      </Button>
-    </div>
+      <div class="cu-page-header-actions">
+        <button type="button" class="cu-button cu-button-default cu-button-md">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path d="M5 12h14" />
+            <path d="M12 5v14" />
+          </svg>
+          Add Customer
+        </button>
+      </div>
+    </header>
 
     <!-- Customer Stats -->
-    <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+    <section aria-label="Customer metrics" class="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
       <Stat>
         <StatHeader>
           <StatLabel>Total Customers</StatLabel>
         </StatHeader>
-        <StatValue>12,847</StatValue>
+        <StatValue class="tabular-nums">12,847</StatValue>
         <StatDescription>
-          <StatTrend trend="up">+5.2%</StatTrend>
+          <StatTrend direction="up">+5.2%</StatTrend>
           from last month
         </StatDescription>
       </Stat>
@@ -153,9 +148,9 @@ const customers = [
         <StatHeader>
           <StatLabel>New This Month</StatLabel>
         </StatHeader>
-        <StatValue>342</StatValue>
+        <StatValue class="tabular-nums">342</StatValue>
         <StatDescription>
-          <StatTrend trend="up">+12.8%</StatTrend>
+          <StatTrend direction="up">+12.8%</StatTrend>
           from last month
         </StatDescription>
       </Stat>
@@ -164,9 +159,12 @@ const customers = [
         <StatHeader>
           <StatLabel>Churn Rate</StatLabel>
         </StatHeader>
-        <StatValue>2.4%</StatValue>
+        <StatValue class="tabular-nums">2.4%</StatValue>
         <StatDescription>
-          <StatTrend trend="down">-0.3%</StatTrend>
+          <!-- 流失率下降是好事：箭頭朝下、色彩用 success -->
+          <StatTrend direction="down" class="text-success">
+            -0.3%
+          </StatTrend>
           from last month
         </StatDescription>
       </Stat>
@@ -175,32 +173,65 @@ const customers = [
         <StatHeader>
           <StatLabel>Avg. LTV</StatLabel>
         </StatHeader>
-        <StatValue>$1,240</StatValue>
+        <StatValue class="tabular-nums">$1,240</StatValue>
         <StatDescription>
-          <StatTrend trend="up">+8.5%</StatTrend>
+          <StatTrend direction="up">+8.5%</StatTrend>
           from last month
         </StatDescription>
       </Stat>
-    </div>
+    </section>
 
     <!-- Search & Filter Bar -->
-    <div class="flex items-center gap-4">
-      <div class="flex-1">
-        <Input type="text" placeholder="Search customers..." />
-      </div>
-      <div class="flex items-center gap-2">
-        <Button variant="default" size="sm">
-          All
-        </Button>
-        <Button variant="outline" size="sm">
-          Active
-        </Button>
-        <Button variant="outline" size="sm">
-          Trial
-        </Button>
-        <Button variant="outline" size="sm">
-          Churned
-        </Button>
+    <div class="cu-filter-bar">
+      <div class="cu-filter-bar-inner">
+        <div class="cu-filter-bar-search">
+          <div class="cu-input-search" role="search">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="cu-input-search-icon"
+              aria-hidden="true"
+            >
+              <circle cx="11" cy="11" r="8" />
+              <path d="m21 21-4.3-4.3" />
+            </svg>
+            <input
+              type="search"
+              class="cu-input-search-field"
+              placeholder="Search customers..."
+              aria-label="Search customers by name or email"
+              aria-controls="customers-table"
+              data-customers-search
+            />
+          </div>
+        </div>
+        <div class="cu-filter-bar-filters">
+          <div class="cu-segmented" role="radiogroup" aria-label="Filter by status">
+            {statusFilters.map((status) => (
+              <>
+                <input
+                  type="radio"
+                  name="customer-status"
+                  id={`customer-status-${status.toLowerCase()}`}
+                  value={status === "All" ? "" : status}
+                  class="cu-segmented-input"
+                  checked={status === "All"}
+                  data-customers-status-filter
+                />
+                <label for={`customer-status-${status.toLowerCase()}`} class="cu-segmented-item">
+                  {status}
+                </label>
+              </>
+            ))}
+          </div>
+        </div>
       </div>
     </div>
 
@@ -211,60 +242,153 @@ const customers = [
         <CardDescription>View and manage all customer accounts</CardDescription>
       </CardHeader>
       <CardContent class="cu-card-content-flush">
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead>Customer</TableHead>
-              <TableHead>Plan</TableHead>
-              <TableHead>MRR</TableHead>
-              <TableHead>Status</TableHead>
-              <TableHead>Joined</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {customers.map((customer) => (
-              <TableRow>
-                <TableCell>
-                  <div class="flex items-center gap-3">
-                    <Avatar>
-                      <AvatarFallback>{customer.initials}</AvatarFallback>
-                    </Avatar>
-                    <div>
-                      <div class="font-medium">{customer.name}</div>
-                      <div class="text-sm text-muted-foreground">{customer.email}</div>
+        <div class="cu-table-wrapper" role="region" aria-label="Customer list" tabindex="0">
+          <table class="cu-table" id="customers-table">
+            <thead class="cu-table-header">
+              <tr class="cu-table-row hover:bg-transparent">
+                <th scope="col" class="cu-table-head">
+                  Customer
+                </th>
+                <th scope="col" class="cu-table-head">
+                  Plan
+                </th>
+                <th scope="col" class="cu-table-head text-right">
+                  MRR
+                </th>
+                <th scope="col" class="cu-table-head">
+                  Status
+                </th>
+                <th scope="col" class="cu-table-head">
+                  Joined
+                </th>
+              </tr>
+            </thead>
+            <tbody class="cu-table-body">
+              {customers.map((customer) => (
+                <tr
+                  class="cu-table-row"
+                  data-customer-row
+                  data-status={customer.status}
+                  data-search={`${customer.name} ${customer.email}`.toLowerCase()}
+                >
+                  <td class="cu-table-cell">
+                    <div class="flex items-center gap-3">
+                      <Avatar size="sm" aria-hidden="true">
+                        <AvatarFallback>{customer.initials}</AvatarFallback>
+                      </Avatar>
+                      <div class="min-w-0">
+                        <div class="font-medium">{customer.name}</div>
+                        <div class="text-sm text-muted-foreground">{customer.email}</div>
+                      </div>
                     </div>
-                  </div>
-                </TableCell>
-                <TableCell>
-                  <span class="font-medium">{customer.plan}</span>
-                </TableCell>
-                <TableCell>
-                  <span class="font-medium">{customer.mrr}</span>
-                </TableCell>
-                <TableCell>
-                  <Badge variant={customer.statusVariant}>{customer.status}</Badge>
-                </TableCell>
-                <TableCell>
-                  <span class="text-muted-foreground">{customer.joined}</span>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
+                  </td>
+                  <td class="cu-table-cell">
+                    <Badge variant="outline">{customer.plan}</Badge>
+                  </td>
+                  <td class="cu-table-cell text-right font-medium tabular-nums">{customer.mrr}</td>
+                  <td class="cu-table-cell">
+                    <Badge variant={customer.statusVariant}>{customer.status}</Badge>
+                  </td>
+                  <td class="cu-table-cell text-muted-foreground whitespace-nowrap">{customer.joined}</td>
+                </tr>
+              ))}
+              <tr class="cu-table-row hover:bg-transparent" data-customers-empty hidden>
+                <td class="cu-table-cell py-10 text-center text-muted-foreground" colspan="5">
+                  No customers match your filters.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </CardContent>
     </Card>
+    <p class="sr-only" aria-live="polite" data-customers-live></p>
 
     <!-- Pagination -->
-    <div class="flex items-center justify-between">
-      <p class="text-sm text-muted-foreground">Showing 1-8 of 847 customers</p>
-      <div class="flex items-center gap-2">
-        <Button variant="outline" size="sm">
-          Previous
-        </Button>
-        <Button variant="outline" size="sm">
-          Next
-        </Button>
-      </div>
+    <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+      <p class="text-sm text-muted-foreground">Showing 1–8 of 847 customers</p>
+      <nav class="cu-pagination" aria-label="Customer list pagination">
+        <button type="button" class="cu-pagination-prev" aria-label="Previous page" disabled>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path d="m15 18-6-6 6-6" />
+          </svg>
+        </button>
+        <button
+          type="button"
+          class="cu-pagination-item cu-pagination-item-active"
+          aria-label="Page 1"
+          aria-current="page"
+        >
+          1
+        </button>
+        <button type="button" class="cu-pagination-item" aria-label="Page 2">
+          2
+        </button>
+        <button type="button" class="cu-pagination-item" aria-label="Page 3">
+          3
+        </button>
+        <span class="cu-pagination-ellipsis" aria-hidden="true">
+          …
+        </span>
+        <button type="button" class="cu-pagination-item" aria-label="Page 106">
+          106
+        </button>
+        <button type="button" class="cu-pagination-next" aria-label="Next page">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path d="m9 18 6-6-6-6" />
+          </svg>
+        </button>
+      </nav>
     </div>
   </div>
 </DashboardV3Layout>
+
+<script>
+  // 客戶端篩選：搜尋（名稱 / email）+ 狀態，只切換列的 hidden，不重建 DOM
+  const search = document.querySelector<HTMLInputElement>("[data-customers-search]");
+  const statusInputs = document.querySelectorAll<HTMLInputElement>("[data-customers-status-filter]");
+  const rows = document.querySelectorAll<HTMLTableRowElement>("[data-customer-row]");
+  const emptyRow = document.querySelector<HTMLTableRowElement>("[data-customers-empty]");
+  const live = document.querySelector<HTMLElement>("[data-customers-live]");
+
+  function applyFilters() {
+    const query = (search?.value ?? "").trim().toLowerCase();
+    const status = Array.from(statusInputs).find((input) => input.checked)?.value ?? "";
+    let visible = 0;
+
+    rows.forEach((row) => {
+      const matchesQuery = !query || (row.dataset.search ?? "").includes(query);
+      const matchesStatus = !status || row.dataset.status === status;
+      row.hidden = !(matchesQuery && matchesStatus);
+      if (!row.hidden) visible++;
+    });
+
+    if (emptyRow) emptyRow.hidden = visible > 0;
+    if (live) live.textContent = `${visible} ${visible === 1 ? "customer" : "customers"} shown`;
+  }
+
+  search?.addEventListener("input", applyFilters);
+  statusInputs.forEach((input) => input.addEventListener("change", applyFilters));
+</script>

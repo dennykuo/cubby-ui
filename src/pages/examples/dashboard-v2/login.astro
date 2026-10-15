@@ -4,7 +4,7 @@ import "@/styles/global.css";
 ---
 
 <!doctype html>
-<html lang="zh-Hant">
+<html lang="zh-Hant" data-theme-cubbypro>
   <head>
     <meta charset="UTF-8" />
     <meta name="description" content="Login — CubbyPro" />
@@ -14,18 +14,33 @@ import "@/styles/global.css";
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700&display=swap" rel="stylesheet" />
     <title>登入 — CubbyPro</title>
-    <style>
+    <style is:global>
+      /* CubbyPro 品牌色（與 DashboardV2Layout 相同）：覆寫 primary / ring / chart-1 為 indigo，語意 token 自動跟隨 */
+      html[data-theme-cubbypro] {
+        --color-primary: hsl(243 75% 59%);
+        --color-primary-foreground: hsl(0 0% 100%);
+        --color-ring: hsl(243 75% 59%);
+        --color-chart-1: hsl(243 75% 59%);
+      }
+
+      html.dark[data-theme-cubbypro] {
+        --color-primary: hsl(239 84% 67%);
+        --color-primary-foreground: hsl(0 0% 100%);
+        --color-ring: hsl(243 50% 40%);
+        --color-chart-1: hsl(239 84% 67%);
+      }
+
       body {
         font-family: "Onest", system-ui, sans-serif;
       }
     </style>
   </head>
-  <body class="min-h-screen antialiased">
+  <body class="min-h-screen bg-background text-foreground antialiased">
     <div class="grid min-h-screen lg:grid-cols-2">
-      <!-- Left: Brand Panel (Dark) -->
-      <div class="hidden lg:flex flex-col justify-between bg-[#0F172A] p-10 text-white">
+      <!-- Left: Brand Panel（固定深色品牌面板，與 layout 側邊欄一致，不跟隨主題） -->
+      <aside class="hidden lg:flex flex-col justify-between bg-[#0F172A] p-10 text-white" aria-label="CubbyPro 特色">
         <div class="flex items-center gap-2.5">
-          <div class="flex items-center justify-center w-8 h-8 rounded-lg bg-indigo-500">
+          <div class="flex items-center justify-center w-8 h-8 rounded-lg bg-primary text-primary-foreground">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="18"
@@ -36,6 +51,7 @@ import "@/styles/global.css";
               stroke-width="2.5"
               stroke-linecap="round"
               stroke-linejoin="round"
+              aria-hidden="true"
             >
               <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
             </svg>
@@ -44,9 +60,9 @@ import "@/styles/global.css";
             Cubby<span class="text-indigo-400">Pro</span>
           </span>
         </div>
-        <div class="space-y-6">
-          <div class="flex items-center gap-4 p-4 rounded-xl bg-white/5 border border-white/10">
-            <div class="flex items-center justify-center w-12 h-12 rounded-lg bg-indigo-500/20">
+        <ul class="space-y-4">
+          <li class="flex items-center gap-4 p-4 rounded-xl bg-white/5 border border-white/10">
+            <div class="flex items-center justify-center w-12 h-12 rounded-lg bg-indigo-500/20 text-indigo-300">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
@@ -57,7 +73,7 @@ import "@/styles/global.css";
                 stroke-width="2"
                 stroke-linecap="round"
                 stroke-linejoin="round"
-                class="text-indigo-400"
+                aria-hidden="true"
               >
                 <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10" />
                 <path d="m9 12 2 2 4-4" />
@@ -67,9 +83,9 @@ import "@/styles/global.css";
               <p class="font-medium">企業級安全</p>
               <p class="text-sm text-slate-400">SOC 2 Type II 認證</p>
             </div>
-          </div>
-          <div class="flex items-center gap-4 p-4 rounded-xl bg-white/5 border border-white/10">
-            <div class="flex items-center justify-center w-12 h-12 rounded-lg bg-emerald-500/20">
+          </li>
+          <li class="flex items-center gap-4 p-4 rounded-xl bg-white/5 border border-white/10">
+            <div class="flex items-center justify-center w-12 h-12 rounded-lg bg-emerald-500/20 text-emerald-300">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
@@ -80,7 +96,7 @@ import "@/styles/global.css";
                 stroke-width="2"
                 stroke-linecap="round"
                 stroke-linejoin="round"
-                class="text-emerald-400"
+                aria-hidden="true"
               >
                 <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
               </svg>
@@ -89,9 +105,9 @@ import "@/styles/global.css";
               <p class="font-medium">99.9% 正常運行</p>
               <p class="text-sm text-slate-400">穩定可靠的服務品質</p>
             </div>
-          </div>
-          <div class="flex items-center gap-4 p-4 rounded-xl bg-white/5 border border-white/10">
-            <div class="flex items-center justify-center w-12 h-12 rounded-lg bg-amber-500/20">
+          </li>
+          <li class="flex items-center gap-4 p-4 rounded-xl bg-white/5 border border-white/10">
+            <div class="flex items-center justify-center w-12 h-12 rounded-lg bg-amber-500/20 text-amber-300">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
@@ -102,7 +118,7 @@ import "@/styles/global.css";
                 stroke-width="2"
                 stroke-linecap="round"
                 stroke-linejoin="round"
-                class="text-amber-400"
+                aria-hidden="true"
               >
                 <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
                 <circle cx="9" cy="7" r="4" />
@@ -114,17 +130,17 @@ import "@/styles/global.css";
               <p class="font-medium">超過 10,000+ 用戶</p>
               <p class="text-sm text-slate-400">信任我們的企業夥伴</p>
             </div>
-          </div>
-        </div>
-        <p class="text-xs text-slate-500">© 2026 CubbyPro. All rights reserved.</p>
-      </div>
+          </li>
+        </ul>
+        <p class="text-xs text-slate-400">© 2026 CubbyPro. All rights reserved.</p>
+      </aside>
 
       <!-- Right: Login Form -->
-      <div class="flex items-center justify-center p-8 bg-gray-50/50">
+      <main class="flex items-center justify-center p-6 sm:p-8 bg-muted/30">
         <div class="w-full max-w-sm space-y-6">
           <!-- Mobile Logo -->
           <div class="flex items-center gap-2.5 lg:hidden mb-8">
-            <div class="flex items-center justify-center w-8 h-8 rounded-lg bg-indigo-500 text-white">
+            <div class="flex items-center justify-center w-8 h-8 rounded-lg bg-primary text-primary-foreground">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="18"
@@ -135,12 +151,13 @@ import "@/styles/global.css";
                 stroke-width="2.5"
                 stroke-linecap="round"
                 stroke-linejoin="round"
+                aria-hidden="true"
               >
                 <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
               </svg>
             </div>
             <span class="text-lg font-bold tracking-tight">
-              Cubby<span class="text-indigo-500">Pro</span>
+              Cubby<span class="text-primary">Pro</span>
             </span>
           </div>
 
@@ -157,10 +174,11 @@ import "@/styles/global.css";
               <input
                 class="cu-input"
                 id="email"
+                name="email"
                 type="email"
+                autocomplete="email"
                 placeholder="name@company.com"
                 required
-                aria-required="true"
               />
             </div>
             <div class="cu-form-group">
@@ -168,62 +186,56 @@ import "@/styles/global.css";
                 <label class="cu-label" for="password">
                   密碼
                 </label>
-                <a
-                  href={withBase("/examples/dashboard-v2/forgot-password")}
-                  class="text-xs text-muted-foreground hover:text-foreground transition-colors duration-150"
-                >
+                <a href={withBase("/examples/dashboard-v2/forgot-password")} class="cu-link-muted text-xs">
                   忘記密碼？
                 </a>
               </div>
               <input
                 class="cu-input"
                 id="password"
+                name="password"
                 type="password"
+                autocomplete="current-password"
                 placeholder="請輸入密碼"
                 required
-                aria-required="true"
               />
             </div>
-            <label class="cu-checkbox-wrapper">
-              <input type="checkbox" class="cu-checkbox" />
-              <span class="text-sm">記住我</span>
-            </label>
-            <button
-              type="submit"
-              class="cu-button cu-button-md w-full bg-indigo-600 hover:bg-indigo-700 text-white border-0"
-            >
+            <div class="cu-checkbox-wrapper">
+              <input type="checkbox" class="cu-checkbox" id="remember" name="remember" />
+              <label for="remember" class="text-sm">
+                記住我
+              </label>
+            </div>
+            <button type="submit" class="cu-button cu-button-default cu-button-md w-full">
               登入
             </button>
           </form>
 
-          <div class="relative">
-            <div class="absolute inset-0 flex items-center">
-              <div class="cu-separator"></div>
-            </div>
-            <div class="relative flex justify-center">
-              <span class="bg-gray-50/50 px-3 text-xs text-muted-foreground">或</span>
-            </div>
+          <div class="flex items-center gap-3">
+            <div class="cu-separator cu-separator-horizontal flex-1"></div>
+            <span class="text-xs text-muted-foreground">或</span>
+            <div class="cu-separator cu-separator-horizontal flex-1"></div>
           </div>
 
           <div class="grid grid-cols-2 gap-3">
             <button type="button" class="cu-button cu-button-outline cu-button-md">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" class="mr-2">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true">
                 <path
                   d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z"
                   fill="#4285F4"
-                />
+                ></path>
                 <path
                   d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
                   fill="#34A853"
-                />
+                ></path>
                 <path
                   d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"
                   fill="#FBBC05"
-                />
+                ></path>
                 <path
                   d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
                   fill="#EA4335"
-                />
+                ></path>
               </svg>
               Google
             </button>
@@ -234,9 +246,9 @@ import "@/styles/global.css";
                 height="16"
                 viewBox="0 0 24 24"
                 fill="currentColor"
-                class="mr-2"
+                aria-hidden="true"
               >
-                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"></path>
               </svg>
               GitHub
             </button>
@@ -244,12 +256,12 @@ import "@/styles/global.css";
 
           <p class="text-center text-sm text-muted-foreground">
             還沒有帳號？
-            <a href={withBase("/examples/dashboard-v2/register")} class="cu-link text-indigo-600 hover:text-indigo-700">
+            <a href={withBase("/examples/dashboard-v2/register")} class="cu-link">
               立即註冊
             </a>
           </p>
         </div>
-      </div>
+      </main>
     </div>
   </body>
 </html>

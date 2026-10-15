@@ -28,15 +28,32 @@ import DashboardV5Layout from "@/layouts/DashboardV5Layout.astro";
     <header class="cu-page-header">
       <div class="cu-page-header-content">
         <div class="flex items-center gap-4">
-          <div class="w-12 h-12 rounded-lg bg-muted flex items-center justify-center text-2xl shrink-0">💻</div>
+          <div class="w-12 h-12 rounded-lg bg-muted text-muted-foreground flex items-center justify-center shrink-0">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M20 16V7a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v9m16 0H4m16 0 1.28 2.55a1 1 0 0 1-.9 1.45H3.62a1 1 0 0 1-.9-1.45L4 16" />
+            </svg>
+          </div>
           <div>
             <h1 class="cu-page-header-title text-2xl md:text-2xl">MacBook Pro 14"</h1>
-            <p class="cu-page-header-description">PRD-001 · 筆記型電腦</p>
+            <p class="cu-page-header-description">
+              <code class="text-xs font-mono text-muted-foreground">PRD-001</code> · 筆記型電腦
+            </p>
           </div>
         </div>
       </div>
       <div class="cu-page-header-actions">
-        <a href={withBase("/examples/dashboard-v5")} class="cu-button cu-button-outline">
+        <a href={withBase("/examples/dashboard-v5")} class="cu-button cu-button-outline cu-button-md">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="16"
@@ -47,13 +64,14 @@ import DashboardV5Layout from "@/layouts/DashboardV5Layout.astro";
             stroke-width="2"
             stroke-linecap="round"
             stroke-linejoin="round"
+            aria-hidden="true"
           >
             <path d="m12 19-7-7 7-7" />
             <path d="M19 12H5" />
           </svg>
           返回列表
         </a>
-        <a href={withBase("/examples/dashboard-v5/products/create")} class="cu-button cu-button-default">
+        <a href={withBase("/examples/dashboard-v5/products/create")} class="cu-button cu-button-default cu-button-md">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="16"
@@ -64,6 +82,7 @@ import DashboardV5Layout from "@/layouts/DashboardV5Layout.astro";
             stroke-width="2"
             stroke-linecap="round"
             stroke-linejoin="round"
+            aria-hidden="true"
           >
             <path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z" />
             <path d="m15 5 4 4" />
@@ -91,7 +110,7 @@ import DashboardV5Layout from "@/layouts/DashboardV5Layout.astro";
               <div class="flex flex-col sm:flex-row sm:items-center py-3 border-b border-border">
                 <dt class="sm:w-1/3 text-sm text-muted-foreground">產品編號</dt>
                 <dd class="sm:w-2/3 text-sm font-medium">
-                  <code class="text-xs font-mono text-muted-foreground bg-muted px-2 py-1 rounded">PRD-001</code>
+                  <code class="text-xs font-mono text-muted-foreground">PRD-001</code>
                 </dd>
               </div>
               <div class="flex flex-col sm:flex-row sm:items-center py-3 border-b border-border">
@@ -100,15 +119,15 @@ import DashboardV5Layout from "@/layouts/DashboardV5Layout.astro";
               </div>
               <div class="flex flex-col sm:flex-row sm:items-center py-3 border-b border-border">
                 <dt class="sm:w-1/3 text-sm text-muted-foreground">售價</dt>
-                <dd class="sm:w-2/3 text-sm font-medium">$59,900</dd>
+                <dd class="sm:w-2/3 text-sm font-medium tabular-nums">$59,900</dd>
               </div>
               <div class="flex flex-col sm:flex-row sm:items-center py-3 border-b border-border">
                 <dt class="sm:w-1/3 text-sm text-muted-foreground">成本</dt>
-                <dd class="sm:w-2/3 text-sm font-medium">$45,000</dd>
+                <dd class="sm:w-2/3 text-sm font-medium tabular-nums">$45,000</dd>
               </div>
               <div class="flex flex-col sm:flex-row sm:items-center py-3 border-b border-border">
                 <dt class="sm:w-1/3 text-sm text-muted-foreground">庫存數量</dt>
-                <dd class="sm:w-2/3 text-sm font-medium">
+                <dd class="sm:w-2/3 text-sm font-medium tabular-nums">
                   24 <span class="cu-badge cu-badge-soft-success ml-2">充足</span>
                 </dd>
               </div>
@@ -141,40 +160,48 @@ import DashboardV5Layout from "@/layouts/DashboardV5Layout.astro";
             <h2 class="cu-card-title text-base">近期訂單</h2>
           </div>
           <div class="cu-card-content-flush">
-            <div class="cu-table-wrapper">
+            <div class="cu-table-wrapper" role="region" aria-label="近期訂單" tabindex="0">
               <table class="cu-table">
                 <thead class="cu-table-header">
                   <tr class="cu-table-row hover:bg-transparent">
-                    <th class="cu-table-head">訂單編號</th>
-                    <th class="cu-table-head">客戶</th>
-                    <th class="cu-table-head text-right">金額</th>
-                    <th class="cu-table-head text-right">日期</th>
+                    <th scope="col" class="cu-table-head">
+                      訂單編號
+                    </th>
+                    <th scope="col" class="cu-table-head">
+                      客戶
+                    </th>
+                    <th scope="col" class="cu-table-head text-right">
+                      金額
+                    </th>
+                    <th scope="col" class="cu-table-head text-right">
+                      日期
+                    </th>
                   </tr>
                 </thead>
                 <tbody class="cu-table-body">
                   <tr class="cu-table-row">
                     <td class="cu-table-cell">
-                      <code class="text-xs font-mono font-medium">ORD-2024-001</code>
+                      <code class="text-xs font-mono text-muted-foreground">ORD-2024-001</code>
                     </td>
                     <td class="cu-table-cell">陳柏翰</td>
                     <td class="cu-table-cell text-right font-medium tabular-nums">$59,900</td>
-                    <td class="cu-table-cell text-right text-muted-foreground">2026/02/03</td>
+                    <td class="cu-table-cell text-right text-muted-foreground tabular-nums">2026/02/03</td>
                   </tr>
                   <tr class="cu-table-row">
                     <td class="cu-table-cell">
-                      <code class="text-xs font-mono font-medium">ORD-2024-005</code>
+                      <code class="text-xs font-mono text-muted-foreground">ORD-2024-005</code>
                     </td>
                     <td class="cu-table-cell">李佳穎</td>
                     <td class="cu-table-cell text-right font-medium tabular-nums">$59,900</td>
-                    <td class="cu-table-cell text-right text-muted-foreground">2026/02/02</td>
+                    <td class="cu-table-cell text-right text-muted-foreground tabular-nums">2026/02/02</td>
                   </tr>
                   <tr class="cu-table-row">
                     <td class="cu-table-cell">
-                      <code class="text-xs font-mono font-medium">ORD-2024-008</code>
+                      <code class="text-xs font-mono text-muted-foreground">ORD-2024-008</code>
                     </td>
                     <td class="cu-table-cell">許志明</td>
                     <td class="cu-table-cell text-right font-medium tabular-nums">$59,900</td>
-                    <td class="cu-table-cell text-right text-muted-foreground">2026/02/01</td>
+                    <td class="cu-table-cell text-right text-muted-foreground tabular-nums">2026/02/01</td>
                   </tr>
                 </tbody>
               </table>
@@ -205,13 +232,14 @@ import DashboardV5Layout from "@/layouts/DashboardV5Layout.astro";
                 stroke-width="2"
                 stroke-linecap="round"
                 stroke-linejoin="round"
+                aria-hidden="true"
               >
                 <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z" />
                 <circle cx="12" cy="12" r="3" />
               </svg>
             </div>
           </div>
-          <div class="cu-stat-value">1,284</div>
+          <div class="cu-stat-value tabular-nums">1,284</div>
         </div>
         <div class="cu-stat">
           <div class="cu-stat-header">
@@ -227,6 +255,7 @@ import DashboardV5Layout from "@/layouts/DashboardV5Layout.astro";
                 stroke-width="2"
                 stroke-linecap="round"
                 stroke-linejoin="round"
+                aria-hidden="true"
               >
                 <circle cx="8" cy="21" r="1" />
                 <circle cx="19" cy="21" r="1" />
@@ -234,7 +263,7 @@ import DashboardV5Layout from "@/layouts/DashboardV5Layout.astro";
               </svg>
             </div>
           </div>
-          <div class="cu-stat-value">18</div>
+          <div class="cu-stat-value tabular-nums">18</div>
         </div>
         <div class="cu-stat">
           <div class="cu-stat-header">
@@ -250,13 +279,14 @@ import DashboardV5Layout from "@/layouts/DashboardV5Layout.astro";
                 stroke-width="2"
                 stroke-linecap="round"
                 stroke-linejoin="round"
+                aria-hidden="true"
               >
                 <line x1="12" y1="1" x2="12" y2="23" />
                 <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
               </svg>
             </div>
           </div>
-          <div class="cu-stat-value">$1,078,200</div>
+          <div class="cu-stat-value tabular-nums">$1,078,200</div>
         </div>
 
         <!-- 操作 -->
@@ -265,7 +295,10 @@ import DashboardV5Layout from "@/layouts/DashboardV5Layout.astro";
             <h2 class="cu-card-title text-base">操作</h2>
           </div>
           <div class="cu-card-content space-y-3">
-            <a href={withBase("/examples/dashboard-v5/products/create")} class="cu-button cu-button-default w-full">
+            <a
+              href={withBase("/examples/dashboard-v5/products/create")}
+              class="cu-button cu-button-default cu-button-md w-full"
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="16"
@@ -276,13 +309,17 @@ import DashboardV5Layout from "@/layouts/DashboardV5Layout.astro";
                 stroke-width="2"
                 stroke-linecap="round"
                 stroke-linejoin="round"
+                aria-hidden="true"
               >
                 <path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z" />
                 <path d="m15 5 4 4" />
               </svg>
               編輯產品
             </a>
-            <button class="cu-button cu-button-outline border-destructive/50 text-destructive hover:bg-destructive/10 w-full">
+            <button
+              type="button"
+              class="cu-button cu-button-outline cu-button-md border-destructive/50 text-destructive hover:bg-destructive/10 w-full"
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="16"
@@ -293,6 +330,7 @@ import DashboardV5Layout from "@/layouts/DashboardV5Layout.astro";
                 stroke-width="2"
                 stroke-linecap="round"
                 stroke-linejoin="round"
+                aria-hidden="true"
               >
                 <path d="M3 6h18" />
                 <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />

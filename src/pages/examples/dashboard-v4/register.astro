@@ -1,10 +1,17 @@
 ---
 import { withBase } from "@/utils/paths";
 import "@/styles/global.css";
+
+const highlights = [
+  { value: "500+", label: "企業客戶" },
+  { value: "10M+", label: "資料筆數處理" },
+  { value: "99.9%", label: "服務可用性" },
+  { value: "4.9", label: "客戶滿意度" },
+];
 ---
 
 <!doctype html>
-<html lang="zh-Hant">
+<html lang="zh-Hant" data-theme-prism>
   <head>
     <meta charset="UTF-8" />
     <meta name="description" content="Register — Prism" />
@@ -14,18 +21,35 @@ import "@/styles/global.css";
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
     <title>註冊 — Prism</title>
-    <style>
-      body {
-        font-family: "Inter", system-ui, sans-serif;
+    <style is:global>
+      /* Prism 品牌色：與 DashboardV4Layout 相同，覆寫 primary / ring / chart-1 */
+      html[data-theme-prism] {
+        --color-primary: hsl(262 83% 58%);
+        --color-primary-foreground: hsl(0 0% 100%);
+        --color-ring: hsl(262 83% 58%);
+        --color-chart-1: hsl(262 83% 58%);
+      }
+
+      html.dark[data-theme-prism] {
+        --color-primary: hsl(258 90% 66%);
+        --color-primary-foreground: hsl(0 0% 100%);
+        --color-ring: hsl(263 60% 40%);
+        --color-chart-1: hsl(258 90% 66%);
       }
     </style>
   </head>
-  <body class="min-h-screen antialiased bg-slate-50">
+  <body class="min-h-screen font-sans antialiased text-foreground bg-background">
     <div class="grid min-h-screen lg:grid-cols-2">
       <!-- Left: Brand Panel -->
-      <div class="hidden lg:flex flex-col justify-between bg-white p-10 border-r border-slate-200/80">
-        <div class="flex items-center gap-2.5">
-          <div class="flex items-center justify-center w-9 h-9 rounded-xl bg-violet-600 text-white">
+      <aside
+        class="hidden lg:flex flex-col justify-between bg-muted/40 p-10 border-r border-border"
+        aria-label="Prism 平台數據"
+      >
+        <a href={withBase("/examples/dashboard-v4")} class="flex items-center gap-2.5 self-start rounded-lg">
+          <div
+            class="flex items-center justify-center w-9 h-9 rounded-xl bg-gradient-to-br from-violet-500 to-purple-600 text-white shadow-sm"
+            aria-hidden="true"
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="20"
@@ -37,48 +61,43 @@ import "@/styles/global.css";
               stroke-linecap="round"
               stroke-linejoin="round"
             >
-              <path d="M12 3L2 12h3v9h14v-9h3L12 3z" />
+              <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+              <polyline points="2 17 12 22 22 17"></polyline>
+              <polyline points="2 12 12 17 22 12"></polyline>
             </svg>
           </div>
-          <span class="text-xl font-bold tracking-tight text-slate-900">Prism</span>
-        </div>
+          <span class="text-xl font-bold tracking-tight text-foreground">Prism</span>
+        </a>
         <div class="space-y-8">
           <div class="space-y-4">
-            <h2 class="text-3xl font-bold leading-tight text-slate-900">
+            <h2 class="text-3xl font-bold leading-tight text-foreground">
               開始您的
               <br />
               數據分析之旅
             </h2>
-            <p class="text-slate-500 max-w-md">免費試用 14 天，無需信用卡。體驗企業級的數據分析平台。</p>
+            <p class="text-muted-foreground max-w-md">免費試用 14 天，無需信用卡。體驗企業級的數據分析平台。</p>
           </div>
-          <div class="grid grid-cols-2 gap-4">
-            <div class="p-4 rounded-xl bg-slate-50 border border-slate-100 text-center">
-              <div class="text-2xl font-bold text-slate-900">500+</div>
-              <div class="text-sm text-slate-500">企業客戶</div>
-            </div>
-            <div class="p-4 rounded-xl bg-slate-50 border border-slate-100 text-center">
-              <div class="text-2xl font-bold text-slate-900">10M+</div>
-              <div class="text-sm text-slate-500">資料筆數處理</div>
-            </div>
-            <div class="p-4 rounded-xl bg-slate-50 border border-slate-100 text-center">
-              <div class="text-2xl font-bold text-slate-900">99.9%</div>
-              <div class="text-sm text-slate-500">服務可用性</div>
-            </div>
-            <div class="p-4 rounded-xl bg-slate-50 border border-slate-100 text-center">
-              <div class="text-2xl font-bold text-slate-900">4.9</div>
-              <div class="text-sm text-slate-500">客戶滿意度</div>
-            </div>
-          </div>
+          <dl class="grid grid-cols-2 gap-4">
+            {highlights.map((h) => (
+              <div class="flex flex-col-reverse p-4 rounded-xl bg-card border border-border/60 shadow-xs text-center">
+                <dt class="text-sm text-muted-foreground">{h.label}</dt>
+                <dd class="text-2xl font-bold tabular-nums text-foreground">{h.value}</dd>
+              </div>
+            ))}
+          </dl>
         </div>
-        <p class="text-xs text-slate-400">© 2026 Prism Analytics. All rights reserved.</p>
-      </div>
+        <p class="text-xs text-muted-foreground">© 2026 Prism Analytics. All rights reserved.</p>
+      </aside>
 
       <!-- Right: Register Form -->
-      <div class="flex items-center justify-center p-8">
+      <main class="flex items-center justify-center p-6 sm:p-8">
         <div class="w-full max-w-sm space-y-6">
           <!-- Mobile Logo -->
-          <div class="flex items-center gap-2.5 lg:hidden mb-8">
-            <div class="flex items-center justify-center w-9 h-9 rounded-xl bg-violet-600 text-white">
+          <a href={withBase("/examples/dashboard-v4")} class="flex items-center gap-2.5 lg:hidden mb-8 w-fit">
+            <div
+              class="flex items-center justify-center w-9 h-9 rounded-xl bg-gradient-to-br from-violet-500 to-purple-600 text-white shadow-sm"
+              aria-hidden="true"
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="20"
@@ -90,30 +109,50 @@ import "@/styles/global.css";
                 stroke-linecap="round"
                 stroke-linejoin="round"
               >
-                <path d="M12 3L2 12h3v9h14v-9h3L12 3z" />
+                <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                <polyline points="2 17 12 22 22 17"></polyline>
+                <polyline points="2 12 12 17 22 12"></polyline>
               </svg>
             </div>
-            <span class="text-xl font-bold tracking-tight">Prism</span>
-          </div>
+            <span class="text-xl font-bold tracking-tight text-foreground">Prism</span>
+          </a>
 
           <div class="space-y-2">
-            <h1 class="text-2xl font-bold tracking-tight text-slate-900">建立帳號</h1>
-            <p class="text-sm text-slate-500">填寫以下資訊開始免費試用</p>
+            <h1 class="text-2xl font-bold tracking-tight text-foreground">建立帳號</h1>
+            <p class="text-sm text-muted-foreground">填寫以下資訊開始免費試用</p>
           </div>
 
           <form class="space-y-4" action={withBase("/examples/dashboard-v4")}>
             <div class="grid grid-cols-2 gap-3">
               <div class="cu-form-group">
-                <label class="cu-label" for="first-name">
+                <label class="cu-label" for="family-name">
                   姓氏
                 </label>
-                <input class="cu-input" id="first-name" type="text" placeholder="王" required aria-required="true" />
+                <input
+                  class="cu-input"
+                  id="family-name"
+                  name="family-name"
+                  type="text"
+                  autocomplete="family-name"
+                  placeholder="王"
+                  required
+                  aria-required="true"
+                />
               </div>
               <div class="cu-form-group">
-                <label class="cu-label" for="last-name">
+                <label class="cu-label" for="given-name">
                   名字
                 </label>
-                <input class="cu-input" id="last-name" type="text" placeholder="小明" required aria-required="true" />
+                <input
+                  class="cu-input"
+                  id="given-name"
+                  name="given-name"
+                  type="text"
+                  autocomplete="given-name"
+                  placeholder="小明"
+                  required
+                  aria-required="true"
+                />
               </div>
             </div>
             <div class="cu-form-group">
@@ -123,7 +162,9 @@ import "@/styles/global.css";
               <input
                 class="cu-input"
                 id="email"
+                name="email"
                 type="email"
+                autocomplete="email"
                 placeholder="name@company.com"
                 required
                 aria-required="true"
@@ -133,7 +174,14 @@ import "@/styles/global.css";
               <label class="cu-label" for="company">
                 公司名稱
               </label>
-              <input class="cu-input" id="company" type="text" placeholder="您的公司名稱" />
+              <input
+                class="cu-input"
+                id="company"
+                name="company"
+                type="text"
+                autocomplete="organization"
+                placeholder="您的公司名稱"
+              />
             </div>
             <div class="cu-form-group">
               <label class="cu-label" for="password">
@@ -142,44 +190,48 @@ import "@/styles/global.css";
               <input
                 class="cu-input"
                 id="password"
+                name="password"
                 type="password"
+                autocomplete="new-password"
+                minlength="8"
                 placeholder="至少 8 個字元"
                 required
                 aria-required="true"
+                aria-describedby="password-hint"
               />
+              <p id="password-hint" class="cu-form-description">
+                密碼長度至少 8 個字元
+              </p>
             </div>
-            <label class="cu-checkbox-wrapper">
-              <input type="checkbox" class="cu-checkbox" required />
-              <span class="text-sm">
+            <div class="cu-checkbox-wrapper items-start">
+              <input type="checkbox" class="cu-checkbox mt-0.5" id="terms" name="terms" required aria-required="true" />
+              <label for="terms" class="text-sm">
                 我已閱讀並同意
-                <a href="#" class="text-violet-600 hover:text-violet-700">
+                <a href="#" class="cu-link-plain">
                   服務條款
                 </a>
                 與
-                <a href="#" class="text-violet-600 hover:text-violet-700">
+                <a href="#" class="cu-link-plain">
                   隱私政策
                 </a>
-              </span>
-            </label>
-            <button
-              type="submit"
-              class="cu-button cu-button-md w-full bg-violet-600 hover:bg-violet-700 text-white border-0"
-            >
+              </label>
+            </div>
+            <button type="submit" class="cu-button cu-button-default cu-button-md w-full">
               建立帳號
             </button>
           </form>
 
           <div class="relative">
-            <div class="absolute inset-0 flex items-center">
-              <div class="cu-separator"></div>
+            <div class="absolute inset-0 flex items-center" aria-hidden="true">
+              <div class="cu-separator cu-separator-horizontal"></div>
             </div>
             <div class="relative flex justify-center">
-              <span class="bg-slate-50 px-3 text-xs text-slate-500">或使用其他方式</span>
+              <span class="bg-background px-3 text-xs text-muted-foreground">或使用其他方式</span>
             </div>
           </div>
 
           <button type="button" class="cu-button cu-button-outline cu-button-md w-full">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" class="mr-2">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true">
               <path
                 d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z"
                 fill="#4285F4"
@@ -200,17 +252,14 @@ import "@/styles/global.css";
             使用 Google 帳號註冊
           </button>
 
-          <p class="text-center text-sm text-slate-500">
+          <p class="text-center text-sm text-muted-foreground">
             已經有帳號？
-            <a
-              href={withBase("/examples/dashboard-v4/login")}
-              class="text-violet-600 hover:text-violet-700 font-medium transition-colors duration-150"
-            >
+            <a href={withBase("/examples/dashboard-v4/login")} class="cu-link-plain">
               立即登入
             </a>
           </p>
         </div>
-      </div>
+      </main>
     </div>
   </body>
 </html>

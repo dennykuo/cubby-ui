@@ -11,7 +11,7 @@ const products = [
     price: 59900,
     stock: 24,
     status: "active",
-    image: "💻",
+    icon: "laptop",
   },
   {
     id: "PRD-002",
@@ -20,10 +20,26 @@ const products = [
     price: 52900,
     stock: 156,
     status: "active",
-    image: "📱",
+    icon: "smartphone",
   },
-  { id: "PRD-003", name: "AirPods Pro 2", category: "耳機", price: 7490, stock: 89, status: "active", image: "🎧" },
-  { id: "PRD-004", name: "iPad Air M2", category: "平板電腦", price: 22900, stock: 42, status: "active", image: "📲" },
+  {
+    id: "PRD-003",
+    name: "AirPods Pro 2",
+    category: "耳機",
+    price: 7490,
+    stock: 89,
+    status: "active",
+    icon: "headphones",
+  },
+  {
+    id: "PRD-004",
+    name: "iPad Air M2",
+    category: "平板電腦",
+    price: 22900,
+    stock: 42,
+    status: "active",
+    icon: "tablet",
+  },
   {
     id: "PRD-005",
     name: "Apple Watch Ultra 2",
@@ -31,10 +47,10 @@ const products = [
     price: 27900,
     stock: 18,
     status: "low",
-    image: "⌚",
+    icon: "watch",
   },
-  { id: "PRD-006", name: "Magic Keyboard", category: "配件", price: 9990, stock: 0, status: "out", image: "⌨️" },
-  { id: "PRD-007", name: "Studio Display", category: "顯示器", price: 47900, stock: 7, status: "low", image: "🖥️" },
+  { id: "PRD-006", name: "Magic Keyboard", category: "配件", price: 9990, stock: 0, status: "out", icon: "keyboard" },
+  { id: "PRD-007", name: "Studio Display", category: "顯示器", price: 47900, stock: 7, status: "low", icon: "monitor" },
   {
     id: "PRD-008",
     name: "Mac Mini M2 Pro",
@@ -42,9 +58,27 @@ const products = [
     price: 42900,
     stock: 31,
     status: "active",
-    image: "🗄️",
+    icon: "desktop",
   },
 ];
+
+// 單色線條圖示（lucide），取代各平台顯示不一致的 emoji
+const productIcons: Record<string, string> = {
+  laptop:
+    '<path d="M20 16V7a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v9m16 0H4m16 0 1.28 2.55a1 1 0 0 1-.9 1.45H3.62a1 1 0 0 1-.9-1.45L4 16"/>',
+  smartphone: '<rect width="14" height="20" x="5" y="2" rx="2" ry="2"/><path d="M12 18h.01"/>',
+  headphones:
+    '<path d="M3 14h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-7a9 9 0 0 1 18 0v7a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3"/>',
+  tablet: '<rect width="16" height="20" x="4" y="2" rx="2" ry="2"/><line x1="12" x2="12.01" y1="18" y2="18"/>',
+  watch:
+    '<circle cx="12" cy="12" r="6"/><polyline points="12 10 12 12 13 13"/><path d="m16.13 7.66-.81-4.05a2 2 0 0 0-2-1.61h-2.68a2 2 0 0 0-2 1.61l-.78 4.05"/><path d="m7.88 16.36.8 4a2 2 0 0 0 2 1.61h2.72a2 2 0 0 0 2-1.61l.81-4.05"/>',
+  keyboard:
+    '<path d="M10 8h.01"/><path d="M12 12h.01"/><path d="M14 8h.01"/><path d="M16 12h.01"/><path d="M18 8h.01"/><path d="M6 8h.01"/><path d="M7 16h10"/><path d="M8 12h.01"/><rect width="20" height="16" x="2" y="4" rx="2"/>',
+  monitor:
+    '<rect width="20" height="14" x="2" y="3" rx="2"/><line x1="8" x2="16" y1="21" y2="21"/><line x1="12" x2="12" y1="17" y2="21"/>',
+  desktop:
+    '<rect width="20" height="8" x="2" y="2" rx="2" ry="2"/><rect width="20" height="8" x="2" y="14" rx="2" ry="2"/><line x1="6" x2="6.01" y1="6" y2="6"/><line x1="6" x2="6.01" y1="18" y2="18"/>',
+};
 ---
 
 <DashboardV5Layout title="產品管理 — DataHub">
@@ -381,10 +415,21 @@ const products = [
                 <td class="cu-table-cell">
                   <div class="flex items-center gap-3">
                     <div
-                      class="w-10 h-10 rounded-lg bg-muted flex items-center justify-center text-xl shrink-0"
+                      class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-muted text-muted-foreground"
                       aria-hidden="true"
                     >
-                      {product.image}
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="20"
+                        height="20"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        set:html={productIcons[product.icon]}
+                      />
                     </div>
                     <span class="font-medium">{product.name}</span>
                   </div>

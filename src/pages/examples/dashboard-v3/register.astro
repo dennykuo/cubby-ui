@@ -4,7 +4,7 @@ import "@/styles/global.css";
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme-nexus>
   <head>
     <meta charset="UTF-8" />
     <meta name="description" content="Register — Nexus" />
@@ -19,13 +19,29 @@ import "@/styles/global.css";
         font-family: "Inter", system-ui, sans-serif;
       }
     </style>
+    <style is:global>
+      /* Nexus 品牌色：與 DashboardV3Layout 相同，覆寫 primary / ring / chart-1 為 teal，語意 token 自動跟隨 */
+      html[data-theme-nexus] {
+        --color-primary: hsl(175 84% 32%);
+        --color-primary-foreground: hsl(0 0% 100%);
+        --color-ring: hsl(175 84% 32%);
+        --color-chart-1: hsl(175 84% 32%);
+      }
+
+      html.dark[data-theme-nexus] {
+        --color-primary: hsl(172 66% 50%);
+        --color-primary-foreground: hsl(222 47% 11%);
+        --color-ring: hsl(175 60% 28%);
+        --color-chart-1: hsl(172 66% 50%);
+      }
+    </style>
   </head>
-  <body class="min-h-screen antialiased bg-stone-50">
+  <body class="min-h-screen antialiased bg-background text-foreground">
     <div class="grid min-h-screen lg:grid-cols-2">
       <!-- Left: Brand Panel with Gradient -->
       <div class="hidden lg:flex flex-col justify-between bg-gradient-to-br from-teal-600 to-emerald-600 p-10 text-white relative overflow-hidden">
         <!-- Background Pattern -->
-        <div class="absolute inset-0 opacity-10">
+        <div class="absolute inset-0 opacity-10" aria-hidden="true">
           <svg class="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
             <defs>
               <pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse">
@@ -47,6 +63,7 @@ import "@/styles/global.css";
               stroke-width="2"
               stroke-linecap="round"
               stroke-linejoin="round"
+              aria-hidden="true"
             >
               <polygon points="12 2 2 7 12 12 22 7 12 2" />
               <polyline points="2 17 12 22 22 17" />
@@ -57,7 +74,7 @@ import "@/styles/global.css";
         </div>
         <div class="relative space-y-8">
           <div class="space-y-4">
-            <h2 class="text-3xl font-bold leading-tight">Start your free trial</h2>
+            <p class="text-3xl font-bold leading-tight">Start your free trial</p>
             <p class="text-white/80 max-w-md">
               Get started in minutes with our intuitive platform. No credit card required.
             </p>
@@ -89,7 +106,7 @@ import "@/styles/global.css";
         <div class="w-full max-w-sm space-y-6">
           <!-- Mobile Logo -->
           <div class="flex items-center gap-2.5 lg:hidden mb-8">
-            <div class="flex items-center justify-center w-9 h-9 rounded-xl bg-teal-600 text-white">
+            <div class="flex items-center justify-center w-9 h-9 rounded-xl bg-primary text-primary-foreground">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="20"
@@ -100,6 +117,7 @@ import "@/styles/global.css";
                 stroke-width="2"
                 stroke-linecap="round"
                 stroke-linejoin="round"
+                aria-hidden="true"
               >
                 <polygon points="12 2 2 7 12 12 22 7 12 2" />
                 <polyline points="2 17 12 22 22 17" />
@@ -119,7 +137,16 @@ import "@/styles/global.css";
               <label class="cu-label" for="name">
                 Full name
               </label>
-              <input class="cu-input" id="name" type="text" placeholder="Jane Doe" required aria-required="true" />
+              <input
+                class="cu-input"
+                id="name"
+                name="name"
+                type="text"
+                autocomplete="name"
+                placeholder="Jane Doe"
+                required
+                aria-required="true"
+              />
             </div>
             <div class="cu-form-group">
               <label class="cu-label" for="email">
@@ -128,7 +155,9 @@ import "@/styles/global.css";
               <input
                 class="cu-input"
                 id="email"
+                name="email"
                 type="email"
+                autocomplete="email"
                 placeholder="jane@company.com"
                 required
                 aria-required="true"
@@ -141,46 +170,49 @@ import "@/styles/global.css";
               <input
                 class="cu-input"
                 id="password"
+                name="password"
                 type="password"
+                autocomplete="new-password"
+                minlength="8"
+                aria-describedby="password-hint"
                 placeholder="Create a password"
                 required
                 aria-required="true"
               />
-              <p class="text-xs text-muted-foreground mt-1.5">Must be at least 8 characters</p>
+              <p id="password-hint" class="cu-form-description">
+                Must be at least 8 characters
+              </p>
             </div>
             <label class="cu-checkbox-wrapper">
-              <input type="checkbox" class="cu-checkbox" required />
+              <input type="checkbox" class="cu-checkbox" name="terms" required />
               <span class="text-sm">
                 I agree to the{" "}
-                <a href="#" class="cu-link text-teal-600">
+                <a href="#" class="cu-link">
                   Terms of Service
                 </a>{" "}
                 and{" "}
-                <a href="#" class="cu-link text-teal-600">
+                <a href="#" class="cu-link">
                   Privacy Policy
                 </a>
               </span>
             </label>
-            <button
-              type="submit"
-              class="cu-button cu-button-md w-full bg-teal-600 hover:bg-teal-700 text-white border-0"
-            >
+            <button type="submit" class="cu-button cu-button-default cu-button-md w-full">
               Create account
             </button>
           </form>
 
           <div class="relative">
             <div class="absolute inset-0 flex items-center">
-              <div class="cu-separator"></div>
+              <div class="cu-separator cu-separator-horizontal"></div>
             </div>
             <div class="relative flex justify-center">
-              <span class="bg-stone-50 px-3 text-xs text-muted-foreground">or continue with</span>
+              <span class="bg-background px-3 text-xs text-muted-foreground">or continue with</span>
             </div>
           </div>
 
           <div class="grid grid-cols-2 gap-3">
             <button type="button" class="cu-button cu-button-outline cu-button-md">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" class="mr-2">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true">
                 <path
                   d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z"
                   fill="#4285F4"
@@ -207,7 +239,7 @@ import "@/styles/global.css";
                 height="16"
                 viewBox="0 0 24 24"
                 fill="currentColor"
-                class="mr-2"
+                aria-hidden="true"
               >
                 <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z" />
               </svg>
@@ -217,7 +249,7 @@ import "@/styles/global.css";
 
           <p class="text-center text-sm text-muted-foreground">
             Already have an account?{" "}
-            <a href={withBase("/examples/dashboard-v3/login")} class="cu-link text-teal-600 hover:text-teal-700">
+            <a href={withBase("/examples/dashboard-v3/login")} class="cu-link-plain">
               Sign in
             </a>
           </p>

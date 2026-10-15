@@ -1,12 +1,6 @@
 ---
 import DashboardV2Layout from "@/layouts/DashboardV2Layout.astro";
 import Button from "@/components/ui/Button.astro";
-import Card from "@/components/ui/Card.astro";
-import CardHeader from "@/components/ui/CardHeader.astro";
-import CardTitle from "@/components/ui/CardTitle.astro";
-import CardContent from "@/components/ui/CardContent.astro";
-import CardFooter from "@/components/ui/CardFooter.astro";
-import Badge from "@/components/ui/Badge.astro";
 import Input from "@/components/ui/Input.astro";
 import Select from "@/components/ui/Select.astro";
 import Label from "@/components/ui/Label.astro";
@@ -59,21 +53,24 @@ const products = [
     image: "https://images.unsplash.com/photo-1592078615290-033ee584e267?auto=format&fit=crop&q=80&w=200&h=200",
   },
 ];
+
+const statusMap: Record<string, { label: string; badge: string }> = {
+  "In Stock": { label: "有庫存", badge: "cu-badge-soft-success" },
+  "Low Stock": { label: "庫存偏低", badge: "cu-badge-soft-warning" },
+  "Out of Stock": { label: "已售完", badge: "cu-badge-soft-destructive" },
+};
 ---
 
 <DashboardV2Layout title="商品管理 — CubbyPro">
   <div class="space-y-6 max-w-7xl mx-auto">
-    <!-- Header -->
-    <div class="sm:flex sm:items-center sm:justify-between">
-      <div>
-        <h1 class="text-2xl font-bold tracking-tight text-slate-900">商品管理</h1>
-        <p class="mt-2 text-slate-500">管理商品目錄、庫存狀態與價格設定。</p>
+    <!-- Page Header -->
+    <div class="cu-page-header">
+      <div class="cu-page-header-content">
+        <h1 class="cu-page-header-title text-2xl md:text-2xl">商品管理</h1>
+        <p class="cu-page-header-description">管理商品目錄、庫存狀態與價格設定。</p>
       </div>
-      <div class="mt-4 sm:mt-0">
-        <Button
-          class="bg-indigo-600 hover:bg-indigo-700 text-white gap-2 shadow-sm hover:shadow"
-          onclick="document.getElementById('create_product_dialog').showModal()"
-        >
+      <div class="cu-page-header-actions">
+        <Button type="button" data-cu-dialog-trigger="create-product-dialog">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="16"
@@ -84,7 +81,7 @@ const products = [
             stroke-width="2"
             stroke-linecap="round"
             stroke-linejoin="round"
-            class="shrink-0"
+            aria-hidden="true"
           >
             <path d="M5 12h14"></path>
             <path d="M12 5v14"></path>
@@ -94,113 +91,133 @@ const products = [
       </div>
     </div>
 
-    <!-- Toolbar -->
-    <Card class="bg-white border shadow-sm rounded-xl overflow-visible">
-      <div class="p-4 flex flex-col sm:flex-row gap-4 items-center">
-        <div class="relative w-full sm:w-96">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 shrink-0"
-          >
-            <circle cx="11" cy="11" r="8"></circle>
-            <path d="m21 21-4.3-4.3"></path>
-          </svg>
-          <Input
-            placeholder="搜尋商品名稱、ID..."
-            class="pl-9 bg-slate-50 border-slate-200 focus:bg-white transition-colors"
-          />
+    <!-- Filter Bar -->
+    <div class="cu-filter-bar">
+      <div class="cu-filter-bar-inner">
+        <div class="cu-filter-bar-search">
+          <div class="cu-input-search w-full sm:max-w-96" role="search">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="cu-input-search-icon"
+              aria-hidden="true"
+            >
+              <circle cx="11" cy="11" r="8"></circle>
+              <path d="m21 21-4.3-4.3"></path>
+            </svg>
+            <input
+              type="search"
+              class="cu-input-search-field"
+              placeholder="搜尋商品名稱、ID..."
+              aria-label="搜尋商品"
+            />
+          </div>
         </div>
-        <div class="flex gap-2 w-full sm:w-auto ml-auto">
-          <Select class="w-full sm:w-[150px]">
-            <option>所有分類</option>
-            <option>Electronics</option>
-            <option>Clothing</option>
+        <div class="cu-filter-bar-filters">
+          <Select class="min-w-0 flex-1 sm:w-[150px] sm:flex-none" aria-label="分類篩選">
+            <option value="">所有分類</option>
+            <option value="Electronics">Electronics</option>
+            <option value="Clothing">Clothing</option>
           </Select>
-          <Select class="w-full sm:w-[150px]">
-            <option>所有狀態</option>
-            <option>In Stock</option>
-            <option>Low Stock</option>
-            <option>Out of Stock</option>
+          <Select class="min-w-0 flex-1 sm:w-[150px] sm:flex-none" aria-label="庫存狀態篩選">
+            <option value="">所有狀態</option>
+            <option value="In Stock">有庫存</option>
+            <option value="Low Stock">庫存偏低</option>
+            <option value="Out of Stock">已售完</option>
           </Select>
         </div>
       </div>
-    </Card>
+    </div>
 
     <!-- Product Table -->
-    <Card class="bg-white border shadow-sm rounded-xl overflow-hidden">
-      <div class="overflow-x-auto">
-        <table class="w-full text-sm text-left">
-          <thead class="text-xs text-slate-500 uppercase bg-slate-50/50 border-b">
-            <tr>
-              <th class="px-6 py-4 font-medium">商品資訊</th>
-              <th class="px-6 py-4 font-medium">分類</th>
-              <th class="px-6 py-4 font-medium">庫存</th>
-              <th class="px-6 py-4 font-medium">價格</th>
-              <th class="px-6 py-4 font-medium">狀態</th>
-              <th class="px-6 py-4 font-medium text-right">操作</th>
+    <div class="cu-card overflow-hidden">
+      <div class="cu-table-wrapper" role="region" aria-label="商品列表" tabindex="0">
+        <table class="cu-table">
+          <thead class="cu-table-header">
+            <tr class="cu-table-row hover:bg-transparent">
+              <th scope="col" class="cu-table-head pl-6">
+                商品資訊
+              </th>
+              <th scope="col" class="cu-table-head">
+                分類
+              </th>
+              <th scope="col" class="cu-table-head text-right">
+                庫存
+              </th>
+              <th scope="col" class="cu-table-head text-right">
+                價格
+              </th>
+              <th scope="col" class="cu-table-head">
+                狀態
+              </th>
+              <th scope="col" class="cu-table-head pr-6 text-right">
+                操作
+              </th>
             </tr>
           </thead>
-          <tbody class="divide-y divide-slate-100">
+          <tbody class="cu-table-body">
             {products.map((product) => (
-              <tr class="hover:bg-slate-50/50 transition-colors group">
-                <td class="px-6 py-4">
+              <tr class="cu-table-row">
+                <td class="cu-table-cell pl-6">
                   <div class="flex items-center gap-4">
-                    <div class="h-12 w-12 rounded-lg bg-slate-100 border border-slate-200 overflow-hidden shrink-0">
-                      <img src={product.image} alt={product.name} class="h-full w-full object-cover" />
+                    <div class="h-12 w-12 shrink-0 overflow-hidden rounded-lg border border-border bg-muted">
+                      <img
+                        src={product.image}
+                        alt=""
+                        width="48"
+                        height="48"
+                        loading="lazy"
+                        class="h-full w-full object-cover"
+                      />
                     </div>
-                    <div>
-                      <div class="font-medium text-slate-900 group-hover:text-indigo-600 transition-colors cursor-pointer">
-                        {product.name}
-                      </div>
-                      <div class="text-xs text-slate-500 mt-0.5">{product.id}</div>
+                    <div class="min-w-0">
+                      <div class="font-medium text-foreground">{product.name}</div>
+                      <div class="mt-0.5 font-mono text-xs text-muted-foreground">{product.id}</div>
                     </div>
                   </div>
                 </td>
-                <td class="px-6 py-4 text-slate-600">{product.category}</td>
-                <td class="px-6 py-4 font-medium text-slate-700">{product.stock}</td>
-                <td class="px-6 py-4 font-medium text-slate-900">{product.price}</td>
-                <td class="px-6 py-4">
-                  <Badge
-                    variant={
-                      product.status === "In Stock"
-                        ? "secondary"
-                        : product.status === "Low Stock"
-                          ? "outline"
-                          : "destructive"
-                    }
-                    class={`
-                                            ${product.status === "In Stock" ? "bg-emerald-50 text-emerald-700 ring-1 ring-inset ring-emerald-600/20" : ""}
-                                            ${product.status === "Low Stock" ? "bg-amber-50 text-amber-700 ring-1 ring-inset ring-amber-600/20" : ""}
-                                            ${product.status === "Out of Stock" ? "bg-slate-100 text-slate-500 ring-1 ring-inset ring-slate-500/10" : ""}
-                                        `}
-                  >
-                    <span
-                      class={`w-1.5 h-1.5 rounded-full mr-1.5 ${
-                        product.status === "In Stock"
-                          ? "bg-emerald-500"
-                          : product.status === "Low Stock"
-                            ? "bg-amber-500"
-                            : "bg-slate-400"
-                      }`}
-                    />
-                    {product.status}
-                  </Badge>
+                <td class="cu-table-cell">
+                  <span class="cu-badge cu-badge-outline font-medium whitespace-nowrap">{product.category}</span>
                 </td>
-                <td class="px-6 py-4 text-right">
-                  <div class="flex items-center justify-end gap-2">
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      class="h-8 w-8 text-slate-400 hover:text-indigo-600 hover:bg-indigo-50"
-                      onclick="document.getElementById('edit_product_dialog').showModal()"
+                <td class="cu-table-cell text-right">
+                  <span
+                    class:list={[
+                      "font-medium tabular-nums",
+                      product.stock === 0
+                        ? "text-destructive"
+                        : product.stock < 20
+                          ? "text-warning"
+                          : "text-foreground",
+                    ]}
+                  >
+                    {product.stock}
+                  </span>
+                </td>
+                <td class="cu-table-cell text-right font-medium tabular-nums text-foreground">{product.price}</td>
+                <td class="cu-table-cell">
+                  <span class:list={["cu-badge cu-badge-dot whitespace-nowrap", statusMap[product.status].badge]}>
+                    {statusMap[product.status].label}
+                  </span>
+                </td>
+                <td class="cu-table-cell pr-6">
+                  <div class="cu-table-actions">
+                    <button
+                      type="button"
+                      class="cu-button cu-button-ghost cu-button-icon-sm"
+                      aria-label={`編輯 ${product.name}`}
+                      title="編輯"
+                      data-cu-dialog-trigger="edit-product-dialog"
+                      data-product-edit
+                      data-product-name={product.name}
+                      data-product-price={product.price.replace("$", "")}
+                      data-product-stock={product.stock}
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -212,15 +229,19 @@ const products = [
                         stroke-width="2"
                         stroke-linecap="round"
                         stroke-linejoin="round"
+                        aria-hidden="true"
                       >
                         <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z" />
                       </svg>
-                    </Button>
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      class="h-8 w-8 text-slate-400 hover:text-rose-600 hover:bg-rose-50"
-                      onclick="document.getElementById('delete_product_dialog').showModal()"
+                    </button>
+                    <button
+                      type="button"
+                      class="cu-button cu-button-ghost cu-button-icon-sm hover:bg-destructive/10 hover:text-destructive"
+                      aria-label={`刪除 ${product.name}`}
+                      title="刪除"
+                      data-cu-alert-dialog-trigger="delete-product-dialog"
+                      data-product-delete
+                      data-product-name={product.name}
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -232,13 +253,12 @@ const products = [
                         stroke-width="2"
                         stroke-linecap="round"
                         stroke-linejoin="round"
+                        aria-hidden="true"
                       >
-                        <>
-                          <path d="M3 6h18" />
-                          <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
-                        </>
+                        <path d="M3 6h18" />
+                        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
                       </svg>
-                    </Button>
+                    </button>
                   </div>
                 </td>
               </tr>
@@ -246,212 +266,293 @@ const products = [
           </tbody>
         </table>
       </div>
-      <div class="border-t px-6 py-4 flex items-center justify-between bg-slate-50/50">
-        <p class="text-sm text-slate-500">顯示 1-5 筆，共 42 筆商品</p>
-        <div class="flex gap-2">
-          <Button variant="outline" size="sm" disabled>
-            上一頁
-          </Button>
-          <Button variant="outline" size="sm" class="bg-white hover:bg-slate-50">
-            下一頁
-          </Button>
-        </div>
+
+      <!-- Pagination -->
+      <div class="flex flex-col gap-3 border-t border-border px-6 py-4 sm:flex-row sm:items-center sm:justify-between">
+        <p class="text-sm text-muted-foreground">顯示第 1-5 筆，共 42 筆商品</p>
+        <nav class="cu-pagination" aria-label="商品列表分頁">
+          <button type="button" class="cu-pagination-prev" aria-label="上一頁" disabled>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="m15 18-6-6 6-6"></path>
+            </svg>
+          </button>
+          <button
+            type="button"
+            class="cu-pagination-item cu-pagination-item-active"
+            aria-label="第 1 頁"
+            aria-current="page"
+          >
+            1
+          </button>
+          <button type="button" class="cu-pagination-item" aria-label="第 2 頁">
+            2
+          </button>
+          <button type="button" class="cu-pagination-item" aria-label="第 3 頁">
+            3
+          </button>
+          <span class="cu-pagination-ellipsis" aria-hidden="true">
+            ...
+          </span>
+          <button type="button" class="cu-pagination-item" aria-label="第 9 頁">
+            9
+          </button>
+          <button type="button" class="cu-pagination-next" aria-label="下一頁">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="m9 18 6-6-6-6"></path>
+            </svg>
+          </button>
+        </nav>
       </div>
-    </Card>
+    </div>
   </div>
 
-  <!-- Create Product Dialog -->
-  <dialog
-    id="create_product_dialog"
-    class="backdrop:bg-slate-900/50 bg-transparent p-0 w-full max-w-lg rounded-2xl shadow-xl open:animate-in open:fade-in-0 open:zoom-in-95 backdrop:animate-in backdrop:fade-in-0"
-  >
-    <form method="dialog" class="bg-white rounded-2xl shadow-xl overflow-hidden">
-      <div class="px-6 py-4 border-b flex items-center justify-between bg-slate-50/50">
-        <h3 class="text-lg font-semibold text-slate-900">新增商品</h3>
-        <button class="text-slate-400 hover:text-slate-500">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="20"
-            height="20"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <line x1="18" y1="6" x2="6" y2="18"></line>
-            <line x1="6" y1="6" x2="18" y2="18"></line>
-          </svg>
-        </button>
+  <!-- Create Product Dialog（cubby-ui.js 由 layout 載入，data-cu-dialog 處理開關、焦點與 ARIA 連結） -->
+  <dialog id="create-product-dialog" class="cu-dialog" data-cu-dialog>
+    <form method="dialog">
+      <button type="button" class="cu-dialog-close" data-cu-dialog-close aria-label="關閉">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="18"
+          height="18"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <path d="M18 6 6 18"></path>
+          <path d="m6 6 12 12"></path>
+        </svg>
+      </button>
+      <div class="cu-dialog-header">
+        <h2 class="cu-dialog-title">新增商品</h2>
+        <p class="cu-dialog-description">填寫商品資訊以加入商品目錄。</p>
       </div>
 
-      <div class="p-6 space-y-4">
-        <div class="space-y-2">
-          <Label for="image" class="text-slate-700">
+      <div class="mt-6 space-y-4">
+        <div class="cu-form-group">
+          <span class="cu-label" id="create-image-label">
             商品圖片
-          </Label>
-          <label
-            for="image"
-            class="border-2 border-dashed border-slate-200 rounded-lg p-6 flex flex-col items-center justify-center text-center hover:bg-slate-50 hover:border-indigo-300 transition-colors cursor-pointer group has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-indigo-300"
-          >
-            <input id="image" type="file" accept="image/png,image/jpeg" class="sr-only" />
-            <span class="block h-10 w-10 text-slate-300 group-hover:text-indigo-500 mb-2">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="100%"
-                height="100%"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
-                <circle cx="8.5" cy="8.5" r="1.5"></circle>
-                <polyline points="21 15 16 10 5 21"></polyline>
-              </svg>
+          </span>
+          <label class="cu-dropzone py-6">
+            <input
+              id="create-image"
+              type="file"
+              accept="image/png,image/jpeg"
+              class="cu-dropzone-input"
+              aria-labelledby="create-image-label"
+              aria-describedby="create-image-hint"
+            />
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="cu-dropzone-icon"
+              aria-hidden="true"
+            >
+              <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+              <circle cx="8.5" cy="8.5" r="1.5"></circle>
+              <polyline points="21 15 16 10 5 21"></polyline>
+            </svg>
+            <span class="cu-dropzone-title">點擊上傳圖片</span>
+            <span class="cu-dropzone-description" id="create-image-hint">
+              支援 PNG、JPG（最大 2 MB）
             </span>
-            <span class="block text-sm font-medium text-slate-600 group-hover:text-indigo-600">點擊上傳圖片</span>
-            <span class="block text-xs text-slate-400 mt-1">支援 PNG, JPG (Max 2MB)</span>
           </label>
         </div>
 
-        <div class="space-y-2">
-          <Label for="name">商品名稱</Label>
-          <Input id="name" placeholder="例如：無線藍芽耳機" />
+        <div class="cu-form-group">
+          <Label for="create-name" required>
+            商品名稱
+          </Label>
+          <Input id="create-name" name="name" placeholder="例如：無線藍芽耳機" required autofocus />
         </div>
 
         <div class="grid grid-cols-2 gap-4">
-          <div class="space-y-2">
-            <Label for="category">分類</Label>
-            <Select id="category">
+          <div class="cu-form-group">
+            <Label for="create-category">分類</Label>
+            <Select id="create-category" name="category">
               <option>Electronics</option>
               <option>Clothing</option>
               <option>Home</option>
             </Select>
           </div>
-          <div class="space-y-2">
-            <Label for="price">價格</Label>
-            <Input id="price" placeholder="0.00" />
+          <div class="cu-form-group">
+            <Label for="create-price">價格</Label>
+            <Input id="create-price" name="price" inputmode="decimal" placeholder="0.00" />
           </div>
         </div>
 
         <div class="grid grid-cols-2 gap-4">
-          <div class="space-y-2">
-            <Label for="stock">庫存數量</Label>
-            <Input id="stock" type="number" placeholder="0" />
+          <div class="cu-form-group">
+            <Label for="create-stock">庫存數量</Label>
+            <Input id="create-stock" name="stock" type="number" min="0" placeholder="0" />
           </div>
-          <div class="space-y-2">
-            <Label for="status">狀態</Label>
-            <Select id="status">
-              <option>In Stock</option>
-              <option>Low Stock</option>
-              <option>Out of Stock</option>
+          <div class="cu-form-group">
+            <Label for="create-status">狀態</Label>
+            <Select id="create-status" name="status">
+              <option value="In Stock">有庫存</option>
+              <option value="Low Stock">庫存偏低</option>
+              <option value="Out of Stock">已售完</option>
             </Select>
           </div>
         </div>
       </div>
 
-      <div class="px-6 py-4 bg-slate-50 border-t flex justify-end gap-3">
-        <Button variant="outline" formmethod="dialog">
+      <div class="cu-dialog-footer">
+        <button type="button" class="cu-button cu-button-outline cu-button-md" data-cu-dialog-close>
           取消
-        </Button>
-        <Button class="bg-indigo-600 hover:bg-indigo-700 text-white">確認新增</Button>
-      </div>
-    </form>
-  </dialog>
-
-  <!-- Edit Product Dialog (Simulated) -->
-  <dialog
-    id="edit_product_dialog"
-    class="backdrop:bg-slate-900/50 bg-transparent p-0 w-full max-w-lg rounded-2xl shadow-xl open:animate-in open:fade-in-0 open:zoom-in-95 backdrop:animate-in backdrop:fade-in-0"
-  >
-    <form method="dialog" class="bg-white rounded-2xl shadow-xl overflow-hidden">
-      <div class="px-6 py-4 border-b flex items-center justify-between bg-slate-50/50">
-        <h3 class="text-lg font-semibold text-slate-900">編輯商品</h3>
-        <button class="text-slate-400 hover:text-slate-500">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="20"
-            height="20"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <line x1="18" y1="6" x2="6" y2="18"></line>
-            <line x1="6" y1="6" x2="18" y2="18"></line>
-          </svg>
+        </button>
+        <button type="submit" class="cu-button cu-button-default cu-button-md">
+          確認新增
         </button>
       </div>
+    </form>
+  </dialog>
 
-      <div class="p-6 space-y-4">
-        <div class="space-y-2">
-          <Label for="edit_name">商品名稱</Label>
-          <Input id="edit_name" value="Premium Leather Backpack" />
+  <!-- Edit Product Dialog（欄位由觸發按鈕的 data-product-* 帶入） -->
+  <dialog id="edit-product-dialog" class="cu-dialog" data-cu-dialog>
+    <form method="dialog">
+      <button type="button" class="cu-dialog-close" data-cu-dialog-close aria-label="關閉">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="18"
+          height="18"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <path d="M18 6 6 18"></path>
+          <path d="m6 6 12 12"></path>
+        </svg>
+      </button>
+      <div class="cu-dialog-header">
+        <h2 class="cu-dialog-title">編輯商品</h2>
+        <p class="cu-dialog-description">更新商品名稱、價格與庫存數量。</p>
+      </div>
+
+      <div class="mt-6 space-y-4">
+        <div class="cu-form-group">
+          <Label for="edit-name" required>
+            商品名稱
+          </Label>
+          <Input id="edit-name" name="name" value="Premium Leather Backpack" required autofocus />
         </div>
         <div class="grid grid-cols-2 gap-4">
-          <div class="space-y-2">
-            <Label for="edit_price">價格</Label>
-            <Input id="edit_price" value="129.00" />
+          <div class="cu-form-group">
+            <Label for="edit-price">價格</Label>
+            <Input id="edit-price" name="price" inputmode="decimal" value="129.00" />
           </div>
-          <div class="space-y-2">
-            <Label for="edit_stock">庫存數量</Label>
-            <Input id="edit_stock" type="number" value="45" />
+          <div class="cu-form-group">
+            <Label for="edit-stock">庫存數量</Label>
+            <Input id="edit-stock" name="stock" type="number" min="0" value="45" />
           </div>
         </div>
       </div>
 
-      <div class="px-6 py-4 bg-slate-50 border-t flex justify-end gap-3">
-        <Button variant="outline" formmethod="dialog">
+      <div class="cu-dialog-footer">
+        <button type="button" class="cu-button cu-button-outline cu-button-md" data-cu-dialog-close>
           取消
-        </Button>
-        <Button class="bg-indigo-600 hover:bg-indigo-700 text-white">儲存變更</Button>
+        </button>
+        <button type="submit" class="cu-button cu-button-default cu-button-md">
+          儲存變更
+        </button>
       </div>
     </form>
   </dialog>
 
-  <!-- Delete Confirmation Dialog -->
-  <dialog
-    id="delete_product_dialog"
-    class="backdrop:bg-slate-900/50 bg-transparent p-0 w-full max-w-md rounded-2xl shadow-xl open:animate-in open:fade-in-0 open:zoom-in-95 backdrop:animate-in backdrop:fade-in-0"
-  >
-    <form method="dialog" class="bg-white rounded-2xl shadow-xl overflow-hidden">
-      <div class="p-6 text-center">
-        <div class="w-12 h-12 rounded-full bg-rose-100 text-rose-600 flex items-center justify-center mx-auto mb-4">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <path d="M3 6h18"></path>
-            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
-            <line x1="10" y1="11" x2="10" y2="17"></line>
-            <line x1="14" y1="11" x2="14" y2="17"></line>
-          </svg>
-        </div>
-        <h3 class="text-lg font-semibold text-slate-900">確定要刪除商品嗎？</h3>
-        <p class="text-sm text-slate-500 mt-2">
-          此操作將無法復原。商品 "Premium Leather Backpack" 將會從系統中永久移除。
-        </p>
-      </div>
-
-      <div class="px-6 py-4 bg-slate-50 border-t flex justify-end gap-3">
-        <Button variant="outline" formmethod="dialog">
-          取消
-        </Button>
-        <Button class="bg-rose-600 hover:bg-rose-700 text-white">確認刪除</Button>
-      </div>
-    </form>
+  <!-- Delete Confirmation（Alert Dialog：不因點擊背景關閉，焦點預設落在「取消」） -->
+  <dialog id="delete-product-dialog" class="cu-alert-dialog cu-alert-dialog-sm" data-cu-alert-dialog>
+    <div class="flex items-center justify-center w-12 h-12 mx-auto mb-4 rounded-full bg-destructive/10 text-destructive sm:mx-0">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+      >
+        <path d="M3 6h18"></path>
+        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+        <line x1="10" y1="11" x2="10" y2="17"></line>
+        <line x1="14" y1="11" x2="14" y2="17"></line>
+      </svg>
+    </div>
+    <div class="cu-alert-dialog-header">
+      <h2 class="cu-alert-dialog-title">確定要刪除商品嗎？</h2>
+      <p class="cu-alert-dialog-description" data-product-delete-message>
+        此操作將無法復原。商品「Premium Leather Backpack」將會從系統中永久移除。
+      </p>
+    </div>
+    <div class="cu-alert-dialog-footer">
+      <button type="button" class="cu-button cu-button-outline cu-button-md" data-cu-alert-dialog-cancel autofocus>
+        取消
+      </button>
+      <button type="button" class="cu-button cu-button-destructive cu-button-md" data-cu-alert-dialog-action>
+        確認刪除
+      </button>
+    </div>
   </dialog>
+
+  <script>
+    // 以觸發按鈕的 data-product-* 帶入編輯 / 刪除對話框內容（只寫 value / textContent，不經 innerHTML）
+    const editName = document.getElementById("edit-name") as HTMLInputElement | null;
+    const editPrice = document.getElementById("edit-price") as HTMLInputElement | null;
+    const editStock = document.getElementById("edit-stock") as HTMLInputElement | null;
+    const deleteMessage = document.querySelector<HTMLElement>("[data-product-delete-message]");
+
+    document.querySelectorAll<HTMLElement>("[data-product-edit]").forEach((button) => {
+      button.addEventListener("click", () => {
+        if (editName) editName.value = button.dataset.productName ?? "";
+        if (editPrice) editPrice.value = button.dataset.productPrice ?? "";
+        if (editStock) editStock.value = button.dataset.productStock ?? "";
+      });
+    });
+
+    document.querySelectorAll<HTMLElement>("[data-product-delete]").forEach((button) => {
+      button.addEventListener("click", () => {
+        if (deleteMessage) {
+          deleteMessage.textContent = `此操作將無法復原。商品「${button.dataset.productName ?? ""}」將會從系統中永久移除。`;
+        }
+      });
+    });
+  </script>
 </DashboardV2Layout>

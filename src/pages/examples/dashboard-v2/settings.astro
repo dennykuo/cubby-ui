@@ -3,213 +3,253 @@ import DashboardV2Layout from "@/layouts/DashboardV2Layout.astro";
 import Button from "@/components/ui/Button.astro";
 import Card from "@/components/ui/Card.astro";
 import CardHeader from "@/components/ui/CardHeader.astro";
-import CardTitle from "@/components/ui/CardTitle.astro";
 import CardDescription from "@/components/ui/CardDescription.astro";
 import CardContent from "@/components/ui/CardContent.astro";
 import CardFooter from "@/components/ui/CardFooter.astro";
 import Input from "@/components/ui/Input.astro";
 import Label from "@/components/ui/Label.astro";
-import Textarea from "@/components/ui/Textarea.astro";
 import Avatar from "@/components/ui/Avatar.astro";
 import AvatarFallback from "@/components/ui/AvatarFallback.astro";
-import Separator from "@/components/ui/Separator.astro";
 import Toggle from "@/components/ui/Toggle.astro";
 import Tabs from "@/components/ui/Tabs.astro";
 import TabsList from "@/components/ui/TabsList.astro";
 import TabsTrigger from "@/components/ui/TabsTrigger.astro";
 import TabsContent from "@/components/ui/TabsContent.astro";
+
+const bio = "Senior Frontend Developer based in Taipei. Loves building UI components and exploring new tech.";
+
+const notifications = [
+  { id: "notify-product", label: "產品更新", description: "收到我們最新的功能發布與改進通知。", checked: true },
+  {
+    id: "notify-security",
+    label: "安全性警示",
+    description: "當偵測到異常登入活動時通知我（必要通知，無法關閉）。",
+    checked: true,
+    disabled: true,
+  },
+  { id: "notify-weekly", label: "每週週報", description: "每週一收到專案進度與團隊活動摘要。", checked: false },
+  { id: "notify-marketing", label: "行銷推廣", description: "收到關於新產品與優惠活動的資訊。", checked: false },
+];
 ---
 
 <DashboardV2Layout title="帳號設定 — CubbyPro">
   <div class="max-w-4xl mx-auto space-y-8">
-    <div>
-      <h1 class="text-2xl font-bold tracking-tight">帳號設定</h1>
-      <p class="text-muted-foreground mt-1">管理您的個人資料、通知偏好與安全設定。</p>
+    <div class="cu-page-header">
+      <div class="cu-page-header-content">
+        <h1 class="cu-page-header-title text-2xl md:text-2xl">帳號設定</h1>
+        <p class="cu-page-header-description">管理您的個人資料、通知偏好與安全設定。</p>
+      </div>
     </div>
 
-    <Tabs data-cu-tabs class="space-y-6">
-      <TabsList class="bg-transparent border-b w-full justify-start rounded-none h-auto p-0 space-x-6">
-        <TabsTrigger
-          data-cu-tabs-trigger="profile"
-          active
-          class="rounded-none border-b-2 border-transparent aria-selected:border-indigo-600 aria-selected:bg-transparent px-0 py-2"
-        >
+    <Tabs data-cu-tabs>
+      <TabsList class="cu-tabs-list-underline flex w-full overflow-x-auto" aria-label="帳號設定分類">
+        <TabsTrigger type="button" data-cu-tabs-trigger="profile" active>
           個人資料
         </TabsTrigger>
-        <TabsTrigger
-          data-cu-tabs-trigger="notifications"
-          class="rounded-none border-b-2 border-transparent aria-selected:border-indigo-600 aria-selected:bg-transparent px-0 py-2"
-        >
+        <TabsTrigger type="button" data-cu-tabs-trigger="notifications">
           通知設定
         </TabsTrigger>
-        <TabsTrigger
-          data-cu-tabs-trigger="security"
-          class="rounded-none border-b-2 border-transparent aria-selected:border-indigo-600 aria-selected:bg-transparent px-0 py-2"
-        >
+        <TabsTrigger type="button" data-cu-tabs-trigger="security">
           登入與安全
         </TabsTrigger>
-        <TabsTrigger
-          data-cu-tabs-trigger="billing"
-          class="rounded-none border-b-2 border-transparent aria-selected:border-indigo-600 aria-selected:bg-transparent px-0 py-2"
-        >
+        <TabsTrigger type="button" data-cu-tabs-trigger="billing">
           訂閱方案
         </TabsTrigger>
       </TabsList>
 
       <!-- Profile Tab -->
-      <TabsContent data-cu-tabs-content="profile" class="space-y-6">
-        <Card class="bg-white border shadow-sm rounded-xl">
+      <TabsContent data-cu-tabs-content="profile" class="mt-6 space-y-6">
+        <Card>
           <CardHeader>
-            <CardTitle>公開資訊</CardTitle>
+            <h2 class="cu-card-title">公開資訊</h2>
             <CardDescription>這些資訊將會顯示在您的公開個人頁面上。</CardDescription>
           </CardHeader>
           <CardContent class="space-y-6">
             <div class="flex items-center gap-6">
-              <Avatar class="h-24 w-24">
-                <AvatarFallback class="text-2xl bg-indigo-100 text-indigo-600">DK</AvatarFallback>
+              <Avatar class="h-20 w-20">
+                <AvatarFallback class="text-2xl bg-primary/10 text-primary">DK</AvatarFallback>
               </Avatar>
               <div class="space-y-2">
-                <Button variant="outline" size="sm">
+                <Button type="button" variant="outline" size="sm">
                   更換頭像
                 </Button>
-                <p class="text-xs text-muted-foreground">支援 JPG, GIF 或 PNG。最大 1MB。</p>
+                <p class="text-xs text-muted-foreground">支援 JPG、GIF 或 PNG，最大 1 MB。</p>
               </div>
             </div>
 
             <div class="grid gap-4 md:grid-cols-2">
-              <div class="space-y-2">
+              <div class="cu-form-group">
                 <Label for="fullName">顯示名稱</Label>
-                <Input id="fullName" value="Denny Kuo" />
+                <Input id="fullName" name="fullName" autocomplete="name" value="Denny Kuo" />
               </div>
-              <div class="space-y-2">
+              <div class="cu-form-group">
                 <Label for="username">使用者名稱</Label>
-                <Input id="username" value="dennykuo" />
+                <Input id="username" name="username" autocomplete="username" value="dennykuo" />
               </div>
             </div>
 
-            <div class="space-y-2">
+            <div class="cu-form-group">
               <Label for="bio">個人簡介</Label>
-              <Textarea id="bio" placeholder="寫一些關於您自己的介紹..." class="min-h-[100px]">
-                Senior Frontend Developer based in Taipei. Loves building UI components and exploring new tech.
-              </Textarea>
-              <p class="text-[13px] text-muted-foreground">簡短的介紹您自己。支援 Markdown 語法。</p>
+              <textarea
+                id="bio"
+                name="bio"
+                placeholder="寫一些關於您自己的介紹..."
+                class="cu-textarea min-h-[100px]"
+                aria-describedby="bio-hint"
+                set:text={bio}
+              />
+              <p id="bio-hint" class="cu-form-description">
+                簡短的介紹您自己，支援 Markdown 語法。
+              </p>
             </div>
 
-            <div class="space-y-2">
+            <div class="cu-form-group">
               <Label for="website">個人網站 / Blog</Label>
-              <div class="relative">
-                <span class="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground text-sm">https://</span>
-                <Input id="website" class="pl-16" value="denny.io" />
+              <div class="cu-input-group">
+                <span class="cu-input-group-text" aria-hidden="true">
+                  https://
+                </span>
+                <Input id="website" name="website" inputmode="url" value="denny.io" />
               </div>
             </div>
           </CardContent>
-          <CardFooter class="border-t bg-slate-50/50 px-6 py-4 flex justify-end">
-            <Button>儲存變更</Button>
+          <CardFooter class="justify-end border-t border-border bg-muted/30 px-6 py-4">
+            <Button type="button">儲存變更</Button>
           </CardFooter>
         </Card>
       </TabsContent>
 
       <!-- Notifications Tab -->
-      <TabsContent data-cu-tabs-content="notifications" class="space-y-6" hidden>
-        <Card class="bg-white border shadow-sm rounded-xl">
+      <TabsContent data-cu-tabs-content="notifications" class="mt-6 space-y-6" hidden>
+        <Card>
           <CardHeader>
-            <CardTitle>Email 通知</CardTitle>
+            <h2 class="cu-card-title">Email 通知</h2>
             <CardDescription>選擇您希望收到哪些類型的 Email 通知。</CardDescription>
           </CardHeader>
-          <CardContent class="space-y-6 divide-y">
-            <div class="flex items-center justify-between pt-0 pb-4">
-              <div class="space-y-0.5">
-                <Label class="text-base">產品更新</Label>
-                <p class="text-sm text-muted-foreground">收到我們最新的功能發布與改進通知。</p>
+          <div class="divide-y divide-border border-t border-border">
+            {notifications.map((item) => (
+              <div class="cu-setting-item">
+                <div class="cu-setting-item-content">
+                  <label for={item.id} class="cu-setting-item-label block">
+                    {item.label}
+                  </label>
+                  <p id={`${item.id}-desc`} class="cu-setting-item-description">
+                    {item.description}
+                  </p>
+                </div>
+                <div class="cu-setting-item-action">
+                  <Toggle
+                    id={item.id}
+                    checked={item.checked}
+                    disabled={item.disabled}
+                    aria-describedby={`${item.id}-desc`}
+                  />
+                </div>
               </div>
-              <Toggle defaultChecked />
-            </div>
-            <div class="flex items-center justify-between py-4">
-              <div class="space-y-0.5">
-                <Label class="text-base">安全性警示</Label>
-                <p class="text-sm text-muted-foreground">當偵測到異常登入活動時通知我。</p>
-              </div>
-              <Toggle defaultChecked disabled />
-            </div>
-            <div class="flex items-center justify-between py-4">
-              <div class="space-y-0.5">
-                <Label class="text-base">每週週報</Label>
-                <p class="text-sm text-muted-foreground">每週一收到專案進度與團隊活動摘要。</p>
-              </div>
-              <Toggle />
-            </div>
-            <div class="flex items-center justify-between py-4">
-              <div class="space-y-0.5">
-                <Label class="text-base">行銷推廣</Label>
-                <p class="text-sm text-muted-foreground">收到關於新產品與優惠活動的資訊。</p>
-              </div>
-              <Toggle />
-            </div>
-          </CardContent>
-          <CardFooter class="border-t bg-slate-50/50 px-6 py-4 flex justify-end">
-            <Button variant="outline" class="mr-2">
+            ))}
+          </div>
+          <CardFooter class="justify-end gap-2 border-t border-border bg-muted/30 px-6 py-4">
+            <Button type="button" variant="outline">
               取消
             </Button>
-            <Button>更新偏好設定</Button>
+            <Button type="button">更新偏好設定</Button>
           </CardFooter>
         </Card>
       </TabsContent>
 
       <!-- Security Tab -->
-      <TabsContent data-cu-tabs-content="security" class="space-y-6" hidden>
-        <Card class="bg-white border shadow-sm rounded-xl">
+      <TabsContent data-cu-tabs-content="security" class="mt-6 space-y-6" hidden>
+        <Card>
           <CardHeader>
-            <CardTitle>修改密碼</CardTitle>
+            <h2 class="cu-card-title">修改密碼</h2>
             <CardDescription>為了您的帳號安全，建議定期更換密碼。</CardDescription>
           </CardHeader>
           <CardContent class="space-y-4">
-            <div class="space-y-2">
+            <div class="cu-form-group">
               <Label for="current_password">目前密碼</Label>
-              <Input id="current_password" type="password" />
+              <Input id="current_password" name="current_password" type="password" autocomplete="current-password" />
             </div>
-            <div class="space-y-2">
+            <div class="cu-form-group">
               <Label for="new_password">新密碼</Label>
-              <Input id="new_password" type="password" />
+              <Input
+                id="new_password"
+                name="new_password"
+                type="password"
+                autocomplete="new-password"
+                aria-describedby="new_password_hint"
+              />
+              <p id="new_password_hint" class="cu-form-description">
+                至少 8 個字元，建議混合英文字母與數字。
+              </p>
             </div>
-            <div class="space-y-2">
+            <div class="cu-form-group">
               <Label for="confirm_password">確認新密碼</Label>
-              <Input id="confirm_password" type="password" />
+              <Input id="confirm_password" name="confirm_password" type="password" autocomplete="new-password" />
             </div>
           </CardContent>
-          <CardFooter class="border-t bg-slate-50/50 px-6 py-4 flex justify-end">
-            <Button>更新密碼</Button>
+          <CardFooter class="justify-end border-t border-border bg-muted/30 px-6 py-4">
+            <Button type="button">更新密碼</Button>
           </CardFooter>
         </Card>
 
-        <Card class="bg-white border-rose-200 border shadow-sm rounded-xl">
+        <Card class="border-destructive/30">
           <CardHeader>
-            <CardTitle class="text-rose-600">危險區域</CardTitle>
+            <h2 class="cu-card-title text-destructive">危險區域</h2>
             <CardDescription>這些操作無法復原，請謹慎使用。</CardDescription>
           </CardHeader>
           <CardContent>
-            <div class="flex items-center justify-between">
+            <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
               <div>
-                <p class="font-medium">刪除帳號</p>
+                <p class="text-sm font-medium">刪除帳號</p>
                 <p class="text-sm text-muted-foreground">永久刪除您的帳號及所有相關資料。</p>
               </div>
-              <Button variant="destructive">刪除帳號</Button>
+              <Button type="button" variant="destructive" data-cu-alert-dialog-trigger="delete-account-dialog">
+                刪除帳號
+              </Button>
             </div>
           </CardContent>
         </Card>
       </TabsContent>
 
       <!-- Billing Tab -->
-      <TabsContent data-cu-tabs-content="billing" class="space-y-6" hidden>
-        <Card class="bg-white border shadow-sm rounded-xl">
+      <TabsContent data-cu-tabs-content="billing" class="mt-6 space-y-6" hidden>
+        <Card>
           <CardHeader>
-            <CardTitle>訂閱方案</CardTitle>
+            <h2 class="cu-card-title">訂閱方案</h2>
             <CardDescription>管理您的方案與付款方式。</CardDescription>
           </CardHeader>
           <CardContent>
-            <p class="text-sm text-muted-foreground">目前使用免費方案。</p>
+            <div class="flex flex-col gap-4 rounded-lg border border-border bg-muted/30 p-4 sm:flex-row sm:items-center sm:justify-between">
+              <div class="space-y-1">
+                <div class="flex items-center gap-2">
+                  <p class="text-sm font-medium">免費方案</p>
+                  <span class="cu-badge cu-badge-soft-secondary">目前方案</span>
+                </div>
+                <p class="text-sm text-muted-foreground">目前使用免費方案。</p>
+              </div>
+              <Button type="button" variant="outline" size="sm">
+                查看方案
+              </Button>
+            </div>
           </CardContent>
         </Card>
       </TabsContent>
     </Tabs>
   </div>
+
+  <!-- Delete Account Confirmation（cubby-ui.js 由 layout 載入） -->
+  <dialog id="delete-account-dialog" class="cu-alert-dialog cu-alert-dialog-sm" data-cu-alert-dialog>
+    <div class="cu-alert-dialog-header">
+      <h2 class="cu-alert-dialog-title">確定要刪除帳號嗎？</h2>
+      <p class="cu-alert-dialog-description">此操作無法復原，您的帳號及所有相關資料將會被永久刪除。</p>
+    </div>
+    <div class="cu-alert-dialog-footer">
+      <button type="button" class="cu-button cu-button-outline cu-button-md" data-cu-alert-dialog-cancel autofocus>
+        取消
+      </button>
+      <button type="button" class="cu-button cu-button-destructive cu-button-md" data-cu-alert-dialog-action>
+        確認刪除
+      </button>
+    </div>
+  </dialog>
 </DashboardV2Layout>

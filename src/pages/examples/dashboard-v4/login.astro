@@ -4,7 +4,7 @@ import "@/styles/global.css";
 ---
 
 <!doctype html>
-<html lang="zh-Hant">
+<html lang="zh-Hant" data-theme-prism>
   <head>
     <meta charset="UTF-8" />
     <meta name="description" content="Login — Prism" />
@@ -14,18 +14,35 @@ import "@/styles/global.css";
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
     <title>登入 — Prism</title>
-    <style>
-      body {
-        font-family: "Inter", system-ui, sans-serif;
+    <style is:global>
+      /* Prism 品牌色：與 DashboardV4Layout 相同，覆寫 primary / ring / chart-1 */
+      html[data-theme-prism] {
+        --color-primary: hsl(262 83% 58%);
+        --color-primary-foreground: hsl(0 0% 100%);
+        --color-ring: hsl(262 83% 58%);
+        --color-chart-1: hsl(262 83% 58%);
+      }
+
+      html.dark[data-theme-prism] {
+        --color-primary: hsl(258 90% 66%);
+        --color-primary-foreground: hsl(0 0% 100%);
+        --color-ring: hsl(263 60% 40%);
+        --color-chart-1: hsl(258 90% 66%);
       }
     </style>
   </head>
-  <body class="min-h-screen antialiased bg-slate-50">
+  <body class="min-h-screen font-sans antialiased text-foreground bg-background">
     <div class="grid min-h-screen lg:grid-cols-2">
       <!-- Left: Brand Panel -->
-      <div class="hidden lg:flex flex-col justify-between bg-white p-10 border-r border-slate-200/80">
-        <div class="flex items-center gap-2.5">
-          <div class="flex items-center justify-center w-9 h-9 rounded-xl bg-violet-600 text-white">
+      <aside
+        class="hidden lg:flex flex-col justify-between bg-muted/40 p-10 border-r border-border"
+        aria-label="Prism 產品特色"
+      >
+        <a href={withBase("/examples/dashboard-v4")} class="flex items-center gap-2.5 self-start rounded-lg">
+          <div
+            class="flex items-center justify-center w-9 h-9 rounded-xl bg-gradient-to-br from-violet-500 to-purple-600 text-white shadow-sm"
+            aria-hidden="true"
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="20"
@@ -37,23 +54,30 @@ import "@/styles/global.css";
               stroke-linecap="round"
               stroke-linejoin="round"
             >
-              <path d="M12 3L2 12h3v9h14v-9h3L12 3z" />
+              <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+              <polyline points="2 17 12 22 22 17"></polyline>
+              <polyline points="2 12 12 17 22 12"></polyline>
             </svg>
           </div>
-          <span class="text-xl font-bold tracking-tight text-slate-900">Prism</span>
-        </div>
+          <span class="text-xl font-bold tracking-tight text-foreground">Prism</span>
+        </a>
         <div class="space-y-8">
           <div class="space-y-4">
-            <h2 class="text-3xl font-bold leading-tight text-slate-900">
+            <h2 class="text-3xl font-bold leading-tight text-foreground">
               數據驅動決策
               <br />
               洞察商業未來
             </h2>
-            <p class="text-slate-500 max-w-md">Prism 提供企業級的數據分析與視覺化解決方案，協助您從數據中發現價值。</p>
+            <p class="text-muted-foreground max-w-md">
+              Prism 提供企業級的數據分析與視覺化解決方案，協助您從數據中發現價值。
+            </p>
           </div>
-          <div class="space-y-4">
-            <div class="flex items-start gap-4 p-4 rounded-xl bg-slate-50 border border-slate-100">
-              <div class="flex items-center justify-center w-10 h-10 rounded-lg bg-violet-100">
+          <ul class="space-y-4">
+            <li class="flex items-start gap-4 p-4 rounded-xl bg-card border border-border/60 shadow-xs">
+              <div
+                class="flex items-center justify-center w-10 h-10 shrink-0 rounded-lg bg-primary/10 text-primary"
+                aria-hidden="true"
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="20"
@@ -64,19 +88,21 @@ import "@/styles/global.css";
                   stroke-width="2"
                   stroke-linecap="round"
                   stroke-linejoin="round"
-                  class="text-violet-600"
                 >
                   <path d="M3 3v18h18" />
                   <path d="m19 9-5 5-4-4-3 3" />
                 </svg>
               </div>
               <div>
-                <p class="font-medium text-slate-900">即時數據分析</p>
-                <p class="text-sm text-slate-500">毫秒級回應，支援大規模資料處理</p>
+                <p class="font-medium text-foreground">即時數據分析</p>
+                <p class="text-sm text-muted-foreground">毫秒級回應，支援大規模資料處理</p>
               </div>
-            </div>
-            <div class="flex items-start gap-4 p-4 rounded-xl bg-slate-50 border border-slate-100">
-              <div class="flex items-center justify-center w-10 h-10 rounded-lg bg-blue-100">
+            </li>
+            <li class="flex items-start gap-4 p-4 rounded-xl bg-card border border-border/60 shadow-xs">
+              <div
+                class="flex items-center justify-center w-10 h-10 shrink-0 rounded-lg bg-info/10 text-info"
+                aria-hidden="true"
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="20"
@@ -87,7 +113,6 @@ import "@/styles/global.css";
                   stroke-width="2"
                   stroke-linecap="round"
                   stroke-linejoin="round"
-                  class="text-blue-600"
                 >
                   <rect width="18" height="18" x="3" y="3" rx="2" />
                   <path d="M7 7h.01" />
@@ -97,21 +122,24 @@ import "@/styles/global.css";
                 </svg>
               </div>
               <div>
-                <p class="font-medium text-slate-900">智慧報表產生</p>
-                <p class="text-sm text-slate-500">一鍵產生專業報表，支援多種格式匯出</p>
+                <p class="font-medium text-foreground">智慧報表產生</p>
+                <p class="text-sm text-muted-foreground">一鍵產生專業報表，支援多種格式匯出</p>
               </div>
-            </div>
-          </div>
+            </li>
+          </ul>
         </div>
-        <p class="text-xs text-slate-400">© 2026 Prism Analytics. All rights reserved.</p>
-      </div>
+        <p class="text-xs text-muted-foreground">© 2026 Prism Analytics. All rights reserved.</p>
+      </aside>
 
       <!-- Right: Login Form -->
-      <div class="flex items-center justify-center p-8">
+      <main class="flex items-center justify-center p-6 sm:p-8">
         <div class="w-full max-w-sm space-y-6">
           <!-- Mobile Logo -->
-          <div class="flex items-center gap-2.5 lg:hidden mb-8">
-            <div class="flex items-center justify-center w-9 h-9 rounded-xl bg-violet-600 text-white">
+          <a href={withBase("/examples/dashboard-v4")} class="flex items-center gap-2.5 lg:hidden mb-8 w-fit">
+            <div
+              class="flex items-center justify-center w-9 h-9 rounded-xl bg-gradient-to-br from-violet-500 to-purple-600 text-white shadow-sm"
+              aria-hidden="true"
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="20"
@@ -123,15 +151,17 @@ import "@/styles/global.css";
                 stroke-linecap="round"
                 stroke-linejoin="round"
               >
-                <path d="M12 3L2 12h3v9h14v-9h3L12 3z" />
+                <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                <polyline points="2 17 12 22 22 17"></polyline>
+                <polyline points="2 12 12 17 22 12"></polyline>
               </svg>
             </div>
-            <span class="text-xl font-bold tracking-tight">Prism</span>
-          </div>
+            <span class="text-xl font-bold tracking-tight text-foreground">Prism</span>
+          </a>
 
           <div class="space-y-2">
-            <h1 class="text-2xl font-bold tracking-tight text-slate-900">歡迎回來</h1>
-            <p class="text-sm text-slate-500">請輸入您的帳號密碼以登入系統</p>
+            <h1 class="text-2xl font-bold tracking-tight text-foreground">歡迎回來</h1>
+            <p class="text-sm text-muted-foreground">請輸入您的帳號密碼以登入系統</p>
           </div>
 
           <form class="space-y-4" action={withBase("/examples/dashboard-v4")}>
@@ -142,7 +172,9 @@ import "@/styles/global.css";
               <input
                 class="cu-input"
                 id="email"
+                name="email"
                 type="email"
+                autocomplete="email"
                 placeholder="name@company.com"
                 required
                 aria-required="true"
@@ -153,45 +185,43 @@ import "@/styles/global.css";
                 <label class="cu-label" for="password">
                   密碼
                 </label>
-                <a
-                  href={withBase("/examples/dashboard-v4/forgot-password")}
-                  class="text-xs text-slate-500 hover:text-slate-700 transition-colors duration-150"
-                >
+                <a href={withBase("/examples/dashboard-v4/forgot-password")} class="cu-link-muted text-xs">
                   忘記密碼？
                 </a>
               </div>
               <input
                 class="cu-input"
                 id="password"
+                name="password"
                 type="password"
+                autocomplete="current-password"
                 placeholder="請輸入密碼"
                 required
                 aria-required="true"
               />
             </div>
-            <label class="cu-checkbox-wrapper">
-              <input type="checkbox" class="cu-checkbox" />
-              <span class="text-sm">記住我的登入狀態</span>
-            </label>
-            <button
-              type="submit"
-              class="cu-button cu-button-md w-full bg-violet-600 hover:bg-violet-700 text-white border-0"
-            >
+            <div class="cu-checkbox-wrapper">
+              <input type="checkbox" class="cu-checkbox" id="remember" name="remember" />
+              <label for="remember" class="text-sm">
+                記住我的登入狀態
+              </label>
+            </div>
+            <button type="submit" class="cu-button cu-button-default cu-button-md w-full">
               登入
             </button>
           </form>
 
           <div class="relative">
-            <div class="absolute inset-0 flex items-center">
-              <div class="cu-separator"></div>
+            <div class="absolute inset-0 flex items-center" aria-hidden="true">
+              <div class="cu-separator cu-separator-horizontal"></div>
             </div>
             <div class="relative flex justify-center">
-              <span class="bg-slate-50 px-3 text-xs text-slate-500">或使用其他方式</span>
+              <span class="bg-background px-3 text-xs text-muted-foreground">或使用其他方式</span>
             </div>
           </div>
 
           <button type="button" class="cu-button cu-button-outline cu-button-md w-full">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" class="mr-2">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true">
               <path
                 d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z"
                 fill="#4285F4"
@@ -212,17 +242,14 @@ import "@/styles/global.css";
             使用 Google 帳號登入
           </button>
 
-          <p class="text-center text-sm text-slate-500">
+          <p class="text-center text-sm text-muted-foreground">
             還沒有帳號？
-            <a
-              href={withBase("/examples/dashboard-v4/register")}
-              class="text-violet-600 hover:text-violet-700 font-medium transition-colors duration-150"
-            >
+            <a href={withBase("/examples/dashboard-v4/register")} class="cu-link-plain">
               立即註冊
             </a>
           </p>
         </div>
-      </div>
+      </main>
     </div>
   </body>
 </html>

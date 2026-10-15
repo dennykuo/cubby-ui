@@ -28,6 +28,7 @@ import DashboardV5Layout from "@/layouts/DashboardV5Layout.astro";
     <header class="cu-page-header">
       <div class="cu-page-header-content">
         <h1 class="cu-page-header-title text-2xl md:text-2xl">新增產品</h1>
+        <p class="cu-page-header-description">填寫產品資訊、定價與庫存，儲存後即可加入產品目錄。</p>
       </div>
       <div class="cu-page-header-actions">
         <a href={withBase("/examples/dashboard-v5")} class="cu-button cu-button-outline cu-button-md">
@@ -41,6 +42,7 @@ import DashboardV5Layout from "@/layouts/DashboardV5Layout.astro";
             stroke-width="2"
             stroke-linecap="round"
             stroke-linejoin="round"
+            aria-hidden="true"
           >
             <path d="m12 19-7-7 7-7" />
             <path d="M19 12H5" />
@@ -61,14 +63,28 @@ import DashboardV5Layout from "@/layouts/DashboardV5Layout.astro";
           </div>
           <div class="cu-card-content space-y-4">
             <div class="space-y-2">
-              <label class="cu-label cu-label-required">產品名稱</label>
-              <input type="text" class="cu-input cu-input-error" placeholder="輸入產品名稱" />
-              <p class="cu-form-error">請輸入產品名稱</p>
+              <label class="cu-label cu-label-required" for="create-name">
+                產品名稱
+              </label>
+              <input
+                type="text"
+                id="create-name"
+                class="cu-input cu-input-error"
+                placeholder="輸入產品名稱"
+                required
+                aria-invalid="true"
+                aria-describedby="create-name-error"
+              />
+              <p class="cu-form-error" id="create-name-error">
+                請輸入產品名稱
+              </p>
             </div>
             <div class="space-y-2">
-              <label class="cu-label">分類</label>
+              <label class="cu-label" for="create-category">
+                分類
+              </label>
               <div class="cu-select-wrapper">
-                <select class="cu-select">
+                <select class="cu-select" id="create-category">
                   <option value="">選擇分類</option>
                   <option value="laptop">筆記型電腦</option>
                   <option value="phone">智慧型手機</option>
@@ -90,18 +106,23 @@ import DashboardV5Layout from "@/layouts/DashboardV5Layout.astro";
                   stroke-linecap="round"
                   stroke-linejoin="round"
                   class="cu-select-icon"
+                  aria-hidden="true"
                 >
                   <path d="m6 9 6 6 6-6" />
                 </svg>
               </div>
             </div>
             <div class="space-y-2">
-              <label class="cu-label">產品編號 (SKU)</label>
-              <input type="text" class="cu-input" placeholder="自動產生" />
+              <label class="cu-label" for="create-sku">
+                產品編號 (SKU)
+              </label>
+              <input type="text" id="create-sku" class="cu-input" placeholder="自動產生" />
             </div>
             <div class="space-y-2">
-              <label class="cu-label">產品描述</label>
-              <textarea class="cu-textarea" rows="4" placeholder="輸入產品描述..."></textarea>
+              <label class="cu-label" for="create-description">
+                產品描述
+              </label>
+              <textarea id="create-description" class="cu-textarea" rows="4" placeholder="輸入產品描述..."></textarea>
             </div>
           </div>
         </div>
@@ -114,22 +135,37 @@ import DashboardV5Layout from "@/layouts/DashboardV5Layout.astro";
           <div class="cu-card-content space-y-4">
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div class="space-y-2">
-                <label class="cu-label">售價</label>
-                <input type="number" class="cu-input" placeholder="0" />
+                <label class="cu-label" for="create-price">
+                  售價
+                </label>
+                <input type="number" id="create-price" class="cu-input" placeholder="0" min="0" inputmode="numeric" />
               </div>
               <div class="space-y-2">
-                <label class="cu-label">成本</label>
-                <input type="number" class="cu-input" placeholder="0" />
+                <label class="cu-label" for="create-cost">
+                  成本
+                </label>
+                <input type="number" id="create-cost" class="cu-input" placeholder="0" min="0" inputmode="numeric" />
               </div>
             </div>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div class="space-y-2">
-                <label class="cu-label">庫存數量</label>
-                <input type="number" class="cu-input" placeholder="0" />
+                <label class="cu-label" for="create-stock">
+                  庫存數量
+                </label>
+                <input type="number" id="create-stock" class="cu-input" placeholder="0" min="0" inputmode="numeric" />
               </div>
               <div class="space-y-2">
-                <label class="cu-label">低庫存警示值</label>
-                <input type="number" class="cu-input" placeholder="10" />
+                <label class="cu-label" for="create-stock-alert">
+                  低庫存警示值
+                </label>
+                <input
+                  type="number"
+                  id="create-stock-alert"
+                  class="cu-input"
+                  placeholder="10"
+                  min="0"
+                  inputmode="numeric"
+                />
               </div>
             </div>
             <div class="flex items-start gap-2">
@@ -152,12 +188,23 @@ import DashboardV5Layout from "@/layouts/DashboardV5Layout.astro";
           <div class="cu-card-content">
             <div class="flex items-center justify-between">
               <div>
-                <p class="text-sm font-medium">立即上架</p>
-                <p class="text-sm text-muted-foreground mt-0.5">開啟後產品將在前台顯示</p>
+                <p class="text-sm font-medium" id="publish-now-label">
+                  立即上架
+                </p>
+                <p class="text-sm text-muted-foreground mt-0.5" id="publish-now-desc">
+                  開啟後產品將在前台顯示
+                </p>
               </div>
               <label class="cu-toggle-wrapper">
-                <input type="checkbox" class="peer sr-only" />
-                <span class="cu-toggle"></span>
+                <input
+                  type="checkbox"
+                  class="cu-toggle-input"
+                  aria-labelledby="publish-now-label"
+                  aria-describedby="publish-now-desc"
+                />
+                <span class="cu-toggle">
+                  <span class="cu-toggle-thumb"></span>
+                </span>
               </label>
             </div>
           </div>
@@ -169,8 +216,10 @@ import DashboardV5Layout from "@/layouts/DashboardV5Layout.astro";
             <h2 class="cu-card-title text-base">操作</h2>
           </div>
           <div class="cu-card-content space-y-3">
-            <button class="cu-button cu-button-default w-full">儲存產品</button>
-            <a href={withBase("/examples/dashboard-v5")} class="cu-button cu-button-outline w-full">
+            <button type="button" class="cu-button cu-button-default cu-button-md w-full">
+              儲存產品
+            </button>
+            <a href={withBase("/examples/dashboard-v5")} class="cu-button cu-button-outline cu-button-md w-full">
               取消
             </a>
           </div>
