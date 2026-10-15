@@ -83,12 +83,21 @@ const sizesCode = `<!-- Small -->
   <span class="cu-rating-item"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span>
 </div>`.trim();
 
-const interactiveCode = `<div class="cu-rating" data-cu-rating data-cu-rating-value="0">
-  <button type="button" class="cu-rating-item" data-cu-rating-star="1" aria-label="1 star">${starSvg}</button>
-  <button type="button" class="cu-rating-item" data-cu-rating-star="2" aria-label="2 stars">${starSvg}</button>
-  <button type="button" class="cu-rating-item" data-cu-rating-star="3" aria-label="3 stars">${starSvg}</button>
-  <button type="button" class="cu-rating-item" data-cu-rating-star="4" aria-label="4 stars">${starSvg}</button>
-  <button type="button" class="cu-rating-item" data-cu-rating-star="5" aria-label="5 stars">${starSvg}</button>
+const interactiveCode = `<div class="cu-rating" data-cu-rating data-cu-rating-value="0" aria-label="Rate this product">
+  <button type="button" class="cu-rating-item" data-cu-rating-star="1">${starSvg}</button>
+  <button type="button" class="cu-rating-item" data-cu-rating-star="2">${starSvg}</button>
+  <button type="button" class="cu-rating-item" data-cu-rating-star="3">${starSvg}</button>
+  <button type="button" class="cu-rating-item" data-cu-rating-star="4">${starSvg}</button>
+  <button type="button" class="cu-rating-item" data-cu-rating-star="5">${starSvg}</button>
+</div>`.trim();
+
+const localizedCode =
+  `<div class="cu-rating" data-cu-rating data-cu-rating-value="3" aria-label="商品評分" data-cu-rating-star-text="{value} 顆星">
+  <button type="button" class="cu-rating-item" data-cu-rating-star="1">${starSvg}</button>
+  <button type="button" class="cu-rating-item" data-cu-rating-star="2">${starSvg}</button>
+  <button type="button" class="cu-rating-item" data-cu-rating-star="3">${starSvg}</button>
+  <button type="button" class="cu-rating-item" data-cu-rating-star="4">${starSvg}</button>
+  <button type="button" class="cu-rating-item" data-cu-rating-star="5">${starSvg}</button>
 </div>`.trim();
 
 const disabledCode = `<div class="cu-rating cu-rating-disabled">
@@ -174,6 +183,38 @@ const disabledCode = `<div class="cu-rating cu-rating-disabled">
       <SectionHeading id="disabled" title={t.sections.disabled.title} />
       <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.disabled.description} />
       <ComponentPreview code={disabledCode} />
+    </section>
+
+    <section class="space-y-3">
+      <SectionHeading id="accessibility" title={t.sections.accessibility.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.accessibility.description} />
+      <div class="cu-table-wrapper rounded-lg border border-border">
+        <table class="cu-table">
+          <thead class="cu-table-header">
+            <tr class="cu-table-row">
+              <th class="cu-table-head">{t.sections.accessibility.keyLabel}</th>
+              <th class="cu-table-head">{t.sections.accessibility.actionLabel}</th>
+            </tr>
+          </thead>
+          <tbody class="cu-table-body">
+            {t.sections.accessibility.keys.map(({ key, action }) => (
+              <tr class="cu-table-row">
+                <td class="cu-table-cell whitespace-nowrap">
+                  {key.split(" / ").map((k, i) => (
+                    <>
+                      {i > 0 && " / "}
+                      <kbd class="cu-kbd">{k}</kbd>
+                    </>
+                  ))}
+                </td>
+                <td class="cu-table-cell text-muted-foreground">{action}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.accessibility.names} />
+      <ComponentPreview code={localizedCode} />
     </section>
   </div>
 </Layout>

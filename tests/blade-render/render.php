@@ -15,9 +15,10 @@
  *     以走過條件分支。Astro 原始碼 `interface Props` 宣告為陣列（如 ColorPicker 的
  *     `swatches?: string[]`）的 prop 改傳含兩個元素的陣列，讓 @foreach 等迴圈實際執行
  *
- * 每次渲染都帶 class="smoke-extra" id="smoke-id"，並以 DOMDocument 解析輸出
+ * 每次渲染都帶 class="smoke-extra" id="smoke-id" style="--smoke-style: 1"，並以 DOMDocument 解析輸出
  * （與瀏覽器相同，重複屬性只保留第一個）確認：
  *   - 使用者的 class 確實生效（未因同一元素有兩個 class 屬性而被丟棄）
+ *   - 使用者的 style 確實生效（未因元件自身的 style 屬性在前而被丟棄）
  *   - 使用者的 id 只出現在一個元素上（$attributes 沒有被渲染到多個元素）
  *
  * 用法：php tests/blade-render/render.php <dist/laravel/components> [--verbose]
@@ -183,10 +184,14 @@ function checkUserAttributes(string $html): ?string
 
     $xpath = new DOMXPath($dom);
     $withClass = $xpath->query("//*[contains(concat(' ', normalize-space(@class), ' '), ' smoke-extra ')]")->length;
+    $withStyle = $xpath->query("//*[contains(@style, '--smoke-style: 1')]")->length;
     $withId = $xpath->query("//*[@id='smoke-id']")->length;
 
     if ($withClass === 0) {
         return '使用者傳入的 class 未生效（同一元素可能有兩個 class 屬性）';
+    }
+    if ($withStyle === 0) {
+        return '使用者傳入的 style 未生效（同一元素可能有兩個 style 屬性）';
     }
     if ($withId !== 1) {
         return "使用者傳入的 id 出現在 {$withId} 個元素上（預期 1 個）";
@@ -220,7 +225,7 @@ foreach ($bladeFiles as $path) {
     }
 
     foreach ($variants as $label => $attributes) {
-        $template = "<{$tag}{$attributes} class=\"smoke-extra\" id=\"smoke-id\">Slot content</{$tag}>";
+        $template = "<{$tag}{$attributes} class=\"smoke-extra\" id=\"smoke-id\" style=\"--smoke-style: 1\">Slot content</{$tag}>";
         $renders++;
         try {
             $html = Blade::render($template, deleteCachedView: true);
