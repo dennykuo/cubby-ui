@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Checkbox fixture</title>
+    <link rel="stylesheet" href="../../../dist/core/cubby-ui.css" />
+    <style>
+      /* 模擬淺色 primary 的品牌主題：primary-foreground 為深色 */
+      .light-brand {
+        --color-primary: rgb(45, 212, 191);
+        --color-primary-foreground: rgb(15, 23, 42);
+      }
+    </style>
+  </head>
+  <body>
+    <label class="cu-checkbox-wrapper"><input type="checkbox" class="cu-checkbox" id="unchecked" /> Unchecked</label>
+    <label class="cu-checkbox-wrapper"
+      ><input type="checkbox" class="cu-checkbox" id="checked" checked /> Checked</label
+    >
+    <label class="cu-checkbox-wrapper"><input type="checkbox" class="cu-checkbox" id="mixed" /> Mixed</label>
+    <div class="light-brand">
+      <label class="cu-checkbox-wrapper"
+        ><input type="checkbox" class="cu-checkbox" id="brand" checked /> Light brand</label
+      >
+    </div>
+    <script>
+      document.getElementById("mixed").indeterminate = true;
+    </script>
+    <script src="../../../dist/core/cubby-ui.js"></script>
+  </body>
+</html>
