@@ -757,11 +757,18 @@ function cleanup(template) {
   // 修正 $attributes->class 後面的多餘空格 ]) }}>  text → ]) }}>
   result = result.replace(/\]\) \}\}>(\s+)/g, "]) }}>\n");
 
-  // 修正多行 $attributes->class 的縮排（壓縮的空格問題）
-  result = result.replace(/(\$attributes(?:->only\('class'\))?->class)\(\[\s{2,}/g, "$1([");
-  // 清除 class 項之間的多餘空格
-  result = result.replace(/,\s{2,}'/g, ", '");
-  result = result.replace(/,\s{2,}\$/g, ", $");
+  // 多行 class 陣列（buildBladeClassString 每項一行、以 `,` 結尾）依所在行的縮排對齊：
+  // 項目縮排一層，結尾 `])` 與開頭那一行同層
+  result = result.replace(
+    /^([ \t]*)([^\n]*(?:->class|@class)\(\[)\n((?:[^\n]*,\n)+?)[ \t]*\]\)/gm,
+    (_m, indent, head, body) => {
+      const items = body
+        .trimEnd()
+        .split("\n")
+        .map((line) => `${indent}    ${line.trim()}`);
+      return `${indent}${head}\n${items.join("\n")}\n${indent}])`;
+    },
+  );
 
   // 確保 @if/@endif 前後有合理的換行
   result = result.replace(/@endif\s*@if/g, "@endif\n@if");

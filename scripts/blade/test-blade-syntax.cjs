@@ -99,6 +99,12 @@ const BAD_PATTERNS = [
     regex: /'\$[A-Za-z_]/,
     hint: "字串字面量被當成變數轉換（如 $codeTheme === '$light'）；檢查 class-resolver 的 conditionToPhp",
   },
+  {
+    name: "half-collapsed-class-array",
+    // 多行 class 陣列被壓成一行、只剩結尾 `])` 換行：`class(['a', 'b' => $c,` + 換行 + `])`
+    regex: /(?:->class|@class)\(\[.*,\s*$/,
+    hint: "class 陣列應為單行 `class([...])` 或每項一行；檢查 transformers.cjs cleanup() 的多行 class 陣列對齊",
+  },
 ];
 
 /**
@@ -605,7 +611,7 @@ function main() {
     }
   } else {
     console.log(
-      "✓ 無已知壞 pattern（`,,`、空陣列元素、未轉譯 JSX / Astro 語法、'$ 開頭的字串、同標籤重複 class / style / attribute bag、非 void 自閉合）",
+      "✓ 無已知壞 pattern（`,,`、空陣列元素、未轉譯 JSX / Astro 語法、'$ 開頭的字串、同標籤重複 class / style / attribute bag、非 void 自閉合、半壓縮的 class 陣列）",
     );
   }
 
