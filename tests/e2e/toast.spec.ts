@@ -156,6 +156,35 @@ test.describe("Toast", () => {
     expect(await page.evaluate(() => (window as any).__p)).toBe("ok");
   });
 
+  test("promise API：success / error 的 duration: 0 不自動消失，未指定時 5000ms 消失", async ({ page }) => {
+    await page.clock.install();
+    await page.reload();
+    await page.waitForFunction(() => typeof (window as any).CubbyUI !== "undefined");
+    await page.evaluate(() => {
+      CubbyUI.toast.promise(Promise.resolve("ok"), {
+        loading: "Saving",
+        success: { title: "Kept success", duration: 0 },
+        error: "x",
+      });
+      CubbyUI.toast
+        .promise(Promise.reject(new Error("boom")), {
+          loading: "Working",
+          success: "y",
+          error: { title: "Kept error", duration: 0 },
+        })
+        .catch(() => {});
+      CubbyUI.toast.promise(Promise.resolve("ok"), { loading: "Loading", success: "Default success", error: "z" });
+    });
+    const live = page.locator(".cu-toast:not(.cu-toast-exit)");
+    await expect(live.locator(".cu-toast-title")).toHaveText(["Kept success", "Kept error", "Default success"]);
+    await page.clock.runFor(4_900);
+    await expect(live).toHaveCount(3);
+    await page.clock.runFor(200);
+    await expect(live.locator(".cu-toast-title")).toHaveText(["Kept success", "Kept error"]);
+    await page.clock.runFor(60_000);
+    await expect(live).toHaveCount(2);
+  });
+
   test("promise API：loading → error 並重新拋出", async ({ page }) => {
     const result = await page.evaluate(() =>
       CubbyUI.toast

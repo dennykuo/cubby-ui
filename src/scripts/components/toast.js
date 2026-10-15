@@ -165,9 +165,13 @@ export var toastAPI = {
         } else if (descEl) {
           descEl.remove();
         }
-        setTimeout(function () {
-          dismissToast(el);
-        }, successOpts.duration || 5000);
+        // 0 代表不自動消失，只有未指定時才用預設 5000ms
+        var successDuration = successOpts.duration !== undefined ? successOpts.duration : 5000;
+        if (successDuration > 0) {
+          setTimeout(function () {
+            dismissToast(el);
+          }, successDuration);
+        }
         return result;
       })
       .catch(function (err) {
@@ -188,9 +192,13 @@ export var toastAPI = {
         } else if (descEl) {
           descEl.remove();
         }
-        setTimeout(function () {
-          dismissToast(el);
-        }, errorOpts.duration || 5000);
+        // 0 代表不自動消失，只有未指定時才用預設 5000ms
+        var errorDuration = errorOpts.duration !== undefined ? errorOpts.duration : 5000;
+        if (errorDuration > 0) {
+          setTimeout(function () {
+            dismissToast(el);
+          }, errorDuration);
+        }
         throw err;
       });
   },
