@@ -468,3 +468,68 @@ test.describe("docs theme toggle", () => {
     });
   }
 });
+
+// ── 範例頁的 <dialog>：含 Cubby 關閉按鈕時必須帶對應的根屬性，否則可開啟但關閉按鈕無效 ──
+test.describe("docs example dialogs", () => {
+  const examplePages = pages.filter((p) => p.startsWith("/examples/"));
+
+  test("含 data-cu-*-close / cancel / action 的 <dialog> 都帶 data-cu-dialog / drawer / alert-dialog", async ({
+    page,
+  }) => {
+    await page.route("**/*", (route) => {
+      route.request().url().startsWith(origin) ? route.continue() : route.abort();
+    });
+    const problems: string[] = [];
+    for (const path of examplePages) {
+      await page.goto(baseURL + path, { waitUntil: "load" });
+      const found = await page.evaluate(() => {
+        const rules: Array<[string, string]> = [
+          ["[data-cu-dialog-close]", "data-cu-dialog"],
+          ["[data-cu-drawer-close]", "data-cu-drawer"],
+          ["[data-cu-alert-dialog-cancel], [data-cu-alert-dialog-action]", "data-cu-alert-dialog"],
+        ];
+        const out: string[] = [];
+        document.querySelectorAll("dialog").forEach((d) => {
+          for (const [closeSel, rootAttr] of rules) {
+            if (d.querySelector(closeSel) && !d.hasAttribute(rootAttr))
+              out.push(`<dialog id="${d.id}"> 含 ${closeSel} 但缺少 ${rootAttr}`);
+          }
+        });
+        return out;
+      });
+      problems.push(...found.map((f) => `${path}: ${f}`));
+    }
+    expect(problems).toEqual([]);
+  });
+
+  for (const { path, opener, dialog, close } of [
+    {
+      path: "/examples/dashboard-v5/",
+      opener: '[data-cu-dialog-trigger="product-dialog"]',
+      dialog: "#product-dialog",
+      close: "[data-cu-dialog-close]",
+    },
+    {
+      path: "/examples/modal-workflow/",
+      opener: '[data-cu-action="add"]',
+      dialog: "#contact-dialog",
+      close: "[data-cu-dialog-close]",
+    },
+  ]) {
+    test(`${path}：開啟 ${dialog} 後關閉按鈕可關閉，焦點回到開啟按鈕`, async ({ page }) => {
+      test.skip(!examplePages.includes(path), `${path} 未建置`);
+      await page.route("**/*", (route) => {
+        route.request().url().startsWith(origin) ? route.continue() : route.abort();
+      });
+      await page.goto(baseURL + path, { waitUntil: "load" });
+      const trigger = page.locator(opener).first();
+      const dlg = page.locator(dialog);
+      await trigger.scrollIntoViewIfNeeded();
+      await trigger.click();
+      await expect(dlg).toBeVisible();
+      await dlg.locator(close).first().click();
+      await expect(dlg).toBeHidden();
+      await expect(trigger).toBeFocused();
+    });
+  }
+});

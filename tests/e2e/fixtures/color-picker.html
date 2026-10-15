@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Color Picker fixture</title>
+    <link rel="stylesheet" href="../../../dist/core/cubby-ui.css" />
+    <style>
+      body {
+        padding: 16px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- 文檔 With Swatches 範例（#3b82f6 = HSV 217°, 76%, 96%） -->
+    <div id="cp" class="cu-color-picker" data-cu-color-picker data-cu-color-picker-value="#3b82f6">
+      <div class="cu-color-picker-saturation" data-cu-color-picker-saturation>
+        <div class="cu-color-picker-saturation-pointer" data-cu-color-picker-saturation-pointer></div>
+      </div>
+      <div class="cu-color-picker-hue" data-cu-color-picker-hue>
+        <div class="cu-color-picker-hue-pointer" data-cu-color-picker-hue-pointer></div>
+      </div>
+      <div class="cu-color-picker-controls">
+        <div class="cu-color-picker-preview" data-cu-color-picker-preview></div>
+        <input
+          type="text"
+          class="cu-color-picker-input"
+          data-cu-color-picker-input
+          maxlength="7"
+          spellcheck="false"
+          autocomplete="off"
+        />
+      </div>
+      <input type="hidden" data-cu-color-picker-hidden />
+      <div class="cu-color-picker-swatches">
+        <button
+          type="button"
+          class="cu-color-picker-swatch"
+          data-cu-color-picker-swatch="#ef4444"
+          style="background-color: #ef4444"
+          aria-label="Select #ef4444"
+        ></button>
+        <button
+          type="button"
+          class="cu-color-picker-swatch"
+          data-cu-color-picker-swatch="#22c55e"
+          style="background-color: #22c55e"
+          aria-label="Select #22c55e"
+        ></button>
+      </div>
+    </div>
+
+    <!-- 純色 #ff0000（HSV 0°, 100%, 100%），面板自訂名稱 -->
+    <div id="cp-red" class="cu-color-picker" data-cu-color-picker data-cu-color-picker-value="#ff0000">
+      <div class="cu-color-picker-saturation" data-cu-color-picker-saturation aria-label="Shade">
+        <div class="cu-color-picker-saturation-pointer" data-cu-color-picker-saturation-pointer></div>
+      </div>
+      <div class="cu-color-picker-hue" data-cu-color-picker-hue>
+        <div class="cu-color-picker-hue-pointer" data-cu-color-picker-hue-pointer></div>
+      </div>
+      <div class="cu-color-picker-controls">
+        <div class="cu-color-picker-preview" data-cu-color-picker-preview></div>
+        <input type="text" class="cu-color-picker-input" data-cu-color-picker-input maxlength="7" />
+      </div>
+      <input type="hidden" data-cu-color-picker-hidden />
+    </div>
+
+    <div style="height: 2000px"></div>
+    <script>
+      window.__changes = [];
+      document.addEventListener("cu:color-picker:change", function (e) {
+        window.__changes.push({ id: e.target.id, value: e.detail.value });
+      });
+    </script>
+    <script src="../../../dist/core/cubby-ui.js"></script>
+  </body>
+</html>

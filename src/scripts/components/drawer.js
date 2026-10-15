@@ -6,7 +6,7 @@ import { setupOverlay } from "../core/overlay.js";
  * HTML structure:
  * ```html
  * <button data-cu-drawer-trigger="drawer-id">Open</button>
- * <dialog id="drawer-id" class="cu-drawer cu-drawer-right">
+ * <dialog id="drawer-id" class="cu-drawer cu-drawer-right" data-cu-drawer>
  *   <div class="cu-drawer-header">
  *     <h2 class="cu-drawer-title">Title</h2>
  *     <button data-cu-drawer-close>✕</button>
@@ -19,6 +19,8 @@ import { setupOverlay } from "../core/overlay.js";
  * ```
  * Directions: cu-drawer-right (default) | cu-drawer-left | cu-drawer-top | cu-drawer-bottom
  * Closes on backdrop click. Focus returns to trigger on close.
+ * `data-cu-drawer` on the <dialog> is required: without it the trigger still opens it, but close buttons,
+ * backdrop click, the aria-labelledby / aria-describedby links and focus return are not wired up.
  */
 export function setupDrawers() {
   setupOverlay({

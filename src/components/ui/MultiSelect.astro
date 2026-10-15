@@ -18,15 +18,17 @@ const {
 	class: className,
 	...rest
 } = Astro.props;
+// 標籤（含移除按鈕）由 JS 渲染在 trigger 的兄弟容器 data-cu-multi-select-tags，不能巢狀在 trigger <button> 內
 ---
 
 <div class:list={[`${TOP_CLASS}-multi-select`, className]} data-cu-multi-select {...rest}>
-	<button type="button" class={`${TOP_CLASS}-multi-select-trigger`} data-cu-multi-select-trigger>
-		<div class={`${TOP_CLASS}-multi-select-tags`} data-cu-multi-select-tags>
+	<div class={`${TOP_CLASS}-multi-select-control`}>
+		<div class={`${TOP_CLASS}-multi-select-tags`} data-cu-multi-select-tags></div>
+		<button type="button" class={`${TOP_CLASS}-multi-select-trigger`} data-cu-multi-select-trigger>
 			<span class={`${TOP_CLASS}-multi-select-placeholder`} data-cu-multi-select-placeholder>{placeholder}</span>
-		</div>
-		<svg class={`${TOP_CLASS}-multi-select-icon`} xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 15 5 5 5-5"/><path d="m7 9 5-5 5 5"/></svg>
-	</button>
+			<svg class={`${TOP_CLASS}-multi-select-icon`} xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 15 5 5 5-5"/><path d="m7 9 5-5 5 5"/></svg>
+		</button>
+	</div>
 	<div class={`${TOP_CLASS}-multi-select-content`} data-cu-multi-select-content hidden>
 		{searchable && (
 			<div class={`${TOP_CLASS}-multi-select-search`}>

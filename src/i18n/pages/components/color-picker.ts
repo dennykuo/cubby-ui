@@ -12,6 +12,7 @@ export const colorPickerPage: Record<
       defaultColor: { title: string; description: string };
       withPopover: { title: string; description: string };
       withSwatches: { title: string; description: string };
+      accessibility: { title: string; description: string };
     };
     classDescriptions: Record<string, string>;
   }
@@ -40,12 +41,17 @@ export const colorPickerPage: Record<
       withPopover: {
         title: "With Popover",
         description:
-          'Combine with the Popover component for a compact trigger-based color picker. Remove the picker\'s border and shadow when nesting inside <code class="cu-code">cu-popover-content</code>.',
+          'Combine with the Popover component for a compact trigger-based color picker. Remove the picker\'s border and shadow when nesting inside <code class="cu-code">cu-popover-content</code>. Listen for <code class="cu-code">cu:color-picker:change</code> (<code class="cu-code">event.detail.value</code> is the hex color) to keep the trigger swatch in sync — it fires whenever the user changes the color (continuously while dragging), not on initialization.',
       },
       withSwatches: {
         title: "With Swatches",
         description:
           'Add preset color swatches for quick selection. Each swatch uses <code class="cu-code">data-cu-color-picker-swatch</code> with a hex value. Clicking a swatch updates the picker to that color.',
+      },
+      accessibility: {
+        title: "Accessibility",
+        description:
+          'The saturation panel and the hue bar become focusable <code class="cu-code">role="slider"</code> elements named "Saturation and brightness" and "Hue" (override with <code class="cu-code">aria-label</code>). The panel\'s <code class="cu-code">aria-valuenow</code> is the saturation and its <code class="cu-code">aria-valuetext</code> describes both values. On the panel, <kbd class="cu-kbd">←</kbd> / <kbd class="cu-kbd">→</kbd> change saturation and <kbd class="cu-kbd">↑</kbd> / <kbd class="cu-kbd">↓</kbd> brightness by 1% (hold <kbd class="cu-kbd">Shift</kbd> for 10%), <kbd class="cu-kbd">Page Up</kbd> / <kbd class="cu-kbd">Page Down</kbd> change brightness by 10%, and <kbd class="cu-kbd">Home</kbd> / <kbd class="cu-kbd">End</kbd> set saturation to 0 / 100%. On the hue bar, the arrow keys change the hue by 1° (<kbd class="cu-kbd">Shift</kbd>: 10°), <kbd class="cu-kbd">Page Up</kbd> / <kbd class="cu-kbd">Page Down</kbd> by 10°, and <kbd class="cu-kbd">Home</kbd> / <kbd class="cu-kbd">End</kbd> jump to 0° / 360°. Give swatches an <code class="cu-code">aria-label</code>.',
       },
     },
     classDescriptions: {
@@ -85,12 +91,17 @@ export const colorPickerPage: Record<
       withPopover: {
         title: "搭配 Popover",
         description:
-          '搭配 Popover 元件建立緊湊的觸發式色彩選擇器。嵌套在 <code class="cu-code">cu-popover-content</code> 內時，移除選色器的邊框和陰影。',
+          '搭配 Popover 元件建立緊湊的觸發式色彩選擇器。嵌套在 <code class="cu-code">cu-popover-content</code> 內時，移除選色器的邊框和陰影。監聽 <code class="cu-code">cu:color-picker:change</code>（<code class="cu-code">event.detail.value</code> 為 hex 色碼）即可同步觸發按鈕上的色塊 — 使用者每次改變顏色時派發（拖曳期間持續派發），初始化時不派發。',
       },
       withSwatches: {
         title: "預設色票",
         description:
           '加入預設色票以便快速選色。每個色票使用 <code class="cu-code">data-cu-color-picker-swatch</code> 搭配 hex 值。點擊色票會將選色器更新為該顏色。',
+      },
+      accessibility: {
+        title: "無障礙",
+        description:
+          '飽和度面板與色相條會成為可聚焦的 <code class="cu-code">role="slider"</code>，名稱分別為「Saturation and brightness」與「Hue」（可用 <code class="cu-code">aria-label</code> 覆寫）。面板的 <code class="cu-code">aria-valuenow</code> 為飽和度，<code class="cu-code">aria-valuetext</code> 同時描述飽和度與亮度。在面板上，<kbd class="cu-kbd">←</kbd> / <kbd class="cu-kbd">→</kbd> 調整飽和度、<kbd class="cu-kbd">↑</kbd> / <kbd class="cu-kbd">↓</kbd> 調整亮度，每次 1%（按住 <kbd class="cu-kbd">Shift</kbd> 為 10%），<kbd class="cu-kbd">Page Up</kbd> / <kbd class="cu-kbd">Page Down</kbd> 調整亮度 10%，<kbd class="cu-kbd">Home</kbd> / <kbd class="cu-kbd">End</kbd> 將飽和度設為 0 / 100%。在色相條上，方向鍵每次調整 1°（<kbd class="cu-kbd">Shift</kbd>：10°），<kbd class="cu-kbd">Page Up</kbd> / <kbd class="cu-kbd">Page Down</kbd> 調整 10°，<kbd class="cu-kbd">Home</kbd> / <kbd class="cu-kbd">End</kbd> 跳到 0° / 360°。請為色票加上 <code class="cu-code">aria-label</code>。',
       },
     },
     classDescriptions: {

@@ -23,6 +23,8 @@ declare global {
     _cuFocusInitialDate?: () => void;
     /** Calendar：日期按鈕代表的日期（鍵盤導航以日期而非按鈕索引計算） */
     _cuDate?: Date;
+    /** Command Palette：重新套用項目 ARIA 與目前查詢的篩選（清單變動與 refresh() 時呼叫） */
+    _cuCommandSync?: () => void;
     /** Toast：正在執行關閉動畫，避免重複關閉 */
     _cuDismissing?: boolean;
     /** Copy Button / Code Block：狀態期間暫存 label 原本的文字，還原時寫回 */

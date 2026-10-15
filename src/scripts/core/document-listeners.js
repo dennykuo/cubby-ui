@@ -1,5 +1,6 @@
 import { registry } from "./registry.js";
 import { closeMobileNav } from "../components/mobile-nav.js";
+import { closeContextMenu } from "../components/context-menu.js";
 import { navigateItems } from "./utils.js";
 
 export function setupDocumentListeners() {
@@ -61,9 +62,7 @@ export function setupDocumentListeners() {
         if (dp.trigger) dp.trigger.setAttribute("aria-expanded", "false");
       }
     });
-    registry.contextMenus.forEach(function (cm) {
-      if (cm.content) cm.content.setAttribute("hidden", "");
-    });
+    registry.contextMenus.forEach(closeContextMenu);
   };
 
   registry.docKeydownHandler = function (e) {
@@ -116,9 +115,7 @@ export function setupDocumentListeners() {
           if (sd.trigger) sd.trigger.setAttribute("aria-expanded", "false");
         }
       });
-      registry.contextMenus.forEach(function (cm) {
-        if (cm.content) cm.content.setAttribute("hidden", "");
-      });
+      registry.contextMenus.forEach(closeContextMenu);
       registry.datePickers.forEach(function (dp) {
         if (!dp.content || dp.content.style.display === "none") return;
         var hadFocus = dp.content.contains(document.activeElement);
@@ -186,13 +183,11 @@ export function setupDocumentListeners() {
 
   registry.docContextmenuHandler = function (e) {
     registry.contextMenus.forEach(function (cm) {
-      if (cm.content && !cm.el.contains(e.target)) cm.content.setAttribute("hidden", "");
+      if (!cm.el.contains(e.target)) closeContextMenu(cm);
     });
   };
   registry.docScrollHandler = function () {
-    registry.contextMenus.forEach(function (cm) {
-      if (cm.content) cm.content.setAttribute("hidden", "");
-    });
+    registry.contextMenus.forEach(closeContextMenu);
   };
 
   document.addEventListener("click", registry.docClickHandler);

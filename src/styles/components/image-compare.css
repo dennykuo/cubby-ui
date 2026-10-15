@@ -19,9 +19,14 @@
 
 /* Slider handle */
 .cu-image-compare-handle {
-  @apply absolute top-0 bottom-0 z-10 flex cursor-ew-resize items-center justify-center;
+  @apply absolute top-0 bottom-0 z-10 flex cursor-ew-resize items-center justify-center outline-none;
   left: var(--cu-compare-position, 50%);
   transform: translateX(-50%);
+}
+
+/* Keyboard focus (handle is role="slider"): ring on the grip */
+.cu-image-compare-handle:focus-visible .cu-image-compare-handle-grip {
+  @apply ring-2 ring-ring/40 ring-offset-2;
 }
 
 .cu-image-compare-handle-line {

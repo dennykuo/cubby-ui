@@ -483,6 +483,28 @@ test.describe("Date Picker", () => {
     await expect(range.cal.focused).toHaveText("10");
   });
 
+  test("min / max：今天不在範圍內時，初始月份落在範圍內（不會開在全部停用的月份）", async ({ page }) => {
+    // 今天 6/10 在範圍 3/10–4/20 之後
+    await open(page, "2026-06-10T10:00:00+08:00");
+    const cal = calendar(page.locator("#cal-range"));
+    await expect(cal.title).toHaveText("March 2026");
+    await expect(cal.day(10)).toBeEnabled();
+    await expect(cal.day(10)).toHaveAttribute("tabindex", "0");
+    await expect(cal.prev).toBeDisabled();
+    // Date Picker 的月曆在開啟前就已落在範圍內
+    await expect(picker(page, "dp-range").cal.title).toHaveText("March 2026");
+
+    // 今天 2/1 在範圍之前
+    await open(page, "2026-02-01T10:00:00+08:00");
+    await expect(cal.title).toHaveText("March 2026");
+    await expect(cal.grid.locator(".cu-calendar-day:not(.cu-calendar-day-outside):not(:disabled)")).toHaveCount(22);
+
+    // 今天在範圍內時維持今天所在月份
+    await open(page, "2026-04-05T10:00:00+08:00");
+    await expect(cal.title).toHaveText("April 2026");
+    await expect(cal.today).toHaveText("5");
+  });
+
   test("APG grid：月曆為以月份命名的 grid，每週一列 row，日期為 gridcell", async ({ page }) => {
     await open(page);
     const cal = calendar(page.locator("#cal"));

@@ -26,7 +26,7 @@ export const multiSelectPage: Record<
       usage: {
         title: "Usage",
         description:
-          'Use <code class="cu-code">data-cu-multi-select</code> on the wrapper, <code class="cu-code">data-cu-multi-select-trigger</code> on the button, <code class="cu-code">data-cu-multi-select-content</code> on the dropdown, and <code class="cu-code">data-cu-multi-select-item</code> on each option. Selected items appear as removable tags in the trigger area.',
+          'Use <code class="cu-code">data-cu-multi-select</code> on the wrapper, <code class="cu-code">data-cu-multi-select-trigger</code> on the button, <code class="cu-code">data-cu-multi-select-content</code> on the dropdown, and <code class="cu-code">data-cu-multi-select-item</code> on each option. Selected items appear as removable tags in <code class="cu-code">data-cu-multi-select-tags</code>, which sits next to the trigger inside <code class="cu-code">cu-multi-select-control</code> (the box) — never inside the trigger button, because each tag has its own remove button. Clicking empty space in the box opens the panel too.',
       },
       classes: {
         title: "CSS Classes",
@@ -45,7 +45,7 @@ export const multiSelectPage: Record<
       presetValues: {
         title: "Preset Values",
         description:
-          'Pre-select items by adding <code class="cu-code">cu-multi-select-item-active</code> to them. The tags are rendered in the trigger automatically on initialization, so do not write them in the markup (a <code class="cu-code">&lt;button&gt;</code> nested inside the trigger button breaks HTML parsing).',
+          'Pre-select items by adding <code class="cu-code">cu-multi-select-item-active</code> to them. The tags are rendered into <code class="cu-code">data-cu-multi-select-tags</code> automatically on initialization, so leave that container empty in the markup.',
       },
       withFormGroup: {
         title: "With Form Group",
@@ -55,15 +55,17 @@ export const multiSelectPage: Record<
       accessibility: {
         title: "Accessibility",
         description:
-          'Uses the same WAI-ARIA combobox semantics as Combobox, and the listbox has <code class="cu-code">aria-multiselectable="true"</code>. The search input — or, without one, the trigger, which becomes <code class="cu-code">role="combobox"</code> — points <code class="cu-code">aria-activedescendant</code> at the highlighted option. A combobox is not named by its text, so name a trigger without a search input with <code class="cu-code">aria-label</code> or <code class="cu-code">&lt;label for&gt;</code> (see With Form Group); if it has neither, cubby-ui.js uses the placeholder text (for example "Select frameworks...") as its <code class="cu-code">aria-label</code>. Each generated tag remove button is named "Remove {label}" (for example "Remove React") instead of the visual ×; set <code class="cu-code">data-cu-multi-select-remove-text</code> on the wrapper to translate it, where <code class="cu-code">{label}</code> is replaced with the item text, e.g. <code class="cu-code">data-cu-multi-select-remove-text="移除 {label}"</code>.',
+          'Uses the same WAI-ARIA combobox semantics as Combobox, and the listbox has <code class="cu-code">aria-multiselectable="true"</code>. The search input — or, without one, the trigger, which becomes <code class="cu-code">role="combobox"</code> — points <code class="cu-code">aria-activedescendant</code> at the highlighted option. A combobox is not named by its text, so name a trigger without a search input with <code class="cu-code">aria-label</code> or <code class="cu-code">&lt;label for&gt;</code> (see With Form Group); if it has neither, cubby-ui.js uses the placeholder text (for example "Select frameworks...") as its <code class="cu-code">aria-label</code>. Each generated tag remove button is named "Remove {label}" (for example "Remove React") instead of the visual ×; set <code class="cu-code">data-cu-multi-select-remove-text</code> on the wrapper to translate it, where <code class="cu-code">{label}</code> is replaced with the item text, e.g. <code class="cu-code">data-cu-multi-select-remove-text="移除 {label}"</code>. The remove buttons are siblings of the trigger rather than nested in it, so they come before the trigger in the Tab order; removing a tag from the keyboard moves focus to the next tag\'s remove button, or to the trigger after the last one. With a search input the trigger stays a button named by its text, so while tags hide the placeholder it keeps that text as its name (<code class="cu-code">aria-labelledby</code>) unless it already has <code class="cu-code">aria-label</code>, <code class="cu-code">aria-labelledby</code> or a <code class="cu-code">&lt;label for&gt;</code>. Markup from earlier versions with the tags container inside the trigger is restructured automatically on initialization.',
       },
     },
     classDescriptions: {
       "cu-multi-select": "Multi Select container, relatively positioned inline-block",
-      "cu-multi-select-trigger": "Trigger button with multi-line tag display",
-      "cu-multi-select-tags": "Flex wrap container for selected tags",
+      "cu-multi-select-control": "Bordered box around the tags and the trigger (focus ring follows the trigger)",
+      "cu-multi-select-trigger": "Trigger button (placeholder + chevron) filling the space after the tags",
+      "cu-multi-select-tags":
+        "Flex wrap container for selected tags, a sibling of the trigger (rendered by JS; hidden while empty)",
       "cu-multi-select-tag": "Selected item tag style",
-      "cu-multi-select-tag-remove": "Remove button on tag",
+      "cu-multi-select-tag-remove": 'Remove button on tag (type="button", outside the trigger)',
       "cu-multi-select-placeholder": "Placeholder text when nothing selected",
       "cu-multi-select-icon": "Arrow icon on the right side of trigger",
       "cu-multi-select-content": "Floating dropdown panel with rounded corners and shadow",
@@ -85,7 +87,7 @@ export const multiSelectPage: Record<
       usage: {
         title: "使用方式",
         description:
-          '在外層容器使用 <code class="cu-code">data-cu-multi-select</code>，按鈕使用 <code class="cu-code">data-cu-multi-select-trigger</code>，下拉面板使用 <code class="cu-code">data-cu-multi-select-content</code>，每個選項使用 <code class="cu-code">data-cu-multi-select-item</code>。已選項目會以可移除的標籤顯示在觸發區域。',
+          '在外層容器使用 <code class="cu-code">data-cu-multi-select</code>，按鈕使用 <code class="cu-code">data-cu-multi-select-trigger</code>，下拉面板使用 <code class="cu-code">data-cu-multi-select-content</code>，每個選項使用 <code class="cu-code">data-cu-multi-select-item</code>。已選項目會以可移除的標籤顯示在 <code class="cu-code">data-cu-multi-select-tags</code>，它與 trigger 並列在 <code class="cu-code">cu-multi-select-control</code>（外框）內 — 因為每個標籤都有自己的移除按鈕，不可放在 trigger 按鈕內。點擊外框內的空白處同樣會開啟面板。',
       },
       classes: {
         title: "CSS 類別",
@@ -104,7 +106,7 @@ export const multiSelectPage: Record<
       presetValues: {
         title: "預設值",
         description:
-          '在項目上加入 <code class="cu-code">cu-multi-select-item-active</code> 即可預選。標籤會在初始化時自動渲染到觸發區域，不需要寫在標記中（在觸發按鈕內巢狀 <code class="cu-code">&lt;button&gt;</code> 會破壞 HTML 解析）。',
+          '在項目上加入 <code class="cu-code">cu-multi-select-item-active</code> 即可預選。標籤會在初始化時自動渲染到 <code class="cu-code">data-cu-multi-select-tags</code>，標記中請保持該容器為空。',
       },
       withFormGroup: {
         title: "搭配表單群組",
@@ -114,15 +116,16 @@ export const multiSelectPage: Record<
       accessibility: {
         title: "無障礙",
         description:
-          '與 Combobox 相同的 WAI-ARIA combobox 語意，listbox 另帶 <code class="cu-code">aria-multiselectable="true"</code>。搜尋框（沒有搜尋框時為 trigger，會改為 <code class="cu-code">role="combobox"</code>）以 <code class="cu-code">aria-activedescendant</code> 指向高亮選項。combobox 不以文字內容命名，沒有搜尋框的 trigger 請以 <code class="cu-code">aria-label</code> 或 <code class="cu-code">&lt;label for&gt;</code> 命名（見「搭配表單群組」）；兩者都沒有時，cubby-ui.js 會以 placeholder 文字（例如「Select frameworks...」）作為 <code class="cu-code">aria-label</code>。JS 產生的標籤移除按鈕以「Remove {label}」（例如「Remove React」）命名，取代視覺上的 ×；在外層容器設定 <code class="cu-code">data-cu-multi-select-remove-text</code> 即可翻譯，<code class="cu-code">{label}</code> 會替換為項目文字，例如 <code class="cu-code">data-cu-multi-select-remove-text="移除 {label}"</code>。',
+          '與 Combobox 相同的 WAI-ARIA combobox 語意，listbox 另帶 <code class="cu-code">aria-multiselectable="true"</code>。搜尋框（沒有搜尋框時為 trigger，會改為 <code class="cu-code">role="combobox"</code>）以 <code class="cu-code">aria-activedescendant</code> 指向高亮選項。combobox 不以文字內容命名，沒有搜尋框的 trigger 請以 <code class="cu-code">aria-label</code> 或 <code class="cu-code">&lt;label for&gt;</code> 命名（見「搭配表單群組」）；兩者都沒有時，cubby-ui.js 會以 placeholder 文字（例如「Select frameworks...」）作為 <code class="cu-code">aria-label</code>。JS 產生的標籤移除按鈕以「Remove {label}」（例如「Remove React」）命名，取代視覺上的 ×；在外層容器設定 <code class="cu-code">data-cu-multi-select-remove-text</code> 即可翻譯，<code class="cu-code">{label}</code> 會替換為項目文字，例如 <code class="cu-code">data-cu-multi-select-remove-text="移除 {label}"</code>。移除按鈕與 trigger 並列而非巢狀在其中，因此在 Tab 順序中位於 trigger 之前；以鍵盤移除標籤後，焦點移到下一個標籤的移除按鈕，最後一個之後為 trigger。有搜尋框時 trigger 仍是以文字命名的 button，標籤遮住 placeholder 後仍以其文字作為無障礙名稱（<code class="cu-code">aria-labelledby</code>），已有 <code class="cu-code">aria-label</code>、<code class="cu-code">aria-labelledby</code> 或 <code class="cu-code">&lt;label for&gt;</code> 時除外。舊版把標籤容器放在 trigger 內的標記會在初始化時自動轉換。',
       },
     },
     classDescriptions: {
       "cu-multi-select": "Multi Select 容器，相對定位的行內區塊",
-      "cu-multi-select-trigger": "觸發按鈕，含多行標籤顯示",
-      "cu-multi-select-tags": "已選標籤的 Flex wrap 容器",
+      "cu-multi-select-control": "包住標籤與 trigger 的外框（焦點環跟隨 trigger）",
+      "cu-multi-select-trigger": "觸發按鈕（placeholder 與箭頭），填滿標籤之後的空間",
+      "cu-multi-select-tags": "已選標籤的 Flex wrap 容器，與 trigger 並列（由 JS 渲染，空白時隱藏）",
       "cu-multi-select-tag": "已選項目的標籤樣式",
-      "cu-multi-select-tag-remove": "標籤上的移除按鈕",
+      "cu-multi-select-tag-remove": '標籤上的移除按鈕（type="button"，位於 trigger 之外）',
       "cu-multi-select-placeholder": "未選取任何項目時的佔位文字",
       "cu-multi-select-icon": "觸發按鈕右側的箭頭圖示",
       "cu-multi-select-content": "浮動下拉面板，含圓角與陰影",

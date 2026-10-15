@@ -37,11 +37,11 @@ import {
  *
  * 無法自動判斷而未做操作驗證的部分（仍做靜態檢查）：
  *   - Sortable List / Kanban：原生 HTML5 拖放，只檢查 draggable="true" 與結構
- *   - Image Compare / Color Picker 色盤：只支援滑鼠 / 觸控拖曳，只檢查初始化
+ *   - Image Compare / Color Picker：拖曳不模擬，改以鍵盤操作把手 / 色相條（role="slider"）驗證
  *   - Copy Button：剪貼簿權限因環境而異，只檢查進入 data-cu-copied 或 data-cu-copy-failed 狀態
  *   - Code Block：複製只走 Clipboard API（測試頁不是安全來源），只做靜態檢查
  *   - Back to Top：需要捲動頁面，只檢查結構
- *   - Context Menu 項目：選單只能以右鍵開啟（容器無法聚焦），不檢查項目的鍵盤操作
+ *   - Context Menu：右鍵與 Shift+F10 開啟，只檢查鍵盤開啟時高亮第一個項目，不逐一執行項目
  *   - Tour：步驟目標不在範例中時無法開始，改為靜態檢查目標是否存在
  */
 
@@ -54,17 +54,7 @@ const ORIGIN = "http://cubby-examples.test";
  * 每筆都必須說明原因；JS 修正後應移除對應項目。
  */
 const KNOWN_JS_LIMITATIONS: Array<{ match: RegExp; reason: string }> = [
-  {
-    match: /^(巢狀互動元素|無法以鍵盤操作)：.*data-cu-tabs-close/,
-    reason:
-      "Closable Tabs：tabs.js 以 closeBtn.closest('[data-cu-tabs-trigger]') 找所屬分頁，關閉鈕只能寫在 trigger <button> 內，" +
-      "無法同時避免巢狀互動元素並支援鍵盤關閉，需調整 JS 結構",
-  },
-  {
-    match: /未知屬性 data-cu-image-compare-position/,
-    reason:
-      "Image Compare：文檔描述以 data-cu-image-compare-position 設定初始位置，但 image-compare.js 固定 setPosition(50)，需在 JS 讀取該屬性",
-  },
+  // 目前沒有已知限制（Closable Tabs 改以 Delete 鍵關閉、Image Compare 讀取 data-cu-image-compare-position 後已移除）
 ];
 
 /** 表單類元件（component-nav 的 Forms 分類）：放在 <form> 內很常見，按鈕必須明確 type */
@@ -298,7 +288,8 @@ const CLASS_HOOKS: Array<[string, string]> = [
 /**
  * 會被使用者「啟動」的元素：cubby-ui.js 只監聽 click，因此必須是原生可鍵盤操作的元素
  * （<button>、<a href>、<summary> 或按鈕型 <input>）。Dropdown / Combobox / Multi Select /
- * Command Palette 的項目由 document 級方向鍵導航處理，不在此列。
+ * Command Palette 的項目由 document 級方向鍵導航處理，不在此列。可關閉 tab 的 [data-cu-tabs-close]
+ * 刻意是 trigger（role="tab"）內 aria-hidden 的純滑鼠目標，鍵盤以 Delete 關閉聚焦中的 tab，也不在此列。
  */
 const ACTIVATABLE = [
   "[data-cu-dropdown-trigger]",
@@ -319,7 +310,6 @@ const ACTIVATABLE = [
   "[data-cu-mobile-nav-close]",
   "[data-cu-speed-dial-trigger]",
   "[data-cu-tabs-trigger]",
-  "[data-cu-tabs-close]",
   "[data-cu-tabs-scroll-start]",
   "[data-cu-tabs-scroll-end]",
   "[data-cu-carousel-prev]",
@@ -393,10 +383,7 @@ function staticAudit(cfg: AuditConfig): string[] {
     const inner = host.querySelector(
       'button, a[href], input:not([type="hidden"]), select, textarea, summary, [tabindex]:not([tabindex="-1"]), [contenteditable]',
     );
-    if (inner)
-      problems.push(
-        `巢狀互動元素：${describe(inner)} 位於 ${describe(host)} 內 [${inner.matches("[data-cu-tabs-close]") ? "data-cu-tabs-close" : "nesting"}]`,
-      );
+    if (inner) problems.push(`巢狀互動元素：${describe(inner)} 位於 ${describe(host)} 內`);
   }
 
   // 2. 未知的 data-cu-* 屬性
@@ -592,7 +579,7 @@ async function closeOverlays(page: Page) {
 const PROBES: Array<{ selector: string; run: Probe }> = [
   {
     selector: "[data-cu-tabs]",
-    run: async (_page, root) => {
+    run: async (page, root) => {
       const triggers = root.locator("[data-cu-tabs-trigger]:not(:disabled)");
       const n = await triggers.count();
       if (n < 2) return;
@@ -602,6 +589,18 @@ const PROBES: Array<{ selector: string; run: Probe }> = [
       const panelId = await target.getAttribute("aria-controls");
       if (!panelId) return "tab 沒有 aria-controls（cubby-ui.js 未連結 panel）";
       if (await hiddenAttr(root.locator(`[id="${panelId}"]`))) return "點擊 tab 後對應 panel 仍為 hidden";
+
+      // 可關閉的 tab：關閉圖示為 aria-hidden 的純滑鼠目標，鍵盤以 Delete 關閉聚焦中的 tab
+      const closable = root.locator("[data-cu-tabs-trigger]:has([data-cu-tabs-close])").first();
+      if (await closable.count()) {
+        if ((await closable.locator("[data-cu-tabs-close]").first().getAttribute("aria-hidden")) !== "true")
+          return "可關閉 tab 的關閉圖示沒有 aria-hidden（cubby-ui.js 未接手）";
+        const value = await closable.getAttribute("data-cu-tabs-trigger");
+        await closable.focus();
+        await page.keyboard.press("Delete");
+        if (await root.locator(`[data-cu-tabs-trigger="${value}"]`).count())
+          return "在可關閉 tab 上按 Delete 後 tab 沒有被移除";
+      }
     },
   },
   {
@@ -844,6 +843,12 @@ const PROBES: Array<{ selector: string; run: Probe }> = [
       await root.click({ button: "right", position: { x: 5, y: 5 } });
       if (!(await isShown(content))) return "右鍵後選單沒有開啟";
       await page.keyboard.press("Escape");
+      await root.focus();
+      await page.keyboard.press("Shift+F10");
+      if (!(await isShown(content))) return "聚焦容器按 Shift+F10 後選單沒有開啟";
+      if ((await content.locator(".cu-dropdown-item-highlight").count()) !== 1)
+        return "鍵盤開啟選單後沒有高亮第一個項目";
+      await page.keyboard.press("Escape");
     },
   },
   {
@@ -902,7 +907,7 @@ const PROBES: Array<{ selector: string; run: Probe }> = [
   },
   {
     selector: "[data-cu-color-picker]",
-    run: async (_page, root) => {
+    run: async (page, root) => {
       const swatch = root.locator("[data-cu-color-picker-swatch]").first();
       const input = root.locator("[data-cu-color-picker-input]").first();
       if ((await swatch.count()) && (await input.count())) {
@@ -912,6 +917,13 @@ const PROBES: Array<{ selector: string; run: Probe }> = [
       } else if ((await input.count()) && !(await input.inputValue()).startsWith("#")) {
         return "初始化後 hex 輸入框沒有值";
       }
+      const hue = root.locator("[data-cu-color-picker-hue]").first();
+      if ((await hue.getAttribute("role")) !== "slider") return '色相條沒有 role="slider"（cubby-ui.js 未接手）';
+      if (!(await hue.isVisible())) return; // 例如放在未開啟的 Popover 內
+      const before = Number(await hue.getAttribute("aria-valuenow"));
+      await hue.focus();
+      await page.keyboard.press(before >= 360 ? "ArrowLeft" : "ArrowRight");
+      if (Number(await hue.getAttribute("aria-valuenow")) === before) return "聚焦色相條按方向鍵後色相沒有改變";
     },
   },
   {
@@ -991,9 +1003,19 @@ const PROBES: Array<{ selector: string; run: Probe }> = [
   },
   {
     selector: "[data-cu-image-compare]",
-    run: async (_page, root) => {
+    run: async (page, root) => {
+      const attr = parseFloat((await root.getAttribute("data-cu-image-compare-position")) || "");
+      const expected = isNaN(attr) ? 50 : Math.max(0, Math.min(100, attr));
       const pos = await root.evaluate((el) => (el as HTMLElement).style.getPropertyValue("--cu-compare-position"));
-      if (pos !== "50%") return "初始化後沒有設定 --cu-compare-position";
+      if (pos !== `${expected}%`) return `初始化後 --cu-compare-position 為「${pos}」，預期 ${expected}%`;
+      const handle = root.locator(".cu-image-compare-handle").first();
+      if (!(await handle.count())) return;
+      if ((await handle.getAttribute("role")) !== "slider") return '把手沒有 role="slider"（cubby-ui.js 未接手）';
+      if (!(await handle.isVisible())) return;
+      await handle.focus();
+      await page.keyboard.press(expected >= 100 ? "ArrowLeft" : "ArrowRight");
+      if ((await handle.getAttribute("aria-valuenow")) === String(Math.round(expected)))
+        return "聚焦把手按方向鍵後位置沒有改變";
     },
   },
   {

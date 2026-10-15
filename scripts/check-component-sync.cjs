@@ -12,6 +12,7 @@
  *
  * 另外比對互動 JS 與型別定義的 data-* 屬性集合：
  *   6. src/scripts/{index.js, core/, components/} 使用的所有 `data-cu-*`
+ *      （字面字串，以及 `el.dataset.cuXxx` / `el.dataset["cuXxx"]` 還原的屬性名）
  *      ⇔ src/scripts/cubby-ui.d.ts `DATA_ATTRS` 常數列出的值（雙向皆須一致）
  *
  * 以及 README 的元件分類表：
@@ -93,6 +94,16 @@ for (const slug of pageSlugs)
 
 // --- data-cu-* 屬性：JS 實作 ⇔ d.ts DATA_ATTRS --------------------------------
 const ATTR_RE = /data-cu-[a-z0-9-]+/g;
+/** `el.dataset.cuMinSize` / `el.dataset["cuMinSize"]` 形式的存取（屬性名不會以 data-cu-* 字面出現） */
+const DATASET_RE = /\bdataset(?:\.(cu[A-Z][A-Za-z0-9]*)|\[\s*["'](cu[A-Z][A-Za-z0-9]*)["']\s*\])/g;
+/** dataset 的 camelCase 名稱還原為 data-* 屬性名（`cuMinSize` → `data-cu-min-size`） */
+const datasetToAttr = (name) => "data-" + name.replace(/[A-Z]/g, (c) => "-" + c.toLowerCase());
+/** 原始碼中出現的所有 data-cu-* 屬性（字面字串 + dataset 存取） */
+function collectAttrs(src) {
+  const attrs = src.match(ATTR_RE) || [];
+  for (const m of src.matchAll(DATASET_RE)) attrs.push(datasetToAttr(m[1] || m[2]));
+  return attrs;
+}
 /** 遞迴收集 src/scripts/ 下的互動元件 ESM 原始檔（排除 playground.js 與型別檔） */
 function listLibSources(dir) {
   const out = [];
@@ -104,7 +115,7 @@ function listLibSources(dir) {
   return out;
 }
 const jsSources = listLibSources("src/scripts");
-const jsAttrs = new Set(jsSources.flatMap((rel) => read(rel).match(ATTR_RE) || []));
+const jsAttrs = new Set(jsSources.flatMap((rel) => collectAttrs(read(rel))));
 const dtsSrc = read("src/scripts/cubby-ui.d.ts");
 const dtsBlock = dtsSrc.slice(dtsSrc.indexOf("export declare const DATA_ATTRS"));
 const dtsAttrs = new Set(

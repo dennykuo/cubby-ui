@@ -346,6 +346,8 @@ Data attributes: `data-cu-checkbox-group` (container), `data-cu-checkbox-group-s
 **Color Picker** ⚡ Interactive — HSV saturation panel + hue slider + hex input + preset swatches
 Classes: `cu-color-picker` (container, popover-styled), `cu-color-picker-saturation` (SV panel, crosshair cursor), `cu-color-picker-saturation-pointer` (draggable dot), `cu-color-picker-hue` (rainbow gradient bar), `cu-color-picker-hue-pointer` (draggable dot), `cu-color-picker-controls` (preview + input row), `cu-color-picker-preview` (color swatch), `cu-color-picker-input` (hex text field), `cu-color-picker-swatches` (grid container), `cu-color-picker-swatch` (individual swatch button)
 Data attributes: `data-cu-color-picker`, `data-cu-color-picker-value`, `data-cu-color-picker-saturation`, `data-cu-color-picker-saturation-pointer`, `data-cu-color-picker-hue`, `data-cu-color-picker-hue-pointer`, `data-cu-color-picker-preview`, `data-cu-color-picker-input`, `data-cu-color-picker-hidden`, `data-cu-color-picker-swatch`
+Keyboard (set by JS): the saturation panel and hue bar become focusable `role="slider"` (default names "Saturation and brightness" / "Hue"; override with `aria-label`). Saturation panel: ← / → saturation ±1%, ↑ / ↓ brightness ±1% (Shift ×10), Page Up / Page Down brightness ±10%, Home / End saturation 0 / 100%. Hue: ← / ↓ −1°, → / ↑ +1° (Shift ×10), Page Up / Page Down ±10°, Home / End 0° / 360°.
+Event: `cu:color-picker:change` (`detail.value` = "#rrggbb", bubbles) on the root whenever the user changes the color — continuously while dragging, keyboard, valid hex input, swatches; not on init.
 ```html
 <div class="cu-color-picker" data-cu-color-picker data-cu-color-picker-value="#ff0000">
   <div class="cu-color-picker-saturation" data-cu-color-picker-saturation>
@@ -490,22 +492,26 @@ A11y (APG Date Picker Dialog + grid, set by JS): trigger `aria-haspopup="dialog"
 Key data attributes: `data-cu-multi-select`, `data-cu-multi-select-trigger`, `data-cu-multi-select-content`, `data-cu-multi-select-input`, `data-cu-multi-select-item` (with `data-cu-value`), `data-cu-multi-select-tags`, `data-cu-multi-select-placeholder`, `data-cu-multi-select-list`, `data-cu-multi-select-empty`
 Search debounce (optional): `data-cu-multi-select-debounce="300"` on the root delays filtering until typing pauses for N ms (default: filter on every keystroke). Clearing the query, arrow keys and Enter apply pending filtering immediately. Events: `cu:multiselect:change` (`{ selected }`), `cu:multiselect:search` (`{ query }`, fired when the applied query changes — use it for remote search).
 Trigger: a `<button type="button">` — a `<div>` trigger cannot be focused or opened with the keyboard. Pre-select items with `cu-multi-select-item-active`; selected tags (with remove buttons) are rendered by JS into `data-cu-multi-select-tags`.
-A11y: same combobox ARIA as Combobox (search input, or the trigger when there is none, owns `aria-activedescendant`). Generated tag remove buttons are named "Remove {label}"; localize with `data-cu-multi-select-remove-text="移除 {label}"` on the root (`{label}` = item text).
+Structure: `cu-multi-select-control` (the box) holds the tags container `data-cu-multi-select-tags` and the trigger `<button>` as SIBLINGS — tags carry their own remove `<button type="button">`, so never put the tags inside the trigger (markup from earlier versions that does is restructured on init). The placeholder lives in the trigger; leave the tags container empty (JS renders tags, it collapses while empty). Clicking empty space in the control opens the panel.
+A11y: same combobox ARIA as Combobox (search input, or the trigger when there is none, owns `aria-activedescendant`). Generated tag remove buttons are named "Remove {label}"; localize with `data-cu-multi-select-remove-text="移除 {label}"` on the root (`{label}` = item text). Remove buttons precede the trigger in Tab order; removing one from the keyboard focuses the next tag's remove button, or the trigger after the last. With a search input the trigger stays a button named by its text, so while tags hide the placeholder it keeps that text as its name (`aria-labelledby`), unless it has `aria-label` / `aria-labelledby` / `<label for>` (without a search input the trigger is a select-only combobox and, like Combobox, gets the placeholder text as its `aria-label`).
 ```html
 <div class="cu-multi-select" data-cu-multi-select>
-  <button type="button" class="cu-multi-select-trigger" data-cu-multi-select-trigger>
-    <div class="cu-multi-select-tags" data-cu-multi-select-tags>
+  <div class="cu-multi-select-control">
+    <div class="cu-multi-select-tags" data-cu-multi-select-tags></div>
+    <button type="button" class="cu-multi-select-trigger" data-cu-multi-select-trigger>
       <span class="cu-multi-select-placeholder" data-cu-multi-select-placeholder>Select options...</span>
-    </div>
-    <svg class="cu-multi-select-icon" aria-hidden="true"><!-- chevrons icon --></svg>
-  </button>
+      <svg class="cu-multi-select-icon" aria-hidden="true"><!-- chevrons icon --></svg>
+    </button>
+  </div>
   <div class="cu-multi-select-content" data-cu-multi-select-content hidden>
-    <input class="cu-multi-select-input" data-cu-multi-select-input placeholder="Search..." aria-label="Search options">
-    <ul data-cu-multi-select-list>
-      <li class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="opt1">Option 1</li>
-      <li class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="opt2">Option 2</li>
-    </ul>
-    <div class="cu-multi-select-empty" data-cu-multi-select-empty hidden>No results</div>
+    <div class="cu-multi-select-search">
+      <input class="cu-multi-select-input" data-cu-multi-select-input placeholder="Search..." aria-label="Search options">
+    </div>
+    <div class="cu-multi-select-list" data-cu-multi-select-list>
+      <div class="cu-multi-select-empty" data-cu-multi-select-empty hidden>No results</div>
+      <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="opt1">Option 1</div>
+      <div class="cu-multi-select-item" data-cu-multi-select-item data-cu-value="opt2">Option 2</div>
+    </div>
   </div>
 </div>
 ```
@@ -894,9 +900,10 @@ Classes: `cu-diff-viewer`, `cu-diff-viewer-header`, `cu-diff-viewer-filename`, `
 
 **Image Compare** — before/after image comparison slider
 Classes: `cu-image-compare`, `cu-image-compare-before`, `cu-image-compare-after`, `cu-image-compare-handle`, `cu-image-compare-handle-line`, `cu-image-compare-handle-grip`, `cu-image-compare-label`, `cu-image-compare-vertical`
-Data: `data-cu-image-compare`
+Data: `data-cu-image-compare`, `data-cu-image-compare-position="N"` (initial position 0–100, default 50)
+Keyboard (set by JS): the handle becomes `role="slider"` (`tabindex="0"`, `aria-valuenow` 0–100, `aria-valuetext="N%"`, `aria-orientation`); Arrow keys ±1, Page Up / Page Down ±10, Home / End → 0 / 100 (vertical: Down / Right increase). Name it with `aria-label` on the handle (default "Image comparison").
 ```html
-<div class="cu-image-compare" data-cu-image-compare>
+<div class="cu-image-compare" data-cu-image-compare data-cu-image-compare-position="50">
   <img class="cu-image-compare-after" src="after.jpg" alt="After" />
   <img class="cu-image-compare-before" src="before.jpg" alt="Before" />
   <div class="cu-image-compare-handle">
@@ -1041,7 +1048,7 @@ Programmatic API: `CubbyUI.toast.show({ title, description, variant, duration, a
 Classes: `cu-command` (dialog container, centered, max-w-lg), `cu-command-input-wrapper` (search bar row with border-bottom), `cu-command-input-icon` (search icon), `cu-command-input` (text input), `cu-command-list` (scrollable results), `cu-command-group` (group container), `cu-command-group-heading` (group label), `cu-command-item` (selectable row), `cu-command-separator` (divider), `cu-command-shortcut` (right-aligned shortcut text), `cu-command-empty` (no results message)
 Active item: `data-cu-command-active` attribute highlights item.
 A11y (APG combobox + listbox, set by JS): input `role="combobox"` + `aria-controls` / `aria-autocomplete="list"` / `aria-expanded="true"` / `aria-activedescendant` (active item); list `role="listbox"`, groups `role="group"` labelled by their `cu-command-group-heading`, items `role="option"` + `aria-selected` (ids auto-generated). Items may be `<a href>`: Enter still clicks (navigates) the active item.
-Data attributes (required for filtering / keyboard navigation): `data-cu-command` (on `<dialog>`), `data-cu-command-input`, `data-cu-command-list`, `data-cu-command-group`, `data-cu-command-item` (optional `data-cu-command-value` = search text), `data-cu-command-separator`, `data-cu-command-empty` (add `hidden`; shown when nothing matches). Open with `data-cu-command-trigger="<dialog id>"` on a button or Ctrl / Cmd + K. Items are collected once when the palette is initialized (render every item in the markup before cubby-ui.js runs; items added later are not filtered or keyboard-navigable).
+Data attributes (required for filtering / keyboard navigation): `data-cu-command` (on `<dialog>`), `data-cu-command-input`, `data-cu-command-list`, `data-cu-command-group`, `data-cu-command-item` (optional `data-cu-command-value` = search text), `data-cu-command-separator`, `data-cu-command-empty` (add `hidden`; shown when nothing matches). Open with `data-cu-command-trigger="<dialog id>"` on a button or Ctrl / Cmd + K. Items are queried on demand — items added to / removed from `data-cu-command-list` after init (e.g. remote search results) are filtered, navigable and get ARIA immediately; `CubbyUI.refresh()` re-syncs them too.
 ```html
 <button type="button" class="cu-button cu-button-outline" data-cu-command-trigger="command-menu">Search… <kbd class="cu-kbd cu-kbd-sm">⌘K</kbd></button>
 
@@ -1073,8 +1080,9 @@ Data attributes (required for filtering / keyboard navigation): `data-cu-command
 Classes: `cu-context-menu` (wrapper), `cu-context-menu-content` (popup panel, reuses dropdown item styles)
 Menu items use `cu-dropdown-item`, `cu-dropdown-label`, `cu-dropdown-separator` classes.
 Data attributes: `data-cu-context-menu`, `data-cu-context-menu-content`
+Keyboard (set by JS): the container becomes focusable (`tabindex="0"` unless it already has a `tabindex`; `-1` lets focusable children receive the shortcut); Shift+F10 or the ContextMenu key opens the menu at the focused element with the first item highlighted. The menu is `role="menu"` (takes focus, `aria-activedescendant` → highlighted `cu-dropdown-item-highlight`), items `role="menuitem"`, separators `role="separator"`; ↑ / ↓ wrap, Home / End, Enter / Space activate, Esc / Tab close, focus returns. Name the container with `aria-label`.
 ```html
-<div class="cu-context-menu" data-cu-context-menu>
+<div class="cu-context-menu" data-cu-context-menu aria-label="Clipboard actions">
   <div>Right-click this area</div>
   <div class="cu-context-menu-content" data-cu-context-menu-content hidden>
     <button class="cu-dropdown-item">Cut</button>
@@ -1228,9 +1236,9 @@ There is no declarative trigger attribute: start the tour with `data-cu-tour-aut
 **Tabs** ⚡ Interactive — show/hide panels
 Active trigger: `cu-tabs-trigger-active`
 List variants: `cu-tabs-list-pills` (pill-shaped tab bar), `cu-tabs-list-underline` (underline-only, transparent background), `cu-tabs-list-vertical` (vertical column list — use with `cu-tabs-vertical` on the root container for side-by-side layout)
-Tab extras: `cu-tabs-trigger-badge` (badge inside tab trigger), `cu-tabs-trigger-close` (close button inside tab trigger)
+Tab extras: `cu-tabs-trigger-badge` (badge inside tab trigger), `cu-tabs-trigger-close` (close icon inside tab trigger — `<span class="cu-tabs-trigger-close" data-cu-tabs-close aria-hidden="true">×</span>`, a mouse target, never a nested button; Delete / Backspace on the focused tab closes it, `aria-keyshortcuts="Delete"` is set by JS; focus / selection move to the following tab, or the previous one; fires `cu:tabs:close`)
 Scrollable: `cu-tabs-list-scrollable` (scrollable wrapper), `cu-tabs-scroll-btn` (scroll left button), `cu-tabs-scroll-btn-end` (scroll right button)
-Data attributes: `data-cu-tabs-close` (on close button), `data-cu-tabs-scrollable` (on scrollable wrapper)
+Data attributes: `data-cu-tabs-close` (on the close icon), `data-cu-tabs-scrollable` (on scrollable wrapper)
 ```html
 <div class="cu-tabs" data-cu-tabs>
   <div class="cu-tabs-list">

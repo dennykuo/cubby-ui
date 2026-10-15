@@ -12,6 +12,7 @@ export const imageComparePage: Record<
       withLabels: { title: string; description: string };
       vertical: { title: string; description: string };
       initialPosition: { title: string; description: string };
+      accessibility: { title: string; description: string };
     };
     classDescriptions: Record<string, string>;
   }
@@ -46,6 +47,11 @@ export const imageComparePage: Record<
         title: "Initial Position",
         description:
           'Use <code class="cu-code">data-cu-image-compare-position</code> to set the initial handle position (0\u2013100). Defaults to 50.',
+      },
+      accessibility: {
+        title: "Accessibility",
+        description:
+          'The handle becomes a <code class="cu-code">role="slider"</code> (<code class="cu-code">tabindex="0"</code>, <code class="cu-code">aria-valuenow</code> 0\u2013100 with <code class="cu-code">aria-valuetext</code> such as "50%", and <code class="cu-code">aria-orientation</code>). With the handle focused, <kbd class="cu-kbd">←</kbd> / <kbd class="cu-kbd">→</kbd> (and <kbd class="cu-kbd">↑</kbd> / <kbd class="cu-kbd">↓</kbd>) move it by 1, <kbd class="cu-kbd">Page Up</kbd> / <kbd class="cu-kbd">Page Down</kbd> by 10, and <kbd class="cu-kbd">Home</kbd> / <kbd class="cu-kbd">End</kbd> jump to 0 / 100. In the vertical variant the value grows downwards, so <kbd class="cu-kbd">↓</kbd> increases it. Name the handle with <code class="cu-code">aria-label</code> (default "Image comparison") and give both images an <code class="cu-code">alt</code>.',
       },
     },
     classDescriptions: {
@@ -86,6 +92,11 @@ export const imageComparePage: Record<
         title: "初始位置",
         description:
           '使用 <code class="cu-code">data-cu-image-compare-position</code> 設定把手的初始位置（0\u2013100）。預設為 50。',
+      },
+      accessibility: {
+        title: "無障礙",
+        description:
+          '把手會成為 <code class="cu-code">role="slider"</code>（<code class="cu-code">tabindex="0"</code>、<code class="cu-code">aria-valuenow</code> 0\u2013100 與「50%」形式的 <code class="cu-code">aria-valuetext</code>，以及 <code class="cu-code">aria-orientation</code>）。聚焦把手後，<kbd class="cu-kbd">←</kbd> / <kbd class="cu-kbd">→</kbd>（與 <kbd class="cu-kbd">↑</kbd> / <kbd class="cu-kbd">↓</kbd>）每次移動 1，<kbd class="cu-kbd">Page Up</kbd> / <kbd class="cu-kbd">Page Down</kbd> 移動 10，<kbd class="cu-kbd">Home</kbd> / <kbd class="cu-kbd">End</kbd> 跳到 0 / 100。垂直模式的數值由上往下增加，因此 <kbd class="cu-kbd">↓</kbd> 為增加。請以 <code class="cu-code">aria-label</code> 為把手命名（預設「Image comparison」），並為兩張圖片提供 <code class="cu-code">alt</code>。',
       },
     },
     classDescriptions: {
