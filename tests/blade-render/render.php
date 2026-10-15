@@ -9,11 +9,15 @@
  * 比照 Laravel 的 HandleExceptions，PHP warning / notice 一律轉為例外，
  * 因此 `Undefined variable` 等錯誤會讓測試失敗。
  *
- * 每個元件渲染兩次：
+ * prop 的取樣值依 Astro 原始碼 `interface Props` 的型別決定（Blade 檔首行註解記錄了來源檔名，
+ * 型別別名如 FeedbackVariant 由 src/types.ts 解析）。每個元件渲染以下變體：
  *   - defaults：不帶任何 prop
- *   - all-props：每個 prop 都給 truthy 值（boolean → true、數字 → 3、其餘 → 'x'），
- *     以走過條件分支。Astro 原始碼 `interface Props` 宣告為陣列（如 ColorPicker 的
- *     `swatches?: string[]`）的 prop 改傳含兩個元素的陣列，讓 @foreach 等迴圈實際執行
+ *   - 逐值：字面量聯集（`size?: "sm" | "default" | "lg"`、`level?: 1 | 2 | 3`）的每個值、
+ *     boolean 的 true / false，各單獨渲染一次。同一個 prop 的不同值渲染結果相同時視為失敗
+ *     （該值的分支在轉換時遺失，例如 `variant === "lead" ? … : ""` 的 class 被丟掉）
+ *   - all-props：所有 prop 同時給非預設值（聯集 → 第一個非預設成員、boolean → 預設值的反面、
+ *     number → 3、陣列如 ColorPicker 的 `swatches?: string[]` → 兩個元素，讓 @foreach 實際執行、
+ *     其餘 → 'x'）。只有一個 prop 而與某個逐值變體相同時省略
  *
  * 每次渲染都帶 class="smoke-extra" id="smoke-id" style="--smoke-style: 1"，並以 DOMDocument 解析輸出
  * （與瀏覽器相同，重複屬性只保留第一個）確認：
@@ -44,18 +48,19 @@ use Illuminate\View\FileViewFinder;
 
 $componentsPath = realpath($argv[1] ?? '');
 $verbose = in_array('--verbose', $argv, true);
-// 用來查 prop 型別的 Astro 原始碼目錄（Blade 檔首行註解記錄了來源檔名）
+// 用來查 prop 型別的 Astro 原始碼目錄（Blade 檔首行註解記錄了來源檔名）與共用型別別名
 $astroDir = __DIR__ . '/../../src/components/ui';
+$typesPath = __DIR__ . '/../../src/types.ts';
 
 if ($componentsPath === false || !is_dir($componentsPath . '/cu')) {
     fwrite(STDERR, "找不到元件目錄：" . ($argv[1] ?? '(未指定)') . "\n");
     exit(2);
 }
 
-// 與 Laravel HandleExceptions 相同：除 deprecation 外的錯誤一律轉為 ErrorException
+// 與 Laravel HandleExceptions 相同：除 deprecation 與以 @ 抑制的錯誤外，一律轉為 ErrorException
 error_reporting(E_ALL);
 set_error_handler(function (int $level, string $message, string $file = '', int $line = 0) {
-    if (in_array($level, [E_DEPRECATED, E_USER_DEPRECATED], true)) {
+    if (in_array($level, [E_DEPRECATED, E_USER_DEPRECATED], true) || !(error_reporting() & $level)) {
         return true;
     }
     throw new ErrorException($message, 0, $level, $file, $line);
@@ -120,12 +125,28 @@ function parseProps(string $source): array
 }
 
 /**
- * 由 Blade 檔首行的 `Auto-generated from Xxx.astro` 找到 Astro 原始檔，
- * 回傳 interface Props 中宣告為陣列的 prop（名稱 → 元素型別）
+ * 解析 TypeScript 的 `type Name = ...;` 別名（如 src/types.ts 的 FeedbackVariant）
  *
  * @return array<string, string>
  */
-function arrayPropsOf(string $bladeSource, string $astroDir): array
+function parseTypeAliases(string $source): array
+{
+    preg_match_all('/^\s*(?:export\s+)?type\s+(\w+)\s*=\s*(.+?);/ms', $source, $matches, PREG_SET_ORDER);
+
+    $aliases = [];
+    foreach ($matches as [, $name, $type]) {
+        $aliases[$name] = $type;
+    }
+    return $aliases;
+}
+
+/**
+ * 由 Blade 檔首行的 `Auto-generated from Xxx.astro` 找到 Astro 原始檔，
+ * 回傳 interface Props 各 prop 的型別字串（名稱 → 型別；跨行的聯集會合併成一行）
+ *
+ * @return array<string, string>
+ */
+function propTypesOf(string $bladeSource, string $astroDir): array
 {
     if (!preg_match('/Auto-generated from (\w+\.astro)/', $bladeSource, $m)) {
         return [];
@@ -134,41 +155,126 @@ function arrayPropsOf(string $bladeSource, string $astroDir): array
     if (!is_file($astroPath)) {
         return [];
     }
-    if (!preg_match('/interface Props\s*\{(.*?)\n\}/s', file_get_contents($astroPath), $interface)) {
+    // 也涵蓋 `interface Props extends Omit<HTMLAttributes<"input">, "size">` 這類寫法
+    if (!preg_match('/interface Props\b[^{]*\{(.*?)\n\}/s', file_get_contents($astroPath), $interface)) {
         return [];
     }
 
-    preg_match_all('/^\s*(\w+)\??\s*:\s*(?:(\w+)\[\]|Array<(\w+)>)\s*;/m', $interface[1], $matches, PREG_SET_ORDER);
-    $arrayProps = [];
-    foreach ($matches as $match) {
-        $arrayProps[$match[1]] = ($match[2] ?? '') !== '' ? $match[2] : $match[3];
+    $body = preg_replace(['#/\*.*?\*/#s', '#//[^\n]*#'], '', $interface[1]);
+    $types = [];
+    foreach (explode(';', $body) as $member) {
+        // `[key: string]: any` 等索引簽章不以名稱開頭，自然略過
+        if (preg_match('/^\s*(\w+)\??\s*:\s*(.+?)\s*$/s', $member, $mm)) {
+            $types[$mm[1]] = preg_replace('/\s+/', ' ', $mm[2]);
+        }
     }
-    return $arrayProps;
+    return $types;
 }
 
 /**
- * 依預設值型別產生 truthy 的屬性字串；陣列 prop 傳兩個元素的陣列
+ * 把型別字串分類為取樣規則：
+ *   - ['kind' => 'array', 'element' => 'string']  T[] / Array<T>
+ *   - ['kind' => 'literals', 'values' => [...]]   字串或數字字面量的聯集（含型別別名）
+ *   - ['kind' => 'boolean'] / ['kind' => 'number']
+ *   - ['kind' => 'other']                          string 及其他無法列舉的型別
  *
- * @param array<string, string> $props
- * @param array<string, string> $arrayProps
+ * @param array<string, string> $aliases
+ * @return array{kind: string, element?: string, values?: list<string|int|float>}
  */
-function truthyAttributes(array $props, array $arrayProps = []): string
+function sampleSpec(string $type, array $aliases): array
 {
-    $attrs = [];
-    foreach ($props as $name => $default) {
-        $attr = strtolower(preg_replace('/([a-z0-9])([A-Z])/', '$1-$2', $name));
-        if (isset($arrayProps[$name])) {
-            $items = $arrayProps[$name] === 'number' ? '[1, 2]' : "['x', 'y']";
-            $attrs[] = ":{$attr}=\"{$items}\"";
-        } elseif ($default === 'true' || $default === 'false') {
-            $attrs[] = ":{$attr}=\"true\"";
-        } elseif (is_numeric($default)) {
-            $attrs[] = ":{$attr}=\"3\"";
+    $type = trim($type);
+    if (isset($aliases[$type])) {
+        return sampleSpec($aliases[$type], array_diff_key($aliases, [$type => true]));
+    }
+    if (preg_match('/^(?:(\w+)\[\]|Array<(\w+)>)$/', $type, $m)) {
+        return ['kind' => 'array', 'element' => ($m[1] ?? '') !== '' ? $m[1] : $m[2]];
+    }
+    if ($type === 'boolean' || $type === 'number') {
+        return ['kind' => $type];
+    }
+
+    $values = [];
+    foreach (explode('|', ltrim($type, '| ')) as $member) {
+        $member = trim($member);
+        if (preg_match('/^(["\'])(.*)\1$/', $member, $m)) {
+            $values[] = $m[2];
+        } elseif (is_numeric($member)) {
+            $values[] = $member + 0;
         } else {
-            $attrs[] = "{$attr}=\"x\"";
+            return ['kind' => 'other'];
         }
     }
-    return implode(' ', $attrs);
+    return ['kind' => 'literals', 'values' => $values];
+}
+
+/**
+ * 把 @props 的預設值字面量轉成 PHP 值（只處理 Blade 產物會出現的 null / bool / 數字 / 單引號字串）
+ */
+function defaultValue(string $literal): mixed
+{
+    if (in_array($literal, ['null', 'true', 'false'], true)) {
+        return json_decode($literal);
+    }
+    if (is_numeric($literal)) {
+        return $literal + 0;
+    }
+    return preg_match("/^'(.*)'$/s", $literal, $m) ? stripslashes($m[1]) : $literal;
+}
+
+/**
+ * 產生元件標籤上的單一屬性：字串值為一般屬性，其餘以 `:attr` 傳 PHP 值
+ */
+function attribute(string $name, mixed $value): string
+{
+    $attr = strtolower(preg_replace('/([a-z0-9])([A-Z])/', '$1-$2', $name));
+    if (is_string($value)) {
+        return $attr . '="' . htmlspecialchars($value, ENT_QUOTES) . '"';
+    }
+    // Blade 不會解碼 :attr 內的 HTML entity，PHP 字面量原樣放入（phpLiteral 只產生單引號字串）
+    return ':' . $attr . '="' . phpLiteral($value) . '"';
+}
+
+function phpLiteral(mixed $value): string
+{
+    if (is_array($value)) {
+        return '[' . implode(', ', array_map('phpLiteral', $value)) . ']';
+    }
+    return var_export($value, true);
+}
+
+/**
+ * all-props 變體中某個 prop 的取樣值：盡量與預設值不同，以走過非預設的分支
+ *   - 字面量聯集 → 第一個不等於預設值的成員（Button 的 size → 'sm'）
+ *   - boolean → 預設值的反面（未宣告預設值時為 true）
+ *   - number → 3；陣列 → 兩個元素（讓 @foreach 實際執行）；其他 → 'x'
+ *   - Astro 型別查不到時依 @props 預設值推斷（boolean → true、數字 → 3、其餘 → 'x'）
+ *
+ * @param array{kind: string, element?: string, values?: list<string|int|float>}|null $spec
+ */
+function nonDefaultSample(?array $spec, mixed $default): mixed
+{
+    switch ($spec['kind'] ?? null) {
+        case 'literals':
+            foreach ($spec['values'] as $value) {
+                if ($value !== $default) {
+                    return $value;
+                }
+            }
+            return $spec['values'][0];
+        case 'boolean':
+            return $default !== true;
+        case 'number':
+            return 3;
+        case 'array':
+            return $spec['element'] === 'number' ? [1, 2] : ['x', 'y'];
+        case 'other':
+            return 'x';
+    }
+    if (is_bool($default)) {
+        return true;
+    }
+    return is_int($default) || is_float($default) ? 3 : 'x';
 }
 
 /**
@@ -208,6 +314,7 @@ foreach ($iterator as $file) {
 }
 sort($bladeFiles);
 
+$typeAliases = parseTypeAliases(file_get_contents($typesPath));
 $failures = 0;
 $renders = 0;
 
@@ -217,18 +324,41 @@ foreach ($bladeFiles as $path) {
     $relative = preg_replace('#/index$#', '', $relative);
     $tag = 'x-cu.' . str_replace('/', '.', $relative);
 
-    $variants = ['defaults' => ''];
     $source = file_get_contents($path);
     $props = parseProps($source);
-    if ($props) {
-        $variants['all-props'] = ' ' . truthyAttributes($props, arrayPropsOf($source, $astroDir));
+    $types = propTypesOf($source, $astroDir);
+
+    // 變體：label => [屬性字串, 列舉的 prop 名稱（僅逐值變體）]
+    $variants = ['defaults' => ['', null]];
+    $allProps = [];
+    foreach ($props as $name => $literal) {
+        $spec = isset($types[$name]) ? sampleSpec($types[$name], $typeAliases) : null;
+        $default = defaultValue($literal);
+        $allProps[] = attribute($name, nonDefaultSample($spec, $default));
+
+        $values = match ($spec['kind'] ?? null) {
+            'literals' => $spec['values'],
+            'boolean' => [true, false],
+            default => [],
+        };
+        foreach ($values as $value) {
+            $variants[$name . '=' . var_export($value, true)] = [' ' . attribute($name, $value), $name];
+        }
+    }
+    // 只有一個 prop 時 all-props 可能與某個逐值變體相同，不重複渲染
+    if ($allProps && !in_array(' ' . implode(' ', $allProps), array_column($variants, 0), true)) {
+        $variants['all-props'] = [' ' . implode(' ', $allProps), null];
     }
 
-    foreach ($variants as $label => $attributes) {
+    $outputs = [];
+    foreach ($variants as $label => [$attributes, $enumerated]) {
         $template = "<{$tag}{$attributes} class=\"smoke-extra\" id=\"smoke-id\" style=\"--smoke-style: 1\">Slot content</{$tag}>";
         $renders++;
         try {
             $html = Blade::render($template, deleteCachedView: true);
+            if ($enumerated !== null) {
+                $outputs[$enumerated][$label] = $html;
+            }
             if ($problem = checkUserAttributes($html)) {
                 $failures++;
                 echo "  ✗ {$relative} [{$label}]: {$problem}\n";
@@ -239,6 +369,19 @@ foreach ($bladeFiles as $path) {
             $failures++;
             $message = preg_replace('/\s*\(View: .*\)$/s', '', $e->getMessage());
             echo "  ✗ {$relative} [{$label}]: " . get_class($e) . ": {$message}\n";
+        }
+    }
+
+    // 同一個 prop 的不同值應渲染出不同結果；相同代表該值的分支在轉換時遺失（例如 class 條件被丟掉）
+    foreach ($outputs as $name => $byValue) {
+        $seen = [];
+        foreach ($byValue as $label => $html) {
+            if (isset($seen[$html])) {
+                $failures++;
+                echo "  ✗ {$relative} [{$label}]: 與 [{$seen[$html]}] 渲染結果相同（prop {$name} 的這個值沒有作用）\n";
+            } else {
+                $seen[$html] = $label;
+            }
         }
     }
 }

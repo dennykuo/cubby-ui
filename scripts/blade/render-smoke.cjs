@@ -4,9 +4,11 @@
  * 以 illuminate/view 實際渲染 dist/laravel/components/cu/ 下每個元件，
  * 捕捉靜態檢查抓不到的執行期錯誤（Undefined variable、型別錯誤等）。
  *
- * 依賴安裝於 tests/blade-render/vendor/（已 gitignore）：
- *   - vendor 不存在且有 composer → 自動 `composer install`
- *   - 沒有 composer 或安裝失敗 → 略過（required 時視為失敗）
+ * 依賴版本鎖定於 tests/blade-render/composer.lock，安裝於 tests/blade-render/vendor/（已 gitignore）：
+ *   - 有 composer → 每次執行 `composer install`，讓 vendor 跟上 composer.lock
+ *     （已一致時不連網，約 0.2 秒）
+ *   - 沒有 composer 但已有 vendor → 沿用現有 vendor
+ *   - 沒有 vendor 且無法安裝 → 略過（required 時視為失敗）
  */
 
 const fs = require("fs");
@@ -29,21 +31,22 @@ function runRenderSmoke({ componentsDir, verbose = false, required = false }) {
     return true;
   };
 
-  if (!fs.existsSync(path.join(HARNESS_DIR, "vendor", "autoload.php"))) {
-    const hasComposer = cp.spawnSync("composer", ["--version"], { encoding: "utf8" }).status === 0;
-    if (!hasComposer) {
-      return skip("系統未安裝 composer（可用 --skip-render 隱藏此訊息）");
-    }
+  const hasVendor = fs.existsSync(path.join(HARNESS_DIR, "vendor", "autoload.php"));
+  const hasComposer = cp.spawnSync("composer", ["--version"], { encoding: "utf8" }).status === 0;
 
-    console.log("📦 安裝 render smoke test 依賴（tests/blade-render，composer install）…");
+  if (hasComposer) {
+    if (!hasVendor) console.log("📦 安裝 render smoke test 依賴（tests/blade-render，composer install）…");
     const install = cp.spawnSync("composer", ["install", "--no-interaction", "--no-progress", "--quiet"], {
       cwd: HARNESS_DIR,
       encoding: "utf8",
     });
     if (install.status !== 0) {
       if (verbose) console.error(install.stderr || install.stdout);
-      return skip("composer install 失敗（需可連線至 Packagist）");
+      if (!hasVendor) return skip("composer install 失敗（需可連線至 Packagist）");
+      console.warn("⚠  composer install 失敗，沿用現有的 tests/blade-render/vendor/（可能與 composer.lock 不一致）");
     }
+  } else if (!hasVendor) {
+    return skip("系統未安裝 composer（可用 --skip-render 隱藏此訊息）");
   }
 
   console.log("🧪 以 illuminate/view 渲染所有元件…");

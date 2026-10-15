@@ -9,6 +9,7 @@
  * - Prop 後綴: `cu-button-${variant}`
  * - Default 跳過: size && size !== "default" ? `cu-input-${size}` : undefined
  * - Boolean 條件: disabled ? `cu-rating-disabled` : undefined
+ * - 比較條件: variant === "primary" ? `cu-back-to-top-primary` : undefined
  * - Helper 函式結果（已由 parser 內聯展開）
  * - Conditional &&: filled && `cu-rating-item-active`
  * - Inline ternary: cond ? 'class' : ''
@@ -170,6 +171,16 @@ function resolveVariableExpression(varName, variables, renamedProps, helpers) {
         phpClass: `${phpProp} ${op} '${val}' ? '${trueClass}' : ${falseClass.includes("'") || falseClass.includes(" . ") ? falseClass : `'${falseClass}'`}`,
       };
     }
+  }
+
+  // Pattern 4c: 任意條件 — variant === "primary" ? `cu-xxx-primary` : undefined
+  const condMatch = raw.match(/^(.+?)\s*\?\s*(.+?)\s*:\s*(?:undefined|null|""|'')$/);
+  if (condMatch) {
+    const [, cond, trueExpr] = condMatch;
+    return {
+      phpClass: resolveTemplateOrString(trueExpr.trim(), renamedProps, variables),
+      condition: conditionToPhp(cond.trim(), renamedProps),
+    };
   }
 
   // Pattern 5: Helper function 呼叫（已由 parser inlineHelper 處理，
