@@ -1,0 +1,16 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Focus ring fixture</title>
+    <link rel="stylesheet" href="../../../dist/core/cubby-ui.css" />
+  </head>
+  <body>
+    <input id="before" aria-label="Before" />
+    <!-- cu-button：focus-visible:ring-2 ring-offset-2 + outline-none，代表以 box-shadow 畫焦點環的元件 -->
+    <button id="button" type="button" class="cu-button cu-button-default">Button</button>
+    <!-- 量測目前主題的 --color-background（換算成 rgb 後與 box-shadow 中的顏色比對） -->
+    <div id="probe" style="background-color: var(--color-background)"></div>
+    <script src="../../../dist/core/cubby-ui.js"></script>
+  </body>
+</html>

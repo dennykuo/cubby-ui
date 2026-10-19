@@ -87,3 +87,27 @@ button.cu-rating-item {
 .cu-rating-disabled {
   @apply pointer-events-none opacity-50;
 }
+
+/* Forced colors（Windows 高對比）：星星顏色會被換成同一個系統色，看不出評分。
+   改由星星自行選用系統色，並以實心（選取）/ 空心（未選取）的形狀區分，不只靠顏色 */
+@media (forced-colors: active) {
+  .cu-rating-item {
+    forced-color-adjust: none;
+    color: CanvasText;
+  }
+  .cu-rating-item svg {
+    stroke: currentColor;
+    stroke-width: 1.5px;
+  }
+  .cu-rating-item:not(.cu-rating-item-active) svg {
+    fill: none;
+  }
+  .cu-rating-item-active,
+  .cu-rating:not(.cu-rating-readonly) .cu-rating-item:hover {
+    color: Highlight;
+  }
+  .cu-rating-item-half svg:first-child {
+    color: Highlight;
+    fill: currentColor;
+  }
+}

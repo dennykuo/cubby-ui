@@ -64,12 +64,12 @@ export const ratingPage: Record<
       interactive: {
         title: "Interactive",
         description:
-          'Add <code class="cu-code">data-cu-rating</code> and use <code class="cu-code">&lt;button type="button"&gt;</code> stars with <code class="cu-code">data-cu-rating-star</code>. Click a star, or Tab to the rating and use the arrow keys, <code class="cu-code">Home</code> / <code class="cu-code">End</code>, <code class="cu-code">Space</code> or <code class="cu-code">Enter</code>. The value is stored in <code class="cu-code">data-cu-rating-value</code> (<code class="cu-code">0</code> = none) and a <code class="cu-code">cu:rating:change</code> event (<code class="cu-code">{ value }</code>) fires whenever it changes. Name the rating with <code class="cu-code">aria-label</code> or <code class="cu-code">aria-labelledby</code>.',
+          'Add <code class="cu-code">data-cu-rating</code> and use <code class="cu-code">&lt;button type="button"&gt;</code> stars with <code class="cu-code">data-cu-rating-star</code>. Click a star, or Tab to the rating and use the arrow keys, <code class="cu-code">Home</code> / <code class="cu-code">End</code>, <code class="cu-code">Space</code> or <code class="cu-code">Enter</code>. The value is stored in <code class="cu-code">data-cu-rating-value</code> (<code class="cu-code">0</code> = none) and a <code class="cu-code">cu:rating:change</code> event (<code class="cu-code">{ value }</code>) fires whenever it changes. Name the rating with <code class="cu-code">aria-label</code> or <code class="cu-code">aria-labelledby</code>. To change the value from code, set the attribute (for example <code class="cu-code">el.setAttribute("data-cu-rating-value", "3")</code>): the stars, <code class="cu-code">aria-checked</code> and the Tab stop follow without firing the event.',
       },
       disabled: {
         title: "Disabled",
         description:
-          'Add <code class="cu-code">cu-rating-disabled</code> to dim and disable the rating. On an interactive rating the stars also leave the Tab order and the group gets <code class="cu-code">aria-disabled="true"</code>.',
+          'Add <code class="cu-code">cu-rating-disabled</code> to dim and disable the rating. On an interactive rating the stars also leave the Tab order and the group gets <code class="cu-code">aria-disabled="true"</code>. Both <code class="cu-code">cu-rating-disabled</code> and <code class="cu-code">cu-rating-readonly</code> can be added or removed at any time.',
       },
       accessibility: {
         title: "Accessibility",
@@ -88,7 +88,7 @@ export const ratingPage: Record<
           { key: "Space / Enter", action: "Selects the focused star" },
         ],
         names:
-          'The group is named by your <code class="cu-code">aria-label</code> / <code class="cu-code">aria-labelledby</code> (default "Rating") and the stars are named "1 star", "2 stars"… Localize the star names with <code class="cu-code">data-cu-rating-star-text</code> on the root, where <code class="cu-code">{value}</code> is replaced with the star number, or give a single star its own <code class="cu-code">aria-label</code>, which is never overwritten.',
+          'The group is named by your <code class="cu-code">aria-label</code> / <code class="cu-code">aria-labelledby</code> (default "Rating") and the stars are named "1 star", "2 stars"… Localize the star names with <code class="cu-code">data-cu-rating-star-text</code> on the root, where <code class="cu-code">{value}</code> is replaced with the star number, or give a single star its own <code class="cu-code">aria-label</code>, which is never overwritten. In forced colors mode (such as Windows High Contrast) selected stars use the <code class="cu-code">Highlight</code> system color and unselected stars are drawn as outlines, so the rating does not rely on color alone; the focused star gets a system-color outline.',
       },
     },
     classDescriptions: {
@@ -139,12 +139,12 @@ export const ratingPage: Record<
       interactive: {
         title: "互動式",
         description:
-          '加上 <code class="cu-code">data-cu-rating</code>，星星使用帶 <code class="cu-code">data-cu-rating-star</code> 的 <code class="cu-code">&lt;button type="button"&gt;</code>。可點擊星星，或用 Tab 移到評分後以方向鍵、<code class="cu-code">Home</code> / <code class="cu-code">End</code>、<code class="cu-code">Space</code> 或 <code class="cu-code">Enter</code> 操作。選取值存放在 <code class="cu-code">data-cu-rating-value</code>（<code class="cu-code">0</code> 為未選取），值改變時觸發 <code class="cu-code">cu:rating:change</code> 事件（<code class="cu-code">{ value }</code>）。請以 <code class="cu-code">aria-label</code> 或 <code class="cu-code">aria-labelledby</code> 為評分命名。',
+          '加上 <code class="cu-code">data-cu-rating</code>，星星使用帶 <code class="cu-code">data-cu-rating-star</code> 的 <code class="cu-code">&lt;button type="button"&gt;</code>。可點擊星星，或用 Tab 移到評分後以方向鍵、<code class="cu-code">Home</code> / <code class="cu-code">End</code>、<code class="cu-code">Space</code> 或 <code class="cu-code">Enter</code> 操作。選取值存放在 <code class="cu-code">data-cu-rating-value</code>（<code class="cu-code">0</code> 為未選取），值改變時觸發 <code class="cu-code">cu:rating:change</code> 事件（<code class="cu-code">{ value }</code>）。請以 <code class="cu-code">aria-label</code> 或 <code class="cu-code">aria-labelledby</code> 為評分命名。要以程式改值時直接設定屬性（例如 <code class="cu-code">el.setAttribute("data-cu-rating-value", "3")</code>），星星外觀、<code class="cu-code">aria-checked</code> 與 Tab 停駐點會跟著同步，不會觸發事件。',
       },
       disabled: {
         title: "停用",
         description:
-          '加上 <code class="cu-code">cu-rating-disabled</code> 使評分元件變暗並停用。用在互動式評分時，星星也會移出 Tab 順序，群組帶 <code class="cu-code">aria-disabled="true"</code>。',
+          '加上 <code class="cu-code">cu-rating-disabled</code> 使評分元件變暗並停用。用在互動式評分時，星星也會移出 Tab 順序，群組帶 <code class="cu-code">aria-disabled="true"</code>。<code class="cu-code">cu-rating-disabled</code> 與 <code class="cu-code">cu-rating-readonly</code> 都可以隨時加上或移除。',
       },
       accessibility: {
         title: "無障礙",
@@ -160,7 +160,7 @@ export const ratingPage: Record<
           { key: "Space / Enter", action: "選取目前聚焦的星" },
         ],
         names:
-          '群組名稱來自你設定的 <code class="cu-code">aria-label</code> / <code class="cu-code">aria-labelledby</code>（預設 "Rating"），星星名稱預設為 "1 star"、"2 stars"…。可在根元素以 <code class="cu-code">data-cu-rating-star-text</code> 在地化星星名稱，其中 <code class="cu-code">{value}</code> 會替換為星等；或為單顆星設定自己的 <code class="cu-code">aria-label</code>，JS 不會覆寫。',
+          '群組名稱來自你設定的 <code class="cu-code">aria-label</code> / <code class="cu-code">aria-labelledby</code>（預設 "Rating"），星星名稱預設為 "1 star"、"2 stars"…。可在根元素以 <code class="cu-code">data-cu-rating-star-text</code> 在地化星星名稱，其中 <code class="cu-code">{value}</code> 會替換為星等；或為單顆星設定自己的 <code class="cu-code">aria-label</code>，JS 不會覆寫。在 forced colors 模式（例如 Windows 高對比）下，選取的星使用 <code class="cu-code">Highlight</code> 系統色、未選取的星改為空心外框，評分不只靠顏色區分；聚焦的星以系統色外框標示。',
       },
     },
     classDescriptions: {

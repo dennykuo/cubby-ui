@@ -99,3 +99,23 @@
   --color-chart-4: hsl(36 85% 42%);
   --color-chart-5: hsl(330 65% 60%);
 }
+
+/* 焦點環 `ring-offset-*` 的間隙色跟隨頁面背景（Tailwind 預設為白色，暗色模式下焦點環外會多一圈白邊）。
+   `--tw-ring-offset-color` 註冊為不繼承的 @property，所以設在每個元素上；`ring-offset-{color}` 仍可覆寫。 */
+@layer base {
+  *,
+  ::before,
+  ::after,
+  ::backdrop {
+    --tw-ring-offset-color: var(--color-background);
+  }
+}
+
+/* Forced colors（Windows 高對比）會移除 box-shadow，以 `ring-*` + `outline-none` 畫的焦點環會整個消失，
+   改用系統色 outline。刻意不放進 @layer，才能蓋過元件與工具類別的 `outline-none`。 */
+@media (forced-colors: active) {
+  :focus-visible {
+    outline: 2px solid Highlight;
+    outline-offset: 2px;
+  }
+}

@@ -187,4 +187,77 @@ test.describe("Rating", () => {
     await expectValue(root, 5);
     expect(await changes(page)).toEqual([["basic", 5]]);
   });
+
+  test("程式設定 data-cu-rating-value：同步外觀、aria-checked 與 Tab 停駐點，不派發 change", async ({ page }) => {
+    const root = page.locator("#preset");
+    await root.evaluate((el) => el.setAttribute("data-cu-rating-value", "5"));
+    await expectValue(root, 5);
+    await root.evaluate((el) => el.setAttribute("data-cu-rating-value", "0"));
+    await expectValue(root, 0);
+    expect(await changes(page)).toEqual([]);
+
+    // 之後的使用者操作以新值為基準
+    await root.locator("[data-cu-rating-star='1']").focus();
+    await page.keyboard.press("ArrowRight");
+    await expectValue(root, 2);
+    expect(await changes(page)).toEqual([["preset", 2]]);
+
+    // 唯讀評分也會跟著程式設定的值更新
+    const readonly = page.locator("#readonly");
+    await readonly.evaluate((el) => el.setAttribute("data-cu-rating-value", "2"));
+    await expect(readonly.locator('[data-cu-rating-star="2"]')).toHaveAttribute("aria-checked", "true");
+    await expect(readonly.locator(".cu-rating-item-active")).toHaveCount(2);
+  });
+
+  test("執行期切換 cu-rating-disabled / cu-rating-readonly", async ({ page }) => {
+    const root = page.locator("#basic");
+    const first = root.locator("[data-cu-rating-star='1']");
+
+    await root.evaluate((el) => el.classList.add("cu-rating-disabled"));
+    await expect(root).toHaveAttribute("aria-disabled", "true");
+    await expect(root.locator('[tabindex="0"]')).toHaveCount(0);
+    await first.focus();
+    await page.keyboard.press("ArrowRight");
+    await expect(root).toHaveAttribute("data-cu-rating-value", "0");
+
+    await root.evaluate((el) => el.classList.replace("cu-rating-disabled", "cu-rating-readonly"));
+    await expect(root).not.toHaveAttribute("aria-disabled");
+    await expect(root).toHaveAttribute("aria-readonly", "true");
+    await expect(root.locator('[tabindex="0"]')).toHaveCount(1);
+    await first.focus();
+    await page.keyboard.press("ArrowRight");
+    await page.keyboard.press("Enter");
+    await expect(root).toHaveAttribute("data-cu-rating-value", "0");
+    expect(await changes(page)).toEqual([]);
+
+    await root.evaluate((el) => el.classList.remove("cu-rating-readonly"));
+    await expect(root).not.toHaveAttribute("aria-readonly");
+    await first.focus();
+    await page.keyboard.press("ArrowRight");
+    await expectValue(root, 2);
+    expect(await changes(page)).toEqual([["basic", 2]]);
+  });
+
+  test("forced colors：選取與未選取的星以系統色與實心 / 空心區分，焦點以 outline 顯示", async ({ page }) => {
+    await page.emulateMedia({ forcedColors: "active" });
+    const root = page.locator("#basic");
+    await root.evaluate((el) => el.setAttribute("data-cu-rating-value", "2"));
+    await expect(root.locator(".cu-rating-item-active")).toHaveCount(2);
+
+    const look = (n: number) =>
+      root.locator(`[data-cu-rating-star="${n}"]`).evaluate((el) => {
+        const svg = getComputedStyle(el.querySelector("svg")!);
+        return { color: getComputedStyle(el).color, fill: svg.fill, stroke: svg.stroke };
+      });
+    const on = await look(2);
+    const off = await look(3);
+    expect(on.color).not.toBe(off.color);
+    expect(on.fill).not.toBe("none");
+    expect(off.fill).toBe("none");
+    expect(off.stroke).not.toBe("none"); // 空心星仍有外框
+
+    await root.locator('[data-cu-rating-star="2"]').focus();
+    await page.keyboard.press("ArrowRight");
+    await expect(root.locator('[data-cu-rating-star="3"]')).toHaveCSS("outline-style", "solid");
+  });
 });

@@ -14,7 +14,9 @@ import { track, restore } from "../core/registry.js";
  *   (`cu-rating-item-half` styles target the svg). Use `<button type="button">` so the stars never submit a
  *   surrounding form (JS adds the missing `type`). The star count is the number of `[data-cu-rating-star]` elements.
  * - `data-cu-rating-value="N"` on the root is the selected value (0 = none); JS keeps it, the active classes and
- *   `aria-checked` in sync. Fires `cu:rating:change` ({ value }) when the value changes (click, keyboard).
+ *   `aria-checked` in sync. Fires `cu:rating:change` ({ value }) when the user changes it (click, keyboard).
+ *   Setting it from code (`el.setAttribute("data-cu-rating-value", "3")`) updates the stars, `aria-checked` and the
+ *   Tab stop without firing the event.
  * - ARIA: the root gets `role="radiogroup"` (named by your `aria-label` / `aria-labelledby`, default "Rating"),
  *   each star `role="radio"` + `aria-checked` and a roving tabindex (one Tab stop: the checked star, or the first
  *   star when nothing is checked). Keys: Arrow Right / Down = next star, Arrow Left / Up = previous (both wrap,
@@ -22,8 +24,8 @@ import { track, restore } from "../core/registry.js";
  * - `data-cu-rating-star-text="{value} 顆星"`: optional, on the root. Accessible name template for each star;
  *   `{value}` is replaced with the star number (default "1 star" / "N stars"). A star's own `aria-label` wins.
  * - `cu-rating-readonly` / `cu-rating-disabled` on the root skip the interaction (readonly keeps one Tab stop and
- *   sets `aria-readonly`, disabled removes the stars from the Tab order and sets `aria-disabled`); display-only
- *   ratings can omit `data-cu-rating` and the star attributes entirely.
+ *   sets `aria-readonly`, disabled removes the stars from the Tab order and sets `aria-disabled`); both can be
+ *   toggled at any time. Display-only ratings can omit `data-cu-rating` and the star attributes entirely.
  */
 export function setupRatings() {
   document.querySelectorAll("[data-cu-rating]").forEach(function (/** @type {HTMLElement} */ el) {
@@ -36,8 +38,6 @@ export function setupRatings() {
     /** @type {HTMLElement[]} */
     var stars = Array.prototype.slice.call(el.querySelectorAll("[data-cu-rating-star]"));
     if (!stars.length) return;
-    var readonly = el.classList.contains("cu-rating-readonly");
-    var disabled = el.classList.contains("cu-rating-disabled");
 
     function starValue(star) {
       return parseInt(star.getAttribute("data-cu-rating-star"), 10);
@@ -47,11 +47,18 @@ export function setupRatings() {
       return parseInt(el.getAttribute("data-cu-rating-value") || "0", 10) || 0;
     }
 
+    // 唯讀 / 停用每次即時讀 class，執行期切換也會生效
+    function isReadonly() {
+      return el.classList.contains("cu-rating-readonly");
+    }
+
+    function isDisabled() {
+      return el.classList.contains("cu-rating-disabled");
+    }
+
     // APG Rating Radio Group：根元素為 radiogroup、每顆星為 radio；「第 N 個，共 M 個」由螢幕閱讀器依 DOM 計算
     el.setAttribute("role", "radiogroup");
     if (!el.hasAttribute("aria-label") && !el.hasAttribute("aria-labelledby")) el.setAttribute("aria-label", "Rating");
-    if (readonly) el.setAttribute("aria-readonly", "true");
-    if (disabled) el.setAttribute("aria-disabled", "true");
     var starText = el.getAttribute("data-cu-rating-star-text");
     stars.forEach(function (star) {
       var v = starValue(star);
@@ -75,10 +82,15 @@ export function setupRatings() {
       });
     }
 
-    // data-cu-rating-value 是唯一的值來源：同步 aria-checked 與 roving tabindex
+    // data-cu-rating-value 是唯一的值來源：同步 aria-checked、roving tabindex 與唯讀 / 停用狀態
     // （Tab 只停在選取的星，未選取時為第一顆；停用時都不在 Tab 順序中）
     function syncState() {
       var value = getValue();
+      var disabled = isDisabled();
+      if (isReadonly()) el.setAttribute("aria-readonly", "true");
+      else el.removeAttribute("aria-readonly");
+      if (disabled) el.setAttribute("aria-disabled", "true");
+      else el.removeAttribute("aria-disabled");
       var stop = stars[0];
       stars.forEach(function (star) {
         var checked = starValue(star) === value;
@@ -92,8 +104,18 @@ export function setupRatings() {
 
     syncState();
     // 唯讀 / 停用保留作者標記的外觀（例如半星），只補上語意
-    if (readonly || disabled) return;
-    fill(getValue());
+    if (!isReadonly() && !isDisabled()) fill(getValue());
+
+    // 程式設定 data-cu-rating-value 或切換唯讀 / 停用時重新同步（與原生表單控制項一樣，程式設值不派發 change）；
+    // 只監看根元素自己的屬性，fill() 改的是星星的 class，不會再次觸發
+    new MutationObserver(function (records) {
+      var valueChanged = false;
+      for (var r = 0; r < records.length; r++) {
+        if (records[r].attributeName === "data-cu-rating-value") valueChanged = true;
+      }
+      syncState();
+      if (valueChanged || (!isReadonly() && !isDisabled())) fill(getValue());
+    }).observe(el, { attributes: true, attributeFilter: ["data-cu-rating-value", "class"] });
 
     function select(star, moveFocus) {
       var value = starValue(star);
@@ -106,22 +128,24 @@ export function setupRatings() {
     }
 
     el.addEventListener("mouseover", function (e) {
+      if (isReadonly() || isDisabled()) return;
       var star = /** @type {Element} */ (e.target).closest("[data-cu-rating-star]");
       if (star) fill(starValue(star));
     });
 
     el.addEventListener("mouseleave", function () {
-      fill(getValue());
+      if (!isReadonly() && !isDisabled()) fill(getValue());
     });
 
     el.addEventListener("click", function (e) {
+      if (isReadonly() || isDisabled()) return;
       var star = /** @type {HTMLElement} */ (/** @type {Element} */ (e.target).closest("[data-cu-rating-star]"));
       if (star && stars.indexOf(star) !== -1) select(star, false);
     });
 
     // APG radio group：方向鍵移動焦點並同時選取（頭尾循環），另加 Home / End；Space / Enter 選取目前焦點的星
     el.addEventListener("keydown", function (e) {
-      if (e.altKey || e.ctrlKey || e.metaKey) return;
+      if (isReadonly() || isDisabled() || e.altKey || e.ctrlKey || e.metaKey) return;
       var star = /** @type {HTMLElement} */ (/** @type {Element} */ (e.target).closest("[data-cu-rating-star]"));
       var i = stars.indexOf(star);
       if (i === -1) return;
