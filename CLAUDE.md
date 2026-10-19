@@ -136,6 +136,7 @@ const t = useTranslations(buttonPage, locale);
 - 導航互動元素（Tabs、Pagination、Nav、Breadcrumb、Menubar）使用 `outline-none` 搭配 `focus-visible:ring-1 focus-visible:ring-ring/30`
 - Dialog / Drawer / Alert 的 close 按鈕使用 `focus-visible:ring-1 focus-visible:ring-ring/40`
 - Chat Input send / attach 按鈕屬於主要互動元素，使用模式 A（`ring-2 ring-ring/40 ring-offset-2`）
+- 焦點環全站預設（`theme.css`）：`ring-offset-*` 的間隙色在 base layer 以 `--tw-ring-offset-color: var(--color-background)` 設在每個元素上（Tailwind 預設為白色，暗色模式會多一圈白邊），元件不需再加 `ring-offset-background`，`ring-offset-{color}` 仍可覆寫；forced colors（Windows 高對比）會移除 box-shadow，`:focus-visible` 改畫 `2px solid Highlight` outline（刻意不放進 `@layer`，才能蓋過元件與工具類別的 `outline-none`）。只靠顏色表達的狀態需另加 forced colors 樣式（例如 Rating 的實心 / 空心星），`tests/e2e/focus-ring.spec.ts` 驗證
 - Code Block 刻意使用硬編碼 `zinc-*` 色彩（非設計 token），因為程式碼區塊需要始終維持深色背景以確保語法高亮可讀性，與主題色彩解耦；複製狀態同理使用固定色階：成功（`data-cu-copied`）`green-400`、失敗（`data-cu-copy-failed`）`red-400`（light 變體 `green-800` / `red-700`），暗色頁面的 success / destructive token 在 zinc 深色區塊上對比不足；按鈕的 hover 樣式以 `:not([data-cu-copied], [data-cu-copy-failed])` 排除狀態中的按鈕，點擊後滑鼠停在按鈕上時狀態色才不會被蓋過
 - Pin Input 預設 `h-10 w-10`（非標準表單 `h-9`），因為正方形格子需要較大尺寸以確保可讀性與點擊面積
 - Textarea 使用 `py-2`（非標準表單 `py-1`），因為多行輸入需要額外垂直間距以提升閱讀體驗
@@ -463,7 +464,7 @@ src/
 │       └── chat-typing.astro
 └── styles/
     ├── global.css                 — 文檔站入口（引入 tailwindcss + theme + components + body/.cu-code 樣式）
-    ├── theme.css                  — 設計 token（@theme 區塊 + .dark 暗色覆蓋）
+    ├── theme.css                  — 設計 token（@theme 區塊 + .dark 暗色覆蓋）+ 全域焦點預設（ring-offset 間隙色、forced colors 焦點外框）
     ├── lib.css                    — NPM 套件建置入口（tailwindcss source(none) + theme + components）
     ├── components.css             — @layer components 包裝 + @import 各子檔案
     └── components/                — 各元件獨立 CSS 檔案
