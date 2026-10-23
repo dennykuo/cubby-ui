@@ -16,6 +16,7 @@ const usageCode = `<label class="cu-toggle-wrapper">
   <span class="cu-toggle">
     <span class="cu-toggle-thumb"></span>
   </span>
+  <span class="cu-label">Airplane Mode</span>
 </label>`.trim();
 
 const withLabelCode = `<label class="cu-toggle-wrapper">
@@ -90,7 +91,9 @@ const disabledCode = `<label class="cu-toggle-wrapper">
       <SectionHeading id="usage" title={t.sections.usage.title} />
       <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
       <ComponentPreview code={usageCode}>
-        <Toggle />
+        <Toggle>
+          <span class="cu-label">Airplane Mode</span>
+        </Toggle>
       </ComponentPreview>
     </section>
 
