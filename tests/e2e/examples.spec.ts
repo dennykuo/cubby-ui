@@ -727,9 +727,23 @@ const PROBES: Array<{ selector: string; run: Probe }> = [
       // overlay.js 開啟時以 requestAnimationFrame 把焦點移到第一個可互動元素。先等那個 frame 執行完
       // （rAF callback 依登記順序執行），否則它可能在聚焦關閉鈕之後才搶走焦點，Enter 落在輸入框上（CI 較慢時發生）
       await page.evaluate(() => new Promise<void>((resolve) => requestAnimationFrame(() => resolve())));
+      // close() 會立即移除 open，但 close 事件（overlay.js 在此把焦點還給 trigger）是之後才排入的 task。
+      // 先登記監聽（排在 overlay.js 之後），關閉後等它觸發再換下一個 trigger；否則 CI 較慢時，
+      // 焦點會在聚焦下一個 trigger 之後才被拉回這個 trigger，Enter 開到錯的 <dialog>
+      await dialog.evaluate((d) => {
+        (d as any).__cuProbeClosed = false;
+        d.addEventListener("close", () => ((d as any).__cuProbeClosed = true), { once: true });
+      });
       // 以鍵盤啟動關閉鈕：不受開啟動畫期間元素位移影響，也同時驗證可鍵盤操作
       await pressEnterOn(page, close);
       if (await dialog.evaluate((d) => (d as HTMLDialogElement).open)) return `點擊 ${closeSel} 後 <dialog> 沒有關閉`;
+      await dialog.evaluate(
+        (d) =>
+          new Promise<void>((resolve) => {
+            const done = () => ((d as any).__cuProbeClosed ? resolve() : setTimeout(done, 10));
+            done();
+          }),
+      );
     }) as Probe,
   })),
   {
