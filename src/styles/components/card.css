@@ -67,3 +67,12 @@
 .cu-card-selectable[aria-selected="true"] {
   @apply border-primary ring-2 ring-primary/20;
 }
+
+/* Forced colors（Windows 高對比）：選取時的主色框線與外環（box-shadow）會被換掉，改以 Highlight outline 表示 */
+@media (forced-colors: active) {
+  .cu-card-selectable:has(input:checked),
+  .cu-card-selectable[aria-selected="true"] {
+    outline: 2px solid Highlight;
+    outline-offset: -1px;
+  }
+}

@@ -137,6 +137,7 @@ const t = useTranslations(buttonPage, locale);
 - Dialog / Drawer / Alert 的 close 按鈕使用 `focus-visible:ring-1 focus-visible:ring-ring/40`
 - Chat Input send / attach 按鈕屬於主要互動元素，使用模式 A（`ring-2 ring-ring/40 ring-offset-2`）
 - 焦點環全站預設（`theme.css`）：`ring-offset-*` 的間隙色在 base layer 以 `--tw-ring-offset-color: var(--color-background)` 設在每個元素上（Tailwind 預設為白色，暗色模式會多一圈白邊），元件不需再加 `ring-offset-background`，`ring-offset-{color}` 仍可覆寫；forced colors（Windows 高對比）會移除 box-shadow，`:focus-visible` 改畫 `2px solid Highlight` outline（刻意不放進 `@layer`，才能蓋過元件與工具類別的 `outline-none`）。只靠顏色表達的狀態需另加 forced colors 樣式（例如 Rating 的實心 / 空心星），`tests/e2e/focus-ring.spec.ts` 驗證
+- Forced colors（Windows 高對比）元件慣例：瀏覽器會把作者色彩換成系統色（非系統色的背景變成頁面底色、框線色一律變成 `CanvasText`）、移除 box-shadow 與背景圖，並在文字後補上頁面底色的襯底（backplate）。只靠底色 / 陰影 / 框線色表達的狀態與元素，在各元件 CSS 檔尾的 `@media (forced-colors: active)` 改用系統色：(1) 選取 / 高亮 / 目前項目（Tabs、Segmented Control、Toggle Group、Toolbar、Pagination、Nav、Sidebar、Tree View、Calendar 選取日、Steps 已完成的編號、Dropdown / Menubar / Context Menu / Combobox / Multi Select / Command Palette 的 hover 與鍵盤高亮、展開中的 Menubar trigger）以 `forced-color-adjust: none` + `Highlight` / `HighlightText` 填滿，子元素 `color: inherit; background-color: transparent; border-color: currentColor`（不加 `none` 時 `HighlightText` 文字會被襯底蓋掉）；選擇器用雙 class（如 `.cu-tabs-trigger.cu-tabs-trigger-active`）以蓋過變體的同權重規則；Data Table 選取列的內容不固定，只在儲存格填 `Highlight`、不加 `none`。(2) 只靠底色呈現範圍的元件補 `border: 1px solid`（ghost / link 以外的 Button、Badge、Tag Input / Multi Select 標籤、Chat 氣泡 / 送出鈕 / Typing、Speed Dial、Tooltip 氣泡（箭頭隱藏）、Progress / Range 軌道、Calendar 今天、Avatar fallback）。(3) 指示元素改用系統色：分隔線 / Timeline 軸線 / 圓點 `CanvasText`，Skeleton 與 Chart 載入長條 `GrayText`，進度條與開啟的 Toggle 軌道 `Highlight`（Toggle 圓鈕 `CanvasText` / `HighlightText`），Carousel / Tour 圓點為空心外框 vs 實心 `Highlight`，Steps 進行中與選取的 Card 加 `Highlight` outline，Dropzone 拖曳中改實線框，Spinner 自選 `CanvasText` 並保留透明缺口。(4) 顏色即內容（Chart 色塊與系列色、Color Picker、Image Compare、Avatar 狀態點）以 `forced-color-adjust: none` 保留作者色彩。(5) 視覺隱藏的 input（Toggle、Segmented Control radio、Dropzone）的焦點環原本畫在兄弟元素的 box-shadow 上，改在可見元素補 `outline: 2px solid Highlight`。`tests/e2e/forced-colors.spec.ts`（fixture `forced-colors.html`）以 `page.emulateMedia({ forcedColors: "active" })` 驗證
 - Code Block 刻意使用硬編碼 `zinc-*` 色彩（非設計 token），因為程式碼區塊需要始終維持深色背景以確保語法高亮可讀性，與主題色彩解耦；複製狀態同理使用固定色階：成功（`data-cu-copied`）`green-400`、失敗（`data-cu-copy-failed`）`red-400`（light 變體 `green-800` / `red-700`），暗色頁面的 success / destructive token 在 zinc 深色區塊上對比不足；按鈕的 hover 樣式以 `:not([data-cu-copied], [data-cu-copy-failed])` 排除狀態中的按鈕，點擊後滑鼠停在按鈕上時狀態色才不會被蓋過
 - Pin Input 預設 `h-10 w-10`（非標準表單 `h-9`），因為正方形格子需要較大尺寸以確保可讀性與點擊面積
 - Textarea 使用 `py-2`（非標準表單 `py-1`），因為多行輸入需要額外垂直間距以提升閱讀體驗
@@ -706,6 +707,7 @@ Header logo 與 sidebar 連結文字齊左：
     - Disabled 狀態：`disabled:pointer-events-none disabled:opacity-50 disabled:bg-muted disabled:text-muted-foreground`（帶 hover border 的輸入元件額外加 `disabled:hover:border-input`）
     - Transition：使用具體屬性（`transition-colors`、`transition-shadow`、`transition-opacity`）+ 明確 `duration-150` 或 `duration-200`，禁止 `transition-all`
     - Focus ring：導航/互動元素加 `focus-visible:ring-1 focus-visible:ring-ring/30`；關閉按鈕用 `ring-ring/40`
+    - Forced colors：以 DevTools Rendering 面板的 `forced-colors: active` 檢查，只靠底色 / 陰影表達的狀態與元素依「設計系統」的 Forced colors 慣例補樣式，並在 `tests/e2e/fixtures/forced-colors.html` 與 `forced-colors.spec.ts` 補一組標記與斷言
 11. **build 驗證**：執行 `npm run build` 確認 CSS 正確編譯（`@apply` 全部展開，無編譯錯誤）；有 JS 互動的元件另在 `tests/e2e/` 加 fixture 與 spec，執行 `npm run test:e2e`；`npm run check:sync` 會驗證新 `data-cu-*` 屬性已列入 `DATA_ATTRS`
 12. **dev 驗證**：執行 `npm run dev` 確認 `i18n:routes` 自動產生 `src/pages/zh-tw/components/` 路由，en/zh-tw 兩語言頁面皆正常顯示
 
@@ -713,7 +715,7 @@ Header logo 與 sidebar 連結文字齊左：
 
 - 修改 class 名稱 → 同步更新 `components.json`、`llms.txt`、docs 頁面範例
 - 修改 `data-*` attribute → 同步更新 `components.json`、`llms.txt`、`cubby-ui.d.ts` 的 `DATA_ATTRS`
-- 修改視覺設計 → 確認 dark/light 兩種模式皆正確
+- 修改視覺設計 → 確認 dark/light 兩種模式與 forced colors（Windows 高對比）皆正確
 
 ## Language
 

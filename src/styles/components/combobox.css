@@ -31,3 +31,21 @@
 .cu-combobox-item-check {
   @apply ml-auto size-4 text-primary;
 }
+
+/* Forced colors（Windows 高對比）：底色會被移除，滑鼠 / 鍵盤高亮的選項看不出來；比照系統清單以 Highlight 填滿
+   （已選取的選項以勾勾圖示表示，不受影響）
+   （forced-color-adjust: none：自行指定系統色，否則瀏覽器會在文字後補上頁面底色的襯底，蓋掉 HighlightText） */
+@media (forced-colors: active) {
+  .cu-combobox-item:hover,
+  .cu-combobox-item.cu-combobox-item-highlight {
+    forced-color-adjust: none;
+    background-color: Highlight;
+    color: HighlightText;
+  }
+  .cu-combobox-item:hover *,
+  .cu-combobox-item.cu-combobox-item-highlight * {
+    color: inherit;
+    background-color: transparent;
+    border-color: currentColor;
+  }
+}

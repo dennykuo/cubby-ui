@@ -147,3 +147,24 @@
     transform: rotate(270deg);
   }
 }
+
+/* Forced colors（Windows 高對比）：軌道與進度條的底色（含漸層、條紋）都會被移除，進度條整個消失。
+   軌道加外框、進度條以 Highlight 填滿，多段進度以分隔線區分各段；環形進度的筆畫改用系統色 */
+@media (forced-colors: active) {
+  .cu-progress,
+  .cu-progress-multi {
+    border: 1px solid;
+  }
+  .cu-progress-bar {
+    background-color: Highlight;
+  }
+  .cu-progress-multi .cu-progress-bar + .cu-progress-bar {
+    border-inline-start: 1px solid;
+  }
+  .cu-progress-circular-track {
+    stroke: GrayText;
+  }
+  .cu-progress-circular-bar {
+    stroke: Highlight;
+  }
+}

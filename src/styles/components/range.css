@@ -19,3 +19,16 @@
 .cu-range::-moz-range-thumb:hover {
   box-shadow: 0 0 0 4px color-mix(in srgb, var(--color-primary) 15%, transparent);
 }
+
+/* Forced colors（Windows 高對比）：軌道只靠底色，會整個消失。軌道加外框，拇指以 Highlight 填滿 */
+@media (forced-colors: active) {
+  .cu-range {
+    border: 1px solid;
+  }
+  .cu-range::-webkit-slider-thumb {
+    background-color: Highlight;
+  }
+  .cu-range::-moz-range-thumb {
+    background-color: Highlight;
+  }
+}

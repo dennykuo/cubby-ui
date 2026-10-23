@@ -3,3 +3,10 @@
 .cu-hr {
   @apply h-px w-full border-0 bg-border;
 }
+
+/* Forced colors（Windows 高對比）：分隔線只靠底色，會整個消失；改用系統文字色 */
+@media (forced-colors: active) {
+  .cu-hr {
+    background-color: CanvasText;
+  }
+}

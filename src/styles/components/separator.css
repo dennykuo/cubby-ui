@@ -11,3 +11,10 @@
 .cu-separator-vertical {
   @apply h-full w-px;
 }
+
+/* Forced colors（Windows 高對比）：分隔線只靠底色，會整個消失；改用系統文字色 */
+@media (forced-colors: active) {
+  .cu-separator {
+    background-color: CanvasText;
+  }
+}

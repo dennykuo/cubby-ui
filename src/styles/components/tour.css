@@ -82,3 +82,13 @@
 .cu-tour-target {
   @apply relative z-[101];
 }
+
+/* Forced colors（Windows 高對比）：步驟圓點只靠底色，會整個消失。加外框成空心圓，目前步驟以 Highlight 填滿 */
+@media (forced-colors: active) {
+  .cu-tour-dot {
+    border: 1px solid;
+  }
+  .cu-tour-dot.cu-tour-dot-active {
+    background-color: Highlight;
+  }
+}

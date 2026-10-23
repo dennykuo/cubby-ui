@@ -142,3 +142,10 @@
 .cu-timeline-alternating .cu-timeline-item:nth-child(even) .cu-timeline-dot {
   @apply right-0 left-auto translate-x-1/2;
 }
+
+/* Forced colors（Windows 高對比）：軸線只靠底色，會整個消失；改用系統文字色 */
+@media (forced-colors: active) {
+  .cu-timeline::before {
+    background-color: CanvasText;
+  }
+}

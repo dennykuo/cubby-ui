@@ -104,3 +104,13 @@
     opacity: 0.4;
   }
 }
+
+/* Forced colors（Windows 高對比）：背景色會被換掉，以外框標出徽章範圍；圓點（bg-current）改用系統文字色 */
+@media (forced-colors: active) {
+  .cu-badge {
+    border: 1px solid;
+  }
+  .cu-badge-dot::before {
+    background-color: CanvasText;
+  }
+}

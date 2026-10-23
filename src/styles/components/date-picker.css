@@ -85,3 +85,20 @@
 .cu-date-picker-content {
   @apply absolute z-50 mt-2;
 }
+
+/* Forced colors（Windows 高對比）：底色會被移除，選取日與今天都看不出來。
+   選取日以 Highlight 填滿、今天加外框，非本月的日期改用 GrayText
+   （forced-color-adjust: none：自行指定系統色，否則瀏覽器會在文字後補上頁面底色的襯底，蓋掉 HighlightText） */
+@media (forced-colors: active) {
+  .cu-calendar-day.cu-calendar-day-outside {
+    color: GrayText;
+  }
+  .cu-calendar-day.cu-calendar-day-today {
+    border: 1px solid;
+  }
+  .cu-calendar-day.cu-calendar-day-selected {
+    forced-color-adjust: none;
+    background-color: Highlight;
+    color: HighlightText;
+  }
+}

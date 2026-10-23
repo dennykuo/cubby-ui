@@ -89,3 +89,11 @@
 .cu-button-loading {
   @apply pointer-events-none opacity-70;
 }
+
+/* Forced colors（Windows 高對比）：背景色會被換成頁面底色，實心按鈕只剩文字，補上外框標出按鈕範圍
+   （ghost / link 本來就沒有外框，維持原樣） */
+@media (forced-colors: active) {
+  .cu-button:not(.cu-button-ghost, .cu-button-link) {
+    border: 1px solid;
+  }
+}

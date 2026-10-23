@@ -33,3 +33,11 @@
     background-position: -200% 0;
   }
 }
+
+/* Forced colors（Windows 高對比）：骨架只靠底色（或漸層），會整個消失；改用 GrayText 填滿 */
+@media (forced-colors: active) {
+  .cu-skeleton,
+  .cu-skeleton-shimmer {
+    background-color: GrayText;
+  }
+}

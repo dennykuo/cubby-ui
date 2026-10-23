@@ -50,3 +50,26 @@
     transform: scale(0.95);
   }
 }
+
+/* Forced colors（Windows 高對比）：底色會被移除，滑鼠 / 鍵盤高亮的項目看不出來；比照系統選單以 Highlight 填滿
+   （Dropdown、Menubar、Context Menu 共用）。分隔線改用系統文字色
+   （forced-color-adjust: none：自行指定系統色，否則瀏覽器會在文字後補上頁面底色的襯底，蓋掉 HighlightText） */
+@media (forced-colors: active) {
+  .cu-dropdown-item:hover,
+  .cu-menubar-item:hover,
+  .cu-dropdown-item.cu-dropdown-item-highlight {
+    forced-color-adjust: none;
+    background-color: Highlight;
+    color: HighlightText;
+  }
+  .cu-dropdown-item:hover *,
+  .cu-menubar-item:hover *,
+  .cu-dropdown-item.cu-dropdown-item-highlight * {
+    color: inherit;
+    background-color: transparent;
+    border-color: currentColor;
+  }
+  .cu-dropdown-separator {
+    background-color: CanvasText;
+  }
+}

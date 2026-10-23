@@ -34,3 +34,15 @@
 .cu-dropzone:has([data-cu-dropzone-input]:disabled) {
   @apply pointer-events-none bg-muted text-muted-foreground opacity-50;
 }
+
+/* Forced colors（Windows 高對比）：框線色與底色會被換掉，拖曳中的狀態看不出來，改以實線外框表示；
+   隱藏 file input 的焦點環（box-shadow）改以 outline 畫在上傳區上 */
+@media (forced-colors: active) {
+  .cu-dropzone-active {
+    border-style: solid;
+  }
+  .cu-dropzone:has(.cu-dropzone-input:focus-visible) {
+    outline: 2px solid Highlight;
+    outline-offset: 2px;
+  }
+}

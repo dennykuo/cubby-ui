@@ -19,3 +19,21 @@
 .cu-toolbar-separator {
   @apply mx-1 h-5 w-px shrink-0 bg-border;
 }
+
+/* Forced colors（Windows 高對比）：底色會被移除，啟用中的按鈕改以 Highlight 填滿；分隔線改用系統文字色
+   （forced-color-adjust: none：自行指定系統色，否則瀏覽器會在文字後補上頁面底色的襯底，蓋掉 HighlightText） */
+@media (forced-colors: active) {
+  .cu-toolbar-button.cu-toolbar-button-active {
+    forced-color-adjust: none;
+    background-color: Highlight;
+    color: HighlightText;
+  }
+  .cu-toolbar-button.cu-toolbar-button-active * {
+    color: inherit;
+    background-color: transparent;
+    border-color: currentColor;
+  }
+  .cu-toolbar-separator {
+    background-color: CanvasText;
+  }
+}

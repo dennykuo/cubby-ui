@@ -73,3 +73,28 @@
 .cu-steps-vertical .cu-steps-separator {
   @apply mx-0 mt-0 ml-[15px] w-px;
 }
+
+/* Forced colors（Windows 高對比）：底色、框線色與焦點環（box-shadow）會被換掉，已完成 / 進行中 / 未開始看起來一樣。
+   連接線改用系統文字色；已完成的步驟編號與其後的連接線以 Highlight 填滿，進行中的步驟編號外加 outline。
+   填滿的編號以 forced-color-adjust: none 自行指定系統色，否則瀏覽器會在文字後補頁面底色的襯底，蓋掉 HighlightText */
+@media (forced-colors: active) {
+  .cu-steps-separator {
+    background-color: CanvasText;
+  }
+  .cu-steps-item-completed + .cu-steps-separator {
+    background-color: Highlight;
+  }
+  .cu-steps-item-completed .cu-steps-number {
+    forced-color-adjust: none;
+    border-color: Highlight;
+    background-color: Highlight;
+    color: HighlightText;
+  }
+  .cu-steps-item-completed .cu-steps-number * {
+    color: inherit;
+  }
+  .cu-steps-item-active .cu-steps-number {
+    outline: 2px solid Highlight;
+    outline-offset: 2px;
+  }
+}

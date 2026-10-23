@@ -64,3 +64,22 @@
 .cu-toggle-input:checked + .cu-toggle-lg .cu-toggle-thumb {
   @apply translate-x-5;
 }
+
+/* Forced colors（Windows 高對比）：軌道與圓鈕的底色都會被換成頁面底色，圓鈕消失、看不出開關狀態。
+   圓鈕改用系統文字色，開啟時軌道以 Highlight 填滿；隱藏 checkbox 的焦點環（box-shadow）改以 outline 畫在軌道上 */
+@media (forced-colors: active) {
+  .cu-toggle-thumb {
+    background-color: CanvasText;
+  }
+  .cu-toggle-input:checked + .cu-toggle,
+  .cu-toggle-input:checked:not(:disabled) + .cu-toggle:hover {
+    background-color: Highlight;
+  }
+  .cu-toggle-input:checked + .cu-toggle .cu-toggle-thumb {
+    background-color: HighlightText;
+  }
+  .cu-toggle-input:focus-visible + .cu-toggle {
+    outline: 2px solid Highlight;
+    outline-offset: 2px;
+  }
+}

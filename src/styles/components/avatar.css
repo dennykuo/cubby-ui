@@ -87,3 +87,13 @@
 .cu-avatar-square .cu-avatar-status {
   @apply -right-0.5 -bottom-0.5;
 }
+
+/* Forced colors（Windows 高對比）：底色會被移除。縮寫加外框標出頭像範圍；狀態點的顏色就是狀態本身，保留作者色彩 */
+@media (forced-colors: active) {
+  .cu-avatar-fallback {
+    border: 1px solid;
+  }
+  .cu-avatar-status {
+    forced-color-adjust: none;
+  }
+}

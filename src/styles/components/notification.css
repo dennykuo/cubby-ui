@@ -76,3 +76,10 @@
 .cu-notification-list {
   @apply flex flex-col gap-2;
 }
+
+/* Forced colors（Windows 高對比）：未讀的淡底色與圓點都只靠底色；圓點改用系統文字色，保留未讀標示 */
+@media (forced-colors: active) {
+  .cu-notification-unread .cu-notification-title::before {
+    background-color: CanvasText;
+  }
+}

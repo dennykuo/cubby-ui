@@ -58,3 +58,24 @@
 .cu-multi-select-item-check {
   @apply absolute left-2 size-4 text-primary;
 }
+
+/* Forced colors（Windows 高對比）：底色會被移除。標籤加外框標出範圍；滑鼠 / 鍵盤高亮的選項以 Highlight 填滿
+   （已選取的選項以勾勾圖示表示，不受影響）
+   （forced-color-adjust: none：自行指定系統色，否則瀏覽器會在文字後補上頁面底色的襯底，蓋掉 HighlightText） */
+@media (forced-colors: active) {
+  .cu-multi-select-tag {
+    border: 1px solid;
+  }
+  .cu-multi-select-item:hover,
+  .cu-multi-select-item.cu-multi-select-item-highlight {
+    forced-color-adjust: none;
+    background-color: Highlight;
+    color: HighlightText;
+  }
+  .cu-multi-select-item:hover *,
+  .cu-multi-select-item.cu-multi-select-item-highlight * {
+    color: inherit;
+    background-color: transparent;
+    border-color: currentColor;
+  }
+}

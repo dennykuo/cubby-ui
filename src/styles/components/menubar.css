@@ -45,3 +45,22 @@
 .cu-menubar-item-inset {
   @apply pl-8;
 }
+
+/* Forced colors（Windows 高對比）：底色會被移除，展開中的選單觸發器改以 Highlight 填滿；分隔線改用系統文字色
+   （選單項目的高亮見 dropdown.css）
+   （forced-color-adjust: none：自行指定系統色，否則瀏覽器會在文字後補上頁面底色的襯底，蓋掉 HighlightText） */
+@media (forced-colors: active) {
+  .cu-menubar-trigger[aria-expanded="true"] {
+    forced-color-adjust: none;
+    background-color: Highlight;
+    color: HighlightText;
+  }
+  .cu-menubar-trigger[aria-expanded="true"] * {
+    color: inherit;
+    background-color: transparent;
+    border-color: currentColor;
+  }
+  .cu-menubar-separator {
+    background-color: CanvasText;
+  }
+}

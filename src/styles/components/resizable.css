@@ -62,3 +62,14 @@
   width: 20px;
   height: 3px;
 }
+
+/* Forced colors（Windows 高對比）：把手的握柄只靠底色，會整個消失；改用系統文字色，拖曳中 / hover 時用 Highlight */
+@media (forced-colors: active) {
+  .cu-resizable-handle::after {
+    background-color: CanvasText;
+  }
+  .cu-resizable-handle:hover::after,
+  .cu-resizable-handle[data-cu-resizing]::after {
+    background-color: Highlight;
+  }
+}

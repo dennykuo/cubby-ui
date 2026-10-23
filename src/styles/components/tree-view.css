@@ -49,3 +49,18 @@
 .cu-tree-relaxed .cu-tree-content {
   @apply ml-[18px] pt-1;
 }
+
+/* Forced colors（Windows 高對比）：淡底色與主色文字會被換掉，選取的節點只剩字重差異；改以 Highlight 填滿
+   （forced-color-adjust: none：自行指定系統色，否則瀏覽器會在文字後補上頁面底色的襯底，蓋掉 HighlightText） */
+@media (forced-colors: active) {
+  .cu-tree-leaf.cu-tree-leaf-active {
+    forced-color-adjust: none;
+    background-color: Highlight;
+    color: HighlightText;
+  }
+  .cu-tree-leaf.cu-tree-leaf-active * {
+    color: inherit;
+    background-color: transparent;
+    border-color: currentColor;
+  }
+}

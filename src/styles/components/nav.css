@@ -19,3 +19,18 @@
 .cu-nav-vertical {
   @apply flex-col items-stretch gap-0.5;
 }
+
+/* Forced colors（Windows 高對比）：淡底色與主色文字會被換掉，目前項目只剩字重差異；改以 Highlight 填滿
+   （forced-color-adjust: none：自行指定系統色，否則瀏覽器會在文字後補上頁面底色的襯底，蓋掉 HighlightText） */
+@media (forced-colors: active) {
+  .cu-nav-item.cu-nav-item-active {
+    forced-color-adjust: none;
+    background-color: Highlight;
+    color: HighlightText;
+  }
+  .cu-nav-item.cu-nav-item-active * {
+    color: inherit;
+    background-color: transparent;
+    border-color: currentColor;
+  }
+}

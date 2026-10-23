@@ -232,3 +232,19 @@ button.cu-chart-legend-item {
 .cu-chart-loading-bar:nth-child(7n + 7) {
   height: 38%;
 }
+
+/* Forced colors（Windows 高對比）：系列色是資料本身，被換成系統色後圖例色塊消失、各系列也無法區分；
+   色塊與系列色保留作者色彩（圖例才對得上圖形）。載入中的長條改用 GrayText */
+@media (forced-colors: active) {
+  .cu-chart-swatch,
+  .cu-chart-color-1,
+  .cu-chart-color-2,
+  .cu-chart-color-3,
+  .cu-chart-color-4,
+  .cu-chart-color-5 {
+    forced-color-adjust: none;
+  }
+  .cu-chart-loading-bar {
+    background-color: GrayText;
+  }
+}

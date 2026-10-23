@@ -169,6 +169,7 @@ The system is flat by default and uses a tight, three-step shadow vocabulary. De
 - **Do** keep cards flat at rest; make elevation opt-in or state-driven.
 - **Do** ensure every `cu-` class is self-contained and copy-pasteable on its own.
 - **Do** rely on the global focus defaults in `theme.css`: the `ring-offset-*` gap follows `--color-background` (never a white halo in dark mode), and in forced colors mode (Windows High Contrast) `:focus-visible` gets a system-colour outline because box-shadow rings are dropped. A state shown only by colour needs a forced-colors fallback that changes shape (see Rating's filled / outline stars).
+- **Do** give every component a forced-colors fallback when its state or extent lives only in background, shadow or border colour: selected / highlighted items fill with `Highlight` / `HighlightText` under `forced-color-adjust: none` (otherwise the browser's text backplate hides the `HighlightText`), surfaces drawn only by background get a `1px solid` border, indicators switch to `CanvasText` / `GrayText` / `Highlight`, and colour that is the content itself (chart series, colour picker) keeps author colours with `forced-color-adjust: none`.
 
 ### Don't:
 - **Don't** use `#fff` or `#000` as a token value; both are forbidden — tint toward the brand hue.

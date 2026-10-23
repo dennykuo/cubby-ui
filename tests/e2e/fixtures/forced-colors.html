@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Forced colors fixture</title>
+    <link rel="stylesheet" href="../../../dist/core/cubby-ui.css" />
+    <style>
+      body {
+        display: grid;
+        gap: 24px;
+        padding: 24px;
+      }
+      section {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 16px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- 靜態狀態標記（不帶 data-cu-*，避免 JS 改動狀態 class）；成對的 id 為「選取中 / 一般」 -->
+
+    <!-- 量測系統色：forced colors 下 getComputedStyle 會回傳實際使用的系統色 -->
+    <div id="probe-highlight" style="height: 4px; background-color: Highlight; color: HighlightText"></div>
+    <div id="probe-canvas-text" style="height: 4px; background-color: CanvasText"></div>
+    <div id="probe-gray-text" style="height: 4px; background-color: GrayText"></div>
+
+    <section aria-label="Selection">
+      <div class="cu-tabs-list">
+        <button type="button" id="tab-active" class="cu-tabs-trigger cu-tabs-trigger-active">
+          Active <span id="tab-badge" class="cu-tabs-trigger-badge">3</span>
+        </button>
+        <button type="button" id="tab" class="cu-tabs-trigger">Tab</button>
+      </div>
+      <div class="cu-tabs-list cu-tabs-list-underline">
+        <button type="button" id="tab-underline-active" class="cu-tabs-trigger cu-tabs-trigger-active">Active</button>
+        <button type="button" id="tab-underline" class="cu-tabs-trigger">Tab</button>
+      </div>
+      <div class="cu-tabs-list cu-tabs-list-pills">
+        <button type="button" id="tab-pills-active" class="cu-tabs-trigger cu-tabs-trigger-active">Active</button>
+        <button type="button" id="tab-pills" class="cu-tabs-trigger">Tab</button>
+      </div>
+      <div class="cu-segmented">
+        <button type="button" id="segmented-active" class="cu-segmented-item cu-segmented-item-active">Day</button>
+        <button type="button" id="segmented" class="cu-segmented-item">Week</button>
+      </div>
+      <div class="cu-segmented" role="radiogroup" aria-label="View">
+        <input type="radio" id="segmented-radio-a" name="view" class="cu-segmented-input" checked />
+        <label for="segmented-radio-a" id="segmented-radio-active" class="cu-segmented-item">List</label>
+        <input type="radio" id="segmented-radio-b" name="view" class="cu-segmented-input" />
+        <label for="segmented-radio-b" id="segmented-radio" class="cu-segmented-item">Grid</label>
+      </div>
+      <div class="cu-toggle-group">
+        <button type="button" id="toggle-group-active" class="cu-toggle-group-item cu-toggle-group-item-active">
+          B
+        </button>
+        <button type="button" id="toggle-group" class="cu-toggle-group-item">I</button>
+      </div>
+      <div class="cu-toggle-group cu-toggle-group-outline cu-toggle-group-multiple">
+        <button type="button" id="toggle-group-outline-active" class="cu-toggle-group-item cu-toggle-group-item-active">
+          B
+        </button>
+        <button type="button" id="toggle-group-outline" class="cu-toggle-group-item">I</button>
+      </div>
+      <div class="cu-toolbar">
+        <button type="button" id="toolbar-active" class="cu-toolbar-button cu-toolbar-button-active">B</button>
+        <div id="toolbar-separator" class="cu-toolbar-separator"></div>
+        <button type="button" id="toolbar" class="cu-toolbar-button">I</button>
+      </div>
+      <nav class="cu-pagination" aria-label="Pagination">
+        <a href="#" id="pagination-active" class="cu-pagination-item cu-pagination-item-active" aria-current="page"
+          >1</a
+        >
+        <a href="#" id="pagination" class="cu-pagination-item">2</a>
+      </nav>
+    </section>
+
+    <section aria-label="Navigation">
+      <nav class="cu-nav" aria-label="Nav">
+        <a href="#" id="nav-active" class="cu-nav-item cu-nav-item-active" aria-current="page">Home</a>
+        <a href="#" id="nav" class="cu-nav-item">Docs</a>
+      </nav>
+      <div class="cu-sidebar" style="height: auto">
+        <a href="#" id="sidebar-active" class="cu-sidebar-item cu-sidebar-item-active">Button</a>
+        <div id="sidebar-separator" class="cu-sidebar-separator"></div>
+        <a href="#" id="sidebar" class="cu-sidebar-item">Card</a>
+      </div>
+      <div class="cu-tree">
+        <div id="tree-active" class="cu-tree-leaf cu-tree-leaf-active">index.ts</div>
+        <div id="tree" class="cu-tree-leaf">utils.ts</div>
+      </div>
+      <div class="cu-steps" style="width: 480px">
+        <div id="steps-completed" class="cu-steps-item cu-steps-item-completed">
+          <div class="cu-steps-number">1</div>
+          <div class="cu-steps-content"><div class="cu-steps-title">Done</div></div>
+        </div>
+        <div id="steps-separator-completed" class="cu-steps-separator"></div>
+        <div id="steps-active" class="cu-steps-item cu-steps-item-active">
+          <div class="cu-steps-number">2</div>
+          <div class="cu-steps-content"><div class="cu-steps-title">Current</div></div>
+        </div>
+        <div id="steps-separator" class="cu-steps-separator"></div>
+        <div id="steps-upcoming" class="cu-steps-item cu-steps-item-upcoming">
+          <div class="cu-steps-number">3</div>
+          <div class="cu-steps-content"><div class="cu-steps-title">Next</div></div>
+        </div>
+      </div>
+    </section>
+
+    <section aria-label="Lists and menus">
+      <div class="cu-calendar" style="width: auto">
+        <div class="cu-calendar-week" style="grid-template-columns: repeat(4, auto)">
+          <button type="button" id="calendar-outside" class="cu-calendar-day cu-calendar-day-outside">30</button>
+          <button type="button" id="calendar-day" class="cu-calendar-day">1</button>
+          <button type="button" id="calendar-today" class="cu-calendar-day cu-calendar-day-today">2</button>
+          <button type="button" id="calendar-selected" class="cu-calendar-day cu-calendar-day-selected">3</button>
+        </div>
+      </div>
+      <div class="cu-dropdown-content" style="position: static">
+        <div id="dropdown-highlight" class="cu-dropdown-item cu-dropdown-item-highlight">
+          Edit <span class="cu-dropdown-shortcut">⌘E</span>
+        </div>
+        <div id="dropdown-separator" class="cu-dropdown-separator"></div>
+        <div id="dropdown" class="cu-dropdown-item">Delete</div>
+      </div>
+      <div class="cu-combobox-content" style="position: static; width: 160px">
+        <div class="cu-combobox-list">
+          <div id="combobox-highlight" class="cu-combobox-item cu-combobox-item-highlight">Astro</div>
+          <div id="combobox" class="cu-combobox-item">Vue</div>
+        </div>
+      </div>
+      <div class="cu-multi-select-content" style="position: static; width: 160px">
+        <div class="cu-multi-select-list">
+          <div id="multi-select-highlight" class="cu-multi-select-item cu-multi-select-item-highlight">Red</div>
+          <div id="multi-select" class="cu-multi-select-item">Blue</div>
+        </div>
+      </div>
+      <div style="width: 200px">
+        <div id="command-active" class="cu-command-item" data-cu-command-active>Settings</div>
+        <div id="command-separator" class="cu-command-separator"></div>
+        <div id="command" class="cu-command-item">Profile</div>
+      </div>
+      <div class="cu-menubar">
+        <button type="button" id="menubar-expanded" class="cu-menubar-trigger" aria-expanded="true">File</button>
+        <button type="button" id="menubar" class="cu-menubar-trigger" aria-expanded="false">Edit</button>
+      </div>
+      <table class="cu-table cu-data-table-striped" style="width: auto">
+        <tbody>
+          <tr class="cu-table-row">
+            <td id="data-table-cell" class="cu-table-cell">Alice</td>
+          </tr>
+          <tr class="cu-table-row cu-data-table-row-selected">
+            <td id="data-table-cell-selected" class="cu-table-cell">Bob</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section aria-label="Indicators">
+      <label class="cu-toggle-wrapper">
+        <input type="checkbox" id="toggle-on-input" class="cu-toggle-input" checked />
+        <span id="toggle-on" class="cu-toggle"><span id="toggle-on-thumb" class="cu-toggle-thumb"></span></span>
+        On
+      </label>
+      <label class="cu-toggle-wrapper">
+        <input type="checkbox" id="toggle-off-input" class="cu-toggle-input" />
+        <span id="toggle-off" class="cu-toggle"><span id="toggle-off-thumb" class="cu-toggle-thumb"></span></span>
+        Off
+      </label>
+      <div id="progress" class="cu-progress" style="width: 160px">
+        <div id="progress-bar" class="cu-progress-bar cu-progress-bar-gradient" style="width: 60%"></div>
+      </div>
+      <svg class="cu-progress-circular" width="40" height="40" viewBox="0 0 40 40">
+        <circle
+          id="progress-circular-track"
+          class="cu-progress-circular-track"
+          cx="20"
+          cy="20"
+          r="16"
+          fill="none"
+          stroke-width="4"
+        />
+        <circle
+          id="progress-circular-bar"
+          class="cu-progress-circular-bar"
+          cx="20"
+          cy="20"
+          r="16"
+          fill="none"
+          stroke-width="4"
+          stroke-dasharray="100"
+          stroke-dashoffset="40"
+        />
+      </svg>
+      <div id="skeleton" class="cu-skeleton" style="width: 80px; height: 16px"></div>
+      <div id="skeleton-shimmer" class="cu-skeleton-shimmer" style="width: 80px; height: 16px"></div>
+      <div id="separator" class="cu-separator cu-separator-horizontal" style="width: 80px"></div>
+      <hr id="hr" class="cu-hr" style="width: 80px" />
+      <div id="timeline" class="cu-timeline" style="width: 120px; height: 40px"></div>
+      <div class="cu-carousel-dots">
+        <button
+          type="button"
+          id="carousel-dot-active"
+          class="cu-carousel-dot cu-carousel-dot-active"
+          aria-label="Slide 1"
+        ></button>
+        <button type="button" id="carousel-dot" class="cu-carousel-dot" aria-label="Slide 2"></button>
+      </div>
+      <div class="cu-tour-dots">
+        <span id="tour-dot-active" class="cu-tour-dot cu-tour-dot-active"></span>
+        <span id="tour-dot" class="cu-tour-dot"></span>
+      </div>
+      <input type="range" id="range" class="cu-range" style="width: 120px" aria-label="Volume" />
+      <span id="spinner" class="cu-spinner cu-spinner-md" role="status" aria-label="Loading"></span>
+      <span id="badge-dot" class="cu-badge cu-badge-success cu-badge-dot">Online</span>
+      <div class="cu-chat-typing">
+        <span id="chat-typing-dot" class="cu-chat-typing-dot"></span>
+        <span class="cu-chat-typing-dot"></span>
+        <span class="cu-chat-typing-dot"></span>
+      </div>
+      <div class="cu-notification-unread">
+        <span id="notification-title" class="cu-notification-title">New comment</span>
+      </div>
+    </section>
+
+    <section aria-label="Boundaries">
+      <button type="button" id="button" class="cu-button cu-button-default cu-button-md">Save</button>
+      <button type="button" id="button-ghost" class="cu-button cu-button-ghost cu-button-md">Cancel</button>
+      <span id="badge" class="cu-badge cu-badge-secondary">Draft</span>
+      <span id="tooltip" class="cu-tooltip" data-cu-tooltip="Hint">Hover</span>
+      <div id="card-selected" class="cu-card cu-card-selectable" aria-selected="true" style="padding: 12px">Plan A</div>
+      <div id="card" class="cu-card cu-card-selectable" aria-selected="false" style="padding: 12px">Plan B</div>
+    </section>
+
+    <section aria-label="Hidden inputs">
+      <input id="before" aria-label="Before" />
+      <label class="cu-dropzone" id="dropzone">
+        <input type="file" id="dropzone-input" class="cu-dropzone-input" />
+        <span class="cu-dropzone-title">Drop files</span>
+      </label>
+      <div id="dropzone-active" class="cu-dropzone cu-dropzone-active">Dragging</div>
+    </section>
+
+    <section aria-label="Color as content">
+      <span id="chart-swatch" class="cu-chart-swatch cu-chart-color-2"></span>
+      <div id="color-picker-hue" class="cu-color-picker-hue" style="width: 160px"></div>
+    </section>
+
+    <script src="../../../dist/core/cubby-ui.js"></script>
+  </body>
+</html>

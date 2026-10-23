@@ -63,6 +63,8 @@ Semantic color tokens (CSS variables, use in Tailwind or plain CSS):
 
 Dark mode: add `.dark` class on `<html>` or `<body>`.
 
+Forced colors (Windows High Contrast): built in, no extra markup. `:focus-visible` gets a `Highlight` outline (box-shadow rings are dropped), selected / highlighted items (tabs, segmented control, toggle group, pagination, nav, sidebar, menus, listbox options, calendar selected day, completed steps) fill with `Highlight` / `HighlightText`, surfaces drawn only by background (solid buttons, badges, tags, chat bubbles, tooltips, progress / range tracks) get a border, and color-as-content (chart series, color picker, image compare) keeps its author colors. When you style your own state classes, do the same inside `@media (forced-colors: active)`.
+
 ---
 
 ## Components Reference

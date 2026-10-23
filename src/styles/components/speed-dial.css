@@ -119,3 +119,10 @@
 .cu-speed-dial-sm .cu-speed-dial-action-btn {
   @apply size-9;
 }
+
+/* Forced colors（Windows 高對比）：主按鈕的底色與陰影會被移除，加外框標出按鈕範圍 */
+@media (forced-colors: active) {
+  .cu-speed-dial-trigger {
+    border: 1px solid;
+  }
+}

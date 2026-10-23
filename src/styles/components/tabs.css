@@ -100,3 +100,20 @@
 .cu-tabs-scroll-btn[hidden] {
   @apply hidden;
 }
+
+/* Forced colors（Windows 高對比）：底色、陰影與底線色都會被換掉，三種變體的選取中 tab 都看不出來。
+   改以系統選取色（Highlight）填滿，內部元素（徽章、關閉按鈕）跟著用 HighlightText
+   （forced-color-adjust: none：自行指定系統色，否則瀏覽器會在文字後補上頁面底色的襯底，蓋掉 HighlightText） */
+@media (forced-colors: active) {
+  .cu-tabs-trigger.cu-tabs-trigger-active {
+    forced-color-adjust: none;
+    border-color: CanvasText;
+    background-color: Highlight;
+    color: HighlightText;
+  }
+  .cu-tabs-trigger.cu-tabs-trigger-active * {
+    color: inherit;
+    background-color: transparent;
+    border-color: currentColor;
+  }
+}

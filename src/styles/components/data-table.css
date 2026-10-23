@@ -58,3 +58,12 @@
 .cu-data-table-expanded-content {
   @apply p-4 pl-12;
 }
+
+/* Forced colors（Windows 高對比）：選取列的淡底色會被移除，改以 Highlight 填滿儲存格（填在儲存格上，才不會被斑馬紋列的
+   底色蓋過）。儲存格內容可能是任意元件，因此不用 forced-color-adjust: none，文字與控制項仍由瀏覽器套用系統色
+   （文字後自動補上頁面底色的襯底，維持可讀） */
+@media (forced-colors: active) {
+  .cu-data-table-row-selected > * {
+    background-color: Highlight;
+  }
+}
