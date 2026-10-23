@@ -34,3 +34,16 @@
 .cu-dropzone:has([data-cu-dropzone-input]:disabled) {
   @apply pointer-events-none bg-muted text-muted-foreground opacity-50;
 }
+
+/* Forced colors（Windows 高對比）：拖曳經過（cu-dropzone-active）只靠邊框色與底色，改為系統選取色的實線外框；
+   焦點環畫在外框上（box-shadow 會被移除，input 又是 sr-only），改以 outline 顯示 */
+@media (forced-colors: active) {
+  .cu-dropzone.cu-dropzone-active {
+    border-style: solid;
+    border-color: Highlight;
+  }
+  .cu-dropzone:has(.cu-dropzone-input:focus-visible) {
+    outline: 2px solid Highlight;
+    outline-offset: 2px;
+  }
+}

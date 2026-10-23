@@ -71,3 +71,18 @@
 .cu-sidebar-backdrop[data-cu-sidebar-open] {
   @apply opacity-100;
 }
+
+/* Forced colors（Windows 高對比）：目前項目只靠底色與文字色，改以系統選取色填滿
+   （forced-color-adjust: none 避免文字底板蓋掉 HighlightText） */
+@media (forced-colors: active) {
+  .cu-sidebar-item.cu-sidebar-item-active {
+    forced-color-adjust: none;
+    background-color: Highlight;
+    color: HighlightText;
+  }
+  .cu-sidebar-item.cu-sidebar-item-active * {
+    border-color: currentColor;
+    background-color: transparent;
+    color: inherit;
+  }
+}

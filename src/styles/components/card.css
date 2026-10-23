@@ -67,3 +67,13 @@
 .cu-card-selectable[aria-selected="true"] {
   @apply border-primary ring-2 ring-primary/20;
 }
+
+/* Forced colors（Windows 高對比）：邊框色會被換成同一個系統色、ring（box-shadow）被移除，選取的卡片看不出來。
+   改以系統選取色的邊框加 outline 畫出較粗的外框 */
+@media (forced-colors: active) {
+  .cu-card-selectable:has(input:checked),
+  .cu-card-selectable[aria-selected="true"] {
+    border-color: Highlight;
+    outline: 2px solid Highlight;
+  }
+}

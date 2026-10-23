@@ -58,3 +58,28 @@
 .cu-multi-select-item-check {
   @apply absolute left-2 size-4 text-primary;
 }
+
+/* Forced colors（Windows 高對比）：與 Combobox 相同，hover / 鍵盤高亮以系統選取色填滿，已選取以內框標示 */
+@media (forced-colors: active) {
+  .cu-multi-select-item:hover,
+  .cu-multi-select-item.cu-multi-select-item-highlight {
+    forced-color-adjust: none;
+    background-color: Highlight;
+    color: HighlightText;
+  }
+  .cu-multi-select-item:hover *,
+  .cu-multi-select-item.cu-multi-select-item-highlight * {
+    border-color: currentColor;
+    background-color: transparent;
+    color: inherit;
+  }
+  .cu-multi-select-item.cu-multi-select-item-active {
+    outline: 2px solid currentColor;
+    outline-offset: -2px;
+  }
+  /* 同時高亮時內框再內縮，外圍留一圈選取色，內框才不會與 Canvas 背景連成一片 */
+  .cu-multi-select-item.cu-multi-select-item-active:hover,
+  .cu-multi-select-item.cu-multi-select-item-active.cu-multi-select-item-highlight {
+    outline-offset: -4px;
+  }
+}

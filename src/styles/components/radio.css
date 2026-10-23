@@ -11,3 +11,11 @@
 .cu-radio {
   @apply size-4 shrink-0 cursor-pointer appearance-none rounded-full border-2 border-input bg-background transition-colors duration-150 checked:border-[5px] checked:border-primary hover:border-muted-foreground/30 focus-visible:ring-2 focus-visible:ring-ring/40 focus-visible:ring-offset-2 focus-visible:outline-none disabled:pointer-events-none disabled:bg-muted disabled:text-muted-foreground disabled:opacity-50;
 }
+
+/* Forced colors（Windows 高對比）：邊框色會被換成同一個系統色，選取只剩粗細差異（5px / 2px），
+   選取的外圈另改用系統選取色 */
+@media (forced-colors: active) {
+  .cu-radio:checked {
+    border-color: Highlight;
+  }
+}

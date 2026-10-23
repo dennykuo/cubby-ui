@@ -19,3 +19,19 @@
 .cu-range::-moz-range-thumb:hover {
   box-shadow: 0 0 0 4px color-mix(in srgb, var(--color-primary) 15%, transparent);
 }
+
+/* Forced colors（Windows 高對比）：軌道以背景色繪製會消失，thumb 只剩空心外框。
+   軌道改用 GrayText，thumb 以系統選取色填滿 */
+@media (forced-colors: active) {
+  .cu-range {
+    background-color: GrayText;
+  }
+  .cu-range::-webkit-slider-thumb {
+    border-color: Canvas;
+    background-color: Highlight;
+  }
+  .cu-range::-moz-range-thumb {
+    border-color: Canvas;
+    background-color: Highlight;
+  }
+}

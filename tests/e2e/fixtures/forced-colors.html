@@ -1,0 +1,405 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Forced colors fixture</title>
+    <link rel="stylesheet" href="../../../dist/core/cubby-ui.css" />
+    <style>
+      body {
+        padding: 16px;
+        font-family: system-ui, sans-serif;
+      }
+      section {
+        margin-bottom: 20px;
+      }
+      h2 {
+        margin-bottom: 6px;
+        font-size: 12px;
+        font-weight: 600;
+      }
+      .row {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 12px;
+      }
+      .panel {
+        position: static;
+        display: block;
+        width: 220px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- 以靜態 class 呈現各元件的狀態（不帶 data-cu-*，JS 不會改動），forced colors 下比對 computed style -->
+    <section>
+      <h2>Button</h2>
+      <div class="row">
+        <button type="button" id="btn-default" class="cu-button cu-button-default cu-button-md">Default</button>
+        <button type="button" id="btn-secondary" class="cu-button cu-button-secondary cu-button-md">Secondary</button>
+        <button type="button" id="btn-ghost" class="cu-button cu-button-ghost cu-button-md">Ghost</button>
+        <button type="button" id="btn-destructive" class="cu-button cu-button-destructive cu-button-md">
+          Destructive
+        </button>
+        <button type="button" id="btn-outline" class="cu-button cu-button-outline cu-button-md">Outline</button>
+        <a href="#" id="btn-anchor" class="cu-button cu-button-default cu-button-md">Anchor</a>
+        <button type="button" id="btn-link" class="cu-button cu-button-link cu-button-md">Link</button>
+      </div>
+    </section>
+
+    <section>
+      <h2>Dropdown / Menubar / Context Menu</h2>
+      <div class="row">
+        <div class="cu-dropdown-content panel" role="menu">
+          <div id="dropdown-item" class="cu-dropdown-item" role="menuitem">Profile</div>
+          <div id="dropdown-highlight" class="cu-dropdown-item cu-dropdown-item-highlight" role="menuitem">
+            Settings <span id="dropdown-shortcut" class="cu-dropdown-shortcut">⌘S</span>
+          </div>
+          <div class="cu-dropdown-item cu-dropdown-item-danger cu-dropdown-item-highlight" role="menuitem">Delete</div>
+        </div>
+        <div class="cu-menubar">
+          <div class="cu-menubar-menu">
+            <button type="button" id="menubar-trigger" class="cu-menubar-trigger">File</button>
+          </div>
+          <div class="cu-menubar-menu">
+            <button type="button" id="menubar-trigger-open" class="cu-menubar-trigger" aria-expanded="true">
+              Edit
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Combobox / Multi Select / Command Palette</h2>
+      <div class="row">
+        <div class="cu-combobox-content panel">
+          <div class="cu-combobox-list" role="listbox" aria-label="Framework">
+            <div id="combobox-item" class="cu-combobox-item" role="option" aria-selected="false">Next.js</div>
+            <div
+              id="combobox-highlight"
+              class="cu-combobox-item cu-combobox-item-highlight"
+              role="option"
+              aria-selected="false"
+            >
+              SvelteKit
+            </div>
+            <div
+              id="combobox-active"
+              class="cu-combobox-item cu-combobox-item-active"
+              role="option"
+              aria-selected="true"
+            >
+              Astro
+            </div>
+          </div>
+        </div>
+        <div class="cu-multi-select-content panel">
+          <div class="cu-multi-select-list" role="listbox" aria-label="Frameworks" aria-multiselectable="true">
+            <div id="multi-item" class="cu-multi-select-item" role="option" aria-selected="false">React</div>
+            <div
+              id="multi-highlight"
+              class="cu-multi-select-item cu-multi-select-item-highlight"
+              role="option"
+              aria-selected="false"
+            >
+              Vue
+            </div>
+            <div
+              id="multi-active"
+              class="cu-multi-select-item cu-multi-select-item-active"
+              role="option"
+              aria-selected="true"
+            >
+              Svelte
+            </div>
+            <div
+              id="multi-active-highlight"
+              class="cu-multi-select-item cu-multi-select-item-active cu-multi-select-item-highlight"
+              role="option"
+              aria-selected="true"
+            >
+              Astro
+            </div>
+          </div>
+        </div>
+        <div class="cu-command-list panel" role="listbox" aria-label="Commands">
+          <div id="command-item" class="cu-command-item" role="option" aria-selected="false">Calendar</div>
+          <div id="command-active" class="cu-command-item" role="option" aria-selected="true" data-cu-command-active>
+            Search <span class="cu-command-shortcut"><kbd id="command-kbd" class="cu-kbd">⌘K</kbd></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Tabs</h2>
+      <div class="row">
+        <div class="cu-tabs-list" role="tablist">
+          <button
+            type="button"
+            id="tab-active"
+            class="cu-tabs-trigger cu-tabs-trigger-active"
+            role="tab"
+            aria-selected="true"
+          >
+            Account <span id="tab-badge" class="cu-tabs-trigger-badge">3</span>
+          </button>
+          <button type="button" id="tab" class="cu-tabs-trigger" role="tab" aria-selected="false">Password</button>
+        </div>
+        <div class="cu-tabs-list cu-tabs-list-pills" role="tablist">
+          <button
+            type="button"
+            id="pill-active"
+            class="cu-tabs-trigger cu-tabs-trigger-active"
+            role="tab"
+            aria-selected="true"
+          >
+            Account
+          </button>
+          <button type="button" id="pill" class="cu-tabs-trigger" role="tab" aria-selected="false">Password</button>
+        </div>
+        <div class="cu-tabs-list cu-tabs-list-underline" role="tablist">
+          <button
+            type="button"
+            id="underline-active"
+            class="cu-tabs-trigger cu-tabs-trigger-active"
+            role="tab"
+            aria-selected="true"
+          >
+            Account
+          </button>
+          <button type="button" id="underline" class="cu-tabs-trigger" role="tab" aria-selected="false">
+            Password
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Segmented Control / Toggle Group / Toolbar</h2>
+      <div class="row">
+        <div class="cu-segmented" role="radiogroup" aria-label="Range">
+          <input type="radio" name="seg" class="cu-segmented-input" id="seg-1" checked />
+          <label for="seg-1" id="seg-checked" class="cu-segmented-item">Day</label>
+          <input type="radio" name="seg" class="cu-segmented-input" id="seg-2" />
+          <label for="seg-2" id="seg-unchecked" class="cu-segmented-item">Week</label>
+        </div>
+        <div class="cu-segmented">
+          <button type="button" id="seg-btn-active" class="cu-segmented-item cu-segmented-item-active">List</button>
+          <button type="button" id="seg-btn" class="cu-segmented-item">Grid</button>
+        </div>
+        <div class="cu-toggle-group">
+          <button
+            type="button"
+            id="toggle-group-active"
+            class="cu-toggle-group-item cu-toggle-group-item-active"
+            aria-pressed="true"
+          >
+            Left
+          </button>
+          <button type="button" id="toggle-group-item" class="cu-toggle-group-item" aria-pressed="false">Right</button>
+        </div>
+        <div class="cu-toggle-group cu-toggle-group-multiple cu-toggle-group-outline">
+          <button
+            type="button"
+            id="toggle-group-multi-active"
+            class="cu-toggle-group-item cu-toggle-group-item-active"
+            aria-pressed="true"
+          >
+            Bold
+          </button>
+          <button type="button" class="cu-toggle-group-item" aria-pressed="false">Italic</button>
+        </div>
+        <div class="cu-toolbar">
+          <button
+            type="button"
+            id="toolbar-active"
+            class="cu-toolbar-button cu-toolbar-button-active"
+            aria-pressed="true"
+          >
+            B
+          </button>
+          <button type="button" id="toolbar-button" class="cu-toolbar-button" aria-pressed="false">I</button>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Calendar / Pagination</h2>
+      <div class="row">
+        <div class="cu-calendar" style="width: auto">
+          <div class="cu-calendar-week">
+            <button type="button" id="day-outside" class="cu-calendar-day cu-calendar-day-outside">30</button>
+            <button type="button" id="day" class="cu-calendar-day">1</button>
+            <button type="button" id="day-today" class="cu-calendar-day cu-calendar-day-today">2</button>
+            <button
+              type="button"
+              id="day-selected"
+              class="cu-calendar-day cu-calendar-day-selected"
+              aria-selected="true"
+            >
+              3
+            </button>
+          </div>
+        </div>
+        <nav class="cu-pagination" aria-label="Pagination">
+          <a href="#" id="page" class="cu-pagination-item">1</a>
+          <a href="#" id="page-active" class="cu-pagination-item cu-pagination-item-active" aria-current="page">2</a>
+        </nav>
+      </div>
+    </section>
+
+    <section>
+      <h2>Nav / Sidebar / Tree View</h2>
+      <div class="row">
+        <nav class="cu-nav">
+          <a href="#" id="nav-active" class="cu-nav-item cu-nav-item-active" aria-current="page">Home</a>
+          <a href="#" id="nav" class="cu-nav-item">About</a>
+        </nav>
+        <div style="width: 160px">
+          <a href="#" id="sidebar-active" class="cu-sidebar-item cu-sidebar-item-active" aria-current="page">Button</a>
+          <a href="#" id="sidebar" class="cu-sidebar-item">Card</a>
+        </div>
+        <div class="cu-tree" style="width: 160px">
+          <div id="tree-leaf-active" class="cu-tree-leaf cu-tree-leaf-active">index.ts</div>
+          <div id="tree-leaf" class="cu-tree-leaf">utils.ts</div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Steps</h2>
+      <div class="cu-steps">
+        <div id="step-completed" class="cu-steps-item cu-steps-item-completed">
+          <div class="cu-steps-number">1</div>
+          <div class="cu-steps-content"><span class="cu-steps-title">Account</span></div>
+        </div>
+        <div id="step-separator-completed" class="cu-steps-separator"></div>
+        <div id="step-active" class="cu-steps-item cu-steps-item-active">
+          <div class="cu-steps-number">2</div>
+          <div class="cu-steps-content"><span class="cu-steps-title">Profile</span></div>
+        </div>
+        <div id="step-separator" class="cu-steps-separator"></div>
+        <div id="step-upcoming" class="cu-steps-item cu-steps-item-upcoming">
+          <div class="cu-steps-number">3</div>
+          <div class="cu-steps-content"><span class="cu-steps-title">Review</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Toggle / Radio / Progress</h2>
+      <div class="row">
+        <label class="cu-toggle-wrapper">
+          <input type="checkbox" id="toggle-off-input" class="cu-toggle-input" />
+          <span id="toggle-off" class="cu-toggle"><span class="cu-toggle-thumb"></span></span>
+          Off
+        </label>
+        <label class="cu-toggle-wrapper">
+          <input type="checkbox" class="cu-toggle-input" checked />
+          <span id="toggle-on" class="cu-toggle"><span class="cu-toggle-thumb"></span></span>
+          On
+        </label>
+        <div class="cu-radio-wrapper">
+          <input type="radio" id="radio-checked" name="r" class="cu-radio" checked />
+          <label for="radio-checked">A</label>
+        </div>
+        <div class="cu-radio-wrapper">
+          <input type="radio" id="radio" name="r" class="cu-radio" />
+          <label for="radio">B</label>
+        </div>
+      </div>
+      <div class="row" style="margin-top: 12px">
+        <div id="progress" class="cu-progress" style="width: 200px">
+          <div id="progress-bar" class="cu-progress-bar" style="width: 60%"></div>
+        </div>
+        <div class="cu-progress" style="width: 200px">
+          <div id="progress-bar-gradient" class="cu-progress-bar cu-progress-bar-gradient" style="width: 40%"></div>
+        </div>
+        <div id="progress-multi" class="cu-progress-multi" style="width: 200px">
+          <div class="cu-progress-bar" style="width: 30%"></div>
+          <div id="progress-segment" class="cu-progress-bar cu-progress-bar-success" style="width: 20%"></div>
+        </div>
+        <div class="cu-progress-circular">
+          <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+            <circle id="circular-track" class="cu-progress-circular-track" cx="24" cy="24" r="20" stroke-width="4" />
+            <circle
+              id="circular-bar"
+              class="cu-progress-circular-bar"
+              cx="24"
+              cy="24"
+              r="20"
+              stroke-width="4"
+              stroke-linecap="round"
+              stroke-dasharray="125.66"
+              stroke-dashoffset="50.26"
+            />
+          </svg>
+          <span class="cu-progress-circular-value">60%</span>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Card / Carousel / Tour / Dropzone / Range</h2>
+      <div class="row">
+        <label id="card-selected" class="cu-card cu-card-selectable" style="padding: 12px">
+          <input type="radio" name="plan" class="cu-radio" checked /> Pro
+        </label>
+        <label id="card" class="cu-card cu-card-selectable" style="padding: 12px">
+          <input type="radio" name="plan" class="cu-radio" /> Free
+        </label>
+        <div class="cu-carousel-dots">
+          <button
+            type="button"
+            id="carousel-dot-active"
+            class="cu-carousel-dot cu-carousel-dot-active"
+            aria-label="Slide 1"
+          ></button>
+          <button type="button" id="carousel-dot" class="cu-carousel-dot" aria-label="Slide 2"></button>
+        </div>
+        <div class="cu-tour-dots">
+          <span id="tour-dot-active" class="cu-tour-dot cu-tour-dot-active"></span>
+          <span id="tour-dot" class="cu-tour-dot"></span>
+        </div>
+        <div id="dropzone-active" class="cu-dropzone cu-dropzone-active" style="padding: 12px">Drop</div>
+        <label id="dropzone" class="cu-dropzone" style="padding: 12px">
+          <input type="file" id="dropzone-input" class="cu-dropzone-input" aria-label="Upload files" />
+          Idle
+        </label>
+        <input
+          type="range"
+          id="range"
+          class="cu-range"
+          style="width: 160px"
+          min="0"
+          max="100"
+          value="60"
+          aria-label="Volume"
+        />
+      </div>
+    </section>
+
+    <section>
+      <h2>Rating（radio 模式）</h2>
+      <!-- 以 sr-only radio + label 畫星星的 CSS-only 寫法，焦點環畫在 label 上 -->
+      <div class="cu-rating" role="radiogroup" aria-label="Rate">
+        <input type="radio" name="rate" id="rate-1" class="cu-rating-input" checked />
+        <label for="rate-1" id="rate-1-label" class="cu-rating-item cu-rating-label" aria-label="1 star">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M12 2l3 7 7 .5-5.5 4.5 2 7.5L12 17l-6.5 4.5 2-7.5L2 9.5 9 9z" />
+          </svg>
+        </label>
+        <input type="radio" name="rate" id="rate-2" class="cu-rating-input" />
+        <label for="rate-2" id="rate-2-label" class="cu-rating-item cu-rating-label" aria-label="2 stars">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M12 2l3 7 7 .5-5.5 4.5 2 7.5L12 17l-6.5 4.5 2-7.5L2 9.5 9 9z" />
+          </svg>
+        </label>
+      </div>
+    </section>
+
+    <script src="../../../dist/core/cubby-ui.js"></script>
+  </body>
+</html>

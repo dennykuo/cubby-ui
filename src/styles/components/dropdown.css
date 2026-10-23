@@ -43,6 +43,30 @@
   @apply text-destructive hover:bg-destructive/10 hover:text-destructive;
 }
 
+/* Forced colors（Windows 高對比）：背景色會被換成 Canvas，hover / 鍵盤高亮的項目看不出來。
+   改以系統選取色填滿（與原生選單一致；Menubar 項目共用）。forced-color-adjust: none 才不會在文字後方
+   墊上 Canvas 底板（backplate）蓋掉 HighlightText；子元素（快捷鍵、圖示、Kbd）一併改用 HighlightText */
+@media (forced-colors: active) {
+  .cu-dropdown-item:hover,
+  .cu-dropdown-item:focus-visible,
+  .cu-dropdown-item.cu-dropdown-item-highlight,
+  .cu-menubar-item:hover,
+  .cu-menubar-item:focus-visible {
+    forced-color-adjust: none;
+    background-color: Highlight;
+    color: HighlightText;
+  }
+  .cu-dropdown-item:hover *,
+  .cu-dropdown-item:focus-visible *,
+  .cu-dropdown-item.cu-dropdown-item-highlight *,
+  .cu-menubar-item:hover *,
+  .cu-menubar-item:focus-visible * {
+    border-color: currentColor;
+    background-color: transparent;
+    color: inherit;
+  }
+}
+
 /* Shared float-in animation for dropdown / popover / menubar */
 @keyframes cu-float-in {
   from {

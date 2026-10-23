@@ -88,3 +88,20 @@
 .cu-command-empty {
   @apply py-6 text-center text-sm text-muted-foreground;
 }
+
+/* Forced colors（Windows 高對比）：選中項目（aria-activedescendant）只靠底色，改以系統選取色填滿
+   （forced-color-adjust: none 避免文字底板蓋掉 HighlightText）；快捷鍵 Kbd 的外框與文字一併改用 HighlightText */
+@media (forced-colors: active) {
+  .cu-command-item:hover,
+  .cu-command-item[data-cu-command-active] {
+    forced-color-adjust: none;
+    background-color: Highlight;
+    color: HighlightText;
+  }
+  .cu-command-item:hover *,
+  .cu-command-item[data-cu-command-active] * {
+    border-color: currentColor;
+    background-color: transparent;
+    color: inherit;
+  }
+}

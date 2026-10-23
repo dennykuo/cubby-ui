@@ -89,3 +89,11 @@
 .cu-button-loading {
   @apply pointer-events-none opacity-70;
 }
+
+/* Forced colors（Windows 高對比）：背景色會被換成 Canvas，沒有邊框的變體只剩文字、看不出按鈕外形。
+   補上與文字同色的外框（<a> 按鈕為 LinkText）；link 變體維持連結外觀 */
+@media (forced-colors: active) {
+  .cu-button:not(.cu-button-link) {
+    border: 1px solid currentColor;
+  }
+}

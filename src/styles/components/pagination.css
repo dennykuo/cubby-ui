@@ -20,3 +20,13 @@
 .cu-pagination-next {
   @apply inline-flex size-9 cursor-pointer items-center justify-center rounded-lg text-sm font-medium transition-colors duration-150 outline-none hover:bg-accent hover:text-accent-foreground focus-visible:ring-1 focus-visible:ring-ring/30 disabled:pointer-events-none disabled:opacity-50 disabled:hover:bg-transparent;
 }
+
+/* Forced colors（Windows 高對比）：目前頁只靠底色，改以系統選取色填滿
+   （forced-color-adjust: none 避免文字底板蓋掉 HighlightText） */
+@media (forced-colors: active) {
+  .cu-pagination-item.cu-pagination-item-active {
+    forced-color-adjust: none;
+    background-color: Highlight;
+    color: HighlightText;
+  }
+}
