@@ -9,7 +9,6 @@ export const togglePage: Record<
     sections: {
       usage: { title: string; description: string };
       classes: { title: string; classLabel: string; descriptionLabel: string };
-      withLabel: { title: string; description: string };
       sizes: { title: string; description: string };
       checkedByDefault: { title: string; description: string };
       disabled: { title: string; description: string };
@@ -25,16 +24,12 @@ export const togglePage: Record<
       usage: {
         title: "Usage",
         description:
-          'The toggle uses a hidden <code class="cu-code">&lt;input type="checkbox"&gt;</code> with <code class="cu-code">cu-toggle-input</code>, a visual track with <code class="cu-code">cu-toggle</code>, and a thumb with <code class="cu-code">cu-toggle-thumb</code>, followed by the label text, all inside a <code class="cu-code">cu-toggle-wrapper</code> label.',
+          'The toggle uses a hidden <code class="cu-code">&lt;input type="checkbox"&gt;</code> with <code class="cu-code">cu-toggle-input</code>, a visual track with <code class="cu-code">cu-toggle</code>, and a thumb with <code class="cu-code">cu-toggle-thumb</code>, followed by the label text, all inside a <code class="cu-code">cu-toggle-wrapper</code> label. Clicking the text also toggles the switch.',
       },
       classes: {
         title: "CSS Classes",
         classLabel: "Class",
         descriptionLabel: "Description",
-      },
-      withLabel: {
-        title: "With Label",
-        description: "Add label text as a sibling inside the wrapper. Clicking the text also toggles the switch.",
       },
       sizes: {
         title: "Sizes",
@@ -68,16 +63,12 @@ export const togglePage: Record<
       usage: {
         title: "使用方式",
         description:
-          'Toggle 使用隱藏的 <code class="cu-code">&lt;input type="checkbox"&gt;</code> 搭配 <code class="cu-code">cu-toggle-input</code>，視覺軌道使用 <code class="cu-code">cu-toggle</code>，滑塊使用 <code class="cu-code">cu-toggle-thumb</code>，後面接標籤文字，全部包裹在 <code class="cu-code">cu-toggle-wrapper</code> label 中。',
+          'Toggle 使用隱藏的 <code class="cu-code">&lt;input type="checkbox"&gt;</code> 搭配 <code class="cu-code">cu-toggle-input</code>，視覺軌道使用 <code class="cu-code">cu-toggle</code>，滑塊使用 <code class="cu-code">cu-toggle-thumb</code>，後面接標籤文字，全部包裹在 <code class="cu-code">cu-toggle-wrapper</code> label 中。點擊文字也能切換開關。',
       },
       classes: {
         title: "CSS 類別",
         classLabel: "類別",
         descriptionLabel: "說明",
-      },
-      withLabel: {
-        title: "帶標籤",
-        description: "在包裝器內加入標籤文字作為 sibling。點擊文字也能切換開關。",
       },
       sizes: {
         title: "尺寸",
