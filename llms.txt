@@ -376,13 +376,18 @@ Event: `cu:color-picker:change` (`detail.value` = "#rrggbb", bubbles) on the roo
 </div>
 ```
 
-**Toggle** — CSS-only, hidden checkbox + sibling
-Sizes: `cu-toggle-sm`, `cu-toggle-lg`
+**Toggle** — CSS-only, visually hidden checkbox + sibling track
+Classes: `cu-toggle-wrapper` (`<label>` wrapper), `cu-toggle-input` (visually hidden checkbox), `cu-toggle` (track `<span>`, must immediately follow the input), `cu-toggle-thumb` (thumb inside the track)
+Sizes: `cu-toggle-sm`, `cu-toggle-lg` (on the track `<span>`)
+Styles apply only via `.cu-toggle-input + .cu-toggle`: never put `cu-toggle` on the `<input>`. Put `checked` / `disabled` on the input.
 ```html
-<div class="cu-toggle-wrapper">
-  <input type="checkbox" id="t1" class="cu-toggle">
-  <label for="t1">Toggle label</label>
-</div>
+<label class="cu-toggle-wrapper">
+  <input type="checkbox" class="cu-toggle-input">
+  <span class="cu-toggle">
+    <span class="cu-toggle-thumb"></span>
+  </span>
+  <span class="cu-label">Airplane Mode</span>
+</label>
 ```
 
 **Range** (slider)
