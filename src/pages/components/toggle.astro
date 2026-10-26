@@ -16,13 +16,6 @@ const usageCode = `<label class="cu-toggle-wrapper">
   <span class="cu-toggle">
     <span class="cu-toggle-thumb"></span>
   </span>
-</label>`.trim();
-
-const withLabelCode = `<label class="cu-toggle-wrapper">
-  <input type="checkbox" class="cu-toggle-input" />
-  <span class="cu-toggle">
-    <span class="cu-toggle-thumb"></span>
-  </span>
   <span class="cu-label">Airplane Mode</span>
 </label>`.trim();
 
@@ -90,7 +83,9 @@ const disabledCode = `<label class="cu-toggle-wrapper">
       <SectionHeading id="usage" title={t.sections.usage.title} />
       <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.usage.description} />
       <ComponentPreview code={usageCode}>
-        <Toggle />
+        <Toggle>
+          <span class="cu-label">Airplane Mode</span>
+        </Toggle>
       </ComponentPreview>
     </section>
 
@@ -145,17 +140,6 @@ const disabledCode = `<label class="cu-toggle-wrapper">
           </tbody>
         </table>
       </div>
-    </section>
-
-    <!-- With Label -->
-    <section class="space-y-3">
-      <SectionHeading id="with-label" title={t.sections.withLabel.title} />
-      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.withLabel.description} />
-      <ComponentPreview code={withLabelCode}>
-        <Toggle>
-          <span class="cu-label">Airplane Mode</span>
-        </Toggle>
-      </ComponentPreview>
     </section>
 
     <!-- Sizes -->

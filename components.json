@@ -253,10 +253,11 @@
       "cssClasses": {
         "base": "cu-toggle",
         "wrapper": "cu-toggle-wrapper",
+        "parts": ["cu-toggle-input", "cu-toggle-thumb"],
         "sizes": ["cu-toggle-sm", "cu-toggle-lg"]
       },
-      "notes": "CSS-only. Uses hidden checkbox + sibling label selector. REQUIRED: wrap inside cu-toggle-wrapper.",
-      "example": "<div class=\"cu-toggle-wrapper\"><input type=\"checkbox\" id=\"t1\" class=\"cu-toggle\"><label for=\"t1\">Toggle</label></div>"
+      "notes": "CSS-only (no JS). REQUIRED structure: <label class=\"cu-toggle-wrapper\"> containing <input type=\"checkbox\" class=\"cu-toggle-input\"> (visually hidden), IMMEDIATELY followed by the <span class=\"cu-toggle\"> track with <span class=\"cu-toggle-thumb\"> inside, then optional label text. Styles apply only via the sibling selector .cu-toggle-input + .cu-toggle, so cu-toggle goes on the track span (never on the input) and nothing may sit between the input and the track. The label wrapper makes clicking the track toggle the checkbox. Put checked / disabled / name on the input; put cu-toggle-sm / cu-toggle-lg on the track span.",
+      "example": "<label class=\"cu-toggle-wrapper\"><input type=\"checkbox\" class=\"cu-toggle-input\"><span class=\"cu-toggle\"><span class=\"cu-toggle-thumb\"></span></span><span class=\"cu-label\">Airplane Mode</span></label>"
     },
     {
       "name": "Range",

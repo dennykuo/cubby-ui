@@ -32,6 +32,7 @@ import {
  * 執行期
  *   - 沒有未捕捉例外與 console error；表單類元件的按鈕在操作過程中沒有送出外層 <form>
  *   - 依元件實際操作（開啟浮層、選取項目、切換狀態……），驗證 cubby-ui.js 有接手
+ *   - Toggle（CSS-only，樣式依賴 `.cu-toggle-input + .cu-toggle` 結構）：軌道與滑塊有渲染、點擊軌道會切換並移動滑塊
  *
  * 文檔頁範例來自 docs/（CI 會先 build:docs），未建置時該組略過。
  *
@@ -571,6 +572,13 @@ async function activate(loc: Locator) {
   else await loc.evaluate((el) => (el as HTMLElement).click());
 }
 
+/** Toggle 滑塊相對於軌道左緣的位置（px） */
+const toggleThumbOffset = (track: Locator) =>
+  track.evaluate((el) => {
+    const thumb = el.querySelector(".cu-toggle-thumb");
+    return thumb ? thumb.getBoundingClientRect().left - el.getBoundingClientRect().left : NaN;
+  });
+
 async function closeOverlays(page: Page) {
   await page.keyboard.press("Escape");
   await page.evaluate(() => document.querySelectorAll("dialog[open]").forEach((d) => (d as HTMLDialogElement).close()));
@@ -727,9 +735,23 @@ const PROBES: Array<{ selector: string; run: Probe }> = [
       // overlay.js 開啟時以 requestAnimationFrame 把焦點移到第一個可互動元素。先等那個 frame 執行完
       // （rAF callback 依登記順序執行），否則它可能在聚焦關閉鈕之後才搶走焦點，Enter 落在輸入框上（CI 較慢時發生）
       await page.evaluate(() => new Promise<void>((resolve) => requestAnimationFrame(() => resolve())));
+      // close() 會立即移除 open，但 close 事件（overlay.js 在此把焦點還給 trigger）是之後才排入的 task。
+      // 先登記監聽（排在 overlay.js 之後），關閉後等它觸發再換下一個 trigger；否則 CI 較慢時，
+      // 焦點會在聚焦下一個 trigger 之後才被拉回這個 trigger，Enter 開到錯的 <dialog>
+      await dialog.evaluate((d) => {
+        (d as any).__cuProbeClosed = false;
+        d.addEventListener("close", () => ((d as any).__cuProbeClosed = true), { once: true });
+      });
       // 以鍵盤啟動關閉鈕：不受開啟動畫期間元素位移影響，也同時驗證可鍵盤操作
       await pressEnterOn(page, close);
       if (await dialog.evaluate((d) => (d as HTMLDialogElement).open)) return `點擊 ${closeSel} 後 <dialog> 沒有關閉`;
+      await dialog.evaluate(
+        (d) =>
+          new Promise<void>((resolve) => {
+            const done = () => ((d as any).__cuProbeClosed ? resolve() : setTimeout(done, 10));
+            done();
+          }),
+      );
     }) as Probe,
   })),
   {
@@ -939,6 +961,49 @@ const PROBES: Array<{ selector: string; run: Probe }> = [
       // 單選模式點擊後一定是 pressed；多選模式則反轉
       const expected = multiple ? String(!wasActive) : "true";
       if ((await target.getAttribute("aria-pressed")) !== expected) return "點擊項目後 aria-pressed 沒有更新";
+    },
+  },
+  {
+    // Toggle 不需要 JS，但樣式只透過 `.cu-toggle-input + .cu-toggle` 套用：結構不對時照抄只會得到原生 checkbox
+    selector: ".cu-toggle-wrapper, .cu-toggle:not(.cu-toggle-wrapper *)",
+    run: async (page, root) => {
+      const structure = await root.evaluate((el) => {
+        const out: string[] = [];
+        if (!el.matches("label.cu-toggle-wrapper"))
+          out.push('需包在 <label class="cu-toggle-wrapper"> 內（點擊軌道才會切換 checkbox）');
+        if (el.matches("input.cu-toggle") || el.querySelector("input.cu-toggle")) {
+          out.push("cu-toggle 不能放在 <input> 上：checkbox 用 cu-toggle-input，cu-toggle 是緊接其後的軌道 <span>");
+        } else if (!el.querySelector('input[type="checkbox"].cu-toggle-input + .cu-toggle .cu-toggle-thumb')) {
+          out.push(
+            '缺少 <input type="checkbox" class="cu-toggle-input"> 緊接 <span class="cu-toggle"><span class="cu-toggle-thumb">（樣式以 + 選擇器套用）',
+          );
+        }
+        return out;
+      });
+      if (structure.length) return structure.join("；");
+      if (!(await root.isVisible())) return; // 例如放在未開啟的浮層內
+
+      const input = root.locator("input.cu-toggle-input").first();
+      const track = root.locator(".cu-toggle-input + .cu-toggle").first();
+      const trackBox = await track.boundingBox();
+      const thumbBox = await track.locator(".cu-toggle-thumb").first().boundingBox();
+      if (!trackBox || !thumbBox || thumbBox.width === 0 || trackBox.width <= thumbBox.width)
+        return "軌道 / 滑塊沒有渲染出開關外觀";
+      if ((await input.evaluate((el) => el.getBoundingClientRect().width)) > 1)
+        return "checkbox 沒有被視覺隱藏（原生 checkbox 仍顯示）";
+      if (await input.isDisabled()) return;
+
+      const checked = await input.isChecked();
+      const before = await toggleThumbOffset(track);
+      await track.click();
+      if ((await input.isChecked()) === checked) return "點擊軌道後 checkbox 沒有切換";
+      // 滑塊以 transition 移動，最多等 1 秒
+      let after = before;
+      for (let i = 0; i < 20 && Math.abs(after - before) < 4; i++) {
+        await page.waitForTimeout(50);
+        after = await toggleThumbOffset(track);
+      }
+      if (Math.abs(after - before) < 4) return "切換後滑塊沒有移動";
     },
   },
   {
@@ -1191,7 +1256,11 @@ async function auditExample(page: Page, html: string): Promise<string[]> {
 
 test.use({ actionTimeout: 3000 });
 
-/** 文檔頁只檢查用到互動元件的範例（含 data-cu-*，或帶有需要 JS 的互動 class） */
+/**
+ * 文檔頁只檢查用到互動元件的範例（含 data-cu-*，或帶有需要 JS 的互動 class），
+ * 以及樣式依賴特定標記結構、有執行期探測的 CSS-only 元件（Toggle）
+ */
+const STRUCTURAL_CLASS_RE = /\bcu-toggle(?:-wrapper)?(?![\w-])/;
 const HOOK_CLASS_RE = new RegExp(
   "\\b(" +
     [
@@ -1204,7 +1273,7 @@ const HOOK_CLASS_RE = new RegExp(
     ")\\b",
 );
 const usesInteractive = (html: string) =>
-  /data-cu-/.test(html) || /<dialog[\s>]/.test(html) || HOOK_CLASS_RE.test(html);
+  /data-cu-/.test(html) || /<dialog[\s>]/.test(html) || HOOK_CLASS_RE.test(html) || STRUCTURAL_CLASS_RE.test(html);
 
 function groupByComponent(examples: Example[]): Map<string, Example[]> {
   const groups = new Map<string, Example[]>();
@@ -1319,6 +1388,11 @@ test.describe("examples 檢查器自我驗證", () => {
       name: "Segmented radio 模式的 label 沒有關聯 input",
       html: `<div class="cu-segmented" data-cu-segmented><input type="radio" name="v" class="cu-segmented-input" checked><label class="cu-segmented-item">A</label><input type="radio" name="v" class="cu-segmented-input"><label class="cu-segmented-item">B</label></div>`,
       expect: /沒有 for 也沒有包住控制項/,
+    },
+    {
+      name: "Toggle 的 cu-toggle 放在 checkbox 上（沒有軌道與滑塊，只顯示原生 checkbox）",
+      html: `<div class="cu-toggle-wrapper"><input type="checkbox" id="t1" class="cu-toggle"><label for="t1">Toggle</label></div>`,
+      expect: /cu-toggle 不能放在 <input> 上/,
     },
   ];
 
