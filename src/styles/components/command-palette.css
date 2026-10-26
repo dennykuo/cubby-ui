@@ -90,8 +90,12 @@
 }
 
 /* Forced colors（Windows 高對比）：選中項目（aria-activedescendant）只靠底色，改以系統選取色填滿
-   （forced-color-adjust: none 避免文字底板蓋掉 HighlightText）；快捷鍵 Kbd 的外框與文字一併改用 HighlightText */
+   （forced-color-adjust: none 避免文字底板蓋掉 HighlightText）；快捷鍵 Kbd 的外框與文字一併改用 HighlightText。
+   分隔線以背景色繪製會消失，改用與邊框相同的 CanvasText */
 @media (forced-colors: active) {
+  .cu-command-separator {
+    background-color: CanvasText;
+  }
   .cu-command-item:hover,
   .cu-command-item[data-cu-command-active] {
     forced-color-adjust: none;

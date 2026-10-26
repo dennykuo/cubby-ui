@@ -45,8 +45,12 @@
 
 /* Forced colors（Windows 高對比）：背景色會被換成 Canvas，hover / 鍵盤高亮的項目看不出來。
    改以系統選取色填滿（與原生選單一致；Menubar 項目共用）。forced-color-adjust: none 才不會在文字後方
-   墊上 Canvas 底板（backplate）蓋掉 HighlightText；子元素（快捷鍵、圖示、Kbd）一併改用 HighlightText */
+   墊上 Canvas 底板（backplate）蓋掉 HighlightText；子元素（快捷鍵、圖示、Kbd）一併改用 HighlightText。
+   分隔線以背景色繪製會跟著消失，改用與邊框相同的 CanvasText */
 @media (forced-colors: active) {
+  .cu-dropdown-separator {
+    background-color: CanvasText;
+  }
   .cu-dropdown-item:hover,
   .cu-dropdown-item:focus-visible,
   .cu-dropdown-item.cu-dropdown-item-highlight,

@@ -47,8 +47,12 @@
 }
 
 /* Forced colors（Windows 高對比）：展開中的 trigger 只靠底色，改以系統選取色填滿
-   （forced-color-adjust: none 避免文字底板蓋掉 HighlightText；項目樣式見 dropdown.css） */
+   （forced-color-adjust: none 避免文字底板蓋掉 HighlightText；項目樣式見 dropdown.css）。
+   分隔線以背景色繪製會消失，改用與邊框相同的 CanvasText */
 @media (forced-colors: active) {
+  .cu-menubar-separator {
+    background-color: CanvasText;
+  }
   .cu-menubar-trigger[aria-expanded="true"] {
     forced-color-adjust: none;
     background-color: Highlight;

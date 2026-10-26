@@ -21,8 +21,12 @@
 }
 
 /* Forced colors（Windows 高對比）：按下的按鈕只靠底色，改以系統選取色填滿
-   （forced-color-adjust: none 避免文字底板蓋掉 HighlightText） */
+   （forced-color-adjust: none 避免文字底板蓋掉 HighlightText）。
+   分隔線以背景色繪製會消失，改用與邊框相同的 CanvasText */
 @media (forced-colors: active) {
+  .cu-toolbar-separator {
+    background-color: CanvasText;
+  }
   .cu-toolbar-button.cu-toolbar-button-active {
     forced-color-adjust: none;
     background-color: Highlight;

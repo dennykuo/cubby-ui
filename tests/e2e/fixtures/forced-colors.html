@@ -400,6 +400,201 @@
       </div>
     </section>
 
+    <section>
+      <h2>Separator / HR / 選單分隔線 / Sidebar / Toolbar / Timeline / Resizable</h2>
+      <div class="row">
+        <div style="width: 120px"><div id="separator-h" class="cu-separator cu-separator-horizontal"></div></div>
+        <div style="height: 32px"><div id="separator-v" class="cu-separator cu-separator-vertical"></div></div>
+        <hr id="hr" class="cu-hr" style="width: 120px" />
+        <div class="cu-dropdown-content panel" style="width: 120px" role="menu">
+          <div class="cu-dropdown-item" role="menuitem">Copy</div>
+          <div id="dropdown-separator" class="cu-dropdown-separator" role="separator"></div>
+          <div class="cu-dropdown-item" role="menuitem">Paste</div>
+        </div>
+        <div class="cu-menubar-content" style="position: static; min-width: 120px" role="menu">
+          <div class="cu-menubar-item" role="menuitem">New</div>
+          <div id="menubar-separator" class="cu-menubar-separator" role="separator"></div>
+          <div class="cu-menubar-item" role="menuitem">Open</div>
+        </div>
+        <div class="cu-command-list panel" style="width: 120px" role="listbox" aria-label="More commands">
+          <div class="cu-command-item" role="option" aria-selected="false">Profile</div>
+          <div id="command-separator" class="cu-command-separator" role="separator"></div>
+          <div class="cu-command-item" role="option" aria-selected="false">Logout</div>
+        </div>
+        <div style="width: 140px">
+          <div id="sidebar-group-title" class="cu-sidebar-group-title">Group</div>
+          <div id="sidebar-separator" class="cu-sidebar-separator"></div>
+        </div>
+        <div class="cu-toolbar">
+          <button type="button" class="cu-toolbar-button">B</button>
+          <div id="toolbar-separator" class="cu-toolbar-separator"></div>
+          <button type="button" class="cu-toolbar-button">I</button>
+        </div>
+        <div id="timeline" class="cu-timeline" style="width: 160px">
+          <div class="cu-timeline-item">
+            <div class="cu-timeline-dot"></div>
+            Created
+          </div>
+          <div class="cu-timeline-item">
+            <div class="cu-timeline-dot"></div>
+            Shipped
+          </div>
+        </div>
+        <div class="cu-resizable" style="width: 200px; height: 60px">
+          <div class="cu-resizable-panel" style="flex-grow: 1">A</div>
+          <div id="resizable-handle" class="cu-resizable-handle"></div>
+          <div class="cu-resizable-panel" style="flex-grow: 1">B</div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Avatar 狀態 / Badge</h2>
+      <div class="row">
+        <!-- 與文檔相同的結構：狀態點放在 cu-avatar 內（有圖片時 fallback 不可露出） -->
+        <span id="avatar-with-status" class="cu-avatar cu-avatar-lg">
+          <img
+            id="avatar-image"
+            class="cu-avatar-image"
+            alt="User"
+            src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3Crect width='1' height='1' fill='%23888'/%3E%3C/svg%3E"
+          />
+          <span id="avatar-fallback" class="cu-avatar-fallback">ON</span>
+          <span id="status-online" class="cu-avatar-status cu-avatar-status-lg cu-avatar-status-online"></span>
+        </span>
+        <span class="cu-avatar cu-avatar-lg">
+          <span class="cu-avatar-fallback">OF</span>
+          <span id="status-offline" class="cu-avatar-status cu-avatar-status-lg cu-avatar-status-offline"></span>
+        </span>
+        <span class="cu-avatar cu-avatar-lg cu-avatar-square">
+          <span class="cu-avatar-fallback">BU</span>
+          <span id="status-busy" class="cu-avatar-status cu-avatar-status-lg cu-avatar-status-busy"></span>
+        </span>
+        <span class="cu-avatar cu-avatar-lg">
+          <span class="cu-avatar-fallback">AW</span>
+          <span id="status-away" class="cu-avatar-status cu-avatar-status-lg cu-avatar-status-away"></span>
+        </span>
+        <span id="avatar" class="cu-avatar cu-avatar-lg"><span class="cu-avatar-fallback">NO</span></span>
+        <span id="badge-solid" class="cu-badge cu-badge-success">Active</span>
+        <span id="badge-solid-dot" class="cu-badge cu-badge-destructive cu-badge-dot">Failed</span>
+        <span id="badge-soft" class="cu-badge cu-badge-soft-warning">Pending</span>
+        <span id="badge-soft-dot" class="cu-badge cu-badge-soft-success cu-badge-dot">Online</span>
+        <span id="badge-secondary" class="cu-badge cu-badge-secondary">Draft</span>
+        <span id="badge-outline" class="cu-badge cu-badge-outline">Outline</span>
+      </div>
+    </section>
+
+    <!-- 模擬 Tailwind 工具類別：utilities layer 排在 components 之後，一般宣告會蓋過元件樣式 -->
+    <style>
+      @layer utilities {
+        .text-warning {
+          color: rgb(245 158 11);
+        }
+      }
+    </style>
+    <section>
+      <h2>Alert / Toast / Notification</h2>
+      <div class="row" style="align-items: flex-start">
+        <div id="alert-warning" class="cu-alert cu-alert-warning" role="alert" style="width: 240px">
+          <svg
+            id="alert-icon"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            aria-hidden="true"
+          >
+            <path d="M12 9v4M12 17h.01M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z" />
+          </svg>
+          <div><div class="cu-alert-title">Heads up</div></div>
+        </div>
+        <div id="alert-accent" class="cu-alert cu-alert-destructive cu-alert-accent" role="alert" style="width: 240px">
+          <div><div class="cu-alert-title">Accent</div></div>
+        </div>
+        <div class="cu-toast cu-toast-warning" style="width: 240px">
+          <svg
+            id="toast-icon"
+            class="text-warning"
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            aria-hidden="true"
+          >
+            <circle cx="12" cy="12" r="10" />
+          </svg>
+          <div class="cu-toast-body"><div class="cu-toast-title">Low storage</div></div>
+        </div>
+        <div class="cu-notification cu-notification-unread cu-notification-warning" style="width: 240px">
+          <div class="cu-notification-icon">
+            <svg
+              id="notification-icon"
+              class="text-warning"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              aria-hidden="true"
+            >
+              <circle cx="12" cy="12" r="10" />
+            </svg>
+          </div>
+          <div class="cu-notification-content">
+            <div id="notification-title" class="cu-notification-title">Unread</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Data Table / Transfer List</h2>
+      <div class="row" style="align-items: flex-start">
+        <div class="cu-data-table-striped" style="width: 420px">
+          <table class="cu-table">
+            <tbody class="cu-table-body">
+              <tr id="row" class="cu-table-row">
+                <td class="cu-table-cell cu-data-table-check">
+                  <input type="checkbox" class="cu-checkbox" aria-label="Select row 1" />
+                </td>
+                <td id="row-cell" class="cu-table-cell">monserrat44@gmail.com</td>
+                <td class="cu-table-cell"><span class="cu-badge cu-badge-soft-warning">Pending</span></td>
+              </tr>
+              <!-- 偶數列：斑馬紋與 hover 的底色規則在 table.css（較後載入），選取色仍要蓋過 -->
+              <tr id="row-selected" class="cu-table-row cu-data-table-row-selected">
+                <td class="cu-table-cell cu-data-table-check">
+                  <input
+                    type="checkbox"
+                    id="row-selected-check"
+                    class="cu-checkbox"
+                    checked
+                    aria-label="Select row 2"
+                  />
+                </td>
+                <td id="row-selected-cell" class="cu-table-cell">ken99@yahoo.com</td>
+                <td class="cu-table-cell">
+                  <span id="row-selected-badge" class="cu-badge cu-badge-soft-success">Success</span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div style="width: 180px">
+          <label id="transfer-checked" class="cu-transfer-list-item cu-transfer-list-item-checked">
+            <input type="checkbox" id="transfer-checked-check" class="cu-checkbox" checked /> Apple
+          </label>
+          <label id="transfer-item" class="cu-transfer-list-item"
+            ><input type="checkbox" class="cu-checkbox" /> Banana</label
+          >
+        </div>
+      </div>
+    </section>
+
     <script src="../../../dist/core/cubby-ui.js"></script>
   </body>
 </html>

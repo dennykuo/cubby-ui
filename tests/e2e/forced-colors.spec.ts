@@ -50,6 +50,13 @@ function css(page: Page, selector: string) {
   });
 }
 
+function pseudo(page: Page, selector: string, which: "::before" | "::after") {
+  return page.locator(selector).evaluate((el, which) => {
+    const s = getComputedStyle(el, which);
+    return { backgroundColor: s.backgroundColor, backgroundImage: s.backgroundImage };
+  }, which);
+}
+
 /** 透過鍵盤（Shift+Tab → Tab）聚焦，讓 :focus-visible 成立 */
 async function focusByKeyboard(page: Page, selector: string) {
   await page.locator(selector).focus();
@@ -79,6 +86,8 @@ const FILLED_STATES: Array<[string, string, string]> = [
   ["Sidebar 目前項目", "#sidebar-active", "#sidebar"],
   ["Tree View 選取項目", "#tree-leaf-active", "#tree-leaf"],
   ["Steps 完成步驟", "#step-completed .cu-steps-number", "#step-upcoming .cu-steps-number"],
+  ["Data Table 選取列（斑馬紋偶數列）", "#row-selected-cell", "#row-cell"],
+  ["Transfer List 勾選項目", "#transfer-checked", "#transfer-item"],
 ];
 
 test.describe("Forced colors 狀態辨識", () => {
@@ -236,6 +245,104 @@ test.describe("Forced colors 狀態辨識", () => {
     expect(off.fill).toBe("none");
   });
 
+  test("選取列 / 勾選項目內的核取方塊與徽章改用 HighlightText", async ({ page }) => {
+    const sys = await systemColors(page);
+    for (const id of ["#row-selected-check", "#transfer-checked-check"]) {
+      const box = await css(page, id);
+      expect(box.backgroundColor, id).toBe("rgba(0, 0, 0, 0)");
+      expect(box.borderTopColor, id).toBe(sys.HighlightText);
+      expect((await pseudo(page, id, "::before")).backgroundColor, id).toBe(sys.HighlightText);
+    }
+    const badge = await css(page, "#row-selected-badge");
+    expect(badge.color).toBe(sys.HighlightText);
+    expect(badge.borderTopColor).toBe(sys.HighlightText);
+  });
+
+  test("以背景色繪製的分隔線、連接線與拖曳握把改用 CanvasText", async ({ page }) => {
+    const sys = await systemColors(page);
+    for (const id of [
+      "separator-h",
+      "separator-v",
+      "hr",
+      "dropdown-separator",
+      "menubar-separator",
+      "command-separator",
+      "sidebar-separator",
+      "toolbar-separator",
+    ]) {
+      expect((await css(page, `#${id}`)).backgroundColor, id).toBe(sys.CanvasText);
+    }
+    expect((await pseudo(page, "#timeline", "::before")).backgroundColor).toBe(sys.CanvasText);
+    expect((await pseudo(page, "#sidebar-group-title", "::before")).backgroundColor).toBe(sys.CanvasText);
+    expect((await pseudo(page, "#resizable-handle", "::after")).backgroundColor).toBe(sys.CanvasText);
+
+    // hover 時握把改用系統選取色（等 transition-colors 結束）
+    await page.locator("#resizable-handle").hover();
+    await expect
+      .poll(async () => (await pseudo(page, "#resizable-handle", "::after")).backgroundColor)
+      .toBe(sys.Highlight);
+  });
+
+  test("Avatar 狀態點以形狀區分：實心 / 空心 / 實心加橫槓 / 半實心", async ({ page }) => {
+    const sys = await systemColors(page);
+    const look = async (status: string) => {
+      const s = await page.locator(`#status-${status}`).evaluate((el) => {
+        const cs = getComputedStyle(el);
+        return {
+          forcedColorAdjust: cs.getPropertyValue("forced-color-adjust"),
+          border: `${cs.borderTopWidth} ${cs.borderTopStyle}`,
+          backgroundColor: cs.backgroundColor,
+          backgroundImage: cs.backgroundImage,
+        };
+      });
+      expect(s.forcedColorAdjust, status).toBe("none");
+      expect(s.border, status).toBe("1px solid");
+      return s;
+    };
+    const online = await look("online");
+    const offline = await look("offline");
+    const busy = await look("busy");
+    const away = await look("away");
+
+    expect(online.backgroundColor).toBe(sys.CanvasText);
+    expect(online.backgroundImage).toBe("none");
+    expect(offline.backgroundColor).toBe(sys.Canvas);
+    expect(offline.backgroundImage).toBe("none");
+    expect(busy.backgroundColor).toBe(sys.CanvasText);
+    expect(busy.backgroundImage).toContain("linear-gradient");
+    expect(away.backgroundImage).toContain("linear-gradient");
+    expect(away.backgroundImage).not.toBe(busy.backgroundImage);
+  });
+
+  test("Badge：補上外框、實心變體反白，dot 以文字色顯示", async ({ page }) => {
+    const sys = await systemColors(page);
+    const solid = await css(page, "#badge-solid");
+    expect(solid.forcedColorAdjust).toBe("none");
+    expect(solid.backgroundColor).toBe(sys.CanvasText);
+    expect(solid.color).toBe(sys.Canvas);
+    for (const id of ["badge-soft", "badge-secondary", "badge-outline"]) {
+      const s = await css(page, `#${id}`);
+      expect(s.borderTop, id).toBe("1px solid");
+      expect(s.color, id).toBe(sys.CanvasText);
+      expect(s.backgroundColor, id).not.toBe(sys.CanvasText);
+    }
+    expect((await pseudo(page, "#badge-soft-dot", "::before")).backgroundColor).toBe(sys.CanvasText);
+    expect((await pseudo(page, "#badge-solid-dot", "::before")).backgroundColor).toBe(sys.Canvas);
+  });
+
+  test("Alert / Toast / Notification：圖示跟隨文字色（含工具類別指定的色相），accent 外框較粗，未讀圓點可見", async ({
+    page,
+  }) => {
+    const sys = await systemColors(page);
+    // #toast-icon / #notification-icon 帶 utilities layer 的 .text-warning，模擬 Tailwind 專案
+    for (const id of ["alert-icon", "toast-icon", "notification-icon"]) {
+      expect((await css(page, `#${id}`)).color, id).toBe(sys.CanvasText);
+    }
+    expect((await css(page, "#alert-accent")).borderTop).toBe("2px solid");
+    expect((await css(page, "#alert-warning")).borderTop).toBe("1px solid");
+    expect((await pseudo(page, "#notification-title", "::before")).backgroundColor).toBe(sys.CanvasText);
+  });
+
   test("焦點環畫在其他元素上的元件（sr-only input）以 outline 顯示焦點", async ({ page }) => {
     const cases: Array<[string, string]> = [
       ["#toggle-off-input", "#toggle-off"],
@@ -265,6 +372,33 @@ test.describe("Forced colors 狀態辨識", () => {
     );
   });
 
+  test("Avatar：有狀態點時頭像不裁切，圖片仍為頭像形狀、fallback 不露出（兩種模式皆同）", async ({ page }) => {
+    for (const mode of ["active", "none"] as const) {
+      await page.emulateMedia({ forcedColors: mode });
+      await openFixture(page, "forced-colors");
+      const avatar = page.locator("#avatar-with-status");
+      await expect(avatar, mode).toHaveCSS("overflow", "visible");
+      await expect(page.locator("#avatar"), mode).toHaveCSS("overflow", "hidden");
+      const radius = await avatar.evaluate((el) => getComputedStyle(el).borderTopLeftRadius);
+      await expect(page.locator("#avatar-image"), mode).toHaveCSS("border-top-left-radius", radius);
+      await expect(page.locator("#avatar-fallback"), mode).toBeHidden();
+
+      // 狀態點完整落在頁面上：上下左右邊緣內側的點都是它自己（沒有被頭像裁掉；elementFromPoint 只看可視範圍）
+      await page.locator("#status-online").scrollIntoViewIfNeeded();
+      const hits = await page.locator("#status-online").evaluate((el) => {
+        const r = el.getBoundingClientRect();
+        const inset = 3;
+        return [
+          [r.left + r.width / 2, r.top + inset],
+          [r.right - inset, r.top + r.height / 2],
+          [r.left + r.width / 2, r.bottom - inset],
+          [r.left + inset, r.top + r.height / 2],
+        ].map(([x, y]) => document.elementFromPoint(x, y) === el);
+      });
+      expect(hits, mode).toEqual([true, true, true, true]);
+    }
+  });
+
   test("一般模式不受影響", async ({ page }) => {
     await page.emulateMedia({ forcedColors: "none" });
     await openFixture(page, "forced-colors");
@@ -274,10 +408,13 @@ test.describe("Forced colors 狀態辨識", () => {
       expect(s.forcedColorAdjust, name).toBe("auto");
       expect(s.backgroundColor, name).not.toBe(highlight);
     }
+    const canvasText = (await systemColors(page)).CanvasText;
     expect((await css(page, "#btn-default")).borderTop).toBe("0px solid");
     expect((await css(page, "#combobox-active")).outline).toContain("none");
-    expect((await css(page, "#toggle-off .cu-toggle-thumb")).backgroundColor).not.toBe(
-      (await systemColors(page)).CanvasText,
-    );
+    expect((await css(page, "#toggle-off .cu-toggle-thumb")).backgroundColor).not.toBe(canvasText);
+    expect((await css(page, "#separator-h")).backgroundColor).not.toBe(canvasText);
+    expect((await css(page, "#status-online")).forcedColorAdjust).toBe("auto");
+    expect((await css(page, "#badge-soft")).borderTop).toBe("0px solid");
+    expect((await css(page, "#alert-accent")).borderTop).toBe("1px solid");
   });
 });

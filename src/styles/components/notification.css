@@ -76,3 +76,14 @@
 .cu-notification-list {
   @apply flex flex-col gap-2;
 }
+
+/* Forced colors（Windows 高對比）：未讀的圓點以背景色繪製，會被換成 Canvas 而消失（只剩粗體標題），改用文字色；
+   以 text-* 指定色相的 SVG 圖示不會被強制換色，改跟隨文字色（同 Alert，!important 才蓋得過圖示上的工具類別） */
+@media (forced-colors: active) {
+  .cu-notification-unread .cu-notification-title::before {
+    background-color: CanvasText;
+  }
+  .cu-notification svg {
+    color: inherit !important;
+  }
+}

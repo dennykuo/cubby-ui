@@ -142,3 +142,10 @@
 .cu-timeline-alternating .cu-timeline-item:nth-child(even) .cu-timeline-dot {
   @apply right-0 left-auto translate-x-1/2;
 }
+
+/* Forced colors（Windows 高對比）：連接線以背景色繪製，會被換成 Canvas 而消失，改用與邊框相同的 CanvasText */
+@media (forced-colors: active) {
+  .cu-timeline::before {
+    background-color: CanvasText;
+  }
+}

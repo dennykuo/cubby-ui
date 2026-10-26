@@ -207,6 +207,7 @@ Requires explicit direction class.
 **Avatar**
 Sizes: `cu-avatar-sm`, `cu-avatar-lg`, `cu-avatar-xl`
 Status: `cu-avatar-status` + `cu-avatar-status-online` / `cu-avatar-status-offline` / `cu-avatar-status-busy` / `cu-avatar-status-away`
+Forced colors (Windows High Contrast): the status dot switches from hue to shape — online filled, offline hollow, busy filled with a bar, away half-filled. Still state the status in text (e.g. a visually hidden label) for screen readers.
 Shape: `cu-avatar-square` (rounded-lg instead of rounded-full)
 Ring: `cu-avatar-ring`
 ```html
@@ -220,6 +221,7 @@ Ring: `cu-avatar-ring`
 Variants: `cu-badge-default`, `cu-badge-secondary`, `cu-badge-destructive`, `cu-badge-outline`, `cu-badge-success`, `cu-badge-warning`, `cu-badge-info`
 Sizes: `cu-badge-sm`, `cu-badge-lg`
 Dot animation: `cu-badge-dot-animated` (pulsing animation on dot indicator)
+Forced colors (Windows High Contrast): every badge keeps a border and solid variants render inverted, but the variant hue is lost — put the meaning in the badge text ("Failed", not just a red badge).
 ```html
 <span class="cu-badge cu-badge-default">New</span>
 <span class="cu-badge cu-badge-success cu-badge-sm">Active</span>
@@ -944,6 +946,7 @@ CSS Variable: `--cu-marquee-duration` (default: 30s)
 **Alert**
 Variants: `cu-alert-default`, `cu-alert-destructive`, `cu-alert-success`, `cu-alert-warning`, `cu-alert-info`
 Modifier: `cu-alert-accent` (prominent filled emphasis: full border + tinted background)
+Forced colors (Windows High Contrast): variant colours collapse to system colours (the icon follows the text colour, `cu-alert-accent` gets a 2px border) — give each variant a distinct icon and title.
 Expandable: `cu-alert-expandable-content` (expandable content area), `cu-alert-expand-trigger` (expand toggle button)
 Data attributes: `data-cu-alert-expandable` (on container), `data-cu-alert-expand-trigger` (on toggle button), `data-cu-alert-expandable-content` (on content area; the single child `<div>` is what collapses)
 ```html

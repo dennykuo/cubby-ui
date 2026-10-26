@@ -34,6 +34,21 @@
   @apply absolute right-0 bottom-0 block rounded-full ring-2 ring-background;
 }
 
+/* 狀態點要跨出頭像的圓形邊緣（square 變體還會伸出邊框外），頭像的 overflow-hidden 會把它裁成一小角。
+   有狀態點時頭像不裁切，改由圖片自己以 border-radius: inherit 裁成頭像形狀；
+   有圖片時 fallback 原本是被擠出框外再裁掉，這裡改為明確隱藏 */
+.cu-avatar:has(> .cu-avatar-status) {
+  @apply overflow-visible;
+}
+
+.cu-avatar:has(> .cu-avatar-status) > .cu-avatar-image {
+  border-radius: inherit;
+}
+
+.cu-avatar:has(> .cu-avatar-status):has(> .cu-avatar-image) > .cu-avatar-fallback {
+  @apply hidden;
+}
+
 .cu-avatar-status-sm {
   @apply size-2;
 }
@@ -86,4 +101,25 @@
 
 .cu-avatar-square .cu-avatar-status {
   @apply -right-0.5 -bottom-0.5;
+}
+
+/* Forced colors（Windows 高對比）：狀態點以背景色繪製且只靠色相區分，會被換成 Canvas 而消失。
+   改以形狀區分：online 實心、offline 空心、busy 實心加橫槓、away 左半實心。
+   forced-color-adjust: none 才能保留以漸層畫出的形狀，並以 Canvas 外圈與頭像分開（原本的 ring 是 box-shadow） */
+@media (forced-colors: active) {
+  .cu-avatar-status {
+    forced-color-adjust: none;
+    border: 1px solid CanvasText;
+    background-color: Canvas;
+    box-shadow: 0 0 0 2px Canvas;
+  }
+  .cu-avatar-status-online {
+    background-color: CanvasText;
+  }
+  .cu-avatar-status-busy {
+    background: linear-gradient(Canvas, Canvas) center / 70% 2px no-repeat CanvasText;
+  }
+  .cu-avatar-status-away {
+    background: linear-gradient(to right, CanvasText 50%, Canvas 50%);
+  }
 }

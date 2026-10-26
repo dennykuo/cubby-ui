@@ -72,3 +72,21 @@
 .cu-transfer-list-actions-button {
   @apply inline-flex size-8 cursor-pointer items-center justify-center rounded-lg border border-input bg-background text-muted-foreground transition-colors duration-150 hover:bg-muted/60 hover:text-foreground focus-visible:ring-1 focus-visible:ring-ring/30 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0;
 }
+
+/* Forced colors（Windows 高對比）：勾選的項目除了核取方塊只靠底色，改以系統選取色填滿
+   （forced-color-adjust: none 避免文字底板蓋掉 HighlightText）；項目內的核取方塊外框與勾勾一併改用 HighlightText */
+@media (forced-colors: active) {
+  .cu-transfer-list-item.cu-transfer-list-item-checked {
+    forced-color-adjust: none;
+    background-color: Highlight;
+    color: HighlightText;
+  }
+  .cu-transfer-list-item.cu-transfer-list-item-checked * {
+    border-color: currentColor;
+    background-color: transparent;
+    color: inherit;
+  }
+  .cu-transfer-list-item-checked .cu-checkbox::before {
+    background-color: HighlightText;
+  }
+}

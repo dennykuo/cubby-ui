@@ -72,3 +72,16 @@
 .cu-alert-expand-trigger[aria-expanded="true"] svg {
   @apply rotate-180;
 }
+
+/* Forced colors（Windows 高對比）：各變體的邊框、底色、文字色會被換成同一組系統色，變體只剩圖示與文字可區分。
+   以 text-* 指定色相的 SVG 圖示不會被強制換色（例如黃色警告圖示在淺色高對比主題的白底上幾乎看不見），
+   改跟隨文字色（!important：圖示上的 Tailwind 工具類別位於較後的 utilities layer，一般宣告蓋不過）；
+   accent（醒目強調）以較粗的外框保留強調層級 */
+@media (forced-colors: active) {
+  .cu-alert svg {
+    color: inherit !important;
+  }
+  .cu-alert-accent {
+    border-width: 2px;
+  }
+}

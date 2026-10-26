@@ -73,8 +73,13 @@
 }
 
 /* Forced colors（Windows 高對比）：目前項目只靠底色與文字色，改以系統選取色填滿
-   （forced-color-adjust: none 避免文字底板蓋掉 HighlightText） */
+   （forced-color-adjust: none 避免文字底板蓋掉 HighlightText）。
+   分隔線與群組標題前的裝飾線以背景色繪製會消失，改用與邊框相同的 CanvasText */
 @media (forced-colors: active) {
+  .cu-sidebar-separator,
+  .cu-sidebar-group-title::before {
+    background-color: CanvasText;
+  }
   .cu-sidebar-item.cu-sidebar-item-active {
     forced-color-adjust: none;
     background-color: Highlight;

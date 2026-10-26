@@ -450,7 +450,7 @@
           "cu-avatar-status-away"
         ]
       },
-      "notes": "Fallback shows when image fails to load. Status indicator: add cu-avatar-status + one status variant.",
+      "notes": "Fallback shows when image fails to load. Status indicator: add cu-avatar-status + one status variant. In forced colors (Windows High Contrast) the status dot switches from hue to shape (online filled, offline hollow, busy filled with a bar, away half-filled); still state the status in text for screen readers.",
       "example": "<div class=\"cu-avatar\"><img class=\"cu-avatar-image\" src=\"photo.jpg\" alt=\"User\"><span class=\"cu-avatar-fallback\">AB</span></div>"
     },
     {
@@ -471,6 +471,7 @@
         "sizes": ["cu-badge-sm", "cu-badge-lg"],
         "modifiers": ["cu-badge-dot-animated"]
       },
+      "notes": "In forced colors (Windows High Contrast) every badge keeps a border and solid variants render inverted, but the variant hue is lost; put the meaning in the badge text.",
       "example": "<span class=\"cu-badge cu-badge-success\">Active</span>"
     },
     {
@@ -610,7 +611,7 @@
         "expandTrigger": "data-cu-alert-expand-trigger",
         "expandableContent": "data-cu-alert-expandable-content"
       },
-      "notes": "cu-alert-accent adds a prominent filled emphasis (full border + tinted background) for stronger visual. Expandable alerts use data-cu-alert-expandable with data-cu-alert-expand-trigger and data-cu-alert-expandable-content.",
+      "notes": "cu-alert-accent adds a prominent filled emphasis (full border + tinted background) for stronger visual. Expandable alerts use data-cu-alert-expandable with data-cu-alert-expand-trigger and data-cu-alert-expandable-content. In forced colors (Windows High Contrast) variant colours collapse to system colours (the icon follows the text colour, cu-alert-accent gets a 2px border); give each variant a distinct icon and title.",
       "example": "<div class=\"cu-alert cu-alert-success\"><div class=\"cu-alert-title\">Success</div><div class=\"cu-alert-description\">Done!</div></div>"
     },
     {

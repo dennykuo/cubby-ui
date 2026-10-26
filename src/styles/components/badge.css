@@ -104,3 +104,30 @@
     opacity: 0.4;
   }
 }
+
+/* Forced colors（Windows 高對比）：背景色會被換成 Canvas，outline 以外的變體失去膠囊外形，dot 也會消失。
+   全部補上與文字同色的外框；實心變體（default / destructive / success / warning / info）改為反白
+   （forced-color-adjust: none 避免文字底板），保留與 soft / secondary / outline 的強弱層級。
+   各語意色相（成功、警告…）無法在高對比下保留，語意需由徽章文字或圖示表達。
+   dot 以 forced-color-adjust: none 取 currentColor，此時繼承的是作者指定的文字色（未強制），
+   因此徽章本身明確指定系統文字色，dot 才會跟著是 CanvasText（反白時為 Canvas、在選取色填滿的容器內為 HighlightText） */
+@media (forced-colors: active) {
+  .cu-badge {
+    border: 1px solid currentColor;
+    color: CanvasText;
+  }
+  .cu-badge.cu-badge-default,
+  .cu-badge.cu-badge-destructive,
+  .cu-badge.cu-badge-success,
+  .cu-badge.cu-badge-warning,
+  .cu-badge.cu-badge-info {
+    forced-color-adjust: none;
+    border-color: CanvasText;
+    background-color: CanvasText;
+    color: Canvas;
+  }
+  .cu-badge-dot::before {
+    forced-color-adjust: none;
+    background-color: currentColor;
+  }
+}
