@@ -399,6 +399,65 @@ test.describe("Forced colors 狀態辨識", () => {
     }
   });
 
+  test("Chart：圖例色塊保留與 SVG 系列相同的資料色並加外框，格線 / 軸線 / 軸標籤與載入長條用系統色", async ({
+    page,
+  }) => {
+    const sys = await systemColors(page);
+    const seriesColor = (selector: string, prop: "fill" | "stroke") =>
+      page.locator(selector).evaluate((el, prop) => getComputedStyle(el)[prop], prop);
+
+    // SVG 系列不會被強制換色，色塊要跟它一致（不能被換成 Canvas 而消失）
+    for (const [swatch, series] of [
+      ["#swatch-1", "#chart-series-1"],
+      ["#swatch-2", "#chart-series-2"],
+    ]) {
+      const s = await css(page, swatch);
+      expect(s.forcedColorAdjust, swatch).toBe("none");
+      expect(s.borderTop, swatch).toBe("1px solid");
+      expect(s.borderTopColor, swatch).toBe(sys.CanvasText);
+      expect(s.backgroundColor, swatch).toBe(await seriesColor(series, "fill"));
+      expect(s.backgroundColor, swatch).not.toBe(sys.Canvas);
+    }
+    const line = await css(page, "#swatch-line");
+    expect(line.borderTop).toBe("0px solid");
+    expect(line.backgroundColor).toBe(await seriesColor("path.cu-chart-color-3", "stroke"));
+
+    expect(await seriesColor("#chart-grid", "stroke")).toBe(sys.GrayText);
+    expect(await seriesColor("#chart-axis-line", "stroke")).toBe(sys.CanvasText);
+    expect(await seriesColor("#chart-axis", "fill")).toBe(sys.CanvasText);
+    expect((await css(page, "#chart-loading-bar")).backgroundColor).toBe(sys.GrayText);
+  });
+
+  test("Skeleton：以 GrayText 顯示，shimmer 保留系統色的漸層掃光", async ({ page }) => {
+    const sys = await systemColors(page);
+    expect((await css(page, "#skeleton")).backgroundColor).toBe(sys.GrayText);
+    const shimmer = await page.locator("#skeleton-shimmer").evaluate((el) => ({
+      forcedColorAdjust: getComputedStyle(el).getPropertyValue("forced-color-adjust"),
+      backgroundImage: getComputedStyle(el).backgroundImage,
+    }));
+    expect(shimmer.forcedColorAdjust).toBe("none");
+    expect(shimmer.backgroundImage).toContain("linear-gradient");
+    expect(shimmer.backgroundImage).toContain(sys.GrayText);
+  });
+
+  test("Avatar：fallback 加外框，group 以 Canvas outline 分隔重疊頭像，cu-avatar-ring 改以 outline 呈現", async ({
+    page,
+  }) => {
+    const sys = await systemColors(page);
+    const fallback = await css(page, "#avatar .cu-avatar-fallback");
+    expect(fallback.borderTop).toBe("1px solid");
+    expect(fallback.borderTopColor).toBe(sys.CanvasText);
+
+    const grouped = await css(page, "#avatar-group-first");
+    expect(grouped.outline).toBe("2px solid");
+    expect(grouped.outlineColor).toBe(sys.Canvas);
+
+    const ring = await css(page, "#avatar-ring");
+    expect(ring.outline).toBe("2px solid");
+    expect(ring.outlineColor).toBe(sys.CanvasText);
+    expect(ring.outlineOffset).toBe("2px");
+  });
+
   test("一般模式不受影響", async ({ page }) => {
     await page.emulateMedia({ forcedColors: "none" });
     await openFixture(page, "forced-colors");
@@ -416,5 +475,9 @@ test.describe("Forced colors 狀態辨識", () => {
     expect((await css(page, "#status-online")).forcedColorAdjust).toBe("auto");
     expect((await css(page, "#badge-soft")).borderTop).toBe("0px solid");
     expect((await css(page, "#alert-accent")).borderTop).toBe("1px solid");
+    expect((await css(page, "#swatch-1")).borderTop).toBe("0px solid");
+    expect((await css(page, "#skeleton-shimmer")).forcedColorAdjust).toBe("auto");
+    expect((await css(page, "#avatar .cu-avatar-fallback")).borderTop).toBe("0px solid");
+    expect((await css(page, "#avatar-group-first")).outline).toContain("none");
   });
 });

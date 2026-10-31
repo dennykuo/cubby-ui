@@ -678,6 +678,7 @@ Tooltip: `cu-chart-tooltip`, `cu-chart-tooltip-label`, `cu-chart-tooltip-item`, 
 Inline SVG helpers: `cu-chart-grid` (dashed gridline), `cu-chart-axis-line` (baseline), `cu-chart-axis` (tick labels)
 States (inside `cu-chart-canvas`): `cu-chart-empty` + `cu-chart-empty-title` / `cu-chart-empty-description`; `cu-chart-loading` + `cu-chart-loading-bar` (set `aria-busy="true"` on the canvas)
 Chart.js: `getComputedStyle(document.documentElement).getPropertyValue("--color-chart-1")`, `maintainAspectRatio: false`, `plugins.legend.display: false`; re-apply colors when `.dark` toggles.
+Forced colors (Windows High Contrast): `<canvas>` pixels and inline SVG series keep their colours, so `cu-chart-swatch` keeps the series colour too (`forced-color-adjust: none`, plus a text-colour border); grid / axis / tick labels and loading bars switch to system colours. Colour is still the only link between swatch and series — always label each series in text (legend label, `cu-chart-legend-value`, or a table view).
 ```html
 <div class="cu-chart">
   <div class="cu-chart-header">

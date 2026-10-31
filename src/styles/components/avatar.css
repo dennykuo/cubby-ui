@@ -105,8 +105,20 @@
 
 /* Forced colors（Windows 高對比）：狀態點以背景色繪製且只靠色相區分，會被換成 Canvas 而消失。
    改以形狀區分：online 實心、offline 空心、busy 實心加橫槓、away 左半實心。
-   forced-color-adjust: none 才能保留以漸層畫出的形狀，並以 Canvas 外圈與頭像分開（原本的 ring 是 box-shadow） */
+   forced-color-adjust: none 才能保留以漸層畫出的形狀，並以 Canvas 外圈與頭像分開（原本的 ring 是 box-shadow）。
+   fallback 的圓形底色會被換成 Canvas、只剩縮寫文字，加文字色外框保留頭像形狀；
+   group 在重疊頭像間留縫的 ring 與 cu-avatar-ring 都是 box-shadow（會被移除），改用 outline */
 @media (forced-colors: active) {
+  .cu-avatar-fallback {
+    border: 1px solid CanvasText;
+  }
+  .cu-avatar-ring {
+    outline: 2px solid CanvasText;
+    outline-offset: 2px;
+  }
+  .cu-avatar-group > .cu-avatar {
+    outline: 2px solid Canvas;
+  }
   .cu-avatar-status {
     forced-color-adjust: none;
     border: 1px solid CanvasText;
