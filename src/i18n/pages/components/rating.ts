@@ -14,6 +14,7 @@ export const ratingPage: Record<
       sizes: { title: string; description: string };
       readonly: { title: string; description: string };
       interactive: { title: string; description: string };
+      form: { title: string; description: string };
       disabled: { title: string; description: string };
       accessibility: {
         title: string;
@@ -66,6 +67,11 @@ export const ratingPage: Record<
         description:
           'Add <code class="cu-code">data-cu-rating</code> and use <code class="cu-code">&lt;button type="button"&gt;</code> stars with <code class="cu-code">data-cu-rating-star</code>. Click a star, or Tab to the rating and use the arrow keys, <code class="cu-code">Home</code> / <code class="cu-code">End</code>, <code class="cu-code">Space</code> or <code class="cu-code">Enter</code>. The value is stored in <code class="cu-code">data-cu-rating-value</code> (<code class="cu-code">0</code> = none) and a <code class="cu-code">cu:rating:change</code> event (<code class="cu-code">{ value }</code>) fires whenever it changes. Name the rating with <code class="cu-code">aria-label</code> or <code class="cu-code">aria-labelledby</code>. To change the value from code, set the attribute (for example <code class="cu-code">el.setAttribute("data-cu-rating-value", "3")</code>): the stars, <code class="cu-code">aria-checked</code> and the Tab stop follow without firing the event.',
       },
+      form: {
+        title: "Form (No JavaScript)",
+        description:
+          'For a rating that is submitted with a form and works without cubby-ui.js, write every star as a <code class="cu-code">&lt;label class="cu-rating-label"&gt;</code> wrapping an <code class="cu-code">&lt;input type="radio" class="cu-rating-input"&gt;</code> (visually hidden, all with the same <code class="cu-code">name</code>) and the star svg, and leave out <code class="cu-code">data-cu-rating</code>. The checked star and every star before it are filled (CSS <code class="cu-code">:has()</code>) and hovering previews a value. The keyboard is the browser\'s native radio group: Tab moves to the checked star (or the first one) and the arrow keys select the previous / next star; <code class="cu-code">Home</code> / <code class="cu-code">End</code> are not available and <code class="cu-code">Enter</code> submits the form. Name the group with <code class="cu-code">role="radiogroup"</code> and <code class="cu-code">aria-label</code>, and give every radio an <code class="cu-code">aria-label</code> such as "3 stars". Add <code class="cu-code">checked</code> for a default value and <code class="cu-code">required</code> to one radio to require a rating; to disable the rating, add <code class="cu-code">disabled</code> to every radio. As with any radio group, a selection cannot be cleared.',
+      },
       disabled: {
         title: "Disabled",
         description:
@@ -96,7 +102,8 @@ export const ratingPage: Record<
       "cu-rating-item": 'Individual star element (<button type="button"> in interactive ratings)',
       "cu-rating-item-active": "Filled/active star (amber color)",
       "cu-rating-item-half": "Half-filled star with clip-path overlay",
-      "cu-rating-input": "Hidden radio input for form submission",
+      "cu-rating-label": "Star of a no-JS form rating: a <label> wrapping the radio and the star svg",
+      "cu-rating-input": "Visually hidden radio inside cu-rating-label; its value is submitted with the form",
       "cu-rating-readonly": "Non-interactive display mode",
       "cu-rating-disabled": "Dimmed disabled state",
       "cu-rating-sm": "Small size (16px)",
@@ -141,6 +148,11 @@ export const ratingPage: Record<
         description:
           '加上 <code class="cu-code">data-cu-rating</code>，星星使用帶 <code class="cu-code">data-cu-rating-star</code> 的 <code class="cu-code">&lt;button type="button"&gt;</code>。可點擊星星，或用 Tab 移到評分後以方向鍵、<code class="cu-code">Home</code> / <code class="cu-code">End</code>、<code class="cu-code">Space</code> 或 <code class="cu-code">Enter</code> 操作。選取值存放在 <code class="cu-code">data-cu-rating-value</code>（<code class="cu-code">0</code> 為未選取），值改變時觸發 <code class="cu-code">cu:rating:change</code> 事件（<code class="cu-code">{ value }</code>）。請以 <code class="cu-code">aria-label</code> 或 <code class="cu-code">aria-labelledby</code> 為評分命名。要以程式改值時直接設定屬性（例如 <code class="cu-code">el.setAttribute("data-cu-rating-value", "3")</code>），星星外觀、<code class="cu-code">aria-checked</code> 與 Tab 停駐點會跟著同步，不會觸發事件。',
       },
+      form: {
+        title: "表單（不需 JS）",
+        description:
+          '需要隨表單送出、且不依賴 cubby-ui.js 的評分，將每顆星寫成 <code class="cu-code">&lt;label class="cu-rating-label"&gt;</code>，裡面放 <code class="cu-code">&lt;input type="radio" class="cu-rating-input"&gt;</code>（visually hidden，<code class="cu-code">name</code> 皆相同）與星星 svg，根元素不加 <code class="cu-code">data-cu-rating</code>。選取的星與其前面的星會填滿（CSS <code class="cu-code">:has()</code>），滑鼠指到時預覽星等。鍵盤操作由瀏覽器原生的 radio group 提供：Tab 移到選取的星（未選取時為第一顆），方向鍵選取上一顆 / 下一顆；不支援 <code class="cu-code">Home</code> / <code class="cu-code">End</code>，<code class="cu-code">Enter</code> 會送出表單。以 <code class="cu-code">role="radiogroup"</code> 與 <code class="cu-code">aria-label</code> 為群組命名，每個 radio 加上 <code class="cu-code">aria-label</code>（例如「3 顆星」）。預設值加 <code class="cu-code">checked</code>，必填時在其中一個 radio 加 <code class="cu-code">required</code>；停用時在每個 radio 加 <code class="cu-code">disabled</code>。與一般 radio 相同，選取後無法清除。',
+      },
       disabled: {
         title: "停用",
         description:
@@ -168,7 +180,8 @@ export const ratingPage: Record<
       "cu-rating-item": '單個星星元素（互動式評分使用 <button type="button">）',
       "cu-rating-item-active": "填滿/啟用的星星（琥珀色）",
       "cu-rating-item-half": "半填滿的星星，使用 clip-path 覆蓋",
-      "cu-rating-input": "用於表單提交的隱藏 radio input",
+      "cu-rating-label": "不需 JS 的表單評分中的一顆星：包住 radio 與星星 svg 的 <label>",
+      "cu-rating-input": "cu-rating-label 內 visually hidden 的 radio，選取值隨表單送出",
       "cu-rating-readonly": "不可互動的展示模式",
       "cu-rating-disabled": "變暗的停用狀態",
       "cu-rating-sm": "小尺寸（16px）",

@@ -91,6 +91,14 @@ const interactiveCode = `<div class="cu-rating" data-cu-rating data-cu-rating-va
   <button type="button" class="cu-rating-item" data-cu-rating-star="5">${starSvg}</button>
 </div>`.trim();
 
+const formCode = `<div class="cu-rating" role="radiogroup" aria-label="Rate this product">
+  <label class="cu-rating-label"><input type="radio" class="cu-rating-input" name="rating" value="1" aria-label="1 star">${starSvg}</label>
+  <label class="cu-rating-label"><input type="radio" class="cu-rating-input" name="rating" value="2" aria-label="2 stars">${starSvg}</label>
+  <label class="cu-rating-label"><input type="radio" class="cu-rating-input" name="rating" value="3" aria-label="3 stars">${starSvg}</label>
+  <label class="cu-rating-label"><input type="radio" class="cu-rating-input" name="rating" value="4" aria-label="4 stars" checked>${starSvg}</label>
+  <label class="cu-rating-label"><input type="radio" class="cu-rating-input" name="rating" value="5" aria-label="5 stars">${starSvg}</label>
+</div>`.trim();
+
 const localizedCode =
   `<div class="cu-rating" data-cu-rating data-cu-rating-value="3" aria-label="商品評分" data-cu-rating-star-text="{value} 顆星">
   <button type="button" class="cu-rating-item" data-cu-rating-star="1">${starSvg}</button>
@@ -171,6 +179,12 @@ const disabledCode = `<div class="cu-rating cu-rating-disabled">
       <SectionHeading id="interactive" title={t.sections.interactive.title} />
       <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.interactive.description} />
       <ComponentPreview code={interactiveCode} />
+    </section>
+
+    <section class="space-y-3">
+      <SectionHeading id="form" title={t.sections.form.title} />
+      <p class="text-base text-muted-foreground leading-relaxed" set:html={t.sections.form.description} />
+      <ComponentPreview code={formCode} />
     </section>
 
     <section class="space-y-3">

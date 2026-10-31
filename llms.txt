@@ -590,10 +590,11 @@ Data: `data-cu-toggle-group`, `data-cu-toggle-group-multiple`
 ```
 
 **Rating** — star rating for reviews and feedback
-Classes: `cu-rating`, `cu-rating-item`, `cu-rating-item-active`, `cu-rating-item-half`, `cu-rating-readonly`, `cu-rating-disabled`, `cu-rating-sm`, `cu-rating-lg`
+Classes: `cu-rating`, `cu-rating-item`, `cu-rating-item-active`, `cu-rating-item-half`, `cu-rating-label`, `cu-rating-input`, `cu-rating-readonly`, `cu-rating-disabled`, `cu-rating-sm`, `cu-rating-lg`
 Data: `data-cu-rating`, `data-cu-rating-star="N"` (1-based, star count = number of stars), `data-cu-rating-value="N"` (0 = none), `data-cu-rating-star-text="{value} 顆星"` (optional)
 Interactive stars must be `<button type="button">`; `<span>` stars are for read-only display only (`role="img"` + `aria-label` on the root). Fires `cu:rating:change` (`{ value }`) when the user changes the value. Setting `data-cu-rating-value` from code (`el.setAttribute("data-cu-rating-value", "3")`) re-syncs the stars, `aria-checked` and the Tab stop without firing the event; `cu-rating-readonly` / `cu-rating-disabled` can be toggled at any time.
 A11y: WAI-ARIA APG rating radio group. JS sets `role="radiogroup"` on the root (name it with `aria-label` / `aria-labelledby`; default "Rating") and `role="radio"` + `aria-checked` on each star, with a roving tabindex (one Tab stop: the checked star, or the first star). Keys: Arrow Right / Down = next star, Arrow Left / Up = previous (wrap; mirrored in RTL), Home / End = first / last, Space / Enter = select. Stars are named "1 star" / "N stars"; localize with `data-cu-rating-star-text` on the root (`{value}` = star number), a star's own `aria-label` wins. `cu-rating-readonly` keeps one Tab stop + `aria-readonly`, `cu-rating-disabled` leaves the Tab order + `aria-disabled`. Forced colors (Windows High Contrast): selected stars use the `Highlight` system color, unselected stars are outlines.
+No-JS form rating: each star is a `<label class="cu-rating-label">` wrapping a visually hidden `<input type="radio" class="cu-rating-input">` (same `name`, `aria-label` "N stars") plus the star svg; the root has `role="radiogroup"` + `aria-label` and no `data-cu-rating`. The checked star and every star before it are filled (CSS `:has()`), hovering previews a value, the value is submitted with the form, and the keyboard is the browser's native radio group (Tab to the checked star, arrow keys select previous / next; no Home / End, Enter submits the form). `checked` = default value, `required` on one radio, `disabled` on every radio to disable; a selection cannot be cleared.
 ```html
 <!-- Readonly display -->
 <div class="cu-rating cu-rating-readonly" role="img" aria-label="2 out of 3 stars">
@@ -614,6 +615,13 @@ A11y: WAI-ARIA APG rating radio group. JS sets `role="radiogroup"` on the root (
   <button type="button" class="cu-rating-item" data-cu-rating-star="1"><svg>★</svg></button>
   <button type="button" class="cu-rating-item" data-cu-rating-star="2"><svg>★</svg></button>
   <button type="button" class="cu-rating-item" data-cu-rating-star="3"><svg>★</svg></button>
+</div>
+
+<!-- No-JS form rating (radio) -->
+<div class="cu-rating" role="radiogroup" aria-label="Rate this product">
+  <label class="cu-rating-label"><input type="radio" class="cu-rating-input" name="rating" value="1" aria-label="1 star"><svg>★</svg></label>
+  <label class="cu-rating-label"><input type="radio" class="cu-rating-input" name="rating" value="2" aria-label="2 stars" checked><svg>★</svg></label>
+  <label class="cu-rating-label"><input type="radio" class="cu-rating-input" name="rating" value="3" aria-label="3 stars"><svg>★</svg></label>
 </div>
 ```
 

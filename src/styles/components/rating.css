@@ -3,6 +3,7 @@
   @apply inline-flex items-center gap-0.5;
   --cu-rating-color: var(--color-amber-400, #fbbf24);
   --cu-rating-color-hover: var(--color-amber-300, #fcd34d);
+  --cu-rating-color-empty: color-mix(in srgb, var(--color-muted-foreground) 30%, transparent);
 }
 
 .cu-rating-item {
@@ -49,18 +50,47 @@ button.cu-rating-item {
   transform: scale(1.15);
 }
 
-/* Hidden radio input for form submission */
+/* Radio 寫法（不需 JS）：每顆星是包住 radio 的 <label class="cu-rating-label">，選取值隨表單送出；
+   radio 以 visually hidden 保留在 Tab 順序中，鍵盤操作（Tab 停在選取的星、方向鍵切換）由原生 radio group 提供。
+   選取的星與其前面的星以 :has() 填滿，滑鼠指到時預覽該星等。
+   --cu-rating-star-fill 標記實心的星，供 forced colors 以實心 / 空心區分（一般模式下星星本來就是實心） */
+.cu-rating-label {
+  @apply relative cursor-pointer;
+  color: var(--cu-rating-color-empty);
+  transition:
+    color 150ms,
+    transform 150ms;
+}
+
 .cu-rating-input {
   @apply sr-only;
 }
 
-/* Checked via radio */
-.cu-rating-input:checked ~ .cu-rating-label {
-  @apply text-muted-foreground/30;
-}
-.cu-rating-input:checked + .cu-rating-label,
-.cu-rating-input:checked + .cu-rating-label ~ .cu-rating-label-fill {
+.cu-rating-label:has(.cu-rating-input:checked),
+.cu-rating-label:has(~ .cu-rating-label .cu-rating-input:checked) {
   color: var(--cu-rating-color);
+  --cu-rating-star-fill: currentColor;
+}
+
+/* 滑鼠預覽：指到的星與其前面的星換成 hover 色，後面的星暫時恢復未選取（權重高於上面的選取規則） */
+.cu-rating:not(.cu-rating-readonly) .cu-rating-label:hover,
+.cu-rating:not(.cu-rating-readonly) .cu-rating-label:has(~ .cu-rating-label:hover) {
+  color: var(--cu-rating-color-hover);
+  --cu-rating-star-fill: currentColor;
+}
+
+.cu-rating:not(.cu-rating-readonly) .cu-rating-label:hover {
+  transform: scale(1.15);
+}
+
+.cu-rating:not(.cu-rating-readonly) .cu-rating-label:hover ~ .cu-rating-label {
+  color: var(--cu-rating-color-empty);
+  --cu-rating-star-fill: none;
+}
+
+/* 停用：在每個 radio 加上 disabled（停用的 radio 不會送出，也不在 Tab 順序中） */
+.cu-rating-label:has(.cu-rating-input:disabled) {
+  @apply pointer-events-none opacity-50;
 }
 
 /* Readonly */
@@ -69,17 +99,19 @@ button.cu-rating-item {
 }
 
 /* Sizes */
-.cu-rating-sm .cu-rating-item {
+.cu-rating-sm .cu-rating-item,
+.cu-rating-sm .cu-rating-label {
   @apply size-4;
 }
 
-.cu-rating-lg .cu-rating-item {
+.cu-rating-lg .cu-rating-item,
+.cu-rating-lg .cu-rating-label {
   @apply size-7;
 }
 
-/* Focus（互動星等：JS 設為 role="radio" 的 roving tabindex 星星，以及 radio 模式的 label） */
+/* Focus（互動星等：JS 設為 role="radio" 的 roving tabindex 星星；radio 寫法畫在包住 radio 的 label 上） */
 .cu-rating-item:focus-visible,
-.cu-rating-input:focus-visible + .cu-rating-label {
+.cu-rating-label:has(.cu-rating-input:focus-visible) {
   @apply rounded-sm ring-2 ring-ring/40 ring-offset-2 outline-none;
 }
 
@@ -109,5 +141,24 @@ button.cu-rating-item {
   .cu-rating-item-half svg:first-child {
     color: Highlight;
     fill: currentColor;
+  }
+  /* Radio 寫法：沿用一般模式的狀態規則，只把色彩換成系統色；星星依 --cu-rating-star-fill 畫成實心或空心。
+     焦點在 visually hidden 的 radio 上，全站的 forced colors outline 看不到，改畫在 label 上 */
+  .cu-rating {
+    --cu-rating-color: Highlight;
+    --cu-rating-color-hover: Highlight;
+    --cu-rating-color-empty: CanvasText;
+  }
+  .cu-rating-label {
+    forced-color-adjust: none;
+  }
+  .cu-rating-label svg {
+    stroke: currentColor;
+    stroke-width: 1.5px;
+    fill: var(--cu-rating-star-fill, none);
+  }
+  .cu-rating-label:has(.cu-rating-input:focus-visible) {
+    outline: 2px solid Highlight;
+    outline-offset: 2px;
   }
 }
