@@ -7,21 +7,45 @@ interface Props {
     size?: "sm" | "default" | "lg";
     readonly?: boolean;
     disabled?: boolean;
+    /** 設定後改為不需 JS 的表單評分（radio 寫法），選取值以這個名稱隨表單送出；value 四捨五入為預設選取的星等，readonly 不適用（原生 radio 沒有唯讀） */
+    name?: string;
+    /** radio 寫法每顆星的名稱模板，{value} 替換為星等（預設 "1 star" / "N stars"） */
+    starText?: string;
     class?: string;
     [key: string]: any;
 }
 
-const { value = 0, max = 5, size, readonly: isReadonly, disabled, class: className, ...rest } = Astro.props;
+// aria-label 另外取出：{...rest} 不會覆寫前面已寫的屬性，同一元素會輸出兩個 aria-label
+const { value = 0, max = 5, size, readonly: isReadonly, disabled, name, starText, "aria-label": ariaLabel, class: className, ...rest } = Astro.props;
 const baseClass = `${TOP_CLASS}-rating`;
 const sizeClass = size && size !== "default" ? `${baseClass}-${size}` : undefined;
 const readonlyClass = isReadonly ? `${baseClass}-readonly` : undefined;
 const disabledClass = disabled ? `${baseClass}-disabled` : undefined;
+const checkedValue = Math.round(value);
+const starLabel = (n: number) => starText ? starText.split("{value}").join(String(n)) : n === 1 ? "1 star" : `${n} stars`;
 ---
 
+{name ? (
+<div
+    class:list={[baseClass, sizeClass, className]}
+    role="radiogroup"
+    aria-label={ariaLabel ?? "Rating"}
+    {...rest}
+>
+    {Array.from({ length: max }, (_, i) => (
+        <label class={`${TOP_CLASS}-rating-label`}>
+            <input type="radio" class={`${TOP_CLASS}-rating-input`} name={name} value={i + 1} aria-label={starLabel(i + 1)} checked={i + 1 === checkedValue} disabled={disabled} />
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+            </svg>
+        </label>
+    ))}
+</div>
+) : (
 <div
     class:list={[baseClass, sizeClass, readonlyClass, disabledClass, className]}
     role="img"
-    aria-label={`${value} out of ${max} stars`}
+    aria-label={ariaLabel ?? `${value} out of ${max} stars`}
     {...rest}
 >
     {Array.from({ length: max }, (_, i) => {
@@ -45,3 +69,4 @@ const disabledClass = disabled ? `${baseClass}-disabled` : undefined;
         );
     })}
 </div>
+)}
