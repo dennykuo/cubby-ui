@@ -43,33 +43,38 @@
   @apply text-destructive hover:bg-destructive/10 hover:text-destructive;
 }
 
-/* Shared float-in animation for dropdown / popover / menubar */
-@keyframes cu-float-in {
-  from {
-    opacity: 0;
-    transform: scale(0.95);
-  }
-}
-
-/* Forced colors（Windows 高對比）：底色會被移除，滑鼠 / 鍵盤高亮的項目看不出來；比照系統選單以 Highlight 填滿
-   （Dropdown、Menubar、Context Menu 共用）。分隔線改用系統文字色
-   （forced-color-adjust: none：自行指定系統色，否則瀏覽器會在文字後補上頁面底色的襯底，蓋掉 HighlightText） */
+/* Forced colors（Windows 高對比）：背景色會被換成 Canvas，hover / 鍵盤高亮的項目看不出來。
+   改以系統選取色填滿（與原生選單一致；Menubar 項目共用）。forced-color-adjust: none 才不會在文字後方
+   墊上 Canvas 底板（backplate）蓋掉 HighlightText；子元素（快捷鍵、圖示、Kbd）一併改用 HighlightText。
+   分隔線以背景色繪製會跟著消失，改用與邊框相同的 CanvasText */
 @media (forced-colors: active) {
+  .cu-dropdown-separator {
+    background-color: CanvasText;
+  }
   .cu-dropdown-item:hover,
+  .cu-dropdown-item:focus-visible,
+  .cu-dropdown-item.cu-dropdown-item-highlight,
   .cu-menubar-item:hover,
-  .cu-dropdown-item.cu-dropdown-item-highlight {
+  .cu-menubar-item:focus-visible {
     forced-color-adjust: none;
     background-color: Highlight;
     color: HighlightText;
   }
   .cu-dropdown-item:hover *,
+  .cu-dropdown-item:focus-visible *,
+  .cu-dropdown-item.cu-dropdown-item-highlight *,
   .cu-menubar-item:hover *,
-  .cu-dropdown-item.cu-dropdown-item-highlight * {
-    color: inherit;
-    background-color: transparent;
+  .cu-menubar-item:focus-visible * {
     border-color: currentColor;
+    background-color: transparent;
+    color: inherit;
   }
-  .cu-dropdown-separator {
-    background-color: CanvasText;
+}
+
+/* Shared float-in animation for dropdown / popover / menubar */
+@keyframes cu-float-in {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
   }
 }

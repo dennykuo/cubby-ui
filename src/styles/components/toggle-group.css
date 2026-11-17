@@ -62,18 +62,18 @@
   @apply pointer-events-none opacity-50;
 }
 
-/* Forced colors（Windows 高對比）：底色與陰影會被移除，選取項目改以 Highlight 填滿
-   （forced-color-adjust: none：自行指定系統色，否則瀏覽器會在文字後補上頁面底色的襯底，蓋掉 HighlightText） */
+/* Forced colors（Windows 高對比）：按下（aria-pressed）的項目只靠底色，改以系統選取色填滿
+   （forced-color-adjust: none 避免文字底板蓋掉 HighlightText；outline 變體的分隔邊框跟著換成選取色） */
 @media (forced-colors: active) {
   .cu-toggle-group-item.cu-toggle-group-item-active {
     forced-color-adjust: none;
-    border-color: CanvasText;
+    border-color: Highlight;
     background-color: Highlight;
     color: HighlightText;
   }
   .cu-toggle-group-item.cu-toggle-group-item-active * {
-    color: inherit;
-    background-color: transparent;
     border-color: currentColor;
+    background-color: transparent;
+    color: inherit;
   }
 }

@@ -63,7 +63,7 @@ Semantic color tokens (CSS variables, use in Tailwind or plain CSS):
 
 Dark mode: add `.dark` class on `<html>` or `<body>`.
 
-Forced colors (Windows High Contrast): built in, no extra markup. `:focus-visible` gets a `Highlight` outline (box-shadow rings are dropped), selected / highlighted items (tabs, segmented control, toggle group, pagination, nav, sidebar, menus, listbox options, calendar selected day, completed steps) fill with `Highlight` / `HighlightText`, surfaces drawn only by background (solid buttons, badges, tags, chat bubbles, tooltips, progress / range tracks) get a border, and color-as-content (chart series, color picker, image compare) keeps its author colors. When you style your own state classes, do the same inside `@media (forced-colors: active)`.
+Forced colors (Windows High Contrast): built in, no extra markup. `:focus-visible` gets a `Highlight` outline (box-shadow rings are dropped), selected / highlighted items (tabs, segmented control, toggle group, pagination, nav, sidebar, menus, listbox options, calendar selected day, completed steps) fill with `Highlight` / `HighlightText`, surfaces drawn only by background (solid buttons, badges, tags, chat bubbles, tooltips, progress tracks) get a border or outline, and color-as-content (chart series, color picker, image compare) keeps its author colors. Semantic variant hues (success / warning / destructive) cannot survive forced colors, so keep their meaning in text or an icon. When you style your own state classes, do the same inside `@media (forced-colors: active)`.
 
 ---
 
@@ -209,6 +209,7 @@ Requires explicit direction class.
 **Avatar**
 Sizes: `cu-avatar-sm`, `cu-avatar-lg`, `cu-avatar-xl`
 Status: `cu-avatar-status` + `cu-avatar-status-online` / `cu-avatar-status-offline` / `cu-avatar-status-busy` / `cu-avatar-status-away`
+Forced colors (Windows High Contrast): the status dot switches from hue to shape — online filled, offline hollow, busy filled with a bar, away half-filled. Still state the status in text (e.g. a visually hidden label) for screen readers.
 Shape: `cu-avatar-square` (rounded-lg instead of rounded-full)
 Ring: `cu-avatar-ring`
 ```html
@@ -222,6 +223,7 @@ Ring: `cu-avatar-ring`
 Variants: `cu-badge-default`, `cu-badge-secondary`, `cu-badge-destructive`, `cu-badge-outline`, `cu-badge-success`, `cu-badge-warning`, `cu-badge-info`
 Sizes: `cu-badge-sm`, `cu-badge-lg`
 Dot animation: `cu-badge-dot-animated` (pulsing animation on dot indicator)
+Forced colors (Windows High Contrast): every badge keeps a border and solid variants render inverted, but the variant hue is lost — put the meaning in the badge text ("Failed", not just a red badge).
 ```html
 <span class="cu-badge cu-badge-default">New</span>
 <span class="cu-badge cu-badge-success cu-badge-sm">Active</span>
@@ -378,13 +380,18 @@ Event: `cu:color-picker:change` (`detail.value` = "#rrggbb", bubbles) on the roo
 </div>
 ```
 
-**Toggle** — CSS-only, hidden checkbox + sibling
-Sizes: `cu-toggle-sm`, `cu-toggle-lg`
+**Toggle** — CSS-only, visually hidden checkbox + sibling track
+Classes: `cu-toggle-wrapper` (`<label>` wrapper), `cu-toggle-input` (visually hidden checkbox), `cu-toggle` (track `<span>`, must immediately follow the input), `cu-toggle-thumb` (thumb inside the track)
+Sizes: `cu-toggle-sm`, `cu-toggle-lg` (on the track `<span>`)
+Styles apply only via `.cu-toggle-input + .cu-toggle`: never put `cu-toggle` on the `<input>`. Put `checked` / `disabled` on the input.
 ```html
-<div class="cu-toggle-wrapper">
-  <input type="checkbox" id="t1" class="cu-toggle">
-  <label for="t1">Toggle label</label>
-</div>
+<label class="cu-toggle-wrapper">
+  <input type="checkbox" class="cu-toggle-input">
+  <span class="cu-toggle">
+    <span class="cu-toggle-thumb"></span>
+  </span>
+  <span class="cu-label">Airplane Mode</span>
+</label>
 ```
 
 **Range** (slider)
@@ -681,6 +688,7 @@ Tooltip: `cu-chart-tooltip`, `cu-chart-tooltip-label`, `cu-chart-tooltip-item`, 
 Inline SVG helpers: `cu-chart-grid` (dashed gridline), `cu-chart-axis-line` (baseline), `cu-chart-axis` (tick labels)
 States (inside `cu-chart-canvas`): `cu-chart-empty` + `cu-chart-empty-title` / `cu-chart-empty-description`; `cu-chart-loading` + `cu-chart-loading-bar` (set `aria-busy="true"` on the canvas)
 Chart.js: `getComputedStyle(document.documentElement).getPropertyValue("--color-chart-1")`, `maintainAspectRatio: false`, `plugins.legend.display: false`; re-apply colors when `.dark` toggles.
+Forced colors (Windows High Contrast): `<canvas>` pixels and inline SVG series keep their colours, so `cu-chart-swatch` keeps the series colour too (`forced-color-adjust: none`, plus a text-colour border); grid / axis / tick labels and loading bars switch to system colours. Colour is still the only link between swatch and series — always label each series in text (legend label, `cu-chart-legend-value`, or a table view).
 ```html
 <div class="cu-chart">
   <div class="cu-chart-header">
@@ -949,6 +957,7 @@ CSS Variable: `--cu-marquee-duration` (default: 30s)
 **Alert**
 Variants: `cu-alert-default`, `cu-alert-destructive`, `cu-alert-success`, `cu-alert-warning`, `cu-alert-info`
 Modifier: `cu-alert-accent` (prominent filled emphasis: full border + tinted background)
+Forced colors (Windows High Contrast): variant colours collapse to system colours (the icon follows the text colour, `cu-alert-accent` gets a 2px border) — give each variant a distinct icon and title.
 Expandable: `cu-alert-expandable-content` (expandable content area), `cu-alert-expand-trigger` (expand toggle button)
 Data attributes: `data-cu-alert-expandable` (on container), `data-cu-alert-expand-trigger` (on toggle button), `data-cu-alert-expandable-content` (on content area; the single child `<div>` is what collapses)
 ```html

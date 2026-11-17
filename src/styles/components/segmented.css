@@ -57,9 +57,9 @@
   @apply flex-1;
 }
 
-/* Forced colors（Windows 高對比）：底色與陰影會被移除，選取項目改以 Highlight 填滿；
-   隱藏 radio 的焦點環（box-shadow）也會消失，改在可見的項目上畫 outline
-   （forced-color-adjust: none：自行指定系統色，否則瀏覽器會在文字後補上頁面底色的襯底，蓋掉 HighlightText） */
+/* Forced colors（Windows 高對比）：選取項目只靠底色與陰影，改以系統選取色填滿
+   （forced-color-adjust: none 避免文字底板蓋掉 HighlightText）。
+   radio 模式的焦點環畫在 label 上（box-shadow 會被移除，input 又是 sr-only），改以 outline 顯示 */
 @media (forced-colors: active) {
   .cu-segmented-input:checked + .cu-segmented-item,
   .cu-segmented-item.cu-segmented-item-active {
@@ -69,9 +69,9 @@
   }
   .cu-segmented-input:checked + .cu-segmented-item *,
   .cu-segmented-item.cu-segmented-item-active * {
-    color: inherit;
-    background-color: transparent;
     border-color: currentColor;
+    background-color: transparent;
+    color: inherit;
   }
   .cu-segmented-input:focus-visible + .cu-segmented-item {
     outline: 2px solid Highlight;

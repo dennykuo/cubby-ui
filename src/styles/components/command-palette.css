@@ -89,10 +89,13 @@
   @apply py-6 text-center text-sm text-muted-foreground;
 }
 
-/* Forced colors（Windows 高對比）：底色會被移除，選中的結果看不出來；比照系統清單以 Highlight 填滿。
-   分隔線改用系統文字色
-   （forced-color-adjust: none：自行指定系統色，否則瀏覽器會在文字後補上頁面底色的襯底，蓋掉 HighlightText） */
+/* Forced colors（Windows 高對比）：選中項目（aria-activedescendant）只靠底色，改以系統選取色填滿
+   （forced-color-adjust: none 避免文字底板蓋掉 HighlightText）；快捷鍵 Kbd 的外框與文字一併改用 HighlightText。
+   分隔線以背景色繪製會消失，改用與邊框相同的 CanvasText */
 @media (forced-colors: active) {
+  .cu-command-separator {
+    background-color: CanvasText;
+  }
   .cu-command-item:hover,
   .cu-command-item[data-cu-command-active] {
     forced-color-adjust: none;
@@ -101,11 +104,8 @@
   }
   .cu-command-item:hover *,
   .cu-command-item[data-cu-command-active] * {
-    color: inherit;
-    background-color: transparent;
     border-color: currentColor;
-  }
-  .cu-command-separator {
-    background-color: CanvasText;
+    background-color: transparent;
+    color: inherit;
   }
 }

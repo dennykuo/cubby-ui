@@ -59,11 +59,27 @@
   @apply p-4 pl-12;
 }
 
-/* Forced colors（Windows 高對比）：選取列的淡底色會被移除，改以 Highlight 填滿儲存格（填在儲存格上，才不會被斑馬紋列的
-   底色蓋過）。儲存格內容可能是任意元件，因此不用 forced-color-adjust: none，文字與控制項仍由瀏覽器套用系統色
-   （文字後自動補上頁面底色的襯底，維持可讀） */
+/* Forced colors（Windows 高對比）：選取列除了核取方塊只靠底色，改以系統選取色填滿
+   （forced-color-adjust: none 避免文字底板蓋掉 HighlightText）。填色畫在儲存格上：table.css 在後面載入，
+   列的 hover / 斑馬紋底色會蓋過畫在 <tr> 上的同等 specificity 規則。列內文字、按鈕外框、核取方塊一併改用 HighlightText */
 @media (forced-colors: active) {
+  .cu-data-table-row-selected {
+    forced-color-adjust: none;
+    color: HighlightText;
+  }
+  .cu-data-table-row-selected * {
+    border-color: currentColor;
+    background-color: transparent;
+    color: inherit;
+  }
   .cu-data-table-row-selected > * {
     background-color: Highlight;
+  }
+  .cu-data-table-row-selected .cu-checkbox {
+    border-color: currentColor;
+    background-color: transparent;
+  }
+  .cu-data-table-row-selected .cu-checkbox::before {
+    background-color: HighlightText;
   }
 }

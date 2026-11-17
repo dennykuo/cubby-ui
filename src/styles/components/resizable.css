@@ -63,7 +63,8 @@
   height: 3px;
 }
 
-/* Forced colors（Windows 高對比）：把手的握柄只靠底色，會整個消失；改用系統文字色，拖曳中 / hover 時用 Highlight */
+/* Forced colors（Windows 高對比）：把手的握把以背景色繪製，會被換成 Canvas 而消失、看不出哪裡可以拖曳。
+   握把改用文字色，hover / 拖曳中改用系統選取色 */
 @media (forced-colors: active) {
   .cu-resizable-handle::after {
     background-color: CanvasText;

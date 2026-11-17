@@ -65,14 +65,19 @@
   @apply translate-x-5;
 }
 
-/* Forced colors（Windows 高對比）：軌道與圓鈕的底色都會被換成頁面底色，圓鈕消失、看不出開關狀態。
-   圓鈕改用系統文字色，開啟時軌道以 Highlight 填滿；隱藏 checkbox 的焦點環（box-shadow）改以 outline 畫在軌道上 */
+/* Forced colors（Windows 高對比）：軌道與 thumb 的背景都會被換成 Canvas，thumb 消失、開關狀態看不出來。
+   thumb 改用文字色；開啟時軌道以系統選取色填滿、thumb 用 HighlightText（與原生開關一致），再加上 thumb 位置區分。
+   焦點環畫在軌道上（box-shadow 會被移除，input 又是 sr-only），改以 outline 顯示 */
 @media (forced-colors: active) {
+  .cu-toggle-input + .cu-toggle {
+    border-color: CanvasText;
+  }
   .cu-toggle-thumb {
     background-color: CanvasText;
   }
   .cu-toggle-input:checked + .cu-toggle,
   .cu-toggle-input:checked:not(:disabled) + .cu-toggle:hover {
+    border-color: Highlight;
     background-color: Highlight;
   }
   .cu-toggle-input:checked + .cu-toggle .cu-toggle-thumb {
