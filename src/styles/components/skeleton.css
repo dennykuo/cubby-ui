@@ -33,3 +33,16 @@
     background-position: -200% 0;
   }
 }
+
+/* Forced colors（Windows 高對比）：骨架以背景色繪製，會被換成 Canvas 而整塊消失（漸層背景圖也會被移除），
+   看不出內容正在載入。改以 GrayText 填色（pulse 是 opacity 動畫，照常運作）；
+   shimmer 以 forced-color-adjust: none 保留以系統色畫的漸層掃光（auto 下 color-mix() 的結果會被換成 Canvas） */
+@media (forced-colors: active) {
+  .cu-skeleton {
+    background-color: GrayText;
+  }
+  .cu-skeleton-shimmer {
+    forced-color-adjust: none;
+    background-image: linear-gradient(90deg, GrayText 0%, color-mix(in srgb, GrayText 40%, Canvas) 50%, GrayText 100%);
+  }
+}

@@ -64,3 +64,27 @@
 .cu-toggle-input:checked + .cu-toggle-lg .cu-toggle-thumb {
   @apply translate-x-5;
 }
+
+/* Forced colors（Windows 高對比）：軌道與 thumb 的背景都會被換成 Canvas，thumb 消失、開關狀態看不出來。
+   thumb 改用文字色；開啟時軌道以系統選取色填滿、thumb 用 HighlightText（與原生開關一致），再加上 thumb 位置區分。
+   焦點環畫在軌道上（box-shadow 會被移除，input 又是 sr-only），改以 outline 顯示 */
+@media (forced-colors: active) {
+  .cu-toggle-input + .cu-toggle {
+    border-color: CanvasText;
+  }
+  .cu-toggle-thumb {
+    background-color: CanvasText;
+  }
+  .cu-toggle-input:checked + .cu-toggle,
+  .cu-toggle-input:checked:not(:disabled) + .cu-toggle:hover {
+    border-color: Highlight;
+    background-color: Highlight;
+  }
+  .cu-toggle-input:checked + .cu-toggle .cu-toggle-thumb {
+    background-color: HighlightText;
+  }
+  .cu-toggle-input:focus-visible + .cu-toggle {
+    outline: 2px solid Highlight;
+    outline-offset: 2px;
+  }
+}

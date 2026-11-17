@@ -74,3 +74,15 @@
     scroll-behavior: auto;
   }
 }
+
+/* Forced colors（Windows 高對比）：圓點只以背景色繪製，會被換成 Canvas 而消失。
+   改為空心外框圓點，目前頁以系統選取色填成實心 */
+@media (forced-colors: active) {
+  .cu-carousel-dot {
+    border: 1px solid currentColor;
+  }
+  .cu-carousel-dot.cu-carousel-dot-active {
+    border-color: Highlight;
+    background-color: Highlight;
+  }
+}

@@ -108,3 +108,11 @@
 .cu-toast-action-btn {
   @apply inline-flex h-7 cursor-pointer items-center justify-center rounded-md border border-border bg-transparent px-3 text-xs font-medium transition-colors duration-150 hover:bg-accent;
 }
+
+/* Forced colors（Windows 高對比）：變體色會被換成同一組系統色，變體只剩圖示與文字可區分；
+   以 text-* 指定色相的 SVG 圖示不會被強制換色，改跟隨文字色（同 Alert，!important 才蓋得過圖示上的工具類別） */
+@media (forced-colors: active) {
+  .cu-toast svg {
+    color: inherit !important;
+  }
+}

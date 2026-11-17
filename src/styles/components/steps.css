@@ -73,3 +73,36 @@
 .cu-steps-vertical .cu-steps-separator {
   @apply mx-0 mt-0 ml-[15px] w-px;
 }
+
+/* Forced colors（Windows 高對比）：邊框色會被換成同一個系統色、背景與 ring（box-shadow）被移除，
+   完成 / 目前 / 未到的步驟外觀相同，以背景色畫的連接線也會消失。
+   完成：系統選取色實心圓（forced-color-adjust: none 避免文字底板蓋掉 HighlightText）；
+   目前：圓外加一圈 outline；未到：GrayText；連接線改用系統色 */
+@media (forced-colors: active) {
+  .cu-steps-separator {
+    background-color: GrayText;
+  }
+  .cu-steps-item-completed + .cu-steps-separator {
+    background-color: Highlight;
+  }
+  .cu-steps-item-completed .cu-steps-number {
+    forced-color-adjust: none;
+    border-color: Highlight;
+    background-color: Highlight;
+    color: HighlightText;
+  }
+  .cu-steps-item-completed .cu-steps-number * {
+    color: inherit;
+  }
+  .cu-steps-item-active .cu-steps-number {
+    outline: 2px solid currentColor;
+    outline-offset: 2px;
+  }
+  .cu-steps-item-upcoming .cu-steps-number {
+    border-color: GrayText;
+  }
+  .cu-steps-item-upcoming .cu-steps-number,
+  .cu-steps-item-upcoming .cu-steps-title {
+    color: GrayText;
+  }
+}

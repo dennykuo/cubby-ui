@@ -61,3 +61,19 @@
 .cu-toggle-group-item[aria-disabled="true"] {
   @apply pointer-events-none opacity-50;
 }
+
+/* Forced colors（Windows 高對比）：按下（aria-pressed）的項目只靠底色，改以系統選取色填滿
+   （forced-color-adjust: none 避免文字底板蓋掉 HighlightText；outline 變體的分隔邊框跟著換成選取色） */
+@media (forced-colors: active) {
+  .cu-toggle-group-item.cu-toggle-group-item-active {
+    forced-color-adjust: none;
+    border-color: Highlight;
+    background-color: Highlight;
+    color: HighlightText;
+  }
+  .cu-toggle-group-item.cu-toggle-group-item-active * {
+    border-color: currentColor;
+    background-color: transparent;
+    color: inherit;
+  }
+}

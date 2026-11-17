@@ -3,3 +3,10 @@
 .cu-hr {
   @apply h-px w-full border-0 bg-border;
 }
+
+/* Forced colors（Windows 高對比）：以背景色繪製的線會被換成 Canvas 而消失，改用與邊框相同的 CanvasText */
+@media (forced-colors: active) {
+  .cu-hr {
+    background-color: CanvasText;
+  }
+}

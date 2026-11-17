@@ -232,3 +232,29 @@ button.cu-chart-legend-item {
 .cu-chart-loading-bar:nth-child(7n + 7) {
   height: 38%;
 }
+
+/* Forced colors（Windows 高對比）：<canvas> 的像素與內嵌 SVG 的系列色不受影響、保留色相，但圖例色塊以背景色
+   繪製，會被換成 Canvas 而消失，圖例就對不上系列。資料色本身就是內容：色塊以 forced-color-adjust: none 保留與系列
+   相同的顏色，另加文字色外框，淺色色塊在淺色主題上才看得到（線條色塊除外）。
+   格線、軸線與軸標籤是 SVG，不會被強制換色，改用系統色跟隨主題；載入中的長條改用 GrayText（同 Skeleton） */
+@media (forced-colors: active) {
+  .cu-chart-swatch {
+    forced-color-adjust: none;
+    border: 1px solid CanvasText;
+  }
+  .cu-chart-swatch-line {
+    border-width: 0;
+  }
+  .cu-chart-grid {
+    stroke: GrayText;
+  }
+  .cu-chart-axis-line {
+    stroke: CanvasText;
+  }
+  .cu-chart-axis {
+    fill: CanvasText;
+  }
+  .cu-chart-loading-bar {
+    background-color: GrayText;
+  }
+}

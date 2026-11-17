@@ -31,3 +31,30 @@
 .cu-combobox-item-check {
   @apply ml-auto size-4 text-primary;
 }
+
+/* Forced colors（Windows 高對比）：項目狀態只靠底色，背景色被換成 Canvas 後看不出來。
+   hover / 鍵盤高亮（aria-activedescendant）以系統選取色填滿（forced-color-adjust: none 避免文字底板蓋掉
+   HighlightText）；已選取（aria-selected）在一般模式與高亮同為底色，這裡改以文字色內框標示，兩者可同時辨識 */
+@media (forced-colors: active) {
+  .cu-combobox-item:hover,
+  .cu-combobox-item.cu-combobox-item-highlight {
+    forced-color-adjust: none;
+    background-color: Highlight;
+    color: HighlightText;
+  }
+  .cu-combobox-item:hover *,
+  .cu-combobox-item.cu-combobox-item-highlight * {
+    border-color: currentColor;
+    background-color: transparent;
+    color: inherit;
+  }
+  .cu-combobox-item.cu-combobox-item-active {
+    outline: 2px solid currentColor;
+    outline-offset: -2px;
+  }
+  /* 同時高亮時內框再內縮，外圍留一圈選取色，內框才不會與 Canvas 背景連成一片 */
+  .cu-combobox-item.cu-combobox-item-active:hover,
+  .cu-combobox-item.cu-combobox-item-active.cu-combobox-item-highlight {
+    outline-offset: -4px;
+  }
+}

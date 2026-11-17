@@ -85,3 +85,20 @@
 .cu-date-picker-content {
   @apply absolute z-50 mt-2;
 }
+
+/* Forced colors（Windows 高對比）：日期狀態只靠底色與文字色。選取日以系統選取色填滿
+   （forced-color-adjust: none 避免文字底板蓋掉 HighlightText）、今天加外框，
+   非本月日期改用 GrayText（文字色會被換成同一個系統色） */
+@media (forced-colors: active) {
+  .cu-calendar-day.cu-calendar-day-selected {
+    forced-color-adjust: none;
+    background-color: Highlight;
+    color: HighlightText;
+  }
+  .cu-calendar-day-today {
+    border: 1px solid currentColor;
+  }
+  .cu-calendar-day-outside {
+    color: GrayText;
+  }
+}

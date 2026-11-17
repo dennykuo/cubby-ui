@@ -110,4 +110,22 @@ button.cu-rating-item {
     color: Highlight;
     fill: currentColor;
   }
+  /* radio 模式（sr-only radio + label）：「Checked via radio」的選擇器 specificity 較高，會蓋過上面的系統色，
+     需另外覆寫成同樣的實心（選取）/ 空心（未選取） */
+  .cu-rating-input:checked ~ .cu-rating-label {
+    color: CanvasText;
+  }
+  .cu-rating-input:checked + .cu-rating-label,
+  .cu-rating-input:checked + .cu-rating-label ~ .cu-rating-label-fill {
+    color: Highlight;
+  }
+  .cu-rating-input:checked + .cu-rating-label svg,
+  .cu-rating-input:checked + .cu-rating-label ~ .cu-rating-label-fill svg {
+    fill: currentColor;
+  }
+  /* radio 模式的焦點環畫在 label 上（box-shadow 會被移除，input 又是 sr-only），改以 outline 顯示 */
+  .cu-rating-input:focus-visible + .cu-rating-label {
+    outline: 2px solid Highlight;
+    outline-offset: 2px;
+  }
 }

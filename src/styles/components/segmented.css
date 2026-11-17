@@ -56,3 +56,25 @@
 .cu-segmented-block .cu-segmented-item {
   @apply flex-1;
 }
+
+/* Forced colors（Windows 高對比）：選取項目只靠底色與陰影，改以系統選取色填滿
+   （forced-color-adjust: none 避免文字底板蓋掉 HighlightText）。
+   radio 模式的焦點環畫在 label 上（box-shadow 會被移除，input 又是 sr-only），改以 outline 顯示 */
+@media (forced-colors: active) {
+  .cu-segmented-input:checked + .cu-segmented-item,
+  .cu-segmented-item.cu-segmented-item-active {
+    forced-color-adjust: none;
+    background-color: Highlight;
+    color: HighlightText;
+  }
+  .cu-segmented-input:checked + .cu-segmented-item *,
+  .cu-segmented-item.cu-segmented-item-active * {
+    border-color: currentColor;
+    background-color: transparent;
+    color: inherit;
+  }
+  .cu-segmented-input:focus-visible + .cu-segmented-item {
+    outline: 2px solid Highlight;
+    outline-offset: 2px;
+  }
+}
