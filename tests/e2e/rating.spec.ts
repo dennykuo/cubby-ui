@@ -261,3 +261,115 @@ test.describe("Rating", () => {
     await expect(root.locator('[data-cu-rating-star="3"]')).toHaveCSS("outline-style", "solid");
   });
 });
+
+/**
+ * Radio 寫法（不需 JS）：label.cu-rating-label 包住 visually hidden 的 radio.cu-rating-input，
+ * 選取的星與其前面的星以 :has() 填滿，鍵盤與表單送出由原生 radio group 提供
+ */
+test.describe("Rating（radio 寫法）", () => {
+  test.beforeEach(async ({ page }) => {
+    await openFixture(page, "rating-radio");
+    await page.addStyleTag({ content: "*, *::before, *::after { transition: none !important; }" });
+  });
+
+  const labelColors = (root: Locator) =>
+    root.locator(".cu-rating-label").evaluateAll((labels) => labels.map((l) => getComputedStyle(l).color));
+
+  /** 前 value 顆星為同一個填滿色，其餘為另一個（未選取）色 */
+  async function expectFilled(root: Locator, value: number) {
+    await expect
+      .poll(async () => {
+        const colors = await labelColors(root);
+        const filled = colors.slice(0, value);
+        const empty = colors.slice(value);
+        return (
+          new Set(filled).size <= 1 &&
+          new Set(empty).size <= 1 &&
+          (!filled.length || !empty.length || filled[0] !== empty[0])
+        );
+      })
+      .toBe(true);
+  }
+
+  const checkedValue = (page: Page) =>
+    page.evaluate(() => new FormData(document.getElementById("form") as HTMLFormElement).get("rating"));
+
+  test("選取的星與其前面的星填滿，選取值隨表單送出", async ({ page }) => {
+    const root = page.locator("#radio");
+    await expectFilled(root, 3);
+    expect(await checkedValue(page)).toBe("3");
+    // 填滿色與未選取色確實不同（不是全部同色）
+    const colors = await labelColors(root);
+    expect(colors[2]).not.toBe(colors[3]);
+
+    await root.locator(".cu-rating-label").nth(4).click();
+    expect(await checkedValue(page)).toBe("5");
+    await page.mouse.move(0, 0);
+    await expectFilled(root, 5);
+  });
+
+  test("滑鼠預覽：指到的星與其前面的星換色，後面的星暫時恢復未選取", async ({ page }) => {
+    const root = page.locator("#radio");
+    const before = await labelColors(root);
+    await root.locator(".cu-rating-label").nth(1).hover();
+    await expectFilled(root, 2);
+    const preview = await labelColors(root);
+    expect(preview[0]).not.toBe(before[0]); // hover 色與選取色不同
+    expect(preview[2]).toBe(before[4]); // 第 3 顆（已選取）暫時恢復未選取色
+    await page.mouse.move(0, 0);
+    await expect.poll(() => labelColors(root)).toEqual(before);
+  });
+
+  test("鍵盤：Tab 停在選取的星，方向鍵選取上一顆 / 下一顆，焦點環畫在 label 上", async ({ page }) => {
+    const root = page.locator("#radio");
+    await page.locator("#before").focus();
+    await page.keyboard.press("Tab");
+    const focused = () => page.evaluate(() => (document.activeElement as HTMLInputElement).value);
+    expect(await focused()).toBe("3");
+    const label = root.locator(".cu-rating-label").nth(2);
+    await expect(label).not.toHaveCSS("box-shadow", "none");
+
+    await page.keyboard.press("ArrowRight");
+    expect(await checkedValue(page)).toBe("4");
+    await expectFilled(root, 4);
+    await page.keyboard.press("ArrowLeft");
+    await page.keyboard.press("ArrowLeft");
+    expect(await checkedValue(page)).toBe("2");
+    await expectFilled(root, 2);
+
+    // 群組只有一個 Tab 停駐點；停用的評分不在 Tab 順序中
+    await page.keyboard.press("Tab");
+    await expect(page.locator("#after")).toBeFocused();
+  });
+
+  test("停用：disabled radio 的星變暗、不回應點擊", async ({ page }) => {
+    const labels = page.locator("#disabled .cu-rating-label");
+    await expect(labels.first()).toHaveCSS("opacity", "0.5");
+    await expect(labels.first()).toHaveCSS("pointer-events", "none");
+    await labels.nth(1).click({ force: true });
+    await expect(page.locator('#disabled input[value="1"]')).toBeChecked();
+  });
+
+  test("forced colors：選取的星為系統色實心、未選取為空心，焦點以 outline 顯示", async ({ page }) => {
+    await page.emulateMedia({ forcedColors: "active" });
+    const root = page.locator("#radio");
+    const look = (n: number) =>
+      root
+        .locator(".cu-rating-label")
+        .nth(n)
+        .evaluate((el) => {
+          const svg = getComputedStyle(el.querySelector("svg")!);
+          return { color: getComputedStyle(el).color, fill: svg.fill, stroke: svg.stroke };
+        });
+    const on = await look(2);
+    const off = await look(3);
+    expect(on.color).not.toBe(off.color);
+    expect(on.fill).toBe(on.color);
+    expect(off.fill).toBe("none");
+    expect(off.stroke).not.toBe("none"); // 空心星仍有外框
+
+    await page.locator("#before").focus();
+    await page.keyboard.press("Tab");
+    await expect(root.locator(".cu-rating-label").nth(2)).toHaveCSS("outline-style", "solid");
+  });
+});

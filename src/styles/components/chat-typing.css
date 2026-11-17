@@ -27,3 +27,13 @@
     transform: translateY(-4px);
   }
 }
+
+/* Forced colors（Windows 高對比）：容器與圓點都只靠底色，會整個消失。容器加外框，圓點改用系統文字色 */
+@media (forced-colors: active) {
+  .cu-chat-typing {
+    border: 1px solid;
+  }
+  .cu-chat-typing-dot {
+    background-color: CanvasText;
+  }
+}

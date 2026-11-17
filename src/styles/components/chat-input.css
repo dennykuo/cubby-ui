@@ -21,3 +21,10 @@
 .cu-chat-input-attach {
   @apply inline-flex size-8 cursor-pointer items-center justify-center rounded-lg text-muted-foreground transition-colors duration-150 outline-none hover:bg-muted hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring/40 focus-visible:ring-offset-2;
 }
+
+/* Forced colors（Windows 高對比）：送出按鈕的底色會被移除，加外框標出按鈕範圍 */
+@media (forced-colors: active) {
+  .cu-chat-input-send {
+    border: 1px solid;
+  }
+}

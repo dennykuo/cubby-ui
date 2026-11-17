@@ -78,3 +78,10 @@
 .cu-chat-bubble-action {
   @apply inline-flex size-7 cursor-pointer items-center justify-center rounded-md text-muted-foreground transition-colors duration-150 outline-none hover:bg-muted hover:text-foreground focus-visible:ring-1 focus-visible:ring-ring/30;
 }
+
+/* Forced colors（Windows 高對比）：氣泡底色會被移除，加外框標出每則訊息的範圍 */
+@media (forced-colors: active) {
+  .cu-chat-bubble-message {
+    border: 1px solid;
+  }
+}

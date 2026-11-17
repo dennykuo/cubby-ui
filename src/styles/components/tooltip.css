@@ -77,3 +77,14 @@
   border-top-color: transparent;
   border-right-color: var(--color-foreground);
 }
+
+/* Forced colors（Windows 高對比）：氣泡底色會被換成頁面底色而失去邊界，箭頭（透明框線）會變成實心方塊；
+   氣泡加外框，隱藏箭頭 */
+@media (forced-colors: active) {
+  .cu-tooltip::after {
+    border: 1px solid;
+  }
+  .cu-tooltip::before {
+    display: none;
+  }
+}

@@ -70,3 +70,11 @@
 .cu-image-compare-vertical .cu-image-compare-handle-line {
   @apply top-auto right-0 left-0 h-0.5 w-full;
 }
+
+/* Forced colors（Windows 高對比）：比較的影像內容、分隔線與把手都是視覺內容，被換成系統色後把手會消失；
+   整個元件保留作者色彩（鍵盤焦點仍由全站的 forced colors outline 顯示） */
+@media (forced-colors: active) {
+  .cu-image-compare {
+    forced-color-adjust: none;
+  }
+}

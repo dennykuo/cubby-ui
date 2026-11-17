@@ -58,3 +58,14 @@
 .cu-color-picker-swatch {
   @apply size-6 cursor-pointer rounded-md border border-border transition-transform duration-150 outline-none hover:scale-110 focus-visible:ring-2 focus-visible:ring-ring/40 focus-visible:ring-offset-1;
 }
+
+/* Forced colors（Windows 高對比）：漸層與色塊就是要選的顏色，被換成系統色後面板與色相條會消失；
+   保留作者色彩（鍵盤焦點仍由全站的 forced colors outline 顯示） */
+@media (forced-colors: active) {
+  .cu-color-picker-saturation,
+  .cu-color-picker-hue,
+  .cu-color-picker-preview,
+  .cu-color-picker-swatch {
+    forced-color-adjust: none;
+  }
+}

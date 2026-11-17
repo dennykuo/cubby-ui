@@ -230,7 +230,7 @@ test.describe("Forced colors 狀態辨識", () => {
     expect((await css(page, "#range")).backgroundColor).toBe(sys.GrayText);
   });
 
-  test("Rating radio 模式：選取的星為系統選取色實心、未選取為文字色空心", async ({ page }) => {
+  test("Rating radio 寫法：選取的星為系統選取色實心、未選取為文字色空心", async ({ page }) => {
     const sys = await systemColors(page);
     const look = (id: string) =>
       page.locator(id).evaluate((el) => ({
@@ -341,6 +341,35 @@ test.describe("Forced colors 狀態辨識", () => {
     expect((await css(page, "#alert-accent")).borderTop).toBe("2px solid");
     expect((await css(page, "#alert-warning")).borderTop).toBe("1px solid");
     expect((await pseudo(page, "#notification-title", "::before")).backgroundColor).toBe(sys.CanvasText);
+  });
+
+  test("只靠底色呈現範圍的 Chat / Speed Dial / Tag Input / Tooltip 補外框，Spinner 保留缺口", async ({ page }) => {
+    const sys = await systemColors(page);
+    for (const id of ["chat-message", "chat-send", "chat-typing", "speed-dial-trigger", "tag"]) {
+      expect((await css(page, `#${id}`)).borderTop, id).toBe("1px solid");
+    }
+    expect((await css(page, "#chat-typing-dot")).backgroundColor).toBe(sys.CanvasText);
+    // Tooltip 氣泡加外框；箭頭由透明框線組成，forced colors 下會變成實心方塊，因此隱藏
+    const tooltip = await page.locator("#tooltip").evaluate((el) => ({
+      bubble: getComputedStyle(el, "::after").borderTopWidth,
+      arrow: getComputedStyle(el, "::before").display,
+    }));
+    expect(tooltip).toEqual({ bubble: "1px", arrow: "none" });
+    // Spinner：交給瀏覽器時四邊框線都會變成同一個系統色，看不出旋轉
+    const spinner = await page
+      .locator("#spinner")
+      .evaluate((el) => ({ top: getComputedStyle(el).borderTopColor, right: getComputedStyle(el).borderRightColor }));
+    expect(spinner).toEqual({ top: "rgba(0, 0, 0, 0)", right: sys.CanvasText });
+  });
+
+  test("顏色即內容的 Color Picker / Image Compare 保留作者色彩", async ({ page }) => {
+    const hue = await page.locator("#color-picker-hue").evaluate((el) => ({
+      adjust: getComputedStyle(el).getPropertyValue("forced-color-adjust"),
+      image: getComputedStyle(el).backgroundImage,
+    }));
+    expect(hue.adjust).toBe("none");
+    expect(hue.image).toContain("linear-gradient");
+    expect((await css(page, "#image-compare")).forcedColorAdjust).toBe("none");
   });
 
   test("焦點環畫在其他元素上的元件（sr-only input）以 outline 顯示焦點", async ({ page }) => {

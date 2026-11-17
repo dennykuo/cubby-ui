@@ -48,3 +48,10 @@
 .cu-tag-input-success:focus-within {
   @apply border-success ring-3 ring-success/10;
 }
+
+/* Forced colors（Windows 高對比）：標籤底色會被移除，加外框標出範圍 */
+@media (forced-colors: active) {
+  .cu-tag-input-tag {
+    border: 1px solid;
+  }
+}

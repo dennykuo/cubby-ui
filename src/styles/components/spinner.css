@@ -45,3 +45,13 @@
 .cu-spinner-muted {
   @apply text-muted-foreground;
 }
+
+/* Forced colors（Windows 高對比）：框線色會全部換成系統文字色，透明的缺口消失、看不出在旋轉；
+   自行選用系統色並保留缺口 */
+@media (forced-colors: active) {
+  .cu-spinner {
+    forced-color-adjust: none;
+    border-color: CanvasText;
+    border-top-color: transparent;
+  }
+}
